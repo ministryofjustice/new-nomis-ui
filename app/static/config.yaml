@@ -1,2 +1,2 @@
 # Serves as base route for all api calls to Elite.
-apiServer: "http://151.236.239.116:8888/api/"
+apiServer: "http://10.200.1.152:8888/api/"
