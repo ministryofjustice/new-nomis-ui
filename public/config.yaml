@@ -1,0 +1,24 @@
+---
+# Serves as base route for all api calls to Elite.
+apiServer: http://10.200.1.152:8888/api/
+
+# What users should be able to search on, and their titles.
+# Ordering will stay the same.
+bookingSearchOptions:
+  - firstName:
+      title: First Name / Alias
+  - lastName:
+      title: Last Name
+  - offenderId:
+      title: 'NOMS #'
+  - bookingId:
+      title: 'Booking #'
+  - assignedLivingUnitId:
+      title: Location
+# assignedOfficerUserId:
+# agencyId:
+# currentLocationId:
+# inmateId:
+# offenderId:
+#
+#
