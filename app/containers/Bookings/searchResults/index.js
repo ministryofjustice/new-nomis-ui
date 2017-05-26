@@ -16,9 +16,6 @@ class SearchResults extends PureComponent { // eslint-disable-line react/prefer-
   }
 
   render() {
-    // const locations = [{ title: 'testing - 1 2 3', value: '123' },
-    //                    { title: 'testing - 2 3 4', value: '234' },
-    //                    { title: 'testing - 4 5 6', value: '345' }];
     return (
       <CenteredFlexColumn>
         {this.props.results ? this.props.results.map(displaySearchResult) : null}
