@@ -1,6 +1,6 @@
 ---
 # Serves as base route for all api calls to Elite.
-apiServer: http://10.200.1.152:8888/api/
+apiServer: http://151.237.239.114:8888/api/
 
 # What users should be able to search on, and their titles.
 # Ordering will stay the same.
