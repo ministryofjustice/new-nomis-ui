@@ -1,6 +1,6 @@
 ---
 # Serves as base route for all api calls to Elite.
-apiServer: http://151.237.239.114:8888/api/
+apiServer: https://noms-api-dev.dsd.io/api/
 
 # What users should be able to search on, and their titles.
 # Ordering will stay the same.
