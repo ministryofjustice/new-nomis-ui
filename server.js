@@ -4,22 +4,66 @@
  * Module dependencies.
  */
 
-var app = require('./app');
-var debug = require('debug')('nomis-web:server');
-var http = require('http');
+let app = require('./app');
+let debug = require('debug')('nomis-web:server');
+let http = require('http');
+let httpProxy = require('http-proxy');
+let jwt = require('jsonwebtoken');
+
+//const baseUrl = 'http://10.200.1.152:4888/';
+const baseUrl = process.env.API_GATEWAY_URL || 'https://noms-api-dev.dsd.io/';
+
+//
+// Create your proxy server and set the target in the options.
+//
+let proxy = httpProxy.createProxyServer(
+  {
+    target: baseUrl,
+    changeOrigin: true
+  }
+).listen(3010);
+
+
+proxy.on('proxyReq', function(proxyReq, req, res, options) {
+  let authHeader = req.headers['authorization'];
+  if (authHeader !== undefined) {
+    proxyReq.setHeader('elite-authorization', authHeader);
+  }
+
+  // Add Api Gateway JWT header token
+  let jwToken = generateToken();
+  proxyReq.setHeader('authorization', 'Bearer ' + jwToken);
+});
+
+
+function generateToken() {
+  let nomsToken = process.env.NOMS_TOKEN;
+  let milliseconds = Math.round((new Date()).getTime() / 1000);
+
+  let payload = {
+    "iat": milliseconds,
+    "token": nomsToken
+  };
+
+  let privateKey = process.env.NOMS_PRIVATE_KEY || '';
+  let cert = Buffer.from(privateKey, 'utf8');
+
+  // let cert = fs.readFileSync('client.key');  // get private key
+  return jwt.sign(payload, cert, {algorithm: 'ES256'});
+}
+
 
 /**
  * Get port from environment and store in Express.
  */
-
-var port = normalizePort(process.env.PORT || '3000');
+let port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+let server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -34,7 +78,7 @@ server.on('listening', onListening);
  */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+  let port = parseInt(val, 10);
 
   if (isNaN(port)) {
     // named pipe
@@ -58,7 +102,7 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof port === 'string'
+  let bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
 
@@ -82,8 +126,8 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
+  let addr = server.address();
+  let bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
