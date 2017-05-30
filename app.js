@@ -1,13 +1,58 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+let express = require('express');
+let path = require('path');
+let favicon = require('serve-favicon');
+let logger = require('morgan');
+let cookieParser = require('cookie-parser');
+let bodyParser = require('body-parser');
+let proxy = require('http-proxy-middleware');
+let jwt = require('jsonwebtoken');
+let fs = require('fs');
+let index = require('./routes/index');
 
-var index = require('./routes/index');
+//const baseUrl = 'http://10.200.1.152:4888/';
+const baseUrl = process.env.API_GATEWAY_URL || 'https://noms-api-dev.dsd.io/';
 
-var app = express();
+function generateToken() {
+  let nomsToken = process.env.NOMS_TOKEN;
+  let milliseconds = Math.round((new Date()).getTime() / 1000);
+
+  let payload = {
+    "iat": milliseconds,
+    "token": nomsToken
+  };
+
+  let privateKey = process.env.NOMS_PRIVATE_KEY || '';
+  //let cert = Buffer.from(privateKey, 'utf8');
+
+  let cert = fs.readFileSync('client.key');  // get private key
+  return jwt.sign(payload, cert, {algorithm: 'ES256'});
+}
+
+// proxy middleware options
+let options = {
+  target: baseUrl, // target host
+  changeOrigin: true,               // needed for virtual hosted sites
+  ws: true,                         // proxy websockets
+  // pathRewrite: {
+  //   '^/api/' : '/api'     // rewrite path
+  // },
+  onProxyReq: function onProxyReq(proxyReq, req, res) {
+    let authHeader = req.headers['authorization'];
+    if (authHeader !== undefined) {
+      proxyReq.setHeader('elite-authorization', authHeader);
+    }
+
+    // Add Api Gateway JWT header token
+    let jwToken = generateToken();
+    proxyReq.setHeader('authorization', 'Bearer ' + jwToken);
+  }
+};
+
+// create the proxy (without context)
+let apiProxy = proxy(options);
+
+let app = express();
+app.use('/api', apiProxy);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,7 +70,7 @@ app.use('/', index);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
