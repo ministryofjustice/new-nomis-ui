@@ -1,6 +1,6 @@
 ---
 # Serves as base route for all api calls to Elite.
-apiServer: https://noms-api-dev.dsd.io/api/
+apiServer: /api/
 
 # What users should be able to search on, and their titles.
 # Ordering will stay the same.
