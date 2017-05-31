@@ -31,9 +31,9 @@ let options = {
   target: baseUrl, // target host
   changeOrigin: true,               // needed for virtual hosted sites
   ws: true,                         // proxy websockets
-  // pathRewrite: {
-  //   '^/api/' : '/api'     // rewrite path
-  // },
+  pathRewrite: {
+    '^/api/' : '/api/'     // rewrite path
+  },
   onProxyReq: function onProxyReq(proxyReq, req, res) {
     let authHeader = req.headers['authorization'];
     if (authHeader !== undefined) {
