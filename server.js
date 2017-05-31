@@ -7,51 +7,6 @@
 let app = require('./app');
 let debug = require('debug')('nomis-web:server');
 let http = require('http');
-let httpProxy = require('http-proxy');
-let jwt = require('jsonwebtoken');
-
-//const baseUrl = 'http://10.200.1.152:4888/';
-const baseUrl = process.env.API_GATEWAY_URL || 'https://noms-api-dev.dsd.io/';
-
-//
-// Create your proxy server and set the target in the options.
-//
-let proxy = httpProxy.createProxyServer(
-  {
-    target: baseUrl,
-    changeOrigin: true
-  }
-).listen(3010);
-
-
-proxy.on('proxyReq', function(proxyReq, req, res, options) {
-  let authHeader = req.headers['authorization'];
-  if (authHeader !== undefined) {
-    proxyReq.setHeader('elite-authorization', authHeader);
-  }
-
-  // Add Api Gateway JWT header token
-  let jwToken = generateToken();
-  proxyReq.setHeader('authorization', 'Bearer ' + jwToken);
-});
-
-
-function generateToken() {
-  let nomsToken = process.env.NOMS_TOKEN;
-  let milliseconds = Math.round((new Date()).getTime() / 1000);
-
-  let payload = {
-    "iat": milliseconds,
-    "token": nomsToken
-  };
-
-  let privateKey = process.env.NOMS_PRIVATE_KEY || '';
-  let cert = Buffer.from(privateKey, 'utf8');
-
-  // let cert = fs.readFileSync('client.key');  // get private key
-  return jwt.sign(payload, cert, {algorithm: 'ES256'});
-}
-
 
 /**
  * Get port from environment and store in Express.
