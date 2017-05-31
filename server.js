@@ -23,14 +23,8 @@ function generateToken() {
   };
 
   let privateKey = process.env.NOMS_PRIVATE_KEY || '';
-
-  console.log('nomsToken = ' + nomsToken);
-  console.log('privateKey = ' + privateKey);
-
   let cert = new Buffer(privateKey);
-
   let signedToken = jwt.sign(payload, cert, {algorithm: 'ES256'});
-  console.log('Token = ' + signedToken);
   return signedToken;
 }
 
