@@ -6,7 +6,6 @@ let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let proxy = require('http-proxy-middleware');
 let jwt = require('jsonwebtoken');
-let fs = require('fs');
 let index = require('./routes/index');
 
 //const baseUrl = 'http://10.200.1.152:4888/';
@@ -22,9 +21,8 @@ function generateToken() {
   };
 
   let privateKey = process.env.NOMS_PRIVATE_KEY || '';
-  //let cert = Buffer.from(privateKey, 'utf8');
+  let cert = new Buffer(privateKey);
 
-  let cert = fs.readFileSync('client.key');  // get private key
   return jwt.sign(payload, cert, {algorithm: 'ES256'});
 }
 
