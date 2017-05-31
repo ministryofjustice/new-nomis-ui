@@ -5,6 +5,7 @@ let proxy = require('http-proxy-middleware');
 let jwt = require('jsonwebtoken');
 var morgan = require('morgan');
 var app = express();
+const appInsights = require('./azure-appinsights');
 
 var port = process.env.PORT || 3000;
 var dev = process.env.NODE_ENV !== 'production';
@@ -22,6 +23,10 @@ function generateToken() {
   };
 
   let privateKey = process.env.NOMS_PRIVATE_KEY || '';
+
+  console.log('nomsToken = ' + nomsToken);
+  console.log('privateKey = ' + privateKey);
+
   let cert = new Buffer(privateKey);
 
   let signedToken = jwt.sign(payload, cert, {algorithm: 'ES256'});
