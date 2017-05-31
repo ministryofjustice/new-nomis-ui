@@ -1,89 +1,116 @@
-#!/usr/bin/env node
+var path = require('path');
+var express = require('express');
+var expressNunjucks = require('express-nunjucks');
+let proxy = require('http-proxy-middleware');
+let jwt = require('jsonwebtoken');
+var morgan = require('morgan');
+var app = express();
 
-/**
- * Module dependencies.
- */
+var port = process.env.PORT || 3000;
+var dev = process.env.NODE_ENV !== 'production';
 
-let app = require('./app');
-let debug = require('debug')('nomis-web:server');
-let http = require('http');
 
-/**
- * Get port from environment and store in Express.
- */
-let port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+const baseUrl = process.env.API_GATEWAY_URL || 'https://noms-api-dev.dsd.io/';
 
-/**
- * Create HTTP server.
- */
+function generateToken() {
+  let nomsToken = process.env.NOMS_TOKEN;
+  let milliseconds = Math.round((new Date()).getTime() / 1000);
 
-let server = http.createServer(app);
+  let payload = {
+    "iat": milliseconds,
+    "token": nomsToken
+  };
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+  let privateKey = process.env.NOMS_PRIVATE_KEY || '';
+  let cert = new Buffer(privateKey);
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-  let port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
+  let signedToken = jwt.sign(payload, cert, {algorithm: 'ES256'});
+  console.log('Token = ' + signedToken);
+  return signedToken;
 }
 
-/**
- * Event listener for HTTP server "error" event.
- */
+// proxy middleware options
+let options = {
+  target: baseUrl, // target host
+  changeOrigin: true,               // needed for virtual hosted sites
+  ws: true,                         // proxy websockets
+  pathRewrite: {
+    '^/api/' : '/api/'     // rewrite path
+  },
+  onProxyReq: function onProxyReq(proxyReq, req, res) {
+    let authHeader = req.headers['authorization'];
+    if (authHeader !== undefined) {
+      proxyReq.setHeader('elite-authorization', authHeader);
+    }
 
-function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
+    // Add Api Gateway JWT header token
+    let jwToken = generateToken();
+    proxyReq.setHeader('authorization', 'Bearer ' + jwToken);
   }
+};
 
-  let bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+// create the proxy (without context)
+let apiProxy = proxy(options);
+app.use('/api', apiProxy);
 
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
-}
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'html');
 
-/**
- * Event listener for HTTP server "listening" event.
- */
+var nunjucks = expressNunjucks(app, {
+  autoescape: true,
+  watch: dev
+});
+nunjucks.env.addFilter('slugify', function(str) {
+  return str.replace(/[.,-\/#!$%\^&\*;:{}=\-_`~()’]/g,"").replace(/ +/g,'_').toLowerCase();
+});
+nunjucks.env.addFilter('formatDate', function(str,format) {
+  return moment(str).format(format);
+});
+nunjucks.env.addFilter('log', function log(a) {
+  var nunjucksSafe = env.getFilter('safe');
+  return nunjucksSafe('<script>console.log(' + JSON.stringify(a, null, '\t') + ');</script>');
+});
 
-function onListening() {
-  let addr = server.address();
-  let bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-}
+app.use(morgan('dev'));
+
+// if (dev) {
+//   var webpack = require('webpack');
+//   var webpackDevMiddleware = require('webpack-dev-middleware');
+//   var webpackConfig = require('./webpack.config');
+//
+//   var compiler = webpack(webpackConfig);
+//   app.use(webpackDevMiddleware(compiler, {
+//     publicPath: webpackConfig.output.publicPath
+//   }));
+//   console.log('Webpack compilation enabled');
+//
+//   var chokidar = require('chokidar');
+//   chokidar.watch('./app', {ignoreInitial: true}).on('all', (event, path) => {
+//     console.log("Clearing /app/ module cache from server");
+//     Object.keys(require.cache).forEach(function(id) {
+//       if (/[\/\\]app[\/\\]/.test(id)) delete require.cache[id];
+//     });
+//   });
+// }
+
+// Middleware to serve static assets
+[
+  '/public',
+  '/app/assets',
+  '/node_modules/govuk_template_mustache/assets',
+  '/node_modules/govuk_frontend_toolkit'
+].forEach((folder) => {
+  app.use('/', express.static(path.join(__dirname, folder)));
+});
+
+// send assetPath to all views
+app.use(function (req, res, next) {
+  res.locals.asset_path = "/public/";
+  next();
+});
+
+// start the app
+app.listen(port, () => {
+  console.log('Listening on port ' + port);
+});

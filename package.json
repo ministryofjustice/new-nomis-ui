@@ -1,6 +1,6 @@
 {
-  "name": "nomis-web",
-  "version": "0.0.0",
+  "name": "elite2-web",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node ./server.js"
@@ -10,13 +10,16 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
+    "express-nunjucks": "^2.2.3",
     "http-proxy-middleware": "^0.17.4",
     "jade": "~1.11.0",
     "jsonwebtoken": "^7.4.0",
-    "morgan": "~1.8.1",
-    "request": "~2.81.0",
-    "serve-favicon": "~2.4.2"
+    "morgan": "^1.8.2",
+    "nunjucks": "^3.0.1",
+    "request": "~2.81.0"
   },
   "devDependencies": {
+    "webpack": "^2.6.1",
+    "webpack-dev-middleware": "^1.10.2"
   }
 }
