@@ -1,0 +1,33 @@
+exports[`Component: <Header> should match its snapshot with Name prop 1`] = `
+Array [
+  <styled.div>
+    <div>
+        <styled.ul />
+    </div>
+    <div>
+        <styled.ul>
+            <styled.li>
+                <Connect(LocaleToggle) />
+            </styled.li>
+        </styled.ul>
+    </div>
+</styled.div>,
+]
+`;
+
+exports[`Component: <Header> should match its snapshot with no props 1`] = `
+Array [
+  <styled.div>
+    <div>
+        <styled.ul />
+    </div>
+    <div>
+        <styled.ul>
+            <styled.li>
+                <Connect(LocaleToggle) />
+            </styled.li>
+        </styled.ul>
+    </div>
+</styled.div>,
+]
+`;

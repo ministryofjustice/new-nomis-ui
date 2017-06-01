@@ -1,0 +1,10 @@
+Overall Styling:
+  - Change Font sizes to Rem
+
+Forms:
+  - Aria Compliant
+  - Stop Autocomplete!!
+  - Fix Weirdness in Fancy Selector.
+
+Homepage:
+  - Make sure boxes are same height even if there are changes in content.
