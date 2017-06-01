@@ -1,7 +1,4 @@
-# Don't check auto-generated stuff into git
-coverage
 build
-node_modules
 stats.json
 
 # Cruft
@@ -10,4 +7,44 @@ npm-debug.log
 .idea
 *.iml
 client.key
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+.DS_store
+dist
+
+# Coverage directory used by tools like istanbul
+coverage
+
+
+# Dependency directories
+node_modules/
+
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
 .env
+
+reports
+test-results.xml
+build-info.json
+temp
