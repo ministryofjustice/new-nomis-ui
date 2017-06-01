@@ -1,0 +1,168 @@
+Containers:
+  SUPER CONTAINER:
+    - login modal (inactivity)
+    - connection modal (no connection what to do!)
+
+    - desktop
+      - desktop header (can be affected by current page via actions)
+      - desktop footer
+      - breadcrumb (visibility affected by current page via actions)
+
+    - mobile header & menu (can be affected by current page via actions)
+
+  PAGES:
+    1. login page
+      - login form
+
+    2. homepage
+      - title
+      - subtitle
+      - action boxes
+        - title
+        - description text
+        - button
+      - update modal
+
+    3. bookings search
+      - title
+      - reset Link
+      - search form (vertical view)
+        - cancel button (clear search and return to homepage)
+        - search button (perform search and go to search results)
+
+    4. bookings search results
+      - search modifier
+        - current search display
+        - search form (linear view)
+      - search view modifier
+        - list view
+        - grid view
+        - sort order
+      - search view
+        - list view
+          - list view component
+        - grid view
+          - grid view component
+      - pagination
+
+    5. bookings details
+      (5.1) booking details header large
+      (5.2) booking details header small
+        - lightbox for face images
+      - tabbed view
+        - Offender Details view
+          - data blocks
+        - Physical Attributes
+          - data blocks
+          - lightbox
+        - Alerts
+          - Alert blocks
+          - pagination
+        - Case Notes
+          - Filters Block
+          - Case Note List
+            - Case Note Block
+          - Add Casenote Modal
+            - Title
+            - Add Casenote Form
+            - cancel button
+            - submit button
+
+  PROGRAM LOGIC:
+    1. Authentication
+      - state
+        - logged in
+        - user info
+        - must relog in (inactivity, maybe some other reason)
+
+    2. Activity Monitor
+      - state
+        - last action time
+      - actions
+        - checkIfOverdue
+
+    3. Connectivity Monitor
+      - state
+        - connected
+        - lastCheck
+          - time
+          - action/url
+          - result status
+
+      - actions
+        - checkApiConnectivity
+
+    4. Routing + Breadcrumbing
+
+
+    5. Configuration
+      - Style
+      - text
+
+    6. Mobile vs. Desktop
+      - redux-responsive: https://www.npmjs.com/package/redux-responsive
+
+  COMMON:
+    1. desktop header
+      - static (?):
+        - icon & title              [left]
+        - title                     [centre]
+        - search icon               [right]
+      - (1.1) user dropdown         [right]
+        - state (self)
+          - visible
+          - action list
+            - (my assignments)
+            - (switch caseloads ...)
+            - (log out)
+        - state (other)
+          - user
+          - auth
+        - actions
+          - show
+          - hide
+
+    2. desktop footer
+      - static (?):
+        - list of links
+      - footer copy
+
+    3. error modal ### AL'S IDEA
+
+    4. login modal ### IF A USER TIMES OUT OR SOMETHING LET THEM LOG BACK IN
+
+    5. pagination
+      - state
+        - current page
+        - total pages
+
+Components:
+1. Text-Input
+  - Label
+  - Value
+  - Error
+
+2. List-Input
+
+3. Button
+  - Text
+  - Action
+  - Style
+    - Regular
+    - Shadow
+    - Hover
+    - HoverShadow
+  - extra content (assignment amount)
+
+4. Modal
+  - display
+  - width
+  - height
+  - contentComponent
+
+5. TextStyles
+  - Heading1
+  - Heading2
+  - Heading3
+  - Paragraph
+  -
