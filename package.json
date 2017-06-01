@@ -9,7 +9,7 @@
   "author": "Syscon",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "cross-env NODE_ENV=development node ./server.js"
+    "start": "cross-env NODE_ENV=development node ./server.js",
     "lint": "npm run lint:js",
     "lint:eslint": "eslint --ignore-path .gitignore --ignore-pattern internals/scripts",
     "lint:js": "npm run lint:eslint -- . ",
