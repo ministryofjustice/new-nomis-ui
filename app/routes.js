@@ -107,8 +107,7 @@ export default function createRoutes(store) {
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),
-          System.import('containers/Bookings/sagas'),
-          System.import('containers/Bookings/SearchResults'),
+          System.import('containers/Bookings/sagas')
         ]);
 
         const renderRoute = loadModule(cb);
