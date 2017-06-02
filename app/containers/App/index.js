@@ -12,12 +12,12 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
 
   static defaultProps = {
     children: [],
-  }
+  };
 
   render() {
     return (
       <div>
-        <Helmet title="Syscon MVP" />
+        <Helmet title="P-Nomis" />
         <Header />
         {React.Children.toArray(this.props.children)}
 
