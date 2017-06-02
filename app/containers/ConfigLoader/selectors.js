@@ -9,7 +9,7 @@ const selectData = () => createSelector(
 
 const selectApi = () => createSelector(
   selectData(),
-  (configState) => configState.get('apiServer')
+  (configState) => "/api/"
 );
 
 export {
