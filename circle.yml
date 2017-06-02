@@ -3,6 +3,8 @@ machine:
     PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
   node:
     version: 6.10.0
+  services:
+    - docker
 
 general:
   branches:
@@ -52,3 +54,9 @@ deployment:
 #            APP_BASE_URL: http://notm-dev.azurewebsites.net
 #            E2E_REPORTS_PATH: $CIRCLE_TEST_REPORTS/end-to-end
 
+  hub:
+    branch: master
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker build --rm=false -t sysconjusticesystems/elite2-web .
+      - docker push sysconjusticesystems/elite2-web
