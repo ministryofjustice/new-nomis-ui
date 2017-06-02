@@ -21,7 +21,6 @@ dependencies:
     - ~/.cache/yarn
 test:
   override:
-    - yarn run lint
     - yarn test -- --reporter mocha-junit-reporter:
         environment:
           MOCHA_FILE: $CIRCLE_TEST_REPORTS/unit/test-results.xml
