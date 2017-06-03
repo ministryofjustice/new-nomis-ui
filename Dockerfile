@@ -1,19 +1,15 @@
-FROM node:latest
+FROM node:alpine
 
 # Create app directory
-RUN mkdir -p /usr/src/app/internals/webpack
-WORKDIR /usr/src/app
+RUN mkdir -p /code
+WORKDIR /code
+ADD . /code
 
 # Install app dependencies
-COPY package.json /usr/src/app/
-COPY yarn.lock /usr/src/app/
-RUN yarn --frozen-lockfile
+RUN yarn --frozen-lockfile && \
+    yarn run build && \
+    yarn run prune && \
+    yarn cache clean
 
-COPY internals/webpack/*  /usr/src/app/internals/webpack/
-RUN NODE_ENV=production yarn build
-
-# Bundle app source
-COPY . /usr/src/app
-
+CMD [ "yarn", "start" ]
 EXPOSE 3000
-CMD [ "yarn", "start:prod" ]
