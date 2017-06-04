@@ -13,7 +13,7 @@ const appInsights = require('./applicationinsights');
 const app = express();
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
-const apiProxy = require('./apiProxy');
+const apiProxy = require('./apiproxy');
 app.use('/api', apiProxy);
 
 // In production we need to pass these values in instead of relying on webpack
