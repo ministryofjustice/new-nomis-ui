@@ -1,8 +1,8 @@
 let proxy = require('http-proxy-middleware');
 let jwt = require('jsonwebtoken');
 
-const useApiAuth = process.env.USE_API_AUTH || true;
-const baseUrl = process.env.API_GATEWAY_URL || 'http:/localhost:7080';
+const useApiAuth = (process.env.USE_API_AUTH || 'no') === 'yes';
+const baseUrl = process.env.API_ENDPOINT_URL || 'http://localhost:7080/';
 const rewriteEndpoint = process.env.REWRITE_CONTEXT_ENDPOINT || '/api/';
 
 function generateToken() {
@@ -33,7 +33,7 @@ let options = {
       proxyReq.setHeader('elite-authorization', authHeader);
     }
 
-    if (useApiAuth === true) {
+    if (useApiAuth) {
       // Add Api Gateway JWT header token
       let jwToken = generateToken();
       proxyReq.setHeader('authorization', 'Bearer ' + jwToken);
