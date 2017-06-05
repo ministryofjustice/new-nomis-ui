@@ -1,0 +1,21 @@
+version: '3.1'
+services:
+  elite2-web:
+    image: sysconjusticesystems/elite2-web
+    container_name: elite2-web
+    depends_on:
+      - elite2-api
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - API_GATEWAY_URL=http://localhost:8080
+      - USE_API_AUTH=false
+
+  elite2-api:
+    image: sysconjusticesystems/elite2-api
+    container_name: elite2-api
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_PROFILES_ACTIVE=dev,nomis
+      - SPRING_DATASOURCE_URL=jdbc:oracle:thin:@10.200.1.40:1521:pvb_dev
