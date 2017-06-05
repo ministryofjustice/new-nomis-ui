@@ -44,16 +44,7 @@ deployment:
       # Push to the deploy-to-mock branch which will trigger
       # a deployment to the Azure MOCK environment
       - git push --force origin HEAD:deploy-to-mock
-#      - yarn wait-for-deploy:
-#          environment:
-#              GIT_REF: $CIRCLE_SHA1
-#              APP_BASE_URL: http://notm-dev.azurewebsites.net/health
-#              WAIT_DURATION: 45000
-#      - yarn 'test:integration':
-#          environment:
-#            APP_BASE_URL: http://notm-dev.azurewebsites.net
-#            E2E_REPORTS_PATH: $CIRCLE_TEST_REPORTS/end-to-end
-#      # Push to the docker hub
+      # Push to the docker hub
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker build --rm=false -t sysconjusticesystems/elite2-web:$CIRCLE_BUILD_NUM -t sysconjusticesystems/elite2-web:latest .
       - docker push sysconjusticesystems/elite2-web

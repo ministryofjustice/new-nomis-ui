@@ -9,8 +9,8 @@ services:
       - "3000:3000"
     environment:
       - PORT=3000
-      - API_GATEWAY_URL=http://localhost:8080
-      - USE_API_AUTH=false
+      - API_ENDPOINT_URL=http://localhost:8080/api/
+      - USE_API_GATEWAY_AUTH=no
 
   elite2-api:
     image: sysconjusticesystems/elite2-api
