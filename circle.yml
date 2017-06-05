@@ -56,5 +56,4 @@ deployment:
 #      # Push to the docker hub
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker build --rm=false -t sysconjusticesystems/elite2-web:$CIRCLE_BUILD_NUM -t sysconjusticesystems/elite2-web:latest .
-      - docker push sysconjusticesystems/elite2-web:$CIRCLE_BUILD_NUM
-      - docker push sysconjusticesystems/elite2-web:latest
+      - docker push sysconjusticesystems/elite2-web
