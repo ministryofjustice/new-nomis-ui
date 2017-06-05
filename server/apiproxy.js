@@ -1,7 +1,9 @@
 let proxy = require('http-proxy-middleware');
 let jwt = require('jsonwebtoken');
 
-const baseUrl = process.env.API_GATEWAY_URL || 'https://noms-api-dev.dsd.io/';
+const useApiAuth = process.env.USE_API_AUTH || true;
+const baseUrl = process.env.API_GATEWAY_URL || 'http:/localhost:7080';
+const rewriteEndpoint = process.env.REWRITE_CONTEXT_ENDPOINT || '/api/';
 
 function generateToken() {
   let nomsToken = process.env.NOMS_TOKEN;
@@ -23,7 +25,7 @@ let options = {
   changeOrigin: true,               // needed for virtual hosted sites
   ws: true,                         // proxy websockets
   pathRewrite: {
-    '^/api/' : '/api/'     // rewrite path
+    '^/api/' : rewriteEndpoint     // rewrite path
   },
   onProxyReq: function onProxyReq(proxyReq, req, res) {
     let authHeader = req.headers['authorization'];
@@ -31,9 +33,11 @@ let options = {
       proxyReq.setHeader('elite-authorization', authHeader);
     }
 
-    // Add Api Gateway JWT header token
-    let jwToken = generateToken();
-    proxyReq.setHeader('authorization', 'Bearer ' + jwToken);
+    if (useApiAuth === true) {
+      // Add Api Gateway JWT header token
+      let jwToken = generateToken();
+      proxyReq.setHeader('authorization', 'Bearer ' + jwToken);
+    }
   }
 };
 

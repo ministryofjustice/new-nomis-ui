@@ -12,9 +12,12 @@ RUN yarn --frozen-lockfile && \
 
 ENV PORT=3000
 ENV NODE_ENV=production
+ENV API_GATEWAY_URL=http://localhost:7080
+ENV REWRITE_CONTEXT_ENDPOINT=/api/
 ENV APPINSIGHTS_INSTRUMENTATIONKEY=secretkey
-ENV NOMS_PRIVATE_KEY=private-key
-ENV NOMS_TOKEN=token
+ENV USE_API_AUTH=false
+ENV NOMS_PRIVATE_KEY=undef
+ENV NOMS_TOKEN=undef
 
 CMD [ "yarn", "start" ]
 EXPOSE 3000
