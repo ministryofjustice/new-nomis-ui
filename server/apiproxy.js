@@ -1,9 +1,8 @@
 let proxy = require('http-proxy-middleware');
 let jwt = require('jsonwebtoken');
 
-const useApiAuth = (process.env.USE_API_AUTH || 'no') === 'yes';
-const baseUrl = process.env.API_ENDPOINT_URL || 'http://localhost:7080/';
-const rewriteEndpoint = process.env.REWRITE_CONTEXT_ENDPOINT || '/api/';
+const useApiAuth = (process.env.USE_API_GATEWAY_AUTH || 'no') === 'yes';
+const baseUrl = process.env.API_ENDPOINT_URL || 'http://localhost:7080/api';
 
 function generateToken() {
   let nomsToken = process.env.NOMS_TOKEN;
@@ -21,11 +20,11 @@ function generateToken() {
 
 // proxy middleware options
 let options = {
-  target: baseUrl, // target host
+  target: baseUrl,                  // target host
   changeOrigin: true,               // needed for virtual hosted sites
   ws: true,                         // proxy websockets
   pathRewrite: {
-    '^/api/' : rewriteEndpoint     // rewrite path
+    '^/api' : ''                  // rewrite path
   },
   onProxyReq: function onProxyReq(proxyReq, req, res) {
     let authHeader = req.headers['authorization'];
