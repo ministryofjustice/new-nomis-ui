@@ -28,13 +28,10 @@ test:
           MOCHA_FILE: $CIRCLE_TEST_REPORTS/unit/test-results.xml
 
 deployment:
-  branchbuild:
-    commands:
-      - NODE_ENV=production yarn build:
-
-  prodbuild:
+  mock:
     branch: master
     commands:
+      - NODE_ENV=production yarn build:
       - yarn record-build-info:
           environment:
             BUILD_NUMBER: $CIRCLE_BUILD_NUM
@@ -43,7 +40,9 @@ deployment:
       - git add --force --verbose build-info.json build
       - git config user.name "Circle CI"
       - git config user.email "circle@circleci.com"
-      - git commit -m "Deployment of $CIRCLE_SHA1"
+      - |
+          CI_MESSAGE=$(git log --format=%B -n 1 $CIRCLE_SHA1)
+          git commit -m "Deployment of build $CIRCLE_BUILD_NUM" -m "$CI_MESSAGE" -m "From gitref $CIRCLE_SHA1"
       # Push to the deploy-to-mock branch which will trigger
       # a deployment to the Azure MOCK environment
       - git push --force origin HEAD:deploy-to-mock
