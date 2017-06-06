@@ -12,7 +12,7 @@ export default defineMessages({
   },
   subtitle: {
     id: 'app.components.Login.subtitle',
-    defaultMessage: 'Mobile Detention Assistant',
+    defaultMessage: '',
   },
   subsubtitle: {
     id: 'app.components.Login.subsubtitle',
