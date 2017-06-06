@@ -29,13 +29,13 @@ class HomePage extends PureComponent { // eslint-disable-line react/prefer-state
             title: 'Search Offenders',
             actionTitle: 'Search Offenders',
             link: '/search',
-            description: 'et venenatis libero. Fusce at accumsan purus, vitae fringilla sem. Proin tristique, sem vel blandit consectetur.' },
+            description: '' },
           {
             key: '2',
             title: 'Berwyn Assignments',
             actionTitle: 'See Assignments',
             link: '/',
-            description: 'et venenatis libero. Fusce at accumsan purus, vitae fringilla sem. Proin tristique, sem vel blandit consectetur.' },
+            description: '' },
           ]}
         />
 
