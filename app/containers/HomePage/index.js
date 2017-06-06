@@ -23,7 +23,6 @@ class HomePage extends PureComponent { // eslint-disable-line react/prefer-state
     return (
       <CenteredFlexColumn>
         <TitleBlock title={'Welcome'} subtitle={'Whats up'} />
-
         <ActionBlocks
           actions={[{
             key: '1',

@@ -6,6 +6,13 @@ const base = `
   width: 100%;
   max-width: ${desktop.fixWidth}px;`;
 
+export const DW = styled.div`
+  ${base}
+  min-height: calc(100vh - ${desktop.footerHeight}px - ${desktop.headerHeight}px);
+  display: flex;
+  flex-direction: column;
+`;
+
 export const CenteredFlexColumn = styled.div`
   ${base}
   min-height: calc(100vh - ${desktop.footerHeight}px - ${desktop.headerHeight}px);

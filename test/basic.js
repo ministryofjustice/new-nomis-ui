@@ -1,7 +1,7 @@
 
-describe("A Simple test", function() {
-  describe("Test a simple thing", function() {
-    it("the application can start", function() {
+describe('A Simple test', () => {
+  describe('Test a simple thing', () => {
+    it('the application can start', () => {
 
     });
   });

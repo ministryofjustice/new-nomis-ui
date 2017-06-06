@@ -17,8 +17,9 @@ import {
 } from './constants';
 // import { push } from 'react-router-redux';
 
+// Default to my version...
 const initialState = fromJS({
-  data: { apiServer: '' },
+  data: { apiServer: '/api/' },
   updated: false,
   updating: false,
   error: '',

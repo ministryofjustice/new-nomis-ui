@@ -14,7 +14,7 @@ const LoginForm = (props) => {
   return (
     <Form onSubmit={handleSubmit}>
       <SubmissionError error={error}>{error}</SubmissionError>
-      <Field name="username" component={Input} type="text" title="E-mail" />
+      <Field name="username" component={Input} type="text" title="E-mail" value="itag_user" />
       <Field name="password" component={Input} type="password" title="Password" />
       <Button type="submit" disabled={submitting} submitting={submitting} buttonstyle="submit">Sign In</Button>
     </Form>

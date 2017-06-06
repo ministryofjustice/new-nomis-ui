@@ -7,8 +7,8 @@ import Button, { ButtonRow, ButtonLink } from 'components/Button';
 import { Input, SubmissionError } from 'components/FormComponents';
 import { InputLabel, InputGroup } from 'components/FormComponents/Input/input.theme';
 
-import Locations from '../locations.json';
-import createFilterOptions from '../fastFilterFun';
+import Locations from './locations.json';
+import createFilterOptions from './fastFilterFun';
 
 import { StyledSelect, Form, FormHeader, FormTitle, FormResetLink } from './search.theme';
 
@@ -27,8 +27,8 @@ const SearchForm = (props) => {
       <SubmissionError error={error}>{error}</SubmissionError>
       <Field name="firstName" component={Input} type="text" title="First Name / Alias" placeholder="ex. John" normalize={upper} />
       <Field name="lastName" component={Input} type="text" title="Last Name" placeholder="ex. Doe" normalize={upper} autocomplete="off" spellcheck="false" />
-      <Field name="idNumber" component={Input} type="number" title="NOMS Number" autocomplete="off" />
-      <Field name="bookingNumber" component={Input} type="number" title="Booking Number" autocomplete="off" />
+      <Field name="offenderId" component={Input} type="number" title="NOMS Number" autocomplete="off" />
+      <Field name="bookingId" component={Input} type="number" title="Booking Number" autocomplete="off" />
       <InputGroup>
         <InputLabel htmlFor="location">Location</InputLabel>
         <Field

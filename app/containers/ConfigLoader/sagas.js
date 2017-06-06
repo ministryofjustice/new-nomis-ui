@@ -22,7 +22,7 @@ export function* updateConfig() {
     const res = yield call(loadConfig);
     yield put({ type: CONFIG_SUCCESS, payload: res });
   } catch (err) {
-    console.error(err);
+    console.error(err); //eslint-disable-line
     yield put({ type: CONFIG_ERROR, payload: { error: err.message } });
   }
 }

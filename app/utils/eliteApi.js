@@ -1,10 +1,4 @@
 import axios from 'axios';
-//
-// const apiBase = 'http://207.230.255.121:8080/api/';
-//
-// const instance = axios.create({
-//   baseURL: apiBase,
-// });
 
 export const login = (username, password, baseUrl) => axios({
   baseURL: baseUrl,
@@ -33,17 +27,31 @@ const searchQueryToString = (searchObj) => {
   }).join(',and:');
 };
 
-export const bookings = (token, searchObj, baseUrl) => axios({
+export const bookings = (token, searchObj, pagination, baseUrl) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `/booking?query=${searchQueryToString(searchObj)}`,
+  url: `/booking?query=${searchQueryToString(searchObj)}&limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}`,
   headers: { Authorization: token } })
     .then((response) => response.data);
 
-export const bookingDetails = (token, id, baseUrl) => axios({
+export const bookingDetails = (token, baseUrl, id) => axios({
   baseURL: baseUrl,
   method: 'get',
   url: `/booking/${id}`,
+  headers: { Authorization: token } })
+    .then((response) => response.data);
+
+export const bookingAliases = (token, baseUrl, id) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  url: `/booking/${id}/aliases`,
+  headers: { Authorization: token } })
+    .then((response) => response.data);
+
+export const bookingAlerts = (token, baseUrl, id) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  url: `/booking/${id}/alerts`,
   headers: { Authorization: token } })
     .then((response) => response.data);
 
@@ -68,3 +76,46 @@ export const users = {
   }).then((response) => response.data),
 
 };
+
+export const locations = (token, baseUrl) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  url: '/locations?limit=1000',
+  headers: { Authorization: token } })
+    .then((response) => response.data);
+
+export const alertTypes = (token, baseUrl) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  url: '/referenceDomains/alertTypes',
+  headers: { Authorization: token } })
+    .then((response) => response.data);
+
+export const imageMeta = (token, baseUrl, imageId) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  url: `images/${imageId}`,
+  headers: { Authorization: token } })
+    .then((response) => response.data);
+
+export const imageData = (token, baseUrl, imageId) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  url: `images/${imageId}/data`,
+  responseType: 'arraybuffer',
+  headers: { Authorization: token } })
+    .then((response) => {
+      // Convert Response to a dataURL
+      const arr = new Uint8Array(response.data);
+
+      // Convert the int array to a binary string
+      // We have to use apply() as we are converting an *array*
+      // and String.fromCharCode() takes one or more single values, not
+      // an array.
+      const raw = String.fromCharCode.apply(null, arr);
+
+      // This works!!!
+      const b64 = btoa(raw);
+      const dataURL = `data:${response.headers['content-type']};base64,${b64}`;
+      return dataURL;
+    });
