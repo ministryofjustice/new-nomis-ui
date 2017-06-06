@@ -28,10 +28,13 @@ test:
           MOCHA_FILE: $CIRCLE_TEST_REPORTS/unit/test-results.xml
 
 deployment:
-  mock:
-    branch: master
+  branchbuild:
     commands:
       - NODE_ENV=production yarn build:
+
+  prodbuild:
+    branch: master
+    commands:
       - yarn record-build-info:
           environment:
             BUILD_NUMBER: $CIRCLE_BUILD_NUM
