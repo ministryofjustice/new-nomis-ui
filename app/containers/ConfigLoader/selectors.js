@@ -9,10 +9,16 @@ const selectData = () => createSelector(
 
 const selectApi = () => createSelector(
   selectData(),
-  (configState) => "/api/"
+  (configState) => '/api/'
 );
 
+// Transform search data into more useable list.
+const selectBookingsSearch = () => createSelector(
+  selectData(),
+  (configState) => configState.get('bookingSearchOptions').toJS().map((opt) => ({ field: Object.keys(opt)[0], title: opt[Object.keys(opt)[0]].title }))
+);
 export {
   selectConfig,
   selectApi,
+  selectBookingsSearch,
 };

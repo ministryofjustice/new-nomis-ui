@@ -4,7 +4,9 @@
 // about the code splitting business
 
 import { getAsyncInjectors } from 'utils/asyncInjectors';
-import { logOut } from 'containers/Authentication/actions';
+import { logOut, logIn } from 'containers/Authentication/actions'; //eslint-disable-line
+// import { s } from 'containers/Authentication/actions';
+
 // logIn
 const errorLoading = (err) => {
   console.error('Dynamic page loading failed', err); // eslint-disable-line no-console
@@ -18,10 +20,11 @@ function redirectToLoginGen(store) {
   return (nextState, replace) => {
     if (!store.getState().get('authentication').get('loggedIn')) {
       // // console.log('auto login...');
-      // store.dispatch(logIn({ username: 'itag_user', password: '******', redirect: null }));
-      // console.info(replace);
-
-      replace({
+      // store.dispatch(logIn({ username: 'itag_user', password: '*******', redirect: null }));
+      //
+      // return;
+      // eslint-disable-line no-unreachable
+      replace({ // eslint-disable-line no-unreachable
         pathname: '/login',
         state: { nextPathname: nextState.location.pathname },
       });
@@ -107,7 +110,29 @@ export default function createRoutes(store) {
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),
-          System.import('containers/Bookings/sagas')
+          System.import('containers/Bookings/sagas'),
+          System.import('containers/Bookings/Results'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('search', reducer.default);
+          injectSagas('search', sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      onEnter: redirectToLogin,
+      path: '/bookings/details',
+      name: 'search results',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/Bookings/reducers'),
+          System.import('containers/Bookings/sagas'),
+          System.import('containers/Bookings/Details'),
         ]);
 
         const renderRoute = loadModule(cb);

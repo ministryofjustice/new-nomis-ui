@@ -3,6 +3,7 @@ export const baseColours = {
   govukWhite: '#FFFFFF',
   govukBlue: '#005EA5',
   govukLighterBluer: '#2B8CC4',
+  govukDarkerBluer: '#02457A',
   govukYellow: '#FFBF47',
   govukLighterGreen: '#00a84c',
   govukLightGreen: '#00823B',
@@ -11,8 +12,12 @@ export const baseColours = {
 
   white: '#FFFFFF',
   greyF2: '#F2F2F2',
+  greyE5: '#E5E5E5',
+  greyE3: '#E3E3E3',
   greyDE: '#DEE0E2',
+  greyBE: '#bec1c3',
   greyBA: '#BABABA',
+  grey4D: '#4D4D4D',
   grey33: '#333333',
   black: '#000000',
 };
@@ -29,9 +34,15 @@ export default {
     text: bc.govukWhite,
     pipe: bc.govukWhite,
   },
+  footer: {
+    bg: bc.greyDE,
+  },
   linkColour: bc.govukBlue,
   userMenu: {
     bg: bc.govukBlue,
+    hover: bc.govukLighterBluer,
+    notification: bc.govukYellow,
+    logout: bc.govukDarkerBluer,
   },
   forms: {
     errorColour: bc.govukRed,
@@ -77,5 +88,35 @@ export default {
       title: bc.govukBlack,
       subtitle: bc.govukBlack,
     },
+  },
+  filterBlocks: {
+    background: bc.greyF2,
+    text: {
+      title: bc.grey4D,
+      current: bc.govukBlack,
+    },
+  },
+  bookings: {
+    searchResults: {
+      borderColour: bc.greyE5,
+    },
+    details: {
+      alertLocationBackground: bc.greyF2,
+      lineBetweenName: bc.greyBE,
+      desktopTabNav: {
+        textColour: bc.govukBlack,
+        underline: bc.govukBlack,
+        activeUnderline: bc.govukBlue,
+      },
+      datagrid: {
+        gridLineColour: bc.greyE5,
+      },
+    },
+  },
+  pagination: {
+    bg: bc.govukBlue,
+  },
+  alertCodes: {
+    textColour: bc.govukRed,
   },
 };

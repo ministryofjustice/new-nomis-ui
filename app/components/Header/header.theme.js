@@ -1,14 +1,26 @@
 import styled from 'styled-components';
 // import colors from 'theme/colors';
 import fonts from 'theme/fonts';
+import InlineSVG from 'react-svg-inline';
 
 const height = '60px';
+const heightMobile = '90px';
 
 export const Base = styled.div`
   ${fonts.misc}
   display: flex;
   flex-direction: row;
   height: ${height};
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+`;
+
+export const BaseMobile = styled.div`
+  ${fonts.misc}
+  display: flex;
+  flex-direction: row;
+  height: ${heightMobile};
   align-items: center;
   justify-content: space-between;
   color: white;
@@ -25,15 +37,22 @@ export const LogoText = styled.div`
   font-size: 26px;
   padding: 0 15px;
   font-weight: bold;
+  border-right: solid white 1px;
+  margin-right: 15px;
 `;
 
-export const Title = styled.div`
+export const Title = styled.a`
   flex-grow: 1;
   color: white;
   font-size: 26px;
-  border-left: solid white 1px;
-  padding-left: 15px;
   font-weight: bold;
+  text-decoration: none;
+`;
+
+export const TitleMobile = styled(Title)`
+  text-align: center;
+  font-size: 42px;
+  padding-top: 5px;
 `;
 
 export const SearchButton = styled.div`
@@ -54,6 +73,40 @@ export const SearchText = styled.div`
 export const UserMenu = styled.div`
   margin: 0;
   padding: 0 20px;
+`;
+
+export const Hamburger = styled(InlineSVG)`
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  padding: 22px 65px;
+  width: 40px;
+  height: 30px;
+  svg {
+    display: block;
+
+    width: 40px;
+    height: 43px;
+    fill: inherit;
+  }
+`;
+
+export const ArrowBack = styled(InlineSVG)`
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  padding: 22px;
+  width: 40px;
+  height: 43px;
+  svg {
+    display: block;
+
+    width: 40px;
+    height: 43px;
+    fill: inherit;
+  }
 `;
 //
 // const LiRef = () => `

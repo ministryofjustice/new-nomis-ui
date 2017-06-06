@@ -9,10 +9,11 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 
 
 import { reducer as formReducer } from 'redux-form';
+import appReducer from 'globalReducers/app';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import authenticationReducer from 'containers/Authentication/reducer';
 import configReducer from 'containers/ConfigLoader/reducer';
-
+import eliteApiLoaderReducer from 'containers/EliteApiLoader/reducer';
 /*
  * routeReducer
  *
@@ -47,10 +48,12 @@ function routeReducer(state = routeInitialState, action) {
 export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
+    app: appReducer,
     language: languageProviderReducer,
     form: formReducer,
     authentication: authenticationReducer,
     config: configReducer,
+    eliteApiLoader: eliteApiLoaderReducer,
     ...asyncReducers,
   });
 }

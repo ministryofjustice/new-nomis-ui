@@ -1,9 +1,8 @@
 import { takeLatest, put, select, call } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import { SubmissionError } from 'redux-form/immutable';
-import { selectToken } from 'containers/Authentication/selectors';
-import { bookings, bookingDetails } from 'utils/eliteApi';
-import { selectApi } from 'containers/ConfigLoader/selectors';
+import { searchSaga as searchSagaElite, bookingDetailsSaga as bookingDetailsElite } from 'containers/EliteApiLoader/sagas';
+import { selectSearchResultsPagination, selectSearchResultsSortOrder, selectSearchQuery } from './selectors';
 
 import {
   SEARCH,
@@ -12,6 +11,10 @@ import {
   VIEW_DETAILS,
   SET_DETAILS,
   DETAILS_ERROR,
+  UPDATE_PAGINATION,
+  SET_PAGINATION,
+  UPDATE_RESULTS_VIEW,
+  SET_RESULTS_VIEW,
 } from './constants';
 
 export function* searchWatcher() {
@@ -19,21 +22,29 @@ export function* searchWatcher() {
 }
 
 export function* searchSaga(action) {
-  const token = yield select(selectToken());
-  const apiServer = yield select(selectApi());
+  const { query, resetPagination } = action.payload;
 
+  // const pagination = Object.assign(yield select(selectSearchResultsPagination()), { pageNumber: 0 });
+  const pagination = yield select(selectSearchResultsPagination());
+
+  const sortOrder = yield select(selectSearchResultsSortOrder());
+  // console.log(pagination);
   try {
-    const res = yield call(bookings, token.token, action.payload, apiServer);
+    if (resetPagination) {
+      const resetPag = Object.assign(pagination, { pageNumber: 0 });
+      yield put({ type: SET_PAGINATION, payload: resetPag });
+    }
+    const res = yield call(searchSagaElite, { query: query.toJS ? query.toJS() : query, pagination, sortOrder });
+
     yield put({ type: SEARCH_SUCCESS,
       payload: {
         searchResults: res.inmatesSummaries,
         meta: res.pageMetaData,
-        searchQuery: action.payload,
+        searchQuery: query,
       } });
-
     yield put(push('/search/results'));
   } catch (err) {
-    console.error(err);
+    console.error(err); // eslint-disable-line
     yield put({ type: SEARCH_ERROR, payload: new SubmissionError({ _error: err.message }) });
   }
 }
@@ -43,22 +54,41 @@ export function* detailsWatcher() {
 }
 
 export function* viewDetails(action) {
-  const user = yield select(selectToken());
-  const apiServer = yield select(selectApi());
+  yield put({ type: SET_DETAILS,
+    payload: action.payload });
 
   try {
-    const res = yield call(bookingDetails, user.token, action.payload.bookingId, apiServer);
-    yield put({ type: SET_DETAILS,
-      payload: {
-        details: res,
-      } });
-
+    const res = yield call(bookingDetailsElite, action); //eslint-disable-line
+    // FIXME if res is an error we should deal with it more gracefully...
     yield put(push('/bookings/details'));
   } catch (err) {
     yield put({ type: DETAILS_ERROR, payload: new SubmissionError({ _error: err.message }) });
   }
 }
 
+export function* searchResultPaginationWatcher() {
+  yield takeLatest(UPDATE_PAGINATION, updateSearchResultPagination);
+}
+
+export function* updateSearchResultPagination(action) {
+  yield put({ type: SET_PAGINATION, payload: action.payload });
+  const currentQuery = yield select(selectSearchQuery());
+  yield put({ type: SEARCH, payload: { query: currentQuery } });
+}
+
+export function* searchResultViewWatcher() {
+  yield takeLatest(UPDATE_RESULTS_VIEW, updateSearchResultView);
+}
+
+export function* updateSearchResultView(action) {
+  yield put({ type: SET_RESULTS_VIEW, payload: action.payload });
+  const currentQuery = yield select(selectSearchQuery());
+  yield put({ type: SEARCH, payload: { query: currentQuery } });
+}
+
 export default [
   searchWatcher,
+  detailsWatcher,
+  searchResultPaginationWatcher,
+  searchResultViewWatcher,
 ];
