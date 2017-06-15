@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field } from 'redux-form';
-import { reduxForm } from 'redux-form/immutable';
-
+import { reduxForm, Field } from 'redux-form/immutable';
+import { Map } from 'immutable';
 import { Input, SubmissionError } from 'components/FormComponents';
 import Button from 'components/Button';
 import {
@@ -31,10 +30,12 @@ LoginForm.defaultProps = {
 };
 export default reduxForm({
   form: 'login', // a unique identifier for this form
-  initialValues: {
+  initialValues: Map({
     redirect: '/',
-  },
-  validate: ({ username, password }) => {
+  }),
+  validate: (stuff) => {
+    console.log(stuff);
+    const { username, password } = stuff.toJS();
     const errors = {};
     if (!username) {
       errors.username = 'Required';

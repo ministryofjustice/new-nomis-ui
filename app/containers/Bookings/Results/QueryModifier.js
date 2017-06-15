@@ -28,7 +28,7 @@ QueryModifier.defaultProps = {
 
 export function mapDispatchToProps() {
   return {
-    onSubmitForm: createFormAction((formData) => ({ type: SEARCH, payload: { query: formData, resetPagination: true } }), [SEARCH_SUCCESS, SEARCH_ERROR]), //onSubmitActions(SEARCH, SEARCH_SUCCESS, SEARCH_ERROR), // (x) => { console.log(x); }, //
+    onSubmitForm: createFormAction((formData) => ({ type: SEARCH, payload: { query: formData.toJS(), resetPagination: true } }), [SEARCH_SUCCESS, SEARCH_ERROR]), //onSubmitActions(SEARCH, SEARCH_SUCCESS, SEARCH_ERROR), // (x) => { console.log(x); }, //
   };
 }
 

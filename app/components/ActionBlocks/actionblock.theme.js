@@ -16,6 +16,18 @@ export const Wrapper = styled.div`
   justify-content: center;
 `;
 
+export const WrapperColumn = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  div {
+    width: calc(100% - 30px);
+  }
+`;
+
 export const BlockWrapper = styled.div`
   ${''/*  calculates width to be 470 at full width */}
   width: calc(100%*${desktop.actionBlockWidth}/${desktop.fixWidth});

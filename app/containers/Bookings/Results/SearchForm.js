@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field } from 'redux-form';
-import { reduxForm } from 'redux-form/immutable';
+import { reduxForm, Field } from 'redux-form/immutable';
 import Button, { ButtonRow } from 'components/Button';
 
 import { Input, SubmissionError } from 'components/FormComponents';

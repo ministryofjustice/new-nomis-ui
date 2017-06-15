@@ -10,6 +10,9 @@ export const PaginateWrapper = styled.div`
   margin: auto;
   width: 100%;
   max-width: ${desktop.fixWidth}px;
+  justify-content: flex-end;
+  padding-top: 60px;
+  padding-bottom: 110px;
 `;
 
 export const PaginateItem = styled.div`

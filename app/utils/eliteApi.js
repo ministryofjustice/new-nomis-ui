@@ -48,12 +48,44 @@ export const bookingAliases = (token, baseUrl, id) => axios({
   headers: { Authorization: token } })
     .then((response) => response.data);
 
-export const bookingAlerts = (token, baseUrl, id) => axios({
-  baseURL: baseUrl,
-  method: 'get',
-  url: `/booking/${id}/alerts`,
-  headers: { Authorization: token } })
+export const bookingAlerts = (token, baseUrl, id, pagination) => {
+  const queryParams = `?limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}`;
+  return axios({
+    baseURL: baseUrl,
+    method: 'get',
+    url: `/booking/${id}/alerts${queryParams}`,
+    headers: { Authorization: token } })
     .then((response) => response.data);
+};
+
+const casenoteQueryStringGen = (caseNoteOptions) => {
+  // HACK: caseNoteOptions is an immutable map if there's nothing inside it; otherwise a regular js object.
+  // could likely be fixed better!
+  if (!caseNoteOptions || caseNoteOptions.size === 0) {
+    return '';
+  }
+  return `&query=${Object.keys(caseNoteOptions).map((key) => {
+    const value = caseNoteOptions[key];
+    switch (key) {
+      case 'firstName':
+        return `firstName:like:'${value}%'`;
+      case 'lastName':
+        return `lastName:like:'${value}%'`;
+      default:
+        return `${key}:eq:${value}`;
+    }
+  }).join(',and:')}`;
+};
+
+export const bookingCaseNotes = (token, baseUrl, id, pagination, query) => {
+  const queryParams = `?limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}${casenoteQueryStringGen(query)}`;
+  return axios({
+    baseURL: baseUrl,
+    method: 'get',
+    url: `/booking/${id}/caseNotes${queryParams}`,
+    headers: { Authorization: token } })
+    .then((response) => response.data);
+};
 
 export const users = {
   me: (token, baseUrl) => axios({
@@ -77,17 +109,94 @@ export const users = {
 
 };
 
-export const locations = (token, baseUrl) => axios({
+const paginationToQuery = (pagination) => `limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}`;
+
+export const locations = (token, baseUrl, pagination) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: '/locations?limit=1000',
+  url: `/locations${pagination ? `?${paginationToQuery(pagination)}` : ''}`,
   headers: { Authorization: token } })
-    .then((response) => response.data);
+    .then((response) => {
+      const metaData = response.data.pageMetaData;
+      const locs = response.data.locations;
+      // If there are any more locations get them now...
+      if (metaData.offset + metaData.limit < metaData.totalRecords) {
+        return locations(token, baseUrl, { perPage: metaData.limit, pageNumber: (metaData.offset + metaData.limit) / metaData.limit })
+          .then((newLocations) => locs.concat(newLocations)
+        );
+      }
+
+      return locs;
+    });
+
+export const loadCaseNoteSubTypes = (token, baseUrl, caseLoadType, pagination = { perPage: 1000, pageNumber: 0 }) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  url: `referenceDomains/caseNotes/subTypes/${caseLoadType}${pagination ? `?${paginationToQuery(pagination)}` : ''}`,
+  headers: { Authorization: token } })
+    .then((response) => {
+      const metaData = response.data.pageMetaData;
+      const refCodes = response.data.ReferenceCodes;
+
+      // If there are any extra caseNoteTypes append them to the current call.
+      if (metaData.offset + metaData.limit < metaData.totalRecords) {
+        return loadCaseNoteSubTypes(token, baseUrl, caseLoadType, { perPage: metaData.limit, pageNumber: (metaData.offset + metaData.limit) / metaData.limit })
+          .then((nextRefCodes) => refCodes.concat(nextRefCodes));
+      }
+
+      return refCodes;
+    });
+
+export const loadCaseNoteTypes = (token, baseUrl, caseNoteSource, pagination = { perPage: 1000, pageNumber: 0 }) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  url: `referenceDomains/caseNotes/types/${caseNoteSource}${pagination ? `?${paginationToQuery(pagination)}` : ''}`,
+  headers: { Authorization: token } })
+    .then((response) => {
+      const metaData = response.data.pageMetaData;
+      const refCodes = response.data.ReferenceCodes; // .map((refCode) => loadCaseNoteSubTypes(token, baseUrl, refCode.code).then((subTypes) => Object.assign(refCode, { subTypes })));
+      const typeObjs = refCodes.map((refCode) => {
+        // Load in ALL subTypes.
+        const subTypes = loadCaseNoteSubTypes(token, baseUrl, refCode.code).then((subArray) => {
+          const SubObject = subArray.reduce((acc, sub) => Object.assign(acc, { [sub.code]: { Data: sub, Status: { Type: 'SUCCESS' } } }), {});
+          return SubObject;
+        }).then((subObj) => ({ Data: refCode, SubTypes: subObj }));
+
+        return subTypes;
+      });
+      return Promise.all([metaData, Promise.all(typeObjs)]);
+    })
+    .then((response) => {
+      const metaData = response[0];
+      const refCodes = response[1];
+
+      // If there are any extra caseNoteTypes append them to the current call.
+      if (metaData.offset + metaData.limit < metaData.totalRecords) {
+        return loadCaseNoteTypes(token, baseUrl, caseNoteSource, { perPage: metaData.limit, pageNumber: (metaData.offset + metaData.limit) / metaData.limit })
+          .then((nextRefCodes) => refCodes.concat(nextRefCodes));
+      }
+
+      return refCodes;
+    });
 
 export const alertTypes = (token, baseUrl) => axios({
   baseURL: baseUrl,
   method: 'get',
   url: '/referenceDomains/alertTypes',
+  headers: { Authorization: token } })
+    .then((response) => response.data);
+
+export const alertTypeData = (token, baseUrl, type) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  url: `/referenceDomains/alertTypes/${type}`,
+  headers: { Authorization: token } })
+    .then((response) => response.data);
+
+export const alertTypeCodeData = (token, baseUrl, type, code) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  url: `/referenceDomains/alertTypes/${type}/codes/${code}`,
   headers: { Authorization: token } })
     .then((response) => response.data);
 

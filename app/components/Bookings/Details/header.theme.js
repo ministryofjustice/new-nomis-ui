@@ -15,7 +15,7 @@ export const Help = styled.div`
 `;
 
 export const HeaderWrapper = styled.div`
-  margin: 55px 0 55px;
+  margin: 0px 0 55px;
   width: 100%;
   display: flex;
   flex-direct: row;

@@ -12,9 +12,10 @@ cd elite2-web
 ```
 
 ## Running the application in dev mode
-
-run `yarn`
-run `yarn start`
+```bash
+`yarn`
+`yarn start`
+```
 
 This will point at a API server at localhost:7080  This can be overridden in development mode by adding a `.env`
 file e.g.
@@ -90,12 +91,12 @@ To stop (if running with -d):
  The stack can be run using docker-compose thus:
 ```bash 
  docker-compose –d up
- ```
-  This will run a local api and web application and point to the Nomis QA database.  
-  
-  You can change this to point to another DB 
-  by changing the `SPRING_DATASOURCE_URL` in the `docker-compose.yml` file
- 
+```
+This will run a local api and web application and point to the Nomis QA database.  
+
+You can change this to point to another DB 
+by changing the `SPRING_DATASOURCE_URL` in the `docker-compose.yml` file
+
  
 ## Access API proxy
 The API reached when running locally through the node proxy:-

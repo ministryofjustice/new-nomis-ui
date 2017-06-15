@@ -17,15 +17,37 @@ import {
   SEARCH_SUCCESS,
   SEARCH_ERROR,
   SET_DETAILS,
+  VIEW_CASENOTE_DETAILS,
+  VIEW_CASENOTE_LIST,
   SET_PAGINATION,
   SET_DETAILS_TAB,
   SET_RESULTS_VIEW,
+  SET_ALERTS_PAGINATION,
+  SET_CASENOTES_PAGINATION,
+  SET_ADD_CASENOTE_MODAL,
+  SET_AMEND_CASENOTE_MODAL,
 } from './constants';
 
 import results from './Results/resultsData';
 
 // import { push } from 'react-router-redux';
 // import { details } from './defaults';
+
+const detailsState = fromJS({
+  id: 20847,
+  activeTabId: 0,
+  tabs: [{ tabId: 0, title: 'Offender Details' }, { tabId: 1, title: 'Physical Attributes' }, { tabId: 2, title: 'Alerts' }, { tabId: 3, title: 'Case Notes' }],
+  alertsPagination: { perPage: 7, pageNumber: 0 },
+  caseNotes: {
+    Pagination: { perPage: 5, pageNumber: 0 },
+    Query: {},
+    viewId: 0,
+    viewOptions: ['LIST', 'DETAIL'],
+    amendCaseNoteModal: false,
+    caseNoteDetailId: null,
+  },
+  addCaseNoteModal: false,
+});
 
 const initialState = fromJS({
   loading: false,
@@ -35,11 +57,7 @@ const initialState = fromJS({
   query: { firstName: 'DAV', lastName: 'S' }, // for test purposes putting something in here...
   sortOrder: 'TEST',
   pagination: { perPage: 7, pageNumber: 0 },
-  details: {
-    id: 20847,
-    activeTabId: 0,
-    tabs: [{ tabId: 0, title: 'Offender Details' }, { tabId: 1, title: 'Physical Attributes' }, { tabId: 2, title: 'Alerts' }, { tabId: 3, title: 'Case Notes' }],
-  },
+  details: detailsState,
   resultsView: 'List', // List or Grid
 });
 
@@ -48,6 +66,7 @@ function searchReducer(state = initialState, action) {
     case SEARCH_LOADING: {
       return state.set('loading', true);
     }
+
     case SEARCH_SUCCESS: {
       return state
         .set('loading', false)
@@ -55,6 +74,7 @@ function searchReducer(state = initialState, action) {
         .set('query', fromJS(action.payload.searchQuery))
         .set('results', fromJS(action.payload.searchResults));
     }
+
     case SEARCH_ERROR: {
       return state.set('loading', false);
     }
@@ -63,8 +83,33 @@ function searchReducer(state = initialState, action) {
       return state.set('pagination', fromJS(action.payload));
     }
 
+    case SET_ALERTS_PAGINATION: {
+      return state.setIn(['details', 'alertsPagination'], fromJS(action.payload));
+    }
+
+    case SET_CASENOTES_PAGINATION: {
+      return state.setIn(['details', 'caseNotes', 'Pagination'], fromJS(action.payload));
+    }
+
     case SET_DETAILS: {
-      return state.setIn(['details', 'id'], action.payload.bookingId);
+      // reset view to beginning.
+      return state.set('details', detailsState.set('id', action.payload.bookingId));
+    }
+
+    case VIEW_CASENOTE_DETAILS: {
+      return state.setIn(['details', 'caseNotes', 'caseNoteDetailId'], action.payload.caseNoteId).setIn(['details', 'caseNotes', 'viewId'], 1);
+    }
+
+    case VIEW_CASENOTE_LIST: {
+      return state.setIn(['details', 'caseNotes', 'caseNoteDetailId'], null).setIn(['details', 'caseNotes', 'viewId'], 0);
+    }
+
+    case SET_AMEND_CASENOTE_MODAL: {
+      return state.setIn(['details', 'caseNotes', 'addCaseNoteModal'], action.payload);
+    }
+
+    case SET_ADD_CASENOTE_MODAL: {
+      return state.setIn(['details', 'addCaseNoteModal'], action.payload);
     }
 
     case SET_DETAILS_TAB: {
@@ -74,7 +119,7 @@ function searchReducer(state = initialState, action) {
     case SET_RESULTS_VIEW: {
       const cP = state.get('pagination').toJS();
       const currentFirstId = cP.pageNumber * cP.perPage;
-      let newPerPage = 7;
+      let newPerPage;
       if (action.payload === 'Grid') {
         newPerPage = 12;
       } else if (action.payload === 'List') {
@@ -82,7 +127,6 @@ function searchReducer(state = initialState, action) {
       }
       const newPageNumber = Math.floor(currentFirstId / newPerPage);
       const newPagination = { perPage: newPerPage, pageNumber: newPageNumber };
-      console.log(newPageNumber);
       return state.set('pagination', fromJS(newPagination)).set('resultsView', fromJS(action.payload));
     }
 

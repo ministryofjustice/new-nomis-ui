@@ -5,7 +5,11 @@ export const SelectStyle = styled.select`
   background: white;
   padding: 5px 7px;
   margin: 5px 0;
-  border: 1px solid ${colors.ccGray};
+  border: 3px solid ${colors.ccGray};
+  width: 270px;
+  appearance: none;
+  border-radius: 0;
+  height: 50px;
 `;
 
 // .Large

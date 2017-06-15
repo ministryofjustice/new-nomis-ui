@@ -10,7 +10,9 @@
  *   Complete proper authentication! use redux saga for log in messages...
  */
 
-import { fromJS } from 'immutable';
+import { fromJS, Set, List } from 'immutable';
+
+import splitCaseNoteText from './splitCasenoteText';
 
 import { queryHash, paginationHash, originalId } from './helpers';
 
@@ -19,6 +21,7 @@ import {
   LOCATIONS,
   ALERTTYPES,
   IMAGES,
+  CASENOTETYPES,
 } from './constants';
 
 const SortedSearchQuery = fromJS({
@@ -39,6 +42,24 @@ const SearchQueryDefault = fromJS({
   },
 });
 
+const BookingDetailsAlertsDefault = fromJS({
+  MetaData: {
+    TotalRecords: undefined,
+  },
+  Paginations: {},
+});
+
+const CaseNoteQueryDefault = fromJS({
+  MetaData: {
+    TotalRecords: undefined,
+  },
+  Paginations: {},
+});
+
+const CaseNotesDefault = fromJS({
+  Query: {},
+});
+
 const initialState = fromJS({
   Bookings: {
     Search: {},
@@ -56,12 +77,10 @@ const initialState = fromJS({
     ids: {},
   },
   AlertTypes: {
-    Status: { Type: 'NOT SET' },
-    MetaData: {
-      TotalRecords: 0,
-    },
-    ReferenceCodes: [],
   },
+  CaseNoteTypes: {
+  },
+  CaseNoteTypesSelect: { Types: Set([]), TypeList: List([]) },
 });
 
 function EliteApiReducer(state = initialState, action) {
@@ -101,7 +120,7 @@ function EliteApiReducer(state = initialState, action) {
     }
 
     case BOOKINGS.DETAILS.LOADING: {
-      return state.setIn(['Bookings', 'Details', action.payload.bookingId], fromJS({ Status: { Type: 'LOADING' }, Data: {} }));
+      return state.setIn(['Bookings', 'Details', action.payload.bookingId], fromJS({ Status: { Type: 'LOADING' }, Data: {}, Alerts: {} }));
     }
 
     case BOOKINGS.DETAILS.SUCCESS: {
@@ -110,6 +129,56 @@ function EliteApiReducer(state = initialState, action) {
 
     case BOOKINGS.DETAILS.ERROR: {
       return state;
+    }
+    case BOOKINGS.ALERTS.LOADING: {
+      const { bookingId, pagination } = action.payload;
+      let AlertsState = state.getIn(['Bookings', 'Details', bookingId, 'Alerts']);
+      if (!AlertsState) {
+        AlertsState = BookingDetailsAlertsDefault;
+      }
+      const newAlerts = AlertsState.setIn(['Paginations', paginationHash(pagination)], fromJS({ Status: { Type: 'LOADING' }, items: [] }));
+
+      return state.setIn(['Bookings', 'Details', bookingId, 'Alerts'], newAlerts);
+    }
+
+    case BOOKINGS.ALERTS.SUCCESS: {
+      const { pagination, bookingId, results, meta } = action.payload;
+      // Simplifying...
+      return state
+        .setIn(['Bookings', 'Details', bookingId, 'Alerts', 'MetaData', 'TotalRecords'], meta.totalRecords)
+        .updateIn(['Bookings', 'Details', bookingId, 'Alerts', 'Paginations', paginationHash(pagination)],
+          (pag) => pag.setIn(['Status', 'Type'], 'SUCCESS')
+                      .set('items', results));
+    }
+
+    case BOOKINGS.CASENOTES.LOADING: {
+      // Init Casenotes query/pagination obj.
+      const { bookingId, pagination, query } = action.payload;
+      let CaseNotes = state.getIn(['Bookings', 'Details', bookingId, 'CaseNotes']);
+
+      if (!CaseNotes) {
+        CaseNotes = CaseNotesDefault;
+      }
+
+      let QueryState = CaseNotes.getIn(['Query', queryHash(query)]);
+
+      if (!QueryState) {
+        QueryState = CaseNoteQueryDefault;
+      }
+
+      const newQueryState = QueryState.setIn(['Paginations', paginationHash(pagination)], fromJS({ Status: { Type: 'LOADING' }, items: [] }));
+
+      return state.setIn(['Bookings', 'Details', bookingId, 'CaseNotes'], CaseNotes.setIn(['Query', queryHash(query)], newQueryState));
+    }
+
+    case BOOKINGS.CASENOTES.SUCCESS: {
+      const { pagination, bookingId, query, results, meta } = action.payload;
+      // Simplifying... had a plan to store the items differently... lets hope this is fine!
+      return state
+        .setIn(['Bookings', 'Details', bookingId, 'CaseNotes', 'Query', queryHash(query), 'MetaData', 'TotalRecords'], meta.totalRecords)
+        .updateIn(['Bookings', 'Details', bookingId, 'CaseNotes', 'Query', queryHash(query), 'Paginations', paginationHash(pagination)],
+          (pag) => pag.setIn(['Status', 'Type'], 'SUCCESS')
+                      .set('items', fromJS(results.map((caseNote) => ({ ...caseNote, splitInfo: splitCaseNoteText(caseNote.text) })))));
     }
 
     case LOCATIONS.LOADING: {
@@ -120,19 +189,73 @@ function EliteApiReducer(state = initialState, action) {
       return state.setIn(['Locations', 'ids'], fromJS(action.payload.locations)).setIn(['Locations', 'Status', 'Type'], 'SUCCESS');
     }
 
-    case ALERTTYPES.LOADING: {
-      return state.setIn(['AlertTypes', 'Status', 'Type'], 'LOADING');
+    case ALERTTYPES.TYPE.LOADING: {
+      const { alertType } = action.payload;
+      return state.setIn(['AlertTypes', alertType, 'Status', 'Type'], 'LOADING');
     }
 
-    case ALERTTYPES.SUCCESS: {
-      return state.setIn(['AlertTypes', 'ReferenceCodes'], action.payload.alertTypes).setIn(['AlertTypes', 'Status', 'Type'], 'SUCCESS');
+    case ALERTTYPES.TYPE.ERROR: {
+      const { alertType, error } = action.payload;
+      return state.setIn(['AlertTypes', alertType, 'Status'], fromJS({ Type: 'ERROR', Error: error }));
     }
+
+    case ALERTTYPES.TYPE.SUCCESS: {
+      const { alertType, data } = action.payload;
+      return state.setIn(['AlertTypes', alertType, 'Status', 'Type'], 'SUCCESS').setIn(['AlertTypes', alertType, 'Data'], fromJS(data)); }
+
+    case ALERTTYPES.CODE.LOADING: {
+      const { alertType, alertCode } = action.payload;
+      return state.setIn(['AlertTypes', alertType, 'Codes', alertCode, 'Status', 'Type'], 'LOADING');
+    }
+
+    case ALERTTYPES.CODE.SUCCESS: {
+      const { alertType, alertCode, data } = action.payload;
+      return state.setIn(['AlertTypes', alertType, 'Codes', alertCode, 'Status', 'Type'], 'SUCCESS').setIn(['AlertTypes', alertType, 'Codes', alertCode, 'Data'], fromJS(data));
+    }
+
+    case ALERTTYPES.CODE.ERROR: {
+      const { alertType, alertCode, error } = action.payload;
+      return state.setIn(['AlertTypes', alertType, 'Codes', alertCode, 'Status'], fromJS({ Type: 'ERROR', Error: error }));
+    }
+
     case IMAGES.LOADING: {
       return state.setIn(['Images', action.payload.imageId, 'Status', 'Type'], 'LOADING');
     }
 
     case IMAGES.SUCCESS: {
       return state.updateIn(['Images', action.payload.imageId], (im) => im.setIn(['Status', 'Type'], 'SUCCESS').set('dataURL', action.payload.dataURL).set('meta', action.payload.meta));
+    }
+
+    case CASENOTETYPES.PRELOAD.LOADING: {
+      return state;
+    }
+
+    case CASENOTETYPES.PRELOAD.SUCCESS: {
+      const { caseNoteTypes, caseNoteSource } = action.payload;
+      let newState = state;
+      if (['INST', 'COMM'].indexOf(caseNoteSource) !== -1) {
+        newState = state.update('CaseNoteTypesSelect', (cntL) => {
+          let types = cntL.get('Types');
+          let list = cntL.get('TypeList');
+          if (!list) list = List([]);
+          caseNoteTypes.forEach((cnt) => {
+            const code = cnt.Data.code;
+            const des = cnt.Data.description;
+            if (!types.has(code)) {
+              const subTypesCodes = Object.keys(cnt.SubTypes);
+              const subTypes = subTypesCodes.map((stCode) => {
+                const stDes = cnt.SubTypes[stCode].Data.description;
+                return { value: stCode, label: `${stDes} - ${stCode}` };
+              });
+              list = list.push({ value: code, label: `${des} - ${code}`, subTypes });
+              types = types.add(code);
+            }
+          });
+          return cntL.set('Types', types).set('TypeList', list);
+        });
+      }
+      return newState.setIn(['CaseNoteTypes', caseNoteSource], fromJS({ Status: { Type: 'SUCCESS' },
+        Data: caseNoteTypes.reduce((acc, type) => Object.assign(acc, { [type.Data.code]: Object.assign(type, { Status: { Type: 'SUCCESS' } }) }), {}) }));
     }
 
     default: {

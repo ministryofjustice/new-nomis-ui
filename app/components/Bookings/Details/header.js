@@ -16,7 +16,7 @@ import {
 
 const toTitleCase = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
 
-function Header({ inmateData }) {
+function Header({ inmateData, openAddCaseNote }) {
   const { firstName, lastName, bookingNo, facialImageId, alertsCodes, assignedLivingUnit } = inmateData;
 
   const nameString = `${lastName.toUpperCase()}, ${toTitleCase(firstName)}`;
@@ -46,7 +46,7 @@ function Header({ inmateData }) {
         </ALBLock>
       </AlertsLocation>
       <AddCaseNoteButton>
-        <Button buttonstyle="link">Add new case note</Button>
+        <Button buttonstyle="link" onClick={() => { console.log('def clicked here...'); openAddCaseNote(); }}>Add new case note</Button>
       </AddCaseNoteButton>
     </HeaderWrapper>
   );
@@ -54,6 +54,7 @@ function Header({ inmateData }) {
 
 Header.propTypes = {
   inmateData: PropTypes.object.isRequired,
+  openAddCaseNote: PropTypes.func.isRequired,
 };
 
 

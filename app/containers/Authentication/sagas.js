@@ -19,7 +19,7 @@ export function* loginWatcher() {
 }
 
 export function* loginUser(action) {
-  const { username, password, redirect } = action.payload;
+  const { username, password, redirect } = action.payload.toJS();
   yield put({ type: LOGIN_LOADING });
   try {
     const apiUrl = yield select(selectApi());

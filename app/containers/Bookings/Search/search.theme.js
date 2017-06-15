@@ -55,14 +55,37 @@ export const StyledSelect = styled(RFReactSelect)`
     border: solid black 3px;
     border-radius: 0px;
     height: 50px;
+    font-size: 19px;
+
+    /* .VirtualizedSelectFocusedOption {
+      background-color: ${colours.forms.dropdown.background};
+    } */
+
+    .Select-arrow-zone {
+      /* position: absolute;
+      top: 4px;
+      right: 1px; */
+      background-image: url('img/dropdown-chevron.png');
+      background-position: center;
+      padding: 20px;
+    }
+
+    .Select-arrow {
+      display: none;
+    }
 
     .Select-multi-value-wrapper {
       display: flex;
       align-items: center;
-      height: 44px; /* Hack to make it center without changing... */
+      /* height: 44px;  Hack to make it center without changing... */
 
       .Select-value {
-        margin: 0 5px;
+        margin: 5px 5px;
+        background: ${colours.forms.dropdown.background};
+        border: 0px;
+        border-radius: 0px;
+        color: black;
+        display: flex;
       }
 
       .Select-placeholder {
@@ -71,6 +94,23 @@ export const StyledSelect = styled(RFReactSelect)`
         font-size: 0.9em;
         line-height: 1;
         top: 17px;
+      }
+
+      .Select-value-label{
+        padding: 5px 8px;
+        order: 1;
+      }
+
+      .Select-value-icon{
+        border: 0px;
+        background-image: url('img/x.png');
+        width: 37px;
+        height: 34px;
+        background-repeat: no-repeat;
+        background-position: center;
+        font-size: 0px;
+        color: transparent;
+        order: 2;
       }
     }
   }

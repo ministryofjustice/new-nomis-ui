@@ -34,6 +34,7 @@ export const InputGroup = styled.div`
   &:not(:first-of-type) {
     margin-top: 20px;
   }
+
   &:not(:last-of-type) {
     margin-bottom: 20px;
   }
@@ -66,4 +67,6 @@ export const Input = styled.input`
 
 export const TextArea = styled.textarea`
   ${Base}
+  height: 220px;
+  padding: 5px;
 `;

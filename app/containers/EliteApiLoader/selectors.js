@@ -70,6 +70,101 @@ const selectBookingDetails = () => createSelector(
   (eliteApi) => eliteApi.getIn(['Bookings', 'Details'])
 );
 
+const selectAlertTypes = () => createSelector(
+  selectEliteApi(),
+  (eliteApi) => eliteApi.get('AlertTypes')
+);
+
+const selectAlertTypeId = () => (_, props) => props.alertType;
+
+const selectAlertTypeObj = () => createSelector(
+  selectAlertTypes(),
+  selectAlertTypeId(),
+  (alertTypes, alertTypeId) => alertTypes.get(alertTypeId)
+);
+
+const selectAlertType = () => createSelector(
+  selectAlertTypeObj(),
+  (alertTypeObj) => {
+    if (!alertTypeObj) return undefined;
+    return alertTypeObj.get('Data');
+  }
+);
+
+const selectAlertTypeStatus = () => createSelector(
+  selectAlertTypeObj(),
+  (alertTypeObj) => {
+    if (!alertTypeObj) return undefined;
+    return alertTypeObj.getIn(['Status', 'Type']);
+  }
+);
+
+const selectAlertCodeId = () => (_, props) => props.alertCode;
+
+const selectAlertCodeObj = () => createSelector(
+  selectAlertTypeObj(),
+  selectAlertCodeId(),
+  (alertTypeObj, alertCode) => {
+    if (!alertTypeObj) return undefined;
+    return alertTypeObj.getIn(['Codes', alertCode]);
+  }
+);
+
+const selectAlertTypeCodeStatus = () => createSelector(
+  selectAlertCodeObj(),
+  (alertCodeObj) => {
+    if (!alertCodeObj) return undefined;
+    return alertCodeObj.getIn(['Status', 'Type']);
+  }
+);
+
+const selectAlertTypeCode = () => createSelector(
+  selectAlertCodeObj(),
+  (alertCodeObj) => {
+    if (!alertCodeObj) return undefined;
+    return alertCodeObj.getIn(['Data']);
+  }
+);
+
+const selectCaseNoteTypes = () => createSelector(
+  selectEliteApi(),
+  (eliteApi) => eliteApi.get('CaseNoteTypes')
+);
+const selectCaseNoteTypesSelect = () => createSelector(
+  selectEliteApi(),
+  (eliteApi) => eliteApi.getIn(['CaseNoteTypesSelect', 'TypeList'])
+);
+const selectCaseNoteSourceId = () => (_, props) => props.source;
+
+const selectCaseNoteSourceObj = () => createSelector(
+  selectCaseNoteTypes(),
+  selectCaseNoteSourceId(),
+  (caseNoteTypes, source) => caseNoteTypes.get(source)
+);
+
+const selectCaseNoteSourceStatus = () => createSelector(
+  selectCaseNoteSourceObj(),
+  (caseNoteSource) => caseNoteSource ? caseNoteSource.getIn(['Status', 'Type']) : undefined
+);
+
+const selectCaseNoteSource = () => createSelector(
+  selectCaseNoteSourceObj(),
+  (caseNoteSource) => caseNoteSource ? caseNoteSource.get('Data') : undefined
+);
+
+const selectCaseNoteTypeAndSubtype = () => (_, props) => ({ type: props.type, subType: props.subType });
+
+const selectCaseNoteTypeDetails = () => createSelector(
+  selectCaseNoteSource(),
+  selectCaseNoteTypeAndSubtype(),
+  (caseNoteSource, { type, subType }) => {
+    if (!caseNoteSource || !type || !subType) return undefined;
+    const typeObj = caseNoteSource.getIn([type, 'Data']);
+    const subTypeObj = caseNoteSource.getIn([type, 'SubType', subType, 'Data']);
+    return { type: typeObj, subType: subTypeObj };
+  }
+);
+
 export {
   selectEliteApi,
   selectBookingResultStatus,
@@ -80,4 +175,12 @@ export {
   selectImage,
   selectImageStatus,
   selectBookingDetails,
+  selectAlertType,
+  selectAlertTypeStatus,
+  selectAlertTypeCode,
+  selectAlertTypeCodeStatus,
+  selectCaseNoteSourceStatus,
+  selectCaseNoteTypeDetails,
+  selectCaseNoteTypes,
+  selectCaseNoteTypesSelect,
 };

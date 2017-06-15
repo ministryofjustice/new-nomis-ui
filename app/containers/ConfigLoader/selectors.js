@@ -9,7 +9,7 @@ const selectData = () => createSelector(
 
 const selectApi = () => createSelector(
   selectData(),
-  (configState) => '/api/'
+  (configState) => configState.get('apiServer')
 );
 
 // Transform search data into more useable list.

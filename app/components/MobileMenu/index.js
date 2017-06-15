@@ -14,14 +14,23 @@ import { MobileMenuContainer,
 
 import forwardBack from '../../assets/forward-arrow.svg';
 
-function MobileMenu({ user, options }) {
+function MobileMenu({ user, options, modalData, setMobileMenuOpen, setModalData }) {
+  const linkClick = (e) => {
+    setModalData(modalData[e.currentTarget.dataset.name]);
+    removeMobileMenu();
+  };
+
+  const removeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <MobileMenuContainer>
       <MobileMenuHeader>
         <UserName>{user.firstName}</UserName>
         <CaseLoad>{user.activeCaseLoadId}</CaseLoad>
       </MobileMenuHeader>
-      <MobileMenuOption>Search<ForwardArrow svg={forwardBack} /></MobileMenuOption>
+      <MobileMenuOption to={'/search'} onClick={removeMobileMenu}>Search<ForwardArrow svg={forwardBack} /></MobileMenuOption>
       <MobileMenuOption>
         My Assignments
         <NotificationNumberAssignments>
@@ -33,10 +42,11 @@ function MobileMenu({ user, options }) {
         const newObj = <MobileMenuOption key={option} data-id={'dropdown-option'}>{option}<ForwardArrow svg={forwardBack} /></MobileMenuOption>;
         return newObj;
       })}
-      <MobileMenuOption key={'logout'} href={'/logout'} data-id={'dropdown-option'}>Log out<ForwardArrow svg={forwardBack} /></MobileMenuOption>
-      <MobileMenuAdditionalOption>Updates</MobileMenuAdditionalOption>
-      <MobileMenuAdditionalOption>Help</MobileMenuAdditionalOption>
-      <MobileMenuAdditionalOption>Terms and conditions</MobileMenuAdditionalOption>
+      <MobileMenuOption key={'logout'} to={'/logout'} data-id={'dropdown-option'} onClick={removeMobileMenu}>Log out<ForwardArrow svg={forwardBack} /></MobileMenuOption>
+      <MobileMenuAdditionalOption data-name={'updates'} to={'/modalMobile'} onClick={linkClick}>Updates</MobileMenuAdditionalOption>
+      <MobileMenuAdditionalOption data-name={'help'} to={'/modalMobile'} onClick={linkClick}>Help</MobileMenuAdditionalOption>
+      <MobileMenuAdditionalOption data-name={'terms'} to={'/modalMobile'} onClick={linkClick}>Terms and conditions</MobileMenuAdditionalOption>
+      <MobileMenuAdditionalOption data-name={'cymraeg'} to={'/modalMobile'} onClick={linkClick}>Terms and conditions</MobileMenuAdditionalOption>
       <MobileMenuSignature>Powered By Syscon</MobileMenuSignature>
     </MobileMenuContainer>
   );
@@ -45,6 +55,9 @@ function MobileMenu({ user, options }) {
 MobileMenu.propTypes = {
   user: PropTypes.object,
   options: PropTypes.object,
+  modalData: PropTypes.object.isRequired,
+  setMobileMenuOpen: PropTypes.func.isRequired,
+  setModalData: PropTypes.func.isRequired,
 };
 
 MobileMenu.defaultProps = {

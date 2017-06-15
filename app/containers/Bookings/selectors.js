@@ -94,7 +94,7 @@ const selectOffenderDetails = () => createSelector(
     }, {
       key: 'age',
       title: 'Age',
-      value: age,
+      value: age.toString(),
     },
     {
       key: 'gender',
@@ -108,7 +108,7 @@ const selectOffenderDetails = () => createSelector(
     const aliasGrid = aliases.map((alias, index) => {
       const { firstName, lastName, age: aliasAge, ethinicity: ethnicity, nameType, dob: aliasDateofbirth, gender: aliasGender } = alias;
       const name = nameString({ firstName, lastName, format: 'TITLE_TITLE' });
-      return { key: `${firstName + lastName + aliasAge + ethnicity + nameType + index}`, title: nameType, values: [name, aliasAge, aliasGender, aliasDateofbirth, ethnicity] };
+      return { key: `${firstName + lastName + aliasAge + ethnicity + nameType + index}`, title: nameType, values: [{ name }, { aliasAge }, { aliasGender }, { aliasDateofbirth }, { ethnicity }] };
     });
     //  { dateOfBirth, age, gender };
 
@@ -119,6 +119,50 @@ const selectOffenderDetails = () => createSelector(
   }
 );
 
+const selectOffenderDetailsMobile = () => createSelector(
+  selectBookingDetail(),
+  (bookingDetails) => {
+    // Mash data into what is needed for the DataGridViewComponent.
+    // date of birth
+    const dateOfBirth = bookingDetails.getIn(['Data', 'dateOfBirth']);
+    // age
+    const age = bookingDetails.getIn(['Data', 'age']);
+    // gender
+    const gender = bookingDetails.getIn(['Data', 'physicalAttributes', 'gender']);
+    // categorisation
+    // csra
+
+    const personalGrid = [{
+      key: 'dateOfBirth',
+      title: 'Date of birth',
+      value: dateOfBirth,
+    }, {
+      key: 'age',
+      title: 'Age',
+      value: age.toString(),
+    },
+    {
+      key: 'gender',
+      title: 'gender',
+      value: gender,
+    },
+    ];
+
+    const aliases = bookingDetails.getIn(['Data', 'aliases']).toJS();
+
+    const aliasGrid = aliases.map((alias, index) => {
+      const { firstName, lastName, age: aliasAge, ethinicity: ethnicity, nameType } = alias; // , dob: aliasDateofbirth, gender: aliasGender
+      const name = nameString({ firstName, lastName, format: 'TITLE_TITLE' });
+      return { key: `${firstName + lastName + aliasAge + ethnicity + nameType + index}`, title: nameType, values: [{ name }] };
+    });
+    //  { dateOfBirth, age, gender };
+
+    return {
+      personalGrid,
+      aliasGrid,
+    };
+  }
+);
 
 const selectPhysicalAttributes = () => createSelector(
   selectBookingDetail(),
@@ -137,6 +181,41 @@ const selectPhysicalAttributes = () => createSelector(
     return { characteristicGrid };
   });
 
+const selectAlertsPagination = () => createSelector(
+  selectDetails(),
+  (caseNotesState) => caseNotesState.get('alertsPagination').toJS()
+);
+
+const selectCaseNotes = () => createSelector(
+  selectDetails(),
+  (caseNotesState) => caseNotesState.get('caseNotes')
+);
+
+const selectCaseNotesPagination = () => createSelector(
+  selectCaseNotes(),
+  (caseNotesState) => caseNotesState.get('Pagination').toJS()
+);
+
+const selectCaseNotesQuery = () => createSelector(
+  selectCaseNotes(),
+  (caseNotesState) => caseNotesState.get('Query').toJS()
+);
+
+const selectCaseNotesView = () => createSelector(
+  selectCaseNotes(),
+  (caseNotesState) => caseNotesState.get('viewOptions').get(caseNotesState.get('viewId'))
+);
+
+const selectCaseNotesDetailId = () => createSelector(
+  selectCaseNotes(),
+  (caseNotesState) => caseNotesState.get('caseNoteDetailId')
+);
+
+const selectDisplayAddCaseNoteModal = () => createSelector(
+  selectDetails(),
+  (detailsState) => detailsState.get('addCaseNoteModal')
+);
+
 export {
   selectSearch,
   selectSearchResults,
@@ -150,6 +229,14 @@ export {
   selectBookingDetail,
   selectCurrentDetailTabId,
   selectOffenderDetails,
+  selectOffenderDetailsMobile,
   selectPhysicalAttributes,
   selectHeaderDetail,
+  selectAlertsPagination,
+  selectBookingDetailsId,
+  selectCaseNotesPagination,
+  selectCaseNotesQuery,
+  selectCaseNotesView,
+  selectCaseNotesDetailId,
+  selectDisplayAddCaseNoteModal,
 };

@@ -8,15 +8,30 @@ const base = `
 
 export const DW = styled.div`
   ${base}
-  min-height: calc(100vh - ${desktop.footerHeight}px - ${desktop.headerHeight}px);
+  min-height: calc(100vh - ${desktop.footerHeight}px - ${desktop.headerHeight}px - ${desktop.breadcrumbsHeight}px);
   display: flex;
   flex-direction: column;
 `;
 
-export const CenteredFlexColumn = styled.div`
+export const CenteredFlexColumnLogin = styled.div`
   ${base}
   min-height: calc(100vh - ${desktop.footerHeight}px - ${desktop.headerHeight}px);
   display: flex;
   flex-direction: column;
   justify-content: center;
+`;
+
+export const CenteredFlexColumn = styled.div`
+  ${base}
+  min-height: calc(100vh - ${desktop.footerHeight}px - ${desktop.headerHeight}px - ${desktop.breadcrumbsHeight}px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+export const UpperFlexColumn = styled.div`
+  ${base}
+  min-height: calc(100vh - ${desktop.footerHeight}px - ${desktop.headerHeight}px - ${desktop.breadcrumbsHeight}px);
+  display: flex;
+  flex-direction: column;
 `;

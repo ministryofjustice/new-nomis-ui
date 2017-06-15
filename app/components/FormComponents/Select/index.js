@@ -1,39 +1,32 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { SelectStyle } from './select.theme';
+import { InputGroup, InputLabel, InputError } from '../Input/input.theme';
 
-
-export default class Select extends PureComponent {
-
-  static propTypes = {
-    onChange: PropTypes.func.isRequired,
-    id: PropTypes.string.isRequired,
-    options: PropTypes.array.isRequired,
-    selected: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  };
-
-  constructor() {
-    super();
-
-    // Bindings
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(e) {
-    return this.props.onChange(this.props.id, e.target.value);
-  }
-
-  render() {
-    const { options, selected } = this.props;
-    return (
-
-      <SelectStyle value={selected} onChange={this.handleChange}>
-
+const Select = (props) => {
+  const { input, options, title, meta: { touched, error } } = props;
+  return (
+    <InputGroup error={touched && error}>
+      <InputLabel>{title}</InputLabel>
+      <InputError error={touched && error}>{error}</InputError>
+      <SelectStyle {...input} >
         {options.map((opt) => (
           <option key={opt.value} value={opt.value}>{opt.label || opt.value}</option>
         ))}
-
       </SelectStyle>
-    );
-  }
-}
+    </InputGroup>
+  );
+};
+
+Select.propTypes = {
+  input: PropTypes.object.isRequired,
+  options: PropTypes.array.isRequired,
+  meta: PropTypes.object.isRequired,
+  title: PropTypes.string,
+};
+
+Select.defaultProps = {
+  title: '',
+};
+
+export default Select;

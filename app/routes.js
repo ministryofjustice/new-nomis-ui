@@ -20,8 +20,8 @@ function redirectToLoginGen(store) {
   return (nextState, replace) => {
     if (!store.getState().get('authentication').get('loggedIn')) {
       // // console.log('auto login...');
-      // store.dispatch(logIn({ username: 'itag_user', password: '*******', redirect: null }));
-      //
+      // store.dispatch(logIn({ username: 'itag_user', password: '******', redirect: null }));
+      // //
       // return;
       // eslint-disable-line no-unreachable
       replace({ // eslint-disable-line no-unreachable
@@ -72,6 +72,42 @@ export default function createRoutes(store) {
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/HomePage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      onEnter: redirectToLogin,
+      path: '/mobileMenu',
+      name: 'mobileMenu',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/MobileMenu'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      onEnter: redirectToLogin,
+      path: '/modalMobile',
+      name: 'modalMobile',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/InformationPageMobile'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -145,7 +181,8 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
+    },
+    {
       // This MUST be the last object in array
       path: '*',
       name: 'notfound',

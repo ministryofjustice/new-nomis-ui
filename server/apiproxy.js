@@ -22,6 +22,7 @@ function generateToken() {
 const options = {
   target: baseUrl,                  // target host
   changeOrigin: true,               // needed for virtual hosted sites
+  debug:true,
   ws: true,                         // proxy websockets
   pathRewrite: {
     '^/api': '',                  // rewrite path

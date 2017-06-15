@@ -20,13 +20,24 @@ export const BOOKINGS = {
     LOADING: 'app/eliteApiLoader/bookings/DETAILS/loading',
     SUCCESS: 'app/eliteApiLoader/bookings/DETAILS/success',
     ERROR: 'app/eliteApiLoader/bookings/DETAILS/error',
-  }, // simple to dispatch action, sub-actions: LOADING/SUCCESS/ERROR
-  // ALIASES: {
-  //   BASE: 'app/eliteApiLoader/bookings/ALIASES',
-  //   LOADING: 'app/eliteApiLoader/bookings/ALIASES/loading',
-  //   SUCCESS: 'app/eliteApiLoader/bookings/ALIASES/success',
-  //   ERROR: 'app/eliteApiLoader/bookings/ALIASES/error',
-  // },
+  },
+  ALERTS: {
+    BASE: 'app/eliteApiLoader/bookings/ALERTS',
+    LOADING: 'app/eliteApiLoader/bookings/ALERTS/loading',
+    SUCCESS: 'app/eliteApiLoader/bookings/ALERTS/success',
+    ERROR: 'app/eliteApiLoader/bookings/ALERTS/error',
+  },
+  CASENOTES: {
+    BASE: 'app/eliteApiLoader/bookings/CASENOTES',
+    LOADING: 'app/eliteApiLoader/bookings/CASENOTES/loading',
+    SUCCESS: 'app/eliteApiLoader/bookings/CASENOTES/success',
+    ERROR: 'app/eliteApiLoader/bookings/CASENOTES/error',
+  },
+};
+
+// Users/Officer Data
+export const OFFICERS = {
+
 };
 
 // Images
@@ -48,7 +59,24 @@ export const LOCATIONS = {
 // AlertTypes
 export const ALERTTYPES = {
   BASE: 'app/eliteApiLoader/ALERTTYPES',
-  LOADING: 'app/eliteApiLoader/ALERTTYPES/loading',
-  SUCCESS: 'app/eliteApiLoader/ALERTTYPES/success',
-  ERROR: 'app/eliteApiLoader/ALERTTYPES/error',
+  TYPE: {
+    LOADING: 'app/eliteApiLoader/ALERTTYPES/loading',
+    SUCCESS: 'app/eliteApiLoader/ALERTTYPES/success',
+    ERROR: 'app/eliteApiLoader/ALERTTYPES/error',
+  },
+  CODE: {
+    LOADING: 'app/eliteApiLoader/ALERTTYPES/CODES/loading',
+    SUCCESS: 'app/eliteApiLoader/ALERTTYPES/CODES/success',
+    ERROR: 'app/eliteApiLoader/ALERTTYPES/CODES/error',
+  },
+};
+
+// CaseNoteTypes
+export const CASENOTETYPES = {
+  BASE: 'app/eliteApiLoader/CASENOTETYPES',
+  PRELOAD: {
+    LOADING: 'app/eliteApiLoader/CASENOTETYPES/loading',
+    SUCCESS: 'app/eliteApiLoader/CASENOTETYPES/success',
+    ERROR: 'app/eliteApiLoader/CASENOTETYPES/error',
+  },
 };
