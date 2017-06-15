@@ -98,7 +98,7 @@ const selectOffenderDetails = () => createSelector(
     },
     {
       key: 'gender',
-      title: 'gender',
+      title: 'Gender',
       value: gender,
     },
     ];
@@ -143,7 +143,7 @@ const selectOffenderDetailsMobile = () => createSelector(
     },
     {
       key: 'gender',
-      title: 'gender',
+      title: 'Gender',
       value: gender,
     },
     ];
