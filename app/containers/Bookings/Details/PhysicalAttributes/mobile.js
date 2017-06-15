@@ -1,11 +1,10 @@
-
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 // import { loadBookingDetails } from 'containers/EliteApiLoader/actions';
-import DataGrid from 'components/Bookings/Details/dataGridViewComponent';
+import DataGrid from 'components/Bookings/Details/dataGridViewComponentMobile';
 //
 // import {
 // } from './physicalAttributes.theme';
@@ -18,7 +17,7 @@ class PhysicalAttributes extends PureComponent { // eslint-disable-line react/pr
     const { physicalAttributes } = this.props;
     const CharacteristicsTable = {
       title: 'Characteristics',
-      columnWidths: [3, 4],
+      columnWidths: [5, 8],
       rows: physicalAttributes.characteristicGrid,
     };
     // const AliasTable = {
@@ -34,7 +33,7 @@ class PhysicalAttributes extends PureComponent { // eslint-disable-line react/pr
 }
 
 PhysicalAttributes.propTypes = {
-  physicalAttributes: PropTypes.array.isRequired,
+  physicalAttributes: PropTypes.object.isRequired,
 };
 
 export function mapDispatchToProps() {

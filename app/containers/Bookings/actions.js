@@ -10,6 +10,11 @@ import {
   SET_DETAILS_TAB,
   UPDATE_PAGINATION,
   UPDATE_RESULTS_VIEW,
+  UPDATE_ALERTS_PAGINATION,
+  UPDATE_CASENOTES_PAGINATION,
+  VIEW_CASENOTE_DETAILS,
+  VIEW_CASENOTE_LIST,
+  SET_ADD_CASENOTE_MODAL,
 } from './constants';
 
 export function search(searchObj) {
@@ -33,6 +38,32 @@ export function setPagination(pagination) {
   };
 }
 
+export function setAlertPagination(bookingId, pagination) {
+  return {
+    type: UPDATE_ALERTS_PAGINATION,
+    payload: { bookingId, pagination },
+  };
+}
+
+export function setCaseNotesPagination(bookingId, pagination, query) {
+  return {
+    type: UPDATE_CASENOTES_PAGINATION,
+    payload: { bookingId, pagination, query },
+  };
+}
+
+export function openAddCaseNoteModal() {
+  return {
+    type: SET_ADD_CASENOTE_MODAL,
+    payload: true,
+  };
+}
+export function closeAddCaseNoteModal() {
+  return {
+    type: SET_ADD_CASENOTE_MODAL,
+    payload: false,
+  };
+}
 export function setDetailsTab(activeTabId) {
   return {
     type: SET_DETAILS_TAB,
@@ -44,5 +75,17 @@ export function setResultsView(view) {
   return {
     type: UPDATE_RESULTS_VIEW,
     payload: view,
+  };
+}
+
+export function setCaseNotesDetailView(caseNoteId) {
+  return {
+    type: VIEW_CASENOTE_DETAILS,
+    payload: { caseNoteId },
+  };
+}
+export function setCaseNotesListView() {
+  return {
+    type: VIEW_CASENOTE_LIST,
   };
 }

@@ -34,6 +34,7 @@ export default function RFReactSelect({ input, options, multi, className, filter
   const transformedValue = transformValue(value, options, multi);
   return (
     <VirtualSelect
+      data-name={'VirtualSelect'}
       filterOptions={filterOptions}
       valueKey="value"
       name={name}

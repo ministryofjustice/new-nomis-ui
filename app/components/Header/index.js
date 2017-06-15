@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 
 import Dropdown from 'components/Dropdown';
 import DesktopWrapper from 'components/CommonTheme/DesktopWrapper';
@@ -25,32 +26,47 @@ import {
 } from './header.theme';
 
 
-function Header({ user, options, deviceFormat, mobileMenuOpen, setMobileMenuOpen }) {
-  const menuClick = (e) => {
-    if (e.currentTarget.dataset.name === 'Hamburger') {
-      setMobileMenuOpen(true);
-    } else {
-      setMobileMenuOpen(false);
-    }
-  };
+class Header extends Component {
 
-  return (
-    <DesktopWrapper background={colours.headerColour}>
-      { deviceFormat === 'desktop' ?
-        <Base>
-          <Logo><SVGLOGO /></Logo>
-          <LogoText>HMPPS</LogoText>
-          <Title href="/">Prison-NOMIS</Title>
-          { user ? <Dropdown options={options} user={user} /> : null }
-        </Base> :
-        <BaseMobile>
-          <TitleMobile>Prison-NOMIS</TitleMobile>
-          { !mobileMenuOpen ? <Hamburger onClick={menuClick} data-name={'Hamburger'} svg={hamburger} /> : null }
-          { mobileMenuOpen ? <ArrowBack onClick={menuClick} data-name={'ArrowBack'} svg={arrowBack} /> : null }
-        </BaseMobile>
-      }
-    </DesktopWrapper>
-  );
+  constructor(props) {
+    super(props);
+
+    this.menuClick = this.menuClick.bind(this);
+  }
+
+  menuClick(e) {
+    if (e.currentTarget.dataset.name === 'Hamburger') {
+      this.props.setMobileMenuOpen(true);
+    } else {
+      this.props.setMobileMenuOpen(false);
+      this.context.router.goBack();
+    }
+  }
+
+  render() {
+    const { deviceFormat, options, user, mobileMenuOpen } = this.props;
+
+    return (
+      <DesktopWrapper background={colours.headerColour}>
+        { deviceFormat === 'desktop' ?
+          <Base>
+            <Logo><SVGLOGO /></Logo>
+            <LogoText>HMPPS</LogoText>
+            <Title href="/">Prison-NOMIS</Title>
+            { user ? <Dropdown options={options} user={user} /> : null }
+          </Base> :
+          <BaseMobile>
+            <TitleMobile>Prison-NOMIS</TitleMobile>
+            { !mobileMenuOpen ?
+              <Link to={'/mobileMenu'}>
+                <Hamburger onClick={this.menuClick} data-name={'Hamburger'} svg={hamburger} />
+              </Link> : null }
+            { mobileMenuOpen ? <ArrowBack onClick={this.menuClick} data-name={'ArrowBack'} svg={arrowBack} /> : null }
+          </BaseMobile>
+        }
+      </DesktopWrapper>
+    );
+  }
 }
 
 Header.propTypes = {
@@ -59,6 +75,10 @@ Header.propTypes = {
   deviceFormat: PropTypes.string,
   mobileMenuOpen: PropTypes.bool,
   setMobileMenuOpen: PropTypes.func,
+};
+
+Header.contextTypes = {
+  router: PropTypes.object.isRequired,
 };
 
 Header.defaultProps = {

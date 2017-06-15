@@ -1,42 +1,35 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { intlShape } from 'react-intl';
+// import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import MobileMenuComponent from 'components/MobileMenu';
+import ModalData from 'containers/Footer/modal-data';
 
-import { selectMobileMenuOpen } from 'selectors/app';
+import { setMobileMenuOpen, setModalData } from 'globalReducers/app';
+import { selectUser } from '../Authentication/selectors';
 
-class MobileMenu extends Component {
-
-  static contextTypes = {
-    intl: intlShape.isRequired,
+class MobileMenu extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+  static propTypes = {
+    user: PropTypes.object.isRequired,
+    setMobileMenuOpen: PropTypes.func.isRequired,
+    setModalData: PropTypes.func.isRequired,
   }
-
   render() {
-    const { user, setMobileMenuOpen, mobileMenuOpen } = this.props;
-    // return <MobileMenuComponent user={user} setMobileMenuOpen={setMobileMenuOpen} />;
-    return mobileMenuOpen ? <MobileMenuComponent user={user} setMobileMenuOpen={setMobileMenuOpen} /> : null;
+    const { user } = this.props;
+    return (
+      <MobileMenuComponent modalData={ModalData} setModalData={this.props.setModalData} user={user} setMobileMenuOpen={this.props.setMobileMenuOpen} />
+    );
   }
 }
 
-MobileMenu.propTypes = {
-  user: PropTypes.object,
-  setMobileMenuOpen: PropTypes.func,
-  mobileMenuOpen: PropTypes.bool,
-};
-
-MobileMenu.defaultProps = {
-  user: undefined,
-  setMobileMenuOpen: () => {},
-  mobileMenuOpen: false,
-};
-
 const mapStateToProps = createStructuredSelector({
-  mobileMenuOpen: selectMobileMenuOpen(),
+  user: selectUser(),
 });
 
-// const mapDispatchToProps = {
-// };
+const mapDispatchToProps = {
+  setMobileMenuOpen,
+  setModalData,
+};
 
-export default connect(mapStateToProps, null)(MobileMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(MobileMenu);

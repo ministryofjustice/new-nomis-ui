@@ -52,6 +52,9 @@ export default {
       focusBorder: bc.govukYellow,
       text: bc.govukBlack,
     },
+    dropdown: {
+      background: bc.greyDE,
+    },
   },
   buttons: {
     submit: {
@@ -108,10 +111,41 @@ export default {
         underline: bc.govukBlack,
         activeUnderline: bc.govukBlue,
       },
+      mobileTabNav: {
+        buttonBackground: bc.govukBlue,
+      },
+      mobileHeader: {
+        background: bc.greyF2,
+        idText: bc.grey4D,
+      },
       datagrid: {
         gridLineColour: bc.greyE5,
       },
+      alerts: {
+        warningTextColour: bc.govukRed,
+        greyText: bc.grey4D,
+      },
+      caseNotes: {
+        list: {
+          altTextColour: bc.grey4D,
+          amendments: {
+            backgroundColour: bc.greyF2,
+          },
+        },
+        details: {
+          header: {
+            textColour: bc.grey4D,
+          },
+          amendments: {
+            headerTextColour: bc.grey4D,
+            backgroundColour: bc.greyF2,
+          },
+        },
+      },
     },
+  },
+  modal: {
+    secondaryText: bc.grey4D,
   },
   pagination: {
     bg: bc.govukBlue,

@@ -25,7 +25,15 @@ class HeaderContainer extends Component {
     };
 
     // if the device is not desktop and user is not logged in, do not render header
-    return deviceFormat === 'desktop' || user ? <HeaderComponent user={user} options={options} deviceFormat={deviceFormat} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={this.props.setMobileMenuOpen} /> : null;
+    return deviceFormat === 'desktop' || user ?
+      <HeaderComponent
+        user={user}
+        options={options}
+        deviceFormat={deviceFormat}
+        mobileMenuOpen={mobileMenuOpen}
+        setMobileMenuOpen={this.props.setMobileMenuOpen}
+      />
+      : null;
   }
 
 }

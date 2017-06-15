@@ -21,7 +21,13 @@ function DgRow({ title, value: v, values, imageId, columnWidths }) {
   if (value && !imageId) {
     rowVals = <DGRowItem colWidth={columnWidths[1]}>{value}</DGRowItem>;
   } else if (values) {
-    rowVals = values.map((val, index) => <DGRowItem colWidth={columnWidths[index + 1]}>{val}</DGRowItem>);
+    rowVals = values.map((obj, index) => {
+      // This garbage is to produce proper keys to let react sleep more easily.
+      // values looks like [{name: 'Al Grant'}, {height: '191cm'}]
+      const key = Object.keys(obj)[0];
+      const val = obj[key];
+      return <DGRowItem key={key} colWidth={columnWidths[index + 1]}>{val}</DGRowItem>;
+    });
   } else if (imageId) {
     rowVals = (<DGImageCaption colWidth={3}>
       {value ? value : ''}
@@ -29,9 +35,6 @@ function DgRow({ title, value: v, values, imageId, columnWidths }) {
         <EliteImage imageId={imageId} />
       </DGImageItem>
     </DGImageCaption>);
-    // if (value) {
-    //   rowVals = <DGImageItem colWidth={3}>{value}<EliteImage imageId={imageId} /></DGImageItem>;
-    // }
   }
   return (<DgRowStyle>
     <DGRowTitle colWidth={columnWidths[0]}>{title}</DGRowTitle>

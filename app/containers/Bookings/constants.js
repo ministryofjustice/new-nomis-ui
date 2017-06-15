@@ -13,6 +13,7 @@ export const VIEW_DETAILS = 'app/bookings/details/view';
 export const SET_DETAILS = 'app/bookings/details/set';
 export const SET_DETAILS_TAB = 'app/bookings/details/tab/set';
 
+
 export const DETAILS_ERROR = 'app/bookings/details/error';
 
 export const SET_PAGINATION = 'app/bookings/search/results/pagination/set';
@@ -20,6 +21,26 @@ export const UPDATE_PAGINATION = 'app/bookings/search/results/pagination/update'
 
 export const SET_RESULTS_VIEW = 'app/bookings/search/results/viewFormat';
 export const UPDATE_RESULTS_VIEW = 'app/bookings/search/results/viewFormat/update';
+
+export const SET_ALERTS_PAGINATION = 'app/bookings/details/alerts/pagination/set';
+export const UPDATE_ALERTS_PAGINATION = 'app/bookings/details/alerts/pagination/update';
+
+export const SET_CASENOTES_PAGINATION = 'app/bookings/details/casenotes/pagination/set';
+export const UPDATE_CASENOTES_PAGINATION = 'app/bookings/details/casenotes/pagination/update';
+
+export const VIEW_CASENOTE_LIST = 'app/bookings/details/casenotes/view/list';
+export const VIEW_CASENOTE_DETAILS = 'app/bookings/details/casenotes/view/details';
+export const SET_CASENOTE_DETAILS = 'app/bookings/details/casenotes/details/set';
+
+export const SET_ADD_CASENOTE_MODAL = 'app/bookings/details/addCaseNotesModal';
+export const SET_AMEND_CASENOTE_MODAL = 'app/bookings/details/casenotes/amendCaseNotesModal';
+
+export const ADD_NEW_CASENOTE = {
+  BASE: 'app/bookings/details/addNewCaseNote',
+  LOADING: 'app/bookings/details/addNewCaseNote/LOADING',
+  SUCCESS: 'app/bookings/details/addNewCaseNote/SUCCESS',
+  ERROR: 'app/bookings/details/addNewCaseNote/ERROR',
+};
 
 /*
 {

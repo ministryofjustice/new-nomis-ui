@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field } from 'redux-form';
-import { reduxForm } from 'redux-form/immutable';
+import { reduxForm, Field } from 'redux-form/immutable';
 import Button, { ButtonRow, ButtonLink } from 'components/Button';
 
 import { Input, SubmissionError } from 'components/FormComponents';
@@ -29,9 +28,10 @@ const SearchForm = (props) => {
       <Field name="lastName" component={Input} type="text" title="Last Name" placeholder="ex. Doe" normalize={upper} autocomplete="off" spellcheck="false" />
       <Field name="offenderId" component={Input} type="number" title="NOMS Number" autocomplete="off" />
       <Field name="bookingId" component={Input} type="number" title="Booking Number" autocomplete="off" />
-      <InputGroup>
+      <InputGroup data-name={'InputGroup'}>
         <InputLabel htmlFor="location">Location</InputLabel>
         <Field
+          data-name={'Field'}
           multi
           name="locations"
           options={Locations}

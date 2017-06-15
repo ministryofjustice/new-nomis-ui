@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import BookingsDetailsHeader from 'components/Bookings/Details/header';
+import BookingsDetailsHeader from 'components/Bookings/Details/headerMobile';
 
 import { selectHeaderDetail } from '../selectors';
 
@@ -12,14 +12,15 @@ class Header extends PureComponent { // eslint-disable-line react/prefer-statele
   // }
 
   render() {
-    const { headerDetails } = this.props;
+    const { headerDetails, tabData } = this.props;
 
-    return (<BookingsDetailsHeader inmateData={headerDetails} />);
+    return (<BookingsDetailsHeader inmateData={headerDetails} tabData={tabData} />);
   }
 }
 
 Header.propTypes = {
   headerDetails: PropTypes.object.isRequired,
+  tabData: PropTypes.object.isRequired,
 };
 
 export function mapDispatchToProps() {

@@ -52,6 +52,7 @@ export default class VirtualizedSelect extends Component {
 
     return (
       <SelectComponent
+        data-name={'SelectComponent'}
         {...this.props}
         ref={this._setSelectRef}
         menuRenderer={this._renderMenu}
@@ -156,6 +157,7 @@ export default class VirtualizedSelect extends Component {
 
     if (option === focusedOption) {
       className.push('VirtualizedSelectFocusedOption')
+      style.background = '#DEE0E2';
     }
 
     if (option.disabled) {

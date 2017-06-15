@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { createFormAction } from 'redux-form-saga';
 import {
-  CenteredFlexColumn,
+  CenteredFlexColumnLogin,
 } from 'components/DesktopWrappers';
 
 import Titleblock from 'components/TitleBlock';
@@ -24,10 +24,10 @@ class Login extends PureComponent { // eslint-disable-line react/prefer-stateles
   }
   render() {
     return (
-      <CenteredFlexColumn>
+      <CenteredFlexColumnLogin>
         <Titleblock title={<FormattedMessage {...translations.title} />} subtitle={<FormattedMessage {...translations.subtitle} />} />
         <LoginForm onSubmit={this.props.onSubmitForm} />
-      </CenteredFlexColumn>
+      </CenteredFlexColumnLogin>
     );
   }
 }

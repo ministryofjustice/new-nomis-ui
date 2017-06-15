@@ -1,4 +1,3 @@
-
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
@@ -34,7 +33,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
 }
 
 OffenderDetails.propTypes = {
-  offenderDetails: PropTypes.array.isRequired,
+  offenderDetails: PropTypes.object.isRequired,
 };
 
 export function mapDispatchToProps() {
