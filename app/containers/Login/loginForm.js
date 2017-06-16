@@ -34,7 +34,6 @@ export default reduxForm({
     redirect: '/',
   }),
   validate: (stuff) => {
-    console.log(stuff);
     const { username, password } = stuff.toJS();
     const errors = {};
     if (!username) {

@@ -28,7 +28,7 @@ import {
 
 // import { search } from './actions';
 import { selectCurrentDetailTabId, selectDisplayAddCaseNoteModal } from '../selectors';
-import { setDetailsTab, openAddCaseNoteModal } from '../actions';
+import { setDetailsTab } from '../actions';
 
 const tabData = [
     { tabId: 0, title: 'Offender Details', mobileTitle: 'OFFENDER', component: OffenderDetails, componentMobile: OffenderDetailsMobile },

@@ -39,6 +39,13 @@ export function loadBookingCaseNotes(bookingId, pagination, query) {
   };
 }
 
+export function resetCaseNotes(bookingId) {
+  return {
+    type: BOOKINGS.CASENOTES.RESET,
+    payload: { bookingId },
+  };
+}
+
 export function loadAlertTypeDetails(alertType, alertCode) {
   return {
     type: ALERTTYPES.BASE,
@@ -50,5 +57,12 @@ export function loadCaseNoteTypes(source) {
   return {
     type: CASENOTETYPES.BASE,
     payload: { source },
+  };
+}
+
+export function addCaseNote({ type, subtype, text, occurrenceDateTime }) {
+  return {
+    type: CASENOTETYPES.ADDNEW.BASE,
+    payload: { type, subtype, text, occurrenceDateTime },
   };
 }

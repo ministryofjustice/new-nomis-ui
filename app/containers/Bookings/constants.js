@@ -42,6 +42,13 @@ export const ADD_NEW_CASENOTE = {
   ERROR: 'app/bookings/details/addNewCaseNote/ERROR',
 };
 
+export const AMEND_CASENOTE = {
+  BASE: 'app/bookings/details/amendCaseNote',
+  LOADING: 'app/bookings/details/amendCaseNote/LOADING',
+  SUCCESS: 'app/bookings/details/amendCaseNote/SUCCESS',
+  ERROR: 'app/bookings/details/amendCaseNote/ERROR',
+};
+
 /*
 {
   type: 'app/bookings/search/results/pagination/update',

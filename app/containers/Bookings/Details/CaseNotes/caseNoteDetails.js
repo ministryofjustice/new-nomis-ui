@@ -4,11 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-// import Pagination from 'components/Pagination';
-// import JsonBlock from 'components/JsonBlock';
 import CaseNoteDetailsBlock from 'components/Bookings/Details/CaseNotes/detailsPage';
-
-// import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
 
 import {
   selectCaseNoteDetails,
@@ -21,14 +17,16 @@ import {
 class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   render() {
-    const { viewList, caseNoteDetails } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
-    return <CaseNoteDetailsBlock viewList={viewList} caseNote={caseNoteDetails} />;
+    const { viewList, caseNoteDetails, openAmendModal, displayAmendCaseNoteModal } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
+    return <CaseNoteDetailsBlock displayAmendCaseNoteModal={displayAmendCaseNoteModal} viewList={viewList} caseNote={caseNoteDetails} openAmendModal={openAmendModal} />;
   }
 }
 
 CaseNotes.propTypes = {
   caseNoteDetails: PropTypes.object.isRequired,
   viewList: PropTypes.func.isRequired,
+  openAmendModal: PropTypes.func.isRequired,
+  displayAmendCaseNoteModal: PropTypes.bool.isRequired,
 };
 
 CaseNotes.defaultProps = {

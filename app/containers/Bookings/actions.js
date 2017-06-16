@@ -15,6 +15,8 @@ import {
   VIEW_CASENOTE_DETAILS,
   VIEW_CASENOTE_LIST,
   SET_ADD_CASENOTE_MODAL,
+  ADD_NEW_CASENOTE,
+  SET_AMEND_CASENOTE_MODAL,
 } from './constants';
 
 export function search(searchObj) {
@@ -64,6 +66,25 @@ export function closeAddCaseNoteModal() {
     payload: false,
   };
 }
+export function openAmendCaseNoteModal() {
+  return {
+    type: SET_AMEND_CASENOTE_MODAL,
+    payload: true,
+  };
+}
+export function closeAmendCaseNoteModal() {
+  return {
+    type: SET_AMEND_CASENOTE_MODAL,
+    payload: false,
+  };
+}
+export function addNewCaseNote({ bookingId, type, subType, occurrenceDateTime }) {
+  return {
+    type: ADD_NEW_CASENOTE.BASE,
+    payload: { bookingId, type, subType, occurrenceDateTime },
+  };
+}
+
 export function setDetailsTab(activeTabId) {
   return {
     type: SET_DETAILS_TAB,

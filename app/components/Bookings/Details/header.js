@@ -46,7 +46,7 @@ function Header({ inmateData, openAddCaseNote }) {
         </ALBLock>
       </AlertsLocation>
       <AddCaseNoteButton>
-        <Button buttonstyle="link" onClick={() => { console.log('def clicked here...'); openAddCaseNote(); }}>Add new case note</Button>
+        <Button buttonstyle="link" onClick={() => openAddCaseNote()}>Add new case note</Button>
       </AddCaseNoteButton>
     </HeaderWrapper>
   );

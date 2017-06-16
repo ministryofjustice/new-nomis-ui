@@ -130,10 +130,12 @@ const selectCaseNoteTypes = () => createSelector(
   selectEliteApi(),
   (eliteApi) => eliteApi.get('CaseNoteTypes')
 );
+
 const selectCaseNoteTypesSelect = () => createSelector(
   selectEliteApi(),
   (eliteApi) => eliteApi.getIn(['CaseNoteTypesSelect', 'TypeList'])
 );
+
 const selectCaseNoteSourceId = () => (_, props) => props.source;
 
 const selectCaseNoteSourceObj = () => createSelector(

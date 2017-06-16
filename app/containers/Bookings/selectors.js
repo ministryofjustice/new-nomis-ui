@@ -98,7 +98,7 @@ const selectOffenderDetails = () => createSelector(
     },
     {
       key: 'gender',
-      title: 'Gender',
+      title: 'gender',
       value: gender,
     },
     ];
@@ -143,7 +143,7 @@ const selectOffenderDetailsMobile = () => createSelector(
     },
     {
       key: 'gender',
-      title: 'Gender',
+      title: 'gender',
       value: gender,
     },
     ];
@@ -190,7 +190,10 @@ const selectCaseNotes = () => createSelector(
   selectDetails(),
   (caseNotesState) => caseNotesState.get('caseNotes')
 );
-
+const selectDisplayAmendCaseNoteModal = () => createSelector(
+  selectCaseNotes(),
+  (caseNoteState) => caseNoteState.get('amendCaseNoteModal')
+);
 const selectCaseNotesPagination = () => createSelector(
   selectCaseNotes(),
   (caseNotesState) => caseNotesState.get('Pagination').toJS()
@@ -239,4 +242,5 @@ export {
   selectCaseNotesView,
   selectCaseNotesDetailId,
   selectDisplayAddCaseNoteModal,
+  selectDisplayAmendCaseNoteModal,
 };

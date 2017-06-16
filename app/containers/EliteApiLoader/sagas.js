@@ -121,7 +121,7 @@ export function* searchSaga({ query, pagination, sortOrder }) {
   // First Check to see if this has already been called.
   const currentStatus = yield select(selectBookingResultStatus({ query, pagination, sortOrder }));
   if (currentStatus.Type === 'SUCCESS') {
-    return { inmatesSummaries: yield selectBookingResults({ query, pagination, sortOrder }) };
+    return { inmatesSummaries: yield select(selectBookingResults({ query, pagination, sortOrder })) };
   }
   yield put({ type: BOOKINGS.SEARCH.LOADING, payload: { query, pagination, sortOrder } });
   const token = yield select(selectToken());
