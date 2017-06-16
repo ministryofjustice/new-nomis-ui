@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
-import { selectCaseNotesQuery, selectCaseNotesPagination, selectBookingDetailsId, selectCaseNotesView } from '../../selectors';
+import { selectCaseNotesQuery, selectCaseNotesPagination, selectBookingDetailsId, selectCaseNotesView, selectDisplayAmendCaseNoteModal } from '../../selectors';
 import CaseNoteList from './caseNoteList';
 import CaseNoteDetails from './caseNoteDetails';
 
@@ -18,6 +18,7 @@ import {
 import {
   setCaseNotesPagination,
   setCaseNotesDetailView,
+  openAmendCaseNoteModal,
 } from '../../actions';
 
 class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -28,12 +29,12 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
   }
 
   render() {
-    const { caseNotesView } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
+    const { caseNotesView, openAmendModal, displayAmendCaseNoteModal } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
 
     if (caseNotesView === 'LIST') {
       return <CaseNoteList />;
     }
-    return <CaseNoteDetails />;
+    return <CaseNoteDetails displayAmendCaseNoteModal={displayAmendCaseNoteModal} openAmendModal={openAmendModal} />;
   }
 }
 
@@ -42,7 +43,9 @@ CaseNotes.propTypes = {
   caseNotesPagination: PropTypes.object.isRequired,
   caseNotesQuery: PropTypes.object.isRequired,
   loadCaseNotes: PropTypes.func.isRequired,
+  openAmendModal: PropTypes.func.isRequired,
   caseNotesView: PropTypes.string.isRequired,
+  displayAmendCaseNoteModal: PropTypes.bool.isRequired,
 };
 
 CaseNotes.defaultProps = {
@@ -56,6 +59,7 @@ export function mapDispatchToProps(dispatch) {
     loadCaseNotes: (id, pagination, query) => dispatch(loadBookingCaseNotes(id, pagination, query)),
     setPagination: (id, pagination, query) => dispatch(setCaseNotesPagination(id, pagination, query)),
     setCaseNoteView: (id) => dispatch(setCaseNotesDetailView(id)),
+    openAmendModal: () => dispatch(openAmendCaseNoteModal()),
   };
 }
 
@@ -67,6 +71,7 @@ const mapStateToProps = createStructuredSelector({
   bookingId: selectBookingDetailsId(),
   totalResults: selectTotalCaseNotes(),
   caseNotesView: selectCaseNotesView(),
+  displayAmendCaseNoteModal: selectDisplayAmendCaseNoteModal(),
 });
 
 // Wrap the component to inject dispatch and state into it

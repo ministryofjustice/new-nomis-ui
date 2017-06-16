@@ -105,7 +105,7 @@ function searchReducer(state = initialState, action) {
     }
 
     case SET_AMEND_CASENOTE_MODAL: {
-      return state.setIn(['details', 'caseNotes', 'addCaseNoteModal'], action.payload);
+      return state.setIn(['details', 'caseNotes', 'amendCaseNoteModal'], action.payload);
     }
 
     case SET_ADD_CASENOTE_MODAL: {

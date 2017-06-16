@@ -4,7 +4,7 @@ const parseAmendmentInfo = (info) => {
   const userId = splitInfo[0];
   const date = splitInfo[6];
   const time = splitInfo[7];
-  return { userId, date, time, dateTime: `${date} ${time}` };
+  return { key: [userId, date, time].join('-'), userId, date, time, dateTime: `${date} ${time}` };
 };
 const generateAmendmentData = (infoString, text) => ({
   ...parseAmendmentInfo(infoString),
@@ -17,7 +17,10 @@ const stubify = (text, n) => {
 };
 
 const splitCaseNoteText = (caseNoteText) => {
-  const regex = /\.\.\.\[\w+ updated the case note on \d\d\d\d\/\d\d\/\d\d \d\d:\d\d:\d\d\]/g;
+  if (!caseNoteText) {
+    return { caseNote: '', stub: '' };
+  }
+  const regex = /\.\.\.\[\w+ updated the case notes* on \d\d\d\d\/\d\d\/\d\d \d\d:\d\d:\d\d\]/g;
   const amendmentBreaks = caseNoteText.match(regex);
   if (!amendmentBreaks) {
     return { caseNote: caseNoteText, stub: stubify(caseNoteText, 100) };

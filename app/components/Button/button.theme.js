@@ -48,7 +48,7 @@ export const Button = styled.button`
   color: ${(props) => colours.buttons[props.buttonstyle].text};
   position: relative;
   margin-bottom: 15px;
-  
+
   &:hover {
     background: ${(props) => colours.buttons[props.buttonstyle].hover.background};
     color: ${(props) => colours.buttons[props.buttonstyle].hover.text};

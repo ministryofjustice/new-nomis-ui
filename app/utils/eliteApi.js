@@ -87,6 +87,37 @@ export const bookingCaseNotes = (token, baseUrl, id, pagination, query) => {
     .then((response) => response.data);
 };
 
+export const addCaseNote = (token, baseUrl, bookingId, type, subType, text) => {
+  const data = {
+    type, subType, text,
+  };
+
+  return axios({
+    baseURL: baseUrl,
+    method: 'post',
+    url: `/booking/${bookingId}/caseNotes`,
+    headers: {
+      'content-type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+      Authorization: token },
+    data })
+    .then((response) => response.data);
+};
+export const amendCaseNote = (token, baseUrl, bookingId, caseNoteId, text) => {
+  const data = {
+    text,
+  };
+
+  return axios({
+    baseURL: baseUrl,
+    method: 'put',
+    url: `/booking/${bookingId}/caseNotes/${caseNoteId}`,
+    headers: {
+      'content-type': 'application/json',
+      Authorization: token },
+    data })
+    .then((response) => response.data);
+};
 export const users = {
   me: (token, baseUrl) => axios({
     baseURL: baseUrl,

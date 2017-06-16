@@ -29,10 +29,19 @@ export const BOOKINGS = {
   },
   CASENOTES: {
     BASE: 'app/eliteApiLoader/bookings/CASENOTES',
+    RESET: 'app/eliteApiLoader/bookings/CASENOTES/reload',
     LOADING: 'app/eliteApiLoader/bookings/CASENOTES/loading',
     SUCCESS: 'app/eliteApiLoader/bookings/CASENOTES/success',
     ERROR: 'app/eliteApiLoader/bookings/CASENOTES/error',
   },
+};
+
+// Add new Casenote
+export const ELITE_ADD_CASENOTE = {
+  BASE: 'app/eliteApiLoader/ADD_CASENOTE',
+  LOADING: 'app/eliteApiLoader/ADD_CASENOTE/loading',
+  SUCCESS: 'app/eliteApiLoader/ADD_CASENOTE/success',
+  ERROR: 'app/eliteApiLoader/ADD_CASENOTE/error',
 };
 
 // Users/Officer Data

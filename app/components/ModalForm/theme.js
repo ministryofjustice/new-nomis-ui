@@ -2,7 +2,7 @@ import styled from 'styled-components';
 // import colours from 'theme/colours';
 
 export const ModalContainer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;

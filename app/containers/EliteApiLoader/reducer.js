@@ -151,6 +151,28 @@ function EliteApiReducer(state = initialState, action) {
                       .set('items', results));
     }
 
+    case BOOKINGS.CASENOTES.RESET: {
+      const { bookingId, pagination, query } = action.payload;
+      // If pagination and query exist only reset that specific set of casenotes.
+      if (pagination && query) {
+        let CaseNotes = state.getIn(['Bookings', 'Details', bookingId, 'CaseNotes']);
+
+        if (!CaseNotes) {
+          CaseNotes = CaseNotesDefault;
+        }
+
+        let QueryState = CaseNotes.getIn(['Query', queryHash(query)]);
+
+        if (!QueryState) {
+          QueryState = CaseNoteQueryDefault;
+        }
+
+        const newQueryState = QueryState.setIn(['Paginations', paginationHash(pagination)], fromJS({ Status: { Type: 'RESET' }, items: [] }));
+        return state.setIn(['Bookings', 'Details', bookingId, 'CaseNotes'], CaseNotes.setIn(['Query', queryHash(query)], newQueryState));
+      }
+      return state.setIn(['Bookings', 'Details', bookingId, 'CaseNotes'], CaseNotesDefault);
+    }
+
     case BOOKINGS.CASENOTES.LOADING: {
       // Init Casenotes query/pagination obj.
       const { bookingId, pagination, query } = action.payload;

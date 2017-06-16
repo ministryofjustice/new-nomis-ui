@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
-// import { getFormValues } from 'redux-form/immutable';
-import { Map } from 'immutable';
 import { createFormAction } from 'redux-form-saga';
 
 import { connect } from 'react-redux';
@@ -18,10 +16,9 @@ class AddCaseNoteModal extends PureComponent { // eslint-disable-line react/pref
   render() {
     const caseNoteTypeList = this.props.caseNoteTypeList.toJS();
     const subTypeList = this.props.caseNoteSubTypeList;
-    console.log(subTypeList);
-    return (<ModalWrapper closeModal={() => { console.log('close Modal!!!!'); this.props.closeCaseNoteModal(); }} >
+    return (<ModalWrapper closeModal={() => { this.props.closeCaseNoteModal(); }} >
       <FormTitle>Add New Case Note</FormTitle>
-      <AddCaseNoteForm initialValues={Map({ caseNoteType: caseNoteTypeList[0].value, caseNoteSubType: subTypeList[0].value })} caseNoteTypeList={caseNoteTypeList} caseNoteSubTypeList={subTypeList} onSubmit={this.props.onSubmitForm} />
+      <AddCaseNoteForm closeModal={this.props.closeCaseNoteModal} initialValues={{ caseNoteType: caseNoteTypeList[0].value, caseNoteSubType: subTypeList[0].value }} caseNoteTypeList={caseNoteTypeList} caseNoteSubTypeList={subTypeList} onSubmit={this.props.onSubmitForm} />
     </ModalWrapper>);
   }
 }
@@ -29,14 +26,14 @@ class AddCaseNoteModal extends PureComponent { // eslint-disable-line react/pref
 AddCaseNoteModal.propTypes = {
   closeCaseNoteModal: PropTypes.func.isRequired,
   caseNoteTypeList: PropTypes.object.isRequired,
-  caseNoteSubTypeList: PropTypes.object.isRequired,
+  caseNoteSubTypeList: PropTypes.array.isRequired,
   onSubmitForm: PropTypes.func.isRequired,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
     closeCaseNoteModal: () => dispatch(closeAddCaseNoteModal()),
-    onSubmitForm: createFormAction((formData) => ({ type: ADD_NEW_CASENOTE.BASE, payload: { query: formData, resetPagination: true } }), [ADD_NEW_CASENOTE.SUCCESS, ADD_NEW_CASENOTE.ERROR]),
+    onSubmitForm: createFormAction((formData) => ({ type: ADD_NEW_CASENOTE.BASE, payload: { query: formData.toJS() } }), [ADD_NEW_CASENOTE.SUCCESS, ADD_NEW_CASENOTE.ERROR]),
   };
 }
 

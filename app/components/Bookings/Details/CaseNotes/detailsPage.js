@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 
 // import Button from 'components/Button';
 
-import {
-} from 'components/List/listItem';
+import AmendCaseNoteModal from 'containers/Bookings/Details/CaseNotes/AmendCaseNoteModal';
 
 import {
   CaseNoteDetailsWrapper,
@@ -26,17 +25,16 @@ import {
   TypeDescriptionBlock,
 } from './sharedCaseNoteComponents';
 
-function amendmentBlock({ dateTime, userId, text, source }) {
-  return (<Amendment>
-    <AmendmentHeader>
-      <div>{userId}</div>
-      <div>Source: {source}</div>
-    </AmendmentHeader>
-    <AmendmentTitle>Amended {dateTime}</AmendmentTitle>
-    <AmendmentText>{text}</AmendmentText>
-  </Amendment>);
-}
-amendmentBlock.propTypes = {
+const AmendmentBlock = ({ dateTime, userId, text, source }) => (<Amendment>
+  <AmendmentHeader>
+    <div>{userId}</div>
+    <div>Source: {source}</div>
+  </AmendmentHeader>
+  <AmendmentTitle>Amended {dateTime}</AmendmentTitle>
+  <AmendmentText>{text}</AmendmentText>
+</Amendment>);
+
+AmendmentBlock.propTypes = {
   dateTime: PropTypes.string.isRequired,
   userId: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
@@ -44,19 +42,20 @@ amendmentBlock.propTypes = {
 };
 
 function CaseNoteDetails(props) {
-  const { viewList } = props;
+  const { viewList, openAmendModal, displayAmendCaseNoteModal } = props;
   const { authorUserId, creationDateTime, subType, type, subTypeData, typeData, caseNoteId, source, splitInfo } = props.caseNote.toJS(); // amendments
   let amendments = null;
   if (splitInfo.amendments && splitInfo.amendments.length > 0) {
-    amendments = splitInfo.amendments.map((am) => amendmentBlock({ ...am, source }));
+    amendments = splitInfo.amendments.map((am) => <AmendmentBlock dateTime={am.dateTime} key={am.key} userId={am.userId} text={am.text} source={source} />);
   }
   return (
     <div>
+      {displayAmendCaseNoteModal ? <AmendCaseNoteModal /> : null}
       <CaseNoteDetailsWrapper>
         <CaseNoteDetailsLeft>
           <CaseNoteIdBlock>Case Note ID: {caseNoteId}</CaseNoteIdBlock>
           <DateTimeBlock creationDateTime={creationDateTime} />
-          <AmendmentButton buttonstyle="link">Make amendment</AmendmentButton>
+          <AmendmentButton buttonstyle="link" onClick={openAmendModal}>Make amendment</AmendmentButton>
         </CaseNoteDetailsLeft>
         <CaseNoteDetailsRight>
           <RightHeader>
@@ -78,6 +77,8 @@ function CaseNoteDetails(props) {
 CaseNoteDetails.propTypes = {
   caseNote: PropTypes.object.isRequired,
   viewList: PropTypes.func.isRequired,
+  openAmendModal: PropTypes.func.isRequired,
+  displayAmendCaseNoteModal: PropTypes.bool.isRequired,
 };
 
 export default CaseNoteDetails;
