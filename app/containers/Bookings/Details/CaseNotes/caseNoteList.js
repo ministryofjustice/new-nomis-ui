@@ -6,9 +6,11 @@ import { createStructuredSelector } from 'reselect';
 
 import Pagination from 'components/Pagination';
 import CaseNoteListItem from 'components/Bookings/Details/CaseNotes/listItem';
+import { createFormAction } from 'redux-form-saga';
 
 import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
 import { selectCaseNotesQuery, selectCaseNotesPagination, selectBookingDetailsId } from '../../selectors';
+import CaseNoteFilterForm from './caseNoteFilterForm';
 
 import {
   selectCaseNotes,
@@ -21,6 +23,12 @@ import {
   setCaseNotesDetailView,
 } from '../../actions';
 
+
+import {
+  CASE_NOTE_FILTER,
+} from '../../constants';
+
+import { CaseNoteList } from './caseNoteList.theme';
 class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentWillMount() {
@@ -29,11 +37,14 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
   }
 
   render() {
-    const { setCaseNoteView, caseNotesStatus, caseNotes, totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
+    const { setCaseNoteView, caseNotesStatus, caseNotes, totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination, onSubmitForm } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
     if (caseNotesStatus.Type !== 'SUCCESS') return <div>Loading Casenotes ...</div>;
 
     return (<div>
-      {caseNotes.map((caseNote) => <CaseNoteListItem action={() => setCaseNoteView(caseNote.get('caseNoteId'))} caseNote={caseNote} key={caseNote.get('caseNoteId')} />)}
+      <CaseNoteFilterForm initialValues={caseNotesQuery} onSubmit={onSubmitForm} />
+      <CaseNoteList>
+        {caseNotes.map((caseNote) => <CaseNoteListItem action={() => setCaseNoteView(caseNote.get('caseNoteId'))} caseNote={caseNote} key={caseNote.get('caseNoteId')} />)}
+      </CaseNoteList>
       <Pagination pagination={caseNotesPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)} />
     </div>);
   }
@@ -49,6 +60,7 @@ CaseNotes.propTypes = {
   setPagination: PropTypes.func.isRequired,
   totalResults: PropTypes.number,
   setCaseNoteView: PropTypes.func.isRequired,
+  onSubmitForm: PropTypes.func.isRequired,
 };
 
 CaseNotes.defaultProps = {
@@ -62,6 +74,7 @@ export function mapDispatchToProps(dispatch) {
     loadCaseNotes: (id, pagination, query) => dispatch(loadBookingCaseNotes(id, pagination, query)),
     setPagination: (id, pagination, query) => dispatch(setCaseNotesPagination(id, pagination, query)),
     setCaseNoteView: (id) => dispatch(setCaseNotesDetailView(id)),
+    onSubmitForm: createFormAction((formData) => ({ type: CASE_NOTE_FILTER.BASE, payload: { query: formData.toJS(), resetPagination: true } }), [CASE_NOTE_FILTER.SUCCESS, CASE_NOTE_FILTER.ERROR]),
   };
 }
 

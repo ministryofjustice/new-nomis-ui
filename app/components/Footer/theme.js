@@ -18,6 +18,8 @@ export const FooterLink = styled.div`
   padding: 0px 19px;
   border-right: 1px solid black;
   height: 19px;
+  cursor: pointer;
+
   &:last-child {
     border-right: 0px;
   }

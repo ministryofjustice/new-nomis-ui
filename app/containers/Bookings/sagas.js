@@ -7,6 +7,8 @@ import { selectToken } from 'containers/Authentication/selectors';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 import { searchSaga as searchSagaElite, bookingDetailsSaga as bookingDetailsElite } from 'containers/EliteApiLoader/sagas';
 import { loadBookingAlerts, loadBookingCaseNotes, resetCaseNotes } from 'containers/EliteApiLoader/actions';
+import { BOOKINGS } from 'containers/EliteApiLoader/constants';
+
 import { selectSearchResultsPagination, selectSearchResultsSortOrder, selectSearchQuery, selectBookingDetailsId, selectCaseNotesPagination,
 selectCaseNotesQuery, selectCaseNotesDetailId } from './selectors';
 
@@ -29,6 +31,7 @@ import {
   SET_RESULTS_VIEW,
   ADD_NEW_CASENOTE,
   AMEND_CASENOTE,
+  CASE_NOTE_FILTER,
 } from './constants';
 
 export function* searchWatcher() {
@@ -37,8 +40,6 @@ export function* searchWatcher() {
 
 export function* searchSaga(action) {
   const { query, resetPagination } = action.payload;
-
-  // const pagination = Object.assign(yield select(selectSearchResultsPagination()), { pageNumber: 0 });
   let pagination = yield select(selectSearchResultsPagination());
 
   const sortOrder = yield select(selectSearchResultsSortOrder());
@@ -56,7 +57,6 @@ export function* searchSaga(action) {
         meta: res.pageMetaData,
         searchQuery: query,
       } });
-
     if (res.inmatesSummaries.length === 1) {
       const bookingId = res.inmatesSummaries[0].bookingId;
       yield put({ type: VIEW_DETAILS, payload: { bookingId } });
@@ -185,6 +185,35 @@ export function* detailCaseNotesPagination(action) {
   yield put({ type: SET_CASENOTES_PAGINATION, payload: action.payload.pagination });
 }
 
+export function* setCaseNoteFilterWatcher() {
+  yield takeLatest(CASE_NOTE_FILTER.BASE, setCaseNoteFilterSaga);
+}
+
+export function* setCaseNoteFilterSaga(action) {
+  const { query, resetPagination, goToPage } = action.payload;
+  let pagination = yield select(selectSearchResultsPagination());
+  const bookingId = yield select(selectBookingDetailsId());
+  // console.log(query, pagination, bookingId);
+  // const sortOrder = yield select(selectSearchResultsSortOrder());
+  // console.log(pagination);
+  try {
+    if (resetPagination) {
+      pagination = Object.assign(pagination, { pageNumber: 0 });
+      yield put({ type: SET_CASENOTES_PAGINATION, payload: pagination });
+    }
+    yield put({ type: BOOKINGS.CASENOTES.BASE, payload: { bookingId, query: query.toJS ? query.toJS() : query, pagination } });
+    yield put({ type: CASE_NOTE_FILTER.SUCCESS,
+      payload: {
+        query,
+      } });
+    // console.log(goToPage);
+    if (goToPage) yield put(push(goToPage));
+  } catch (err) {
+    console.error(err); // eslint-disable-line
+    yield put({ type: CASE_NOTE_FILTER.ERROR, payload: new SubmissionError({ _error: err.message }) });
+  }
+}
+
 export default [
   searchWatcher,
   detailsWatcher,
@@ -194,4 +223,5 @@ export default [
   detailCaseNotesPaginationWatcher,
   addCasenoteWatcher,
   amendCaseNoteWatcher,
+  setCaseNoteFilterWatcher,
 ];

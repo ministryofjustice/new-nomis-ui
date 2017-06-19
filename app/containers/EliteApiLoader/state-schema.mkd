@@ -3,7 +3,7 @@ EliteApiLayer:
     Search:
       type: Map
       keys: QueryHash
-      values: SearchQuery
+      values: SearchQuery(BookingIDs)
     Summaries:
       type: Map
       keys: BookingIds
@@ -14,13 +14,48 @@ EliteApiLayer:
       values:
         Status: Status
         InmateDetails: InmateDetails
+        CaseNotes:
+          Query:
+            type: Map
+            keys: QueryHash
+            values: SearchQuery
+          Details:
+            type: Map
+            keys: CaseNoteIds
+            values: CaseNoteDetails
+
   Locations:
     Status: Status
     ids:
       type: Map
       keys: locationId
       value: Location
+  User:
+    CaseLoads:
 
+    Assignments (SearchQuery):
+      MetaData:
+        TotalResponses: integer
+      Sorted:
+        type: Map
+        keys: SortHash
+        values:
+          Paginations:
+            type: Map
+            key: PaginationHash
+            value: Status --> USEFUL TO DISPLAY ERRORS (?)
+          SortedIds:
+            type: Map
+            keys: SortId
+  Images:
+
+  AlertTypes:
+
+  CaseNoteTypes:
+
+  OfficerData:
+
+  
 SearchQuery:
   MetaData:
     TotalResponses: integer

@@ -4,11 +4,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import TitleBlock from 'components/TitleBlock';
+import TitleBlockMobile from 'components/TitleBlock/mobile';
 import ActionBlocks from 'components/ActionBlocks';
 import ActionBlocksMobile from 'components/ActionBlocks/mobile';
 
 // import translations from './translations';
 
+// import { loadUserCaseLoads } from 'containers/EliteApiLoader/actions';
+import { LOAD_ASSIGNMENTS } from 'containers/Assignments/constants';
 import {
   CenteredFlexColumn,
 } from 'components/DesktopWrappers';
@@ -23,6 +26,8 @@ class HomePage extends PureComponent { // eslint-disable-line react/prefer-state
     // logOut: PropTypes.func,
   }
   componentWillMount() {
+  }
+  componentDidMount() {
     // this.props.test();
   }
   render() {
@@ -38,16 +43,21 @@ class HomePage extends PureComponent { // eslint-disable-line react/prefer-state
       key: '2',
       title: 'My Assignments',
       actionTitle: 'See My Assignments',
-      link: '/',
+      link: '/assignments',
       description: 'View your current assignments' },
     ];
 
     return (
-      <CenteredFlexColumn>
-        <TitleBlock title={'Welcome'} subtitle={'To Prison Nomis'} />
-        { deviceFormat === 'desktop' ? <ActionBlocks actions={actions} /> : <ActionBlocksMobile actions={actions} /> }
-
-      </CenteredFlexColumn>
+      deviceFormat === 'desktop' ?
+        <CenteredFlexColumn>
+          <TitleBlock title={'Welcome'} subtitle={'Prison Nomis'} />
+          <ActionBlocks actions={actions} />
+        </CenteredFlexColumn>
+        :
+        <CenteredFlexColumn>
+          <TitleBlockMobile title={'Welcome'} subtitle={'Prison Nomis'} />
+          <ActionBlocksMobile actions={actions} />
+        </CenteredFlexColumn>
     );
   }
 }
@@ -59,7 +69,7 @@ HomePage.propTypes = {
 export function mapDispatchToProps(dispatch) {
   return {
     logOut: () => dispatch(logOut()),
-    // test: () => dispatch(loadAlertTypeDetails('X', 'XRF')),
+    test: () => dispatch({ type: LOAD_ASSIGNMENTS, payload: {} }),
   };
 }
 

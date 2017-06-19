@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import EliteOfficerName from 'containers/EliteContainers/OfficerName';
 
 import {
   ListDetailItem,
@@ -35,7 +36,7 @@ DateTimeBlock.propTypes = {
 };
 function AmendmentBlock({ amendments }) {
   return (<AmendmentListBlock>
-    <strong>{amendments.length} Amendment{amendments.length > 1 ? 's' : ''} {amendments[0].dateTime}</strong>-<div>{amendments[0].userId}</div>
+    <strong>{amendments.length} Amendment{amendments.length > 1 ? 's' : ''} {amendments[0].dateTime}</strong> - <EliteOfficerName staffId={amendments[0].userId} />
   </AmendmentListBlock>);
 }
 
@@ -51,7 +52,7 @@ function CaseNoteListItem(props) {
   const typeDescription = `${typeString} - ${subTypeString}`;
 
   return (
-    <ListDetailItem onClick={action}>
+    <ListDetailItem BordersBetween={{ mids: true, bottom: true }} onClick={action}>
       <DateTimeIdBlock>
         <DateTimeBlock creationDateTime={creationDateTime} />
         <CaseNoteId>Case Note ID: {caseNoteId}</CaseNoteId>
@@ -66,7 +67,7 @@ function CaseNoteListItem(props) {
           </CaseNoteText>
         </TypeAndText>
         <AssignedOfficer>
-          {authorUserId}
+          <EliteOfficerName staffId={authorUserId} />
         </AssignedOfficer>
         {splitInfo.amendments ? AmendmentBlock({ amendments: splitInfo.amendments }) : null}
       </MiddleBlock>

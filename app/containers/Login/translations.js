@@ -20,7 +20,7 @@ export default defineMessages({
   },
   usernamePlaceholder: {
     id: 'app.components.Login.usernamePlaceholder',
-    defaultMessage: 'e-mail',
+    defaultMessage: 'username',
   },
   passwordPlaceholder: {
     id: 'app.components.Login.usernamePlaceholder',

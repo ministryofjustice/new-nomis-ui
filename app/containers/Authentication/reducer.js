@@ -11,6 +11,12 @@
  */
 
 import { fromJS } from 'immutable';
+
+
+import {
+  USER,
+} from 'containers/EliteApiLoader/constants';
+
 import {
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
@@ -18,6 +24,7 @@ import {
   CHANGE_PASSWORD_INPUT,
 } from './constants';
 // import { push } from 'react-router-redux';
+
 
 const initialState = fromJS({
   user: null,
@@ -49,6 +56,9 @@ function authenticationReducer(state = initialState, action) {
     case CHANGE_PASSWORD_INPUT: {
       return state
         .set('passwordInput', action.password);
+    }
+    case USER.SWITCHCASELOAD.SUCCESS: {
+      return state.update('user', (userState) => ({ ...userState, activeCaseLoadId: action.payload.caseLoadId }));
     }
     default: {
       return state;

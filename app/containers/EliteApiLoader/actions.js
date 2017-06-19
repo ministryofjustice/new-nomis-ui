@@ -9,12 +9,21 @@ import {
   IMAGES,
   ALERTTYPES,
   CASENOTETYPES,
+  OFFICERS,
+  USER,
 } from './constants';
 
 export function loadImage(imageId) {
   return {
     type: IMAGES.BASE,
     payload: { imageId },
+  };
+}
+
+export function loadOfficer(staffId) {
+  return {
+    type: OFFICERS.BASE,
+    payload: { staffId },
   };
 }
 
@@ -64,5 +73,17 @@ export function addCaseNote({ type, subtype, text, occurrenceDateTime }) {
   return {
     type: CASENOTETYPES.ADDNEW.BASE,
     payload: { type, subtype, text, occurrenceDateTime },
+  };
+}
+
+export function loadUserCaseLoads() {
+  return {
+    type: USER.CASELOADS.BASE,
+  };
+}
+export function switchCaseLoad(caseLoadId) {
+  return {
+    type: USER.SWITCHCASELOAD.BASE,
+    payload: { caseLoadId },
   };
 }

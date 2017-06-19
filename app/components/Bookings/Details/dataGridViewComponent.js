@@ -14,7 +14,29 @@ import {
   DGImageCaption,
 } from './dataGridViewComponent.theme';
 
-function DgRow({ title, value: v, values, imageId, columnWidths }) {
+function DgRow({ title, value: v, values, imageId, columnWidths, setModalOpen, setModalData, headerDetails }) {
+  const showModal = function () {
+    const toTitleCase = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
+
+    const { firstName, lastName, bookingNo } = headerDetails;
+
+    const nameString = `${lastName.toUpperCase()}, ${toTitleCase(firstName)}`;
+    // Officer Loader...
+    const officer = { firstName: 'PAYNE', lastName: 'RON' };
+    const officerNameString = `${toTitleCase(officer.lastName)}, ${toTitleCase(officer.firstName)}`;
+
+    const modalData = {
+      type: 'photo',
+      photos: this,
+      name: nameString,
+      id: bookingNo,
+      keyWorker: officerNameString,
+    };
+
+    setModalOpen(true);
+    setModalData(modalData);
+  };
+
   let rowVals = null;
   let value = v;
   if (!value && !values && !imageId) value = '—';
@@ -31,7 +53,7 @@ function DgRow({ title, value: v, values, imageId, columnWidths }) {
   } else if (imageId) {
     rowVals = (<DGImageCaption colWidth={3}>
       {value ? value : ''}
-      <DGImageItem>
+      <DGImageItem style={{ cursor: 'pointer' }} onClick={showModal.bind([imageId])}>
         <EliteImage imageId={imageId} />
       </DGImageItem>
     </DGImageCaption>);
@@ -48,6 +70,9 @@ DgRow.propTypes = {
   value: PropTypes.string,
   values: PropTypes.array,
   imageId: PropTypes.number,
+  setModalOpen: PropTypes.func,
+  setModalData: PropTypes.func,
+  headerDetails: PropTypes.object,
 };
 
 DgRow.defaultProps = {
@@ -55,19 +80,38 @@ DgRow.defaultProps = {
   value: undefined,
   values: undefined,
   imageId: undefined,
+  setModalOpen: () => {},
+  setModalData: () => {},
+  headerDetails: {},
 };
 
-function DataGrid({ gridData }) {
+function DataGrid({ gridData, setModalOpen, setModalData, headerDetails }) {
   return (
     <DataGridWrapper >
       <DGTitle>{gridData.title}</DGTitle>
-      {gridData.rows.map((row) => <DgRow {...row} columnWidths={gridData.columnWidths} />)}
+      {gridData.rows.map((row) =>
+        <DgRow
+          {...row}
+          columnWidths={gridData.columnWidths}
+          setModalOpen={setModalOpen}
+          setModalData={setModalData}
+          headerDetails={headerDetails}
+        />)}
     </DataGridWrapper>
   );
 }
 
 DataGrid.propTypes = {
   gridData: PropTypes.object.isRequired,
+  setModalOpen: PropTypes.func,
+  setModalData: PropTypes.func,
+  headerDetails: PropTypes.object,
+};
+
+DataGrid.defaultProps = {
+  setModalOpen: () => {},
+  setModalData: () => {},
+  headerDetails: {},
 };
 
 

@@ -44,16 +44,15 @@ class Header extends Component {
   }
 
   render() {
-    const { deviceFormat, options, user, mobileMenuOpen } = this.props;
-
+    const { deviceFormat, user, mobileMenuOpen, switchCaseLoad } = this.props;
     return (
       <DesktopWrapper background={colours.headerColour}>
         { deviceFormat === 'desktop' ?
           <Base>
             <Logo><SVGLOGO /></Logo>
-            <LogoText>HMPPS</LogoText>
-            <Title href="/">Prison-NOMIS</Title>
-            { user ? <Dropdown options={options} user={user} /> : null }
+            <LogoText to="/">HMPPS</LogoText>
+            <Title to="/">Prison-NOMIS</Title>
+            { user ? <Dropdown switchCaseLoad={switchCaseLoad} user={user} /> : null }
           </Base> :
           <BaseMobile>
             <TitleMobile>Prison-NOMIS</TitleMobile>
@@ -71,10 +70,10 @@ class Header extends Component {
 
 Header.propTypes = {
   user: PropTypes.object,
-  options: PropTypes.object,
   deviceFormat: PropTypes.string,
   mobileMenuOpen: PropTypes.bool,
   setMobileMenuOpen: PropTypes.func,
+  switchCaseLoad: PropTypes.func.isRequired,
 };
 
 Header.contextTypes = {

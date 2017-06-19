@@ -15,6 +15,7 @@ import persistedState from './helpers/persistedState';
 import authenticationSagas from './containers/Authentication/sagas';
 import configSagas from './containers/ConfigLoader/sagas';
 import eliteApiLoaderSagas from './containers/EliteApiLoader/sagas';
+import assignmentsSagas from './containers/Assignments/sagas';
 
 import {
   UPDATE_CONFIG,
@@ -95,6 +96,9 @@ export default function configureStore(initialState = {}, history) {
 
   // set up eliteApiSagas
   eliteApiLoaderSagas.map(store.runSaga);
+
+  // set up assignmentsSagas
+  assignmentsSagas.map(store.runSaga);
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore if */

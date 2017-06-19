@@ -42,9 +42,8 @@ export const RightHeader = styled.div`
 
 export const AmendmentButton = styled(Button)`
   width: 100%;
-  max-width:270px;
+  max-width: 270px;
   margin-top: 30px;
-  margin-bottom: 30px;
 `;
 
 export const CaseNoteText = styled.div`

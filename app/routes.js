@@ -20,7 +20,7 @@ function redirectToLoginGen(store) {
   return (nextState, replace) => {
     if (!store.getState().get('authentication').get('loggedIn')) {
       // // console.log('auto login...');
-      // store.dispatch(logIn({ username: 'itag_user', password: '******', redirect: null }));
+      // store.dispatch(logIn({ username: 'oms_owner', password: '', redirect: null }));
       // //
       // return;
       // eslint-disable-line no-unreachable
@@ -113,6 +113,78 @@ export default function createRoutes(store) {
         const renderRoute = loadModule(cb);
 
         importModules.then(([component]) => {
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      onEnter: redirectToLogin,
+      path: '/addCaseNote',
+      name: 'addCaseNote',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/Bookings/Details/AddCaseNoteMobilePage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      onEnter: redirectToLogin,
+      path: '/amendCaseNote',
+      name: 'amendCaseNote',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/Bookings/Details/CaseNotes/AmendCaseNoteMobilePage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      onEnter: redirectToLogin,
+      path: '/filterCaseNotes',
+      name: 'filterCaseNotes',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/Bookings/Details/CaseNotes/caseNoteFilterFormMobile'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      onEnter: redirectToLogin,
+      path: '/assignments',
+      name: 'assignments',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/Bookings/reducers'),
+          System.import('containers/Bookings/sagas'),
+          System.import('containers/Assignments'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('search', reducer.default);
+          injectSagas('search', sagas.default);
           renderRoute(component);
         });
 

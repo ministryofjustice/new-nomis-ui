@@ -1,4 +1,26 @@
 
+// User Data
+export const USER = {
+  CASELOADS: {
+    BASE: 'app/eliteApiLoader/user/caseload',
+    LOADING: 'app/eliteApiLoader/user/caseload/loading',
+    SUCCESS: 'app/eliteApiLoader/user/caseload/success',
+    ERROR: 'app/eliteApiLoader/user/caseload/error',
+  },
+  SWITCHCASELOAD: {
+    BASE: 'app/eliteApiLoader/user/switchCaseload',
+    LOADING: 'app/eliteApiLoader/user/switchCaseload/loading',
+    SUCCESS: 'app/eliteApiLoader/user/switchCaseload/success',
+    ERROR: 'app/eliteApiLoader/user/switchCaseload/error',
+  },
+  ASSIGNEDINMATES: {
+    BASE: 'app/eliteApiLoader/user/caseload',
+    LOADING: 'app/eliteApiLoader/user/caseload/loading',
+    SUCCESS: 'app/eliteApiLoader/user/caseload/success',
+    ERROR: 'app/eliteApiLoader/user/caseload/error',
+  },
+};
+
 // Preload Location &  Alert Type data
 
 export const PRELOADDATA = {
@@ -9,6 +31,7 @@ export const PRELOADDATA = {
 
 // Bookings/Search
 export const BOOKINGS = {
+  CLEAR: 'app/eliteApiLoader/bookings/CLEAR',
   SEARCH: {
     BASE: 'app/eliteApiLoader/bookings/SEARCH',
     LOADING: 'app/eliteApiLoader/bookings/SEARCH/loading',
@@ -44,17 +67,20 @@ export const ELITE_ADD_CASENOTE = {
   ERROR: 'app/eliteApiLoader/ADD_CASENOTE/error',
 };
 
-// Users/Officer Data
-export const OFFICERS = {
-
-};
-
 // Images
 export const IMAGES = {
   BASE: 'app/eliteApiLoader/IMAGES',
   LOADING: 'app/eliteApiLoader/IMAGES/loading',
   SUCCESS: 'app/eliteApiLoader/IMAGES/success',
   ERROR: 'app/eliteApiLoader/IMAGES/error',
+};
+
+// Users/Officer Data
+export const OFFICERS = {
+  BASE: 'app/eliteApiLoader/OFFICERS',
+  LOADING: 'app/eliteApiLoader/OFFICERS/loading',
+  SUCCESS: 'app/eliteApiLoader/OFFICERS/success',
+  ERROR: 'app/eliteApiLoader/OFFICERS/error',
 };
 
 // Locations

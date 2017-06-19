@@ -2,6 +2,7 @@ import styled from 'styled-components';
 // import colors from 'theme/colors';
 import fonts from 'theme/fonts';
 import InlineSVG from 'react-svg-inline';
+import { Link } from 'react-router';
 
 const height = '60px';
 const heightMobile = '90px';
@@ -32,16 +33,17 @@ export const Logo = styled.div`
   padding-bottom: 6px;
 `;
 
-export const LogoText = styled.div`
+export const LogoText = styled(Link)`
   color: white;
   font-size: 26px;
   padding: 0 15px;
   font-weight: bold;
   border-right: solid white 1px;
   margin-right: 15px;
+  text-decoration: none;
 `;
 
-export const Title = styled.a`
+export const Title = styled(Link)`
   flex-grow: 1;
   color: white;
   font-size: 26px;

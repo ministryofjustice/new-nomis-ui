@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import EliteOfficerName from 'containers/EliteContainers/OfficerName';
 // import Button from 'components/Button';
 
 import AmendCaseNoteModal from 'containers/Bookings/Details/CaseNotes/AmendCaseNoteModal';
@@ -10,7 +10,6 @@ import {
   CaseNoteDetailsLeft,
   CaseNoteDetailsRight,
   RightHeader,
-  ReturnToList,
   CaseNoteText,
   CaseNoteIdBlock,
   AmendmentButton,
@@ -27,7 +26,7 @@ import {
 
 const AmendmentBlock = ({ dateTime, userId, text, source }) => (<Amendment>
   <AmendmentHeader>
-    <div>{userId}</div>
+    <EliteOfficerName staffId={userId} />
     <div>Source: {source}</div>
   </AmendmentHeader>
   <AmendmentTitle>Amended {dateTime}</AmendmentTitle>
@@ -56,10 +55,11 @@ function CaseNoteDetails(props) {
           <CaseNoteIdBlock>Case Note ID: {caseNoteId}</CaseNoteIdBlock>
           <DateTimeBlock creationDateTime={creationDateTime} />
           <AmendmentButton buttonstyle="link" onClick={openAmendModal}>Make amendment</AmendmentButton>
+          <AmendmentButton buttonstyle="link" onClick={viewList}>Return to List</AmendmentButton>
         </CaseNoteDetailsLeft>
         <CaseNoteDetailsRight>
           <RightHeader>
-            <div>{authorUserId}</div>
+            <EliteOfficerName staffId={authorUserId} />
             <div>Source: {source}</div>
           </RightHeader>
           <div>
@@ -69,7 +69,6 @@ function CaseNoteDetails(props) {
           {amendments}
         </CaseNoteDetailsRight>
       </CaseNoteDetailsWrapper>
-      <ReturnToList onClick={viewList}>Return to List</ReturnToList>
     </div>
   );
 }

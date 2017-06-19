@@ -7,6 +7,12 @@ export const QueryForm = styled.form`
   background: ${colours.filterBlocks.background};
 `;
 
+export const QueryWrapper = styled.div`
+  position: relative;
+  padding: 15px;
+  background: ${colours.filterBlocks.background};
+`;
+
 export const QueryItemHolder = styled.div`
   width: 17%;
   height: 64px;
@@ -23,6 +29,11 @@ export const QueryItemHolder = styled.div`
     font-size: 16px;
   }
 
+  querylabel {
+    color: #4D4D4D;
+    font-size: 16px;
+  }
+
   input {
     height: 40px;
   }
@@ -35,4 +46,11 @@ export const QueryItemHolder = styled.div`
   .Select-placeholder {
     margin-top: -7px;
   }
+`;
+
+export const QueryValue = styled.div`
+  position: relative;
+  padding-top: 3px;
+  font-size: 26px;
+  background: ${colours.filterBlocks.background};
 `;

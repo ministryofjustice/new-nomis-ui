@@ -10,7 +10,7 @@
  *   Complete proper authentication! use redux saga for log in messages...
  */
 
-import { fromJS, Set, List } from 'immutable';
+import { fromJS, Map, Set, List } from 'immutable';
 
 import splitCaseNoteText from './splitCasenoteText';
 
@@ -22,6 +22,8 @@ import {
   ALERTTYPES,
   IMAGES,
   CASENOTETYPES,
+  OFFICERS,
+  USER,
 } from './constants';
 
 const SortedSearchQuery = fromJS({
@@ -75,16 +77,29 @@ const initialState = fromJS({
       TotalRecords: 0,
     },
     ids: {},
+    SelectList: List([{ value: 'Loading Locations...' }]),
   },
   AlertTypes: {
   },
   CaseNoteTypes: {
   },
   CaseNoteTypesSelect: { Types: Set([]), TypeList: List([]) },
+  Officers: {
+  },
+  User: {
+    CaseLoads: List([]),
+  },
 });
 
 function EliteApiReducer(state = initialState, action) {
   switch (action.type) {
+    case BOOKINGS.CLEAR: {
+      return state.set('Bookings', Map({
+        Search: Map({}),
+        Summaries: Map({}),
+        Details: Map({}),
+      }));
+    }
     case BOOKINGS.SEARCH.LOADING: {
       // Initialises a searchQuery &/or the sortorder/pagination object with status loading.
       const { query, pagination, sortOrder } = action.payload;
@@ -102,7 +117,6 @@ function EliteApiReducer(state = initialState, action) {
       // Assuming that bookings search loading has already been called.
       const { query, pagination, sortOrder, results, meta } = action.payload;
       let newState;
-
       newState = state.updateIn(['Bookings', 'Search', queryHash(query), 'Sorted', sortOrder],
                               (sortPageState) => sortPageState.setIn(['Paginations', paginationHash(pagination), 'Status', 'Type'], 'SUCCESS')
                                                               .update('SortedIds', (SortedIds) => results.reduce((sIds, inmateSummary, id) => sIds.set(originalId(id, pagination), inmateSummary.bookingId), SortedIds)));
@@ -208,7 +222,10 @@ function EliteApiReducer(state = initialState, action) {
     }
 
     case LOCATIONS.SUCCESS: {
-      return state.setIn(['Locations', 'ids'], fromJS(action.payload.locations)).setIn(['Locations', 'Status', 'Type'], 'SUCCESS');
+      const locs = action.payload.locations;
+      const SelectList = Object.keys(locs).map((locId) => ({ value: locId, label: locs[locId].description }));
+
+      return state.setIn(['Locations', 'ids'], fromJS(action.payload.locations)).setIn(['Locations', 'Status', 'Type'], 'SUCCESS').setIn(['Locations', 'SelectList'], List(SelectList));
     }
 
     case ALERTTYPES.TYPE.LOADING: {
@@ -248,6 +265,18 @@ function EliteApiReducer(state = initialState, action) {
       return state.updateIn(['Images', action.payload.imageId], (im) => im.setIn(['Status', 'Type'], 'SUCCESS').set('dataURL', action.payload.dataURL).set('meta', action.payload.meta));
     }
 
+    case OFFICERS.LOADING: {
+      return state.setIn(['Officers', action.payload.staffId, 'Status', 'Type'], 'LOADING');
+    }
+
+    case OFFICERS.SUCCESS: {
+      return state.updateIn(['Officers', action.payload.staffId], (user) => user.setIn(['Status', 'Type'], 'SUCCESS').set('Data', action.payload.data));
+    }
+
+    case OFFICERS.ERROR: {
+      return state.setIn(['Officers', action.payload.staffId, 'Status'], fromJS({ Type: 'ERROR', Error: action.payload.error }));
+    }
+
     case CASENOTETYPES.PRELOAD.LOADING: {
       return state;
     }
@@ -278,6 +307,18 @@ function EliteApiReducer(state = initialState, action) {
       }
       return newState.setIn(['CaseNoteTypes', caseNoteSource], fromJS({ Status: { Type: 'SUCCESS' },
         Data: caseNoteTypes.reduce((acc, type) => Object.assign(acc, { [type.Data.code]: Object.assign(type, { Status: { Type: 'SUCCESS' } }) }), {}) }));
+    }
+
+    case USER.CASELOADS.LOADING: {
+      return state.setIn(['User', 'CaseLoads'], fromJS({ Status: { Type: 'LOADING' } }));
+    }
+
+    case USER.CASELOADS.SUCCESS: {
+      return state.setIn(['User', 'CaseLoads'], fromJS({ Status: { Type: 'SUCCESS' }, Data: action.payload.caseloads }));
+    }
+
+    case USER.CASELOADS.ERROR: {
+      return state.setIn(['User', 'CaseLoads'], fromJS({ Status: { Type: 'ERROR', Error: action.payload.error } }));
     }
 
     default: {

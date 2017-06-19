@@ -9,14 +9,10 @@ import { MenuWrapper,
          DropdownMenuOptionLogOut,
          NotificationNumberUser,
          NotificationNumberAssignments,
+         DropdownMenuLink,
        } from './theme';
 
 class Dropdown extends Component {
-
-  static propTypes = {
-    user: PropTypes.object,
-    options: PropTypes.object,
-  };
 
   constructor(props) {
     super(props);
@@ -59,20 +55,20 @@ class Dropdown extends Component {
   }
 
   render() {
-    const { user, options } = this.props;
-
+    const { user, switchCaseLoad } = this.props;
     let dropDownSelections = [];
-    dropDownSelections.push(<DropdownMenuOption key={'My Assignments'} data-id={'dropdown-option'}>My Assignments <NotificationNumberAssignments>{options.assignments}</NotificationNumberAssignments></DropdownMenuOption>);
-    const facilityArray = options.facilities.map((option) => {
-      const newObj = <DropdownMenuOption key={option} data-id={'dropdown-option'}>{option}</DropdownMenuOption>;
+    dropDownSelections.push(<DropdownMenuLink key={'My Assignments'} to={'/assignments'} data-id={'dropdown-option'}>My Assignments <NotificationNumberAssignments>{user.totalAssignments}</NotificationNumberAssignments></DropdownMenuLink>);
+    const facilityArray = user.caseLoadOptions.map((option) => {
+      const newObj = <DropdownMenuOption key={option.caseLoadId} onClick={() => { switchCaseLoad(option.caseLoadId); }} data-id={'dropdown-option'}>{option.caseLoadId}</DropdownMenuOption>;
       return newObj;
     });
     dropDownSelections = dropDownSelections.concat(facilityArray);
     dropDownSelections.push(<DropdownMenuOptionLogOut key={'logout'} href={'/logout'} data-id={'dropdown-option'}>Log out</DropdownMenuOptionLogOut>);
+    const caseLoadDesc = user.activeCaseLoadId; // user.activeCaseLoad && user.activeCaseLoad.description ? user.activeCaseLoad.description : user.activeCaseLoadId;
 
     return (
       <MenuWrapper innerRef={(wrapper) => { this.wrapper = wrapper; }} onMouseDown={this.handleMouseDown} onTouchStart={this.handleMouseDown}>
-        <UserName>{user.firstName}<NotificationNumberUser>{options.assignments}</NotificationNumberUser></UserName><CaseLoad>{user.activeCaseLoadId}</CaseLoad>
+        <UserName>{user.firstName}<NotificationNumberUser>{user.totalAssignments}</NotificationNumberUser></UserName><CaseLoad>{caseLoadDesc}</CaseLoad>
         <DropdownMenu>
           { this.state.isOpen ? dropDownSelections : null }
         </DropdownMenu>
@@ -82,14 +78,15 @@ class Dropdown extends Component {
 
 }
 
+Dropdown.propTypes = {
+  user: PropTypes.object,
+  switchCaseLoad: PropTypes.func.isRequired,
+};
+
 Dropdown.defaultProps = {
   user: {
     firstName: 'first',
     activeCaseLoadId: 'id',
-  },
-  options: {
-    assignments: 12,
-    facilities: ['Sheffield', 'Cloverfield'],
   },
 };
 export default Dropdown;

@@ -61,7 +61,7 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
           </div> :
           <div>
             <UpperFlexColumn>
-              <BookingsDetailsHeaderMobile tabData={Object.assign(tabData[3], { action: () => setTab(tabData[3].tabId) })} />
+              <BookingsDetailsHeaderMobile />
               <TabComponentMobile />
             </UpperFlexColumn>
             <TabNavMobile
