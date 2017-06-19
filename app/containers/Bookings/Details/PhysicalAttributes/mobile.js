@@ -10,11 +10,13 @@ import DataGrid from 'components/Bookings/Details/dataGridViewComponentMobile';
 // } from './physicalAttributes.theme';
 
 // import { search } from './actions';
-import { selectPhysicalAttributes } from '../../selectors';
+import { setModalOpen, setModalData } from 'globalReducers/app';
+
+import { selectPhysicalAttributes, selectHeaderDetail } from '../../selectors';
 
 class PhysicalAttributes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { physicalAttributes } = this.props;
+    const { physicalAttributes, headerDetails } = this.props;
     const CharacteristicsTable = {
       title: 'Characteristics',
       columnWidths: [5, 8],
@@ -26,7 +28,12 @@ class PhysicalAttributes extends PureComponent { // eslint-disable-line react/pr
     //   rows: physicalAttributes.aliasGrid,
     // };
     return (<div>
-      <DataGrid gridData={CharacteristicsTable} />
+      <DataGrid
+        gridData={CharacteristicsTable}
+        setModalOpen={this.props.setModalOpen}
+        setModalData={this.props.setModalData}
+        headerDetails={headerDetails}
+      />
       {/* <DataGrid gridData={AliasTable} /> */}
     </div>);
   }
@@ -34,16 +41,21 @@ class PhysicalAttributes extends PureComponent { // eslint-disable-line react/pr
 
 PhysicalAttributes.propTypes = {
   physicalAttributes: PropTypes.object.isRequired,
+  setModalOpen: PropTypes.func.isRequired,
+  setModalData: PropTypes.func.isRequired,
+  headerDetails: PropTypes.object.isRequired,
 };
 
-export function mapDispatchToProps() {
+export function mapDispatchToProps(dispatch) {
   return {
-    // loadBookingDetails: (id) => dispatch(loadBookingDetails(id)),
+    setModalOpen: (bool) => dispatch(setModalOpen(bool)),
+    setModalData: (bool) => dispatch(setModalData(bool)),
   };
 }
 
 const mapStateToProps = createStructuredSelector({
   physicalAttributes: selectPhysicalAttributes(),
+  headerDetails: selectHeaderDetail(),
   // activeTabId: selectCurrentDetailTabId(),
 });
 

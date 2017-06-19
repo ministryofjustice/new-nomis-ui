@@ -65,7 +65,7 @@ export const StyledSelect = styled(RFReactSelect)`
       /* position: absolute;
       top: 4px;
       right: 1px; */
-      background-image: url('img/dropdown-chevron.png');
+      background-image: url('/img/dropdown-chevron.png');
       background-position: center;
       padding: 20px;
     }
@@ -103,7 +103,7 @@ export const StyledSelect = styled(RFReactSelect)`
 
       .Select-value-icon{
         border: 0px;
-        background-image: url('img/x.png');
+        background-image: url('/img/x.png');
         width: 37px;
         height: 34px;
         background-repeat: no-repeat;

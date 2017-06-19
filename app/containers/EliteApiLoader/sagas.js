@@ -1,23 +1,32 @@
 import { put, select, call, takeLatest, takeEvery } from 'redux-saga/effects';
 import {
   bookings,
+  officerAssignments,
   locations,
   alertTypeData,
   alertTypeCodeData,
   imageMeta,
   imageData,
+  officerDetails,
   bookingDetails,
   bookingAliases,
   bookingAlerts,
   bookingCaseNotes,
   loadCaseNoteTypes,
+  users,
 } from 'utils/eliteApi';
+
+import { loadAssignments } from 'containers/Assignments/actions';
+
 import { selectToken } from 'containers/Authentication/selectors';
+
 import { selectApi } from 'containers/ConfigLoader/selectors';
+
 import {
   selectBookingResultStatus,
   selectBookingResults,
   selectImageStatus,
+  selectOfficerStatus,
   selectBookingDetails,
   selectAlertTypeStatus,
   selectAlertTypeCodeStatus,
@@ -32,7 +41,9 @@ import {
   PRELOADDATA,
   ALERTTYPES,
   IMAGES,
+  OFFICERS,
   CASENOTETYPES,
+  USER,
 } from './constants';
 
 import {
@@ -127,8 +138,11 @@ export function* searchSaga({ query, pagination, sortOrder }) {
   const token = yield select(selectToken());
   const apiServer = yield select(selectApi());
   try {
-    const res = yield call(bookings, token.token, query, pagination, apiServer);
-    yield put({ type: BOOKINGS.SEARCH.SUCCESS, payload: { query, pagination, sortOrder, results: res.inmatesSummaries, meta: res.pageMetaData } });
+    let bookingListFunction = bookings;
+    const isOffAss = query === 'officerAssignments';
+    if (isOffAss) bookingListFunction = officerAssignments;
+    const res = yield call(bookingListFunction, token.token, query, pagination, apiServer);
+    yield put({ type: BOOKINGS.SEARCH.SUCCESS, payload: { query, pagination, sortOrder, results: !isOffAss ? res.inmatesSummaries : res.inmateAssignmentSummaries, meta: res.pageMetaData } });
     return { inmatesSummaries: res.inmatesSummaries };
   } catch (err) {
     yield put({ type: BOOKINGS.SEARCH.ERROR, payload: { query, pagination, sortOrder, error: err } });
@@ -233,6 +247,47 @@ export function* imageLoadSaga(action) {
   }
 }
 
+
+// officerDetails
+// selectOfficerStatus
+
+export function* officerLoadWatch() {
+  yield takeEvery(OFFICERS.BASE, officerLoadSaga);
+}
+
+export function* officerLoadSaga(action) {
+  const { staffId } = action.payload;
+
+  if (!staffId) {
+    // nothing to load here...
+    return null;
+  }
+
+  // First check to see if this officer already been loaded.
+  const currentStatus = yield select(selectOfficerStatus(), { staffId });
+  if (currentStatus.Type === 'SUCCESS' || currentStatus.Type === 'LOADING') {
+    return null;
+  }
+
+  yield put({ type: OFFICERS.LOADING, payload: { staffId } });
+  const token = yield select(selectToken());
+  const apiServer = yield select(selectApi());
+
+  try {
+    const res = yield call(officerDetails, token.token, apiServer, staffId);
+    if (!res) {
+      yield put({ type: OFFICERS.ERROR, payload: { staffId, error: 'SEEMED FINE, BUT APPARENTLY NO RESPONSE' } });
+    } else {
+      yield put({ type: OFFICERS.SUCCESS, payload: { staffId, data: res } });
+    }
+    return null;
+  } catch (err) {
+    yield put({ type: OFFICERS.ERROR, payload: { staffId, error: err } });
+    return null;
+  }
+}
+
+
 export function* preloadDataWatcher() {
   yield takeLatest(PRELOADDATA.BASE, preloadData);
 }
@@ -310,16 +365,60 @@ export function* caseNoteTypeLoadSaga(action) {
   return null;
 }
 
-// export function* officerNameSaga() {
-//
-// }
+
+export function* userCaseLoadsWatcher() {
+  yield takeLatest(USER.CASELOADS.BASE, userCaseLoadsSaga);
+}
+
+export function* userCaseLoadsSaga() {
+  const token = yield select(selectToken());
+  const apiServer = yield select(selectApi());
+  if (!token || !apiServer) {
+    return 'fail';
+  }
+
+  try {
+    const caseloads = yield call(users.caseLoads, token.token, apiServer);
+    yield put({ type: USER.CASELOADS.SUCCESS, payload: { caseloads } });
+  } catch (e) {
+    yield put({ type: USER.CASELOADS.ERROR, payload: { error: e } });
+  }
+  return null;
+}
+
+export function* userSwitchCaseLoadsWatcher() {
+  yield takeLatest(USER.SWITCHCASELOAD.BASE, userSwitchCaseLoadsSaga);
+}
+
+export function* userSwitchCaseLoadsSaga(action) {
+  const token = yield select(selectToken());
+  const apiServer = yield select(selectApi());
+  const { caseLoadId } = action.payload;
+  if (!caseLoadId || !token || !apiServer) {
+    return 'fail';
+  }
+
+  try {
+    yield call(users.switchCaseLoads, token.token, apiServer, caseLoadId);
+    yield put({ type: USER.SWITCHCASELOAD.SUCCESS, payload: { caseLoadId } });
+    yield put({ type: BOOKINGS.CLEAR });
+    yield put(loadAssignments(true));
+  } catch (e) {
+    yield put({ type: USER.SWITCHCASELOAD.ERROR });
+  }
+  return null;
+}
 
 export default [
   preloadDataWatcher,
   imageLoadWatch,
+  officerLoadWatch,
   bookingDetailsWatcher,
   bookingAlertsWatch,
   bookingCaseNotesWatch,
   alertTypeLoadWatcher,
   caseNoteTypeWatch,
+  userCaseLoadsWatcher,
+  userCaseLoadsSaga,
+  userSwitchCaseLoadsWatcher,
 ];

@@ -53,7 +53,7 @@ const selectCaseNoteDetails = () => createSelector(
   selectCaseNotesDetailId(),
   selectCaseNotes(),
   (caseNoteId, caseNotes) => {
-    if (!caseNoteId) return undefined;
+    if (!caseNoteId) return {};
     const caseNoteDets = caseNotes.filter((caseNote) => caseNote.get('caseNoteId') === caseNoteId);
     return caseNoteDets.get(0);
   }

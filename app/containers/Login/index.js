@@ -9,7 +9,10 @@ import {
   CenteredFlexColumnLogin,
 } from 'components/DesktopWrappers';
 
+import { selectDeviceFormat } from 'selectors/app';
+
 import Titleblock from 'components/TitleBlock';
+import TitleblockMobile from 'components/TitleBlock/mobile';
 import translations from './translations';
 
 import { LOGIN_SUCCESS, LOGIN_ERROR } from '../Authentication/constants';
@@ -17,18 +20,33 @@ import { LOGIN_SUCCESS, LOGIN_ERROR } from '../Authentication/constants';
 import { logIn } from '../Authentication/actions';
 import { selectLoggedIn, selectUser, selectUsername, selectPassword } from '../Authentication/selectors';
 import LoginForm from './loginForm';
+import LoginFormMobile from './loginFormMobile';
+import { CrestLogoBlack } from './mobile.theme';
+
+// import CaseNoteFilterForm from 'containers/Bookings/Details/CaseNotes/caseNoteFilterForm';
+
 
 class Login extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     onSubmitForm: PropTypes.func.isRequired,
+    deviceFormat: PropTypes.string.isRequired,
   }
   render() {
-    return (
+    const { deviceFormat } = this.props;
+
+    return deviceFormat === 'desktop' ?
       <CenteredFlexColumnLogin>
+        {/* <CaseNoteFilterForm /> */}
         <Titleblock title={<FormattedMessage {...translations.title} />} subtitle={<FormattedMessage {...translations.subtitle} />} />
         <LoginForm onSubmit={this.props.onSubmitForm} />
       </CenteredFlexColumnLogin>
-    );
+      :
+      <CenteredFlexColumnLogin>
+        <CrestLogoBlack />
+        <TitleblockMobile title={<FormattedMessage {...translations.title} />} subtitle={<FormattedMessage {...translations.subtitle} />} />
+        <LoginFormMobile onSubmit={this.props.onSubmitForm} />
+      </CenteredFlexColumnLogin>
+    ;
   }
 }
 
@@ -43,6 +61,7 @@ const mapStateToProps = createStructuredSelector({
   loggedIn: selectLoggedIn(),
   username: selectUsername(),
   password: selectPassword(),
+  deviceFormat: selectDeviceFormat(),
 });
 
 // Wrap the component to inject dispatch and state into it

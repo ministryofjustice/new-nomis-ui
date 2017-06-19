@@ -30,6 +30,7 @@ export const HeaderWrapper = styled.div`
 export const FaceImage = styled.div`
   width: ${fixedCols(2)};
   display: flex;
+  cursor: pointer;
   img {
     width: 100%;
     align-self: flex-end;

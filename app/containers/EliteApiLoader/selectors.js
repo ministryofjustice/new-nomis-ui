@@ -1,4 +1,4 @@
-
+import { List } from 'immutable';
 import { createSelector } from 'reselect';
 import { queryHash, paginationHash, idsFromPagination } from './helpers';
 
@@ -63,6 +63,25 @@ const selectImage = () => createSelector(
 const selectImageStatus = () => createSelector(
   selectImage(),
   (image) => { if (image) return image.get('Status').toJS(); return { Type: 'NOT STARTED' }; }
+);
+
+
+const selectOfficers = () => createSelector(
+  selectEliteApi(),
+  (eliteApi) => eliteApi.get('Officers')
+);
+
+const selectOfficerId = () => (_, props) => props.officerId;
+
+const selectOfficer = () => createSelector(
+  selectOfficers(),
+  selectOfficerId(),
+  (officers, id) => officers.get(id)
+);
+
+const selectOfficerStatus = () => createSelector(
+  selectOfficer(),
+  (officer) => { if (officer) return officer.get('Status').toJS(); return { Type: 'NOT STARTED' }; }
 );
 
 const selectBookingDetails = () => createSelector(
@@ -167,6 +186,19 @@ const selectCaseNoteTypeDetails = () => createSelector(
   }
 );
 
+const selectUser = () => createSelector(
+  selectEliteApi(),
+  (eliteApiState) => eliteApiState.get('User')
+);
+
+const selectUserCaseLoads = () => createSelector(
+  selectUser(),
+  (userState) => {
+    const CaseLoadState = userState.getIn(['CaseLoads', 'Data']);
+    return CaseLoadState ? CaseLoadState : List([]);
+  }
+);
+
 export {
   selectEliteApi,
   selectBookingResultStatus,
@@ -176,6 +208,8 @@ export {
   calcBookingResultsTotalRecords,
   selectImage,
   selectImageStatus,
+  selectOfficer,
+  selectOfficerStatus,
   selectBookingDetails,
   selectAlertType,
   selectAlertTypeStatus,
@@ -185,4 +219,5 @@ export {
   selectCaseNoteTypeDetails,
   selectCaseNoteTypes,
   selectCaseNoteTypesSelect,
+  selectUserCaseLoads,
 };

@@ -5,6 +5,8 @@ import { createStructuredSelector } from 'reselect';
 
 import BookingsDetailsHeader from 'components/Bookings/Details/headerMobile';
 
+import { setModalOpen, setModalData } from 'globalReducers/app';
+
 import { selectHeaderDetail } from '../selectors';
 
 class Header extends PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -12,19 +14,26 @@ class Header extends PureComponent { // eslint-disable-line react/prefer-statele
   // }
 
   render() {
-    const { headerDetails, tabData } = this.props;
+    const { headerDetails } = this.props;
 
-    return (<BookingsDetailsHeader inmateData={headerDetails} tabData={tabData} />);
+    return (<BookingsDetailsHeader
+      inmateData={headerDetails}
+      setModalOpen={this.props.setModalOpen}
+      setModalData={this.props.setModalData}
+    />);
   }
 }
 
 Header.propTypes = {
   headerDetails: PropTypes.object.isRequired,
-  tabData: PropTypes.object.isRequired,
+  setModalOpen: PropTypes.func.isRequired,
+  setModalData: PropTypes.func.isRequired,
 };
 
-export function mapDispatchToProps() {
+export function mapDispatchToProps(dispatch) {
   return {
+    setModalOpen: (bool) => dispatch(setModalOpen(bool)),
+    setModalData: (obj) => dispatch(setModalData(obj)),
   };
 }
 

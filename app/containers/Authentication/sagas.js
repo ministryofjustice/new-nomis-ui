@@ -3,8 +3,8 @@ import { push } from 'react-router-redux';
 import { SubmissionError } from 'redux-form/immutable';
 import { login, users } from 'utils/eliteApi';
 import { selectApi } from 'containers/ConfigLoader/selectors';
-import { PRELOADDATA } from 'containers/EliteApiLoader/constants';
-
+import { PRELOADDATA, USER } from 'containers/EliteApiLoader/constants';
+import { LOAD_ASSIGNMENTS } from 'containers/Assignments/constants';
 import {
   LOGIN,
   LOGIN_LOADING,
@@ -19,7 +19,12 @@ export function* loginWatcher() {
 }
 
 export function* loginUser(action) {
-  const { username, password, redirect } = action.payload.toJS();
+  let bla = action.payload;
+  if (action.payload.toJS) {
+    bla = action.payload.toJS();
+  }
+
+  const { username, password, redirect } = bla;
   yield put({ type: LOGIN_LOADING });
   try {
     const apiUrl = yield select(selectApi());
@@ -28,6 +33,8 @@ export function* loginUser(action) {
 
     yield put({ type: LOGIN_SUCCESS, payload: { user, loginData: res } });
     yield put({ type: PRELOADDATA.BASE });
+    yield put({ type: USER.CASELOADS.BASE });
+    yield put({ type: LOAD_ASSIGNMENTS, payload: {} });
     if (redirect) yield put(push(redirect));
   } catch (err) {
     yield put({ type: LOGIN_ERROR, payload: new SubmissionError({ _error: err.message }) });

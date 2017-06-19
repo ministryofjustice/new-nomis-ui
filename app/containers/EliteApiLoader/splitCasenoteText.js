@@ -20,7 +20,7 @@ const splitCaseNoteText = (caseNoteText) => {
   if (!caseNoteText) {
     return { caseNote: '', stub: '' };
   }
-  const regex = /\.\.\.\[\w+ updated the case notes* on \d\d\d\d\/\d\d\/\d\d \d\d:\d\d:\d\d\]/g;
+  const regex = /\.\.\.\[\w+ updated the case notes* on [0-9-/ :]*\]/g;
   const amendmentBreaks = caseNoteText.match(regex);
   if (!amendmentBreaks) {
     return { caseNote: caseNoteText, stub: stubify(caseNoteText, 100) };

@@ -9,26 +9,20 @@ import { setMobileMenuOpen } from 'globalReducers/app';
 
 import { selectDeviceFormat, selectMobileMenuOpen } from 'selectors/app';
 import { selectUser } from '../Authentication/selectors';
+import { switchCaseLoad } from '../EliteApiLoader/actions';
+
+import { selectUserHeaderInfo } from './selectors';
 
 class HeaderContainer extends Component {
 
-  static contextTypes = {
-    intl: intlShape.isRequired,
-  }
-
   render() {
-    const { user, deviceFormat, mobileMenuOpen } = this.props;
-
-    const options = {
-      assignments: 12,
-      facilities: ['Sheffield', 'Cloverfield'],
-    };
+    const { headerUser, user, deviceFormat, mobileMenuOpen, switchCaseLoad: switchCL } = this.props;
 
     // if the device is not desktop and user is not logged in, do not render header
     return deviceFormat === 'desktop' || user ?
       <HeaderComponent
-        user={user}
-        options={options}
+        switchCaseLoad={switchCL}
+        user={headerUser}
         deviceFormat={deviceFormat}
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={this.props.setMobileMenuOpen}
@@ -38,11 +32,17 @@ class HeaderContainer extends Component {
 
 }
 
+HeaderContainer.contextTypes = {
+  intl: intlShape.isRequired,
+};
+
 HeaderContainer.propTypes = {
   user: PropTypes.object,
   deviceFormat: PropTypes.string,
   mobileMenuOpen: PropTypes.bool,
   setMobileMenuOpen: PropTypes.func,
+  switchCaseLoad: PropTypes.func.isRequired,
+  headerUser: PropTypes.object,
 };
 
 HeaderContainer.defaultProps = {
@@ -50,16 +50,19 @@ HeaderContainer.defaultProps = {
   deviceFormat: 'desktop',
   mobileMenuOpen: false,
   setMobileMenuOpen: () => {},
+  headerUser: undefined,
 };
 
 const mapStateToProps = createStructuredSelector({
   user: selectUser(),
   deviceFormat: selectDeviceFormat(),
   mobileMenuOpen: selectMobileMenuOpen(),
+  headerUser: selectUserHeaderInfo(),
 });
 
 const mapDispatchToProps = {
   setMobileMenuOpen,
+  switchCaseLoad,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer);

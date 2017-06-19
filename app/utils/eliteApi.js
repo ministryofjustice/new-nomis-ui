@@ -14,23 +14,39 @@ const searchQueryToString = (searchObj) => {
   if (searchObj.size === 0) {
     return '';
   }
-  return Object.keys(searchObj).map((key) => {
+  return Object.keys(searchObj).filter((key) => searchObj[key]).map((key) => {
     const value = searchObj[key];
     switch (key) {
       case 'firstName':
         return `firstName:like:'${value}%'`;
       case 'lastName':
         return `lastName:like:'${value}%'`;
+      case 'offenderNo':
+        return `offenderNo:like:'%25${value}%'`;
+      case 'bookingNo':
+        return `bookingNo:like:'%25${value}%'`;
+      case 'locations':
+        if (value && value.length > 0) {
+          return `assignedLivingUnitId:in:${value.join('|')}`;
+        }
+        return 'strip';
       default:
         return `${key}:eq:${value}`;
     }
-  }).join(',and:');
+  }).filter((x) => x !== 'strip').join(',and:');
 };
 
 export const bookings = (token, searchObj, pagination, baseUrl) => axios({
   baseURL: baseUrl,
   method: 'get',
   url: `/booking?query=${searchQueryToString(searchObj)}&limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}`,
+  headers: { Authorization: token } })
+    .then((response) => response.data);
+
+export const officerAssignments = (token, _, pagination, baseUrl) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  url: `/users/me/bookingAssignments?limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}`,
   headers: { Authorization: token } })
     .then((response) => response.data);
 
@@ -64,13 +80,15 @@ const casenoteQueryStringGen = (caseNoteOptions) => {
   if (!caseNoteOptions || caseNoteOptions.size === 0) {
     return '';
   }
-  return `&query=${Object.keys(caseNoteOptions).map((key) => {
+  return `&query=${Object.keys(caseNoteOptions).filter((key) => caseNoteOptions[key]).map((key) => {
     const value = caseNoteOptions[key];
     switch (key) {
-      case 'firstName':
-        return `firstName:like:'${value}%'`;
-      case 'lastName':
-        return `lastName:like:'${value}%'`;
+      case 'caseNoteTypeFilter':
+        return `type:in:'${value}'`;
+      case 'caseNoteSubTypeFilter':
+        return `subType:in:'${value}'`;
+      case 'caseNoteSourceFilter':
+        return `source:in:'${value}'`;
       default:
         return `${key}:eq:${value}`;
     }
@@ -130,6 +148,13 @@ export const users = {
     method: 'get',
     url: '/users/me/caseLoads',
     headers: { Authorization: token },
+  }).then((response) => response.data),
+  switchCaseLoads: (token, baseUrl, caseLoadId) => axios({
+    baseURL: baseUrl,
+    method: 'put',
+    url: '/users/me/activeCaseLoad',
+    headers: { Authorization: token },
+    data: { caseLoadId },
   }).then((response) => response.data),
   staffId: (token, id, baseUrl) => axios({
     baseURL: baseUrl,
@@ -237,6 +262,13 @@ export const imageMeta = (token, baseUrl, imageId) => axios({
   url: `images/${imageId}`,
   headers: { Authorization: token } })
     .then((response) => response.data);
+
+export const officerDetails = (token, baseUrl, staffId) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  url: `users/${staffId}`,
+  headers: { Authorization: token } })
+    .then((res) => res.data);
 
 export const imageData = (token, baseUrl, imageId) => axios({
   baseURL: baseUrl,

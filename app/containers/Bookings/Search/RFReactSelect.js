@@ -16,7 +16,7 @@ RFReactSelect.defaultProps = {
 RFReactSelect.propTypes = {
   input: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.array.isRequired]),
+    value: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.array.isRequired, PropTypes.object.isRequired]),
     onBlur: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     onFocus: PropTypes.func.isRequired,
@@ -31,7 +31,7 @@ const tokenizer = (string) => string.split('-');
 
 export default function RFReactSelect({ input, options, multi, className, filterOptions }) {
   const { name, value, onBlur, onChange, onFocus } = input;
-  const transformedValue = transformValue(value, options, multi);
+  const transformedValue = transformValue(value && value.toJS ? value.toJS() : value, options, multi);
   return (
     <VirtualSelect
       data-name={'VirtualSelect'}

@@ -14,6 +14,8 @@ import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import authenticationReducer from 'containers/Authentication/reducer';
 import configReducer from 'containers/ConfigLoader/reducer';
 import eliteApiLoaderReducer from 'containers/EliteApiLoader/reducer';
+import assignmentsReducer from 'containers/Assignments/reducer';
+
 /*
  * routeReducer
  *
@@ -54,6 +56,7 @@ export default function createReducer(asyncReducers) {
     authentication: authenticationReducer,
     config: configReducer,
     eliteApiLoader: eliteApiLoaderReducer,
+    assignments: assignmentsReducer,
     ...asyncReducers,
   });
 }

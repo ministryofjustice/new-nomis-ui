@@ -3,6 +3,7 @@
 
 // Create a String for indexing the query based on the query object.
 export const queryHash = (query) => {
+  if (query === 'officerAssignments') return query;
   const hash = `query=${Object.keys(query).map((k) => [k, query[k]].join(':')).join('&')}`;
   return hash;
 };

@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ActionBlock from './ActionBlock';
+import ActionBlockMobile from './ActionBlockMobile';
 
 import {
   WrapperColumn,
-} from './actionblock.theme';
+} from './mobile.theme';
 
 
 function ActionBlocksMobile({ actions }) {
   return (
-    <WrapperColumn>
+    <WrapperColumn data-name={'WrapperColumn'}>
       {actions.map((action) =>
-        (<ActionBlock {...action} />))}
+        (<ActionBlockMobile data-name={'ActionBlockMobile'} {...action} />))}
     </WrapperColumn>
   );
 }

@@ -5,9 +5,18 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
-import { selectCaseNotesQuery, selectCaseNotesPagination, selectBookingDetailsId, selectCaseNotesView, selectDisplayAmendCaseNoteModal } from '../../selectors';
+import { selectDeviceFormat } from 'selectors/app';
+import { selectCaseNotesQuery,
+  selectCaseNotesPagination,
+  selectBookingDetailsId,
+  selectCaseNotesView,
+  selectDisplayAmendCaseNoteModal,
+} from '../../selectors';
+
 import CaseNoteList from './caseNoteList';
+import CaseNoteListMobile from './caseNoteListMobile';
 import CaseNoteDetails from './caseNoteDetails';
+import CaseNoteDetailsMobile from './caseNoteDetailsMobile';
 
 import {
   selectCaseNotes,
@@ -29,12 +38,13 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
   }
 
   render() {
-    const { caseNotesView, openAmendModal, displayAmendCaseNoteModal } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
+    const { caseNotesView, openAmendModal, displayAmendCaseNoteModal, deviceFormat } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
 
     if (caseNotesView === 'LIST') {
-      return <CaseNoteList />;
+      return deviceFormat === 'desktop' ? <CaseNoteList /> : <CaseNoteListMobile />;
     }
-    return <CaseNoteDetails displayAmendCaseNoteModal={displayAmendCaseNoteModal} openAmendModal={openAmendModal} />;
+    return deviceFormat === 'desktop' ? <CaseNoteDetails displayAmendCaseNoteModal={displayAmendCaseNoteModal} openAmendModal={openAmendModal} /> :
+    <CaseNoteDetailsMobile displayAmendCaseNoteModal={displayAmendCaseNoteModal} openAmendModal={openAmendModal} />;
   }
 }
 
@@ -46,6 +56,7 @@ CaseNotes.propTypes = {
   openAmendModal: PropTypes.func.isRequired,
   caseNotesView: PropTypes.string.isRequired,
   displayAmendCaseNoteModal: PropTypes.bool.isRequired,
+  deviceFormat: PropTypes.string.isRequired,
 };
 
 CaseNotes.defaultProps = {
@@ -72,6 +83,7 @@ const mapStateToProps = createStructuredSelector({
   totalResults: selectTotalCaseNotes(),
   caseNotesView: selectCaseNotesView(),
   displayAmendCaseNoteModal: selectDisplayAmendCaseNoteModal(),
+  deviceFormat: selectDeviceFormat(),
 });
 
 // Wrap the component to inject dispatch and state into it

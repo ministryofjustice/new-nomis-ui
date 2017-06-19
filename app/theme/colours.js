@@ -144,6 +144,11 @@ export default {
       },
     },
   },
+  assignments: {
+    idText: bc.grey4D,
+    linkText: bc.govukBlue,
+    mobileBackgroundColour: bc.greyF2,
+  },
   modal: {
     secondaryText: bc.grey4D,
   },

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import colours from 'theme/colours';
 // import desktop from 'theme/desktop';
-import Button from 'components/Button';
+import { StyledLink } from 'components/Button/button.theme';
 import { responsiveCols, fixedCols } from 'components/CommonTheme/responsiveColumns';
 
 export const Location = styled.div`
@@ -32,6 +32,7 @@ export const FaceImage = styled.div`
   width: 35%;
   height: 263px;
   padding: 25px;
+  cursor: pointer;
   img {
     width: 100%;
   }
@@ -84,6 +85,7 @@ export const AlertBlock = styled.div`
 export const AlertCodes = styled.div`
   color: ${colours.alertCodes.textColour};
   font-weight: bold;
+  display: inline-block;
 `;
 export const AddCaseNoteButton = styled.div`
   width: 100%;
@@ -92,9 +94,11 @@ export const AddCaseNoteButton = styled.div`
   height: initial !important;
 `;
 
-export const AddCaseNoteButtonComponent = styled(Button)`
+export const AddCaseNoteButtonComponent = styled(StyledLink)`
   width: 100%;
   height: 100px;
+  font-size: 38px;
+  padding: 21px calc(50% - 154px);
 `;
 
 export const ContentWrapper = styled.div`

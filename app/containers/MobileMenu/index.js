@@ -7,29 +7,39 @@ import MobileMenuComponent from 'components/MobileMenu';
 import ModalData from 'containers/Footer/modal-data';
 
 import { setMobileMenuOpen, setModalData } from 'globalReducers/app';
-import { selectUser } from '../Authentication/selectors';
+import { selectUserHeaderInfo } from '../Header/selectors';
+import { switchCaseLoad } from '../EliteApiLoader/actions';
 
 class MobileMenu extends PureComponent { // eslint-disable-line react/prefer-stateless-function
-  static propTypes = {
-    user: PropTypes.object.isRequired,
-    setMobileMenuOpen: PropTypes.func.isRequired,
-    setModalData: PropTypes.func.isRequired,
-  }
   render() {
-    const { user } = this.props;
+    const { user, switchCaseLoad: sL } = this.props;
     return (
-      <MobileMenuComponent modalData={ModalData} setModalData={this.props.setModalData} user={user} setMobileMenuOpen={this.props.setMobileMenuOpen} />
+      <MobileMenuComponent
+        switchCaseLoad={sL}
+        modalData={ModalData}
+        setModalData={this.props.setModalData}
+        user={user}
+        setMobileMenuOpen={this.props.setMobileMenuOpen}
+      />
     );
   }
 }
 
+MobileMenu.propTypes = {
+  user: PropTypes.object.isRequired,
+  setMobileMenuOpen: PropTypes.func.isRequired,
+  setModalData: PropTypes.func.isRequired,
+  switchCaseLoad: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = createStructuredSelector({
-  user: selectUser(),
+  user: selectUserHeaderInfo(),
 });
 
 const mapDispatchToProps = {
   setMobileMenuOpen,
   setModalData,
+  switchCaseLoad,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MobileMenu);

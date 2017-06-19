@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import colours from 'theme/colours';
+import { Link } from 'react-router';
 
 export const MenuWrapper = styled.div`
   align-items: center;
@@ -34,6 +35,25 @@ export const DropdownMenu = styled.div`
 `;
 
 export const DropdownMenuOption = styled.a`
+  box-sizing: border-box;
+  color: rgba(51, 51, 51, 0.8);
+  cursor: pointer;
+  display: block;
+  padding: 16px 10px;
+  background: ${colours.userMenu.bg};
+  color: white;
+  font-size: 19px;
+  align-items: center;
+  text-align: center;
+  border-top: 1px solid lightblue;
+  height: 60px;
+  text-decoration: none;
+  &:hover{
+    background: ${colours.userMenu.hover};
+  }
+`;
+
+export const DropdownMenuLink = styled(Link)`
   box-sizing: border-box;
   color: rgba(51, 51, 51, 0.8);
   cursor: pointer;

@@ -5,7 +5,6 @@ import colours from 'theme/colours';
 const desktopTabNav = colours.bookings.details.desktopTabNav;
 
 export const TabWrapper = styled.div`
-  margin: 10px 0;
   width: 100%;
   display: flex;
   flex-direction: row;

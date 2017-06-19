@@ -1,14 +1,8 @@
 export default {
   updates: {
-    type: 'photo',
-    photos: [
-      8572,
-      9393,
-      9548,
-    ],
-    name: 'SMITH, David',
-    id: '1234567890000',
-    keyWorker: 'Payne, Ron',
+    type: 'info',
+    title: 'Updates',
+    body: 'Welcome to the updates section. I hope it keeps you updated',
   },
   help: {
     type: 'info',

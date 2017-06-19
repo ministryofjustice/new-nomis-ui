@@ -26,12 +26,10 @@ import {
   SET_CASENOTES_PAGINATION,
   SET_ADD_CASENOTE_MODAL,
   SET_AMEND_CASENOTE_MODAL,
+  CASE_NOTE_FILTER,
 } from './constants';
 
 import results from './Results/resultsData';
-
-// import { push } from 'react-router-redux';
-// import { details } from './defaults';
 
 const detailsState = fromJS({
   id: 20847,
@@ -53,8 +51,7 @@ const initialState = fromJS({
   loading: false,
   results, // for test purposes putting something in here...
   error: null,
-  // details, // for test purposes putting something in here...
-  query: { firstName: 'DAV', lastName: 'S' }, // for test purposes putting something in here...
+  query: { firstName: '', lastName: '' }, // for test purposes putting something in here...
   sortOrder: 'TEST',
   pagination: { perPage: 7, pageNumber: 0 },
   details: detailsState,
@@ -128,6 +125,10 @@ function searchReducer(state = initialState, action) {
       const newPageNumber = Math.floor(currentFirstId / newPerPage);
       const newPagination = { perPage: newPerPage, pageNumber: newPageNumber };
       return state.set('pagination', fromJS(newPagination)).set('resultsView', fromJS(action.payload));
+    }
+
+    case CASE_NOTE_FILTER.SUCCESS: {
+      return state.setIn(['details', 'caseNotes', 'Query'], fromJS(action.payload.query));
     }
 
     default: {

@@ -1,0 +1,24 @@
+loading: false
+results, // for test purposes putting something in here...
+error: null
+query:
+  firstName: ''
+  lastName: ''
+sortOrder: 'TEST'
+pagination:
+  perPage: 7
+  pageNumber: 0
+details:
+  id: 20847
+  activeTabId: 0
+  tabs: [{ tabId: 0, title: 'Offender Details' }, { tabId: 1, title: 'Physical Attributes' }, { tabId: 2, title: 'Alerts' }, { tabId: 3, title: 'Case Notes' }]
+  alertsPagination: { perPage: 7, pageNumber: 0 }
+  caseNotes:
+    Pagination: { perPage: 5, pageNumber: 0 }
+    Query: {}
+    viewId: 0
+    viewOptions: ['LIST', 'DETAIL']
+    amendCaseNoteModal: false
+    caseNoteDetailId: null
+  addCaseNoteModal: false
+resultsView: 'List', // List or Grid

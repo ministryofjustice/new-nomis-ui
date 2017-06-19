@@ -42,6 +42,14 @@ export const ADD_NEW_CASENOTE = {
   ERROR: 'app/bookings/details/addNewCaseNote/ERROR',
 };
 
+export const CASE_NOTE_FILTER = {
+  BASE: 'app/bookings/details/setCaseNotesQuery',
+  LOADING: 'app/bookings/details/setCaseNotesQuery/LOADING',
+  SUCCESS: 'app/bookings/details/setCaseNotesQuery/SUCCESS',
+  ERROR: 'app/bookings/details/setCaseNotesQuery/ERROR',
+};
+
+
 export const AMEND_CASENOTE = {
   BASE: 'app/bookings/details/amendCaseNote',
   LOADING: 'app/bookings/details/amendCaseNote/LOADING',

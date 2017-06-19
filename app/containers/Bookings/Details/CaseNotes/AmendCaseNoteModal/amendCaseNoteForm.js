@@ -33,5 +33,5 @@ AddCaseNoteForm.defaultProps = {
 };
 
 export default reduxForm({
-  form: 'addCaseNote', // a unique identifier for this form
+  form: 'amendCaseNote', // a unique identifier for this form
 })(AddCaseNoteForm);
