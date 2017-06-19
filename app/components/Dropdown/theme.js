@@ -7,7 +7,7 @@ export const MenuWrapper = styled.div`
   background: ${colours.userMenu.bg};
   display: flex;
   height: 100%;
-  width: 269px;
+  width: 369px;
   position: relative;
 `;
 

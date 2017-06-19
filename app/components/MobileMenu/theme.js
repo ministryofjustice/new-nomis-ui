@@ -25,15 +25,15 @@ export const MobileMenuHeader = styled.div`
 export const UserName = styled.strong`
   position: absolute;
   top: 55px;
-  left: 230px;
+  left: 50px;
   font-size: 50px;
   color: white;
 `;
 
 export const CaseLoad = styled.span`
-  position: absolute;
+  position: relative;
   top: 122px;
-  left: 230px;
+  left: 55px;
   font-size: 40px;
   color: white;
 `;

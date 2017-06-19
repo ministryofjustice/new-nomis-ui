@@ -24,11 +24,13 @@ function MobileMenu({ user, modalData, setMobileMenuOpen, setModalData, switchCa
     setMobileMenuOpen(false);
   };
 
+  const caseLoadDesc = user.activeCaseLoad && user.activeCaseLoad.description ? user.activeCaseLoad.description : user.activeCaseLoadId;
+
   return (
     <MobileMenuContainer>
       <MobileMenuHeader>
-        <UserName>{user.firstName}</UserName>
-        <CaseLoad>{user.activeCaseLoadId}</CaseLoad>
+        <UserName>{user.firstName} {user.lastName}</UserName>
+        <CaseLoad>{caseLoadDesc}</CaseLoad>
       </MobileMenuHeader>
       <MobileMenuOption to={'/search'} onClick={removeMobileMenu}>Search<ForwardArrow svg={forwardBack} /></MobileMenuOption>
       <MobileMenuOption to={'/assignments'}>
@@ -39,14 +41,13 @@ function MobileMenu({ user, modalData, setMobileMenuOpen, setModalData, switchCa
         <ForwardArrow svg={forwardBack} />
       </MobileMenuOption>
       {user.caseLoadOptions.map((option) => {
-        const newObj = <MobileMenuOption key={option.caseLoadId} onClick={() => { switchCaseLoad(option.caseLoadId); }} data-id={'dropdown-option'}>{option.caseLoadId}<ForwardArrow svg={forwardBack} /></MobileMenuOption>;
+        const newObj = <MobileMenuOption key={option.caseLoadId} onClick={() => { switchCaseLoad(option.caseLoadId); }} data-id={'dropdown-option'}>{option.description}<ForwardArrow svg={forwardBack} /></MobileMenuOption>;
         return newObj;
       })}
       <MobileMenuOption key={'logout'} to={'/logout'} data-id={'dropdown-option'} onClick={removeMobileMenu}>Log out<ForwardArrow svg={forwardBack} /></MobileMenuOption>
       <MobileMenuAdditionalOption data-name={'updates'} to={'/modalMobile'} onClick={linkClick}>Updates</MobileMenuAdditionalOption>
       <MobileMenuAdditionalOption data-name={'help'} to={'/modalMobile'} onClick={linkClick}>Help</MobileMenuAdditionalOption>
       <MobileMenuAdditionalOption data-name={'terms'} to={'/modalMobile'} onClick={linkClick}>Terms and conditions</MobileMenuAdditionalOption>
-      <MobileMenuAdditionalOption data-name={'cymraeg'} to={'/modalMobile'} onClick={linkClick}>Terms and conditions</MobileMenuAdditionalOption>
       <MobileMenuSignature>Powered By Syscon</MobileMenuSignature>
     </MobileMenuContainer>
   );
