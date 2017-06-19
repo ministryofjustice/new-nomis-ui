@@ -124,7 +124,7 @@ export default function createRoutes(store) {
       name: 'addCaseNote',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Bookings/Details/AddCaseNoteMobilePage'),
+          System.import('containers/Bookings/details/AddCaseNoteMobilePage'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -141,7 +141,7 @@ export default function createRoutes(store) {
       name: 'amendCaseNote',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Bookings/Details/CaseNotes/AmendCaseNoteMobilePage'),
+          System.import('containers/Bookings/details/CaseNotes/AmendCaseNoteMobilePage'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -158,7 +158,7 @@ export default function createRoutes(store) {
       name: 'filterCaseNotes',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Bookings/Details/CaseNotes/caseNoteFilterFormMobile'),
+          System.import('containers/Bookings/details/CaseNotes/caseNoteFilterFormMobile'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -240,7 +240,7 @@ export default function createRoutes(store) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),
           System.import('containers/Bookings/sagas'),
-          System.import('containers/Bookings/Details'),
+          System.import('containers/Bookings/details'),
         ]);
 
         const renderRoute = loadModule(cb);
