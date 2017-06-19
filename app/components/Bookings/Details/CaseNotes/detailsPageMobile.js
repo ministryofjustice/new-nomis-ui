@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 // import Button from 'components/Button';
 
-import AmendCaseNoteModal from 'containers/Bookings/Details/CaseNotes/AmendCaseNoteModal';
+import AmendCaseNoteModal from 'containers/Bookings/details/CaseNotes/AmendCaseNoteModal';
 
 import {
   CaseNoteDetailsWrapper,
