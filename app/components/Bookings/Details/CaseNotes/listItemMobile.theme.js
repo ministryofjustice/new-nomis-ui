@@ -18,6 +18,7 @@ export const DateTimeIdBlock = styled.div`
 export const DateTimeBlock = styled.div`
   height: 110px;
   margin-left: 24px;
+  margin-top: 24px;
 `;
 
 export const DateBlock = styled.div`
@@ -30,7 +31,7 @@ export const TimeBlock = styled.div`
 `;
 
 export const CaseNoteId = styled.div`
-  font-size: 16px;
+  font-size: 27px;
   color: ${colours.altTextColour};
 `;
 
@@ -40,6 +41,7 @@ export const MiddleBlock = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: ${responsiveCols(8)};
+  margin-top: 24px;
 `;
 
 export const TypeAndText = styled.div`
@@ -48,17 +50,19 @@ export const TypeAndText = styled.div`
 
 export const TypeDescription = styled.div`
   padding-top: 5px;
-  font-size: 19px;
+  font-size: 30px;
   font-weight: bold;
+  margin-bottom: 10px;
 `;
 
 export const CaseNoteText = styled.div`
-  font-size: 19px;
+  font-size: 30px;
   padding-right: 25px;
+  margin-bottom: 30px;
 `;
 
 export const AssignedOfficer = styled.div`
-  font-size: 16px;
+  font-size: 27px;
   color: ${colours.altTextColour};
 `;
 
@@ -69,7 +73,7 @@ export const SourceBlock = styled.div`
 `;
 
 export const Source = styled.div`
-  font-size: 16px;
+  font-size: 27px;
   color: ${colours.altTextColour};
 `;
 

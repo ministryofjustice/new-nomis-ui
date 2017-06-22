@@ -4,6 +4,8 @@ import Slider from 'react-slick';
 
 import Button from 'components/Button';
 import EliteImage from 'containers/EliteContainers/Image';
+import EliteOfficerName from 'containers/EliteContainers/OfficerName';
+
 import { ModalContainer,
   ModalBackground,
   ModalEnclosure,
@@ -108,7 +110,7 @@ class Modal extends Component {
               <ModalImageDetails>
                 <ModalImageDetailsName>{modalData.name}</ModalImageDetailsName>
                 <ModalImageDetailsID>{`ID: ${modalData.id}`}</ModalImageDetailsID>
-                <ModalImageDetailsKeyWorker>{`Key Worker: ${modalData.keyWorker}`}</ModalImageDetailsKeyWorker>
+                <ModalImageDetailsKeyWorker>Key Worker: <EliteOfficerName staffId={modalData.keyWorker} /></ModalImageDetailsKeyWorker>
                 <ModalImageDetailsCurrent>{`${this.state.actualPosition}/${modalData.photos.length}`}</ModalImageDetailsCurrent>
               </ModalImageDetails>
             </ModalTypeImageContainer>

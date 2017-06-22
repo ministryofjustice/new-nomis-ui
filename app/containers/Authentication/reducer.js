@@ -22,6 +22,7 @@ import {
   LOGOUT_SUCCESS,
   CHANGE_USERNAME_INPUT,
   CHANGE_PASSWORD_INPUT,
+  TOKEN_UPDATE,
 } from './constants';
 // import { push } from 'react-router-redux';
 
@@ -43,6 +44,10 @@ function authenticationReducer(state = initialState, action) {
         .set('loginData', action.payload.loginData)
         .set('loggedIn', true)
         .set('lastLogin', Date().toString());
+    }
+
+    case TOKEN_UPDATE: {
+      return state.set('loginData', action.payload);
     }
     case LOGOUT_SUCCESS: {
       return state

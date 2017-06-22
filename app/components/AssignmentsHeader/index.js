@@ -13,12 +13,11 @@ import { AssignmentsHeaderWrapper,
 
 
 function AssignmentsHeader({ user, options, resultsViewToggle }) {
-  const caseLoadDesc = user.activeCaseLoad && user.activeCaseLoad.description ? user.activeCaseLoad.description : user.activeCaseLoadId;
   return (
     <AssignmentsHeaderWrapper>
       <PortraitImage background={'/img/assignmentsHeader-missing-portrait.png'} />
-      <UserName>{user.firstName} {user.lastName}</UserName>
-      <CaseLoad>{caseLoadDesc}</CaseLoad>{/* <SwitchCaseLoad>Switch Caseload</SwitchCaseLoad> */}
+      <UserName>{user.firstName}</UserName>
+      <CaseLoad>{user.activeCaseLoadId}</CaseLoad>{/* <SwitchCaseLoad>Switch Caseload</SwitchCaseLoad> */}
       <YouHaveAssignments>You have <NotificationNumberAssignments>{options.assignments}</NotificationNumberAssignments> Assignments</YouHaveAssignments>
       <ResultsViewToggleWrapper>{resultsViewToggle}</ResultsViewToggleWrapper>
     </AssignmentsHeaderWrapper>

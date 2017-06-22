@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button, { ButtonRow } from 'components/Button';
+import EliteLocation from 'containers/EliteContainers/Location';
 
 import { InputLabel, InputGroup } from 'components/FormComponents/Input/input.theme';
 
 // import Locations from '../Search/locations.json';
 // import createFilterOptions from '../Search/fastFilterFun';
 
-import { QueryWrapper, QueryItemHolder, QueryValue } from './query.theme';
+import { QueryWrapper, QueryItemHolder, QueryValue, QueryValueScroll } from './query.theme';
 
 // const filterOptions = createFilterOptions({ options: Locations });
 
@@ -20,6 +21,7 @@ const QueryView = (props) => {
   const firstName = initialValues.firstName ? initialValues.firstName : '';
   const lastName = initialValues.lastName ? initialValues.lastName : '';
   const offenderNo = initialValues.offenderNo ? initialValues.offenderNo : null;
+  const bookingNo = initialValues.bookingNo ? initialValues.bookingNo : null;
   const locations = initialValues.locations ? initialValues.locations : [];
 
   return (
@@ -33,13 +35,17 @@ const QueryView = (props) => {
         <QueryValue>{lastName}</QueryValue>
       </QueryItemHolder>
       <QueryItemHolder>
-        <InputLabel htmlFor="offenderNo">Noms #</InputLabel>
+        <InputLabel htmlFor="offenderNo">NOMS #</InputLabel>
         <QueryValue>{offenderNo}</QueryValue>
+      </QueryItemHolder>
+      <QueryItemHolder>
+        <InputLabel htmlFor="bookingNo">Booking #</InputLabel>
+        <QueryValue>{bookingNo}</QueryValue>
       </QueryItemHolder>
       <QueryItemHolder>
         <InputGroup>
           <InputLabel htmlFor="location">Location</InputLabel>
-          <QueryValue>{locations.map((location) => `${location} `)}</QueryValue>
+          <QueryValueScroll>{locations.map((location) => <EliteLocation key={location} locationId={location} />)}</QueryValueScroll>
         </InputGroup>
       </QueryItemHolder>
       <ButtonRow>

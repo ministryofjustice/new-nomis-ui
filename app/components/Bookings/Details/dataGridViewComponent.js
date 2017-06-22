@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import EliteImage from 'containers/EliteContainers/Image';
@@ -18,21 +16,17 @@ function DgRow({ title, value: v, values, imageId, columnWidths, setModalOpen, s
   const showModal = function () {
     const toTitleCase = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
 
-    const { firstName, lastName, bookingNo } = headerDetails;
+    const { firstName, lastName, bookingNo, assignedOfficerUserId } = headerDetails;
 
     const nameString = `${lastName.toUpperCase()}, ${toTitleCase(firstName)}`;
-    // Officer Loader...
-    const officer = { firstName: 'PAYNE', lastName: 'RON' };
-    const officerNameString = `${toTitleCase(officer.lastName)}, ${toTitleCase(officer.firstName)}`;
 
     const modalData = {
       type: 'photo',
       photos: this,
       name: nameString,
       id: bookingNo,
-      keyWorker: officerNameString,
+      keyWorker: assignedOfficerUserId,
     };
-
     setModalOpen(true);
     setModalData(modalData);
   };

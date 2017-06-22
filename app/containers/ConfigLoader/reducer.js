@@ -19,7 +19,7 @@ import {
 
 // Default to my version...
 const initialState = fromJS({
-  data: { apiServer: '/api/' },
+  data: { apiServer: 'http://207.230.255.121:8080/api/' },
   updated: false,
   updating: false,
   error: '',

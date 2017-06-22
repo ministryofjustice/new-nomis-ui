@@ -1,4 +1,3 @@
-
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
@@ -13,16 +12,28 @@ import DataGrid from 'components/Bookings/Details/dataGridViewComponent';
 // import { search } from './actions';
 import { setModalOpen, setModalData } from 'globalReducers/app';
 
-import { selectPhysicalAttributes, selectHeaderDetail } from '../../selectors';
+import { selectPhysicalAttributes, selectPhysicalMarks, selectHeaderDetail } from '../../selectors';
 
 class PhysicalAttributes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { physicalAttributes, headerDetails } = this.props;
+    const { physicalAttributes, physicalMarks, headerDetails } = this.props;
     const CharacteristicsTable = {
       title: 'Characteristics',
       columnWidths: [3, 4],
       rows: physicalAttributes.characteristicGrid,
     };
+
+    const marksArray = physicalMarks.map((mark, index) =>
+      (<DataGrid
+        key={`Mark ${index + 1}`}
+        gridData={{
+          title: `Mark ${index + 1}`,
+          columnWidths: [3, 4],
+          rows: mark,
+        }}
+        headerDetails={headerDetails}
+      />)
+    );
 
     return (<div>
       <DataGrid
@@ -31,6 +42,7 @@ class PhysicalAttributes extends PureComponent { // eslint-disable-line react/pr
         setModalData={this.props.setModalData}
         headerDetails={headerDetails}
       />
+      {marksArray}
       {/* <DataGrid gridData={AliasTable} /> */}
     </div>);
   }
@@ -38,6 +50,7 @@ class PhysicalAttributes extends PureComponent { // eslint-disable-line react/pr
 
 PhysicalAttributes.propTypes = {
   physicalAttributes: PropTypes.object.isRequired,
+  physicalMarks: PropTypes.array.isRequired,
   setModalOpen: PropTypes.func.isRequired,
   setModalData: PropTypes.func.isRequired,
   headerDetails: PropTypes.object.isRequired,
@@ -57,6 +70,7 @@ export function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = createStructuredSelector({
   physicalAttributes: selectPhysicalAttributes(),
+  physicalMarks: selectPhysicalMarks(),
   headerDetails: selectHeaderDetail(),
   // activeTabId: selectCurrentDetailTabId(),
 });

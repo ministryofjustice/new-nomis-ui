@@ -51,20 +51,20 @@ function CaseNoteListItemMobile(props) {
   return (
     <ListDetailItem onClick={action}>
       <DateTimeIdBlock>
-        <DateTimeBlock creationDateTime={creationDateTime} />
+        <DateTimeBlock creationDateTime={creationDateTime} data-name={'DateTimeBlock'} />
       </DateTimeIdBlock>
       <MiddleBlock>
-        <TypeDescription>
+        <TypeDescription data-name={'TypeDescription'}>
           {typeDescription}
         </TypeDescription>
-        <CaseNoteText>
+        <CaseNoteText data-name={'CaseNoteText'}>
           {splitInfo.stub}
         </CaseNoteText>
-        <CaseNoteId>Case Note ID: {caseNoteId}</CaseNoteId>
-        <AssignedOfficer>
+        <CaseNoteId data-name={'CaseNoteId'}>Case Note ID: {caseNoteId}</CaseNoteId>
+        <AssignedOfficer data-name={'AssignedOfficer'}>
           {authorUserId}
         </AssignedOfficer>
-        <Source>
+        <Source data-name={'TypeDescription'}>
           {`Source: ${source}`}
         </Source>
         {splitInfo.amendments ? AmendmentBlock({ amendments: splitInfo.amendments }) : null}

@@ -118,5 +118,9 @@ export const InformationWrapper = styled.div`
   span {
     color: ${colours.bookings.details.mobileHeader.idText};
   }
+
+  officername {
+    display: inline-block;
+  }
 `;
 

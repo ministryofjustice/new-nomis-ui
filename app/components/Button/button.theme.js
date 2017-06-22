@@ -47,7 +47,6 @@ export const Button = styled.button`
   border-bottom: 3px solid ${(props) => colours.buttons[props.buttonstyle].borderBottom};
   color: ${(props) => colours.buttons[props.buttonstyle].text};
   position: relative;
-  margin-bottom: 15px;
 
   &:hover {
     background: ${(props) => colours.buttons[props.buttonstyle].hover.background};
@@ -77,7 +76,6 @@ export const StyledLink = styled((props) => <Link {...omit(props, ['buttonstyle'
   border-bottom: 3px solid ${(props) => colours.buttons[props.buttonstyle].borderBottom};
   color: ${(props) => colours.buttons[props.buttonstyle].text};
   position: relative;
-  margin-bottom: 15px;
 
   &:hover {
     background: ${(props) => colours.buttons[props.buttonstyle].hover.background};
@@ -103,7 +101,6 @@ export const ButtonRow = styled.div`
     }
     &:not(:last-child) {
       margin-right: 15px;
-      margin-bottom: 15px;
     }
   }
 `;
