@@ -4,6 +4,8 @@ import Slider from 'react-slick';
 
 import Button from 'components/Button';
 import EliteImage from 'containers/EliteContainers/Image';
+import EliteOfficerName from 'containers/EliteContainers/OfficerName';
+
 import { ModalContainer,
   ModalBackground,
   ModalEnclosure,

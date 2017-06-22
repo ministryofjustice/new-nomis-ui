@@ -54,3 +54,12 @@ export const QueryValue = styled.div`
   font-size: 26px;
   background: ${colours.filterBlocks.background};
 `;
+
+export const QueryValueScroll = styled(QueryValue)`
+  position: relative;
+  padding-top: 3px;
+  font-size: 26px;
+  background: ${colours.filterBlocks.background};
+  height: 38px;
+  overflow-y: scroll;
+`;

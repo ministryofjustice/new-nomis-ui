@@ -3,7 +3,8 @@ import { push } from 'react-router-redux';
 import { SubmissionError } from 'redux-form/immutable';
 import { addCaseNote, amendCaseNote,
 } from 'utils/eliteApi';
-import { selectToken } from 'containers/Authentication/selectors';
+import { getToken } from 'containers/Authentication/sagas';
+
 import { selectApi } from 'containers/ConfigLoader/selectors';
 import { searchSaga as searchSagaElite, bookingDetailsSaga as bookingDetailsElite } from 'containers/EliteApiLoader/sagas';
 import { loadBookingAlerts, loadBookingCaseNotes, resetCaseNotes } from 'containers/EliteApiLoader/actions';
@@ -77,10 +78,10 @@ export function* addCasenoteSaga(action) {
   const { caseNoteType: type, caseNoteSubType: subType, caseNoteText: text } = action.payload.query;
   const bookingId = yield select(selectBookingDetailsId());
 
-  const token = yield select(selectToken());
+  const token = yield getToken();
   const apiServer = yield select(selectApi());
   try {
-    yield call(addCaseNote, token.token, apiServer, bookingId, type, subType, text);
+    yield call(addCaseNote, token, apiServer, bookingId, type, subType, text);
 
     yield put({ type: ADD_NEW_CASENOTE.SUCCESS });
     yield put(closeAddCaseNoteModal());
@@ -106,11 +107,11 @@ export function* amendCaseNoteSaga(action) {
   const { caseNoteAmendmentText: text } = action.payload.query;
   const bookingId = yield select(selectBookingDetailsId());
   const caseNoteId = yield select(selectCaseNotesDetailId());
-  const token = yield select(selectToken());
+  const token = yield getToken();
   const apiServer = yield select(selectApi());
 
   try {
-    yield call(amendCaseNote, token.token, apiServer, bookingId, caseNoteId, text);
+    yield call(amendCaseNote, token, apiServer, bookingId, caseNoteId, text);
     yield put({ type: ADD_NEW_CASENOTE.SUCCESS });
 
     yield put(closeAmendCaseNoteModal());

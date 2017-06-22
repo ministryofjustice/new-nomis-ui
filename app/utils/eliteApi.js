@@ -8,6 +8,13 @@ export const login = (username, password, baseUrl) => axios({
   data: { username, password } })
   .then((response) => response.data);
 
+export const refreshAuthToken = (baseUrl, refreshToken) => axios({
+  baseURL: baseUrl,
+  method: 'post',
+  url: '/users/token',
+  headers: { Authorization: refreshToken },
+}).then((response) => response.data);
+
 const searchQueryToString = (searchObj) => {
   // HACK: searchObj is an immutable map if there's nothing inside it; otherwise a regular js object.
   // could likely be fixed better!
@@ -167,17 +174,21 @@ export const users = {
 
 const paginationToQuery = (pagination) => `limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}`;
 
-export const locations = (token, baseUrl, pagination) => axios({
+const offsetQuery = ({ offset, limit }) => `limit=${limit}&offset=${offset}`;
+
+export const locations = (token, baseUrl, offset = { offset: 0, limit: 10000 }) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `/locations${pagination ? `?${paginationToQuery(pagination)}` : ''}`,
+  url: `/locations${offset ? `?${offsetQuery(offset)}` : ''}`,
   headers: { Authorization: token } })
     .then((response) => {
       const metaData = response.data.pageMetaData;
       const locs = response.data.locations;
       // If there are any more locations get them now...
-      if (metaData.offset + metaData.limit < metaData.totalRecords) {
-        return locations(token, baseUrl, { perPage: metaData.limit, pageNumber: (metaData.offset + metaData.limit) / metaData.limit })
+      const newOffset = metaData.offset + metaData.limit;
+      const newLimit = metaData.totalRecords - newOffset;
+      if (newLimit > 0) {
+        return locations(token, baseUrl, { offset: newOffset, limit: newLimit })
           .then((newLocations) => locs.concat(newLocations)
         );
       }

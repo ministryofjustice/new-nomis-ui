@@ -17,7 +17,7 @@ function AssignmentsHeader({ user, options, resultsViewToggle }) {
   return (
     <AssignmentsHeaderWrapper>
       <PortraitImage background={'/img/assignmentsHeader-missing-portrait.png'} />
-      <UserName>{user.firstName} {user.lastName}</UserName>
+      <UserName>{user.lastName[0].toUpperCase() + user.lastName.toLowerCase().slice(1)}, {user.firstName[0].toUpperCase() + user.firstName.toLowerCase().slice(1)}</UserName>
       <CaseLoad>{caseLoadDesc}</CaseLoad>{/* <SwitchCaseLoad>Switch Caseload</SwitchCaseLoad> */}
       <YouHaveAssignments>You have <NotificationNumberAssignments>{options.assignments}</NotificationNumberAssignments> Assignments</YouHaveAssignments>
       <ResultsViewToggleWrapper>{resultsViewToggle}</ResultsViewToggleWrapper>

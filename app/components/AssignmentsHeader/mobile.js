@@ -14,7 +14,7 @@ function AssignmentsHeaderMobile({ user, options }) {
   return (
     <AssignmentsHeaderWrapper>
       <PortraitImage background={'/img/assignmentsHeader-missing-portrait-mobile.png'} />
-      <UserName>{user.firstName}</UserName>
+      <UserName>{user.lastName[0].toUpperCase() + user.lastName.toLowerCase().slice(1)}, {user.firstName[0].toUpperCase() + user.firstName.toLowerCase().slice(1)}</UserName>
       <CaseLoad>{user.activeCaseLoadId}</CaseLoad>
       <YouHaveAssignments><NotificationNumberAssignments>{options.assignments}</NotificationNumberAssignments> Assignments</YouHaveAssignments>
     </AssignmentsHeaderWrapper>

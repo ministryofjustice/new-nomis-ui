@@ -22,6 +22,10 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
     window.addEventListener('resize', this.resizeWindow, true);
   }
 
+  componentWillMount() {
+    this.resizeWindow();
+  }
+
   resizeWindow() {
     if (window.innerWidth >= 768) {
       this.props.setDeviceFormat('desktop');
@@ -32,7 +36,6 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
 
   render() {
     const { deviceFormat } = this.props;
-    this.resizeWindow();
 
     return (
       <div>

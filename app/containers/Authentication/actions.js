@@ -30,6 +30,12 @@ export function changeUsernameInput(username) {
     username,
   };
 }
+//
+// export function refresh() {
+//   return {
+//
+//   }
+// }
 
 export function changePasswordInput(password) {
   return {

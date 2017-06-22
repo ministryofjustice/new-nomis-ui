@@ -68,7 +68,7 @@ class Dropdown extends Component {
 
     return (
       <MenuWrapper innerRef={(wrapper) => { this.wrapper = wrapper; }} onMouseDown={this.handleMouseDown} onTouchStart={this.handleMouseDown}>
-        <UserName>{user.firstName} {user.lastName}<NotificationNumberUser>{user.totalAssignments}</NotificationNumberUser></UserName><CaseLoad>{caseLoadDesc}</CaseLoad>
+        <UserName>{user.lastName[0].toUpperCase() + user.lastName.toLowerCase().slice(1)}, {user.firstName[0].toUpperCase() + user.firstName.toLowerCase().slice(1)}<NotificationNumberUser>{user.totalAssignments}</NotificationNumberUser></UserName><CaseLoad>{caseLoadDesc}</CaseLoad>
         <DropdownMenu>
           { this.state.isOpen ? dropDownSelections : null }
         </DropdownMenu>

@@ -18,7 +18,12 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
 
   render() {
     const { viewList, caseNoteDetails, openAmendModal, displayAmendCaseNoteModal } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
-    return <CaseNoteDetailsBlockMobile displayAmendCaseNoteModal={displayAmendCaseNoteModal} viewList={viewList} caseNote={caseNoteDetails} openAmendModal={openAmendModal} />;
+    return (<CaseNoteDetailsBlockMobile
+      displayAmendCaseNoteModal={displayAmendCaseNoteModal}
+      viewList={viewList}
+      caseNote={caseNoteDetails}
+      openAmendModal={openAmendModal}
+    />);
   }
 }
 

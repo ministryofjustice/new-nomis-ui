@@ -29,7 +29,7 @@ function MobileMenu({ user, modalData, setMobileMenuOpen, setModalData, switchCa
   return (
     <MobileMenuContainer>
       <MobileMenuHeader>
-        <UserName>{user.firstName} {user.lastName}</UserName>
+        <UserName>{user.lastName[0].toUpperCase() + user.lastName.toLowerCase().slice(1)}, {user.firstName[0].toUpperCase() + user.firstName.toLowerCase().slice(1)}</UserName>
         <CaseLoad>{caseLoadDesc}</CaseLoad>
       </MobileMenuHeader>
       <MobileMenuOption to={'/search'} onClick={removeMobileMenu}>Search<ForwardArrow svg={forwardBack} /></MobileMenuOption>

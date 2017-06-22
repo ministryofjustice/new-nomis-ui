@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button, { ButtonRow } from 'components/Button';
+import EliteLocation from 'containers/EliteContainers/Location';
 
 import { InputLabel, InputGroup } from 'components/FormComponents/Input/input.theme';
 
 // import Locations from '../Search/locations.json';
 // import createFilterOptions from '../Search/fastFilterFun';
 
-import { QueryWrapper, QueryItemHolder, QueryValue } from './query.theme';
+import { QueryWrapper, QueryItemHolder, QueryValue, QueryValueScroll } from './query.theme';
 
 // const filterOptions = createFilterOptions({ options: Locations });
 
@@ -39,7 +40,7 @@ const QueryView = (props) => {
       <QueryItemHolder>
         <InputGroup>
           <InputLabel htmlFor="location">Location</InputLabel>
-          <QueryValue>{locations.map((location) => `${location} `)}</QueryValue>
+          <QueryValueScroll>{locations.map((location) => <EliteLocation key={location} locationId={location} />)}</QueryValueScroll>
         </InputGroup>
       </QueryItemHolder>
       <ButtonRow>

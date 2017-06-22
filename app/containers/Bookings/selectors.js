@@ -84,8 +84,13 @@ const selectOffenderDetails = () => createSelector(
     const age = bookingDetails.getIn(['Data', 'age']);
     // gender
     const gender = bookingDetails.getIn(['Data', 'physicalAttributes', 'gender']);
-    // categorisation
-    // csra
+    // assessments
+    const assessments = bookingDetails.getIn(['Data', 'assessments']).map((ass) => {
+      const value = ass.get('classification');
+      const code = ass.get('assessmentCode');
+      const title = ass.get('assessmentDesc');
+      return { key: [value, code, title].join('-'), title, value };
+    });
 
     const personalGrid = [{
       key: 'dateOfBirth',
@@ -98,10 +103,10 @@ const selectOffenderDetails = () => createSelector(
     },
     {
       key: 'gender',
-      title: 'gender',
+      title: 'Gender',
       value: gender,
     },
-    ];
+    ].concat(assessments && assessments.toJS ? assessments.toJS() : []);
 
     const aliases = bookingDetails.getIn(['Data', 'aliases']).toJS();
 
@@ -181,6 +186,27 @@ const selectPhysicalAttributes = () => createSelector(
     return { characteristicGrid };
   });
 
+const selectPhysicalMarks = () => createSelector(
+  selectBookingDetail(),
+  (bookingDetails) => {
+    const pcs = bookingDetails.getIn(['Data', 'physicalMarks']).toJS();
+    const marksGridArray = pcs.map((mark, index) => {
+      const { type, side, bodyPart, imageId, orentiation, comment, size } = mark;
+      const gridArray = [];
+      if (type) gridArray.push({ title: 'Type', value: type, key: `${type}${index}` });
+      if (size) gridArray.push({ title: 'Size', value: size, key: `${size}${index}` });
+      if (comment) gridArray.push({ title: 'Comment', value: comment, key: `${comment}${index}` });
+      if (bodyPart) gridArray.push({ title: 'Body Part', value: bodyPart, key: `${bodyPart}${index}` });
+      if (side) gridArray.push({ title: 'Side', value: side, key: `${side}${index}` });
+      if (orentiation) gridArray.push({ title: 'Orientation', value: orentiation, key: `${orentiation}${index}` });
+      if (imageId) gridArray.push({ title: 'Visual', imageId, key: `${imageId}${index}` });
+
+      return gridArray;
+    });
+
+    return marksGridArray;
+  });
+
 const selectAlertsPagination = () => createSelector(
   selectDetails(),
   (caseNotesState) => caseNotesState.get('alertsPagination').toJS()
@@ -234,6 +260,7 @@ export {
   selectOffenderDetails,
   selectOffenderDetailsMobile,
   selectPhysicalAttributes,
+  selectPhysicalMarks,
   selectHeaderDetail,
   selectAlertsPagination,
   selectBookingDetailsId,
