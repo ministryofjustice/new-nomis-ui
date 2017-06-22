@@ -8,11 +8,11 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   title: {
     id: 'app.components.Login.title',
-    defaultMessage: 'Sign in to Prison-NOMIS',
+    defaultMessage: 'Prison-NOMIS',
   },
   subtitle: {
     id: 'app.components.Login.subtitle',
-    defaultMessage: 'Mobile Detention Assistant',
+    defaultMessage: 'Sign in',
   },
   submitButton: {
     id: 'app.components.Login.subsubtitle',
@@ -20,7 +20,7 @@ export default defineMessages({
   },
   usernamePlaceholder: {
     id: 'app.components.Login.usernamePlaceholder',
-    defaultMessage: 'e-mail',
+    defaultMessage: 'username',
   },
   passwordPlaceholder: {
     id: 'app.components.Login.usernamePlaceholder',

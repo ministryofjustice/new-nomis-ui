@@ -39,7 +39,7 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
 
     return (
       <div>
-        <Helmet title="Syscon MVP">
+        <Helmet title="P-Nomis">
           <meta name="viewport" content="width=device-width, initial-scale=0.5" />
         </Helmet>
         <Modal />

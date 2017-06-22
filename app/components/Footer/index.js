@@ -15,7 +15,6 @@ function Footer({ modalData, setModalOpen, setModalData }) {
         <FooterLink data-name={'updates'} onClick={linkClick}>Updates</FooterLink>
         <FooterLink data-name={'help'} onClick={linkClick}>Help</FooterLink>
         <FooterLink data-name={'terms'} onClick={linkClick}>Terms and conditions</FooterLink>
-        <FooterLink data-name={'cymraeg'} onClick={linkClick}>Cymraeg</FooterLink>
       </FooterLinksContainer>
       <FooterSignature>Powered by Syscon Justice Systems</FooterSignature>
     </FooterContainer>

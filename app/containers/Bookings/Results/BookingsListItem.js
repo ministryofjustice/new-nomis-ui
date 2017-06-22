@@ -16,12 +16,12 @@ import { ListDetailItem, ListDetailImage, Name, ID } from './results.theme';
 
 const BookingsListItem = (props) => {
   const { data, action } = props;
-  const { firstName, lastName, facialImageId, bookingNo, assignedLivingUnitId } = data;
+  const { firstName, lastName, facialImageId, bookinoffenderNogNo, offenderNo, assignedLivingUnitId } = data;
   return (
     <ListDetailItem onClick={() => action(data.bookingId)}>
       <ListDetailImage>{facialImageId ? <EliteImage imageId={facialImageId} /> : null}</ListDetailImage>
       <Name>{lastName}, {firstName[0].toUpperCase() + firstName.toLowerCase().slice(1)}</Name>
-      <ID>ID: <strong>{bookingNo}</strong></ID>
+      <ID>ID: <strong>{offenderNo}</strong></ID>
       <EliteLocation locationId={assignedLivingUnitId} />
     </ListDetailItem>
   );

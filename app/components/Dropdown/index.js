@@ -59,16 +59,16 @@ class Dropdown extends Component {
     let dropDownSelections = [];
     dropDownSelections.push(<DropdownMenuLink key={'My Assignments'} to={'/assignments'} data-id={'dropdown-option'}>My Assignments <NotificationNumberAssignments>{user.totalAssignments}</NotificationNumberAssignments></DropdownMenuLink>);
     const facilityArray = user.caseLoadOptions.map((option) => {
-      const newObj = <DropdownMenuOption key={option.caseLoadId} onClick={() => { switchCaseLoad(option.caseLoadId); }} data-id={'dropdown-option'}>{option.caseLoadId}</DropdownMenuOption>;
+      const newObj = <DropdownMenuOption key={option.caseLoadId} onClick={() => { switchCaseLoad(option.caseLoadId); }} data-id={'dropdown-option'}>{option.description}</DropdownMenuOption>;
       return newObj;
     });
     dropDownSelections = dropDownSelections.concat(facilityArray);
     dropDownSelections.push(<DropdownMenuOptionLogOut key={'logout'} href={'/logout'} data-id={'dropdown-option'}>Log out</DropdownMenuOptionLogOut>);
-    const caseLoadDesc = user.activeCaseLoadId; // user.activeCaseLoad && user.activeCaseLoad.description ? user.activeCaseLoad.description : user.activeCaseLoadId;
+    const caseLoadDesc = user.activeCaseLoad && user.activeCaseLoad.description ? user.activeCaseLoad.description : user.activeCaseLoadId;
 
     return (
       <MenuWrapper innerRef={(wrapper) => { this.wrapper = wrapper; }} onMouseDown={this.handleMouseDown} onTouchStart={this.handleMouseDown}>
-        <UserName>{user.firstName}<NotificationNumberUser>{user.totalAssignments}</NotificationNumberUser></UserName><CaseLoad>{caseLoadDesc}</CaseLoad>
+        <UserName>{user.lastName[0].toUpperCase() + user.lastName.toLowerCase().slice(1)}, {user.firstName[0].toUpperCase() + user.firstName.toLowerCase().slice(1)}<NotificationNumberUser>{user.totalAssignments}</NotificationNumberUser></UserName><CaseLoad>{caseLoadDesc}</CaseLoad>
         <DropdownMenu>
           { this.state.isOpen ? dropDownSelections : null }
         </DropdownMenu>

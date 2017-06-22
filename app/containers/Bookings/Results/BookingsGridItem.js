@@ -16,13 +16,13 @@ import { GridDetailItem, GridDetailImage, GridDetailInfo, GridName, GridID } fro
 
 const BookingsGridItem = (props) => {
   const { data, action } = props;
-  const { firstName, lastName, facialImageId, bookingNo, livingUnitId } = data;
+  const { firstName, lastName, facialImageId, bookingNo, offenderNo, livingUnitId } = data;
   return (
     <GridDetailItem onClick={() => action(data.bookingId)}>
       <GridDetailImage>{facialImageId ? <EliteImage imageId={facialImageId} /> : null}</GridDetailImage>
       <GridDetailInfo>
         <GridName>{lastName}, {firstName[0].toUpperCase() + firstName.toLowerCase().slice(1)}</GridName>
-        <GridID>ID: <strong>{bookingNo}</strong></GridID>
+        <GridID>ID: <strong>{offenderNo}</strong></GridID>
         <GridID><EliteLocation locationId={livingUnitId} /></GridID>
       </GridDetailInfo>
     </GridDetailItem>

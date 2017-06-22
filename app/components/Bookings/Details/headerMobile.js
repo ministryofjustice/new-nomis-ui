@@ -18,7 +18,7 @@ import {
 const toTitleCase = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
 
 function HeaderMobile({ inmateData, setModalOpen, setModalData }) {
-  const { firstName, lastName, bookingNo, facialImageId, alertsCodes, assignedLivingUnit, assignedOfficerUserId } = inmateData;
+  const { firstName, lastName, bookingNo, offenderNo, facialImageId, alertsCodes, assignedLivingUnit } = inmateData;
 
   const nameString = `${lastName.toUpperCase()}, ${toTitleCase(firstName)}`;
   // Officer Loader...
@@ -31,6 +31,7 @@ function HeaderMobile({ inmateData, setModalOpen, setModalData }) {
       photos: this,
       name: nameString,
       id: bookingNo,
+      offenderNo: offenderNo,
       keyWorker: officerNameString,
     };
 
@@ -46,8 +47,8 @@ function HeaderMobile({ inmateData, setModalOpen, setModalData }) {
         </FaceImage>
         <InformationWrapper data-name={'InformationWrapper'}>
           <InmateName>{nameString}</InmateName>
-          <InformationBlock><span>ID: </span>{bookingNo}</InformationBlock>
-          <InformationBlock><span>Key Worker: </span><officername><EliteOfficerName staffId={assignedOfficerUserId} /></officername></InformationBlock>
+          <InformationBlock><span>ID: </span>{offenderNo}</InformationBlock>
+          <InformationBlock><span>Key Worker: </span>{officerNameString}</InformationBlock>
           <InformationBlock><span>Alerts: </span><AlertCodes>{alertsCodes.join(', ')}</AlertCodes></InformationBlock>
           <InformationBlock><span>Location: </span>{assignedLivingUnit.description}</InformationBlock>
         </InformationWrapper>

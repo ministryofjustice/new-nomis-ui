@@ -18,10 +18,9 @@ const SearchFormMobile = (props) => {
   return (
     <FormWrapper onSubmit={handleSubmit}>
       <SubmissionError error={error}>{error}</SubmissionError>
-      <Field name="firstName" component={Input} type="text" title="First Name / Alias" placeholder="ex. John" normalize={upper} />
-      <Field name="lastName" component={Input} type="text" title="Last Name" placeholder="ex. Doe" normalize={upper} autocomplete="off" spellcheck="false" />
+      <Field name="firstName" component={Input} type="text" title="First Name / Alias" placeholder="ex. John" />
+      <Field name="lastName" component={Input} type="text" title="Last Name" placeholder="ex. Doe" autocomplete="off" spellcheck="false" />
       <Field name="offenderNo" component={Input} type="text" title="NOMS Number" autocomplete="off" />
-      <Field name="bookingNo" component={Input} type="text" title="Booking Number" autocomplete="off" />
       <InputGroup data-name={'InputGroup'}>
         <InputLabel htmlFor="location">Location</InputLabel>
         <Field

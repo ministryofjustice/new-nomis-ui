@@ -1,7 +1,4 @@
 ---
-# Serves as base route for all api calls to Elite.
-# apiServer: http://notm-dev.azurewebsites.net/api/
-apiServer: http://207.230.255.121:8080/api/
 
 # What users should be able to search on, and their titles.
 # Ordering will stay the same.

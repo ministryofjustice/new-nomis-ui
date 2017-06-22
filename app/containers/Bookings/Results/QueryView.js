@@ -21,7 +21,6 @@ const QueryView = (props) => {
   const firstName = initialValues.firstName ? initialValues.firstName : '';
   const lastName = initialValues.lastName ? initialValues.lastName : '';
   const offenderNo = initialValues.offenderNo ? initialValues.offenderNo : null;
-  const bookingNo = initialValues.bookingNo ? initialValues.bookingNo : null;
   const locations = initialValues.locations ? initialValues.locations : [];
 
   return (
@@ -35,12 +34,8 @@ const QueryView = (props) => {
         <QueryValue>{lastName}</QueryValue>
       </QueryItemHolder>
       <QueryItemHolder>
-        <InputLabel htmlFor="offenderNo">NOMS #</InputLabel>
+        <InputLabel htmlFor="offenderNo">Noms #</InputLabel>
         <QueryValue>{offenderNo}</QueryValue>
-      </QueryItemHolder>
-      <QueryItemHolder>
-        <InputLabel htmlFor="bookingNo">Booking #</InputLabel>
-        <QueryValue>{bookingNo}</QueryValue>
       </QueryItemHolder>
       <QueryItemHolder>
         <InputGroup>

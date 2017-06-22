@@ -110,7 +110,7 @@ class Modal extends Component {
               <ModalImageDetails>
                 <ModalImageDetailsName>{modalData.name}</ModalImageDetailsName>
                 <ModalImageDetailsID>{`ID: ${modalData.id}`}</ModalImageDetailsID>
-                <ModalImageDetailsKeyWorker>Key Worker: <EliteOfficerName staffId={modalData.keyWorker} /></ModalImageDetailsKeyWorker>
+                <ModalImageDetailsKeyWorker>{`Key Worker: ${modalData.keyWorker}`}</ModalImageDetailsKeyWorker>
                 <ModalImageDetailsCurrent>{`${this.state.actualPosition}/${modalData.photos.length}`}</ModalImageDetailsCurrent>
               </ModalImageDetails>
             </ModalTypeImageContainer>

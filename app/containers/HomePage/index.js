@@ -38,24 +38,24 @@ class HomePage extends PureComponent { // eslint-disable-line react/prefer-state
       title: 'Search Offenders',
       actionTitle: 'Search Offenders',
       link: '/search',
-      description: 'et venenatis libero. Fusce at accumsan purus, vitae fringilla sem. Proin tristique, sem vel blandit consectetur.' },
+      description: 'Search for Offenders within your selected prison' },
     {
       key: '2',
-      title: 'Berwyn Assignments',
-      actionTitle: 'See Assignments',
+      title: 'My Assignments',
+      actionTitle: 'See My Assignments',
       link: '/assignments',
-      description: 'et venenatis libero. Fusce at accumsan purus, vitae fringilla sem. Proin tristique, sem vel blandit consectetur.' },
+      description: 'View your current assignments' },
     ];
 
     return (
       deviceFormat === 'desktop' ?
         <CenteredFlexColumn>
-          <TitleBlock title={'Welcome'} subtitle={'Whats up'} />
+          <TitleBlock title={'Welcome'} subtitle={'Prison Nomis'} />
           <ActionBlocks actions={actions} />
         </CenteredFlexColumn>
         :
         <CenteredFlexColumn>
-          <TitleBlockMobile title={'Welcome'} subtitle={'Whats up'} />
+          <TitleBlockMobile title={'Welcome'} subtitle={'Prison Nomis'} />
           <ActionBlocksMobile actions={actions} />
         </CenteredFlexColumn>
     );
