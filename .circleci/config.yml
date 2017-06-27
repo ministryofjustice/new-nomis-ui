@@ -3,7 +3,7 @@ defaults: &defaults
   docker:
     - image: circleci/node:latest-browsers
       environment:
-        BUILD_NUMBER: $(eval echo "$CIRCLE_BRANCH-$CIRCLE_SHA1")
+        BUILD_NUMBER: $(eval echo "$CIRCLE_BRANCH-$CIRCLE_BUILD_NUM")
         GIT_REF: $CIRCLE_SHA1
         GIT_DATE: $(TZ=UTC git log --format=%cd -n1 --date=iso-strict-local $CIRCLE_SHA1)
 
@@ -30,8 +30,17 @@ jobs:
       - run: export BUILD_NUMBER=$(eval echo $BUILD_NUMBER)
       - run: NODE_ENV=production yarn build
       - run: yarn record-build-info
-      - persist_to_workspace:
-          root: .
+      - deploy:
+          command: |
+             mkdir -p ~/.ssh
+             ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
+             git add --force --verbose build-info.json build
+             git config user.name "Circle CI"
+             git config user.email "circle@circleci.com"
+             CI_MESSAGE=$(git log --format=%B -n 1 $CIRCLE_SHA1)
+             CURRENT_BUILD_NO=$(eval echo $BUILD_NUMBER)
+             git commit -m "Deployment of build $CURRENT_BUILD_NO" -m "$CI_MESSAGE" -m "From gitref $CIRCLE_SHA1"
+             git push --force origin HEAD:deploy-to-mock
 
   build_docker:
     <<: *defaults
@@ -60,23 +69,6 @@ jobs:
              docker tag sysconjusticesystems/elite2-web:$CURRENT_BUILD_NO sysconjusticesystems/elite2-web:latest
              docker push sysconjusticesystems/elite2-web:latest
 
-  commit_build:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: /tmp/circleci-elite2-web
-      - run:
-          command: |
-            mkdir -p ~/.ssh
-            ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
-            git add --force --verbose build-info.json build
-            git config user.name "Circle CI"
-            git config user.email "circle@circleci.com"
-            CI_MESSAGE=$(git log --format=%B -n 1 $CIRCLE_SHA1)
-            CURRENT_BUILD_NO=$(eval echo $BUILD_NUMBER)
-            git commit -m "Deployment of build $CURRENT_BUILD_NO" -m "$CI_MESSAGE" -m "From gitref $CIRCLE_SHA1"
-            git push --force origin HEAD:deploy-to-mock
-
 workflows:
   version: 2
   build-test-and-deploy:
@@ -85,21 +77,15 @@ workflows:
           filters:
             branches:
               ignore: deploy-to-mock
+      - build_docker:
+          requires:
+            - build
       - prod_build:
           filters:
             branches:
               only: master
           requires:
             - build
-      - build_docker:
-          requires:
-            - build
-      - commit_build:
-          filters:
-            branches:
-              only: master
-          requires:
-            - prod_build
       - tag_latest_image:
           filters:
             branches:
