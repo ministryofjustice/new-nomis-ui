@@ -56,6 +56,7 @@ jobs:
           command: |
              export CURRENT_BUILD_NO=$(eval echo $BUILD_NUMBER)
              docker login -u $DOCKER_USER -p $DOCKER_PASS
+             docker pull sysconjusticesystems/elite2-web:$CURRENT_BUILD_NO
              docker tag sysconjusticesystems/elite2-web:$CURRENT_BUILD_NO sysconjusticesystems/elite2-web:latest
              docker push sysconjusticesystems/elite2-web:latest
 
