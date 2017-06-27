@@ -66,6 +66,7 @@ jobs:
           at: /tmp/circleci-elite2-web
       - run:
           command: |
+            ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
             git add --force --verbose build-info.json build
             git config user.name "Circle CI"
             git config user.email "circle@circleci.com"
