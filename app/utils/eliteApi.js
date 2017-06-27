@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 
 export const login = (username, password, baseUrl) => axios({
   baseURL: baseUrl,
@@ -87,7 +88,7 @@ const casenoteQueryStringGen = (caseNoteOptions) => {
   if (!caseNoteOptions || caseNoteOptions.size === 0) {
     return '';
   }
-  return `&query=${Object.keys(caseNoteOptions).filter((key) => caseNoteOptions[key]).map((key) => {
+  return `&query=${Object.keys(caseNoteOptions).filter((key) => caseNoteOptions[key] && (caseNoteOptions[key].length ? caseNoteOptions[key].filter((x) => x).length > 0 : true)).map((key) => {
     const value = caseNoteOptions[key];
     switch (key) {
       case 'caseNoteTypeFilter':
@@ -96,6 +97,10 @@ const casenoteQueryStringGen = (caseNoteOptions) => {
         return `subType:in:'${value}'`;
       case 'caseNoteSourceFilter':
         return `source:in:'${value}'`;
+      case 'caseNoteDateRangeFilter': {
+        const vals = [moment(value[0], 'L').format('MM-DD-YYYY'), moment(value[1], 'L').add(1, 'days').format('MM-DD-YYYY')];
+        return `creationDateTime:gteq:'${vals[0]}':'MM-DD-YYYY',and:creationDateTime:lteq:'${vals[1]}':'MM-DD-YYYY'`;
+      }
       default:
         return `${key}:eq:${value}`;
     }

@@ -12,28 +12,39 @@ import DataGrid from 'components/Bookings/Details/dataGridViewComponentMobile';
 // import { search } from './actions';
 import { setModalOpen, setModalData } from 'globalReducers/app';
 
-import { selectPhysicalAttributes, selectHeaderDetail } from '../../selectors';
+import { selectPhysicalAttributes, selectPhysicalMarks } from '../../selectors';
 
 class PhysicalAttributes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { physicalAttributes, headerDetails } = this.props;
+    const { physicalAttributes, physicalMarks } = this.props;
     const CharacteristicsTable = {
       title: 'Characteristics',
       columnWidths: [5, 8],
       rows: physicalAttributes.characteristicGrid,
     };
-    // const AliasTable = {
-    //   title: 'Aliases',
-    //   columnWidths: [3, 4, 1, 1, 2, 2],
-    //   rows: physicalAttributes.aliasGrid,
-    // };
+
+    const marksArray = physicalMarks.marksGridArray.map((mark, index) =>
+      (<DataGrid
+        key={`Mark ${index + 1}`}
+        gridData={{
+          title: `Mark ${index + 1}`,
+          columnWidths: [5, 8],
+          rows: mark,
+        }}
+        modalGridArray={physicalMarks.modalGridArray}
+        setModalOpen={this.props.setModalOpen}
+        setModalData={this.props.setModalData}
+      />)
+    );
+
     return (<div>
       <DataGrid
         gridData={CharacteristicsTable}
+        modalGridArray={physicalAttributes.modalGridArray}
         setModalOpen={this.props.setModalOpen}
         setModalData={this.props.setModalData}
-        headerDetails={headerDetails}
       />
+      {marksArray}
       {/* <DataGrid gridData={AliasTable} /> */}
     </div>);
   }
@@ -41,10 +52,15 @@ class PhysicalAttributes extends PureComponent { // eslint-disable-line react/pr
 
 PhysicalAttributes.propTypes = {
   physicalAttributes: PropTypes.object.isRequired,
+  physicalMarks: PropTypes.object.isRequired,
   setModalOpen: PropTypes.func.isRequired,
   setModalData: PropTypes.func.isRequired,
-  headerDetails: PropTypes.object.isRequired,
 };
+
+// const mapDispatchToProps = {
+//   setModalOpen,
+//   setModalData,
+// };
 
 export function mapDispatchToProps(dispatch) {
   return {
@@ -55,7 +71,7 @@ export function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = createStructuredSelector({
   physicalAttributes: selectPhysicalAttributes(),
-  headerDetails: selectHeaderDetail(),
+  physicalMarks: selectPhysicalMarks(),
   // activeTabId: selectCurrentDetailTabId(),
 });
 

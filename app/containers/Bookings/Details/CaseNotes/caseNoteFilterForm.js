@@ -5,6 +5,9 @@ import Button from 'components/Button';
 
 import { Input, SubmissionError } from 'components/FormComponents';
 
+// import DatePicker from 'containers/FormContainers/datePicker';
+import DateRangePicker from 'containers/FormContainers/dateRangePicker';
+
 import { QueryForm, CnffItemHolder, CnffHeader, CnffTitle, CnffButtonHolder, DateRange, CnffResetButton } from './caseNoteFilterForm.theme';
 
 // const filterOptions = createFilterOptions({ options: Locations });
@@ -27,7 +30,7 @@ const SearchForm = (props) => {
         <Field name="caseNoteSubTypeFilter" component={Input} type="text" title="SubType" placeholder="" normalize={upper} autocomplete="off" spellcheck="false" />
       </CnffItemHolder>
       <DateRange isMobile={isMobile}>
-        <Field name="caseNoteDateRangeFilter" component={Input} type="text" title="Date Range" autocomplete="off" />
+        <Field name="caseNoteDateRangeFilter" component={DateRangePicker} title="Date Range" />
       </DateRange>
       <CnffItemHolder isMobile={isMobile}>
         <Field name="caseNoteSourceFilter" component={Input} type="text" title="Source" autocomplete="off" />

@@ -173,38 +173,67 @@ const selectPhysicalAttributes = () => createSelector(
   selectBookingDetail(),
   (bookingDetails) => {
     const pcs = bookingDetails.getIn(['Data', 'physicalCharacteristics']).toJS();
+    const modalGridArray = [];
+    let imageIndex = 0;
+
     const characteristicGrid = pcs.map((char, index) => {
       const { characteristic: title, imageId, detail: value } = char;
+
+      if (imageId) {
+        const modalGridObject = { array: [], index: imageIndex };
+        modalGridObject.array = [{ title, value, key: `${value}${index}` },
+          { title: '', imageId, imageIndex, key: `${imageId}${index}` },
+        ];
+        modalGridObject.imageId = imageId;
+        imageIndex += 1;
+        modalGridArray.push(modalGridObject);
+      }
+
       return {
         key: `${char.characteristic}${index}`,
         title,
         value,
         imageId,
+        imageIndex: imageIndex - 1,
       };
     });
 
-    return { characteristicGrid };
+    return { characteristicGrid, modalGridArray };
   });
 
 const selectPhysicalMarks = () => createSelector(
   selectBookingDetail(),
   (bookingDetails) => {
     const pcs = bookingDetails.getIn(['Data', 'physicalMarks']).toJS();
+    const modalGridArray = [];
+    let imageIndex = 0;
+
     const marksGridArray = pcs.map((mark, index) => {
       const { type, side, bodyPart, imageId, orentiation, comment, size } = mark;
       const gridArray = [];
+      const modalGridObject = { array: [] };
+
       if (type) gridArray.push({ title: 'Type', value: type, key: `${type}${index}` });
+      if (type) modalGridObject.array.push({ title: 'Type', value: type, key: `${type}${index}` });
+
       if (size) gridArray.push({ title: 'Size', value: size, key: `${size}${index}` });
       if (comment) gridArray.push({ title: 'Comment', value: comment, key: `${comment}${index}` });
+      if (comment) modalGridObject.array.push({ title: 'Comment', value: comment, key: `${comment}${index}` });
+
       if (bodyPart) gridArray.push({ title: 'Body Part', value: bodyPart, key: `${bodyPart}${index}` });
       if (side) gridArray.push({ title: 'Side', value: side, key: `${side}${index}` });
       if (orentiation) gridArray.push({ title: 'Orientation', value: orentiation, key: `${orentiation}${index}` });
-      if (imageId) gridArray.push({ title: 'Visual', imageId, key: `${imageId}${index}` });
+      if (imageId) {
+        gridArray.push({ title: 'Visual', imageId, imageIndex, key: `${imageId}${index}` });
+        imageIndex += 1;
+        modalGridObject.imageId = imageId;
+        modalGridArray.push(modalGridObject);
+      }
 
       return gridArray;
     });
 
-    return marksGridArray;
+    return { marksGridArray, modalGridArray };
   });
 
 const selectAlertsPagination = () => createSelector(

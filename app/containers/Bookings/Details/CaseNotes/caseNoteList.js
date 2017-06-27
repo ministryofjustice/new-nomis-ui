@@ -38,13 +38,14 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
 
   render() {
     const { setCaseNoteView, caseNotesStatus, caseNotes, totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination, onSubmitForm } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
-    if (caseNotesStatus.Type !== 'SUCCESS') return <div>Loading Casenotes ...</div>;
-
+    // if (caseNotesStatus.Type !== 'SUCCESS') return <div>Loading Casenotes ...</div>;
+    const cnquery = caseNotesQuery;
+    const cnInitialvalues = cnquery && cnquery.toJS ? cnquery.toJS() : cnquery;
     return (<div>
-      <CaseNoteFilterForm initialValues={caseNotesQuery} onSubmit={onSubmitForm} />
-      <CaseNoteList>
+      <CaseNoteFilterForm initialValues={cnInitialvalues} onSubmit={onSubmitForm} />
+      {caseNotesStatus.Type === 'SUCCESS' ? <CaseNoteList>
         {caseNotes.map((caseNote) => <CaseNoteListItem action={() => setCaseNoteView(caseNote.get('caseNoteId'))} caseNote={caseNote} key={caseNote.get('caseNoteId')} />)}
-      </CaseNoteList>
+      </CaseNoteList> : <div>Loading Casenotes ...</div> }
       <Pagination pagination={caseNotesPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)} />
     </div>);
   }

@@ -157,6 +157,12 @@ export const ModalImageDetailsID = styled.div`
   color: ${colours.modal.secondaryText};
 `;
 
+export const ModalImageDetailsValue = styled.div`
+  display: inline-block;
+  font-size: 19px;
+  color: ${colours.modal.secondaryText};
+`;
+
 export const ModalImageDetailsKeyWorker = styled.div`
   font-size: 19px;
   color: ${colours.modal.secondaryText};

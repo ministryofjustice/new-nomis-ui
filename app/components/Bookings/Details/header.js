@@ -25,11 +25,13 @@ function Header({ inmateData, openAddCaseNote, setModalOpen, setModalData }) {
   const showModal = function () {
     const modalData = {
       type: 'photo',
-      photos: this,
+      array: [{ imageId: this[0], imageIndex: 0, key: 'key', title: '' }],
       name: nameString,
       id: bookingNo,
       offenderNo: offenderNo,
       keyWorker: assignedOfficerUserId,
+      index: 0,
+      header: true,
     };
 
     setModalOpen(true);

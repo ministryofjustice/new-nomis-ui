@@ -22,7 +22,7 @@ const SearchForm = (props) => {
         <FormResetLink onClick={reset}>Reset Search</FormResetLink>
       </FormHeader>
       <SubmissionError error={error}>{error}</SubmissionError>
-      <Field name="firstName" component={Input} type="text" title="First Name / Alias" placeholder="ex. John"/>
+      <Field name="firstName" component={Input} type="text" title="First Name" placeholder="ex. John"/>
       <Field name="lastName" component={Input} type="text" title="Last Name" placeholder="ex. Doe" autocomplete="off" spellcheck="false" />
       <Field name="offenderNo" component={Input} type="text" title="NOMS Number" autocomplete="off" />
       <InputGroup data-name={'InputGroup'}>

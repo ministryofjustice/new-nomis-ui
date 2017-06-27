@@ -18,21 +18,20 @@ import {
 const toTitleCase = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
 
 function HeaderMobile({ inmateData, setModalOpen, setModalData }) {
-  const { firstName, lastName, bookingNo, offenderNo, facialImageId, alertsCodes, assignedLivingUnit } = inmateData;
+  const { firstName, lastName, bookingNo, offenderNo, facialImageId, alertsCodes, assignedLivingUnit, assignedOfficerUserId } = inmateData;
 
   const nameString = `${lastName.toUpperCase()}, ${toTitleCase(firstName)}`;
-  // Officer Loader...
-  const officer = { firstName: 'PAYNE', lastName: 'RON' };
-  const officerNameString = `${toTitleCase(officer.lastName)}, ${toTitleCase(officer.firstName)}`;
 
   const showModal = function () {
     const modalData = {
       type: 'photo',
-      photos: this,
+      array: [{ imageId: this[0], imageIndex: 0, key: 'key', title: '' }],
       name: nameString,
       id: bookingNo,
       offenderNo: offenderNo,
-      keyWorker: officerNameString,
+      keyWorker: assignedOfficerUserId,
+      index: 0,
+      header: true,
     };
 
     setModalOpen(true);
@@ -48,7 +47,7 @@ function HeaderMobile({ inmateData, setModalOpen, setModalData }) {
         <InformationWrapper data-name={'InformationWrapper'}>
           <InmateName>{nameString}</InmateName>
           <InformationBlock><span>ID: </span>{offenderNo}</InformationBlock>
-          <InformationBlock><span>Key Worker: </span>{officerNameString}</InformationBlock>
+          <InformationBlock><span>Key Worker: </span><officername><EliteOfficerName staffId={assignedOfficerUserId} /></officername></InformationBlock>
           <InformationBlock><span>Alerts: </span><AlertCodes>{alertsCodes.join(', ')}</AlertCodes></InformationBlock>
           <InformationBlock><span>Location: </span>{assignedLivingUnit.description}</InformationBlock>
         </InformationWrapper>

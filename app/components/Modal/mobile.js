@@ -42,6 +42,7 @@ class ModalMobile extends Component {
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
+      initialSlide: Number(modalData.index),
     };
 
     return (
@@ -53,9 +54,9 @@ class ModalMobile extends Component {
             <ModalTypeImage>
               <ModalImageContainerMask>
                 <Slider {...settings} >
-                  { modalData.photos.map((value) =>
+                  { modalData.array.map((modalObject) =>
                     (<ModalImageContainer key={Math.random()}>
-                      <EliteImage imageId={value} />
+                      <EliteImage imageId={modalObject.imageId} />
                     </ModalImageContainer>)
                   )}
                 </Slider>

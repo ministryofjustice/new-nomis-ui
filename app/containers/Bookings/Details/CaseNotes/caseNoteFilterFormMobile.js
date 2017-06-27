@@ -23,12 +23,15 @@ class AmendCaseNotePageMobile extends PureComponent { // eslint-disable-line rea
   }
 
   render() {
+    const cnquery = this.props.caseNotesQuery;
+    const cnInitialvalues = cnquery && cnquery.toJS ? cnquery.toJS() : cnquery;
+    console.log(cnquery);
     // const caseNoteTypeList = this.props.caseNoteTypeList.toJS();
     // const subTypeList = this.props.caseNoteSubTypeList;
     return (
       <CaseNoteFilterForm
         isMobile
-        initialValues={this.props.caseNotesQuery}
+        initialValues={cnInitialvalues}
         onSubmit={this.props.onSubmitForm}
         goBack={this.context.router.goBack}
       />

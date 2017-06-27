@@ -43,12 +43,12 @@ class Modal extends Component {
     this.observer = new MutationObserver(() => {
       const slickActive = this.slider.getElementsByClassName('slick-active')[0];
       // get the index of the active slide image
-      const slickActiveDataIndex = Number(slickActive.dataset.index);
+      const slickActiveDataIndex = slickActive ? Number(slickActive.dataset.index) : 0;
 
       if (this.state.position !== slickActiveDataIndex
         && slideTrack.style.transition === '') {
         let newPosition = slickActiveDataIndex + 1;
-        if (newPosition === 0) newPosition = this.props.modalData.photos.length;
+        if (newPosition === 0) newPosition = this.props.modalData.array.length;
         this.setState({ position: slickActiveDataIndex, actualPosition: newPosition });
       }
     });
@@ -75,14 +75,31 @@ class Modal extends Component {
 
   render() {
     const { modalData } = this.props;
-
     const settings = {
       dots: true,
       infinite: true,
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
+      initialSlide: Number(modalData.index),
     };
+
+
+    const dataGrid = !modalData.header ? modalData.array.map((modalObject) => (
+      modalObject.array.map((keypair, i) =>
+        (
+          <div key={i}>
+            <ModalImageDetailsID>{keypair.title}: {keypair.value}</ModalImageDetailsID>
+          </div>
+        )
+      )
+    ))
+    :
+    [(<div>
+      <ModalImageDetailsName>{modalData.name}</ModalImageDetailsName>
+      <ModalImageDetailsID>{`ID: ${modalData.id}`}</ModalImageDetailsID>
+      <ModalImageDetailsKeyWorker>Key Worker: <div style={{ display: 'inline-block' }} ><EliteOfficerName staffId={modalData.keyWorker} /></div></ModalImageDetailsKeyWorker>
+    </div>)];
 
     return (
       <ModalContainer data-name={'Modal'}>
@@ -93,25 +110,24 @@ class Modal extends Component {
               <ModalTitle>{modalData.title}</ModalTitle>
               <ModalBody>{modalData.body}</ModalBody>
               <Button onClick={this.closeModal} buttonstyle="submit" style={{ pointerEvents: 'auto', marginTop: '50px' }}>Ok - continue</Button>
-            </ModalTypeInfoContainer> :
+            </ModalTypeInfoContainer>
+            :
             <ModalTypeImageContainer data-name={'ModalTypeImageContainer'}>
               <ModalClose onClick={this.closeModal} />
               <ModalTypeImage>
                 <ModalImageContainerMask innerRef={(slider) => { this.slider = slider; }} >
                   <Slider {...settings} >
-                    { modalData.photos.map((value) =>
+                    { modalData.array.map((modalObject) =>
                       (<ModalImageContainer key={Math.random()}>
-                        <EliteImage imageId={value} />
+                        <EliteImage imageId={modalObject.imageId} />
                       </ModalImageContainer>)
                     )}
                   </Slider>
                 </ModalImageContainerMask>
               </ModalTypeImage>
               <ModalImageDetails>
-                <ModalImageDetailsName>{modalData.name}</ModalImageDetailsName>
-                <ModalImageDetailsID>{`ID: ${modalData.id}`}</ModalImageDetailsID>
-                <ModalImageDetailsKeyWorker>{`Key Worker: ${modalData.keyWorker}`}</ModalImageDetailsKeyWorker>
-                <ModalImageDetailsCurrent>{`${this.state.actualPosition}/${modalData.photos.length}`}</ModalImageDetailsCurrent>
+                {dataGrid[this.state.actualPosition - 1]}
+                <ModalImageDetailsCurrent>{`${this.state.actualPosition}/${modalData.array.length}`}</ModalImageDetailsCurrent>
               </ModalImageDetails>
             </ModalTypeImageContainer>
           }

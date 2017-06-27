@@ -12,23 +12,10 @@ import {
   DGImageCaption,
 } from './dataGridViewComponent.theme';
 
-function DgRow({ title, value: v, values, imageId, columnWidths, setModalOpen, setModalData, headerDetails }) {
-  const showModal = function () {
-    const toTitleCase = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
-
-    const { firstName, lastName, bookingNo, assignedOfficerUserId } = headerDetails;
-
-    const nameString = `${lastName.toUpperCase()}, ${toTitleCase(firstName)}`;
-
-    const modalData = {
-      type: 'photo',
-      photos: this,
-      name: nameString,
-      id: bookingNo,
-      keyWorker: assignedOfficerUserId,
-    };
+function DgRow({ title, value: v, values, imageId, imageIndex, columnWidths, setModalOpen, setModalData, modalGridArray }) {
+  const showModal = function (e) {
     setModalOpen(true);
-    setModalData(modalData);
+    setModalData({ array: modalGridArray, index: e.currentTarget.dataset.index });
   };
 
   let rowVals = null;
@@ -47,7 +34,7 @@ function DgRow({ title, value: v, values, imageId, columnWidths, setModalOpen, s
   } else if (imageId) {
     rowVals = (<DGImageCaption colWidth={3}>
       {value ? value : ''}
-      <DGImageItem style={{ cursor: 'pointer' }} onClick={showModal.bind([imageId])}>
+      <DGImageItem style={{ cursor: 'pointer' }} data-index={imageIndex} onClick={showModal}>
         <EliteImage imageId={imageId} />
       </DGImageItem>
     </DGImageCaption>);
@@ -64,9 +51,10 @@ DgRow.propTypes = {
   value: PropTypes.string,
   values: PropTypes.array,
   imageId: PropTypes.number,
+  imageIndex: PropTypes.number,
   setModalOpen: PropTypes.func,
   setModalData: PropTypes.func,
-  headerDetails: PropTypes.object,
+  modalGridArray: PropTypes.array,
 };
 
 DgRow.defaultProps = {
@@ -74,12 +62,13 @@ DgRow.defaultProps = {
   value: undefined,
   values: undefined,
   imageId: undefined,
+  imageIndex: undefined,
   setModalOpen: () => {},
   setModalData: () => {},
-  headerDetails: {},
+  modalGridArray: [],
 };
 
-function DataGrid({ gridData, setModalOpen, setModalData, headerDetails }) {
+function DataGrid({ gridData, setModalOpen, setModalData, modalGridArray }) {
   return (
     <DataGridWrapper >
       <DGTitle>{gridData.title}</DGTitle>
@@ -89,7 +78,7 @@ function DataGrid({ gridData, setModalOpen, setModalData, headerDetails }) {
           columnWidths={gridData.columnWidths}
           setModalOpen={setModalOpen}
           setModalData={setModalData}
-          headerDetails={headerDetails}
+          modalGridArray={modalGridArray}
         />)}
     </DataGridWrapper>
   );
@@ -99,13 +88,13 @@ DataGrid.propTypes = {
   gridData: PropTypes.object.isRequired,
   setModalOpen: PropTypes.func,
   setModalData: PropTypes.func,
-  headerDetails: PropTypes.object,
+  modalGridArray: PropTypes.array,
 };
 
 DataGrid.defaultProps = {
   setModalOpen: () => {},
   setModalData: () => {},
-  headerDetails: {},
+  modalGridArray: [],
 };
 
 

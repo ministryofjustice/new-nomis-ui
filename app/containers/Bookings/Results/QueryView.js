@@ -21,12 +21,13 @@ const QueryView = (props) => {
   const firstName = initialValues.firstName ? initialValues.firstName : '';
   const lastName = initialValues.lastName ? initialValues.lastName : '';
   const offenderNo = initialValues.offenderNo ? initialValues.offenderNo : null;
+  const bookingNo = initialValues.bookingNo ? initialValues.bookingNo : null;
   const locations = initialValues.locations ? initialValues.locations : [];
 
   return (
     <QueryWrapper>
       <QueryItemHolder>
-        <InputLabel htmlFor="firstName">First Name / Alias</InputLabel>
+        <InputLabel htmlFor="firstName">First Name</InputLabel>
         <QueryValue>{firstName}</QueryValue>
       </QueryItemHolder>
       <QueryItemHolder>
