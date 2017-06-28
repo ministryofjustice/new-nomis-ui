@@ -3,7 +3,7 @@ defaults: &defaults
   docker:
     - image: circleci/node:latest-browsers
       environment:
-        BUILD_NUMBER: $(eval echo "$CIRCLE_BRANCH-$CIRCLE_BUILD_NUM")
+        BUILD_NUMBER: $(eval echo "$CIRCLE_BRANCH-$CIRCLE_SHA1")
         GIT_REF: $CIRCLE_SHA1
         GIT_DATE: $(TZ=UTC git log --format=%cd -n1 --date=iso-strict-local $CIRCLE_SHA1)
 
@@ -19,28 +19,22 @@ jobs:
             echo Building : $CURRENT_BUILD_NO
       - run: yarn --frozen-lockfile
       - run: yarn test -- --reporter mocha-junit-reporter
-      - persist_to_workspace:
-          root: .
-
-  prod_build:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: /tmp/circleci-elite2-web
       - run: export BUILD_NUMBER=$(eval echo $BUILD_NUMBER)
       - run: NODE_ENV=production yarn build
       - run: yarn record-build-info
       - deploy:
           command: |
-             mkdir -p ~/.ssh
-             ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
-             git add --force --verbose build-info.json build
-             git config user.name "Circle CI"
-             git config user.email "circle@circleci.com"
-             CI_MESSAGE=$(git log --format=%B -n 1 $CIRCLE_SHA1)
-             CURRENT_BUILD_NO=$(eval echo $BUILD_NUMBER)
-             git commit -m "Deployment of build $CURRENT_BUILD_NO" -m "$CI_MESSAGE" -m "From gitref $CIRCLE_SHA1"
-             git push --force origin HEAD:deploy-to-mock
+            mkdir -p ~/.ssh
+            ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
+            git add --force --verbose build-info.json build
+            git config user.name "Circle CI"
+            git config user.email "circle@circleci.com"
+            CI_MESSAGE=$(git log --format=%B -n 1 $CIRCLE_SHA1)
+            CURRENT_BUILD_NO=$(eval echo $BUILD_NUMBER)
+            git commit -m "Deployment of build $CURRENT_BUILD_NO" -m "$CI_MESSAGE" -m "From gitref $CIRCLE_SHA1"
+            git push --force origin HEAD:deploy-to-mock
+      - persist_to_workspace:
+          root: .
 
   build_docker:
     <<: *defaults
@@ -78,9 +72,6 @@ workflows:
             branches:
               ignore: deploy-to-mock
       - build_docker:
-          requires:
-            - build
-      - prod_build:
           filters:
             branches:
               only: master
