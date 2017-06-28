@@ -1,0 +1,51 @@
+machine:
+  environment:
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+  node:
+    version: 6.10.0
+  services:
+    - docker
+
+general:
+  branches:
+    ignore:
+        - deploy-to-mock
+
+dependencies:
+  pre:
+    - mkdir ../firefox-45
+    - wget -O firefox-45.0.1esr.tar.bz2 'https://archive.mozilla.org/pub/firefox/releases/45.0.1esr/linux-x86_64/en-GB/firefox-45.0.1esr.tar.bz2';tar xjf firefox-45.0.1esr.tar.bz2;firefox_cmd=`which firefox`;sudo rm -f $firefox_cmd;sudo ln -s `pwd`/firefox/firefox $firefox_cmd:
+        pwd: ../firefox-45
+  override:
+    - yarn --frozen-lockfile
+  cache_directories:
+    - ~/.cache/yarn
+test:
+  override:
+    - yarn test -- --reporter mocha-junit-reporter:
+        environment:
+          MOCHA_FILE: $CIRCLE_TEST_REPORTS/unit/test-results.xml
+
+deployment:
+  mock:
+    branch: master
+    commands:
+      - NODE_ENV=production yarn build:
+      - yarn record-build-info:
+          environment:
+            BUILD_NUMBER: $CIRCLE_BUILD_NUM
+            GIT_REF: $CIRCLE_SHA1
+            GIT_DATE: $(TZ=UTC git log --format=%cd -n1 --date=iso-strict-local $CIRCLE_SHA1)
+      - git add --force --verbose build-info.json build
+      - git config user.name "Circle CI"
+      - git config user.email "circle@circleci.com"
+      - |
+          CI_MESSAGE=$(git log --format=%B -n 1 $CIRCLE_SHA1)
+          git commit -m "Deployment of build $CIRCLE_BUILD_NUM" -m "$CI_MESSAGE" -m "From gitref $CIRCLE_SHA1"
+      # Push to the deploy-to-mock branch which will trigger
+      # a deployment to the Azure MOCK environment
+      - git push --force origin HEAD:deploy-to-mock
+      # Push to the docker hub
+      - docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - docker build --rm=false -t sysconjusticesystems/elite2-web:$CIRCLE_BUILD_NUM -t sysconjusticesystems/elite2-web:latest .
+      - docker push sysconjusticesystems/elite2-web
