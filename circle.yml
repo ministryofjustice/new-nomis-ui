@@ -46,6 +46,6 @@ deployment:
       # a deployment to the Azure MOCK environment
       - git push --force origin HEAD:deploy-to-mock
       # Push to the docker hub
-      - docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker build --rm=false -t sysconjusticesystems/elite2-web:$CIRCLE_BUILD_NUM -t sysconjusticesystems/elite2-web:latest .
       - docker push sysconjusticesystems/elite2-web
