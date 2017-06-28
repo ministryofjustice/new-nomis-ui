@@ -22,6 +22,9 @@ jobs:
       - run: export BUILD_NUMBER=$(eval echo $BUILD_NUMBER)
       - run: NODE_ENV=production yarn build
       - run: yarn record-build-info
+      - add_ssh_keys:
+          fingerprints:
+            - "d0:18:92:9a:e4:3c:b4:80:c3:10:6d:04:8d:de:92:8e"
       - deploy:
           command: |
             mkdir -p ~/.ssh
