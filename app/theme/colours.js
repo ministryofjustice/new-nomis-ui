@@ -143,6 +143,9 @@ export default {
         },
       },
     },
+    results: {
+      itemBackground: bc.greyDE,
+    },
   },
   assignments: {
     idText: bc.grey4D,

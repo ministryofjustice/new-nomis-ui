@@ -21,6 +21,9 @@ function HeaderMobile({ inmateData, setModalOpen, setModalData }) {
   const { firstName, lastName, bookingNo, offenderNo, facialImageId, alertsCodes, assignedLivingUnit, assignedOfficerUserId } = inmateData;
 
   const nameString = `${lastName.toUpperCase()}, ${toTitleCase(firstName)}`;
+  // Officer Loader...
+  // const officer = { firstName: 'PAYNE', lastName: 'RON' };
+  // const officerNameString = `${toTitleCase(officer.lastName)}, ${toTitleCase(officer.firstName)}`;
 
   const showModal = function () {
     const modalData = {

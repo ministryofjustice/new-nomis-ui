@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import colours from 'theme/colours';
 import { responsiveCols } from 'components/CommonTheme/responsiveColumns';
 import { ButtonLink } from 'components/Button';
+import { Link } from 'react-router';
 
 export const QueryForm = styled.form`
   position: relative;
@@ -49,6 +50,9 @@ export const CnffItemHolder = styled.div`
 
 `;
 
+export const CnffTypeSubTypeHolder = styled.div`
+  width: ${({ isMobile, showSource }) => isMobile ? '100%' : showSource ? responsiveCols(7) : responsiveCols(5)};`; // eslint-disable-line
+
 export const DateRange = styled.div`
   width: ${({ isMobile }) => isMobile ? '100%' : responsiveCols(5)};
 `;
@@ -94,6 +98,7 @@ export const QueryItemHolder = styled.div`
   }
 `;
 
+
 export const QueryValue = styled.div`
   position: relative;
   padding-top: 3px;
@@ -115,4 +120,14 @@ export const OpenFilterForm = styled(ButtonLink)`
   font-size: 38px;
   /*height: 100px;
   padding: 21px calc(50% - 154px);*/
+`;
+
+export const OpenFilterFormMobile = styled(Link)`
+  position: fixed;
+  top: 29px;
+  right: 100px;
+  z-index: 1000;
+  width: 35px;
+  height: 35px;
+  background-image: url('/img/filters-icon-mobile.png');
 `;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { MenuWrapper,
+         InfoWrapper,
          UserName,
          CaseLoad,
          DropdownMenu,
@@ -68,7 +69,12 @@ class Dropdown extends Component {
 
     return (
       <MenuWrapper innerRef={(wrapper) => { this.wrapper = wrapper; }} onMouseDown={this.handleMouseDown} onTouchStart={this.handleMouseDown}>
-        <UserName>{user.lastName[0].toUpperCase() + user.lastName.toLowerCase().slice(1)}, {user.firstName[0].toUpperCase() + user.firstName.toLowerCase().slice(1)}<NotificationNumberUser>{user.totalAssignments}</NotificationNumberUser></UserName><CaseLoad>{caseLoadDesc}</CaseLoad>
+        <InfoWrapper data-name={'InfoWrapper'}>
+          <UserName>{user.lastName[0].toUpperCase() + user.lastName.toLowerCase().slice(1)}, {user.firstName[0].toUpperCase() + user.firstName.toLowerCase().slice(1)}
+            <NotificationNumberUser>{user.totalAssignments}</NotificationNumberUser>
+          </UserName>
+          <CaseLoad>{caseLoadDesc}</CaseLoad>
+        </InfoWrapper>
         <DropdownMenu>
           { this.state.isOpen ? dropDownSelections : null }
         </DropdownMenu>

@@ -11,7 +11,7 @@ const AddCaseNoteForm = (props) => {
     <form onSubmit={handleSubmit}>
       <SubmissionError error={error}>{error}</SubmissionError>
       <div>
-        <Field name="caseNoteAmendmentText" component={TextArea} title="Case Note Amendment" type="text" autocomplete="off" />
+        <Field name="caseNoteAmendmentText" component={TextArea} title="Case Note Amendment" type="text" autocomplete="off" spellcheck="true"/>
       </div>
       <ButtonRow>
         <Button disabled={submitting} buttonstyle="cancel" onClick={closeModal}>Cancel</Button>
@@ -33,5 +33,14 @@ AddCaseNoteForm.defaultProps = {
 };
 
 export default reduxForm({
-  form: 'amendCaseNote', // a unique identifier for this form
+  form: 'amendCaseNote', // a unique identifier for this form,
+  validate: (stuff) => {
+    const { caseNoteAmendmentText } = stuff.toJS();
+    const errors = {};
+    if (!caseNoteAmendmentText) {
+      errors.caseNoteAmendmentText = 'Required';
+    }
+
+    return errors;
+  },
 })(AddCaseNoteForm);

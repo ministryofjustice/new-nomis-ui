@@ -110,6 +110,6 @@ export const CrestLogoBlack = styled.div`
   height: 134px;
   background-image: url('/img/logo-crest-black.png');
   align-self: center;
-  margin-top: 120px;
+  margin-top: 30px;
 }
 `;

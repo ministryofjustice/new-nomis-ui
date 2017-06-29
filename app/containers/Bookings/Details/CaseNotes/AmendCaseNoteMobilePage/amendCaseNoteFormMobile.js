@@ -14,7 +14,7 @@ const AddCaseNoteFormMobile = (props) => {
       <form onSubmit={handleSubmit}>
         <SubmissionError error={error}>{error}</SubmissionError>
         <FieldWrapper>
-          <Field name="caseNoteAmendmentText" component={TextArea} title="Case Note Amendment" type="text" autocomplete="off" />
+          <Field name="caseNoteAmendmentText" component={TextArea} title="Case Note Amendment" type="text" autocomplete="off" spellcheck="true"/>
         </FieldWrapper>
         <ButtonRow>
           <Button type="submit" disabled={submitting} submitting={submitting} buttonstyle="link" onClick={goBack}>Add Amendment</Button>

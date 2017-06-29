@@ -48,6 +48,9 @@ export const BookingGrid = styled.div`
   grid-template-columns: repeat(12, 1fr);
   grid-gap: 30px;
   grid-auto-rows: minmax(100px, auto); */}
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
 
 `;
 
@@ -115,34 +118,43 @@ export const GridDetailItem = styled(Link)`
   align-items: flex-end;
   cursor: pointer;
   display: flex;
-  height: 482px;
+  /*height: 482px;*/
   width: 270px;
 
   float: left;
-  margin-right: 30px;
-  margin-bottom: 50px;
+  margin-right: 17px;
+  margin-bottom: 17px;
 
-  @media (min-width: 1185px) {
+
+  display: inline-flex;
+  width: 220px;
+  flex-direction: column;
+  background: ${colours.bookings.results.itemBackground};
+
+  &:hover {
+    background: ${colours.filterBlocks.background};
+  }
+
+  @media (min-width: 1183px) {
+    &:nth-child(5n) {
+      margin-right: 0px;
+    }
+  }
+
+  @media (min-width: 946px) and (max-width: 1182px) {
     &:nth-child(4n) {
       margin-right: 0px;
     }
   }
 
-  @media (min-width: 885px) and (max-width: 1184px) {
+  @media (min-width: 768px) and (max-width: 945px) {
     &:nth-child(3n) {
-      margin-right: 0px;
-    }
-  }
-
-  @media (min-width: 768px) and (max-width: 884px) {
-    &:nth-child(2n) {
       margin-right: 0px;
     }
   }
 
   @media (max-width: 767px) {
     width: calc(50% - 35px);
-    height: 75vw;
 
     margin-right: 0px;
     margin-top: 22px;
@@ -163,32 +175,76 @@ export const GridDetailItem = styled(Link)`
 
 export const GridDetailImage = styled.div`
 
-  position: absolute;
-  top: 0;
-  left: 0;
+
   width: 100%;
   height: 70%;
+
+  height: 275px;
+
+  @media (max-width: 767px) {
+    height: 55.5vw;
+  }
 
 `;
 
 export const GridDetailInfo = styled.div`
-  position: absolute;
-  top: 70%;
-  left: 0;
+
   width: 100%;
-  height: 30%;
-  padding-top: 31px;
-  background: ${colours.filterBlocks.background};
+  min-height: 30%;
+  padding-top: 17px;
+
+  min-height: 120px;
+  padding: 17px 14px;
+
+  @media (max-width: 767px) {
+    padding: 3vw 2vw;
+  }
+
 `;
 
 export const GridName = styled.div`
   font-weight: bold;
   width: 100%;
   text-align: center;
+  font-size: 22px;
+
+  text-align: left;
+  font-size: 19px;
+  margin-bottom: 8px;
+
+  @media (max-width: 767px) {
+    font-size: 3.5vw;
+  }
 `;
 
 export const GridID = styled.div`
   flex-grow: 1;
   width: 100%;
   text-align: center;
+  font-size: 18px;
+  margin-bottom: 15px;
+
+  text-align: left;
+  font-size: 19px;
+  margin-bottom: 8px;
+
+  @media (max-width: 767px) {
+    font-size: 3vw;
+  }
+`;
+
+export const GridLocation = styled.div`
+  flex-grow: 1;
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 13px;
+
+  text-align: left;
+  font-size: 19px;
+  margin-bottom: 0px;
+
+  @media (max-width: 767px) {
+    font-size: 3vw;
+  }
 `;

@@ -9,10 +9,6 @@
   "author": "Syscon",
   "license": "UNLICENSED",
   "scripts": {
-    "verify": "yarn lint && yarn test",
-    "record-build-info": "node ./bin/record-build-info",
-    "knex": "knex",
-    "migrate": "knex migrate:latest",
     "analyze:clean": "rimraf stats.json",
     "preanalyze": "npm run analyze:clean",
     "analyze": "node ./internals/scripts/analyze.js",
@@ -22,10 +18,10 @@
     "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress",
     "build:clean": "npm run test:clean && rimraf ./build",
     "build:dll": "node ./internals/scripts/dependencies.js",
-    "start": "cross-env NODE_ENV=development node ./server.js",
+    "start": "cross-env NODE_ENV=development node server",
     "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
     "start:production": "npm run test && npm run build && npm run start:prod",
-    "start:prod": "cross-env NODE_ENV=production node ./server.js",
+    "start:prod": "cross-env NODE_ENV=production node server",
     "presetup": "npm i chalk shelljs",
     "setup": "node ./internals/scripts/setup.js",
     "postsetup": "npm run build:dll",
@@ -37,9 +33,12 @@
     "lint:js": "npm run lint:eslint -- . ",
     "lint:staged": "lint-staged",
     "test:clean": "rimraf ./coverage",
-    "test": "./node_modules/.bin/mocha --reporter spec",
+    "test": "cross-env NODE_ENV=test jest --coverage; true",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
+  },
+  "lint-staged": {
+    "*.js": "lint:eslint"
   },
   "babel": {
     "presets": [
@@ -212,6 +211,7 @@
     "moment": "^2.18.1",
     "poll-endpoint-for": "^0.0.3",
     "prop-types": "^15.5.8",
+    "rc-time-picker": "^2.4.1",
     "react": "^15.5.4",
     "react-datepicker": "^0.48.0",
     "react-dom": "15.4.1",

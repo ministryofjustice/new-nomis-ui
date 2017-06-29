@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import EliteImage from 'containers/EliteContainers/Image';
 import EliteLocation from 'containers/EliteContainers/Location';
-import { GridDetailItem, GridDetailImage, GridDetailInfo, GridName, GridID } from './results.theme';
+import { GridDetailItem, GridDetailImage, GridDetailInfo, GridName, GridID, GridLocation } from './results.theme';
 
 // agencyId: 'ITAG',
 // lastName: 'DONALDSON',
@@ -16,14 +16,14 @@ import { GridDetailItem, GridDetailImage, GridDetailInfo, GridName, GridID } fro
 
 const BookingsGridItem = (props) => {
   const { data, action } = props;
-  const { firstName, lastName, facialImageId, bookingNo, offenderNo, livingUnitId } = data;
+  const { firstName, lastName, facialImageId, bookingNo, offenderNo, assignedLivingUnitId } = data;
   return (
     <GridDetailItem onClick={() => action(data.bookingId)}>
-      <GridDetailImage>{facialImageId ? <EliteImage imageId={facialImageId} /> : null}</GridDetailImage>
+      <GridDetailImage><EliteImage imageId={facialImageId} /></GridDetailImage>
       <GridDetailInfo>
         <GridName>{lastName}, {firstName[0].toUpperCase() + firstName.toLowerCase().slice(1)}</GridName>
         <GridID>ID: <strong>{offenderNo}</strong></GridID>
-        <GridID><EliteLocation locationId={livingUnitId} /></GridID>
+        <GridLocation><EliteLocation locationId={assignedLivingUnitId} /></GridLocation>
       </GridDetailInfo>
     </GridDetailItem>
   );

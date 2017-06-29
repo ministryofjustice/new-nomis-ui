@@ -39,11 +39,12 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
 
     return (
       <div>
-        <Helmet title="Syscon MVP">
+        <Helmet title="P-Nomis">
           <meta name="viewport" content="width=device-width, initial-scale=0.5" />
         </Helmet>
         <Modal />
         <Header />
+        { deviceFormat === 'mobile' ? <div style={{ height: '90px' }} /> : null }
         { this.props.router.location.pathname !== '/bookings/details' ?
           <Breadcrumbs route={this.props.router.location.pathname} /> :
           <BreadcrumbsAlt route={this.props.router.location.pathname} />

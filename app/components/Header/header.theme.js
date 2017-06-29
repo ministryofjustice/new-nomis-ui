@@ -25,6 +25,10 @@ export const BaseMobile = styled.div`
   align-items: center;
   justify-content: space-between;
   color: white;
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  background-color: black;
 `;
 
 export const Logo = styled.div`

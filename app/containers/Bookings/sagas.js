@@ -75,13 +75,13 @@ export function* addCasenoteWatcher() {
 }
 
 export function* addCasenoteSaga(action) {
-  const { caseNoteType: type, caseNoteSubType: subType, caseNoteText: text } = action.payload.query;
+  const { typeAndSubType: { type, subType }, caseNoteText: text, occurrenceDateTime } = action.payload.query;
   const bookingId = yield select(selectBookingDetailsId());
 
   const token = yield getToken();
   const apiServer = yield select(selectApi());
   try {
-    yield call(addCaseNote, token, apiServer, bookingId, type, subType, text);
+    yield call(addCaseNote, token, apiServer, bookingId, type, subType, text, occurrenceDateTime);
 
     yield put({ type: ADD_NEW_CASENOTE.SUCCESS });
     yield put(closeAddCaseNoteModal());
@@ -94,6 +94,7 @@ export function* addCasenoteSaga(action) {
 
     // Go to casenotes tab...
     yield put(setDetailsTab(3));
+    yield put(push('/bookings/details'));
   } catch (e) {
     yield put({ type: ADD_NEW_CASENOTE.ERROR, payload: new SubmissionError(e.message) });
   }
@@ -192,6 +193,7 @@ export function* setCaseNoteFilterWatcher() {
 
 export function* setCaseNoteFilterSaga(action) {
   const { query, resetPagination, goToPage } = action.payload;
+  // console.log(query);
   let pagination = yield select(selectSearchResultsPagination());
   const bookingId = yield select(selectBookingDetailsId());
   // console.log(query, pagination, bookingId);
@@ -202,7 +204,7 @@ export function* setCaseNoteFilterSaga(action) {
       pagination = Object.assign(pagination, { pageNumber: 0 });
       yield put({ type: SET_CASENOTES_PAGINATION, payload: pagination });
     }
-    yield put({ type: BOOKINGS.CASENOTES.BASE, payload: { bookingId, query: query.toJS ? query.toJS() : query, pagination } });
+    yield put({ type: BOOKINGS.CASENOTES.BASE, payload: { bookingId, query, pagination } });
     yield put({ type: CASE_NOTE_FILTER.SUCCESS,
       payload: {
         query,
