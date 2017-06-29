@@ -39,3 +39,6 @@ reports
 test-results.xml
 build-info.json
 temp
+Users/
+coverage/
+tmp/
