@@ -10,6 +10,7 @@ general:
   branches:
     ignore:
         - deploy-to-mock
+        - intergalactic
 
 dependencies:
   pre:
