@@ -9,7 +9,7 @@ import MobileNextResultsPage from 'components/MobileNextResultsPage';
 
 import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
 import { createFormAction } from 'redux-form-saga';
-import { OpenFilterForm, AddCaseNoteButton } from './caseNoteFilterForm.theme';
+import { OpenFilterFormMobile } from './caseNoteFilterForm.theme';
 
 import {
   CASE_NOTE_FILTER,
@@ -38,7 +38,7 @@ class CaseNotesMobile extends PureComponent { // eslint-disable-line react/prefe
     if (caseNotesStatus.Type !== 'SUCCESS') return <div>Loading Casenotes ...</div>;
 
     return (<div>
-      <AddCaseNoteButton><OpenFilterForm buttonstyle="link" to="/filterCaseNotes">Filters</OpenFilterForm></AddCaseNoteButton>
+      <OpenFilterFormMobile to="/filterCaseNotes"></OpenFilterFormMobile>
       {caseNotes.map((caseNote) => <CaseNoteListItemMobile action={() => setCaseNoteView(caseNote.get('caseNoteId'))} caseNote={caseNote} key={caseNote.get('caseNoteId')} />)}
       <MobileNextResultsPage pagination={caseNotesPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)} />
     </div>);

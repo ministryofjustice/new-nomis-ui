@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 const selectImageState = () => (state, props) => state.getIn(['eliteApiLoader', 'Images', props.imageId]);
 
-const defaultImg = 'https://c1.staticflickr.com/6/5337/8940995208_5da979c52f.jpg';
+const defaultImg = '/img/NoPhoto@2x.png';
 const selectImageDataUrl = () => createSelector(
   selectImageState(),
   (imageState) => {

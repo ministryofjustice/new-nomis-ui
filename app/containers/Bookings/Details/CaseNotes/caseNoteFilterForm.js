@@ -1,21 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form/immutable';
+import { createStructuredSelector } from 'reselect';
+
+import { createFormAction } from 'redux-form-saga';
+
 import Button from 'components/Button';
 
-import { Input, SubmissionError } from 'components/FormComponents';
+import { SubmissionError } from 'components/FormComponents';
 
 // import DatePicker from 'containers/FormContainers/datePicker';
 import DateRangePicker from 'containers/FormContainers/dateRangePicker';
+import TypeSubTypeSelectors from 'containers/FormContainers/typeSubTypeSelectors';
+import Select from 'components/FormComponents/Select';
+import { QueryForm, CnffItemHolder, CnffHeader, CnffTitle, CnffButtonHolder, DateRange, CnffResetButton, CnffTypeSubTypeHolder } from './caseNoteFilterForm.theme';
 
-import { QueryForm, CnffItemHolder, CnffHeader, CnffTitle, CnffButtonHolder, DateRange, CnffResetButton } from './caseNoteFilterForm.theme';
+import { selectCaseNotesQuery } from '../../selectors';
+import {
+  CASE_NOTE_FILTER,
+} from '../../constants';
 
-// const filterOptions = createFilterOptions({ options: Locations });
+import {
+  caseNoteFilterSelectInfo,
+} from './selectors';
 
-const upper = (value) => value && value.toUpperCase();
+// const upper = (value) => value && value.toUpperCase();
 
 const SearchForm = (props) => {
-  const { handleSubmit, submitting, error, reset, isMobile } = props;
+  const { handleSubmit, submitting, error, reset, isMobile, caseNoteFilters } = props;
+  const { source, type, subType } = caseNoteFilters;
+  const showSource = false;
   return (
     <QueryForm onSubmit={handleSubmit}>
       <CnffHeader>
@@ -23,18 +38,15 @@ const SearchForm = (props) => {
         <CnffResetButton onClick={reset}>Reset</CnffResetButton>
       </CnffHeader>
       <SubmissionError error={error}>{error}</SubmissionError>
-      <CnffItemHolder isMobile={isMobile}>
-        <Field name="caseNoteTypeFilter" component={Input} type="text" title="Type" placeholder="" normalize={upper} />
-      </CnffItemHolder>
-      <CnffItemHolder isMobile={isMobile}>
-        <Field name="caseNoteSubTypeFilter" component={Input} type="text" title="SubType" placeholder="" normalize={upper} autocomplete="off" spellcheck="false" />
-      </CnffItemHolder>
+      <CnffTypeSubTypeHolder showSource={showSource} isMobile={isMobile}>
+        <Field isMobile={isMobile} name="typeSubType" component={TypeSubTypeSelectors} options={{ types: type, subTypes: subType }} type="text" title="Type" placeholder="" multi />
+      </CnffTypeSubTypeHolder>
       <DateRange isMobile={isMobile}>
-        <Field name="caseNoteDateRangeFilter" component={DateRangePicker} title="Date Range" />
+        <Field name="dateRange" component={DateRangePicker} title="Date Range" />
       </DateRange>
-      <CnffItemHolder isMobile={isMobile}>
-        <Field name="caseNoteSourceFilter" component={Input} type="text" title="Source" autocomplete="off" />
-      </CnffItemHolder>
+      {showSource ? <CnffItemHolder isMobile={isMobile}>
+        <Field name="source" component={Select} options={source} type="text" title="Source" autocomplete="off" multi />
+      </CnffItemHolder> : null}
       <CnffButtonHolder isMobile={isMobile}>
         <Button type="submit" disabled={submitting} submitting={submitting} buttonstyle="link">Apply filters</Button>
       </CnffButtonHolder>
@@ -48,6 +60,7 @@ SearchForm.propTypes = {
   error: PropTypes.string,
   reset: PropTypes.func.isRequired,
   isMobile: PropTypes.bool,
+  caseNoteFilters: PropTypes.object.isRequired,
 };
 
 SearchForm.defaultProps = {
@@ -55,6 +68,19 @@ SearchForm.defaultProps = {
   isMobile: false,
 };
 
-export default reduxForm({
+
+export function mapDispatchToProps() {
+  return {
+    onSubmit: createFormAction((formData) => ({ type: CASE_NOTE_FILTER.BASE, payload: { query: formData.toJS(), resetPagination: true, goToPage: '/bookings/details' } }), [CASE_NOTE_FILTER.SUCCESS, CASE_NOTE_FILTER.ERROR]),
+  };
+}
+
+const mapStateToProps = createStructuredSelector({
+  initialValues: selectCaseNotesQuery(),
+  caseNoteFilters: caseNoteFilterSelectInfo(),
+});
+
+// Wrap the component to inject dispatch and state into it
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
   form: 'caseNoteFilter', // a unique identifier for this form
-})(SearchForm);
+})(SearchForm));

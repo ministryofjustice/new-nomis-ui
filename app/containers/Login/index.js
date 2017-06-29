@@ -24,7 +24,8 @@ import LoginFormMobile from './loginFormMobile';
 import { CrestLogoBlack } from './mobile.theme';
 
 // import CaseNoteFilterForm from 'containers/Bookings/Details/CaseNotes/caseNoteFilterForm';
-
+// import { Map } from 'immutable';
+// import AddCaseNoteModal from 'containers/Bookings/Details/AddCaseNoteModal';
 
 class Login extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
@@ -36,7 +37,7 @@ class Login extends PureComponent { // eslint-disable-line react/prefer-stateles
 
     return deviceFormat === 'desktop' ?
       <CenteredFlexColumnLogin>
-        {/* <CaseNoteFilterForm /> */}
+        {/* <AddCaseNoteModal /> */}
         <Titleblock title={<FormattedMessage {...translations.title} />} subtitle={<FormattedMessage {...translations.subtitle} />} />
         <LoginForm onSubmit={this.props.onSubmitForm} />
       </CenteredFlexColumnLogin>

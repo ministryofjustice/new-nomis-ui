@@ -115,3 +115,5 @@ export const CASENOTETYPES = {
     ERROR: 'app/eliteApiLoader/CASENOTETYPES/error',
   },
 };
+
+export const ALLCASENOTESOURCETYPESUBTYPEDATA = 'sup daaaaawwwwwg';

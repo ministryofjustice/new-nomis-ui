@@ -83,28 +83,28 @@ export const bookingAlerts = (token, baseUrl, id, pagination) => {
 };
 
 const casenoteQueryStringGen = (caseNoteOptions) => {
-  // HACK: caseNoteOptions is an immutable map if there's nothing inside it; otherwise a regular js object.
-  // could likely be fixed better!
-  if (!caseNoteOptions || caseNoteOptions.size === 0) {
-    return '';
+  const { source, typeSubType, dateRange } = caseNoteOptions;
+  const { type, subType } = typeSubType;
+  const { startDate, endDate } = dateRange;
+  const queryArray = [];
+  if (source && source.length > 0) {
+    queryArray.push(`source:in:'${source.join('\'|\'')}'`);
   }
-  return `&query=${Object.keys(caseNoteOptions).filter((key) => caseNoteOptions[key] && (caseNoteOptions[key].length ? caseNoteOptions[key].filter((x) => x).length > 0 : true)).map((key) => {
-    const value = caseNoteOptions[key];
-    switch (key) {
-      case 'caseNoteTypeFilter':
-        return `type:in:'${value}'`;
-      case 'caseNoteSubTypeFilter':
-        return `subType:in:'${value}'`;
-      case 'caseNoteSourceFilter':
-        return `source:in:'${value}'`;
-      case 'caseNoteDateRangeFilter': {
-        const vals = [moment(value[0], 'L').format('MM-DD-YYYY'), moment(value[1], 'L').add(1, 'days').format('MM-DD-YYYY')];
-        return `creationDateTime:gteq:'${vals[0]}':'MM-DD-YYYY',and:creationDateTime:lteq:'${vals[1]}':'MM-DD-YYYY'`;
-      }
-      default:
-        return `${key}:eq:${value}`;
-    }
-  }).join(',and:')}`;
+  if (type && type.length > 0) {
+    queryArray.push(`type:in:'${type.join('\'|\'')}'`);
+  }
+  if (subType && subType.length > 0) {
+    queryArray.push(`subType:in:'${subType.join('\'|\'')}'`);
+  }
+
+  if (startDate && endDate) {
+    const form = 'MM-DD-YYYY';
+    const sD = moment(startDate, 'L').format(form);
+    const eD = moment(endDate, 'L').add(1, 'days').format(form);
+    queryArray.push(`creationDateTime:gteq:'${sD}':'${form}',and:creationDateTime:lteq:'${eD}':'${form}'`);
+  }
+
+  return queryArray.length > 0 ? `&query=${queryArray.join(',and:')}` : '';
 };
 
 export const bookingCaseNotes = (token, baseUrl, id, pagination, query) => {
@@ -117,9 +117,9 @@ export const bookingCaseNotes = (token, baseUrl, id, pagination, query) => {
     .then((response) => response.data);
 };
 
-export const addCaseNote = (token, baseUrl, bookingId, type, subType, text) => {
+export const addCaseNote = (token, baseUrl, bookingId, type, subType, text, occurrenceDateTime) => {
   const data = {
-    type, subType, text,
+    type, subType, text, occurrenceDateTime,
   };
 
   return axios({
@@ -174,8 +174,8 @@ export const users = {
     url: `/users/${id}`,
     headers: { Authorization: token },
   }).then((response) => response.data),
-
 };
+
 
 const paginationToQuery = (pagination) => `limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}`;
 
@@ -250,6 +250,77 @@ export const loadCaseNoteTypes = (token, baseUrl, caseNoteSource, pagination = {
 
       return refCodes;
     });
+
+
+export const loadSomeCaseNoteSources = (token, baseUrl, offset) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  url: `referenceDomains/caseNoteSources${offset ? `?${offsetQuery(offset)}` : ''}`,
+  headers: { Authorization: token } });
+
+export const loadSomeCaseNoteTypes = (token, baseUrl, offset) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  url: `referenceDomains/caseNoteTypes${offset ? `?${offsetQuery(offset)}` : ''}`,
+  headers: { Authorization: token } });
+
+export const loadSomeCaseNoteSubTypes = (token, baseUrl, offset, type) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  url: `referenceDomains/caseNoteTypes/${type}/subTypes${offset ? `?${offsetQuery(offset)}` : ''}`,
+  headers: { Authorization: token } });
+
+export const loadSomeUserCaseNoteTypes = (token, baseUrl, offset) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  url: `users/me/caseNoteTypes${offset ? `?${offsetQuery(offset)}` : ''}`,
+  headers: { Authorization: token } });
+
+export const loadSomeUserCaseNoteSubTypes = (token, baseUrl, offset, type) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  url: `users/me/caseNoteTypes/${type}${offset ? `?${offsetQuery(offset)}` : ''}`,
+  headers: { Authorization: token } });
+
+// Function wrapper to grab ALL of a paginated data type.
+export const getAll = (func, itemName, args) => {
+  const newFunc = (token, baseUrl, offset = { offset: 0, limit: 1000 }) => func(token, baseUrl, offset, args).then((response) => {
+    const { pageMetaData } = response.data;
+    const items = response.data[itemName];
+    const newOffset = pageMetaData.offset + pageMetaData.limit;
+    const newLimit = pageMetaData.totalRecords - newOffset;
+    if (newLimit > 0) {
+      return newFunc(token, baseUrl, { offset: newOffset, limit: newLimit }, args)
+        .then((newItems) => items.concat(newItems)
+      );
+    }
+    return items;
+  });
+  return newFunc;
+};
+
+export const loadAllCaseNoteFilterItems = (token, baseUrl) => {
+  const sources = getAll(loadSomeCaseNoteSources, 'referenceCodes')(token, baseUrl);
+  const types = getAll(loadSomeCaseNoteTypes, 'referenceCodes')(token, baseUrl);
+  return Promise.all([sources, types]).then((res) => {
+    const allSources = res[0].map((s) => ({ code: s.code, description: s.description }));
+    const allTypes = res[1].map((t) => ({ code: t.code, description: t.description }));
+    return Promise.all(allTypes.map((t) => getAll(loadSomeCaseNoteSubTypes, 'referenceCodes', t.code)(token, baseUrl).then(
+      (reso) => reso.map((sT) => ({ code: sT.code, description: sT.description, parentCode: sT.parentCode }))
+    ))).then((subTypes) => ({ sources: allSources, types: allTypes, subTypes }));
+  });
+};
+
+export const loadAllUserCaseNoteTypes = (token, baseUrl) => {
+  const types = getAll(loadSomeUserCaseNoteTypes, 'caseNoteTypes')(token, baseUrl);
+  return types.then((res) => {
+    const allTypes = res.map((t) => ({ code: t.code, description: t.description }));
+    return Promise.all(allTypes.map((t) => getAll(loadSomeUserCaseNoteSubTypes, 'caseNoteSubTypes', t.code)(token, baseUrl).then(
+      (reso) => reso.map((sT) => ({ code: sT.code, description: sT.description, parentCode: t.code }))
+    ))).then((subTypes) => ({ types: allTypes, subTypes }));
+  });
+};
+
 
 export const alertTypes = (token, baseUrl) => axios({
   baseURL: baseUrl,

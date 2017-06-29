@@ -1,4 +1,5 @@
 import { put, select, call, takeLatest, takeEvery } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
 import {
   bookings,
   officerAssignments,
@@ -12,8 +13,9 @@ import {
   bookingAliases,
   bookingAlerts,
   bookingCaseNotes,
-  loadCaseNoteTypes,
   users,
+  loadAllCaseNoteFilterItems,
+  loadAllUserCaseNoteTypes,
 } from 'utils/eliteApi';
 
 import { loadAssignments } from 'containers/Assignments/actions';
@@ -30,7 +32,6 @@ import {
   selectBookingDetails,
   selectAlertTypeStatus,
   selectAlertTypeCodeStatus,
-  selectCaseNoteSourceStatus,
 } from './selectors';
 
 import { paginationHash, queryHash } from './helpers';
@@ -44,6 +45,7 @@ import {
   OFFICERS,
   CASENOTETYPES,
   USER,
+  ALLCASENOTESOURCETYPESUBTYPEDATA,
 } from './constants';
 
 import {
@@ -204,7 +206,7 @@ export function* bookingCaseNotesSaga(action) {
     const data = yield call(bookingCaseNotes, token, apiServer, bookingId, pagination, query);
     yield put({ type: BOOKINGS.CASENOTES.SUCCESS, payload: { bookingId, pagination, query, results: data.caseNotes, meta: data.pageMetaData } });
     // Load CaseNote Details now if necessary
-    yield data.caseNotes.map((caseNote) => call(preloadCaseNoteType, caseNote.source, token, apiServer));
+    // yield data.caseNotes.map((caseNote) => call(preloadCaseNoteType, caseNote.source, token, apiServer));
 
     return { Type: 'SUCCESS' };
   } catch (err) {
@@ -295,6 +297,7 @@ export function* preloadDataWatcher() {
 export function* preloadData() {
   const token = yield getToken();
   const apiServer = yield select(selectApi());
+  yield call(preloadAllCaseNoteSourcesTypesSubTypes, token, apiServer);
   yield call(locationsSaga, token, apiServer);
   yield call(preloadCaseNoteTypes, token, apiServer);
 }
@@ -321,28 +324,39 @@ export function* locationsSaga(token, apiServer) {
   }
 }
 
-
-export function* preloadCaseNoteTypes(token, apiServer) {
-  const caseNoteSources = ['INST', 'COMM'];
-  yield caseNoteSources.map((caseNoteSource) => call(preloadCaseNoteType, caseNoteSource, token, apiServer));
+export function* preloadAllCaseNoteSourcesTypesSubTypes(token, apiServer) {
+  const items = yield call(loadAllCaseNoteFilterItems, token, apiServer);
+  yield put({ type: ALLCASENOTESOURCETYPESUBTYPEDATA, payload: items });
 }
 
-export function* preloadCaseNoteType(caseNoteSource, token, apiServer) {
-  const status = yield select(selectCaseNoteSourceStatus, { source: caseNoteSource });
-  if (status === 'SUCCESS' || status === 'LOADING') return null;
-
-  yield put({ type: CASENOTETYPES.PRELOAD.LOADING, payload: caseNoteSource });
+export function* preloadCaseNoteTypes(token, apiServer) {
+  yield put({ type: CASENOTETYPES.PRELOAD.LOADING, payload: {} });
 
   try {
-    // caseNoteTypes actually loads all + their subtypes.
-    const caseNoteTypes = yield call(loadCaseNoteTypes, token, apiServer, caseNoteSource);
-    yield put({ type: CASENOTETYPES.PRELOAD.SUCCESS, payload: { caseNoteTypes, caseNoteSource } });
+    const res = yield call(loadAllUserCaseNoteTypes, token, apiServer);
+    yield put({ type: CASENOTETYPES.PRELOAD.SUCCESS, payload: res });
     return null;
   } catch (err) {
     yield put({ type: CASENOTETYPES.PRELOAD.ERROR, payload: { error: err } });
     return { error: err };
   }
 }
+//
+// export function* preloadCaseNoteType(caseNoteSource, token, apiServer) {
+//   const status = yield select(selectCaseNoteSourceStatus, { source: caseNoteSource });
+//   if (status === 'SUCCESS' || status === 'LOADING') return null;
+//
+//   yield put({ type: CASENOTETYPES.PRELOAD.LOADING, payload: caseNoteSource });
+//
+//   try {
+//     const caseNoteTypes = yield call(loadCaseNoteTypes, token, apiServer, caseNoteSource);
+//     yield put({ type: CASENOTETYPES.PRELOAD.SUCCESS, payload: { caseNoteTypes, caseNoteSource } });
+//     return null;
+//   } catch (err) {
+//     yield put({ type: CASENOTETYPES.PRELOAD.ERROR, payload: { error: err } });
+//     return { error: err };
+//   }
+// }
 
 export function* caseNoteTypeWatch() {
   yield takeEvery(CASENOTETYPES.BASE, caseNoteTypeLoadSaga);
@@ -361,7 +375,7 @@ export function* caseNoteTypeLoadSaga(action) {
   if (!token || !apiServer) {
     return 'fail';
   }
-  yield call(preloadCaseNoteType, source, token, apiServer);
+  // yield call(preloadCaseNoteType, source, token, apiServer);
   return null;
 }
 
@@ -403,6 +417,11 @@ export function* userSwitchCaseLoadsSaga(action) {
     yield put({ type: USER.SWITCHCASELOAD.SUCCESS, payload: { caseLoadId } });
     yield put({ type: BOOKINGS.CLEAR });
     yield put(loadAssignments(true));
+    const state = yield select();
+    const currPath = state.getIn(['route', 'locationBeforeTransitions', 'pathname']);
+    if (currPath !== '/' && currPath !== '/assignments') {
+      yield put(push('/'));
+    }
   } catch (e) {
     yield put({ type: USER.SWITCHCASELOAD.ERROR });
   }

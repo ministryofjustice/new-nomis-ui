@@ -24,7 +24,7 @@ const SearchForm = (props) => {
     <QueryForm onSubmit={handleSubmit}>
       <SubmissionError error={error}>{error}</SubmissionError>
       <QueryItemHolder>
-        <Field name="firstName" component={Input} type="text" title="First Name / Alias" placeholder="ex. John"  />
+        <Field name="firstName" component={Input} type="text" title="First Name" placeholder="ex. John" autocomplete="off" />
       </QueryItemHolder>
       <QueryItemHolder>
         <Field name="lastName" component={Input} type="text" title="Last Name" placeholder="ex. Doe" autocomplete="off" spellcheck="false" />

@@ -5,6 +5,7 @@ import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import { InputLabel, InputGroup, Base } from 'components/FormComponents/Input/input.theme';
 import styled from 'styled-components';
+import { Map } from 'immutable';
 
 const dateFormat = 'L';
 
@@ -19,60 +20,44 @@ const DatePickerInputGroup = styled(InputGroup)`
 `;
 // stolen from https://github.com/Hacker0x01/react-datepicker/issues/543
 
-const makeNotImmutable = (obj) => obj && obj.toJS ? obj.toJS() : obj;
+const asMoment = (t) => t ? moment(t, dateFormat) : null;
 
-class renderDateRangePicker extends React.Component {
-  static propTypes = {
-    input: PropTypes.shape({
-      onChange: PropTypes.func.isRequired,
-      value: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.array.isRequired]),
-    }).isRequired,
-    meta: PropTypes.shape({
-      touched: PropTypes.bool,
-      error: PropTypes.bool,
-    }).isRequired,
-    placeholder: PropTypes.string,
-    title: PropTypes.string,
-  }
-
-  static defaultProps = {
-    placeholder: '',
-    title: '',
-  }
-
+class DateRangePicker extends React.Component {
   constructor(props) {
     super(props);
     this.handleChangeStart = this.handleChangeStart.bind(this);
     this.handleChangeEnd = this.handleChangeEnd.bind(this);
   }
 
-  handleChangeStart(date) {
-    if (date === null) {
-      this.props.input.onChange([null, null]);
+  handleChangeStart(dateMoment) {
+    if (dateMoment === null) {
+      this.props.input.onChange(Map({ startDate: null, endDate: null }));
       return;
     }
-    const vals = makeNotImmutable(this.props.input.value);
-    const startDateString = moment(date).format(dateFormat);
-    // console.log('changeStart', vals, date);
-    if (!vals[1] || moment(vals[1], dateFormat).isBefore(moment(date))) {
-      this.props.input.onChange([startDateString, startDateString]); // `${moment(date).format('YYYY-MM-DD')}%%%${vals[1]}`);
+    const currentValue = this.props.input.value;
+    const currentEndDate = currentValue.get('endDate');
+    const startDateString = dateMoment.format(dateFormat);
+
+    if (!currentEndDate || moment(currentEndDate, dateFormat).isBefore(dateMoment)) {
+      this.props.input.onChange(Map({ startDate: startDateString, endDate: startDateString }));
     } else {
-      this.props.input.onChange([startDateString, vals[1]]); // `${moment(date).format('YYYY-MM-DD')}%%%${vals[1]}`);
+      this.props.input.onChange(currentValue.set('startDate', startDateString));
     }
   }
 
-  handleChangeEnd(date) {
-    if (date === null) {
-      this.props.input.onChange([null, null]);
+  handleChangeEnd(dateMoment) {
+    if (dateMoment === null) {
+      this.props.input.onChange(Map({ startDate: null, endDate: null }));
       return;
     }
-    const vals = makeNotImmutable(this.props.input.value);
-    const endDateString = moment(date).format(dateFormat);
-    // console.log('changeEnd', vals);
-    if (!vals[0] || moment(vals[0], dateFormat).isAfter(moment(date))) {
-      this.props.input.onChange([endDateString, endDateString]); // `${moment(date).format('YYYY-MM-DD')}%%%${vals[1]}`);
+    const currentValue = this.props.input.value;
+    const currentStartDate = currentValue.get('startDate');
+    const endDateString = dateMoment.format(dateFormat);
+
+    if (!currentStartDate || moment(currentStartDate, dateFormat).isAfter(dateMoment)) {
+      this.props.input.onChange(Map({ startDate: endDateString, endDate: endDateString }));
     } else {
-      this.props.input.onChange([vals[0], endDateString]); // `${moment(date).format('YYYY-MM-DD')}%%%${vals[1]}`);
+      this.props.input.onChange(currentValue.set('endDate', endDateString));
     }
   }
 
@@ -82,32 +67,31 @@ class renderDateRangePicker extends React.Component {
       meta: { touched, error },
       title,
     } = this.props;
-    const val = makeNotImmutable(input.value);
-    const vals = val !== '' ? val : [null, null]; // val.split('%%%').map((x) => x && x !== '' ? moment(x, 'YYYY-MM-DD') : null) : [null, null];
-    const momentVals = vals.map((x) => x && x !== '' ? moment(x, dateFormat) : null);
-    // console.log(vals);
-    // console.log(momentVals);
+
+    const startDate = asMoment(input.value.get('startDate'));
+    const endDate = asMoment(input.value.get('endDate'));
+
     return (
       <DatePickerInputGroup>
         <InputLabel>{title}</InputLabel>
         <DatePicker
           selectsStart
-          startDate={momentVals[0]}
-          endDate={momentVals[1]}
+          startDate={startDate}
+          endDate={endDate}
           placeholder={placeholder}
           dateFormat={dateFormat}
-          selected={momentVals[0]}
+          selected={startDate}
           onChange={this.handleChangeStart}
           onFocus={() => input.onFocus()}
           onBlur={() => input.onBlur()}
         />
         <DatePicker
           selectsEnd
-          startDate={momentVals[0]}
-          endDate={momentVals[1]}
+          startDate={startDate}
+          endDate={endDate}
           placeholder={placeholder}
           dateFormat={dateFormat}
-          selected={momentVals[1]}
+          selected={endDate}
           onChange={this.handleChangeEnd}
           onFocus={() => input.onFocus()}
           onBlur={() => input.onBlur()}
@@ -118,4 +102,22 @@ class renderDateRangePicker extends React.Component {
   }
 }
 
-export default renderDateRangePicker;
+DateRangePicker.propTypes = {
+  input: PropTypes.shape({
+    onChange: PropTypes.func.isRequired,
+    value: PropTypes.object.isRequired,
+  }).isRequired,
+  meta: PropTypes.shape({
+    touched: PropTypes.bool,
+    error: PropTypes.bool,
+  }).isRequired,
+  placeholder: PropTypes.string,
+  title: PropTypes.string,
+};
+
+DateRangePicker.defaultProps = {
+  placeholder: '',
+  title: '',
+};
+
+export default DateRangePicker;

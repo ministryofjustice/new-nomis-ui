@@ -7,7 +7,7 @@ import { createFormAction } from 'redux-form-saga';
 
 import { closeAddCaseNoteModal } from '../../actions';
 import { ADD_NEW_CASENOTE } from '../../constants';
-import AddCaseNoteFormMobile from './addCaseNoteFormMobile';
+import AddCaseNoteForm from '../AddCaseNoteModal/addCaseNoteForm';
 import { selectCaseNoteTypeList, selectCaseNoteSubTypeList } from '../AddCaseNoteModal/selectors';
 
 class AddCaseNotePageMobile extends PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -22,14 +22,9 @@ class AddCaseNotePageMobile extends PureComponent { // eslint-disable-line react
   }
 
   render() {
-    const caseNoteTypeList = this.props.caseNoteTypeList.toJS();
-    const subTypeList = this.props.caseNoteSubTypeList;
     return (
-      <AddCaseNoteFormMobile
-        initialValues={{ caseNoteType: caseNoteTypeList[0].value, caseNoteSubType: subTypeList[0].value }}
-        caseNoteTypeList={caseNoteTypeList}
-        caseNoteSubTypeList={subTypeList}
-        onSubmit={this.props.onSubmitForm}
+      <AddCaseNoteForm
+        isMobile
         goBack={this.context.router.goBack}
       />
     );

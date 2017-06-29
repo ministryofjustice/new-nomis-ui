@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SelectStyle } from './select.theme';
+
+import RfSelect from 'containers/FormContainers/RFReactSelect';
+
 import { InputGroup, InputLabel, InputError } from '../Input/input.theme';
 
 const Select = (props) => {
@@ -9,11 +11,7 @@ const Select = (props) => {
     <InputGroup error={touched && error}>
       <InputLabel>{title}</InputLabel>
       <InputError error={touched && error}>{error}</InputError>
-      <SelectStyle {...input} >
-        {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>{opt.label || opt.value}</option>
-        ))}
-      </SelectStyle>
+      <RfSelect input={input} options={options} />
     </InputGroup>
   );
 };

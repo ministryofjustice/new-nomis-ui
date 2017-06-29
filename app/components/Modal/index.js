@@ -84,22 +84,24 @@ class Modal extends Component {
       initialSlide: Number(modalData.index),
     };
 
-
-    const dataGrid = !modalData.header ? modalData.array.map((modalObject) => (
-      modalObject.array.map((keypair, i) =>
-        (
-          <div key={i}>
-            <ModalImageDetailsID>{keypair.title}: {keypair.value}</ModalImageDetailsID>
-          </div>
+    let dataGrid;
+    if (modalData.type !== 'info') {
+      dataGrid = !modalData.header ? modalData.array.map((modalObject) => (
+        modalObject.array.map((keypair) =>
+          (
+            <div key={`${keypair.title}${keypair.value}`}>
+              <ModalImageDetailsID>{keypair.title}: {keypair.value}</ModalImageDetailsID>
+            </div>
+          )
         )
-      )
-    ))
-    :
-    [(<div>
-      <ModalImageDetailsName>{modalData.name}</ModalImageDetailsName>
-      <ModalImageDetailsID>{`ID: ${modalData.id}`}</ModalImageDetailsID>
-      <ModalImageDetailsKeyWorker>Key Worker: <div style={{ display: 'inline-block' }} ><EliteOfficerName staffId={modalData.keyWorker} /></div></ModalImageDetailsKeyWorker>
-    </div>)];
+      ))
+      :
+      [(<div>
+        <ModalImageDetailsName>{modalData.name}</ModalImageDetailsName>
+        <ModalImageDetailsID>{`ID: ${modalData.id}`}</ModalImageDetailsID>
+        <ModalImageDetailsKeyWorker>Key Worker: <div style={{ display: 'inline-block' }} ><EliteOfficerName staffId={modalData.keyWorker} /></div></ModalImageDetailsKeyWorker>
+      </div>)];
+    }
 
     return (
       <ModalContainer data-name={'Modal'}>
@@ -107,13 +109,14 @@ class Modal extends Component {
         <ModalEnclosure>
           { modalData.type === 'info' ?
             <ModalTypeInfoContainer data-name={'ModalTypeInfoContainer'} >
+              <ModalClose data-name={'ModalClose'} onClick={this.closeModal} />
               <ModalTitle>{modalData.title}</ModalTitle>
               <ModalBody>{modalData.body}</ModalBody>
               <Button onClick={this.closeModal} buttonstyle="submit" style={{ pointerEvents: 'auto', marginTop: '50px' }}>Ok - continue</Button>
             </ModalTypeInfoContainer>
             :
             <ModalTypeImageContainer data-name={'ModalTypeImageContainer'}>
-              <ModalClose onClick={this.closeModal} />
+              <ModalClose data-name={'ModalClose'} onClick={this.closeModal} />
               <ModalTypeImage>
                 <ModalImageContainerMask innerRef={(slider) => { this.slider = slider; }} >
                   <Slider {...settings} >

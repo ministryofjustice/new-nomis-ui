@@ -37,6 +37,7 @@ export const ModalTypeImageContainer = styled.div`
 `;
 
 export const ModalTypeInfoContainer = styled.div`
+  position: relative;
   max-width: 700px;
   max-height: 750px;
   background: white;

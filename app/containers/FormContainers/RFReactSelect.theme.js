@@ -1,46 +1,10 @@
 import styled from 'styled-components';
 import colours from 'theme/colours';
+import Select from 'react-select';
 
-import RFReactSelect from './RFReactSelect';
+// import { RFReactSelect } from './RFReactSelect.theme';
 
-export const Heading = styled.div`
-  color: black;
-  text-align: center;
-`;
-
-export const Form = styled.form`
-  width: 570px;
-  margin: auto;
-  position: relative;
-`;
-
-export const FormHeader = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-`;
-
-export const FormTitle = styled.div`
-  font-size: 26px;
-  flex-grow: 1;
-`;
-
-export const FormResetLink = styled.a`
-  font-size: 19px;
-  color: ${colours.linkColour};
-  text-decoration: underline;
-  cursor: pointer;
-`;
-
-export const Label = styled.label`
-  width:100%;
-  margin:0;
-  padding:0;
-`;
-
-// Retheming the crazy dropdown...
-export const StyledSelect = styled(RFReactSelect)`
+export const StyledSelect = styled(Select)`
   &.is-focused {
     /*outline: 3px solid ${colours.forms.textInput.focusBorder};
     outline-offset: 0;*/

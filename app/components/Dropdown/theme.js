@@ -11,6 +11,14 @@ export const MenuWrapper = styled.div`
   position: relative;
 `;
 
+export const InfoWrapper = styled.div`
+  padding-left: 26px;
+  padding-right: 26px;
+  width: 100%;
+  align-items: center;
+  display: flex;
+`;
+
 export const UserName = styled.strong`
   position: relative;
   padding: 0 10px 0 0px;

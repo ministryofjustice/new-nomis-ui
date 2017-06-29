@@ -24,6 +24,7 @@ import {
   CASENOTETYPES,
   OFFICERS,
   USER,
+  ALLCASENOTESOURCETYPESUBTYPEDATA,
 } from './constants';
 
 const SortedSearchQuery = fromJS({
@@ -84,10 +85,17 @@ const initialState = fromJS({
   CaseNoteTypes: {
   },
   CaseNoteTypesSelect: { Types: Set([]), TypeList: List([]) },
+  AllCaseNoteFilters: {
+    Sources: [],
+    Types: [],
+    SubTypes: [],
+  },
   Officers: {
   },
   User: {
     CaseLoads: List([]),
+    CaseNoteTypes: List([]),
+    CaseNoteSubTypes: List([]),
   },
 });
 
@@ -282,31 +290,11 @@ function EliteApiReducer(state = initialState, action) {
     }
 
     case CASENOTETYPES.PRELOAD.SUCCESS: {
-      const { caseNoteTypes, caseNoteSource } = action.payload;
-      let newState = state;
-      if (['INST', 'COMM'].indexOf(caseNoteSource) !== -1) {
-        newState = state.update('CaseNoteTypesSelect', (cntL) => {
-          let types = cntL.get('Types');
-          let list = cntL.get('TypeList');
-          if (!list) list = List([]);
-          caseNoteTypes.forEach((cnt) => {
-            const code = cnt.Data.code;
-            const des = cnt.Data.description;
-            if (!types.has(code)) {
-              const subTypesCodes = Object.keys(cnt.SubTypes);
-              const subTypes = subTypesCodes.map((stCode) => {
-                const stDes = cnt.SubTypes[stCode].Data.description;
-                return { value: stCode, label: `${stDes} - ${stCode}` };
-              });
-              list = list.push({ value: code, label: `${des} - ${code}`, subTypes });
-              types = types.add(code);
-            }
-          });
-          return cntL.set('Types', types).set('TypeList', list);
-        });
-      }
-      return newState.setIn(['CaseNoteTypes', caseNoteSource], fromJS({ Status: { Type: 'SUCCESS' },
-        Data: caseNoteTypes.reduce((acc, type) => Object.assign(acc, { [type.Data.code]: Object.assign(type, { Status: { Type: 'SUCCESS' } }) }), {}) }));
+      const { types, subTypes } = action.payload;
+      const Types = types.map((x) => ({ label: x.description, value: x.code }));
+      const SubTypes = subTypes.reduce((arr, sT) => arr.concat(sT.map((x) => ({ label: x.description, value: x.code, parent: x.parentCode }))), []);
+
+      return state.setIn(['User', 'CaseNoteTypes'], Types).setIn(['User', 'CaseNoteSubTypes'], SubTypes);
     }
 
     case USER.CASELOADS.LOADING: {
@@ -319,6 +307,26 @@ function EliteApiReducer(state = initialState, action) {
 
     case USER.CASELOADS.ERROR: {
       return state.setIn(['User', 'CaseLoads'], fromJS({ Status: { Type: 'ERROR', Error: action.payload.error } }));
+    }
+
+    case ALLCASENOTESOURCETYPESUBTYPEDATA: {
+      const { sources, types, subTypes } = action.payload;
+      const SourceMap = {};
+      const TypeMap = {};
+      const SubTypeMap = {};
+      const Sources = sources.map((x) => { SourceMap[x.code] = x.description; return ({ label: x.description, value: x.code }); });
+      const Types = types.map((x) => { TypeMap[x.code] = x.description; return ({ label: x.description, value: x.code }); });
+      const SubTypes = subTypes.reduce((arr, sT) => arr.concat(sT.map((x) => ({ label: x.description, value: x.code, parent: x.parentCode }))), []);
+      SubTypes.forEach((x) => {
+        if (SubTypeMap[x.value]) {
+          console.log('multiple subtypes same name...', SubTypeMap[x.value], x.label); // eslint-disable-line
+        }
+        SubTypeMap[x.value] = x.label;
+      });
+
+      return state.set('AllCaseNoteFilters', Map({ Sources,
+        Types,
+        SubTypes })).set('CaseNoteTypes', Map({ Types: TypeMap, SubTypes: SubTypeMap }));
     }
 
     default: {

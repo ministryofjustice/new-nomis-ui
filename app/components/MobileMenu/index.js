@@ -24,8 +24,6 @@ function MobileMenu({ user, modalData, setMobileMenuOpen, setModalData, switchCa
     setMobileMenuOpen(false);
   };
 
-  const caseLoadDesc = user.activeCaseLoad && user.activeCaseLoad.description ? user.activeCaseLoad.description : user.activeCaseLoadId;
-
   return (
     <MobileMenuContainer>
       <MobileMenuHeader>

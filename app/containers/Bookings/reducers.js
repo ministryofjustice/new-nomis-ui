@@ -38,7 +38,7 @@ const detailsState = fromJS({
   alertsPagination: { perPage: 7, pageNumber: 0 },
   caseNotes: {
     Pagination: { perPage: 5, pageNumber: 0 },
-    Query: {},
+    Query: { source: [], typeSubType: { type: [], subType: [] }, dateRange: { startDate: null, endDate: null } },
     viewId: 0,
     viewOptions: ['LIST', 'DETAIL'],
     amendCaseNoteModal: false,
@@ -110,7 +110,11 @@ function searchReducer(state = initialState, action) {
     }
 
     case SET_DETAILS_TAB: {
-      return state.setIn(['details', 'activeTabId'], action.payload.activeTabId);
+      const newState = state.setIn(['details', 'activeTabId'], action.payload.activeTabId);
+      if (action.payload.activeTabId === 3) {
+        return newState.setIn(['details', 'caseNotes', 'viewId'], 0);
+      }
+      return newState;
     }
 
     case SET_RESULTS_VIEW: {
