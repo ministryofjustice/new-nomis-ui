@@ -46,6 +46,7 @@ function AlertList({ alerts, deviceFormat }) {
           </AlertTypeWrapper>
           <AlertCodeWrapper>
             <AlertCodeDescription>{codeDataDescription} ({alert.alertCode})</AlertCodeDescription>
+            <AlertCodeDescription>{alert.comment}</AlertCodeDescription>
             <AlertEntryDate>Entry date: {dateArray[0]},{dateArray[1]}</AlertEntryDate>
           </AlertCodeWrapper>
         </AlertItem>) :
@@ -56,6 +57,7 @@ function AlertList({ alerts, deviceFormat }) {
           </AlertTypeWrapperMobile>
           <AlertCodeWrapperMobile>
             <AlertCodeDescriptionMobile>{codeDataDescription} ({alert.alertCode})</AlertCodeDescriptionMobile>
+            <AlertCodeDescriptionMobile>{alert.comment}</AlertCodeDescriptionMobile>
             <AlertEntryDateMobile>Entry date: {dateArray[0]},{dateArray[1]}</AlertEntryDateMobile>
           </AlertCodeWrapperMobile>
         </AlertItemMobile>);

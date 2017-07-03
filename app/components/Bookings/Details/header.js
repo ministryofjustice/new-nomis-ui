@@ -18,7 +18,7 @@ import {
 const toTitleCase = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
 
 function Header({ inmateData, openAddCaseNote, setModalOpen, setModalData }) {
-  const { firstName, lastName, bookingNo, facialImageId, alertsCodes, assignedLivingUnit, assignedOfficerUserId } = inmateData;
+  const { firstName, lastName, bookingNo, offenderNo, facialImageId, alertsCodes, assignedLivingUnit, assignedOfficerUserId } = inmateData;
 
   const nameString = `${lastName.toUpperCase()}, ${toTitleCase(firstName)}`;
 
@@ -29,6 +29,7 @@ function Header({ inmateData, openAddCaseNote, setModalOpen, setModalData }) {
       name: nameString,
       id: bookingNo,
       keyWorker: assignedOfficerUserId,
+      offenderNo: offenderNo,
       index: 0,
       header: true,
     };
@@ -45,7 +46,7 @@ function Header({ inmateData, openAddCaseNote, setModalOpen, setModalData }) {
       <NameIdKeyWorker>
         <InmateName>{nameString}</InmateName>
         <IdLocation>
-          <div>ID: <strong>{bookingNo}</strong></div>
+          <div>ID: <strong>{offenderNo}</strong></div>
           <div>Key Worker: <strong><EliteOfficerName staffId={assignedOfficerUserId} /></strong></div>
         </IdLocation>
       </NameIdKeyWorker>

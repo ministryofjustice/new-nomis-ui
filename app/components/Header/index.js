@@ -51,7 +51,7 @@ class Header extends Component {
           <Base>
             <Logo><SVGLOGO /></Logo>
             <LogoText to="/">HMPPS</LogoText>
-            <Title to="/">Prison-NOMIS</Title>
+            <Title>Prison-NOMIS</Title>
             { user ? <Dropdown switchCaseLoad={switchCaseLoad} user={user} /> : null }
           </Base> :
           <BaseMobile>
