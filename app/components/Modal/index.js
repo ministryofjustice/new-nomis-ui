@@ -98,7 +98,7 @@ class Modal extends Component {
       :
       [(<div>
         <ModalImageDetailsName>{modalData.name}</ModalImageDetailsName>
-        <ModalImageDetailsID>{`ID: ${modalData.id}`}</ModalImageDetailsID>
+        <ModalImageDetailsID>{`ID: ${modalData.offenderNo}`}</ModalImageDetailsID>
         <ModalImageDetailsKeyWorker>Key Worker: <div style={{ display: 'inline-block' }} ><EliteOfficerName staffId={modalData.keyWorker} /></div></ModalImageDetailsKeyWorker>
       </div>)];
     }
