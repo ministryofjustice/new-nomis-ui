@@ -8,7 +8,7 @@ export const AlertHolder = styled.div`
 export const AlertItem = styled.div`
   position: relative;
   height: 150px;
-  width: 100%;
+  width: 60%;
   border-bottom: 1px solid ${colours.bookings.details.datagrid.gridLineColour};
 `;
 

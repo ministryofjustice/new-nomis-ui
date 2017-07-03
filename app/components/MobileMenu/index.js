@@ -28,7 +28,7 @@ function MobileMenu({ user, modalData, setMobileMenuOpen, setModalData, switchCa
     <MobileMenuContainer>
       <MobileMenuHeader>
         <UserName>{user.lastName[0].toUpperCase() + user.lastName.toLowerCase().slice(1)}, {user.firstName[0].toUpperCase() + user.firstName.toLowerCase().slice(1)}</UserName>
-        <CaseLoad>{caseLoadDesc}</CaseLoad>
+        <CaseLoad>{user.activeCaseLoad && user.activeCaseLoad.description ? user.activeCaseLoad.description : user.activeCaseLoadId}</CaseLoad>
       </MobileMenuHeader>
       <MobileMenuOption to={'/search'} onClick={removeMobileMenu}>Search<ForwardArrow svg={forwardBack} /></MobileMenuOption>
       <MobileMenuOption to={'/assignments'}>
