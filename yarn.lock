@@ -2436,7 +2436,7 @@ dom-converter@~0.1:
   dependencies:
     utila "~0.3"
 
-"dom-helpers@^2.4.0 || ^3.0.0", dom-helpers@^3.0.0:
+"dom-helpers@^2.4.0 || ^3.0.0", dom-helpers@^3.0.0, dom-helpers@^3.2.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-3.2.1.tgz#3203e07fed217bd1f424b019735582fc37b2825a"
 
@@ -3141,7 +3141,7 @@ fbjs@0.1.0-alpha.10:
     promise "^7.0.3"
     whatwg-fetch "^0.9.0"
 
-fbjs@^0.8.1, fbjs@^0.8.4, fbjs@^0.8.5, fbjs@^0.8.8, fbjs@^0.8.9:
+fbjs@^0.8.4, fbjs@^0.8.5, fbjs@^0.8.8, fbjs@^0.8.9:
   version "0.8.12"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.12.tgz#10b5d92f76d45575fd63a217d4ea02bea2f8ed04"
   dependencies:
@@ -4167,7 +4167,7 @@ intl@1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/intl/-/intl-1.2.5.tgz#82244a2190c4e419f8371f5aa34daa3420e2abde"
 
-invariant@2.2.2, invariant@^2.0.0, invariant@^2.1.1, invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2:
+invariant@2.2.2, invariant@^2.0.0, invariant@^2.1.0, invariant@^2.1.1, invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.2.tgz#9e1f56ac0acdb6bf303306f338be3b204ae60360"
   dependencies:
@@ -4930,6 +4930,10 @@ jws@^3.1.4:
 jwt-decode@^2.1.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
+
+keycode@^2.1.2:
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/keycode/-/keycode-2.1.9.tgz#964a23c54e4889405b4861a5c9f0480d45141dfa"
 
 kind-of@^3.0.2:
   version "3.2.2"
@@ -6653,7 +6657,7 @@ promise@^7.0.3, promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@15.x, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.5.9:
+prop-types@15.x, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.5.9:
   version "15.5.10"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
   dependencies:
@@ -6806,6 +6810,21 @@ react-addons-test-utils@15.4.1:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/react-addons-test-utils/-/react-addons-test-utils-15.4.1.tgz#1e4caab151bf27cce26df5f9cb714f4fd8359ae1"
 
+react-bootstrap@^0.31.0:
+  version "0.31.0"
+  resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-0.31.0.tgz#bbca804c0404d9c640102b2b656ae4cd5bea35c8"
+  dependencies:
+    babel-runtime "^6.11.6"
+    classnames "^2.2.5"
+    dom-helpers "^3.2.0"
+    invariant "^2.2.1"
+    keycode "^2.1.2"
+    prop-types "^15.5.6"
+    react-overlays "^0.7.0"
+    react-prop-types "^0.4.0"
+    uncontrollable "^4.1.0"
+    warning "^3.0.0"
+
 react-datepicker@^0.48.0:
   version "0.48.0"
   resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-0.48.0.tgz#bf8ea4283e3f8e0737be3ceb808a94a8d4231d49"
@@ -6820,13 +6839,14 @@ react-deep-force-update@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-1.0.1.tgz#f911b5be1d2a6fe387507dd6e9a767aa2924b4c7"
 
-react-dom@15.4.1:
-  version "15.4.1"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.4.1.tgz#d54c913261aaedb17adc20410d029dcc18a1344a"
+react-dom@^15.6.1:
+  version "15.6.1"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.6.1.tgz#2cb0ed4191038e53c209eb3a79a23e2a4cf99470"
   dependencies:
-    fbjs "^0.8.1"
+    fbjs "^0.8.9"
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
+    prop-types "^15.5.10"
 
 react-helmet@3.2.2:
   version "3.2.2"
@@ -6865,6 +6885,22 @@ react-measure@^2.0.2:
 react-onclickoutside@^6.1.1:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-6.1.1.tgz#9e680cdebd6c21878204e8a9f19ff413f8078397"
+
+react-overlays@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-0.7.0.tgz#531898ff566c7e5c7226ead2863b8cf9fbb5a981"
+  dependencies:
+    classnames "^2.2.5"
+    dom-helpers "^3.2.0"
+    prop-types "^15.5.8"
+    react-prop-types "^0.4.0"
+    warning "^3.0.0"
+
+react-prop-types@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/react-prop-types/-/react-prop-types-0.4.0.tgz#f99b0bfb4006929c9af2051e7c1414a5c75b93d0"
+  dependencies:
+    warning "^3.0.0"
 
 react-proxy@^1.1.7:
   version "1.1.8"
@@ -8243,6 +8279,12 @@ uid-number@^0.0.6:
 unc-path-regex@^0.1.0:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/unc-path-regex/-/unc-path-regex-0.1.2.tgz#e73dd3d7b0d7c5ed86fbac6b0ae7d8c6a69d50fa"
+
+uncontrollable@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/uncontrollable/-/uncontrollable-4.1.0.tgz#e0358291252e1865222d90939b19f2f49f81c1a9"
+  dependencies:
+    invariant "^2.1.0"
 
 underscore@~1.4.4:
   version "1.4.4"

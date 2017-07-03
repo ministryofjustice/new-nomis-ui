@@ -39,8 +39,7 @@ export const ListDetailItem = styled.div`
   cursor: pointer;
   display: flex;
   /*height: 130px;*/
-  padding-top: 22px;
-  padding-bottom: 17px;
+  padding: 22px 15px 17px 15px;
 
   ${
     ({ BordersBetween }) => bordersBetween(BordersBetween, `${colours.bookings.searchResults.borderColour} solid 1px`)
@@ -59,10 +58,6 @@ export const ListDetailItem = styled.div`
   &:hover {
     background: ${colours.filterBlocks.background};
     border-color: ${colours.filterBlocks.background};
-    margin: 0 -15px;
-    padding-left: 15px;
-    padding-right: 15px;
-    width: calc(100% + 30px);
   }
 
   &:hover+div {

@@ -20,7 +20,7 @@ export const FormWrapper = styled.form`
 
   button {
     height: 125px;
-    font-size: 38px;
+    font-size: 32px;
   }
 `;
 
@@ -43,7 +43,7 @@ export const Wrapper = styled.div`
 
   button {
     height: 125px;
-    font-size: 38px;
+    font-size: 32px;
   }
 `;
 

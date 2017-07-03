@@ -43,10 +43,8 @@ export const BlockWrapper = styled.div`
   margin: 20px 15px;
 
   a {
-    height: 105px;
     width: 533px;
-    padding-top: 26px;
-    font-size: 38px;
+    font-size: 32px;
 
   }
 `;

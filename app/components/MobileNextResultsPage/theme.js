@@ -6,12 +6,12 @@ export const ButtonContainer = styled.div`
   margin: auto;
   width: 100%;
   padding: 0px 25px;
-  font-size: 38px;
+  font-size: 32px;
   height: 104px;
   margin-top: 30px;
   margin-bottom: 30px;
 
   button {
-    font-size: 38px;
+    font-size: 32px;
   }
 `;

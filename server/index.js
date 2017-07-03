@@ -9,7 +9,7 @@ const setup = require('./middlewares/frontendMiddleware');
 const isDev = process.env.NODE_ENV !== 'production';
 const ngrok = (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel ? require('ngrok') : false;
 const resolve = require('path').resolve;
-require('./applicationinsights');
+const appinsights = require('./applicationinsights');
 const app = express();
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
@@ -20,6 +20,7 @@ app.use('/api', apiProxy);
 setup(app, {
   outputPath: resolve(process.cwd(), 'build'),
   publicPath: '/',
+  appinsightsKey: appinsights.client.config.instrumentationKey
 });
 
 // get the intended host and port number, use localhost and port 3000 if not provided

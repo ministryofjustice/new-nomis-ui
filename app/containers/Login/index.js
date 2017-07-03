@@ -11,7 +11,7 @@ import {
 
 import { selectDeviceFormat } from 'selectors/app';
 
-import Titleblock from 'components/TitleBlock';
+import LeftTitleBlock from 'components/TitleBlock/lefttitle';
 import TitleblockMobile from 'components/TitleBlock/mobile';
 import translations from './translations';
 
@@ -31,19 +31,18 @@ class Login extends PureComponent { // eslint-disable-line react/prefer-stateles
   static propTypes = {
     onSubmitForm: PropTypes.func.isRequired,
     deviceFormat: PropTypes.string.isRequired,
-  }
+  };
   render() {
     const { deviceFormat } = this.props;
 
     return deviceFormat === 'desktop' ?
       <CenteredFlexColumnLogin>
         {/* <AddCaseNoteModal /> */}
-        <Titleblock title={<FormattedMessage {...translations.title} />} subtitle={<FormattedMessage {...translations.subtitle} />} />
+        <LeftTitleBlock title={<FormattedMessage {...translations.title} />} subtitle={<FormattedMessage {...translations.subtitle} />} />
         <LoginForm onSubmit={this.props.onSubmitForm} />
       </CenteredFlexColumnLogin>
       :
       <CenteredFlexColumnLogin>
-        <CrestLogoBlack />
         <TitleblockMobile title={<FormattedMessage {...translations.title} />} subtitle={<FormattedMessage {...translations.subtitle} />} />
         <LoginFormMobile onSubmit={this.props.onSubmitForm} />
       </CenteredFlexColumnLogin>

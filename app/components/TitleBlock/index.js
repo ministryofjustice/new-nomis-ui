@@ -2,18 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
+  LeftWrapper,
   Wrapper,
-  Title,
-  Subtitle,
+  Title
 
 } from './titleblock.theme';
 
-function TitleBlock({ title, subtitle }) {
+function TitleBlock({ title }) {
   return (
     <Wrapper>
       <Title>{title}</Title>
-      <Subtitle>{subtitle}</Subtitle>
     </Wrapper>
+  );
+}
+
+function LeftTitleBlock({ title }) {
+  return (
+    <LeftWrapper>
+      <Title>{title}</Title>
+    </LeftWrapper>
   );
 }
 

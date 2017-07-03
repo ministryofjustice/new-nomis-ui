@@ -40,11 +40,11 @@ const submitAfterOverlay = `&:disabled:after {
 export const Button = styled.button`
   /* Adapt the colors based on primary prop */
   ${fonts.misc}
-  font-size: 24px;
+  font-size: 20px;
   ${''/* width: 175px; */}
   padding: 16px 40px 10px;
   background: ${(props) => colours.buttons[props.buttonstyle].background};
-  border-bottom: 3px solid ${(props) => colours.buttons[props.buttonstyle].borderBottom};
+  border-bottom: 2px solid ${(props) => colours.buttons[props.buttonstyle].borderBottom};
   color: ${(props) => colours.buttons[props.buttonstyle].text};
   position: relative;
   margin-bottom: 15px;
@@ -70,11 +70,11 @@ export const StyledLink = styled((props) => <Link {...omit(props, ['buttonstyle'
   text-align: center;
   /* Adapt the colors based on primary prop */
   ${fonts.misc}
-  font-size: 24px;
+  font-size: 20px;
   ${''/* width: 175px; */}
   padding: 16px 40px 10px;
   background: ${(props) => colours.buttons[props.buttonstyle].background};
-  border-bottom: 3px solid ${(props) => colours.buttons[props.buttonstyle].borderBottom};
+  border-bottom: 2px solid ${(props) => colours.buttons[props.buttonstyle].borderBottom};
   color: ${(props) => colours.buttons[props.buttonstyle].text};
   position: relative;
   margin-bottom: 15px;

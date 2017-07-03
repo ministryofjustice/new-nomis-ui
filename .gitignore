@@ -33,7 +33,7 @@ build
 .eslintcache
 
 # dotenv environment variables file
-.env
+.env*
 
 reports
 test-results.xml

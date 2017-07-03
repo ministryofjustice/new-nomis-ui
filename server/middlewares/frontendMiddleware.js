@@ -5,7 +5,7 @@ const compression = require('compression');
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
 
 // Dev middleware
-const addDevMiddlewares = (app, webpackConfig) => {
+const addDevMiddlewares = (app, options, webpackConfig) => {
   const webpack = require('webpack');
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -66,7 +66,7 @@ module.exports = (app, options) => {
     addProdMiddlewares(app, options);
   } else {
     const webpackConfig = require('../../internals/webpack/webpack.dev.babel');
-    addDevMiddlewares(app, webpackConfig);
+    addDevMiddlewares(app, options, webpackConfig);
   }
 
   return app;

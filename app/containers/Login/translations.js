@@ -8,11 +8,11 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   title: {
     id: 'app.components.Login.title',
-    defaultMessage: 'Prison-NOMIS',
+    defaultMessage: 'Sign in to Prison-NOMIS',
   },
   subtitle: {
     id: 'app.components.Login.subtitle',
-    defaultMessage: 'Sign in',
+    defaultMessage: '',
   },
   submitButton: {
     id: 'app.components.Login.subsubtitle',

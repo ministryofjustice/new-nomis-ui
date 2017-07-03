@@ -3,7 +3,15 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   color: black;
   text-align: center;
-  margin-bottom: 65px;
+  padding: 0 20px;
+  margin-bottom: 35px;
+`;
+
+export const LeftWrapper = styled.div`
+  color: black;
+  text-align: left;
+  padding: 0 20px;
+  margin-bottom: 35px;
 `;
 
 export const Title = styled.div`

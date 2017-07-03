@@ -22,7 +22,7 @@ export const DateTimeBlock = styled.div`
 `;
 
 export const DateBlock = styled.div`
-  font-size: 38px;
+  font-size: 32px;
   font-weight: bold;
 `;
 export const TimeBlock = styled.div`

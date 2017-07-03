@@ -14,7 +14,7 @@ export const QueryWrapper = styled.div`
 `;
 
 export const QueryItemHolder = styled.div`
-  width: 17%;
+  width: 25%;
   height: 64px;
   margin: 0px 0px 0px;
   padding: 0px 15px;

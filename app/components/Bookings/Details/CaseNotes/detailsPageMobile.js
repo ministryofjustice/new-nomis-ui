@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import EliteOfficerName from 'containers/EliteContainers/OfficerName';
 // import Button from 'components/Button';
 
 import AmendCaseNoteModal from 'containers/Bookings/Details/CaseNotes/AmendCaseNoteModal';
@@ -24,7 +24,7 @@ import {
 const AmendmentBlock = ({ dateTime, userId, text, source }) => (<Amendment data-name={'Amendment'}>
   <AmendmentTitle>Amended {dateTime}</AmendmentTitle>
   <AmendmentText>{text}</AmendmentText>
-  <AmendmentText>{userId}</AmendmentText>
+  <AmendmentText><EliteOfficerName staffId={userId} /></AmendmentText>
   <AmendmentText>Source: {source}</AmendmentText>
 </Amendment>);
 
@@ -52,7 +52,7 @@ function CaseNoteDetailsMobile(props) {
         <TypeDescriptionBlock style={{ fontSize: '30px' }} data-name={'TypeDescriptionBlock'} typeDetails={{ subType, type, subTypeData, typeData }} />
         <CaseNoteText data-name={'CaseNoteText'}>{splitInfo.caseNote}</CaseNoteText>
         <CaseNoteIdBlock data-name={'CaseNoteIdBlock'}>Case Note ID: {caseNoteId}</CaseNoteIdBlock>
-        <CaseNoteIdBlock data-name={'CaseNoteIdBlock'}>{authorUserId}</CaseNoteIdBlock>
+        <CaseNoteIdBlock data-name={'CaseNoteIdBlock'}><EliteOfficerName staffId={authorUserId} /></CaseNoteIdBlock>
         <CaseNoteIdBlock data-name={'CaseNoteIdBlock'}>Source: {source}</CaseNoteIdBlock>
         {amendments}
         <AmendmentButton buttonstyle="link" to={'/amendCaseNote'}>Add amendment</AmendmentButton>

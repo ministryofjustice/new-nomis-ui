@@ -38,12 +38,6 @@ const QueryView = (props) => {
         <InputLabel htmlFor="offenderNo">Noms #</InputLabel>
         <QueryValue>{offenderNo}</QueryValue>
       </QueryItemHolder>
-      <QueryItemHolder>
-        <InputGroup>
-          <InputLabel htmlFor="location">Location</InputLabel>
-          <QueryValueScroll>{locations.map((location) => <EliteLocation key={location} locationId={location} />)}</QueryValueScroll>
-        </InputGroup>
-      </QueryItemHolder>
       <ButtonRow>
         <Button type="submit" buttonstyle="link" onClick={onSubmit} >Modify</Button>
       </ButtonRow>
