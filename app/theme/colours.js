@@ -2,6 +2,7 @@ export const baseColours = {
   govukBlack: '#0B0C0C',
   govukWhite: '#FFFFFF',
   govukBlue: '#005EA5',
+  govukBottomBlue: '#00437B',
   govukLighterBluer: '#2B8CC4',
   govukDarkerBluer: '#02457A',
   govukYellow: '#FFBF47',
@@ -59,7 +60,7 @@ export default {
   buttons: {
     submit: {
       background: bc.govukLightGreen,
-      borderBottom: bc.black,
+      borderBottom: bc.govukBottomBlue,
       text: bc.govukWhite,
       hover: {
         background: bc.govukLighterGreen,
@@ -77,7 +78,7 @@ export default {
     },
     cancel: {
       background: bc.greyDE,
-      borderBottom: bc.govukBlack,
+      borderBottom: bc.govukBottomBlue,
       text: bc.govukBlack,
       hover: {
         background: bc.greyBA,

@@ -9,8 +9,7 @@ export const FooterContainer = styled.div`
 
 export const FooterLinksContainer = styled.div`
   max-width: 1170px;
-  margin: 0 auto;
-  padding-top: 48px;
+  padding-top: 10px;
 `;
 
 export const FooterLink = styled.div`
@@ -30,7 +29,6 @@ export const FooterLink = styled.div`
 
 export const FooterSignature = styled.div`
   max-width: 1170px;
-  margin: 0 auto;
   clear: left;
   margin-top: 37px;
   padding-left: 14px;

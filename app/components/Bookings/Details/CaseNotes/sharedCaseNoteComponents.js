@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import JsonBlock from 'components/JsonBlock';
 import moment from 'moment';
+import EliteOfficerName from 'containers/EliteContainers/OfficerName';
 
 import {
   ListDetailItem,
@@ -72,7 +73,7 @@ function CaseNoteListItem(props) {
         </CaseNoteText>
         {splitInfo.amendments ? splitInfo.amendments.map((am) => <JsonBlock json={am} />) : null}
         <AssignedOfficer>
-          {authorUserId}
+          <EliteOfficerName staffId={authorUserId} />
         </AssignedOfficer>
       </MiddleBlock>
       <SourceBlock>

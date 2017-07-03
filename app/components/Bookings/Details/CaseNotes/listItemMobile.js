@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import EliteOfficerName from 'containers/EliteContainers/OfficerName';
 
 import {
   ListDetailItem,
@@ -33,7 +34,7 @@ DateTimeBlock.propTypes = {
 };
 function AmendmentBlock({ amendments }) {
   return (<AmendmentListBlock>
-    <strong>{amendments.length} Amendment{amendments.length > 1 ? 's' : ''} {amendments[0].dateTime}</strong>-<div>{amendments[0].userId}</div>
+    <strong>{amendments.length} Amendment{amendments.length > 1 ? 's' : ''} {amendments[0].dateTime}</strong> - <div><EliteOfficerName staffId={amendments[0].userId} /></div>
   </AmendmentListBlock>);
 }
 
@@ -61,8 +62,8 @@ function CaseNoteListItemMobile(props) {
           {splitInfo.stub}
         </CaseNoteText>
         <CaseNoteId data-name={'CaseNoteId'}>Case Note ID: {caseNoteId}</CaseNoteId>
-        <AssignedOfficer data-name={'AssignedOfficer'}>
-          {authorUserId}
+        <AssignedOfficer>
+          <EliteOfficerName staffId={authorUserId} />
         </AssignedOfficer>
         <Source data-name={'TypeDescription'}>
           {`Source: ${source}`}

@@ -13,7 +13,7 @@ export const AlertItem = styled.div`
 `;
 
 export const AlertItemMobile = styled(AlertItem)`
-  height: 351px;
+  height: 250px;
 `;
 
 export const AlertTypeWrapper = styled.div`
@@ -35,7 +35,7 @@ export const AlertType = styled.div`
 `;
 
 export const AlertTypeMobile = styled(AlertType)`
-  font-size: 80px;
+  font-size: 65px;
 `;
 
 export const AlertTypeDescription = styled.div`
@@ -47,7 +47,7 @@ export const AlertTypeDescription = styled.div`
 `;
 
 export const AlertTypeDescriptionMobile = styled(AlertTypeDescription)`
-  font-size: 34px;
+  font-size: 26px;
 `;
 
 export const AlertCodeWrapper = styled.div`
@@ -55,9 +55,9 @@ export const AlertCodeWrapper = styled.div`
   display: block;
   position: absolute;
   top: 0;
-  left: 300px;
+  left: 260px;
   height: 115px;
-  width: 70%;
+  width: 100%;
   padding-top: 23px;
 `;
 

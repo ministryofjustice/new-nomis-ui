@@ -2,27 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  Wrapper,
+  LeftWrapper,
   Title
 
-} from './mobile.theme';
+} from './titleblock.theme';
 
-function TitleBlockMobile({ title }) {
+
+function TitleBlock({ title }) {
   return (
-    <Wrapper>
+    <LeftWrapper>
       <Title>{title}</Title>
-    </Wrapper>
+    </LeftWrapper>
   );
 }
 
-TitleBlockMobile.propTypes = {
+TitleBlock.propTypes = {
   title: PropTypes.node,
   subtitle: PropTypes.node,
 };
 
-TitleBlockMobile.defaultProps = {
+TitleBlock.defaultProps = {
   title: 'testing',
   subtitle: '1 2 3',
 };
 
-export default TitleBlockMobile;
+export default TitleBlock;

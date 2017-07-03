@@ -61,10 +61,11 @@ export const CnffButtonHolder = styled.div`
   width: ${({ isMobile }) => isMobile ? '100%' : null};
   padding-bottom: 30px;
   align-self: flex-end;
+  margin-top: 25px;
 `;
 
 export const QueryItemHolder = styled.div`
-  width: 17%;
+  width: 25%;
   height: 64px;
   margin: 0px 0px 0px;
   padding: 0px 15px;
@@ -109,7 +110,7 @@ export const QueryValue = styled.div`
 export const AddCaseNoteButton = styled.div`
   width: 100%;
   padding: 25px;
-  font-size: 38px;
+  font-size: 32px;
   height: initial !important;
   display: flex;
   margin-top: -30px;
@@ -117,7 +118,7 @@ export const AddCaseNoteButton = styled.div`
 
 export const OpenFilterForm = styled(ButtonLink)`
   width: 100%;
-  font-size: 38px;
+  font-size: 32px;
   /*height: 100px;
   padding: 21px calc(50% - 154px);*/
 `;

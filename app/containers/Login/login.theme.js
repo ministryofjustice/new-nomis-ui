@@ -34,7 +34,7 @@ export const Wrapper = styled.div`
 
 export const Form = styled.form`
   width: 430px;
-  margin: 0 auto;
+  margin: 0 20px;
   position: relative;
 `;
 
@@ -66,8 +66,8 @@ export const Label = styled.label`
 
 export const Heading = styled.div`
   color: black;
-  text-align: center;
-  margin-bottom: 65px;
+  text-align: left;
+  margin-bottom: 35px;
 `;
 
 export const H1 = styled.div`

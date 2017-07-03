@@ -16,7 +16,7 @@ export const Help = styled.div`
 `;
 
 export const HeaderWrapper = styled.div`
-  margin: 0;
+  padding-top: 70px;
   width: 100%;
   align-items: center;
   justify-content: space-between;
@@ -90,14 +90,14 @@ export const AlertCodes = styled.div`
 export const AddCaseNoteButton = styled.div`
   width: 100%;
   padding: 25px;
-  font-size: 38px;
+  font-size: 32px;
   height: initial !important;
 `;
 
 export const AddCaseNoteButtonComponent = styled(StyledLink)`
   width: 100%;
   height: 100px;
-  font-size: 38px;
+  font-size: 32px;
   padding: 21px calc(50% - 154px);
 `;
 

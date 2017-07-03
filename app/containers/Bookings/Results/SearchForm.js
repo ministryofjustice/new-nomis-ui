@@ -32,18 +32,6 @@ const SearchForm = (props) => {
       <QueryItemHolder>
         <Field name="offenderNo" component={Input} type="text" title="Noms #" autocomplete="off" />
       </QueryItemHolder>
-      <QueryItemHolder>
-        <InputGroup>
-          <InputLabel htmlFor="location">Location</InputLabel>
-          <Field
-            multi
-            name="locations"
-            options={options}
-            filterOptions={filterOptions}
-            component={StyledSelect}
-          />
-        </InputGroup>
-      </QueryItemHolder>
       <ButtonRow>
         <Button type="submit" disabled={submitting} submitting={submitting} buttonstyle="link">Search</Button>
       </ButtonRow>

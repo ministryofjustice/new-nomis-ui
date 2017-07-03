@@ -25,17 +25,6 @@ const SearchForm = (props) => {
       <Field name="firstName" component={Input} type="text" title="First Name" placeholder="ex. John" autocomplete="off" />
       <Field name="lastName" component={Input} type="text" title="Last Name" placeholder="ex. Doe" autocomplete="off" spellcheck="false" />
       <Field name="offenderNo" component={Input} type="text" title="Noms #" autocomplete="off" />
-      <InputGroup data-name={'InputGroup'}>
-        <InputLabel htmlFor="location">Location</InputLabel>
-        <Field
-          data-name={'Field'}
-          multi
-          name="locations"
-          options={options}
-          filterOptions={filterOptions}
-          component={StyledSelect}
-        />
-      </InputGroup>
       <ButtonRow>
         <ButtonLink to="/" buttonstyle="cancel">Cancel</ButtonLink>
         <Button type="submit" disabled={submitting} submitting={submitting} buttonstyle="link">Search</Button>

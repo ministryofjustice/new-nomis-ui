@@ -128,9 +128,9 @@ export const StyledSelect = styled(RFReactSelect)`
 `;
 
 export const FormWrapper = styled.form`
-  padding: 0px 20px;
+  padding: 20px 20px;
   margin-bottom: 210px;
-  margin-top: 42px;
+  margin-top: 40px;
 
   select {
     font-size: 30px;
@@ -152,25 +152,25 @@ export const FormWrapper = styled.form`
     bottom: 0px;
     left: 0px;
     width: 100%;
-    font-size: 38px;
+    font-size: 32px;
     height: 120px;
   }
 
   input {
-    height: 100px;
-    font-size: 30px;
-    margin-bottom: 40px;
+    height: 75px;
+    font-size: 22px;
+    margin-bottom: 5px;
   }
 
   .Select {
-    height: 100px;
-    font-size: 30px;
-    margin-bottom: 40px;
+    height: 75px;
+    font-size: 22px;
+    margin-bottom: 5px;
   }
   .Select-control {
-    height: 100px;
-    font-size: 30px;
-    margin-bottom: 40px;
+    height: 75px;
+    font-size: 22px;
+    margin-bottom: 5px;
   }
   .Select-menu-outer {
     div {

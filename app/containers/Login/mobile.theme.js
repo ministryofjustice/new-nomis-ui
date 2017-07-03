@@ -34,7 +34,6 @@ export const Wrapper = styled.div`
 
 export const Form = styled.form`
   width: 100%;
-  margin: 0 auto;
   position: relative;
   padding: 0px 20px;
   padding-bottom: 150px;
@@ -44,7 +43,7 @@ export const Form = styled.form`
     bottom: 0px;
     left: 0px;
     width: 100%;
-    font-size: 38px;
+    font-size: 32px;
     height: 120px;
   }
 
@@ -53,9 +52,9 @@ export const Form = styled.form`
   }
 
   input {
-    height: 100px;
-    font-size: 30px;
-    margin-bottom: 40px;
+    height: 75px;
+    font-size: 22px;
+    margin-bottom: 5px;
   }
 
   span {
@@ -91,8 +90,8 @@ export const Label = styled.label`
 
 export const Heading = styled.div`
   color: black;
-  text-align: center;
-  margin-bottom: 65px;
+  text-align: left;
+  margin-bottom: 35px;
 `;
 
 export const H1 = styled.div`
