@@ -16,6 +16,11 @@ export const AlertItemMobile = styled(AlertItem)`
   height: 250px;
 `;
 
+export const AlertItemMobileDisabled = styled(AlertItemMobile)`
+  height: 250px;
+  color: gray;
+`;
+
 export const AlertTypeWrapper = styled.div`
     width: 190px;
     padding-top: 18px;

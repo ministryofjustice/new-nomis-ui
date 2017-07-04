@@ -4,10 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import Pagination from 'components/Pagination';
 import AlertList from 'components/Bookings/Details/AlertList';
-
-import MobileNextResultsPage from 'components/MobileNextResultsPage';
 
 import { loadBookingAlerts } from 'containers/EliteApiLoader/actions';
 import { selectDeviceFormat } from 'selectors/app';
@@ -15,7 +12,6 @@ import { selectAlertsPagination, selectBookingDetailsId } from '../../selectors'
 
 import {
   selectAlerts,
-  // selectAlertsStatus,
   selectTotalAlerts,
 } from './selectors';
 
@@ -34,9 +30,6 @@ class Alerts extends PureComponent { // eslint-disable-line react/prefer-statele
     const { alerts, totalResults, alertsPagination, bookingId, setPagination, deviceFormat } = this.props;
     return (<div>
       <AlertList alerts={alerts} deviceFormat={deviceFormat} />
-      { deviceFormat === 'desktop' ? <Pagination pagination={alertsPagination} totalRecords={totalResults} pageAction={(id) => { setPagination(bookingId, { perPage: alertsPagination.perPage, pageNumber: id }); }} />
-      :
-      <MobileNextResultsPage pagination={alertsPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: alertsPagination.perPage, pageNumber: id }, id)} /> }
     </div>);
   }
 }
@@ -46,7 +39,6 @@ Alerts.propTypes = {
   setPagination: PropTypes.func.isRequired,
   bookingId: PropTypes.number.isRequired,
   alertsPagination: PropTypes.object.isRequired,
-  // alertStatus: PropTypes.object.isRequired,
   alerts: PropTypes.array.isRequired,
   totalResults: PropTypes.number,
   deviceFormat: PropTypes.string.isRequired,

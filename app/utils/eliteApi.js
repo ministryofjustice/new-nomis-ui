@@ -44,6 +44,9 @@ const searchQueryToString = (searchObj) => {
   }).filter((x) => x !== 'strip').join(',and:');
 };
 
+const paginationToQuery = (pagination) => `limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}`;
+const offsetQuery = ({ offset, limit }) => `limit=${limit}&offset=${offset}`;
+
 export const bookings = (token, searchObj, pagination, baseUrl) => axios({
   baseURL: baseUrl,
   method: 'get',
@@ -72,8 +75,8 @@ export const bookingAliases = (token, baseUrl, id) => axios({
   headers: { Authorization: token } })
     .then((response) => response.data);
 
-export const bookingAlerts = (token, baseUrl, id, pagination) => {
-  const queryParams = `?limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}`;
+export const bookingAlerts = (token, baseUrl, id,  offset = { offset: 0, limit: 10000 }) => {
+  const queryParams = `${offset ? `?${offsetQuery(offset)}` : ''}`;
   return axios({
     baseURL: baseUrl,
     method: 'get',
@@ -177,9 +180,6 @@ export const users = {
 };
 
 
-const paginationToQuery = (pagination) => `limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}`;
-
-const offsetQuery = ({ offset, limit }) => `limit=${limit}&offset=${offset}`;
 
 export const locations = (token, baseUrl, offset = { offset: 0, limit: 10000 }) => axios({
   baseURL: baseUrl,
