@@ -5,7 +5,6 @@ import colours from 'theme/colours';
 
 const Base = () => `
   box-sizing: border-box;
-  font-family: "nta", Arial, sans-serif;
   font-weight: 400;
   text-transform: none;
   font-size: 16px;
@@ -15,6 +14,7 @@ const Base = () => `
   padding: 5px 4px 4px;
   margin: 5px 0;
   border: 2px solid ${colours.forms.textInput.border};
+  font-size: 19px;
 `;
 
 export const DesktopWrapper = styled.div`
@@ -65,13 +65,13 @@ export const Label = styled.label`
 `;
 
 export const Heading = styled.div`
-  color: black;
+  color: #0b0c0c;
   text-align: left;
   margin-bottom: 35px;
 `;
 
 export const H1 = styled.div`
-  font-weight: normal;
+  font-weight: bold;
   font-size: 48px;
 `;
 

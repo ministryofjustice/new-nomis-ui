@@ -5,7 +5,6 @@ import colours from 'theme/colours';
 
 const Base = () => `
   box-sizing: border-box;
-  font-family: "nta", Arial, sans-serif;
   font-weight: 400;
   text-transform: none;
   font-size: 16px;
@@ -15,6 +14,7 @@ const Base = () => `
   padding: 5px 4px 4px;
   margin: 5px 0;
   border: 2px solid ${colours.forms.textInput.border};
+  font-size: 19px;
 `;
 
 export const DesktopWrapper = styled.div`
@@ -35,26 +35,23 @@ export const Wrapper = styled.div`
 export const Form = styled.form`
   width: 100%;
   position: relative;
-  padding: 0px 20px;
+  padding: 0px 15px;
   padding-bottom: 150px;
 
   button {
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
+    position: relative;
     width: 100%;
-    font-size: 32px;
-    height: 120px;
+    font-size: 16px;
+    height: 38px;
   }
 
   label {
-    font-size: 30px;
+    font-size: 16px;
   }
 
   input {
-    height: 75px;
-    font-size: 22px;
-    margin-bottom: 5px;
+    height: 32px;
+    font-size: 16px;
   }
 
   span {
@@ -89,13 +86,13 @@ export const Label = styled.label`
 `;
 
 export const Heading = styled.div`
-  color: black;
+  color: #0b0c0c;
   text-align: left;
   margin-bottom: 35px;
 `;
 
 export const H1 = styled.div`
-  font-weight: normal;
+  font-weight: bold;
   font-size: 48px;
 `;
 

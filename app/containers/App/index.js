@@ -27,7 +27,7 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
   }
 
   resizeWindow() {
-    if (window.innerWidth >= 768) {
+    if (window.innerWidth > 1024) {
       this.props.setDeviceFormat('desktop');
     } else {
       this.props.setDeviceFormat('mobile');
@@ -40,11 +40,9 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
     return (
       <div>
         <Helmet title="P-Nomis">
-          <meta name="viewport" content="width=device-width, initial-scale=0.5" />
         </Helmet>
         <Modal />
         <Header />
-        { deviceFormat === 'mobile' ? <div style={{ height: '80px' }} /> : null }
         { this.props.router.location.pathname !== '/bookings/details' ?
           <Breadcrumbs route={this.props.router.location.pathname} /> :
           <BreadcrumbsAlt route={this.props.router.location.pathname} />

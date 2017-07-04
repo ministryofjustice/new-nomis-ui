@@ -5,7 +5,7 @@ export const AssignmentsHeaderWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 214px;
-  border-bottom: 4px solid black;
+  border-bottom: 4px solid #0b0c0c;
   margin-bottom: 11px;
 `;
 
@@ -22,7 +22,7 @@ export const UserName = styled.div`
   top: 0px;
   left: 230px;
   font-size: 50px;
-  color: black;
+  color: #0b0c0c;
 `;
 
 export const CaseLoad = styled.div`
@@ -47,7 +47,7 @@ export const YouHaveAssignments = styled.div`
   bottom: 6px;
   left: 0px;
   font-size: 20px;
-  color: black;
+  color: #0b0c0c;
 
 `;
 
@@ -59,7 +59,7 @@ export const NotificationNumber = styled.span`
   line-height: 22px;
   border-radius: 10px;
   background-color: ${colours.userMenu.notification};
-  color: black;
+  color: #0b0c0c;
   font-size: 12px;
 `;
 
