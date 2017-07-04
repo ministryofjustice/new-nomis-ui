@@ -1,13 +1,16 @@
 import { createSelector } from 'reselect';
 
-const selectOfficerState = () => (state, props) => state.getIn(['eliteApiLoader', 'Officers', props.staffId]);
-const selectOfficerId = () => (_, props) => props.staffId;
+const selectOfficerState = () => (state, props) =>
+  state.getIn(['eliteApiLoader', 'Officers', (props.staffId === undefined) ? props.username : props.staffId]);
+
+const selectOfficerKey = () => (_, props) =>
+  (props.staffId === undefined) ? props.username : props.staffId;
 
 // const defaultImg = 'https://c1.staticflickr.com/6/5337/8940995208_5da979c52f.jpg';
 
 const selectOfficerName = () => createSelector(
   selectOfficerState(),
-  selectOfficerId(),
+  selectOfficerKey(),
   (officerState, staffId) => {
     try {
       const officerData = officerState.get('Data');

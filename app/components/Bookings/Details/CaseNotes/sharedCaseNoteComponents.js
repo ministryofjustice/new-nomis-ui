@@ -73,7 +73,7 @@ function CaseNoteListItem(props) {
         </CaseNoteText>
         {splitInfo.amendments ? splitInfo.amendments.map((am) => <JsonBlock json={am} />) : null}
         <AssignedOfficer>
-          <EliteOfficerName staffId={authorUserId} />
+          <EliteOfficerName username={authorUserId} />
         </AssignedOfficer>
       </MiddleBlock>
       <SourceBlock>

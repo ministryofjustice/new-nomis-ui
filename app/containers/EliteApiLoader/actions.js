@@ -20,10 +20,10 @@ export function loadImage(imageId) {
   };
 }
 
-export function loadOfficer(staffId) {
+export function loadOfficer(staffId, username) {
   return {
     type: OFFICERS.BASE,
-    payload: { staffId },
+    payload: { staffId, username },
   };
 }
 

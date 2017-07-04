@@ -36,7 +36,7 @@ DateTimeBlock.propTypes = {
 };
 function AmendmentBlock({ amendments }) {
   return (<AmendmentListBlock>
-    <strong>{amendments.length} Amendment{amendments.length > 1 ? 's' : ''} {amendments[0].dateTime}</strong> - <EliteOfficerName staffId={amendments[0].userId} />
+    <strong>{amendments.length} Amendment{amendments.length > 1 ? 's' : ''} {amendments[0].dateTime}</strong> - <EliteOfficerName username={amendments[0].userId} />
   </AmendmentListBlock>);
 }
 
@@ -67,7 +67,7 @@ function CaseNoteListItem(props) {
           </CaseNoteText>
         </TypeAndText>
         <AssignedOfficer>
-          <EliteOfficerName staffId={authorUserId} />
+          <EliteOfficerName username={authorUserId} />
         </AssignedOfficer>
         {splitInfo.amendments ? AmendmentBlock({ amendments: splitInfo.amendments }) : null}
       </MiddleBlock>

@@ -168,10 +168,10 @@ export const users = {
     headers: { Authorization: token },
     data: { caseLoadId },
   }).then((response) => response.data),
-  staffId: (token, id, baseUrl) => axios({
+  staff: (token, baseUrl, id) => axios({
     baseURL: baseUrl,
     method: 'get',
-    url: `/users/${id}`,
+    url: `/users/staff/${id}`,
     headers: { Authorization: token },
   }).then((response) => response.data),
 };
@@ -350,10 +350,10 @@ export const imageMeta = (token, baseUrl, imageId) => axios({
   headers: { Authorization: token } })
     .then((response) => response.data);
 
-export const officerDetails = (token, baseUrl, staffId) => axios({
+export const officerDetails = (token, baseUrl, staffId, username) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `users/${staffId}`,
+  url: (staffId) ? `users/staff/${staffId}` : `users/${username}`,
   headers: { Authorization: token } })
     .then((res) => res.data);
 

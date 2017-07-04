@@ -274,15 +274,15 @@ function EliteApiReducer(state = initialState, action) {
     }
 
     case OFFICERS.LOADING: {
-      return state.setIn(['Officers', action.payload.staffId, 'Status', 'Type'], 'LOADING');
+      return state.setIn(['Officers', action.payload.officerKey, 'Status', 'Type'], 'LOADING');
     }
 
     case OFFICERS.SUCCESS: {
-      return state.updateIn(['Officers', action.payload.staffId], (user) => user.setIn(['Status', 'Type'], 'SUCCESS').set('Data', action.payload.data));
+      return state.updateIn(['Officers', action.payload.officerKey], (user) => user.setIn(['Status', 'Type'], 'SUCCESS').set('Data', action.payload.data));
     }
 
     case OFFICERS.ERROR: {
-      return state.setIn(['Officers', action.payload.staffId, 'Status'], fromJS({ Type: 'ERROR', Error: action.payload.error }));
+      return state.setIn(['Officers', action.payload.officerKey, 'Status'], fromJS({ Type: 'ERROR', Error: action.payload.error }));
     }
 
     case CASENOTETYPES.PRELOAD.LOADING: {

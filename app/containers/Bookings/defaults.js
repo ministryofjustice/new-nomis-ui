@@ -16,7 +16,7 @@ export const details = {
     weightPounds: 160,
     weightKg: 73,
   },
-  assignedOfficerUserId: 'ADMINQA',
+  assignedOfficerId: 13577,
   physicalMarks: [
     {
       type: 'Tattoo',
