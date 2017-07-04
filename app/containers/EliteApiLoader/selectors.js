@@ -71,12 +71,14 @@ const selectOfficers = () => createSelector(
   (eliteApi) => eliteApi.get('Officers')
 );
 
-const selectOfficerId = () => (_, props) => props.officerId;
+const selectOfficerKey = () => (_, props) => props.officerKey;
 
 const selectOfficer = () => createSelector(
   selectOfficers(),
-  selectOfficerId(),
-  (officers, id) => officers.get(id)
+  selectOfficerKey(),
+  (officers, id) => {
+    officers.get(id)
+  }
 );
 
 const selectOfficerStatus = () => createSelector(

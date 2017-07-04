@@ -26,7 +26,7 @@ import {
 
 const AmendmentBlock = ({ dateTime, userId, text, source }) => (<Amendment>
   <AmendmentHeader>
-    <EliteOfficerName staffId={userId} />
+    <EliteOfficerName username={userId} />
     <div>Source: {source}</div>
   </AmendmentHeader>
   <AmendmentTitle>Amended {dateTime}</AmendmentTitle>
@@ -59,7 +59,7 @@ function CaseNoteDetails(props) {
         </CaseNoteDetailsLeft>
         <CaseNoteDetailsRight>
           <RightHeader>
-            <EliteOfficerName staffId={authorUserId} />
+            <EliteOfficerName username={authorUserId} />
             <div>Source: {source}</div>
           </RightHeader>
           <div>

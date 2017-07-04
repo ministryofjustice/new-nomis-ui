@@ -41,7 +41,7 @@ class EliteOfficerName extends PureComponent { // eslint-disable-line react/pref
 
 export function mapDispatchToProps(dispatch, props) {
   return {
-    loadOfficer: () => { dispatch(loadOfficer(props.staffId)); },
+    loadOfficer: () => { dispatch(loadOfficer(props.staffId, props.username)); },
   };
 }
 

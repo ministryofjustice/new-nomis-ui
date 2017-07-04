@@ -13,7 +13,7 @@ bookingSearchOptions:
       title: 'Booking #'
   - assignedLivingUnitId:
       title: Location
-# assignedOfficerUserId:
+# assignedOfficerId:
 # agencyId:
 # currentLocationId:
 # inmateId:

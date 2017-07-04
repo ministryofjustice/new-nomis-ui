@@ -258,33 +258,38 @@ export function* officerLoadWatch() {
 }
 
 export function* officerLoadSaga(action) {
-  const { staffId } = action.payload;
+  const { staffId, username } = action.payload;
 
-  if (!staffId) {
+  if (!staffId && !username) {
     // nothing to load here...
     return null;
   }
 
-  // First check to see if this officer already been loaded.
-  const currentStatus = yield select(selectOfficerStatus(), { staffId });
+  // First check to see if this officer already been loaded (either by staffId or username).
+  const officerKey = (staffId) ? staffId : username;
+  const currentStatus = yield select(selectOfficerStatus(), { officerKey });
+
   if (currentStatus.Type === 'SUCCESS' || currentStatus.Type === 'LOADING') {
     return null;
   }
 
-  yield put({ type: OFFICERS.LOADING, payload: { staffId } });
+  yield put({ type: OFFICERS.LOADING, payload: { officerKey } });
   const token = yield getToken();
   const apiServer = yield select(selectApi());
 
   try {
-    const res = yield call(officerDetails, token, apiServer, staffId);
+    const res = yield call(officerDetails, token, apiServer, staffId, username);
+
     if (!res) {
-      yield put({ type: OFFICERS.ERROR, payload: { staffId, error: 'SEEMED FINE, BUT APPARENTLY NO RESPONSE' } });
+      yield put({ type: OFFICERS.ERROR, payload: { officerKey, error: 'SEEMED FINE, BUT APPARENTLY NO RESPONSE' } });
     } else {
-      yield put({ type: OFFICERS.SUCCESS, payload: { staffId, data: res } });
+      yield put({ type: OFFICERS.SUCCESS, payload: { officerKey, data: res } });
     }
+
     return null;
   } catch (err) {
-    yield put({ type: OFFICERS.ERROR, payload: { staffId, error: err } });
+    yield put({ type: OFFICERS.ERROR, payload: { officerKey, error: err } });
+
     return null;
   }
 }

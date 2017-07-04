@@ -34,7 +34,7 @@ DateTimeBlock.propTypes = {
 };
 function AmendmentBlock({ amendments }) {
   return (<AmendmentListBlock>
-    <strong>{amendments.length} Amendment{amendments.length > 1 ? 's' : ''} {amendments[0].dateTime}</strong> - <div><EliteOfficerName staffId={amendments[0].userId} /></div>
+    <strong>{amendments.length} Amendment{amendments.length > 1 ? 's' : ''} {amendments[0].dateTime}</strong> - <div><EliteOfficerName username={amendments[0].userId} /></div>
   </AmendmentListBlock>);
 }
 
@@ -63,7 +63,7 @@ function CaseNoteListItemMobile(props) {
         </CaseNoteText>
         <CaseNoteId data-name={'CaseNoteId'}>Case Note ID: {caseNoteId}</CaseNoteId>
         <AssignedOfficer>
-          <EliteOfficerName staffId={authorUserId} />
+          <EliteOfficerName username={authorUserId} />
         </AssignedOfficer>
         <Source data-name={'TypeDescription'}>
           {`Source: ${source}`}
