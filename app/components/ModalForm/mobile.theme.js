@@ -92,7 +92,7 @@ export const ModalImageContainerMask = styled.div`
       height: 20px;
       display: inline-block;
       color: transparent;
-      background: black;
+      background: #0b0c0c;
       border-radius: 10px;
       font-size: 0px;
       margin-left: 15px;

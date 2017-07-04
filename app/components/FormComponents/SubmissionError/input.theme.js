@@ -4,14 +4,14 @@ import colours from 'theme/colours';
 
 const Base = (props) => `
   box-sizing: border-box;
-  font-family: "nta", Arial, sans-serif;
+  font-size: 19px;
   font-weight: 400;
   text-transform: none;
   height: 50px;
   width: 100%;
   background: ${colours.forms.textInput.background};
   padding: 0 5px;
-  border: 3px solid ${props.error ? colours.forms.errorColour : colours.forms.textInput.border};
+  border: 2px solid ${props.error ? colours.forms.errorColour : colours.forms.textInput.border};
   &:focus {
     outline: 3px solid ${colours.forms.textInput.focusBorder};
     outline-offset: 0;

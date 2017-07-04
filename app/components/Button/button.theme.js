@@ -42,12 +42,11 @@ export const Button = styled.button`
   ${fonts.misc}
   font-size: 20px;
   ${''/* width: 175px; */}
-  padding: 16px 40px 10px;
   background: ${(props) => colours.buttons[props.buttonstyle].background};
   border-bottom: 2px solid ${(props) => colours.buttons[props.buttonstyle].borderBottom};
   color: ${(props) => colours.buttons[props.buttonstyle].text};
   position: relative;
-  margin-bottom: 15px;
+  padding: 8px 20px 4px;
 
   &:hover {
     background: ${(props) => colours.buttons[props.buttonstyle].hover.background};
@@ -72,12 +71,10 @@ export const StyledLink = styled((props) => <Link {...omit(props, ['buttonstyle'
   ${fonts.misc}
   font-size: 20px;
   ${''/* width: 175px; */}
-  padding: 16px 40px 10px;
   background: ${(props) => colours.buttons[props.buttonstyle].background};
   border-bottom: 2px solid ${(props) => colours.buttons[props.buttonstyle].borderBottom};
   color: ${(props) => colours.buttons[props.buttonstyle].text};
   position: relative;
-  margin-bottom: 15px;
 
   &:hover {
     background: ${(props) => colours.buttons[props.buttonstyle].hover.background};

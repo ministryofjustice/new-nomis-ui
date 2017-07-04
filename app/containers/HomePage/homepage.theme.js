@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Heading = styled.h1`
-  color: black;
+  color: #0b0c0c;
 `;
 
 export const Wrapper = styled.div`

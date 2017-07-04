@@ -45,7 +45,7 @@ export const ToggleContainer = styled.div`
   width: calc(100% - 40px);
   height: 80px;
   margin: 20px;
-  border: 3px solid ${colours.userMenu.bg};
+  border: 2px solid ${colours.userMenu.bg};
   border-radius: 16px;
   overflow: hidden;
 `;

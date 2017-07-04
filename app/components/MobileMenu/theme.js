@@ -46,7 +46,7 @@ export const NotificationNumber = styled.div`
   line-height: 22px;
   border-radius: 28px;
   background-color: ${colours.userMenu.notification};
-  color: black;
+  color: #0b0c0c;
   font-size: 32px;
 `;
 

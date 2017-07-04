@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 export const BreadcrumbLink = styled(Link)`
   font-size: 15px;
-  color: black;
+  color: #0b0c0c;
 `;
 
 export const BreadcrumbWrapper = styled.div`

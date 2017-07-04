@@ -20,7 +20,7 @@ export const PaginateItem = styled.div`
   margin: 0 5px;
   width: 20px;
   height: 20px;
-  color: ${({ active }) => active ? 'white' : 'black'};;
+  color: ${({ active }) => active ? 'white' : '#0b0c0c'};;
   font-size: 16px;
   border-radius: 100%;
   background-color: ${({ active }) => active ? colours.pagination.bg : 'none'};

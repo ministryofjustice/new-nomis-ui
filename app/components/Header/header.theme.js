@@ -28,7 +28,7 @@ export const BaseMobile = styled.div`
   position: fixed;
   z-index: 999;
   width: 100%;
-  background-color: black;
+  background-color: #0b0c0c;
 `;
 
 export const Logo = styled.div`
