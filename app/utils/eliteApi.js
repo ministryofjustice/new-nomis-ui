@@ -75,8 +75,8 @@ export const bookingAliases = (token, baseUrl, id) => axios({
   headers: { Authorization: token } })
     .then((response) => response.data);
 
-export const bookingAlerts = (token, baseUrl, id,  offset = { offset: 0, limit: 10000 }) => {
-  const queryParams = `${offset ? `?${offsetQuery(offset)}` : ''}`;
+export const bookingAlerts = (token, baseUrl, id, pagination) => {
+  const queryParams = `?limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}`;
   return axios({
     baseURL: baseUrl,
     method: 'get',
