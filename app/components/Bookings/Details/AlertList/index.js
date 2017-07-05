@@ -45,18 +45,29 @@ function AlertList({ alerts, deviceFormat }) {
         const codeDataDescription = alert.codeData !== undefined ? alert.codeData.description : '';
         const typeDataDescription = alert.typeData !== undefined ? alert.typeData.description : '';
 
-        const forRender =
-        <AlertItemMobile key={alert.alertId}>
+        const forRender = deviceFormat === 'desktop' ?
+          (<AlertItem key={alert.alertId}>
+            <AlertTypeWrapper>
+              <AlertType>{alert.alertType}</AlertType>
+              <AlertTypeDescription>{String(typeDataDescription)}</AlertTypeDescription>
+            </AlertTypeWrapper>
+            <AlertCodeWrapper>
+              <AlertCodeDescription>{codeDataDescription} ({alert.alertCode})</AlertCodeDescription>
+              <div>{expiredAlert ? 'Expired' : alert.comment}</div>
+              <AlertEntryDate>Entry date: {createdDateArray[0]},{createdDateArray[1]}</AlertEntryDate>
+            </AlertCodeWrapper>
+          </AlertItem>) :
+          (<AlertItemMobile key={alert.alertId}>
           <AlertTypeWrapperMobile>
-            <AlertTypeMobile>{expiredAlert ? 'Expired' : null} {alert.alertType}</AlertTypeMobile>
-            <AlertTypeDescriptionMobile>{String(typeDataDescription).toUpperCase()}</AlertTypeDescriptionMobile>
+            <AlertTypeMobile>{alert.alertType}</AlertTypeMobile>
+            <AlertTypeDescriptionMobile>{String(typeDataDescription)}</AlertTypeDescriptionMobile>
           </AlertTypeWrapperMobile>
           <AlertCodeWrapperMobile>
             <AlertCodeDescriptionMobile>{codeDataDescription} ({alert.alertCode})</AlertCodeDescriptionMobile>
-            <AlertCodeDescriptionMobile>{alert.comment}</AlertCodeDescriptionMobile>
+            <div>{expiredAlert ? 'Expired' : alert.comment}</div>
             <AlertEntryDateMobile>Entry date: {createdDateArray[0]},{createdDateArray[1]}</AlertEntryDateMobile>
           </AlertCodeWrapperMobile>
-        </AlertItemMobile>;
+        </AlertItemMobile>);
 
         return alert.typeData !== undefined && alert.codeData !== undefined ? forRender : null;
       })
