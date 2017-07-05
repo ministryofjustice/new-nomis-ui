@@ -5,6 +5,7 @@ import {
   AlertHolder,
   AlertItem,
   AlertItemMobile,
+  AlertItemMobileDisabled,
   AlertTypeWrapper,
   AlertTypeWrapperMobile,
   AlertCodeWrapperMobile,
@@ -24,7 +25,13 @@ function AlertList({ alerts, deviceFormat }) {
     <AlertHolder>
       {alerts.map((alert) => {
         // fancy logic to get the proper date format
-        const d = new Date(alert.dateCreated);
+        const dateCreated = new Date(alert.dateCreated);
+
+        let expiredAlert = false;
+        if (alert.dateExpires !== null) {
+          expiredAlert = (new Date(alert.dateExpires) <= new Date());
+        }
+
         const options = {
           year: 'numeric',
           month: 'short',
@@ -32,35 +39,24 @@ function AlertList({ alerts, deviceFormat }) {
           hour: '2-digit',
           minute: '2-digit',
         };
-        const dateString = d.toLocaleTimeString('en-us', options);
-        const dateArray = dateString.split(',');
+        const createdDateString = dateCreated.toLocaleTimeString('en-us', options);
+        const createdDateArray = createdDateString.split(',');
 
         const codeDataDescription = alert.codeData !== undefined ? alert.codeData.description : '';
         const typeDataDescription = alert.typeData !== undefined ? alert.typeData.description : '';
 
-        const forRender = deviceFormat === 'desktop' ?
-        (<AlertItem key={alert.alertId}>
-          <AlertTypeWrapper>
-            <AlertType>{alert.alertType}</AlertType>
-            <AlertTypeDescription>{String(typeDataDescription).toUpperCase()}</AlertTypeDescription>
-          </AlertTypeWrapper>
-          <AlertCodeWrapper>
-            <AlertCodeDescription>{codeDataDescription} ({alert.alertCode})</AlertCodeDescription>
-            <AlertCodeDescription>{alert.comment}</AlertCodeDescription>
-            <AlertEntryDate>Entry date: {dateArray[0]},{dateArray[1]}</AlertEntryDate>
-          </AlertCodeWrapper>
-        </AlertItem>) :
-        (<AlertItemMobile key={alert.alertId}>
+        const forRender =
+        <AlertItemMobile key={alert.alertId}>
           <AlertTypeWrapperMobile>
-            <AlertTypeMobile>{alert.alertType}</AlertTypeMobile>
+            <AlertTypeMobile>{expiredAlert ? 'Expired' : null} {alert.alertType}</AlertTypeMobile>
             <AlertTypeDescriptionMobile>{String(typeDataDescription).toUpperCase()}</AlertTypeDescriptionMobile>
           </AlertTypeWrapperMobile>
           <AlertCodeWrapperMobile>
             <AlertCodeDescriptionMobile>{codeDataDescription} ({alert.alertCode})</AlertCodeDescriptionMobile>
             <AlertCodeDescriptionMobile>{alert.comment}</AlertCodeDescriptionMobile>
-            <AlertEntryDateMobile>Entry date: {dateArray[0]},{dateArray[1]}</AlertEntryDateMobile>
+            <AlertEntryDateMobile>Entry date: {createdDateArray[0]},{createdDateArray[1]}</AlertEntryDateMobile>
           </AlertCodeWrapperMobile>
-        </AlertItemMobile>);
+        </AlertItemMobile>;
 
         return alert.typeData !== undefined && alert.codeData !== undefined ? forRender : null;
       })
