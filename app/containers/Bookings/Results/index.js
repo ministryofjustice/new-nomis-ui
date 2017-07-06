@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-// import { FormattedMessage } from 'react-intl';
+
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { DW } from 'components/DesktopWrappers';
-import Pagination from 'components/Pagination';
-import MobileNextResultsPage from 'components/MobileNextResultsPage';
+import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import { selectBookingsSearch } from 'containers/ConfigLoader/selectors';
 import ResultsViewToggle from 'components/ResultsViewToggle';
 import ResultsViewToggleMobile from 'components/ResultsViewToggle/mobile';
@@ -15,12 +14,10 @@ import { selectSearchResultsV2, selectSearchQuery, selectSearchResultsTotalRecor
 
 import { viewDetails as vD, setPagination as sP, setResultsView } from '../actions';
 
-
 import QueryModifier from './QueryModifier';
 import BookingsListItem from './BookingsListItem';
 import BookingsGridItem from './BookingsGridItem';
 import { BookingList, BookingGrid } from './results.theme';
-// const displaySearchResult = (inmate) => <div key={inmate.bookingId}>name: {inmate.firstName} {inmate.lastName}</div>;
 
 class SearchResults extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -38,8 +35,6 @@ class SearchResults extends PureComponent { // eslint-disable-line react/prefer-
           : <ResultsViewToggleMobile resultsView={resultsView} setResultsView={setResultsView} />
         }
 
-        {/* <div>{Array(Math.ceil(totalResults / pP)).fill(0).map((_, id) => <div onClick={() => { setPage({ perPage: pP, pageNumber: id }); }}>{id}</div>)}</div> */}
-
         {resultsView === 'List' ?
           <BookingList>
             {this.props.results ? this.props.results.map((data) => <BookingsListItem key={data.bookingId} data={data} action={viewDetails} />) : null}
@@ -48,10 +43,8 @@ class SearchResults extends PureComponent { // eslint-disable-line react/prefer-
             {this.props.results ? this.props.results.map((data) => <BookingsGridItem key={data.bookingId} data={data} action={viewDetails} />) : null}
           </BookingGrid>
         }
-        { deviceFormat === 'desktop' ?
-          <Pagination pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} /> :
-          <MobileNextResultsPage pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />
-        }
+
+        <PreviousNextNavigation pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />
       </DW>
     );
   }
@@ -84,7 +77,6 @@ export function mapDispatchToProps(dispatch) {
     viewDetails: (bookingId) => dispatch(vD(bookingId, true)),
     setPage: (pagination) => dispatch(sP(pagination)),
     setResultsView: (pagination) => dispatch(setResultsView(pagination)),
-    // onSubmitForm: createFormAction((payload) => ({ type: SEARCH, payload }), [SEARCH_SUCCESS, SEARCH_ERROR]), //onSubmitActions(SEARCH, SEARCH_SUCCESS, SEARCH_ERROR), // (x) => { console.log(x); }, //
   };
 }
 
