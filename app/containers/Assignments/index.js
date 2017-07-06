@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { DW } from 'components/DesktopWrappers';
-import Pagination from 'components/Pagination';
-import MobileNextResultsPage from 'components/MobileNextResultsPage';
+import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import ResultsViewToggle from 'components/ResultsViewToggle';
 import ResultsViewToggleMobile from 'components/ResultsViewToggle/mobile';
 
@@ -20,9 +20,7 @@ import AssignmentsHeaderMobile from 'components/AssignmentsHeader/mobile';
 import { selectUser } from '../Authentication/selectors';
 
 import { setAssignmentsPagination, setAssignmentsView } from './actions';
-
 import { selectAssignmentResults, selectAssignmentTotal, selectAssignmentPagination, selectAssignmentsView } from './selectors';
-
 
 class Assignments extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -40,8 +38,6 @@ class Assignments extends PureComponent { // eslint-disable-line react/prefer-st
           </div>
         }
 
-        {/* <div>{Array(Math.ceil(totalResults / pP)).fill(0).map((_, id) => <div onClick={() => { setPage({ perPage: pP, pageNumber: id }); }}>{id}</div>)}</div> */}
-
         {resultsView === 'List' ?
           <BookingList>
             {this.props.results ? this.props.results.map((data) => <BookingsListItem key={data.bookingId} data={data} action={viewDetails} />) : null}
@@ -50,10 +46,8 @@ class Assignments extends PureComponent { // eslint-disable-line react/prefer-st
             {this.props.results ? this.props.results.map((data) => <BookingsGridItem key={data.bookingId} data={data} action={viewDetails} />) : null}
           </BookingGrid>
         }
-        { deviceFormat === 'desktop' ?
-          <Pagination pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} /> :
-          <MobileNextResultsPage pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />
-        }
+
+        <PreviousNextNavigation pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />
       </DW>
     );
   }
@@ -63,7 +57,6 @@ Assignments.propTypes = {
   deviceFormat: PropTypes.string,
   results: PropTypes.array.isRequired,
   viewDetails: PropTypes.func.isRequired,
-  // searchOptions: PropTypes.array,
   searchQuery: PropTypes.object,
   totalResults: PropTypes.number,
   pagination: PropTypes.object.isRequired,

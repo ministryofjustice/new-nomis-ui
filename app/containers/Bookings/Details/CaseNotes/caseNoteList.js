@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import Pagination from 'components/Pagination';
+import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import CaseNoteListItem from 'components/Bookings/Details/CaseNotes/listItem';
 
 import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
@@ -38,7 +38,7 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
       {caseNotesStatus.Type === 'SUCCESS' ? <CaseNoteList>
         {caseNotes.map((caseNote) => <CaseNoteListItem action={() => setCaseNoteView(caseNote.get('caseNoteId'))} caseNote={caseNote} key={caseNote.get('caseNoteId')} />)}
       </CaseNoteList> : <div>Loading Casenotes ...</div> }
-      <Pagination pagination={caseNotesPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)} />
+      <PreviousNextNavigation pagination={caseNotesPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)} />
     </div>);
   }
 }
