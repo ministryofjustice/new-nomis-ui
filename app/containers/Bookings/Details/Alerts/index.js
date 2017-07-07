@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import AlertList from 'components/Bookings/Details/AlertList';
 
 import { loadBookingAlerts } from 'containers/EliteApiLoader/actions';
@@ -28,9 +29,13 @@ class Alerts extends PureComponent { // eslint-disable-line react/prefer-statele
 
   render() {
     const { alerts, totalResults, alertsPagination, bookingId, setPagination, deviceFormat } = this.props;
-    return (<div>
-      <AlertList alerts={alerts} deviceFormat={deviceFormat} />
-    </div>);
+
+    return (
+      <div>
+        <AlertList alerts={alerts} deviceFormat={deviceFormat} />
+        <PreviousNextNavigation pagination={alertsPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: alertsPagination.perPage, pageNumber: id }, id)} />
+      </div>
+    );
   }
 }
 
@@ -57,7 +62,6 @@ export function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = createStructuredSelector({
   alerts: selectAlerts(),
-  // alertStatus: selectAlertsStatus(),
   alertsPagination: selectAlertsPagination(),
   bookingId: selectBookingDetailsId(),
   totalResults: selectTotalAlerts(),
