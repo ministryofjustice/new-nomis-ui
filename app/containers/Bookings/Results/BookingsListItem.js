@@ -1,28 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import EliteImage from 'containers/EliteContainers/Image';
-import EliteLocation from 'containers/EliteContainers/Location';
 import { ListDetailItem, ListDetailImage, Name, ID } from './results.theme';
-
-// agencyId: 'ITAG',
-// lastName: 'DONALDSON',
-// facialImageId: 8572,
-// alertsCodes: [],
-// bookingId: 18800,
-// livingUnitId: 5345,
-// offenderNo: '0001019082',
-// bookingNo: '2013-18856',
-// firstName: 'ROBERT',
 
 const BookingsListItem = (props) => {
   const { data, action } = props;
-  const { firstName, lastName, facialImageId, bookingNo, offenderNo, assignedLivingUnitId } = data;
+  const { firstName, lastName, facialImageId, bookingNo, offenderNo, assignedLivingUnitDesc } = data;
   return (
     <ListDetailItem onClick={() => action(data.bookingId)}>
       <ListDetailImage><EliteImage imageId={facialImageId} /></ListDetailImage>
       <Name>{lastName}, {firstName[0].toUpperCase() + firstName.toLowerCase().slice(1)}</Name>
       <ID>ID: <strong>{offenderNo}</strong></ID>
-      <EliteLocation locationId={assignedLivingUnitId} />
+      <div>{assignedLivingUnitDesc}</div>
     </ListDetailItem>
   );
 };
