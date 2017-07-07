@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button, { ButtonRow } from 'components/Button';
-import EliteLocation from 'containers/EliteContainers/Location';
 
 import { InputLabel, InputGroup } from 'components/FormComponents/Input/input.theme';
 
