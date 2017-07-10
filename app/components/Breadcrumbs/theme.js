@@ -7,8 +7,8 @@ export const BreadcrumbLink = styled(Link)`
 `;
 
 export const BreadcrumbWrapper = styled.div`
-  margin-top: 30px;
-  margin-bottom: 60px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
