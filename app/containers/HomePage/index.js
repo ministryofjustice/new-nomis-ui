@@ -1,35 +1,24 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-// import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import TitleBlock from 'components/TitleBlock';
 import TitleBlockMobile from 'components/TitleBlock/mobile';
 import ActionBlocks from 'components/ActionBlocks';
 import ActionBlocksMobile from 'components/ActionBlocks/mobile';
-
-// import translations from './translations';
-
-// import { loadUserCaseLoads } from 'containers/EliteApiLoader/actions';
 import { LOAD_ASSIGNMENTS } from 'containers/Assignments/constants';
-import {
-  CenteredFlexColumn,
-} from 'components/DesktopWrappers';
-
+import { CenteredFlexColumn } from 'components/DesktopWrappers';
 import { selectDeviceFormat } from 'selectors/app';
-
 import { logOut } from '../Authentication/actions';
 import { selectUser } from '../Authentication/selectors';
+import { setSearchContext } from 'globalReducers/app';
+
 class HomePage extends PureComponent { // eslint-disable-line react/prefer-stateless-function
-  static propTypes = {
-    // user: PropTypes.object,
-    // logOut: PropTypes.func,
-  }
+
   componentWillMount() {
+    this.props.setSearchContext('none');
   }
-  componentDidMount() {
-    // this.props.test();
-  }
+
   render() {
     const { deviceFormat } = this.props;
 
@@ -62,14 +51,21 @@ class HomePage extends PureComponent { // eslint-disable-line react/prefer-state
   }
 }
 
+HomePage.defaultProps = {
+  deviceFormat: 'desktop',
+  setSearchContext: () => {},
+};
+
 HomePage.propTypes = {
   deviceFormat: PropTypes.string.isRequired,
+  setSearchContext: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
     logOut: () => dispatch(logOut()),
     test: () => dispatch({ type: LOAD_ASSIGNMENTS, payload: {} }),
+    setSearchContext: (context) => dispatch(setSearchContext(context)),
   };
 }
 

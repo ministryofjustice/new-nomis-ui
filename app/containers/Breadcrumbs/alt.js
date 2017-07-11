@@ -7,7 +7,7 @@ import BreadcrumbsComponent from 'components/Breadcrumbs';
 
 import { setMobileMenuOpen } from 'globalReducers/app';
 
-import { selectDeviceFormat, selectMobileMenuOpen } from 'selectors/app';
+import { selectDeviceFormat, selectMobileMenuOpen, selectSearchContext } from 'selectors/app';
 import { selectHeaderDetail } from 'containers/Bookings/selectors';
 import { selectUser } from '../Authentication/selectors';
 
@@ -18,14 +18,13 @@ class BreadcrumbsAlt extends Component {
   }
 
   render() {
-    const { user, deviceFormat, route, headerDetails } = this.props;
+    const { user, deviceFormat, route, headerDetails, searchContext } = this.props;
 
     // if the device is not desktop and user is not logged in, do not render header
     return deviceFormat === 'desktop' && user ?
-      <BreadcrumbsComponent route={route} inmateData={headerDetails} />
+      <BreadcrumbsComponent route={route} inmateData={headerDetails} context={searchContext} />
       : null;
   }
-
 }
 
 BreadcrumbsAlt.propTypes = {
@@ -33,6 +32,7 @@ BreadcrumbsAlt.propTypes = {
   deviceFormat: PropTypes.string,
   route: PropTypes.string.isRequired,
   headerDetails: PropTypes.object.isRequired,
+  searchContext: PropTypes.string,
 };
 
 BreadcrumbsAlt.defaultProps = {
@@ -45,6 +45,7 @@ const mapStateToProps = createStructuredSelector({
   deviceFormat: selectDeviceFormat(),
   mobileMenuOpen: selectMobileMenuOpen(),
   headerDetails: selectHeaderDetail(),
+  searchContext: selectSearchContext(),
 });
 
 const mapDispatchToProps = {

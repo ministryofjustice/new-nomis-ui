@@ -7,9 +7,10 @@ import { createStructuredSelector } from 'reselect';
 
 import TabNav from 'components/Bookings/Details/tabMenu';
 import TabNavMobile from 'components/Bookings/Details/tabMenuMobile';
+import NavLink from 'components/NavLink';
 import { UpperFlexColumn } from 'components/DesktopWrappers';
 
-import { selectDeviceFormat } from 'selectors/app';
+import { selectDeviceFormat, selectSearchContext } from 'selectors/app';
 
 import AddCaseNoteModal from './AddCaseNoteModal';
 import OffenderDetails from './OffenderDetails';
@@ -40,7 +41,7 @@ const tabData = [
 class Details extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   render() {
-    const { activeTabId, setTab, deviceFormat, displayAddDetailsModal } = this.props;
+    const { activeTabId, setTab, deviceFormat, displayAddDetailsModal, searchContext } = this.props;
     // console.log(details.toJS());
     // console.log('TabNavMobile', TabNavMobile, deviceFormat);
     const TabComponent = tabData[activeTabId].component;
@@ -51,6 +52,10 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
         { deviceFormat === 'desktop' ?
           <div>
             <UpperFlexColumn>
+              { searchContext === 'assignments' ?
+                <NavLink route="/assignments" key="Assignments" text="< Back to assignments"/> :
+                <NavLink route="/search/results" key="Results" text="< Back to search results"/>
+              }
               <BookingsDetailsHeader />
               <TabNav
                 tabData={tabData.map((tab) => Object.assign(tab, { action: () => setTab(tab.tabId) }))}
@@ -61,6 +66,10 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
           </div> :
           <div>
             <UpperFlexColumn>
+              { searchContext === 'assignments' ?
+                <NavLink route="/assignments" key="Assignments" text="< Back to assignments"/> :
+                <NavLink route="/search/results" key="Results" text="< Back to search results"/>
+              }
               <BookingsDetailsHeaderMobile />
               <TabComponentMobile />
             </UpperFlexColumn>
@@ -71,7 +80,6 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
           </div>
         }
       </div>
-
     );
   }
 }
@@ -80,14 +88,12 @@ Details.propTypes = {
   displayAddDetailsModal: PropTypes.bool.isRequired,
   deviceFormat: PropTypes.string.isRequired,
   activeTabId: PropTypes.number.isRequired,
-  // tabInfo: PropTypes.array.isRequired,
   setTab: PropTypes.func.isRequired,
-  // loadBookingDetails: PropTypes.func.isRequired,
+  searchContext: PropTypes.string,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
-    // loadBookingDetails: (id) => dispatch(loadBookingDetails(id)),
     setTab: (id) => dispatch(setDetailsTab(id)),
   };
 }
@@ -96,6 +102,7 @@ const mapStateToProps = createStructuredSelector({
   deviceFormat: selectDeviceFormat(),
   activeTabId: selectCurrentDetailTabId(),
   displayAddDetailsModal: selectDisplayAddCaseNoteModal(),
+  searchContext: selectSearchContext(),
 });
 
 // Wrap the component to inject dispatch and state into it

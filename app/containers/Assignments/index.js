@@ -22,7 +22,13 @@ import { selectUser } from '../Authentication/selectors';
 import { setAssignmentsPagination, setAssignmentsView } from './actions';
 import { selectAssignmentResults, selectAssignmentTotal, selectAssignmentPagination, selectAssignmentsView } from './selectors';
 
+import { setSearchContext } from 'globalReducers/app';
+
 class Assignments extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+  componentWillMount() {
+    this.props.setSearchContext('assignments');
+  }
 
   render() {
     const { deviceFormat, searchOptions, searchQuery, viewDetails, totalResults, pagination, setPage, resultsView, setResultsView, user } = this.props; //eslint-disable-line
@@ -63,6 +69,7 @@ Assignments.propTypes = {
   setPage: PropTypes.func.isRequired,
   resultsView: PropTypes.string.isRequired,
   setResultsView: PropTypes.func.isRequired,
+  setSearchContext: PropTypes.func,
 };
 
 Assignments.defaultProps = {
@@ -71,6 +78,7 @@ Assignments.defaultProps = {
   totalResults: 0,
   searchQuery: {},
   user: PropTypes.object.isRequired,
+  setSearchContext: () => {},
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -78,6 +86,7 @@ export function mapDispatchToProps(dispatch) {
     viewDetails: (bookingId) => dispatch(vD(bookingId, true)),
     setPage: (pagination) => dispatch(setAssignmentsPagination(pagination)),
     setResultsView: (view) => dispatch(setAssignmentsView(view)),
+    setSearchContext: (context) => dispatch(setSearchContext(context)),
   };
 }
 

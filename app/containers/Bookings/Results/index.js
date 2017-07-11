@@ -19,7 +19,13 @@ import BookingsListItem from './BookingsListItem';
 import BookingsGridItem from './BookingsGridItem';
 import { BookingList, BookingGrid } from './results.theme';
 
+import { setSearchContext } from 'globalReducers/app';
+
 class SearchResults extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+  componentWillMount() {
+    this.props.setSearchContext('search');
+  }
 
   render() {
     const { deviceFormat, searchOptions, searchQuery, viewDetails, totalResults, pagination, setPage, resultsView, setResultsView } = this.props; //eslint-disable-line
@@ -61,6 +67,7 @@ SearchResults.propTypes = {
   setPage: PropTypes.func.isRequired,
   resultsView: PropTypes.string,
   setResultsView: PropTypes.func,
+  setSearchContext: PropTypes.func,
 };
 
 SearchResults.defaultProps = {
@@ -70,6 +77,7 @@ SearchResults.defaultProps = {
   searchQuery: {},
   resultsView: 'List',
   setResultsView: () => {},
+  setSearchContext: () => {},
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -77,6 +85,7 @@ export function mapDispatchToProps(dispatch) {
     viewDetails: (bookingId) => dispatch(vD(bookingId, true)),
     setPage: (pagination) => dispatch(sP(pagination)),
     setResultsView: (pagination) => dispatch(setResultsView(pagination)),
+    setSearchContext: (context) => dispatch(setSearchContext(context)),
   };
 }
 
