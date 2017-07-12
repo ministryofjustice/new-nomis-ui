@@ -1,14 +1,15 @@
 import styled from 'styled-components';
+import colours from 'theme/colours';
 
 export const Wrapper = styled.div`
-  color: black;
+  color: ${colours.baseFont};
   text-align: center;
   padding: 0 20px;
   margin-bottom: 35px;
 `;
 
 export const LeftWrapper = styled.div`
-  color: black;
+  color: ${colours.baseFont};
   text-align: left;
   padding: 0 20px;
   margin-bottom: 35px;

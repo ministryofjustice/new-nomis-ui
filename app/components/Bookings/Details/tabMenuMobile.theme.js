@@ -45,7 +45,7 @@ export const TabMenuItem = styled.div`
 
   cursor: ${({ active }) => active ? 'normal' : 'pointer'};
   background-image: url('${({ bgImg }) => bgImg}');
-  background-color: ${({ active }) => active ? mobileTabNav : 'black'};
+  background-color: ${({ active }) => active ? mobileTabNav : colours.baseFont};
   background-repeat: no-repeat;
   background-position: 50% 23%;
 `;

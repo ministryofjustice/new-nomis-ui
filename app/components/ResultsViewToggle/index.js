@@ -36,9 +36,9 @@ class ResultsViewToggle extends Component {
 
     if (resultsView === 'List') {
       listIconFill.style.fill = colours.userMenu.bg;
-      gridIconFill.style.fill = 'black';
+      gridIconFill.style.fill = colours.baseFont;
     } else {
-      listIconFill.style.fill = 'black';
+      listIconFill.style.fill = colours.baseFont;
       gridIconFill.style.fill = colours.userMenu.bg;
     }
   }
@@ -51,9 +51,9 @@ class ResultsViewToggle extends Component {
 
     if (resultsView === 'List') {
       listStyle = { color: colours.userMenu.bg };
-      gridStyle = { color: 'black' };
+      gridStyle = { color: '#0b0c0c' };
     } else {
-      listStyle = { color: 'black' };
+      listStyle = { color: '#0b0c0c' };
       gridStyle = { color: colours.userMenu.bg };
     }
 

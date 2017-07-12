@@ -65,7 +65,7 @@ export const Form = styled.form`
 export const Input = styled.input`
   ${Base}
   &:focus {
-    outline: 3px solid ${colours.forms.textInput.focusBorder};
+    outline: 2px solid ${colours.forms.textInput.focusBorder};
     outline-offset: 0;
   }
 `;
@@ -89,7 +89,7 @@ export const Label = styled.label`
 `;
 
 export const Heading = styled.div`
-  color: black;
+  color: ${colours.baseFont};
   text-align: left;
   margin-bottom: 35px;
 `;

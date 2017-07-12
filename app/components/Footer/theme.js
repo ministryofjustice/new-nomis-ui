@@ -15,7 +15,7 @@ export const FooterLinksContainer = styled.div`
 export const FooterLink = styled.div`
   float: left;
   padding: 0px 19px;
-  border-right: 1px solid black;
+  border-right: 1px solid ${colours.baseFont};
   height: 19px;
   cursor: pointer;
 

@@ -11,7 +11,7 @@ export const TabWrapper = styled.div`
   align-items: center;
   ${''/* justify-content: space-between; */}
   height: 55px;
-  border-bottom: solid ${desktopTabNav.underline} 4px;
+  border-bottom: solid ${desktopTabNav.underline} 2px;
   >div {
     height:100%;
   }
@@ -39,11 +39,11 @@ export const TabMenuItem = styled.div`
   &:after {
     content:'';
     width: 100%;
-    height: ${({ active }) => active ? '9px' : '0px'};
+    height: ${({ active }) => active ? '6px' : '0px'};
     background: ${desktopTabNav.activeUnderline};
     ${''/*  */}
     position: absolute;
-    bottom: -4px;
+    bottom: 0px;
     left:0px;
     transition: height 0.25s;
   }
