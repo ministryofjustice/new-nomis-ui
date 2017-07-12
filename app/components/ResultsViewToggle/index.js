@@ -51,9 +51,9 @@ class ResultsViewToggle extends Component {
 
     if (resultsView === 'List') {
       listStyle = { color: colours.userMenu.bg };
-      gridStyle = { color: '#0b0c0c' };
+      gridStyle = { color: colours.baseFont };
     } else {
-      listStyle = { color: '#0b0c0c' };
+      listStyle = { color: colours.baseFont };
       gridStyle = { color: colours.userMenu.bg };
     }
 
