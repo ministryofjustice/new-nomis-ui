@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import colours from 'theme/colours';
+import { media } from '../../../../utils/style-utils';
 
 export const AlertHolder = styled.div`
-
 `;
 
 export const AlertItem = styled.div`
@@ -10,49 +10,32 @@ export const AlertItem = styled.div`
   height: 150px;
   width: 60%;
   border-bottom: 1px solid ${colours.bookings.details.datagrid.gridLineColour};
-`;
-
-export const AlertItemMobile = styled(AlertItem)`
-  height: 250px;
-`;
-
-export const AlertItemMobileDisabled = styled(AlertItemMobile)`
-  height: 250px;
-  color: gray;
+  ${media.mobile`height: 250px;`}
+  color: ${(props) => props.expired ? colours.bookings.details.alerts.greyText : colours.baseFont};
 `;
 
 export const AlertTypeWrapper = styled.div`
     width: 190px;
+    ${media.mobile`width: 260px;`}
     padding-top: 18px;
-`;
-
-export const AlertTypeWrapperMobile = styled(AlertTypeWrapper)`
-    width: 260px;
-    padding-top: 40px;
+    ${media.mobile`padding-top: 40px;`}
+    color: ${(props) => props.expired ? colours.bookings.details.alerts.greyText : colours.bookings.details.alerts.warningTextColour};
 `;
 
 export const AlertType = styled.div`
   font-size: 50px;
+  ${media.mobile`font-size: 65px;`}
   font-weight: bold;
-  color: ${colours.bookings.details.alerts.warningTextColour};
   width: 100%;
   text-align: center;
-`;
-
-export const AlertTypeMobile = styled(AlertType)`
-  font-size: 65px;
 `;
 
 export const AlertTypeDescription = styled.div`
   font-size: 19px;
+  ${media.mobile`font-size: 26px;`}
   font-weight: bold;
-  color: ${colours.bookings.details.alerts.warningTextColour};
   width: 100%;
   text-align: center;
-`;
-
-export const AlertTypeDescriptionMobile = styled(AlertTypeDescription)`
-  font-size: 26px;
 `;
 
 export const AlertCodeWrapper = styled.div`
@@ -62,32 +45,27 @@ export const AlertCodeWrapper = styled.div`
   top: 0;
   left: 260px;
   height: 115px;
+  ${media.mobile`height: 236px;`}
   width: 100%;
   padding-top: 23px;
-`;
-
-export const AlertCodeWrapperMobile = styled(AlertCodeWrapper)`
-  height: 236px;
-  padding-top: 48px;
+  ${media.mobile`padding-top: 48px;`}
 `;
 
 export const AlertCodeDescription = styled.div`
   font-size: 19px;
+  ${media.mobile`font-size: 30px;`}
   font-weight: bold;
 `;
 
-export const AlertCodeDescriptionMobile = styled(AlertCodeDescription)`
-  font-size: 30px;
+export const AlertComment = styled(AlertCodeDescription)`
+  font-weight: normal;
+  font-size: 16px;
+  ${media.mobile`font-size: 26px;`}
 `;
 
 export const AlertEntryDate = styled.div`
   position: absolute;
   bottom: 0;
   font-size: 16px;
-  color: ${colours.bookings.details.alerts.greyText};
+  ${media.mobile`font-size: 26px;`}
 `;
-
-export const AlertEntryDateMobile = styled(AlertEntryDate)`
-  font-size: 27px;
-`;
-

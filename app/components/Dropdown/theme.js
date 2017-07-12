@@ -92,7 +92,7 @@ export const NotificationNumber = styled.div`
   line-height: 22px;
   border-radius: 10px;
   background-color: ${colours.userMenu.notification};
-  color: black;
+  color: ${colours.baseFont};
   font-size: 12px;
 `;
 

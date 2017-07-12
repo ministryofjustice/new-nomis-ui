@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import colours from 'theme/colours';
 
 export const Wrapper = styled.div`
-  color: black;
+  color: ${colours.baseFont};
   text-align: center;
   margin-bottom: 35px;
   margin-top: 75px;

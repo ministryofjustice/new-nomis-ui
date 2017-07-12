@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import colours from 'theme/colours';
 import { Link } from 'react-router';
 
 export const BreadcrumbLink = styled(Link)`
   font-size: 15px;
-  color: black;
+  color: ${colours.baseFont};
 `;
 
 export const BreadcrumbWrapper = styled.div`
