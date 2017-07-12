@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { reduxForm, Field } from 'redux-form/immutable';
 import { Map } from 'immutable';
 import { Input, SubmissionError } from 'components/FormComponents';
 import Button from 'components/Button';
-import {
-  Form,
-} from './login.theme';
+import { Form } from './theme';
+import { injectIntl, intlShape } from 'react-intl';
 
-const LoginForm = (props) => {
-  const { handleSubmit, submitting, error } = props;
+const LoginForm = ({ handleSubmit, submitting, error, intl }) => {
   return (
     <Form onSubmit={handleSubmit}>
-      <SubmissionError error={error}>{error}</SubmissionError>
+      <SubmissionError error={error}>{error ? intl.formatMessage(error) : ''}</SubmissionError>
       <Field name="username" component={Input} type="text" title="Username" />
       <Field name="password" component={Input} type="password" title="Password" autocomplete="off" />
       <Button type="submit" disabled={submitting} submitting={submitting} buttonstyle="submit">Sign In</Button>
@@ -24,11 +23,14 @@ LoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   error: PropTypes.string,
+  intl: intlShape.isRequired,
 };
+
 LoginForm.defaultProps = {
   error: '',
 };
-export default reduxForm({
+
+export default injectIntl(reduxForm({
   form: 'login', // a unique identifier for this form
   initialValues: Map({
     redirect: '/',
@@ -44,4 +46,4 @@ export default reduxForm({
     }
     return errors;
   },
-})(LoginForm);
+})(LoginForm));
