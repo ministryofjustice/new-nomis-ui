@@ -8,7 +8,6 @@ import HeaderComponent from 'components/Header';
 import { setMobileMenuOpen } from 'globalReducers/app';
 
 import { selectDeviceFormat, selectMobileMenuOpen } from 'selectors/app';
-import { selectUser } from '../Authentication/selectors';
 import { switchCaseLoad } from '../EliteApiLoader/actions';
 
 import { selectUserHeaderInfo } from './selectors';
@@ -16,20 +15,17 @@ import { selectUserHeaderInfo } from './selectors';
 class HeaderContainer extends Component {
 
   render() {
-    const { headerUser, user, deviceFormat, mobileMenuOpen, switchCaseLoad: switchCL } = this.props;
+    const { headerUser, deviceFormat, mobileMenuOpen, switchCaseLoad: switchCL } = this.props;
 
-    // if the device is not desktop and user is not logged in, do not render header
-    return deviceFormat === 'desktop' || user ?
+    return (
       <HeaderComponent
         switchCaseLoad={switchCL}
         user={headerUser}
         deviceFormat={deviceFormat}
         mobileMenuOpen={mobileMenuOpen}
-        setMobileMenuOpen={this.props.setMobileMenuOpen}
-      />
-      : null;
+        setMobileMenuOpen={this.props.setMobileMenuOpen} />
+    );
   }
-
 }
 
 HeaderContainer.contextTypes = {
@@ -37,7 +33,6 @@ HeaderContainer.contextTypes = {
 };
 
 HeaderContainer.propTypes = {
-  user: PropTypes.object,
   deviceFormat: PropTypes.string,
   mobileMenuOpen: PropTypes.bool,
   setMobileMenuOpen: PropTypes.func,
@@ -46,7 +41,6 @@ HeaderContainer.propTypes = {
 };
 
 HeaderContainer.defaultProps = {
-  user: undefined,
   deviceFormat: 'desktop',
   mobileMenuOpen: false,
   setMobileMenuOpen: () => {},
@@ -54,7 +48,6 @@ HeaderContainer.defaultProps = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  user: selectUser(),
   deviceFormat: selectDeviceFormat(),
   mobileMenuOpen: selectMobileMenuOpen(),
   headerUser: selectUserHeaderInfo(),

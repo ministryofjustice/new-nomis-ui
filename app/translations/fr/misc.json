@@ -1,6 +1,7 @@
 {
   "app.components.LocaleToggle.fr": "Fr",
   "app.components.LocaleToggle.en": "En",
+  "app.components.Authentication.failed": "Le nom d'utilisateur ou le mot de passe que vous avez entré n'est pas valide.",
   "app.components.HomePage.header": "Bonjour je suis français",
   "app.components.NotFoundPage.header": "Désolé, page introuvable. 404"
 }
