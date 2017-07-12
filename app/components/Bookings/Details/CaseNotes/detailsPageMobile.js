@@ -37,7 +37,7 @@ AmendmentBlock.propTypes = {
 
 function CaseNoteDetailsMobile(props) {
   const { viewList, displayAmendCaseNoteModal } = props;
-  const { authorUserId, creationDateTime, subType, type, subTypeData, typeData, caseNoteId, source, splitInfo } = props.caseNote.toJS(); // amendments
+  const { authorUserId, occurrenceDateTime, subType, type, subTypeData, typeData, caseNoteId, source, splitInfo } = props.caseNote.toJS(); // amendments
   let amendments = null;
   if (splitInfo.amendments && splitInfo.amendments.length > 0) {
     amendments = splitInfo.amendments.map((am) => <AmendmentBlock data-name={'AmendmentBlock'} dateTime={am.dateTime} key={am.key} userId={am.userId} text={am.text} source={source} />);
@@ -47,7 +47,7 @@ function CaseNoteDetailsMobile(props) {
       {displayAmendCaseNoteModal ? <AmendCaseNoteModal /> : null}
       <CaseNoteDetailsWrapper data-name={'CaseNoteDetailsWrapper'}>
         <DateTimeBlockWrapper data-name={'DateTimeBlockWrapper'}>
-          <DateTimeBlock data-name={'DateTimeBlock'} creationDateTime={creationDateTime} />
+          <DateTimeBlock data-name={'DateTimeBlock'} creationDateTime={occurrenceDateTime} />
         </DateTimeBlockWrapper>
         <TypeDescriptionBlock style={{ fontSize: '30px' }} data-name={'TypeDescriptionBlock'} typeDetails={{ subType, type, subTypeData, typeData }} />
         <CaseNoteText data-name={'CaseNoteText'}>{splitInfo.caseNote}</CaseNoteText>

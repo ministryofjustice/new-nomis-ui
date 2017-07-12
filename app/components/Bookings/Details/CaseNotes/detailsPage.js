@@ -42,7 +42,7 @@ AmendmentBlock.propTypes = {
 
 function CaseNoteDetails(props) {
   const { viewList, openAmendModal, displayAmendCaseNoteModal } = props;
-  const { authorUserId, creationDateTime, subType, type, subTypeData, typeData, caseNoteId, source, splitInfo } = props.caseNote.toJS(); // amendments
+  const { authorUserId, occurrenceDateTime, subType, type, subTypeData, typeData, caseNoteId, source, splitInfo } = props.caseNote.toJS(); // amendments
   let amendments = null;
   if (splitInfo.amendments && splitInfo.amendments.length > 0) {
     amendments = splitInfo.amendments.map((am) => <AmendmentBlock dateTime={am.dateTime} key={am.key} userId={am.userId} text={am.text} source={source} />);
@@ -53,7 +53,7 @@ function CaseNoteDetails(props) {
       <CaseNoteDetailsWrapper>
         <CaseNoteDetailsLeft>
           <CaseNoteIdBlock>Case Note ID: {caseNoteId}</CaseNoteIdBlock>
-          <DateTimeBlock creationDateTime={creationDateTime} />
+          <DateTimeBlock creationDateTime={occurrenceDateTime} />
           <AmendmentButton buttonstyle="link" onClick={openAmendModal}>Make amendment</AmendmentButton>
           <AmendmentButton buttonstyle="link" onClick={viewList}>Return to List</AmendmentButton>
         </CaseNoteDetailsLeft>

@@ -44,7 +44,7 @@ AmendmentBlock.propTypes = {
 
 function CaseNoteListItemMobile(props) {
   const { action } = props;
-  const { authorUserId, creationDateTime, subType, type, subTypeData, typeData, caseNoteId, source, splitInfo } = props.caseNote.toJS(); // amendments
+  const { authorUserId, occurrenceDateTime, subType, type, subTypeData, typeData, caseNoteId, source, splitInfo } = props.caseNote.toJS(); // amendments
   const subTypeString = subTypeData ? subTypeData.description : subType;
   const typeString = typeData ? typeData.description : type;
   const typeDescription = `${typeString} - ${subTypeString}`;
@@ -52,7 +52,7 @@ function CaseNoteListItemMobile(props) {
   return (
     <ListDetailItem onClick={action}>
       <DateTimeIdBlock>
-        <DateTimeBlock creationDateTime={creationDateTime} data-name={'DateTimeBlock'} />
+        <DateTimeBlock creationDateTime={occurrenceDateTime} data-name={'DateTimeBlock'} />
       </DateTimeIdBlock>
       <MiddleBlock>
         <TypeDescription data-name={'TypeDescription'}>

@@ -51,16 +51,16 @@ TypeDescriptionBlock.propTypes = {
 
 function CaseNoteListItem(props) {
   const { action } = props;
-  const { authorUserId, creationDateTime, subType, type, subTypeData, typeData, caseNoteId, source, splitInfo } = props.caseNote.toJS(); // amendments
+  const { authorUserId, occurrenceDateTime, subType, type, subTypeData, typeData, caseNoteId, source, splitInfo } = props.caseNote.toJS(); // amendments
 
   return (
     <ListDetailItem onClick={action}>
       <DateTimeIdBlock>
         <DateBlock>
-          {moment(creationDateTime).format('DD/MM/YYYY')}
+          {moment(occurrenceDateTime).format('DD/MM/YYYY')}
         </DateBlock>
         <TimeBlock>
-          {moment(creationDateTime).format('h:mm a')}
+          {moment(occurrenceDateTime).format('h:mm a')}
         </TimeBlock>
         <CaseNoteId>
           id: {caseNoteId}
