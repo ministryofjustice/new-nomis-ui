@@ -124,7 +124,7 @@ export default {
       },
       alerts: {
         warningTextColour: bc.govukRed,
-        greyText: bc.grey4D,
+        greyText: bc.greyDE,
       },
       caseNotes: {
         list: {

@@ -35,8 +35,13 @@ const options = {
 
     if (useApiAuth) {
       // Add Api Gateway JWT header token
-      const jwToken = generateToken();
-      proxyReq.setHeader('authorization', `Bearer ${jwToken}`);
+      try {
+        const jwToken = generateToken();
+        proxyReq.setHeader('authorization', `Bearer ${jwToken}`);
+      } catch (err) {
+        console.log('Token failure', err);
+        proxyReq.setHeader('authorization', `JUNK`);
+      }
     }
   },
 };

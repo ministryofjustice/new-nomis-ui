@@ -46,7 +46,7 @@ AmendmentBlock.propTypes = {
 
 function CaseNoteListItem(props) {
   const { action } = props;
-  const { authorUserId, creationDateTime, subType, type, subTypeData, typeData, caseNoteId, source, splitInfo } = props.caseNote.toJS(); // amendments
+  const { authorUserId, occurrenceDateTime, subType, type, subTypeData, typeData, caseNoteId, source, splitInfo } = props.caseNote.toJS(); // amendments
   const subTypeString = subTypeData ? subTypeData.description : subType;
   const typeString = typeData ? typeData.description : type;
   const typeDescription = `${typeString} - ${subTypeString}`;
@@ -54,7 +54,7 @@ function CaseNoteListItem(props) {
   return (
     <ListDetailItem BordersBetween={{ mids: true, bottom: true }} onClick={action}>
       <DateTimeIdBlock>
-        <DateTimeBlock creationDateTime={creationDateTime} />
+        <DateTimeBlock creationDateTime={occurrenceDateTime} />
         <CaseNoteId>Case Note ID: {caseNoteId}</CaseNoteId>
       </DateTimeIdBlock>
       <MiddleBlock>

@@ -22,9 +22,15 @@ const selectModalData = () => createSelector(
   (state) => state.get('modalData')
 );
 
+const selectSearchContext = () => createSelector(
+  selectApp(),
+  (state) => state.get('searchContext')
+);
+
 export {
   selectDeviceFormat,
   selectMobileMenuOpen,
   selectModalOpen,
   selectModalData,
+  selectSearchContext,
 };

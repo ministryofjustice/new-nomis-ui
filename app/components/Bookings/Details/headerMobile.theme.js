@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import colours from 'theme/colours';
-// import desktop from 'theme/desktop';
 import { StyledLink } from 'components/Button/button.theme';
 import { responsiveCols, fixedCols } from 'components/CommonTheme/responsiveColumns';
 
@@ -16,7 +15,7 @@ export const Help = styled.div`
 `;
 
 export const HeaderWrapper = styled.div`
-  padding-top: 70px;
+  padding-top: 20px;
   width: 100%;
   align-items: center;
   justify-content: space-between;

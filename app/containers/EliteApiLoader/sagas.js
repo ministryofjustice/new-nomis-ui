@@ -302,11 +302,12 @@ export function* preloadDataWatcher() {
 export function* preloadData() {
   const token = yield getToken();
   const apiServer = yield select(selectApi());
+
   yield call(preloadAllCaseNoteSourcesTypesSubTypes, token, apiServer);
-  yield call(locationsSaga, token, apiServer);
   yield call(preloadCaseNoteTypes, token, apiServer);
 }
 
+// TODO: At later stage, review need for LOCATIONS store and this saga - remove entirely if no longer required
 export function* locationsSaga(token, apiServer) {
   yield put({ type: LOCATIONS.LOADING });
   try {

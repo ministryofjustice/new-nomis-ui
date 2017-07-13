@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import CaseNoteListItemMobile from 'components/Bookings/Details/CaseNotes/listItemMobile';
-import MobileNextResultsPage from 'components/MobileNextResultsPage';
+import PreviousNextNavigation from 'components/PreviousNextNavigation';
 
 import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
 import { createFormAction } from 'redux-form-saga';
@@ -40,7 +40,7 @@ class CaseNotesMobile extends PureComponent { // eslint-disable-line react/prefe
     return (<div>
       <OpenFilterFormMobile to="/filterCaseNotes"></OpenFilterFormMobile>
       {caseNotes.map((caseNote) => <CaseNoteListItemMobile action={() => setCaseNoteView(caseNote.get('caseNoteId'))} caseNote={caseNote} key={caseNote.get('caseNoteId')} />)}
-      <MobileNextResultsPage pagination={caseNotesPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)} />
+      <PreviousNextNavigation pagination={caseNotesPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)} />
     </div>);
   }
 }
@@ -59,7 +59,6 @@ CaseNotesMobile.propTypes = {
 
 CaseNotesMobile.defaultProps = {
   caseNotesStatus: { wait: 'What' },
-  // caseNotes: ['jokes', 'on', 'you'],
   totalResults: 0,
   showFiltersMobile: false,
 };

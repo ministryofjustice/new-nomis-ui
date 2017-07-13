@@ -20,12 +20,6 @@ import { LOGIN_SUCCESS, LOGIN_ERROR } from '../Authentication/constants';
 import { logIn } from '../Authentication/actions';
 import { selectLoggedIn, selectUser, selectUsername, selectPassword } from '../Authentication/selectors';
 import LoginForm from './loginForm';
-import LoginFormMobile from './loginFormMobile';
-import { CrestLogoBlack } from './mobile.theme';
-
-// import CaseNoteFilterForm from 'containers/Bookings/Details/CaseNotes/caseNoteFilterForm';
-// import { Map } from 'immutable';
-// import AddCaseNoteModal from 'containers/Bookings/Details/AddCaseNoteModal';
 
 class Login extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
@@ -37,14 +31,13 @@ class Login extends PureComponent { // eslint-disable-line react/prefer-stateles
 
     return deviceFormat === 'desktop' ?
       <CenteredFlexColumnLogin>
-        {/* <AddCaseNoteModal /> */}
         <LeftTitleBlock title={<FormattedMessage {...translations.title} />} subtitle={<FormattedMessage {...translations.subtitle} />} />
         <LoginForm onSubmit={this.props.onSubmitForm} />
       </CenteredFlexColumnLogin>
       :
       <CenteredFlexColumnLogin>
         <TitleblockMobile title={<FormattedMessage {...translations.title} />} subtitle={<FormattedMessage {...translations.subtitle} />} />
-        <LoginFormMobile onSubmit={this.props.onSubmitForm} />
+        <LoginForm onSubmit={this.props.onSubmitForm} />
       </CenteredFlexColumnLogin>
     ;
   }

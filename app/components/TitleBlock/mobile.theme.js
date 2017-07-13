@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import colours from 'theme/colours';
 
 export const Wrapper = styled.div`
-  color: #0b0c0c;
+  color: ${colours.baseFont};
   text-align: left;
   margin-bottom: 35px;
   margin-top: 75px;

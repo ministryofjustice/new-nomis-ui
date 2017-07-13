@@ -44,6 +44,9 @@ const searchQueryToString = (searchObj) => {
   }).filter((x) => x !== 'strip').join(',and:');
 };
 
+const paginationToQuery = (pagination) => `limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}`;
+const offsetQuery = ({ offset, limit }) => `limit=${limit}&offset=${offset}`;
+
 export const bookings = (token, searchObj, pagination, baseUrl) => axios({
   baseURL: baseUrl,
   method: 'get',
@@ -177,9 +180,6 @@ export const users = {
 };
 
 
-const paginationToQuery = (pagination) => `limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}`;
-
-const offsetQuery = ({ offset, limit }) => `limit=${limit}&offset=${offset}`;
 
 export const locations = (token, baseUrl, offset = { offset: 0, limit: 10000 }) => axios({
   baseURL: baseUrl,

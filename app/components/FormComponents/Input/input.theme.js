@@ -13,7 +13,7 @@ export const Base = (props) => `
   padding: 0 5px;
   border: 2px solid ${props.error ? colours.forms.errorColour : colours.forms.textInput.border};
   &:focus {
-    outline: 3px solid ${colours.forms.textInput.focusBorder};
+    outline: 2px solid ${colours.forms.textInput.focusBorder};
     outline-offset: 0;
   }
   ${fonts.misc}

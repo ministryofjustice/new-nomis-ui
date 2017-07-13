@@ -1,4 +1,5 @@
 {
   "app.components.LocaleToggle.fr": "Fr",
-  "app.components.LocaleToggle.en": "En"
+  "app.components.LocaleToggle.en": "En",
+  "app.components.Authentication.failed": "The username or password you have entered is invalid."
 }

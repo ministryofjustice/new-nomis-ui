@@ -4,7 +4,7 @@ import colours from 'theme/colours';
 import RFReactSelect from './RFReactSelect';
 
 export const Heading = styled.div`
-  color: #0b0c0c;
+  color: ${colours.baseFont};
   text-align: center;
 `;
 
@@ -42,17 +42,17 @@ export const Label = styled.label`
 // Retheming the crazy dropdown...
 export const StyledSelect = styled(RFReactSelect)`
   &.is-focused {
-    /*outline: 3px solid ${colours.forms.textInput.focusBorder};
+    /*outline: 2px solid ${colours.forms.textInput.focusBorder};
     outline-offset: 0;*/
 
     &:not(.is-open)>.Select-control {
-      outline: 3px solid ${colours.forms.textInput.focusBorder};
+      outline: 2px solid ${colours.forms.textInput.focusBorder};
       outline-offset: 0;
-      border-color: #0b0c0c;
+      border-color: ${colours.baseFont};
     }
   }
   .Select-control {
-    border: solid #0b0c0c 3px;
+    border: solid ${colours.baseFont} 2px;
     border-radius: 0px;
     height: 50px;
     font-size: 19px;
@@ -84,7 +84,7 @@ export const StyledSelect = styled(RFReactSelect)`
         background: ${colours.forms.dropdown.background};
         border: 0px;
         border-radius: 0px;
-        color: #0b0c0c;
+        color: ${colours.baseFont};
         display: flex;
       }
 
@@ -116,10 +116,10 @@ export const StyledSelect = styled(RFReactSelect)`
   }
 
   &.is-focused>.Select-control {
-    border-color: #0b0c0c;
+    border-color: ${colours.baseFont};
   }
   .Select-menu-outer {
-    border: solid #0b0c0c 3px;
+    border: solid ${colours.baseFont} 2px;
     border-top-width: 1px;
     max-height: 202px;
   }

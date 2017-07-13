@@ -7,7 +7,7 @@ import BreadcrumbsComponent from 'components/Breadcrumbs';
 
 import { setMobileMenuOpen } from 'globalReducers/app';
 
-import { selectDeviceFormat, selectMobileMenuOpen } from 'selectors/app';
+import { selectDeviceFormat, selectMobileMenuOpen, selectSearchContext } from 'selectors/app';
 import { selectUser } from '../Authentication/selectors';
 
 class Breadcrumbs extends Component {
@@ -17,20 +17,20 @@ class Breadcrumbs extends Component {
   }
 
   render() {
-    const { user, deviceFormat, route } = this.props;
+    const { user, deviceFormat, route, searchContext } = this.props;
 
     // if the device is not desktop and user is not logged in, do not render header
     return deviceFormat === 'desktop' && user ?
-      <BreadcrumbsComponent route={route} inmateData={{}} />
+      <BreadcrumbsComponent route={route} inmateData={{}} context={searchContext} />
       : null;
   }
-
 }
 
 Breadcrumbs.propTypes = {
   user: PropTypes.object,
   deviceFormat: PropTypes.string,
   route: PropTypes.string.isRequired,
+  searchContext: PropTypes.string,
 };
 
 Breadcrumbs.defaultProps = {
@@ -42,6 +42,7 @@ const mapStateToProps = createStructuredSelector({
   user: selectUser(),
   deviceFormat: selectDeviceFormat(),
   mobileMenuOpen: selectMobileMenuOpen(),
+  searchContext: selectSearchContext(),
 });
 
 const mapDispatchToProps = {

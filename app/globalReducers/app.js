@@ -5,6 +5,7 @@ const SET_DEVICE_FORMAT = 'globalReducer/app/SET_DEVICE_FORMAT';
 const SET_MOBILE_MENU_OPEN = 'globalReducer/app/SET_MOBILE_MENU_OPEN';
 const SET_MODAL_OPEN = 'globalReducer/app/SET_MODAL_OPEN';
 const SET_MODAL_DATA = 'globalReducer/app/SET_MODAL_DATA';
+const SET_SEARCH_CONTEXT = 'globalReducer/app/SET_SEARCH_CONTEXT';
 
 // Initial State
 const initialState = fromJS({
@@ -16,6 +17,7 @@ const initialState = fromJS({
     title: 'title',
     body: 'body',
   },
+  searchContext: 'none',
 });
 
 // Reducer
@@ -33,6 +35,9 @@ export default function appReducer(state = initialState, action) {
     case SET_MODAL_DATA:
       return state
         .set('modalData', action.payload);
+    case SET_SEARCH_CONTEXT:
+      return state
+        .set('searchContext', action.payload);
     default:
       return state;
   }
@@ -57,4 +62,9 @@ export const setModalOpen = (bool) => ({
 export const setModalData = (obj) => ({
   type: SET_MODAL_DATA,
   payload: obj,
+});
+
+export const setSearchContext = (context) => ({
+  type: SET_SEARCH_CONTEXT,
+  payload: context,
 });

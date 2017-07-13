@@ -5,6 +5,7 @@ import { login, users, refreshAuthToken } from 'utils/eliteApi';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 import { PRELOADDATA, USER } from 'containers/EliteApiLoader/constants';
 import { LOAD_ASSIGNMENTS } from 'containers/Assignments/constants';
+
 import {
   LOGIN,
   LOGIN_LOADING,
@@ -17,6 +18,8 @@ import {
 
 
 import { selectToken } from './selectors';
+
+import messages from './messages';
 
 export function* loginWatcher() {
   yield takeLatest(LOGIN, loginUser);
@@ -41,7 +44,7 @@ export function* loginUser(action) {
     yield put({ type: LOAD_ASSIGNMENTS, payload: {} });
     if (redirect) yield put(push(redirect));
   } catch (err) {
-    yield put({ type: LOGIN_ERROR, payload: new SubmissionError({ _error: err.message }) });
+    yield put({ type: LOGIN_ERROR, payload: new SubmissionError({ _error: messages.authFailed }) });
   }
 }
 

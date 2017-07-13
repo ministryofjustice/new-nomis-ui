@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-// import colors from 'theme/colors';
+import colours from 'theme/colours';
 import fonts from 'theme/fonts';
 import InlineSVG from 'react-svg-inline';
 import { Link } from 'react-router';
@@ -28,7 +28,7 @@ export const BaseMobile = styled.div`
   position: fixed;
   z-index: 999;
   width: 100%;
-  background-color: #0b0c0c;
+  background-color: ${colours.baseFont};
 `;
 
 export const Logo = styled.div`
@@ -114,27 +114,3 @@ export const ArrowBack = styled(InlineSVG)`
     fill: inherit;
   }
 `;
-//
-// const LiRef = () => `
-//   display: inline-flex;
-//   margin: 0 10px;
-//   align-items: center;
-//   height: ${height};
-//   cursor: pointer;
-// `;
-//
-// export const Li = styled.li`
-//   ${LiRef}
-// `;
-//
-// export const Hover = styled.li`
-//   ${LiRef}
-//   position: relative;
-//   padding: 0 10px;
-//   height: ${height};
-//   background: transparent;
-//   transition: background 400ms ease;
-//   &:hover {
-//     background: lighten($ig-blue, 10%);
-//   }
-// `;

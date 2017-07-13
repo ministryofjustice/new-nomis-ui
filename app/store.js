@@ -5,6 +5,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { fromJS } from 'immutable';
 import { routerMiddleware } from 'react-router-redux';
+import createDebounce from 'redux-debounce';
 import createSagaMiddleware from 'redux-saga';
 import { formActionSaga } from 'redux-form-saga';
 
@@ -20,13 +21,22 @@ import assignmentsSagas from './containers/Assignments/sagas';
 import {
   UPDATE_CONFIG,
 } from './containers/ConfigLoader/constants';
+
 const sagaMiddleware = createSagaMiddleware();
+
+const debounceConfig = {
+  // Suggest no lower than 250 otherwise debounce will be ineffective
+  simple: 250
+}
+
+const debouncer = createDebounce(debounceConfig);
 
 export default function configureStore(initialState = {}, history) {
   // Create the store with two middlewares
   // 1. sagaMiddleware: Makes redux-sagas work
   // 2. routerMiddleware: Syncs the location/URL path to the state
   const middlewares = [
+    debouncer,
     sagaMiddleware,
     routerMiddleware(history),
   ];
@@ -112,7 +122,6 @@ export default function configureStore(initialState = {}, history) {
       });
     });
   }
-
 
   return store;
 }
