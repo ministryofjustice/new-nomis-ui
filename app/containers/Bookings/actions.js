@@ -28,6 +28,7 @@ export function search(searchObj) {
 
 export function viewDetails(bookingId) {
   return {
+    meta: { debounce: 'simple' },
     type: VIEW_DETAILS,
     payload: { bookingId },
   };
@@ -80,6 +81,7 @@ export function closeAmendCaseNoteModal() {
 }
 export function addNewCaseNote({ bookingId, type, subType, occurrenceDateTime }) {
   return {
+    meta: { debounce: 'simple' },
     type: ADD_NEW_CASENOTE.BASE,
     payload: { bookingId, type, subType, occurrenceDateTime },
   };
