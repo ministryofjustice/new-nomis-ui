@@ -1,14 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-// import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { createFormAction } from 'redux-form-saga';
 
 import { AMEND_CASENOTE } from 'containers/Bookings/constants';
 import { closeAmendCaseNoteModal } from 'containers/Bookings/actions';
-import AmendCaseNoteFormMobile from './amendCaseNoteFormMobile';
-// import { selectCaseNoteTypeList, selectCaseNoteSubTypeList } from '../AddCaseNoteModal/selectors';
+import AmendCaseNoteForm from '../AmendCaseNoteModal/amendCaseNoteForm';
 
 class AmendCaseNotePageMobile extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -22,10 +20,9 @@ class AmendCaseNotePageMobile extends PureComponent { // eslint-disable-line rea
   }
 
   render() {
-    // const caseNoteTypeList = this.props.caseNoteTypeList.toJS();
-    // const subTypeList = this.props.caseNoteSubTypeList;
     return (
-      <AmendCaseNoteFormMobile
+      <AmendCaseNoteForm
+        isMobile
         initialValues={{ }}
         onSubmit={this.props.onSubmitForm}
         goBack={this.context.router.goBack}

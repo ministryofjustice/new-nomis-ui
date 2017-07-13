@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import allColours from 'theme/colours';
-
+import { media } from '../../../../utils/style-utils';
 
 // import desktop from 'theme/desktop';
 import { responsiveCols } from 'components/CommonTheme/responsiveColumns';
@@ -12,25 +12,23 @@ export const DateTimeIdBlock = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: ${responsiveCols(3)};
+  ${media.mobile`width: 257px;`}
   align-self: flex-start;
 `;
 
 export const DateTimeBlock = styled.div`
   height: 110px;
+  ${media.mobile`margin-left: 24px;`}
+  ${media.mobile`margin-top: 24px;`}
 `;
 
 export const DateBlock = styled.div`
-  font-size: 35px;
+  font-size: 30px;
   font-weight: bold;
 `;
 export const TimeBlock = styled.div`
   font-size: 25px;
   font-weight: bold;
-`;
-
-export const CaseNoteId = styled.div`
-  font-size: 16px;
-  color: ${colours.altTextColour};
 `;
 
 export const MiddleBlock = styled.div`
@@ -39,6 +37,7 @@ export const MiddleBlock = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: ${responsiveCols(8)};
+  ${media.mobile`margin-top: 24px;`}
 `;
 
 export const TypeAndText = styled.div`
@@ -49,27 +48,17 @@ export const TypeDescription = styled.div`
   padding-top: 5px;
   font-size: 19px;
   font-weight: bold;
+  ${media.mobile`margin-bottom: 10px;`}
 `;
 
 export const CaseNoteText = styled.div`
-  font-size: 19px;
+  font-size: 18px;
+  ${media.mobile`padding-right: 25px;`}
+  ${media.mobile`margin-bottom: 30px;`}
 `;
 
 export const AssignedOfficer = styled.div`
   font-size: 16px;
-  color: ${colours.altTextColour};
-`;
-
-export const SourceBlock = styled.div`
-  align-self: flex-start;
-  width: ${responsiveCols(2)};
-  position: relative;
-`;
-
-export const Source = styled.div`
-  font-size: 16px;
-  position: absolute;
-  top: 110px;
   color: ${colours.altTextColour};
 `;
 
@@ -80,4 +69,10 @@ export const AmendmentListBlock = styled.div`
   flex-direction: row;
   padding: 10px;
   margin-top: 20px;
+`;
+export const AmendmentSection = styled.div`
+  font-weight: bold;
+`;
+export const AmendmentSubSection = styled.div`
+  padding-left: 15px;
 `;
