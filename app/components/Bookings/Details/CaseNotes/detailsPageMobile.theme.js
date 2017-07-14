@@ -62,7 +62,7 @@ export const CaseNoteText = styled.div`
 `;
 
 export const Amendment = styled.div`
-  margin-top: 53px;
+  margin-top: 16px;
   padding: 20px 30px 30px;
   background-color: ${colours.amendments.backgroundColour};
 `;
@@ -90,7 +90,7 @@ export const ReturnToList = styled.a`
 `;
 
 export const DateTimeBlockWrapper = styled.div`
-  margin-bottom: 34px;
+  margin-bottom: 20px;
 
   div {
     display: inline-block;

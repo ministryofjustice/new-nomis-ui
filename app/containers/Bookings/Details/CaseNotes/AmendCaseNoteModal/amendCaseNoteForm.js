@@ -5,31 +5,33 @@ import Button, { ButtonRow } from 'components/Button';
 
 import { SubmissionError, TextArea } from 'components/FormComponents';
 
-const AddCaseNoteForm = (props) => {
-  const { handleSubmit, submitting, error, closeModal } = props;
+const AmendCaseNoteForm = (props) => {
+  const { handleSubmit, submitting, error, closeModal, isMobile, goBack } = props;
   return (
     <form onSubmit={handleSubmit}>
       <SubmissionError error={error}>{error}</SubmissionError>
-      <div>
-        <Field name="caseNoteAmendmentText" component={TextArea} title="Case Note Amendment" type="text" autocomplete="off" spellcheck="true"/>
-      </div>
+      <Field name="caseNoteAmendmentText" component={TextArea} title="Case Note Amendment" type="text" autocomplete="off" spellcheck="true"/>
       <ButtonRow>
-        <Button disabled={submitting} buttonstyle="cancel" onClick={closeModal}>Cancel</Button>
-        <Button type="submit" disabled={submitting} submitting={submitting} buttonstyle="link">Add Amendment</Button>
+        <Button disabled={submitting} buttonstyle="cancel" onClick={isMobile ? goBack : closeModal}>Cancel</Button>
+        <Button type="submit" disabled={submitting} submitting={submitting} buttonstyle="link" onClick={isMobile ? goBack : null}>Add Amendment</Button>
       </ButtonRow>
     </form>
   );
 };
 
-AddCaseNoteForm.propTypes = {
+AmendCaseNoteForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   error: PropTypes.string,
-  closeModal: PropTypes.func.isRequired,
+  isMobile: PropTypes.bool,
+  closeModal: PropTypes.func,
+  goBack: PropTypes.func,
 };
 
-AddCaseNoteForm.defaultProps = {
+AmendCaseNoteForm.defaultProps = {
   error: '',
+  isMobile: false,
+  goBack: () => {}
 };
 
 export default reduxForm({
@@ -43,4 +45,4 @@ export default reduxForm({
 
     return errors;
   },
-})(AddCaseNoteForm);
+})(AmendCaseNoteForm);

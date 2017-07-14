@@ -209,13 +209,7 @@ OccurrenceDateTimePicker.propTypes = {
   editable: PropTypes.bool,
   input: PropTypes.shape({
     onChange: PropTypes.func.isRequired,
-    // value: PropTypes.string.isRequired,
-  }).isRequired,
-  // meta: PropTypes.shape({
-  //   touched: PropTypes.bool,
-  //   error: PropTypes.bool,
-  // }).isRequired,
-  // placeholder: PropTypes.string,
+  }),
   title: PropTypes.string,
 };
 

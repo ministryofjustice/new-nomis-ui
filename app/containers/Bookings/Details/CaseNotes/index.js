@@ -44,7 +44,7 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
       return deviceFormat === 'desktop' ? <CaseNoteList /> : <CaseNoteListMobile />;
     }
     return deviceFormat === 'desktop' ? <CaseNoteDetails displayAmendCaseNoteModal={displayAmendCaseNoteModal} openAmendModal={openAmendModal} /> :
-    <CaseNoteDetailsMobile displayAmendCaseNoteModal={displayAmendCaseNoteModal} openAmendModal={openAmendModal} />;
+    <CaseNoteDetailsMobile  />;
   }
 }
 
