@@ -35,7 +35,7 @@ const detailsState = fromJS({
   id: 20847,
   activeTabId: 0,
   tabs: [{ tabId: 0, title: 'Offender Details' }, { tabId: 1, title: 'Physical Attributes' }, { tabId: 2, title: 'Alerts' }, { tabId: 3, title: 'Case Notes' }],
-  alertsPagination: { perPage: 7, pageNumber: 0 },
+  alertsPagination: { perPage: 10, pageNumber: 0 },
   caseNotes: {
     Pagination: { perPage: 5, pageNumber: 0 },
     Query: { source: [], typeSubType: { type: [], subType: [] }, dateRange: { startDate: null, endDate: null } },
@@ -53,7 +53,7 @@ const initialState = fromJS({
   error: null,
   query: { firstName: '', lastName: '' }, // for test purposes putting something in here...
   sortOrder: 'TEST',
-  pagination: { perPage: 7, pageNumber: 0 },
+  pagination: { perPage: 15, pageNumber: 0 },
   details: detailsState,
   resultsView: 'List', // List or Grid
 });
@@ -122,9 +122,9 @@ function searchReducer(state = initialState, action) {
       const currentFirstId = cP.pageNumber * cP.perPage;
       let newPerPage;
       if (action.payload === 'Grid') {
-        newPerPage = 12;
+        newPerPage = 15;
       } else if (action.payload === 'List') {
-        newPerPage = 7;
+        newPerPage = 10;
       }
       const newPageNumber = Math.floor(currentFirstId / newPerPage);
       const newPagination = { perPage: newPerPage, pageNumber: newPageNumber };
