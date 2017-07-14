@@ -9,14 +9,13 @@ import {
 
 import {
   DateTimeIdBlock,
-  CaseNoteId,
   MiddleBlock,
   TypeDescription,
   CaseNoteText,
   AssignedOfficer,
-  SourceBlock,
-  Source,
   AmendmentListBlock,
+  AmendmentSection,
+  AmendmentSubSection,
   DateBlock,
   TimeBlock,
   DateTimeBlock as DTB,
@@ -35,8 +34,10 @@ DateTimeBlock.propTypes = {
   creationDateTime: PropTypes.string.isRequired,
 };
 function AmendmentBlock({ amendments }) {
-  return (<AmendmentListBlock>
-    <strong>{amendments.length} Amendment{amendments.length > 1 ? 's' : ''} {amendments[0].dateTime}</strong> - <EliteOfficerName username={amendments[0].userId} />
+  return (
+  <AmendmentListBlock>
+    <AmendmentSection>{amendments.length} Amendment{amendments.length > 1 ? 's' : ''} {amendments[0].dateTime}</AmendmentSection>
+    <AmendmentSubSection><EliteOfficerName username={amendments[0].userId} /></AmendmentSubSection>
   </AmendmentListBlock>);
 }
 
@@ -46,7 +47,7 @@ AmendmentBlock.propTypes = {
 
 function CaseNoteListItem(props) {
   const { action } = props;
-  const { authorUserId, occurrenceDateTime, subType, type, subTypeData, typeData, caseNoteId, source, splitInfo } = props.caseNote.toJS(); // amendments
+  const { authorUserId, occurrenceDateTime, subType, type, subTypeData, typeData, splitInfo } = props.caseNote.toJS(); // amendments
   const subTypeString = subTypeData ? subTypeData.description : subType;
   const typeString = typeData ? typeData.description : type;
   const typeDescription = `${typeString} - ${subTypeString}`;
@@ -55,14 +56,13 @@ function CaseNoteListItem(props) {
     <ListDetailItem BordersBetween={{ mids: true, bottom: true }} onClick={action}>
       <DateTimeIdBlock>
         <DateTimeBlock creationDateTime={occurrenceDateTime} />
-        <CaseNoteId>Case Note ID: {caseNoteId}</CaseNoteId>
       </DateTimeIdBlock>
       <MiddleBlock>
         <TypeAndText>
-          <TypeDescription>
+          <TypeDescription data-name={'TypeDescription'}>
             {typeDescription}
           </TypeDescription>
-          <CaseNoteText>
+          <CaseNoteText data-name={'CaseNoteText'}>
             {splitInfo.stub}
           </CaseNoteText>
         </TypeAndText>
@@ -71,11 +71,6 @@ function CaseNoteListItem(props) {
         </AssignedOfficer>
         {splitInfo.amendments ? AmendmentBlock({ amendments: splitInfo.amendments }) : null}
       </MiddleBlock>
-      <SourceBlock>
-        <Source>
-          {`Source: ${source}`}
-        </Source>
-      </SourceBlock>
     </ListDetailItem>
   );
 }

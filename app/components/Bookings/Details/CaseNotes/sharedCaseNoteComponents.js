@@ -12,13 +12,10 @@ import {
   DateTimeIdBlock,
   DateBlock,
   TimeBlock,
-  CaseNoteId,
   MiddleBlock,
   TypeDescription,
   CaseNoteText,
   AssignedOfficer,
-  SourceBlock,
-  Source,
 } from './listItem.theme';
 
 export const DateTimeBlock = ({ creationDateTime }) => <div>
@@ -51,7 +48,7 @@ TypeDescriptionBlock.propTypes = {
 
 function CaseNoteListItem(props) {
   const { action } = props;
-  const { authorUserId, occurrenceDateTime, subType, type, subTypeData, typeData, caseNoteId, source, splitInfo } = props.caseNote.toJS(); // amendments
+  const { authorUserId, occurrenceDateTime, subType, type, subTypeData, typeData, splitInfo } = props.caseNote.toJS(); // amendments
 
   return (
     <ListDetailItem onClick={action}>
@@ -62,9 +59,6 @@ function CaseNoteListItem(props) {
         <TimeBlock>
           {moment(occurrenceDateTime).format('h:mm a')}
         </TimeBlock>
-        <CaseNoteId>
-          id: {caseNoteId}
-        </CaseNoteId>
       </DateTimeIdBlock>
       <MiddleBlock>
         <TypeDescriptionBlock typeDetails={{ subType, type, subTypeData, typeData }} />
@@ -76,11 +70,6 @@ function CaseNoteListItem(props) {
           <EliteOfficerName username={authorUserId} />
         </AssignedOfficer>
       </MiddleBlock>
-      <SourceBlock>
-        <Source>
-          {`Source: ${source}`}
-        </Source>
-      </SourceBlock>
     </ListDetailItem>
   );
 }

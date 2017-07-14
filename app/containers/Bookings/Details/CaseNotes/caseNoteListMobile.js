@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import CaseNoteListItemMobile from 'components/Bookings/Details/CaseNotes/listItemMobile';
+import CaseNoteListItem from 'components/Bookings/Details/CaseNotes/listItem';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 
 import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
@@ -39,7 +39,7 @@ class CaseNotesMobile extends PureComponent { // eslint-disable-line react/prefe
 
     return (<div>
       <OpenFilterFormMobile to="/filterCaseNotes"></OpenFilterFormMobile>
-      {caseNotes.map((caseNote) => <CaseNoteListItemMobile action={() => setCaseNoteView(caseNote.get('caseNoteId'))} caseNote={caseNote} key={caseNote.get('caseNoteId')} />)}
+      {caseNotes.map((caseNote) => <CaseNoteListItem action={() => setCaseNoteView(caseNote.get('caseNoteId'))} caseNote={caseNote} key={caseNote.get('caseNoteId')} />)}
       <PreviousNextNavigation pagination={caseNotesPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)} />
     </div>);
   }
