@@ -17,7 +17,6 @@ export const DateTimeIdBlock = styled.div`
 `;
 
 export const DateTimeBlock = styled.div`
-  height: 110px;
   ${media.mobile`margin-left: 24px;`}
   ${media.mobile`margin-top: 24px;`}
 `;
@@ -41,7 +40,7 @@ export const MiddleBlock = styled.div`
 `;
 
 export const TypeAndText = styled.div`
-  height:110px;
+
 `;
 
 export const TypeDescription = styled.div`
@@ -54,7 +53,7 @@ export const TypeDescription = styled.div`
 export const CaseNoteText = styled.div`
   font-size: 18px;
   ${media.mobile`padding-right: 25px;`}
-  ${media.mobile`margin-bottom: 30px;`}
+  margin-bottom: 20px;
 `;
 
 export const AssignedOfficer = styled.div`
@@ -67,12 +66,12 @@ export const AmendmentListBlock = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  padding: 10px;
-  margin-top: 20px;
+  padding: 10px 10px 0px 10px;
 `;
 export const AmendmentSection = styled.div`
-  font-weight: bold;
+
 `;
 export const AmendmentSubSection = styled.div`
-  padding-left: 15px;
+  width: 100%
+  font-weight: bold;
 `;

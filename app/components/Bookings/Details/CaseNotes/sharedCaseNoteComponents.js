@@ -32,12 +32,9 @@ DateTimeBlock.propTypes = {
 };
 
 export const TypeDescriptionBlock = ({ typeDetails }) => {
-  const { subType, type, subTypeData, typeData } = typeDetails;
-  const subTypeString = subTypeData && subTypeData.description ? subTypeData.description : subType;
-  const typeString = typeData && typeData.description ? typeData.description : type;
-  const typeDescription = `${typeString} - ${subTypeString}`;
+  const { typeDescription, subTypeDescription } = typeDetails;
   return (<TypeDescription>
-    {typeDescription}
+     {typeDescription} - {subTypeDescription}
   </TypeDescription>);
 };
 
@@ -48,7 +45,7 @@ TypeDescriptionBlock.propTypes = {
 
 function CaseNoteListItem(props) {
   const { action } = props;
-  const { authorUserId, occurrenceDateTime, subType, type, subTypeData, typeData, splitInfo } = props.caseNote.toJS(); // amendments
+  const { authorUserId, occurrenceDateTime, subTypeDescription, typeDescription, splitInfo } = props.caseNote.toJS(); // amendments
 
   return (
     <ListDetailItem onClick={action}>
@@ -61,7 +58,7 @@ function CaseNoteListItem(props) {
         </TimeBlock>
       </DateTimeIdBlock>
       <MiddleBlock>
-        <TypeDescriptionBlock typeDetails={{ subType, type, subTypeData, typeData }} />
+        <TypeDescriptionBlock typeDetails={{ typeDescription, subTypeDescription }} />
         <CaseNoteText>
           {splitInfo.stub}
         </CaseNoteText>
