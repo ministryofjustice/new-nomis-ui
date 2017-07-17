@@ -23,7 +23,7 @@ export const CaseNoteDetailsLeft = styled.div`
 export const CaseNoteIdBlock = styled.div`
   color:  ${colours.header.textColour};
   margin-bottom: 0px;
-  font-size: 27px;
+  font-size: 18px;
 `;
 
 export const CaseNoteDetailsRight = styled.div`
@@ -56,14 +56,13 @@ export const AmendmentButton = styled(StyledLink)`
 `;
 
 export const CaseNoteText = styled.div`
-  margin-top:7px;
-  margin-bottom: 25px;
-  font-size: 30px;
+  margin-top:5px;
+  font-size: 22px;
 `;
 
 export const Amendment = styled.div`
-  margin-top: 16px;
-  padding: 20px 30px 30px;
+  margin-top: 5px;
+  padding: 10px 10px 10px;
   background-color: ${colours.amendments.backgroundColour};
 `;
 
@@ -76,12 +75,11 @@ export const AmendmentHeader = styled.div`
 `;
 
 export const AmendmentTitle = styled.div`
-  font-size: 26px;
-  font-weight: bold;
+  font-size: 22px;
 `;
 
 export const AmendmentText = styled.div`
-  font-size: 27px;
+  font-size: 18px;
 `;
 
 export const ReturnToList = styled.a`

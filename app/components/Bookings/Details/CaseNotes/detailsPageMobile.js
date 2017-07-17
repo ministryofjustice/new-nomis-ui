@@ -20,9 +20,9 @@ import {
 } from './sharedCaseNoteComponents';
 
 const AmendmentBlock = ({ dateTime, userId, text }) => (<Amendment data-name={'Amendment'}>
-  <AmendmentTitle>Amended {dateTime}</AmendmentTitle>
-  <AmendmentText>{text}</AmendmentText>
+  <AmendmentTitle>{text}</AmendmentTitle>
   <AmendmentText><EliteOfficerName username={userId} /></AmendmentText>
+  <AmendmentText>Amended {dateTime}</AmendmentText>
 </Amendment>);
 
 AmendmentBlock.propTypes = {
@@ -33,7 +33,7 @@ AmendmentBlock.propTypes = {
 
 function CaseNoteDetailsMobile(props) {
   const { viewList } = props;
-  const { authorUserId, occurrenceDateTime, subType, type, subTypeData, typeData, splitInfo } = props.caseNote.toJS(); // amendments
+  const { authorUserId, occurrenceDateTime, subTypeDescription, typeDescription, splitInfo } = props.caseNote.toJS(); // amendments
   let amendments = null;
   if (splitInfo.amendments && splitInfo.amendments.length > 0) {
     amendments = splitInfo.amendments.map((am) => <AmendmentBlock data-name={'AmendmentBlock'} dateTime={am.dateTime} key={am.key} userId={am.userId} text={am.text} />);
@@ -41,14 +41,14 @@ function CaseNoteDetailsMobile(props) {
   return (
     <div>
       <CaseNoteDetailsWrapper data-name={'CaseNoteDetailsWrapper'}>
+        <AmendmentButton buttonstyle="link" to={'/amendCaseNote'}>Add Amendment</AmendmentButton>
         <DateTimeBlockWrapper data-name={'DateTimeBlockWrapper'}>
           <DateTimeBlock data-name={'DateTimeBlock'} creationDateTime={occurrenceDateTime} />
         </DateTimeBlockWrapper>
-        <TypeDescriptionBlock style={{ fontSize: '30px' }} data-name={'TypeDescriptionBlock'} typeDetails={{ subType, type, subTypeData, typeData }} />
+        <TypeDescriptionBlock style={{ fontSize: '30px' }} data-name={'TypeDescriptionBlock'} typeDetails={{ typeDescription, subTypeDescription }} />
         <CaseNoteText data-name={'CaseNoteText'}>{splitInfo.caseNote}</CaseNoteText>
         <CaseNoteIdBlock data-name={'CaseNoteIdBlock'}><EliteOfficerName username={authorUserId} /></CaseNoteIdBlock>
         {amendments}
-        <AmendmentButton buttonstyle="link" to={'/amendCaseNote'}>Add Amendment</AmendmentButton>
         <AmendmentButton buttonstyle="link" onClick={viewList}>Return to List</AmendmentButton>
       </CaseNoteDetailsWrapper>
     </div>

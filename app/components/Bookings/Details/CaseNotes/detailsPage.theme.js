@@ -10,7 +10,7 @@ const colours = allColours.bookings.details.caseNotes.details;
 export const CaseNoteDetailsWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 50px;
+  margin-top: 35px;
   width: 100%;
 `;
 
@@ -22,7 +22,7 @@ export const CaseNoteDetailsLeft = styled.div`
 
 export const CaseNoteIdBlock = styled.div`
   color:  ${colours.header.textColour};
-  margin-bottom: 35px;
+  margin-bottom: 20px;
   font-size: 16px;
 `;
 
@@ -37,18 +37,18 @@ export const RightHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
 `;
 
 export const AmendmentButton = styled(Button)`
   width: 100%;
   max-width: 270px;
-  margin-top: 30px;
+  margin-top: 15px;
 `;
 
 export const CaseNoteText = styled.div`
-  margin-top:25px;
-  margin-bottom: 60px;
+  margin-top:10px;
+  margin-bottom: 10px;
   font-size: 19px;
 `;
 
@@ -56,8 +56,8 @@ export const Amendment = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 70px;
-  margin-bottom: 30px;
-  padding: 20px 30px 30px;
+  margin-bottom: 15px;
+  padding: 10px 10px 10px;
   background-color: ${colours.amendments.backgroundColour};
 `;
 
@@ -70,12 +70,12 @@ export const AmendmentHeader = styled.div`
 `;
 
 export const AmendmentTitle = styled.div`
-  font-size: 21px;
+  font-size: 22px;
   font-weight: bold;
 `;
 
 export const AmendmentText = styled.div`
-  font-size: 19px;
+  font-size: 16px;
 `;
 
 export const ReturnToList = styled.a`
