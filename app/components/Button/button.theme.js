@@ -47,6 +47,7 @@ export const Button = styled.button`
   color: ${(props) => colours.buttons[props.buttonstyle].text};
   position: relative;
   padding: 8px 20px 4px;
+  margin-bottom: 15px;
 
   &:hover {
     background: ${(props) => colours.buttons[props.buttonstyle].hover.background};
@@ -75,6 +76,8 @@ export const StyledLink = styled((props) => <Link {...omit(props, ['buttonstyle'
   border-bottom: 2px solid ${(props) => colours.buttons[props.buttonstyle].borderBottom};
   color: ${(props) => colours.buttons[props.buttonstyle].text};
   position: relative;
+  padding: 8px 20px 4px;
+  margin-bottom: 15px;
 
   &:hover {
     background: ${(props) => colours.buttons[props.buttonstyle].hover.background};

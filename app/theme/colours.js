@@ -41,6 +41,7 @@ export default {
   linkColour: bc.govukBlue,
   userMenu: {
     bg: bc.govukBlue,
+    text: bc.govukWhite,
     hover: bc.govukLighterBluer,
     notification: bc.govukYellow,
     logout: bc.govukDarkerBluer,

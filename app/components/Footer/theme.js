@@ -1,14 +1,22 @@
 import styled from 'styled-components';
 import colours from 'theme/colours';
+import desktop from 'theme/desktop';
+import { mfmedia } from 'utils/style-utils';
 
 export const FooterContainer = styled.div`
+  display: none;
+  
+  ${mfmedia.desktop`display: block;`}
+  
+  position: absolute;
+  bottom: 0;
   width: 100%;
-  height: 140px;
+  height: ${desktop.footerHeight}px;
   background: ${colours.footer.bg};
 `;
 
 export const FooterLinksContainer = styled.div`
-  max-width: 1170px;
+  max-width: ${desktop.fixWidth}px;
   padding-top: 10px;
 `;
 
@@ -32,4 +40,5 @@ export const FooterSignature = styled.div`
   clear: left;
   margin-top: 37px;
   padding-left: 14px;
+  padding-bottom: 10px;
 `;

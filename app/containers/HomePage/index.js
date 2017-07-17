@@ -3,15 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import TitleBlock from 'components/TitleBlock';
-import TitleBlockMobile from 'components/TitleBlock/mobile';
 import ActionBlocks from 'components/ActionBlocks';
 import ActionBlocksMobile from 'components/ActionBlocks/mobile';
 import { LOAD_ASSIGNMENTS } from 'containers/Assignments/constants';
-import { CenteredFlexColumn } from 'components/DesktopWrappers';
-import { selectDeviceFormat } from 'selectors/app';
+import { ContentWrapper } from 'components/DesktopWrappers';
 import { logOut } from '../Authentication/actions';
 import { selectUser } from '../Authentication/selectors';
 import { setSearchContext } from 'globalReducers/app';
+
+import {
+  DesktopOnly,
+  MobileOnly
+} from 'components/CommonTheme';
 
 class HomePage extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -20,8 +23,6 @@ class HomePage extends PureComponent { // eslint-disable-line react/prefer-state
   }
 
   render() {
-    const { deviceFormat } = this.props;
-
     const actions = [{
       key: '1',
       title: 'Search Offenders',
@@ -37,27 +38,24 @@ class HomePage extends PureComponent { // eslint-disable-line react/prefer-state
     ];
 
     return (
-      deviceFormat === 'desktop' ?
-        <CenteredFlexColumn>
-          <TitleBlock title={'Welcome'} subtitle={'Prison-NOMIS'} />
+      <ContentWrapper>
+        <TitleBlock align="center" title={'Welcome'} subtitle={'Prison-NOMIS'} />
+        <DesktopOnly>
           <ActionBlocks actions={actions} />
-        </CenteredFlexColumn>
-        :
-        <CenteredFlexColumn>
-          <TitleBlockMobile title={'Welcome'} subtitle={'Prison-NOMIS'} />
+        </DesktopOnly>
+        <MobileOnly>
           <ActionBlocksMobile actions={actions} />
-        </CenteredFlexColumn>
+        </MobileOnly>
+      </ContentWrapper>
     );
   }
 }
 
 HomePage.defaultProps = {
-  deviceFormat: 'desktop',
   setSearchContext: () => {},
 };
 
 HomePage.propTypes = {
-  deviceFormat: PropTypes.string.isRequired,
   setSearchContext: PropTypes.func,
 };
 
@@ -71,7 +69,6 @@ export function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = createStructuredSelector({
   user: selectUser(),
-  deviceFormat: selectDeviceFormat(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

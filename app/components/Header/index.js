@@ -7,24 +7,22 @@ import DesktopWrapper from 'components/CommonTheme/DesktopWrapper';
 import colours from 'theme/colours';
 import SVGLOGO from './svgLogo';
 
-import hamburger from '../../assets/hamburger.svg';
-import arrowBack from '../../assets/back-arrow.svg';
+import hamburger from 'assets/hamburger.svg';
+import arrowBack from 'assets/back-arrow.svg';
 
 import {
   Base,
-  BaseMobile,
   Logo,
   LogoText,
   Title,
-  TitleMobile,
   Hamburger,
-  ArrowBack,
-  // SearchButton,
-  // SearchIcon,
-  // SearchText,
-  // UserMenu,
+  ArrowBack
 } from './header.theme';
 
+import {
+  DesktopOnly,
+  MobileOnly
+} from 'components/CommonTheme';
 
 class Header extends Component {
 
@@ -44,25 +42,26 @@ class Header extends Component {
   }
 
   render() {
-    const { deviceFormat, user, mobileMenuOpen, switchCaseLoad } = this.props;
+    const { user, mobileMenuOpen, switchCaseLoad } = this.props;
     return (
       <DesktopWrapper background={colours.headerColour}>
-        { deviceFormat === 'desktop' ?
-          <Base>
-            <Logo><SVGLOGO /></Logo>
-            <LogoText to="/">HMPPS</LogoText>
-            <Title>Prison-NOMIS</Title>
-            { user ? <Dropdown switchCaseLoad={switchCaseLoad} user={user} /> : null }
-          </Base> :
-          <BaseMobile>
-            <TitleMobile>Prison-NOMIS</TitleMobile>
-            { !mobileMenuOpen ?
-              <Link to={'/mobileMenu'}>
-                <Hamburger onClick={this.menuClick} data-name={'Hamburger'} svg={hamburger} />
-              </Link> : null }
-            { mobileMenuOpen ? <ArrowBack onClick={this.menuClick} data-name={'ArrowBack'} svg={arrowBack} /> : null }
-          </BaseMobile>
-        }
+        <Base>
+          <Logo><SVGLOGO /></Logo>
+          <LogoText to="/">HMPPS</LogoText>
+          <Title>Prison-NOMIS</Title>
+          <DesktopOnly>
+            {user ? <Dropdown switchCaseLoad={switchCaseLoad} user={user} /> : null }
+          </DesktopOnly>
+          <MobileOnly>
+            { mobileMenuOpen ?
+              <ArrowBack onClick={this.menuClick} data-name={'ArrowBack'} svg={arrowBack}/>
+                :
+              <Link hidden={!user} to={'/mobileMenu'}>
+                <Hamburger onClick={this.menuClick} data-name={'Hamburger'} svg={hamburger}/>
+              </Link>
+            }
+          </MobileOnly>
+        </Base>
       </DesktopWrapper>
     );
   }
@@ -70,7 +69,6 @@ class Header extends Component {
 
 Header.propTypes = {
   user: PropTypes.object,
-  deviceFormat: PropTypes.string,
   mobileMenuOpen: PropTypes.bool,
   setMobileMenuOpen: PropTypes.func,
   switchCaseLoad: PropTypes.func.isRequired,
@@ -86,7 +84,6 @@ Header.defaultProps = {
     assignments: 12,
     facilities: ['Sheffield', 'Cloverfield'],
   },
-  deviceFormat: 'desktop',
   mobileMenuOpen: false,
   setMobileMenuOpen: () => {},
 };

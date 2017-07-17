@@ -40,18 +40,16 @@ export const BlockWrapper = styled.div`
   padding: 30px;
   box-sizing: border-box;
   border-radius: 15px;
-  margin: 20px 15px;
+  margin: 15px;
 
   a {
-    width: 533px;
-    font-size: 32px;
-
+    width: 100%;
   }
 `;
 
 export const Title = styled.div`
   font-weight: normal;
-  font-size: 36px;
+  font-size: 20px;
 `;
 
 export const Description = styled.div`

@@ -5,14 +5,12 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { createFormAction } from 'redux-form-saga';
+
 import {
-  CenteredFlexColumnLogin,
+  ContentWrapper
 } from 'components/DesktopWrappers';
 
-import { selectDeviceFormat } from 'selectors/app';
-
-import LeftTitleBlock from 'components/TitleBlock/lefttitle';
-import TitleblockMobile from 'components/TitleBlock/mobile';
+import TitleBlock from 'components/TitleBlock';
 import translations from './translations';
 
 import { LOGIN_SUCCESS, LOGIN_ERROR } from '../Authentication/constants';
@@ -24,22 +22,15 @@ import LoginForm from './loginForm';
 class Login extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     onSubmitForm: PropTypes.func.isRequired,
-    deviceFormat: PropTypes.string.isRequired,
   };
-  render() {
-    const { deviceFormat } = this.props;
 
-    return deviceFormat === 'desktop' ?
-      <CenteredFlexColumnLogin>
-        <LeftTitleBlock title={<FormattedMessage {...translations.title} />} subtitle={<FormattedMessage {...translations.subtitle} />} />
+  render() {
+    return (
+      <ContentWrapper>
+        <TitleBlock title={<FormattedMessage {...translations.title} />} subtitle={<FormattedMessage {...translations.subtitle} />} />
         <LoginForm onSubmit={this.props.onSubmitForm} />
-      </CenteredFlexColumnLogin>
-      :
-      <CenteredFlexColumnLogin>
-        <TitleblockMobile title={<FormattedMessage {...translations.title} />} subtitle={<FormattedMessage {...translations.subtitle} />} />
-        <LoginForm onSubmit={this.props.onSubmitForm} />
-      </CenteredFlexColumnLogin>
-    ;
+      </ContentWrapper>
+    );
   }
 }
 
@@ -54,7 +45,6 @@ const mapStateToProps = createStructuredSelector({
   loggedIn: selectLoggedIn(),
   username: selectUsername(),
   password: selectPassword(),
-  deviceFormat: selectDeviceFormat(),
 });
 
 // Wrap the component to inject dispatch and state into it
