@@ -22,11 +22,11 @@ import {
 } from './sharedCaseNoteComponents';
 
 const AmendmentBlock = ({ dateTime, userId, text }) => (<Amendment>
+  <AmendmentTitle>{text}</AmendmentTitle>
   <AmendmentHeader>
     <EliteOfficerName username={userId} />
   </AmendmentHeader>
-  <AmendmentTitle>Amended {dateTime}</AmendmentTitle>
-  <AmendmentText>{text}</AmendmentText>
+  <AmendmentText>Amended {dateTime}</AmendmentText>
 </Amendment>);
 
 AmendmentBlock.propTypes = {
@@ -37,7 +37,7 @@ AmendmentBlock.propTypes = {
 
 function CaseNoteDetails(props) {
   const { viewList, openAmendModal, displayAmendCaseNoteModal } = props;
-  const { authorUserId, occurrenceDateTime, subType, type, subTypeData, typeData, splitInfo } = props.caseNote.toJS(); // amendments
+  const { authorUserId, occurrenceDateTime, subTypeDescription, typeDescription, splitInfo } = props.caseNote.toJS(); // amendments
   let amendments = null;
   if (splitInfo.amendments && splitInfo.amendments.length > 0) {
     amendments = splitInfo.amendments.map((am) => <AmendmentBlock dateTime={am.dateTime} key={am.key} userId={am.userId} text={am.text} />);
@@ -52,13 +52,13 @@ function CaseNoteDetails(props) {
           <AmendmentButton buttonstyle="link" onClick={viewList}>Return to List</AmendmentButton>
         </CaseNoteDetailsLeft>
         <CaseNoteDetailsRight>
+          <div>
+            <TypeDescriptionBlock typeDetails={{ typeDescription, subTypeDescription }} />
+            <CaseNoteText>{splitInfo.caseNote}</CaseNoteText>
+          </div>
           <RightHeader>
             <EliteOfficerName username={authorUserId} />
           </RightHeader>
-          <div>
-            <TypeDescriptionBlock typeDetails={{ subType, type, subTypeData, typeData }} />
-            <CaseNoteText>{splitInfo.caseNote}</CaseNoteText>
-          </div>
           {amendments}
         </CaseNoteDetailsRight>
       </CaseNoteDetailsWrapper>

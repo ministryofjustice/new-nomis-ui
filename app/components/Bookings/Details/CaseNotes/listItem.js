@@ -34,11 +34,17 @@ DateTimeBlock.propTypes = {
   creationDateTime: PropTypes.string.isRequired,
 };
 function AmendmentBlock({ amendments }) {
+  let amendmentBreakdown = null;
+  if (amendments && amendments.length > 0) {
+    amendmentBreakdown = amendments.map((amendment) => <AmendmentListBlock>{amendment.stub}</AmendmentListBlock>);
+  }
+
   return (
-  <AmendmentListBlock>
-    <AmendmentSection>{amendments.length} Amendment{amendments.length > 1 ? 's' : ''} {amendments[0].dateTime}</AmendmentSection>
-    <AmendmentSubSection><EliteOfficerName username={amendments[0].userId} /></AmendmentSubSection>
-  </AmendmentListBlock>);
+      <AmendmentSection>
+        <AmendmentSubSection>{amendments.length} Amendment{amendments.length > 1 ? 's' : ''}</AmendmentSubSection>
+        {amendmentBreakdown}
+      </AmendmentSection>
+  );
 }
 
 AmendmentBlock.propTypes = {
@@ -47,28 +53,24 @@ AmendmentBlock.propTypes = {
 
 function CaseNoteListItem(props) {
   const { action } = props;
-  const { authorUserId, occurrenceDateTime, subType, type, subTypeData, typeData, splitInfo } = props.caseNote.toJS(); // amendments
-  const subTypeString = subTypeData ? subTypeData.description : subType;
-  const typeString = typeData ? typeData.description : type;
-  const typeDescription = `${typeString} - ${subTypeString}`;
-
+  const { authorUserId, occurrenceDateTime, subTypeDescription, typeDescription, splitInfo } = props.caseNote.toJS(); // amendments
   return (
     <ListDetailItem BordersBetween={{ mids: true, bottom: true }} onClick={action}>
       <DateTimeIdBlock>
         <DateTimeBlock creationDateTime={occurrenceDateTime} />
+        <AssignedOfficer>
+          <EliteOfficerName username={authorUserId} />
+        </AssignedOfficer>
       </DateTimeIdBlock>
       <MiddleBlock>
         <TypeAndText>
           <TypeDescription data-name={'TypeDescription'}>
-            {typeDescription}
+            {typeDescription} - {subTypeDescription}
           </TypeDescription>
           <CaseNoteText data-name={'CaseNoteText'}>
             {splitInfo.stub}
           </CaseNoteText>
         </TypeAndText>
-        <AssignedOfficer>
-          <EliteOfficerName username={authorUserId} />
-        </AssignedOfficer>
         {splitInfo.amendments ? AmendmentBlock({ amendments: splitInfo.amendments }) : null}
       </MiddleBlock>
     </ListDetailItem>
