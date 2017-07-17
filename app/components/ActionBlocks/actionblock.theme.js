@@ -40,6 +40,10 @@ export const BlockWrapper = styled.div`
   box-sizing: border-box;
   border-radius: 15px;
   margin: 15px;
+  
+  a {
+    width: 100%;
+  }
 `;
 
 export const Title = styled.div`

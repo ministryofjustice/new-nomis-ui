@@ -1,4 +1,3 @@
-
 import colours from 'theme/colours';
 
 const fontFix = `
@@ -8,8 +7,7 @@ const fontFix = `
 
 export default {
   misc: `
-    font-family: "nta", sans-serif;
+    font-family: "nta", Arial, sans-serif;
     color: ${colours.baseFont};
-
   `,
 };

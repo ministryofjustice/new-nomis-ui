@@ -20,7 +20,7 @@ export const baseColours = {
   greyBA: '#BABABA',
   grey4D: '#4D4D4D',
   grey33: '#333333',
-  black: '#000000',
+  black: '#0b0c0c',
 };
 
 const bc = baseColours;
@@ -41,6 +41,7 @@ export default {
   linkColour: bc.govukBlue,
   userMenu: {
     bg: bc.govukBlue,
+    text: bc.govukWhite,
     hover: bc.govukLighterBluer,
     notification: bc.govukYellow,
     logout: bc.govukDarkerBluer,

@@ -4,7 +4,19 @@ import desktop from 'theme/desktop';
 const base = `
   margin: auto;
   width: 100%;
-  max-width: ${desktop.fixWidth}px;`;
+  max-width: ${desktop.fixWidth}px;
+`;
+
+export const ContentWrapper = styled.div`
+  ${base}
+  display: flex;
+  flex-direction: column;
+  padding-bottom: ${desktop.footerHeight}px;
+`;
+
+export const CenteredContentWrapper = styled(ContentWrapper)`
+  justify-content: center;
+`;
 
 export const DW = styled.div`
   ${base}

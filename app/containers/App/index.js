@@ -8,11 +8,9 @@ import Modal from 'containers/Modal';
 import Header from 'containers/Header';
 import Breadcrumbs from 'containers/Breadcrumbs';
 import BreadcrumbsAlt from 'containers/Breadcrumbs/alt';
-// import MobileMenu from 'containers/MobileMenu';
 import Footer from 'containers/Footer';
 
 import { setDeviceFormat } from 'globalReducers/app';
-import { selectDeviceFormat } from 'selectors/app';
 
 class App extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -27,7 +25,7 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
   }
 
   resizeWindow() {
-    if (window.innerWidth >= 768) {
+    if (window.innerWidth > 770) {
       this.props.setDeviceFormat('desktop');
     } else {
       this.props.setDeviceFormat('mobile');
@@ -35,29 +33,23 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
   }
 
   render() {
-    const { deviceFormat } = this.props;
-
     return (
       <div>
-        <Helmet title="P-Nomis">
-          <meta name="viewport" content="width=device-width, initial-scale=0.5" />
-        </Helmet>
+        <Helmet title="P-Nomis" />
         <Modal />
         <Header />
-        { deviceFormat === 'mobile' ? <div style={{ height: '80px' }} /> : null }
         { this.props.router.location.pathname !== '/bookings/details' ?
           <Breadcrumbs route={this.props.router.location.pathname} /> :
           <BreadcrumbsAlt route={this.props.router.location.pathname} />
         }
         {React.Children.toArray(this.props.children)}
-        { deviceFormat === 'desktop' ? <Footer /> : null }
+        <Footer />
       </div>
     );
   }
 }
 
 App.propTypes = {
-  deviceFormat: PropTypes.string.isRequired,
   children: PropTypes.node,
   setDeviceFormat: PropTypes.func,
   router: PropTypes.object.isRequired,
@@ -69,7 +61,6 @@ App.defaultProps = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  deviceFormat: selectDeviceFormat(),
 });
 
 const mapDispatchToProps = (dispatch) => ({

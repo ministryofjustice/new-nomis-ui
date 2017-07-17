@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { DW } from 'components/DesktopWrappers';
+import { ContentWrapper } from 'components/DesktopWrappers';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import ResultsViewToggle from 'components/ResultsViewToggle';
 import ResultsViewToggleMobile from 'components/ResultsViewToggle/mobile';
@@ -33,13 +33,16 @@ class Assignments extends PureComponent { // eslint-disable-line react/prefer-st
   render() {
     const { deviceFormat, searchOptions, searchQuery, viewDetails, totalResults, pagination, setPage, resultsView, setResultsView, user } = this.props; //eslint-disable-line
     const { perPage: pP } = pagination;
+
     return (
-      <DW>
+      <ContentWrapper>
         { deviceFormat === 'desktop' ?
-          <AssignmentsHeader resultsViewToggle={<ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />} user={user} options={{ assignments: totalResults }} />
+          <AssignmentsHeader
+            resultsViewToggle={<ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />}
+            user={user} options={{assignments: totalResults}} />
           :
           <div>
-            <AssignmentsHeaderMobile user={user} options={{ assignments: totalResults }} />
+            <AssignmentsHeaderMobile user={user} options={{assignments: totalResults}} />
             <ResultsViewToggleMobile resultsView={resultsView} setResultsView={setResultsView} />
           </div>
         }
@@ -54,7 +57,7 @@ class Assignments extends PureComponent { // eslint-disable-line react/prefer-st
         }
 
         <PreviousNextNavigation pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />
-      </DW>
+      </ContentWrapper>
     );
   }
 }

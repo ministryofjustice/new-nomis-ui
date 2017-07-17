@@ -4,9 +4,9 @@ import colours from 'theme/colours';
 
 export const Base = (props) => `
   box-sizing: border-box;
-  font-family: "nta", Arial, sans-serif;
   font-weight: 400;
   text-transform: none;
+  font-size: 19px;
   height: 50px;
   width: 100%;
   background: ${colours.forms.textInput.background};

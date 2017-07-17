@@ -4,7 +4,7 @@ import colours from 'theme/colours';
 
 const Base = (props) => `
   box-sizing: border-box;
-  font-family: "nta", Arial, sans-serif;
+  font-size: 19px;
   font-weight: 400;
   text-transform: none;
   height: 50px;
