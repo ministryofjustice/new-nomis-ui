@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import colours from 'theme/colours';
 import desktop from 'theme/desktop';
-import { mfmedia } from 'utils/style-utils';
+import { media } from 'utils/style-utils';
 
 export const FooterContainer = styled.div`
   display: none;
   
-  ${mfmedia.desktop`display: block;`}
+  ${media.desktop`display: block;`}
   
   position: absolute;
   bottom: 0;

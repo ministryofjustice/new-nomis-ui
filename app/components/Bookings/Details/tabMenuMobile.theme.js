@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import colours from 'theme/colours';
-// import desktop from 'theme/desktop';
 
 const mobileTabNav = colours.bookings.details.mobileTabNav.buttonBackground;
 
@@ -8,9 +7,6 @@ export const TabWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  ${''/* justify-content: space-between; */}
-  height: 108px;
   position: fixed;
   bottom: 0;
 
@@ -22,16 +18,13 @@ export const TabWrapper = styled.div`
 export const TabWrapperContentPadding = styled.div`
   width: 100%;
   display: flex;
-  height: 108px;
 `;
 
 export const TabMenuItem = styled.div`
-
-  height: 108px;
   flex-grow: 1;
   color: white;
   text-align: center;
-  font-size: 20px;
+  font-size: 12px;
   position: relative;
   display: flex;
   align-items: center;
@@ -51,5 +44,5 @@ export const TabMenuItem = styled.div`
 `;
 
 export const TextHolder = styled.div`
-  width: 120px;
+  width: 89px;
 `;

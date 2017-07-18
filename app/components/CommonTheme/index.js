@@ -1,14 +1,14 @@
 import styled from 'styled-components';
-import { mfmedia } from 'utils/style-utils';
+import { media } from 'utils/style-utils';
 
 export const MobileOnly = styled.div`
-  ${mfmedia.desktop`display: none;`}
+  ${media.desktop`display: none;`}
 `;
 
 export const DesktopOnly = styled.div`
   display: none;
   
-  ${mfmedia.desktop`
+  ${media.desktop`
     display: initial;
     height: 100%;
   `}

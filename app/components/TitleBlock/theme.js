@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import colours from 'theme/colours';
-import { mfmedia } from 'utils/style-utils';
+import { media } from 'utils/style-utils';
 
 // Mobile first, responsive title wrapper. Center-aligned by default, left-aligned on desktop.
 export const Wrapper = styled.div`
@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   padding: 0 20px;
   margin-bottom: 20px;
 
-  ${mfmedia.desktop`
+  ${media.desktop`
     text-align: left;
   `}
 `;
@@ -34,7 +34,7 @@ export const Title = styled.div`
   font-size: 24px;
   font-weight: bold;
   
-  ${mfmedia.desktop`
+  ${media.desktop`
     font-size: 48px;
   `}
 `;
@@ -43,7 +43,7 @@ export const Subtitle = styled.div`
   font-weight: normal;
   font-size: 12px;
 
-  ${mfmedia.desktop`
+  ${media.desktop`
     font-size: 24px;
   `}
 `;
