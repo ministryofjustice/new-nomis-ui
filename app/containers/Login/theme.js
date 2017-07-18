@@ -1,18 +1,18 @@
 import styled from 'styled-components';
-import { mfmedia } from 'utils/style-utils';
+import { media } from 'utils/style-utils';
 
 export const Form = styled.form`
   position: relative;
   
   width: 100%;
-  ${mfmedia.desktop`width: 430px;`}
+  ${media.desktop`width: 430px;`}
   
   margin: auto;
-  ${mfmedia.desktop`margin: 0 20px;`}
+  ${media.desktop`margin: 0 20px;`}
   
   padding: 0px 20px;
   padding-bottom: 150px;
-  ${mfmedia.desktop`padding: 0;`}
+  ${media.desktop`padding: 0;`}
   
   button {
     position: fixed;
@@ -23,7 +23,7 @@ export const Form = styled.form`
     margin-bottom: 0;
   }
   
-  ${mfmedia.desktop`button {
+  ${media.desktop`button {
     position: relative;
     bottom: initial;
     left: initial;

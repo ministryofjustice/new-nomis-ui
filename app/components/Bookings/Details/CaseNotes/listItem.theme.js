@@ -1,8 +1,5 @@
 import styled from 'styled-components';
 import allColours from 'theme/colours';
-import { media } from '../../../../utils/style-utils';
-
-// import desktop from 'theme/desktop';
 import { responsiveCols } from 'components/CommonTheme/responsiveColumns';
 
 const colours = allColours.bookings.details.caseNotes.list;
@@ -11,23 +8,19 @@ export const DateTimeIdBlock = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: ${responsiveCols(3)};
-  ${media.mobile`width: 257px;`}
   align-self: flex-start;
 `;
 
 export const DateTimeBlock = styled.div`
-  ${media.mobile`margin-left: 24px;`}
-  ${media.mobile`margin-top: 24px;`}
+  font-weight: bold;
 `;
 
 export const DateBlock = styled.div`
-  font-size: 30px;
-  font-weight: bold;
+  font-size: 16px;
 `;
+
 export const TimeBlock = styled.div`
-  font-size: 25px;
-  font-weight: bold;
+  font-size: 12px;
 `;
 
 export const MiddleBlock = styled.div`
@@ -36,7 +29,6 @@ export const MiddleBlock = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: ${responsiveCols(8)};
-  ${media.mobile`margin-top: 24px;`}
 `;
 
 export const TypeAndText = styled.div`
@@ -47,12 +39,11 @@ export const TypeDescription = styled.div`
   padding-top: 5px;
   font-size: 19px;
   font-weight: bold;
-  ${media.mobile`margin-bottom: 10px;`}
+  margin-bottom: 10px;
 `;
 
 export const CaseNoteText = styled.div`
   font-size: 18px;
-  ${media.mobile`padding-right: 25px;`}
   margin-bottom: 20px;
 `;
 
@@ -68,9 +59,10 @@ export const AmendmentListBlock = styled.div`
   flex-direction: row;
   padding: 10px 10px 0px 10px;
 `;
-export const AmendmentSection = styled.div`
 
+export const AmendmentSection = styled.div`
 `;
+
 export const AmendmentSubSection = styled.div`
   width: 100%
   font-weight: bold;

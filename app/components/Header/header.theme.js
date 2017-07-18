@@ -3,7 +3,7 @@ import colours from 'theme/colours';
 import fonts from 'theme/fonts';
 import InlineSVG from 'react-svg-inline';
 import { Link } from 'react-router';
-import { mfmedia } from 'utils/style-utils';
+import { media } from 'utils/style-utils';
 import desktop from 'theme/desktop';
 
 export const Base = styled.div`
@@ -19,7 +19,7 @@ export const Base = styled.div`
   height: ${desktop.headerHeight}px;
   width: 100%;
     
-  ${mfmedia.desktop`
+  ${media.desktop`
     position: relative;
   `}
 `;
@@ -32,7 +32,7 @@ export const Logo = styled.div`
   margin-right: 5px;
   padding-bottom: 6px;
       
-  ${mfmedia.desktop`
+  ${media.desktop`
     display: block;
     margin-left: 15px;
   `}
@@ -49,7 +49,7 @@ export const LogoText = styled(Link)`
   margin-right: 15px;
   text-decoration: none;
       
-  ${mfmedia.desktop`
+  ${media.desktop`
     display: block;
   `}
 `;
@@ -61,7 +61,7 @@ export const Title = styled(Link)`
   flex-grow: 1;
   text-decoration: none;
       
-  ${mfmedia.desktop`
+  ${media.desktop`
     text-align: left;
   `}
 `;

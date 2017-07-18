@@ -25,7 +25,7 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
   }
 
   resizeWindow() {
-    if (window.innerWidth > 770) {
+    if (window.innerWidth > 1024) {
       this.props.setDeviceFormat('desktop');
     } else {
       this.props.setDeviceFormat('mobile');
