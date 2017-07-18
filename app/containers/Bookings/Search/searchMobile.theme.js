@@ -22,7 +22,7 @@ export const FormHeader = styled.div`
 `;
 
 export const FormTitle = styled.div`
-  font-size: 26px;
+  font-size: 24px;
   flex-grow: 1;
 `;
 
@@ -54,7 +54,6 @@ export const StyledSelect = styled(RFReactSelect)`
   .Select-control {
     border: solid ${colours.baseFont} 2px;
     border-radius: 0px;
-    height: 50px;
     font-size: 19px;
 
     /* .VirtualizedSelectFocusedOption {
@@ -133,17 +132,17 @@ export const FormWrapper = styled.form`
   margin-top: 40px;
 
   select {
-    font-size: 30px;
+    font-size: 16px;
     width: 100%;
     height: 100px;
   }
 
   textarea {
-    font-size: 30px;
+    font-size: 16px;
   }
 
   label {
-    font-size: 30px;
+    font-size: 16x;
     margin-top: 35px;
   }
 
@@ -151,25 +150,23 @@ export const FormWrapper = styled.form`
     position: fixed;
     bottom: 0px;
     left: 0px;
+    margin:auto;
     width: 100%;
-    font-size: 32px;
-    height: 120px;
+    font-size: 16px;
+    height:50px;
   }
 
   input {
-    height: 75px;
-    font-size: 22px;
+    font-size: 16px;
     margin-bottom: 5px;
   }
 
   .Select {
-    height: 75px;
-    font-size: 22px;
+    font-size: 16px;
     margin-bottom: 5px;
   }
   .Select-control {
-    height: 75px;
-    font-size: 22px;
+    font-size: 16px;
     margin-bottom: 5px;
   }
   .Select-menu-outer {

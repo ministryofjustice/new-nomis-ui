@@ -13,20 +13,17 @@ import {
 const renderComponent = (props) => shallow(<Header {...props} />);
 
 describe('Component: <Header>', () => {
-  it('should match its snapshot with no props', () => {
-    const renderedComponent = renderComponent();
-    expect(renderedComponent.getNodes()).toMatchSnapshot();
-  });
 
-  it('should match its snapshot with Name prop', () => {
-    const renderedComponent = renderComponent({ name: 'Sophie' });
-    expect(renderedComponent.getNodes()).toMatchSnapshot();
+  it('should have no properties by default', () => {
+    const renderedComponent = renderComponent();
+    expect(renderedComponent.props.length).toBe(0);
   });
 
   it('should have a base style with children', () => {
     const renderedComponent = renderComponent();
     expect(renderedComponent.find(Base).length).toEqual(1);
   });
+
 
   it('should have at least one ul', () => {
     const renderedComponent = renderComponent();
