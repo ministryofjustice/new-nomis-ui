@@ -3,13 +3,8 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-// import { loadBookingDetails } from 'containers/EliteApiLoader/actions';
 import DataGrid from 'components/Bookings/Details/dataGridViewComponent';
-//
-// import {
-// } from './physicalAttributes.theme';
 
-// import { search } from './actions';
 import { setModalOpen, setModalData } from 'globalReducers/app';
 
 import { selectPhysicalAttributes, selectPhysicalMarks } from '../../selectors';

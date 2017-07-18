@@ -8,7 +8,7 @@ import { createStructuredSelector } from 'reselect';
 import TabNav from 'components/Bookings/Details/tabMenu';
 import TabNavMobile from 'components/Bookings/Details/tabMenuMobile';
 import NavLink from 'components/NavLink';
-import { UpperFlexColumn } from 'components/DesktopWrappers';
+import { UpperFlexColumn, ContentWrapper } from 'components/DesktopWrappers';
 
 import { selectDeviceFormat, selectSearchContext } from 'selectors/app';
 
@@ -51,7 +51,7 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
         {displayAddDetailsModal ? <AddCaseNoteModal /> : null}
         { deviceFormat === 'desktop' ?
           <div>
-            <UpperFlexColumn>
+            <ContentWrapper>
               { searchContext === 'assignments' ?
                 <NavLink route="/assignments" key="Assignments" text="< Back to assignments"/> :
                 <NavLink route="/search/results" key="Results" text="< Back to search results"/>
@@ -62,17 +62,17 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
                 activeTabId={activeTabId}
               />
               <TabComponent />
-            </UpperFlexColumn>
+            </ContentWrapper>
           </div> :
           <div>
-            <UpperFlexColumn>
+            <ContentWrapper>
               { searchContext === 'assignments' ?
                 <NavLink route="/assignments" key="Assignments" text="< Back to assignments"/> :
                 <NavLink route="/search/results" key="Results" text="< Back to search results"/>
               }
               <BookingsDetailsHeaderMobile />
               <TabComponentMobile />
-            </UpperFlexColumn>
+            </ContentWrapper>
             <TabNavMobile
               tabData={tabData.map((tab) => Object.assign(tab, { action: () => setTab(tab.tabId) }))}
               activeTabId={activeTabId}

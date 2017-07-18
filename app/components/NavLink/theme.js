@@ -9,7 +9,9 @@ export const NavLinkLink = styled(Link)`
 `;
 
 export const NavLinkWrapper = styled.div`
-  margin-left: auto;
+  padding-left: 15px;
+  ${media.desktop`padding-left: 0;`}
+  
   margin-right: auto;
   
   margin-top: 30px;
