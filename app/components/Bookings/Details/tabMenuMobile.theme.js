@@ -4,7 +4,6 @@ import colours from 'theme/colours';
 const mobileTabNav = colours.bookings.details.mobileTabNav.buttonBackground;
 
 export const TabWrapper = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: row;
   position: fixed;

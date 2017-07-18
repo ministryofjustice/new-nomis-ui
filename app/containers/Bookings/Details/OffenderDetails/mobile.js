@@ -3,13 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-// import { loadBookingDetails } from 'containers/EliteApiLoader/actions';
 import DataGrid from 'components/Bookings/Details/dataGridViewComponentMobile';
-
-import {
-} from './offenderDetails.theme';
-
-// import { search } from './actions';
 import { selectOffenderDetailsMobile } from '../../selectors';
 
 class OffenderDetails extends PureComponent { // eslint-disable-line react/prefer-stateless-function

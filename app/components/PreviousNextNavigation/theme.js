@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from 'utils/style-utils';
 
 export const PrevNextNavContainer = styled.nav`
   display: ${props => props.show ? 'block' : 'none'};
@@ -10,9 +11,9 @@ export const PrevNextNavWrapper = styled.ul`
   margin: auto;
   width: 100%;
   padding: 0px 25px;
-  height: 104px;
   margin-top: 30px;
-  margin-bottom: 30px;
+
+  ${media.desktop`margin-bottom: 30px;`}
   
   li {
     line-height: 1.11111;
@@ -50,9 +51,7 @@ export const PrevNavigatorRegion = styled.li`
 `;
 
 export const NavigatorContent = styled.div`
-  @media(min-width: 641px) {
-    font-size: 27px !important;
-  }
+  ${media.desktop`font-size: 27px !important;`}
 `;
 
 export const NextNavigatorRegion = styled.li`
@@ -91,8 +90,8 @@ export const PageNumbers = styled.span`
   padding-top: 6px;
   padding-bottom: 4px;
    
-  @media (min-width: 641px) {
+  ${media.desktop`
     font-size: 14px;
     line-height: 1.42857;
-  }
+  `}
 `;

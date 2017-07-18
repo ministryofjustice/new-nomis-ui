@@ -124,9 +124,9 @@ export const OpenFilterForm = styled(ButtonLink)`
 `;
 
 export const OpenFilterFormMobile = styled(Link)`
-  position: fixed;
-  top: 29px;
-  right: 100px;
+  position: absolute;
+  top: 14px;
+  right: 54px;
   z-index: 1000;
   width: 35px;
   height: 35px;

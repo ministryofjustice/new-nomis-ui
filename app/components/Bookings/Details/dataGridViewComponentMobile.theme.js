@@ -1,27 +1,25 @@
 import styled from 'styled-components';
 import colours from 'theme/colours';
-// import desktop from 'theme/desktop';
 import { responsiveCols } from 'components/CommonTheme/responsiveColumns';
 
 export const DataGridWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
-  margin-bottom: 25px;
+  margin-top: 30px;
+  margin-bottom: 20px;
   padding: 0px 25px;
 `;
 
 export const DGTitle = styled.div`
-  font-size: 40px;
+  font-size: 20px;
   width: 100%;
-  margin-bottom:30px;
+  margin-bottom:15px;
 `;
 
 export const DGRow = styled.div`
   display: flex;
   flex-direction: row;
-  line-height: 99px;;
   width: 100%;
   border-bottom: 1px solid ${colours.bookings.details.datagrid.gridLineColour};
   ${''/* &:not(:last-child){
@@ -31,13 +29,13 @@ export const DGRow = styled.div`
 
 export const DGRowTitle = styled.div`
   width: ${({ colWidth }) => responsiveCols(colWidth)};
-  font-size: 30px;
+  font-size: 15px;
 `;
 
 export const DGRowItem = styled.div`
   width: ${({ colWidth }) => responsiveCols(colWidth)};
   font-weight: bold;
-  font-size: 32px;
+  font-size: 16px;
 `;
 
 export const DGImageCaption = styled.div`
@@ -46,7 +44,7 @@ export const DGImageCaption = styled.div`
   flex-direction: column;
   font-weight: bold;
   margin-bottom: 15px;
-  font-size: 32px;
+  font-size: 16px;
 `;
 
 export const DGImageItem = styled.div`
