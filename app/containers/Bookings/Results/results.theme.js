@@ -54,36 +54,46 @@ export const BookingGrid = styled.div`
 
 `;
 
-export const ListDetailItem = styled(Link)`
-  align-items: flex-end;
-  border-top: ${colours.bookings.searchResults.borderColour} solid 1px;
-  cursor: pointer;
-  display: flex;
-  height: 130px;
-  padding: 22px 15px 17px 15px;
+export const ListDetailItem = styled.div`
+     display:flex;
+     flex-direction:row;
+     
+     border-top: ${colours.bookings.searchResults.borderColour} solid 1px;
 
-  &:last-of-type {
-    border-bottom: ${colours.bookings.searchResults.borderColour} solid 1px;
-    height: 131px;
-  }
-
-  div {
-    &:not(:first-child) {
-      margin-left: calc( 100% * 15 / 1170 );
-    }
-    &:not(:last-child) {
-      margin-right: calc( 100% * 15 / 1170 );
-    }
-  }
-
-  &:hover {
-    background: ${colours.filterBlocks.background};
-    border-color: ${colours.filterBlocks.background};
-  }
-
-  &:hover+div {
-    border: none;
-  }
+     &:last-of-type {
+       border-bottom: ${colours.bookings.searchResults.borderColour} solid 1px;
+     }
+     
+     @media(min-width: 700px){
+                    
+         .personAttributes{
+            width:100%;
+            display:flex;         
+                      
+            div:first-of-type{
+              width:30%;
+            }
+            
+            div{            
+              margin:auto;
+              flex-grow:2;
+            }
+         }  
+          
+       }
+       
+       @media(max-width: 360px){
+          .personAttributes{
+             display:flex;
+             flex-direction: column;        
+                       
+             div{                            
+                width:100%;
+                margin:auto;
+             }
+           }
+          
+       }
 `;
 
 
@@ -94,13 +104,22 @@ export const ListDetailImage = styled.div`
 
 `;
 
+export const GroupedDetails = styled.div`   
+    @media (max-width: 360px){
+      display:flex;
+      flex-direction:column;
+      div {
+        width: 100%;
+      }       
+    }
+`;
+
 export const Name = styled.div`
   font-weight: bold;
-  width: ${responsiveCols(5)};
 `;
 
 export const ID = styled.div`
-  flex-grow: 1;
+  
 `;
 
 export const Location = styled.div`
@@ -164,8 +183,6 @@ export const GridDetailItem = styled(Link)`
       margin-left: 20px;
     }
   }
-
-
 `;
 
 export const GridDetailImage = styled.div`
