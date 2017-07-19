@@ -76,7 +76,7 @@ export const AddCaseNoteButton = styled.div`
 
 export const AddCaseNoteButtonComponent = styled(StyledLink)`
   width: 100%;
-  height: 100px;
+  // height: 100px;
   font-size: 16px;
 `;
 

@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import EliteOfficerName from 'containers/EliteContainers/OfficerName';
-// import Button from 'components/Button';
 
 import {
   CaseNoteDetailsWrapper,
   CaseNoteText,
   CaseNoteIdBlock,
-  AmendmentButton,
+  ButtonWrapper,
+  NavButton,
   Amendment,
   AmendmentTitle,
   AmendmentText,
@@ -41,7 +42,9 @@ function CaseNoteDetailsMobile(props) {
   return (
     <div>
       <CaseNoteDetailsWrapper data-name={'CaseNoteDetailsWrapper'}>
-        <AmendmentButton buttonstyle="link" to={'/amendCaseNote'}>Add Amendment</AmendmentButton>
+        <ButtonWrapper>
+          <NavButton buttonstyle="link" to={'/amendCaseNote'}>Add Amendment</NavButton>
+        </ButtonWrapper>
         <DateTimeBlockWrapper data-name={'DateTimeBlockWrapper'}>
           <DateTimeBlock data-name={'DateTimeBlock'} creationDateTime={occurrenceDateTime} />
         </DateTimeBlockWrapper>
@@ -49,7 +52,9 @@ function CaseNoteDetailsMobile(props) {
         <CaseNoteText data-name={'CaseNoteText'}>{splitInfo.caseNote}</CaseNoteText>
         <CaseNoteIdBlock data-name={'CaseNoteIdBlock'}><EliteOfficerName username={authorUserId} /></CaseNoteIdBlock>
         {amendments}
-        <AmendmentButton buttonstyle="link" onClick={viewList}>Return to List</AmendmentButton>
+        <ButtonWrapper>
+          <NavButton buttonstyle="link" onClick={viewList}>Return to List</NavButton>
+        </ButtonWrapper>
       </CaseNoteDetailsWrapper>
     </div>
   );
