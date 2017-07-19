@@ -64,36 +64,33 @@ export const ListDetailItem = styled.div`
        border-bottom: ${colours.bookings.searchResults.borderColour} solid 1px;
      }
      
-     @media(min-width: 700px){
-                    
-         .personAttributes{
-            width:100%;
-            display:flex;         
-                      
-            div:first-of-type{
-              width:30%;
-            }
-            
-            div{            
-              margin:auto;
-              flex-grow:2;
-            }
-         }  
-          
+     .personAttributes{
+     
+       display: flex;
+       flex-direction: column;        
+                 
+       div{                            
+          width: 100%;
+          margin: auto;
        }
        
-       @media(max-width: 360px){
-          .personAttributes{
-             display:flex;
-             flex-direction: column;        
-                       
-             div{                            
-                width:100%;
-                margin:auto;
-             }
-           }
+       @media(min-width: 700px){
+              
+          width: 100%;          
+          display: flex;  
+          flex-direction: row;
+                        
+          div:first-of-type{
+            width: 30%;
+          }
           
+          div{            
+            width: auto;
+            flex-grow: 2;
+          }
        }
+     }
+
 `;
 
 
