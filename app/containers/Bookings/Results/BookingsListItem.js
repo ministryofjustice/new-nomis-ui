@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import EliteImage from 'containers/EliteContainers/Image';
-import { ListDetailItem, ListDetailImage, Name, ID } from './results.theme';
+import { ListDetailItem, ListDetailImage, Name, ID, GroupedDetails } from './results.theme';
 
 const BookingsListItem = (props) => {
   const { data, action } = props;
@@ -9,9 +9,12 @@ const BookingsListItem = (props) => {
   return (
     <ListDetailItem onClick={() => action(data.bookingId)}>
       <ListDetailImage><EliteImage imageId={facialImageId} /></ListDetailImage>
-      <Name>{lastName}, {firstName[0].toUpperCase() + firstName.toLowerCase().slice(1)}</Name>
-      <ID>ID: <strong>{offenderNo}</strong></ID>
-      <div>{assignedLivingUnitDesc}</div>
+      <div className="personAttributes">
+        <Name>{lastName}, {firstName[0].toUpperCase() + firstName.toLowerCase().slice(1)}</Name>
+        <ID>{offenderNo}</ID>
+        <div>{assignedLivingUnitDesc}</div>
+      </div>
+
     </ListDetailItem>
   );
 };
