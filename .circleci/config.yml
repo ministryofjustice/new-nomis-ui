@@ -71,19 +71,10 @@ jobs:
              docker login -u $DOCKER_USER -p $DOCKER_PASS
              docker push sysconjusticesystems/elite2-web:$BUILD_VERSION
 
-  tag_latest_image:
-    <<: *defaults
-    steps:
-      - setup_remote_docker:
-          exclusive: true
-      - run:
-          command: |
-             VERSION=$(egrep version package.json  | awk -F"\"" '{print $4}')
-             BUILD_VERSION=ELITE2_WEB_${VERSION}
-             docker login -u $DOCKER_USER -p $DOCKER_PASS
-             docker pull sysconjusticesystems/elite2-web:$BUILD_VERSION
-             docker tag sysconjusticesystems/elite2-web:$BUILD_VERSION sysconjusticesystems/elite2-web:latest
-             docker push sysconjusticesystems/elite2-web:latest
+             if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
+               docker tag sysconjusticesystems/elite2-web:$BUILD_VERSION sysconjusticesystems/elite2-web:latest
+               docker push sysconjusticesystems/elite2-web:latest
+             fi
 
 workflows:
   version: 2
@@ -106,9 +97,4 @@ workflows:
           filters:
             branches:
               only: master
-      - tag_latest_image:
-          filters:
-            branches:
-              only: master
-          requires:
-            - build_docker
+
