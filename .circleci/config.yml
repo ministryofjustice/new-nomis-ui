@@ -103,6 +103,9 @@ workflows:
       - deploy_release:
           requires:
             - build
+          filters:
+            branches:
+              only: master
       - tag_latest_image:
           filters:
             branches:
