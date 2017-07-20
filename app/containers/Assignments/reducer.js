@@ -6,7 +6,7 @@ import {
 } from './constants';
 
 const initialState = Map({
-  pagination: Map({ perPage: 7, pageNumber: 0 }),
+  pagination: Map({ perPage: 10, pageNumber: 0 }),
   view: 'List',
   sortOrder: 'TEST',
 });
@@ -23,9 +23,9 @@ function searchReducer(state = initialState, action) {
       const currentFirstId = cP.pageNumber * cP.perPage;
       let newPerPage;
       if (view === 'Grid') {
-        newPerPage = 12;
+        newPerPage = 15;
       } else if (view === 'List') {
-        newPerPage = 7;
+        newPerPage = 10;
       }
       const newPageNumber = Math.floor(currentFirstId / newPerPage);
       const newPagination = { perPage: newPerPage, pageNumber: newPageNumber };

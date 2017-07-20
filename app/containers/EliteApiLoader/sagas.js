@@ -347,22 +347,6 @@ export function* preloadCaseNoteTypes(token, apiServer) {
     return { error: err };
   }
 }
-//
-// export function* preloadCaseNoteType(caseNoteSource, token, apiServer) {
-//   const status = yield select(selectCaseNoteSourceStatus, { source: caseNoteSource });
-//   if (status === 'SUCCESS' || status === 'LOADING') return null;
-//
-//   yield put({ type: CASENOTETYPES.PRELOAD.LOADING, payload: caseNoteSource });
-//
-//   try {
-//     const caseNoteTypes = yield call(loadCaseNoteTypes, token, apiServer, caseNoteSource);
-//     yield put({ type: CASENOTETYPES.PRELOAD.SUCCESS, payload: { caseNoteTypes, caseNoteSource } });
-//     return null;
-//   } catch (err) {
-//     yield put({ type: CASENOTETYPES.PRELOAD.ERROR, payload: { error: err } });
-//     return { error: err };
-//   }
-// }
 
 export function* caseNoteTypeWatch() {
   yield takeEvery(CASENOTETYPES.BASE, caseNoteTypeLoadSaga);
