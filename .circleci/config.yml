@@ -1,0 +1,114 @@
+defaults: &defaults
+  working_directory: /tmp/circleci-elite2-web
+  docker:
+    - image: circleci/node:latest-browsers
+
+version: 2
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: node_modules-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
+      - run:
+          name: Install Dependencies
+          command: yarn --frozen-lockfile
+      - save_cache:
+          key: node_modules-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Run Tests
+          command: yarn test -- --reporter mocha-junit-reporter
+      - run: NODE_ENV=production yarn build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+            - build
+
+  deploy_release:
+      <<: *defaults
+      steps:
+        - checkout
+        - attach_workspace:
+            at: /tmp/circleci-elite2-web/
+        - run: |
+            VERSION=$(egrep version package.json  | awk -F"\"" '{print $4}')
+            export BUILD_NUMBER=${VERSION}.${CIRCLE_BRANCH}.${CIRCLE_BUILD_NUM}
+            export GIT_REF=${CIRCLE_SHA1}
+            export GIT_DATE=$(TZ=UTC git log --format=%cI -n1 $CIRCLE_SHA1)
+            yarn record-build-info
+        - run: |
+            git add --force --verbose build-info.json build
+            git config user.name "Circle CI"
+            git config user.email "circle@circleci.com"
+            CI_MESSAGE=$(git log --format=%B -n 1 $CIRCLE_SHA1)
+            git commit -m "Deployment of build $BUILD_NUMBER" -m "$CI_MESSAGE" -m "From gitref $CIRCLE_SHA1"
+            git push --force origin HEAD:deploy-to-dev
+
+  build_docker:
+    <<: *defaults
+    steps:
+      - checkout
+      - setup_remote_docker:
+          exclusive: true
+      - run:
+          command: |
+             VERSION=$(egrep version package.json  | awk -F"\"" '{print $4}')
+             if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
+               BUILD_VERSION=ELITE2_WEB_${VERSION}
+             else
+               BUILD_VERSION=${VERSION}.${CIRCLE_BRANCH}.${CIRCLE_BUILD_NUM}
+             fi
+             docker build --rm=false . \
+                 --tag "sysconjusticesystems/elite2-web:$BUILD_VERSION" \
+                 --label "maintainer=michael.willis@syscon.net" \
+                 --label "build.number=$CIRCLE_BUILD_NUM" \
+                 --label "build.url=$CIRCLE_BUILD_URL" \
+                 --label "build.gitref=$CIRCLE_SHA1"
+             docker login -u $DOCKER_USER -p $DOCKER_PASS
+             docker push sysconjusticesystems/elite2-web:$BUILD_VERSION
+
+  tag_latest_image:
+    <<: *defaults
+    steps:
+      - setup_remote_docker:
+          exclusive: true
+      - run:
+          command: |
+             VERSION=$(egrep version package.json  | awk -F"\"" '{print $4}')
+             BUILD_VERSION=ELITE2_WEB_${VERSION}
+             docker login -u $DOCKER_USER -p $DOCKER_PASS
+             docker pull sysconjusticesystems/elite2-web:$BUILD_VERSION
+             docker tag sysconjusticesystems/elite2-web:$BUILD_VERSION sysconjusticesystems/elite2-web:latest
+             docker push sysconjusticesystems/elite2-web:latest
+
+workflows:
+  version: 2
+  build-test-and-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore:
+                  - deploy-to-dev
+                  - deploy-to-preprod
+                  - deploy-to-prod
+                  - intergalactic
+      - build_docker:
+          requires:
+            - build
+      - deploy_release:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      - tag_latest_image:
+          filters:
+            branches:
+              only: master
+          requires:
+            - build_docker
