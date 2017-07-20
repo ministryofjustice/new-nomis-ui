@@ -11,15 +11,19 @@ jobs:
       - checkout
       - run: yarn --frozen-lockfile
       - run: yarn test -- --reporter mocha-junit-reporter
-
+      - run: NODE_ENV=production yarn build
       - persist_to_workspace:
           root: .
+          paths:
+            - node_modules
+            - build
+
   build_release:
       <<: *defaults
       steps:
+        - checkout
         - attach_workspace:
-            at: /tmp/circleci-elite2-web
-        - run: NODE_ENV=production yarn build
+            at: /tmp/circleci-elite2-web/
         - run: |
             VERSION=$(egrep version package.json  | awk -F"\"" '{print $4}')
             export BUILD_NUMBER=${VERSION}.${CIRCLE_BRANCH}.${CIRCLE_BUILD_NUM}
@@ -27,22 +31,20 @@ jobs:
             export GIT_DATE=$(TZ=UTC git log --format=%cd -n1 --date=iso-strict-local $CIRCLE_SHA1)
             echo Building : $BUILD_NUMBER
             yarn record-build-info
-        - deploy:
-            command: |
-              mkdir -p ~/.ssh
-              ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
-              git add --force --verbose build-info.json build
-              git config user.name "Circle CI"
-              git config user.email "circle@circleci.com"
-              CI_MESSAGE=$(git log --format=%B -n 1 $CIRCLE_SHA1)
-              git commit -m "Deployment of build $BUILD_NUMBER" -m "$CI_MESSAGE" -m "From gitref $CIRCLE_SHA1"
-              git push --force origin HEAD:deploy-to-dev
+        - run: |
+            mkdir -p ~/.ssh
+            ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
+            git add --force --verbose build-info.json build
+            git config user.name "Circle CI"
+            git config user.email "circle@circleci.com"
+            CI_MESSAGE=$(git log --format=%B -n 1 $CIRCLE_SHA1)
+            git commit -m "Deployment of build $BUILD_NUMBER" -m "$CI_MESSAGE" -m "From gitref $CIRCLE_SHA1"
+            git push --force origin HEAD:deploy-to-dev
 
   build_docker:
     <<: *defaults
     steps:
-      - attach_workspace:
-          at: /tmp/circleci-elite2-web
+      - checkout
       - setup_remote_docker:
           exclusive: true
       - run:
