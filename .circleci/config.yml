@@ -28,8 +28,7 @@ jobs:
             VERSION=$(egrep version package.json  | awk -F"\"" '{print $4}')
             export BUILD_NUMBER=${VERSION}.${CIRCLE_BRANCH}.${CIRCLE_BUILD_NUM}
             export GIT_REF=${CIRCLE_SHA1}
-            export GIT_DATE=$(TZ=UTC git log --format=%cd -n1 --date=iso-strict-local $CIRCLE_SHA1)
-            echo Building : $BUILD_NUMBER
+            export GIT_DATE=$(TZ=UTC git log --format=%cI -n1 $CIRCLE_SHA1)
             yarn record-build-info
         - run: |
             mkdir -p ~/.ssh
