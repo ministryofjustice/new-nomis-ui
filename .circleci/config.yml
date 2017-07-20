@@ -87,9 +87,6 @@ workflows:
                   - deploy-to-prod
                   - intergalactic
       - build_release:
-          filters:
-            branches:
-              only: master
           requires:
             - build
       - build_docker:
