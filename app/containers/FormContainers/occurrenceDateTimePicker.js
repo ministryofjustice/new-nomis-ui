@@ -139,8 +139,8 @@ class OccurrenceDateTimePicker extends React.Component {
       this.props.input.onChange('');
     } else if (!errors.date && !errors.time) {
       // Not the prettiest way to get the ISO 1806 format as needed...
-      const dtString = moment(`${date} ${time}`, `${dateFormat} ${timeFormat}`).toISOString();
-      this.props.input.onChange(dtString.slice(0, dtString.length - 1));
+      const dtString = moment(`${date} ${time}`, `${dateFormat} ${timeFormat}`);
+      this.props.input.onChange(dtString.format('YYYY-MM-DDTHH:mm:ss'));
     } else {
       this.props.input.onChange('error');
     }
