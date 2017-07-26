@@ -6,9 +6,6 @@ import { createStructuredSelector } from 'reselect';
 
 import { createFormAction } from 'redux-form-saga';
 
-import {
-  ContentWrapper
-} from 'components/DesktopWrappers';
 
 import TitleBlock from 'components/TitleBlock';
 import translations from './translations';
@@ -19,6 +16,7 @@ import { logIn } from '../Authentication/actions';
 import { selectLoggedIn, selectUser, selectUsername, selectPassword } from '../Authentication/selectors';
 import LoginForm from './loginForm';
 
+
 class Login extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     onSubmitForm: PropTypes.func.isRequired,
@@ -26,10 +24,10 @@ class Login extends PureComponent { // eslint-disable-line react/prefer-stateles
 
   render() {
     return (
-      <ContentWrapper>
-        <TitleBlock title={<FormattedMessage {...translations.title} />} subtitle={<FormattedMessage {...translations.subtitle} />} />
-        <LoginForm onSubmit={this.props.onSubmitForm} />
-      </ContentWrapper>
+      <div className="col-lg-offset-2 col-md-offset-2">
+          <TitleBlock title={<FormattedMessage {...translations.title} />} subtitle={<FormattedMessage {...translations.subtitle} />} />
+          <LoginForm onSubmit={this.props.onSubmitForm}/>
+      </div>
     );
   }
 }

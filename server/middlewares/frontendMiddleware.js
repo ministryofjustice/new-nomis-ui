@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const compression = require('compression');
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
+const appInsightscriptInjector = require('../applicationinsights').appInsightscriptInjector;
+
 
 // Dev middleware
 const addDevMiddlewares = (app, options, webpackConfig) => {
@@ -19,6 +21,7 @@ const addDevMiddlewares = (app, options, webpackConfig) => {
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
+  app.use(appInsightscriptInjector());
 
   // Since webpackDevMiddleware uses memory-fs internally to store build
   // artifacts, we use it instead
@@ -52,8 +55,10 @@ const addProdMiddlewares = (app, options) => {
   // and other good practices on official Express.js docs http://mxs.is/googmy
   app.use(compression());
   app.use(publicPath, express.static(outputPath));
+  app.use(appInsightscriptInjector());
 
   app.get('*', (req, res) => res.sendFile(path.resolve(outputPath, 'index.html')));
+
 };
 
 /**

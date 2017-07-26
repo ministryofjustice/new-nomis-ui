@@ -11,7 +11,7 @@ export const FooterContainer = styled.div`
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: ${desktop.footerHeight}px;
+
   background: ${colours.footer.bg};
 `;
 
