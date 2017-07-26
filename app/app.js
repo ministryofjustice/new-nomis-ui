@@ -42,7 +42,7 @@ import configureStore from './store';
 import { translationMessages } from './translations/i18n';
 
 // Import CSS reset and Global Styles
-import './theme/global-styles';
+//import './theme/global-styles';
 
 import './app.scss';
 import 'theme/bootstrapgrid.scss';
