@@ -1,0 +1,38 @@
+
+
+
+.FooterContainer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #DEE0E2;
+  padding:1%;
+  margin:auto;
+}
+
+.FooterLinkContainer{
+  padding-top: 10px;
+}
+
+.FooterLink{
+  float: left;
+  padding: 0px 19px;
+  border-right: 1px solid #0B0C0C;
+  height: 19px;
+  cursor: pointer;
+
+  &:last-child {
+    border-right: 0px;
+  }
+  &:first-child {
+    padding-left: 14px;
+  }
+}
+
+.FooterSignature{
+  max-width: 1170px;
+  clear: left;
+  margin-top: 37px;
+  padding-left: 14px;
+  padding-bottom: 10px;
+}

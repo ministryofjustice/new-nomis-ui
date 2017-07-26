@@ -5,6 +5,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 
 module.exports = (options) => ({
   entry: options.entry,
@@ -18,16 +20,48 @@ module.exports = (options) => ({
       loader: 'babel-loader',
       exclude: /node_modules/,
       query: options.babelQuery,
-    }, {
-      // Do not transform vendor's CSS with CSS-modules
-      // The point is that they remain in global scope.
-      // Since we require these CSS files in our JS or CSS files,
-      // they will be a part of our compilation either way.
-      // So, no need for ExtractTextPlugin here.
-      test: /\.css$/,
-      include: /node_modules/,
-      loaders: ['style-loader', 'css-loader'],
-    }, {
+    },
+
+      {
+        test: /\.css$/,
+        /*loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader'
+        })*/
+        loaders: ['style-loader','css-loader']
+      },
+      {
+        test: /\.scss/,
+        loader: ExtractTextPlugin.extract({
+          use: [{
+            loader: "css-loader"
+          }, {
+            loader: "sass-loader",
+            options: {
+              includePaths: [
+                'node_modules/govuk_frontend_toolkit/stylesheets', // 1
+                'node_modules/govuk-elements-sass/public/sass'     // 2
+              ]
+            }
+          }],
+          fallback: "style-loader"
+        }),
+
+      },
+    /*  {
+      test: /\.scss/,
+        loader: ExtractTextPlugin.extract({
+          use: [{
+            loader: "css-loader"
+          }, {
+            loader: "sass-loader"
+          }],
+          // use style-loader in development
+          fallback: "style-loader"
+        })
+    },*/
+
+      {
       test: /\.svg$/,
       loader: 'svg-inline-loader',
     }, {
@@ -65,6 +99,7 @@ module.exports = (options) => ({
     }],
   },
   plugins: options.plugins.concat([
+    new ExtractTextPlugin({filename:'styles.css',allChunks:true}),
     new webpack.ProvidePlugin({
       // make fetch available
       fetch: 'exports-loader?self.fetch!whatwg-fetch',

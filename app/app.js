@@ -19,6 +19,7 @@ import { useScroll } from 'react-router-scroll';
 // Import reset css
 import 'sanitize.css/sanitize.css';
 
+
 // Import root app
 import App from 'containers/App';
 
@@ -41,9 +42,11 @@ import configureStore from './store';
 import { translationMessages } from './translations/i18n';
 
 // Import CSS reset and Global Styles
-import './theme/global-styles';
+//import './theme/global-styles';
 
-// Import root routes
+import './app.scss';
+import 'theme/bootstrapgrid.scss';
+
 import createRoutes from './routes';
 
 // Create redux store with history
@@ -66,6 +69,10 @@ const rootRoute = {
   childRoutes: createRoutes(store),
 };
 
+const ReactAI  = require('react-appinsights');
+
+ReactAI.init({instrumentationKey: document.getElementById('instrumentationKey')});
+
 const render = (messages) => {
   ReactDOM.render(
     <Provider store={store}>
@@ -73,6 +80,7 @@ const render = (messages) => {
         <Router
           history={history}
           routes={rootRoute}
+          onUpdate={ReactAI.trackRouterChange}
           render={
             // Scroll to top when going to a new page, imitating default browser
             // behaviour

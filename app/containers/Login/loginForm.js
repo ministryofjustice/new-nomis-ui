@@ -3,31 +3,48 @@ import PropTypes from 'prop-types';
 
 import { reduxForm, Field } from 'redux-form/immutable';
 import { Map } from 'immutable';
-import { Input, SubmissionError } from 'components/FormComponents';
-import Button from 'components/Button';
-import { Form } from './theme';
+
+import InputWithLabel from 'components/FormComponents/InputWithLabel'
+
 import { injectIntl, intlShape } from 'react-intl';
 
-const LoginForm = ({ handleSubmit, submitting, error, intl }) => {
-  return (
-    <Form onSubmit={handleSubmit}>
-      <SubmissionError error={error}>{error ? intl.formatMessage(error) : ''}</SubmissionError>
-      <Field name="username" component={Input} type="text" title="Username" />
-      <Field name="password" component={Input} type="password" title="Password" autocomplete="off" />
-      <Button type="submit" disabled={submitting} submitting={submitting} buttonstyle="submit">Sign In</Button>
-    </Form>
-  );
-};
+
+const LoginForm = ({ handleSubmit, submitting, intl, error}) => (
+
+    <form onSubmit={handleSubmit}>
+
+      <div className="col-lg-7 col-md-7">
+          {
+            error &&
+            <div className="error-summary">
+              <span>{error.defaultMessage}</span>
+            </div>
+          }
+
+        <Field name="username" component={InputWithLabel} type="text" title="Username"/>
+        <Field name="password" component={InputWithLabel} type="password" title="Password" autocomplete="off"/>
+
+        <input
+          className="button col-xs-12 col-sm-12 col-md-12 col-lg-3"
+          type="submit"
+          disabled={submitting}
+          value="Sign In"
+        />
+
+      </div>
+
+    </form>
+);
 
 LoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
-  error: PropTypes.string,
+  //error: PropTypes.string,
   intl: intlShape.isRequired,
 };
 
 LoginForm.defaultProps = {
-  error: '',
+  error: null,
 };
 
 export default injectIntl(reduxForm({
