@@ -1,6 +1,8 @@
 const appInsights = require('applicationinsights');
-
 const appinsightsKey = process.env.APPINSIGHTS_INSTRUMENTATIONKEY || 'secretkey';
+
+const cheerio = require('cheerio');
+const interceptor = require('express-interceptor');
 
 appInsights.setup(appinsightsKey).start();
 
