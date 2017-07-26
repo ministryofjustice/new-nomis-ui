@@ -44,7 +44,7 @@ LoginForm.propTypes = {
 };
 
 LoginForm.defaultProps = {
-  error: null,
+  error: ''
 };
 
 export default injectIntl(reduxForm({

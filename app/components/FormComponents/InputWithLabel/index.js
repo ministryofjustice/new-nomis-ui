@@ -12,10 +12,12 @@ const Input = React.createClass({
 })
 
 const renderField = ({ input, title, type, placeholder, meta: { touched, error } }) => (
-  <div className={ !error ? 'form-group' : 'form-group form-group-error'}>
+  <div className={ !(touched && error) ? 'form-group' : 'form-group form-group-error'}>
     <label className="form-label">{title}</label>
-    <div className="error-message"> {error} </div>
-    <Input className={ !error ? 'form-control' : 'form-control form-control-error'} {...input} type={type} placeholder={placeholder}/>
+     <div className="error-message">
+       {touched && ((error && <span>{error}</span>))}
+     </div>
+    <Input className={ ! (touched && error) ? 'form-control' : 'form-control form-control-error'} {...input} type={type} placeholder={placeholder}/>
   </div>
 );
 
