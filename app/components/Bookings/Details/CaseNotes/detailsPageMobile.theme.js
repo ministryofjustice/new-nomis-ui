@@ -1,11 +1,24 @@
 import styled from 'styled-components';
 import allColours from 'theme/colours';
-// import desktop from 'theme/desktop';
 import { responsiveCols } from 'components/CommonTheme/responsiveColumns';
-
 import { StyledLink } from 'components/Button/button.theme';
 
 const colours = allColours.bookings.details.caseNotes.details;
+
+export const ButtonWrapper = styled.div`
+  margin-top: 40px;
+  text-align: center;
+`;
+
+export const NavButton = styled(StyledLink)`
+  display: block;
+  width: 100%;
+  font-size: 16px;
+
+  &:last {
+    margin-top: 0px;
+  }
+`;
 
 export const CaseNoteDetailsWrapper = styled.div`
   width: 100%;
@@ -38,21 +51,6 @@ export const RightHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 50px;
-`;
-
-export const AmendmentButton = styled(StyledLink)`
-  width: 100%;
-  height: 102px;
-  font-size: 32px;
-  margin-top: 60px;
-  &:last {
-    margin-top: 0px;
-  }
-  width: 100%;
-  height: 100px;
-  font-size: 32px;
-  display: block;
-  padding-top: 22px;
 `;
 
 export const CaseNoteText = styled.div`
@@ -88,7 +86,7 @@ export const ReturnToList = styled.a`
 `;
 
 export const DateTimeBlockWrapper = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 
   div {
     display: inline-block;

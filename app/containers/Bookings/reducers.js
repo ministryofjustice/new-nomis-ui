@@ -53,7 +53,7 @@ const initialState = fromJS({
   error: null,
   query: { firstName: '', lastName: '' }, // for test purposes putting something in here...
   sortOrder: 'TEST',
-  pagination: { perPage: 15, pageNumber: 0 },
+  pagination: { perPage: 10, pageNumber: 0 },
   details: detailsState,
   resultsView: 'List', // List or Grid
 });

@@ -3,18 +3,12 @@
 # This script requires the 'jq' command line tool
 brew install jq
 
-# Grab the MOCK build
-git checkout deploy-to-mock
+# Grab the DEV build
+git checkout deploy-to-dev
 git pull --rebase
 
-# Push the MOCK build to STAGE
-git push --force origin origin/deploy-to-mock:deploy-to-stage
-
-# Wait for STAGE deploy to finish
-GIT_REF=`jq -r '.gitRef' build-info.json` WAIT_DURATION=45000 APP_BASE_URL=http://notm-dev.azurewebsites.net/health yarn wait-for-deploy
-
-# Run the E2E tests against STAGE
-APP_BASE_URL=http://notm-dev.azurewebsites.net/ yarn test:integration
+# Push the DEV build to PREPROD
+git push --force origin origin/deploy-to-dev:deploy-to-preprod
 
 # Switch back to master branch
 git checkout master
