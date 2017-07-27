@@ -6,7 +6,7 @@ import { media } from 'utils/style-utils';
 export const SubmissionError = styled.div`
   border: 4px solid ${colours.forms.errorColour};
   padding: 15px 10px;
-  padding: ${({ error }) => error ? '15' : '30'}px;
+  padding: ${({ error }) => error ? '15' : '0'}px;
   font-size: 20px;
   font-weight: 700;
   line-height: 1.2;

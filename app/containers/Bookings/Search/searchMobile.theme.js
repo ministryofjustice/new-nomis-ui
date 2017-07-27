@@ -128,8 +128,6 @@ export const StyledSelect = styled(RFReactSelect)`
 
 export const FormWrapper = styled.form`
   padding: 20px 20px;
-  margin-bottom: 210px;
-  margin-top: 40px;
 
   select {
     font-size: 16px;
