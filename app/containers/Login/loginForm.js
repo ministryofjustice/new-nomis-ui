@@ -8,32 +8,29 @@ import InputWithLabel from 'components/FormComponents/InputWithLabel'
 
 import { injectIntl, intlShape } from 'react-intl';
 
-
 const LoginForm = ({ handleSubmit, submitting, intl, error}) => (
+      <form onSubmit={handleSubmit}>
+        <div className="col-lg-8 col-md-8">
+            {
+              error &&
+                <div className="row">
+                  <div className="error-summary col-sm-6 col-md-6 col-lg-6">
+                    {error.defaultMessage}
+                  </div>
+                </div>
+            }
+          <div className="row">
+            <Field name="username" component={InputWithLabel} type="text" title="Username"/>
+            <Field name="password" component={InputWithLabel} type="password" title="Password" autocomplete="off"/>
+            <input className="button col-sm-2 col-md-2 col-lg-2" type="submit" disabled={submitting} value="Sign In"/>
+          </div>
 
-    <form onSubmit={handleSubmit}>
+          <div className="row">
+            &nbsp;
+          </div>
+        </div>
 
-      <div className="col-lg-7 col-md-7">
-          {
-            error &&
-            <div className="error-summary">
-              <span>{error.defaultMessage}</span>
-            </div>
-          }
-
-        <Field name="username" component={InputWithLabel} type="text" title="Username"/>
-        <Field name="password" component={InputWithLabel} type="password" title="Password" autocomplete="off"/>
-
-        <input
-          className="button col-xs-12 col-sm-12 col-md-12 col-lg-3"
-          type="submit"
-          disabled={submitting}
-          value="Sign In"
-        />
-
-      </div>
-
-    </form>
+      </form>
 );
 
 LoginForm.propTypes = {

@@ -2,16 +2,10 @@ import styled from 'styled-components';
 import colours from 'theme/colours';
 import { media } from 'utils/style-utils';
 
-// Mobile first, responsive title wrapper. Center-aligned by default, left-aligned on desktop.
 export const Wrapper = styled.div`
   color: ${colours.baseFont};
-  text-align: center;
-  padding: 0 20px;
+  text-align: left;
   margin-bottom: 20px;
-
-  ${media.desktop`
-    text-align: left;
-  `}
 `;
 
 // Title wrapper that is always left-aligned.
@@ -35,7 +29,7 @@ export const Title = styled.div`
   font-weight: bold;
   
   ${media.desktop`
-    font-size: 48px;
+    font-size: 36px;
   `}
 `;
 
