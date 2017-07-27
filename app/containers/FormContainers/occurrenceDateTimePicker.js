@@ -61,8 +61,8 @@ const TimeInput = styled.input`
 `;
 moment.updateLocale('en', {
   longDateFormat: {
-    LT: 'h:mm A',
-    LTS: 'h:mm:ss A',
+    LT: 'HH:mm',
+    LTS: 'HH:mm:ss',
     L: 'DD/MM/YYYY',
     l: 'D/M/YYYY',
     LL: 'MMMM Do YYYY',

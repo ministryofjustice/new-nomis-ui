@@ -18,5 +18,5 @@ ENV USE_API_GATEWAY_AUTH=no
 ENV NOMS_PRIVATE_KEY=undef
 ENV NOMS_TOKEN=undef
 
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "start:prod" ]
 EXPOSE 3000
