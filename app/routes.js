@@ -276,14 +276,12 @@ export default function createRoutes(store) {
 
     const enter = route.onEnter;
 
-    if(enter) {
-      route.onEnter = () => {
-        OnRouteVisit(route.name);
+    route.onEnter = () =>{
+      if(enter)
         enter();
-      }
-    }else{
+    
       OnRouteVisit(route.name);
-    }
+    };
 
   });
   return routes;
