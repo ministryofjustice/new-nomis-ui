@@ -10,19 +10,21 @@ import { injectIntl, intlShape } from 'react-intl';
 
 const LoginForm = ({ handleSubmit, submitting, intl, error}) => (
       <form onSubmit={handleSubmit}>
-        <div className="col-lg-8 col-md-8">
+        <div className="col-md-8">
+
             {
               error &&
                 <div className="row">
-                  <div className="error-summary col-sm-6 col-md-6 col-lg-6">
+                  <div className="error-summary col-sm-6">
                     {error.defaultMessage}
                   </div>
                 </div>
             }
+
           <div className="row">
             <Field name="username" component={InputWithLabel} type="text" title="Username"/>
             <Field name="password" component={InputWithLabel} type="password" title="Password" autocomplete="off"/>
-            <input className="button col-sm-2 col-md-2 col-lg-2" type="submit" disabled={submitting} value="Sign In"/>
+            <input className="button col-sm-2" type="submit" disabled={submitting} value="Sign In"/>
           </div>
 
           <div className="row">
@@ -41,7 +43,7 @@ LoginForm.propTypes = {
 };
 
 LoginForm.defaultProps = {
-  error: null,
+  error: ''
 };
 
 export default injectIntl(reduxForm({

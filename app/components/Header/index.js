@@ -44,9 +44,10 @@ class Header extends Component {
   render() {
     const { user, mobileMenuOpen, switchCaseLoad } = this.props;
     return (
-      <DesktopWrapper background={colours.headerColour}>
-        <Base>
-          <Logo><SVGLOGO /></Logo>
+      <div>
+
+      <Base>
+          <Logo> <SVGLOGO /></Logo>
           <LogoText to="/">HMPPS</LogoText>
           <Title>Prison-NOMIS</Title>
           <DesktopOnly>
@@ -62,7 +63,7 @@ class Header extends Component {
             }
           </MobileOnly>
         </Base>
-      </DesktopWrapper>
+      </div>
     );
   }
 }
