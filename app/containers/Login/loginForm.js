@@ -11,6 +11,7 @@ import { injectIntl, intlShape } from 'react-intl';
 const LoginForm = ({ handleSubmit, submitting, intl, error}) => (
       <form onSubmit={handleSubmit}>
         <div className="col-lg-8 col-md-8">
+
             {
               error &&
                 <div className="row">
@@ -19,6 +20,7 @@ const LoginForm = ({ handleSubmit, submitting, intl, error}) => (
                   </div>
                 </div>
             }
+
           <div className="row">
             <Field name="username" component={InputWithLabel} type="text" title="Username"/>
             <Field name="password" component={InputWithLabel} type="password" title="Password" autocomplete="off"/>

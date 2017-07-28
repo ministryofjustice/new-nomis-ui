@@ -15,7 +15,7 @@ import { LOGIN_SUCCESS, LOGIN_ERROR } from '../Authentication/constants';
 import { logIn } from '../Authentication/actions';
 import { selectLoggedIn, selectUser, selectUsername, selectPassword } from '../Authentication/selectors';
 import LoginForm from './loginForm';
-
+import "./login.scss";
 
 class Login extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
@@ -24,8 +24,11 @@ class Login extends PureComponent { // eslint-disable-line react/prefer-stateles
 
   render() {
     return (
-      <div className="row">
-          <TitleBlock title={<FormattedMessage {...translations.title} />} subtitle={<FormattedMessage {...translations.subtitle} />} />
+      <div className="col-lg-offset-3 col-md-offset-3">
+          <div className="header">
+            <TitleBlock title={<FormattedMessage {...translations.title} />} subtitle={<FormattedMessage {...translations.subtitle} />} />
+          </div>
+
           <LoginForm onSubmit={this.props.onSubmitForm}/>
       </div>
     );
