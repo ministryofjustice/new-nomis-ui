@@ -34,30 +34,25 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
 
   render() {
     return (
-      <div className="container-fluid">
+      <div>
 
-          <div className="row">
-            <Helmet title="P-Nomis" />
-            <Modal />
-            <Header />
-          </div>
+        <Helmet title="P-Nomis" />
+        <Header />
 
-          <div className="row">
-            { this.props.router.location.pathname !== '/bookings/details' ?
-                <Breadcrumbs route={this.props.router.location.pathname} /> :
-                <BreadcrumbsAlt route={this.props.router.location.pathname} />
-            }
-          </div>
 
-         <div className="row">
+        <Modal />
+
+          { this.props.router.location.pathname !== '/bookings/details' ?
+              <Breadcrumbs route={this.props.router.location.pathname} /> :
+              <BreadcrumbsAlt route={this.props.router.location.pathname} />
+          }
+
+
+         <div className="container">
           {React.Children.toArray(this.props.children)}
          </div>
 
-
-          <div className="row">
-            <Footer />
-          </div>
-
+          <Footer />
 
       </div>
 

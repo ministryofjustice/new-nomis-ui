@@ -24,7 +24,7 @@ class Login extends PureComponent { // eslint-disable-line react/prefer-stateles
 
   render() {
     return (
-      <div className="col-lg-offset-3 col-md-offset-3">
+      <div>
           <div className="header">
             <TitleBlock title={<FormattedMessage {...translations.title} />} subtitle={<FormattedMessage {...translations.subtitle} />} />
           </div>
