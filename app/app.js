@@ -66,9 +66,6 @@ const rootRoute = {
   childRoutes: createRoutes(store),
 };
 
-const ReactAI  = require('react-appinsights');
-
-ReactAI.init({instrumentationKey: document.getElementById('instrumentationKey')});
 
 const render = (messages) => {
   ReactDOM.render(
@@ -77,7 +74,6 @@ const render = (messages) => {
         <Router
           history={history}
           routes={rootRoute}
-          onUpdate={ReactAI.trackRouterChange}
           render={
             // Scroll to top when going to a new page, imitating default browser
             // behaviour
