@@ -8,32 +8,31 @@ import InputWithLabel from 'components/FormComponents/InputWithLabel'
 
 import { injectIntl, intlShape } from 'react-intl';
 
-
 const LoginForm = ({ handleSubmit, submitting, intl, error}) => (
+      <form onSubmit={handleSubmit}>
+        <div className="col-md-8">
 
-    <form onSubmit={handleSubmit}>
+            {
+              error &&
+                <div className="row">
+                  <div className="error-summary col-sm-6">
+                    {error.defaultMessage}
+                  </div>
+                </div>
+            }
 
-      <div className="col-lg-7 col-md-7">
-          {
-            error &&
-            <div className="error-summary">
-              <span>{error.defaultMessage}</span>
-            </div>
-          }
+          <div className="row">
+            <Field name="username" component={InputWithLabel} type="text" title="Username"/>
+            <Field name="password" component={InputWithLabel} type="password" title="Password" autocomplete="off"/>
+            <input className="button col-sm-2" type="submit" disabled={submitting} value="Sign In"/>
+          </div>
 
-        <Field name="username" component={InputWithLabel} type="text" title="Username"/>
-        <Field name="password" component={InputWithLabel} type="password" title="Password" autocomplete="off"/>
+          <div className="row">
+            &nbsp;
+          </div>
+        </div>
 
-        <input
-          className="button col-xs-12 col-sm-12 col-md-12 col-lg-3"
-          type="submit"
-          disabled={submitting}
-          value="Sign In"
-        />
-
-      </div>
-
-    </form>
+      </form>
 );
 
 LoginForm.propTypes = {
@@ -44,7 +43,7 @@ LoginForm.propTypes = {
 };
 
 LoginForm.defaultProps = {
-  error: null,
+  error: ''
 };
 
 export default injectIntl(reduxForm({
