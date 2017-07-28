@@ -77,13 +77,6 @@ const render = (messages) => {
         <Router
           history={history}
           routes={rootRoute}
-          onUpdate ={
-            () => {
-              if (window.appInsights) {
-                window.appInsights.trackPageView();
-              }
-            }
-          }
           render={
             // Scroll to top when going to a new page, imitating default browser
             // behaviour

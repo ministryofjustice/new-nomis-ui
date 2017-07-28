@@ -30,7 +30,13 @@ function redirectToLoginGen(store) {
       });
     }
   };
-}
+};
+
+const OnRouteVisit = (routeName) => {
+  if (window.appInsights) {
+    window.appInsights.trackPageView(routeName);
+  };
+};
 
 
 export default function createRoutes(store) {
@@ -38,7 +44,7 @@ export default function createRoutes(store) {
   const { injectReducer, injectSagas } = getAsyncInjectors(store); // eslint-disable-line no-unused-vars
   const redirectToLogin = redirectToLoginGen(store);
 
-  return [
+  let routes= [
     {
       path: '/login',
       name: 'login',
@@ -265,4 +271,20 @@ export default function createRoutes(store) {
       },
     },
   ];
+
+  routes.forEach( route => {
+
+    const enter = route.onEnter;
+
+    if(enter) {
+      route.onEnter = () => {
+        OnRouteVisit(route.name);
+        enter();
+      }
+    }else{
+      OnRouteVisit(route.name);
+    }
+
+  });
+  return routes;
 }
