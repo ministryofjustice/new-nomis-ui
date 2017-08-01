@@ -1,0 +1,33 @@
+
+
+
+.photo{
+  width: 70px;
+  height: 90px;
+}
+
+.filterBox{
+  background:#F2F2F2;
+
+  margin: .6em;
+}
+
+.booking-search{
+
+  padding:1em;
+
+  .form-control{
+     width: 100% !important;
+   }
+
+  select{
+    height:2em;
+  }
+
+  .row{
+     margin-right:.6em;
+     margin-top: .6em;
+     margin-bottom: .6em;
+  }
+
+}

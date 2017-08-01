@@ -23,13 +23,38 @@ const selectSearchResultsSortOrder = () => createSelector(
   selectSearch(),
   (searchState) => searchState.get('sortOrder')
 );
+
 const selectSearchResultsV2 = () => createSelector(
   selectSearchQuery(),
   selectSearchResultsPagination(),
   selectSearchResultsSortOrder(),
   selectEliteApi(),
-  (query, pagination, sortOrder, eliteApi) => calcBookingResults(eliteApi, { query, pagination, sortOrder })
+  (query, pagination, sortOrder, eliteApi) => {
+
+    let result = calcBookingResults(eliteApi, {query, pagination, sortOrder});
+
+    return result.map(data => {
+
+      return {
+        ...data,
+        firstName: CapitaliseFirstLetter(data.firstName),
+        lastName: CapitaliseFirstLetter(data.lastName),
+        aliases: data.aliases
+          .map(a => a.split(' '))
+          .map(parts => parts.map(name => CapitaliseFirstLetter(name)))
+          .map(parts => parts.join(' '))
+      }
+    });
+  }
 );
+
+const CapitaliseFirstLetter = (string) =>  {
+  if((typeof string) === 'string' &&  string.length >= 1)
+    return string[0].toUpperCase() + string.toLowerCase().slice(1);
+  else
+    return string;
+}
+
 
 const selectSearchResultsTotalRecords = () => createSelector(
   selectSearchQuery(),
