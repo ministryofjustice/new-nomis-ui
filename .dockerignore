@@ -1,9 +1,16 @@
 node_modules
 npm-debug.log
-.env
+.env*
 README.md
 notes.mkd
 component-plan.mkd
 *.iml
 docs/
 .idea/
+.gitattributes
+.gitignore
+.git
+.circleci
+promote-from-mock-to-stage.sh
+docker-compose.yml
+kudu-deploy.sh
