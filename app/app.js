@@ -5,6 +5,7 @@
  * code.
  */
 
+
 // Needed for redux-saga es6 generator support
 import 'babel-polyfill';
 
@@ -16,6 +17,7 @@ import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { useScroll } from 'react-router-scroll';
 
+import './app.scss';
 
 // Import root app
 import App from 'containers/App';
@@ -37,13 +39,6 @@ import configureStore from './store';
 
 // Import i18n messages
 import { translationMessages } from './translations/i18n';
-
-// Import CSS reset and Global Styles
-//import './theme/global-styles';
-
-import './app.scss';
-import 'theme/bootstrapgrid.scss';
-
 import createRoutes from './routes';
 
 // Create redux store with history
