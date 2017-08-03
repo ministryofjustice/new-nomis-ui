@@ -69,7 +69,7 @@ const BookingTable = ({results,viewDetails}) => (
 const BookingGrid =  ({results,viewDetails}) => (
   <div className="booking-grid">
     {results.map(row => (
-       <div className="col-xs-6 col-md-3" key={row.bookingId}>
+       <div className="col-xs-6 col-sm-3" key={row.bookingId}>
 
          <div className="personBlock row">
 
@@ -107,7 +107,7 @@ const BookingSearchBox = () => (
 
   <div className="filterBox">
 
-         <div className="row col-md-4 col-xs-12">
+         <div className="row col-md-4">
 
           <label className="form-label visible-md visible-lg">
             Enter prisoner Name or ID
@@ -116,7 +116,7 @@ const BookingSearchBox = () => (
           <input type="text" className="form-control" placeholder="Enter Name or ID"/>
         </div>
 
-        <div className="row col-md-4 col-xs-12">
+        <div className="row col-md-4">
           <label className="form-label visible-md visible-lg">
             Select location
           </label>
@@ -126,7 +126,7 @@ const BookingSearchBox = () => (
           </select>
         </div>
 
-        <div className="row col-md-3 col-xs-12">
+        <div className="row col-md-3">
 
           <label className="form-label visible-md visible-lg">
             &nbsp;

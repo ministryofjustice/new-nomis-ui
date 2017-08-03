@@ -58,12 +58,13 @@
     .row{
       margin-top:1em;
     }
-    height:11em;
+    height:12em;
   }
 
   .personBlock{
     margin-top: 1em;
     // margin-right: 1em;
+    width:114%;
   }
 
   .personDetails{
@@ -73,10 +74,8 @@
   }
   .booking-search{
     .form-control {
-      width: 110% !important;
+      width: 100% !important;
     }
-    input.button{
-      margin-left:1.8em;
-    }
+
   }
 }
