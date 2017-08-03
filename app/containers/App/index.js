@@ -39,7 +39,6 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
         <Helmet title="P-Nomis" />
         <Header />
 
-
         <Modal />
 
           { this.props.router.location.pathname !== '/bookings/details' ?
@@ -48,11 +47,11 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
           }
 
 
-         <div className="container">
-          {React.Children.toArray(this.props.children)}
-         </div>
+           <div className="container">
+            {React.Children.toArray(this.props.children)}
+           </div>
 
-          <Footer />
+
 
       </div>
 

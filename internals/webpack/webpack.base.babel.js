@@ -23,24 +23,25 @@ module.exports = (options) => ({
     },
 
       {
-        test: /\.css$/,
-        /*loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader'
-        })*/
-        loaders: ['style-loader','css-loader']
+         test: /\.css$/,
+        //loader: ExtractTextPlugin.extract({
+       //   fallback: 'style-loader',
+       ///   use: 'css-loader'
+       // })
+       loaders: ['style-loader','css-loader']
       },
       {
         test: /\.scss/,
         loader: ExtractTextPlugin.extract({
           use: [{
-            loader: "css-loader"
+            loader: "css-loader",
           }, {
             loader: "sass-loader",
             options: {
               includePaths: [
-                'node_modules/govuk_frontend_toolkit/stylesheets', // 1
-                'node_modules/govuk-elements-sass/public/sass'     // 2
+               'node_modules/govuk_frontend_toolkit/stylesheets',
+               'node_modules/govuk-elements-sass/public/sass',
+               'app/assets/bootstrap'
               ]
             }
           }],
@@ -48,18 +49,6 @@ module.exports = (options) => ({
         }),
 
       },
-    /*  {
-      test: /\.scss/,
-        loader: ExtractTextPlugin.extract({
-          use: [{
-            loader: "css-loader"
-          }, {
-            loader: "sass-loader"
-          }],
-          // use style-loader in development
-          fallback: "style-loader"
-        })
-    },*/
 
       {
       test: /\.svg$/,

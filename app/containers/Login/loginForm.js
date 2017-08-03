@@ -8,6 +8,7 @@ import InputWithLabel from 'components/FormComponents/InputWithLabel'
 
 import { injectIntl, intlShape } from 'react-intl';
 
+
 const LoginForm = ({ handleSubmit, submitting, intl, error}) => (
       <form onSubmit={handleSubmit}>
         <div className="col-md-8">
@@ -24,7 +25,7 @@ const LoginForm = ({ handleSubmit, submitting, intl, error}) => (
           <div className="row">
             <Field name="username" component={InputWithLabel} type="text" title="Username"/>
             <Field name="password" component={InputWithLabel} type="password" title="Password" autocomplete="off"/>
-            <input className="button col-sm-2" type="submit" disabled={submitting} value="Sign In"/>
+            <input className="button alert col-sm-2" type="submit" disabled={submitting} value="Sign In"/>
           </div>
 
           <div className="row">

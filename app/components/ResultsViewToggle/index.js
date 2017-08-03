@@ -58,12 +58,10 @@ class ResultsViewToggle extends Component {
     }
 
     return (
-      <ToggleContainer>
-        <ToggleComponent>
+      <div className="pull-right">
           <ToggleButton data-name={'List'} onClick={this.setToggle} style={listStyle}>List<IconSVG svg={listIcon} /></ToggleButton>
           <ToggleButton data-name={'Grid'} onClick={this.setToggle} style={gridStyle}>Grid<IconSVG svg={gridIcon} /></ToggleButton>
-        </ToggleComponent>
-      </ToggleContainer>
+      </div>
     );
   }
 }

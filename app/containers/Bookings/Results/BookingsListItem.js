@@ -8,6 +8,7 @@ const BookingsListItem = (props) => {
   const { firstName, lastName, facialImageId, bookingNo, offenderNo, assignedLivingUnitDesc } = data;
   return (
     <ListDetailItem onClick={() => action(data.bookingId)}>
+
       <ListDetailImage><EliteImage imageId={facialImageId} /></ListDetailImage>
       <div className="personAttributes">
         <Name>{lastName}, {firstName[0].toUpperCase() + firstName.toLowerCase().slice(1)}</Name>
