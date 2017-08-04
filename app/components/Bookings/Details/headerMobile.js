@@ -44,7 +44,7 @@ function HeaderMobile({ inmateData, setModalOpen, setModalData }) {
   return (
     <HeaderWrapper data-name={'HeaderWrapper'}>
       <ContentWrapper data-name={'ContentWrapper'}>
-        <FaceImage data-name={'FaceImage'} onClick={showModal.bind([facialImageId])}>
+        <FaceImage data-name={'FaceImage'}>
           <EliteImage imageId={facialImageId} />
         </FaceImage>
         <InformationWrapper data-name={'InformationWrapper'}>

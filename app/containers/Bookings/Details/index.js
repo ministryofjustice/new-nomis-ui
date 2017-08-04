@@ -42,10 +42,9 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
 
   render() {
     const { activeTabId, setTab, deviceFormat, displayAddDetailsModal, searchContext } = this.props;
-    // console.log(details.toJS());
-    // console.log('TabNavMobile', TabNavMobile, deviceFormat);
     const TabComponent = tabData[activeTabId].component;
     const TabComponentMobile = tabData[activeTabId].componentMobile;
+
     return (
       <div>
         {displayAddDetailsModal ? <AddCaseNoteModal /> : null}

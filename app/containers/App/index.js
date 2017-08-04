@@ -46,12 +46,9 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
               <BreadcrumbsAlt route={this.props.router.location.pathname} />
           }
 
-
-           <div className="container">
-            {React.Children.toArray(this.props.children)}
-           </div>
-
-
+         <div className="container">
+          {React.Children.toArray(this.props.children)}
+         </div>
 
       </div>
 
