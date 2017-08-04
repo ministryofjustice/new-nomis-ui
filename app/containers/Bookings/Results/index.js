@@ -19,6 +19,15 @@ import EliteImage from 'containers/EliteContainers/Image';
 
 import './index.scss';
 
+/* TODO
+   - Disable link or image and show spinner when the user tries to view details
+   - Show spinner when sorting / searching
+   - Show spinner when navigating pages
+   - Hook search up
+   - Hook sorting up
+   - Format location as per eddies design
+ */
+
 const BookingTable = ({results,viewDetails}) => (
   <table>
     <thead>
@@ -71,7 +80,7 @@ const BookingGrid =  ({results,viewDetails}) => (
     {results.map(row => (
        <div className="col-xs-6 col-sm-3" key={row.bookingId}>
 
-         <div className="personBlock row">
+         <div className="personBlock">
 
              <div className="grid-photo" onClick={ () => viewDetails(row.bookingId)}>
                 <EliteImage imageId={row.facialImageId} />
