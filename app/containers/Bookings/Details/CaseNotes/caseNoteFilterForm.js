@@ -35,7 +35,6 @@ const SearchForm = (props) => {
     <QueryForm onSubmit={handleSubmit}>
       <CnffHeader>
         <CnffTitle>Filters</CnffTitle>
-        <CnffResetButton onClick={reset}>Reset</CnffResetButton>
       </CnffHeader>
       <SubmissionError error={error}>{error}</SubmissionError>
       <CnffTypeSubTypeHolder showSource={showSource} isMobile={isMobile}>
