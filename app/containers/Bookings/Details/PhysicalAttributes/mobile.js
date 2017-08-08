@@ -9,6 +9,8 @@ import { setModalOpen, setModalData } from 'globalReducers/app';
 
 import { selectPhysicalAttributes, selectPhysicalMarks } from '../../selectors';
 
+import {showLargePhoto} from '../../actions'
+
 class PhysicalAttributes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { physicalAttributes, physicalMarks } = this.props;
@@ -29,6 +31,7 @@ class PhysicalAttributes extends PureComponent { // eslint-disable-line react/pr
         modalGridArray={physicalMarks.modalGridArray}
         setModalOpen={this.props.setModalOpen}
         setModalData={this.props.setModalData}
+        onImageClick={this.props.showVisualMarkingsPhoto}
       />)
     );
 
@@ -38,6 +41,7 @@ class PhysicalAttributes extends PureComponent { // eslint-disable-line react/pr
         modalGridArray={physicalAttributes.modalGridArray}
         setModalOpen={this.props.setModalOpen}
         setModalData={this.props.setModalData}
+        onImageClick={this.props.showVisualMarkingsPhoto}
       />
       {marksArray}
       {/* <DataGrid gridData={AliasTable} /> */}
@@ -61,6 +65,7 @@ export function mapDispatchToProps(dispatch) {
   return {
     setModalOpen: (bool) => dispatch(setModalOpen(bool)),
     setModalData: (bool) => dispatch(setModalData(bool)),
+    showVisualMarkingsPhoto: (imageId) => dispatch(showLargePhoto(imageId))
   };
 }
 

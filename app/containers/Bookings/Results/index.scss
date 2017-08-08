@@ -64,7 +64,6 @@
 
   .personBlock{
     margin-top: 1em;
-    // margin-right: 1em;
   }
 
   .personDetails{
@@ -74,10 +73,7 @@
   }
   .booking-search{
     .form-control {
-      width: 110% !important;
-    }
-    input.button{
-      margin-left:1.8em;
+      width: 100% !important;
     }
   }
 }
