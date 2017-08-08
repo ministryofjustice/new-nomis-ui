@@ -19,6 +19,15 @@ import EliteImage from 'containers/EliteContainers/Image';
 
 import './index.scss';
 
+/* TODO
+   - Disable link or image and show spinner when the user tries to view details
+   - Show spinner when sorting / searching
+   - Show spinner when navigating pages
+   - Hook search up
+   - Hook sorting up
+   - Format location as per eddies design
+ */
+
 const BookingTable = ({results,viewDetails}) => (
   <table>
     <thead>
@@ -69,9 +78,9 @@ const BookingTable = ({results,viewDetails}) => (
 const BookingGrid =  ({results,viewDetails}) => (
   <div className="booking-grid">
     {results.map(row => (
-       <div className="col-xs-6 col-md-3" key={row.bookingId}>
+       <div className="col-xs-6 col-sm-3" key={row.bookingId}>
 
-         <div className="personBlock row">
+         <div className="personBlock">
 
              <div className="grid-photo" onClick={ () => viewDetails(row.bookingId)}>
                 <EliteImage imageId={row.facialImageId} />
@@ -107,7 +116,7 @@ const BookingSearchBox = () => (
 
   <div className="filterBox">
 
-         <div className="row col-md-4 col-xs-12">
+         <div className="row col-md-4">
 
           <label className="form-label visible-md visible-lg">
             Enter prisoner Name or ID
@@ -116,7 +125,7 @@ const BookingSearchBox = () => (
           <input type="text" className="form-control" placeholder="Enter Name or ID"/>
         </div>
 
-        <div className="row col-md-4 col-xs-12">
+        <div className="row col-md-4">
           <label className="form-label visible-md visible-lg">
             Select location
           </label>
@@ -126,7 +135,7 @@ const BookingSearchBox = () => (
           </select>
         </div>
 
-        <div className="row col-md-3 col-xs-12">
+        <div className="row col-md-3">
 
           <label className="form-label visible-md visible-lg">
             &nbsp;
