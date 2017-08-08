@@ -12,7 +12,7 @@ import {
   DGImageCaption,
 } from './dataGridViewComponentMobile.theme';
 
-function DgRow({ title, value: v, values, imageId, imageIndex, columnWidths, setModalOpen, setModalData, modalGridArray }) {
+function DgRow({ title, value: v, values, imageId, imageIndex, columnWidths, setModalOpen, setModalData, modalGridArray,onImageClick }) {
   const showModal = function (e) {
     setModalOpen(true);
     setModalData({ array: modalGridArray, index: e.currentTarget.dataset.index });
@@ -34,7 +34,7 @@ function DgRow({ title, value: v, values, imageId, imageIndex, columnWidths, set
   } else if (imageId) {
     rowVals = (<DGImageCaption colWidth={3}>
       {value ? value : ''}
-      <DGImageItem style={{ cursor: 'pointer' }} data-index={imageIndex} onClick={showModal}>
+      <DGImageItem style={{ cursor: 'pointer' }} data-index={imageIndex} onClick={() => onImageClick(imageId)}>
         <EliteImage imageId={imageId} />
       </DGImageItem>
     </DGImageCaption>);
@@ -68,7 +68,7 @@ DgRow.defaultProps = {
   modalGridArray: [],
 };
 
-function DataGrid({ gridData, setModalOpen, setModalData, modalGridArray }) {
+function DataGrid({ gridData, setModalOpen, setModalData, modalGridArray,onImageClick }) {
   return (
     <DataGridWrapper >
       <DGTitle>{gridData.title}</DGTitle>
@@ -79,6 +79,7 @@ function DataGrid({ gridData, setModalOpen, setModalData, modalGridArray }) {
           setModalOpen={setModalOpen}
           setModalData={setModalData}
           modalGridArray={modalGridArray}
+          onImageClick ={onImageClick}
         />)}
     </DataGridWrapper>
   );
