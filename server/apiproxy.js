@@ -22,12 +22,25 @@ function generateToken() {
 const options = {
   target: baseUrl,                  // target host
   changeOrigin: true,               // needed for virtual hosted sites
-  debug:true,
   ws: true,                         // proxy websockets
   pathRewrite: {
     '^/api': '',                  // rewrite path
   },
-  onProxyReq: function onProxyReq(proxyReq, req) {
+  logProvider: (provider) => {
+    return require('winston');
+  },
+  onError: (err, req, res) => {
+    res.writeHead(500, {
+      'Content-Type': 'text/plain'
+    });
+    res.end('Something went wrong.');
+  },
+  onProxyRes: (proxyRes, req, res) => {
+    res.setHeader('access-control-allow-origin', req.headers.host);
+    res.setHeader("Cache-control", "no-store");
+    res.setHeader("Pragma", "no-cache");
+  },
+  onProxyReq: (proxyReq, req) => {
     const authHeader = req.headers.authorization;
     if (authHeader !== undefined) {
       proxyReq.setHeader('elite-authorization', authHeader);

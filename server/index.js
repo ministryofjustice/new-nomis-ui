@@ -32,11 +32,9 @@ const prettyHost = customHost || 'localhost';
 const port = argv.port || process.env.PORT || 3000;
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", os.hostname() );
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Origin", req.headers.host);
   res.header("Cache-control", "no-store");
   res.header("Pragma", "no-cache");
-
   next();
 });
 

@@ -252,7 +252,8 @@
     "svg-inline-loader": "^0.7.1",
     "wallaby-webpack": "^0.0.32",
     "warning": "3.0.0",
-    "whatwg-fetch": "2.0.1"
+    "whatwg-fetch": "2.0.1",
+    "winston": "^2.3.1"
   },
   "devDependencies": {
     "babel-cli": "6.18.0",
