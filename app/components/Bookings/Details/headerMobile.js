@@ -17,7 +17,7 @@ import {
 
 const toTitleCase = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
 
-function HeaderMobile({ inmateData, setModalOpen, setModalData }) {
+function HeaderMobile({ inmateData, setModalOpen, setModalData, onImageClick }) {
   const { firstName, lastName, bookingNo, offenderNo, facialImageId, alertsCodes, assignedLivingUnit, assignedOfficerId } = inmateData;
 
   const nameString = `${lastName.toUpperCase()}, ${toTitleCase(firstName)}`;
@@ -44,7 +44,7 @@ function HeaderMobile({ inmateData, setModalOpen, setModalData }) {
   return (
     <HeaderWrapper data-name={'HeaderWrapper'}>
       <ContentWrapper data-name={'ContentWrapper'}>
-        <FaceImage data-name={'FaceImage'}>
+        <FaceImage data-name={'FaceImage'} onClick={() => onImageClick(facialImageId)}>
           <EliteImage imageId={facialImageId} />
         </FaceImage>
         <InformationWrapper data-name={'InformationWrapper'}>

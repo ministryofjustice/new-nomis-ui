@@ -49,7 +49,7 @@ const BookingTable = ({results,viewDetails}) => (
         </td>
         <td className="visible-md visible-lg">
           {row.aliases.map(name =>
-             <div className="row">
+             <div className="row" key={name + row}>
                <span className="col" key={name}>
                  {name}
                </span>

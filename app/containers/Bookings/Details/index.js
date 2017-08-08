@@ -21,15 +21,16 @@ import CaseNotes from './CaseNotes';
 import Alerts from './Alerts';
 import BookingsDetailsHeader from './header';
 import BookingsDetailsHeaderMobile from './headerMobile';
-
+import EliteImage from 'containers/EliteContainers/Image';
 
 import {
   // Wrapper,
 } from './details.theme';
 
-// import { search } from './actions';
-import { selectCurrentDetailTabId, selectDisplayAddCaseNoteModal } from '../selectors';
-import { setDetailsTab } from '../actions';
+import { selectCurrentDetailTabId, selectDisplayAddCaseNoteModal,selectShouldShowLargePhoto,selectImageId } from '../selectors';
+import { setDetailsTab,hideLargePhoto } from '../actions';
+
+import './index.scss';
 
 const tabData = [
     { tabId: 0, title: 'Offender Details', mobileTitle: 'OFFENDER', component: OffenderDetails, componentMobile: OffenderDetailsMobile },
@@ -37,6 +38,72 @@ const tabData = [
     { tabId: 2, title: 'Alerts', mobileTitle: 'ALERTS', component: Alerts, componentMobile: Alerts },
     { tabId: 3, title: 'Case Notes', mobileTitle: 'CASE NOTES', component: CaseNotes, componentMobile: CaseNotes },
 ];
+
+const DesktopView = React.createClass({
+  render(){
+
+    const TabComponent = this.props.TabComponent;
+
+     return(
+      <div>
+       <ContentWrapper>
+         { this.props.searchContext === 'assignments' ?
+           <NavLink route="/assignments" key="Assignments" text="< Back to assignments"/> :
+           <NavLink route="/search/results" key="Results" text="< Back to search results"/>
+         }
+         <BookingsDetailsHeader />
+         <TabNav
+           tabData={tabData.map((tab) => Object.assign(tab, { action: () => this.props.setTab(tab.tabId) }))}
+           activeTabId={this.props.activeTabId}
+         />
+         <TabComponent />
+       </ContentWrapper>
+     </div>)
+  }
+})
+
+const MobileView = React.createClass({
+
+  render(){
+
+    const TabComponentMobile = this.props.TabComponentMobile;
+
+    const ContentView =  ({searchContext}) => (
+        <div>
+          { this.props.searchContext === 'assignments' ?
+          <NavLink route="/assignments" key="Assignments" text="< Back to assignments"/> :
+          <NavLink route="/search/results" key="Results" text="< Back to search results"/>
+         }
+        <BookingsDetailsHeaderMobile />
+        <TabComponentMobile />
+      </div>
+    )
+
+    return (
+      <div>
+        <div>
+
+          {this.props.shouldShowLargePhoto ?
+            <div className="image-container">
+              <EliteImage imageId={this.props.imageId} />
+              <button type="button" className="cancel-button" onClick={() => this.props.hidePhoto(this.props.imageId)}>
+                Close
+              </button>
+            </div> :
+            <div>
+              <ContentView searchContext={this.props.searchContext} />
+              <TabNavMobile
+              tabData={tabData.map((tab) => Object.assign(tab, { action: () => this.props.setTab(tab.tabId) }))}
+              activeTabId={this.props.activeTabId}
+              />
+            </div>
+          }
+        </div>
+
+      </div>
+    )
+  }
+})
 
 class Details extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -49,34 +116,8 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
       <div>
         {displayAddDetailsModal ? <AddCaseNoteModal /> : null}
         { deviceFormat === 'desktop' ?
-          <div>
-            <ContentWrapper>
-              { searchContext === 'assignments' ?
-                <NavLink route="/assignments" key="Assignments" text="< Back to assignments"/> :
-                <NavLink route="/search/results" key="Results" text="< Back to search results"/>
-              }
-              <BookingsDetailsHeader />
-              <TabNav
-                tabData={tabData.map((tab) => Object.assign(tab, { action: () => setTab(tab.tabId) }))}
-                activeTabId={activeTabId}
-              />
-              <TabComponent />
-            </ContentWrapper>
-          </div> :
-          <div>
-            <ContentWrapper>
-              { searchContext === 'assignments' ?
-                <NavLink route="/assignments" key="Assignments" text="< Back to assignments"/> :
-                <NavLink route="/search/results" key="Results" text="< Back to search results"/>
-              }
-              <BookingsDetailsHeaderMobile />
-              <TabComponentMobile />
-            </ContentWrapper>
-            <TabNavMobile
-              tabData={tabData.map((tab) => Object.assign(tab, { action: () => setTab(tab.tabId) }))}
-              activeTabId={activeTabId}
-            />
-          </div>
+          <DesktopView TabComponent={TabComponent} {...this.props}/> :
+          <MobileView TabComponentMobile={TabComponentMobile} {...this.props} />
         }
       </div>
     );
@@ -94,14 +135,17 @@ Details.propTypes = {
 export function mapDispatchToProps(dispatch) {
   return {
     setTab: (id) => dispatch(setDetailsTab(id)),
+    hidePhoto: (imageId) => dispatch(hideLargePhoto(imageId))
   };
 }
-
+//selectShouldShowCarouselForMobile
 const mapStateToProps = createStructuredSelector({
   deviceFormat: selectDeviceFormat(),
   activeTabId: selectCurrentDetailTabId(),
   displayAddDetailsModal: selectDisplayAddCaseNoteModal(),
   searchContext: selectSearchContext(),
+  shouldShowLargePhoto: selectShouldShowLargePhoto(),
+  imageId: selectImageId()
 });
 
 // Wrap the component to inject dispatch and state into it

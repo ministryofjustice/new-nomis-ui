@@ -9,17 +9,18 @@ import { setModalOpen, setModalData } from 'globalReducers/app';
 
 import { selectHeaderDetail } from '../selectors';
 
+import {showLargePhoto} from '../actions';
+
 class Header extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   // componentWillMount() {
   // }
 
   render() {
-    const { headerDetails } = this.props;
-
     return (<BookingsDetailsHeader
-      inmateData={headerDetails}
+      inmateData={this.props.headerDetails}
       setModalOpen={this.props.setModalOpen}
       setModalData={this.props.setModalData}
+      onImageClick={this.props.showLargePhoto}
     />);
   }
 }
@@ -34,6 +35,7 @@ export function mapDispatchToProps(dispatch) {
   return {
     setModalOpen: (bool) => dispatch(setModalOpen(bool)),
     setModalData: (obj) => dispatch(setModalData(obj)),
+    showLargePhoto: (imageId) => dispatch(showLargePhoto(imageId)),
   };
 }
 
