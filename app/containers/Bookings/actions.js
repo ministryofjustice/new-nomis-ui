@@ -17,7 +17,23 @@ import {
   SET_ADD_CASENOTE_MODAL,
   ADD_NEW_CASENOTE,
   SET_AMEND_CASENOTE_MODAL,
+  SHOW_LARGE_PHOTO_BOOKING_DETAILS,
+  HIDE_LARGE_PHOTO_BOOKING_DETAILS
 } from './constants';
+
+export function showLargePhoto(imageId){
+  return {
+    type: SHOW_LARGE_PHOTO_BOOKING_DETAILS,
+    payload: {imageId}
+  }
+}
+
+export function hideLargePhoto(imageId){
+  return {
+    type: HIDE_LARGE_PHOTO_BOOKING_DETAILS,
+    payload: {imageId}
+  }
+}
 
 export function search(searchObj) {
   return {

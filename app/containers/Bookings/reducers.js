@@ -27,15 +27,18 @@ import {
   SET_ADD_CASENOTE_MODAL,
   SET_AMEND_CASENOTE_MODAL,
   CASE_NOTE_FILTER,
+  SET_LARGE_PHOTO_VISIBILITY
 } from './constants';
 
 import results from './Results/resultsData';
 
-const detailsState = fromJS({
+  const detailsState = fromJS({
   id: 20847,
   activeTabId: 0,
   tabs: [{ tabId: 0, title: 'Offender Details' }, { tabId: 1, title: 'Physical Attributes' }, { tabId: 2, title: 'Alerts' }, { tabId: 3, title: 'Case Notes' }],
   alertsPagination: { perPage: 10, pageNumber: 0 },
+  shouldShowLargePhoto: false,
+  imageId:0,
   caseNotes: {
     Pagination: { perPage: 5, pageNumber: 0 },
     Query: { source: [], typeSubType: { type: [], subType: [] }, dateRange: { startDate: null, endDate: null } },
@@ -59,6 +62,7 @@ const initialState = fromJS({
 });
 
 function searchReducer(state = initialState, action) {
+
   switch (action.type) {
     case SEARCH_LOADING: {
       return state.set('loading', true);
@@ -133,6 +137,12 @@ function searchReducer(state = initialState, action) {
 
     case CASE_NOTE_FILTER.SUCCESS: {
       return state.setIn(['details', 'caseNotes', 'Query'], fromJS(action.payload.query));
+    }
+
+    case SET_LARGE_PHOTO_VISIBILITY: {
+       return state
+         .setIn(['details','shouldShowLargePhoto'],fromJS(action.payload.shouldShowLargePhoto))
+         .setIn(['details','imageId'],fromJS(action.payload.imageId));
     }
 
     default: {

@@ -6,24 +6,27 @@
 }
 
 .booking-grid{
-  border-top: solid 2px #e3e3e3;
+//  border-top: solid 1px #e3e3e3;
+  margin-left:3px;
 }
 
 .grid-photo{
-  width: 100%;
-  height:250px;
+  width: 100%!important;
+  height:200px !important;
   border: none;
   cursor: pointer;
 }
 
 .personBlock{
   margin-top: 1em;
+  margin-right: 1em;
 }
 
 .personDetails{
   background:#F2F2F2;
   padding:1em;
-  height:120px;
+  height:8em;
+  width:80%;
 }
 
 .filterBox{
@@ -51,16 +54,17 @@
   }
 }
 
-@include media-breakpoint-between(xs,md){
+@include media-breakpoint-down(md){
   .filterBox{
     .row{
       margin-top:1em;
     }
-    height:12.5em;
+    height:11em;
   }
 
   .personBlock{
     margin-top: 1em;
+    // margin-right: 1em;
   }
 
   .personDetails{
@@ -70,8 +74,10 @@
   }
   .booking-search{
     .form-control {
-      width: 100% !important;
+      width: 110% !important;
     }
-
+    input.button{
+      margin-left:1.8em;
+    }
   }
 }

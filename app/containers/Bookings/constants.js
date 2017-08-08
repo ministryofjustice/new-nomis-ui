@@ -35,6 +35,10 @@ export const SET_CASENOTE_DETAILS = 'app/bookings/details/casenotes/details/set'
 export const SET_ADD_CASENOTE_MODAL = 'app/bookings/details/addCaseNotesModal';
 export const SET_AMEND_CASENOTE_MODAL = 'app/bookings/details/casenotes/amendCaseNotesModal';
 
+export const SHOW_LARGE_PHOTO_BOOKING_DETAILS =  'SHOW_LARGE_PHOTO_BOOKING_DETAILS';
+export const HIDE_LARGE_PHOTO_BOOKING_DETAILS = 'HIDE_LARGE_PHOTO_BOOKING_DETAILS';
+export const SET_LARGE_PHOTO_VISIBILITY = 'SET_PHOTO_VISIBILITY';
+
 export const ADD_NEW_CASENOTE = {
   BASE: 'app/bookings/details/addNewCaseNote',
   LOADING: 'app/bookings/details/addNewCaseNote/LOADING',

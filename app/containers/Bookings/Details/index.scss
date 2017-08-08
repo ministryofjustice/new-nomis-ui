@@ -1,0 +1,34 @@
+
+
+.image-container{
+
+    height:23em;
+    width:17em;
+    text-align: center;
+    margin-top:12%;
+    margin-left:auto;
+    margin-right: auto;
+
+  button{
+    width:80%;
+  }
+}
+
+//TODO Will be moved during the button rework.
+.cancel-button{
+
+  // @extend .button;
+
+  background: #DEE0E2!important;
+  border-bottom: 1px solid #00437B!important;
+  color: #0B0C0C!important;
+  padding: 8px 20px 4px!important;
+  margin-bottom: 15px!important;
+  font-size: .9rem;
+  font-family: "nta", Arial, sans-serif;
+
+  &:hover {
+    background: #BABABA!important;
+    color: #0B0C0C!important;
+  }
+}

@@ -33,10 +33,43 @@ import {
   ADD_NEW_CASENOTE,
   AMEND_CASENOTE,
   CASE_NOTE_FILTER,
+  SET_LARGE_PHOTO_VISIBILITY,
+  SHOW_LARGE_PHOTO_BOOKING_DETAILS,
+  HIDE_LARGE_PHOTO_BOOKING_DETAILS
 } from './constants';
 
 export function* searchWatcher() {
   yield takeLatest(SEARCH, searchSaga);
+}
+
+export function* showPhotoWatcher(){
+  yield takeLatest(SHOW_LARGE_PHOTO_BOOKING_DETAILS, showPhoto);
+}
+
+export function* hidePhotoWatcher(){
+  yield takeLatest(HIDE_LARGE_PHOTO_BOOKING_DETAILS, hidePhoto);
+}
+
+export function* showPhoto(action){
+
+  yield put({
+    type: SET_LARGE_PHOTO_VISIBILITY,
+    payload: {
+      shouldShowLargePhoto: true,
+      imageId: (action.payload || {imageId:null}).imageId
+    }
+  });
+
+}
+export function* hidePhoto(action){
+
+    yield put({
+      type: SET_LARGE_PHOTO_VISIBILITY,
+      payload: {
+        shouldShowLargePhoto: false,
+        imageId: (action.payload || {imageId:null}).imageId
+      }
+    });
 }
 
 export function* searchSaga(action) {
@@ -227,4 +260,8 @@ export default [
   addCasenoteWatcher,
   amendCaseNoteWatcher,
   setCaseNoteFilterWatcher,
+  showPhoto,
+  hidePhoto,
+  showPhotoWatcher,
+  hidePhotoWatcher,
 ];

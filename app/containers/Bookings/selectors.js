@@ -67,6 +67,16 @@ const selectDetails = () => createSelector(
   (searchState) => searchState.get('details')
 );
 
+const selectShouldShowLargePhoto = () => createSelector(
+   selectSearch(),
+   (searchState) => searchState.getIn(['details', 'shouldShowLargePhoto'])
+);
+
+const selectImageId = () => createSelector(
+   selectSearch(),
+   (searchState) => searchState.getIn(['details','imageId'])
+)
+
 const selectResultsView = () => createSelector(
   selectSearch(),
   (searchState) => searchState.get('resultsView')
@@ -324,4 +334,6 @@ export {
   selectCaseNotesDetailId,
   selectDisplayAddCaseNoteModal,
   selectDisplayAmendCaseNoteModal,
+  selectShouldShowLargePhoto,
+  selectImageId
 };
