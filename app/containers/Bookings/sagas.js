@@ -55,7 +55,8 @@ import {
   HIDE_LARGE_PHOTO_BOOKING_DETAILS,
   LOAD_LOCATIONS,
   SET_LOCATIONS,
-  NEW_SEARCH
+  NEW_SEARCH,
+  TOGGLE_SORT_ORDER
 } from './constants';
 
 
@@ -76,6 +77,10 @@ export function* showPhotoWatcher(){
 
 export function* hidePhotoWatcher(){
   yield takeLatest(HIDE_LARGE_PHOTO_BOOKING_DETAILS, hidePhoto);
+}
+
+export function* toggleSortOrderWatcher(){
+  yield takeLatest(TOGGLE_SORT_ORDER, toggleSort)
 }
 
 export function* setLocations(action){
@@ -115,47 +120,88 @@ export function* hidePhoto(action){
     });
 }
 
-export function* newSearch(action){
-  const { query, resetPagination } = action.payload;
+export function* toggleSort(action){
   const token = yield getToken();
   const baseUrl = yield select(selectApi());
-  let pagination = yield select(selectSearchResultsPagination());
+  const previousSortOrder = yield select(selectSearchResultsSortOrder());
+  const pagination = yield select(selectSearchResultsPagination());
+  const query = yield select(selectSearchQuery());
 
-  if (resetPagination) {
-    pagination = {...pagination,pageNumber:0}
-    yield put({ type: SET_PAGINATION, payload: pagination });
-  }
+  const sortOrder = action.payload || (previousSortOrder === 'asc' ? 'desc' : 'asc');
 
-  query.locationId = query.locationId || -1;
-
-  const result =  yield call(searchOffenders,{
+  const result = yield call(searchOffenders, {
     token,
     baseUrl,
     query,
     pagination: {
       limit: pagination.perPage,
       offset: pagination.perPage * pagination.pageNumber
+    },
+    sort:{
+      order: sortOrder
     }
   });
 
-  if(result.bookings.length === 1){
-
-    yield put({ type: VIEW_DETAILS,
-      payload: {
-        bookingId: result.bookings[0].bookingId
-      }
-    });
-
-    return;
-  }
-
-  yield put({ type: SEARCH_SUCCESS,
+  yield put({
+    type: SEARCH_SUCCESS,
     payload: {
       searchResults: result.bookings,
       searchQuery: query,
-      meta: {totalRecords: result.totalRecords}
-    } });
+      meta: {totalRecords: result.totalRecords,sortOrder: sortOrder}
+    }
+  });
+}
+export function* newSearch(action){
+  try {
+    const {query, resetPagination} = action.payload;
+    const token = yield getToken();
+    const baseUrl = yield select(selectApi());
+    const sortOrder = yield select(selectSearchResultsSortOrder());
+    let pagination = yield select(selectSearchResultsPagination());
 
+    if (resetPagination) {
+      pagination = {...pagination, pageNumber: 0}
+      yield put({type: SET_PAGINATION, payload: pagination});
+    }
+
+    query.locationId = query.locationId || -1;
+
+    const result = yield call(searchOffenders, {
+      token,
+      baseUrl,
+      query,
+      pagination: {
+        limit: pagination.perPage,
+        offset: pagination.perPage * pagination.pageNumber
+      },
+      sort:{
+        order: sortOrder
+      }
+    });
+
+    if (result.bookings.length === 1) {
+      yield put({
+        type: VIEW_DETAILS,
+        payload: {
+          bookingId: result.bookings[0].bookingId
+        }
+      });
+
+      return;
+    }
+
+    yield put({
+      type: SEARCH_SUCCESS,
+      payload: {
+        searchResults: result.bookings,
+        searchQuery: query,
+        meta: {totalRecords: result.totalRecords, sortOrder: sortOrder}
+      }
+    });
+  }
+  catch (err) {
+    yield put({ type: SEARCH_ERROR, payload: new SubmissionError({ _error: err.message }) });
+  }
 }
 
 export function* searchSaga(action) {
@@ -354,5 +400,6 @@ export default [
   showPhotoWatcher,
   hidePhotoWatcher,
   loadLocationsWatcher,
-  newSearchWatcher
+  newSearchWatcher,
+  toggleSortOrderWatcher
 ];

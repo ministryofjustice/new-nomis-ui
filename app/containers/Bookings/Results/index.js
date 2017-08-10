@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { DW } from 'components/DesktopWrappers';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
+import BookingTable from 'components/Bookings/Table';
 import { selectBookingsSearch } from 'containers/ConfigLoader/selectors';
 
 import { connect } from 'react-redux';
@@ -18,71 +19,37 @@ import {
   selectSearchResultsTotalRecords,
   selectSearchResultsPagination,
   selectResultsView,
-  selectLocations
-
+  selectLocations,
+  selectSearchResultsSortOrder
 } from '../selectors';
 
-import { viewDetails as vD, setPagination as sP, setResultsView,loadLocations } from '../actions';
+import{
+  viewDetails as vD,
+  setPagination as sP,
+  setResultsView,
+  loadLocations,
+  toggleSortOrder
+} from '../actions';
+
 import ResultsViewToggle from 'components/ResultsViewToggle';
 import { setSearchContext } from 'globalReducers/app';
 import EliteImage from 'containers/EliteContainers/Image';
 
 import './index.scss';
 
-/* TODO
-   - Hook search up
-   - Hook sorting up
- */
-
-const BookingTable = ({results,viewDetails}) => (
-  <table>
-    <thead>
-    <tr>
-      <th></th>
-      <th> <span> Name </span> </th>
-      <th className="visible-md visible-lg"> Aliases</th>
-      <th className="visible-md visible-lg"> Date of birth</th>
-      <th> ID </th>
-      <th> Location </th>
-    </tr>
-    </thead>
-    <tbody>
-    {(results || []).map(row =>
-      <tr key={row.bookingId}>
-        <td>
-          <div className="photo"><EliteImage imageId={row.facialImageId} /></div>
-        </td>
-        <td>
-          <span>
-            <a href="#" onClick={
-              (e) => {
-                  e.preventDefault(e);
-                  viewDetails(row.bookingId);
-               }
-              }> {row.lastName}, {row.firstName} </a>
-          </span>
-        </td>
-        <td className="visible-md visible-lg">
-          {row.aliases.map(name =>
-             <div className="row" key={name + row}>
-               <span className="col" key={name}>
-                 {name}
-               </span>
-             </div>)}
-        </td>
-        <td className="visible-md visible-lg">
-          <span>{row.dateOfBirth}</span>
-        </td>
-        <td><span>{row.offenderNo}</span></td>
-        <td><span>{row.assignedLivingUnitDesc}</span></td>
-      </tr>
-    )}
-    </tbody>
-  </table>
-)
-
-const BookingGrid =  ({results,viewDetails}) => (
+const BookingGrid =  ({results,viewDetails,sortOrderChange,sortOrder}) => (
   <div className="booking-grid">
+
+    <div className="row sortBySelect visible-md visible-lg">
+       <span className="col-xs-1">Sort by:</span>
+       <select className="form-control" value={sortOrder} onChange={(e) => {
+         sortOrderChange(e.target.value)
+       }}>
+          <option value="asc">Names A to Z</option>
+          <option value="desc">Names Z to A</option>
+       </select>
+    </div>
+
     {results.map(row => (
        <div className="col-xs-6 col-sm-3" key={row.bookingId}>
 
@@ -118,10 +85,10 @@ const BookingGrid =  ({results,viewDetails}) => (
   </div>
 )
 
-const ResultsViewBuilder = ({viewName,results,onViewDetails}) => {
+const ResultsViewBuilder = ({viewName,results,onViewDetails,sortOrderChange,sortOrder}) => {
   return viewName === 'List' ?
-    <BookingTable results={results} viewDetails={onViewDetails}/> :
-    <BookingGrid results={results} viewDetails={onViewDetails}/>
+    <BookingTable results={results} viewDetails={onViewDetails} sortOrderChange={sortOrderChange} sortOrder={sortOrder}/> :
+    <BookingGrid results={results} viewDetails={onViewDetails} sortOrderChange={sortOrderChange} sortOrder={sortOrder}/>
 }
 
 class SearchResults extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -154,7 +121,13 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
 
         <div className="row">
             {totalResults > 0 ?
-              <ResultsViewBuilder viewName={this.props.resultsView} results={this.props.results} onViewDetails={viewDetails}/> :
+              <ResultsViewBuilder
+                viewName={this.props.resultsView}
+                results={this.props.results}
+                onViewDetails={viewDetails}
+                sortOrderChange={this.props.toggleSortOrder}
+                sortOrder={this.props.sortOrder}/> :
+
               <h1 className="bold-medium">Your search criteria returned no results.</h1>
             }
         </div>
@@ -200,7 +173,8 @@ export function mapDispatchToProps(dispatch) {
     setPage: (pagination) => dispatch(sP(pagination)),
     setResultsView: (pagination) => dispatch(setResultsView(pagination)),
     setSearchContext: (context) => dispatch(setSearchContext(context)),
-    loadLocations: () => dispatch(loadLocations())
+    loadLocations: () => dispatch(loadLocations()),
+    toggleSortOrder: () => dispatch(toggleSortOrder())
   }
 };
 
@@ -212,7 +186,8 @@ const mapStateToProps = createStructuredSelector({
   totalResults: selectSearchResultsTotalRecords(),
   pagination: selectSearchResultsPagination(),
   resultsView: selectResultsView(),
-  locations: selectLocations()
+  locations: selectLocations(),
+  sortOrder: selectSearchResultsSortOrder()
 });
 
 // Wrap the component to inject dispatch and state into it

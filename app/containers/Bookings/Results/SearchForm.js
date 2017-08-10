@@ -21,6 +21,18 @@ class SearchAgainForm extends React.PureComponent{
 
         return (
           <form onSubmit={handleSubmit}>
+
+            {this.props.error ?
+              <div className="error-summary">
+                  <h2 className="heading-medium error-summary-heading">
+                      Search Error
+                  </h2>
+                  <div  className="error-message">
+                    {this.props.error}
+                  </div>
+              </div>
+              : null}
+
             <div className="filterBox">
 
               <div className="row col-md-4">

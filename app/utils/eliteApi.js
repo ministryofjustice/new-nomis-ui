@@ -393,7 +393,7 @@ export const loadMyLocations =  (token, baseUrl) => axios({
   });
 
 export const searchOffenders = ({token,baseUrl,query,
-                                  sort = {fields:['lastName','firstName'],order: 'asc'},
+                                  sort = {order: 'asc'},
                                   pagination = {offset:0,limit:1000}}) =>
   axios({
      baseURL: `${baseUrl}/v2`,
@@ -404,7 +404,7 @@ export const searchOffenders = ({token,baseUrl,query,
        Authorization: token,
        'Page-Offset': pagination.offset,
        'Page-Limit': pagination.limit,
-       'Sort-Fields': sort.fields,
+       'Sort-Fields': ['lastName','firstName'],
        'Sort-Order': sort.order
      }
   }).then(response => {

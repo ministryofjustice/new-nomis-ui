@@ -19,7 +19,8 @@ import {
   SET_AMEND_CASENOTE_MODAL,
   SHOW_LARGE_PHOTO_BOOKING_DETAILS,
   HIDE_LARGE_PHOTO_BOOKING_DETAILS,
-  LOAD_LOCATIONS
+  LOAD_LOCATIONS,
+  TOGGLE_SORT_ORDER
 } from './constants';
 
 
@@ -136,4 +137,10 @@ export function setCaseNotesListView() {
   return {
     type: VIEW_CASENOTE_LIST,
   };
+}
+export function toggleSortOrder(sortOrder){
+  return {
+    type: TOGGLE_SORT_ORDER,
+    payload: sortOrder
+  }
 }
