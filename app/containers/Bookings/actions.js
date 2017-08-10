@@ -18,8 +18,17 @@ import {
   ADD_NEW_CASENOTE,
   SET_AMEND_CASENOTE_MODAL,
   SHOW_LARGE_PHOTO_BOOKING_DETAILS,
-  HIDE_LARGE_PHOTO_BOOKING_DETAILS
+  HIDE_LARGE_PHOTO_BOOKING_DETAILS,
+  LOAD_LOCATIONS
 } from './constants';
+
+
+export function loadLocations(offset){
+  return {
+    type: LOAD_LOCATIONS,
+    payload: offset
+  }
+}
 
 export function showLargePhoto(imageId){
   return {

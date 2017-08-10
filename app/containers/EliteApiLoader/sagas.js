@@ -1,5 +1,9 @@
 import { put, select, call, takeLatest, takeEvery } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
+import { loadAssignments } from 'containers/Assignments/actions';
+import { getToken } from 'containers/Authentication/sagas';
+import { selectApi } from 'containers/ConfigLoader/selectors';
+
 import {
   bookings,
   officerAssignments,
@@ -17,12 +21,6 @@ import {
   loadAllCaseNoteFilterItems,
   loadAllUserCaseNoteTypes,
 } from 'utils/eliteApi';
-
-import { loadAssignments } from 'containers/Assignments/actions';
-
-import { getToken } from 'containers/Authentication/sagas';
-
-import { selectApi } from 'containers/ConfigLoader/selectors';
 
 import {
   selectBookingResultStatus,

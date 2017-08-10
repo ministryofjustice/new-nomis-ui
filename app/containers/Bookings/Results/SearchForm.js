@@ -1,55 +1,87 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form/immutable';
-import Button, { ButtonRow } from 'components/Button';
-
 import { Input, SubmissionError } from 'components/FormComponents';
-import { InputLabel, InputGroup } from 'components/FormComponents/Input/input.theme';
 
-// import Locations from '../Search/locations.json';
-// import createFilterOptions from '../Search/fastFilterFun';
+import {
+  NEW_SEARCH,
+  SEARCH_ERROR,
+  SEARCH_SUCCESS
+} from '../constants'
 
-import { StyledSelect } from '../Search/search.theme';
+import './index.scss';
 
-import { QueryForm, QueryItemHolder } from './query.theme';
+import { createFormAction } from 'redux-form-saga';
 
-// const filterOptions = createFilterOptions({ options: Locations });
+class SearchAgainForm extends React.PureComponent{
 
-const upper = (value) => value && value.toUpperCase();
+     render(){
 
-const SearchForm = (props) => {
-  const { handleSubmit, submitting, error, optionsAndFilterFunc } = props;
-  const { options, filterOptions } = optionsAndFilterFunc;
-  return (
-    <QueryForm onSubmit={handleSubmit}>
-      <SubmissionError error={error}>{error}</SubmissionError>
-      <QueryItemHolder>
-        <Field name="firstName" component={Input} type="text" title="First Name" placeholder="ex. John" autocomplete="off" />
-      </QueryItemHolder>
-      <QueryItemHolder>
-        <Field name="lastName" component={Input} type="text" title="Last Name" placeholder="ex. Doe" autocomplete="off" spellcheck="false" />
-      </QueryItemHolder>
-      <QueryItemHolder>
-        <Field name="offenderNo" component={Input} type="text" title="Noms #" autocomplete="off" />
-      </QueryItemHolder>
-      <ButtonRow>
-        <Button type="submit" disabled={submitting} submitting={submitting} buttonstyle="link">Search</Button>
-      </ButtonRow>
-    </QueryForm>
-  );
-};
+       const {handleSubmit,locations,submitting} = this.props;
 
-SearchForm.propTypes = {
+        return (
+          <form onSubmit={handleSubmit}>
+            <div className="filterBox">
+
+              <div className="row col-md-4">
+
+                <label className="form-label visible-md visible-lg">
+                  Enter prisoner Name or ID
+                </label>
+
+                <Field name="keywords" component="input" type="text" title="Enter Name or ID" placeholder="Enter Name or ID" autoComplete="off" className="form-control" />
+
+              </div>
+
+              <div className="row col-md-4">
+                <label className="form-label visible-md visible-lg">
+                  Select location
+                </label>
+
+                <Field className="form-control" name="locationId" component="select">>
+                  {locations.map(location =>
+                    <option key={location.description} value={location.locationId}> {location.description}</option>
+                  )}
+                </Field>
+
+              </div>
+
+              <div className="row col-md-3">
+
+                <label className="form-label visible-md visible-lg">
+                  &nbsp;
+                </label>
+
+                <div className="visible-md visible-lg">
+                  <button className="button" type="submit" disabled={submitting} submitting={submitting}>
+                    Search again
+                  </button>
+                </div>
+
+                <div className="visible-xs visible-sm">
+                  <button className="button" type="submit" disabled={submitting} submitting={submitting}>
+                    Search again
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </form>
+        )
+     }
+}
+
+SearchAgainForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
-  error: PropTypes.string,
-  optionsAndFilterFunc: PropTypes.object.isRequired,
 };
 
-SearchForm.defaultProps = {
+SearchAgainForm.defaultProps = {
   error: '',
 };
 
 export default reduxForm({
-  form: 'search', // a unique identifier for this form
-})(SearchForm);
+  form: 'search',
+  onSubmit: createFormAction((formData) => ({ type: NEW_SEARCH, payload: { query: formData.toJS(), resetPagination: true } }), [SEARCH_SUCCESS, SEARCH_ERROR]),
+
+})(SearchAgainForm);

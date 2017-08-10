@@ -1,31 +1,37 @@
-import React, { PureComponent } from 'react';
+import React, {Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { connect } from 'react-redux';
+
 import { createStructuredSelector } from 'reselect';
 import { DW } from 'components/DesktopWrappers';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import { selectBookingsSearch } from 'containers/ConfigLoader/selectors';
 
+import { connect } from 'react-redux';
+
+import SearchAgainForm from './SearchForm'
 import { selectDeviceFormat } from 'selectors/app';
-import { selectSearchResultsV2, selectSearchQuery, selectSearchResultsTotalRecords, selectSearchResultsPagination, selectResultsView } from '../selectors';
 
-import { viewDetails as vD, setPagination as sP, setResultsView } from '../actions';
+import {
+  selectSearchResultsV2,
+  selectSearchQuery,
+  selectSearchResultsTotalRecords,
+  selectSearchResultsPagination,
+  selectResultsView,
+  selectLocations
 
+} from '../selectors';
+
+import { viewDetails as vD, setPagination as sP, setResultsView,loadLocations } from '../actions';
 import ResultsViewToggle from 'components/ResultsViewToggle';
 import { setSearchContext } from 'globalReducers/app';
-
 import EliteImage from 'containers/EliteContainers/Image';
 
 import './index.scss';
 
 /* TODO
-   - Disable link or image and show spinner when the user tries to view details
-   - Show spinner when sorting / searching
-   - Show spinner when navigating pages
    - Hook search up
    - Hook sorting up
-   - Format location as per eddies design
  */
 
 const BookingTable = ({results,viewDetails}) => (
@@ -112,85 +118,50 @@ const BookingGrid =  ({results,viewDetails}) => (
   </div>
 )
 
-const BookingSearchBox = () => (
-
-  <div className="filterBox">
-
-         <div className="row col-md-4">
-
-          <label className="form-label visible-md visible-lg">
-            Enter prisoner Name or ID
-          </label>
-
-          <input type="text" className="form-control" placeholder="Enter Name or ID"/>
-        </div>
-
-        <div className="row col-md-4">
-          <label className="form-label visible-md visible-lg">
-            Select location
-          </label>
-
-          <select className="form-control">
-            <option> Leeds - all</option>
-          </select>
-        </div>
-
-        <div className="row col-md-3">
-
-          <label className="form-label visible-md visible-lg">
-            &nbsp;
-          </label>
-
-          <div className="visible-md visible-lg">
-              <input type="button" className="button" value="Search again"/>
-          </div>
-
-          <div className="visible-xs visible-sm">
-            <div className="pull-right">
-                <input type="button" className="button" value="Search again"/>
-            </div>
-          </div>
-
-      </div>
-  </div>
-)
-
 const ResultsViewBuilder = ({viewName,results,onViewDetails}) => {
   return viewName === 'List' ?
     <BookingTable results={results} viewDetails={onViewDetails}/> :
     <BookingGrid results={results} viewDetails={onViewDetails}/>
 }
 
-class SearchResults extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+class SearchResults extends Component { // eslint-disable-line react/prefer-stateless-function
 
   componentWillMount() {
     this.props.setSearchContext('search');
+    this.props.loadLocations();
   }
 
   render() {
     const { deviceFormat, searchOptions, searchQuery, viewDetails, totalResults, pagination, setPage, resultsView, setResultsView } = this.props; //eslint-disable-line
     const { perPage: pP, pageNumber: pN } = pagination;
+
     return (
       <div className="booking-search">
+
         <div className="row">
           <h1 className="heading-xlarge"> Search results </h1>
-          <BookingSearchBox/>
+          <SearchAgainForm locations={this.props.locations} />
         </div>
 
         <div className="row toggleAndCountView">
-          <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />
-          <div>viewing {Math.min((pP * pN) + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults} results.</div>
+           {totalResults >0 ?
+             <div>
+               <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />
+               <div>viewing {Math.min((pP * pN) + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults} results.</div>
+             </div>
+             : null}
         </div>
 
-
         <div className="row">
-           <ResultsViewBuilder viewName={this.props.resultsView} results={this.props.results} onViewDetails={viewDetails}/>
+            {totalResults > 0 ?
+              <ResultsViewBuilder viewName={this.props.resultsView} results={this.props.results} onViewDetails={viewDetails}/> :
+              <h1 className="bold-medium">Your search criteria returned no results.</h1>
+            }
         </div>
 
         <div className="row">
           <PreviousNextNavigation pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />
         </div>
-
 
       </div>
     );
@@ -209,6 +180,7 @@ SearchResults.propTypes = {
   resultsView: PropTypes.string,
   setResultsView: PropTypes.func,
   setSearchContext: PropTypes.func,
+  locations: PropTypes.array
 };
 
 SearchResults.defaultProps = {
@@ -219,6 +191,7 @@ SearchResults.defaultProps = {
   resultsView: 'List',
   setResultsView: () => {},
   setSearchContext: () => {},
+  locations: []
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -227,8 +200,9 @@ export function mapDispatchToProps(dispatch) {
     setPage: (pagination) => dispatch(sP(pagination)),
     setResultsView: (pagination) => dispatch(setResultsView(pagination)),
     setSearchContext: (context) => dispatch(setSearchContext(context)),
-  };
-}
+    loadLocations: () => dispatch(loadLocations())
+  }
+};
 
 const mapStateToProps = createStructuredSelector({
   deviceFormat: selectDeviceFormat(),
@@ -238,6 +212,7 @@ const mapStateToProps = createStructuredSelector({
   totalResults: selectSearchResultsTotalRecords(),
   pagination: selectSearchResultsPagination(),
   resultsView: selectResultsView(),
+  locations: selectLocations()
 });
 
 // Wrap the component to inject dispatch and state into it
