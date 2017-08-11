@@ -8,7 +8,6 @@ import Modal from 'containers/Modal';
 import Header from 'containers/Header';
 import Breadcrumbs from 'containers/Breadcrumbs';
 import BreadcrumbsAlt from 'containers/Breadcrumbs/alt';
-import Footer from 'containers/Footer';
 
 import { setDeviceFormat } from 'globalReducers/app';
 

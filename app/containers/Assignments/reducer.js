@@ -5,14 +5,17 @@ import {
   SET_ASSIGNMENTS_VIEW,
 } from './constants';
 
+
+
 const initialState = Map({
   pagination: Map({ perPage: 10, pageNumber: 0 }),
   view: 'List',
-  sortOrder: 'TEST',
+  sortOrder: 'asc',
 });
 
 function searchReducer(state = initialState, action) {
   switch (action.type) {
+
     case SET_ASSIGNMENTS_PAGINATION: {
       return state.set('pagination', fromJS(action.payload));
     }

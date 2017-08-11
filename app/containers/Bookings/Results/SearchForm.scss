@@ -1,0 +1,40 @@
+@import "bootstrap-feature-select-nomis";
+
+.search-again{
+
+  .filterBox{
+    background:#F2F2F2;
+    min-height: 20px;
+    padding: 19px;
+    height:8em;
+    margin-bottom: 1em;
+
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+  }
+
+  select{
+    height:2em;
+  }
+
+  .form-control {
+    width: 95% !important;
+  }
+
+  @include media-breakpoint-down(md){
+
+    .filterBox{
+      .row{
+        margin-top:1em;
+      }
+      height:11em;
+    }
+
+    .form-control {
+      width: 100% !important;
+    }
+  }
+
+}

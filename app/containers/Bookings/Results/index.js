@@ -1,11 +1,13 @@
 import React, {Component } from 'react';
 import PropTypes from 'prop-types';
 
+import './index.scss';
 
 import { createStructuredSelector } from 'reselect';
 import { DW } from 'components/DesktopWrappers';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import BookingTable from 'components/Bookings/Table';
+import BookingGrid from 'components/Bookings/Grid';
 import { selectBookingsSearch } from 'containers/ConfigLoader/selectors';
 
 import { connect } from 'react-redux';
@@ -33,57 +35,7 @@ import{
 
 import ResultsViewToggle from 'components/ResultsViewToggle';
 import { setSearchContext } from 'globalReducers/app';
-import EliteImage from 'containers/EliteContainers/Image';
 
-import './index.scss';
-
-const BookingGrid =  ({results,viewDetails,sortOrderChange,sortOrder}) => (
-  <div className="booking-grid">
-
-    <div className="row sortBySelect visible-md visible-lg">
-       <span className="col-xs-1">Sort by:</span>
-       <select className="form-control" value={sortOrder} onChange={(e) => {
-         sortOrderChange(e.target.value)
-       }}>
-          <option value="asc">Names A to Z</option>
-          <option value="desc">Names Z to A</option>
-       </select>
-    </div>
-
-    {results.map(row => (
-       <div className="col-xs-6 col-sm-3" key={row.bookingId}>
-
-         <div className="personBlock">
-
-             <div className="grid-photo" onClick={ () => viewDetails(row.bookingId)}>
-                <EliteImage imageId={row.facialImageId} />
-             </div>
-
-             <div className="personDetails">
-                 <div className="bold">
-                   {row.lastName}, {row.firstName}
-                 </div>
-
-                 <div>
-                   {row.offenderNo}
-                 </div>
-
-                <div>
-                 {row.dateOfBirth}
-                </div>
-
-               <div>
-                   {row.assignedLivingUnitDesc}
-                 </div>
-             </div>
-
-          </div>
-       </div>
-
-
-    ))}
-  </div>
-)
 
 const ResultsViewBuilder = ({viewName,results,onViewDetails,sortOrderChange,sortOrder}) => {
   return viewName === 'List' ?

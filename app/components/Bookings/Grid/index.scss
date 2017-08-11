@@ -1,0 +1,103 @@
+@import "bootstrap-feature-select-nomis";
+
+$personDetailsBackgroundColour: #F2F2F2;
+
+.booking-grid{
+
+  margin-left:3px;
+  .sortBySelect{
+    margin-bottom: 8px;
+
+    select{
+      width:200px !important;
+      margin-top: -20px;
+      margin-bottom: 30px;
+    }
+  }
+  .separator{
+    border-bottom: solid 3px darken($personDetailsBackgroundColour, 3%);
+    width:99%;
+    margin-bottom: 1em;
+  }
+
+  .grid{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+
+    .grid-item{
+      width :20%;
+
+      .personBlock{
+        margin-top: .5em;
+        margin-right: .5em;
+        height:450px;
+        background: $personDetailsBackgroundColour;
+
+        .personDetails{
+          padding: 1.5em;
+        }
+
+        .grid-photo{
+          height: 320px  !important;
+          width: 100% !important;
+          border: none;
+          cursor: pointer;
+
+          img{
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: 0;
+          }
+        }
+      }
+    }
+  }
+
+  @include media-breakpoint-down(md){
+    .grid-item{
+      width: 25% !important;
+      img{
+        background-position: center !important;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(sm){
+    .grid-item{
+      width: 33% !important;
+      img{
+        background-position: center !important;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(xs){
+    .grid-item{
+      width: 50% !important;
+      img{
+        background-position: center !important;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(md){
+
+    .personBlock{
+      margin-top: 1em;
+    }
+
+    .personDetails{
+      background:#F2F2F2;
+      padding:1em;
+      height:8em;
+    }
+    .booking-search{
+      .form-control {
+        width: 100% !important;
+      }
+    }
+  }
+}
