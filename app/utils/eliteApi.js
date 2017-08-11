@@ -180,7 +180,6 @@ export const users = {
 };
 
 
-
 export const locations = (token, baseUrl, offset = { offset: 0, limit: 10000 }) => axios({
   baseURL: baseUrl,
   method: 'get',
@@ -378,3 +377,39 @@ export const imageData = (token, baseUrl, imageId) => axios({
       const dataURL = `data:${response.headers['content-type']};base64,${b64}`;
       return dataURL;
     });
+
+
+
+
+export const loadMyLocations =  (token, baseUrl) => axios({
+  baseURL: `${baseUrl}/v2`,
+  method: 'get',
+  url: `/users/me/locations`,
+  headers: {
+    Authorization: token,
+  } })
+  .then((response) => {
+    return response.data;
+  });
+
+export const searchOffenders = ({token,baseUrl,query,
+                                  sort = {order: 'asc'},
+                                  pagination = {offset:0,limit:1000}}) =>
+  axios({
+     baseURL: `${baseUrl}/v2`,
+     url: query.keywords ?
+       `search-offenders/${query.locationId || 1}/${query.keywords}`:
+       `search-offenders/${query.locationId}`,
+     headers:{
+       Authorization: token,
+       'Page-Offset': pagination.offset,
+       'Page-Limit': pagination.limit,
+       'Sort-Fields': ['lastName','firstName'],
+       'Sort-Order': sort.order
+     }
+  }).then(response => {
+     return {
+       bookings: response.data,
+       totalRecords: parseInt(response.headers['total-records'])
+     };
+  });

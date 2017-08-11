@@ -12,9 +12,9 @@ const resolve = require('path').resolve;
 const appinsights = require('./applicationinsights').appInsights;
 const app = express();
 
-
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 const apiProxy = require('./apiproxy');
+app.use('/api/v2', apiProxy);
 app.use('/api', apiProxy);
 
 // In production we need to pass these values in instead of relying on webpack

@@ -1,19 +1,36 @@
 import { takeLatest, put, select, call } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import { SubmissionError } from 'redux-form/immutable';
-import { addCaseNote, amendCaseNote,
-} from 'utils/eliteApi';
 import { getToken } from 'containers/Authentication/sagas';
-
 import { selectApi } from 'containers/ConfigLoader/selectors';
 import { searchSaga as searchSagaElite, bookingDetailsSaga as bookingDetailsElite } from 'containers/EliteApiLoader/sagas';
 import { loadBookingAlerts, loadBookingCaseNotes, resetCaseNotes } from 'containers/EliteApiLoader/actions';
 import { BOOKINGS } from 'containers/EliteApiLoader/constants';
 
-import { selectSearchResultsPagination, selectSearchResultsSortOrder, selectSearchQuery, selectBookingDetailsId, selectCaseNotesPagination,
-selectCaseNotesQuery, selectCaseNotesDetailId } from './selectors';
+import {
+  addCaseNote,
+  amendCaseNote,
+  loadMyLocations,
+  searchOffenders
+} from 'utils/eliteApi';
 
-import { closeAddCaseNoteModal, setDetailsTab, closeAmendCaseNoteModal } from './actions';
+import {
+  selectSearchResultsPagination,
+  selectSearchResultsSortOrder,
+  selectSearchQuery,
+  selectBookingDetailsId,
+  selectCaseNotesPagination,
+  selectCaseNotesQuery,
+  selectCaseNotesDetailId,
+  selectSearchResultsTotalRecords,
+  selectResultsView
+} from './selectors';
+
+import {
+  closeAddCaseNoteModal,
+  setDetailsTab,
+  closeAmendCaseNoteModal
+} from './actions';
 
 import {
   SEARCH,
@@ -35,9 +52,21 @@ import {
   CASE_NOTE_FILTER,
   SET_LARGE_PHOTO_VISIBILITY,
   SHOW_LARGE_PHOTO_BOOKING_DETAILS,
-  HIDE_LARGE_PHOTO_BOOKING_DETAILS
+  HIDE_LARGE_PHOTO_BOOKING_DETAILS,
+  LOAD_LOCATIONS,
+  SET_LOCATIONS,
+  NEW_SEARCH,
+  TOGGLE_SORT_ORDER
 } from './constants';
 
+
+
+export function* newSearchWatcher(){
+  yield takeLatest(NEW_SEARCH,newSearch);
+}
+export function* loadLocationsWatcher(){
+  yield takeLatest(LOAD_LOCATIONS, setLocations)
+}
 export function* searchWatcher() {
   yield takeLatest(SEARCH, searchSaga);
 }
@@ -48,6 +77,24 @@ export function* showPhotoWatcher(){
 
 export function* hidePhotoWatcher(){
   yield takeLatest(HIDE_LARGE_PHOTO_BOOKING_DETAILS, hidePhoto);
+}
+
+export function* toggleSortOrderWatcher(){
+  yield takeLatest(TOGGLE_SORT_ORDER, toggleSort)
+}
+
+export function* setLocations(action){
+
+  const token = yield getToken();
+  const apiServer = yield select(selectApi());
+  const locations = yield call(loadMyLocations,token,apiServer,action);
+
+   yield put({
+     type: SET_LOCATIONS,
+     payload: {
+       locations: locations
+     }
+   });
 }
 
 export function* showPhoto(action){
@@ -61,6 +108,7 @@ export function* showPhoto(action){
   });
 
 }
+
 export function* hidePhoto(action){
 
     yield put({
@@ -72,10 +120,99 @@ export function* hidePhoto(action){
     });
 }
 
+export function* toggleSort(action){
+  const token = yield getToken();
+  const baseUrl = yield select(selectApi());
+  const previousSortOrder = yield select(selectSearchResultsSortOrder());
+  const pagination = yield select(selectSearchResultsPagination());
+  const query = yield select(selectSearchQuery());
+
+  const sortOrder = action.payload || (previousSortOrder === 'asc' ? 'desc' : 'asc');
+
+  const result = yield call(searchOffenders, {
+    token,
+    baseUrl,
+    query,
+    pagination: {
+      limit: pagination.perPage,
+      offset: pagination.perPage * pagination.pageNumber
+    },
+    sort:{
+      order: sortOrder
+    }
+  });
+
+  yield put({
+    type: SEARCH_SUCCESS,
+    payload: {
+      searchResults: result.bookings,
+      searchQuery: query,
+      meta: {totalRecords: result.totalRecords,sortOrder: sortOrder}
+    }
+  });
+}
+export function* newSearch(action){
+  try {
+    const {query, resetPagination} = action.payload;
+    const token = yield getToken();
+    const baseUrl = yield select(selectApi());
+    const sortOrder = yield select(selectSearchResultsSortOrder());
+    let pagination = yield select(selectSearchResultsPagination());
+
+    if (resetPagination) {
+      pagination = {...pagination, pageNumber: 0}
+      yield put({type: SET_PAGINATION, payload: pagination});
+    }
+
+    query.locationId = query.locationId || -1;
+
+    const result = yield call(searchOffenders, {
+      token,
+      baseUrl,
+      query,
+      pagination: {
+        limit: pagination.perPage,
+        offset: pagination.perPage * pagination.pageNumber
+      },
+      sort:{
+        order: sortOrder
+      }
+    });
+
+    if (result.bookings.length === 1) {
+      yield put({
+        type: VIEW_DETAILS,
+        payload: {
+          bookingId: result.bookings[0].bookingId
+        }
+      });
+
+      return;
+    }
+
+    yield put({
+      type: SEARCH_SUCCESS,
+      payload: {
+        searchResults: result.bookings,
+        searchQuery: query,
+        meta: {totalRecords: result.totalRecords, sortOrder: sortOrder}
+      }
+    });
+  }
+  catch (err) {
+    yield put({ type: SEARCH_ERROR, payload: new SubmissionError({ _error: err.message }) });
+  }
+}
+
 export function* searchSaga(action) {
+
+  yield newSearch(action);
+  yield put(push('/search/results'));
+
+
+  /*
   const { query, resetPagination } = action.payload;
   let pagination = yield select(selectSearchResultsPagination());
-
   const sortOrder = yield select(selectSearchResultsSortOrder());
   // console.log(pagination);
   try {
@@ -100,7 +237,7 @@ export function* searchSaga(action) {
   } catch (err) {
     console.error(err); // eslint-disable-line
     yield put({ type: SEARCH_ERROR, payload: new SubmissionError({ _error: err.message }) });
-  }
+  }*/
 }
 
 export function* addCasenoteWatcher() {
@@ -260,8 +397,9 @@ export default [
   addCasenoteWatcher,
   amendCaseNoteWatcher,
   setCaseNoteFilterWatcher,
-  showPhoto,
-  hidePhoto,
   showPhotoWatcher,
   hidePhotoWatcher,
+  loadLocationsWatcher,
+  newSearchWatcher,
+  toggleSortOrderWatcher
 ];

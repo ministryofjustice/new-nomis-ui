@@ -8,6 +8,15 @@ export const SEARCH = 'app/search/SEARCH';
 export const SEARCH_LOADING = 'app/search/SEARCH/loading';
 export const SEARCH_SUCCESS = 'app/search/SEARCH/success';
 export const SEARCH_ERROR = 'app/search/SEARCH/error';
+export const NEW_SEARCH = 'app/search/SEARCH/NEW_SEARCH';
+
+export const SET_RESULTS_VIEW = 'app/bookings/search/results/viewFormat';
+export const UPDATE_RESULTS_VIEW = 'app/bookings/search/results/viewFormat/update';
+export const TOGGLE_SORT_ORDER = 'app/search/results/sortOrder';
+
+export const SET_PAGINATION = 'app/bookings/search/results/pagination/set';
+export const UPDATE_PAGINATION = 'app/bookings/search/results/pagination/update';
+
 
 export const VIEW_DETAILS = 'app/bookings/details/view';
 export const SET_DETAILS = 'app/bookings/details/set';
@@ -15,12 +24,6 @@ export const SET_DETAILS_TAB = 'app/bookings/details/tab/set';
 
 
 export const DETAILS_ERROR = 'app/bookings/details/error';
-
-export const SET_PAGINATION = 'app/bookings/search/results/pagination/set';
-export const UPDATE_PAGINATION = 'app/bookings/search/results/pagination/update';
-
-export const SET_RESULTS_VIEW = 'app/bookings/search/results/viewFormat';
-export const UPDATE_RESULTS_VIEW = 'app/bookings/search/results/viewFormat/update';
 
 export const SET_ALERTS_PAGINATION = 'app/bookings/details/alerts/pagination/set';
 export const UPDATE_ALERTS_PAGINATION = 'app/bookings/details/alerts/pagination/update';
@@ -38,6 +41,9 @@ export const SET_AMEND_CASENOTE_MODAL = 'app/bookings/details/casenotes/amendCas
 export const SHOW_LARGE_PHOTO_BOOKING_DETAILS =  'SHOW_LARGE_PHOTO_BOOKING_DETAILS';
 export const HIDE_LARGE_PHOTO_BOOKING_DETAILS = 'HIDE_LARGE_PHOTO_BOOKING_DETAILS';
 export const SET_LARGE_PHOTO_VISIBILITY = 'SET_PHOTO_VISIBILITY';
+
+export const LOAD_LOCATIONS = 'LOAD_LOCATIONS';
+export const SET_LOCATIONS  = 'SET_LOCATIONS';
 
 export const ADD_NEW_CASENOTE = {
   BASE: 'app/bookings/details/addNewCaseNote',

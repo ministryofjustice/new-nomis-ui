@@ -27,7 +27,8 @@ import {
   SET_ADD_CASENOTE_MODAL,
   SET_AMEND_CASENOTE_MODAL,
   CASE_NOTE_FILTER,
-  SET_LARGE_PHOTO_VISIBILITY
+  SET_LARGE_PHOTO_VISIBILITY,
+  SET_LOCATIONS
 } from './constants';
 
 import results from './Results/resultsData';
@@ -39,6 +40,8 @@ import results from './Results/resultsData';
   alertsPagination: { perPage: 10, pageNumber: 0 },
   shouldShowLargePhoto: false,
   imageId:0,
+  locations:[],
+  totalResults:0,
   caseNotes: {
     Pagination: { perPage: 5, pageNumber: 0 },
     Query: { source: [], typeSubType: { type: [], subType: [] }, dateRange: { startDate: null, endDate: null } },
@@ -55,7 +58,7 @@ const initialState = fromJS({
   results, // for test purposes putting something in here...
   error: null,
   query: { firstName: '', lastName: '' }, // for test purposes putting something in here...
-  sortOrder: 'TEST',
+  sortOrder:'asc',
   pagination: { perPage: 10, pageNumber: 0 },
   details: detailsState,
   resultsView: 'List', // List or Grid
@@ -69,11 +72,14 @@ function searchReducer(state = initialState, action) {
     }
 
     case SEARCH_SUCCESS: {
+
       return state
         .set('loading', false)
         .set('error', null)
         .set('query', fromJS(action.payload.searchQuery))
-        .set('results', fromJS(action.payload.searchResults));
+        .set('results', fromJS(action.payload.searchResults))
+        .set('totalResults', fromJS(action.payload.meta.totalRecords))
+        .set('sortOrder', fromJS(action.payload.meta.sortOrder));
     }
 
     case SEARCH_ERROR: {
@@ -122,6 +128,7 @@ function searchReducer(state = initialState, action) {
     }
 
     case SET_RESULTS_VIEW: {
+
       const cP = state.get('pagination').toJS();
       const currentFirstId = cP.pageNumber * cP.perPage;
       let newPerPage;
@@ -143,6 +150,10 @@ function searchReducer(state = initialState, action) {
        return state
          .setIn(['details','shouldShowLargePhoto'],fromJS(action.payload.shouldShowLargePhoto))
          .setIn(['details','imageId'],fromJS(action.payload.imageId));
+    }
+
+    case SET_LOCATIONS:{
+        return state.setIn(['details','locations'], fromJS(action.payload.locations || []));
     }
 
     default: {

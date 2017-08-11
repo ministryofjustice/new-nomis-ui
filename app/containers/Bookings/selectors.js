@@ -1,9 +1,20 @@
 
 import { createSelector } from 'reselect';
-import { selectEliteApi, calcBookingResults, calcBookingResultsTotalRecords, selectBookingDetails as selectEliteBookingDetails } from 'containers/EliteApiLoader/selectors';
 import nameString from 'components/NameStrings';
 
+import {
+  selectEliteApi,
+  calcBookingResults,
+  calcBookingResultsTotalRecords,
+  selectBookingDetails as selectEliteBookingDetails
+} from 'containers/EliteApiLoader/selectors';
+
 const selectSearch = () => (state) => state.get('search');
+
+const selectLocations = () =>  createSelector(
+  selectSearch(),
+  (searchState) => searchState.getIn(['details','locations']).toJS()
+);
 
 const selectSearchResults = () => createSelector(
   selectSearch(),
@@ -24,6 +35,7 @@ const selectSearchResultsSortOrder = () => createSelector(
   (searchState) => searchState.get('sortOrder')
 );
 
+/*
 const selectSearchResultsV2 = () => createSelector(
   selectSearchQuery(),
   selectSearchResultsPagination(),
@@ -46,7 +58,27 @@ const selectSearchResultsV2 = () => createSelector(
       }
     });
   }
-);
+);*/
+
+const selectSearchResultsV2 = () => createSelector(
+  (state) => state.getIn(['search','results']).toJS(),
+  (results) => {
+
+   return results.map(data => {
+
+      return {
+        ...data,
+        firstName: CapitaliseFirstLetter(data.firstName),
+        lastName: CapitaliseFirstLetter(data.lastName),
+        aliases: (data.aliases || [])
+          .map(a => a.split(' '))
+          .map(parts => parts.map(name => CapitaliseFirstLetter(name)))
+          .map(parts => parts.join(' '))
+      }
+    });
+  }
+)
+
 
 const CapitaliseFirstLetter = (string) =>  {
   if((typeof string) === 'string' &&  string.length >= 1)
@@ -57,9 +89,8 @@ const CapitaliseFirstLetter = (string) =>  {
 
 
 const selectSearchResultsTotalRecords = () => createSelector(
-  selectSearchQuery(),
-  selectEliteApi(),
-  (query, eliteApi) => calcBookingResultsTotalRecords(eliteApi, { query })
+  (state) => state.getIn(['search','totalResults']),
+  (results) => results
 );
 
 const selectDetails = () => createSelector(
@@ -335,5 +366,6 @@ export {
   selectDisplayAddCaseNoteModal,
   selectDisplayAmendCaseNoteModal,
   selectShouldShowLargePhoto,
-  selectImageId
+  selectImageId,
+  selectLocations
 };
