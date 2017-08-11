@@ -399,7 +399,7 @@ export const searchOffenders = ({token,baseUrl,query,
      baseURL: `${baseUrl}/v2`,
      url: query.keywords ?
        `search-offenders/${query.locationId || 1}/${query.keywords}`:
-       `search-offenders/${query.locationId}`,
+       `search-offenders/${query.locationId || -1}`,
      headers:{
        Authorization: token,
        'Page-Offset': pagination.offset,

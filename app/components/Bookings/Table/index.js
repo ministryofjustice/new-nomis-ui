@@ -1,12 +1,18 @@
 import React from 'react';
 
 import EliteImage from 'containers/EliteContainers/Image';
+import './index.scss'
 
 const ArrowUp = ({sortOrderChange}) => <span className="clickable" onClick={sortOrderChange}> &#9650; </span>
 const ArrowDown = ({sortOrderChange}) => <span className="clickable" onClick={sortOrderChange}> &#9660;  </span>
 
+const onViewDetails = (e,row,viewDetails) => {
+  e.preventDefault(e);
+  viewDetails(row.bookingId);
+}
+
 const Table = ({results,viewDetails,sortOrder,sortOrderChange}) => (
-  <table>
+  <table className="booking-table">
     <thead>
     <tr>
       <th> </th>
@@ -21,20 +27,19 @@ const Table = ({results,viewDetails,sortOrder,sortOrderChange}) => (
     {(results || []).map(row =>
       <tr key={row.bookingId}>
         <td>
-          <div className="photo"><EliteImage imageId={row.facialImageId} /></div>
+          <div className="photo clickable" onClick={(e) => onViewDetails(e,row,viewDetails)}>
+            <EliteImage imageId={row.facialImageId} />
+          </div>
         </td>
         <td>
           <span>
-            <a href="#" onClick={
-              (e) => {
-                e.preventDefault(e);
-                viewDetails(row.bookingId);
-              }
-            }> {row.lastName}, {row.firstName} </a>
+            <a href="#" className="bold" onClick={(e) => onViewDetails(e,row,viewDetails)}>
+                {row.lastName}, {row.firstName}
+              </a>
           </span>
         </td>
         <td className="visible-md visible-lg">
-          {row.aliases.map(name =>
+          {(row.aliases || []).map(name =>
             <div className="row" key={name + row}>
                <span className="col" key={name}>
                  {name}

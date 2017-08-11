@@ -9,7 +9,7 @@ import {
   SEARCH_SUCCESS
 } from '../constants'
 
-import './index.scss';
+import './SearchForm.scss';
 
 import { createFormAction } from 'redux-form-saga';
 
@@ -20,7 +20,7 @@ class SearchAgainForm extends React.PureComponent{
        const {handleSubmit,locations,submitting} = this.props;
 
         return (
-          <form onSubmit={handleSubmit}>
+          <form className="search-again" onSubmit={handleSubmit}>
 
             {this.props.error ?
               <div className="error-summary">
