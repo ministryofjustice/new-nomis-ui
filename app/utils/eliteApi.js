@@ -398,8 +398,8 @@ export const searchOffenders = ({token,baseUrl,query,
   axios({
      baseURL: `${baseUrl}/v2`,
      url: query.keywords ?
-       `search-offenders/${query.locationId || 1}/${query.keywords}`:
-       `search-offenders/${query.locationId || -1}`,
+       `search-offenders/${query.locationPrefix || '_'}/${query.keywords}`:
+       `search-offenders/${query.locationPrefix || '_'}`,
      headers:{
        Authorization: token,
        'Page-Offset': pagination.offset,

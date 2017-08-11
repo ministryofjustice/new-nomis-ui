@@ -50,9 +50,9 @@ class SearchAgainForm extends React.PureComponent{
                   Select location
                 </label>
 
-                <Field className="form-control" name="locationId" component="select">>
+                <Field className="form-control" name="locationPrefix" component="select">>
                   {locations.map(location =>
-                    <option key={location.description} value={location.locationId}> {location.description}</option>
+                    <option key={location.description} value={location.description}> {location.description}</option>
                   )}
                 </Field>
 
