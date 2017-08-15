@@ -1,0 +1,73 @@
+@import "govuk-elements";
+@import "bootstrap-feature-select-nomis";
+
+.search-form{
+
+  .error-summary{
+    width: 75% !important;
+  }
+
+  @include media-breakpoint-down(sm) {
+    .error-summary{
+      width: 100% !important;
+    }
+  }
+
+  .box{
+    padding:2em;
+    background-color: lighten($light-blue,45%);
+    width: 75%;
+
+    .heading-large{
+      margin-top:0em !important;
+      margin-bottom: 1em !important;
+    }
+
+    .search-input{
+      height: 45px;
+      margin-right: .5em;
+    }
+
+    select{
+      height: 45px;
+    }
+
+    .form-control{
+      margin-bottom: 1.5em;
+    }
+    .form-control:last-child{
+      margin-bottom:0;
+    }
+
+    .mobile-button{
+      display: none;
+    }
+
+    @include media-breakpoint-down(sm) {
+      width: 100%;
+
+      .error-summary{
+        width: 100% !important;
+      }
+
+      .mobile-button{
+        display: block;
+        margin-top: 1em !important;
+      }
+      .desktop-button{
+        display:none;
+      }
+    }
+  }
+}
+.assignment-box{
+  padding:2em;
+  background-color: $highlight-colour;
+  width: 75%;
+  margin-top: 2em;
+
+  .heading-large{
+    margin-top:0em !important;
+    margin-bottom: 1em !important;
+  }
+}

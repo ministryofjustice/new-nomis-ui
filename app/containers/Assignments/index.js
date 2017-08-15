@@ -33,7 +33,7 @@ class Assignments extends PureComponent { // eslint-disable-line react/prefer-st
   }
 
   render() {
-    const { deviceFormat, searchOptions, searchQuery, viewDetails, totalResults, pagination, setPage, resultsView, setResultsView, user } = this.props; //eslint-disable-line
+    const { sortOrder,results,toggleSortOrder,deviceFormat, searchOptions, searchQuery, viewDetails, totalResults, pagination, setPage, resultsView, setResultsView, user } = this.props; //eslint-disable-line
     const { perPage: pP } = pagination;
 
     return (
@@ -50,17 +50,17 @@ class Assignments extends PureComponent { // eslint-disable-line react/prefer-st
         }
 
         {resultsView === 'List' ?
-          <BookingTable viewName={this.props.resultsView}
-                        results={this.props.results}
-                        onViewDetails={viewDetails}
-                        sortOrderChange={this.props.toggleSortOrder}
-                        sortOrder={this.props.sortOrder}/> :
+          <BookingTable viewName={resultsView}
+                        results={results}
+                        viewDetails={viewDetails}
+                        sortOrderChange={toggleSortOrder}
+                        sortOrder={sortOrder}/> :
 
-          <BookingGrid viewName={this.props.resultsView}
-                       results={this.props.results}
-                       onViewDetails={viewDetails}
-                       sortOrderChange={this.props.toggleSortOrder}
-                       sortOrder={this.props.sortOrder}/>
+          <BookingGrid viewName={resultsView}
+                       results={results}
+                       viewDetails={viewDetails}
+                       sortOrderChange={toggleSortOrder}
+                       sortOrder={sortOrder}/>
         }
 
         <PreviousNextNavigation pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />

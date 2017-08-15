@@ -392,14 +392,16 @@ export const loadMyLocations =  (token, baseUrl) => axios({
     return response.data;
   });
 
+const parseLocationPrefix = (prefix) => prefix === 'All' ? '_' : (prefix || '_')
+
 export const searchOffenders = ({token,baseUrl,query,
                                   sort = {order: 'asc'},
                                   pagination = {offset:0,limit:1000}}) =>
   axios({
      baseURL: `${baseUrl}/v2`,
      url: query.keywords ?
-       `search-offenders/${query.locationPrefix || '_'}/${query.keywords}`:
-       `search-offenders/${query.locationPrefix || '_'}`,
+       `search-offenders/${parseLocationPrefix(query.locationPrefix)}/${query.keywords}`:
+       `search-offenders/${parseLocationPrefix(query.locationPrefix)}`,
      headers:{
        Authorization: token,
        'Page-Offset': pagination.offset,

@@ -156,15 +156,13 @@ export function* newSearch(action){
     const {query, resetPagination} = action.payload;
     const token = yield getToken();
     const baseUrl = yield select(selectApi());
-    const sortOrder = yield select(selectSearchResultsSortOrder());
-    let pagination = yield select(selectSearchResultsPagination());
+    const sortOrder = yield (action.payload.sortOrder || select(selectSearchResultsSortOrder()));
+    let pagination = yield (action.payload.pagination || select(selectSearchResultsPagination()));
 
     if (resetPagination) {
       pagination = {...pagination, pageNumber: 0}
       yield put({type: SET_PAGINATION, payload: pagination});
     }
-
-    query.locationId = query.locationId || -1;
 
     const result = yield call(searchOffenders, {
       token,
@@ -198,6 +196,9 @@ export function* newSearch(action){
         meta: {totalRecords: result.totalRecords, sortOrder: sortOrder}
       }
     });
+
+    if(action.redirectToResults)
+      yield put(push('/search/results'));
   }
   catch (err) {
     yield put({ type: SEARCH_ERROR, payload: new SubmissionError({ _error: err.message }) });

@@ -77,12 +77,16 @@ export default function createRoutes(store) {
       name: 'homepage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/HomePage'),
+          System.import('containers/HomePage/reducers'),
+          System.import('containers/Bookings/sagas'),
+          System.import('containers/HomePage')
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component]) => {
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('home', reducer.default);
+          injectSagas('search', sagas.default);
           renderRoute(component);
         });
 

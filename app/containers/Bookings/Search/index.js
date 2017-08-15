@@ -15,10 +15,6 @@ import { selectLocationSelectOptionsAndFilterFunc } from './selectors';
 import { SEARCH, SEARCH_SUCCESS, SEARCH_ERROR } from '../constants';
 
 class Search extends PureComponent { // eslint-disable-line react/prefer-stateless-function
-  static propTypes = {
-    onSubmitForm: PropTypes.func.isRequired,
-    query: PropTypes.object.isRequired,
-  }
 
   render() {
     const { query, deviceFormat } = this.props;
