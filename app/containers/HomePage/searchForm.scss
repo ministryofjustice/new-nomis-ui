@@ -24,7 +24,7 @@
     }
 
     .search-input{
-      height: 45px;
+      height: 48px;
       margin-right: .5em;
     }
 
@@ -35,6 +35,7 @@
     .form-control{
       margin-bottom: 1.5em;
     }
+
     .form-control:last-child{
       margin-bottom:0;
     }
@@ -54,6 +55,7 @@
         display: block;
         margin-top: 1em !important;
       }
+
       .desktop-button{
         display:none;
       }
@@ -69,5 +71,9 @@
   .heading-large{
     margin-top:0em !important;
     margin-bottom: 1em !important;
+  }
+
+  @include media-breakpoint-down(sm){
+    width: 100%;
   }
 }
