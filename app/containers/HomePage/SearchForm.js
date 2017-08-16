@@ -40,7 +40,6 @@ class SearchForm extends PureComponent{
           </label>
 
           <Field name="keywords" component="input" type="text" title="Enter " placeholder="Enter Name or ID" autoComplete="off" className="form-control search-input" />
-
           <button type="submit" className="button button-start desktop-button" disabled={submitting} submitting={submitting}> Search</button>
 
           <div>
@@ -50,7 +49,7 @@ class SearchForm extends PureComponent{
             <Field className="form-control" name="locationPrefix" component="select">
               <option>All</option>
               {locations.map(location =>
-                <option key={location.description} value={location.description}> {location.description}</option>
+                <option key={location.locationPrefix} value={location.locationPrefix}> {location.description}</option>
               )}
             </Field>
           </div>

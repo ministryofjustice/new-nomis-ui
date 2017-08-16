@@ -11,8 +11,6 @@ import { selectHeaderDetail } from '../selectors';
 import { openAddCaseNoteModal } from '../actions';
 
 class Header extends PureComponent { // eslint-disable-line react/prefer-stateless-function
-  // componentWillMount() {
-  // }
 
   render() {
     const { headerDetails, openAddCaseNote } = this.props;
