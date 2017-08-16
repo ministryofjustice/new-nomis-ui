@@ -51,7 +51,7 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
   }
 
   render() {
-    const { deviceFormat, searchOptions, searchQuery, viewDetails, totalResults, pagination, setPage, resultsView, setResultsView } = this.props; //eslint-disable-line
+    const { locations, sortOrder,toggleSortOrder,viewDetails,results, deviceFormat, searchOptions, searchQuery, totalResults, pagination, setPage, resultsView, setResultsView } = this.props; //eslint-disable-line
     const { perPage: pP, pageNumber: pN } = pagination;
 
     return (
@@ -59,11 +59,11 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
 
         <div className="row">
           <h1 className="heading-xlarge"> Search results </h1>
-          <SearchAgainForm locations={this.props.locations} />
+          <SearchAgainForm locations={locations} />
         </div>
 
         <div className="row toggleAndCountView">
-           {totalResults >0 ?
+           {totalResults > 0 ?
              <div>
                <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />
                <div>viewing {Math.min((pP * pN) + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults} results.</div>
@@ -74,13 +74,13 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
         <div className="row">
             {totalResults > 0 ?
               <ResultsViewBuilder
-                viewName={this.props.resultsView}
-                results={this.props.results}
+                viewName={resultsView}
+                results={results}
                 onViewDetails={viewDetails}
-                sortOrderChange={this.props.toggleSortOrder}
-                sortOrder={this.props.sortOrder}/> :
+                sortOrderChange={toggleSortOrder}
+                sortOrder={sortOrder}/> :
 
-              <h1 className="bold-medium">Your search criteria returned no results.</h1>
+              <h1 className="bold-medium">No records found matching search criteria.</h1>
             }
         </div>
 

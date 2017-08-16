@@ -32,3 +32,9 @@ body{
 .clickable{
   cursor: pointer;
 }
+
+.button-start{
+  background-image: url('~/img/icon-pointer-2x.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: 100% 50% !important;
+}
