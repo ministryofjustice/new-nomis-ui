@@ -18,7 +18,6 @@ import {
 
 import {
   selectLocations,
-  selectAssignments
 } from './selectors';
 
 
@@ -31,7 +30,7 @@ class HomePage extends PureComponent { // eslint-disable-line react/prefer-state
 
   render() {
 
-    const {locations,assignments} = this.props;
+    const {locations} = this.props;
 
     return (
       <div>
@@ -42,7 +41,7 @@ class HomePage extends PureComponent { // eslint-disable-line react/prefer-state
 
           <ul className="list-bullet">
             <li>
-              <Link className="bold-small" to="/assignments">Key Workers</Link>
+              <Link className="link" to="/assignments">As Key Worker</Link>
             </li>
           </ul>
 
@@ -75,8 +74,7 @@ export function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = createStructuredSelector({
   user: selectUser(),
-  locations: selectLocations(),
-  assignments: selectAssignments()
+  locations: selectLocations()
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

@@ -49,11 +49,10 @@ class SearchAgainForm extends React.PureComponent{
                 <label className="form-label visible-md visible-lg">
                   Select location
                 </label>
-
                 <Field className="form-control" name="locationPrefix" component="select">
                   <option> All </option>
                   {locations.map(location =>
-                    <option key={location.description} value={location.description}> {location.description}</option>
+                    <option key={location.locationPrefix} value={location.locationPrefix}> {location.description}</option>
                   )}
                 </Field>
 

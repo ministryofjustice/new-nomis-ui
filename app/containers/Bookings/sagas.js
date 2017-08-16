@@ -198,7 +198,7 @@ export function* newSearch(action){
     });
 
     if(action.redirectToResults)
-      yield put(push('/search/results'));
+      yield put(push('/results'));
   }
   catch (err) {
     yield put({ type: SEARCH_ERROR, payload: new SubmissionError({ _error: err.message }) });
@@ -208,7 +208,7 @@ export function* newSearch(action){
 export function* searchSaga(action) {
 
   yield newSearch(action);
-  yield put(push('/search/results'));
+  yield put(push('/results'));
 
 
   /*

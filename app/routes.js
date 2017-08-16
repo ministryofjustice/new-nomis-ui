@@ -200,30 +200,9 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
+    },  {
       onEnter: redirectToLogin,
-      path: '/search',
-      name: 'search',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/Bookings/reducers'),
-          System.import('containers/Bookings/sagas'),
-          System.import('containers/Bookings/Search'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('search', reducer.default);
-          injectSagas('search', sagas.default);
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    }, {
-      onEnter: redirectToLogin,
-      path: '/search/results',
+      path: '/results',
       name: 'search results',
       getComponent(nextState, cb) {
         const importModules = Promise.all([

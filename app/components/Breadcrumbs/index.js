@@ -22,13 +22,13 @@ function Breadcrumbs({ route, inmateData, context }) {
     if (context === 'assignments') {
       breadcrumbArray = breadcrumbArray.concat({ name: 'Assignments', route: '/assignments' });
     } else {
-      breadcrumbArray = breadcrumbArray.concat({ name: 'Search', route: '/search' });
-      breadcrumbArray = breadcrumbArray.concat({ name: 'Results', route: '/search/results' });
+      breadcrumbArray = breadcrumbArray.concat({ name: 'Results', route: '/results' });
     }
 
     breadcrumbArray = breadcrumbArray.concat({ name: nameString, route: '/' });
   } else if (routeString.length > 0) {
     const routeStringArray = route.split('/');
+
 
     routeStringArray.shift();
 

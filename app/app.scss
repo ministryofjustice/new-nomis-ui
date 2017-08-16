@@ -1,5 +1,4 @@
 @import "govuk-elements";
-
 @import "bootstrap-feature-select-nomis";
 
 @font-face {
@@ -34,7 +33,20 @@ body{
 }
 
 .button-start{
-  background-image: url('~/img/icon-pointer-2x.png') !important;
-  background-repeat: no-repeat !important;
-  background-position: 100% 50% !important;
+  background-image: url('~/img/icon-pointer.png') !important;
+}
+
+a.link{
+
+  color: $link-colour !important;
+  font-size: 19px;
+
+  &:hover {
+    color: $link-hover-colour !important;
+  }
+
+  &:visited {
+   // color: $link-colour !important;
+    text-decoration: none !important;
+  }
 }

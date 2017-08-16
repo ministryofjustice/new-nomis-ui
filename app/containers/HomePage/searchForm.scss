@@ -15,7 +15,8 @@
 
   .box{
     padding:2em;
-    background-color: lighten($light-blue,45%);
+    background-color: lighten(#2B88C8,45%);
+    //opacity: 0.15;
     width: 75%;
 
     .heading-large{
