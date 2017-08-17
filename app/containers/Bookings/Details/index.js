@@ -49,7 +49,7 @@ const DesktopView = React.createClass({
        <ContentWrapper>
          { this.props.searchContext === 'assignments' ?
            <NavLink route="/assignments" key="Assignments" text="< Back to assignments"/> :
-           <NavLink route="/search/results" key="Results" text="< Back to search results"/>
+           <NavLink route="/results" key="Results" text="< Back to search results"/>
          }
          <BookingsDetailsHeader />
          <TabNav
@@ -72,7 +72,7 @@ const MobileView = React.createClass({
         <div>
           { this.props.searchContext === 'assignments' ?
           <NavLink route="/assignments" key="Assignments" text="< Back to assignments"/> :
-          <NavLink route="/search/results" key="Results" text="< Back to search results"/>
+          <NavLink route="/results" key="Results" text="< Back to search results"/>
          }
         <BookingsDetailsHeaderMobile />
         <TabComponentMobile />
