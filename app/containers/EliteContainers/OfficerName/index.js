@@ -28,13 +28,13 @@ class EliteOfficerName extends PureComponent { // eslint-disable-line react/pref
     const { firstName, lastName, staffId } = name;
 
     if (firstName && lastName) {
-      return <div>{lastName}, {firstName}</div>;
+      return <span>{lastName}, {firstName}</span>;
     } else if (firstName) {
-      return <div>{firstName}</div>;
+      return <span>{firstName}</span>;
     } else if (lastName) {
-      return <div>{lastName}</div>;
+      return <span>{lastName}</span>;
     }
-    return <div>{staffId}</div>;
+    return <span>{staffId}</span>;
   }
 
 }

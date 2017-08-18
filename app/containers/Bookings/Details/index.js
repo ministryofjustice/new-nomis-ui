@@ -80,7 +80,7 @@ const MobileView = React.createClass({
     )
 
     return (
-      <div>
+      <ContentWrapper>
         <div>
 
           {this.props.shouldShowLargePhoto ?
@@ -100,7 +100,7 @@ const MobileView = React.createClass({
           }
         </div>
 
-      </div>
+      </ContentWrapper>
     )
   }
 })

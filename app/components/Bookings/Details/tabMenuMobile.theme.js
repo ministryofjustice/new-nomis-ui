@@ -8,7 +8,8 @@ export const TabWrapper = styled.div`
   flex-direction: row;
   position: fixed;
   bottom: 0;
-
+  left:0;
+  width:100%;
   div {
     padding: 23px 0px 0px;
   }

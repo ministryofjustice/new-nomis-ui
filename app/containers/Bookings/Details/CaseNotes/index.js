@@ -38,12 +38,14 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
   }
 
   render() {
+
     const { caseNotesView, openAmendModal, displayAmendCaseNoteModal, deviceFormat } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
 
     if (caseNotesView === 'LIST') {
       return deviceFormat === 'desktop' ? <CaseNoteList /> : <CaseNoteListMobile />;
     }
-    return deviceFormat === 'desktop' ? <CaseNoteDetails displayAmendCaseNoteModal={displayAmendCaseNoteModal} openAmendModal={openAmendModal} /> :
+    return deviceFormat === 'desktop' ?
+    <CaseNoteDetails displayAmendCaseNoteModal={displayAmendCaseNoteModal} openAmendModal={openAmendModal} /> :
     <CaseNoteDetailsMobile  />;
   }
 }

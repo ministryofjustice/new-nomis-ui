@@ -47,7 +47,7 @@ function Header({ inmateData, openAddCaseNote, setModalOpen, setModalData }) {
         <InmateName>{nameString}</InmateName>
         <IdLocation>
           <div>ID: <strong>{offenderNo}</strong></div>
-          <div>Key Worker: <strong><EliteOfficerName staffId={assignedOfficerId} /></strong></div>
+          <div>Key Worker: <strong><div><EliteOfficerName staffId={assignedOfficerId} /></div></strong></div>
         </IdLocation>
       </NameIdKeyWorker>
       <AlertsLocation>

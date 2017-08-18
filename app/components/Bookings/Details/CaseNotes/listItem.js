@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import EliteOfficerName from 'containers/EliteContainers/OfficerName';
+import styled from 'styled-components';
 
 import {
   ListDetailItem,
@@ -21,13 +22,25 @@ import {
   DateTimeBlock as DTB,
   TypeAndText,
 } from './listItem.theme';
+
+
+const Block = styled.div`
+   margin-bottom: .5em;
+ `;
+
+const Row = styled.div`
+  border-bottom: #E5E5E5 solid 1px;
+  margin-bottom: 1em;
+`
+
+const Bold = styled.span`
+  font-weight: bold;
+`
+
 const DateTimeBlock = ({ creationDateTime }) => <DTB>
-  <DateBlock>
-    {moment(creationDateTime).format('DD/MM/YYYY')}
-  </DateBlock>
-  <TimeBlock>
-    {moment(creationDateTime).format('h:mm a')}
-  </TimeBlock>
+    <DateBlock>
+      {moment(creationDateTime).format('DD/MM/YYYY')} -  {moment(creationDateTime).format('h:mm a')}
+    </DateBlock>
 </DTB>;
 
 DateTimeBlock.propTypes = {
@@ -54,26 +67,28 @@ AmendmentBlock.propTypes = {
 function CaseNoteListItem(props) {
   const { action } = props;
   const { authorUserId, occurrenceDateTime, subTypeDescription, typeDescription, splitInfo } = props.caseNote.toJS(); // amendments
+
   return (
-    <ListDetailItem BordersBetween={{ mids: true, bottom: true }} onClick={action}>
-      <DateTimeIdBlock>
-        <DateTimeBlock creationDateTime={occurrenceDateTime} />
-        <AssignedOfficer>
-          <EliteOfficerName username={authorUserId} />
-        </AssignedOfficer>
-      </DateTimeIdBlock>
-      <MiddleBlock>
-        <TypeAndText>
-          <TypeDescription data-name={'TypeDescription'}>
-            {typeDescription} - {subTypeDescription}
-          </TypeDescription>
-          <CaseNoteText data-name={'CaseNoteText'}>
-            {splitInfo.stub}
-          </CaseNoteText>
-        </TypeAndText>
-        {splitInfo.amendments ? AmendmentBlock({ amendments: splitInfo.amendments }) : null}
-      </MiddleBlock>
-    </ListDetailItem>
+    <Row onClick={action}>
+
+       <Block>
+         <Bold> {moment(occurrenceDateTime).format('DD/MM/YYYY')} - {moment(occurrenceDateTime).format('h:mm a')} - </Bold>
+         <EliteOfficerName username={authorUserId} />
+       </Block>
+
+      <Block>
+        <Bold>
+          {typeDescription} | {subTypeDescription}
+        </Bold>
+      </Block>
+
+       <Block>
+          {splitInfo.stub}
+          <div>
+            {splitInfo.amendments ? AmendmentBlock({ amendments: splitInfo.amendments }) : null}
+          </div>
+       </Block>
+    </Row>
   );
 }
 
@@ -83,3 +98,32 @@ CaseNoteListItem.propTypes = {
 };
 
 export default CaseNoteListItem;
+/*
+ <ListDetailItem BordersBetween={{ mids: true, bottom: true }} onClick={action}>
+
+ <DateTimeIdBlock>
+ <DateTimeBlock creationDateTime={occurrenceDateTime} />
+
+ <div>
+ -
+ </div>
+
+ <AssignedOfficer>
+ <EliteOfficerName username={authorUserId} />
+ </AssignedOfficer>
+ </DateTimeIdBlock>
+
+ <MiddleBlock>
+ <TypeAndText>
+ <TypeDescription data-name={'TypeDescription'}>
+ {typeDescription} - {subTypeDescription}
+ </TypeDescription>
+ <CaseNoteText data-name={'CaseNoteText'}>
+ {splitInfo.stub}
+ </CaseNoteText>
+ </TypeAndText>
+ {splitInfo.amendments ? AmendmentBlock({ amendments: splitInfo.amendments }) : null}
+ </MiddleBlock>
+
+ </ListDetailItem>
+ */
