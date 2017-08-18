@@ -6,9 +6,9 @@ const colours = allColours.bookings.details.caseNotes.list;
 
 export const DateTimeIdBlock = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: row; 
   align-self: flex-start;
+  justify-content: space-between;
 `;
 
 export const DateTimeBlock = styled.div`
@@ -16,7 +16,7 @@ export const DateTimeBlock = styled.div`
 `;
 
 export const DateBlock = styled.div`
-  font-size: 16px;
+  font-size: 14px;
 `;
 
 export const TimeBlock = styled.div`
@@ -26,7 +26,7 @@ export const TimeBlock = styled.div`
 export const MiddleBlock = styled.div`
   align-self: flex-start;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   width: ${responsiveCols(8)};
 `;

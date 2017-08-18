@@ -20,20 +20,20 @@
 }
 
 //TODO Will be moved during the button rework.
-.cancel-button{
+.cancel-button {
 
   // @extend .button;
 
-  background: #DEE0E2!important;
-  border-bottom: 1px solid #00437B!important;
-  color: #0B0C0C!important;
-  padding: 8px 20px 4px!important;
-  margin-bottom: 15px!important;
+  background: #DEE0E2 !important;
+  border-bottom: 1px solid #00437B !important;
+  color: #0B0C0C !important;
+  padding: 8px 20px 4px !important;
+  margin-bottom: 15px !important;
   font-size: .9rem;
   font-family: "nta", Arial, sans-serif;
 
   &:hover {
-    background: #BABABA!important;
-    color: #0B0C0C!important;
+    background: #BABABA !important;
+    color: #0B0C0C !important;
   }
 }

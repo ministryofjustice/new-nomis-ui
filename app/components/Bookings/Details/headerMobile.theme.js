@@ -20,6 +20,8 @@ export const HeaderWrapper = styled.div`
   width: 100%;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 2em;
+  width:100%;
 `;
 
 export const NameIdKeyWorker = styled.div`
