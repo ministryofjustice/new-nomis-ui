@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import EliteOfficerName from 'containers/EliteContainers/OfficerName';
+import { FormattedDate, FormattedTime } from 'react-intl';
 
 import {
   CaseNoteDetailsWrapper,
@@ -23,7 +24,9 @@ import {
 const AmendmentBlock = ({ dateTime, userId, text }) => (<Amendment data-name={'Amendment'}>
   <AmendmentTitle>{text}</AmendmentTitle>
   <AmendmentText><EliteOfficerName username={userId} /></AmendmentText>
-  <AmendmentText>Amended {dateTime}</AmendmentText>
+  <AmendmentText>
+    <FormattedDate value={Date.parse(dateTime)} /> <FormattedTime value={Date.parse(dateTime)} />
+  </AmendmentText>
 </Amendment>);
 
 AmendmentBlock.propTypes = {
