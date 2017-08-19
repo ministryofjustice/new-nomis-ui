@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedDate } from 'react-intl';
 
 import EliteImage from 'containers/EliteContainers/Image';
 
@@ -46,7 +47,7 @@ const Table = ({results,viewDetails,sortOrder,sortOrderChange}) => (
             </div>)}
         </td>
         <td className="visible-md visible-lg">
-          <span>{row.dateOfBirth}</span>
+          <FormattedDate value={Date.parse(row.dateOfBirth)} />
         </td>
         <td><span>{row.offenderNo}</span></td>
         <td><span>{row.assignedLivingUnitDesc}</span></td>

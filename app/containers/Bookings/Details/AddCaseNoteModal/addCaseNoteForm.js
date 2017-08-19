@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { Map } from 'immutable';
 
 import Button, { ButtonRow } from 'components/Button';
-
+import { selectLocale } from 'containers/LanguageProvider/selectors';
 import { SubmissionError, TextArea } from 'components/FormComponents';
 import TypeSubTypeSelectors from 'containers/FormContainers/typeSubTypeSelectors';
 import OccurrenceDateTimePicker from 'containers/FormContainers/occurrenceDateTimePicker';
@@ -16,15 +16,15 @@ import { ADD_NEW_CASENOTE } from '../../constants';
 import { selectCaseNoteTypeList, selectCaseNoteSubTypeList } from './selectors';
 
 const AddCaseNoteForm = (props) => {
-  const { handleSubmit, submitting, error, caseNoteTypeList, caseNoteSubTypeList, closeModal, goBack, isMobile } = props;
+  const { handleSubmit, submitting, error, caseNoteTypeList, caseNoteSubTypeList, closeModal, goBack, isMobile, locale } = props;
   const options = { types: caseNoteTypeList, subTypes: caseNoteSubTypeList }; // options={options}
   return (
     <form onSubmit={handleSubmit}>
       <SubmissionError error={error}>{error}</SubmissionError>
       <Field name="typeAndSubType" component={TypeSubTypeSelectors} options={options} isMobile />
       <Field name="caseNoteText" component={TextArea} title="Case Note" autocomplete="off" spellcheck="true"/>
-      <Field name="occurrenceDateTime" component={OccurrenceDateTimePicker} editable title="Occurrence Date" />
-      <OccurrenceDateTimePicker title="Creation Date" />
+      <Field name="occurrenceDateTime" component={OccurrenceDateTimePicker} editable locale={locale} title="Occurrence Date" />
+      <OccurrenceDateTimePicker locale={locale} title="Creation Date" />
       <ButtonRow style={{ marginTop: '40px' }}>
         <Button disabled={submitting} buttonstyle="cancel" onClick={isMobile ? goBack : closeModal}>Cancel</Button>
         <Button type="submit" disabled={submitting} submitting={submitting} buttonstyle="link">Submit</Button>
@@ -41,10 +41,12 @@ AddCaseNoteForm.propTypes = {
   error: PropTypes.string,
   closeModal: PropTypes.func.isRequired,
   isMobile: PropTypes.bool,
+  locale: PropTypes.string,
   goBack: PropTypes.func,
 };
 
 AddCaseNoteForm.defaultProps = {
+  locale: 'en',
   error: '',
   isMobile: false,
   goBack: () => { },
@@ -59,6 +61,7 @@ export function mapDispatchToProps() {
 const mapStateToProps = createStructuredSelector({
   caseNoteTypeList: selectCaseNoteTypeList(),
   caseNoteSubTypeList: selectCaseNoteSubTypeList(),
+  locale: selectLocale(),
 });
 
 const validate = (stuff) => {

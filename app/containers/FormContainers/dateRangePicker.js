@@ -23,6 +23,26 @@ const DatePickerInputGroup = styled(InputGroup)`
 const asMoment = (t) => t ? moment(t, dateFormat) : null;
 
 class DateRangePicker extends React.Component {
+  static propTypes = {
+    locale: PropTypes.string,
+    input: PropTypes.shape({
+      onChange: PropTypes.func.isRequired,
+      value: PropTypes.object.isRequired,
+    }).isRequired,
+    meta: PropTypes.shape({
+      touched: PropTypes.bool,
+      error: PropTypes.bool,
+    }).isRequired,
+    placeholder: PropTypes.string,
+    title: PropTypes.string,
+  }
+
+  static defaultProps = {
+    locale: 'en',
+    placeholder: '',
+    title: '',
+  }
+
   constructor(props) {
     super(props);
     this.handleChangeStart = this.handleChangeStart.bind(this);
@@ -63,10 +83,14 @@ class DateRangePicker extends React.Component {
 
   render() {
     const {
-      input, placeholder,
+      locale,
+      input,
+      placeholder,
       meta: { touched, error },
       title,
     } = this.props;
+
+    moment.locale(locale);
 
     const startDate = asMoment(input.value.get('startDate'));
     const endDate = asMoment(input.value.get('endDate'));
@@ -101,23 +125,5 @@ class DateRangePicker extends React.Component {
     );
   }
 }
-
-DateRangePicker.propTypes = {
-  input: PropTypes.shape({
-    onChange: PropTypes.func.isRequired,
-    value: PropTypes.object.isRequired,
-  }).isRequired,
-  meta: PropTypes.shape({
-    touched: PropTypes.bool,
-    error: PropTypes.bool,
-  }).isRequired,
-  placeholder: PropTypes.string,
-  title: PropTypes.string,
-};
-
-DateRangePicker.defaultProps = {
-  placeholder: '',
-  title: '',
-};
 
 export default DateRangePicker;

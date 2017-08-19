@@ -10,7 +10,7 @@ import Button from 'components/Button';
 
 import { SubmissionError } from 'components/FormComponents';
 
-// import DatePicker from 'containers/FormContainers/datePicker';
+import { selectLocale } from 'containers/LanguageProvider/selectors';
 import DateRangePicker from 'containers/FormContainers/dateRangePicker';
 import TypeSubTypeSelectors from 'containers/FormContainers/typeSubTypeSelectors';
 import Select from 'components/FormComponents/Select';
@@ -28,7 +28,7 @@ import {
 // const upper = (value) => value && value.toUpperCase();
 
 const SearchForm = (props) => {
-  const { handleSubmit, submitting, error, reset, isMobile, caseNoteFilters } = props;
+  const { handleSubmit, submitting, error, reset, isMobile, caseNoteFilters, locale } = props;
   const { source, type, subType } = caseNoteFilters;
   const showSource = false;
   return (
@@ -41,7 +41,7 @@ const SearchForm = (props) => {
         <Field isMobile={isMobile} name="typeSubType" component={TypeSubTypeSelectors} options={{ types: type, subTypes: subType }} type="text" title="Type" placeholder="" multi />
       </CnffTypeSubTypeHolder>
       <DateRange isMobile={isMobile}>
-        <Field name="dateRange" component={DateRangePicker} title="Date Range" />
+        <Field name="dateRange" component={DateRangePicker} locale={locale} title="Date Range" />
       </DateRange>
       {showSource ? <CnffItemHolder isMobile={isMobile}>
         <Field name="source" component={Select} options={source} type="text" title="Source" autocomplete="off" multi />
@@ -54,6 +54,7 @@ const SearchForm = (props) => {
 };
 
 SearchForm.propTypes = {
+  locale: PropTypes.string,
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   error: PropTypes.string,
@@ -63,6 +64,7 @@ SearchForm.propTypes = {
 };
 
 SearchForm.defaultProps = {
+  locale: 'en',
   error: '',
   isMobile: false,
 };
@@ -77,6 +79,7 @@ export function mapDispatchToProps() {
 const mapStateToProps = createStructuredSelector({
   initialValues: selectCaseNotesQuery(),
   caseNoteFilters: caseNoteFilterSelectInfo(),
+  locale: selectLocale(),
 });
 
 // Wrap the component to inject dispatch and state into it
