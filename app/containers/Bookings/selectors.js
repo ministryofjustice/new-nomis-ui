@@ -1,4 +1,3 @@
-
 import { createSelector } from 'reselect';
 import nameString from 'components/NameStrings';
 
@@ -8,6 +7,8 @@ import {
   calcBookingResultsTotalRecords,
   selectBookingDetails as selectEliteBookingDetails
 } from 'containers/EliteApiLoader/selectors';
+
+import { intlSelector } from 'containers/LanguageProvider/selectors';
 
 const selectSearch = () => (state) => state.get('search');
 
@@ -142,10 +143,11 @@ const selectCurrentDetailTabId = () => createSelector(
 
 const selectOffenderDetails = () => createSelector(
   selectBookingDetail(),
-  (bookingDetails) => {
+  intlSelector(),
+  (bookingDetails, {intl}) => {
     // Mash data into what is needed for the DataGridViewComponent.
     // date of birth
-    const dateOfBirth = bookingDetails.getIn(['Data', 'dateOfBirth']);
+    const dateOfBirth = intl.formatDate(Date.parse(bookingDetails.getIn(['Data', 'dateOfBirth'])));
     // age
     const age = bookingDetails.getIn(['Data', 'age']);
     // gender
@@ -179,9 +181,9 @@ const selectOffenderDetails = () => createSelector(
     const aliasGrid = aliases.map((alias, index) => {
       const { firstName, lastName, age: aliasAge, ethinicity: ethnicity, nameType, dob: aliasDateofbirth, gender: aliasGender } = alias;
       const name = nameString({ firstName, lastName, format: 'TITLE_TITLE' });
-      return { key: `${firstName + lastName + aliasAge + ethnicity + nameType + index}`, title: nameType, values: [{ name }, { aliasAge }, { aliasGender }, { aliasDateofbirth }, { ethnicity }] };
+      const formattedDob = intl.formatDate(Date.parse(aliasDateofbirth));
+      return { key: `${firstName + lastName + aliasAge + ethnicity + nameType + index}`, title: nameType, values: [{ name }, { aliasAge }, { aliasGender }, { formattedDob }, { ethnicity }] };
     });
-    //  { dateOfBirth, age, gender };
 
     return {
       personalGrid,
@@ -192,10 +194,11 @@ const selectOffenderDetails = () => createSelector(
 
 const selectOffenderDetailsMobile = () => createSelector(
   selectBookingDetail(),
-  (bookingDetails) => {
+  intlSelector(),
+  (bookingDetails, {intl}) => {
     // Mash data into what is needed for the DataGridViewComponent.
     // date of birth
-    const dateOfBirth = bookingDetails.getIn(['Data', 'dateOfBirth']);
+    const dateOfBirth = intl.formatDate(Date.parse(bookingDetails.getIn(['Data', 'dateOfBirth'])));
     // age
     const age = bookingDetails.getIn(['Data', 'age']);
     // gender
@@ -222,11 +225,10 @@ const selectOffenderDetailsMobile = () => createSelector(
     const aliases = bookingDetails.getIn(['Data', 'aliases']).toJS();
 
     const aliasGrid = aliases.map((alias, index) => {
-      const { firstName, lastName, age: aliasAge, ethinicity: ethnicity, nameType } = alias; // , dob: aliasDateofbirth, gender: aliasGender
+      const { firstName, lastName, age: aliasAge, ethinicity: ethnicity, nameType } = alias;
       const name = nameString({ firstName, lastName, format: 'TITLE_TITLE' });
       return { key: `${firstName + lastName + aliasAge + ethnicity + nameType + index}`, title: nameType, values: [{ name }] };
     });
-    //  { dateOfBirth, age, gender };
 
     return {
       personalGrid,
@@ -367,5 +369,6 @@ export {
   selectDisplayAmendCaseNoteModal,
   selectShouldShowLargePhoto,
   selectImageId,
-  selectLocations
+  selectLocations,
+  intlSelector
 };

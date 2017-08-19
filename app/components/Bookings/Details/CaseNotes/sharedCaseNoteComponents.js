@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedDate, FormattedTime } from 'react-intl';
 import JsonBlock from 'components/JsonBlock';
-import moment from 'moment';
 import EliteOfficerName from 'containers/EliteContainers/OfficerName';
 
 import {
@@ -20,10 +20,10 @@ import {
 
 export const DateTimeBlock = ({ creationDateTime }) => <div>
   <DateBlock>
-    {moment(creationDateTime).format('DD/MM/YYYY')}
+    <FormattedDate value={Date.parse(creationDateTime)} />
   </DateBlock>
   <TimeBlock>
-    {moment(creationDateTime).format('h:mm a')}
+    <FormattedTime value={Date.parse(creationDateTime)} />
   </TimeBlock>
 </div>;
 
@@ -51,10 +51,10 @@ function CaseNoteListItem(props) {
     <ListDetailItem onClick={action}>
       <DateTimeIdBlock>
         <DateBlock>
-          {moment(occurrenceDateTime).format('DD/MM/YYYY')}
+          <FormattedDate value={Date.parse(creationDateTime)} />
         </DateBlock>
         <TimeBlock>
-          {moment(occurrenceDateTime).format('h:mm a')}
+          <FormattedTime value={Date.parse(creationDateTime)} />
         </TimeBlock>
       </DateTimeIdBlock>
       <MiddleBlock>

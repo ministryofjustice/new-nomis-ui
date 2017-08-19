@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedDate, FormattedTime } from 'react-intl';
+
 import EliteOfficerName from 'containers/EliteContainers/OfficerName';
 import AmendCaseNoteModal from 'containers/Bookings/Details/CaseNotes/AmendCaseNoteModal';
 
@@ -26,7 +28,9 @@ const AmendmentBlock = ({ dateTime, userId, text }) => (<Amendment>
   <AmendmentHeader>
     <EliteOfficerName username={userId} />
   </AmendmentHeader>
-  <AmendmentText>Amended {dateTime}</AmendmentText>
+  <AmendmentText>
+    <FormattedDate value={Date.parse(dateTime)} /> <FormattedTime value={Date.parse(dateTime)} />
+  </AmendmentText>
 </Amendment>);
 
 AmendmentBlock.propTypes = {

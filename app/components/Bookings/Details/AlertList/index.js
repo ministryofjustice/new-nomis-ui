@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedDate } from 'react-intl';
 
 import {
   AlertHolder,
@@ -12,20 +13,6 @@ import {
   AlertComment,
   AlertEntryDate,
 } from './theme';
-
-function getFormattedDate(formattedDate) {
-  const options = {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  };
-  const dateTemp = new Date(formattedDate);
-  const dateString = dateTemp.toLocaleTimeString('en-us', options);
-  const dateArray = dateString.split(',');
-  return dateArray[0] + ' ,' + dateArray[1];
-}
 
 function AlertList({ alerts, deviceFormat }) {
   return (
@@ -42,8 +29,12 @@ function AlertList({ alerts, deviceFormat }) {
             </AlertTypeWrapper>
             <AlertCodeWrapper>
               <AlertCodeDescription>{codeDataDescription} ({alert.alertCode})</AlertCodeDescription>
-              <AlertComment>{alert.expired ? 'Expired: ' + getFormattedDate(alert.dateExpires) : alert.comment}</AlertComment>
-              <AlertEntryDate>Entry date: {getFormattedDate(alert.dateCreated)}</AlertEntryDate>
+              {alert.expired ?
+                <AlertComment>Expired: <FormattedDate value={Date.parse(alert.dateExpires)} /></AlertComment>
+                  :
+                <AlertComment>{alert.comment}</AlertComment>
+              }
+              <AlertEntryDate>Entry date: <FormattedDate value={Date.parse(alert.dateCreated)} /></AlertEntryDate>
             </AlertCodeWrapper>
           </AlertItem>;
         return alert.typeData !== undefined && alert.codeData !== undefined ? forRender : null;

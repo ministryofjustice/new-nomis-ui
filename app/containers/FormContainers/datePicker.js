@@ -7,14 +7,19 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { InputLabel, InputGroup, Base } from 'components/FormComponents/Input/input.theme';
 import styled from 'styled-components';
 
+const dateFormat = 'L';
+
 const DatePicker = styled(DP)`
   ${Base}
 `;
 
 // stolen from https://github.com/Hacker0x01/react-datepicker/issues/543
 
+const asMoment = (t) => t ? moment(t, dateFormat) : null;
+
 class renderDatePicker extends React.Component {
   static propTypes = {
+    locale: PropTypes.string,
     input: PropTypes.shape({
       onChange: PropTypes.func.isRequired,
       value: PropTypes.string.isRequired,
@@ -28,6 +33,7 @@ class renderDatePicker extends React.Component {
   }
 
   static defaultProps = {
+    locale: 'en',
     placeholder: '',
     title: '',
   }
@@ -38,15 +44,19 @@ class renderDatePicker extends React.Component {
   }
 
   handleChange(date) {
-    this.props.input.onChange(moment(date).format('YYYY-MM-DD'));
+    this.props.input.onChange(moment(date).format(dateFormat));
   }
 
   render() {
     const {
-      input, placeholder,
+      locale,
+      input,
+      placeholder,
       meta: { touched, error },
       title,
     } = this.props;
+
+    moment.locale(locale);
 
     return (
       <InputGroup>
@@ -54,8 +64,8 @@ class renderDatePicker extends React.Component {
         <DatePicker
           {...input}
           placeholder={placeholder}
-          dateFormat="YYYY-MM-DD"
-          selected={input.value ? moment(input.value, 'YYYY-MM-DD') : null}
+          dateFormat={dateFormat}
+          selected={input.value ? asMoment(input.value) : null}
           onChange={this.handleChange}
         />
         {touched && error && <span>{error}</span>}

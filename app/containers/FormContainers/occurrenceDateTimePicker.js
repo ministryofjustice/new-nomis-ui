@@ -59,30 +59,30 @@ const EditDateTimeHolder = styled.div`
 const TimeInput = styled.input`
   ${Base}
 `;
-moment.updateLocale('en', {
-  longDateFormat: {
-    LT: 'HH:mm',
-    LTS: 'HH:mm:ss',
-    L: 'DD/MM/YYYY',
-    l: 'D/M/YYYY',
-    LL: 'MMMM Do YYYY',
-    ll: 'MMM D YYYY',
-    LLL: 'MMMM Do YYYY LT',
-    lll: 'MMM D YYYY LT',
-    LLLL: 'dddd, MMMM Do YYYY LT',
-    llll: 'ddd, MMM D YYYY LT',
-  },
-});
-//
+
 const dateFormat = 'L';
 const timeFormat = 'LT';
-
-// const asMoment = (t) => t ? moment(t, dateFormat) : null;
 
 export const isValidTime = (t) => moment(t, timeFormat).format(timeFormat) === t;
 export const isValidDate = (d) => moment(d, dateFormat).format(dateFormat) === d;
 
 class OccurrenceDateTimePicker extends React.Component {
+  static propTypes = {
+    locale: PropTypes.string,
+    editable: PropTypes.bool,
+    input: PropTypes.shape({
+      onChange: PropTypes.func.isRequired,
+    }),
+    title: PropTypes.string,
+  }
+
+  static defaultProps = {
+    locale: 'en',
+    placeholder: '',
+    title: '',
+    editable: false,
+  }
+
   constructor(props) {
     super(props);
     this.handleChangeDate = this.handleChangeDate.bind(this);
@@ -97,6 +97,9 @@ class OccurrenceDateTimePicker extends React.Component {
       () => this.tick(),
       5 * 1000
     );
+    // Execute tick immediately component mounts to ensure dates & times displayed in correct format
+    // as soon as component is displayed.
+    this.tick();
   }
 
   componentWillUnmount() {
@@ -161,9 +164,13 @@ class OccurrenceDateTimePicker extends React.Component {
       // input,
       // placeholder,
       // meta,
+      locale,
       editable,
       title,
     } = this.props;
+
+    moment.locale(locale);
+
     // const { touched, error } = meta;
     if (this.state.editing) {
       const date = this.state.selectedDate;
@@ -204,19 +211,5 @@ class OccurrenceDateTimePicker extends React.Component {
     );
   }
 }
-
-OccurrenceDateTimePicker.propTypes = {
-  editable: PropTypes.bool,
-  input: PropTypes.shape({
-    onChange: PropTypes.func.isRequired,
-  }),
-  title: PropTypes.string,
-};
-
-OccurrenceDateTimePicker.defaultProps = {
-  placeholder: '',
-  title: '',
-  editable: false,
-};
 
 export default OccurrenceDateTimePicker;

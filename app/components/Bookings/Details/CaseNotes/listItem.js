@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import EliteOfficerName from 'containers/EliteContainers/OfficerName';
 import styled from 'styled-components';
+import { FormattedDate, FormattedTime } from 'react-intl';
 
 import {
   ListDetailItem,
@@ -37,15 +37,16 @@ const Bold = styled.span`
   font-weight: bold;
 `
 
-const DateTimeBlock = ({ creationDateTime }) => <DTB>
-    <DateBlock>
-      {moment(creationDateTime).format('DD/MM/YYYY')} -  {moment(creationDateTime).format('h:mm a')}
-    </DateBlock>
-</DTB>;
+// const DateTimeBlock = ({ creationDateTime }) => <DTB>
+//     <DateBlock>
+//       {moment(creationDateTime).format('DD/MM/YYYY')} -  {moment(creationDateTime).format('h:mm a')}
+//     </DateBlock>
+// </DTB>;
+//
+// DateTimeBlock.propTypes = {
+//   creationDateTime: PropTypes.string.isRequired,
+// };
 
-DateTimeBlock.propTypes = {
-  creationDateTime: PropTypes.string.isRequired,
-};
 function AmendmentBlock({ amendments }) {
   let amendmentBreakdown = null;
   if (amendments && amendments.length > 0) {
@@ -72,7 +73,9 @@ function CaseNoteListItem(props) {
     <Row onClick={action}>
 
        <Block>
-         <Bold> {moment(occurrenceDateTime).format('DD/MM/YYYY')} - {moment(occurrenceDateTime).format('h:mm a')} - </Bold>
+         <Bold>
+           <FormattedDate value={Date.parse(occurrenceDateTime)} /> <FormattedTime value={occurrenceDateTime} />
+         </Bold>
          <EliteOfficerName username={authorUserId} />
        </Block>
 
@@ -98,6 +101,7 @@ CaseNoteListItem.propTypes = {
 };
 
 export default CaseNoteListItem;
+
 /*
  <ListDetailItem BordersBetween={{ mids: true, bottom: true }} onClick={action}>
 
