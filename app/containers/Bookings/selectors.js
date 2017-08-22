@@ -152,6 +152,7 @@ const selectOffenderDetails = () => createSelector(
     const age = bookingDetails.getIn(['Data', 'age']);
     // gender
     const gender = bookingDetails.getIn(['Data', 'physicalAttributes', 'gender']);
+    const ethnicity = bookingDetails.getIn(['Data', 'physicalAttributes', 'ethnicity']);
     // assessments
     const assessments = bookingDetails.getIn(['Data', 'assessments']).map((ass) => {
       const value = ass.get('classification');
@@ -174,12 +175,17 @@ const selectOffenderDetails = () => createSelector(
       title: 'Gender',
       value: gender,
     },
+    {
+      key: 'ethnicity',
+      title: 'Ethnicity',
+      value: ethnicity,
+    },
     ].concat(assessments && assessments.toJS ? assessments.toJS() : []);
 
     const aliases = bookingDetails.getIn(['Data', 'aliases']).toJS();
 
     const aliasGrid = aliases.map((alias, index) => {
-      const { firstName, lastName, age: aliasAge, ethinicity: ethnicity, nameType, dob: aliasDateofbirth, gender: aliasGender } = alias;
+      const { firstName, lastName, age: aliasAge, ethnicity: ethnicity, nameType, dob: aliasDateofbirth, gender: aliasGender } = alias;
       const name = nameString({ firstName, lastName, format: 'TITLE_TITLE' });
       const formattedDob = intl.formatDate(Date.parse(aliasDateofbirth));
       return { key: `${firstName + lastName + aliasAge + ethnicity + nameType + index}`, title: nameType, values: [{ name }, { aliasAge }, { aliasGender }, { formattedDob }, { ethnicity }] };
@@ -205,6 +211,7 @@ const selectOffenderDetailsMobile = () => createSelector(
     const gender = bookingDetails.getIn(['Data', 'physicalAttributes', 'gender']);
     // categorisation
     // csra
+    const ethnicity = bookingDetails.getIn(['Data', 'physicalAttributes', 'ethnicity']);
 
     const personalGrid = [{
       key: 'dateOfBirth',
@@ -220,12 +227,17 @@ const selectOffenderDetailsMobile = () => createSelector(
       title: 'Gender',
       value: gender,
     },
+    {
+      key: 'ethnicity',
+      title: 'Ethnicity',
+      value: ethnicity,
+    },
     ];
 
     const aliases = bookingDetails.getIn(['Data', 'aliases']).toJS();
 
     const aliasGrid = aliases.map((alias, index) => {
-      const { firstName, lastName, age: aliasAge, ethinicity: ethnicity, nameType } = alias;
+      const { firstName, lastName, age: aliasAge, ethnicity: ethnicity, nameType } = alias;
       const name = nameString({ firstName, lastName, format: 'TITLE_TITLE' });
       return { key: `${firstName + lastName + aliasAge + ethnicity + nameType + index}`, title: nameType, values: [{ name }] };
     });
