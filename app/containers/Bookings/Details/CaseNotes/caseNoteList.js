@@ -9,7 +9,7 @@ import CaseNoteListItem from 'components/Bookings/Details/CaseNotes/listItem';
 
 import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
 import { selectCaseNotesQuery, selectCaseNotesPagination, selectBookingDetailsId } from '../../selectors';
-import CaseNoteFilterForm from './caseNoteFilterForm';
+import CaseNoteFilterForm from './filterForm';
 
 import {
   selectCaseNotes,

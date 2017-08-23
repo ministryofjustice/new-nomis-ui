@@ -77,21 +77,24 @@ const FilterForm = ({handleSubmit, submitting, error, reset, isMobile, caseNoteF
         </Field>
       </div>
 
-      <div className="form-group">
+      <div className="form-group date-range">
+        <label className="form-label date-range-label">
+          Date range
+        </label>
 
-        <label className="form-label date-range-label">Date range</label>
          <Field name="startDate" component={DatePicker} locale={locale} title="From" />
          <Field name="endDate" component={DatePicker} locale={locale} title="To" />
       </div>
 
-      <div className="pull-right link reset-filters" onClick={reset}>
-        Reset Filters
+      <div className="buttons">
+          <div className="pull-right link reset-filters" onClick={reset}>
+            Reset Filters
+          </div>
+
+          <button className="button" type="submit" disabled={submitting ||  error} submitting={submitting}>
+              Apply filters
+          </button>
       </div>
-
-      <button className="button" type="submit" disabled={submitting ||  error} submitting={submitting}>
-          Apply filters
-      </button>
-
 
     </form>
   )

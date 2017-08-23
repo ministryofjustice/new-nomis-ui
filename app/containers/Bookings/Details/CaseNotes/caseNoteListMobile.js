@@ -13,6 +13,8 @@ import styled from 'styled-components';
 
 import FilterForm from './filterForm';
 
+import {reset} from 'redux-form';
+
 import {
   CASE_NOTE_FILTER,
 } from '../../constants';
@@ -86,6 +88,7 @@ class CaseNotesMobile extends PureComponent { // eslint-disable-line react/prefe
   componentWillMount() {
     const { loadCaseNotes, bookingId, caseNotesPagination, caseNotesQuery } = this.props;
     loadCaseNotes(bookingId, caseNotesPagination, caseNotesQuery);
+    this.props.resetFilters();
   }
 
   render() {
@@ -133,7 +136,7 @@ export function mapDispatchToProps(dispatch) {
     setPagination: (id, pagination, query) => dispatch(setCaseNotesPagination(id, pagination, query)),
     setCaseNoteView: (id) => dispatch(setCaseNotesDetailView(id)),
     onSubmitForm: createFormAction((formData) => ({ type: CASE_NOTE_FILTER.BASE, payload: { query: formData.toJS(), resetPagination: true } }), [CASE_NOTE_FILTER.SUCCESS, CASE_NOTE_FILTER.ERROR]),
-
+    resetFilters: () => dispatch(reset('caseNoteFilter'))
   };
 }
 

@@ -1,3 +1,5 @@
+@import "govuk-elements";
+@import "bootstrap-feature-select-nomis";
 
 .filter-form{
 
@@ -28,6 +30,41 @@
   }
 
   margin-bottom: 2em;
+
+  @include media-breakpoint-up(sm){
+    border: solid 1px;
+    padding: 1em;
+    background-color: $highlight-colour;
+    margin-top: 1em;
+
+    .form-group{
+      width: 21% !important;
+      display: inline-block;
+      padding-right: 2px;
+      padding-left: 2px;
+
+      margin: auto !important;
+    }
+
+    .date-range{
+      width:35% !important;
+    }
+
+    .buttons{
+      display: inline-block;
+      width: 20%;
+
+      .button{
+        margin-top: -.5em;
+      }
+
+      .reset-filters{
+        display:none;
+      }
+    }
+
+  }
+
 }
 
 
