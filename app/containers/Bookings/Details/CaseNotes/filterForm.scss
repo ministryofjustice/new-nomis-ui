@@ -1,0 +1,27 @@
+
+.filter-form{
+
+  .form-control{
+    width:100% !important;
+    height: 36px !important;
+  }
+
+  .date-picker{
+    display: inline-block;
+    width: 50% !important;
+    padding-right: 2px;
+    padding-left: 2px;
+  }
+
+  .react-datepicker__input-container {
+    display: block !important;
+  }
+
+  .date-range-label{
+    font-weight: bold;
+  }
+
+  margin-bottom: 2em;
+}
+
+

@@ -8,28 +8,12 @@ import {
   ListDetailItem,
 } from 'components/List/listItem';
 
-import {
-  DateTimeIdBlock,
-  MiddleBlock,
-  TypeDescription,
-  CaseNoteText,
-  AssignedOfficer,
-  AmendmentListBlock,
-  AmendmentSection,
-  AmendmentSubSection,
-  DateBlock,
-  TimeBlock,
-  DateTimeBlock as DTB,
-  TypeAndText,
-} from './listItem.theme';
-
-
 const Block = styled.div`
    margin-bottom: .5em;
  `;
 
 const Row = styled.div`
-  border-bottom: #E5E5E5 solid 1px;
+  border-bottom: #F2F2F2 solid 1px;
   margin-bottom: 1em;
 `
 
@@ -37,27 +21,53 @@ const Bold = styled.span`
   font-weight: bold;
 `
 
-// const DateTimeBlock = ({ creationDateTime }) => <DTB>
-//     <DateBlock>
-//       {moment(creationDateTime).format('DD/MM/YYYY')} -  {moment(creationDateTime).format('h:mm a')}
-//     </DateBlock>
-// </DTB>;
-//
-// DateTimeBlock.propTypes = {
-//   creationDateTime: PropTypes.string.isRequired,
-// };
+const Separator = styled.span`
+  margin-left: .3em;
+  margin-right: .3em;
+`
+
+const AmendmentBox = styled.div`
+   background : #DEE0E2;
+   margin-top:  .5em;
+   margin-bottom: .5em;
+   
+   padding-top: .5em;
+   padding-left: 1em;
+   padding-right: 1em;
+   padding-bottom: 1em;
+`
 
 function AmendmentBlock({ amendments }) {
-  let amendmentBreakdown = null;
-  if (amendments && amendments.length > 0) {
-    amendmentBreakdown = amendments.map((amendment) => <AmendmentListBlock>{amendment.stub}</AmendmentListBlock>);
-  }
+  if(!amendments) return <div></div>;
 
   return (
-      <AmendmentSection>
-        <AmendmentSubSection>{amendments.length} Amendment{amendments.length > 1 ? 's' : ''}</AmendmentSubSection>
-        {amendmentBreakdown}
-      </AmendmentSection>
+      <div>
+        {amendments.map(amendment =>
+        <AmendmentBox key={amendment.key}>
+
+          <div>
+
+            <Bold>
+              <div>
+                  Amendment
+              </div>
+              <FormattedDate value={Date.parse(amendment.dateTime)} /> <FormattedTime value={amendment.dateTime} />
+            </Bold>
+
+            <Separator>
+              -
+            </Separator>
+
+            {amendment.userId}
+          </div>
+
+          <div>
+            {amendment.stub}
+          </div>
+
+        </AmendmentBox>
+        )}
+      </div>
   );
 }
 
@@ -76,6 +86,11 @@ function CaseNoteListItem(props) {
          <Bold>
            <FormattedDate value={Date.parse(occurrenceDateTime)} /> <FormattedTime value={occurrenceDateTime} />
          </Bold>
+
+         <Separator>
+           -
+         </Separator>
+
          <EliteOfficerName username={authorUserId} />
        </Block>
 
@@ -88,7 +103,7 @@ function CaseNoteListItem(props) {
        <Block>
           {splitInfo.stub}
           <div>
-            {splitInfo.amendments ? AmendmentBlock({ amendments: splitInfo.amendments }) : null}
+            {splitInfo.amendments ? AmendmentBlock({ amendments: splitInfo.amendments}) : null}
           </div>
        </Block>
     </Row>
@@ -101,33 +116,3 @@ CaseNoteListItem.propTypes = {
 };
 
 export default CaseNoteListItem;
-
-/*
- <ListDetailItem BordersBetween={{ mids: true, bottom: true }} onClick={action}>
-
- <DateTimeIdBlock>
- <DateTimeBlock creationDateTime={occurrenceDateTime} />
-
- <div>
- -
- </div>
-
- <AssignedOfficer>
- <EliteOfficerName username={authorUserId} />
- </AssignedOfficer>
- </DateTimeIdBlock>
-
- <MiddleBlock>
- <TypeAndText>
- <TypeDescription data-name={'TypeDescription'}>
- {typeDescription} - {subTypeDescription}
- </TypeDescription>
- <CaseNoteText data-name={'CaseNoteText'}>
- {splitInfo.stub}
- </CaseNoteText>
- </TypeAndText>
- {splitInfo.amendments ? AmendmentBlock({ amendments: splitInfo.amendments }) : null}
- </MiddleBlock>
-
- </ListDetailItem>
- */

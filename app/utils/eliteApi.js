@@ -87,15 +87,36 @@ export const bookingAlerts = (token, baseUrl, id, pagination) => {
 
 const casenoteQueryStringGen = (caseNoteOptions) => {
   const { source, typeSubType, dateRange } = caseNoteOptions;
-  const { type, subType } = typeSubType;
+  let { type, subType } = typeSubType;
   const { startDate, endDate } = dateRange;
   const queryArray = [];
+
+  if(type === 'All')
+    type = null;
+
+  if(subType === 'All')
+    subType = null;
+
+  if(type && Array.isArray(type) !== true){
+     let t = type;
+     type = [];
+     type.push(t);
+  }
+
+  if(subType && Array.isArray(subType) !== true){
+    let st = subType;
+    subType = [];
+    subType.push(st);
+  }
+
   if (source && source.length > 0) {
     queryArray.push(`source:in:'${source.join('\'|\'')}'`);
   }
+
   if (type && type.length > 0) {
     queryArray.push(`type:in:'${type.join('\'|\'')}'`);
   }
+
   if (subType && subType.length > 0) {
     queryArray.push(`subType:in:'${subType.join('\'|\'')}'`);
   }

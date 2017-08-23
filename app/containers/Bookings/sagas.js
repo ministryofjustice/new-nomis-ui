@@ -60,7 +60,6 @@ import {
 } from './constants';
 
 
-
 export function* newSearchWatcher(){
   yield takeLatest(NEW_SEARCH,newSearch);
 }
@@ -151,6 +150,7 @@ export function* toggleSort(action){
     }
   });
 }
+
 export function* newSearch(action){
   try {
     const {query, resetPagination} = action.payload;
@@ -370,6 +370,8 @@ export function* setCaseNoteFilterSaga(action) {
   // console.log(query, pagination, bookingId);
   // const sortOrder = yield select(selectSearchResultsSortOrder());
   // console.log(pagination);
+
+
   try {
     if (resetPagination) {
       pagination = Object.assign(pagination, { pageNumber: 0 });

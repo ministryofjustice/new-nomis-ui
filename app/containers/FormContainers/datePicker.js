@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DP from 'react-datepicker';
-import moment from 'moment';
 
+import moment from 'moment';
+import styled from 'styled-components';
 import 'react-datepicker/dist/react-datepicker.css';
 import { InputLabel, InputGroup, Base } from 'components/FormComponents/Input/input.theme';
-import styled from 'styled-components';
+import DP from 'react-datepicker';
 
 const dateFormat = 'L';
 
-const DatePicker = styled(DP)`
-  ${Base}
-`;
 
+const DatePicker = styled(DP)`
+   height: 36px !important;   
+`;
 // stolen from https://github.com/Hacker0x01/react-datepicker/issues/543
 
 const asMoment = (t) => t ? moment(t, dateFormat) : null;
@@ -48,6 +48,7 @@ class renderDatePicker extends React.Component {
   }
 
   render() {
+
     const {
       locale,
       input,
@@ -59,17 +60,18 @@ class renderDatePicker extends React.Component {
     moment.locale(locale);
 
     return (
-      <InputGroup>
-        <InputLabel>{title}</InputLabel>
+      <div className="date-picker">
+        <label className="form-label">{title}</label>
         <DatePicker
           {...input}
           placeholder={placeholder}
           dateFormat={dateFormat}
           selected={input.value ? asMoment(input.value) : null}
           onChange={this.handleChange}
+          className="form-control"
         />
         {touched && error && <span>{error}</span>}
-      </InputGroup>
+      </div>
     );
   }
 }

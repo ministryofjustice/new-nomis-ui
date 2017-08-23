@@ -63,10 +63,12 @@ const selectCaseNoteSourceSelect = () => (state) => state.getIn(['eliteApiLoader
 const selectCaseNoteTypeSelect = () => (state) => state.getIn(['eliteApiLoader', 'AllCaseNoteFilters', 'Types']);
 const selectCaseNoteSubTypeSelect = () => (state) => state.getIn(['eliteApiLoader', 'AllCaseNoteFilters', 'SubTypes']);
 
-const caseNoteFilterSelectInfo = () => createSelector(selectCaseNoteSourceSelect(),
-selectCaseNoteTypeSelect(),
-selectCaseNoteSubTypeSelect(),
-(source, type, subType) => ({ source, type, subType }));
+const caseNoteFilterSelectInfo = () => createSelector(
+  selectCaseNoteSourceSelect(),
+  selectCaseNoteTypeSelect(),
+  selectCaseNoteSubTypeSelect(),
+  (source, type, subType) => ({ source, type, subType }));
+
 export {
   selectCaseNotes,
   selectCaseNotesStatus,
