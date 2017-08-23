@@ -15,6 +15,8 @@ const DatePicker = styled(DP)`
 
 const asMoment = (t) => t ? moment(t, DEFAULT_MOMENT_DATE_FORMAT_SPEC) : null;
 
+const className = (showError) => showError ? 'form-control form-control-error' : 'form-control';
+
 class renderDatePicker extends React.Component {
   static propTypes = {
     locale: PropTypes.string,
@@ -59,6 +61,7 @@ class renderDatePicker extends React.Component {
 
     return (
       <div className="date-picker">
+        {touched && error ? <div className="error-message">{error}</div> : null}
         <label className="form-label">{title}</label>
         <DatePicker
           {...input}
@@ -66,9 +69,8 @@ class renderDatePicker extends React.Component {
           dateFormat={DEFAULT_MOMENT_DATE_FORMAT_SPEC}
           selected={input.value ? asMoment(input.value) : null}
           onChange={this.handleChange}
-          className="form-control"
+          className={className(touched && error)}
         />
-        {touched && error && <span>{error}</span>}
       </div>
     );
   }

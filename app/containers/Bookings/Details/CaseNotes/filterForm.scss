@@ -7,10 +7,11 @@
   }
 
   .date-picker{
-    display: inline-block;
+    display: inline-block !important;
     width: 50% !important;
-    padding-right: 2px;
-    padding-left: 2px;
+    padding-right: 2px !important;
+    padding-left: 2px !important;
+    clear: both;
   }
 
   .react-datepicker__input-container {
@@ -19,6 +20,11 @@
 
   .date-range-label{
     font-weight: bold;
+  }
+
+  .reset-filters{
+    margin-top: .3em;
+    margin-bottom: 1em;
   }
 
   margin-bottom: 2em;

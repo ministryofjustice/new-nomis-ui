@@ -48,7 +48,7 @@ class FilterToggle extends PureComponent {
   }
 
   componentWillMount(){
-    this.setState({show: true});
+    this.setState({show: false});
   }
 
   toggleClick(e){

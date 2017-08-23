@@ -1,10 +1,14 @@
 import React,{PropTypes} from 'react';
 import DatePicker from 'containers/FormContainers/datePicker';
 
+import {reset} from 'redux-form';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form/immutable';
 import { createFormAction } from 'redux-form-saga';
 import { createStructuredSelector } from 'reselect';
+import { selectLocale } from 'containers/LanguageProvider/selectors';
+import moment from 'moment';
+import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
 
 import './filterForm.scss';
 
@@ -20,6 +24,22 @@ import {
   caseNoteFilterSelectInfo
 } from './selectors';
 
+const validate = data => {
+
+  const values = data.toJS();
+  let errors = { };
+
+  const startDate = moment(values.startDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC);
+  const endDate  = moment(values.endDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC);
+
+  if(startDate && endDate && startDate.isAfter(endDate))
+    errors.startDate = 'Start date must come before or equal to the end date';
+
+  if(values.startDate && !values.endDate)
+    errors.endDate = 'Please choose an end date';
+
+  return errors;
+}
 
 const FilterForm = ({handleSubmit, submitting, error, reset, isMobile, caseNoteFilters, locale}) => {
 
@@ -58,14 +78,20 @@ const FilterForm = ({handleSubmit, submitting, error, reset, isMobile, caseNoteF
       </div>
 
       <div className="form-group">
+
         <label className="form-label date-range-label">Date range</label>
          <Field name="startDate" component={DatePicker} locale={locale} title="From" />
          <Field name="endDate" component={DatePicker} locale={locale} title="To" />
       </div>
 
-      <button className="button" type="submit" disabled={submitting} submitting={submitting}>
+      <div className="pull-right link reset-filters" onClick={reset}>
+        Reset Filters
+      </div>
+
+      <button className="button" type="submit" disabled={submitting ||  error} submitting={submitting}>
           Apply filters
       </button>
+
 
     </form>
   )
@@ -111,10 +137,12 @@ export function mapDispatchToProps() {
 
 const mapStateToProps = createStructuredSelector({
   initialValues: selectCaseNotesQuery(),
-  caseNoteFilters: caseNoteFilterSelectInfo()
+  caseNoteFilters: caseNoteFilterSelectInfo(),
+  locale: selectLocale(),
 });
 
-// Wrap the component to inject dispatch and state into it
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-  form: 'caseNoteFilter', // a unique identifier for this form
+  form: 'caseNoteFilter',
+  validate,
+  onSubmitSuccess: (result, dispatch) => dispatch(reset('caseNoteFilter')),
 })(FilterForm));
