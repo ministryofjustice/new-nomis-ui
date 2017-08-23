@@ -5,9 +5,8 @@ import moment from 'moment';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import { InputLabel, InputGroup, Base } from 'components/FormComponents/Input/input.theme';
+import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
 import styled from 'styled-components';
-
-const dateFormat = 'L';
 
 const DatePicker = styled(DP)`
   ${Base}
@@ -15,7 +14,7 @@ const DatePicker = styled(DP)`
 
 // stolen from https://github.com/Hacker0x01/react-datepicker/issues/543
 
-const asMoment = (t) => t ? moment(t, dateFormat) : null;
+const asMoment = (t) => t ? moment(t, DEFAULT_MOMENT_DATE_FORMAT_SPEC) : null;
 
 class renderDatePicker extends React.Component {
   static propTypes = {
@@ -44,7 +43,7 @@ class renderDatePicker extends React.Component {
   }
 
   handleChange(date) {
-    this.props.input.onChange(moment(date).format(dateFormat));
+    this.props.input.onChange(moment(date).format(DEFAULT_MOMENT_DATE_FORMAT_SPEC));
   }
 
   render() {
@@ -64,7 +63,7 @@ class renderDatePicker extends React.Component {
         <DatePicker
           {...input}
           placeholder={placeholder}
-          dateFormat={dateFormat}
+          dateFormat={DEFAULT_MOMENT_DATE_FORMAT_SPEC}
           selected={input.value ? asMoment(input.value) : null}
           onChange={this.handleChange}
         />

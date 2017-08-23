@@ -6,8 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { InputLabel, InputGroup, Base } from 'components/FormComponents/Input/input.theme';
 import styled from 'styled-components';
 import { Map } from 'immutable';
-
-const dateFormat = 'L';
+import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
 
 const DatePicker = styled(DP)`
   ${Base}
@@ -20,7 +19,7 @@ const DatePickerInputGroup = styled(InputGroup)`
 `;
 // stolen from https://github.com/Hacker0x01/react-datepicker/issues/543
 
-const asMoment = (t) => t ? moment(t, dateFormat) : null;
+const asMoment = (t) => t ? moment(t, DEFAULT_MOMENT_DATE_FORMAT_SPEC) : null;
 
 class DateRangePicker extends React.Component {
   static propTypes = {
@@ -56,9 +55,9 @@ class DateRangePicker extends React.Component {
     }
     const currentValue = this.props.input.value;
     const currentEndDate = currentValue.get('endDate');
-    const startDateString = dateMoment.format(dateFormat);
+    const startDateString = dateMoment.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC);
 
-    if (!currentEndDate || moment(currentEndDate, dateFormat).isBefore(dateMoment)) {
+    if (!currentEndDate || moment(currentEndDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC).isBefore(dateMoment)) {
       this.props.input.onChange(Map({ startDate: startDateString, endDate: startDateString }));
     } else {
       this.props.input.onChange(currentValue.set('startDate', startDateString));
@@ -72,9 +71,9 @@ class DateRangePicker extends React.Component {
     }
     const currentValue = this.props.input.value;
     const currentStartDate = currentValue.get('startDate');
-    const endDateString = dateMoment.format(dateFormat);
+    const endDateString = dateMoment.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC);
 
-    if (!currentStartDate || moment(currentStartDate, dateFormat).isAfter(dateMoment)) {
+    if (!currentStartDate || moment(currentStartDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC).isAfter(dateMoment)) {
       this.props.input.onChange(Map({ startDate: endDateString, endDate: endDateString }));
     } else {
       this.props.input.onChange(currentValue.set('endDate', endDateString));
@@ -103,7 +102,7 @@ class DateRangePicker extends React.Component {
           startDate={startDate}
           endDate={endDate}
           placeholder={placeholder}
-          dateFormat={dateFormat}
+          dateFormat={DEFAULT_MOMENT_DATE_FORMAT_SPEC}
           selected={startDate}
           onChange={this.handleChangeStart}
           onFocus={() => input.onFocus()}
@@ -114,7 +113,7 @@ class DateRangePicker extends React.Component {
           startDate={startDate}
           endDate={endDate}
           placeholder={placeholder}
-          dateFormat={dateFormat}
+          dateFormat={DEFAULT_MOMENT_DATE_FORMAT_SPEC}
           selected={endDate}
           onChange={this.handleChangeEnd}
           onFocus={() => input.onFocus()}

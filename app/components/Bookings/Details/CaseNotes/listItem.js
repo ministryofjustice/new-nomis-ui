@@ -37,16 +37,6 @@ const Bold = styled.span`
   font-weight: bold;
 `
 
-// const DateTimeBlock = ({ creationDateTime }) => <DTB>
-//     <DateBlock>
-//       {moment(creationDateTime).format('DD/MM/YYYY')} -  {moment(creationDateTime).format('h:mm a')}
-//     </DateBlock>
-// </DTB>;
-//
-// DateTimeBlock.propTypes = {
-//   creationDateTime: PropTypes.string.isRequired,
-// };
-
 function AmendmentBlock({ amendments }) {
   let amendmentBreakdown = null;
   if (amendments && amendments.length > 0) {
@@ -106,7 +96,7 @@ export default CaseNoteListItem;
  <ListDetailItem BordersBetween={{ mids: true, bottom: true }} onClick={action}>
 
  <DateTimeIdBlock>
- <DateTimeBlock creationDateTime={occurrenceDateTime} />
+ <DateTimeBlock dateTime={occurrenceDateTime} />
 
  <div>
  -

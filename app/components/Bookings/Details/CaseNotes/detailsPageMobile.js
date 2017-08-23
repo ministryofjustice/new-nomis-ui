@@ -49,7 +49,7 @@ function CaseNoteDetailsMobile(props) {
           <NavButton buttonstyle="link" to={'/amendCaseNote'}>Add Amendment</NavButton>
         </ButtonWrapper>
         <DateTimeBlockWrapper data-name={'DateTimeBlockWrapper'}>
-          <DateTimeBlock data-name={'DateTimeBlock'} creationDateTime={occurrenceDateTime} />
+          <DateTimeBlock data-name={'DateTimeBlock'} dateTime={occurrenceDateTime} />
         </DateTimeBlockWrapper>
         <TypeDescriptionBlock style={{ fontSize: '30px' }} data-name={'TypeDescriptionBlock'} typeDetails={{ typeDescription, subTypeDescription }} />
         <CaseNoteText data-name={'CaseNoteText'}>{splitInfo.caseNote}</CaseNoteText>

@@ -18,17 +18,17 @@ import {
   AssignedOfficer,
 } from './listItem.theme';
 
-export const DateTimeBlock = ({ creationDateTime }) => <div>
+export const DateTimeBlock = ({ dateTime }) => <div>
   <DateBlock>
-    <FormattedDate value={Date.parse(creationDateTime)} />
+    <FormattedDate value={Date.parse(dateTime)} />
   </DateBlock>
   <TimeBlock>
-    <FormattedTime value={Date.parse(creationDateTime)} />
+    <FormattedTime value={Date.parse(dateTime)} />
   </TimeBlock>
 </div>;
 
 DateTimeBlock.propTypes = {
-  creationDateTime: PropTypes.string.isRequired,
+  dateTime: PropTypes.string.isRequired,
 };
 
 export const TypeDescriptionBlock = ({ typeDetails }) => {
@@ -51,10 +51,10 @@ function CaseNoteListItem(props) {
     <ListDetailItem onClick={action}>
       <DateTimeIdBlock>
         <DateBlock>
-          <FormattedDate value={Date.parse(creationDateTime)} />
+          <FormattedDate value={Date.parse(occurrenceDateTime)} />
         </DateBlock>
         <TimeBlock>
-          <FormattedTime value={Date.parse(creationDateTime)} />
+          <FormattedTime value={Date.parse(occurrenceDateTime)} />
         </TimeBlock>
       </DateTimeIdBlock>
       <MiddleBlock>
