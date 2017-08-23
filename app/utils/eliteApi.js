@@ -1,5 +1,6 @@
 import axios from 'axios';
 import moment from 'moment';
+import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
 
 export const login = (username, password, baseUrl) => axios({
   baseURL: baseUrl,
@@ -101,10 +102,10 @@ const casenoteQueryStringGen = (caseNoteOptions) => {
   }
 
   if (startDate && endDate) {
-    const form = 'MM-DD-YYYY';
-    const sD = moment(startDate, 'L').format(form);
-    const eD = moment(endDate, 'L').add(1, 'days').format(form);
-    queryArray.push(`creationDateTime:gteq:'${sD}':'${form}',and:creationDateTime:lteq:'${eD}':'${form}'`);
+    const iso8601Format = 'YYYY-MM-DD';
+    const dateFrom = moment(startDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC).format(iso8601Format);
+    const dateTo = moment(endDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC).format(iso8601Format);
+    queryArray.push(`occurrenceDateTime:gteq:'${dateFrom}',and:occurrenceDateTime:lteq:'${dateTo}'`);
   }
 
   return queryArray.length > 0 ? `&query=${queryArray.join(',and:')}` : '';
