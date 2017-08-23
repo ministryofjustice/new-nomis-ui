@@ -51,7 +51,7 @@ function CaseNoteDetails(props) {
       {displayAmendCaseNoteModal ? <AmendCaseNoteModal /> : null}
       <CaseNoteDetailsWrapper>
         <CaseNoteDetailsLeft>
-          <DateTimeBlock creationDateTime={occurrenceDateTime} />
+          <DateTimeBlock dateTime={occurrenceDateTime} />
           <AmendmentButton buttonstyle="link" onClick={openAmendModal}>Make amendment</AmendmentButton>
           <AmendmentButton buttonstyle="link" onClick={viewList}>Return to List</AmendmentButton>
         </CaseNoteDetailsLeft>

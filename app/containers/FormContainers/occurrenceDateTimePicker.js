@@ -5,6 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import styled from 'styled-components';
 
 import { InputLabel, InputGroup, Base, InputError } from 'components/FormComponents/Input/input.theme';
+import { DEFAULT_MOMENT_DATE_FORMAT_SPEC, DEFAULT_MOMENT_TIME_FORMAT_SPEC } from 'containers/App/constants';
 
 import DP from 'react-datepicker';
 
@@ -60,11 +61,8 @@ const TimeInput = styled.input`
   ${Base}
 `;
 
-const dateFormat = 'L';
-const timeFormat = 'LT';
-
-export const isValidTime = (t) => moment(t, timeFormat).format(timeFormat) === t;
-export const isValidDate = (d) => moment(d, dateFormat).format(dateFormat) === d;
+export const isValidTime = (t) => moment(t, DEFAULT_MOMENT_TIME_FORMAT_SPEC).format(DEFAULT_MOMENT_TIME_FORMAT_SPEC) === t;
+export const isValidDate = (d) => moment(d, DEFAULT_MOMENT_DATE_FORMAT_SPEC).format(DEFAULT_MOMENT_DATE_FORMAT_SPEC) === d;
 
 class OccurrenceDateTimePicker extends React.Component {
   static propTypes = {
@@ -121,7 +119,7 @@ class OccurrenceDateTimePicker extends React.Component {
   }
 
   handleChangeDate(dateMoment) {
-    const dateString = dateMoment.format(dateFormat);
+    const dateString = dateMoment.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC);
     const error = !isValidDate(dateString);
     const errors = { date: error, time: this.state.errors.time };
     this.setState({ selectedDate: dateMoment, selectedDateString: dateString, errors });
@@ -142,7 +140,7 @@ class OccurrenceDateTimePicker extends React.Component {
       this.props.input.onChange('');
     } else if (!errors.date && !errors.time) {
       // Not the prettiest way to get the ISO 1806 format as needed...
-      const dtString = moment(`${date} ${time}`, `${dateFormat} ${timeFormat}`);
+      const dtString = moment(`${date} ${time}`, `${DEFAULT_MOMENT_DATE_FORMAT_SPEC} ${DEFAULT_MOMENT_TIME_FORMAT_SPEC}`);
       this.props.input.onChange(dtString.format('YYYY-MM-DDTHH:mm:ss'));
     } else {
       this.props.input.onChange('error');
@@ -176,7 +174,7 @@ class OccurrenceDateTimePicker extends React.Component {
       const date = this.state.selectedDate;
       const time = this.state.selectedTime;
       const errors = this.state.errors;
-      const errorString = [errors.date ? `incorrect date format (${moment().format(dateFormat)})` : '', errors.time ? `incorrect time format (${moment().format(timeFormat)})` : ''].filter((x) => x !== '').join(' and ');
+      const errorString = [errors.date ? `incorrect date format (${moment().format(DEFAULT_MOMENT_DATE_FORMAT_SPEC)})` : '', errors.time ? `incorrect time format (${moment().format(DEFAULT_MOMENT_TIME_FORMAT_SPEC)})` : ''].filter((x) => x !== '').join(' and ');
 
       return (<InputGroup error={errorString}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -203,8 +201,8 @@ class OccurrenceDateTimePicker extends React.Component {
       <OccurrenceDatePickerStyle>
         <DisplayTitle>{title}</DisplayTitle>
         <DateTimeHolder>
-          <DisplayDate>{this.state.date.format(dateFormat)}</DisplayDate>
-          <DisplayTime>{this.state.date.format(timeFormat)}</DisplayTime>
+          <DisplayDate>{this.state.date.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC)}</DisplayDate>
+          <DisplayTime>{this.state.date.format(DEFAULT_MOMENT_TIME_FORMAT_SPEC)}</DisplayTime>
         </DateTimeHolder>
         {editable ? <CancelEditButton onClick={this.toggleEditing} role="button">{this.state.editing ? 'cancel' : 'edit'}</CancelEditButton> : null}
       </OccurrenceDatePickerStyle>
