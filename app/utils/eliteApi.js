@@ -122,12 +122,25 @@ const casenoteQueryStringGen = (caseNoteOptions) => {
     queryArray.push(`subType:in:'${subType.join('\'|\'')}'`);
   }
 
-  if (startDate && endDate) {
-    const iso8601Format = 'YYYY-MM-DD';
+  const iso8601Format = 'YYYY-MM-DD';
+  const dateFilterKeys = {
+    startDate: 'occurrenceDateTime:gteq',
+    endDate: 'occurrenceDateTime:lteq'
+  };
+  const dateFilters = [];
+
+  if(startDate) {
     const dateFrom = moment(startDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC).format(iso8601Format);
-    const dateTo = moment(endDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC).format(iso8601Format);
-    queryArray.push(`occurrenceDateTime:gteq:'${dateFrom}',and:occurrenceDateTime:lteq:'${dateTo}'`);
+    dateFilters.push(`${dateFilterKeys.startDate}:'${dateFrom}'`);
   }
+
+  if(endDate) {
+    const dateTo = moment(endDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC).format(iso8601Format);
+    dateFilters.push(`${dateFilterKeys.endDate}:'${dateTo}'`);
+  }
+
+  if(dateFilters.length > 0)
+    queryArray.push( dateFilters.join(',and:'));
 
   return queryArray.length > 0 ? `&query=${queryArray.join(',and:')}` : '';
 };
