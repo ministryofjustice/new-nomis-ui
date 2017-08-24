@@ -32,7 +32,6 @@
   margin-bottom: 2em;
 
   @include media-breakpoint-up(sm){
-    border: solid 1px;
     padding: 1em;
     background-color: $highlight-colour;
     margin-top: 1em;

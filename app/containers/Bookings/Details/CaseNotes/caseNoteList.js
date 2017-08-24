@@ -10,6 +10,7 @@ import CaseNoteListItem from 'components/Bookings/Details/CaseNotes/listItem';
 import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
 import { selectCaseNotesQuery, selectCaseNotesPagination, selectBookingDetailsId } from '../../selectors';
 import CaseNoteFilterForm from './filterForm';
+import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMessage';
 
 import {
   selectCaseNotes,
@@ -35,6 +36,11 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
 
     return (<div>
       <CaseNoteFilterForm />
+
+      <div>
+          <NoSearchResultsReturnedMessage resultCount={caseNotes.toJS().length}/>
+      </div>
+
       {caseNotesStatus.Type === 'SUCCESS' ? <CaseNoteList>
         {caseNotes.map((caseNote) => <CaseNoteListItem action={() => setCaseNoteView(caseNote.get('caseNoteId'))} caseNote={caseNote} key={caseNote.get('caseNoteId')} />)}
       </CaseNoteList> : <div>Loading Casenotes ...</div> }

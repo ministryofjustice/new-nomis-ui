@@ -14,6 +14,8 @@ import { connect } from 'react-redux';
 
 import SearchAgainForm from './SearchForm'
 import { selectDeviceFormat } from 'selectors/app';
+import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMessage';
+
 
 import {
   selectSearchResultsV2,
@@ -51,7 +53,7 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
   }
 
   render() {
-    const { locations, sortOrder,toggleSortOrder,viewDetails,results, deviceFormat, searchOptions, searchQuery, totalResults, pagination, setPage, resultsView, setResultsView } = this.props; //eslint-disable-line
+    const {locations, sortOrder,toggleSortOrder,viewDetails,results, deviceFormat, searchOptions, searchQuery, totalResults, pagination, setPage, resultsView, setResultsView } = this.props; //eslint-disable-line
     const { perPage: pP, pageNumber: pN } = pagination;
 
     return (
@@ -72,16 +74,19 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
         </div>
 
         <div className="row">
-            {totalResults > 0 ?
-              <ResultsViewBuilder
-                viewName={resultsView}
-                results={results}
-                onViewDetails={viewDetails}
-                sortOrderChange={toggleSortOrder}
-                sortOrder={sortOrder}/> :
 
-              <h1 className="bold-medium">No records found matching search criteria.</h1>
-            }
+         <NoSearchResultsReturnedMessage resultCount={results.length} />
+
+          {totalResults > 0 ?
+            <ResultsViewBuilder
+              viewName={resultsView}
+              results={results}
+              onViewDetails={viewDetails}
+              sortOrderChange={toggleSortOrder}
+              sortOrder={sortOrder}/>
+            : null
+          }
+
         </div>
 
         <div className="row">

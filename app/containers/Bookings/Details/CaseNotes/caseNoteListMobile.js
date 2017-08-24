@@ -10,10 +10,9 @@ import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
 import { createFormAction } from 'redux-form-saga';
 import styled from 'styled-components';
+import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMessage';
 
 import FilterForm from './filterForm';
-
-import {reset} from 'redux-form';
 
 import {
   CASE_NOTE_FILTER,
@@ -88,7 +87,6 @@ class CaseNotesMobile extends PureComponent { // eslint-disable-line react/prefe
   componentWillMount() {
     const { loadCaseNotes, bookingId, caseNotesPagination, caseNotesQuery } = this.props;
     loadCaseNotes(bookingId, caseNotesPagination, caseNotesQuery);
-    this.props.resetFilters();
   }
 
   render() {
@@ -103,7 +101,7 @@ class CaseNotesMobile extends PureComponent { // eslint-disable-line react/prefe
       </FilterToggle>
 
       <div>
-         { caseNotes.toJS().length === 0 ?  <h1 className="bold-medium">No records found matching search criteria.</h1> : null}
+        <NoSearchResultsReturnedMessage resultCount={caseNotes.toJS().length}/>
       </div>
 
       { caseNotes.map((caseNote) => <CaseNoteListItem action={() => setCaseNoteView(caseNote.get('caseNoteId'))} caseNote={caseNote} key={caseNote.get('caseNoteId')} />)}
@@ -127,7 +125,6 @@ CaseNotesMobile.propTypes = {
 CaseNotesMobile.defaultProps = {
   caseNotesStatus: {  },
   totalResults: 0,
-  showFiltersMobile: false,
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -136,7 +133,6 @@ export function mapDispatchToProps(dispatch) {
     setPagination: (id, pagination, query) => dispatch(setCaseNotesPagination(id, pagination, query)),
     setCaseNoteView: (id) => dispatch(setCaseNotesDetailView(id)),
     onSubmitForm: createFormAction((formData) => ({ type: CASE_NOTE_FILTER.BASE, payload: { query: formData.toJS(), resetPagination: true } }), [CASE_NOTE_FILTER.SUCCESS, CASE_NOTE_FILTER.ERROR]),
-    resetFilters: () => dispatch(reset('caseNoteFilter'))
   };
 }
 

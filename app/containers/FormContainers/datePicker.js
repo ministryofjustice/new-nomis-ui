@@ -55,6 +55,7 @@ class renderDatePicker extends React.Component {
       placeholder,
       meta: { touched, error },
       title,
+      showError,
     } = this.props;
 
     moment.locale(locale);
@@ -69,7 +70,7 @@ class renderDatePicker extends React.Component {
           dateFormat={DEFAULT_MOMENT_DATE_FORMAT_SPEC}
           selected={input.value ? asMoment(input.value) : null}
           onChange={this.handleChange}
-          className={className(touched && error)}
+          className={className(showError || (touched && error))}
         />
       </div>
     );
