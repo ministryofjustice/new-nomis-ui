@@ -2,19 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DP from 'react-datepicker';
 import moment from 'moment';
-
 import 'react-datepicker/dist/react-datepicker.css';
 import { InputLabel, InputGroup, Base } from 'components/FormComponents/Input/input.theme';
 import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
 import styled from 'styled-components';
 
 const DatePicker = styled(DP)`
-  ${Base}
+   height: 36px !important;   
 `;
 
 // stolen from https://github.com/Hacker0x01/react-datepicker/issues/543
 
 const asMoment = (t) => t ? moment(t, DEFAULT_MOMENT_DATE_FORMAT_SPEC) : null;
+
+const className = (showError) => showError ? 'form-control form-control-error' : 'form-control';
 
 class renderDatePicker extends React.Component {
   static propTypes = {
@@ -47,6 +48,7 @@ class renderDatePicker extends React.Component {
   }
 
   render() {
+
     const {
       locale,
       input,
@@ -58,17 +60,18 @@ class renderDatePicker extends React.Component {
     moment.locale(locale);
 
     return (
-      <InputGroup>
-        <InputLabel>{title}</InputLabel>
+      <div className="date-picker">
+        {touched && error ? <div className="error-message">{error}</div> : null}
+        <label className="form-label">{title}</label>
         <DatePicker
           {...input}
           placeholder={placeholder}
           dateFormat={DEFAULT_MOMENT_DATE_FORMAT_SPEC}
           selected={input.value ? asMoment(input.value) : null}
           onChange={this.handleChange}
+          className={className(touched && error)}
         />
-        {touched && error && <span>{error}</span>}
-      </InputGroup>
+      </div>
     );
   }
 }

@@ -9,7 +9,11 @@ import PreviousNextNavigation from 'components/PreviousNextNavigation';
 
 import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
 import { createFormAction } from 'redux-form-saga';
-import { OpenFilterFormMobile } from './caseNoteFilterForm.theme';
+import styled from 'styled-components';
+
+import FilterForm from './filterForm';
+
+import {reset} from 'redux-form';
 
 import {
   CASE_NOTE_FILTER,
@@ -21,6 +25,7 @@ import {
   selectCaseNotes,
   selectCaseNotesStatus,
   selectTotalCaseNotes,
+  caseNoteFilterSelectInfo
 } from './selectors';
 
 import {
@@ -28,18 +33,80 @@ import {
   setCaseNotesDetailView,
 } from '../../actions';
 
+const MarginFix = styled.a `
+  margin-bottom: 1em;
+  display:block;
+`
+
+
+const ArrowUp = ({toggle}) => <span className="clickable" onClick={toggle}> &#9650; </span>
+const ArrowDown = ({toggle}) => <span className="clickable" onClick={toggle}> &#9660;  </span>
+
+class FilterToggle extends PureComponent {
+
+  constructor(){
+    super();
+    this.toggleClick = this.toggleClick.bind(this);
+  }
+
+  componentWillMount(){
+    this.setState({show: false});
+  }
+
+  toggleClick(e){
+      e.preventDefault();
+     this.setState({show: !this.state.show });
+  }
+
+  render() {
+    return (
+    <div>
+
+      <MarginFix href="#" onClick={this.toggleClick}>
+
+        {this.state.show?
+          <span>
+            <span> <ArrowUp/> </span>
+            <span> Hide filters </span>
+          </span> :
+
+          <span>
+            <span> <ArrowDown/> </span>
+            <span> Show filters </span>
+          </span>
+        }
+      </MarginFix>
+
+      {this.state.show ? this.props.children : null}
+
+    </div>)
+  }
+}
+
 class CaseNotesMobile extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+
   componentWillMount() {
     const { loadCaseNotes, bookingId, caseNotesPagination, caseNotesQuery } = this.props;
     loadCaseNotes(bookingId, caseNotesPagination, caseNotesQuery);
+    this.props.resetFilters();
   }
+
   render() {
+
     const { setCaseNoteView, caseNotesStatus, caseNotes, totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
     if (caseNotesStatus.Type !== 'SUCCESS') return <div>Loading Casenotes ...</div>;
 
     return (<div>
-      <OpenFilterFormMobile to="/filterCaseNotes"></OpenFilterFormMobile>
-      {caseNotes.map((caseNote) => <CaseNoteListItem action={() => setCaseNoteView(caseNote.get('caseNoteId'))} caseNote={caseNote} key={caseNote.get('caseNoteId')} />)}
+
+      <FilterToggle>
+        <FilterForm {...this.props} />
+      </FilterToggle>
+
+      <div>
+         { caseNotes.toJS().length === 0 ?  <h1 className="bold-medium">No records found matching search criteria.</h1> : null}
+      </div>
+
+      { caseNotes.map((caseNote) => <CaseNoteListItem action={() => setCaseNoteView(caseNote.get('caseNoteId'))} caseNote={caseNote} key={caseNote.get('caseNoteId')} />)}
       <PreviousNextNavigation pagination={caseNotesPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)} />
     </div>);
   }
@@ -58,7 +125,7 @@ CaseNotesMobile.propTypes = {
 };
 
 CaseNotesMobile.defaultProps = {
-  caseNotesStatus: { wait: 'What' },
+  caseNotesStatus: {  },
   totalResults: 0,
   showFiltersMobile: false,
 };
@@ -69,7 +136,7 @@ export function mapDispatchToProps(dispatch) {
     setPagination: (id, pagination, query) => dispatch(setCaseNotesPagination(id, pagination, query)),
     setCaseNoteView: (id) => dispatch(setCaseNotesDetailView(id)),
     onSubmitForm: createFormAction((formData) => ({ type: CASE_NOTE_FILTER.BASE, payload: { query: formData.toJS(), resetPagination: true } }), [CASE_NOTE_FILTER.SUCCESS, CASE_NOTE_FILTER.ERROR]),
-
+    resetFilters: () => dispatch(reset('caseNoteFilter'))
   };
 }
 
@@ -80,6 +147,7 @@ const mapStateToProps = createStructuredSelector({
   caseNotesQuery: selectCaseNotesQuery(),
   bookingId: selectBookingDetailsId(),
   totalResults: selectTotalCaseNotes(),
+  caseNoteFilters: caseNoteFilterSelectInfo(),
 });
 
 // Wrap the component to inject dispatch and state into it

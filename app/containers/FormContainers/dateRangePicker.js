@@ -17,6 +17,7 @@ const DatePickerInputGroup = styled(InputGroup)`
     width: 50%;
   }
 `;
+
 // stolen from https://github.com/Hacker0x01/react-datepicker/issues/543
 
 const asMoment = (t) => t ? moment(t, DEFAULT_MOMENT_DATE_FORMAT_SPEC) : null;

@@ -1,0 +1,70 @@
+@import "govuk-elements";
+@import "bootstrap-feature-select-nomis";
+
+.filter-form{
+
+  .form-control{
+    width:100% !important;
+    height: 36px !important;
+  }
+
+  .date-picker{
+    display: inline-block !important;
+    width: 50% !important;
+    padding-right: 2px !important;
+    padding-left: 2px !important;
+    clear: both;
+  }
+
+  .react-datepicker__input-container {
+    display: block !important;
+  }
+
+  .date-range-label{
+    font-weight: bold;
+  }
+
+  .reset-filters{
+    margin-top: .3em;
+    margin-bottom: 1em;
+  }
+
+  margin-bottom: 2em;
+
+  @include media-breakpoint-up(sm){
+    border: solid 1px;
+    padding: 1em;
+    background-color: $highlight-colour;
+    margin-top: 1em;
+
+    .form-group{
+      width: 21% !important;
+      display: inline-block;
+      padding-right: 2px;
+      padding-left: 2px;
+
+      margin: auto !important;
+    }
+
+    .date-range{
+      width:35% !important;
+    }
+
+    .buttons{
+      display: inline-block;
+      width: 20%;
+
+      .button{
+        margin-top: -.5em;
+      }
+
+      .reset-filters{
+        display:none;
+      }
+    }
+
+  }
+
+}
+
+
