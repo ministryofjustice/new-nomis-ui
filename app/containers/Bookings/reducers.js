@@ -11,6 +11,8 @@
  */
 
 import { fromJS } from 'immutable';
+import moment from 'moment';
+import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
 
 import {
   SEARCH_LOADING,
@@ -64,9 +66,49 @@ const initialState = fromJS({
   resultsView: 'List', // List or Grid
 });
 
+const dateRangeValidation = (startDate,endDate) => {
+
+  if(!startDate && !endDate)
+    return true;
+
+  if(startDate === endDate)
+    return true;
+
+  if(startDate && endDate) {
+    const startDateValue = moment(startDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC);
+    const endDateValue = moment(endDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC);
+
+    return startDateValue && endDateValue && startDateValue.isBefore(endDateValue);
+  }
+
+  return true;
+}
+
 function searchReducer(state = initialState, action) {
 
   switch (action.type) {
+
+    case '@@redux-form/CHANGE': {
+
+      const {meta} = action;
+      const {form,field} = meta;
+      const formId = 'caseNoteFilter';
+      const newValue = {};
+      const location = ['details','caseNotes'];
+
+      if(form === formId && (field === 'startDate' || field === 'endDate')){
+
+         newValue[field] = action.payload;
+
+         const startDate = newValue['startDate'] || state.getIn([...location,'startDate']);
+         const endDate = newValue['endDate'] || state.getIn([...location,'endDate']);
+
+         return state
+           .setIn([...location,'dateRangeValid'], fromJS(dateRangeValidation(startDate,endDate)))
+           .setIn([...location,field],fromJS(action.payload));
+      }
+    }
+
     case SEARCH_LOADING: {
       return state.set('loading', true);
     }
