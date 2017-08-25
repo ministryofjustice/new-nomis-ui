@@ -62,7 +62,7 @@ CaseNotes.propTypes = {
 };
 
 CaseNotes.defaultProps = {
-  caseNotesStatus: { wait: 'What' },
+  caseNotesStatus: {},
   totalResults: 0,
 };
 

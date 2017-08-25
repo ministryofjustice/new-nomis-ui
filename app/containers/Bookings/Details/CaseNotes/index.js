@@ -6,7 +6,8 @@ import { createStructuredSelector } from 'reselect';
 
 import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
 import { selectDeviceFormat } from 'selectors/app';
-import { selectCaseNotesQuery,
+import {
+  selectCaseNotesQuery,
   selectCaseNotesPagination,
   selectBookingDetailsId,
   selectCaseNotesView,
@@ -62,8 +63,7 @@ CaseNotes.propTypes = {
 };
 
 CaseNotes.defaultProps = {
-  caseNotesStatus: { wait: 'What' },
-  // caseNotes: ['jokes', 'on', 'you'],
+  caseNotesStatus: {},
   totalResults: 0,
 };
 

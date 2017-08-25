@@ -15,6 +15,9 @@ const Block = styled.div`
 const Row = styled.div`
   border-bottom: #F2F2F2 solid 1px;
   margin-bottom: 1em;
+  &:hover{
+    background: #f8f8f8;
+  }
 `
 
 const Bold = styled.span`
@@ -58,7 +61,7 @@ function AmendmentBlock({ amendments }) {
               -
             </Separator>
 
-            {amendment.userId}
+            <EliteOfficerName username={amendment.userId} />
           </div>
 
           <div>
