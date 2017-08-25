@@ -2,6 +2,7 @@
 @import "bootstrap-feature-select-nomis";
 
 .filter-form{
+  margin-bottom: 2em;
 
   .form-control{
     width:100% !important;
@@ -22,6 +23,7 @@
 
   .date-range-label{
     font-weight: bold;
+
   }
 
   .reset-filters{
@@ -29,12 +31,16 @@
     margin-bottom: 1em;
   }
 
-  margin-bottom: 2em;
+  .filter-title{
+    display: none;
+  }
 
-  @include media-breakpoint-up(sm){
+  @include media-breakpoint-up(md){
     padding: 1em;
     background-color: $highlight-colour;
     margin-top: 1em;
+    position: relative;
+
 
     .form-group{
       width: 21% !important;
@@ -47,6 +53,9 @@
 
     .date-range{
       width:35% !important;
+      margin-top: -5em;
+      margin-left: 1em !important;
+      margin-right: .5em !important;
     }
 
     .buttons{
@@ -58,7 +67,11 @@
       }
 
       .reset-filters{
-        display:none;
+        width:100px;
+        height:100px;
+        position:absolute;
+        bottom:0px;
+        right:0px;
       }
     }
 

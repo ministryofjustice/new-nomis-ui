@@ -6,26 +6,21 @@ import { createStructuredSelector } from 'reselect';
 
 import CaseNoteListItem from 'components/Bookings/Details/CaseNotes/listItem';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
-
 import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
-import { createFormAction } from 'redux-form-saga';
 import styled from 'styled-components';
 import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMessage';
-
 import FilterForm from './filterForm';
 
-import {
-  CASE_NOTE_FILTER,
-} from '../../constants';
-
-import { selectCaseNotesQuery, selectCaseNotesPagination, selectBookingDetailsId } from '../../selectors';
+import{
+  selectCaseNotesQuery,
+  selectCaseNotesPagination,
+  selectBookingDetailsId
+}from '../../selectors';
 
 import {
   selectCaseNotes,
   selectCaseNotesStatus,
-  selectTotalCaseNotes,
-  caseNoteFilterSelectInfo
-} from './selectors';
+  selectTotalCaseNotes} from './selectors';
 
 import {
   setCaseNotesPagination,
@@ -132,7 +127,6 @@ export function mapDispatchToProps(dispatch) {
     loadCaseNotes: (id, pagination, query) => dispatch(loadBookingCaseNotes(id, pagination, query)),
     setPagination: (id, pagination, query) => dispatch(setCaseNotesPagination(id, pagination, query)),
     setCaseNoteView: (id) => dispatch(setCaseNotesDetailView(id)),
-    onSubmitForm: createFormAction((formData) => ({ type: CASE_NOTE_FILTER.BASE, payload: { query: formData.toJS(), resetPagination: true } }), [CASE_NOTE_FILTER.SUCCESS, CASE_NOTE_FILTER.ERROR]),
   };
 }
 
@@ -143,7 +137,6 @@ const mapStateToProps = createStructuredSelector({
   caseNotesQuery: selectCaseNotesQuery(),
   bookingId: selectBookingDetailsId(),
   totalResults: selectTotalCaseNotes(),
-  caseNoteFilters: caseNoteFilterSelectInfo(),
 });
 
 // Wrap the component to inject dispatch and state into it
