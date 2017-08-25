@@ -35,7 +35,7 @@
     display: none;
   }
 
-  @include media-breakpoint-up(md){
+  @include media-breakpoint-up(lg){
     padding: 1em;
     background-color: $highlight-colour;
     margin-top: 1em;

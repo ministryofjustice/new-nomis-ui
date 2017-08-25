@@ -13,3 +13,7 @@ export const DesktopOnly = styled.div`
     height: 100%;
   `}
 `;
+
+export const LoadingMessage = styled.div`
+  margin-top: 10px;
+`;
