@@ -33,7 +33,7 @@ const Table = ({results,viewDetails,sortOrder,sortOrderChange}) => (
         </td>
         <td>
           <span>
-            <a href="#" className="bold" onClick={(e) => onViewDetails(e,row,viewDetails)}>
+            <a href="#" className="bold link" onClick={(e) => onViewDetails(e,row,viewDetails)}>
                 {row.lastName}, {row.firstName}
               </a>
           </span>
