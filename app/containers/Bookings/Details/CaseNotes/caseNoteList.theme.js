@@ -7,4 +7,6 @@ export const CaseNoteList = styled.div`
 export const MarginFix = styled.a`
   margin-bottom: 1em;
   display:block;
+  color: #005EA5;
+  text-decoration: none;
 `;
