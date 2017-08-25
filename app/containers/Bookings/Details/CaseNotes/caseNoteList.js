@@ -24,6 +24,8 @@ import {
 } from '../../actions';
 
 import { CaseNoteList } from './caseNoteList.theme';
+import { LoadingMessage } from 'components/CommonTheme';
+
 class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentWillMount() {
@@ -34,18 +36,25 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
   render() {
     const { setCaseNoteView, caseNotesStatus, caseNotes, totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
 
-    return (<div>
-      <CaseNoteFilterForm />
-
+    return (
       <div>
-          <NoSearchResultsReturnedMessage resultCount={caseNotes.toJS().length}/>
+        {caseNotesStatus.Type === 'SUCCESS' ?
+          <div>
+            <CaseNoteFilterForm />
+            <div>
+              <NoSearchResultsReturnedMessage resultCount={caseNotes.toJS().length}/>
+            </div>
+            <CaseNoteList>
+              {caseNotes.map((caseNote) => <CaseNoteListItem action={() => setCaseNoteView(caseNote.get('caseNoteId'))}
+                                                             caseNote={caseNote} key={caseNote.get('caseNoteId')} />)}
+            </CaseNoteList>
+            <PreviousNextNavigation pagination={caseNotesPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)} />
+          </div>
+          :
+          <LoadingMessage>Loading case notes ...</LoadingMessage>
+        }
       </div>
-
-      {caseNotesStatus.Type === 'SUCCESS' ? <CaseNoteList>
-        {caseNotes.map((caseNote) => <CaseNoteListItem action={() => setCaseNoteView(caseNote.get('caseNoteId'))} caseNote={caseNote} key={caseNote.get('caseNoteId')} />)}
-      </CaseNoteList> : <div>Loading Casenotes ...</div> }
-      <PreviousNextNavigation pagination={caseNotesPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)} />
-    </div>);
+    );
   }
 }
 
