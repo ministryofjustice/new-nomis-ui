@@ -21,25 +21,6 @@ function HeaderMobile({ inmateData, setModalOpen, setModalData, onImageClick }) 
   const { firstName, lastName, bookingNo, offenderNo, facialImageId, alertsCodes, assignedLivingUnit, assignedOfficerId } = inmateData;
 
   const nameString = `${lastName.toUpperCase()}, ${toTitleCase(firstName)}`;
-  // Officer Loader...
-  // const officer = { firstName: 'PAYNE', lastName: 'RON' };
-  // const officerNameString = `${toTitleCase(officer.lastName)}, ${toTitleCase(officer.firstName)}`;
-
-  const showModal = function () {
-    const modalData = {
-      type: 'photo',
-      array: [{ imageId: this[0], imageIndex: 0, key: 'key', title: '' }],
-      name: nameString,
-      id: bookingNo,
-      offenderNo: offenderNo,
-      keyWorker: assignedOfficerId,
-      index: 0,
-      header: true,
-    };
-
-    setModalOpen(true);
-    setModalData(modalData);
-  };
 
   return (
     <HeaderWrapper data-name={'HeaderWrapper'}>
@@ -56,21 +37,16 @@ function HeaderMobile({ inmateData, setModalOpen, setModalData, onImageClick }) 
         </InformationWrapper>
       </ContentWrapper>
       <AddCaseNoteButton>
-        <AddCaseNoteButtonComponent to={'/addCaseNote'} buttonstyle="link">Add new case note</AddCaseNoteButtonComponent>
+        <AddCaseNoteButtonComponent to={'/bookings/details/addCaseNote'} buttonstyle="link">Add new case note</AddCaseNoteButtonComponent>
       </AddCaseNoteButton>
     </HeaderWrapper>
   );
 }
 HeaderMobile.propTypes = {
   inmateData: PropTypes.object.isRequired,
-  setModalOpen: PropTypes.func,
-  setModalData: PropTypes.func,
 };
 
-HeaderMobile.defaultProps = {
-  setModalOpen: () => {},
-  setModalData: () => {},
-};
+
 
 
 export default HeaderMobile;
