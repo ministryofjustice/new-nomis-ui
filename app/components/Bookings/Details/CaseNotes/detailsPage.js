@@ -53,7 +53,7 @@ function CaseNoteDetails(props) {
         <CaseNoteDetailsLeft>
           <DateTimeBlock dateTime={occurrenceDateTime} />
           <AmendmentButton buttonstyle="link" onClick={openAmendModal}>Make amendment</AmendmentButton>
-          <AmendmentButton buttonstyle="link" onClick={viewList}>Return to List</AmendmentButton>
+          <AmendmentButton buttonstyle="link" onClick={viewList}>Return to case notes</AmendmentButton>
         </CaseNoteDetailsLeft>
         <CaseNoteDetailsRight>
           <div>
