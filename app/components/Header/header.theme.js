@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import { media } from 'utils/style-utils';
 import desktop from 'theme/desktop';
 
-export const Base = styled.div`
+export const Base = styled.header`
   ${fonts.misc}
   display: flex;
   flex-direction: row;
