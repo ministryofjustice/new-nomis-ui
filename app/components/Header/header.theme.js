@@ -25,17 +25,9 @@ export const Base = styled.div`
 `;
 
 export const Logo = styled.div`
-  display: none;
-  
-  width: 40px;
+  margin-top: 5px;
   margin-left: 10px;
   margin-right: 5px;
-  padding-bottom: 6px;
-      
-  ${media.desktop`
-    display: block;
-    margin-left: 15px;
-  `}
 `;
 
 export const LogoText = styled(Link)`
@@ -43,7 +35,7 @@ export const LogoText = styled(Link)`
   
   color: white;
   font-size: 26px;
-  padding: 0 15px 0 10px;
+  padding: 3px 15px 0 10px;
   font-weight: bold;
   border-right: solid white 1px;
   margin-right: 15px;
@@ -55,13 +47,14 @@ export const LogoText = styled(Link)`
 `;
 
 export const Title = styled(Link)`
-  text-align: center;
+  text-align: left;
+  padding-left: 10px;
   font-size: 26px;
   flex-grow: 1;
   text-decoration: none;
       
   ${media.desktop`
-    text-align: left;
+     padding-left: 0px;
   `}
 `;
 

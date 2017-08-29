@@ -47,7 +47,7 @@ class Header extends Component {
       <div>
 
       <Base>
-          <Logo> <SVGLOGO /></Logo>
+          <Logo><img src="/img/logo-crest-white.png"/></Logo>
           <LogoText to="/">HMPPS</LogoText>
           <Title>Prison-NOMIS</Title>
           <DesktopOnly>
