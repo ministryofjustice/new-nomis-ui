@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { toFullName } from 'utils/stringUtils';
 
 import { MobileMenuContainer,
          MobileMenuHeader,
@@ -27,7 +28,7 @@ function MobileMenu({ user, modalData, setMobileMenuOpen, setModalData, switchCa
   return (
     <MobileMenuContainer>
       <MobileMenuHeader>
-        <UserName>{user.lastName[0].toUpperCase() + user.lastName.toLowerCase().slice(1)}, {user.firstName[0].toUpperCase() + user.firstName.toLowerCase().slice(1)}</UserName>
+        <UserName>{toFullName(user)}</UserName>
         <CaseLoad>{user.activeCaseLoad && user.activeCaseLoad.description ? user.activeCaseLoad.description : user.activeCaseLoadId}</CaseLoad>
       </MobileMenuHeader>
       <MobileMenuOption to={'/'} onClick={removeMobileMenu}>Search<ForwardArrow svg={forwardBack} /></MobileMenuOption>
