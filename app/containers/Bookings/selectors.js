@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import nameString from 'components/NameStrings';
+import { toFullName } from 'utils/stringUtils';
 
 import {
   selectEliteApi,
@@ -31,63 +31,16 @@ const selectSearchResultsPagination = () => createSelector(
   selectSearch(),
   (searchState) => searchState.get('pagination').toJS()
 );
+
 const selectSearchResultsSortOrder = () => createSelector(
   selectSearch(),
   (searchState) => searchState.get('sortOrder')
 );
 
-/*
-const selectSearchResultsV2 = () => createSelector(
-  selectSearchQuery(),
-  selectSearchResultsPagination(),
-  selectSearchResultsSortOrder(),
-  selectEliteApi(),
-  (query, pagination, sortOrder, eliteApi) => {
-
-    let result = calcBookingResults(eliteApi, {query, pagination, sortOrder});
-
-    return result.map(data => {
-
-      return {
-        ...data,
-        firstName: CapitaliseFirstLetter(data.firstName),
-        lastName: CapitaliseFirstLetter(data.lastName),
-        aliases: data.aliases
-          .map(a => a.split(' '))
-          .map(parts => parts.map(name => CapitaliseFirstLetter(name)))
-          .map(parts => parts.join(' '))
-      }
-    });
-  }
-);*/
-
 const selectSearchResultsV2 = () => createSelector(
   (state) => state.getIn(['search','results']).toJS(),
-  (results) => {
-
-   return results.map(data => {
-
-      return {
-        ...data,
-        firstName: CapitaliseFirstLetter(data.firstName),
-        lastName: CapitaliseFirstLetter(data.lastName),
-        aliases: (data.aliases || [])
-          .map(a => a.split(' '))
-          .map(parts => parts.map(name => CapitaliseFirstLetter(name)))
-          .map(parts => parts.join(' '))
-      }
-    });
-  }
+  (results) => results
 )
-
-
-const CapitaliseFirstLetter = (string) =>  {
-  if((typeof string) === 'string' &&  string.length >= 1)
-    return string[0].toUpperCase() + string.toLowerCase().slice(1);
-  else
-    return string;
-}
-
 
 const selectSearchResultsTotalRecords = () => createSelector(
   (state) => state.getIn(['search','totalResults']),
@@ -186,7 +139,7 @@ const selectOffenderDetails = () => createSelector(
 
     const aliasGrid = aliases.map((alias, index) => {
       const { firstName, lastName, age: aliasAge, ethnicity: ethnicity, nameType, dob: aliasDateofbirth, gender: aliasGender } = alias;
-      const name = nameString({ firstName, lastName, format: 'TITLE_TITLE' });
+      const name = toFullName({ firstName, lastName });
       const formattedDob = intl.formatDate(Date.parse(aliasDateofbirth));
       return { key: `${firstName + lastName + aliasAge + ethnicity + nameType + index}`, title: nameType, values: [{ name }, { aliasAge }, { aliasGender }, { formattedDob }, { ethnicity }] };
     });
@@ -238,7 +191,7 @@ const selectOffenderDetailsMobile = () => createSelector(
 
     const aliasGrid = aliases.map((alias, index) => {
       const { firstName, lastName, age: aliasAge, ethnicity: ethnicity, nameType } = alias;
-      const name = nameString({ firstName, lastName, format: 'TITLE_TITLE' });
+      const name = toFullName({ firstName, lastName });
       return { key: `${firstName + lastName + aliasAge + ethnicity + nameType + index}`, title: nameType, values: [{ name }] };
     });
 
@@ -325,10 +278,12 @@ const selectCaseNotes = () => createSelector(
   selectDetails(),
   (caseNotesState) => caseNotesState.get('caseNotes')
 );
+
 const selectDisplayAmendCaseNoteModal = () => createSelector(
   selectCaseNotes(),
   (caseNoteState) => caseNoteState.get('amendCaseNoteModal')
 );
+
 const selectCaseNotesPagination = () => createSelector(
   selectCaseNotes(),
   (caseNotesState) => caseNotesState.get('Pagination').toJS()

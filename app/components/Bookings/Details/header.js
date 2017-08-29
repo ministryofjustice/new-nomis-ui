@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import EliteImage from 'containers/EliteContainers/Image';
 import EliteOfficerName from 'containers/EliteContainers/OfficerName';
 import Button from 'components/Button';
+import { toFullName } from 'utils/stringUtils';
+
 import {
   HeaderWrapper,
   FaceImage,
@@ -19,12 +21,10 @@ import {
   AddCaseNoteButtonComponent,
 } from './headerMobile.theme';
 
-const toTitleCase = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
-
 function Header({ inmateData, openAddCaseNote, setModalOpen, setModalData }) {
   const { firstName, lastName, bookingNo, offenderNo, facialImageId, alertsCodes, assignedLivingUnit, assignedOfficerId } = inmateData;
 
-  const nameString = `${lastName.toUpperCase()}, ${toTitleCase(firstName)}`;
+  const nameString = toFullName({firstName, lastName});
 
   const showModal = function () {
     const modalData = {

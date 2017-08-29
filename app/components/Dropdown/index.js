@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { toFullName } from 'utils/stringUtils';
 
 import { MenuWrapper,
          InfoWrapper,
@@ -70,7 +71,7 @@ class Dropdown extends Component {
     return (
       <MenuWrapper innerRef={(wrapper) => { this.wrapper = wrapper; }} onMouseDown={this.handleMouseDown} onTouchStart={this.handleMouseDown}>
         <InfoWrapper data-name={'InfoWrapper'}>
-          <UserName>{user.lastName[0].toUpperCase() + user.lastName.toLowerCase().slice(1)}, {user.firstName[0].toUpperCase() + user.firstName.toLowerCase().slice(1)}
+          <UserName>{toFullName(user)}
             <NotificationNumberUser>{user.totalAssignments}</NotificationNumberUser>
           </UserName>
           <CaseLoad>{caseLoadDesc}</CaseLoad>
@@ -81,7 +82,6 @@ class Dropdown extends Component {
       </MenuWrapper>
     );
   }
-
 }
 
 Dropdown.propTypes = {
@@ -95,4 +95,5 @@ Dropdown.defaultProps = {
     activeCaseLoadId: 'id',
   },
 };
+
 export default Dropdown;
