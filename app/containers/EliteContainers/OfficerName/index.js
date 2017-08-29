@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { loadOfficer } from 'containers/EliteApiLoader/actions';
 import { selectOfficerName } from './selectors';
-// import { Image } from './theme';
+import { toFullName } from 'utils/stringUtils';
 
 class EliteOfficerName extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -25,18 +25,13 @@ class EliteOfficerName extends PureComponent { // eslint-disable-line react/pref
 
   render() {
     const { name } = this.props;
-    const { firstName, lastName, staffId } = name;
 
-    if (firstName && lastName) {
-      return <span>{lastName}, {firstName}</span>;
-    } else if (firstName) {
-      return <span>{firstName}</span>;
-    } else if (lastName) {
-      return <span>{lastName}</span>;
+    if (name.firstName || name.lastName) {
+      return <span>{toFullName(name)}</span>;
+    } else {
+      return <span>{name.staffId}</span>
     }
-    return <span>{staffId}</span>;
   }
-
 }
 
 export function mapDispatchToProps(dispatch, props) {

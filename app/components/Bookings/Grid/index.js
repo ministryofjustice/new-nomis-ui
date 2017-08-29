@@ -1,5 +1,6 @@
 import React from 'react';
 import EliteImage from 'containers/EliteContainers/Image';
+import Name from 'components/Name';
 import './index.scss'
 
 const Grid =  ({results,viewDetails,sortOrderChange,sortOrder}) => (
@@ -31,7 +32,7 @@ const Grid =  ({results,viewDetails,sortOrderChange,sortOrder}) => (
 
             <div className="personDetails">
               <div className="bold">
-                {row.lastName}, {row.firstName}
+                <Name lastName={row.lastName} firstName={row.firstName} />
               </div>
 
               <div>

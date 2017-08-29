@@ -2,14 +2,15 @@ import React from 'react';
 import { FormattedDate } from 'react-intl';
 
 import EliteImage from 'containers/EliteContainers/Image';
+import Name from 'components/Name';
 
-const ArrowUp = ({sortOrderChange}) => <span className="clickable" onClick={sortOrderChange}> &#9650; </span>
-const ArrowDown = ({sortOrderChange}) => <span className="clickable" onClick={sortOrderChange}> &#9660;  </span>
+const ArrowUp = ({sortOrderChange}) => <span className="clickable" onClick={sortOrderChange}> &#9650; </span>;
+const ArrowDown = ({sortOrderChange}) => <span className="clickable" onClick={sortOrderChange}> &#9660;  </span>;
 
 const onViewDetails = (e,row,viewDetails) => {
   e.preventDefault(e);
   viewDetails(row.bookingId);
-}
+};
 
 const Table = ({results,viewDetails,sortOrder,sortOrderChange}) => (
   <table className="booking-table">
@@ -39,15 +40,15 @@ const Table = ({results,viewDetails,sortOrder,sortOrderChange}) => (
         <td>
           <span>
             <a href="#" className="bold link" onClick={(e) => onViewDetails(e,row,viewDetails)}>
-                {row.lastName}, {row.firstName}
-              </a>
+              <Name lastName={row.lastName} firstName={row.firstName} />
+            </a>
           </span>
         </td>
         <td className="visible-md visible-lg">
           {(row.aliases || []).map(name =>
             <div className="row" key={name + row}>
                <span className="col" key={name}>
-                 {name}
+                 <Name name={name} />
                </span>
             </div>)}
         </td>
@@ -60,6 +61,6 @@ const Table = ({results,viewDetails,sortOrder,sortOrderChange}) => (
     )}
     </tbody>
   </table>
-)
+);
 
 export default Table;

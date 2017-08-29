@@ -1,7 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import EliteImage from 'containers/EliteContainers/Image';
-import { GridDetailItem, GridDetailImage, GridDetailInfo, GridName, GridID, GridLocation } from './results.theme';
+import { toFullName } from 'utils/stringUtils';
+
+import {
+  GridDetailItem,
+  GridDetailImage,
+  GridDetailInfo,
+  GridName,
+  GridID,
+  GridLocation
+} from './results.theme';
 
 const BookingsGridItem = (props) => {
   const { data, action } = props;
@@ -10,7 +19,7 @@ const BookingsGridItem = (props) => {
     <GridDetailItem onClick={() => action(data.bookingId)}>
       <GridDetailImage><EliteImage imageId={facialImageId} /></GridDetailImage>
       <GridDetailInfo>
-        <GridName>{lastName}, {firstName[0].toUpperCase() + firstName.toLowerCase().slice(1)}</GridName>
+        <GridName>{toFullName({firstName, lastName})}</GridName>
         <GridID>ID: <strong>{offenderNo}</strong></GridID>
         <GridLocation><div>{assignedLivingUnitDesc}</div></GridLocation>
       </GridDetailInfo>

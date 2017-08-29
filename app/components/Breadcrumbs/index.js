@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { toFullName } from 'utils/stringUtils';
 
 import {
   BreadcrumbLink,
@@ -14,8 +15,7 @@ function Breadcrumbs({ route, inmateData, context }) {
 
   if (route === '/bookings/details') {
     const { firstName, lastName } = inmateData;
-    const toTitleCase = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
-    const nameString = `${lastName.toUpperCase()}, ${toTitleCase(firstName)}`;
+    const nameString = toFullName({firstName, lastName});
 
     breadcrumbArray = breadcrumbArray.concat({ name: 'Home', route: '/' });
 
