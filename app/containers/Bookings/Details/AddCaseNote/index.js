@@ -12,6 +12,8 @@ import OccurrenceDateTimePicker from 'containers/FormContainers/occurrenceDateTi
 import { ADD_NEW_CASENOTE } from '../../constants';
 import { selectCaseNoteTypeList, selectCaseNoteSubTypeList } from './selectors';
 
+import './index.scss';
+
 class AddCaseNoteForm extends Component{
 
   constructor(props){
@@ -28,7 +30,7 @@ class AddCaseNoteForm extends Component{
     const options = {types: caseNoteTypeList, subTypes: caseNoteSubTypeList};
 
     return (
-      <div>
+      <div className="add-case-note">
         <h1 className="bold-large">Add new case note</h1>
         <form onSubmit={handleSubmit}>
           <SubmissionError error={error}>{error}</SubmissionError>
@@ -37,7 +39,7 @@ class AddCaseNoteForm extends Component{
             <label className="form-label">
               Type
             </label>
-            <Field className="form-control" component="select" name="typeValue">
+            <Field className="form-control" component="select" name="typeValue" >
               <option> Select</option>
               {options.types.map(t =>
                 <option key={t.value} value={t.value}>
@@ -67,13 +69,13 @@ class AddCaseNoteForm extends Component{
 
           <OccurrenceDateTimePicker locale={locale} title="Creation Date"/>
 
-          <div>
+          <div className="actions">
 
             <button className="button col-xs-3" type="submit" disabled={submitting} submitting={submitting}>
-              Submit
+              Save case note
             </button>
 
-            <button className="cancel-button col-xs-3" onClick={this.goBack}>
+              <button className="cancel-button col-xs-2" onClick={this.goBack}>
               Cancel
             </button>
 
