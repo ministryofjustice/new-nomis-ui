@@ -132,11 +132,11 @@ export default function createRoutes(store) {
       },
     }, {
       onEnter: redirectToLogin,
-      path: '/addCaseNote',
+      path: '/bookings/details/addCaseNote',
       name: 'addCaseNote',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Bookings/Details/AddCaseNoteMobilePage'),
+          System.import('containers/Bookings/Details/AddCaseNote'),
         ]);
 
         const renderRoute = loadModule(cb);

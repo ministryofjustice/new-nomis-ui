@@ -15,6 +15,10 @@ import {
   AlertCodes,
 } from './header.theme';
 
+import {
+  AddCaseNoteButtonComponent,
+} from './headerMobile.theme';
+
 const toTitleCase = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
 
 function Header({ inmateData, openAddCaseNote, setModalOpen, setModalData }) {
@@ -61,7 +65,7 @@ function Header({ inmateData, openAddCaseNote, setModalOpen, setModalData }) {
         </ALBLock>
       </AlertsLocation>
       <AddCaseNoteButton>
-        <Button buttonstyle="link" onClick={() => openAddCaseNote()}>Add new case note</Button>
+        <AddCaseNoteButtonComponent to={'/bookings/details/addCaseNote'} buttonstyle="link">Add new case note</AddCaseNoteButtonComponent>
       </AddCaseNoteButton>
     </HeaderWrapper>
   );

@@ -4,21 +4,34 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import BookingsDetailsHeader from 'components/Bookings/Details/header';
+import BookingsDetailsHeaderMobile from 'components/Bookings/Details/headerMobile';
 
 import { setModalOpen, setModalData } from 'globalReducers/app';
 
 import { selectHeaderDetail } from '../selectors';
 import { openAddCaseNoteModal } from '../actions';
+import {showLargePhoto} from '../actions';
 
 class Header extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   render() {
-    const { headerDetails, openAddCaseNote } = this.props;
-    return (<BookingsDetailsHeader
+    const { headerDetails, openAddCaseNote, deviceFormat } = this.props;
+
+    if(deviceFormat === 'desktop')
+    {
+      return(
+      <BookingsDetailsHeader
+        inmateData={headerDetails}
+        openAddCaseNote={openAddCaseNote}
+        setModalOpen={this.props.setModalOpen}
+        setModalData={this.props.setModalData}
+      />);
+    }
+    return (
+      <BookingsDetailsHeaderMobile
       inmateData={headerDetails}
       openAddCaseNote={openAddCaseNote}
-      setModalOpen={this.props.setModalOpen}
-      setModalData={this.props.setModalData}
+      onImageClick={this.props.showLargePhoto}
     />);
   }
 }
@@ -33,8 +46,8 @@ Header.propTypes = {
 export function mapDispatchToProps(dispatch) {
   return {
     openAddCaseNote: () => dispatch(openAddCaseNoteModal()),
-    setModalOpen: (bool) => dispatch(setModalOpen(bool)),
-    setModalData: (obj) => dispatch(setModalData(obj)),
+    showLargePhoto: (imageId) => dispatch(showLargePhoto(imageId)),
+
   };
 }
 

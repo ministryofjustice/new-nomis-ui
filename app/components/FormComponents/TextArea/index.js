@@ -4,7 +4,7 @@ import { InputGroup, TextArea, InputLabel, InputError } from '../Input/input.the
 
 const renderTextArea = ({ input, title, type, meta: { touched, error }, placeholder }) => (<InputGroup error={touched && error}>
   <InputLabel>{title}</InputLabel>
-  <InputError error={touched && error}>{error}</InputError>
+  { (error && touched) ? <InputError error={touched && error}>{error}</InputError> : null}
   <TextArea {...input} error={touched && error} type={type} autoComplete="off" placeholder={placeholder} />
 </InputGroup>);
 

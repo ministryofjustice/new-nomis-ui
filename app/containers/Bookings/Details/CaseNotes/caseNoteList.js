@@ -41,9 +41,14 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
           <NoSearchResultsReturnedMessage resultCount={caseNotes.toJS().length}/>
       </div>
 
-      {caseNotesStatus.Type === 'SUCCESS' ? <CaseNoteList>
+      {caseNotesStatus.Type === 'SUCCESS' ?
+
+        <CaseNoteList>
+
         {caseNotes.map((caseNote) => <CaseNoteListItem action={() => setCaseNoteView(caseNote.get('caseNoteId'))} caseNote={caseNote} key={caseNote.get('caseNoteId')} />)}
-      </CaseNoteList> : <div>Loading Casenotes ...</div> }
+
+        </CaseNoteList> : <div>Loading Casenotes ...</div>
+      }
       <PreviousNextNavigation pagination={caseNotesPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)} />
     </div>);
   }

@@ -39,9 +39,3 @@ TabMenuMobile.propTypes = {
 
 
 export default TabMenuMobile;
-//  <img src={imgArray[i]} alt={imgArray[i]} />
-//
-//  <TabMenuItem
-//   active={activeTabId === 4}
-//   bgImg={imgArray[4]}
-// ><TextHolder>MORE</TextHolder></TabMenuItem>

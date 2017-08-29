@@ -1,18 +1,13 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-// import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-// import { loadBookingDetails } from 'containers/EliteApiLoader/actions';
-
 import TabNav from 'components/Bookings/Details/tabMenu';
 import TabNavMobile from 'components/Bookings/Details/tabMenuMobile';
 import NavLink from 'components/NavLink';
 import { UpperFlexColumn, ContentWrapper } from 'components/DesktopWrappers';
 
 import { selectDeviceFormat, selectSearchContext } from 'selectors/app';
-
-import AddCaseNoteModal from './AddCaseNoteModal';
 import OffenderDetails from './OffenderDetails';
 import OffenderDetailsMobile from './OffenderDetails/mobile';
 import PhysicalAttributes from './PhysicalAttributes';
@@ -20,12 +15,7 @@ import PhysicalAttributesMobile from './PhysicalAttributes/mobile';
 import CaseNotes from './CaseNotes';
 import Alerts from './Alerts';
 import BookingsDetailsHeader from './header';
-import BookingsDetailsHeaderMobile from './headerMobile';
 import EliteImage from 'containers/EliteContainers/Image';
-
-import {
-  // Wrapper,
-} from './details.theme';
 
 import { selectCurrentDetailTabId, selectDisplayAddCaseNoteModal,selectShouldShowLargePhoto,selectImageId } from '../selectors';
 import { setDetailsTab,hideLargePhoto } from '../actions';
@@ -39,87 +29,55 @@ const tabData = [
     { tabId: 3, title: 'Case Notes', mobileTitle: 'CASE NOTES', component: CaseNotes, componentMobile: CaseNotes },
 ];
 
-const DesktopView = React.createClass({
-  render(){
-
-    const TabComponent = this.props.TabComponent;
-
-     return(
-      <div>
-       <ContentWrapper>
-         { this.props.searchContext === 'assignments' ?
-           <NavLink route="/assignments" key="Assignments" text="< Back to assignments"/> :
-           <NavLink route="/results" key="Results" text="< Back to search results"/>
-         }
-         <BookingsDetailsHeader />
-         <TabNav
-           tabData={tabData.map((tab) => Object.assign(tab, { action: () => this.props.setTab(tab.tabId) }))}
-           activeTabId={this.props.activeTabId}
-         />
-         <TabComponent />
-       </ContentWrapper>
-     </div>)
-  }
-})
-
-const MobileView = React.createClass({
-
-  render(){
-
-    const TabComponentMobile = this.props.TabComponentMobile;
-
-    const ContentView =  ({searchContext}) => (
-        <div>
-          { this.props.searchContext === 'assignments' ?
-          <NavLink route="/assignments" key="Assignments" text="< Back to assignments"/> :
-          <NavLink route="/results" key="Results" text="< Back to search results"/>
-         }
-        <BookingsDetailsHeaderMobile />
-        <TabComponentMobile />
-      </div>
-    )
-
-    return (
-      <ContentWrapper>
-        <div>
-
-          {this.props.shouldShowLargePhoto ?
-            <div className="image-container">
-              <EliteImage imageId={this.props.imageId} />
-              <button type="button" className="cancel-button" onClick={() => this.props.hidePhoto(this.props.imageId)}>
-                Close
-              </button>
-            </div> :
-            <div>
-              <ContentView searchContext={this.props.searchContext} />
-              <TabNavMobile
-              tabData={tabData.map((tab) => Object.assign(tab, { action: () => this.props.setTab(tab.tabId) }))}
-              activeTabId={this.props.activeTabId}
-              />
-            </div>
-          }
-        </div>
-
-      </ContentWrapper>
-    )
-  }
-})
-
 class Details extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   render() {
-    const { activeTabId, setTab, deviceFormat, displayAddDetailsModal, searchContext } = this.props;
-    const TabComponent = tabData[activeTabId].component;
+    const {
+      activeTabId,
+      setTab,
+      deviceFormat,
+      searchContext,
+      imageId,
+      shouldShowLargePhoto,
+      hidePhoto,
+    } = this.props;
+
+    const TabComponentDesktop = tabData[activeTabId].component;
     const TabComponentMobile = tabData[activeTabId].componentMobile;
+    const TabComponent = deviceFormat === 'desktop' ? TabComponentDesktop : TabComponentMobile;
+
+
+    if(shouldShowLargePhoto){
+      return (
+      <div className="image-container">
+        <EliteImage imageId={imageId} />
+        <button type="button" className="cancel-button" onClick={() => hidePhoto(imageId)}>
+          Close
+        </button>
+      </div>)
+    }
 
     return (
-      <div>
-        {displayAddDetailsModal ? <AddCaseNoteModal /> : null}
-        { deviceFormat === 'desktop' ?
-          <DesktopView TabComponent={TabComponent} {...this.props}/> :
-          <MobileView TabComponentMobile={TabComponentMobile} {...this.props} />
+
+      <ContentWrapper>
+
+        { this.props.searchContext === 'assignments' ?
+          <NavLink route="/assignments" key="Assignments" text="< Back to assignments"/> :
+          <NavLink route="/results" key="Results" text="< Back to search results"/>
         }
-      </div>
+
+        <BookingsDetailsHeader/>
+
+        {deviceFormat === 'desktop' ?
+          <TabNav
+            tabData={tabData.map((tab) => Object.assign(tab, { action: () => setTab(tab.tabId) }))}
+            activeTabId={activeTabId}/>:
+          <TabNavMobile
+            tabData={tabData.map((tab) => Object.assign(tab, { action: () => setTab(tab.tabId) }))}
+            activeTabId={activeTabId}/>}
+        <TabComponent />
+
+      </ContentWrapper>
     );
   }
 }
