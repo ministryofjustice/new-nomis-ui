@@ -2,12 +2,12 @@ import { createSelector } from 'reselect';
 
 import { selectUser } from '../Authentication/selectors';
 import { selectUserCaseLoads } from '../EliteApiLoader/selectors';
-import { selectAssignmentTotal } from '../Assignments/selectors';
+import { selectAssignmentsTotal } from '../Assignments/selectors';
 
 const selectUserHeaderInfo = () => createSelector(
   selectUser(),
   selectUserCaseLoads(),
-  selectAssignmentTotal(),
+  selectAssignmentsTotal(),
   (userState, caseLoadsState, totalAssignmentsState) => {
     if (userState && caseLoadsState) {
       const allCaseLoads = caseLoadsState.toJS();

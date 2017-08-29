@@ -2,8 +2,8 @@ import { takeLatest, put, select, call } from 'redux-saga/effects';
 import { searchSaga as searchSagaElite } from 'containers/EliteApiLoader/sagas';
 
 import {
-  selectAssignmentPagination,
-  selectAssignmentSortOrder,
+  selectAssignmentsPagination,
+  selectAssignmentsSortOrder,
 } from './selectors';
 
 import {
@@ -12,6 +12,8 @@ import {
   SET_ASSIGNMENTS_PAGINATION,
   SET_ASSIGNMENTS_VIEW,
   UPDATE_ASSIGNMENTS_VIEW,
+  SET_ASSIGNMENTS_SORT_ORDER,
+  TOGGLE_ASSIGNMENTS_SORT_ORDER,
 } from './constants';
 
 export function* assignmentLoadWatcher() {
@@ -21,8 +23,8 @@ export function* assignmentLoadWatcher() {
 export function* assignmentLoadSaga(action) {
   const { resetPagination } = action.payload;
 
-  let pagination = yield select(selectAssignmentPagination());
-  const sortOrder = yield select(selectAssignmentSortOrder());
+  let pagination = yield select(selectAssignmentsPagination());
+  const sortOrder = yield select(selectAssignmentsSortOrder());
 
   try {
     if (resetPagination) {
@@ -42,7 +44,7 @@ export function* assignmentsPaginationWatcher() {
 
 export function* assignmentsPagination(action) {
   yield put({ type: SET_ASSIGNMENTS_PAGINATION, payload: action.payload.pagination });
-  yield put({ type: LOAD_ASSIGNMENTS, payload: { } });
+  yield put({ type: LOAD_ASSIGNMENTS, payload: {} });
 }
 
 export function* assignmentsViewWatcher() {
@@ -54,9 +56,21 @@ export function* updateAssignmentsView(action) {
   yield put({ type: LOAD_ASSIGNMENTS, payload: {} });
 }
 
+export function* assignmentsSortOrderWatcher() {
+  yield takeLatest(TOGGLE_ASSIGNMENTS_SORT_ORDER, assignmentsSortOrder);
+}
+
+export function* assignmentsSortOrder(action) {
+  const previousSortOrder = yield select(selectAssignmentsSortOrder());
+  const sortOrder = action.payload || (previousSortOrder === 'asc' ? 'desc' : 'asc');
+
+  yield put({ type: SET_ASSIGNMENTS_SORT_ORDER, payload: { sortOrder } });
+  yield put({ type: LOAD_ASSIGNMENTS, payload: {} });
+}
 
 export default [
   assignmentsPaginationWatcher,
   assignmentLoadWatcher,
   assignmentsViewWatcher,
+  assignmentsSortOrderWatcher,
 ];
