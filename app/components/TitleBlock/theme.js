@@ -26,7 +26,6 @@ export const CenterWrapper = styled(Wrapper)`
 export const Title = styled.div`
   margin-top: 20px;
   font-size: 24px;
-  font-weight: bold;
   
   ${media.desktop`
     font-size: 36px;

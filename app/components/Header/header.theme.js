@@ -57,7 +57,6 @@ export const LogoText = styled(Link)`
 export const Title = styled(Link)`
   text-align: center;
   font-size: 26px;
-  font-weight: bold;
   flex-grow: 1;
   text-decoration: none;
       
