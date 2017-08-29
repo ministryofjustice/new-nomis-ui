@@ -15,11 +15,19 @@ import AssignmentsHeader from 'components/AssignmentsHeader';
 import AssignmentsHeaderMobile from 'components/AssignmentsHeader/mobile';
 import { selectUser } from '../Authentication/selectors';
 
-import { setAssignmentsPagination, setAssignmentsView } from './actions';
-import {toggleSortOrder} from '../Bookings/actions';
-import {selectSearchResultsSortOrder} from '../Bookings/selectors';
+import {
+  setAssignmentsPagination,
+  setAssignmentsView,
+  toggleAssignmentsSortOrder
+} from './actions';
 
-import { selectAssignmentResults, selectAssignmentTotal, selectAssignmentPagination, selectAssignmentsView } from './selectors';
+import {
+  selectAssignmentsResults,
+  selectAssignmentsTotal,
+  selectAssignmentsPagination,
+  selectAssignmentsView,
+  selectAssignmentsSortOrder
+} from './selectors';
 
 import { setSearchContext } from 'globalReducers/app';
 
@@ -50,17 +58,9 @@ class Assignments extends PureComponent { // eslint-disable-line react/prefer-st
         }
 
         {resultsView === 'List' ?
-          <BookingTable viewName={resultsView}
-                        results={results}
-                        viewDetails={viewDetails}
-                        sortOrderChange={toggleSortOrder}
-                        sortOrder={sortOrder}/> :
-
-          <BookingGrid viewName={resultsView}
-                       results={results}
-                       viewDetails={viewDetails}
-                       sortOrderChange={toggleSortOrder}
-                       sortOrder={sortOrder}/>
+          <BookingTable viewName={resultsView} results={results} viewDetails={viewDetails} />
+          :
+          <BookingGrid viewName={resultsView} results={results} viewDetails={viewDetails} />
         }
 
         <PreviousNextNavigation pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />
@@ -97,18 +97,18 @@ export function mapDispatchToProps(dispatch) {
     setPage: (pagination) => dispatch(setAssignmentsPagination(pagination)),
     setResultsView: (view) => dispatch(setAssignmentsView(view)),
     setSearchContext: (context) => dispatch(setSearchContext(context)),
-    toggleSortOrder: () => dispatch(toggleSortOrder())
+    toggleSortOrder: () => dispatch(toggleAssignmentsSortOrder())
   };
 }
 
 const mapStateToProps = createStructuredSelector({
   deviceFormat: selectDeviceFormat(),
-  results: selectAssignmentResults(),
-  totalResults: selectAssignmentTotal(),
-  pagination: selectAssignmentPagination(),
+  results: selectAssignmentsResults(),
+  totalResults: selectAssignmentsTotal(),
+  pagination: selectAssignmentsPagination(),
   resultsView: selectAssignmentsView(),
   user: selectUser(),
-  sortOrder: selectSearchResultsSortOrder()
+  sortOrder: selectAssignmentsSortOrder()
 });
 
 // Wrap the component to inject dispatch and state into it

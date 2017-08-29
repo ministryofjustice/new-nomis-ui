@@ -16,7 +16,12 @@ const Table = ({results,viewDetails,sortOrder,sortOrderChange}) => (
     <thead>
     <tr>
       <th> </th>
-      <th> <span> Name </span> {sortOrder === 'asc' ? <ArrowUp sortOrderChange={sortOrderChange}/> : <ArrowDown sortOrderChange={sortOrderChange}/>}</th>
+      <th> <span> Name </span> {sortOrderChange !== undefined ?
+          sortOrder === 'asc' ? <ArrowUp sortOrderChange={sortOrderChange}/> : <ArrowDown sortOrderChange={sortOrderChange}/>
+          :
+          null
+        }
+      </th>
       <th className="visible-md visible-lg"> Aliases</th>
       <th className="visible-md visible-lg"> Date of birth</th>
       <th> ID </th>
