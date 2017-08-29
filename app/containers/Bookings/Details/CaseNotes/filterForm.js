@@ -80,9 +80,8 @@ const FilterForm = ({handleSubmit, submitting, error, reset, isMobile, caseNoteF
 
         <div className="buttons">
           <div className="pull-right link reset-filters clickable" onClick={reset}>
-            Reset Filters
+            Clear filters
           </div>
-
           <button className="button" type="submit" disabled={ dateRangeNotValid || (submitting || error)} submitting={submitting}>
             Apply filters
           </button>

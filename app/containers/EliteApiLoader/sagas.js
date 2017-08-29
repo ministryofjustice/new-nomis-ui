@@ -161,7 +161,9 @@ export function* bookingAlertsSaga(action) {
   const allDetails = yield select(selectBookingDetails());
   const currentAlertsStatus = allDetails.getIn([bookingId, 'Alerts', 'Paginations', paginationHash(pagination), 'Status', 'Type']);
 
-  if (currentAlertsStatus === 'SUCCESS' || currentAlertsStatus === 'LOADING') {
+  // To enable alert details caching, swap commenting of following two lines (see EM-59)
+  // if (currentAlertsStatus === 'SUCCESS' || currentAlertsStatus === 'LOADING') {
+  if (currentAlertsStatus === 'LOADING') {
     return { Type: currentAlertsStatus };
   }
 
@@ -192,7 +194,9 @@ export function* bookingCaseNotesSaga(action) {
   const allDetails = yield select(selectBookingDetails());
   const currentCaseNotesStatus = allDetails.getIn([bookingId, 'CaseNotes', 'Query', queryHash(query), 'Paginations', paginationHash(pagination), 'Status', 'Type']);
 
-  if (currentCaseNotesStatus === 'SUCCESS' || currentCaseNotesStatus === 'LOADING') {
+  // To enable case note caching, swap commenting of following two lines (see EM-59)
+  // if (currentCaseNotesStatus === 'SUCCESS' || currentCaseNotesStatus === 'LOADING') {
+  if (currentCaseNotesStatus === 'LOADING') {
     return { Type: currentCaseNotesStatus };
   }
 
