@@ -28,6 +28,24 @@ const DateTimeAndLink = styled.span`
    }
 `
 
+const EditMode = ({locale,onDateTimeChange,toggleEdit}) =>(
+<div>
+  <DateTimeElement input={false} locale={locale} onChange={onDateTimeChange} className="date-time-picker"/>
+  <DateTimeCancelButton className="cancel-button" onClick={toggleEdit}>
+    Finish editing
+  </DateTimeCancelButton>
+
+</div>)
+
+const DisplayMode = ({dateTimeText,toggleEdit}) =>(
+<div>
+  <div>
+    <DateTimeAndLink>
+      <span>{dateTimeText}</span>
+      <a href="#" onClick={toggleEdit}>Edit</a>
+    </DateTimeAndLink>
+  </div>
+</div>)
 
 class DateTimePicker extends PureComponent{
 
@@ -63,33 +81,26 @@ class DateTimePicker extends PureComponent{
   }
 
   render(){
-    const {locale,title} = this.props;
+    const {locale,title,meta:{touched,error}} = this.props;
     const {edit,date,time} = this.state;
-    const dateTimeDisplay = date ? `${date}  -  ${time}` : '';
+    const dateTimeText = date ? `${date}  -  ${time}` : '';
 
     return (
-      <div>
+      <div className={ !(touched && error) ? 'form-group' : 'form-group form-group-error'}>
+
         <label className="form-label">
           {title}
         </label>
-        {edit ?
-          <div>
-            <DateTimeElement input={false} locale={locale} onChange={this.onDateTimeChange} className="date-time-picker"/>
-            <DateTimeCancelButton className="cancel-button" onClick={this.toggleEdit}>
-              Finish editing
-            </DateTimeCancelButton>
 
-          </div>
-          :
-          <div>
-              <div>
-                <DateTimeAndLink>
-                   <span>{dateTimeDisplay}</span>
-                   <a href="#" onClick={this.toggleEdit}>Edit</a>
-                </DateTimeAndLink>
-              </div>
-          </div>
+        <div className="error-message">
+          {touched && ((error && <span>{error}</span>))}
+        </div>
+
+        {edit ?
+          <EditMode toggleEdit={this.toggleEdit} locale={locale} onDateTimeChange={this.onDateTimeChange}/> :
+          <DisplayMode toggleEdit={this.toggleEdit} dateTimeText={dateTimeText} />
         }
+
        </div>
     );
   }
