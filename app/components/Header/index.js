@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 import Dropdown from 'components/Dropdown';
-import DesktopWrapper from 'components/CommonTheme/DesktopWrapper';
-import colours from 'theme/colours';
-import SVGLOGO from './svgLogo';
 
 import hamburger from 'assets/hamburger.svg';
 import arrowBack from 'assets/back-arrow.svg';
@@ -16,7 +13,8 @@ import {
   LogoText,
   Title,
   Hamburger,
-  ArrowBack
+  ArrowBack,
+  HeaderWrapper,
 } from './header.theme';
 
 import {
@@ -45,7 +43,6 @@ class Header extends Component {
     const { user, mobileMenuOpen, switchCaseLoad } = this.props;
     return (
       <div>
-
       <Base>
           <Logo><img src="/img/logo-crest-white.png"/></Logo>
           <LogoText to="/">HMPPS</LogoText>
