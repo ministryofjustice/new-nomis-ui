@@ -1,3 +1,4 @@
+@import "bootstrap-feature-select-nomis";
 
 .add-case-note{
 
@@ -13,4 +14,14 @@
        margin-right: .5em;
        margin-top: .5em;
    }
+
+  .date-time-picker{
+     width:30%;
+     @include media-breakpoint-down(xs){
+       width:100%;
+     }
+  }
+  .occurrence-date-time{
+    margin-bottom: 5em;
+  }
 }

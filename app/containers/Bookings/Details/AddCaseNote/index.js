@@ -7,12 +7,13 @@ import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import { selectLocale } from 'containers/LanguageProvider/selectors';
 import { SubmissionError, TextArea } from 'components/FormComponents';
-import OccurrenceDateTimePicker from 'containers/FormContainers/occurrenceDateTimePicker';
-
 import { ADD_NEW_CASENOTE } from '../../constants';
 import { selectCaseNoteTypeList, selectCaseNoteSubTypeList } from './selectors';
 
+import DateTimePicker from 'containers/FormContainers/DateTimePicker';
+
 import './index.scss';
+
 
 class AddCaseNoteForm extends Component{
 
@@ -65,9 +66,10 @@ class AddCaseNoteForm extends Component{
           </div>
 
           <Field name="caseNoteText" component={TextArea} title="Case Note" autocomplete="off" spellcheck="true"/>
-          <Field name="occurrenceDateTime" component={OccurrenceDateTimePicker} editable locale={locale} title="Occurrence Date"/>
 
-          <OccurrenceDateTimePicker locale={locale} title="Creation Date"/>
+          <div className="occurrence-date-time">
+            <Field name="occurrenceDateTime" component={DateTimePicker} editable locale={locale} title="Occurrence date and time:"/>
+          </div>
 
           <div className="actions">
 
