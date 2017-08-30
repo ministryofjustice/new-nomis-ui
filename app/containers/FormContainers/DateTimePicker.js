@@ -28,16 +28,16 @@ const DateTimeAndLink = styled.span`
    }
 `
 
-const EditMode = ({locale,onDateTimeChange,toggleEdit}) =>(
+const EditMode = ({locale,onDateTimeChange,toggleEdit,isValidDate}) =>(
 <div>
-  <DateTimeElement input={false} locale={locale} onChange={onDateTimeChange} className="date-time-picker"/>
+  <DateTimeElement isValidDate={isValidDate} input={false} locale={locale} onChange={onDateTimeChange} className="date-time-picker"/>
   <DateTimeCancelButton className="cancel-button" onClick={toggleEdit}>
     Finish editing
   </DateTimeCancelButton>
 
 </div>)
 
-const DisplayMode = ({dateTimeText,toggleEdit}) =>(
+const DisplayMode = ({dateTimeText,toggleEdit,shouldShowDay}) =>(
 <div>
   <div>
     <DateTimeAndLink>
@@ -81,7 +81,7 @@ class DateTimePicker extends PureComponent{
   }
 
   render(){
-    const {locale,title,meta:{touched,error}} = this.props;
+    const {locale,title,meta:{touched,error},shouldShowDay} = this.props;
     const {edit,date,time} = this.state;
     const dateTimeText = date ? `${date}  -  ${time}` : '';
 
@@ -97,7 +97,13 @@ class DateTimePicker extends PureComponent{
         </div>
 
         {edit ?
-          <EditMode toggleEdit={this.toggleEdit} locale={locale} onDateTimeChange={this.onDateTimeChange}/> :
+          <EditMode
+            toggleEdit={this.toggleEdit}
+            locale={locale}
+            onDateTimeChange={this.onDateTimeChange}
+            isValidDate={shouldShowDay}
+
+          /> :
           <DisplayMode toggleEdit={this.toggleEdit} dateTimeText={dateTimeText} />
         }
 
