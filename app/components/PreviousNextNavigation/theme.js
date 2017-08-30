@@ -12,8 +12,6 @@ export const PrevNextNavWrapper = styled.ul`
   width: 100%;
   padding: 0px 25px;
   margin-top: 30px;
-
-  ${media.desktop`margin-bottom: 30px;`}
   
   li {
     line-height: 1.11111;

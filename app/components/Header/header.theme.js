@@ -6,28 +6,36 @@ import { Link } from 'react-router';
 import { media } from 'utils/style-utils';
 import desktop from 'theme/desktop';
 
-export const Base = styled.header`
+export const PageHeader = styled.header`
   ${fonts.misc}
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: start;
   color: ${colours.headerTextColour};
-  
   background-color: ${colours.headerColour};
   z-index: 999;
   height: ${desktop.headerHeight}px;
   width: 100%;
-    
+  
   ${media.desktop`
-    position: relative;
+    justify-content: center;
   `}
 `;
 
+export const LeftContent = styled.div`
+  float: left;
+`;
+
+export const RightContent = styled.div`
+  float: right;
+  height: 100%;
+`;
+
 export const Logo = styled.div`
-  margin-top: 5px;
   margin-left: 10px;
   margin-right: 5px;
+  float: left;
 `;
 
 export const LogoText = styled(Link)`
@@ -42,7 +50,7 @@ export const LogoText = styled(Link)`
   text-decoration: none;
       
   ${media.desktop`
-    display: block;
+    display: inline-block;
   `}
 `;
 
