@@ -213,6 +213,9 @@
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
+  min-height:100%;
+  position: relative;
+  padding-bottom: 130px;
 }
 @media (min-width: 768px) {
   .container {
