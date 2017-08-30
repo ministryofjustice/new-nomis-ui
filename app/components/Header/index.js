@@ -8,13 +8,14 @@ import hamburger from 'assets/hamburger.svg';
 import arrowBack from 'assets/back-arrow.svg';
 
 import {
-  Base,
+  PageHeader,
+  LeftContent,
+  RightContent,
   Logo,
   LogoText,
   Title,
   Hamburger,
-  ArrowBack,
-  HeaderWrapper,
+  ArrowBack
 } from './header.theme';
 
 import {
@@ -42,25 +43,29 @@ class Header extends Component {
   render() {
     const { user, mobileMenuOpen, switchCaseLoad } = this.props;
     return (
-      <div>
-      <Base>
-          <Logo><img src="/img/logo-crest-white.png"/></Logo>
-          <LogoText to="/">HMPPS</LogoText>
-          <Title>Prison-NOMIS</Title>
-          <DesktopOnly>
-            {user ? <Dropdown switchCaseLoad={switchCaseLoad} user={user} /> : null }
-          </DesktopOnly>
-          <MobileOnly>
-            { mobileMenuOpen ?
-              <ArrowBack onClick={this.menuClick} data-name={'ArrowBack'} svg={arrowBack}/>
-                :
-              <Link hidden={!user} to={'/mobileMenu'}>
-                <Hamburger onClick={this.menuClick} data-name={'Hamburger'} svg={hamburger}/>
-              </Link>
-            }
-          </MobileOnly>
-        </Base>
-      </div>
+      <PageHeader>
+        <div className="header-content">
+          <LeftContent>
+            <Logo><img src="/img/logo-crest-white.png"/></Logo>
+            <LogoText to="/">HMPPS</LogoText>
+            <Title>Prison-NOMIS</Title>
+          </LeftContent>
+          <RightContent>
+            <DesktopOnly>
+              {user ? <Dropdown switchCaseLoad={switchCaseLoad} user={user} /> : null }
+            </DesktopOnly>
+            <MobileOnly>
+              { mobileMenuOpen ?
+                <ArrowBack onClick={this.menuClick} data-name={'ArrowBack'} svg={arrowBack}/>
+                  :
+                <Link hidden={!user} to={'/mobileMenu'}>
+                  <Hamburger onClick={this.menuClick} data-name={'Hamburger'} svg={hamburger}/>
+                </Link>
+              }
+            </MobileOnly>
+          </RightContent>
+        </div>
+      </PageHeader>
     );
   }
 }

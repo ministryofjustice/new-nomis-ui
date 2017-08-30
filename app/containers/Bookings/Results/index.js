@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import './index.scss';
 
 import { createStructuredSelector } from 'reselect';
-import { DW } from 'components/DesktopWrappers';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import BookingTable from 'components/Bookings/Table';
 import BookingGrid from 'components/Bookings/Grid';

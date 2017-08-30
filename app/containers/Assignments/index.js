@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { ContentWrapper } from 'components/DesktopWrappers';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import ResultsViewToggle from 'components/ResultsViewToggle';
 import ResultsViewToggleMobile from 'components/ResultsViewToggle/mobile';
@@ -45,7 +44,7 @@ class Assignments extends PureComponent { // eslint-disable-line react/prefer-st
     const { perPage: pP } = pagination;
 
     return (
-      <ContentWrapper>
+      <div>
         { deviceFormat === 'desktop' ?
           <AssignmentsHeader
             resultsViewToggle={<ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />}
@@ -64,7 +63,7 @@ class Assignments extends PureComponent { // eslint-disable-line react/prefer-st
         }
 
         <PreviousNextNavigation pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />
-      </ContentWrapper>
+      </div>
     );
   }
 }

@@ -5,7 +5,7 @@ import colours from 'theme/colours';
 export const IconSVG = styled(InlineSVG)`
   width: 23px;
   float: right;
-  margin-top: 4px;
+  margin-top: 2px;
 
   svg {
     display: block;

@@ -17,6 +17,9 @@ import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { useScroll } from 'react-router-scroll';
 
+// Import reset css
+import 'sanitize.css/sanitize.css';
+
 import './app.scss';
 
 // Import root app

@@ -1,15 +1,23 @@
 .FooterContainer {
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   background-color: #dee0e2;
-  padding: 1%;
   vertical-align: baseline;
-  height: 130px;
-  bottom:0;
+  height: 100px;
+  bottom: 0;
+}
+
+@media (min-width: 1024px) {
+  .FooterContainer {
+    display: flex;
+  }
 }
 
 .FooterLinksContainer{
   padding-top: 10px;
-  max-width: 1140px;
 }
 
 .FooterLink{
@@ -28,7 +36,6 @@
 }
 
 .FooterSignature{
-  max-width: 1170px;
   clear: left;
   margin-top: 37px;
   padding-left: 14px;
