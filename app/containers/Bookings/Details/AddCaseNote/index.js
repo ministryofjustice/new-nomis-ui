@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
-import { reduxForm, Field } from 'redux-form/immutable';
+import { reduxForm, Field, formValueSelector} from 'redux-form/immutable';
 import { createStructuredSelector } from 'reselect';
 import { createFormAction } from 'redux-form-saga';
 import { connect } from 'react-redux';
@@ -9,11 +9,12 @@ import { selectLocale } from 'containers/LanguageProvider/selectors';
 import { SubmissionError, TextArea } from 'components/FormComponents';
 import { ADD_NEW_CASENOTE } from '../../constants';
 import { selectCaseNoteTypeList, selectCaseNoteSubTypeList } from './selectors';
-
 import DateTimePicker from 'containers/FormContainers/DateTimePicker';
+import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
 
 import './index.scss';
 
+const selector = formValueSelector('addCaseNote');
 
 class AddCaseNoteForm extends Component{
 
@@ -27,8 +28,7 @@ class AddCaseNoteForm extends Component{
   }
 
   render() {
-    const {handleSubmit, submitting, error, caseNoteTypeList, caseNoteSubTypeList, locale} = this.props;
-    const options = {types: caseNoteTypeList, subTypes: caseNoteSubTypeList};
+    const {handleSubmit, submitting, error, caseNoteTypeList, caseNoteSubTypeList, locale, typeValue} = this.props;
 
     return (
       <div className="add-case-note">
@@ -36,34 +36,7 @@ class AddCaseNoteForm extends Component{
         <form onSubmit={handleSubmit}>
           <SubmissionError error={error}>{error}</SubmissionError>
 
-          <div className="form-group">
-            <label className="form-label">
-              Type
-            </label>
-            <Field className="form-control" component="select" name="typeValue" >
-              <option> Select</option>
-              {options.types.map(t =>
-                <option key={t.value} value={t.value}>
-                  {t.label}
-                </option>
-              )}
-            </Field>
-          </div>
-
-          <div className="form-group">
-            <label className="form-label">
-              Sub-type
-            </label>
-
-            <Field className="form-control" component="select" name="subTypeValue">
-              <option> Select</option>
-              {options.subTypes.map(st =>
-                <option key={st.value} value={st.value}>
-                  {st.label}
-                </option>
-              )}
-            </Field>
-          </div>
+          <TypeAndSubTypeSelector selectedType={typeValue} types={caseNoteTypeList} subTypes={caseNoteSubTypeList}/>
 
           <Field name="caseNoteText" component={TextArea} title="Case Note" autocomplete="off" spellcheck="true"/>
 
@@ -77,7 +50,7 @@ class AddCaseNoteForm extends Component{
               Save case note
             </button>
 
-              <button className="cancel-button col-xs-2" onClick={this.goBack}>
+             <button className="cancel-button col-xs-2" onClick={this.goBack}>
               Cancel
             </button>
 
@@ -130,6 +103,7 @@ const mapStateToProps = createStructuredSelector({
   caseNoteTypeList: selectCaseNoteTypeList(),
   caseNoteSubTypeList: selectCaseNoteSubTypeList(),
   locale: selectLocale(),
+  typeValue: state => selector(state,'typeValue')
 });
 
 const validate = (stuff) => {
@@ -137,11 +111,11 @@ const validate = (stuff) => {
   const { caseNoteText, occurrenceDateTime, subTypeValue,typeValue } = stuff.toJS();
   const errors = {};
 
-  if (! typeValue){
+  if ( ! typeValue){
     errors.typeValue = 'Required';
   }
 
-  if(! subTypeValue){
+  if( ! subTypeValue){
     errors.subTypeValue = 'Required';
   }
 
@@ -149,16 +123,18 @@ const validate = (stuff) => {
     errors.caseNoteText = 'Required';
   }
 
-  if (occurrenceDateTime === 'error') {
-    errors.occurrenceDateTime = true;
+  if (!occurrenceDateTime) {
+    errors.occurrenceDateTime = 'Required';
   }
 
   return errors;
+
 };
 
 const asForm = reduxForm({
   form: 'addCaseNote', // a unique identifier for this form
   validate,
+
   initialValues: Map({
     typeAndSubType: Map({ typeValue: '', subTypeValue: '', text: '' }),
   }),
