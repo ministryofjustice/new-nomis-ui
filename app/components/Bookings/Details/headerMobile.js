@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import EliteImage from 'containers/EliteContainers/Image';
 import EliteOfficerName from 'containers/EliteContainers/OfficerName';
+import { toFullName } from 'utils/stringUtils';
 
 import {
   HeaderWrapper,
@@ -15,12 +16,10 @@ import {
   InformationWrapper,
 } from './headerMobile.theme';
 
-const toTitleCase = (str) => str[0].toUpperCase() + str.slice(1).toLowerCase();
-
 function HeaderMobile({ inmateData, setModalOpen, setModalData, onImageClick }) {
   const { firstName, lastName, bookingNo, offenderNo, facialImageId, alertsCodes, assignedLivingUnit, assignedOfficerId } = inmateData;
 
-  const nameString = `${lastName.toUpperCase()}, ${toTitleCase(firstName)}`;
+  const nameString = toFullName({firstName, lastName});
 
   return (
     <HeaderWrapper data-name={'HeaderWrapper'}>
@@ -42,11 +41,9 @@ function HeaderMobile({ inmateData, setModalOpen, setModalData, onImageClick }) 
     </HeaderWrapper>
   );
 }
+
 HeaderMobile.propTypes = {
   inmateData: PropTypes.object.isRequired,
 };
-
-
-
 
 export default HeaderMobile;

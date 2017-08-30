@@ -1,28 +1,26 @@
-
-
-
-.FooterContainer{
-  position: absolute !important;
-  bottom: 0;
+.FooterContainer {
   width: 100%;
-  background: #DEE0E2;
-  padding:1%;
-  margin:auto;
+  background-color: #dee0e2;
+  padding: 1%;
+  vertical-align: baseline;
+  height: 130px;
+  bottom:0;
 }
 
-.FooterLinkContainer{
+.FooterLinksContainer{
   padding-top: 10px;
+  max-width: 1140px;
 }
 
 .FooterLink{
   float: left;
-  padding: 0px 19px;
+  padding: 0 19px;
   border-right: 1px solid #0B0C0C;
   height: 19px;
   cursor: pointer;
 
   &:last-child {
-    border-right: 0px;
+    border-right: 0;
   }
   &:first-child {
     padding-left: 14px;

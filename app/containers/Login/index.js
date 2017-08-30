@@ -17,8 +17,6 @@ import { selectLoggedIn, selectUser, selectUsername, selectPassword } from '../A
 import LoginForm from './loginForm';
 import "./login.scss";
 
-import Footer from 'containers/Footer';
-
 class Login extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     onSubmitForm: PropTypes.func.isRequired,
@@ -32,8 +30,6 @@ class Login extends PureComponent { // eslint-disable-line react/prefer-stateles
           </div>
 
           <LoginForm onSubmit={this.props.onSubmitForm}/>
-
-          <Footer  />
       </div>
     );
   }

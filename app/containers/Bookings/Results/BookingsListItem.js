@@ -1,7 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import EliteImage from 'containers/EliteContainers/Image';
-import { ListDetailItem, ListDetailImage, Name, ID, GroupedDetails } from './results.theme';
+import { toFullName } from 'utils/stringUtils';
+
+import {
+  ListDetailItem,
+  ListDetailImage,
+  Name,
+  ID,
+  GroupedDetails
+} from './results.theme';
 
 const BookingsListItem = (props) => {
   const { data, action } = props;
@@ -11,7 +19,7 @@ const BookingsListItem = (props) => {
 
       <ListDetailImage><EliteImage imageId={facialImageId} /></ListDetailImage>
       <div className="personAttributes">
-        <Name>{lastName}, {firstName[0].toUpperCase() + firstName.toLowerCase().slice(1)}</Name>
+        <Name>{toFullName({firstName, lastName})}</Name>
         <ID>{offenderNo}</ID>
         <div>{assignedLivingUnitDesc}</div>
       </div>

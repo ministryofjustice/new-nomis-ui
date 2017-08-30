@@ -10,7 +10,7 @@ import Breadcrumbs from 'containers/Breadcrumbs';
 import BreadcrumbsAlt from 'containers/Breadcrumbs/alt';
 
 import { setDeviceFormat } from 'globalReducers/app';
-
+import Footer from 'containers/Footer';
 class App extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
@@ -34,12 +34,9 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
   render() {
     return (
       <div>
-
         <Helmet title="P-Nomis" />
         <Header />
-
         <Modal />
-
           { this.props.router.location.pathname !== '/bookings/details' ?
               <Breadcrumbs route={this.props.router.location.pathname} /> :
               <BreadcrumbsAlt route={this.props.router.location.pathname} />
@@ -48,10 +45,8 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
          <div className="container">
           {React.Children.toArray(this.props.children)}
          </div>
-
+        <Footer/>
       </div>
-
-
     );
   }
 }

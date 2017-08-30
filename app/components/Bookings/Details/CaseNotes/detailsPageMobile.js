@@ -56,7 +56,7 @@ function CaseNoteDetailsMobile(props) {
         <CaseNoteIdBlock data-name={'CaseNoteIdBlock'}><EliteOfficerName username={authorUserId} /></CaseNoteIdBlock>
         {amendments}
         <ButtonWrapper>
-          <NavButton buttonstyle="link" onClick={viewList}>Return to List</NavButton>
+          <NavButton buttonstyle="link" onClick={viewList}>Return to case notes</NavButton>
         </ButtonWrapper>
       </CaseNoteDetailsWrapper>
     </div>
