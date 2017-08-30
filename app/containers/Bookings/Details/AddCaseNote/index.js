@@ -11,7 +11,7 @@ import { ADD_NEW_CASENOTE } from '../../constants';
 import { selectCaseNoteTypeList, selectCaseNoteSubTypeList } from './selectors';
 import DateTimePicker from 'containers/FormContainers/DateTimePicker';
 import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
-
+import moment from 'moment';
 import './index.scss';
 
 const selector = formValueSelector('addCaseNote');
@@ -41,7 +41,14 @@ class AddCaseNoteForm extends Component{
           <Field name="caseNoteText" component={TextArea} title="Case Note" autocomplete="off" spellcheck="true"/>
 
           <div className="occurrence-date-time">
-            <Field name="occurrenceDateTime" component={DateTimePicker} editable locale={locale} title="Occurrence date and time:"/>
+            <Field
+              name="occurrenceDateTime"
+              component={DateTimePicker}
+              editable
+              locale={locale}
+              title="Occurrence date and time:"
+              shouldShowDay={(date) => date.isBefore(moment())}
+            />
           </div>
 
           <div className="actions">
