@@ -11,6 +11,10 @@
   }
 }
 
+.large-image-container {
+  width: 320px;
+  margin: auto;
+}
 .image-container {
     height: 400px;
     width: 320px;
@@ -23,7 +27,7 @@
   margin-top: 6%;
 
   button {
-    width: 80%;
+    width: 50%;
   }
 }
 

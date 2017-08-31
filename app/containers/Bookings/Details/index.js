@@ -48,7 +48,7 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
 
     if (shouldShowLargePhoto) {
       return (
-        <div>
+        <div className="large-image-container">
           <div className="image-container">
             <EliteImage imageId={imageId} />
           </div>
