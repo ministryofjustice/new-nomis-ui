@@ -26,29 +26,35 @@ $personDetailsBackgroundColour: #F2F2F2;
     flex-wrap: wrap;
     box-sizing: border-box;
 
-    .grid-item{
+    .grid-item {
       width :20%;
+      font-size: 16px;
 
-      .personBlock{
+      .personBlock {
         margin-top: .5em;
         margin-right: .5em;
         background: $personDetailsBackgroundColour;
 
-        .personDetails{
-          padding: 1.5em;
+        .personDetails {
+          text-align: center;
+          padding: 1em 0.5em;
+
+          .person-name {
+            white-space: nowrap;
+          }
         }
 
-        .grid-photo{
-          height: 320px  !important;
-          width: 100% !important;
+        .grid-photo {
+          height: 200px;
+          width: 160px;
           border: none;
           cursor: pointer;
+          margin: auto;
 
-          img{
+          img {
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: 0;
+            background-size: contain;
           }
         }
       }
@@ -90,8 +96,7 @@ $personDetailsBackgroundColour: #F2F2F2;
 
     .personDetails{
       background:#F2F2F2;
-      padding:1em;
-      height:8em;
+      padding:1em 0.5em;
     }
     .booking-search{
       .form-control {

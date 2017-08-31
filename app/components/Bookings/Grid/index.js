@@ -31,7 +31,7 @@ const Grid =  ({results,viewDetails,sortOrderChange,sortOrder}) => (
             </div>
 
             <div className="personDetails">
-              <div className="bold">
+              <div className="person-name bold">
                 <Name lastName={row.lastName} firstName={row.firstName} />
               </div>
 

@@ -14,11 +14,10 @@ export const NavLinkWrapper = styled.div`
   
   margin-right: auto;
   
-  margin-top: 30px;
+  margin-top: 15px;
   ${media.desktop`margin-top: 0;`}
   
   margin-bottom: 0;
-  ${media.desktop`margin-bottom: 30px;`}
   
   width: 100%;
   max-width: 1170px;

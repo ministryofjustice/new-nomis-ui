@@ -46,14 +46,17 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
     const TabComponent = deviceFormat === 'desktop' ? TabComponentDesktop : TabComponentMobile;
 
 
-    if(shouldShowLargePhoto){
+    if (shouldShowLargePhoto) {
       return (
-      <div className="image-container">
-        <EliteImage imageId={imageId} />
-        <button type="button" className="cancel-button" onClick={() => hidePhoto(imageId)}>
-          Close
-        </button>
-      </div>)
+        <div>
+          <div className="image-container">
+            <EliteImage imageId={imageId} />
+          </div>
+          <div className="button-container">
+            <button type="button" className="cancel-button" onClick={() => hidePhoto(imageId)}>Close</button>
+          </div>
+        </div>
+      )
     }
 
     return (
