@@ -47,7 +47,7 @@ function MobileMenu({ user, modalData, setMobileMenuOpen, setModalData, switchCa
       <MobileMenuAdditionalOption data-name={'updates'} to={'/modalMobile'} onClick={linkClick}>Updates</MobileMenuAdditionalOption>
       <MobileMenuAdditionalOption data-name={'help'} to={'/modalMobile'} onClick={linkClick}>Help</MobileMenuAdditionalOption>
       <MobileMenuAdditionalOption data-name={'terms'} to={'/modalMobile'} onClick={linkClick}>Terms and conditions</MobileMenuAdditionalOption>
-      <MobileMenuSignature>Powered By Syscon</MobileMenuSignature>
+      <MobileMenuSignature>Powered by Syscon</MobileMenuSignature>
     </MobileMenuContainer>
   );
 }
