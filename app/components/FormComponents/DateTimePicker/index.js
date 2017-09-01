@@ -57,8 +57,10 @@ class DateTimePicker extends PureComponent{
 
   constructor(){
     super();
+
     this.toggleEdit = this.toggleEdit.bind(this);
     this.onDateTimeChange = this.onDateTimeChange.bind(this);
+    this.outputResult = this.outputResult.bind(this);
 
     const momentSnapShot = moment();
 
@@ -68,9 +70,17 @@ class DateTimePicker extends PureComponent{
       time: momentSnapShot.format(DEFAULT_MOMENT_TIME_FORMAT_SPEC),
       momentSnapShot
     };
+
+  }
+
+  componentDidMount(){
+
+    const {momentSnapShot} = this.state;
+    this.outputResult(momentSnapShot.toISOString());
   }
 
   toggleEdit(e){
+
      e.preventDefault();
      this.setState({
        edit: ! this.state.edit
@@ -85,12 +95,17 @@ class DateTimePicker extends PureComponent{
       momentSnapShot: moment
     });
 
-    const dateTimeFormat = moment.toISOString();
+    this.outputResult(moment.toISOString());
+  }
 
-    this.props.input.onChange(dateTimeFormat);
+   outputResult(value){
+
+    if(this.props && this.props.input && this.props.input.onChange)
+      this.props.input.onChange(value);
   }
 
   render(){
+
     const {locale,title,meta:{touched,error},shouldShowDay} = this.props;
     const {edit,date,time} = this.state;
     const dateTimeText = date ? `${date}  -  ${time}` : '';

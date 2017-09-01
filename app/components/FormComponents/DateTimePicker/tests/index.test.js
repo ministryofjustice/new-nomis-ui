@@ -63,4 +63,12 @@ describe('DateTimePicker', () =>{
     expect(input.onChange).toBeCalledWith(isoFormattedDate);
 
   });
+
+  it('should output the default date on component creation', () => {
+    const input = {onChange: jest.fn()};
+
+    mount(<DateTimePicker input={input} {...props} />);
+
+    expect(input.onChange).toBeCalled();
+  })
 });
