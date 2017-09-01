@@ -33,5 +33,43 @@ describe('TypeAndSubTypeSelector', () =>{
 
       expect(subTypeSelectorProps.options.length).toBe(1);
       expect(subTypeSelectorProps.options[0]).toEqual(subTypes[0]);
-    })
-})
+    });
+
+    it('should reset the subType by default', () =>{
+
+      const renderedComponent = shallow(
+        <TypeAndSubTypeSelector selectedType={types[0].value} types={types} subTypes={subTypes} />
+      );
+
+      expect(renderedComponent.instance().state.resetSubType).toBe(true);
+
+    });
+
+  it('should not reset subType once a subType has been selected', () =>{
+
+    const renderedComponent = shallow(
+      <TypeAndSubTypeSelector selectedType={types[0].value} types={types} subTypes={subTypes} />
+    );
+
+    const instance = renderedComponent.instance();
+
+    instance.onSubTypeChange();
+
+    expect(instance.state.resetSubType).toBe(false);
+  });
+
+  it('should reset subType once a type has been selected', () =>{
+
+    const renderedComponent = shallow(
+      <TypeAndSubTypeSelector selectedType={types[0].value} types={types} subTypes={subTypes} />
+    );
+
+    const instance = renderedComponent.instance();
+
+    instance.onSubTypeChange();
+    instance.onTypeChange();
+
+    expect(instance.state.resetSubType).toBe(true);
+  });
+
+});
