@@ -14,7 +14,7 @@ const onViewDetails = (e,row,viewDetails) => {
 };
 
 const Table = ({results,viewDetails,sortOrder,sortOrderChange}) => (
-  <table className="booking-table">
+  <table className="booking-table" width="100%">
     <thead>
     <tr>
       <th> </th>
@@ -48,7 +48,7 @@ const Table = ({results,viewDetails,sortOrder,sortOrderChange}) => (
         <td className="visible-md visible-lg">
           {(row.aliases || []).map(name =>
             <div className="row" key={name + row}>
-               <span className="col" key={name}>
+               <span key={name}>
                  <Name name={name} />
                </span>
             </div>)}
