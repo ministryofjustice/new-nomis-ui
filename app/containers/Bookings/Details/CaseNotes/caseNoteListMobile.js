@@ -56,13 +56,13 @@ class FilterToggle extends PureComponent {
 
         {this.state.show?
           <span>
-            <span> <ArrowUp/> </span>
             <span> Hide filters </span>
+            <span> <ArrowDown/> </span>
           </span> :
 
           <span>
-            <span> <ArrowDown/> </span>
             <span> Show filters </span>
+            <span> <ArrowUp/> </span>
           </span>
         }
       </MarginFix>
