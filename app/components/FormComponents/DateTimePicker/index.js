@@ -10,11 +10,22 @@ import {
 
 
 const DateTimeElement = styled(Datetime) `  
+   .rdtCounters{
+     margin-right: .5em !important;
+   }
+   
+   .rdtCount{
+     height:28% !important;
+     margin-right: .2em !important;
+   }
+   .rdtCounterSeparator{
+      margin-right: .2em !important;
+   }
    .rdtPicker{
-     width:100%;
+     width:100% !important;
    }   
    .rdtBtn{
-     font-size: 2rem;
+     font-size: 2rem !important;
    }
 `;
 
