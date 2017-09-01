@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import colours from 'theme/colours';
 import { StyledLink } from 'components/Button/button.theme';
 import { responsiveCols, fixedCols } from 'components/CommonTheme/responsiveColumns';
+import { media } from 'utils/style-utils';
 
 export const Location = styled.div`
   width: ${responsiveCols(2)};
@@ -15,13 +16,17 @@ export const Help = styled.div`
 `;
 
 export const HeaderWrapper = styled.div`
-  position: relative;
+  display: flex;
+  flex-direction: column;
   padding-top: 20px;
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 2em;
-  width:100%;
+  margin-bottom: 1em;
+  
+  ${media.desktop`
+    margin-bottom: 2em;
+  `}
 `;
 
 export const NameIdKeyWorker = styled.div`
@@ -72,13 +77,12 @@ export const AlertCodes = styled.div`
 `;
 
 export const AddCaseNoteButton = styled.div`
-  margin-top: 30px;
+  padding-top: 30px;
   text-align: center;
 `;
 
 export const AddCaseNoteButtonComponent = styled(StyledLink)`
   width: 100%;
-  // height: 100px;
   font-size: 16px;
 `;
 
@@ -90,13 +94,16 @@ export const ContentWrapper = styled.div`
 `;
 
 export const FaceImage = styled.div`
-  width: 40%;
-  padding-right: 10px;
+  flex: unset;
+  margin-left: 10px;
+  margin-right: 10px;
   cursor: pointer;
+  width: 86px;
+  height: 108px;
 `;
 
 export const InformationWrapper = styled.div`
-  width: 60%;
+  flex: 1;
   padding-left: 10px;
 
   span {

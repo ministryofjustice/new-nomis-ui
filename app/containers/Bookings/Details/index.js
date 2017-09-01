@@ -5,7 +5,6 @@ import { createStructuredSelector } from 'reselect';
 import TabNav from 'components/Bookings/Details/tabMenu';
 import TabNavMobile from 'components/Bookings/Details/tabMenuMobile';
 import NavLink from 'components/NavLink';
-import { UpperFlexColumn, ContentWrapper } from 'components/DesktopWrappers';
 
 import { selectDeviceFormat, selectSearchContext } from 'selectors/app';
 import OffenderDetails from './OffenderDetails';
@@ -47,20 +46,22 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
     const TabComponent = deviceFormat === 'desktop' ? TabComponentDesktop : TabComponentMobile;
 
 
-    if(shouldShowLargePhoto){
+    if (shouldShowLargePhoto) {
       return (
-      <div className="image-container">
-        <EliteImage imageId={imageId} />
-        <button type="button" className="cancel-button" onClick={() => hidePhoto(imageId)}>
-          Close
-        </button>
-      </div>)
+        <div className="large-image-container">
+          <div className="image-container">
+            <EliteImage imageId={imageId} />
+          </div>
+          <div className="button-container">
+            <button type="button" className="cancel-button" onClick={() => hidePhoto(imageId)}>Close</button>
+          </div>
+        </div>
+      )
     }
 
     return (
 
-      <ContentWrapper>
-
+      <div className="detail-content">
         { this.props.searchContext === 'assignments' ?
           <NavLink route="/assignments" key="Assignments" text="< Back to assignments"/> :
           <NavLink route="/results" key="Results" text="< Back to search results"/>
@@ -76,8 +77,7 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
             tabData={tabData.map((tab) => Object.assign(tab, { action: () => setTab(tab.tabId) }))}
             activeTabId={activeTabId}/>}
         <TabComponent />
-
-      </ContentWrapper>
+      </div>
     );
   }
 }

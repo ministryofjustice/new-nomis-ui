@@ -3,6 +3,7 @@ import { FormattedDate } from 'react-intl';
 
 import EliteImage from 'containers/EliteContainers/Image';
 import Name from 'components/Name';
+import './index.scss';
 
 const ArrowUp = ({sortOrderChange}) => <span className="clickable" onClick={sortOrderChange}> &#9650; </span>;
 const ArrowDown = ({sortOrderChange}) => <span className="clickable" onClick={sortOrderChange}> &#9660;  </span>;

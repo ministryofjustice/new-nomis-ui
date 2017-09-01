@@ -11,13 +11,15 @@ function Footer({ modalData, setModalOpen, setModalData }) {
   };
 
   return (
-    <footer className="FooterContainer visible-lg visible-md col-lg-12 col-md-12" data-name={'Footer'}>
-      <div className="FooterLinksContainer">
-        <div className="FooterLink" data-name={'updates'} onClick={linkClick}>Updates</div>
-        <div className="FooterLink" data-name={'help'} onClick={linkClick}>Help</div>
-        <div className="FooterLink" data-name={'terms'} onClick={linkClick}>Terms and conditions</div>
+    <footer className="FooterContainer" data-name={'Footer'}>
+      <div className="footer-content">
+        <div className="FooterLinksContainer">
+          <div className="FooterLink" data-name={'updates'} onClick={linkClick}>Updates</div>
+          <div className="FooterLink" data-name={'help'} onClick={linkClick}>Help</div>
+          <div className="FooterLink" data-name={'terms'} onClick={linkClick}>Terms and conditions</div>
+        </div>
+        <div className="FooterSignature">Powered by Syscon Justice Systems</div>
       </div>
-      <div className="FooterSignature">Powered by Syscon Justice Systems</div>
     </footer>
   );
 }

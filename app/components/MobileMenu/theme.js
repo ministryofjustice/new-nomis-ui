@@ -79,17 +79,14 @@ export const MobileMenuAdditionalOption = styled(Link)`
 
 export const MobileMenuSignature = styled.div`
   box-sizing: border-box;
-  cursor: pointer;
+  cursor: default;
   display: block;
-  padding: 20px 30px;
+  padding: 20px 20px 5px 30px;
   color: ${colours.userMenu.text};
   opacity: 0.6;
-  font-size: 18px;
+  font-size: 14px;
   text-decoration: none;
-  
-  &:hover{
-    background: ${colours.userMenu.hover};
-  }
+  text-align: center;
 `;
 
 export const ForwardArrow = styled(InlineSVG)`

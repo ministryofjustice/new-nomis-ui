@@ -45,7 +45,7 @@ function Breadcrumbs({ route, inmateData, context }) {
   }
 
   return (
-    <BreadcrumbWrapper data-name={'Breadcrumbs'}>
+    <div className="nav-content" data-name={'Breadcrumbs'}>
       {breadcrumbArray.map((breadcrumb, i) => i !== breadcrumbArray.length - 1 ?
         <BreadcrumbLinkWrapper key={breadcrumb.name}>
           <BreadcrumbLink to={breadcrumb.route} key={breadcrumb.name}>{breadcrumb.name}</BreadcrumbLink>
@@ -54,7 +54,7 @@ function Breadcrumbs({ route, inmateData, context }) {
         :
         <BreadcrumbLink key={breadcrumb.name}>{breadcrumb.name}</BreadcrumbLink>)
       }
-    </BreadcrumbWrapper>
+    </div>
   );
 }
 
