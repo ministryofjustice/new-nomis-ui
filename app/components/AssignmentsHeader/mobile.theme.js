@@ -7,6 +7,7 @@ export const AssignmentsHeaderWrapper = styled.div`
   height: 110px;
   background-color: ${colours.assignments.mobileBackgroundColour};
   padding: 18px 10px;
+  margin-top: 15px;
 `;
 
 export const PortraitImage = styled.div`

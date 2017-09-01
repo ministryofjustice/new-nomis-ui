@@ -10,6 +10,7 @@ export const TabWrapper = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
+  z-index: 999;
   
   div {
     padding: 25px 0px 2px;

@@ -18,7 +18,7 @@ $personDetailsBackgroundColour: #F2F2F2;
   .separator {
     border-bottom: solid 3px darken($personDetailsBackgroundColour, 3%);
     width: 99%;
-    margin-bottom: 1em;
+    padding-top: 10px;
   }
 
   .grid {
