@@ -38,7 +38,7 @@ class AddCaseNoteForm extends Component{
 
           <TypeAndSubTypeSelector selectedType={typeValue} types={caseNoteTypeList} subTypes={caseNoteSubTypeList}/>
 
-          <Field name="caseNoteText" component={TextArea} title="Case Note" autocomplete="off" spellcheck="true"/>
+          <Field name="caseNoteText" component={TextArea} title="Case note" autocomplete="off" spellcheck="true"/>
 
           <div className="occurrence-date-time">
             <Field
@@ -53,7 +53,7 @@ class AddCaseNoteForm extends Component{
 
           <div className="actions">
 
-            <button className="button col-xs-3" type="submit" disabled={submitting} submitting={submitting}>
+            <button className="button col-xs-2" type="submit" disabled={submitting} submitting={submitting}>
               Save case note
             </button>
 

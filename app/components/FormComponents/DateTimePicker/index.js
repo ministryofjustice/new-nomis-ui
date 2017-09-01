@@ -10,6 +10,17 @@ import {
 
 
 const DateTimeElement = styled(Datetime) `  
+   .rdtCounters{
+     margin-right: .5em;
+   }
+   
+   .rdtCount{
+     height:28%;
+     margin-right: .2em;
+   }
+   .rdtCounterSeparator{
+      margin-right: .2em;
+   }
    .rdtPicker{
      width:100%;
    }   
