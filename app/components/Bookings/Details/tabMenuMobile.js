@@ -17,6 +17,14 @@ function TabMenuMobile({ tabData, activeTabId }) {
     '/img/tab-menu-mobile-MORE.png',
   ];
 
+  const imgArrayRetina = [
+    '/img/tab-menu-mobile-OFFENDER@2x.png',
+    '/img/tab-menu-mobile-PHYSICAL@2x.png',
+    '/img/tab-menu-mobile-ALERTS@2x.png',
+    '/img/tab-menu-mobile-CASENOTES@2x.png',
+    '/img/tab-menu-mobile-MORE@2x.png',
+  ];
+
   return (
     <div>
       <TabWrapper data-name={'TabNavMobile'}>
@@ -25,7 +33,9 @@ function TabMenuMobile({ tabData, activeTabId }) {
           active={tab.tabId === activeTabId}
           onClick={tab.tabId === activeTabId ? null : tab.action}
           bgImg={imgArray[i]}
-        ><TextHolder>{tab.mobileTitle}</TextHolder></TabMenuItem>)}
+          retinaBgImg={imgArrayRetina[i]}>
+          <TextHolder>{tab.mobileTitle}</TextHolder>
+        </TabMenuItem>)}
       </TabWrapper>
       <TabWrapperContentPadding />
     </div>
