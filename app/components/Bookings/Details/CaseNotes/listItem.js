@@ -18,6 +18,13 @@ const Row = styled.div`
   &:hover{
     background: #f8f8f8;
   }
+  
+  .col-md-6,
+  .col-md-12,
+  .col-xs-12 {
+    padding:0 !important;
+    margin:0 !important;
+  }
 `
 
 const Bold = styled.span`
@@ -83,32 +90,40 @@ function CaseNoteListItem(props) {
   const { authorUserId, occurrenceDateTime, subTypeDescription, typeDescription, splitInfo } = props.caseNote.toJS(); // amendments
 
   return (
-    <Row onClick={action}>
+    <Row onClick={action} className="col-xs-12">
 
-       <Block>
+       <Block className="col-xs-12 col-md-2">
          <Bold>
-           <FormattedDate value={Date.parse(occurrenceDateTime)} /> <FormattedTime value={occurrenceDateTime} />
+           <span className="col-md-12">
+              <FormattedDate value={Date.parse(occurrenceDateTime)} />
+           </span>
+
+           <span className="col-md-12">
+             <FormattedTime value={occurrenceDateTime} />
+           </span>
          </Bold>
 
-         <Separator>
+         <Separator className="hidden-md hidden-lg hidden-lx">
            -
          </Separator>
 
-         <EliteOfficerName username={authorUserId} />
+         <EliteOfficerName username={authorUserId} className="col-md-12" />
        </Block>
 
-      <Block>
-        <Bold>
-          {typeDescription} | {subTypeDescription}
-        </Bold>
-      </Block>
+      <div className="col-xs-12 col-md-10">
+        <Block>
+          <Bold>
+            {typeDescription} | {subTypeDescription}
+          </Bold>
+        </Block>
 
-       <Block>
-          {splitInfo.stub}
-          <div>
-            {splitInfo.amendments ? AmendmentBlock({ amendments: splitInfo.amendments}) : null}
-          </div>
-       </Block>
+         <Block>
+            {splitInfo.stub}
+            <div>
+              {splitInfo.amendments ? AmendmentBlock({ amendments: splitInfo.amendments}) : null}
+            </div>
+         </Block>
+      </div>
     </Row>
   );
 }
