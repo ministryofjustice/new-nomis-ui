@@ -22,10 +22,10 @@ import { setDetailsTab,hideLargePhoto } from '../actions';
 import './index.scss';
 
 const tabData = [
-    { tabId: 0, title: 'Offender Details', mobileTitle: 'OFFENDER', component: OffenderDetails, componentMobile: OffenderDetailsMobile },
-    { tabId: 1, title: 'Physical Attributes', mobileTitle: 'PHYSICAL', component: PhysicalAttributes, componentMobile: PhysicalAttributesMobile },
-    { tabId: 2, title: 'Alerts', mobileTitle: 'ALERTS', component: Alerts, componentMobile: Alerts },
-    { tabId: 3, title: 'Case Notes', mobileTitle: 'CASE NOTES', component: CaseNotes, componentMobile: CaseNotes },
+    { tabId: 0, title: 'Offender Details', mobileTitle: 'Offender', component: OffenderDetails, componentMobile: OffenderDetailsMobile },
+    { tabId: 1, title: 'Physical Attributes', mobileTitle: 'Physical', component: PhysicalAttributes, componentMobile: PhysicalAttributesMobile },
+    { tabId: 2, title: 'Alerts', mobileTitle: 'Alerts', component: Alerts, componentMobile: Alerts },
+    { tabId: 3, title: 'Case Notes', mobileTitle: 'Case notes', component: CaseNotes, componentMobile: CaseNotes },
 ];
 
 class Details extends PureComponent { // eslint-disable-line react/prefer-stateless-function
