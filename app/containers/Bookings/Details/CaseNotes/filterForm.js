@@ -69,10 +69,11 @@ const FilterForm = ({handleSubmit, submitting, error, reset, isMobile, caseNoteF
             Date range
           </label>
 
-          {dateRangeNotValid ?
+          {dateRangeNotValid &&
               <div className="error-message">
                 Start date must come before or equal to the end date
-              </div> : null}
+              </div>
+          }
 
           <Field name="startDate" showError={dateRangeNotValid} component={DatePicker} locale={locale} title="From"/>
           <Field name="endDate" showError={dateRangeNotValid} component={DatePicker} locale={locale} title="To" />

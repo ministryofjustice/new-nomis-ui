@@ -9,7 +9,7 @@ import { selectLocale } from 'containers/LanguageProvider/selectors';
 import { SubmissionError, TextArea } from 'components/FormComponents';
 import { ADD_NEW_CASENOTE } from '../../constants';
 import { selectCaseNoteTypeList, selectCaseNoteSubTypeList } from './selectors';
-import DateTimePicker from 'containers/FormContainers/DateTimePicker';
+import DateTimePicker from 'components/FormComponents/DateTimePicker';
 import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
 import moment from 'moment';
 import './index.scss';
@@ -139,13 +139,11 @@ const validate = (stuff) => {
 };
 
 const asForm = reduxForm({
-  form: 'addCaseNote', // a unique identifier for this form
+  form: 'addCaseNote',
   validate,
-
   initialValues: Map({
     typeAndSubType: Map({ typeValue: '', subTypeValue: '', text: '' }),
   }),
 })(AddCaseNoteForm);
 
-// Wrap the component to inject dispatch and state into it
 export default connect(mapStateToProps, mapDispatchToProps)(asForm);

@@ -1,6 +1,7 @@
 import React,{PureComponent} from 'react';
 import styled from 'styled-components';
 import Datetime from 'react-datetime';
+import moment from 'moment';
 import 'react-datetime/css/react-datetime.css';
 import {
   DEFAULT_MOMENT_DATE_FORMAT_SPEC,
@@ -28,23 +29,28 @@ const DateTimeAndLink = styled.span`
    }
 `
 
-const EditMode = ({locale,onDateTimeChange,toggleEdit,isValidDate}) =>(
+export const DateTimePickerDisplay = ({locale,onDateTimeChange,toggleEdit,isValidDate}) =>(
 <div>
-  <DateTimeElement isValidDate={isValidDate} input={false} locale={locale} onChange={onDateTimeChange} className="date-time-picker"/>
+  <DateTimeElement
+    className="date-time-picker"
+    isValidDate={isValidDate}
+    input={false}
+    locale={locale}
+    onChange={onDateTimeChange}
+    defaultValue={moment()}
+  />
   <DateTimeCancelButton className="cancel-button" onClick={toggleEdit}>
     Finish editing
   </DateTimeCancelButton>
 
 </div>)
 
-const DisplayMode = ({dateTimeText,toggleEdit,shouldShowDay}) =>(
+export const ReadOnlyDateTimeView = ({dateTimeText,toggleEdit,shouldShowDay}) =>(
 <div>
-  <div>
     <DateTimeAndLink>
-      <span>{dateTimeText}</span>
+      <span className="date-time-text">{dateTimeText}</span>
       <a href="#" onClick={toggleEdit}>Edit</a>
     </DateTimeAndLink>
-  </div>
 </div>)
 
 class DateTimePicker extends PureComponent{
@@ -54,10 +60,13 @@ class DateTimePicker extends PureComponent{
     this.toggleEdit = this.toggleEdit.bind(this);
     this.onDateTimeChange = this.onDateTimeChange.bind(this);
 
+    const momentSnapShot = moment();
+
     this.state = {
       edit: false,
-      date: '',
-      time: ''
+      date: momentSnapShot.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC),
+      time: momentSnapShot.format(DEFAULT_MOMENT_TIME_FORMAT_SPEC),
+      momentSnapShot
     };
   }
 
@@ -73,6 +82,7 @@ class DateTimePicker extends PureComponent{
     this.setState({...this.state,
       date: moment.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC),
       time: moment.format(DEFAULT_MOMENT_TIME_FORMAT_SPEC),
+      momentSnapShot: moment
     });
 
     const dateTimeFormat = moment.toISOString();
@@ -97,14 +107,14 @@ class DateTimePicker extends PureComponent{
         </div>
 
         {edit ?
-          <EditMode
+          <DateTimePickerDisplay
             toggleEdit={this.toggleEdit}
             locale={locale}
             onDateTimeChange={this.onDateTimeChange}
             isValidDate={shouldShowDay}
 
           /> :
-          <DisplayMode toggleEdit={this.toggleEdit} dateTimeText={dateTimeText} />
+          <ReadOnlyDateTimeView toggleEdit={this.toggleEdit} dateTimeText={dateTimeText} />
         }
 
        </div>
