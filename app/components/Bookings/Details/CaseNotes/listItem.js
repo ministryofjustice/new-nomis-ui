@@ -12,29 +12,31 @@ const Block = styled.div`
    margin-bottom: .5em;
  `;
 
-const Row = styled.div`
-  border-bottom: #F2F2F2 solid 1px;
-  margin-bottom: 1em;
-  &:hover{
-    background: #f8f8f8;
-  }
-  
+const Wrapper = styled.div`
   .col-md-6,
   .col-md-12,
   .col-xs-12 {
     padding:0 !important;
     margin:0 !important;
   }
-`
+`;
+
+const Row = styled.div`
+  border-bottom: #F2F2F2 solid 1px;
+  margin-bottom: 1em;
+  &:hover{
+    background: #f8f8f8;
+  }
+`;
 
 const Bold = styled.span`
   font-weight: bold;
-`
+`;
 
 const Separator = styled.span`
   margin-left: .3em;
   margin-right: .3em;
-`
+`;
 
 const AmendmentBox = styled.div`
    background : #DEE0E2;
@@ -45,7 +47,7 @@ const AmendmentBox = styled.div`
    padding-left: 1em;
    padding-right: 1em;
    padding-bottom: 1em;
-`
+`;
 
 function AmendmentBlock({ amendments }) {
   if(!amendments) return <div></div>;
@@ -90,6 +92,7 @@ function CaseNoteListItem(props) {
   const { authorUserId, occurrenceDateTime, subTypeDescription, typeDescription, splitInfo } = props.caseNote.toJS(); // amendments
 
   return (
+    <Wrapper>
     <Row onClick={action} className="col-xs-12">
 
        <Block className="col-xs-12 col-md-2">
@@ -125,6 +128,7 @@ function CaseNoteListItem(props) {
          </Block>
       </div>
     </Row>
+    </Wrapper>
   );
 }
 
