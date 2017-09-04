@@ -5,8 +5,13 @@ import { createStructuredSelector } from 'reselect';
 import { createFormAction } from 'redux-form-saga';
 
 import { AMEND_CASENOTE } from 'containers/Bookings/constants';
-import { closeAmendCaseNoteModal } from 'containers/Bookings/actions';
 import AmendCaseNoteForm from '../AmendCaseNoteModal/amendCaseNoteForm';
+
+import { DETAILS_TABS } from '../../../constants';
+import { selectBookingDetailsId } from '../../../selectors';
+import { viewDetails } from '../../../actions';
+
+import '../AmendCaseNoteModal/index.scss';
 
 class AmendCaseNotePageMobile extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -16,39 +21,36 @@ class AmendCaseNotePageMobile extends PureComponent { // eslint-disable-line rea
   }
 
   goBack() {
-    this.context.router.goBack();
+    this.props.goToBookingDetails(this.props.bookingDetailsId);
   }
 
   render() {
+    const { onSubmitForm } = this.props;
+
     return (
-      <AmendCaseNoteForm
-        isMobile
-        initialValues={{ }}
-        onSubmit={this.props.onSubmitForm}
-        goBack={this.context.router.goBack}
-      />
+      <div className="amend-case-note">
+        <h1 className="bold-large">Amend case note</h1>
+        <AmendCaseNoteForm isMobile initialValues={{ }} onSubmit={onSubmitForm} goBack={this.goBack} />
+      </div>
     );
   }
 }
 
 AmendCaseNotePageMobile.propTypes = {
   onSubmitForm: PropTypes.func.isRequired,
+  goToBookingDetails: PropTypes.func.isRequired
 };
 
 AmendCaseNotePageMobile.defaultProps = {
 };
 
-AmendCaseNotePageMobile.contextTypes = {
-  router: PropTypes.object.isRequired,
-};
-
-
 const mapStateToProps = createStructuredSelector({
+  bookingDetailsId: selectBookingDetailsId()
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
-    closeAmendCaseNoteModal: () => dispatch(closeAmendCaseNoteModal()),
+    goToBookingDetails: (bookingId) => dispatch(viewDetails(bookingId, DETAILS_TABS.CASE_NOTES)),
     onSubmitForm: createFormAction((formData) => ({ type: AMEND_CASENOTE.BASE, payload: { query: formData.toJS() } }), [AMEND_CASENOTE.SUCCESS, AMEND_CASENOTE.ERROR]),
   };
 }

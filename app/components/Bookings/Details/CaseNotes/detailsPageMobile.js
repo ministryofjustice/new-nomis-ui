@@ -46,7 +46,7 @@ function CaseNoteDetailsMobile(props) {
     <div>
       <CaseNoteDetailsWrapper data-name={'CaseNoteDetailsWrapper'}>
         <ButtonWrapper>
-          <NavButton buttonstyle="link" to={'/amendCaseNote'}>Add Amendment</NavButton>
+          <NavButton buttonstyle="link" to={'/amendCaseNote'}>Make amendment</NavButton>
         </ButtonWrapper>
         <DateTimeBlockWrapper data-name={'DateTimeBlockWrapper'}>
           <DateTimeBlock data-name={'DateTimeBlock'} dateTime={occurrenceDateTime} />

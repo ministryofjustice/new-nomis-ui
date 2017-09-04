@@ -128,7 +128,7 @@ SearchResults.defaultProps = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    viewDetails: (bookingId) => dispatch(vD(bookingId, true)),
+    viewDetails: (bookingId) => dispatch(vD(bookingId)),
     setPage: (pagination) => dispatch(sP(pagination)),
     setResultsView: (pagination) => dispatch(setResultsView(pagination)),
     setSearchContext: (context) => dispatch(setSearchContext(context)),

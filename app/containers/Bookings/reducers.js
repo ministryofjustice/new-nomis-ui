@@ -23,6 +23,7 @@ import {
   VIEW_CASENOTE_LIST,
   SET_PAGINATION,
   SET_DETAILS_TAB,
+  DETAILS_TABS,
   SET_RESULTS_VIEW,
   SET_ALERTS_PAGINATION,
   SET_CASENOTES_PAGINATION,
@@ -37,8 +38,11 @@ import results from './Results/resultsData';
 
   const detailsState = fromJS({
   id: 20847,
-  activeTabId: 0,
-  tabs: [{ tabId: 0, title: 'Offender Details' }, { tabId: 1, title: 'Physical Attributes' }, { tabId: 2, title: 'Alerts' }, { tabId: 3, title: 'Case Notes' }],
+  activeTabId: DETAILS_TABS.OFFENDER_DETAILS,
+  tabs: [{ tabId: DETAILS_TABS.OFFENDER_DETAILS, title: 'Offender Details' },
+         { tabId: DETAILS_TABS.PHYSICAL_ATTR, title: 'Physical Attributes' },
+         { tabId: DETAILS_TABS.ALERTS, title: 'Alerts' },
+         { tabId: DETAILS_TABS.CASE_NOTES, title: 'Case Notes' }],
   alertsPagination: { perPage: 10, pageNumber: 0 },
   shouldShowLargePhoto: false,
   imageId:0,
@@ -163,7 +167,7 @@ function searchReducer(state = initialState, action) {
 
     case SET_DETAILS_TAB: {
       const newState = state.setIn(['details', 'activeTabId'], action.payload.activeTabId);
-      if (action.payload.activeTabId === 3) {
+      if (action.payload.activeTabId === DETAILS_TABS.CASE_NOTES) {
         return newState.setIn(['details', 'caseNotes', 'viewId'], 0);
       }
       return newState;

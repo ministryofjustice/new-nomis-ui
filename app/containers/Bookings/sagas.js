@@ -56,7 +56,8 @@ import {
   LOAD_LOCATIONS,
   SET_LOCATIONS,
   NEW_SEARCH,
-  TOGGLE_SORT_ORDER
+  TOGGLE_SORT_ORDER,
+  SET_DETAILS_TAB
 } from './constants';
 
 
@@ -305,13 +306,16 @@ export function* detailsWatcher() {
 }
 
 export function* viewDetails(action) {
-  yield put({ type: SET_DETAILS,
-    payload: action.payload });
+  yield put({ type: SET_DETAILS, payload: action.payload });
 
   try {
     const res = yield call(bookingDetailsElite, action); //eslint-disable-line
     // FIXME if res is an error we should deal with it more gracefully...
     yield put(push('/bookings/details'));
+
+    if (typeof action.payload.activeTabId === 'number') {
+      yield put({type: SET_DETAILS_TAB, payload: action.payload});
+    }
   } catch (err) {
     yield put({ type: DETAILS_ERROR, payload: new SubmissionError({ _error: err.message }) });
   }

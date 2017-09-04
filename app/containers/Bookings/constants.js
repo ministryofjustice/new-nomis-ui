@@ -22,6 +22,12 @@ export const VIEW_DETAILS = 'app/bookings/details/view';
 export const SET_DETAILS = 'app/bookings/details/set';
 export const SET_DETAILS_TAB = 'app/bookings/details/tab/set';
 
+export const DETAILS_TABS = {
+  OFFENDER_DETAILS: 0,
+  PHYSICAL_ATTR: 1,
+  ALERTS: 2,
+  CASE_NOTES: 3
+};
 
 export const DETAILS_ERROR = 'app/bookings/details/error';
 
