@@ -9,6 +9,7 @@ import { logOut } from '../Authentication/actions';
 import { selectUser } from '../Authentication/selectors';
 import { setSearchContext } from 'globalReducers/app';
 import SearchForm from './SearchForm';
+import Name from 'components/Name';
 
 import {Link} from 'react-router';
 
@@ -30,11 +31,11 @@ class HomePage extends PureComponent { // eslint-disable-line react/prefer-state
 
   render() {
 
-    const {locations} = this.props;
+    const {user, locations} = this.props;
 
     return (
       <div>
-        <h1 className="heading-xlarge">Welcome to Prison-NOMIS</h1>
+        <h1 className="heading-xlarge">Hello <Name firstName={user.firstName} /></h1>
         <SearchForm locations={locations}/>
         <div className="assignment-box">
           <h1 className="heading-large" > View your assignments </h1>

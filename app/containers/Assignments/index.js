@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import ResultsViewToggle from 'components/ResultsViewToggle';
 import ResultsViewToggleMobile from 'components/ResultsViewToggle/mobile';
+import NavLink from 'components/NavLink';
 
 import { selectDeviceFormat } from 'selectors/app';
 import { viewDetails as vD } from 'containers/Bookings/actions';
@@ -51,6 +52,7 @@ class Assignments extends PureComponent { // eslint-disable-line react/prefer-st
             user={user} options={{assignments: totalResults}} />
           :
           <div>
+            <NavLink route="/" key="Home" text="Home"/>
             <AssignmentsHeaderMobile user={user} options={{assignments: totalResults}} />
             <ResultsViewToggleMobile resultsView={resultsView} setResultsView={setResultsView} />
           </div>

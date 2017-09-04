@@ -13,8 +13,8 @@ import { connect } from 'react-redux';
 
 import SearchAgainForm from './SearchForm'
 import { selectDeviceFormat } from 'selectors/app';
+import NavLink from 'components/NavLink';
 import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMessage';
-
 
 import {
   selectSearchResultsV2,
@@ -57,6 +57,9 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
 
     return (
       <div className="booking-search">
+        <div className="mobile-only">
+          <NavLink route="/" key="Home" text="Home"/>
+        </div>
 
         <div className="row">
           <h1 className="heading-xlarge"> Search results </h1>
@@ -67,7 +70,7 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
            {totalResults > 0 ?
              <div>
                <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />
-               <div>viewing {Math.min((pP * pN) + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults} results.</div>
+               <div>{Math.min((pP * pN) + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults} results</div>
              </div>
              : null}
         </div>
