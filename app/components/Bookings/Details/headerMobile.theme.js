@@ -77,13 +77,15 @@ export const AlertCodes = styled.div`
 `;
 
 export const AddCaseNoteButton = styled.div`
-  padding-top: 30px;
+  width: 100%;
+  padding: 30px 25px 0;
   text-align: center;
 `;
 
 export const AddCaseNoteButtonComponent = styled(StyledLink)`
   width: 100%;
   font-size: 16px;
+  display: inline-block;
 `;
 
 export const ContentWrapper = styled.div`
