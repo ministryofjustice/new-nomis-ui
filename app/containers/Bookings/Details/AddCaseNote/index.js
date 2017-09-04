@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { reduxForm, Field, formValueSelector} from 'redux-form/immutable';
 import { createStructuredSelector } from 'reselect';
 import { createFormAction } from 'redux-form-saga';
-import { connect } from 'react-redux';
+import { connect} from 'react-redux';
 import { Map } from 'immutable';
 import { selectLocale } from 'containers/LanguageProvider/selectors';
 import { SubmissionError, TextArea } from 'components/FormComponents';
@@ -12,7 +12,12 @@ import { selectCaseNoteTypeList, selectCaseNoteSubTypeList } from './selectors';
 import DateTimePicker from 'components/FormComponents/DateTimePicker';
 import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
 import moment from 'moment';
+
+import {selectBookingDetailsId} from '../../selectors';
+import {viewDetails} from '../../actions';
+
 import './index.scss';
+
 
 const selector = formValueSelector('addCaseNote');
 
@@ -20,11 +25,11 @@ class AddCaseNoteForm extends Component{
 
   constructor(props){
     super(props);
-    this.goBack = this.goBack.bind(this);
+    this.goBackToBookingDetails = this.goBackToBookingDetails.bind(this);
   }
 
-  goBack() {
-    this.context.router.goBack();
+  goBackToBookingDetails() {
+    this.props.dispatch(viewDetails(this.props.bookingDetailsId))
   }
 
   render() {
@@ -57,7 +62,7 @@ class AddCaseNoteForm extends Component{
               Save case note
             </button>
 
-             <button className="cancel-button col-xs-2" onClick={this.goBack}>
+             <button className="cancel-button col-xs-2" type="reset" onClick={this.goBackToBookingDetails}>
               Cancel
             </button>
 
@@ -76,11 +81,6 @@ AddCaseNoteForm.propTypes = {
   error: PropTypes.string,
   isMobile: PropTypes.bool,
   locale: PropTypes.string,
-};
-
-
-AddCaseNoteForm.contextTypes = {
-  router: PropTypes.object.isRequired,
 };
 
 AddCaseNoteForm.defaultProps = {
@@ -110,7 +110,8 @@ const mapStateToProps = createStructuredSelector({
   caseNoteTypeList: selectCaseNoteTypeList(),
   caseNoteSubTypeList: selectCaseNoteSubTypeList(),
   locale: selectLocale(),
-  typeValue: state => selector(state,'typeValue')
+  typeValue: state => selector(state,'typeValue'),
+  bookingDetailsId: selectBookingDetailsId()
 });
 
 const validate = (stuff) => {
