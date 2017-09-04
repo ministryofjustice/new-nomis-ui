@@ -14,7 +14,7 @@ const onViewDetails = (e,row,viewDetails) => {
 };
 
 const Table = ({results,viewDetails,sortOrder,sortOrderChange}) => (
-  <table className="booking-table" width="100%">
+  <table className="booking-table">
     <thead>
     <tr>
       <th> </th>
