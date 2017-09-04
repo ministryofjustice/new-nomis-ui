@@ -1,19 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  ModalTypeInfoContainer,
-  ModalTitle,
-  ModalBody,
-} from 'components/Modal/theme';
+import './index.scss';
 
 function InformationPageMobile({ modalData }) {
   return (
     <div>
-      <ModalTypeInfoContainer data-name={'ModalTypeInfoContainer'} >
-        <ModalTitle>{modalData.title}</ModalTitle>
-        <ModalBody>{modalData.body}</ModalBody>
-      </ModalTypeInfoContainer>
+      <div className="info-container" data-name={'ModalTypeInfoContainer'} >
+        <h1>{modalData.title}</h1>
+        <div>{modalData.body}</div>
+      </div>
     </div>
   );
 }
