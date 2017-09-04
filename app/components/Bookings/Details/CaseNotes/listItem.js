@@ -19,7 +19,12 @@ const Wrapper = styled.div`
     padding:0 !important;
     margin:0 !important;
   }
-`;
+  
+  .row{
+     display:block;
+     margin-bottom: 1.5em;
+  }
+ `;
 
 const Row = styled.div`
   border-bottom: #F2F2F2 solid 1px;
@@ -93,7 +98,7 @@ function CaseNoteListItem(props) {
 
   return (
     <Wrapper>
-    <Row onClick={action} className="col-xs-12">
+    <Row onClick={action} className="row">
 
        <Block className="col-xs-12 col-md-2">
          <Bold>

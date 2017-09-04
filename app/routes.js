@@ -32,6 +32,18 @@ function redirectToLoginGen(store) {
   };
 };
 
+const handleRedirect = (routes,{from,to}) => {
+  const bookingDetails = routes
+    .filter(route => route.path === to)[0];
+
+  if(bookingDetails) {
+    routes.push({
+      ...bookingDetails,
+      path: from,
+    });
+  };
+};
+
 const OnRouteVisit = (routeName) => {
   if (window.appInsights) {
     window.appInsights.trackPageView(routeName);
@@ -223,9 +235,32 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
+    },
+    {
       onEnter: redirectToLogin,
       path: '/bookings/details',
+      name: 'search results',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/Bookings/reducers'),
+          System.import('containers/Bookings/sagas'),
+          System.import('containers/Bookings/Details'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('search', reducer.default);
+          injectSagas('search', sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      onEnter: redirectToLogin,
+      path: '/bookings',
       name: 'search results',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
