@@ -2,12 +2,12 @@ export default {
   updates: {
     type: 'info',
     title: 'Updates',
-    body: 'Welcome to the updates section. I hope it keeps you updated',
+    body: 'Welcome to the updates section. I hope it keeps you updated.',
   },
   help: {
     type: 'info',
     title: 'Help',
-    body: 'I need help',
+    body: 'I need help!',
   },
   terms: {
     type: 'info',
