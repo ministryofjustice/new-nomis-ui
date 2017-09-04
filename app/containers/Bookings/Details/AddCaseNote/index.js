@@ -13,6 +13,7 @@ import DateTimePicker from 'components/FormComponents/DateTimePicker';
 import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
 import moment from 'moment';
 
+import { DETAILS_TABS } from '../../constants';
 import {selectBookingDetailsId} from '../../selectors';
 import {viewDetails} from '../../actions';
 
@@ -29,7 +30,7 @@ class AddCaseNoteForm extends Component{
   }
 
   goBackToBookingDetails() {
-    this.props.dispatch(viewDetails(this.props.bookingDetailsId))
+    this.props.dispatch(viewDetails(this.props.bookingDetailsId, DETAILS_TABS.CASE_NOTES));
   }
 
   render() {

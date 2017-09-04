@@ -52,11 +52,11 @@ export function search(searchObj) {
   };
 }
 
-export function viewDetails(bookingId) {
+export function viewDetails(bookingId, activeTabId) {
   return {
     meta: { debounce: 'simple' },
     type: VIEW_DETAILS,
-    payload: { bookingId },
+    payload: { bookingId, activeTabId },
   };
 }
 

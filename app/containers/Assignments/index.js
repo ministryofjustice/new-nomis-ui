@@ -94,7 +94,7 @@ Assignments.defaultProps = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    viewDetails: (bookingId) => dispatch(vD(bookingId, true)),
+    viewDetails: (bookingId) => dispatch(vD(bookingId)),
     setPage: (pagination) => dispatch(setAssignmentsPagination(pagination)),
     setResultsView: (view) => dispatch(setAssignmentsView(view)),
     setSearchContext: (context) => dispatch(setSearchContext(context)),

@@ -5,17 +5,20 @@ import { createFormAction } from 'redux-form-saga';
 
 import { connect } from 'react-redux';
 import ModalWrapper from 'components/ModalForm';
-import { FormTitle } from 'components/Bookings/Details/CaseNoteForms';
 
 import { closeAmendCaseNoteModal } from 'containers/Bookings/actions';
 import { AMEND_CASENOTE } from 'containers/Bookings/constants';
 import AmendCaseNoteForm from './amendCaseNoteForm';
 
+import './index.scss';
+
 class AmendCaseNoteModal extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (<ModalWrapper closeModal={() => { this.props.closeAmendCaseNoteModal(); }} >
-      <FormTitle>Amend Case Note</FormTitle>
-      <AmendCaseNoteForm closeModal={this.props.closeAmendCaseNoteModal} initialValues={{ }} onSubmit={this.props.onSubmitForm} />
+      <div className="amend-case-note">
+        <h1 className="bold-large">Amend case note</h1>
+        <AmendCaseNoteForm closeModal={this.props.closeAmendCaseNoteModal} initialValues={{ }} onSubmit={this.props.onSubmitForm} />
+      </div>
     </ModalWrapper>);
   }
 }
