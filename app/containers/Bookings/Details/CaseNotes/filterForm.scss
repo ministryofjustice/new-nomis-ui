@@ -39,6 +39,9 @@
     h3 {
       margin-bottom: 1em;
     }
+    .button{
+      padding-top: .2em !important;
+    }
   }
 
   @include media-breakpoint-up(lg){
