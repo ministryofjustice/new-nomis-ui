@@ -86,6 +86,10 @@ export const AddCaseNoteButtonComponent = styled(StyledLink)`
   width: 100%;
   font-size: 16px;
   display: inline-block;
+  
+  ${media.desktop`
+    display: inline;
+  `}
 `;
 
 export const ContentWrapper = styled.div`

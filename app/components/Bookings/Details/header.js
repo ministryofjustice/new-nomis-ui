@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import EliteImage from 'containers/EliteContainers/Image';
 import EliteOfficerName from 'containers/EliteContainers/OfficerName';
-import Button from 'components/Button';
 import { toFullName } from 'utils/stringUtils';
 
 import {
