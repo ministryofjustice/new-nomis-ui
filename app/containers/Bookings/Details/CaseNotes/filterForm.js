@@ -1,7 +1,5 @@
-import React,{PropTypes,Component} from 'react';
+import React,{PropTypes,PureComponent} from 'react';
 import DatePicker from 'containers/FormContainers/datePicker';
-
-import {reset} from 'redux-form';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form/immutable';
 import { createFormAction } from 'redux-form-saga';
@@ -23,10 +21,21 @@ import {
   caseNoteFilterSelectInfo
 } from './selectors';
 
-const FilterForm = ({handleSubmit, submitting, error, reset, isMobile, caseNoteFilters, locale, dateRangeValid}) =>{
+import {
+  resetCaseNoteFilterFormField
+} from '../../actions';
 
-  const {source, type, subType} = caseNoteFilters;
-  const dateRangeNotValid = dateRangeValid === false;
+
+class FilterForm extends PureComponent{
+
+  constructor(props){
+    super(props);
+  }
+
+  render() {
+    const {handleSubmit, submitting, error, reset, isMobile, caseNoteFilters, locale, dateRangeValid,resetFields} = this.props;
+    const {source, type, subType} = caseNoteFilters;
+    const dateRangeNotValid = dateRangeValid === false;
 
     return (
       <form className="filter-form" onSubmit={handleSubmit}>
@@ -70,26 +79,28 @@ const FilterForm = ({handleSubmit, submitting, error, reset, isMobile, caseNoteF
           </label>
 
           {dateRangeNotValid &&
-              <div className="error-message">
-                Start date must come before or equal to the end date
-              </div>
+          <div className="error-message">
+            Start date must come before or equal to the end date
+          </div>
           }
 
           <Field name="startDate" showError={dateRangeNotValid} component={DatePicker} locale={locale} title="From"/>
-          <Field name="endDate" showError={dateRangeNotValid} component={DatePicker} locale={locale} title="To" />
+          <Field name="endDate" showError={dateRangeNotValid} component={DatePicker} locale={locale} title="To"/>
         </div>
 
         <div className="buttons">
-          <div className="pull-right link reset-filters clickable" onClick={reset}>
+          <div className="pull-right link reset-filters clickable" onClick={resetFields}>
             Clear filters
           </div>
-          <button className="button" type="submit" disabled={ dateRangeNotValid || (submitting || error)} submitting={submitting}>
+          <button className="button" type="submit" disabled={ dateRangeNotValid || (submitting || error)}
+                  submitting={submitting}>
             Apply filters
           </button>
         </div>
 
       </form>
     )
+  }
 }
 
 FilterForm.propTypes = {
@@ -109,8 +120,14 @@ FilterForm.defaultProps = {
 };
 
 
-export function mapDispatchToProps() {
+export function mapDispatchToProps(dispatch) {
   return {
+    resetFields: () => {
+      dispatch(resetCaseNoteFilterFormField('typeValue'));
+      dispatch(resetCaseNoteFilterFormField('subTypeValue'));
+      dispatch(resetCaseNoteFilterFormField('startDate'));
+      dispatch(resetCaseNoteFilterFormField('endDate'));
+    },
     onSubmit: createFormAction((formData) => (
       {
         type: CASE_NOTE_FILTER.BASE,
@@ -131,7 +148,7 @@ export function mapDispatchToProps() {
 }
 
 const mapStateToProps = createStructuredSelector({
-  //initialValues: selectCaseNotesQuery(),
+  initialValues: selectCaseNotesQuery(),
   caseNoteFilters: caseNoteFilterSelectInfo(),
   dateRangeValid: (state) => {
       return state.getIn(['search','details','caseNotes','dateRangeValid'])
@@ -141,5 +158,4 @@ const mapStateToProps = createStructuredSelector({
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
   form: 'caseNoteFilter',
-  onSubmitSuccess: (result, dispatch) => dispatch(reset('caseNoteFilter')),
 })(FilterForm));

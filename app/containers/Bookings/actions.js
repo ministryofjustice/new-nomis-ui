@@ -20,7 +20,7 @@ import {
   SHOW_LARGE_PHOTO_BOOKING_DETAILS,
   HIDE_LARGE_PHOTO_BOOKING_DETAILS,
   LOAD_LOCATIONS,
-  TOGGLE_SORT_ORDER
+  TOGGLE_SORT_ORDER,
 } from './constants';
 
 
@@ -142,5 +142,18 @@ export function toggleSortOrder(sortOrder){
   return {
     type: TOGGLE_SORT_ORDER,
     payload: sortOrder
+  }
+}
+
+export function resetCaseNoteFilterFormField (field){
+  return {
+    type:'@@redux-form/CHANGE',
+    meta: {
+      form: 'caseNoteFilter',
+      touched: false,
+      persistentSubmitErrors: false,
+      field
+    },
+    payload: null
   }
 }
