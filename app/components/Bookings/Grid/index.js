@@ -1,6 +1,9 @@
 import React from 'react';
+import { FormattedDate } from 'react-intl';
+
 import EliteImage from 'containers/EliteContainers/Image';
 import Name from 'components/Name';
+
 import './index.scss'
 
 const Grid =  ({results,viewDetails,sortOrderChange,sortOrder}) => (
@@ -40,7 +43,7 @@ const Grid =  ({results,viewDetails,sortOrderChange,sortOrder}) => (
               </div>
 
               <div>
-                {row.dateOfBirth}
+                <FormattedDate value={Date.parse(row.dateOfBirth)} />
               </div>
 
               <div>
