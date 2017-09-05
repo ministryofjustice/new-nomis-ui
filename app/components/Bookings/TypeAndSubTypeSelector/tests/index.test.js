@@ -41,7 +41,9 @@ describe('TypeAndSubTypeSelector', () =>{
         <TypeAndSubTypeSelector selectedType={types[0].value} types={types} subTypes={subTypes} />
       );
 
-      expect(renderedComponent.instance().state.resetSubType).toBe(true);
+      renderedComponent.instance().componentDidMount();
+
+      expect(renderedComponent.instance().state.resetSubType).toBe(false);
 
     });
 
@@ -70,6 +72,19 @@ describe('TypeAndSubTypeSelector', () =>{
     instance.onTypeChange();
 
     expect(instance.state.resetSubType).toBe(true);
+  });
+
+  it('should not reset subType value when a selected one has been passed in', () => {
+
+    const renderedComponent = shallow(
+      <TypeAndSubTypeSelector selectedType={types[0].value} types={types} subTypes={subTypes} selectedSubType={subTypes[0].value} />
+    );
+
+    const instance = renderedComponent.instance();
+
+    instance.componentDidMount();
+
+    expect(instance.state.resetSubType).toBe(false);
   });
 
 });

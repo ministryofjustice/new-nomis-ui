@@ -1,8 +1,9 @@
 import React from 'react';
 
-const renderField = ({resetValue, name,options,input, title, type, placeholder,reset, meta: { touched, error } }) => {
+const renderField = ({resetValue,name,options,input, title, type, placeholder,reset, meta: { touched, error } }) => {
 
-  if(resetValue) input.onChange(null);
+  if( resetValue === true)
+    input.onChange(null);
 
   return (
     <div className={ !(touched && error) ? 'form-group' : 'form-group form-group-error'}>
