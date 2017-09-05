@@ -14,9 +14,8 @@ class TypeAndSubTypeSelector extends PureComponent{
   componentDidMount(){
 
     const {selectedSubType} = this.props;
-
     this.state = {
-      resetSubType: selectedSubType && true,
+        resetSubType: !selectedSubType && false
     };
   }
 
