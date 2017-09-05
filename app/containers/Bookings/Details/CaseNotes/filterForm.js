@@ -1,11 +1,12 @@
-import React,{PropTypes,PureComponent} from 'react';
+import React,{PropTypes} from 'react';
 import DatePicker from 'containers/FormContainers/datePicker';
 import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form/immutable';
+import { reduxForm, Field, formValueSelector } from 'redux-form/immutable';
 import { createFormAction } from 'redux-form-saga';
 import { createStructuredSelector } from 'reselect';
 import { selectLocale } from 'containers/LanguageProvider/selectors';
 import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
+import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
 
 import './filterForm.scss';
 
@@ -25,16 +26,11 @@ import {
   resetCaseNoteFilterFormField
 } from '../../actions';
 
+const selector = formValueSelector('caseNoteFilter');
 
-class FilterForm extends PureComponent{
+const FilterForm = ({handleSubmit, submitting, error, caseNoteFilters, locale, dateRangeValid,typeValue,subTypeValue, resetFields}) =>{
 
-  constructor(props){
-    super(props);
-  }
-
-  render() {
-    const {handleSubmit, submitting, error, reset, isMobile, caseNoteFilters, locale, dateRangeValid,resetFields} = this.props;
-    const {source, type, subType} = caseNoteFilters;
+    const {type, subType} = caseNoteFilters;
     const dateRangeNotValid = dateRangeValid === false;
 
     return (
@@ -44,34 +40,7 @@ class FilterForm extends PureComponent{
           Filters
         </h3>
 
-        <div className="form-group">
-          <label className="form-label">
-            Type
-          </label>
-          <Field className="form-control" component="select" name="typeValue">
-            <option> All</option>
-            {type.map(t =>
-              <option key={t.value} value={t.value}>
-                {t.label}
-              </option>
-            )}
-          </Field>
-        </div>
-
-        <div className="form-group">
-          <label className="form-label">
-            Sub-type
-          </label>
-
-          <Field className="form-control" component="select" name="subTypeValue">
-            <option> All</option>
-            {subType.map(st =>
-              <option key={st.value} value={st.value}>
-                {st.label}
-              </option>
-            )}
-          </Field>
-        </div>
+        <TypeAndSubTypeSelector selectedType={typeValue} selectedSubType={subTypeValue} types={type} subTypes={subType}/>
 
         <div className="form-group date-range">
           <label className="form-label date-range-label">
@@ -79,28 +48,26 @@ class FilterForm extends PureComponent{
           </label>
 
           {dateRangeNotValid &&
-          <div className="error-message">
-            Start date must come before or equal to the end date
-          </div>
+              <div className="error-message">
+                Start date must come before or equal to the end date
+              </div>
           }
 
           <Field name="startDate" showError={dateRangeNotValid} component={DatePicker} locale={locale} title="From"/>
-          <Field name="endDate" showError={dateRangeNotValid} component={DatePicker} locale={locale} title="To"/>
+          <Field name="endDate" showError={dateRangeNotValid} component={DatePicker} locale={locale} title="To" />
         </div>
 
         <div className="buttons">
           <div className="pull-right link reset-filters clickable" onClick={resetFields}>
             Clear filters
           </div>
-          <button className="button" type="submit" disabled={ dateRangeNotValid || (submitting || error)}
-                  submitting={submitting}>
+          <button className="button" type="submit" disabled={ dateRangeNotValid || (submitting || error)} submitting={submitting}>
             Apply filters
           </button>
         </div>
 
       </form>
     )
-  }
 }
 
 FilterForm.propTypes = {
@@ -150,6 +117,8 @@ export function mapDispatchToProps(dispatch) {
 const mapStateToProps = createStructuredSelector({
   initialValues: selectCaseNotesQuery(),
   caseNoteFilters: caseNoteFilterSelectInfo(),
+  typeValue: state => selector(state, 'typeValue'),
+  subTypeValue: state => selector(state,'subTypeValue'),
   dateRangeValid: (state) => {
       return state.getIn(['search','details','caseNotes','dateRangeValid'])
   },

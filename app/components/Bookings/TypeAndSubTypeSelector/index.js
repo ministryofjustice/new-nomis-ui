@@ -4,15 +4,20 @@ import SelectWithLabel from 'components/FormComponents/SelectWithLabel';
 
 
 class TypeAndSubTypeSelector extends PureComponent{
-  constructor(){
-     super();
+  constructor(props){
+     super(props);
 
      this.onTypeChange = this.onTypeChange.bind(this);
      this.onSubTypeChange = this.onSubTypeChange.bind(this);
+  }
 
-     this.state = {
-       resetSubType: true
-     };
+  componentDidMount(){
+
+    const {selectedSubType} = this.props;
+
+    this.state = {
+      resetSubType: selectedSubType && true,
+    };
   }
 
   onTypeChange(){
@@ -30,12 +35,13 @@ class TypeAndSubTypeSelector extends PureComponent{
   render(){
 
     const {types,subTypes,selectedType} = this.props;
-    const {resetSubType} = this.state;
+    const {resetSubType} = this.state || false;
+
     const constrainedSubTypes =
       (subTypes || []).filter(st => st.parent === selectedType);
 
     return (
-      <div>
+      <span>
         <Field
           title='Type'
           component={SelectWithLabel}
@@ -51,7 +57,7 @@ class TypeAndSubTypeSelector extends PureComponent{
           onChange={this.onSubTypeChange}
           resetValue={resetSubType}
         />
-      </div>
+      </span>
     )
   }
 }
