@@ -66,22 +66,12 @@ const onProxyResponse = (proxyRes, req, res) => {
 
   // If health check request, check and translate response content-type
   if (req.path === HEALTH_CHECK_PATH) {
-    const responseContentType = proxyRes.headers['content-type'];
-
-    if (!responseContentType.startsWith('application/json') && responseContentType.includes('json')) {
-      proxyRes.headers['content-type'] = 'application/json;charset=UTF-8';
-    }
+    proxyRes.headers['content-type'] = 'application/json;charset=UTF-8';
 
     delete proxyRes.headers['content-length'];
 
     modifyResponse(res, proxyRes.headers['content-encoding'], function (body) {
-      let revisedResponse = body;
-
-      if (body) {
-        revisedResponse = healthCheckResponse(body);
-      }
-
-      return revisedResponse;
+      return healthCheckResponse(body ? body : "DOWN");
     });
   }
 }
