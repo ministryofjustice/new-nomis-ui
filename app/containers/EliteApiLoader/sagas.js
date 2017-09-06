@@ -139,7 +139,7 @@ export function* searchSaga({ query, pagination, sortOrder }) {
   const apiServer = yield select(selectApi());
   try {
     const isOffAss = query === 'officerAssignments';
-    let bookingListFunction = isOffAss ? officerAssignments : bookings;
+    const bookingListFunction = isOffAss ? officerAssignments : bookings;
     const res = yield call(bookingListFunction, token, query, pagination, apiServer);
     yield put({ type: BOOKINGS.SEARCH.SUCCESS, payload: { query, pagination, sortOrder, results: res.inmatesSummaries, meta: res.pageMetaData } });
     return { inmatesSummaries: res.inmatesSummaries };

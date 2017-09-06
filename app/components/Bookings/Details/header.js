@@ -20,10 +20,10 @@ import {
   AddCaseNoteButtonComponent,
 } from './headerMobile.theme';
 
-function Header({ inmateData, openAddCaseNote, setModalOpen, setModalData }) {
+function Header({ inmateData, setModalOpen, setModalData }) {
   const { firstName, lastName, bookingNo, offenderNo, facialImageId, alertsCodes, assignedLivingUnit, assignedOfficerId } = inmateData;
 
-  const nameString = toFullName({firstName, lastName});
+  const nameString = toFullName({ firstName, lastName });
 
   const showModal = function () {
     const modalData = {
@@ -32,7 +32,7 @@ function Header({ inmateData, openAddCaseNote, setModalOpen, setModalData }) {
       name: nameString,
       id: bookingNo,
       keyWorker: assignedOfficerId,
-      offenderNo: offenderNo,
+      offenderNo,
       index: 0,
       header: true,
     };
@@ -72,7 +72,6 @@ function Header({ inmateData, openAddCaseNote, setModalOpen, setModalData }) {
 
 Header.propTypes = {
   inmateData: PropTypes.object.isRequired,
-  openAddCaseNote: PropTypes.func.isRequired,
   setModalOpen: PropTypes.func,
   setModalData: PropTypes.func,
 };

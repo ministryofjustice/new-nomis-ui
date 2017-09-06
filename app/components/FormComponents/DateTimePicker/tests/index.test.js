@@ -1,9 +1,9 @@
 import React from 'react';
-import { shallow,mount } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import moment from 'moment';
 import {
   DEFAULT_MOMENT_DATE_FORMAT_SPEC,
-  DEFAULT_MOMENT_TIME_FORMAT_SPEC
+  DEFAULT_MOMENT_TIME_FORMAT_SPEC,
 } from 'containers/App/constants';
 
 import DateTimePicker, {
@@ -11,21 +11,20 @@ import DateTimePicker, {
   ReadOnlyDateTimeView,
 } from '../index';
 
-describe('DateTimePicker', () =>{
-
+describe('DateTimePicker', () => {
   const props = {
-    meta:{touched:false,error: null}
-  }
+    meta: { touched: false, error: null },
+  };
 
-  it('should have ReadOnlyDateTimeView the default view', () =>{
-      const dateTimePicker = shallow(<DateTimePicker {...props} />);
+  it('should have ReadOnlyDateTimeView the default view', () => {
+    const dateTimePicker = shallow(<DateTimePicker {...props} />);
 
-      const dateTimeDisplayNode = dateTimePicker.find(ReadOnlyDateTimeView).node;
+    const dateTimeDisplayNode = dateTimePicker.find(ReadOnlyDateTimeView).node;
 
-      expect(dateTimeDisplayNode).not.toBe(undefined);
+    expect(dateTimeDisplayNode).not.toBe(undefined);
   });
 
-  it('should display the DateTimePickerDisplay when the edit link has been clicked',() => {
+  it('should display the DateTimePickerDisplay when the edit link has been clicked', () => {
     const dateTimePicker = mount(<DateTimePicker {...props} />);
 
     dateTimePicker
@@ -38,22 +37,20 @@ describe('DateTimePicker', () =>{
     expect(editModeNode).not.toBe(undefined);
   });
 
-  it('should use the default date and time format',() => {
+  it('should use the default date and time format', () => {
     const dateTimePicker = mount(<DateTimePicker {...props} />);
 
-    const {date,time,momentShapShot} = dateTimePicker.node.state;
+    const { date, time, momentShapShot } = dateTimePicker.node.state;
 
     const formattedDate = moment(date).format(DEFAULT_MOMENT_DATE_FORMAT_SPEC);
     const formattedTime = moment(momentShapShot).format(DEFAULT_MOMENT_TIME_FORMAT_SPEC);
 
     expect(date.toString()).toBe(formattedDate);
     expect(time.toString()).toBe(formattedTime);
-
   });
 
   it('should output the result in ISO date format', () => {
-
-    const input = {onChange: jest.fn()};
+    const input = { onChange: jest.fn() };
     const dateTimePicker = shallow(<DateTimePicker input={input} {...props} />);
     const now = moment();
     const isoFormattedDate = moment(now).toISOString();
@@ -61,14 +58,13 @@ describe('DateTimePicker', () =>{
     dateTimePicker.instance().onDateTimeChange(now);
 
     expect(input.onChange).toBeCalledWith(isoFormattedDate);
-
   });
 
   it('should output the default date on component creation', () => {
-    const input = {onChange: jest.fn()};
+    const input = { onChange: jest.fn() };
 
     mount(<DateTimePicker input={input} {...props} />);
 
     expect(input.onChange).toBeCalled();
-  })
+  });
 });

@@ -2,7 +2,7 @@ import {
   LOAD_ASSIGNMENTS,
   UPDATE_ASSIGNMENTS_PAGINATION,
   UPDATE_ASSIGNMENTS_VIEW,
-  TOGGLE_ASSIGNMENTS_SORT_ORDER
+  TOGGLE_ASSIGNMENTS_SORT_ORDER,
 } from './constants';
 
 export const loadAssignments = (resetPagination) => ({

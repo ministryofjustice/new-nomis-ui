@@ -34,7 +34,7 @@ DateTimeBlock.propTypes = {
 export const TypeDescriptionBlock = ({ typeDetails }) => {
   const { typeDescription, subTypeDescription } = typeDetails;
   return (<TypeDescription>
-     {typeDescription} - {subTypeDescription}
+    {typeDescription} - {subTypeDescription}
   </TypeDescription>);
 };
 

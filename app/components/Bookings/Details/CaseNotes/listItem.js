@@ -4,10 +4,6 @@ import EliteOfficerName from 'containers/EliteContainers/OfficerName';
 import styled from 'styled-components';
 import { FormattedDate, FormattedTime } from 'react-intl';
 
-import {
-  ListDetailItem,
-} from 'components/List/listItem';
-
 const Block = styled.div`
    margin-bottom: .5em;
  `;
@@ -55,11 +51,11 @@ const AmendmentBox = styled.div`
 `;
 
 function AmendmentBlock({ amendments }) {
-  if(!amendments) return <div></div>;
+  if (!amendments) return <div></div>;
 
   return (
-      <div>
-        {amendments.map(amendment =>
+    <div>
+      {amendments.map((amendment) =>
         <AmendmentBox key={amendment.key}>
 
           <div>
@@ -84,7 +80,7 @@ function AmendmentBlock({ amendments }) {
 
         </AmendmentBox>
         )}
-      </div>
+    </div>
   );
 }
 
@@ -98,41 +94,41 @@ function CaseNoteListItem(props) {
 
   return (
     <Wrapper>
-    <Row onClick={action} className="row">
+      <Row onClick={action} className="row">
 
-       <Block className="col-xs-12 col-md-2">
-         <Bold>
-           <span className="col-md-12">
+        <Block className="col-xs-12 col-md-2">
+          <Bold>
+            <span className="col-md-12">
               <FormattedDate value={Date.parse(occurrenceDateTime)} />
-           </span>
+            </span>
 
-           <span className="col-md-12">
-             <FormattedTime value={occurrenceDateTime} />
-           </span>
-         </Bold>
+            <span className="col-md-12">
+              <FormattedTime value={occurrenceDateTime} />
+            </span>
+          </Bold>
 
-         <Separator className="hidden-md hidden-lg hidden-lx">
+          <Separator className="hidden-md hidden-lg hidden-lx">
            -
          </Separator>
 
-         <EliteOfficerName username={authorUserId} className="col-md-12" />
-       </Block>
-
-      <div className="col-xs-12 col-md-10">
-        <Block>
-          <Bold>
-            {typeDescription} | {subTypeDescription}
-          </Bold>
+          <EliteOfficerName username={authorUserId} className="col-md-12" />
         </Block>
 
-         <Block>
+        <div className="col-xs-12 col-md-10">
+          <Block>
+            <Bold>
+              {typeDescription} | {subTypeDescription}
+            </Bold>
+          </Block>
+
+          <Block>
             {splitInfo.stub}
             <div>
-              {splitInfo.amendments ? AmendmentBlock({ amendments: splitInfo.amendments}) : null}
+              {splitInfo.amendments ? AmendmentBlock({ amendments: splitInfo.amendments }) : null}
             </div>
-         </Block>
-      </div>
-    </Row>
+          </Block>
+        </div>
+      </Row>
     </Wrapper>
   );
 }

@@ -1,20 +1,19 @@
-import React, {Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-import './index.scss';
-
 import { createStructuredSelector } from 'reselect';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import BookingTable from 'components/Bookings/Table';
 import BookingGrid from 'components/Bookings/Grid';
 import { selectBookingsSearch } from 'containers/ConfigLoader/selectors';
-
-import { connect } from 'react-redux';
-
-import SearchAgainForm from './SearchForm'
 import { selectDeviceFormat } from 'selectors/app';
 import NavLink from 'components/NavLink';
 import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMessage';
+import { connect } from 'react-redux';
+import ResultsViewToggle from 'components/ResultsViewToggle';
+import { setSearchContext } from 'globalReducers/app';
+
+import SearchAgainForm from './SearchForm';
+import './index.scss';
 
 import {
   selectSearchResultsV2,
@@ -23,26 +22,21 @@ import {
   selectSearchResultsPagination,
   selectResultsView,
   selectLocations,
-  selectSearchResultsSortOrder
+  selectSearchResultsSortOrder,
 } from '../selectors';
 
-import{
+import {
   viewDetails as vD,
   setPagination as sP,
   setResultsView,
   loadLocations,
-  toggleSortOrder
+  toggleSortOrder,
 } from '../actions';
 
-import ResultsViewToggle from 'components/ResultsViewToggle';
-import { setSearchContext } from 'globalReducers/app';
 
-
-const ResultsViewBuilder = ({viewName,results,onViewDetails,sortOrderChange,sortOrder}) => {
-  return viewName === 'List' ?
-    <BookingTable results={results} viewDetails={onViewDetails} sortOrderChange={sortOrderChange} sortOrder={sortOrder}/> :
-    <BookingGrid results={results} viewDetails={onViewDetails} sortOrderChange={sortOrderChange} sortOrder={sortOrder}/>
-}
+const ResultsViewBuilder = ({ viewName, results, onViewDetails, sortOrderChange, sortOrder }) => viewName === 'List' ?
+  <BookingTable results={results} viewDetails={onViewDetails} sortOrderChange={sortOrderChange} sortOrder={sortOrder} /> :
+  <BookingGrid results={results} viewDetails={onViewDetails} sortOrderChange={sortOrderChange} sortOrder={sortOrder} />;
 
 class SearchResults extends Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -58,7 +52,7 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
     return (
       <div className="booking-search">
         <div className="mobile-only">
-          <NavLink route="/" key="Home" text="Home"/>
+          <NavLink route="/" key="Home" text="Home" />
         </div>
 
         <div className="row">
@@ -67,17 +61,17 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
         </div>
 
         <div className="row toggleAndCountView">
-           {totalResults > 0 ?
-             <div>
-               <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />
-               <div>{Math.min((pP * pN) + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults} results</div>
-             </div>
+          {totalResults > 0 ?
+            <div>
+              <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />
+              <div>{Math.min((pP * pN) + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults} results</div>
+            </div>
              : null}
         </div>
 
         <div className="row">
 
-         <NoSearchResultsReturnedMessage resultCount={results.length} />
+          <NoSearchResultsReturnedMessage resultCount={results.length} />
 
           {totalResults > 0 ?
             <ResultsViewBuilder
@@ -85,7 +79,8 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
               results={results}
               onViewDetails={viewDetails}
               sortOrderChange={toggleSortOrder}
-              sortOrder={sortOrder}/>
+              sortOrder={sortOrder}
+            />
             : null
           }
 
@@ -112,7 +107,7 @@ SearchResults.propTypes = {
   resultsView: PropTypes.string,
   setResultsView: PropTypes.func,
   setSearchContext: PropTypes.func,
-  locations: PropTypes.array
+  locations: PropTypes.array,
 };
 
 SearchResults.defaultProps = {
@@ -123,7 +118,7 @@ SearchResults.defaultProps = {
   resultsView: 'List',
   setResultsView: () => {},
   setSearchContext: () => {},
-  locations: []
+  locations: [],
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -133,9 +128,9 @@ export function mapDispatchToProps(dispatch) {
     setResultsView: (pagination) => dispatch(setResultsView(pagination)),
     setSearchContext: (context) => dispatch(setSearchContext(context)),
     loadLocations: () => dispatch(loadLocations()),
-    toggleSortOrder: () => dispatch(toggleSortOrder())
-  }
-};
+    toggleSortOrder: () => dispatch(toggleSortOrder()),
+  };
+}
 
 const mapStateToProps = createStructuredSelector({
   deviceFormat: selectDeviceFormat(),
@@ -146,7 +141,7 @@ const mapStateToProps = createStructuredSelector({
   pagination: selectSearchResultsPagination(),
   resultsView: selectResultsView(),
   locations: selectLocations(),
-  sortOrder: selectSearchResultsSortOrder()
+  sortOrder: selectSearchResultsSortOrder(),
 });
 
 // Wrap the component to inject dispatch and state into it

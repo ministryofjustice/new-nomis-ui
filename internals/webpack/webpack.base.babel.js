@@ -5,7 +5,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 module.exports = (options) => ({
@@ -22,35 +22,35 @@ module.exports = (options) => ({
       query: options.babelQuery,
     },
 
-      {
-         test: /\.css$/,
-        //loader: ExtractTextPlugin.extract({
+    {
+      test: /\.css$/,
+        // loader: ExtractTextPlugin.extract({
        //   fallback: 'style-loader',
-       ///   use: 'css-loader'
+       // /   use: 'css-loader'
        // })
-       loaders: ['style-loader','css-loader']
-      },
-      {
-        test: /\.scss/,
-        loader: ExtractTextPlugin.extract({
-          use: [{
-            loader: "css-loader",
-          }, {
-            loader: "sass-loader",
-            options: {
-              includePaths: [
-               'node_modules/govuk_frontend_toolkit/stylesheets',
-               'node_modules/govuk-elements-sass/public/sass',
-               'app/assets/bootstrap'
-              ]
-            }
-          }],
-          fallback: "style-loader"
-        }),
+      loaders: ['style-loader', 'css-loader'],
+    },
+    {
+      test: /\.scss/,
+      loader: ExtractTextPlugin.extract({
+        use: [{
+          loader: 'css-loader',
+        }, {
+          loader: 'sass-loader',
+          options: {
+            includePaths: [
+              'node_modules/govuk_frontend_toolkit/stylesheets',
+              'node_modules/govuk-elements-sass/public/sass',
+              'app/assets/bootstrap',
+            ],
+          },
+        }],
+        fallback: 'style-loader',
+      }),
 
-      },
+    },
 
-      {
+    {
       test: /\.svg$/,
       loader: 'svg-inline-loader',
     }, {
@@ -88,7 +88,7 @@ module.exports = (options) => ({
     }],
   },
   plugins: options.plugins.concat([
-    new ExtractTextPlugin({filename:'styles.css',allChunks:true}),
+    new ExtractTextPlugin({ filename: 'styles.css', allChunks: true }),
     new webpack.ProvidePlugin({
       // make fetch available
       fetch: 'exports-loader?self.fetch!whatwg-fetch',

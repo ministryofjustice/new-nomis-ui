@@ -32,7 +32,7 @@ function* testSaga() {
 }
 
 const sagas = [
-  testSaga
+  testSaga,
 ];
 
 describe('asyncInjectors', () => {
@@ -141,7 +141,7 @@ describe('asyncInjectors', () => {
       it('given a store, it should provide a function to inject a saga', () => {
         const injectSagas = injectAsyncSagas(store);
 
-        injectSagas(' test',sagas);
+        injectSagas(' test', sagas);
 
         const actual = store.getState().get('test');
         const expected = initialState.merge({ reduced: 'yup' });

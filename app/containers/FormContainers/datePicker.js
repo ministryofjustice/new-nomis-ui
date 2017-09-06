@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import DP from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
-import { InputLabel, InputGroup, Base } from 'components/FormComponents/Input/input.theme';
 import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
 import styled from 'styled-components';
 
@@ -30,6 +29,7 @@ class renderDatePicker extends React.Component {
     }).isRequired,
     placeholder: PropTypes.string,
     title: PropTypes.string,
+    showError: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -48,7 +48,6 @@ class renderDatePicker extends React.Component {
   }
 
   render() {
-
     const {
       locale,
       input,

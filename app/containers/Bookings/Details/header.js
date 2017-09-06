@@ -6,33 +6,29 @@ import { createStructuredSelector } from 'reselect';
 import BookingsDetailsHeader from 'components/Bookings/Details/header';
 import BookingsDetailsHeaderMobile from 'components/Bookings/Details/headerMobile';
 
-import { setModalOpen, setModalData } from 'globalReducers/app';
-
 import { selectHeaderDetail } from '../selectors';
-import { openAddCaseNoteModal } from '../actions';
-import {showLargePhoto} from '../actions';
+import { openAddCaseNoteModal, showLargePhoto } from '../actions';
 
 class Header extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   render() {
     const { headerDetails, openAddCaseNote, deviceFormat } = this.props;
 
-    if(deviceFormat === 'desktop')
-    {
-      return(
-      <BookingsDetailsHeader
-        inmateData={headerDetails}
-        openAddCaseNote={openAddCaseNote}
-        setModalOpen={this.props.setModalOpen}
-        setModalData={this.props.setModalData}
-      />);
+    if (deviceFormat === 'desktop') {
+      return (
+        <BookingsDetailsHeader
+          inmateData={headerDetails}
+          openAddCaseNote={openAddCaseNote}
+          setModalOpen={this.props.setModalOpen}
+          setModalData={this.props.setModalData}
+        />);
     }
     return (
       <BookingsDetailsHeaderMobile
-      inmateData={headerDetails}
-      openAddCaseNote={openAddCaseNote}
-      onImageClick={this.props.showLargePhoto}
-    />);
+        inmateData={headerDetails}
+        openAddCaseNote={openAddCaseNote}
+        onImageClick={this.props.showLargePhoto}
+      />);
   }
 }
 

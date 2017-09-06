@@ -31,12 +31,12 @@ import {
   SET_AMEND_CASENOTE_MODAL,
   CASE_NOTE_FILTER,
   SET_LARGE_PHOTO_VISIBILITY,
-  SET_LOCATIONS
+  SET_LOCATIONS,
 } from './constants';
 
 import results from './Results/resultsData';
 
-  const detailsState = fromJS({
+const detailsState = fromJS({
   id: 20847,
   activeTabId: DETAILS_TABS.OFFENDER_DETAILS,
   tabs: [{ tabId: DETAILS_TABS.OFFENDER_DETAILS, title: 'Offender Details' },
@@ -45,9 +45,9 @@ import results from './Results/resultsData';
          { tabId: DETAILS_TABS.CASE_NOTES, title: 'Case Notes' }],
   alertsPagination: { perPage: 10, pageNumber: 0 },
   shouldShowLargePhoto: false,
-  imageId:0,
-  locations:[],
-  totalResults:0,
+  imageId: 0,
+  locations: [],
+  totalResults: 0,
   caseNotes: {
     Pagination: { perPage: 5, pageNumber: 0 },
     Query: { source: [], typeSubType: { type: [], subType: [] }, dateRange: { startDate: null, endDate: null } },
@@ -64,21 +64,18 @@ const initialState = fromJS({
   results, // for test purposes putting something in here...
   error: null,
   query: { firstName: '', lastName: '' }, // for test purposes putting something in here...
-  sortOrder:'asc',
+  sortOrder: 'asc',
   pagination: { perPage: 10, pageNumber: 0 },
   details: detailsState,
   resultsView: 'List', // List or Grid
 });
 
-const dateRangeValidation = (startDate,endDate) => {
+const dateRangeValidation = (startDate, endDate) => {
+  if (!startDate && !endDate) { return true; }
 
-  if(!startDate && !endDate)
-    return true;
+  if (startDate === endDate) { return true; }
 
-  if(startDate === endDate)
-    return true;
-
-  if(startDate && endDate) {
+  if (startDate && endDate) {
     const startDateValue = moment(startDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC);
     const endDateValue = moment(endDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC);
 
@@ -86,31 +83,30 @@ const dateRangeValidation = (startDate,endDate) => {
   }
 
   return true;
-}
+};
 
 function searchReducer(state = initialState, action) {
-
   switch (action.type) {
 
     case '@@redux-form/CHANGE': {
-
-      const {meta} = action;
-      const {form,field} = meta;
+      const { meta } = action;
+      const { form, field } = meta;
       const formId = 'caseNoteFilter';
       const newValue = {};
-      const location = ['details','caseNotes'];
+      const location = ['details', 'caseNotes'];
 
-      if(form === formId && (field === 'startDate' || field === 'endDate')){
+      if (form === formId && (field === 'startDate' || field === 'endDate')) {
+        newValue[field] = action.payload;
 
-         newValue[field] = action.payload;
+        const startDate = newValue.startDate || state.getIn([...location, 'startDate']);
+        const endDate = newValue.endDate || state.getIn([...location, 'endDate']);
 
-         const startDate = newValue['startDate'] || state.getIn([...location,'startDate']);
-         const endDate = newValue['endDate'] || state.getIn([...location,'endDate']);
-
-         return state
-           .setIn([...location,'dateRangeValid'], fromJS(dateRangeValidation(startDate,endDate)))
-           .setIn([...location,field],fromJS(action.payload));
+        return state
+           .setIn([...location, 'dateRangeValid'], fromJS(dateRangeValidation(startDate, endDate)))
+           .setIn([...location, field], fromJS(action.payload));
       }
+
+      return state;
     }
 
     case SEARCH_LOADING: {
@@ -118,7 +114,6 @@ function searchReducer(state = initialState, action) {
     }
 
     case SEARCH_SUCCESS: {
-
       return state
         .set('loading', false)
         .set('error', null)
@@ -174,7 +169,6 @@ function searchReducer(state = initialState, action) {
     }
 
     case SET_RESULTS_VIEW: {
-
       const cP = state.get('pagination').toJS();
       const currentFirstId = cP.pageNumber * cP.perPage;
       let newPerPage;
@@ -193,13 +187,13 @@ function searchReducer(state = initialState, action) {
     }
 
     case SET_LARGE_PHOTO_VISIBILITY: {
-       return state
-         .setIn(['details','shouldShowLargePhoto'],fromJS(action.payload.shouldShowLargePhoto))
-         .setIn(['details','imageId'],fromJS(action.payload.imageId));
+      return state
+         .setIn(['details', 'shouldShowLargePhoto'], fromJS(action.payload.shouldShowLargePhoto))
+         .setIn(['details', 'imageId'], fromJS(action.payload.imageId));
     }
 
-    case SET_LOCATIONS:{
-        return state.setIn(['details','locations'], fromJS(action.payload.locations || []));
+    case SET_LOCATIONS: {
+      return state.setIn(['details', 'locations'], fromJS(action.payload.locations || []));
     }
 
     default: {

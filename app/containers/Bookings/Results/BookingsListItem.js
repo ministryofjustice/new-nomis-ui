@@ -8,18 +8,17 @@ import {
   ListDetailImage,
   Name,
   ID,
-  GroupedDetails
 } from './results.theme';
 
 const BookingsListItem = (props) => {
   const { data, action } = props;
-  const { firstName, lastName, facialImageId, bookingNo, offenderNo, assignedLivingUnitDesc } = data;
+  const { firstName, lastName, facialImageId, offenderNo, assignedLivingUnitDesc } = data;
   return (
     <ListDetailItem onClick={() => action(data.bookingId)}>
 
       <ListDetailImage><EliteImage imageId={facialImageId} /></ListDetailImage>
       <div className="personAttributes">
-        <Name>{toFullName({firstName, lastName})}</Name>
+        <Name>{toFullName({ firstName, lastName })}</Name>
         <ID>{offenderNo}</ID>
         <div>{assignedLivingUnitDesc}</div>
       </div>

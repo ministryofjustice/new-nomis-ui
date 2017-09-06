@@ -1,55 +1,53 @@
-import React,{PureComponent} from 'react';
-import { Field} from 'redux-form/immutable';
+import React, { PureComponent } from 'react';
+import { Field } from 'redux-form/immutable';
 import SelectWithLabel from 'components/FormComponents/SelectWithLabel';
 
 
-class TypeAndSubTypeSelector extends PureComponent{
-  constructor(props){
-     super(props);
+class TypeAndSubTypeSelector extends PureComponent {
+  constructor(props) {
+    super(props);
 
-     this.onTypeChange = this.onTypeChange.bind(this);
-     this.onSubTypeChange = this.onSubTypeChange.bind(this);
+    this.onTypeChange = this.onTypeChange.bind(this);
+    this.onSubTypeChange = this.onSubTypeChange.bind(this);
   }
 
-  componentDidMount(){
-
-    const {selectedSubType} = this.props;
+  componentDidMount() {
+    const { selectedSubType } = this.props;
     this.state = {
-        resetSubType: !selectedSubType && false
+      resetSubType: !selectedSubType && false,
     };
   }
 
-  onTypeChange(){
+  onTypeChange() {
     this.setState({
-      resetSubType: true
+      resetSubType: true,
     });
   }
 
-  onSubTypeChange(){
+  onSubTypeChange() {
     this.setState({
-      resetSubType: false
+      resetSubType: false,
     });
   }
 
-  render(){
-
-    const {types,subTypes,selectedType} = this.props;
-    const {resetSubType} = this.state || false;
+  render() {
+    const { types, subTypes, selectedType } = this.props;
+    const { resetSubType } = this.state || false;
 
     const constrainedSubTypes =
-      (subTypes || []).filter(st => st.parent === selectedType);
+      (subTypes || []).filter((st) => st.parent === selectedType);
 
     return (
       <span>
         <Field
-          title='Type'
+          title="Type"
           component={SelectWithLabel}
           name="typeValue"
           options={types}
           onChange={this.onTypeChange}
         />
         <Field
-          title='Sub-Type'
+          title="Sub-Type"
           component={SelectWithLabel}
           name="subTypeValue"
           options={constrainedSubTypes}
@@ -57,10 +55,9 @@ class TypeAndSubTypeSelector extends PureComponent{
           resetValue={resetSubType}
         />
       </span>
-    )
+    );
   }
 }
-
 
 
 export default TypeAndSubTypeSelector;

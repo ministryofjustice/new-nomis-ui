@@ -8,9 +8,11 @@ import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import CaseNoteListItem from 'components/Bookings/Details/CaseNotes/listItem';
 
 import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
+import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMessage';
+import { LoadingMessage } from 'components/CommonTheme';
+
 import { selectCaseNotesQuery, selectCaseNotesPagination, selectBookingDetailsId } from '../../selectors';
 import CaseNoteFilterForm from './filterForm';
-import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMessage';
 
 import {
   selectCaseNotes,
@@ -24,7 +26,6 @@ import {
 } from '../../actions';
 
 import { CaseNoteList } from './caseNoteList.theme';
-import { LoadingMessage } from 'components/CommonTheme';
 
 class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -42,11 +43,13 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
           <div>
             <CaseNoteFilterForm />
             <div>
-              <NoSearchResultsReturnedMessage resultCount={caseNotes.toJS().length}/>
+              <NoSearchResultsReturnedMessage resultCount={caseNotes.toJS().length} />
             </div>
             <CaseNoteList>
-              {caseNotes.map((caseNote) => <CaseNoteListItem action={() => setCaseNoteView(caseNote.get('caseNoteId'))}
-                                                             caseNote={caseNote} key={caseNote.get('caseNoteId')} />)}
+              {caseNotes.map((caseNote) => <CaseNoteListItem
+                action={() => setCaseNoteView(caseNote.get('caseNoteId'))}
+                caseNote={caseNote} key={caseNote.get('caseNoteId')}
+              />)}
             </CaseNoteList>
             <PreviousNextNavigation pagination={caseNotesPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)} />
           </div>

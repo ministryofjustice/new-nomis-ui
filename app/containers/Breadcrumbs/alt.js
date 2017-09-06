@@ -38,6 +38,7 @@ BreadcrumbsAlt.propTypes = {
 BreadcrumbsAlt.defaultProps = {
   user: undefined,
   deviceFormat: 'desktop',
+  searchContext: '',
 };
 
 const mapStateToProps = createStructuredSelector({

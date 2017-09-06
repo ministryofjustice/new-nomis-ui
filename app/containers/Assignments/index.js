@@ -1,24 +1,25 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import ResultsViewToggle from 'components/ResultsViewToggle';
 import ResultsViewToggleMobile from 'components/ResultsViewToggle/mobile';
 import NavLink from 'components/NavLink';
-
 import { selectDeviceFormat } from 'selectors/app';
 import { viewDetails as vD } from 'containers/Bookings/actions';
-
 import AssignmentsHeader from 'components/AssignmentsHeader';
 import AssignmentsHeaderMobile from 'components/AssignmentsHeader/mobile';
+import { setSearchContext } from 'globalReducers/app';
+import BookingTable from 'components/Bookings/Table';
+import BookingGrid from 'components/Bookings/Grid';
+
 import { selectUser } from '../Authentication/selectors';
 
 import {
   setAssignmentsPagination,
   setAssignmentsView,
-  toggleAssignmentsSortOrder
+  toggleAssignmentsSortOrder,
 } from './actions';
 
 import {
@@ -26,13 +27,9 @@ import {
   selectAssignmentsTotal,
   selectAssignmentsPagination,
   selectAssignmentsView,
-  selectAssignmentsSortOrder
+  selectAssignmentsSortOrder,
 } from './selectors';
 
-import { setSearchContext } from 'globalReducers/app';
-
-import BookingTable from 'components/Bookings/Table';
-import BookingGrid from 'components/Bookings/Grid';
 
 class Assignments extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -49,11 +46,12 @@ class Assignments extends PureComponent { // eslint-disable-line react/prefer-st
         { deviceFormat === 'desktop' ?
           <AssignmentsHeader
             resultsViewToggle={<ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />}
-            user={user} options={{assignments: totalResults}} />
+            user={user} options={{ assignments: totalResults }}
+          />
           :
           <div>
-            <NavLink route="/" key="Home" text="Home"/>
-            <AssignmentsHeaderMobile user={user} options={{assignments: totalResults}} />
+            <NavLink route="/" key="Home" text="Home" />
+            <AssignmentsHeaderMobile user={user} options={{ assignments: totalResults }} />
             <ResultsViewToggleMobile resultsView={resultsView} setResultsView={setResultsView} />
           </div>
         }
@@ -98,7 +96,7 @@ export function mapDispatchToProps(dispatch) {
     setPage: (pagination) => dispatch(setAssignmentsPagination(pagination)),
     setResultsView: (view) => dispatch(setAssignmentsView(view)),
     setSearchContext: (context) => dispatch(setSearchContext(context)),
-    toggleSortOrder: () => dispatch(toggleAssignmentsSortOrder())
+    toggleSortOrder: () => dispatch(toggleAssignmentsSortOrder()),
   };
 }
 
@@ -109,7 +107,7 @@ const mapStateToProps = createStructuredSelector({
   pagination: selectAssignmentsPagination(),
   resultsView: selectAssignmentsView(),
   user: selectUser(),
-  sortOrder: selectAssignmentsSortOrder()
+  sortOrder: selectAssignmentsSortOrder(),
 });
 
 // Wrap the component to inject dispatch and state into it

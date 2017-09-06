@@ -1,34 +1,32 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-//import { InputGroup, Input, InputLabel, InputError } from './input.theme';
 
+export const InputError = () => <div></div>;
 
-export const InputError = () => <div></div>
-
-const Input = React.createClass({
-   render(){
-     return (
-       <div>
-          <input className="form-control" {...this.props} />
-       </div>
-     )
-   }
-})
-
-const FormGroup = React.createClass({
-  render(){
-    return <div className="form-group">
-      {this.props.children}
-    </div>
+class Input extends Component { // eslint-disable-line react/prefer-stateless-function
+  render() {
+    return (
+      <div>
+        <input className="form-control" {...this.props} />
+      </div>
+    );
   }
-})
+}
+
+class FormGroup extends Component {  // eslint-disable-line react/prefer-stateless-function
+  render() {
+    return (<div className="form-group">
+      {this.props.children}
+    </div>);
+  }
+}
 
 const renderInput = ({ input, title, type, meta: { touched, error } }) => (
 
   <FormGroup error={touched && error}>
-      <label>{title}</label>
-      <InputError error={touched && error}>{error}</InputError>
-      <Input {...input} type={type} />
+    <label>{title}</label>
+    <InputError error={touched && error}>{error}</InputError>
+    <Input {...input} type={type} />
   </FormGroup>
 
 );

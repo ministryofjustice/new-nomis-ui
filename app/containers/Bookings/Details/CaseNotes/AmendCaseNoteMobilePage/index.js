@@ -4,10 +4,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { createFormAction } from 'redux-form-saga';
 
-import { AMEND_CASENOTE } from 'containers/Bookings/constants';
 import AmendCaseNoteForm from '../AmendCaseNoteModal/amendCaseNoteForm';
-
-import { DETAILS_TABS } from '../../../constants';
+import { DETAILS_TABS, AMEND_CASENOTE } from '../../../constants';
 import { selectBookingDetailsId } from '../../../selectors';
 import { viewDetails } from '../../../actions';
 
@@ -38,14 +36,14 @@ class AmendCaseNotePageMobile extends PureComponent { // eslint-disable-line rea
 
 AmendCaseNotePageMobile.propTypes = {
   onSubmitForm: PropTypes.func.isRequired,
-  goToBookingDetails: PropTypes.func.isRequired
+  goToBookingDetails: PropTypes.func.isRequired,
 };
 
 AmendCaseNotePageMobile.defaultProps = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  bookingDetailsId: selectBookingDetailsId()
+  bookingDetailsId: selectBookingDetailsId(),
 });
 
 export function mapDispatchToProps(dispatch) {

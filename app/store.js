@@ -26,8 +26,8 @@ const sagaMiddleware = createSagaMiddleware();
 
 const debounceConfig = {
   // Suggest no lower than 250 otherwise debounce will be ineffective
-  simple: 250
-}
+  simple: 250,
+};
 
 const debouncer = createDebounce(debounceConfig);
 

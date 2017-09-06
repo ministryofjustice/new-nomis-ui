@@ -14,7 +14,7 @@ import {
   AlertEntryDate,
 } from './theme';
 
-function AlertList({ alerts, deviceFormat }) {
+function AlertList({ alerts }) {
   return (
     <AlertHolder>
       {alerts.map((alert) => {
@@ -22,7 +22,7 @@ function AlertList({ alerts, deviceFormat }) {
         const typeDataDescription = alert.typeData !== undefined ? alert.typeData.description : '';
 
         const forRender =
-          <AlertItem key={alert.alertId} expired={alert.expired}>
+          (<AlertItem key={alert.alertId} expired={alert.expired}>
             <AlertTypeWrapper expired={alert.expired}>
               <AlertType>{alert.alertType}</AlertType>
               <AlertTypeDescription>{String(typeDataDescription)}</AlertTypeDescription>
@@ -36,7 +36,7 @@ function AlertList({ alerts, deviceFormat }) {
               }
               <AlertEntryDate>Entry date: <FormattedDate value={Date.parse(alert.dateCreated)} /></AlertEntryDate>
             </AlertCodeWrapper>
-          </AlertItem>;
+          </AlertItem>);
         return alert.typeData !== undefined && alert.codeData !== undefined ? forRender : null;
       })
       }
@@ -46,7 +46,6 @@ function AlertList({ alerts, deviceFormat }) {
 
 AlertList.propTypes = {
   alerts: PropTypes.array.isRequired,
-  deviceFormat: PropTypes.string.isRequired,
 };
 
 export default AlertList;

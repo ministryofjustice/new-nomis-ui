@@ -7,6 +7,6 @@ function isBlank(str) {
   return (!str || /^\s*$/.test(str));
 }
 
-export const toFullName = ({firstName, lastName, name}) =>
+export const toFullName = ({ firstName, lastName, name }) =>
   !isBlank(name) ? name.split(' ').map(properCase).join(', ') :
-    (!isBlank(lastName) ? properCase(lastName) + ", " : "") + (!isBlank(firstName) ? properCase(firstName) : "");
+    (!isBlank(lastName) ? `${properCase(lastName)}, ` : '') + (!isBlank(firstName) ? properCase(firstName) : '');

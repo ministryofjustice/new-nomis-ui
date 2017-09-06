@@ -7,24 +7,21 @@ const interceptor = require('express-interceptor');
 
 appInsights.setup(appinsightsKey).start();
 
-const appInsightscriptInjector = function(){
-  return interceptor(function(req, res){
-    return {
+const appInsightscriptInjector = function () {
+  return interceptor((req, res) => ({
       // Only HTML responses will be intercepted
-      isInterceptable: function(){
-        return /text\/html/.test(res.get('Content-Type'));
-      },
+    isInterceptable() {
+      return /text\/html/.test(res.get('Content-Type'));
+    },
 
-      intercept: function(body, send) {
+    intercept(body, send) {
+      const key = appInsights.client.config.instrumentationKey;
 
-        const key = appInsights.client.config.instrumentationKey;
+      if (NoInstrumentationKeyConfigured(key)) { return; }
 
-        if(NoInstrumentationKeyConfigured(key))
-          return;
+      const $document = cheerio.load(body);
 
-        const $document = cheerio.load(body);
-
-        const script = `
+      const script = `
            
            <script type="text/javascript">
               var appInsights=window.appInsights||function(config){
@@ -37,19 +34,16 @@ const appInsightscriptInjector = function(){
             </script>            
             `;
 
-        $document('body').append(script);
-        send($document.html());
-      }
-    };
-  });
+      $document('body').append(script);
+      send($document.html());
+    },
+  }));
 };
 
-const NoInstrumentationKeyConfigured = (key) => {
-  return key === defaultKey;
-}
+const NoInstrumentationKeyConfigured = (key) => key === defaultKey;
 
 module.exports = {
   appInsights,
-  appInsightscriptInjector
+  appInsightscriptInjector,
 };
 

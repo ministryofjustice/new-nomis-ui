@@ -92,20 +92,18 @@ const casenoteQueryStringGen = (caseNoteOptions) => {
   const { startDate, endDate } = dateRange;
   const queryArray = [];
 
-  if(type === 'All')
-    type = null;
+  if (type === 'All') { type = null; }
 
-  if(subType === 'All')
-    subType = null;
+  if (subType === 'All') { subType = null; }
 
-  if(type && Array.isArray(type) !== true){
-     let t = type;
-     type = [];
-     type.push(t);
+  if (type && Array.isArray(type) !== true) {
+    const t = type;
+    type = [];
+    type.push(t);
   }
 
-  if(subType && Array.isArray(subType) !== true){
-    let st = subType;
+  if (subType && Array.isArray(subType) !== true) {
+    const st = subType;
     subType = [];
     subType.push(st);
   }
@@ -125,22 +123,21 @@ const casenoteQueryStringGen = (caseNoteOptions) => {
   const iso8601Format = 'YYYY-MM-DD';
   const dateFilterKeys = {
     startDate: 'occurrenceDateTime:gteq',
-    endDate: 'occurrenceDateTime:lteq'
+    endDate: 'occurrenceDateTime:lteq',
   };
   const dateFilters = [];
 
-  if(startDate) {
+  if (startDate) {
     const dateFrom = moment(startDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC).format(iso8601Format);
     dateFilters.push(`${dateFilterKeys.startDate}:'${dateFrom}'`);
   }
 
-  if(endDate) {
+  if (endDate) {
     const dateTo = moment(endDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC).format(iso8601Format);
     dateFilters.push(`${dateFilterKeys.endDate}:'${dateTo}'`);
   }
 
-  if(dateFilters.length > 0)
-    queryArray.push( dateFilters.join(',and:'));
+  if (dateFilters.length > 0) { queryArray.push(dateFilters.join(',and:')); }
 
   return queryArray.length > 0 ? `&query=${queryArray.join(',and:')}` : '';
 };
@@ -414,39 +411,33 @@ export const imageData = (token, baseUrl, imageId) => axios({
     });
 
 
-
-
-export const loadMyLocations =  (token, baseUrl) => axios({
+export const loadMyLocations = (token, baseUrl) => axios({
   baseURL: `${baseUrl}/v2`,
   method: 'get',
-  url: `/users/me/locations`,
+  url: '/users/me/locations',
   headers: {
     Authorization: token,
   } })
-  .then((response) => {
-    return response.data;
-  });
+  .then((response) => response.data);
 
-const parseLocationPrefix = (prefix) => prefix === 'All' ? '_' : (prefix || '_')
+const parseLocationPrefix = (prefix) => prefix === 'All' ? '_' : (prefix || '_');
 
-export const searchOffenders = ({token,baseUrl,query,
-                                  sort = {order: 'asc'},
-                                  pagination = {offset:0,limit:1000}}) =>
+export const searchOffenders = ({ token, baseUrl, query,
+                                  sort = { order: 'asc' },
+                                  pagination = { offset: 0, limit: 1000 } }) =>
   axios({
-     baseURL: `${baseUrl}/v2`,
-     url: query.keywords ?
-       `search-offenders/${parseLocationPrefix(query.locationPrefix)}/${query.keywords}`:
+    baseURL: `${baseUrl}/v2`,
+    url: query.keywords ?
+       `search-offenders/${parseLocationPrefix(query.locationPrefix)}/${query.keywords}` :
        `search-offenders/${parseLocationPrefix(query.locationPrefix)}`,
-     headers:{
-       Authorization: token,
-       'Page-Offset': pagination.offset,
-       'Page-Limit': pagination.limit,
-       'Sort-Fields': ['lastName','firstName'],
-       'Sort-Order': sort.order
-     }
-  }).then(response => {
-     return {
-       bookings: response.data,
-       totalRecords: parseInt(response.headers['total-records'])
-     };
-  });
+    headers: {
+      Authorization: token,
+      'Page-Offset': pagination.offset,
+      'Page-Limit': pagination.limit,
+      'Sort-Fields': ['lastName', 'firstName'],
+      'Sort-Order': sort.order,
+    },
+  }).then((response) => ({
+    bookings: response.data,
+    totalRecords: parseInt(response.headers['total-records']),
+  }));

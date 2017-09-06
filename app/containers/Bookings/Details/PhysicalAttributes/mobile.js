@@ -9,7 +9,7 @@ import { setModalOpen, setModalData } from 'globalReducers/app';
 
 import { selectPhysicalAttributes, selectPhysicalMarks } from '../../selectors';
 
-import {showLargePhoto} from '../../actions'
+import { showLargePhoto } from '../../actions';
 
 class PhysicalAttributes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -65,7 +65,7 @@ export function mapDispatchToProps(dispatch) {
   return {
     setModalOpen: (bool) => dispatch(setModalOpen(bool)),
     setModalData: (bool) => dispatch(setModalData(bool)),
-    showVisualMarkingsPhoto: (imageId) => dispatch(showLargePhoto(imageId))
+    showVisualMarkingsPhoto: (imageId) => dispatch(showLargePhoto(imageId)),
   };
 }
 

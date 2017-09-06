@@ -65,7 +65,7 @@ function CaseNoteDetailsMobile(props) {
 
 CaseNoteDetailsMobile.propTypes = {
   caseNote: PropTypes.object.isRequired,
-  viewList: PropTypes.func.isRequired
+  viewList: PropTypes.func.isRequired,
 };
 
 export default CaseNoteDetailsMobile;

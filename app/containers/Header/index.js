@@ -11,7 +11,7 @@ import { selectMobileMenuOpen } from 'selectors/app';
 import { switchCaseLoad } from '../EliteApiLoader/actions';
 import { selectUserHeaderInfo } from './selectors';
 
-class HeaderContainer extends Component {
+class HeaderContainer extends Component {  // eslint-disable-line react/prefer-stateless-function
 
   render() {
     const { headerUser, mobileMenuOpen, switchCaseLoad: switchCL } = this.props;
@@ -21,7 +21,8 @@ class HeaderContainer extends Component {
         switchCaseLoad={switchCL}
         user={headerUser}
         mobileMenuOpen={mobileMenuOpen}
-        setMobileMenuOpen={this.props.setMobileMenuOpen} />
+        setMobileMenuOpen={this.props.setMobileMenuOpen}
+      />
     );
   }
 }

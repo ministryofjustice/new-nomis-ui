@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import "./footer.scss"
+import './footer.scss';
 
 function Footer({ modalData, setModalOpen, setModalData }) {
-
   const linkClick = (e) => {
     setModalOpen(true);
     setModalData(modalData[e.currentTarget.dataset.name]);

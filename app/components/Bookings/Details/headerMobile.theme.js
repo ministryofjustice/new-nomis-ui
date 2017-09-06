@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import colours from 'theme/colours';
 import { StyledLink } from 'components/Button/button.theme';
-import { responsiveCols, fixedCols } from 'components/CommonTheme/responsiveColumns';
+import { responsiveCols } from 'components/CommonTheme/responsiveColumns';
 import { media } from 'utils/style-utils';
 
 export const Location = styled.div`

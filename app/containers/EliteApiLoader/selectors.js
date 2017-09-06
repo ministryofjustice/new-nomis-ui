@@ -37,7 +37,7 @@ const calcBookingResults = (eliteApiState, { query, pagination, sortOrder }) => 
   // Get the sortedIds for the full page of search results
   const ids = idsFromPagination(pagination).map((sortId) => searchQueryIds[sortId]).filter((n) => n);
   const bookingSummaries = eliteApiState.getIn(['Bookings', 'Summaries']).toJS();
-  let result =  ids.map((id) => bookingSummaries[id]);
+  const result = ids.map((id) => bookingSummaries[id]);
 
   return result;
 };
@@ -79,7 +79,7 @@ const selectOfficer = () => createSelector(
   selectOfficers(),
   selectOfficerKey(),
   (officers, id) => {
-    officers.get(id)
+    officers.get(id);
   }
 );
 

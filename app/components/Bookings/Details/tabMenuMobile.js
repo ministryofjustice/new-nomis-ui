@@ -33,7 +33,8 @@ function TabMenuMobile({ tabData, activeTabId }) {
           active={tab.tabId === activeTabId}
           onClick={tab.tabId === activeTabId ? null : tab.action}
           bgImg={imgArray[i]}
-          retinaBgImg={imgArrayRetina[i]}>
+          retinaBgImg={imgArrayRetina[i]}
+        >
           <TextHolder>{tab.mobileTitle}</TextHolder>
         </TabMenuItem>)}
       </TabWrapper>
