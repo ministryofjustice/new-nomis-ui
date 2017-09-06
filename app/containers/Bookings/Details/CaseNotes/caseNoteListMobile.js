@@ -7,21 +7,22 @@ import { createStructuredSelector } from 'reselect';
 import CaseNoteListItem from 'components/Bookings/Details/CaseNotes/listItem';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
-import { MarginFix } from './caseNoteList.theme';
 import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMessage';
 import { LoadingMessage } from 'components/CommonTheme';
-import FilterForm from './filterForm';
 
-import{
+import FilterForm from './filterForm';
+import { MarginFix } from './caseNoteList.theme';
+
+import {
   selectCaseNotesQuery,
   selectCaseNotesPagination,
-  selectBookingDetailsId
+  selectBookingDetailsId,
 } from '../../selectors';
 
 import {
   selectCaseNotes,
   selectCaseNotesStatus,
-  selectTotalCaseNotes
+  selectTotalCaseNotes,
 } from './selectors';
 
 import {
@@ -29,47 +30,47 @@ import {
   setCaseNotesDetailView,
 } from '../../actions';
 
-const ArrowUp = ({toggle}) => <span className="clickable" onClick={toggle}> &#9650; </span>
-const ArrowDown = ({toggle}) => <span className="clickable" onClick={toggle}> &#9660;  </span>
+const ArrowUp = ({ toggle }) => <span className="clickable" onClick={toggle}> &#9650; </span>;
+const ArrowDown = ({ toggle }) => <span className="clickable" onClick={toggle}> &#9660; </span>;
 
 class FilterToggle extends PureComponent {
 
-  constructor(){
+  constructor() {
     super();
     this.toggleClick = this.toggleClick.bind(this);
   }
 
-  componentWillMount(){
-    this.setState({show: false});
+  componentWillMount() {
+    this.setState({ show: false });
   }
 
-  toggleClick(e){
-      e.preventDefault();
-     this.setState({show: !this.state.show });
+  toggleClick(e) {
+    e.preventDefault();
+    this.setState({ show: !this.state.show });
   }
 
   render() {
     return (
-    <div>
+      <div>
 
-      <MarginFix href="#" onClick={this.toggleClick}>
+        <MarginFix href="#" onClick={this.toggleClick}>
 
-        {this.state.show?
-          <span>
-            <span> Hide filters </span>
-            <span> <ArrowDown/> </span>
-          </span> :
+          {this.state.show ?
+            <span>
+              <span> Hide filters </span>
+              <span> <ArrowDown /> </span>
+            </span> :
 
-          <span>
-            <span> Show filters </span>
-            <span> <ArrowUp/> </span>
-          </span>
+            <span>
+              <span> Show filters </span>
+              <span> <ArrowUp /> </span>
+            </span>
         }
-      </MarginFix>
+        </MarginFix>
 
-      {this.state.show ? this.props.children : null}
+        {this.state.show ? this.props.children : null}
 
-    </div>)
+      </div>);
   }
 }
 
@@ -91,11 +92,13 @@ class CaseNotesMobile extends PureComponent { // eslint-disable-line react/prefe
               <FilterForm {...this.props} />
             </FilterToggle>
             <div>
-              <NoSearchResultsReturnedMessage resultCount={caseNotes.toJS().length}/>
+              <NoSearchResultsReturnedMessage resultCount={caseNotes.toJS().length} />
             </div>
             <div>
-              {caseNotes.map((caseNote) => <CaseNoteListItem action={() => setCaseNoteView(caseNote.get('caseNoteId'))}
-                                                             caseNote={caseNote} key={caseNote.get('caseNoteId')}/>)}
+              {caseNotes.map((caseNote) => <CaseNoteListItem
+                action={() => setCaseNoteView(caseNote.get('caseNoteId'))}
+                caseNote={caseNote} key={caseNote.get('caseNoteId')}
+              />)}
             </div>
             <PreviousNextNavigation pagination={caseNotesPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)} />
           </div>
@@ -120,7 +123,7 @@ CaseNotesMobile.propTypes = {
 };
 
 CaseNotesMobile.defaultProps = {
-  caseNotesStatus: {  },
+  caseNotesStatus: { },
   totalResults: 0,
 };
 

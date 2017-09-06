@@ -22,7 +22,7 @@ const selectLocale = () => createSelector(
  */
 const intlSelector = () => createSelector(
   selectLocale(),
-  (currentLocale) => (new IntlProvider({locale: currentLocale, messages: {}}, {})).getChildContext()
+  (currentLocale) => (new IntlProvider({ locale: currentLocale, messages: {} }, {})).getChildContext()
 );
 
 export {

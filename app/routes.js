@@ -30,24 +30,12 @@ function redirectToLoginGen(store) {
       });
     }
   };
-};
-
-const handleRedirect = (routes,{from,to}) => {
-  const bookingDetails = routes
-    .filter(route => route.path === to)[0];
-
-  if(bookingDetails) {
-    routes.push({
-      ...bookingDetails,
-      path: from,
-    });
-  };
-};
+}
 
 const OnRouteVisit = (routeName) => {
   if (window.appInsights) {
     window.appInsights.trackPageView(routeName);
-  };
+  }
 };
 
 
@@ -56,7 +44,7 @@ export default function createRoutes(store) {
   const { injectReducer, injectSagas } = getAsyncInjectors(store); // eslint-disable-line no-unused-vars
   const redirectToLogin = redirectToLoginGen(store);
 
-  let routes= [
+  const routes = [
     {
       path: '/login',
       name: 'login',
@@ -92,12 +80,12 @@ export default function createRoutes(store) {
           System.import('containers/HomePage/reducers'),
           System.import('containers/Bookings/reducers'),
           System.import('containers/Bookings/sagas'),
-          System.import('containers/HomePage')
+          System.import('containers/HomePage'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([reducer,bookingReducers, sagas, component]) => {
+        importModules.then(([reducer, bookingReducers, sagas, component]) => {
           injectReducer('home', reducer.default);
           injectReducer('search', bookingReducers.default);
           injectSagas('search', sagas.default);
@@ -214,7 +202,7 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    },  {
+    }, {
       onEnter: redirectToLogin,
       path: '/results',
       name: 'search results',
@@ -292,17 +280,14 @@ export default function createRoutes(store) {
     },
   ];
 
-  routes.forEach( route => {
-
+  routes.forEach((route) => {
     const enter = route.onEnter;
+    //eslint-disable-next-line
+    route.onEnter = () => {
+      if (enter) { enter(); }
 
-    route.onEnter = () =>{
-      if(enter)
-        enter();
-    
       OnRouteVisit(route.name);
     };
-
   });
   return routes;
 }

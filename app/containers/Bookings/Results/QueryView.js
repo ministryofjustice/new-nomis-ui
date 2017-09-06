@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button, { ButtonRow } from 'components/Button';
 
-import { InputLabel, InputGroup } from 'components/FormComponents/Input/input.theme';
+import { InputLabel } from 'components/FormComponents/Input/input.theme';
 
 // import Locations from '../Search/locations.json';
 // import createFilterOptions from '../Search/fastFilterFun';
 
-import { QueryWrapper, QueryItemHolder, QueryValue, QueryValueScroll } from './query.theme';
+import { QueryWrapper, QueryItemHolder, QueryValue } from './query.theme';
 
 // const filterOptions = createFilterOptions({ options: Locations });
 
@@ -20,8 +20,6 @@ const QueryView = (props) => {
   const firstName = initialValues.firstName ? initialValues.firstName : '';
   const lastName = initialValues.lastName ? initialValues.lastName : '';
   const offenderNo = initialValues.offenderNo ? initialValues.offenderNo : null;
-  const bookingNo = initialValues.bookingNo ? initialValues.bookingNo : null;
-  const locations = initialValues.locations ? initialValues.locations : [];
 
   return (
     <QueryWrapper>

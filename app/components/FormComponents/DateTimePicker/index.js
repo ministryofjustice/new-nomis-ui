@@ -1,11 +1,11 @@
-import React,{PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import Datetime from 'react-datetime';
 import moment from 'moment';
 import 'react-datetime/css/react-datetime.css';
 import {
   DEFAULT_MOMENT_DATE_FORMAT_SPEC,
-  DEFAULT_MOMENT_TIME_FORMAT_SPEC
+  DEFAULT_MOMENT_TIME_FORMAT_SPEC,
 } from 'containers/App/constants';
 
 
@@ -31,42 +31,42 @@ const DateTimeElement = styled(Datetime) `
 
 const DateTimeCancelButton = styled.button`
    margin-top: 1em;
-`
+`;
 
 const DateTimeAndLink = styled.span`
    span{
      font-weight: bold;
      margin-right:1em;
    }
-`
+`;
 
-export const DateTimePickerDisplay = ({locale,onDateTimeChange,toggleEdit,isValidDate}) =>(
-<div>
-  <DateTimeElement
-    className="date-time-picker"
-    isValidDate={isValidDate}
-    input={false}
-    locale={locale}
-    onChange={onDateTimeChange}
-    defaultValue={moment()}
-  />
-  <DateTimeCancelButton className="cancel-button" onClick={toggleEdit}>
+export const DateTimePickerDisplay = ({ locale, onDateTimeChange, toggleEdit, isValidDate }) => (
+  <div>
+    <DateTimeElement
+      className="date-time-picker"
+      isValidDate={isValidDate}
+      input={false}
+      locale={locale}
+      onChange={onDateTimeChange}
+      defaultValue={moment()}
+    />
+    <DateTimeCancelButton className="cancel-button" onClick={toggleEdit}>
     Finish editing
   </DateTimeCancelButton>
 
-</div>)
+  </div>);
 
-export const ReadOnlyDateTimeView = ({dateTimeText,toggleEdit,shouldShowDay}) =>(
-<div>
+export const ReadOnlyDateTimeView = ({ dateTimeText, toggleEdit }) => (
+  <div>
     <DateTimeAndLink>
       <span className="date-time-text">{dateTimeText}</span>
       <a href="#" onClick={toggleEdit}>Edit</a>
     </DateTimeAndLink>
-</div>)
+  </div>);
 
-class DateTimePicker extends PureComponent{
+class DateTimePicker extends PureComponent {
 
-  constructor(){
+  constructor() {
     super();
 
     this.toggleEdit = this.toggleEdit.bind(this);
@@ -79,50 +79,43 @@ class DateTimePicker extends PureComponent{
       edit: false,
       date: momentSnapShot.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC),
       time: momentSnapShot.format(DEFAULT_MOMENT_TIME_FORMAT_SPEC),
-      momentSnapShot
+      momentSnapShot,
     };
-
   }
 
-  componentDidMount(){
-
-    const {momentSnapShot} = this.state;
+  componentDidMount() {
+    const { momentSnapShot } = this.state;
     this.outputResult(momentSnapShot.toISOString());
   }
 
-  toggleEdit(e){
-
-     e.preventDefault();
-     this.setState({
-       edit: ! this.state.edit
-     });
-  }
-
-  onDateTimeChange(moment){
-
-    this.setState({...this.state,
-      date: moment.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC),
-      time: moment.format(DEFAULT_MOMENT_TIME_FORMAT_SPEC),
-      momentSnapShot: moment
+  onDateTimeChange(momentDate) {
+    this.setState({ ...this.state,
+      date: momentDate.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC),
+      time: momentDate.format(DEFAULT_MOMENT_TIME_FORMAT_SPEC),
+      momentSnapShot: momentDate,
     });
 
-    this.outputResult(moment.toISOString());
+    this.outputResult(momentDate.toISOString());
   }
 
-   outputResult(value){
-
-    if(this.props && this.props.input && this.props.input.onChange)
-      this.props.input.onChange(value);
+  toggleEdit(e) {
+    e.preventDefault();
+    this.setState({
+      edit: !this.state.edit,
+    });
   }
 
-  render(){
+  outputResult(value) {
+    if (this.props && this.props.input && this.props.input.onChange) { this.props.input.onChange(value); }
+  }
 
-    const {locale,title,meta:{touched,error},shouldShowDay} = this.props;
-    const {edit,date,time} = this.state;
+  render() {
+    const { locale, title, meta: { touched, error }, shouldShowDay } = this.props;
+    const { edit, date, time } = this.state;
     const dateTimeText = date ? `${date}  -  ${time}` : '';
 
     return (
-      <div className={ !(touched && error) ? 'form-group' : 'form-group form-group-error'}>
+      <div className={!(touched && error) ? 'form-group' : 'form-group form-group-error'}>
 
         <label className="form-label">
           {title}
@@ -143,7 +136,7 @@ class DateTimePicker extends PureComponent{
           <ReadOnlyDateTimeView toggleEdit={this.toggleEdit} dateTimeText={dateTimeText} />
         }
 
-       </div>
+      </div>
     );
   }
 }

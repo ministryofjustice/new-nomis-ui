@@ -8,7 +8,7 @@ const parseAmendmentInfo = (info) => {
 };
 const generateAmendmentData = (infoString, text) => ({
   ...parseAmendmentInfo(infoString),
-  text: text,
+  text,
   stub: stubify(text, 50),
 });
 const stubify = (text, n) => {

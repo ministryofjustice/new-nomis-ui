@@ -6,7 +6,7 @@ import colours from 'theme/colours';
 import listIcon from 'assets/list-icon.svg';
 import gridIcon from 'assets/grid-icon.svg';
 
-import { IconSVG, ToggleButton, ToggleComponent, ToggleContainer } from './theme';
+import { IconSVG, ToggleButton } from './theme';
 
 class ResultsViewToggle extends Component {
 
@@ -59,8 +59,8 @@ class ResultsViewToggle extends Component {
 
     return (
       <div className="pull-right">
-          <ToggleButton data-name={'List'} onClick={this.setToggle} style={listStyle}>List<IconSVG svg={listIcon} /></ToggleButton>
-          <ToggleButton data-name={'Grid'} onClick={this.setToggle} style={gridStyle}>Grid<IconSVG svg={gridIcon} /></ToggleButton>
+        <ToggleButton data-name={'List'} onClick={this.setToggle} style={listStyle}>List<IconSVG svg={listIcon} /></ToggleButton>
+        <ToggleButton data-name={'Grid'} onClick={this.setToggle} style={gridStyle}>Grid<IconSVG svg={gridIcon} /></ToggleButton>
       </div>
     );
   }

@@ -1,30 +1,28 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { reduxForm, Field, formValueSelector} from 'redux-form/immutable';
+import { reduxForm, Field, formValueSelector } from 'redux-form/immutable';
 import { createStructuredSelector } from 'reselect';
 import { createFormAction } from 'redux-form-saga';
-import { connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import { selectLocale } from 'containers/LanguageProvider/selectors';
 import { SubmissionError, TextArea } from 'components/FormComponents';
-import { ADD_NEW_CASENOTE } from '../../constants';
-import { selectCaseNoteTypeList, selectCaseNoteSubTypeList } from './selectors';
 import DateTimePicker from 'components/FormComponents/DateTimePicker';
 import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
 import moment from 'moment';
 
-import { DETAILS_TABS } from '../../constants';
-import {selectBookingDetailsId} from '../../selectors';
-import {viewDetails} from '../../actions';
+import { selectCaseNoteTypeList, selectCaseNoteSubTypeList } from './selectors';
+import { DETAILS_TABS, ADD_NEW_CASENOTE } from '../../constants';
+import { selectBookingDetailsId } from '../../selectors';
+import { viewDetails } from '../../actions';
 
 import './index.scss';
 
-
 const selector = formValueSelector('addCaseNote');
 
-class AddCaseNoteForm extends Component{
+class AddCaseNoteForm extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.goBackToBookingDetails = this.goBackToBookingDetails.bind(this);
   }
@@ -34,7 +32,7 @@ class AddCaseNoteForm extends Component{
   }
 
   render() {
-    const {handleSubmit, submitting, error, caseNoteTypeList, caseNoteSubTypeList, locale, typeValue} = this.props;
+    const { handleSubmit, submitting, error, caseNoteTypeList, caseNoteSubTypeList, locale, typeValue } = this.props;
 
     return (
       <div className="add-case-note">
@@ -42,9 +40,9 @@ class AddCaseNoteForm extends Component{
         <form onSubmit={handleSubmit}>
           <SubmissionError error={error}>{error}</SubmissionError>
 
-          <TypeAndSubTypeSelector selectedType={typeValue} types={caseNoteTypeList} subTypes={caseNoteSubTypeList}/>
+          <TypeAndSubTypeSelector selectedType={typeValue} types={caseNoteTypeList} subTypes={caseNoteSubTypeList} />
 
-          <Field name="caseNoteText" component={TextArea} title="Case note" autocomplete="off" spellcheck="true"/>
+          <Field name="caseNoteText" component={TextArea} title="Case note" autocomplete="off" spellcheck="true" />
 
           <div className="occurrence-date-time">
             <Field
@@ -63,7 +61,7 @@ class AddCaseNoteForm extends Component{
               Save case note
             </button>
 
-             <button className="cancel-button col-xs-2" type="reset" onClick={this.goBackToBookingDetails}>
+            <button className="cancel-button col-xs-2" type="reset" onClick={this.goBackToBookingDetails}>
               Cancel
             </button>
 
@@ -72,7 +70,7 @@ class AddCaseNoteForm extends Component{
       </div>
     );
   }
-};
+}
 
 AddCaseNoteForm.propTypes = {
   caseNoteTypeList: PropTypes.array.isRequired,
@@ -80,14 +78,12 @@ AddCaseNoteForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   error: PropTypes.string,
-  isMobile: PropTypes.bool,
   locale: PropTypes.string,
 };
 
 AddCaseNoteForm.defaultProps = {
   locale: 'en',
   error: '',
-  isMobile: false,
 };
 
 export function mapDispatchToProps() {
@@ -96,12 +92,12 @@ export function mapDispatchToProps() {
       {
         type: ADD_NEW_CASENOTE.BASE,
         payload: {
-          query: {...formData.toJS(),
-            typeAndSubType:{
+          query: { ...formData.toJS(),
+            typeAndSubType: {
               type: formData.toJS().typeValue,
-              subType: formData.toJS().subTypeValue
-            }}
-        }
+              subType: formData.toJS().subTypeValue,
+            } },
+        },
       }),
       [ADD_NEW_CASENOTE.SUCCESS, ADD_NEW_CASENOTE.ERROR]),
   };
@@ -111,20 +107,20 @@ const mapStateToProps = createStructuredSelector({
   caseNoteTypeList: selectCaseNoteTypeList(),
   caseNoteSubTypeList: selectCaseNoteSubTypeList(),
   locale: selectLocale(),
-  typeValue: state => selector(state,'typeValue'),
-  bookingDetailsId: selectBookingDetailsId()
+  typeValue: (state) => selector(state, 'typeValue'),
+  bookingDetailsId: selectBookingDetailsId(),
 });
 
 const validate = (stuff) => {
   if (!stuff) return {};
-  const { caseNoteText, occurrenceDateTime, subTypeValue,typeValue } = stuff.toJS();
+  const { caseNoteText, occurrenceDateTime, subTypeValue, typeValue } = stuff.toJS();
   const errors = {};
 
-  if ( ! typeValue){
+  if (!typeValue) {
     errors.typeValue = 'Required';
   }
 
-  if( ! subTypeValue){
+  if (!subTypeValue) {
     errors.subTypeValue = 'Required';
   }
 
@@ -137,7 +133,6 @@ const validate = (stuff) => {
   }
 
   return errors;
-
 };
 
 const asForm = reduxForm({

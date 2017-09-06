@@ -1,12 +1,10 @@
 import React from 'react';
 
-const renderField = ({resetValue,name,options,input, title, type, placeholder,reset, meta: { touched, error } }) => {
-
-  if( resetValue === true)
-    input.onChange(null);
+const renderField = ({ resetValue, options, input, title, meta: { touched, error } }) => {
+  if (resetValue === true) { input.onChange(null); }
 
   return (
-    <div className={ !(touched && error) ? 'form-group' : 'form-group form-group-error'}>
+    <div className={!(touched && error) ? 'form-group' : 'form-group form-group-error'}>
 
       <label className="form-label">{title}</label>
 
@@ -14,11 +12,11 @@ const renderField = ({resetValue,name,options,input, title, type, placeholder,re
         {touched && ((error && <span>{error}</span>))}
       </div>
 
-      <select className={ ! (touched && error) ? 'form-control' : 'form-control form-control-error'} {...input}>
+      <select className={!(touched && error) ? 'form-control' : 'form-control form-control-error'} {...input}>
 
         <option value="" selected disabled hidden>Select</option>
 
-        {options.map(option =>
+        {options.map((option) =>
           <option key={option.value} value={option.value}>
             {option.label}
           </option>
@@ -26,10 +24,8 @@ const renderField = ({resetValue,name,options,input, title, type, placeholder,re
       </select>
 
     </div>
-  )
-
-}
-
+  );
+};
 
 
 export default renderField;

@@ -9,6 +9,7 @@ import { selectSearchQuery } from '../selectors';
 
 import SearchForm from './SearchForm';
 import QueryView from './QueryView';
+//eslint-disable-next-line
 import { selectLocationSelectOptionsAndFilterFunc } from '../Search/selectors';
 
 class QueryModifier extends Component {
@@ -45,7 +46,7 @@ QueryModifier.defaultProps = {
 
 export function mapDispatchToProps() {
   return {
-    onSubmitForm: createFormAction((formData) => ({ type: SEARCH, payload: { query: formData.toJS(), resetPagination: true } }), [SEARCH_SUCCESS, SEARCH_ERROR]), //onSubmitActions(SEARCH, SEARCH_SUCCESS, SEARCH_ERROR), // (x) => { console.log(x); }, //
+    onSubmitForm: createFormAction((formData) => ({ type: SEARCH, payload: { query: formData.toJS(), resetPagination: true } }), [SEARCH_SUCCESS, SEARCH_ERROR]), // onSubmitActions(SEARCH, SEARCH_SUCCESS, SEARCH_ERROR), // (x) => { console.log(x); }, //
   };
 }
 

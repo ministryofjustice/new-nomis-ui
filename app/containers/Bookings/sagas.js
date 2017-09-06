@@ -3,7 +3,7 @@ import { push } from 'react-router-redux';
 import { SubmissionError } from 'redux-form/immutable';
 import { getToken } from 'containers/Authentication/sagas';
 import { selectApi } from 'containers/ConfigLoader/selectors';
-import { searchSaga as searchSagaElite, bookingDetailsSaga as bookingDetailsElite } from 'containers/EliteApiLoader/sagas';
+import { bookingDetailsSaga as bookingDetailsElite } from 'containers/EliteApiLoader/sagas';
 import { loadBookingAlerts, loadBookingCaseNotes, resetCaseNotes } from 'containers/EliteApiLoader/actions';
 import { BOOKINGS } from 'containers/EliteApiLoader/constants';
 
@@ -11,7 +11,7 @@ import {
   addCaseNote,
   amendCaseNote,
   loadMyLocations,
-  searchOffenders
+  searchOffenders,
 } from 'utils/eliteApi';
 
 import {
@@ -22,14 +22,12 @@ import {
   selectCaseNotesPagination,
   selectCaseNotesQuery,
   selectCaseNotesDetailId,
-  selectSearchResultsTotalRecords,
-  selectResultsView
 } from './selectors';
 
 import {
   closeAddCaseNoteModal,
   setDetailsTab,
-  closeAmendCaseNoteModal
+  closeAmendCaseNoteModal,
 } from './actions';
 
 import {
@@ -57,70 +55,66 @@ import {
   SET_LOCATIONS,
   NEW_SEARCH,
   TOGGLE_SORT_ORDER,
-  SET_DETAILS_TAB
+  SET_DETAILS_TAB,
 } from './constants';
 
 
-export function* newSearchWatcher(){
-  yield takeLatest(NEW_SEARCH,newSearch);
+export function* newSearchWatcher() {
+  yield takeLatest(NEW_SEARCH, newSearch);
 }
-export function* loadLocationsWatcher(){
-  yield takeLatest(LOAD_LOCATIONS, setLocations)
+export function* loadLocationsWatcher() {
+  yield takeLatest(LOAD_LOCATIONS, setLocations);
 }
 export function* searchWatcher() {
   yield takeLatest(SEARCH, searchSaga);
 }
 
-export function* showPhotoWatcher(){
+export function* showPhotoWatcher() {
   yield takeLatest(SHOW_LARGE_PHOTO_BOOKING_DETAILS, showPhoto);
 }
 
-export function* hidePhotoWatcher(){
+export function* hidePhotoWatcher() {
   yield takeLatest(HIDE_LARGE_PHOTO_BOOKING_DETAILS, hidePhoto);
 }
 
-export function* toggleSortOrderWatcher(){
-  yield takeLatest(TOGGLE_SORT_ORDER, toggleSort)
+export function* toggleSortOrderWatcher() {
+  yield takeLatest(TOGGLE_SORT_ORDER, toggleSort);
 }
 
-export function* setLocations(action){
-
+export function* setLocations(action) {
   const token = yield getToken();
   const apiServer = yield select(selectApi());
-  const locations = yield call(loadMyLocations,token,apiServer,action);
+  const locations = yield call(loadMyLocations, token, apiServer, action);
 
-   yield put({
-     type: SET_LOCATIONS,
-     payload: {
-       locations: locations
-     }
-   });
+  yield put({
+    type: SET_LOCATIONS,
+    payload: {
+      locations,
+    },
+  });
 }
 
-export function* showPhoto(action){
-
+export function* showPhoto(action) {
   yield put({
     type: SET_LARGE_PHOTO_VISIBILITY,
     payload: {
       shouldShowLargePhoto: true,
-      imageId: (action.payload || {imageId:null}).imageId
-    }
+      imageId: (action.payload || { imageId: null }).imageId,
+    },
   });
-
 }
 
-export function* hidePhoto(action){
-
-    yield put({
-      type: SET_LARGE_PHOTO_VISIBILITY,
-      payload: {
-        shouldShowLargePhoto: false,
-        imageId: (action.payload || {imageId:null}).imageId
-      }
-    });
+export function* hidePhoto(action) {
+  yield put({
+    type: SET_LARGE_PHOTO_VISIBILITY,
+    payload: {
+      shouldShowLargePhoto: false,
+      imageId: (action.payload || { imageId: null }).imageId,
+    },
+  });
 }
 
-export function* toggleSort(action){
+export function* toggleSort(action) {
   const token = yield getToken();
   const baseUrl = yield select(selectApi());
   const previousSortOrder = yield select(selectSearchResultsSortOrder());
@@ -135,11 +129,11 @@ export function* toggleSort(action){
     query,
     pagination: {
       limit: pagination.perPage,
-      offset: pagination.perPage * pagination.pageNumber
+      offset: pagination.perPage * pagination.pageNumber,
     },
-    sort:{
-      order: sortOrder
-    }
+    sort: {
+      order: sortOrder,
+    },
   });
 
   yield put({
@@ -147,22 +141,22 @@ export function* toggleSort(action){
     payload: {
       searchResults: result.bookings,
       searchQuery: query,
-      meta: {totalRecords: result.totalRecords,sortOrder: sortOrder}
-    }
+      meta: { totalRecords: result.totalRecords, sortOrder },
+    },
   });
 }
 
-export function* newSearch(action){
+export function* newSearch(action) {
   try {
-    const {query, resetPagination} = action.payload;
+    const { query, resetPagination } = action.payload;
     const token = yield getToken();
     const baseUrl = yield select(selectApi());
     const sortOrder = yield (action.payload.sortOrder || select(selectSearchResultsSortOrder()));
     let pagination = yield (action.payload.pagination || select(selectSearchResultsPagination()));
 
     if (resetPagination) {
-      pagination = {...pagination, pageNumber: 0}
-      yield put({type: SET_PAGINATION, payload: pagination});
+      pagination = { ...pagination, pageNumber: 0 };
+      yield put({ type: SET_PAGINATION, payload: pagination });
     }
 
     const result = yield call(searchOffenders, {
@@ -171,19 +165,19 @@ export function* newSearch(action){
       query,
       pagination: {
         limit: pagination.perPage,
-        offset: pagination.perPage * pagination.pageNumber
+        offset: pagination.perPage * pagination.pageNumber,
       },
-      sort:{
-        order: sortOrder
-      }
+      sort: {
+        order: sortOrder,
+      },
     });
 
     if (result.bookings.length === 1) {
       yield put({
         type: VIEW_DETAILS,
         payload: {
-          bookingId: result.bookings[0].bookingId
-        }
+          bookingId: result.bookings[0].bookingId,
+        },
       });
 
       return;
@@ -194,20 +188,17 @@ export function* newSearch(action){
       payload: {
         searchResults: result.bookings,
         searchQuery: query,
-        meta: {totalRecords: result.totalRecords, sortOrder: sortOrder}
-      }
+        meta: { totalRecords: result.totalRecords, sortOrder },
+      },
     });
 
-    if(action.redirectToResults)
-      yield put(push('/results'));
-  }
-  catch (err) {
+    if (action.redirectToResults) { yield put(push('/results')); }
+  } catch (err) {
     yield put({ type: SEARCH_ERROR, payload: new SubmissionError({ _error: err.message }) });
   }
 }
 
 export function* searchSaga(action) {
-
   yield newSearch(action);
   yield put(push('/results'));
 
@@ -239,7 +230,7 @@ export function* searchSaga(action) {
   } catch (err) {
     console.error(err); // eslint-disable-line
     yield put({ type: SEARCH_ERROR, payload: new SubmissionError({ _error: err.message }) });
-  }*/
+  } */
 }
 
 export function* addCasenoteWatcher() {
@@ -314,7 +305,7 @@ export function* viewDetails(action) {
     yield put(push('/bookings/details'));
 
     if (typeof action.payload.activeTabId === 'number') {
-      yield put({type: SET_DETAILS_TAB, payload: action.payload});
+      yield put({ type: SET_DETAILS_TAB, payload: action.payload });
     }
   } catch (err) {
     yield put({ type: DETAILS_ERROR, payload: new SubmissionError({ _error: err.message }) });
@@ -408,5 +399,5 @@ export default [
   hidePhotoWatcher,
   loadLocationsWatcher,
   newSearchWatcher,
-  toggleSortOrderWatcher
+  toggleSortOrderWatcher,
 ];

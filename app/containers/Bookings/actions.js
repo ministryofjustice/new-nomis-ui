@@ -24,25 +24,25 @@ import {
 } from './constants';
 
 
-export function loadLocations(offset){
+export function loadLocations(offset) {
   return {
     type: LOAD_LOCATIONS,
-    payload: offset
-  }
+    payload: offset,
+  };
 }
 
-export function showLargePhoto(imageId){
+export function showLargePhoto(imageId) {
   return {
     type: SHOW_LARGE_PHOTO_BOOKING_DETAILS,
-    payload: {imageId}
-  }
+    payload: { imageId },
+  };
 }
 
-export function hideLargePhoto(imageId){
+export function hideLargePhoto(imageId) {
   return {
     type: HIDE_LARGE_PHOTO_BOOKING_DETAILS,
-    payload: {imageId}
-  }
+    payload: { imageId },
+  };
 }
 
 export function search(searchObj) {
@@ -138,22 +138,22 @@ export function setCaseNotesListView() {
     type: VIEW_CASENOTE_LIST,
   };
 }
-export function toggleSortOrder(sortOrder){
+export function toggleSortOrder(sortOrder) {
   return {
     type: TOGGLE_SORT_ORDER,
-    payload: sortOrder
-  }
+    payload: sortOrder,
+  };
 }
 
-export function resetCaseNoteFilterFormField (field){
+export function resetCaseNoteFilterFormField(field) {
   return {
-    type:'@@redux-form/CHANGE',
+    type: '@@redux-form/CHANGE',
     meta: {
       form: 'caseNoteFilter',
       touched: false,
       persistentSubmitErrors: false,
-      field
+      field,
     },
-    payload: null
-  }
+    payload: null,
+  };
 }

@@ -2,23 +2,22 @@
 import { fromJS } from 'immutable';
 
 import {
-  SET_LOCATIONS
+  SET_LOCATIONS,
 } from '../Bookings/constants';
 
 const initialState = fromJS({
   loading: false,
   error: null,
   locations: [],
-  keywords:'',
+  keywords: '',
   locationPrefix: '',
-  assignments: []
+  assignments: [],
 });
 
-function homeReducer (state = initialState, action) {
-
+function homeReducer(state = initialState, action) {
   switch (action.type) {
 
-     case SET_LOCATIONS:{
+    case SET_LOCATIONS: {
       return state.set('locations', fromJS(action.payload.locations || []));
     }
 

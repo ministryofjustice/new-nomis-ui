@@ -36,6 +36,7 @@ Breadcrumbs.propTypes = {
 Breadcrumbs.defaultProps = {
   user: undefined,
   deviceFormat: 'desktop',
+  searchContext: '',
 };
 
 const mapStateToProps = createStructuredSelector({

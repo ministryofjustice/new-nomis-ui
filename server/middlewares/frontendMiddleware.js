@@ -58,7 +58,6 @@ const addProdMiddlewares = (app, options) => {
   app.use(appInsightscriptInjector());
 
   app.get('*', (req, res) => res.sendFile(path.resolve(outputPath, 'index.html')));
-
 };
 
 /**

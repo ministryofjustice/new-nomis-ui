@@ -8,6 +8,11 @@ import hamburger from 'assets/hamburger.svg';
 import arrowBack from 'assets/back-arrow.svg';
 
 import {
+  DesktopOnly,
+  MobileOnly,
+} from 'components/CommonTheme';
+
+import {
   PageHeader,
   LeftContent,
   RightContent,
@@ -15,13 +20,8 @@ import {
   LogoText,
   Title,
   Hamburger,
-  ArrowBack
+  ArrowBack,
 } from './header.theme';
-
-import {
-  DesktopOnly,
-  MobileOnly
-} from 'components/CommonTheme';
 
 class Header extends Component {
 
@@ -46,7 +46,7 @@ class Header extends Component {
       <PageHeader>
         <div className="header-content">
           <LeftContent>
-            <Logo><img src="/img/logo-crest-white.png"/></Logo>
+            <Logo><img src="/img/logo-crest-white.png" /></Logo>
             <LogoText to="/">HMPPS</LogoText>
             <Title>Prison-NOMIS</Title>
           </LeftContent>
@@ -56,10 +56,10 @@ class Header extends Component {
             </DesktopOnly>
             <MobileOnly>
               { mobileMenuOpen ?
-                <ArrowBack onClick={this.menuClick} data-name={'ArrowBack'} svg={arrowBack}/>
+                <ArrowBack onClick={this.menuClick} data-name={'ArrowBack'} svg={arrowBack} />
                   :
                 <Link hidden={!user} to={'/mobileMenu'}>
-                  <Hamburger onClick={this.menuClick} data-name={'Hamburger'} svg={hamburger}/>
+                  <Hamburger onClick={this.menuClick} data-name={'Hamburger'} svg={hamburger} />
                 </Link>
               }
             </MobileOnly>

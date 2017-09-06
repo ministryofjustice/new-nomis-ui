@@ -1,23 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const Input = React.createClass({
-  render(){
+class Input extends Component { // eslint-disable-line react/prefer-stateless-function
+  render() {
     return (
       <div>
         <input className="form-control" {...this.props} />
       </div>
-    )
+    );
   }
-})
+}
 
 const renderField = ({ input, title, type, placeholder, meta: { touched, error } }) => (
-  <div className={ !(touched && error) ? 'form-group' : 'form-group form-group-error'}>
+  <div className={!(touched && error) ? 'form-group' : 'form-group form-group-error'}>
     <label className="form-label">{title}</label>
     <div className="error-message">
       {touched && ((error && <span>{error}</span>))}
     </div>
-    <Input className={ ! (touched && error) ? 'form-control' : 'form-control form-control-error'} {...input} type={type} placeholder={placeholder}/>
+    <Input className={!(touched && error) ? 'form-control' : 'form-control form-control-error'} {...input} type={type} placeholder={placeholder} />
   </div>
 );
 

@@ -14,7 +14,7 @@ import { selectLocale } from 'containers/LanguageProvider/selectors';
 import DateRangePicker from 'containers/FormContainers/dateRangePicker';
 import TypeSubTypeSelectors from 'containers/FormContainers/typeSubTypeSelectors';
 import Select from 'components/FormComponents/Select';
-import { QueryForm, CnffItemHolder, CnffHeader, CnffTitle, CnffButtonHolder, DateRange, CnffResetButton, CnffTypeSubTypeHolder } from './caseNoteFilterForm.theme';
+import { QueryForm, CnffItemHolder, CnffHeader, CnffTitle, CnffButtonHolder, DateRange, CnffTypeSubTypeHolder } from './caseNoteFilterForm.theme';
 
 import { selectCaseNotesQuery } from '../../selectors';
 import {
@@ -28,7 +28,7 @@ import {
 // const upper = (value) => value && value.toUpperCase();
 
 const SearchForm = (props) => {
-  const { handleSubmit, submitting, error, reset, isMobile, caseNoteFilters, locale } = props;
+  const { handleSubmit, submitting, error, isMobile, caseNoteFilters, locale } = props;
   const { source, type, subType } = caseNoteFilters;
   const showSource = false;
   return (
@@ -58,7 +58,6 @@ SearchForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   error: PropTypes.string,
-  reset: PropTypes.func.isRequired,
   isMobile: PropTypes.bool,
   caseNoteFilters: PropTypes.object.isRequired,
 };

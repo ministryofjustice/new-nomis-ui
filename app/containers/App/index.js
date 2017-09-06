@@ -52,7 +52,7 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
             {React.Children.toArray(this.props.children)}
           </div>
         </main>
-        <Footer/>
+        <Footer />
       </div>
     );
   }

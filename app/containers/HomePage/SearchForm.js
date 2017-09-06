@@ -1,5 +1,5 @@
 
-import React,{PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form/immutable';
 import { createFormAction } from 'redux-form-saga';
@@ -7,18 +7,17 @@ import { createFormAction } from 'redux-form-saga';
 import {
   NEW_SEARCH,
   SEARCH_SUCCESS,
-  SEARCH_ERROR
+  SEARCH_ERROR,
 } from '../Bookings/constants';
 
-import './searchForm.scss'
+import './searchForm.scss';
 
-class SearchForm extends PureComponent{
+class SearchForm extends PureComponent {  // eslint-disable-line react/prefer-stateless-function
 
-  render(){
+  render() {
+    const { handleSubmit, locations, submitting } = this.props;
 
-    const {handleSubmit,locations,submitting} = this.props;
-
-    return(
+    return (
       <form className="search-form" onSubmit={handleSubmit}>
 
         {this.props.error ?
@@ -26,7 +25,7 @@ class SearchForm extends PureComponent{
             <h2 className="heading-medium error-summary-heading">
               Search Error
             </h2>
-            <div  className="error-message">
+            <div className="error-message">
               {this.props.error}
             </div>
           </div>
@@ -48,7 +47,7 @@ class SearchForm extends PureComponent{
             </label>
             <Field className="form-control" name="locationPrefix" component="select">
               <option>All</option>
-              {locations.map(location =>
+              {locations.map((location) =>
                 <option key={location.locationPrefix} value={location.locationPrefix}> {location.description}</option>
               )}
             </Field>
@@ -57,12 +56,14 @@ class SearchForm extends PureComponent{
           <button type="submit" className="button mobile-button" disabled={submitting} submitting={submitting}> Search </button>
 
         </div>
-      </form>)
+      </form>);
   }
 }
 SearchForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
+  locations: PropTypes.array.isRequired,
+  error: PropTypes.string,
 };
 
 SearchForm.defaultProps = {
@@ -72,16 +73,16 @@ SearchForm.defaultProps = {
 export default reduxForm({
   form: 'search',
   onSubmit: createFormAction((formData) => ({
-        type: NEW_SEARCH,
-        redirectToResults: true,
-        payload: {
-          query: formData.toJS(),
-          resetPagination: true,
-          pagination:{
-            perPage: 10,
-          },
-          sortOrder: 'asc'
-        }
-      }), [SEARCH_SUCCESS, SEARCH_ERROR])
+    type: NEW_SEARCH,
+    redirectToResults: true,
+    payload: {
+      query: formData.toJS(),
+      resetPagination: true,
+      pagination: {
+        perPage: 10,
+      },
+      sortOrder: 'asc',
+    },
+  }), [SEARCH_SUCCESS, SEARCH_ERROR]),
 
 })(SearchForm);

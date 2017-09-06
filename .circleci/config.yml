@@ -19,9 +19,13 @@ jobs:
           paths:
             - ./node_modules
       - run:
+          name: Run eslint
+          command: yarn lint
+      - run:
           name: Run Tests
-          command: yarn test -- --reporter mocha-junit-reporter
+          command: yarn test-ci
       - run: NODE_ENV=production yarn build
+
       - persist_to_workspace:
           root: .
           paths:

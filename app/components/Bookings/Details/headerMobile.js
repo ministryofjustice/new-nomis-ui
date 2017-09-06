@@ -16,10 +16,10 @@ import {
   InformationWrapper,
 } from './headerMobile.theme';
 
-function HeaderMobile({ inmateData, setModalOpen, setModalData, onImageClick }) {
-  const { firstName, lastName, bookingNo, offenderNo, facialImageId, alertsCodes, assignedLivingUnit, assignedOfficerId } = inmateData;
+function HeaderMobile({ inmateData, onImageClick }) {
+  const { firstName, lastName, offenderNo, facialImageId, alertsCodes, assignedLivingUnit, assignedOfficerId } = inmateData;
 
-  const nameString = toFullName({firstName, lastName});
+  const nameString = toFullName({ firstName, lastName });
 
   return (
     <HeaderWrapper data-name={'HeaderWrapper'}>
@@ -44,6 +44,7 @@ function HeaderMobile({ inmateData, setModalOpen, setModalData, onImageClick }) 
 
 HeaderMobile.propTypes = {
   inmateData: PropTypes.object.isRequired,
+  onImageClick: PropTypes.func.isRequired,
 };
 
 export default HeaderMobile;

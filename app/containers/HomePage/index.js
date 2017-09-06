@@ -4,17 +4,16 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { LOAD_ASSIGNMENTS } from 'containers/Assignments/constants';
+import { setSearchContext } from 'globalReducers/app';
+import Name from 'components/Name';
+import { Link } from 'react-router';
 
 import { logOut } from '../Authentication/actions';
 import { selectUser } from '../Authentication/selectors';
-import { setSearchContext } from 'globalReducers/app';
 import SearchForm from './SearchForm';
-import Name from 'components/Name';
-
-import {Link} from 'react-router';
 
 import {
-  loadLocations
+  loadLocations,
 } from '../Bookings/actions';
 
 import {
@@ -30,13 +29,12 @@ class HomePage extends PureComponent { // eslint-disable-line react/prefer-state
   }
 
   render() {
-
-    const {user, locations} = this.props;
+    const { user, locations } = this.props;
 
     return (
       <div>
         <h1 className="heading-xlarge">Hello <Name firstName={user.firstName} /></h1>
-        <SearchForm locations={locations}/>
+        <SearchForm locations={locations} />
         <div className="assignment-box">
           <h1 className="heading-large" > View your assignments </h1>
 
@@ -48,20 +46,20 @@ class HomePage extends PureComponent { // eslint-disable-line react/prefer-state
 
         </div>
       </div>
-    )
+    );
   }
 }
 
 HomePage.defaultProps = {
   setSearchContext: () => {},
-  loadLocations: () => {}
+  loadLocations: () => {},
 };
 
 HomePage.propTypes = {
   setSearchContext: PropTypes.func,
   loadLocations: PropTypes.func,
-  locations: PropTypes.array,
-  assignments: PropTypes.array
+  locations: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -75,7 +73,7 @@ export function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = createStructuredSelector({
   user: selectUser(),
-  locations: selectLocations()
+  locations: selectLocations(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

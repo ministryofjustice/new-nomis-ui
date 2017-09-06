@@ -9,17 +9,17 @@ import {
   GridDetailInfo,
   GridName,
   GridID,
-  GridLocation
+  GridLocation,
 } from './results.theme';
 
 const BookingsGridItem = (props) => {
   const { data, action } = props;
-  const { firstName, lastName, facialImageId, bookingNo, offenderNo, assignedLivingUnitDesc } = data;
+  const { firstName, lastName, facialImageId, offenderNo, assignedLivingUnitDesc } = data;
   return (
     <GridDetailItem onClick={() => action(data.bookingId)}>
       <GridDetailImage><EliteImage imageId={facialImageId} /></GridDetailImage>
       <GridDetailInfo>
-        <GridName>{toFullName({firstName, lastName})}</GridName>
+        <GridName>{toFullName({ firstName, lastName })}</GridName>
         <GridID>ID: <strong>{offenderNo}</strong></GridID>
         <GridLocation><div>{assignedLivingUnitDesc}</div></GridLocation>
       </GridDetailInfo>

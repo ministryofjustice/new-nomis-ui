@@ -1,91 +1,90 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form/immutable';
-import { Input, SubmissionError } from 'components/FormComponents';
+import { createFormAction } from 'redux-form-saga';
 
 import {
   NEW_SEARCH,
   SEARCH_ERROR,
-  SEARCH_SUCCESS
-} from '../constants'
+  SEARCH_SUCCESS,
+} from '../constants';
 
 import './SearchForm.scss';
 
-import { createFormAction } from 'redux-form-saga';
+class SearchAgainForm extends React.PureComponent {  // eslint-disable-line react/prefer-stateless-function
 
-class SearchAgainForm extends React.PureComponent{
+  render() {
+    const { handleSubmit, locations, submitting } = this.props;
 
-     render(){
+    return (
+      <form className="search-again" onSubmit={handleSubmit}>
 
-       const {handleSubmit,locations,submitting} = this.props;
-
-        return (
-          <form className="search-again" onSubmit={handleSubmit}>
-
-            {this.props.error ?
-              <div className="error-summary">
-                  <h2 className="heading-medium error-summary-heading">
+        {this.props.error ?
+          <div className="error-summary">
+            <h2 className="heading-medium error-summary-heading">
                       Search Error
                   </h2>
-                  <div  className="error-message">
-                    {this.props.error}
-                  </div>
-              </div>
+            <div className="error-message">
+              {this.props.error}
+            </div>
+          </div>
               : null}
 
-            <div className="filterBox">
+        <div className="filterBox">
 
-              <div className="row col-md-4">
+          <div className="row col-md-4">
 
-                <label className="form-label visible-md visible-lg">
+            <label className="form-label visible-md visible-lg">
                   Enter prisoner Name or ID
                 </label>
 
-                <Field name="keywords" component="input" type="text" title="Enter Name or ID" placeholder="Enter Name or ID" autoComplete="off" className="form-control" />
+            <Field name="keywords" component="input" type="text" title="Enter Name or ID" placeholder="Enter Name or ID" autoComplete="off" className="form-control" />
 
-              </div>
+          </div>
 
-              <div className="row col-md-4">
-                <label className="form-label visible-md visible-lg">
+          <div className="row col-md-4">
+            <label className="form-label visible-md visible-lg">
                   Select location
                 </label>
-                <Field className="form-control" name="locationPrefix" component="select">
-                  <option> All </option>
-                  {locations.map(location =>
-                    <option key={location.locationPrefix} value={location.locationPrefix}> {location.description}</option>
+            <Field className="form-control" name="locationPrefix" component="select">
+              <option> All </option>
+              {locations.map((location) =>
+                <option key={location.locationPrefix} value={location.locationPrefix}> {location.description}</option>
                   )}
-                </Field>
+            </Field>
 
-              </div>
+          </div>
 
-              <div className="row col-md-3">
+          <div className="row col-md-3">
 
-                <label className="form-label visible-md visible-lg">
+            <label className="form-label visible-md visible-lg">
                   &nbsp;
-                </label>
+            </label>
 
-                <div className="visible-md visible-lg">
-                  <button className="button" type="submit" disabled={submitting} submitting={submitting}>
+            <div className="visible-md visible-lg">
+              <button className="button" type="submit" disabled={submitting} submitting={submitting}>
                     Search again
                   </button>
-                </div>
-
-                <div className="visible-xs visible-sm">
-                  <button className="button" type="submit" disabled={submitting} submitting={submitting}>
-                    Search again
-                  </button>
-                </div>
-
-              </div>
             </div>
-          </form>
-        )
-     }
+
+            <div className="visible-xs visible-sm">
+              <button className="button" type="submit" disabled={submitting} submitting={submitting}>
+                    Search again
+                  </button>
+            </div>
+
+          </div>
+        </div>
+      </form>
+    );
+  }
 }
 
 SearchAgainForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired,
+  locations: PropTypes.array.isRequired,
 };
 
 SearchAgainForm.defaultProps = {

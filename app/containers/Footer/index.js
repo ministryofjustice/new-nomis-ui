@@ -9,7 +9,7 @@ import { setModalOpen, setModalData } from 'globalReducers/app';
 
 import ModalData from './modal-data';
 
-class FooterContainer extends Component {
+class FooterContainer extends Component {  // eslint-disable-line react/prefer-stateless-function
   render() {
     return (<Footer
       modalData={ModalData}

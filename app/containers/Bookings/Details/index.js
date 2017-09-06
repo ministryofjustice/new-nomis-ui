@@ -5,8 +5,9 @@ import { createStructuredSelector } from 'reselect';
 import TabNav from 'components/Bookings/Details/tabMenu';
 import TabNavMobile from 'components/Bookings/Details/tabMenuMobile';
 import NavLink from 'components/NavLink';
-
 import { selectDeviceFormat, selectSearchContext } from 'selectors/app';
+import EliteImage from 'containers/EliteContainers/Image';
+
 import OffenderDetails from './OffenderDetails';
 import OffenderDetailsMobile from './OffenderDetails/mobile';
 import PhysicalAttributes from './PhysicalAttributes';
@@ -14,11 +15,8 @@ import PhysicalAttributesMobile from './PhysicalAttributes/mobile';
 import CaseNotes from './CaseNotes';
 import Alerts from './Alerts';
 import BookingsDetailsHeader from './header';
-import EliteImage from 'containers/EliteContainers/Image';
-
-import { selectCurrentDetailTabId, selectDisplayAddCaseNoteModal,selectShouldShowLargePhoto,selectImageId } from '../selectors';
-import { setDetailsTab,hideLargePhoto } from '../actions';
-
+import { selectCurrentDetailTabId, selectDisplayAddCaseNoteModal, selectShouldShowLargePhoto, selectImageId } from '../selectors';
+import { setDetailsTab, hideLargePhoto } from '../actions';
 import './index.scss';
 
 const tabData = [
@@ -35,7 +33,6 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
       activeTabId,
       setTab,
       deviceFormat,
-      searchContext,
       imageId,
       shouldShowLargePhoto,
       hidePhoto,
@@ -56,26 +53,28 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
             <button type="button" className="cancel-button" onClick={() => hidePhoto(imageId)}>Close</button>
           </div>
         </div>
-      )
+      );
     }
 
     return (
 
       <div className="detail-content">
         { this.props.searchContext === 'assignments' ?
-          <NavLink route="/assignments" key="Assignments" text="< Back to assignments"/> :
-          <NavLink route="/results" key="Results" text="< Back to search results"/>
+          <NavLink route="/assignments" key="Assignments" text="< Back to assignments" /> :
+          <NavLink route="/results" key="Results" text="< Back to search results" />
         }
 
-        <BookingsDetailsHeader/>
+        <BookingsDetailsHeader />
 
         {deviceFormat === 'desktop' ?
           <TabNav
             tabData={tabData.map((tab) => Object.assign(tab, { action: () => setTab(tab.tabId) }))}
-            activeTabId={activeTabId}/>:
+            activeTabId={activeTabId}
+          /> :
           <TabNavMobile
             tabData={tabData.map((tab) => Object.assign(tab, { action: () => setTab(tab.tabId) }))}
-            activeTabId={activeTabId}/>}
+            activeTabId={activeTabId}
+          />}
         <TabComponent />
       </div>
     );
@@ -83,27 +82,26 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
 }
 
 Details.propTypes = {
-  displayAddDetailsModal: PropTypes.bool.isRequired,
   deviceFormat: PropTypes.string.isRequired,
   activeTabId: PropTypes.number.isRequired,
   setTab: PropTypes.func.isRequired,
-  searchContext: PropTypes.string,
+  searchContext: PropTypes.string.isRequired,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
     setTab: (id) => dispatch(setDetailsTab(id)),
-    hidePhoto: (imageId) => dispatch(hideLargePhoto(imageId))
+    hidePhoto: (imageId) => dispatch(hideLargePhoto(imageId)),
   };
 }
-//selectShouldShowCarouselForMobile
+// selectShouldShowCarouselForMobile
 const mapStateToProps = createStructuredSelector({
   deviceFormat: selectDeviceFormat(),
   activeTabId: selectCurrentDetailTabId(),
   displayAddDetailsModal: selectDisplayAddCaseNoteModal(),
   searchContext: selectSearchContext(),
   shouldShowLargePhoto: selectShouldShowLargePhoto(),
-  imageId: selectImageId()
+  imageId: selectImageId(),
 });
 
 // Wrap the component to inject dispatch and state into it

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { intlShape } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-
+import { toFullName } from 'utils/stringUtils';
 import { loadOfficer } from 'containers/EliteApiLoader/actions';
 import { selectOfficerName } from './selectors';
-import { toFullName } from 'utils/stringUtils';
+
 
 class EliteOfficerName extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -28,9 +28,8 @@ class EliteOfficerName extends PureComponent { // eslint-disable-line react/pref
 
     if (name.firstName || name.lastName) {
       return <span>{toFullName(name)}</span>;
-    } else {
-      return <span>{name.staffId}</span>
     }
+    return <span>{name.staffId}</span>;
   }
 }
 

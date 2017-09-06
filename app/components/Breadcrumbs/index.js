@@ -5,7 +5,6 @@ import { toFullName } from 'utils/stringUtils';
 import {
   BreadcrumbLink,
   BreadcrumbLinkWrapper,
-  BreadcrumbWrapper,
 } from './theme';
 
 function Breadcrumbs({ route, inmateData, context }) {
@@ -15,7 +14,7 @@ function Breadcrumbs({ route, inmateData, context }) {
 
   if (route === '/bookings/details') {
     const { firstName, lastName } = inmateData;
-    const nameString = toFullName({firstName, lastName});
+    const nameString = toFullName({ firstName, lastName });
 
     breadcrumbArray = breadcrumbArray.concat({ name: 'Home', route: '/' });
 
@@ -57,6 +56,9 @@ function Breadcrumbs({ route, inmateData, context }) {
     </div>
   );
 }
+Breadcrumbs.defaultProps = {
+  context: null,
+};
 
 Breadcrumbs.propTypes = {
   route: PropTypes.string.isRequired,

@@ -22,7 +22,7 @@ app.use('/health', apiProxy);
 setup(app, {
   outputPath: resolve(process.cwd(), 'build'),
   publicPath: '/',
-  appinsightsKey: appinsights.client.config.instrumentationKey
+  appinsightsKey: appinsights.client.config.instrumentationKey,
 });
 
 // get the intended host and port number, use localhost and port 3000 if not provided
@@ -32,10 +32,10 @@ const prettyHost = customHost || 'localhost';
 
 const port = argv.port || process.env.PORT || 3000;
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", req.headers.host);
-  res.header("Cache-control", "no-store");
-  res.header("Pragma", "no-cache");
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', req.headers.host);
+  res.header('Cache-control', 'no-store');
+  res.header('Pragma', 'no-cache');
   next();
 });
 
