@@ -24,17 +24,19 @@ function generateToken() {
 }
 
 function getAppInfo() {
-  const packageData = JSON.parse(fs.readFileSync('./package.json'));
+  let packageData = JSON.parse(fs.readFileSync('./package.json'));
 
-  return {
-    name: packageData.name,
-    version: packageData.version,
-    description: packageData.description,
-  };
+  let appInfo = {};
+
+  appInfo.name = packageData.name;
+  appInfo.version = packageData.version;
+  appInfo.description = packageData.description;
+
+  return appInfo;
 }
 
 function healthCheckResponse(status) {
-  const response = appInfo;
+  let response = appInfo;
 
   response.api = status;
 
@@ -44,46 +46,35 @@ function healthCheckResponse(status) {
 const onErrorHandler = (err, req, res) => {
   if (req.path === HEALTH_CHECK_PATH) {
     res.writeHead(500, {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     });
 
-    res.end(JSON.stringify(healthCheckResponse('DOWN')));
+    res.end(JSON.stringify(healthCheckResponse("DOWN")));
   } else {
     res.writeHead(500, {
-      'Content-Type': 'text/plain',
+      'Content-Type': 'text/plain'
     });
 
     res.end('Something went wrong.');
   }
-};
+}
 
 const onProxyResponse = (proxyRes, req, res) => {
   res.setHeader('access-control-allow-origin', req.headers.host);
-  res.setHeader('cache-control', 'no-store');
-  res.setHeader('pragma', 'no-cache');
+  res.setHeader("cache-control", "no-store");
+  res.setHeader("pragma", "no-cache");
 
   // If health check request, check and translate response content-type
   if (req.path === HEALTH_CHECK_PATH) {
-    const responseContentType = proxyRes.headers['content-type'];
+    proxyRes.headers['content-type'] = 'application/json;charset=UTF-8';
 
-    if (!responseContentType.startsWith('application/json') && responseContentType.includes('json')) {
-      //eslint-disable-next-line
-      proxyRes.headers['content-type'] = 'application/json;charset=UTF-8';
-    }
-    //eslint-disable-next-line
     delete proxyRes.headers['content-length'];
 
-    modifyResponse(res, proxyRes.headers['content-encoding'], (body) => {
-      let revisedResponse = body;
-
-      if (body) {
-        revisedResponse = healthCheckResponse(body);
-      }
-
-      return revisedResponse;
+    modifyResponse(res, proxyRes.headers['content-encoding'], function (body) {
+      return healthCheckResponse(body ? body : "DOWN");
     });
   }
-};
+}
 
 const onProxyRequest = (proxyReq, req) => {
   const authHeader = req.headers.authorization;
@@ -99,10 +90,10 @@ const onProxyRequest = (proxyReq, req) => {
       proxyReq.setHeader('authorization', `Bearer ${jwToken}`);
     } catch (err) {
       console.log('Token failure', err);
-      proxyReq.setHeader('authorization', 'JUNK');
+      proxyReq.setHeader('authorization', `JUNK`);
     }
   }
-};
+}
 
 // proxy middleware options
 const options = {
@@ -113,8 +104,9 @@ const options = {
     '^/api': '',                    // rewrite path
     '^/health': HEALTH_CHECK_PATH,
   },
-  //eslint-disable-next-line
-  logProvider: (provider) => require('winston'),
+  logProvider: (provider) => {
+    return require('winston');
+  },
   onError: onErrorHandler,
   onProxyRes: onProxyResponse,
   onProxyReq: onProxyRequest,
