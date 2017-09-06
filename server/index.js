@@ -14,8 +14,9 @@ const app = express();
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 const apiProxy = require('./apiproxy');
-app.use('/api/v2', apiProxy);
+
 app.use('/api', apiProxy);
+app.use('/health', apiProxy);
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
