@@ -1,6 +1,6 @@
 {
   "name": "elite2-web",
-  "version": "1.0.4",
+  "version": "1.0.8",
   "description": "Elite 2 Web",
   "engines": {
     "npm": ">=3",
@@ -217,6 +217,7 @@
     "lodash": "4.17.2",
     "minimist": "1.2.0",
     "moment": "^2.18.1",
+    "node-http-proxy-json": "^0.1.4",
     "poll-endpoint-for": "^0.0.3",
     "prop-types": "^15.5.8",
     "rc-time-picker": "^2.4.1",
