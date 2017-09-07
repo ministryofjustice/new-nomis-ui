@@ -35,7 +35,6 @@ jobs:
           path: scss-report.txt
       - store_artifacts:
           path: eslint-report.html
-
       - persist_to_workspace:
           root: .
           paths:
