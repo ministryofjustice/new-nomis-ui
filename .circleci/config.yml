@@ -21,7 +21,8 @@ jobs:
       - run:
           name: Run eslint
           command: yarn lint
-      - run: Run scss-lint
+      - run:
+          name: Run scss-lint
           command: yarn stylelint:ci
       - run:
           name: Run Tests
