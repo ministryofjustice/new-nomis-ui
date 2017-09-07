@@ -1,10 +1,11 @@
 
 .booking-search {
   .heading-xlarge {
-    margin: 10px 0px !important;
+    margin: 10px 0 !important;
   }
-  .toggleAndCountView {
-    margin-bottom: 0em;
+
+  .toggle-and-count-view {
+    margin-bottom: 0;
   }
 }
 
@@ -15,10 +16,11 @@
 @media (min-width: 1024px) {
   .booking-search {
     .heading-xlarge {
-      margin-top: 0px !important;
       margin-bottom: 20px !important;
+      margin-top: 0 !important;
     }
-    .toggleAndCountView {
+
+    .toggle-and-count-view {
       margin-bottom: 1em;
     }
   }

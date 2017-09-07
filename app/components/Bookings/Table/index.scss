@@ -1,11 +1,11 @@
-@import "bootstrap-feature-select-nomis";
+@import 'bootstrap-feature-select-nomis';
 
 .booking-table {
   margin-top: 10px;
 
   .photo {
-    width: 80px;
     height: 100px;
+    width: 80px;
   }
 
   @include media-breakpoint-down(xs) {
@@ -16,8 +16,8 @@
 
   @media (max-width: 359px) {
     .photo {
-      width: 52px;
       height: 65px;
+      width: 52px;
     }
   }
 }

@@ -1,8 +1,8 @@
-@import "govuk-elements";
+@import 'govuk-elements';
 
 .detail-content {
-  width: 100%;
   padding-bottom: 40px;
+  width: 100%;
 }
 
 @media (min-width: 1024px) {
@@ -12,19 +12,21 @@
 }
 
 .large-image-container {
-  width: 320px;
   margin: auto;
+  width: 320px;
 }
+
 .image-container {
-    height: 400px;
-    width: 320px;
-    margin-top: 6%;
-    margin-left: auto;
-    margin-right: auto;
-}
-.button-container {
-  text-align: center;
+  height: 400px;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 6%;
+  width: 320px;
+}
+
+.button-container {
+  margin-top: 6%;
+  text-align: center;
 
   button {
     width: 50%;
@@ -35,11 +37,11 @@
 
 .cancel-button {
 
-   @extend .button;
+  @extend .button;
 
   background: #DEE0E2 !important;
   color: #0B0C0C !important;
-  font-family: "nta", Arial, sans-serif;
+  font-family: 'nta', Arial, sans-serif;
 
   &:hover {
     background: #BABABA !important;

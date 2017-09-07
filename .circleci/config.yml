@@ -21,6 +21,8 @@ jobs:
       - run:
           name: Run eslint
           command: yarn lint
+      - run: Run scss-lint
+        command: yarn stylelint:ci
       - run:
           name: Run Tests
           command: |
@@ -30,6 +32,10 @@ jobs:
 
       - store_artifacts:
           path: test-report.html
+      - store_artifacts:
+          path: scss-report.txt
+      - store_artifacts:
+          path: eslint-report.html
 
       - persist_to_workspace:
           root: .

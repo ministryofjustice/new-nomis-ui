@@ -1,22 +1,25 @@
-@import "bootstrap-feature-select-nomis";
+@import 'bootstrap-feature-select-nomis';
 
-$personDetailsBackgroundColour: #F2F2F2;
+$person-details-background-colour: #F2F2F2;
 
 .booking-grid {
-  margin-left:3px;
+  margin-left: 3px;
 
-  .sortBySelect {
+  .sort-by-select {
     margin-bottom: 8px;
 
     select {
-      width:200px !important;
+      margin-top: -20px;
+      width: 0 !important;
+      margin-bottom: 30px;
+
       margin-top: -20px;
       margin-bottom: 30px;
     }
   }
 
   .separator {
-    border-bottom: solid 3px darken($personDetailsBackgroundColour, 3%);
+    border-bottom: solid 3px darken($person-details-background-colour, 3%);
     width: 99%;
     padding-top: 10px;
   }
@@ -28,14 +31,14 @@ $personDetailsBackgroundColour: #F2F2F2;
     box-sizing: border-box;
 
     .grid-item {
-      width :20%;
+      width: 20%;
 
-      .personBlock {
+      .person-block {
         margin-top: .5em;
         margin-right: .5em;
         background: $personDetailsBackgroundColour;
 
-        .personDetails {
+        .person-details {
           text-align: center;
           padding: 1em 0.5em;
 
@@ -46,7 +49,7 @@ $personDetailsBackgroundColour: #F2F2F2;
 
         .grid-photo {
           height: 280px;
-          border: none;
+          //border: none;
           cursor: pointer;
 
           img {
@@ -63,7 +66,7 @@ $personDetailsBackgroundColour: #F2F2F2;
       .grid-item {
         width: 25% !important;
 
-        .personBlock {
+        .person-block {
           .grid-photo {
             height: 220px;
           }
@@ -75,7 +78,7 @@ $personDetailsBackgroundColour: #F2F2F2;
       .grid-item {
         width: 33% !important;
 
-        .personBlock {
+        .person-block {
           .grid-photo {
             height: 294px;
           }
@@ -87,7 +90,7 @@ $personDetailsBackgroundColour: #F2F2F2;
       .grid-item {
         width: 50% !important;
 
-        .personBlock {
+        .person-block {
           .grid-photo {
             height: 205px;
           }
@@ -97,11 +100,11 @@ $personDetailsBackgroundColour: #F2F2F2;
 
     @include media-breakpoint-down(md) {
       .grid-item {
-        .personBlock {
+        .person-block {
           margin-top: 1em;
         }
 
-        .personDetails {
+        .person-details {
           background: #F2F2F2;
           padding: 1em 0.5em;
         }

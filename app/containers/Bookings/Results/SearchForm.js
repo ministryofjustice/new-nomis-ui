@@ -30,7 +30,7 @@ class SearchAgainForm extends React.PureComponent {  // eslint-disable-line reac
           </div>
               : null}
 
-        <div className="filterBox">
+        <div className="filter-box">
 
           <div className="row col-md-4">
 
