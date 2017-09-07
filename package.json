@@ -33,11 +33,10 @@
     "lint:js": "npm run lint:eslint -- . ",
     "lint:staged": "lint-staged",
     "test:clean": "rimraf ./coverage",
-    "test": "cross-env NODE_ENV=test jest --coverage; true ",
-    "test-ci":  "cross-env NODE_ENV=test jest --ci --testResultsProcessor='jest-junit-reporter'",
+    "test": "cross-env NODE_ENV=test jest --testResultsProcessor='jest-html-reporter'",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "verify": "yarn lint && yarn test",
+    "verify": "yarn lint && yarn test-ci",
     "record-build-info": "node ./bin/record-build-info"
   },
   "lint-staged": {
@@ -160,6 +159,10 @@
     }
   },
   "jest": {
+    "coverageFormats": [
+      "json",
+      "html"
+    ],
     "collectCoverageFrom": [
       "app/**/*.{js,jsx}",
       "!app/**/*.test.{js,jsx}",
@@ -211,7 +214,7 @@
     "intl": "1.2.5",
     "invariant": "2.2.2",
     "ip": "1.1.4",
-    "jest-junit-reporter": "^1.1.0",
+    "jest": "^21.0.1",
     "js-yaml": "^3.8.4",
     "jsonwebtoken": "^7.4.1",
     "jwt-decode": "^2.1.0",
@@ -295,7 +298,9 @@
     "html-webpack-plugin": "2.24.1",
     "image-webpack-loader": "2.0.0",
     "imports-loader": "0.6.5",
-    "jest-cli": "18.0.0",
+    "jest-cli": "21.0.1",
+    "jest-html-reporter": "^0.5.1",
+    "jest-junit-reporter": "^1.1.0",
     "lint-staged": "3.2.1",
     "mocha": "^3.4.2",
     "mocha-junit-reporter": "^1.13.0",

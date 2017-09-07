@@ -23,8 +23,13 @@ jobs:
           command: yarn lint
       - run:
           name: Run Tests
-          command: yarn test-ci
+          command: |
+             set -e
+             yarn test
       - run: NODE_ENV=production yarn build
+
+      - store_artifacts:
+          path: test-report.html
 
       - persist_to_workspace:
           root: .
