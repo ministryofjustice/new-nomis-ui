@@ -4,6 +4,7 @@ import moment from 'moment';
 import {
   DEFAULT_MOMENT_DATE_FORMAT_SPEC,
   DEFAULT_MOMENT_TIME_FORMAT_SPEC,
+  DATE_TIME_FORMAT_SPEC,
 } from 'containers/App/constants';
 
 import DateTimePicker, {
@@ -53,7 +54,7 @@ describe('DateTimePicker', () => {
     const input = { onChange: jest.fn() };
     const dateTimePicker = shallow(<DateTimePicker input={input} {...props} />);
     const now = moment();
-    const isoFormattedDate = moment(now).toISOString();
+    const isoFormattedDate = moment(now).format(DATE_TIME_FORMAT_SPEC);
 
     dateTimePicker.instance().onDateTimeChange(now);
 

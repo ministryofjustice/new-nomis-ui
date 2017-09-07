@@ -6,6 +6,7 @@ import 'react-datetime/css/react-datetime.css';
 import {
   DEFAULT_MOMENT_DATE_FORMAT_SPEC,
   DEFAULT_MOMENT_TIME_FORMAT_SPEC,
+  DATE_TIME_FORMAT_SPEC,
 } from 'containers/App/constants';
 
 
@@ -85,7 +86,7 @@ class DateTimePicker extends PureComponent {
 
   componentDidMount() {
     const { momentSnapShot } = this.state;
-    this.outputResult(momentSnapShot.toISOString());
+    this.outputResult(momentSnapShot.format(DATE_TIME_FORMAT_SPEC));
   }
 
   onDateTimeChange(momentDate) {
@@ -95,7 +96,7 @@ class DateTimePicker extends PureComponent {
       momentSnapShot: momentDate,
     });
 
-    this.outputResult(momentDate.toISOString());
+    this.outputResult(momentDate.format(DATE_TIME_FORMAT_SPEC));
   }
 
   toggleEdit(e) {
