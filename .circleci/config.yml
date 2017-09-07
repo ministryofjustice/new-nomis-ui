@@ -29,7 +29,6 @@ jobs:
              set -e
              yarn test
       - run: NODE_ENV=production yarn build
-
       - store_artifacts:
           path: test-report.html
       - store_artifacts:
