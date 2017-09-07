@@ -22,7 +22,7 @@ jobs:
           name: Run eslint
           command: yarn lint
       - run: Run scss-lint
-        command: yarn stylelint:ci
+          command: yarn stylelint:ci
       - run:
           name: Run Tests
           command: |
