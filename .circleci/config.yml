@@ -25,14 +25,11 @@ jobs:
           name: Run Tests
           command: |
              set -e
-             yarn test-ci
+             yarn test
       - run: NODE_ENV=production yarn build
 
-      - store_test_results:
-          path: test-report.xml
-
       - store_artifacts:
-          path: test-report.xml
+          path: test-report.html
 
       - persist_to_workspace:
           root: .
