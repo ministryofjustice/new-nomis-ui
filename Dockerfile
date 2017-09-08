@@ -1,4 +1,4 @@
-FROM 8.4-alpine
+FROM alpine:3.4
 
 # Create app directory
 RUN mkdir -p /code
