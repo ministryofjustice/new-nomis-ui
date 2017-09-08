@@ -9,7 +9,7 @@ import './index.scss';
 const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
   <div className="booking-grid">
     {sortOrderChange !== undefined ?
-      <div className="row sortBySelect visible-md visible-lg">
+      <div className="row sort-by-select visible-md visible-lg">
         <span className="col-xs-1">Sort by:</span>
         <select
           className="form-control" value={sortOrder} onChange={(e) => {
@@ -29,13 +29,13 @@ const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
       {results.map((row) => (
         <div className="grid-item" key={row.bookingId}>
 
-          <div className="personBlock">
+          <div className="person-block">
 
             <div className="grid-photo" onClick={() => viewDetails(row.bookingId)}>
               <EliteImage imageId={row.facialImageId} />
             </div>
 
-            <div className="personDetails">
+            <div className="person-details">
               <div className="person-name bold">
                 <Name lastName={row.lastName} firstName={row.firstName} />
               </div>

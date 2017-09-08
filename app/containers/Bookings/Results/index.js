@@ -60,7 +60,7 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
           <SearchAgainForm locations={locations} />
         </div>
 
-        <div className="row toggleAndCountView">
+        <div className="row toggle-and-count-view">
           {totalResults > 0 ?
             <div>
               <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />

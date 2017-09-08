@@ -1,0 +1,15 @@
+
+{
+  "plugins": [
+    "stylelint-scss"
+  ],
+  "extends": "stylelint-config-sass-guidelines",
+  "rules":{
+    "color-hex-case": null,
+    "scss/at-extend-no-missing-placeholder": null,
+    "max-nesting-depth": null,
+    "order/properties-alphabetical-order": null,
+    "number-leading-zero": null,
+    "selector-max-compound-selectors": null
+  }
+}

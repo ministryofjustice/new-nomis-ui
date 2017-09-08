@@ -22,20 +22,26 @@ jobs:
           name: Run eslint
           command: yarn lint
       - run:
+          name: Run scss-lint
+          command: yarn stylelint:ci
+      - run:
           name: Run Tests
           command: |
              set -e
              yarn test
       - run: NODE_ENV=production yarn build
-
       - store_artifacts:
           path: test-report.html
-
+      - store_artifacts:
+          path: scss-report.txt
+      - store_artifacts:
+          path: eslint-report.html
       - persist_to_workspace:
           root: .
           paths:
             - node_modules
             - build
+
 
   deploy_release:
       <<: *defaults

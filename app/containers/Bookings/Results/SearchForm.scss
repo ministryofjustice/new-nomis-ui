@@ -1,31 +1,29 @@
-@import "bootstrap-feature-select-nomis";
-@import "govuk-elements";
+@import 'bootstrap-feature-select-nomis';
+@import 'govuk-elements';
 
-.search-again{
-
-  .filterBox{
-    background: lighten($panel-colour,6%);
+.search-again {
+  .filter-box {
+    background: lighten($panel-colour, 6%);
+    height: 8em;
+    margin-bottom: 1em;
     min-height: 20px;
     padding: 19px;
-    height:8em;
-    margin-bottom: 1em;
   }
 
-  select{
-    height:2em;
+  select {
+    height: 2em;
   }
 
   .form-control {
     width: 95% !important;
   }
 
-  @include media-breakpoint-down(md){
-
-    .filterBox{
-      .row{
-        margin-top:1em;
+  @include media-breakpoint-down(md) {
+    .filter-box {
+      .row {
+        margin-top: 1em;
       }
-      height:12em;
+      height: 12em;
     }
 
     .form-control {
