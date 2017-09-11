@@ -12,4 +12,4 @@
 export const DEFAULT_LOCALE = 'en';
 export const DEFAULT_MOMENT_DATE_FORMAT_SPEC = 'L';
 export const DEFAULT_MOMENT_TIME_FORMAT_SPEC = 'LT';
-export const DATE_TIME_FORMAT_SPEC = 'YYYY-MM-DDThh:mm:ss';
+export const DATE_TIME_FORMAT_SPEC = 'YYYY-MM-DDTHH:mm:ss';
