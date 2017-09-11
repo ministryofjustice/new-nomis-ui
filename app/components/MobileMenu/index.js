@@ -32,7 +32,7 @@ function MobileMenu({ user, modalData, setMobileMenuOpen, setModalData, switchCa
         <CaseLoad>{user.activeCaseLoad && user.activeCaseLoad.description ? user.activeCaseLoad.description : user.activeCaseLoadId}</CaseLoad>
       </MobileMenuHeader>
       <MobileMenuOption to={'/'} onClick={removeMobileMenu}>Search<ForwardArrow svg={forwardBack} /></MobileMenuOption>
-      <MobileMenuOption to={'/assignments'}>
+      <MobileMenuOption to={'/assignments'} onClick={removeMobileMenu}>
         My Assignments
         <NotificationNumberAssignments>
           {user.totalAssignments}
