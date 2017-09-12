@@ -16,14 +16,11 @@ const loadModule = (cb) => (componentModule) => {
   cb(null, componentModule.default);
 };
 
-function redirectToLoginGen(store) {
-  return (nextState, replace) => {
-    if (!store.getState().get('authentication').get('loggedIn')) {
-      // // console.log('auto login...');
-      // store.dispatch(logIn({ username: 'oms_owner', password: '', redirect: null }));
-      // //
-      // return;
-      // eslint-disable-line no-unreachable
+function onEnterMethodGenerator(store) {
+  return (options = { routeName: 'unknown' }) => (nextState, replace) => {
+    OnRouteVisit(options.routeName);
+
+    if (options.authRequired && !store.getState().get('authentication').get('loggedIn')) {
       replace({ // eslint-disable-line no-unreachable
         pathname: '/login',
         state: { nextPathname: nextState.location.pathname },
@@ -38,16 +35,16 @@ const OnRouteVisit = (routeName) => {
   }
 };
 
-
 export default function createRoutes(store) {
   // Create reusable async injectors using getAsyncInjectors factory
   const { injectReducer, injectSagas } = getAsyncInjectors(store); // eslint-disable-line no-unused-vars
-  const redirectToLogin = redirectToLoginGen(store);
+  const onEnter = onEnterMethodGenerator(store);
 
-  const routes = [
+  return [
     {
       path: '/login',
       name: 'login',
+      onEnter: onEnter({ routeName: 'login' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Login'),
@@ -72,9 +69,9 @@ export default function createRoutes(store) {
       },
     },
     {
-      onEnter: redirectToLogin,
       path: '/',
       name: 'homepage',
+      onEnter: onEnter({ authRequired: true, routeName: 'homepage' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/HomePage/reducers'),
@@ -96,9 +93,9 @@ export default function createRoutes(store) {
       },
     },
     {
-      onEnter: redirectToLogin,
       path: '/mobileMenu',
       name: 'mobileMenu',
+      onEnter: onEnter({ authRequired: true, routeName: 'mobileMenu' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/MobileMenu'),
@@ -114,9 +111,9 @@ export default function createRoutes(store) {
       },
     },
     {
-      onEnter: redirectToLogin,
       path: '/modalMobile',
       name: 'modalMobile',
+      onEnter: onEnter({ authRequired: true, routeName: 'modalMobile' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/InformationPageMobile'),
@@ -130,10 +127,11 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
-      onEnter: redirectToLogin,
+    },
+    {
       path: '/bookings/details/addCaseNote',
       name: 'addCaseNote',
+      onEnter: onEnter({ authRequired: true, routeName: 'addCaseNote' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/Details/AddCaseNote'),
@@ -147,10 +145,11 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
-      onEnter: redirectToLogin,
+    },
+    {
       path: '/amendCaseNote',
       name: 'amendCaseNote',
+      onEnter: onEnter({ authRequired: true, routeName: 'amendCaseNote' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/Details/CaseNotes/AmendCaseNoteMobilePage'),
@@ -164,10 +163,11 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
-      onEnter: redirectToLogin,
+    },
+    {
       path: '/filterCaseNotes',
       name: 'filterCaseNotes',
+      onEnter: onEnter({ authRequired: true, routeName: 'filterCaseNotes' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/Details/CaseNotes/caseNoteFilterFormMobile'),
@@ -181,10 +181,11 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
-      onEnter: redirectToLogin,
+    },
+    {
       path: '/assignments',
       name: 'assignments',
+      onEnter: onEnter({ authRequired: true, routeName: 'assignments' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),
@@ -202,10 +203,11 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
-      onEnter: redirectToLogin,
+    },
+    {
       path: '/results',
       name: 'search results',
+      onEnter: onEnter({ authRequired: true, routeName: 'search results' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),
@@ -225,9 +227,9 @@ export default function createRoutes(store) {
       },
     },
     {
-      onEnter: redirectToLogin,
       path: '/bookings/details',
       name: 'search results',
+      onEnter: onEnter({ authRequired: true, routeName: 'search results' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),
@@ -247,9 +249,9 @@ export default function createRoutes(store) {
       },
     },
     {
-      onEnter: redirectToLogin,
       path: '/bookings',
       name: 'search results',
+      onEnter: onEnter({ authRequired: true, routeName: 'search results' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),
@@ -272,6 +274,7 @@ export default function createRoutes(store) {
       // This MUST be the last object in array
       path: '*',
       name: 'notfound',
+      onEnter: onEnter({ routeName: 'notfound' }),
       getComponent(nextState, cb) {
         System.import('containers/NotFoundPage')
           .then(loadModule(cb))
@@ -279,15 +282,4 @@ export default function createRoutes(store) {
       },
     },
   ];
-
-  routes.forEach((route) => {
-    const enter = route.onEnter;
-    //eslint-disable-next-line
-    route.onEnter = () => {
-      if (enter) { enter(); }
-
-      OnRouteVisit(route.name);
-    };
-  });
-  return routes;
 }
