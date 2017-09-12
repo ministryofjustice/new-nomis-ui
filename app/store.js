@@ -14,13 +14,8 @@ import createReducer from './reducers';
 // Import persisted localStorage state
 import persistedState from './helpers/persistedState';
 import authenticationSagas from './containers/Authentication/sagas';
-import configSagas from './containers/ConfigLoader/sagas';
 import eliteApiLoaderSagas from './containers/EliteApiLoader/sagas';
 import assignmentsSagas from './containers/Assignments/sagas';
-
-import {
-  UPDATE_CONFIG,
-} from './containers/ConfigLoader/constants';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -99,10 +94,6 @@ export default function configureStore(initialState = {}, history) {
   // set up auth sagas here so they don't get hot reloaded...
   authenticationSagas.map(store.runSaga);
   store.runSaga(formActionSaga);
-
-  // set up config sagas here so we can run them asap!
-  configSagas.map(store.runSaga);
-  store.dispatch({ type: UPDATE_CONFIG });
 
   // set up eliteApiSagas
   eliteApiLoaderSagas.map(store.runSaga);
