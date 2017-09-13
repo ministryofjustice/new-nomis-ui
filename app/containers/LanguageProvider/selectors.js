@@ -11,7 +11,7 @@ const selectLanguage = () => (state) => state.get('language');
  */
 const selectLocale = () => createSelector(
   selectLanguage(),
-  (languageState) => navigator.languages[0] || navigator.language || navigator.browserLanguage || languageState.get('locale')
+  (languageState) => languageState.get('locale') || 'en'
 );
 
 /**
