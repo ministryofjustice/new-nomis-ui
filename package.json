@@ -162,10 +162,6 @@
     }
   },
   "jest": {
-    "coverageFormats": [
-      "json",
-      "html"
-    ],
     "collectCoverageFrom": [
       "app/**/*.{js,jsx}",
       "!app/**/*.test.{js,jsx}",
