@@ -41,10 +41,9 @@ describe('DateTimePicker', () => {
   it('should use the default date and time format', () => {
     const dateTimePicker = mount(<DateTimePicker {...props} />);
 
-    const { date, time, momentShapShot } = dateTimePicker.node.state;
-
-    const formattedDate = moment(date).format(DEFAULT_MOMENT_DATE_FORMAT_SPEC);
-    const formattedTime = moment(momentShapShot).format(DEFAULT_MOMENT_TIME_FORMAT_SPEC);
+    const { date, time, momentSnapShot } = dateTimePicker.node.state;
+    const formattedDate = moment(date, 'MM/DD/YYYY').format(DEFAULT_MOMENT_DATE_FORMAT_SPEC);
+    const formattedTime = moment(momentSnapShot).format(DEFAULT_MOMENT_TIME_FORMAT_SPEC);
 
     expect(date.toString()).toBe(formattedDate);
     expect(time.toString()).toBe(formattedTime);

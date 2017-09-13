@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import 'react-select/dist/react-select.css';
 
 import { StyledSelect } from './RFReactSelect.theme';
