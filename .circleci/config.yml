@@ -1,7 +1,7 @@
 defaults: &defaults
   working_directory: /tmp/circleci-elite2-web
   docker:
-    - image: circleci/node:latest-browsers
+    - image: circleci/node:argon-browsers
 
 version: 2
 jobs:
