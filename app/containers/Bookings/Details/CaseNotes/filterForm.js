@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import DatePicker from 'containers/FormContainers/datePicker';
 import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form/immutable';
