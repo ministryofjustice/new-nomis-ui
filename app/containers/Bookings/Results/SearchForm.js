@@ -62,13 +62,13 @@ class SearchAgainForm extends React.PureComponent {  // eslint-disable-line reac
             </label>
 
             <div className="visible-md visible-lg">
-              <button className="button" type="submit" disabled={submitting} submitting={submitting}>
+              <button className="button" type="submit" disabled={submitting}>
                     Search again
-                  </button>
+              </button>
             </div>
 
             <div className="visible-xs visible-sm">
-              <button className="button" type="submit" disabled={submitting} submitting={submitting}>
+              <button className="button" type="submit" disabled={submitting}>
                     Search again
                   </button>
             </div>

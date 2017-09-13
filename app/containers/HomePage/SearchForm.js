@@ -39,7 +39,7 @@ class SearchForm extends PureComponent {  // eslint-disable-line react/prefer-st
           </label>
 
           <Field name="keywords" component="input" type="text" title="Enter " placeholder="Enter Name or ID" autoComplete="off" className="form-control search-input" />
-          <button type="submit" className="button button-start desktop-button" disabled={submitting} submitting={submitting}> Search</button>
+          <button type="submit" className="button button-start desktop-button" disabled={submitting}> Search</button>
 
           <div>
             <label className="form-label">
@@ -53,7 +53,7 @@ class SearchForm extends PureComponent {  // eslint-disable-line react/prefer-st
             </Field>
           </div>
 
-          <button type="submit" className="button mobile-button" disabled={submitting} submitting={submitting}> Search </button>
+          <button type="submit" className="button mobile-button" disabled={submitting}> Search </button>
 
         </div>
       </form>);

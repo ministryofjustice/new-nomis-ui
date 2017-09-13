@@ -47,7 +47,7 @@ const SearchForm = (props) => {
         <Field name="source" component={Select} options={source} type="text" title="Source" autocomplete="off" multi />
       </CnffItemHolder> : null}
       <CnffButtonHolder isMobile={isMobile}>
-        <Button type="submit" disabled={submitting} submitting={submitting} buttonstyle="link">Apply filters</Button>
+        <Button type="submit" disabled={submitting} buttonstyle="link">Apply filters</Button>
       </CnffButtonHolder>
     </QueryForm>
   );
