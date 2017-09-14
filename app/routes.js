@@ -18,11 +18,7 @@ const loadModule = (cb) => (componentModule) => {
 
 function redirectToLoginGen(store) {
   return (nextState, replace) => {
-    if (!store.getState().get('authentication').get('loggedIn')) {
-      // // console.log('auto login...');
-      // store.dispatch(logIn({ username: 'oms_owner', password: '', redirect: null }));
-      // //
-      // return;
+    if ( ! store.getState().get('authentication').get('loggedIn')) {
       // eslint-disable-line no-unreachable
       replace({ // eslint-disable-line no-unreachable
         pathname: '/login',
@@ -94,6 +90,23 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
+    },
+    {
+      path: '/sessionTimeout',
+      name: 'sessionTimeout',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/SessionTimeout'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      }
     },
     {
       onEnter: redirectToLogin,

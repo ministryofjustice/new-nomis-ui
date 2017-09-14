@@ -37,6 +37,8 @@ import './app.scss';
 
 import configureStore from './store';
 
+import registerSessionTimeoutHandler from 'utils/sessionTimeoutHandler';
+
 // Import i18n messages
 import { translationMessages } from './translations/i18n';
 import createRoutes from './routes';
@@ -47,6 +49,8 @@ import createRoutes from './routes';
 // e.g. `const browserHistory = useRouterHistory(createBrowserHistory)();`
 const initialState = {};
 export const store = configureStore(initialState, browserHistory);
+
+registerSessionTimeoutHandler(store);
 
 // Sync history and store, as the react-router-redux reducer
 // is under the non-default key ("routing"), selectLocationState
