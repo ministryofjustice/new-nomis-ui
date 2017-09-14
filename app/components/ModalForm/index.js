@@ -38,7 +38,7 @@ class Modal extends PureComponent { // eslint-disable-line react/prefer-stateles
 Modal.propTypes = {
   closeModal: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([
-    PropTypes.arrayOf(React.PropTypes.node),
+    PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
 };

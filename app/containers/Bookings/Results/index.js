@@ -4,8 +4,6 @@ import { createStructuredSelector } from 'reselect';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import BookingTable from 'components/Bookings/Table';
 import BookingGrid from 'components/Bookings/Grid';
-import { selectBookingsSearch } from 'containers/ConfigLoader/selectors';
-import { selectDeviceFormat } from 'selectors/app';
 import NavLink from 'components/NavLink';
 import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMessage';
 import { connect } from 'react-redux';
@@ -17,7 +15,6 @@ import './index.scss';
 
 import {
   selectSearchResultsV2,
-  selectSearchQuery,
   selectSearchResultsTotalRecords,
   selectSearchResultsPagination,
   selectResultsView,
@@ -46,7 +43,7 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
   }
 
   render() {
-    const {locations, sortOrder,toggleSortOrder,viewDetails,results, deviceFormat, searchOptions, searchQuery, totalResults, pagination, setPage, resultsView, setResultsView } = this.props; //eslint-disable-line
+    const {locations, sortOrder,toggleSortOrder,viewDetails,results, totalResults, pagination, setPage, resultsView, setResultsView } = this.props; //eslint-disable-line
     const { perPage: pP, pageNumber: pN } = pagination;
 
     return (
@@ -96,11 +93,8 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
 }
 
 SearchResults.propTypes = {
-  deviceFormat: PropTypes.string,
   results: PropTypes.array.isRequired,
   viewDetails: PropTypes.func.isRequired,
-  searchOptions: PropTypes.array,
-  searchQuery: PropTypes.object,
   totalResults: PropTypes.number,
   pagination: PropTypes.object.isRequired,
   setPage: PropTypes.func.isRequired,
@@ -111,10 +105,7 @@ SearchResults.propTypes = {
 };
 
 SearchResults.defaultProps = {
-  deviceFormat: 'desktop',
-  searchOptions: [],
   totalResults: 0,
-  searchQuery: {},
   resultsView: 'List',
   setResultsView: () => {},
   setSearchContext: () => {},
@@ -133,10 +124,7 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  deviceFormat: selectDeviceFormat(),
   results: selectSearchResultsV2(),
-  searchOptions: selectBookingsSearch(),
-  searchQuery: selectSearchQuery(),
   totalResults: selectSearchResultsTotalRecords(),
   pagination: selectSearchResultsPagination(),
   resultsView: selectResultsView(),

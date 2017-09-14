@@ -57,7 +57,7 @@ class AddCaseNoteForm extends Component {
 
           <div className="actions">
 
-            <button className="button col-xs-2" type="submit" disabled={submitting} submitting={submitting}>
+            <button className="button col-xs-2" type="submit" disabled={submitting}>
               Save case note
             </button>
 

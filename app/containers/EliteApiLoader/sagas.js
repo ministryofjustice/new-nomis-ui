@@ -429,6 +429,5 @@ export default [
   alertTypeLoadWatcher,
   caseNoteTypeWatch,
   userCaseLoadsWatcher,
-  userCaseLoadsSaga,
   userSwitchCaseLoadsWatcher,
 ];

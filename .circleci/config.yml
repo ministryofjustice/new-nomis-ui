@@ -1,7 +1,7 @@
 defaults: &defaults
   working_directory: /tmp/circleci-elite2-web
   docker:
-    - image: circleci/node:latest-browsers
+    - image: circleci/node:7.10.0-browsers
 
 version: 2
 jobs:
@@ -20,7 +20,7 @@ jobs:
             - ./node_modules
       - run:
           name: Run eslint
-          command: yarn lint
+          command: yarn lint:js:ci
       - run:
           name: Run scss-lint
           command: yarn stylelint:ci

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import DatePicker from 'containers/FormContainers/datePicker';
 import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form/immutable';
@@ -35,21 +36,21 @@ const FilterForm = ({ handleSubmit, submitting, error, caseNoteFilters, locale, 
     <form className="filter-form" onSubmit={handleSubmit}>
 
       <h3 className="bold-medium">
-          Filters
-        </h3>
+        Filters
+      </h3>
 
       <TypeAndSubTypeSelector selectedType={typeValue} selectedSubType={subTypeValue} types={type} subTypes={subType} />
 
       <div className="form-group date-range">
         <label className="form-label date-range-label">
-            Date range
-          </label>
+          Date range
+        </label>
 
         {dateRangeNotValid &&
           <div className="error-message">
                 Start date must come before or equal to the end date
-              </div>
-          }
+          </div>
+        }
 
         <Field name="startDate" showError={dateRangeNotValid} component={DatePicker} locale={locale} title="From" />
         <Field name="endDate" showError={dateRangeNotValid} component={DatePicker} locale={locale} title="To" />
@@ -58,10 +59,10 @@ const FilterForm = ({ handleSubmit, submitting, error, caseNoteFilters, locale, 
       <div className="buttons">
         <div className="pull-right link reset-filters clickable" onClick={resetFields}>
             Clear filters
-          </div>
-        <button className="button" type="submit" disabled={dateRangeNotValid || (submitting || error)} submitting={submitting}>
+        </div>
+        <button className="button" type="submit" disabled={dateRangeNotValid || (submitting || error)}>
             Apply filters
-          </button>
+        </button>
       </div>
 
     </form>

@@ -1,12 +1,11 @@
-FROM node:6.9.5-alpine
+FROM node:8.4-alpine
 
 # Create app directory
 RUN mkdir -p /code
 WORKDIR /code
 ADD . /code
 
-RUN npm install -g -s --no-progress yarn && \
-    yarn --frozen-lockfile && \
+RUN yarn --frozen-lockfile && \
     yarn build
 
 ENV PORT=3000

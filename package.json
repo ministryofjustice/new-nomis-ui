@@ -162,10 +162,6 @@
     }
   },
   "jest": {
-    "coverageFormats": [
-      "json",
-      "html"
-    ],
     "collectCoverageFrom": [
       "app/**/*.{js,jsx}",
       "!app/**/*.test.{js,jsx}",
@@ -289,7 +285,7 @@
     "circular-dependency-plugin": "2.0.0",
     "coveralls": "2.11.15",
     "css-loader": "^0.26.1",
-    "enzyme": "2.6.0",
+    "enzyme": "^2.9.1",
     "eslint": "^3.15.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-import-resolver-webpack": "0.8.0",
