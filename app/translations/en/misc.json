@@ -1,5 +1,7 @@
 {
   "app.components.LocaleToggle.fr": "Fr",
   "app.components.LocaleToggle.en": "En",
-  "app.components.Authentication.failed": "The username or password you have entered is invalid."
+  "app.components.Authentication.failed": "The username or password you have entered is invalid.",
+  "app.components.NoSearchResultsReturnedMessage.header": "No records found matching search criteria.",
+  "app.components.NotFoundPage.header": "Sorry, page Not Found. 404"
 }

@@ -1,0 +1,8 @@
+{
+  "app.components.Login.title": "Sign in to Prison-NOMIS",
+  "app.components.Login.subtitle": "",
+  "app.components.Login.subsubtitle": "Submit",
+  "app.components.Login.usernamePlaceholder": "username",
+  "app.components.Login.passwordPlaceholder": "password",
+  "app.components.Authentication.failed": "The username or password you have entered is invalid."
+}
