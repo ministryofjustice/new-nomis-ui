@@ -15,20 +15,6 @@ const appinsights = require('./applicationinsights').appInsights;
 const app = express();
 const jsonParser = bodyParser.json();
 
-const minutes = process.env.WEB_SESSION_TIMEOUT_IN_MINUTES || 30;
-const expiry = 10000 * 60 * minutes;
-
-app.use(session({
-  secret: "ajkkdhaskjhfkjahdkjdshakj78687623872464398749827weorkjflkjsl",
-  resave: true,
-  saveUninitialized: true,
-  cookie: {
-    secure: 'auto',
-    maxAge: expiry
-  },
-  rolling: true
-}));
-
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 const apiProxy = require('./apiproxy');
 const application = require('./app');

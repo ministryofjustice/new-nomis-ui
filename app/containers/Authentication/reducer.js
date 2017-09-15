@@ -52,6 +52,7 @@ function authenticationReducer(state = initialState, action) {
     case LOGOUT_SUCCESS: {
       return state
         .set('user', null)
+        .set('loginData',null)
         .set('loggedIn', false);
     }
     case CHANGE_USERNAME_INPUT: {

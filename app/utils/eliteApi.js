@@ -172,6 +172,9 @@ export const amendCaseNote = (token, baseUrl, bookingId, caseNoteId, text) => {
 export const users = {
   me: (token, baseUrl) => axios({
     baseURL: baseUrl.replace('api','app'),
+    headers:{
+      'jwt': token
+    },
     method: 'get',
     url: '/users/me'
   }).then((response) => response.data),

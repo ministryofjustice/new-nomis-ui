@@ -1,5 +1,6 @@
 const axios = require('axios');
 const generateJwtToken = require('./jwtToken');
+const jwt = require('jsonwebtoken');
 
 const useApiAuth = (process.env.USE_API_GATEWAY_AUTH || 'no') === 'yes';
 
@@ -8,6 +9,35 @@ axios.defaults.headers = {
   'X-Requested-With': 'XMLHttpRequest',
   'cache-control': 'no-store',
   'pragma': 'no-cache'
+};
+
+const minutes = process.env.WEB_SESSION_TIMEOUT_IN_MINUTES || 30;
+const key = '2342424ldjnsdljfjklslfjkadflkjhaskjfhiq34uhrkjfbsdnakjfnbkajnbfdksjanfdkjnKADSAFSD';
+
+const newJWT = (data) =>{
+
+  return jwt.sign({
+    data: data,
+    exp: Math.floor(Date.now() / 1000) + (60 * minutes)
+  },key );
+
+ /* return jwt.sign({
+      data: data,
+      exp: Math.floor(Date.now() / 1000) + (60 * minutes)
+    }, new Buffer(privateCert), {  algorithm: 'ES256' });
+
+    */
+};
+
+const getTokenInfo = (req) => {
+  try {
+
+    const token = req.headers['jwt'];
+    if (!token) return;
+
+    return jwt.verify(token, key);
+  }
+  catch(e){}
 };
 
 const getHeader = (req, token) => {
@@ -40,10 +70,8 @@ const login = (req, res, next) => {
     headers: getHeader(req),
     data: req.body
   }).then( (response) => {
-    req.session.tokenInfo = response.data;
-    res.json(response.data);
-  }).catch( error =>{
-
+    const token = newJWT(response.data);
+    res.json(token);
   });
 };
 
@@ -52,15 +80,17 @@ const images = (req,res) => {
   if(endRequestIfSessionExpired(req,res))
     return;
 
-  const tokenInfo =  req.session && req.session.tokenInfo;
+  const webToken =  getTokenInfo(req);
+  const token = webToken.data.token;
 
   axios({
     method: 'get',
     url: `images${req.url}`,
     responseType:'stream',
-    headers: getHeader(req,tokenInfo.token),
+    headers: getHeader(req,token),
   }).then( (response) => {
-      response.data.pipe(res);
+    res.setHeader('jwt',newJWT(webToken.data));
+    response.data.pipe(res);
   });
 };
 
@@ -69,18 +99,17 @@ const sessionHandler = (req,res) => {
   if(endRequestIfSessionExpired(req,res))
     return;
 
-  const tokenInfo =  req.session && req.session.tokenInfo;
+  const tokenInfo = getTokenInfo(req);
+  const {token,refreshToken} = tokenInfo.data;
 
-  apiRequest(req,res,tokenInfo.token).catch( (error) => {
+  apiRequest(req,token).catch( (error) => {
 
     if(error.response.status === 401) {
-
      axios({
         method: 'post',
         url: '/users/token',
-        headers: getHeader(req,tokenInfo.refreshToken),
+        headers: getHeader(req,refreshToken),
       }).then(response => {
-        req.session.tokenInfo = response.data;
         apiRequest(req, res, response.data.token).catch(error => {
           res.status(error.response.status);
           res.end();
@@ -92,7 +121,7 @@ const sessionHandler = (req,res) => {
 
 const endRequestIfSessionExpired = (req,res) => {
 
-  const tokenInfo =  req.session && req.session.tokenInfo;
+  const tokenInfo = getTokenInfo(req);
 
   if( ! tokenInfo) {
     res.status(401);
@@ -122,6 +151,8 @@ const apiRequest = (req,res,token) => {
       }
     });
 
+    res.setHeader('jwt',newJWT(getTokenInfo(req).data));
+
     res.json(response.data);
   });
 };
@@ -129,6 +160,6 @@ const apiRequest = (req,res,token) => {
 module.exports = {
   login: login,
   sessionHandler: sessionHandler,
-  images: images
+  images: images,
 };
 

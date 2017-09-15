@@ -36,8 +36,7 @@ export function* loginUser(action) {
   try {
     const apiUrl = yield select(selectApi());
     const res = yield call(login, username, password, apiUrl);
-    const user = yield call(users.me, res.token, apiUrl);
-
+    const user = yield call(users.me, res, apiUrl);
     yield put({ type: LOGIN_SUCCESS, payload: { user, loginData: res } });
     yield put({ type: PRELOADDATA.BASE });
     yield put({ type: USER.CASELOADS.BASE });
