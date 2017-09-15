@@ -17,12 +17,12 @@ import {
 function AlertList({ alerts }) {
   return (
     <AlertHolder>
-      {alerts.map((alert) => {
+      {alerts.map((alert, index) => {
         const codeDataDescription = alert.codeData !== undefined ? alert.codeData.description : '';
         const typeDataDescription = alert.typeData !== undefined ? alert.typeData.description : '';
-
+        const key = `${alert.alertId},${index}`;
         const forRender =
-          (<AlertItem key={alert.alertId} expired={alert.expired}>
+          (<AlertItem key={key} expired={alert.expired}>
             <AlertTypeWrapper expired={alert.expired}>
               <AlertType>{alert.alertType}</AlertType>
               <AlertTypeDescription>{String(typeDataDescription)}</AlertTypeDescription>
