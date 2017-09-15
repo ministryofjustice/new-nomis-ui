@@ -16,23 +16,26 @@ function DgRow({ title, value: v, values, imageId, imageIndex, columnWidths, onI
   let rowVals = null;
   let value = v;
   if (!value && !values && !imageId) value = '—';
-  if (value && !imageId) {
+  if (!imageId) {
     rowVals = <DGRowItem colWidth={columnWidths[1]}>{value}</DGRowItem>;
   } else if (values) {
     rowVals = values.map((obj, index) => {
-      // This garbage is to produce proper keys to let react sleep more easily.
       // values looks like [{name: 'Al Grant'}, {height: '191cm'}]
       const key = Object.keys(obj)[0];
       const val = obj[key];
       return <DGRowItem key={key} colWidth={columnWidths[index + 1]}>{val}</DGRowItem>;
     });
-  } else if (imageId) {
-    rowVals = (<DGImageCaption colWidth={3}>
-      {value ? value : ''}
-      <DGImageItem style={{ cursor: 'pointer' }} data-index={imageIndex} onClick={() => onImageClick(imageId)}>
-        <EliteImage imageId={imageId} />
-      </DGImageItem>
-    </DGImageCaption>);
+  } else {
+    const onClick = onImageClick ? () => onImageClick(imageId) : null;
+
+    rowVals = (
+      <DGImageCaption colWidth={3}>
+        {value || null}
+        <DGImageItem style={{ cursor: 'pointer' }} data-index={imageIndex} onClick={onClick}>
+          <EliteImage imageId={imageId} />
+        </DGImageItem>
+      </DGImageCaption>
+    );
   }
   return (<DgRowStyle>
     <DGRowTitle colWidth={columnWidths[0]}>{title}</DGRowTitle>
@@ -82,12 +85,13 @@ DataGrid.propTypes = {
   setModalOpen: PropTypes.func,
   setModalData: PropTypes.func,
   modalGridArray: PropTypes.array,
-  onImageClick: PropTypes.func.isRequired,
+  onImageClick: PropTypes.func,
 };
 
 DataGrid.defaultProps = {
   setModalOpen: () => {},
   setModalData: () => {},
+  onImageClick: null,
   modalGridArray: [],
 };
 
