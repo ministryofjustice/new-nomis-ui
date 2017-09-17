@@ -2,7 +2,6 @@
 require('dotenv').config();
 
 const express = require('express');
-const session = require('express-session');
 const bodyParser = require('body-parser');
 
 const logger = require('./logger');
@@ -22,7 +21,6 @@ const application = require('./app');
 app.use('/app/login',jsonParser, application.login);
 app.use('/app/photo', jsonParser, application.images);
 app.use('/app',jsonParser, application.sessionHandler);
-//app.use('/api', apiProxy);
 app.use('/health', apiProxy);
 
 // In production we need to pass these values in instead of relying on webpack
@@ -47,11 +45,8 @@ const port = argv.port || process.env.PORT || 3000;
 
 // Start your app.
 app.listen(port, host, (err) => {
-
   if (err) {
     return logger.error(err.message);
   }
-
   logger.appStarted(port, prettyHost);
-
 });

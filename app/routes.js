@@ -107,7 +107,7 @@ export default function createRoutes(store) {
         });
 
         importModules.catch(errorLoading);
-      }
+      },
     },
     {
       path: '/mobileMenu',

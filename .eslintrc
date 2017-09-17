@@ -80,7 +80,13 @@
     "radix": 0,
     "func-names": 0,
     "jsx-a11y/img-has-alt": 0,
-    "react/jsx-no-bind": 0
+    "react/jsx-no-bind": 0,
+    "comma-spacing": 0,
+    "react/jsx-indent":0,
+    "eol-last": 0,
+    "semi": 0,
+    "one-var": 0,
+    "no-unused-expressions": 0
   },
   "settings": {
     "import/resolver": {

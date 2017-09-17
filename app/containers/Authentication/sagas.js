@@ -13,7 +13,6 @@ import {
   LOGIN_ERROR,
   LOGOUT,
   LOGOUT_SUCCESS,
-  TOKEN_UPDATE,
 } from './constants';
 
 
@@ -63,7 +62,6 @@ export function* logoutUser() {
 }
 
 export function* getToken() {
-
   const tokenData = yield select(selectToken());
   if (!tokenData) {
     yield put(push('/logout'));

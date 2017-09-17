@@ -2,51 +2,45 @@ import axios from 'axios';
 import { push } from 'react-router-redux';
 
 import {
-  selectToken
+  selectToken,
 } from '../containers/Authentication/selectors';
 
 import {
   LOGOUT_SUCCESS,
-  TOKEN_UPDATE
+  TOKEN_UPDATE,
 } from '../containers/Authentication/constants';
 
 export default function registerSessionTimeoutHandler(store) {
-
-
-  axios.interceptors.request.use(function (config) {
+  axios.interceptors.request.use((config) => {
     const jwt = selectToken()(store.getState());
 
-    if(jwt)
-       config.headers['jwt'] = jwt;
+    if (jwt) { config.headers.jwt = jwt; }  // eslint-disable-line no-param-reassign
 
     return config;
-  }, function (error) {
+  }, (error) =>
     // Do something with request error
-    return Promise.reject(error);
-  });
+     Promise.reject(error));
 
-  axios.interceptors.response.use(function (config) {
-
-    const newToken = config.headers['jwt'];
-    if(newToken){
-       store.dispatch({
-         type: TOKEN_UPDATE,
-         payload: newToken
-       });
+  axios.interceptors.response.use((config) => {
+    const newToken = config.headers.jwt;
+    if (newToken) {
+      store.dispatch({
+        type: TOKEN_UPDATE,
+        payload: newToken,
+      });
     }
 
     return config;
-  }, function (error) {
-
+  }, (error) => {
     const { status } = error.response;
 
-    if(status === 401){
+    if (status === 401) {
       store.dispatch({
-        type: LOGOUT_SUCCESS
+        type: LOGOUT_SUCCESS,
       });
       store.dispatch(push('/sessionTimeout'));
-    }else {
-      return Promise.reject(error);
+      return null;
     }
+    return Promise.reject(error);
   });
 }

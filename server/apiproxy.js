@@ -85,7 +85,6 @@ const onProxyRequest = (proxyReq, req) => {
       const jwToken = generateToken();
       proxyReq.setHeader('authorization', `Bearer ${jwToken}`);
     } catch (err) {
-      console.log('Token failure', err);
       proxyReq.setHeader('authorization', 'JUNK');
     }
   }

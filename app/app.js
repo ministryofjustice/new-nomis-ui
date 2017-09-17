@@ -37,7 +37,7 @@ import './app.scss';
 
 import configureStore from './store';
 
-import registerSessionTimeoutHandler from 'utils/sessionTimeoutHandler';
+import registerSessionTimeoutHandler from 'utils/sessionTimeoutHandler';  // eslint-disable-line import/first
 
 // Import i18n messages
 import { translationMessages } from './translations/i18n';
