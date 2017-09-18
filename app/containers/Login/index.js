@@ -6,7 +6,6 @@ import { createStructuredSelector } from 'reselect';
 
 import { createFormAction } from 'redux-form-saga';
 
-
 import TitleBlock from 'components/TitleBlock';
 import translations from './translations';
 
