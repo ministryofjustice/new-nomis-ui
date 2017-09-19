@@ -1,31 +1,32 @@
 /* eslint-disable no-empty,consistent-return */
 const axios = require('axios');
-const generateJwtToken = require('./jwtToken');
+const generateTokenForNomisAPI = require('./jwtToken');
 const jwt = require('jsonwebtoken');
 
 const useApiAuth = (process.env.USE_API_GATEWAY_AUTH || 'no') === 'yes';
+const minutes = process.env.WEB_SESSION_TIMEOUT_IN_MINUTES || 30;
+const key = process.env.CLIENT_JWT_KEY || 'shh';
 
 axios.defaults.baseURL = process.env.API_ENDPOINT_URL || 'http://localhost:7080/api';
-axios.defaults.headers = {
-  'X-Requested-With': 'XMLHttpRequest',
-  'cache-control': 'no-store',
-  pragma: 'no-cache',
-};
 
-const minutes = process.env.WEB_SESSION_TIMEOUT_IN_MINUTES || 30;
-const key = '2342424ldjnsdljfjklslfjkadflkjhaskjfhiq34uhrkjfbsdnakjfnbkajnbfdksjanfdkjnKADSAFSD';
+function makeRequest(options) {
+  return axios(options);
+}
+
+function requestNewToken({ req, refreshToken }) {
+  return new Promise((resolve,reject) => {
+    axios({
+      method: 'post',
+      url: '/users/token',
+      headers: getRequestHeaders(req, refreshToken),
+    }).then(resolve).catch(reject);
+  })
+}
+
 
 const newJWT = (data) => jwt.sign({ data,
   exp: Math.floor(Date.now() / 1000) + (60 * minutes),
-}, key)
-
- /* return jwt.sign({
-      data: data,
-      exp: Math.floor(Date.now() / 1000) + (60 * minutes)
-    }, new Buffer(privateCert), {  algorithm: 'ES256' });
-
-    */
-;
+}, key);
 
 const getTokenInfo = (req) => {
   try {
@@ -38,35 +39,25 @@ const getTokenInfo = (req) => {
   return null;
 };
 
-const getHeader = (req, token) => {
-  const headers = {
-    'access-control-allow-origin': req.headers.host,
-  };
-
-  if (useApiAuth) {
-    headers.Authorization = `Bearer ${generateJwtToken()}`;
-
-    if (token) { headers['elite-authorization'] = token; }
-  } else if (token) { headers.Authorization = token; }
-
-  return headers;
-};
-
-const login = (req, res, next) => {
-  if (!req.body) next();
-
-  axios({
+const login = (req, res) => {
+  service.makeRequest({
     method: 'post',
     url: '/users/login',
-    headers: getHeader(req),
+    headers: getRequestHeaders(req),
     data: req.body,
   }).then((response) => {
-    const token = newJWT(response.data);
-    res.json(token);
+    const headers = response.headers;
+    const jwtToken = newJWT(response.data);
+
+    setResponseHeaders({ headers, res, req });
+    res.json(jwtToken);
+  }).catch(() => {
+    res.status(401);
+    res.end();
   });
 };
 
-const images = (req, res) => {
+const images = (req, res,) => {
   if (endRequestIfSessionExpired(req, res)) { return; }
 
   const webToken = getTokenInfo(req);
@@ -76,10 +67,16 @@ const images = (req, res) => {
     method: 'get',
     url: `images${req.url}`,
     responseType: 'stream',
-    headers: getHeader(req, token),
+    headers: getRequestHeaders(req, token),
   }).then((response) => {
-    res.setHeader('jwt', newJWT(webToken.data));
+    const jwtToken = newJWT(webToken.data);
+    const headers = response.headers;
+
+    setResponseHeaders({ jwtToken,headers, res, req });
     response.data.pipe(res);
+  }).catch((error) => {
+    res.status(error.status);
+    res.json(error.data);
   });
 };
 
@@ -89,17 +86,19 @@ const sessionHandler = (req, res) => {
   const tokenInfo = getTokenInfo(req);
   const { token, refreshToken } = tokenInfo.data;
 
-  apiRequest(req, token).catch((error) => {
+  apiRequest(req, res, token).catch((error) => {
     if (error.response.status === 401) {
-      axios({
-        method: 'post',
-        url: '/users/token',
-        headers: getHeader(req, refreshToken),
-      }).then((response) => {
+      service.requestNewToken({ req, refreshToken }).then((response) => {
+        // Retry previous request with a fresh token
         apiRequest(req, res, response.data.token).catch((err) => {
+          const headers = err.headers;
+          setResponseHeaders({ headers, res, req, jwtToken: newJWT(response.data) });
           res.status(err.response.status);
           res.end();
         });
+      }).catch((err) => {
+        res.status(err.response.status);
+        res.end();
       });
     }
   });
@@ -121,29 +120,74 @@ const apiRequest = (req, res, token) => {
   const options = {
     method: req.method,
     url: req.url,
-    headers: getHeader(req, token),
+    headers: getRequestHeaders(req, token),
   };
 
   if (req.body) options.data = req.body;
 
-  return axios(options).then((response) => {
-    Object.keys(response.headers).forEach((k) => {
-      const value = response.headers[k];
+  return service.makeRequest(options).then((response) => {
+    const jwtToken = newJWT(getTokenInfo(req).data);
+    const headers = response.headers;
 
-      if (value) {
-        res.header(k, value);
-      }
-    });
-
-    res.setHeader('jwt', newJWT(getTokenInfo(req).data));
-
+    setResponseHeaders({ headers, res, req, jwtToken });
     res.json(response.data);
   });
 };
 
-module.exports = {
+const getRequestHeaders = (req, token) => {
+  const headers = {
+    'access-control-allow-origin': req.headers.host,
+  };
+
+  const pagingHeaders = ['page-offset','page-limit','sort-fields','sort-order'];
+
+  pagingHeaders.forEach(k => {
+    if (req.headers[k]) {
+      headers[k] = req.headers[k];
+    }
+  });
+
+  if (useApiAuth) {
+    headers.Authorization = `Bearer ${generateTokenForNomisAPI()}`;
+
+    if (token) { headers['elite-authorization'] = token; }
+  } else if (token) { headers.Authorization = token; }
+
+  return headers;
+};
+
+const setResponseHeaders = ({ headers, res, req, jwtToken }) => {
+  copyHeadersOverToRes(headers,res);
+
+  res.setHeader('access-control-allow-origin', req.headers.host);
+  res.setHeader('X-Requested-With', 'XMLHttpRequest');
+  res.setHeader('cache-control', 'no-store');
+  res.setHeader('pragma','no-cache');
+
+  if (jwtToken) {
+    res.setHeader('jwt', jwtToken);
+  }
+};
+
+const copyHeadersOverToRes = (headers, res) => {
+  if (!headers) { return; }
+
+  Object.keys(headers).forEach(header => {
+    const value = headers[header];
+    if (value) {
+      res.setHeader(header, value);
+    }
+  });
+};
+
+let service = {
   login,
   sessionHandler,
   images,
+  newJWT,
+  makeRequest,
+  requestNewToken,
 };
+
+module.exports = service;
 

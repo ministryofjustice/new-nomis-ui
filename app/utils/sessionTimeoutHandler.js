@@ -3,6 +3,7 @@ import { push } from 'react-router-redux';
 
 import {
   selectToken,
+  selectLoggedIn,
 } from '../containers/Authentication/selectors';
 
 import {
@@ -23,7 +24,9 @@ export default function registerSessionTimeoutHandler(store) {
 
   axios.interceptors.response.use((config) => {
     const newToken = config.headers.jwt;
-    if (newToken) {
+    const previousToken = selectToken()(store.getState());
+
+    if (newToken && newToken !== previousToken) {
       store.dispatch({
         type: TOKEN_UPDATE,
         payload: newToken,
@@ -33,8 +36,9 @@ export default function registerSessionTimeoutHandler(store) {
     return config;
   }, (error) => {
     const { status } = error.response;
+    const loggedIn = selectLoggedIn()(store.getState());
 
-    if (status === 401) {
+    if (status === 401 && loggedIn) {
       store.dispatch({
         type: LOGOUT_SUCCESS,
       });

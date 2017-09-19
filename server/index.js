@@ -9,7 +9,6 @@ const argv = require('minimist')(process.argv.slice(2));
 const setup = require('./middlewares/frontendMiddleware');
 const resolve = require('path').resolve;
 
-
 const appinsights = require('./applicationinsights').appInsights;
 const app = express();
 const jsonParser = bodyParser.json();
@@ -22,6 +21,7 @@ app.use('/app/login',jsonParser, application.login);
 app.use('/app/photo', jsonParser, application.images);
 app.use('/app',jsonParser, application.sessionHandler);
 app.use('/health', apiProxy);
+app.use('/api', apiProxy);
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {

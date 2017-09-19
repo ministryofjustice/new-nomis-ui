@@ -31,6 +31,10 @@ class HomePage extends PureComponent { // eslint-disable-line react/prefer-state
   render() {
     const { user, locations } = this.props;
 
+    if (!user) {
+      return <div></div>
+    }
+
     return (
       <div>
         <h1 className="heading-xlarge">Hello <Name firstName={user.firstName} /></h1>
@@ -59,7 +63,6 @@ HomePage.propTypes = {
   setSearchContext: PropTypes.func,
   loadLocations: PropTypes.func,
   locations: PropTypes.array.isRequired,
-  user: PropTypes.object.isRequired,
 };
 
 export function mapDispatchToProps(dispatch) {

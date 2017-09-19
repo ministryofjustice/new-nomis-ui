@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-function generateJwtToken() {
+function generateTokenForNomisAPI() {
   const nomsToken = process.env.NOMS_TOKEN;
   const milliseconds = Math.round((new Date()).getTime() / 1000);
   const payload = {
@@ -12,4 +12,4 @@ function generateJwtToken() {
   return jwt.sign(payload, cert, { algorithm: 'ES256' });
 }
 
-module.exports = generateJwtToken;
+module.exports = generateTokenForNomisAPI;

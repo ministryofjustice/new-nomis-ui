@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { toFullName } from 'utils/stringUtils';
-
 import { MenuWrapper,
          InfoWrapper,
          UserName,
          CaseLoad,
          DropdownMenu,
          DropdownMenuOption,
-         DropdownMenuOptionLogOut,
          NotificationNumberUser,
          NotificationNumberAssignments,
          DropdownMenuLink,
@@ -65,7 +63,10 @@ class Dropdown extends Component {
       return newObj;
     });
     dropDownSelections = dropDownSelections.concat(facilityArray);
-    dropDownSelections.push(<DropdownMenuOptionLogOut key={'logout'} href={'/logout'} data-id={'dropdown-option'}>Log out</DropdownMenuOptionLogOut>);
+    dropDownSelections.push(
+      <DropdownMenuLink key={'logout'} data-id={'dropdown-option'} to={'/logout'}>
+        Log out
+      </DropdownMenuLink>);
     const caseLoadDesc = user.activeCaseLoad && user.activeCaseLoad.description ? user.activeCaseLoad.description : user.activeCaseLoadId;
 
     return (
