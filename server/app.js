@@ -57,7 +57,7 @@ const login = (req, res) => {
   });
 };
 
-const images = (req, res,) => {
+const images = (req, res) => {
   if (endRequestIfSessionExpired(req, res)) { return; }
 
   const webToken = getTokenInfo(req);
