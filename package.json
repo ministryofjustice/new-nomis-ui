@@ -4,7 +4,7 @@
   "description": "Elite 2 Web",
   "engines": {
     "npm": ">=3",
-    "node": "7.4.*"
+    "node": "8.4.*"
   },
   "author": "Syscon",
   "license": "UNLICENSED",
@@ -190,7 +190,8 @@
     "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js",
     "roots": [
       "tests",
-      "app"
+      "app",
+      "server"
     ]
   },
   "dependencies": {
