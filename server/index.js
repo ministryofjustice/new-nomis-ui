@@ -17,11 +17,13 @@ const jsonParser = bodyParser.json();
 const apiProxy = require('./apiproxy');
 const application = require('./app');
 
+if (!process.env.NOMS_TOKEN) { throw 'NOMS_TOKEN is null'; }  // eslint-disable-line no-throw-literal
+
 app.use('/app/login',jsonParser, application.login);
 app.use('/app/photo', jsonParser, application.images);
 app.use('/app',jsonParser, application.sessionHandler);
 app.use('/health', apiProxy);
-app.use('/api', apiProxy);
+app.use('/api/info', apiProxy);
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
