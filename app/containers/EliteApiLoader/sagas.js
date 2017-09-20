@@ -67,10 +67,6 @@ export function* alertTypeLoadSaga(action) {
   const token = yield getToken();
   const apiServer = yield select(selectApi());
 
-  if (!token || !apiServer) {
-    return 'fail';
-  }
-
   const currentTypeStatus = yield select(selectAlertTypeStatus(), { alertType });
 
   if (currentTypeStatus !== 'SUCCESS' && currentTypeStatus !== 'LOADING') {
