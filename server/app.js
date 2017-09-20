@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const useApiAuth = (process.env.USE_API_GATEWAY_AUTH || 'no') === 'yes';
 const minutes = process.env.WEB_SESSION_TIMEOUT_IN_MINUTES || 30;
-const key = process.env.CLIENT_JWT_KEY || 'shh';
+const key = process.env.NOMS_TOKEN;
 
 axios.defaults.baseURL = process.env.API_ENDPOINT_URL || 'http://localhost:7080/api';
 
