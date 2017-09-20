@@ -2,20 +2,13 @@ import axios from 'axios';
 import moment from 'moment';
 import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
 
+
 export const login = (username, password, baseUrl) => axios({
   baseURL: baseUrl,
   method: 'post',
-  url: '/users/login',
-  headers: { 'X-Requested-With': 'XMLHttpRequest' },
+  url: '/login',
   data: { username, password } })
   .then((response) => response.data);
-
-export const refreshAuthToken = (baseUrl, refreshToken) => axios({
-  baseURL: baseUrl,
-  method: 'post',
-  url: '/users/token',
-  headers: { Authorization: refreshToken },
-}).then((response) => response.data);
 
 const searchQueryToString = (searchObj) => {
   // HACK: searchObj is an immutable map if there's nothing inside it; otherwise a regular js object.
@@ -51,29 +44,25 @@ const offsetQuery = ({ offset, limit }) => `limit=${limit}&offset=${offset}`;
 export const bookings = (token, searchObj, pagination, baseUrl) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `/booking?query=${searchQueryToString(searchObj)}&limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}`,
-  headers: { Authorization: token } })
+  url: `/booking?query=${searchQueryToString(searchObj)}&limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}` })
     .then((response) => response.data);
 
 export const officerAssignments = (token, _, pagination, baseUrl) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `/users/me/bookingAssignments?limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}`,
-  headers: { Authorization: token } })
+  url: `/users/me/bookingAssignments?limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}` })
     .then((response) => response.data);
 
 export const bookingDetails = (token, baseUrl, id) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `/booking/${id}`,
-  headers: { Authorization: token } })
+  url: `/booking/${id}` })
     .then((response) => response.data);
 
 export const bookingAliases = (token, baseUrl, id) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `/booking/${id}/aliases`,
-  headers: { Authorization: token } })
+  url: `/booking/${id}/aliases` })
     .then((response) => response.data);
 
 export const bookingAlerts = (token, baseUrl, id, pagination) => {
@@ -81,8 +70,7 @@ export const bookingAlerts = (token, baseUrl, id, pagination) => {
   return axios({
     baseURL: baseUrl,
     method: 'get',
-    url: `/booking/${id}/alerts${queryParams}`,
-    headers: { Authorization: token } })
+    url: `/booking/${id}/alerts${queryParams}` })
     .then((response) => response.data);
 };
 
@@ -147,8 +135,7 @@ export const bookingCaseNotes = (token, baseUrl, id, pagination, query) => {
   return axios({
     baseURL: baseUrl,
     method: 'get',
-    url: `/booking/${id}/caseNotes${queryParams}`,
-    headers: { Authorization: token } })
+    url: `/booking/${id}/caseNotes${queryParams}` })
     .then((response) => response.data);
 };
 
@@ -163,8 +150,7 @@ export const addCaseNote = (token, baseUrl, bookingId, type, subType, text, occu
     url: `/booking/${bookingId}/caseNotes`,
     headers: {
       'content-type': 'application/json',
-      'X-Requested-With': 'XMLHttpRequest',
-      Authorization: token },
+      'X-Requested-With': 'XMLHttpRequest' },
     data })
     .then((response) => response.data);
 };
@@ -178,36 +164,34 @@ export const amendCaseNote = (token, baseUrl, bookingId, caseNoteId, text) => {
     method: 'put',
     url: `/booking/${bookingId}/caseNotes/${caseNoteId}`,
     headers: {
-      'content-type': 'application/json',
-      Authorization: token },
+      'content-type': 'application/json' },
     data })
     .then((response) => response.data);
 };
 export const users = {
   me: (token, baseUrl) => axios({
     baseURL: baseUrl,
+    headers: {
+      jwt: token,
+    },
     method: 'get',
     url: '/users/me',
-    headers: { Authorization: token },
   }).then((response) => response.data),
   caseLoads: (token, baseUrl) => axios({
     baseURL: baseUrl,
     method: 'get',
     url: '/users/me/caseLoads',
-    headers: { Authorization: token },
   }).then((response) => response.data),
   switchCaseLoads: (token, baseUrl, caseLoadId) => axios({
     baseURL: baseUrl,
     method: 'put',
     url: '/users/me/activeCaseLoad',
-    headers: { Authorization: token },
     data: { caseLoadId },
   }).then((response) => response.data),
   staff: (token, baseUrl, id) => axios({
     baseURL: baseUrl,
     method: 'get',
     url: `/users/staff/${id}`,
-    headers: { Authorization: token },
   }).then((response) => response.data),
 };
 
@@ -215,8 +199,7 @@ export const users = {
 export const locations = (token, baseUrl, offset = { offset: 0, limit: 10000 }) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `/locations${offset ? `?${offsetQuery(offset)}` : ''}`,
-  headers: { Authorization: token } })
+  url: `/locations${offset ? `?${offsetQuery(offset)}` : ''}` })
     .then((response) => {
       const metaData = response.data.pageMetaData;
       const locs = response.data.locations;
@@ -235,8 +218,7 @@ export const locations = (token, baseUrl, offset = { offset: 0, limit: 10000 }) 
 export const loadCaseNoteSubTypes = (token, baseUrl, caseLoadType, pagination = { perPage: 1000, pageNumber: 0 }) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `referenceDomains/caseNotes/subTypes/${caseLoadType}${pagination ? `?${paginationToQuery(pagination)}` : ''}`,
-  headers: { Authorization: token } })
+  url: `referenceDomains/caseNotes/subTypes/${caseLoadType}${pagination ? `?${paginationToQuery(pagination)}` : ''}` })
     .then((response) => {
       const metaData = response.data.pageMetaData;
       const refCodes = response.data.ReferenceCodes;
@@ -253,8 +235,7 @@ export const loadCaseNoteSubTypes = (token, baseUrl, caseLoadType, pagination = 
 export const loadCaseNoteTypes = (token, baseUrl, caseNoteSource, pagination = { perPage: 1000, pageNumber: 0 }) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `referenceDomains/caseNotes/types/${caseNoteSource}${pagination ? `?${paginationToQuery(pagination)}` : ''}`,
-  headers: { Authorization: token } })
+  url: `referenceDomains/caseNotes/types/${caseNoteSource}${pagination ? `?${paginationToQuery(pagination)}` : ''}` })
     .then((response) => {
       const metaData = response.data.pageMetaData;
       const refCodes = response.data.ReferenceCodes; // .map((refCode) => loadCaseNoteSubTypes(token, baseUrl, refCode.code).then((subTypes) => Object.assign(refCode, { subTypes })));
@@ -286,32 +267,27 @@ export const loadCaseNoteTypes = (token, baseUrl, caseNoteSource, pagination = {
 export const loadSomeCaseNoteSources = (token, baseUrl, offset) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `referenceDomains/caseNoteSources${offset ? `?${offsetQuery(offset)}` : ''}`,
-  headers: { Authorization: token } });
+  url: `referenceDomains/caseNoteSources${offset ? `?${offsetQuery(offset)}` : ''}` });
 
 export const loadSomeCaseNoteTypes = (token, baseUrl, offset) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `referenceDomains/caseNoteTypes${offset ? `?${offsetQuery(offset)}` : ''}`,
-  headers: { Authorization: token } });
+  url: `referenceDomains/caseNoteTypes${offset ? `?${offsetQuery(offset)}` : ''}` });
 
 export const loadSomeCaseNoteSubTypes = (token, baseUrl, offset, type) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `referenceDomains/caseNoteTypes/${type}/subTypes${offset ? `?${offsetQuery(offset)}` : ''}`,
-  headers: { Authorization: token } });
+  url: `referenceDomains/caseNoteTypes/${type}/subTypes${offset ? `?${offsetQuery(offset)}` : ''}` });
 
 export const loadSomeUserCaseNoteTypes = (token, baseUrl, offset) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `users/me/caseNoteTypes${offset ? `?${offsetQuery(offset)}` : ''}`,
-  headers: { Authorization: token } });
+  url: `users/me/caseNoteTypes${offset ? `?${offsetQuery(offset)}` : ''}` });
 
 export const loadSomeUserCaseNoteSubTypes = (token, baseUrl, offset, type) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `users/me/caseNoteTypes/${type}${offset ? `?${offsetQuery(offset)}` : ''}`,
-  headers: { Authorization: token } });
+  url: `users/me/caseNoteTypes/${type}${offset ? `?${offsetQuery(offset)}` : ''}` });
 
 // Function wrapper to grab ALL of a paginated data type.
 export const getAll = (func, itemName, args) => {
@@ -356,44 +332,38 @@ export const loadAllUserCaseNoteTypes = (token, baseUrl) => {
 export const alertTypes = (token, baseUrl) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: '/referenceDomains/alertTypes',
-  headers: { Authorization: token } })
+  url: '/referenceDomains/alertTypes' })
     .then((response) => response.data);
 
 export const alertTypeData = (token, baseUrl, type) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `/referenceDomains/alertTypes/${type}`,
-  headers: { Authorization: token } })
+  url: `/referenceDomains/alertTypes/${type}` })
     .then((response) => response.data);
 
 export const alertTypeCodeData = (token, baseUrl, type, code) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `/referenceDomains/alertTypes/${type}/codes/${code}`,
-  headers: { Authorization: token } })
+  url: `/referenceDomains/alertTypes/${type}/codes/${code}` })
     .then((response) => response.data);
 
 export const imageMeta = (token, baseUrl, imageId) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `images/${imageId}`,
-  headers: { Authorization: token } })
+  url: `images/${imageId}` })
     .then((response) => response.data);
 
 export const officerDetails = (token, baseUrl, staffId, username) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: (staffId) ? `users/staff/${staffId}` : `users/${username}`,
-  headers: { Authorization: token } })
+  url: (staffId) ? `users/staff/${staffId}` : `users/${username}` })
     .then((res) => res.data);
 
 export const imageData = (token, baseUrl, imageId) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `images/${imageId}/data`,
-  responseType: 'arraybuffer',
-  headers: { Authorization: token } })
+  url: `photo/${imageId}/data`,
+  responseType: 'arraybuffer' })
     .then((response) => {
       // Convert Response to a dataURL
       const arr = new Uint8Array(response.data);
@@ -414,15 +384,12 @@ export const imageData = (token, baseUrl, imageId) => axios({
 export const loadMyLocations = (token, baseUrl) => axios({
   baseURL: `${baseUrl}/v2`,
   method: 'get',
-  url: '/users/me/locations',
-  headers: {
-    Authorization: token,
-  } })
+  url: '/users/me/locations' })
   .then((response) => response.data);
 
 const parseLocationPrefix = (prefix) => prefix === 'All' ? '_' : (prefix || '_');
 
-export const searchOffenders = ({ token, baseUrl, query,
+export const searchOffenders = ({ baseUrl, query,
                                   sort = { order: 'asc' },
                                   pagination = { offset: 0, limit: 1000 } }) =>
   axios({
@@ -431,7 +398,6 @@ export const searchOffenders = ({ token, baseUrl, query,
        `search-offenders/${parseLocationPrefix(query.locationPrefix)}/${query.keywords}` :
        `search-offenders/${parseLocationPrefix(query.locationPrefix)}`,
     headers: {
-      Authorization: token,
       'Page-Offset': pagination.offset,
       'Page-Limit': pagination.limit,
       'Sort-Fields': ['lastName', 'firstName'],

@@ -13,6 +13,11 @@ import { switchCaseLoad } from '../EliteApiLoader/actions';
 class MobileMenu extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { user, switchCaseLoad: sL } = this.props;
+
+    if (!user) {
+      return <div></div>
+    }
+
     return (
       <MobileMenuComponent
         switchCaseLoad={sL}
@@ -26,7 +31,6 @@ class MobileMenu extends PureComponent { // eslint-disable-line react/prefer-sta
 }
 
 MobileMenu.propTypes = {
-  user: PropTypes.object.isRequired,
   setMobileMenuOpen: PropTypes.func.isRequired,
   setModalData: PropTypes.func.isRequired,
   switchCaseLoad: PropTypes.func.isRequired,

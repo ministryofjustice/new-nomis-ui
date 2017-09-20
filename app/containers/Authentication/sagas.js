@@ -1,7 +1,7 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import { SubmissionError } from 'redux-form/immutable';
-import { login, users, refreshAuthToken } from 'utils/eliteApi';
+import { login, users } from 'utils/eliteApi';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 import { PRELOADDATA, USER } from 'containers/EliteApiLoader/constants';
 import { LOAD_ASSIGNMENTS } from 'containers/Assignments/constants';
@@ -13,7 +13,6 @@ import {
   LOGIN_ERROR,
   LOGOUT,
   LOGOUT_SUCCESS,
-  TOKEN_UPDATE,
 } from './constants';
 
 
@@ -36,8 +35,7 @@ export function* loginUser(action) {
   try {
     const apiUrl = yield select(selectApi());
     const res = yield call(login, username, password, apiUrl);
-    const user = yield call(users.me, res.token, apiUrl);
-
+    const user = yield call(users.me, res, apiUrl);
     yield put({ type: LOGIN_SUCCESS, payload: { user, loginData: res } });
     yield put({ type: PRELOADDATA.BASE });
     yield put({ type: USER.CASELOADS.BASE });
@@ -69,43 +67,9 @@ export function* getToken() {
     yield put(push('/logout'));
     return false;
   }
-  const now = Date.now();
-  const tokenExpired = tokenData.expiration < now;
-  // FIXME: Display an error if this fails...
-  const refreshExpired = tokenData.refreshExpiration < now;
-
-  if (refreshExpired) {
-    // If the refresh is expired log user out.
-    yield put(push('/logout'));
-    return false;
-  } else if (tokenExpired) {
-    const newData = yield refreshAuth();
-    if (newData) {
-      yield put({ type: TOKEN_UPDATE, payload: newData });
-      return newData.token;
-    }
-    // If the refresh fails log user out also.
-    yield put(push('/logout'));
-    return false;
-  }
   return tokenData.token;
 }
 
-export function* refreshAuth() {
-  const tokenData = yield select(selectToken());
-  if (!tokenData) {
-    return false;
-  }
-  try {
-    const apiUrl = yield select(selectApi());
-    const res = yield call(refreshAuthToken, apiUrl, tokenData.refreshToken);
-
-    return res;
-  } catch (e) {
-    console.log('trouble refreshing token', e); //eslint-disable-line
-    return false;
-  }
-}
 
 export default [
   loginWatcher,

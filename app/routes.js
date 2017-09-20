@@ -93,6 +93,23 @@ export default function createRoutes(store) {
       },
     },
     {
+      path: '/sessionTimeout',
+      name: 'sessionTimeout',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/SessionTimeout'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
       path: '/mobileMenu',
       name: 'mobileMenu',
       onEnter: onEnter({ authRequired: true, routeName: 'mobileMenu' }),
