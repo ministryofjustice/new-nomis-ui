@@ -3,8 +3,7 @@ const express = require('express');
 const path = require('path');
 const compression = require('compression');
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
-const appInsightscriptInjector = require('../applicationinsights').appInsightscriptInjector;
-
+const googleAnalyticsInjector = require('../googleAnalytics').inject;
 
 // Dev middleware
 const addDevMiddlewares = (app, options, webpackConfig) => {
@@ -12,6 +11,7 @@ const addDevMiddlewares = (app, options, webpackConfig) => {
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
   const compiler = webpack(webpackConfig);
+
   const middleware = webpackDevMiddleware(compiler, {
     noInfo: true,
     publicPath: webpackConfig.output.publicPath,
@@ -21,7 +21,6 @@ const addDevMiddlewares = (app, options, webpackConfig) => {
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
-  app.use(appInsightscriptInjector());
 
   // Since webpackDevMiddleware uses memory-fs internally to store build
   // artifacts, we use it instead
@@ -54,10 +53,12 @@ const addProdMiddlewares = (app, options) => {
   // smaller (applies also to assets). You can read more about that technique
   // and other good practices on official Express.js docs http://mxs.is/googmy
   app.use(compression());
+  app.use(googleAnalyticsInjector(process.env.GOOGLE_ANALYTICS_ID || 'UA-106741063-1'));
   app.use(publicPath, express.static(outputPath));
-  app.use(appInsightscriptInjector());
 
-  app.get('*', (req, res) => res.sendFile(path.resolve(outputPath, 'index.html')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(outputPath, 'index.html'));
+  });
 };
 
 /**
