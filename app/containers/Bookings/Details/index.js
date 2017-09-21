@@ -8,6 +8,7 @@ import NavLink from 'components/NavLink';
 import { selectDeviceFormat, selectSearchContext } from 'selectors/app';
 import EliteImage from 'containers/EliteContainers/Image';
 
+import { analyticsServiceBuilder }  from 'utils/analyticsService';
 import OffenderDetails from './OffenderDetails';
 import OffenderDetailsMobile from './OffenderDetails/mobile';
 import PhysicalAttributes from './PhysicalAttributes';
@@ -18,6 +19,8 @@ import BookingsDetailsHeader from './header';
 import { selectCurrentDetailTabId, selectDisplayAddCaseNoteModal, selectShouldShowLargePhoto, selectImageId } from '../selectors';
 import { setDetailsTab, hideLargePhoto } from '../actions';
 import './index.scss';
+
+const analyticsService = analyticsServiceBuilder();
 
 const tabData = [
     { tabId: 0, title: 'Offender Details', mobileTitle: 'Offender', component: OffenderDetails, componentMobile: OffenderDetailsMobile },
@@ -68,7 +71,10 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
 
         {deviceFormat === 'desktop' ?
           <TabNav
-            tabData={tabData.map((tab) => Object.assign(tab, { action: () => setTab(tab.tabId) }))}
+            tabData={tabData.map((tab) => Object.assign(tab, { action: () => {
+              analyticsService.pageView(`bookings details - ${tab.title}`);
+              setTab(tab.tabId);
+            } }))}
             activeTabId={activeTabId}
           /> :
           <TabNavMobile
