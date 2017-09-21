@@ -10,7 +10,7 @@ import {
 const initialState = Map({
   pagination: Map({ perPage: 10, pageNumber: 0 }),
   view: 'List',
-  sortOrder: 'asc',
+  sortOrder: 'ASC',
 });
 
 function searchReducer(state = initialState, action) {

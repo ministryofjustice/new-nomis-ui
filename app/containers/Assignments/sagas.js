@@ -62,7 +62,7 @@ export function* assignmentsSortOrderWatcher() {
 
 export function* assignmentsSortOrder(action) {
   const previousSortOrder = yield select(selectAssignmentsSortOrder());
-  const sortOrder = action.payload || (previousSortOrder === 'asc' ? 'desc' : 'asc');
+  const sortOrder = action.payload || (previousSortOrder === 'ASC' ? 'DESC' : 'ASC');
 
   yield put({ type: SET_ASSIGNMENTS_SORT_ORDER, payload: { sortOrder } });
   yield put({ type: LOAD_ASSIGNMENTS, payload: {} });

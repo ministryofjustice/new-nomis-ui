@@ -64,7 +64,7 @@ const initialState = fromJS({
   results, // for test purposes putting something in here...
   error: null,
   query: { firstName: '', lastName: '' }, // for test purposes putting something in here...
-  sortOrder: 'asc',
+  sortOrder: 'ASC',
   pagination: { perPage: 10, pageNumber: 0 },
   details: detailsState,
   resultsView: 'List', // List or Grid

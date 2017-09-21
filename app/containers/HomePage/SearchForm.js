@@ -81,7 +81,7 @@ export default reduxForm({
       pagination: {
         perPage: 10,
       },
-      sortOrder: 'asc',
+      sortOrder: 'ASC',
     },
   }), [SEARCH_SUCCESS, SEARCH_ERROR]),
 
