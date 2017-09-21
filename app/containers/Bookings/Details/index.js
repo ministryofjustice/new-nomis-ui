@@ -8,7 +8,7 @@ import NavLink from 'components/NavLink';
 import { selectDeviceFormat, selectSearchContext } from 'selectors/app';
 import EliteImage from 'containers/EliteContainers/Image';
 
-import { analyticsServiceBuilder }  from 'utils/analyticsService';
+import { analyticsServiceBuilder } from 'utils/analyticsService';
 import OffenderDetails from './OffenderDetails';
 import OffenderDetailsMobile from './OffenderDetails/mobile';
 import PhysicalAttributes from './PhysicalAttributes';
