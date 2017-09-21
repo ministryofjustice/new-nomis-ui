@@ -20,7 +20,7 @@ const Table = ({ results, viewDetails, sortOrder, sortOrderChange }) => (
       <tr>
         <th> </th>
         <th> <span> Name </span> {sortOrderChange &&
-          (sortOrder === 'asc' ? <ArrowUp sortOrderChange={sortOrderChange} /> : <ArrowDown sortOrderChange={sortOrderChange} />)
+          (sortOrder === 'ASC' ? <ArrowUp sortOrderChange={sortOrderChange} /> : <ArrowDown sortOrderChange={sortOrderChange} />)
         }
         </th>
         <th className="visible-md visible-lg"> Aliases</th>

@@ -121,7 +121,7 @@ export function* toggleSort(action) {
   const pagination = yield select(selectSearchResultsPagination());
   const query = yield select(selectSearchQuery());
 
-  const sortOrder = action.payload || (previousSortOrder === 'asc' ? 'desc' : 'asc');
+  const sortOrder = action.payload || (previousSortOrder === 'ASC' ? 'DESC' : 'ASC');
 
   const result = yield call(searchOffenders, {
     token,
