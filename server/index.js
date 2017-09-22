@@ -22,6 +22,7 @@ app.use('/app/photo', jsonParser, application.images);
 app.use('/app',jsonParser, application.sessionHandler);
 app.use('/health', apiProxy);
 app.use('/api/info', apiProxy);
+app.use('/api/swagger.json', apiProxy);
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
