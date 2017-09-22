@@ -5,7 +5,9 @@
 
 import { getAsyncInjectors } from 'utils/asyncInjectors';
 import { logOut, logIn } from 'containers/Authentication/actions'; //eslint-disable-line
-// import { s } from 'containers/Authentication/actions';
+import { analyticsServiceBuilder } from 'utils/analyticsService';
+
+const analyticsService = analyticsServiceBuilder();
 
 // logIn
 const errorLoading = (err) => {
@@ -30,9 +32,7 @@ function onEnterMethodGenerator(store) {
 }
 
 const OnRouteVisit = (routeName) => {
-  if (window.appInsights) {
-    window.appInsights.trackPageView(routeName);
-  }
+  analyticsService.pageView(routeName);
 };
 
 export default function createRoutes(store) {
@@ -95,6 +95,7 @@ export default function createRoutes(store) {
     {
       path: '/sessionTimeout',
       name: 'sessionTimeout',
+      onEnter: onEnter({ authRequired: false, routeName: 'session timed out' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/SessionTimeout'),
@@ -246,7 +247,7 @@ export default function createRoutes(store) {
     {
       path: '/bookings/details',
       name: 'search results',
-      onEnter: onEnter({ authRequired: true, routeName: 'search results' }),
+      onEnter: onEnter({ authRequired: true, routeName: 'booking details' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),

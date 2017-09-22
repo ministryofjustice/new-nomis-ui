@@ -17,8 +17,6 @@ const jsonParser = bodyParser.json();
 const apiProxy = require('./apiproxy');
 const application = require('./app');
 
-if (!process.env.NOMS_TOKEN) { throw 'NOMS_TOKEN is null'; }  // eslint-disable-line no-throw-literal
-
 app.use('/app/login',jsonParser, application.login);
 app.use('/app/photo', jsonParser, application.images);
 app.use('/app',jsonParser, application.sessionHandler);
