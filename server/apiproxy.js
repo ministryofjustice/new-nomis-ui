@@ -97,6 +97,8 @@ const options = {
   ws: true,                         // proxy websockets
   pathRewrite: {
     '^/api': '',                    // rewrite path
+    '^/api/info': '/info',                    // rewrite path
+    '^/api/swagger.json': 'swagger.json',                    // rewrite path
     '^/health': HEALTH_CHECK_PATH,
   },
   //eslint-disable-next-line
