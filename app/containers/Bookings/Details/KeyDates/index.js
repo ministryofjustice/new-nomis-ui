@@ -1,7 +1,8 @@
 import React,{ Component } from 'react';
-
+import { FormattedDate } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import moment from 'moment';
 
 import {
   selectBookingDetailsId,
@@ -15,13 +16,17 @@ import {
 
 import './index.scss';
 
-const KeyDatePair = ({ title, text }) => (
+const KeyDatePair = ({ title, text, date }) => (
   <div className="information">
   <label>
     {title}
    </label>
   <span>
-    <b>{text}</b>
+    { text && <b>{text}</b> }
+    { date &&
+    <b>
+      <FormattedDate value={date} />
+    </b>}
   </span>
 </div>)
 
@@ -73,11 +78,11 @@ class KeyDates extends Component {
           <div className="section">
 
             <div className="information-group">
-              <KeyDatePair title="Start date" text={startDate} />
+              <KeyDatePair title="Start date" date={startDate} />
               <KeyDatePair title=" Adjudication days added" text={adjudicationDaysAdded} />
             </div>
             <div className="information-group">
-              <KeyDatePair title="End date" text={endDate} />
+              <KeyDatePair title="End date" date={endDate} />
               <KeyDatePair title="Days remaining" text={daysRemaining} />
             </div>
           </div>
@@ -90,11 +95,11 @@ class KeyDates extends Component {
 
             <div className="information-group">
               <KeyDatePair title="CRD" text={crd} />
-              <KeyDatePair title="PED" text={ped} />
+              <KeyDatePair title="PED" date={ped} />
             </div>
 
             <div className="information-group">
-              <KeyDatePair title="LED" text={led} />
+              <KeyDatePair title="LED" date={led} />
               <KeyDatePair title="HDC eligibility date" text={hdcEligibilityDate} />
             </div>
 
