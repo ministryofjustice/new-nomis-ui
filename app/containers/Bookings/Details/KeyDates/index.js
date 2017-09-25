@@ -2,7 +2,6 @@ import React,{ Component } from 'react';
 import { FormattedDate } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import moment from 'moment';
 
 import {
   selectBookingDetailsId,
