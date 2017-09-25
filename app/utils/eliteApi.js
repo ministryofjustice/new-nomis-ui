@@ -38,7 +38,6 @@ const searchQueryToString = (searchObj) => {
   }).filter((x) => x !== 'strip').join(',and:');
 };
 
-const paginationToQuery = (pagination) => `limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}`;
 const offsetQuery = ({ offset, limit }) => `limit=${limit}&offset=${offset}`;
 
 export const bookings = (token, searchObj, pagination, baseUrl) => axios({
@@ -215,7 +214,6 @@ export const locations = (token, baseUrl, offset = { offset: 0, limit: 10000 }) 
       return locs;
     });
 
-
 export const loadSomeCaseNoteSources = (token, baseUrl, offset) => axios({
   baseURL: baseUrl,
   method: 'get',
@@ -223,7 +221,7 @@ export const loadSomeCaseNoteSources = (token, baseUrl, offset) => axios({
     'Page-Offset': offset.offset,
     'Page-Limit': offset.limit,
   },
-  url: `referenceDomains/caseNoteSources` });
+  url: 'referenceDomains/caseNoteSources' });
 
 export const loadSomeCaseNoteTypes = (token, baseUrl, offset) => axios({
   baseURL: baseUrl,
@@ -232,7 +230,7 @@ export const loadSomeCaseNoteTypes = (token, baseUrl, offset) => axios({
     'Page-Limit': offset.limit,
   },
   method: 'get',
-  url: `referenceDomains/caseNoteTypes` });
+  url: 'referenceDomains/caseNoteTypes' });
 
 export const loadSomeCaseNoteSubTypes = (token, baseUrl, offset, type) => axios({
   baseURL: baseUrl,
