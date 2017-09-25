@@ -49,6 +49,16 @@ const selectDetails = () => createSelector(
   (searchState) => searchState.get('details')
 );
 
+const selectKeyDatesViewModel = () => createSelector(
+  selectSearch(),
+  (searchState) => searchState.getIn(['details','keyDatesViewModel'])
+);
+
+const selectError = () => createSelector(
+  selectSearch(),
+  (searchState) => searchState.getIn(['details','error'])
+)
+
 const selectShouldShowLargePhoto = () => createSelector(
    selectSearch(),
    (searchState) => searchState.getIn(['details', 'shouldShowLargePhoto'])
@@ -337,4 +347,6 @@ export {
   selectImageId,
   selectLocations,
   intlSelector,
+  selectKeyDatesViewModel,
+  selectError,
 };
