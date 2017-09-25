@@ -215,69 +215,33 @@ export const locations = (token, baseUrl, offset = { offset: 0, limit: 10000 }) 
       return locs;
     });
 
-export const loadCaseNoteSubTypes = (token, baseUrl, caseLoadType, pagination = { perPage: 1000, pageNumber: 0 }) => axios({
-  baseURL: baseUrl,
-  method: 'get',
-  url: `referenceDomains/caseNotes/subTypes/${caseLoadType}${pagination ? `?${paginationToQuery(pagination)}` : ''}` })
-    .then((response) => {
-      const metaData = response.data.pageMetaData;
-      const refCodes = response.data.ReferenceCodes;
-
-      // If there are any extra caseNoteTypes append them to the current call.
-      if (metaData.offset + metaData.limit < metaData.totalRecords) {
-        return loadCaseNoteSubTypes(token, baseUrl, caseLoadType, { perPage: metaData.limit, pageNumber: (metaData.offset + metaData.limit) / metaData.limit })
-          .then((nextRefCodes) => refCodes.concat(nextRefCodes));
-      }
-
-      return refCodes;
-    });
-
-export const loadCaseNoteTypes = (token, baseUrl, caseNoteSource, pagination = { perPage: 1000, pageNumber: 0 }) => axios({
-  baseURL: baseUrl,
-  method: 'get',
-  url: `referenceDomains/caseNotes/types/${caseNoteSource}${pagination ? `?${paginationToQuery(pagination)}` : ''}` })
-    .then((response) => {
-      const metaData = response.data.pageMetaData;
-      const refCodes = response.data.ReferenceCodes; // .map((refCode) => loadCaseNoteSubTypes(token, baseUrl, refCode.code).then((subTypes) => Object.assign(refCode, { subTypes })));
-      const typeObjs = refCodes.map((refCode) => {
-        // Load in ALL subTypes.
-        const subTypes = loadCaseNoteSubTypes(token, baseUrl, refCode.code).then((subArray) => {
-          const SubObject = subArray.reduce((acc, sub) => Object.assign(acc, { [sub.code]: { Data: sub, Status: { Type: 'SUCCESS' } } }), {});
-          return SubObject;
-        }).then((subObj) => ({ Data: refCode, SubTypes: subObj }));
-
-        return subTypes;
-      });
-      return Promise.all([metaData, Promise.all(typeObjs)]);
-    })
-    .then((response) => {
-      const metaData = response[0];
-      const refCodes = response[1];
-
-      // If there are any extra caseNoteTypes append them to the current call.
-      if (metaData.offset + metaData.limit < metaData.totalRecords) {
-        return loadCaseNoteTypes(token, baseUrl, caseNoteSource, { perPage: metaData.limit, pageNumber: (metaData.offset + metaData.limit) / metaData.limit })
-          .then((nextRefCodes) => refCodes.concat(nextRefCodes));
-      }
-
-      return refCodes;
-    });
-
 
 export const loadSomeCaseNoteSources = (token, baseUrl, offset) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `referenceDomains/caseNoteSources${offset ? `?${offsetQuery(offset)}` : ''}` });
+  headers: {
+    'Page-Offset': offset.offset,
+    'Page-Limit': offset.limit,
+  },
+  url: `referenceDomains/caseNoteSources` });
 
 export const loadSomeCaseNoteTypes = (token, baseUrl, offset) => axios({
   baseURL: baseUrl,
+  headers: {
+    'Page-Offset': offset.offset,
+    'Page-Limit': offset.limit,
+  },
   method: 'get',
-  url: `referenceDomains/caseNoteTypes${offset ? `?${offsetQuery(offset)}` : ''}` });
+  url: `referenceDomains/caseNoteTypes` });
 
 export const loadSomeCaseNoteSubTypes = (token, baseUrl, offset, type) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `referenceDomains/caseNoteTypes/${type}/subTypes${offset ? `?${offsetQuery(offset)}` : ''}` });
+  headers: {
+    'Page-Offset': offset.offset,
+    'Page-Limit': offset.limit,
+  },
+  url: `referenceDomains/caseNoteSubTypes/${type}` });
 
 export const loadSomeUserCaseNoteTypes = (token, baseUrl, offset) => axios({
   baseURL: baseUrl,
@@ -306,13 +270,28 @@ export const getAll = (func, itemName, args) => {
   return newFunc;
 };
 
+export const getAllV2 = (func, itemName, args) => {
+  const newFunc = (token, baseUrl, offset = { offset: 0, limit: 1000 }) => func(token, baseUrl, offset, args).then((response) => {
+    const items = response.data;
+    const newOffset = response.headers['page-offset'] + response.headers['page-limit'];
+    const newLimit = response.headers['total-records'] - newOffset;
+    if (newLimit > 0) {
+      return newFunc(token, baseUrl, { offset: newOffset, limit: newLimit }, args)
+        .then((newItems) => items.concat(newItems)
+        );
+    }
+    return items;
+  });
+  return newFunc;
+};
+
 export const loadAllCaseNoteFilterItems = (token, baseUrl) => {
-  const sources = getAll(loadSomeCaseNoteSources, 'referenceCodes')(token, baseUrl);
-  const types = getAll(loadSomeCaseNoteTypes, 'referenceCodes')(token, baseUrl);
+  const sources = getAllV2(loadSomeCaseNoteSources, 'referenceCodes')(token, baseUrl);
+  const types = getAllV2(loadSomeCaseNoteTypes, 'referenceCodes')(token, baseUrl);
   return Promise.all([sources, types]).then((res) => {
     const allSources = res[0].map((s) => ({ code: s.code, description: s.description }));
     const allTypes = res[1].map((t) => ({ code: t.code, description: t.description }));
-    return Promise.all(allTypes.map((t) => getAll(loadSomeCaseNoteSubTypes, 'referenceCodes', t.code)(token, baseUrl).then(
+    return Promise.all(allTypes.map((t) => getAllV2(loadSomeCaseNoteSubTypes, 'referenceCodes', t.code)(token, baseUrl).then(
       (reso) => reso.map((sT) => ({ code: sT.code, description: sT.description, parentCode: sT.parentCode }))
     ))).then((subTypes) => ({ sources: allSources, types: allTypes, subTypes }));
   });
@@ -332,18 +311,30 @@ export const loadAllUserCaseNoteTypes = (token, baseUrl) => {
 export const alertTypes = (token, baseUrl) => axios({
   baseURL: baseUrl,
   method: 'get',
+  headers: {
+    'Page-Offset': 0,
+    'Page-Limit': 1000,
+  },
   url: '/referenceDomains/alertTypes' })
     .then((response) => response.data);
 
 export const alertTypeData = (token, baseUrl, type) => axios({
   baseURL: baseUrl,
   method: 'get',
+  headers: {
+    'Page-Offset': 0,
+    'Page-Limit': 1000,
+  },
   url: `/referenceDomains/alertTypes/${type}` })
     .then((response) => response.data);
 
 export const alertTypeCodeData = (token, baseUrl, type, code) => axios({
   baseURL: baseUrl,
   method: 'get',
+  headers: {
+    'Page-Offset': 0,
+    'Page-Limit': 1000,
+  },
   url: `/referenceDomains/alertTypes/${type}/codes/${code}` })
     .then((response) => response.data);
 
