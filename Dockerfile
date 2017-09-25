@@ -5,8 +5,9 @@ RUN mkdir -p /code
 WORKDIR /code
 ADD . /code
 
-RUN yarn --frozen-lockfile && \
-    yarn build
+RUN npm install -g -s --no-progress yarn && \
+    yarn --frozen-lockfile && \
+    NODE_ENV=production yarn build
 
 ENV PORT=3000
 ENV NODE_ENV=production
