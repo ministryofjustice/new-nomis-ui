@@ -21,6 +21,8 @@ export const UPDATE_PAGINATION = 'app/bookings/search/results/pagination/update'
 export const VIEW_DETAILS = 'app/bookings/details/view';
 export const SET_DETAILS = 'app/bookings/details/set';
 export const SET_DETAILS_TAB = 'app/bookings/details/tab/set';
+export const LOAD_KEY_DATES = 'app/bookings/details/tab/load/keydates';
+export const SET_KEYDATES = 'app/bookings/details/tab/set/keydates';
 
 export const DETAILS_TABS = {
   OFFENDER_DETAILS: 0,
