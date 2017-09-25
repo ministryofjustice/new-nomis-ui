@@ -12,6 +12,7 @@ import {
   amendCaseNote,
   loadMyLocations,
   searchOffenders,
+  loadKeyDates,
 } from 'utils/eliteApi';
 
 import {
@@ -56,8 +57,13 @@ import {
   NEW_SEARCH,
   TOGGLE_SORT_ORDER,
   SET_DETAILS_TAB,
+  LOAD_KEY_DATES,
+  SET_KEYDATES,
 } from './constants';
 
+export function* loadKeyDatesWatcher() {
+  yield takeLatest(LOAD_KEY_DATES, onLoadKeyDates);
+}
 
 export function* newSearchWatcher() {
   yield takeLatest(NEW_SEARCH, newSearch);
@@ -79,6 +85,18 @@ export function* hidePhotoWatcher() {
 
 export function* toggleSortOrderWatcher() {
   yield takeLatest(TOGGLE_SORT_ORDER, toggleSort);
+}
+
+export function* onLoadKeyDates(action) {
+  try {
+    const viewModel = yield call(loadKeyDates, action.payload);
+    yield put({
+      type: SET_KEYDATES,
+      payload: viewModel,
+    });
+  } catch (err) {
+    yield put({ type: DETAILS_ERROR, payload: { error: err.userMessage } });
+  }
 }
 
 export function* setLocations(action) {
@@ -400,4 +418,5 @@ export default [
   loadLocationsWatcher,
   newSearchWatcher,
   toggleSortOrderWatcher,
+  loadKeyDatesWatcher,
 ];

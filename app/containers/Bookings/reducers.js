@@ -32,6 +32,8 @@ import {
   CASE_NOTE_FILTER,
   SET_LARGE_PHOTO_VISIBILITY,
   SET_LOCATIONS,
+  SET_KEYDATES,
+  DETAILS_ERROR,
 } from './constants';
 
 import results from './Results/resultsData';
@@ -194,6 +196,14 @@ function searchReducer(state = initialState, action) {
 
     case SET_LOCATIONS: {
       return state.setIn(['details', 'locations'], fromJS(action.payload.locations || []));
+    }
+
+    case SET_KEYDATES: {
+      return state.setIn(['details','keyDatesViewModel'], fromJS(action.payload));
+    }
+
+    case DETAILS_ERROR: {
+      return state.setIn(['details','error'], fromJS(action.payload.error));
     }
 
     default: {

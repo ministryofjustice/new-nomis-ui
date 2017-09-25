@@ -21,6 +21,7 @@ import {
   HIDE_LARGE_PHOTO_BOOKING_DETAILS,
   LOAD_LOCATIONS,
   TOGGLE_SORT_ORDER,
+  LOAD_KEY_DATES,
 } from './constants';
 
 
@@ -143,6 +144,13 @@ export function toggleSortOrder(sortOrder) {
     type: TOGGLE_SORT_ORDER,
     payload: sortOrder,
   };
+}
+
+export function loadKeyDates(bookingId) {
+  return {
+    type: LOAD_KEY_DATES,
+    payload: bookingId,
+  }
 }
 
 export function resetCaseNoteFilterFormField(field) {

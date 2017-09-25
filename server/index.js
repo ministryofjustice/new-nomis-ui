@@ -19,6 +19,7 @@ const application = require('./app');
 
 app.use('/app/login',jsonParser, application.login);
 app.use('/app/photo', jsonParser, application.images);
+app.use('/app/keydates/:bookingId', application.keyDates);
 app.use('/app',jsonParser, application.sessionHandler);
 app.use('/health', apiProxy);
 app.use('/api/info', apiProxy);

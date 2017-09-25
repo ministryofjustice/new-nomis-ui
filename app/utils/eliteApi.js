@@ -396,3 +396,7 @@ export const searchOffenders = ({ baseUrl, query,
     bookings: response.data,
     totalRecords: parseInt(response.headers['total-records']),
   }));
+
+export const loadKeyDates = (bookingId) => axios({
+  url: `/app/keydates/${bookingId}`,
+}).then(response => response.data).catch(error => { throw error.response.data });

@@ -9,36 +9,6 @@ const key = process.env.NOMS_TOKEN;
 
 axios.defaults.baseURL = process.env.API_ENDPOINT_URL || 'http://localhost:7080/api';
 
-function makeRequest(options) {
-  return axios(options);
-}
-
-function requestNewToken({ req, refreshToken }) {
-  return new Promise((resolve,reject) => {
-    axios({
-      method: 'post',
-      url: '/users/token',
-      headers: getRequestHeaders(req, refreshToken),
-    }).then(resolve).catch(reject);
-  })
-}
-
-
-const newJWT = (data) => jwt.sign({ data,
-  exp: Math.floor(Date.now() / 1000) + (60 * minutes),
-}, key);
-
-const getTokenInfo = (req) => {
-  try {
-    const token = req.headers.jwt;
-    if (!token) return;
-
-    return jwt.verify(token, key);
-  } catch (e) {}
-
-  return null;
-};
-
 const login = (req, res) => {
   service.makeRequest({
     method: 'post',
@@ -78,6 +48,79 @@ const images = (req, res) => {
     res.status(error.status);
     res.json(error.data);
   });
+};
+
+const keyDates = (req,res) => {
+  if (endRequestIfSessionExpired(req, res)) { return; }
+
+  if (!req.params.bookingId) {
+    res.status(400);
+    res.end();
+    return;
+  }
+
+  const webToken = getTokenInfo(req);
+  const token = webToken.data.token;
+  const getSentenceData = axios({
+    method: 'get',
+    url: `v2/bookings/${req.params.bookingId}/sentenceDetail`,
+    headers: getRequestHeaders(req, token),
+  }).then(response => new Promise(r => r({ sentence: response.data })));
+
+  Promise.all([getSentenceData]).then(response => {
+    const sentence = response[0].sentence;
+
+    res.json({
+      iepLevel: 'Standard',
+      daysSinceReview: 27,
+      sentence: {
+        startDate: sentence.sentenceStartDate,
+        adjudicationDaysAdded: sentence.additionalDaysAwarded,
+        endDate: sentence.sentenceExpiryDate,
+        daysRemaining: sentence.daysRemaining,
+      },
+      other: {
+        crd: '23/10/2014',
+        ped: '04/06/2017',
+        led: '03/12/2018',
+        hdcEligibilityDate: 'N/A',
+      },
+    });
+  }).catch(error => {
+    res.status(error.response.status);
+    res.json(error.response.data);
+  });
+};
+
+
+function makeRequest(options) {
+  return axios(options);
+}
+
+function requestNewToken({ req, refreshToken }) {
+  return new Promise((resolve,reject) => {
+    axios({
+      method: 'post',
+      url: '/users/token',
+      headers: getRequestHeaders(req, refreshToken),
+    }).then(resolve).catch(reject);
+  })
+}
+
+
+const newJWT = (data) => jwt.sign({ data,
+  exp: Math.floor(Date.now() / 1000) + (60 * minutes),
+}, key);
+
+const getTokenInfo = (req) => {
+  try {
+    const token = req.headers.jwt;
+    if (!token) return;
+
+    return jwt.verify(token, key);
+  } catch (e) {}
+
+  return null;
 };
 
 const sessionHandler = (req, res) => {
@@ -187,6 +230,7 @@ let service = {
   newJWT,
   makeRequest,
   requestNewToken,
+  keyDates,
 };
 
 module.exports = service;

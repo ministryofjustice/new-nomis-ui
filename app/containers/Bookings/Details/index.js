@@ -15,6 +15,7 @@ import PhysicalAttributes from './PhysicalAttributes';
 import PhysicalAttributesMobile from './PhysicalAttributes/mobile';
 import CaseNotes from './CaseNotes';
 import Alerts from './Alerts';
+import KeyDates from './KeyDates';
 import BookingsDetailsHeader from './header';
 import { selectCurrentDetailTabId, selectDisplayAddCaseNoteModal, selectShouldShowLargePhoto, selectImageId } from '../selectors';
 import { setDetailsTab, hideLargePhoto } from '../actions';
@@ -27,6 +28,7 @@ const tabData = [
     { tabId: 1, title: 'Physical Attributes', mobileTitle: 'Physical', component: PhysicalAttributes, componentMobile: PhysicalAttributesMobile },
     { tabId: 2, title: 'Alerts', mobileTitle: 'Alerts', component: Alerts, componentMobile: Alerts },
     { tabId: 3, title: 'Case Notes', mobileTitle: 'Case notes', component: CaseNotes, componentMobile: CaseNotes },
+    { tabId: 4, title: 'Key dates', mobileTitle: 'Key dates', component: KeyDates, componentMobile: KeyDates },
 ];
 
 class Details extends PureComponent { // eslint-disable-line react/prefer-stateless-function
