@@ -230,7 +230,7 @@ export const loadSomeCaseNoteTypes = (token, baseUrl, offset) => axios({
     'Page-Limit': offset.limit,
   },
   method: 'get',
-  url: 'referenceDomains/caseNoteTypes' });
+  url: 'referenceDomains/caseNoteTypes?includeSubTypes=true' });
 
 export const loadSomeCaseNoteSubTypes = (token, baseUrl, offset, type) => axios({
   baseURL: baseUrl,
@@ -289,9 +289,8 @@ export const loadAllCaseNoteFilterItems = (token, baseUrl) => {
   return Promise.all([sources, types]).then((res) => {
     const allSources = res[0].map((s) => ({ code: s.code, description: s.description }));
     const allTypes = res[1].map((t) => ({ code: t.code, description: t.description }));
-    return Promise.all(allTypes.map((t) => getAllV2(loadSomeCaseNoteSubTypes, 'referenceCodes', t.code)(token, baseUrl).then(
-      (reso) => reso.map((sT) => ({ code: sT.code, description: sT.description, parentCode: sT.parentCode }))
-    ))).then((subTypes) => ({ sources: allSources, types: allTypes, subTypes }));
+    const subTypes = res[1].map((t) => (t.subCodes.map((sc) => ({ code: sc.code, description: sc.description, parentCode: t.code }))));
+    return { sources: allSources, types: allTypes, subTypes };
   });
 };
 
@@ -313,7 +312,7 @@ export const alertTypes = (token, baseUrl) => axios({
     'Page-Offset': 0,
     'Page-Limit': 1000,
   },
-  url: '/referenceDomains/alertTypes' })
+  url: '/referenceDomains/alertTypes?includeSubTypes=true' })
     .then((response) => response.data);
 
 export const alertTypeData = (token, baseUrl, type) => axios({
