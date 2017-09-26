@@ -399,4 +399,4 @@ export const searchOffenders = ({ baseUrl, query,
 
 export const loadKeyDates = (bookingId) => axios({
   url: `/app/keydates/${bookingId}`,
-}).then(response => response.data).catch(error => { throw error.response.data });
+}).then(response => response.data);
