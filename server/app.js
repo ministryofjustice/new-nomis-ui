@@ -71,20 +71,15 @@ const keyDates = (req,res) => {
     const sentence = response[0].sentence;
 
     res.json({
-      iepLevel: 'Standard',
-      daysSinceReview: 27,
+      iepLevel: '',
+      daysSinceReview: '',
       sentence: {
         startDate: sentence.sentenceStartDate,
         adjudicationDaysAdded: sentence.additionalDaysAwarded,
         endDate: sentence.sentenceExpiryDate,
         daysRemaining: sentence.daysRemaining,
       },
-      other: {
-        crd: '23/10/2014',
-        ped: '04/06/2017',
-        led: '03/12/2018',
-        hdcEligibilityDate: 'N/A',
-      },
+      other: null,
     });
   }).catch(error => {
     res.status(error.response.status);

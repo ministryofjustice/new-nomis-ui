@@ -29,13 +29,10 @@ const KeyDatePair = ({ title, text, date }) => (
   </span>
 </div>)
 
-const ErrorMessage = ({ error }) => (<div>
+const ErrorMessage = () => (<div>
   <div className="error-summary">
-    <div className="error-summary-heading">
-      Could not load the key dates information due to the following error.
-    </div>
     <div className="error-message">
-      {error}
+      There was a problem trying to retrieve the key dates information.
     </div>
   </div>
 </div>)
@@ -49,60 +46,73 @@ class KeyDates extends Component {
   render() {
     const { viewModel, error } = this.props;
 
-    if (error) { return <ErrorMessage error={error} /> }
+    if (error) { return <ErrorMessage /> }
     if (!viewModel) { return <div>Loading....</div> }
 
     const { iepLevel, daysSinceReview, sentence, other } = viewModel && viewModel.toJS();
     const { startDate, adjudicationDaysAdded,endDate,daysRemaining } = sentence;
-    const { crd, ped, led, hdcEligibilityDate } = other;
+    const { crd, ped, led, hdcEligibilityDate } = other || {};
 
     return (
         <div className="key-dates">
 
-          <b className="bold">
-           Incentives and earned privileges
-          </b>
 
-          <div className="section">
-            <div className="information-group">
-               <KeyDatePair title="IEP Level" text={iepLevel} />
-               <KeyDatePair title="Days since review" text={daysSinceReview} />
+          { iepLevel && daysSinceReview &&
+          (<div>
+            <b className="bold">
+              Incentives and earned privileges
+            </b>
+
+            <div className="section">
+              <div className="information-group">
+                <KeyDatePair title="IEP Level" text={iepLevel} />
+                <KeyDatePair title="Days since review" text={daysSinceReview} />
+              </div>
             </div>
-          </div>
+          </div>)
+          }
 
-          <b className="bold">
-            Sentence key dates
-          </b>
+          { sentence && (
+            <div>
+              <b className="bold">
+                Sentence key dates
+              </b>
 
-          <div className="section">
+              <div className="section">
 
-            <div className="information-group">
-              <KeyDatePair title="Start date" date={startDate} />
-              <KeyDatePair title=" Adjudication days added" text={adjudicationDaysAdded} />
+                <div className="information-group">
+                  <KeyDatePair title="Start date" date={startDate} />
+                  <KeyDatePair title=" Adjudication days added" text={adjudicationDaysAdded} />
+                </div>
+                <div className="information-group">
+                  <KeyDatePair title="End date" date={endDate} />
+                  <KeyDatePair title="Days remaining" text={daysRemaining} />
+                </div>
+              </div>
             </div>
-            <div className="information-group">
-              <KeyDatePair title="End date" date={endDate} />
-              <KeyDatePair title="Days remaining" text={daysRemaining} />
+          )}
+
+          { other && (
+            <div>
+              <b className="bold">
+                Other dates
+              </b>
+
+              <div className="section">
+
+                <div className="information-group">
+                  <KeyDatePair title="CRD" text={crd} />
+                  <KeyDatePair title="PED" date={ped} />
+                </div>
+
+                <div className="information-group">
+                  <KeyDatePair title="LED" date={led} />
+                  <KeyDatePair title="HDC eligibility date" text={hdcEligibilityDate} />
+                </div>
+
+              </div>
             </div>
-          </div>
-
-          <b className="bold">
-            Other dates
-          </b>
-
-          <div className="section">
-
-            <div className="information-group">
-              <KeyDatePair title="CRD" text={crd} />
-              <KeyDatePair title="PED" date={ped} />
-            </div>
-
-            <div className="information-group">
-              <KeyDatePair title="LED" date={led} />
-              <KeyDatePair title="HDC eligibility date" text={hdcEligibilityDate} />
-            </div>
-
-          </div>
+          )}
 
         </div>
     )
