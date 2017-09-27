@@ -11,8 +11,6 @@ import EliteImage from 'containers/EliteContainers/Image';
 import { analyticsServiceBuilder } from 'utils/analyticsService';
 import OffenderDetails from './OffenderDetails';
 import OffenderDetailsMobile from './OffenderDetails/mobile';
-import PhysicalAttributes from './PhysicalAttributes';
-import PhysicalAttributesMobile from './PhysicalAttributes/mobile';
 import CaseNotes from './CaseNotes';
 import Alerts from './Alerts';
 import KeyDates from './KeyDates';
@@ -25,10 +23,9 @@ const analyticsService = analyticsServiceBuilder();
 
 const tabData = [
     { tabId: 0, title: 'Offender Details', mobileTitle: 'Offender', component: OffenderDetails, componentMobile: OffenderDetailsMobile },
-    { tabId: 1, title: 'Physical Attributes', mobileTitle: 'Physical', component: PhysicalAttributes, componentMobile: PhysicalAttributesMobile },
-    { tabId: 2, title: 'Alerts', mobileTitle: 'Alerts', component: Alerts, componentMobile: Alerts },
-    { tabId: 3, title: 'Case Notes', mobileTitle: 'Case notes', component: CaseNotes, componentMobile: CaseNotes },
-    { tabId: 4, title: 'Key dates', mobileTitle: 'Key dates', component: KeyDates, componentMobile: KeyDates },
+    { tabId: 1, title: 'Alerts', mobileTitle: 'Alerts', component: Alerts, componentMobile: Alerts },
+    { tabId: 2, title: 'Case Notes', mobileTitle: 'Case notes', component: CaseNotes, componentMobile: CaseNotes },
+    { tabId: 3, title: 'Key dates', mobileTitle: 'Key dates', component: KeyDates, componentMobile: KeyDates },
 ];
 
 class Details extends PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -80,7 +77,10 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
             activeTabId={activeTabId}
           /> :
           <TabNavMobile
-            tabData={tabData.map((tab) => Object.assign(tab, { action: () => setTab(tab.tabId) }))}
+            tabData={tabData.map((tab) => Object.assign(tab, { action: () => {
+              analyticsService.pageView(`bookings details - ${tab.title}`);
+              setTab(tab.tabId);
+            } }))}
             activeTabId={activeTabId}
           />}
         <TabComponent />
