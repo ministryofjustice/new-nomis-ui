@@ -8,18 +8,37 @@ const logger = require('./logger');
 const argv = require('minimist')(process.argv.slice(2));
 const setup = require('./middlewares/frontendMiddleware');
 const resolve = require('path').resolve;
-
-const appinsights = require('./applicationinsights').appInsights;
 const app = express();
 const jsonParser = bodyParser.json();
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 const apiProxy = require('./apiproxy');
 const application = require('./app');
+const controller = require('./controller');
+const session = require('./session');
 
-app.use('/app/login',jsonParser, application.login);
-app.use('/app/photo', jsonParser, application.images);
-app.use('/app/keydates/:bookingId', application.keyDates);
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', req.headers.host);
+  res.header('Cache-control', 'no-store');
+  res.header('Pragma', 'no-cache');
+  next();
+});
+
+app.use((req,res,next) => {
+  if (req.url.indexOf('app') >= 0 && req.url !== '/app/login') {
+    if (session.isAuthenticated(req.headers) === false) {
+      res.status(401);
+      res.end();
+      return;
+    }
+  }
+  next();
+})
+
+app.use('/app/login',jsonParser, controller.login);
+app.use('/app/photo', jsonParser, controller.images);
+app.use('/app/keydates/:bookingId', controller.keyDates);
+
 app.use('/app',jsonParser, application.sessionHandler);
 app.use('/health', apiProxy);
 app.use('/api/info', apiProxy);
@@ -29,14 +48,6 @@ app.use('/api/swagger.json', apiProxy);
 setup(app, {
   outputPath: resolve(process.cwd(), 'build'),
   publicPath: '/',
-  appinsightsKey: appinsights.client.config.instrumentationKey,
-});
-
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', req.headers.host);
-  res.header('Cache-control', 'no-store');
-  res.header('Pragma', 'no-cache');
-  next();
 });
 
 // get the intended host and port number, use localhost and port 3000 if not provided
