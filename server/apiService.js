@@ -59,11 +59,14 @@ const getHeaders = ({ headers,reqHeaders, token }) => Object.assign({}, headers,
   'access-control-allow-origin': reqHeaders.host,
 });
 
+const errorStatusCode = (response) => (response && response.status) || 500;
+
 const service = {
   callApi,
   httpRequest,
   httpRequestRetry,
   refreshTokenRequest,
+  errorStatusCode,
 };
 
 module.exports = service;

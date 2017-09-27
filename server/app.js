@@ -1,5 +1,6 @@
 const session = require('./session');
-const apiService = require('./apiService');
+const apiService = require('./apiService'),
+  errorStatusCode = apiService.errorStatusCode;
 
 const sessionHandler = (req, res) => {
   apiService.callApi({
@@ -13,12 +14,10 @@ const sessionHandler = (req, res) => {
     res.setHeader('jwt', session.extendSession(req.headers));
     res.json(response.data);
   }).catch(error => {
-    console.error(error);
-    res.status(500);
+    res.status(errorStatusCode(error.response));
     res.end();
   })
 };
-
 
 const getPagingHeaders = (req) => {
   const headers = {}
@@ -30,7 +29,7 @@ const getPagingHeaders = (req) => {
     }
   });
   return headers;
-}
+};
 
 const copyHeadersOverToRes = (headers, res) => {
   if (!headers) { return; }
@@ -42,7 +41,6 @@ const copyHeadersOverToRes = (headers, res) => {
     }
   });
 };
-
 
 module.exports = {
   sessionHandler,

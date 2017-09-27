@@ -1,4 +1,5 @@
-const apiService = require('./apiService');
+const apiService = require('./apiService'), 
+  errorStatusCode = apiService.errorStatusCode;
 const session = require('./session');
 
 const login = (req, res) => {
@@ -10,8 +11,8 @@ const login = (req, res) => {
     const jwtToken = session.newJWT(response.data);
     res.setHeader('jwt', jwtToken);
     res.json(jwtToken);
-  }).catch(() => {
-    res.status(401);
+  }).catch(error => {
+    res.status(errorStatusCode(error.response));
     res.end();
   });
 };
@@ -33,7 +34,7 @@ const images = (req, res) => {
 
     response.data.pipe(res);
   }).catch(error => {
-    res.status(error.response.status && 500);
+    res.status(errorStatusCode(error.response));
     res.end();
   });
 };
@@ -77,8 +78,8 @@ const keyDates = (req,res) => {
       other: null,
     });
   }).catch(error => {
-    res.status(error.response.status);
-    res.json(error.response.data);
+    res.status(errorStatusCode(error.response));
+    res.end();
   });
 };
 
