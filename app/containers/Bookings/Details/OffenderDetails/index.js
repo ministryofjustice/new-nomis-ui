@@ -6,6 +6,8 @@ import { createStructuredSelector } from 'reselect';
 import DataGrid from 'components/Bookings/Details/dataGridViewComponent';
 import { selectOffenderDetails } from '../../selectors';
 
+import PhysicalAttributes from '../PhysicalAttributes';
+
 class OffenderDetails extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { offenderDetails } = this.props;
@@ -22,6 +24,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
     return (<div>
       <DataGrid gridData={PersonalTable} />
       <DataGrid gridData={AliasTable} />
+      <PhysicalAttributes {...this.props} />
     </div>);
   }
 }

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import DataGrid from 'components/Bookings/Details/dataGridViewComponentMobile';
 import { selectOffenderDetailsMobile } from '../../selectors';
+import PhysicalAttributesMobile from './../PhysicalAttributes/mobile';
 
 class OffenderDetails extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -22,6 +23,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
     return (<div>
       <DataGrid gridData={PersonalTable} />
       <DataGrid gridData={AliasTable} />
+      <PhysicalAttributesMobile {...this.props} />
     </div>);
   }
 }
