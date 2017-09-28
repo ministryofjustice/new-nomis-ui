@@ -2,7 +2,6 @@ import axios from 'axios';
 import moment from 'moment';
 import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
 
-
 export const login = (username, password, baseUrl) => axios({
   baseURL: baseUrl,
   method: 'post',
@@ -60,21 +59,19 @@ export const bookingAliases = (token, baseUrl, id) => axios({
   url: `/bookings/${id}/aliases` })
     .then((response) => response.data);
 
-export const bookingAlerts = (token, baseUrl, id, pagination) => {
-  return axios({
-    baseURL: baseUrl,
-    method: 'get',
-    headers: {
-      'Page-Offset': pagination.perPage * pagination.pageNumber,
-      'Page-Limit': pagination.perPage,
-    },
-    url: `/bookings/${id}/alerts` })
+export const bookingAlerts = (token, baseUrl, id, pagination) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  headers: {
+    'Page-Offset': pagination.perPage * pagination.pageNumber,
+    'Page-Limit': pagination.perPage,
+  },
+  url: `/bookings/${id}/alerts` })
     .then((response) => ({
-        alerts: response.data,
-        totalRecords: parseInt(response.headers['total-records']),
-      })
+      alerts: response.data,
+      totalRecords: parseInt(response.headers['total-records']),
+    })
     );
-};
 
 const casenoteQueryStringGen = (caseNoteOptions) => {
   const { source, typeSubType, dateRange } = caseNoteOptions;
@@ -142,7 +139,7 @@ export const bookingCaseNotes = (token, baseUrl, id, pagination, query) => {
       'Page-Limit': pagination.perPage,
     },
     url: `/bookings/${id}/caseNotes${queryParams}` })
-    .then((response) =>({
+    .then((response) => ({
       data: response.data,
       totalRecords: parseInt(response.headers['total-records']),
     }));
@@ -269,8 +266,18 @@ export const loadAllUserCaseNoteTypes = (token, baseUrl) => {
     const allTypes = res.map((t) => ({ code: t.code, description: t.description }));
     const subTypes = res.map((t) => (t.subCodes.map((sc) => ({ code: sc.code, description: sc.description, parentCode: t.code }))));
     return { types: allTypes, subTypes };
-   });
+  });
 };
+
+const flatten = list => list.reduce(
+  (a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []
+);
+
+export const CaseNoteTypeMapper = (res) => {
+  const allTypes = res.map((t) => ({ code: t.code, description: t.description }));
+  const subTypes = res.map(type => type.subCodes.map((sc) => ({ code: sc.code, description: sc.description, parentCode: type.code })))
+  return { types: allTypes, subTypes: flatten(subTypes) };
+}
 
 
 export const imageMeta = (token, baseUrl, imageId) => axios({
