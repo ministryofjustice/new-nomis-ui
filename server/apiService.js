@@ -16,13 +16,14 @@ axios.interceptors.request.use((config) => {
   return config;
 }, (error) => Promise.reject(error));
 
-const callApi = ({ method, url, headers,reqHeaders, onTokenRefresh,responseType }) => {
+const callApi = ({ method, url, headers,reqHeaders, onTokenRefresh,responseType, data }) => {
   const { token, refreshToken } = session.getSessionData(reqHeaders);
 
   return service.httpRequest({
     url,
     method,
     responseType,
+    data,
     headers: getHeaders({ headers,reqHeaders,token }),
   }).catch(error => {
     if (error.response.status === 401) {
