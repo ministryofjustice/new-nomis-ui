@@ -132,7 +132,7 @@ export function* searchSaga({ query, pagination, sortOrder }) {
     const isOffAss = query === 'officerAssignments';
     const bookingListFunction = isOffAss ? officerAssignments : bookings;
     const res = yield call(bookingListFunction, token, query, pagination, apiServer);
-    yield put({ type: BOOKINGS.SEARCH.SUCCESS, payload: { query, pagination, sortOrder, results: res } });
+    yield put({ type: BOOKINGS.SEARCH.SUCCESS, payload: { query, pagination, sortOrder, results: res.inmatesSummaries, meta: { totalRecords: res.totalRecords } } });
     return { inmatesSummaries: res.inmatesSummaries };
   } catch (err) {
     yield put({ type: BOOKINGS.SEARCH.ERROR, payload: { query, pagination, sortOrder, error: err } });
@@ -238,10 +238,6 @@ export function* imageLoadSaga(action) {
     return null;
   }
 }
-
-
-// officerDetails
-// selectOfficerStatus
 
 export function* officerLoadWatch() {
   yield takeEvery(OFFICERS.BASE, officerLoadSaga);

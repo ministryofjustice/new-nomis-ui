@@ -45,7 +45,11 @@ export const officerAssignments = (token, _, pagination, baseUrl) => axios({
     'Page-Limit': pagination.perPage,
   },
   url: '/users/me/bookingAssignments' })
-    .then((response) => response.data);
+    .then((response) => ({
+      inmatesSummaries: response.data,
+      totalRecords: parseInt(response.headers['total-records']),
+    })
+  );
 
 export const bookingDetails = (token, baseUrl, id) => axios({
   baseURL: baseUrl,
