@@ -32,7 +32,6 @@ class Alerts extends PureComponent { // eslint-disable-line react/prefer-statele
 
   render() {
     const { alerts, alertsStatus, totalResults, alertsPagination, bookingId, setPagination, deviceFormat } = this.props;
-
     return (
       <div>
         {alertsStatus.Type === 'SUCCESS' ?

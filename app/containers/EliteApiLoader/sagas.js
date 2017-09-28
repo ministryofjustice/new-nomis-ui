@@ -5,11 +5,7 @@ import { getToken } from 'containers/Authentication/sagas';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 
 import {
-  bookings,
   officerAssignments,
-  locations,
-  alertTypeData,
-  alertTypeCodeData,
   imageMeta,
   imageData,
   officerDetails,
@@ -36,7 +32,6 @@ import { paginationHash, queryHash } from './helpers';
 
 import {
   BOOKINGS,
-  LOCATIONS,
   PRELOADDATA,
   ALERTTYPES,
   IMAGES,
@@ -137,7 +132,7 @@ export function* searchSaga({ query, pagination, sortOrder }) {
     const isOffAss = query === 'officerAssignments';
     const bookingListFunction = isOffAss ? officerAssignments : bookings;
     const res = yield call(bookingListFunction, token, query, pagination, apiServer);
-    yield put({ type: BOOKINGS.SEARCH.SUCCESS, payload: { query, pagination, sortOrder, results: res.inmatesSummaries, meta: res.pageMetaData } });
+    yield put({ type: BOOKINGS.SEARCH.SUCCESS, payload: { query, pagination, sortOrder, results: res } });
     return { inmatesSummaries: res.inmatesSummaries };
   } catch (err) {
     yield put({ type: BOOKINGS.SEARCH.ERROR, payload: { query, pagination, sortOrder, error: err } });
@@ -168,9 +163,9 @@ export function* bookingAlertsSaga(action) {
   const apiServer = yield select(selectApi());
   try {
     const data = yield call(bookingAlerts, token, apiServer, bookingId, pagination);
-    yield put({ type: BOOKINGS.ALERTS.SUCCESS, payload: { bookingId, pagination, results: data.alerts, meta: data.pageMetaData } });
+    yield put({ type: BOOKINGS.ALERTS.SUCCESS, payload: { bookingId, pagination, results: data.alerts, meta: { totalRecords: data.totalRecords } } });
     // Load all the alert details in the background.
-    yield data.alerts.map((alert) => put(loadAlertTypeDetails(alert.alertType, alert.alertCode)));
+    //yield data.alerts.map((alert) => put(loadAlertTypeDetails(alert.alertType, alert.alertCode)));
     return { Type: 'SUCCESS' };
   } catch (err) {
     yield put({ type: BOOKINGS.ALERTS.ERROR, payload: { bookingId, error: err } });
@@ -200,10 +195,8 @@ export function* bookingCaseNotesSaga(action) {
   const token = yield getToken();
   const apiServer = yield select(selectApi());
   try {
-    const data = yield call(bookingCaseNotes, token, apiServer, bookingId, pagination, query);
-    yield put({ type: BOOKINGS.CASENOTES.SUCCESS, payload: { bookingId, pagination, query, results: data.caseNotes, meta: data.pageMetaData } });
-    // Load CaseNote Details now if necessary
-    // yield data.caseNotes.map((caseNote) => call(preloadCaseNoteType, caseNote.source, token, apiServer));
+    const response = yield call(bookingCaseNotes, token, apiServer, bookingId, pagination, query);
+    yield put({ type: BOOKINGS.CASENOTES.SUCCESS, payload: { bookingId, pagination, query, results: response.data, meta: { totalRecords: response.totalRecords } } });
 
     return { Type: 'SUCCESS' };
   } catch (err) {

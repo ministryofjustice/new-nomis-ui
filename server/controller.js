@@ -47,7 +47,7 @@ const keyDates = (req,res) => {
   }
   const getSentenceData = apiService.callApi({
     method: 'get',
-    url: `v2/bookings/${req.params.bookingId}/sentenceDetail`,
+    url: `bookings/${req.params.bookingId}/sentenceDetail`,
     headers: {},
     reqHeaders: req.headers,
     onTokenRefresh: (token) => { req.headers.jwt = token },
@@ -55,7 +55,7 @@ const keyDates = (req,res) => {
 
   const getiepSummary = apiService.callApi({
     method: 'get',
-    url: `v2/bookings/${req.params.bookingId}/iepSummary`,
+    url: `bookings/${req.params.bookingId}/iepSummary`,
     headers: {},
     reqHeaders: req.headers,
     onTokenRefresh: (token) => { req.headers.jwt = token },

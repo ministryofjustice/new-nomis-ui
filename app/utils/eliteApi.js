@@ -38,39 +38,42 @@ const searchQueryToString = (searchObj) => {
   }).filter((x) => x !== 'strip').join(',and:');
 };
 
-const offsetQuery = ({ offset, limit }) => `limit=${limit}&offset=${offset}`;
-
-export const bookings = (token, searchObj, pagination, baseUrl) => axios({
-  baseURL: baseUrl,
-  method: 'get',
-  url: `/booking?query=${searchQueryToString(searchObj)}&limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}` })
-    .then((response) => response.data);
-
 export const officerAssignments = (token, _, pagination, baseUrl) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `/users/me/bookingAssignments?limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}` })
+  headers: {
+    'Page-Offset': pagination.perPage * pagination.pageNumber,
+    'Page-Limit': pagination.perPage,
+  },
+  url: '/users/me/bookingAssignments' })
     .then((response) => response.data);
 
 export const bookingDetails = (token, baseUrl, id) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `/booking/${id}` })
+  url: `/bookings/${id}` })
     .then((response) => response.data);
 
 export const bookingAliases = (token, baseUrl, id) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `/booking/${id}/aliases` })
+  url: `/bookings/${id}/aliases` })
     .then((response) => response.data);
 
 export const bookingAlerts = (token, baseUrl, id, pagination) => {
-  const queryParams = `?limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}`;
   return axios({
     baseURL: baseUrl,
     method: 'get',
-    url: `/booking/${id}/alerts${queryParams}` })
-    .then((response) => response.data);
+    headers: {
+      'Page-Offset': pagination.perPage * pagination.pageNumber,
+      'Page-Limit': pagination.perPage,
+    },
+    url: `/bookings/${id}/alerts` })
+    .then((response) => ({
+        alerts: response.data,
+        totalRecords: parseInt(response.headers['total-records']),
+      })
+    );
 };
 
 const casenoteQueryStringGen = (caseNoteOptions) => {
@@ -130,12 +133,19 @@ const casenoteQueryStringGen = (caseNoteOptions) => {
 };
 
 export const bookingCaseNotes = (token, baseUrl, id, pagination, query) => {
-  const queryParams = `?limit=${pagination.perPage}&offset=${pagination.perPage * pagination.pageNumber}${casenoteQueryStringGen(query)}`;
+  const queryParams = `?${casenoteQueryStringGen(query)}`;
   return axios({
     baseURL: baseUrl,
     method: 'get',
-    url: `/booking/${id}/caseNotes${queryParams}` })
-    .then((response) => response.data);
+    headers: {
+      'Page-Offset': pagination.perPage * pagination.pageNumber,
+      'Page-Limit': pagination.perPage,
+    },
+    url: `/bookings/${id}/caseNotes${queryParams}` })
+    .then((response) =>({
+      data: response.data,
+      totalRecords: parseInt(response.headers['total-records']),
+    }));
 };
 
 export const addCaseNote = (token, baseUrl, bookingId, type, subType, text, occurrenceDateTime) => {
@@ -146,7 +156,7 @@ export const addCaseNote = (token, baseUrl, bookingId, type, subType, text, occu
   return axios({
     baseURL: baseUrl,
     method: 'post',
-    url: `/booking/${bookingId}/caseNotes`,
+    url: `/bookings/${bookingId}/caseNotes`,
     headers: {
       'content-type': 'application/json',
       'X-Requested-With': 'XMLHttpRequest' },
@@ -161,7 +171,7 @@ export const amendCaseNote = (token, baseUrl, bookingId, caseNoteId, text) => {
   return axios({
     baseURL: baseUrl,
     method: 'put',
-    url: `/booking/${bookingId}/caseNotes/${caseNoteId}`,
+    url: `/bookings/${bookingId}/caseNotes/${caseNoteId}`,
     headers: {
       'content-type': 'application/json' },
     data })
@@ -195,25 +205,6 @@ export const users = {
 };
 
 
-export const locations = (token, baseUrl, offset = { offset: 0, limit: 10000 }) => axios({
-  baseURL: baseUrl,
-  method: 'get',
-  url: `/locations${offset ? `?${offsetQuery(offset)}` : ''}` })
-    .then((response) => {
-      const metaData = response.data.pageMetaData;
-      const locs = response.data.locations;
-      // If there are any more locations get them now...
-      const newOffset = metaData.offset + metaData.limit;
-      const newLimit = metaData.totalRecords - newOffset;
-      if (newLimit > 0) {
-        return locations(token, baseUrl, { offset: newOffset, limit: newLimit })
-          .then((newLocations) => locs.concat(newLocations)
-        );
-      }
-
-      return locs;
-    });
-
 export const loadSomeCaseNoteSources = (token, baseUrl, offset) => axios({
   baseURL: baseUrl,
   method: 'get',
@@ -221,7 +212,7 @@ export const loadSomeCaseNoteSources = (token, baseUrl, offset) => axios({
     'Page-Offset': offset.offset,
     'Page-Limit': offset.limit,
   },
-  url: 'referenceDomains/caseNoteSources' });
+  url: 'reference-domains/caseNoteSources' });
 
 export const loadSomeCaseNoteTypes = (token, baseUrl, offset) => axios({
   baseURL: baseUrl,
@@ -230,7 +221,7 @@ export const loadSomeCaseNoteTypes = (token, baseUrl, offset) => axios({
     'Page-Limit': offset.limit,
   },
   method: 'get',
-  url: 'referenceDomains/caseNoteTypes?includeSubTypes=true' });
+  url: 'reference-domains/caseNoteTypes?includeSubTypes=true' });
 
 export const loadSomeCaseNoteSubTypes = (token, baseUrl, offset, type) => axios({
   baseURL: baseUrl,
@@ -239,36 +230,14 @@ export const loadSomeCaseNoteSubTypes = (token, baseUrl, offset, type) => axios(
     'Page-Offset': offset.offset,
     'Page-Limit': offset.limit,
   },
-  url: `referenceDomains/caseNoteSubTypes/${type}` });
+  url: `reference-domains/caseNoteSubTypes/${type}` });
 
 export const loadSomeUserCaseNoteTypes = (token, baseUrl, offset) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `users/me/caseNoteTypes${offset ? `?${offsetQuery(offset)}` : ''}` });
+  url: 'users/me/caseNoteTypes?includeSubTypes=true' });
 
-export const loadSomeUserCaseNoteSubTypes = (token, baseUrl, offset, type) => axios({
-  baseURL: baseUrl,
-  method: 'get',
-  url: `users/me/caseNoteTypes/${type}${offset ? `?${offsetQuery(offset)}` : ''}` });
-
-// Function wrapper to grab ALL of a paginated data type.
 export const getAll = (func, itemName, args) => {
-  const newFunc = (token, baseUrl, offset = { offset: 0, limit: 1000 }) => func(token, baseUrl, offset, args).then((response) => {
-    const { pageMetaData } = response.data;
-    const items = response.data[itemName];
-    const newOffset = pageMetaData.offset + pageMetaData.limit;
-    const newLimit = pageMetaData.totalRecords - newOffset;
-    if (newLimit > 0) {
-      return newFunc(token, baseUrl, { offset: newOffset, limit: newLimit }, args)
-        .then((newItems) => items.concat(newItems)
-      );
-    }
-    return items;
-  });
-  return newFunc;
-};
-
-export const getAllV2 = (func, itemName, args) => {
   const newFunc = (token, baseUrl, offset = { offset: 0, limit: 1000 }) => func(token, baseUrl, offset, args).then((response) => {
     const items = response.data;
     const newOffset = response.headers['page-offset'] + response.headers['page-limit'];
@@ -284,8 +253,8 @@ export const getAllV2 = (func, itemName, args) => {
 };
 
 export const loadAllCaseNoteFilterItems = (token, baseUrl) => {
-  const sources = getAllV2(loadSomeCaseNoteSources, 'referenceCodes')(token, baseUrl);
-  const types = getAllV2(loadSomeCaseNoteTypes, 'referenceCodes')(token, baseUrl);
+  const sources = getAll(loadSomeCaseNoteSources, 'referenceCodes')(token, baseUrl);
+  const types = getAll(loadSomeCaseNoteTypes, 'referenceCodes')(token, baseUrl);
   return Promise.all([sources, types]).then((res) => {
     const allSources = res[0].map((s) => ({ code: s.code, description: s.description }));
     const allTypes = res[1].map((t) => ({ code: t.code, description: t.description }));
@@ -298,42 +267,11 @@ export const loadAllUserCaseNoteTypes = (token, baseUrl) => {
   const types = getAll(loadSomeUserCaseNoteTypes, 'caseNoteTypes')(token, baseUrl);
   return types.then((res) => {
     const allTypes = res.map((t) => ({ code: t.code, description: t.description }));
-    return Promise.all(allTypes.map((t) => getAll(loadSomeUserCaseNoteSubTypes, 'caseNoteSubTypes', t.code)(token, baseUrl).then(
-      (reso) => reso.map((sT) => ({ code: sT.code, description: sT.description, parentCode: t.code }))
-    ))).then((subTypes) => ({ types: allTypes, subTypes }));
-  });
+    const subTypes = res.map((t) => (t.subCodes.map((sc) => ({ code: sc.code, description: sc.description, parentCode: t.code }))));
+    return { types: allTypes, subTypes };
+   });
 };
 
-
-export const alertTypes = (token, baseUrl) => axios({
-  baseURL: baseUrl,
-  method: 'get',
-  headers: {
-    'Page-Offset': 0,
-    'Page-Limit': 1000,
-  },
-  url: '/referenceDomains/alertTypes?includeSubTypes=true' })
-    .then((response) => response.data);
-
-export const alertTypeData = (token, baseUrl, type) => axios({
-  baseURL: baseUrl,
-  method: 'get',
-  headers: {
-    'Page-Offset': 0,
-    'Page-Limit': 1000,
-  },
-  url: `/referenceDomains/alertTypes/${type}` })
-    .then((response) => response.data);
-
-export const alertTypeCodeData = (token, baseUrl, type, code) => axios({
-  baseURL: baseUrl,
-  method: 'get',
-  headers: {
-    'Page-Offset': 0,
-    'Page-Limit': 1000,
-  },
-  url: `/referenceDomains/alertTypes/${type}/codes/${code}` })
-    .then((response) => response.data);
 
 export const imageMeta = (token, baseUrl, imageId) => axios({
   baseURL: baseUrl,
@@ -370,7 +308,7 @@ export const imageData = (token, baseUrl, imageId) => axios({
 
 
 export const loadMyLocations = (token, baseUrl) => axios({
-  baseURL: `${baseUrl}/v2`,
+  baseURL: `${baseUrl}`,
   method: 'get',
   url: '/users/me/locations' })
   .then((response) => response.data);
