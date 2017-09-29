@@ -218,6 +218,7 @@ function EliteApiReducer(state = initialState, action) {
     case BOOKINGS.CASENOTES.SUCCESS: {
       const { pagination, bookingId, query, results, meta } = action.payload;
       // Simplifying... had a plan to store the items differently... lets hope this is fine!
+
       return state
         .setIn(['Bookings', 'Details', bookingId, 'CaseNotes', 'Query', queryHash(query), 'MetaData', 'TotalRecords'], meta.totalRecords)
         .updateIn(['Bookings', 'Details', bookingId, 'CaseNotes', 'Query', queryHash(query), 'Paginations', paginationHash(pagination)],

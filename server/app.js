@@ -7,6 +7,7 @@ const sessionHandler = (req, res) => {
     method: req.method,
     url: req.url,
     headers: getPagingHeaders(req),
+    data: req.body,
     reqHeaders: req.headers,
     onTokenRefresh: (token) => { req.headers.jwt = token },
   }).then(response => {

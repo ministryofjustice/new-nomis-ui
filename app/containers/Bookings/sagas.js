@@ -219,36 +219,6 @@ export function* newSearch(action) {
 export function* searchSaga(action) {
   yield newSearch(action);
   yield put(push('/results'));
-
-
-  /*
-  const { query, resetPagination } = action.payload;
-  let pagination = yield select(selectSearchResultsPagination());
-  const sortOrder = yield select(selectSearchResultsSortOrder());
-  // console.log(pagination);
-  try {
-    if (resetPagination) {
-      pagination = Object.assign(pagination, { pageNumber: 0 });
-      yield put({ type: SET_PAGINATION, payload: pagination });
-    }
-    const res = yield call(searchSagaElite, { query: query.toJS ? query.toJS() : query, pagination, sortOrder });
-
-    yield put({ type: SEARCH_SUCCESS,
-      payload: {
-        searchResults: res.inmatesSummaries,
-        meta: res.pageMetaData,
-        searchQuery: query,
-      } });
-    if (res.inmatesSummaries.length === 1) {
-      const bookingId = res.inmatesSummaries[0].bookingId;
-      yield put({ type: VIEW_DETAILS, payload: { bookingId } });
-    } else {
-      yield put(push('/search/results'));
-    }
-  } catch (err) {
-    console.error(err); // eslint-disable-line
-    yield put({ type: SEARCH_ERROR, payload: new SubmissionError({ _error: err.message }) });
-  } */
 }
 
 export function* addCasenoteWatcher() {

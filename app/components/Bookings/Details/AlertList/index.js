@@ -15,29 +15,29 @@ import {
 } from './theme';
 
 function AlertList({ alerts }) {
+  if (!alerts || !alerts.length) {
+    return <h1 className="bold-medium">There are no alerts for this offender.</h1>
+  }
+
   return (
     <AlertHolder>
       {alerts.map((alert, index) => {
-        const codeDataDescription = alert.codeData !== undefined ? alert.codeData.description : '';
-        const typeDataDescription = alert.typeData !== undefined ? alert.typeData.description : '';
         const key = `${alert.alertId},${index}`;
-        const forRender =
-          (<AlertItem key={key} expired={alert.expired}>
-            <AlertTypeWrapper expired={alert.expired}>
-              <AlertType>{alert.alertType}</AlertType>
-              <AlertTypeDescription>{String(typeDataDescription)}</AlertTypeDescription>
-            </AlertTypeWrapper>
-            <AlertCodeWrapper>
-              <AlertCodeDescription>{codeDataDescription} ({alert.alertCode})</AlertCodeDescription>
-              {alert.expired ?
-                <AlertComment>Expired: <FormattedDate value={Date.parse(alert.dateExpires)} /></AlertComment>
-                  :
-                <AlertComment>{alert.comment}</AlertComment>
-              }
-              <AlertEntryDate>Entry date: <FormattedDate value={Date.parse(alert.dateCreated)} /></AlertEntryDate>
-            </AlertCodeWrapper>
-          </AlertItem>);
-        return alert.typeData !== undefined && alert.codeData !== undefined ? forRender : null;
+        return (<AlertItem key={key} expired={alert.expired}>
+          <AlertTypeWrapper expired={alert.expired}>
+            <AlertType>{alert.alertType}</AlertType>
+            <AlertTypeDescription>{String(alert.alertTypeDescription)}</AlertTypeDescription>
+          </AlertTypeWrapper>
+          <AlertCodeWrapper>
+            <AlertCodeDescription>{alert.alertCodeDescription} ({alert.alertCode})</AlertCodeDescription>
+            {alert.expired ?
+              <AlertComment>Expired: <FormattedDate value={Date.parse(alert.dateExpires)} /></AlertComment>
+              :
+              <AlertComment>{alert.comment}</AlertComment>
+            }
+            <AlertEntryDate>Entry date: <FormattedDate value={Date.parse(alert.dateCreated)} /></AlertEntryDate>
+          </AlertCodeWrapper>
+        </AlertItem>);
       })
       }
     </AlertHolder>
