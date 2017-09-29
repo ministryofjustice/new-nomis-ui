@@ -239,23 +239,19 @@ export const loadAllCaseNoteFilterItems = (token, baseUrl) => {
 
 export const loadAllUserCaseNoteTypes = (token, baseUrl) => {
   const types = getAll(loadSomeUserCaseNoteTypes, 'caseNoteTypes')(token, baseUrl);
-  return types.then((res) => {
-    const allTypes = res.map((t) => ({ code: t.code, description: t.description }));
-    const subTypes = res.map((t) => (t.subCodes.map((sc) => ({ code: sc.code, description: sc.description, parentCode: t.code }))));
-    return { types: allTypes, subTypes };
-  });
+  return types.then((res) => CaseNoteTypeMapper(res));
+};
+
+export const CaseNoteTypeMapper = (res) => {
+  const allTypes = res.map((t) => ({ code: t.code, description: t.description }));
+  const subTypes = res.map(type => type.subCodes.map((sc) => ({ code: sc.code, description: sc.description, parentCode: type.code })))
+
+  return { types: allTypes, subTypes: flatten(subTypes) };
 };
 
 const flatten = list => list.reduce(
   (a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []
 );
-
-export const CaseNoteTypeMapper = (res) => {
-  const allTypes = res.map((t) => ({ code: t.code, description: t.description }));
-  const subTypes = res.map(type => type.subCodes.map((sc) => ({ code: sc.code, description: sc.description, parentCode: type.code })))
-  return { types: allTypes, subTypes: flatten(subTypes) };
-}
-
 
 export const imageMeta = (token, baseUrl, imageId) => axios({
   baseURL: baseUrl,

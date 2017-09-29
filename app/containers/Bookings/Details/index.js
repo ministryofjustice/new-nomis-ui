@@ -19,13 +19,17 @@ import { selectCurrentDetailTabId, selectDisplayAddCaseNoteModal, selectShouldSh
 import { setDetailsTab, hideLargePhoto } from '../actions';
 import './index.scss';
 
+import {
+  DETAILS_TABS,
+} from '../constants';
+
 const analyticsService = analyticsServiceBuilder();
 
 const tabData = [
-    { tabId: 0, title: 'Offender Details', mobileTitle: 'Offender', component: OffenderDetails, componentMobile: OffenderDetailsMobile },
-    { tabId: 1, title: 'Alerts', mobileTitle: 'Alerts', component: Alerts, componentMobile: Alerts },
-    { tabId: 2, title: 'Case Notes', mobileTitle: 'Case notes', component: CaseNotes, componentMobile: CaseNotes },
-    { tabId: 3, title: 'Key dates', mobileTitle: 'Key dates', component: KeyDates, componentMobile: KeyDates },
+    { tabId: DETAILS_TABS.OFFENDER_DETAILS, title: 'Offender Details', mobileTitle: 'Offender', component: OffenderDetails, componentMobile: OffenderDetailsMobile },
+    { tabId: DETAILS_TABS.ALERTS, title: 'Alerts', mobileTitle: 'Alerts', component: Alerts, componentMobile: Alerts },
+    { tabId: DETAILS_TABS.CASE_NOTES, title: 'Case Notes', mobileTitle: 'Case notes', component: CaseNotes, componentMobile: CaseNotes },
+    { tabId: DETAILS_TABS.KEY_DATES, title: 'Key dates', mobileTitle: 'Key dates', component: KeyDates, componentMobile: KeyDates },
 ];
 
 class Details extends PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -40,8 +44,10 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
       hidePhoto,
     } = this.props;
 
-    const TabComponentDesktop = tabData[activeTabId].component;
-    const TabComponentMobile = tabData[activeTabId].componentMobile;
+    const ActiveTab = tabData.filter(tab => tab.tabId === activeTabId)[0];
+
+    const TabComponentDesktop = ActiveTab.component;
+    const TabComponentMobile = ActiveTab.componentMobile;
     const TabComponent = deviceFormat === 'desktop' ? TabComponentDesktop : TabComponentMobile;
 
 
