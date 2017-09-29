@@ -299,7 +299,7 @@ export const searchOffenders = ({ baseUrl, query,
                                   sort = { order: 'ASC' },
                                   pagination = { offset: 0, limit: 1000 } }) =>
   axios({
-    baseURL: `${baseUrl}v2`,
+    baseURL: `${baseUrl}`,
     url: query.keywords ?
        `search-offenders/${parseLocationPrefix(query.locationPrefix)}/${query.keywords}` :
        `search-offenders/${parseLocationPrefix(query.locationPrefix)}`,
