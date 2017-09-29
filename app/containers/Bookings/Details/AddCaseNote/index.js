@@ -33,7 +33,6 @@ class AddCaseNoteForm extends Component {
 
   render() {
     const { handleSubmit, submitting, error, caseNoteTypes, locale, typeValue } = this.props;
-    const { type, subType } = caseNoteTypes;
 
     return (
       <div className="add-case-note">
@@ -41,7 +40,7 @@ class AddCaseNoteForm extends Component {
         <form onSubmit={handleSubmit}>
           <SubmissionError error={error}>{error}</SubmissionError>
 
-          <TypeAndSubTypeSelector selectedType={typeValue} types={type} subTypes={subType} />
+          <TypeAndSubTypeSelector selectedType={typeValue} types={caseNoteTypes.type} subTypes={caseNoteTypes.subType} />
 
           <Field name="caseNoteText" component={TextArea} title="Case note" autocomplete="off" spellcheck="true" />
 
@@ -74,7 +73,7 @@ class AddCaseNoteForm extends Component {
 }
 
 AddCaseNoteForm.propTypes = {
-  caseNoteTypes: PropTypes.array.isRequired,
+  caseNoteTypes: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   error: PropTypes.string,

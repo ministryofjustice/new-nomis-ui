@@ -1,7 +1,7 @@
 import React from 'react';
 
 const renderField = ({ resetValue, options, input, title, meta: { touched, error } }) => {
-  if (resetValue === true) { input.onChange(null); }
+  if (resetValue === true) { setTimeout(() => input.onChange(null),100); }
 
   return (
     <div className={!(touched && error) ? 'form-group' : 'form-group form-group-error'}>
