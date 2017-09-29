@@ -11,7 +11,7 @@ import DateTimePicker from 'components/FormComponents/DateTimePicker';
 import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
 import moment from 'moment';
 
-import { selectCaseNoteTypeList, selectCaseNoteSubTypeList } from './selectors';
+import { caseNoteFilterSelectInfo } from '../CaseNotes/selectors';
 import { DETAILS_TABS, ADD_NEW_CASENOTE } from '../../constants';
 import { selectBookingDetailsId } from '../../selectors';
 import { viewDetails } from '../../actions';
@@ -32,7 +32,8 @@ class AddCaseNoteForm extends Component {
   }
 
   render() {
-    const { handleSubmit, submitting, error, caseNoteTypeList, caseNoteSubTypeList, locale, typeValue } = this.props;
+    const { handleSubmit, submitting, error, caseNoteTypes, locale, typeValue } = this.props;
+    const { type, subType } = caseNoteTypes;
 
     return (
       <div className="add-case-note">
@@ -40,7 +41,7 @@ class AddCaseNoteForm extends Component {
         <form onSubmit={handleSubmit}>
           <SubmissionError error={error}>{error}</SubmissionError>
 
-          <TypeAndSubTypeSelector selectedType={typeValue} types={caseNoteTypeList} subTypes={caseNoteSubTypeList} />
+          <TypeAndSubTypeSelector selectedType={typeValue} types={type} subTypes={subType} />
 
           <Field name="caseNoteText" component={TextArea} title="Case note" autocomplete="off" spellcheck="true" />
 
@@ -73,8 +74,7 @@ class AddCaseNoteForm extends Component {
 }
 
 AddCaseNoteForm.propTypes = {
-  caseNoteTypeList: PropTypes.array.isRequired,
-  caseNoteSubTypeList: PropTypes.array.isRequired,
+  caseNoteTypes: PropTypes.array.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   error: PropTypes.string,
@@ -104,8 +104,7 @@ export function mapDispatchToProps() {
 }
 
 const mapStateToProps = createStructuredSelector({
-  caseNoteTypeList: selectCaseNoteTypeList(),
-  caseNoteSubTypeList: selectCaseNoteSubTypeList(),
+  caseNoteTypes: caseNoteFilterSelectInfo(),
   locale: selectLocale(),
   typeValue: (state) => selector(state, 'typeValue'),
   bookingDetailsId: selectBookingDetailsId(),

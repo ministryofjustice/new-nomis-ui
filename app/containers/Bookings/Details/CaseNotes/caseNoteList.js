@@ -35,7 +35,7 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
   }
 
   render() {
-    const { setCaseNoteView, caseNotesStatus, caseNotes, totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
+    const { setCaseNoteView, caseNotesStatus, caseNotes, totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination } = this.props;
     return (
       <div>
         {caseNotesStatus.Type === 'SUCCESS' ?

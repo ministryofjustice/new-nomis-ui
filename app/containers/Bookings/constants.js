@@ -29,6 +29,7 @@ export const DETAILS_TABS = {
   PHYSICAL_ATTR: 1,
   ALERTS: 2,
   CASE_NOTES: 3,
+  KEY_DATES: 4,
 };
 
 export const DETAILS_ERROR = 'app/bookings/details/error';

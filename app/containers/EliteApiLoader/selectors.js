@@ -151,7 +151,7 @@ const selectAlertTypeCode = () => createSelector(
 
 const selectCaseNoteTypes = () => createSelector(
   selectEliteApi(),
-  (eliteApi) => eliteApi.get('CaseNoteTypes')
+  (eliteApi) => eliteApi.getIn(['CaseNoteTypes'])
 );
 
 const selectCaseNoteTypesSelect = () => createSelector(
