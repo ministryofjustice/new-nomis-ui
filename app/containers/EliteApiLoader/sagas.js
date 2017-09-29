@@ -5,6 +5,7 @@ import { getToken } from 'containers/Authentication/sagas';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 
 import {
+  searchOffenders,
   officerAssignments,
   imageMeta,
   imageData,
@@ -24,8 +25,6 @@ import {
   selectImageStatus,
   selectOfficerStatus,
   selectBookingDetails,
-  selectAlertTypeStatus,
-  selectAlertTypeCodeStatus,
 } from './selectors';
 
 import { paginationHash, queryHash } from './helpers';
@@ -33,61 +32,12 @@ import { paginationHash, queryHash } from './helpers';
 import {
   BOOKINGS,
   PRELOADDATA,
-  ALERTTYPES,
   IMAGES,
   OFFICERS,
   CASENOTETYPES,
   USER,
   ALLCASENOTESOURCETYPESUBTYPEDATA,
 } from './constants';
-
-import {
-  loadAlertTypeDetails,
-} from './actions';
-
-export function* alertTypeLoadWatcher() {
-  yield takeEvery(ALERTTYPES.BASE, alertTypeLoadSaga);
-}
-
-export function* alertTypeLoadSaga(action) {
-  const { alertType, alertCode } = action.payload;
-
-  if (!alertType && !alertCode) {
-    // nothing to load here...
-    return null;
-  }
-
-  // First check to see if this alertType already been loaded.
-
-  const token = yield getToken();
-  const apiServer = yield select(selectApi());
-
-  const currentTypeStatus = yield select(selectAlertTypeStatus(), { alertType });
-
-  if (currentTypeStatus !== 'SUCCESS' && currentTypeStatus !== 'LOADING') {
-    yield put({ type: ALERTTYPES.TYPE.LOADING, payload: { alertType } });
-    try {
-      const data = yield call(alertTypeData, token, apiServer, alertType);
-      yield put({ type: ALERTTYPES.TYPE.SUCCESS, payload: { alertType, data } });
-    } catch (err) {
-      yield put({ type: ALERTTYPES.TYPE.ERROR, payload: { code: alertType, error: err } });
-    }
-  }
-
-  const currentAlertTypeCodeStatus = yield select(selectAlertTypeCodeStatus(), { alertType, alertCode });
-
-  if (currentAlertTypeCodeStatus !== 'SUCCESS' && currentAlertTypeCodeStatus !== 'LOADING') {
-    yield put({ type: ALERTTYPES.CODE.LOADING, payload: { alertType, alertCode } });
-    try {
-      const data = yield call(alertTypeCodeData, token, apiServer, alertType, alertCode);
-      yield put({ type: ALERTTYPES.CODE.SUCCESS, payload: { alertType, alertCode, data } });
-    } catch (err) {
-      yield put({ type: ALERTTYPES.CODE.ERROR, payload: { code: alertType, error: err } });
-    }
-  }
-
-  return null;
-}
 
 export function* bookingDetailsWatcher() {
   yield takeEvery(BOOKINGS.DETAILS.BASE, bookingDetailsSaga);
@@ -130,9 +80,9 @@ export function* searchSaga({ query, pagination, sortOrder }) {
   const apiServer = yield select(selectApi());
   try {
     const isOffAss = query === 'officerAssignments';
-    const bookingListFunction = isOffAss ? officerAssignments : bookings;
+    const bookingListFunction = isOffAss ? officerAssignments : searchOffenders;
     const res = yield call(bookingListFunction, token, query, pagination, apiServer);
-    yield put({ type: BOOKINGS.SEARCH.SUCCESS, payload: { query, pagination, sortOrder, results: res.inmatesSummaries, meta: { totalRecords: res.totalRecords } } });
+    yield put({ type: BOOKINGS.SEARCH.SUCCESS, payload: { query, pagination, sortOrder, results: res.bookings, meta: { totalRecords: res.totalRecords } } });
     return { inmatesSummaries: res.inmatesSummaries };
   } catch (err) {
     yield put({ type: BOOKINGS.SEARCH.ERROR, payload: { query, pagination, sortOrder, error: err } });
@@ -164,8 +114,6 @@ export function* bookingAlertsSaga(action) {
   try {
     const data = yield call(bookingAlerts, token, apiServer, bookingId, pagination);
     yield put({ type: BOOKINGS.ALERTS.SUCCESS, payload: { bookingId, pagination, results: data.alerts, meta: { totalRecords: data.totalRecords } } });
-    // Load all the alert details in the background.
-    //yield data.alerts.map((alert) => put(loadAlertTypeDetails(alert.alertType, alert.alertCode)));
     return { Type: 'SUCCESS' };
   } catch (err) {
     yield put({ type: BOOKINGS.ALERTS.ERROR, payload: { bookingId, error: err } });
@@ -293,29 +241,6 @@ export function* preloadData() {
   yield call(preloadCaseNoteTypes, token, apiServer);
 }
 
-// TODO: At later stage, review need for LOCATIONS store and this saga - remove entirely if no longer required
-export function* locationsSaga(token, apiServer) {
-  yield put({ type: LOCATIONS.LOADING });
-  try {
-    const res = yield call(locations, token, apiServer);
-
-    const locObject = res.reduce((acc, item) => {
-      acc[item.locationId] = { description: 'CCC-UNIT A',
-        locationId: 5471,
-        locationType: 'WING' };
-      return Object.assign(acc, { [item.locationId]: { description: item.description,
-        locationId: item.locationId,
-        locationType: item.locationType } });
-    }, {});
-
-    yield put({ type: LOCATIONS.SUCCESS, payload: { locations: locObject } });
-    return { locObject };
-  } catch (err) {
-    yield put({ type: LOCATIONS.ERROR, payload: { error: err } });
-    return { error: err };
-  }
-}
-
 export function* preloadAllCaseNoteSourcesTypesSubTypes(token, apiServer) {
   const items = yield call(loadAllCaseNoteFilterItems, token, apiServer);
   yield put({ type: ALLCASENOTESOURCETYPESUBTYPEDATA, payload: items });
@@ -411,7 +336,6 @@ export default [
   bookingDetailsWatcher,
   bookingAlertsWatch,
   bookingCaseNotesWatch,
-  alertTypeLoadWatcher,
   caseNoteTypeWatch,
   userCaseLoadsWatcher,
   userSwitchCaseLoadsWatcher,

@@ -219,7 +219,6 @@ export function* newSearch(action) {
 export function* searchSaga(action) {
   yield newSearch(action);
   yield put(push('/results'));
-
 }
 
 export function* addCasenoteWatcher() {

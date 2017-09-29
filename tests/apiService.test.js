@@ -47,6 +47,7 @@ describe('apiService', () => {
       },
       method: 'post',
       responseType: undefined,
+      data: undefined,
       url: '/users/me',
     });
   });

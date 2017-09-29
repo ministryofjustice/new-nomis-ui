@@ -9,33 +9,6 @@ export const login = (username, password, baseUrl) => axios({
   data: { username, password } })
   .then((response) => response.data);
 
-const searchQueryToString = (searchObj) => {
-  // HACK: searchObj is an immutable map if there's nothing inside it; otherwise a regular js object.
-  // could likely be fixed better!
-  if (searchObj.size === 0) {
-    return '';
-  }
-  return Object.keys(searchObj).filter((key) => searchObj[key]).map((key) => {
-    const value = searchObj[key];
-    switch (key) {
-      case 'firstName':
-        return `firstName:like:'${value}%'`;
-      case 'lastName':
-        return `lastName:like:'${value}%'`;
-      case 'offenderNo':
-        return `offenderNo:like:'%25${value}%'`;
-      case 'bookingNo':
-        return `bookingNo:like:'%25${value}%'`;
-      case 'locations':
-        if (value && value.length > 0) {
-          return `assignedLivingUnitId:in:${value.join('|')}`;
-        }
-        return 'strip';
-      default:
-        return `${key}:eq:${value}`;
-    }
-  }).filter((x) => x !== 'strip').join(',and:');
-};
 
 export const officerAssignments = (token, _, pagination, baseUrl) => axios({
   baseURL: baseUrl,
@@ -46,7 +19,7 @@ export const officerAssignments = (token, _, pagination, baseUrl) => axios({
   },
   url: '/users/me/bookingAssignments' })
     .then((response) => ({
-      inmatesSummaries: response.data,
+      bookings: response.data,
       totalRecords: parseInt(response.headers['total-records']),
     })
   );
@@ -233,7 +206,7 @@ export const loadSomeCaseNoteSubTypes = (token, baseUrl, offset, type) => axios(
   },
   url: `reference-domains/caseNoteSubTypes/${type}` });
 
-export const loadSomeUserCaseNoteTypes = (token, baseUrl, offset) => axios({
+export const loadSomeUserCaseNoteTypes = (token, baseUrl) => axios({
   baseURL: baseUrl,
   method: 'get',
   url: 'users/me/caseNoteTypes?includeSubTypes=true' });

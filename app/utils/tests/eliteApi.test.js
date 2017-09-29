@@ -1,7 +1,6 @@
 import { CaseNoteTypeMapper } from '../eliteApi';
 
 describe('eliteApi', () => {
-
   it('loadAllUserCaseNoteTypes', () => {
     const data = [{
       domain: 'TASK_TYPE',
@@ -15,14 +14,13 @@ describe('eliteApi', () => {
         activeFlag: 'Y',
       },
       ],
-    }, 
+    },
     ];
 
     const result = CaseNoteTypeMapper(data);
     expect(result).toEqual({
       types: [{ code: 'ACP', description: 'Accredited Programme' }],
-      subTypes: [{ code: 'ACP', description: 'Assessment' , parentCode: 'ACP' }],
+      subTypes: [{ code: 'ACP', description: 'Assessment', parentCode: 'ACP' }],
     })
   })
 });
-
