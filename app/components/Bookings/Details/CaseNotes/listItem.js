@@ -101,15 +101,13 @@ function CaseNoteListItem(props) {
             <span className="col-md-12">
               <FormattedDate value={Date.parse(occurrenceDateTime)} />
             </span>
-
+            <Separator className="hidden-md hidden-lg hidden-lx"> </Separator>
             <span className="col-md-12">
               <FormattedTime value={occurrenceDateTime} />
             </span>
           </Bold>
 
-          <Separator className="hidden-md hidden-lg hidden-lx">
-           -
-         </Separator>
+          <Separator className="hidden-md hidden-lg hidden-lx"> </Separator>
 
           <EliteOfficerName username={authorUserId} className="col-md-12" />
         </Block>
