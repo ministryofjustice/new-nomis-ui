@@ -32,7 +32,7 @@ function HeaderMobile({ inmateData, onImageClick }) {
           <InformationBlock><span>ID: </span>{offenderNo}</InformationBlock>
           <InformationBlock><span>Key Worker: </span><officername><EliteOfficerName staffId={assignedOfficerId} /></officername></InformationBlock>
           <InformationBlock><span>Alerts: </span><AlertCodes>{alertsCodes.join(', ')}</AlertCodes></InformationBlock>
-          <InformationBlock><span>Location: </span>{assignedLivingUnit.description}</InformationBlock>
+          <InformationBlock><span>Location: </span>{assignedLivingUnit.description} - {assignedLivingUnit.agencyName}</InformationBlock>
         </InformationWrapper>
       </ContentWrapper>
       <AddCaseNoteButton>

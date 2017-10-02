@@ -40,6 +40,7 @@ app.use('/app/photo', jsonParser, controller.images);
 app.use('/app/keydates/:bookingId', controller.keyDates);
 
 app.use('/app',jsonParser, application.sessionHandler);
+app.use('/api', apiProxy);
 app.use('/health', apiProxy);
 app.use('/api/info', apiProxy);
 app.use('/api/swagger.json', apiProxy);

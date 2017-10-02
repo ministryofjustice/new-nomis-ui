@@ -23,9 +23,9 @@ const Table = ({ results, viewDetails, sortOrder, sortOrderChange }) => (
           (sortOrder === 'ASC' ? <ArrowUp sortOrderChange={sortOrderChange} /> : <ArrowDown sortOrderChange={sortOrderChange} />)
         }
         </th>
-        <th className="visible-md visible-lg"> Aliases</th>
-        <th className="visible-md visible-lg"> Date of birth</th>
         <th> ID </th>
+        <th className="visible-md visible-lg"> IEP</th>
+        <th className="visible-md visible-lg"> Age</th>
         <th> Location </th>
       </tr>
     </thead>
@@ -44,18 +44,11 @@ const Table = ({ results, viewDetails, sortOrder, sortOrderChange }) => (
               </a>
             </span>
           </td>
-          <td className="visible-md visible-lg">
-            {(row.aliases || []).map((name) =>
-              <div className="row" key={name + row}>
-                <span key={name}>
-                  <Name name={name} />
-                </span>
-              </div>)}
-          </td>
-          <td className="visible-md visible-lg">
-            <FormattedDate value={Date.parse(row.dateOfBirth)} />
-          </td>
           <td><span>{row.offenderNo}</span></td>
+          <td className="visible-md visible-lg">
+            <span>{row.iepLevel}</span>
+          </td>
+          <td className="visible-md visible-lg"><span>{row.age}</span></td>
           <td><span>{row.assignedLivingUnitDesc}</span></td>
         </tr>
     )}

@@ -44,11 +44,6 @@ const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
               <div>
                 {row.offenderNo}
               </div>
-
-              <div>
-                <FormattedDate value={Date.parse(row.dateOfBirth)} />
-              </div>
-
               <div>
                 {row.assignedLivingUnitDesc}
               </div>
