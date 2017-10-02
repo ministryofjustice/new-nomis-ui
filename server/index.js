@@ -33,7 +33,7 @@ app.use((req,res,next) => {
     }
   }
   next();
-})
+});
 
 app.use('/app/login',jsonParser, controller.login);
 app.use('/app/photo', jsonParser, controller.images);

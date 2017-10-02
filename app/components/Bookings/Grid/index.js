@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { FormattedDate } from 'react-intl';
 
 import EliteImage from 'containers/EliteContainers/Image';
 import Name from 'components/Name';
@@ -44,11 +43,6 @@ const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
               <div>
                 {row.offenderNo}
               </div>
-
-              <div>
-                <FormattedDate value={Date.parse(row.dateOfBirth)} />
-              </div>
-
               <div>
                 {row.assignedLivingUnitDesc}
               </div>
