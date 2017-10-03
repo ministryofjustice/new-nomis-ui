@@ -36,6 +36,9 @@ export const DGRowItem = styled.div`
   width: ${({ colWidth }) => responsiveCols(colWidth)};
   font-weight: bold;
   font-size: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 export const DGImageCaption = styled.div`
