@@ -50,7 +50,7 @@ const SentenceView = ({ startDate, additionalDaysAwarded, dtoReleaseDates, nonDt
 
       <div className="information-group">
         <KeyDatePair title="Start date" date={startDate} />
-        { (dtoReleaseDates || []).map(pair => <KeyDatePair title={pair.label} date={pair.value} />)}
+        { (dtoReleaseDates || []).map(pair => <KeyDatePair key={pair.label} title={pair.label} date={pair.value} />)}
         <KeyDatePair title=" Additional days awarded" text={additionalDaysAwarded} />
       </div>
       <div className="information-group">
@@ -74,7 +74,6 @@ class KeyDates extends Component {
     if (!viewModel) { return <div>Loading....</div> }
 
     const { iepLevel, daysSinceReview, sentence, other } = viewModel && viewModel.toJS();
-    const { crd, ped, led, hdcEligibilityDate } = other || {};
 
     return (
         <div className="key-dates">
@@ -103,13 +102,7 @@ class KeyDates extends Component {
               <div className="section">
 
                 <div className="information-group">
-                  <KeyDatePair title="CRD" text={crd} />
-                  <KeyDatePair title="PED" date={ped} />
-                </div>
-
-                <div className="information-group">
-                  <KeyDatePair title="LED" date={led} />
-                  <KeyDatePair title="HDC eligibility date" text={hdcEligibilityDate} />
+                  {other.dates.map(otherDate => <KeyDatePair key={otherDate.label} title={otherDate.label} date={otherDate.value} />)}
                 </div>
 
               </div>

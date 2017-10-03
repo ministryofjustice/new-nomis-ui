@@ -2,7 +2,7 @@ require('sinon');
 const chai = require('chai'),
   expect = chai.expect;
 
-const mapper = require('../server/view-model-mappers/sentenceKeyDates');
+const mapper = require('../server/view-model-mappers/sentenceKeyDates').sentence;
 
 describe('Sentence key dates viewModel mapper', () => {
   it('should display dto release dates in order of precedence when dto sentence rule applies ', () => {
@@ -76,7 +76,7 @@ describe('Sentence key dates viewModel mapper', () => {
 
     const sentence = mapper(data);
 
-    expect(sentence.nonDtoReleaseDate.label).to.equal(data.nonDtoReleaseDateType);
+    expect(sentence.nonDtoReleaseDate.label).to.equal('Automatic release date');
     expect(sentence.nonDtoReleaseDate.value).to.equal(data.nonDtoReleaseDate);
   });
 
