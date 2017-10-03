@@ -36,17 +36,24 @@ $person-details-background-colour: #F2F2F2;
         background: $person-details-background-colour;
 
         .person-details {
-          text-align: center;
           padding: 1em 0.5em;
 
           .person-name {
             white-space: nowrap;
+            overflow: hidden;
+            text-overflow: clip;
+          }
+
+          .ancillary-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: clip;
+            font-size: 14px;
           }
         }
 
         .grid-photo {
           height: 280px;
-          //border: none;
           cursor: pointer;
 
           img {
