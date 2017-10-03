@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import BookingsDetailsHeaderMobile from 'components/Bookings/Details/headerMobile';
+import BookingsDetailsHeader from 'components/Bookings/Details/header';
 
 import { selectHeaderDetail } from '../selectors';
 import { openAddCaseNoteModal, showLargePhoto } from '../actions';
@@ -13,7 +13,7 @@ class Header extends PureComponent { // eslint-disable-line react/prefer-statele
   render() {
     const { headerDetails, openAddCaseNote, showPhoto } = this.props;
     return (
-      <BookingsDetailsHeaderMobile
+      <BookingsDetailsHeader
         inmateData={headerDetails}
         openAddCaseNote={openAddCaseNote}
         onImageClick={showPhoto}

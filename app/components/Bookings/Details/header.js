@@ -14,9 +14,9 @@ import {
   AlertCodes,
   ContentWrapper,
   InformationWrapper,
-} from './headerMobile.theme';
+} from './header.theme';
 
-function HeaderMobile({ inmateData, onImageClick }) {
+function Header({ inmateData, onImageClick }) {
   const { firstName, lastName, offenderNo, facialImageId, alertsCodes, assignedLivingUnit, assignedOfficerId } = inmateData;
 
   const nameString = toFullName({ firstName, lastName });
@@ -42,9 +42,9 @@ function HeaderMobile({ inmateData, onImageClick }) {
   );
 }
 
-HeaderMobile.propTypes = {
+Header.propTypes = {
   inmateData: PropTypes.object.isRequired,
   onImageClick: PropTypes.func.isRequired,
 };
 
-export default HeaderMobile;
+export default Header;
