@@ -36,18 +36,20 @@ const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
             </div>
 
             <div className="person-details">
+
               <div className="person-name bold">
                 <Name lastName={row.lastName} firstName={row.firstName} />
               </div>
 
-              <div>
+              <div className="ancillary-text">
                 {row.offenderNo}
               </div>
-              <div>
+
+              <div className="ancillary-text">
                 {row.assignedLivingUnitDesc}
               </div>
-            </div>
 
+            </div>
           </div>
         </div>
       ))}
