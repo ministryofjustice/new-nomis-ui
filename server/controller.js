@@ -64,7 +64,8 @@ const keyDates = (req,res) => {
   }).then(response => new Promise(r => r({ iepSummary: response.data })));
 
   Promise.all([getSentenceData, getiepSummary]).then(response => {
-    const sentence = keyDatesMapper(response[0].sentence);
+    const sentence = keyDatesMapper.sentence(response[0].sentence);
+    const other = keyDatesMapper.otherDates(response[0].sentence);
     const iepSummary = response[1].iepSummary;
 
     res.setHeader('jwt', session.extendSession(req.headers));
@@ -72,7 +73,7 @@ const keyDates = (req,res) => {
       iepLevel: iepSummary.iepLevel,
       daysSinceReview: iepSummary.daysSinceReview,
       sentence,
-      other: null,
+      other,
     });
   }).catch(error => {
     res.status(errorStatusCode(error.response));
