@@ -37,6 +37,30 @@ const ErrorMessage = () => (<div>
   </div>
 </div>)
 
+
+const SentenceView = ({ startDate, additionalDaysAwarded, dtoReleaseDates, nonDtoReleaseDate, sentenceExpiryDates }) => {
+  const shouldShowNonDtoReleaseDate = nonDtoReleaseDate && nonDtoReleaseDate.label && nonDtoReleaseDate.value;
+
+  return (<div>
+    <b className="bold">
+      Sentence key dates
+    </b>
+
+    <div className="section">
+
+      <div className="information-group">
+        <KeyDatePair title="Start date" date={startDate} />
+        { (dtoReleaseDates || []).map(pair => <KeyDatePair title={pair.label} date={pair.value} />)}
+        <KeyDatePair title=" Additional days awarded" text={additionalDaysAwarded} />
+      </div>
+      <div className="information-group">
+        { (sentenceExpiryDates || []).map(pair => <KeyDatePair title={pair.label} date={pair.value} />)}
+        { shouldShowNonDtoReleaseDate && <KeyDatePair title={nonDtoReleaseDate.label} date={nonDtoReleaseDate.value} /> }
+      </div>
+    </div>
+  </div>)
+}
+
 class KeyDates extends Component {
   componentDidMount() {
     const { bookingId,loadContent } = this.props;
@@ -50,15 +74,12 @@ class KeyDates extends Component {
     if (!viewModel) { return <div>Loading....</div> }
 
     const { iepLevel, daysSinceReview, sentence, other } = viewModel && viewModel.toJS();
-    const { startDate, adjudicationDaysAdded,endDate,daysRemaining } = sentence;
     const { crd, ped, led, hdcEligibilityDate } = other || {};
 
     return (
         <div className="key-dates">
 
-
-          { iepLevel && daysSinceReview &&
-          (<div>
+         <div>
             <b className="bold">
               Incentives and earned privileges
             </b>
@@ -69,28 +90,9 @@ class KeyDates extends Component {
                 <KeyDatePair title="Days since review" text={daysSinceReview} />
               </div>
             </div>
-          </div>)
-          }
+          </div>
 
-          { sentence && (
-            <div>
-              <b className="bold">
-                Sentence key dates
-              </b>
-
-              <div className="section">
-
-                <div className="information-group">
-                  <KeyDatePair title="Start date" date={startDate} />
-                  <KeyDatePair title=" Adjudication days added" text={adjudicationDaysAdded} />
-                </div>
-                <div className="information-group">
-                  <KeyDatePair title="End date" date={endDate} />
-                  <KeyDatePair title="Days remaining" text={daysRemaining} />
-                </div>
-              </div>
-            </div>
-          )}
+          { sentence && <SentenceView {...sentence} /> }
 
           { other && (
             <div>

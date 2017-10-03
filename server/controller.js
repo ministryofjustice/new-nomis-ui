@@ -2,6 +2,8 @@ const apiService = require('./apiService'),
   errorStatusCode = apiService.errorStatusCode;
 const session = require('./session');
 
+const keyDatesMapper = require('./view-model-mappers/sentenceKeyDates');
+
 const login = (req, res) => {
   apiService.httpRequest({
     method: 'post',
@@ -62,19 +64,14 @@ const keyDates = (req,res) => {
   }).then(response => new Promise(r => r({ iepSummary: response.data })));
 
   Promise.all([getSentenceData, getiepSummary]).then(response => {
-    const sentence = response[0].sentence;
+    const sentence = keyDatesMapper(response[0].sentence);
     const iepSummary = response[1].iepSummary;
 
     res.setHeader('jwt', session.extendSession(req.headers));
     res.json({
       iepLevel: iepSummary.iepLevel,
       daysSinceReview: iepSummary.daysSinceReview,
-      sentence: {
-        startDate: sentence.sentenceStartDate,
-        adjudicationDaysAdded: sentence.additionalDaysAwarded,
-        endDate: sentence.sentenceExpiryDate,
-        daysRemaining: sentence.daysRemaining,
-      },
+      sentence,
       other: null,
     });
   }).catch(error => {
