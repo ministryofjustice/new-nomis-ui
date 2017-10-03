@@ -29,7 +29,7 @@ const otherDates = (data) => Object.assign({}, {
   ]),
 });
 
-const sentence =  (data) => {
+const sentence = (data) => {
   const isDto = () => !!data.earlyTermDate || !!data.midTermDate || !!data.lateTermDate;
   const isNonDto = () => !!data.nonDtoReleaseDate;
 
@@ -38,13 +38,13 @@ const sentence =  (data) => {
       startDate: data.sentenceStartDate,
       additionalDaysAwarded: data.additionalDaysAwarded,
       dtoReleaseDates: removeBlankEntries([
-        labelValue({label: 'Early term date', value: data.earlyTermDate}),
-        labelValue({label: 'Mid term date', value: data.midTermDate}),
-        labelValue({label: 'Late term date', value: data.lateTermDate}),
+        labelValue({ label: 'Early term date', value: data.earlyTermDate }),
+        labelValue({ label: 'Mid term date', value: data.midTermDate }),
+        labelValue({ label: 'Late term date', value: data.lateTermDate }),
       ]),
       nonDtoReleaseDate: isNonDto() && labelValue({
         label: longName(data.nonDtoReleaseDateType),
-        value: data.nonDtoReleaseDate
+        value: data.nonDtoReleaseDate,
       }),
       sentenceExpiryDates: removeBlankEntries([
         isDto() && labelValue({
