@@ -17,9 +17,11 @@ import './index.scss';
 
 const KeyDatePair = ({ title, text, date }) => (
   <div className="information">
-  <label>
-    {title}
-   </label>
+    { (text || date) && (
+      <label>
+        {title}
+      </label>
+    ) }
   <span>
     { text && <b>{text}</b> }
     { date &&
@@ -40,6 +42,13 @@ const ErrorMessage = () => (<div>
 
 const SentenceView = ({ startDate, additionalDaysAwarded, dtoReleaseDates, nonDtoReleaseDate, sentenceExpiryDates }) => {
   const shouldShowNonDtoReleaseDate = nonDtoReleaseDate && nonDtoReleaseDate.label && nonDtoReleaseDate.value;
+
+  if (
+    !startDate &&
+    !additionalDaysAwarded &&
+    !nonDtoReleaseDate) {
+    return <div></div>
+  }
 
   return (<div>
     <b className="bold">
@@ -74,6 +83,7 @@ class KeyDates extends Component {
     if (!viewModel) { return <div>Loading....</div> }
 
     const { iepLevel, daysSinceReview, sentence, other } = viewModel && viewModel.toJS();
+    const shouldShowOtherDates = other && other.dates && other.dates.length > 0;
 
     return (
         <div className="key-dates">
@@ -93,7 +103,7 @@ class KeyDates extends Component {
 
           { sentence && <SentenceView {...sentence} /> }
 
-          { other && (
+          { shouldShowOtherDates && (
             <div>
               <b className="bold">
                 Other dates
