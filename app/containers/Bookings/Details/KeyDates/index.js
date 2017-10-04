@@ -95,8 +95,25 @@ class KeyDates extends Component {
 
             <div className="section">
               <div className="information-group">
-                <KeyDatePair title="IEP Level" text={iepLevel} />
-                <KeyDatePair title="Days since review" text={daysSinceReview} />
+
+                <div className="information">
+                  <label>
+                      IEP Level
+                  </label>
+                  <span>
+                    {iepLevel}
+                  </span>
+                </div>
+
+                <div className="information">
+                  <label>
+                    Days since review
+                  </label>
+                  <span>
+                    {daysSinceReview}
+                  </span>
+                </div>
+
               </div>
             </div>
           </div>
