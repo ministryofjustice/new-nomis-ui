@@ -16,7 +16,7 @@ function DgRow({ title, value: v, values, imageId, imageIndex, columnWidths, onI
   let rowVals = null;
   let value = v;
   if (!value && !values && !imageId) value = '—';
-  if (!imageId) {
+  if (value && !imageId) {
     rowVals = <DGRowItem colWidth={columnWidths[1]}>{value}</DGRowItem>;
   } else if (values) {
     rowVals = values.map((obj, index) => {
