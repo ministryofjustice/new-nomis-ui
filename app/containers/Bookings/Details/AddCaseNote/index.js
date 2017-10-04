@@ -115,7 +115,7 @@ const validate = (stuff) => {
   const errors = {};
 
   if (!!caseNoteText && caseNoteText.length > 4000) {
-    errors.caseNoteText = 'Maximum length should not exceed 500 characters';
+    errors.caseNoteText = 'Maximum length should not exceed 4000 characters';
   }
 
   if (!typeValue) {
