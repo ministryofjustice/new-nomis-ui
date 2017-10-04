@@ -2,7 +2,7 @@ const apiService = require('./apiService'),
   errorStatusCode = apiService.errorStatusCode;
 const session = require('./session');
 
-const keyDatesMapper = require('./view-model-mappers/sentenceKeyDates');
+const keyDatesMapper = require('./view-model-mappers/keydates');
 
 const login = (req, res) => {
   apiService.httpRequest({
