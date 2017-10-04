@@ -259,28 +259,6 @@ export function* preloadCaseNoteTypes(token, apiServer) {
   }
 }
 
-export function* caseNoteTypeWatch() {
-  yield takeEvery(CASENOTETYPES.BASE, caseNoteTypeLoadSaga);
-}
-
-export function* caseNoteTypeLoadSaga(action) {
-  const { source } = action.payload;
-  if (!source) {
-    // nothing to load here...
-    return null;
-  }
-
-  const token = yield getToken();
-  const apiServer = yield select(selectApi());
-
-  if (!token || !apiServer) {
-    return 'fail';
-  }
-  // yield call(preloadCaseNoteType, source, token, apiServer);
-  return null;
-}
-
-
 export function* userCaseLoadsWatcher() {
   yield takeLatest(USER.CASELOADS.BASE, userCaseLoadsSaga);
 }
@@ -288,9 +266,6 @@ export function* userCaseLoadsWatcher() {
 export function* userCaseLoadsSaga() {
   const token = yield getToken();
   const apiServer = yield select(selectApi());
-  if (!token || !apiServer) {
-    return 'fail';
-  }
 
   try {
     const caseloads = yield call(users.caseLoads, token, apiServer);
@@ -309,9 +284,6 @@ export function* userSwitchCaseLoadsSaga(action) {
   const token = yield getToken();
   const apiServer = yield select(selectApi());
   const { caseLoadId } = action.payload;
-  if (!caseLoadId || !token || !apiServer) {
-    return 'fail';
-  }
 
   try {
     yield call(users.switchCaseLoads, token, apiServer, caseLoadId);
@@ -336,7 +308,6 @@ export default [
   bookingDetailsWatcher,
   bookingAlertsWatch,
   bookingCaseNotesWatch,
-  caseNoteTypeWatch,
   userCaseLoadsWatcher,
   userSwitchCaseLoadsWatcher,
 ];
