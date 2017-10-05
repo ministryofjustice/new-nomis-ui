@@ -53,12 +53,13 @@ const selectAssignmentSortResults = () => createSelector(
 const selectAssignmentsPaginationStatus = () => createSelector(
   selectAssignmentSortResults(),
   selectAssignmentsPagination(),
-  (assignmentsSortedState, pagination) => assignmentsSortedState.getIn(['Paginations', paginationHash(pagination), 'Status', 'Type'])
+  (assignmentsSortedState, pagination) =>
+      assignmentsSortedState && assignmentsSortedState.getIn(['Paginations', paginationHash(pagination), 'Status', 'Type'])
 );
 
 const selectAssignmentSortedIds = () => createSelector(
     selectAssignmentSortResults(),
-    (sortState) => sortState.get('SortedIds')
+    (sortState) => sortState && sortState.get('SortedIds')
 );
 
 const selectAssignmentsResults = () => createSelector(

@@ -14,7 +14,7 @@ import { AssignmentsHeaderWrapper,
 
 
 function AssignmentsHeader({ user, options, resultsViewToggle }) {
-  return (
+  return user && (
     <AssignmentsHeaderWrapper>
       <PortraitImage background={'/img/assignmentsHeader-missing-portrait.png'} />
       <UserName>{toFullName(user)}</UserName>
