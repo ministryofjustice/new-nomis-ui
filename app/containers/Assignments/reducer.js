@@ -6,6 +6,10 @@ import {
   SET_ASSIGNMENTS_VIEW,
 } from './constants';
 
+import {
+  LOGOUT_SUCCESS,
+} from '../Authentication/constants';
+
 
 const initialState = Map({
   pagination: Map({ perPage: 10, pageNumber: 0 }),
@@ -15,6 +19,13 @@ const initialState = Map({
 
 function searchReducer(state = initialState, action) {
   switch (action.type) {
+
+    case LOGOUT_SUCCESS: {
+      return state
+        .set('pagination',Map({ perPage: 10, pageNumber: 0 }))
+        .set('view', 'List')
+        .set('sortOrder','ASC')
+    }
 
     case SET_ASSIGNMENTS_PAGINATION: {
       return state.set('pagination', fromJS(action.payload));
