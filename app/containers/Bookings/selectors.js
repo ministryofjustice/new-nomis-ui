@@ -216,32 +216,20 @@ const selectPhysicalAttributes = () => createSelector(
   (bookingDetails) => {
     const pcs = bookingDetails.getIn(['Data', 'physicalCharacteristics']).toJS();
     const modalGridArray = [];
-    let imageIndex = 0;
 
     const characteristicGrid = pcs.map((char, index) => {
-      const { characteristic: title, imageId, detail: value } = char;
-
-      if (imageId) {
-        const modalGridObject = { array: [], index: imageIndex };
-        modalGridObject.array = [{ title, value, key: `${value}${index}` },
-          { title: '', imageId, imageIndex, key: `${imageId}${index}` },
-        ];
-        modalGridObject.imageId = imageId;
-        imageIndex += 1;
-        modalGridArray.push(modalGridObject);
-      }
+      const { characteristic: title, detail: value } = char;
 
       return {
         key: `${char.characteristic}${index}`,
         title,
         value,
-        imageId,
-        imageIndex: imageIndex - 1,
       };
     });
 
     return { characteristicGrid, modalGridArray };
-  });
+  }
+);
 
 const selectPhysicalMarks = () => createSelector(
   selectBookingDetail(),
