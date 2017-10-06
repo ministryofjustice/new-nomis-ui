@@ -44,7 +44,6 @@ class PhysicalAttributes extends PureComponent { // eslint-disable-line react/pr
         onImageClick={this.props.showVisualMarkingsPhoto}
       />
       {marksArray}
-      {/* <DataGrid gridData={AliasTable} /> */}
     </div>);
   }
 }
@@ -55,11 +54,6 @@ PhysicalAttributes.propTypes = {
   setModalOpen: PropTypes.func.isRequired,
   setModalData: PropTypes.func.isRequired,
 };
-
-// const mapDispatchToProps = {
-//   setModalOpen,
-//   setModalData,
-// };
 
 export function mapDispatchToProps(dispatch) {
   return {
@@ -72,7 +66,6 @@ export function mapDispatchToProps(dispatch) {
 const mapStateToProps = createStructuredSelector({
   physicalAttributes: selectPhysicalAttributes(),
   physicalMarks: selectPhysicalMarks(),
-  // activeTabId: selectCurrentDetailTabId(),
 });
 
 // Wrap the component to inject dispatch and state into it
