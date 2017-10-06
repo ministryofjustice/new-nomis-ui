@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedDate, FormattedTime } from 'react-intl';
 
-import EliteOfficerName from 'containers/EliteContainers/OfficerName';
 import AmendCaseNoteModal from 'containers/Bookings/Details/CaseNotes/AmendCaseNoteModal';
 
 import {
@@ -23,10 +22,10 @@ import {
   TypeDescriptionBlock,
 } from './sharedCaseNoteComponents';
 
-const AmendmentBlock = ({ dateTime, userId, text }) => (<Amendment>
+const AmendmentBlock = ({ dateTime, authorName, text }) => (<Amendment>
   <AmendmentTitle>{text}</AmendmentTitle>
   <AmendmentHeader>
-    <EliteOfficerName username={userId} />
+    {authorName}
   </AmendmentHeader>
   <AmendmentText>
     <FormattedDate value={Date.parse(dateTime)} /> <FormattedTime value={Date.parse(dateTime)} />
@@ -35,16 +34,16 @@ const AmendmentBlock = ({ dateTime, userId, text }) => (<Amendment>
 
 AmendmentBlock.propTypes = {
   dateTime: PropTypes.string.isRequired,
-  userId: PropTypes.string.isRequired,
+  authorName: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
 };
 
 function CaseNoteDetails(props) {
   const { viewList, openAmendModal, displayAmendCaseNoteModal } = props;
-  const { authorUserId, occurrenceDateTime, subTypeDescription, typeDescription, splitInfo } = props.caseNote.toJS(); // amendments
-  let amendments = null;
-  if (splitInfo.amendments && splitInfo.amendments.length > 0) {
-    amendments = splitInfo.amendments.map((am) => <AmendmentBlock dateTime={am.dateTime} key={am.key} userId={am.userId} text={am.text} />);
+  const { authorName, originalNoteText, occurrenceDateTime, subTypeDescription, typeDescription, amendments } = props.caseNote.toJS(); // amendments
+  let amendmentList = null;
+  if (amendments && amendments.length > 0) {
+    amendmentList = amendments.map((am) => <AmendmentBlock data-name={'AmendmentBlock'} dateTime={am.creationDateTime} authorName={am.authorName} text={am.additionalNoteText} />);
   }
   return (
     <div>
@@ -58,12 +57,12 @@ function CaseNoteDetails(props) {
         <CaseNoteDetailsRight>
           <div>
             <TypeDescriptionBlock typeDetails={{ typeDescription, subTypeDescription }} />
-            <CaseNoteText>{splitInfo.caseNote}</CaseNoteText>
+            <CaseNoteText>{originalNoteText}</CaseNoteText>
           </div>
           <RightHeader>
-            <EliteOfficerName username={authorUserId} />
+            {authorName}
           </RightHeader>
-          {amendments}
+          {amendmentList}
         </CaseNoteDetailsRight>
       </CaseNoteDetailsWrapper>
     </div>

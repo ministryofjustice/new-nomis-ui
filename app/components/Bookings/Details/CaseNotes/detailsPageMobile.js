@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import EliteOfficerName from 'containers/EliteContainers/OfficerName';
 import { FormattedDate, FormattedTime } from 'react-intl';
 
 import {
@@ -21,9 +20,9 @@ import {
   TypeDescriptionBlock,
 } from './sharedCaseNoteComponents';
 
-const AmendmentBlock = ({ dateTime, userId, text }) => (<Amendment data-name={'Amendment'}>
+const AmendmentBlock = ({ dateTime, authorName, text }) => (<Amendment data-name={'Amendment'}>
   <AmendmentTitle>{text}</AmendmentTitle>
-  <AmendmentText><EliteOfficerName username={userId} /></AmendmentText>
+  <AmendmentText>{authorName}</AmendmentText>
   <AmendmentText>
     <FormattedDate value={Date.parse(dateTime)} /> <FormattedTime value={Date.parse(dateTime)} />
   </AmendmentText>
@@ -31,16 +30,16 @@ const AmendmentBlock = ({ dateTime, userId, text }) => (<Amendment data-name={'A
 
 AmendmentBlock.propTypes = {
   dateTime: PropTypes.string.isRequired,
-  userId: PropTypes.string.isRequired,
+  authorName: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
 };
 
 function CaseNoteDetailsMobile(props) {
   const { viewList } = props;
-  const { authorUserId, occurrenceDateTime, subTypeDescription, typeDescription, splitInfo } = props.caseNote.toJS(); // amendments
-  let amendments = null;
-  if (splitInfo.amendments && splitInfo.amendments.length > 0) {
-    amendments = splitInfo.amendments.map((am) => <AmendmentBlock data-name={'AmendmentBlock'} dateTime={am.dateTime} key={am.key} userId={am.userId} text={am.text} />);
+  const { authorName, originalNoteText, occurrenceDateTime, subTypeDescription, typeDescription, amendments } = props.caseNote.toJS(); // amendments
+  let amendmentList = null;
+  if (amendments && amendments.length > 0) {
+    amendmentList = amendments.map((am) => <AmendmentBlock data-name={'AmendmentBlock'} dateTime={am.creationDateTime} authorName={am.authorName} text={am.additionalNoteText} />);
   }
   return (
     <div>
@@ -52,9 +51,9 @@ function CaseNoteDetailsMobile(props) {
           <DateTimeBlock data-name={'DateTimeBlock'} dateTime={occurrenceDateTime} />
         </DateTimeBlockWrapper>
         <TypeDescriptionBlock style={{ fontSize: '30px' }} data-name={'TypeDescriptionBlock'} typeDetails={{ typeDescription, subTypeDescription }} />
-        <CaseNoteText data-name={'CaseNoteText'}>{splitInfo.caseNote}</CaseNoteText>
-        <CaseNoteIdBlock data-name={'CaseNoteIdBlock'}><EliteOfficerName username={authorUserId} /></CaseNoteIdBlock>
-        {amendments}
+        <CaseNoteText data-name={'CaseNoteText'}>{originalNoteText}</CaseNoteText>
+        <CaseNoteIdBlock data-name={'CaseNoteIdBlock'}>{authorName}</CaseNoteIdBlock>
+        {amendmentList}
         <ButtonWrapper>
           <NavButton buttonstyle="link" onClick={viewList}>Return to case notes</NavButton>
         </ButtonWrapper>
