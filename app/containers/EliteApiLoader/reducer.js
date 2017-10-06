@@ -12,8 +12,6 @@
 
 import { fromJS, Map, Set, List } from 'immutable';
 
-import splitCaseNoteText from './splitCasenoteText';
-
 import { queryHash, paginationHash, originalId } from './helpers';
 
 import {
@@ -241,7 +239,7 @@ function EliteApiReducer(state = initialState, action) {
         .setIn(['Bookings', 'Details', bookingId, 'CaseNotes', 'Query', queryHash(query), 'MetaData', 'TotalRecords'], meta.totalRecords)
         .updateIn(['Bookings', 'Details', bookingId, 'CaseNotes', 'Query', queryHash(query), 'Paginations', paginationHash(pagination)],
           (pag) => pag.setIn(['Status', 'Type'], 'SUCCESS')
-                      .set('items', fromJS(results.map((caseNote) => ({ ...caseNote, splitInfo: splitCaseNoteText(caseNote.text) })))));
+                      .set('items', fromJS(results.map((caseNote) => ({ ...caseNote })))));
     }
 
     case LOCATIONS.LOADING: {

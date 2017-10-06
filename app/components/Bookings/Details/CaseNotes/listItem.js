@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import EliteOfficerName from 'containers/EliteContainers/OfficerName';
 import styled from 'styled-components';
 import { FormattedDate, FormattedTime } from 'react-intl';
 
@@ -50,47 +49,46 @@ const AmendmentBox = styled.div`
    padding-bottom: 1em;
 `;
 
-function AmendmentBlock({ amendments }) {
-  if (!amendments) return <div></div>;
-
+function AmendmentBlock({ amendment }) {
   return (
     <div>
-      {amendments.map((amendment) =>
-        <AmendmentBox key={amendment.key}>
-
+        <AmendmentBox>
           <div>
-
             <Bold>
               <div>
                   Amendment
               </div>
-              <FormattedDate value={Date.parse(amendment.dateTime)} /> <FormattedTime value={amendment.dateTime} />
+              <FormattedDate value={Date.parse(amendment.creationDateTime)} /> <FormattedTime value={amendment.creationDateTime} />
             </Bold>
 
             <Separator>
               -
             </Separator>
 
-            <EliteOfficerName username={amendment.userId} />
+            {amendment.authorName}
           </div>
 
           <div>
-            {amendment.stub}
+            {amendment.additionalNoteText}
           </div>
 
         </AmendmentBox>
-        )}
     </div>
   );
 }
 
 AmendmentBlock.propTypes = {
-  amendments: PropTypes.array.isRequired,
+  amendment: PropTypes.array.isRequired,
 };
 
 function CaseNoteListItem(props) {
   const { action } = props;
-  const { authorUserId, occurrenceDateTime, subTypeDescription, typeDescription, splitInfo } = props.caseNote.toJS(); // amendments
+  const { authorName, originalNoteText, amendments, occurrenceDateTime, subTypeDescription, typeDescription } = props.caseNote.toJS(); // amendments
+
+  let amendmentList = null;
+  if (amendments && amendments.length > 0) {
+    amendmentList = amendments.map((am) => <AmendmentBlock amendment={am} />);
+  }
 
   return (
     <Wrapper>
@@ -108,8 +106,7 @@ function CaseNoteListItem(props) {
           </Bold>
 
           <Separator className="hidden-md hidden-lg hidden-lx"> </Separator>
-
-          <EliteOfficerName username={authorUserId} className="col-md-12" />
+          <span className="col-md-12">{authorName}</span>
         </Block>
 
         <div className="col-xs-12 col-md-10">
@@ -120,9 +117,9 @@ function CaseNoteListItem(props) {
           </Block>
 
           <Block>
-            {splitInfo.stub}
+            {originalNoteText}
             <div>
-              {splitInfo.amendments ? AmendmentBlock({ amendments: splitInfo.amendments }) : null}
+              {amendmentList}
             </div>
           </Block>
         </div>
