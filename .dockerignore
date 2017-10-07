@@ -14,3 +14,10 @@ docs/
 promote-from-mock-to-stage.sh
 docker-compose.yml
 kudu-deploy.sh
+promote-from-*
+Users
+scss-report.txt
+tests
+eslint-report.html
+test-report.html
+bin
