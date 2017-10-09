@@ -203,6 +203,11 @@ const selectUserCaseLoads = () => createSelector(
   }
 );
 
+const selectLoadingBookingDetailsStatus = () => createSelector(
+   selectEliteApi(),
+  (state) => state.getIn(['Bookings','Details','LoadingStatus'])
+)
+
 export {
   selectEliteApi,
   selectBookingResultStatus,
@@ -224,4 +229,5 @@ export {
   selectCaseNoteTypes,
   selectCaseNoteTypesSelect,
   selectUserCaseLoads,
+  selectLoadingBookingDetailsStatus,
 };

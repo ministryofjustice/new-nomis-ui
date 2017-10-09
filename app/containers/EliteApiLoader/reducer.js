@@ -154,20 +154,35 @@ function EliteApiReducer(state = initialState, action) {
     case BOOKINGS.SEARCH.ERROR: {
       // Assuming that bookings search loading has already been called.
       const { query, pagination, sortOrder, error } = action.payload;
-      return state.updateIn(['Bookings', 'Search', queryHash(query), 'Sorted', sortOrder, pagination], (sortPageState) => sortPageState.set(['Status'], fromJS({ Type: 'ERROR', error })));
+      return state.updateIn(['Bookings', 'Search', queryHash(query), 'Sorted', sortOrder, pagination], (sortPageState) => sortPageState.set(['Status'], fromJS({ Type: 'ERROR', error })))
+        .setIn(['Bookings', 'Details','LoadingStatus'], fromJS({ Type: null }));
     }
 
     case BOOKINGS.DETAILS.LOADING: {
-      return state.setIn(['Bookings', 'Details', action.payload.bookingId], fromJS({ Status: { Type: 'LOADING' }, Data: {}, Alerts: {} }));
+      return state
+        .setIn(['Bookings', 'Details', action.payload.bookingId], fromJS({ Status: { Type: 'LOADING' }, Data: {}, Alerts: {} }))
+        .setIn(['Bookings', 'Details','LoadingStatus'], { Type: 'LOADING' });
     }
 
     case BOOKINGS.DETAILS.SUCCESS: {
-      return state.updateIn(['Bookings', 'Details', action.payload.bookingId], (bookingDetails) => bookingDetails.setIn(['Status', 'Type'], 'SUCCESS').set('Data', fromJS(action.payload)));
+      const key = ['Bookings', 'Details', action.payload.bookingId];
+
+      return state.updateIn(key, (bookingDetails) =>
+        bookingDetails.setIn(['Status', 'Type'], 'SUCCESS')
+        .set('Data', fromJS(action.payload)))
+        .setIn(['Bookings', 'Details','LoadingStatus'], { Type: null });
     }
 
     case BOOKINGS.DETAILS.ERROR: {
-      return state;
+      const { error } = action.payload;
+
+      const key = ['Bookings', 'Details', action.payload.bookingId];
+
+      return state
+        .deleteIn(key)
+        .setIn(['Bookings','Details','LoadingStatus'], { Type: 'ERROR', error });
     }
+
     case BOOKINGS.ALERTS.LOADING: {
       const { bookingId, pagination } = action.payload;
       let AlertsState = state.getIn(['Bookings', 'Details', bookingId, 'Alerts']);

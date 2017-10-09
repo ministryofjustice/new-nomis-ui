@@ -9,7 +9,7 @@ import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMe
 import { connect } from 'react-redux';
 import ResultsViewToggle from 'components/ResultsViewToggle';
 import { setSearchContext } from 'globalReducers/app';
-
+import HandleBookingLoadingStatus from 'components/Bookings/HandleBookingLoadingStatus';
 import SearchAgainForm from './SearchForm';
 import './index.scss';
 
@@ -21,6 +21,10 @@ import {
   selectLocations,
   selectSearchResultsSortOrder,
 } from '../selectors';
+
+import {
+  selectLoadingBookingDetailsStatus,
+} from '../../EliteApiLoader/selectors';
 
 import {
   viewDetails as vD,
@@ -43,7 +47,8 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
   }
 
   render() {
-    const {locations, sortOrder,toggleSortOrder,viewDetails,results, totalResults, pagination, setPage, resultsView, setResultsView } = this.props; //eslint-disable-line
+    const {
+      locations, sortOrder, toggleSortOrder, viewDetails, results, totalResults, pagination, setPage, resultsView, setResultsView, loadingStatus} = this.props; //eslint-disable-line
     const { perPage: pP, pageNumber: pN } = pagination;
 
     return (
@@ -57,36 +62,37 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
           <SearchAgainForm locations={locations} />
         </div>
 
-        <div className="row toggle-and-count-view">
-          {totalResults > 0 ?
-            <div>
-              <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />
-              <div>{Math.min((pP * pN) + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults} results</div>
-            </div>
-             : null}
-        </div>
+        <HandleBookingLoadingStatus {...this.props} >
 
-        <div className="row">
+          <div className="row toggle-and-count-view">
+            {totalResults > 0 ?
+              <div>
+                <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />
+                <div>{Math.min((pP * pN) + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults} results</div>
+              </div>
+               : null}
+          </div>
 
-          <NoSearchResultsReturnedMessage resultCount={results.length} />
+          <div className="row">
 
-          {totalResults > 0 ?
-            <ResultsViewBuilder
-              viewName={resultsView}
-              results={results}
-              onViewDetails={viewDetails}
-              sortOrderChange={toggleSortOrder}
-              sortOrder={sortOrder}
-            />
-            : null
-          }
+            <NoSearchResultsReturnedMessage resultCount={results.length} />
 
-        </div>
+            {totalResults > 0 &&
+              <ResultsViewBuilder
+                viewName={resultsView}
+                results={results}
+                onViewDetails={viewDetails}
+                sortOrderChange={toggleSortOrder}
+                sortOrder={sortOrder}
+              />
+            }
+          </div>
 
-        <div className="row">
-          <PreviousNextNavigation pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />
-        </div>
+          <div className="row">
+            <PreviousNextNavigation pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />
+          </div>
 
+        </HandleBookingLoadingStatus>
       </div>
     );
   }
@@ -130,6 +136,7 @@ const mapStateToProps = createStructuredSelector({
   resultsView: selectResultsView(),
   locations: selectLocations(),
   sortOrder: selectSearchResultsSortOrder(),
+  loadingStatus: selectLoadingBookingDetailsStatus(),
 });
 
 // Wrap the component to inject dispatch and state into it

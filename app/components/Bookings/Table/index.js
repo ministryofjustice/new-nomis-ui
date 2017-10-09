@@ -38,9 +38,9 @@ const Table = ({ results, viewDetails, sortOrder, sortOrderChange }) => (
           </td>
           <td>
             <span>
-              <a href="#" className="bold link" onClick={(e) => onViewDetails(e, row, viewDetails)}>
+              <div role="link" className="bold link" onClick={(e) => onViewDetails(e, row, viewDetails)}>
                 <Name lastName={row.lastName} firstName={row.firstName} />
-              </a>
+              </div>
             </span>
           </td>
           <td><span>{row.offenderNo}</span></td>
