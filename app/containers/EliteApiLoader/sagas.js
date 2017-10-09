@@ -49,7 +49,6 @@ export function* bookingDetailsSaga(action) {
   const allDetails = yield select(selectBookingDetails());
   const currentStatus = allDetails.getIn([bookingId, 'Status', 'Type']);
 
-  // If already loaded/loading get outta here.
   if (currentStatus === 'SUCCESS' || currentStatus === 'LOADING') {
     return { Type: currentStatus };
   }
@@ -64,7 +63,7 @@ export function* bookingDetailsSaga(action) {
     yield put({ type: BOOKINGS.DETAILS.SUCCESS, payload: { ...data, aliases } });
     return { Type: 'SUCCESS' };
   } catch (err) {
-    yield put({ type: BOOKINGS.DETAILS.ERROR, payload: { bookingId, error: err } });
+    yield put({ type: BOOKINGS.DETAILS.ERROR, payload: { bookingId, error: 'Something went wrong.' } });
     return { Type: 'ERROR', Error: err };
   }
 }

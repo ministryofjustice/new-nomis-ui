@@ -13,6 +13,8 @@ import AssignmentsHeaderMobile from 'components/AssignmentsHeader/mobile';
 import { setSearchContext } from 'globalReducers/app';
 import BookingTable from 'components/Bookings/Table';
 import BookingGrid from 'components/Bookings/Grid';
+import HandleBookingLoadingStatus from 'components/Bookings/HandleBookingLoadingStatus';
+
 
 import { selectUser } from '../Authentication/selectors';
 
@@ -30,6 +32,14 @@ import {
   selectAssignmentsSortOrder,
 } from './selectors';
 
+import {
+  selectLoadingBookingDetailsStatus,
+} from '../EliteApiLoader/selectors';
+
+const Results = ({ resultsView, results, viewDetails }) => resultsView === 'List' ?
+    <BookingTable viewName={resultsView} results={results} viewDetails={viewDetails} />
+    :
+    <BookingGrid viewName={resultsView} results={results} viewDetails={viewDetails} />
 
 class Assignments extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -38,7 +48,7 @@ class Assignments extends PureComponent { // eslint-disable-line react/prefer-st
   }
 
   render() {
-    const { sortOrder,results,toggleSortOrder,deviceFormat, searchOptions, searchQuery, viewDetails, totalResults, pagination, setPage, resultsView, setResultsView, user } = this.props; //eslint-disable-line
+    const { sortOrder,results,toggleSortOrder,deviceFormat, searchOptions, searchQuery, viewDetails, totalResults, pagination, setPage, resultsView, setResultsView, user,loadingStatus } = this.props; //eslint-disable-line
     const { perPage: pP } = pagination;
 
     return (
@@ -56,13 +66,12 @@ class Assignments extends PureComponent { // eslint-disable-line react/prefer-st
           </div>
         }
 
-        {resultsView === 'List' ?
-          <BookingTable viewName={resultsView} results={results} viewDetails={viewDetails} />
-          :
-          <BookingGrid viewName={resultsView} results={results} viewDetails={viewDetails} />
-        }
+        <HandleBookingLoadingStatus {...this.props} >
 
-        <PreviousNextNavigation pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />
+          <Results {...this.props} />
+          <PreviousNextNavigation pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />
+
+        </HandleBookingLoadingStatus>
       </div>
     );
   }
@@ -108,6 +117,8 @@ const mapStateToProps = createStructuredSelector({
   resultsView: selectAssignmentsView(),
   user: selectUser(),
   sortOrder: selectAssignmentsSortOrder(),
+  loadingStatus: selectLoadingBookingDetailsStatus(),
+
 });
 
 // Wrap the component to inject dispatch and state into it
