@@ -4,7 +4,8 @@
 // about the code splitting business
 
 import { getAsyncInjectors } from 'utils/asyncInjectors';
-import { logOut, logIn } from 'containers/Authentication/actions'; //eslint-disable-line
+import { logOut } from 'containers/Authentication/actions'; //eslint-disable-line
+import { setMobileMenuOpen } from 'globalReducers/app';
 import { analyticsServiceBuilder } from 'utils/analyticsService';
 
 const analyticsService = analyticsServiceBuilder();
@@ -18,9 +19,27 @@ const loadModule = (cb) => (componentModule) => {
   cb(null, componentModule.default);
 };
 
+const checkAndCloseMobileMenu = (store) => {
+  if (store.getState().get('app').get('mobileMenuOpen')) {
+    store.dispatch(setMobileMenuOpen(false));
+  }
+}
+
+const checkAndForceLogout = (store, pathname) => {
+  if (store.getState().get('authentication').get('loggedIn') && (pathname === '/login')) {
+    store.dispatch(logOut());
+  }
+}
+
 function onEnterMethodGenerator(store) {
   return (options = { routeName: 'unknown' }) => (nextState, replace) => {
     OnRouteVisit(options.routeName);
+
+    // Any route navigation must close mobile menu if it is open.
+    checkAndCloseMobileMenu(store);
+
+    // Any navigation to /login page (e.g. via browser back button) must result in proper logout
+    checkAndForceLogout(store, nextState.location.pathname);
 
     if (options.authRequired && !store.getState().get('authentication').get('loggedIn')) {
       replace({ // eslint-disable-line no-unreachable
@@ -99,24 +118,6 @@ export default function createRoutes(store) {
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/SessionTimeout'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([component]) => {
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    },
-    {
-      path: '/mobileMenu',
-      name: 'mobileMenu',
-      onEnter: onEnter({ authRequired: true, routeName: 'mobileMenu' }),
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/MobileMenu'),
         ]);
 
         const renderRoute = loadModule(cb);
