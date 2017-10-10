@@ -321,6 +321,14 @@ function EliteApiReducer(state = initialState, action) {
       return state;
     }
 
+    case CASENOTETYPES.PRELOAD.SUCCESS: {
+      const { types, subTypes } = action.payload;
+      const Types = types.map((x) => ({ label: x.description, value: x.code }));
+      const SubTypes = subTypes.map((x) => ({ label: x.description, value: x.code, parent: x.parentCode }));
+
+      return state.setIn(['User', 'CaseNoteTypes'], Types).setIn(['User', 'CaseNoteSubTypes'], SubTypes);
+    }
+
     case USER.CASELOADS.LOADING: {
       return state.setIn(['User', 'CaseLoads'], fromJS({ Status: { Type: 'LOADING' } }));
     }
