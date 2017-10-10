@@ -195,7 +195,7 @@ export const loadSomeCaseNoteTypes = (token, baseUrl, offset) => axios({
     'Page-Limit': offset.limit,
   },
   method: 'get',
-  url: 'reference-domains/caseNoteTypes?includeSubTypes=true&query=activeFlag:eq:\'Y\'' });
+  url: 'reference-domains/caseNoteTypes?includeSubTypes=true' });
 
 export const loadSomeCaseNoteSubTypes = (token, baseUrl, offset, type) => axios({
   baseURL: baseUrl,
@@ -232,7 +232,7 @@ export const loadAllCaseNoteFilterItems = (token, baseUrl) => {
   return Promise.all([sources, types]).then((res) => {
     const allSources = res[0].map((s) => ({ code: s.code, description: s.description }));
     const allTypes = res[1].map((t) => ({ code: t.code, description: t.description }));
-    const subTypes = res[1].map((t) => (t.subCodes.filter((f) => (f.activeFlag === 'Y')).map((sc) => ({ code: sc.code, description: sc.description, parentCode: t.code }))));
+    const subTypes = res[1].map((t) => (t.subCodes.map((sc) => ({ code: sc.code, description: sc.description, parentCode: t.code }))));
     return { sources: allSources, types: allTypes, subTypes };
   });
 };
@@ -244,7 +244,7 @@ export const loadAllUserCaseNoteTypes = (token, baseUrl) => {
 
 export const CaseNoteTypeMapper = (res) => {
   const allTypes = res.map((t) => ({ code: t.code, description: t.description }));
-  const subTypes = res.map(type => type.subCodes.filter((f) => (f.activeFlag === 'Y')).map((sc) => ({ code: sc.code, description: sc.description, parentCode: type.code })))
+  const subTypes = res.map(type => type.subCodes.map((sc) => ({ code: sc.code, description: sc.description, parentCode: type.code })))
 
   return { types: allTypes, subTypes: flatten(subTypes) };
 };

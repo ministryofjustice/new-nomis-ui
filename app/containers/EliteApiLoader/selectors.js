@@ -2,6 +2,15 @@ import { List } from 'immutable';
 import { createSelector } from 'reselect';
 import { queryHash, paginationHash, idsFromPagination } from './helpers';
 
+const selectUsersTypesAndSubTypes = () => createSelector(
+  selectEliteApi(),
+  selectUser(),
+  (api,user) => ({
+    types: user.get('CaseNoteTypes'),
+    subTypes: user.get('CaseNoteSubTypes'),
+  })
+)
+
 const selectEliteApi = () => (state) => state.get('eliteApiLoader');
 
 const calcBookingResultStatus = (eliteApiState, { query, pagination, sortOrder }) => {
@@ -37,9 +46,7 @@ const calcBookingResults = (eliteApiState, { query, pagination, sortOrder }) => 
   // Get the sortedIds for the full page of search results
   const ids = idsFromPagination(pagination).map((sortId) => searchQueryIds[sortId]).filter((n) => n);
   const bookingSummaries = eliteApiState.getIn(['Bookings', 'Summaries']).toJS();
-  const result = ids.map((id) => bookingSummaries[id]);
-
-  return result;
+  return ids.map((id) => bookingSummaries[id]);
 };
 
 const calcBookingResultsTotalRecords = (eliteApiState, { query }) => eliteApiState.getIn(['Bookings', 'Search', queryHash(query), 'MetaData', 'TotalRecords']);
@@ -230,4 +237,5 @@ export {
   selectCaseNoteTypesSelect,
   selectUserCaseLoads,
   selectLoadingBookingDetailsStatus,
+  selectUsersTypesAndSubTypes,
 };
