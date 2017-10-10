@@ -38,7 +38,7 @@ class SearchAgainForm extends React.PureComponent {  // eslint-disable-line reac
                   Enter prisoner Name or ID
                 </label>
 
-            <Field name="keywords" component="input" type="text" title="Enter Name or ID" placeholder="Enter Name or ID" autoComplete="off" className="form-control" />
+            <Field name="keywords" component="input" type="text" title="Last Name, First Name or ID" placeholder="Enter Name or ID" autoComplete="off" className="form-control" />
 
           </div>
 
