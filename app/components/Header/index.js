@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 
 import Dropdown from 'components/Dropdown';
 import MenuToggle from 'components/MenuToggle';
@@ -35,7 +34,6 @@ class Header extends Component {
 
   closeMenu() {
     this.props.setMobileMenuOpen(false);
-    this.context.router.goBack();
   }
 
   render() {
@@ -50,19 +48,15 @@ class Header extends Component {
           </LeftContent>
           <RightContent>
             <DesktopOnly>
-              {user ? <Dropdown switchCaseLoad={switchCaseLoad} user={user} /> : null }
+              {user ? <Dropdown switchCaseLoad={switchCaseLoad} user={user} /> : null}
             </DesktopOnly>
             <MobileOnly>
-              { mobileMenuOpen ?
+              { user ?
                 <ToggleWrapper>
-                  <MenuToggle toggleState={mobileMenuOpen} onToggle={this.closeMenu} />
+                  <MenuToggle toggleState={mobileMenuOpen} onToggle={mobileMenuOpen ? this.closeMenu : this.openMenu} />
                 </ToggleWrapper>
                   :
-                <Link hidden={!user} to={'/mobileMenu'}>
-                  <ToggleWrapper>
-                    <MenuToggle toggleState={mobileMenuOpen} onToggle={this.openMenu} />
-                  </ToggleWrapper>
-                </Link>
+                null
               }
             </MobileOnly>
           </RightContent>

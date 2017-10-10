@@ -61,10 +61,7 @@ MobileMenu.propTypes = {
 };
 
 MobileMenu.defaultProps = {
-  user: {
-    firstName: 'first',
-    activeCaseLoadId: 'id',
-  },
+  user: undefined,
   options: {
     assignments: 12,
     facilities: ['Sheffield', 'Cloverfield'],
