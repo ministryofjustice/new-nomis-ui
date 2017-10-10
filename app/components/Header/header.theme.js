@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import colours from 'theme/colours';
 import fonts from 'theme/fonts';
-import InlineSVG from 'react-svg-inline';
 import { Link } from 'react-router';
 import { media } from 'utils/style-utils';
 import desktop from 'theme/desktop';
@@ -66,39 +65,9 @@ export const Title = styled(Link)`
   `}
 `;
 
-export const Hamburger = styled(InlineSVG)`
+export const ToggleWrapper = styled.div`
   position: absolute;
   top: 0;
   right: 0;
   display: block;
-  padding: 9px 46px;
-  width: 40px;
-  height: 30px;
-  
-  svg {
-    display: block;
-
-    width: 30px;
-    height: 42px;
-    fill: inherit;
-  }
-`;
-
-export const ArrowBack = styled(InlineSVG)`
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: block;
-  padding-top: 18px;
-  padding-left: 5px;
-  width: 40px;
-  height: 43px;
-  
-  svg {
-    display: block;
-
-    width: 30px;
-    height: 24px;
-    fill: inherit;
-  }
 `;

@@ -26,6 +26,7 @@ class MobileMenu extends PureComponent { // eslint-disable-line react/prefer-sta
         user={user}
         setMobileMenuOpen={this.props.setMobileMenuOpen}
       />
+
     );
   }
 }

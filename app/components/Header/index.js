@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 import Dropdown from 'components/Dropdown';
-
-import hamburger from 'assets/hamburger.svg';
-import arrowBack from 'assets/back-arrow.svg';
+import MenuToggle from 'components/MenuToggle';
 
 import {
   DesktopOnly,
@@ -19,8 +17,7 @@ import {
   Logo,
   LogoText,
   Title,
-  Hamburger,
-  ArrowBack,
+  ToggleWrapper,
 } from './header.theme';
 
 class Header extends Component {
@@ -28,16 +25,17 @@ class Header extends Component {
   constructor(props) {
     super(props);
 
-    this.menuClick = this.menuClick.bind(this);
+    this.openMenu = this.openMenu.bind(this);
+    this.closeMenu = this.closeMenu.bind(this);
   }
 
-  menuClick(e) {
-    if (e.currentTarget.dataset.name === 'Hamburger') {
-      this.props.setMobileMenuOpen(true);
-    } else {
-      this.props.setMobileMenuOpen(false);
-      this.context.router.goBack();
-    }
+  openMenu() {
+    this.props.setMobileMenuOpen(true);
+  }
+
+  closeMenu() {
+    this.props.setMobileMenuOpen(false);
+    this.context.router.goBack();
   }
 
   render() {
@@ -56,10 +54,14 @@ class Header extends Component {
             </DesktopOnly>
             <MobileOnly>
               { mobileMenuOpen ?
-                <ArrowBack onClick={this.menuClick} data-name={'ArrowBack'} svg={arrowBack} />
+                <ToggleWrapper>
+                  <MenuToggle toggleState={mobileMenuOpen} onToggle={this.closeMenu}/>
+                </ToggleWrapper>
                   :
                 <Link hidden={!user} to={'/mobileMenu'}>
-                  <Hamburger onClick={this.menuClick} data-name={'Hamburger'} svg={hamburger} />
+                  <ToggleWrapper>
+                    <MenuToggle toggleState={mobileMenuOpen} onToggle={this.openMenu}/>
+                  </ToggleWrapper>
                 </Link>
               }
             </MobileOnly>
