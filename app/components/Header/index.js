@@ -55,12 +55,12 @@ class Header extends Component {
             <MobileOnly>
               { mobileMenuOpen ?
                 <ToggleWrapper>
-                  <MenuToggle toggleState={mobileMenuOpen} onToggle={this.closeMenu}/>
+                  <MenuToggle toggleState={mobileMenuOpen} onToggle={this.closeMenu} />
                 </ToggleWrapper>
                   :
                 <Link hidden={!user} to={'/mobileMenu'}>
                   <ToggleWrapper>
-                    <MenuToggle toggleState={mobileMenuOpen} onToggle={this.openMenu}/>
+                    <MenuToggle toggleState={mobileMenuOpen} onToggle={this.openMenu} />
                   </ToggleWrapper>
                 </Link>
               }
