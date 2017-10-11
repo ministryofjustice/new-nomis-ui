@@ -11,7 +11,7 @@ import DateTimePicker from 'components/FormComponents/DateTimePicker';
 import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
 import moment from 'moment';
 
-import { caseNoteFilterSelectInfo } from '../CaseNotes/selectors';
+import { selectUsersTypesAndSubTypes } from 'containers/EliteApiLoader/selectors';
 import { DETAILS_TABS, ADD_NEW_CASENOTE } from '../../constants';
 import { selectBookingDetailsId } from '../../selectors';
 import { viewDetails } from '../../actions';
@@ -40,7 +40,7 @@ class AddCaseNoteForm extends Component {
         <form onSubmit={handleSubmit}>
           <SubmissionError error={error}>{error}</SubmissionError>
 
-          <TypeAndSubTypeSelector selectedType={typeValue} types={caseNoteTypes.type} subTypes={caseNoteTypes.subType} />
+          <TypeAndSubTypeSelector selectedType={typeValue} types={caseNoteTypes.types} subTypes={caseNoteTypes.subTypes} />
 
           <Field name="caseNoteText" component={TextArea} title="Case note" autocomplete="off" spellcheck="true" />
 
@@ -103,7 +103,7 @@ export function mapDispatchToProps() {
 }
 
 const mapStateToProps = createStructuredSelector({
-  caseNoteTypes: caseNoteFilterSelectInfo(),
+  caseNoteTypes: selectUsersTypesAndSubTypes(),
   locale: selectLocale(),
   typeValue: (state) => selector(state, 'typeValue'),
   bookingDetailsId: selectBookingDetailsId(),

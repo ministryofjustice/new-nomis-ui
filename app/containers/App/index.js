@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-
+import { setDeviceFormat } from 'globalReducers/app';
+import { selectMobileMenuOpen } from 'selectors/app';
 import Modal from 'containers/Modal';
 import Header from 'containers/Header';
 import Breadcrumbs from 'containers/Breadcrumbs';
 import BreadcrumbsAlt from 'containers/Breadcrumbs/alt';
-
-import { setDeviceFormat } from 'globalReducers/app';
+import MobileMenu from 'containers/MobileMenu';
 import Footer from 'containers/Footer';
+
 class App extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
@@ -32,6 +33,18 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
   }
 
   render() {
+    const { mobileMenuOpen } = this.props;
+
+    if (mobileMenuOpen) {
+      return (
+        <div className="app-content">
+          <Helmet title="P-Nomis" />
+          <Header />
+          <MobileMenu />
+        </div>
+      );
+    }
+
     return (
       <div className="app-content">
         <Helmet title="P-Nomis" />
@@ -61,15 +74,18 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
 App.propTypes = {
   children: PropTypes.node,
   setDeviceFormat: PropTypes.func,
+  mobileMenuOpen: PropTypes.bool.isRequired,
   router: PropTypes.object.isRequired,
 };
 
 App.defaultProps = {
   children: [],
   setDeviceFormat: () => {},
+  mobileMenuOpen: false,
 };
 
 const mapStateToProps = createStructuredSelector({
+  mobileMenuOpen: selectMobileMenuOpen(),
 });
 
 const mapDispatchToProps = (dispatch) => ({

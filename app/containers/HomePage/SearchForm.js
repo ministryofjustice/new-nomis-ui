@@ -38,7 +38,7 @@ class SearchForm extends PureComponent {  // eslint-disable-line react/prefer-st
             Enter a prisoner name or number
           </label>
 
-          <Field name="keywords" component="input" type="text" title="Enter " placeholder="Enter Name or ID" autoComplete="off" className="form-control search-input" />
+          <Field name="keywords" component="input" type="text" title="Enter " placeholder="Last Name, First Name or ID" autoComplete="off" className="form-control search-input" />
           <button type="submit" className="button button-start desktop-button" disabled={submitting}> Search</button>
 
           <div>
