@@ -1,0 +1,62 @@
+
+.banner {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: rgb(0, 39, 72);
+  color: white;
+  z-index: 999;
+  height: 60px;
+
+  @include media-breakpoint-down(sm){
+    height: 55px!important;
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 22rem;
+
+    img{
+      padding-left: 40px;
+      padding-right: 15px;
+      margin-bottom: .5rem;
+    }
+
+    .company-name {
+      font-size: 24px;
+      @include media-breakpoint-down(sm){
+        font-size: 19px;
+      }
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .service-name {
+      font-size: 24px;
+      @include media-breakpoint-down(sm){
+        font-size: 19px;
+      }
+      font-weight: lighter;
+      margin-bottom: .5rem;
+    }
+
+    .divider {
+      border-right: solid 2px white;
+      margin: 15px 15px 15px 15px;
+    }
+
+    .desktop-menu {
+      margin-left: auto;
+      height: 60px;
+    }
+
+    @include media-breakpoint-down(sm){
+      .desktop-menu {
+        display: none;
+      }
+    }
+
+  }
+}

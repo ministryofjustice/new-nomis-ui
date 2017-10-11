@@ -46,9 +46,10 @@ class Header extends Component {
       <PageHeader>
         <div className="header-content">
           <LeftContent>
-            <Logo><img src="/img/logo-crest-white.png" /></Logo>
-            <LogoText to="/">HMPPS</LogoText>
-            <Title>Prison-NOMIS</Title>
+            <Logo className="header-image">
+            </Logo>
+            <LogoText className="logo-text" to="/"></LogoText>
+            <Title className="header-text"></Title>
           </LeftContent>
           <RightContent>
             <DesktopOnly>

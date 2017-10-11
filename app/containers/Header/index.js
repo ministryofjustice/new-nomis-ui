@@ -4,7 +4,7 @@ import { intlShape } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import HeaderComponent from 'components/Header';
+import HeaderComponent from 'header';
 
 import { setMobileMenuOpen } from 'globalReducers/app';
 import { selectMobileMenuOpen } from 'selectors/app';

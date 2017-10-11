@@ -1,4 +1,4 @@
-@import "../../theme/bootstrap_grid.scss";
+@import "bootstrap_grid";
 
 @mixin _assert-ascending($map, $map-name) {
   $prev-key: null;
