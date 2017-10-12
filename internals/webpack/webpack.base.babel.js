@@ -36,9 +36,7 @@ const webPackConfig = (options) => ({
           loader: 'sass-loader',
           options: {
             includePaths: [
-              'app/scss/govuk_frontend_toolkit/stylesheets',
-              'app/scss/bootstrap',
-            ],
+              'app/scss/govuk_frontend_toolkit/stylesheets'],
           },
         },
         {
@@ -107,7 +105,7 @@ const webPackConfig = (options) => ({
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-        CLIENT: JSON.stringify(process.env.CLIENT),
+        CLIENT: JSON.stringify(process.env.CLIENT || 'hmpps'),
       },
     }),
     new webpack.NamedModulesPlugin(),
@@ -134,4 +132,4 @@ const webPackConfig = (options) => ({
 });
 
 
-module.exports = (options) => customerCodeResolver(options,webPackConfig);
+module.exports = (options) => customerCodeResolver({ webPackConfig,options });

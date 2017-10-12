@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   title: {
     id: 'app.components.Login.title',
-    defaultMessage: 'Sign in to Prison-NOMIS',
+    defaultMessage: '',
   },
   subtitle: {
     id: 'app.components.Login.subtitle',
