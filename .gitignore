@@ -44,5 +44,5 @@ coverage/
 tmp/
 eslint-report.html
 test-report.html
-.stylelintignore
+
 scss-report.txt

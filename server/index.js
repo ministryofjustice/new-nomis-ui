@@ -35,6 +35,9 @@ app.use((req,res,next) => {
   next();
 });
 
+app.use(express.static('fonts'));
+app.use(express.static('img'));
+
 app.use('/app/login',jsonParser, controller.login);
 app.use('/app/photo', jsonParser, controller.images);
 app.use('/app/keydates/:bookingId', controller.keyDates);

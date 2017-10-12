@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { createFormAction } from 'redux-form-saga';
+import ProductGlobals from 'product-globals';
+
 
 import TitleBlock from 'components/TitleBlock';
 import translations from './translations';
@@ -22,10 +24,15 @@ class Login extends PureComponent { // eslint-disable-line react/prefer-stateles
   };
 
   render() {
+    const title = (<div>
+      <FormattedMessage {...translations.title} />
+      <span>{ProductGlobals.serviceName}</span>
+    </div>);
+
     return (
       <div>
         <div className="header">
-          <TitleBlock title={<FormattedMessage {...translations.title} />} subtitle={<FormattedMessage {...translations.subtitle} />} />
+          <TitleBlock title={title} subtitle={<FormattedMessage {...translations.subtitle} />} />
         </div>
 
         <LoginForm onSubmit={this.props.onSubmitForm} />

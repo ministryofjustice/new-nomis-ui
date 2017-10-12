@@ -6,9 +6,9 @@ const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const customerCodeResolver = require('../customerCodeResolver');
 
-
-module.exports = (options) => ({
+const webPackConfig = (options) => ({
   entry: options.entry,
   output: Object.assign({ // Compile into js/build.js
     path: path.resolve(process.cwd(), 'build'),
@@ -24,10 +24,6 @@ module.exports = (options) => ({
 
     {
       test: /\.css$/,
-        // loader: ExtractTextPlugin.extract({
-       //   fallback: 'style-loader',
-       // /   use: 'css-loader'
-       // })
       loaders: ['style-loader', 'css-loader'],
     },
     {
@@ -35,16 +31,19 @@ module.exports = (options) => ({
       loader: ExtractTextPlugin.extract({
         use: [{
           loader: 'css-loader',
-        }, {
+        },
+        {
           loader: 'sass-loader',
           options: {
             includePaths: [
-              'node_modules/govuk_frontend_toolkit/stylesheets',
-              'node_modules/govuk-elements-sass/public/sass',
-              'app/assets/bootstrap',
-            ],
+              'app/scss/govuk_frontend_toolkit/stylesheets'],
           },
-        }],
+        },
+        {
+          loader: options.themeLoader.loader,
+          options: options.themeLoader.options,
+        },
+        ],
         fallback: 'style-loader',
       }),
 
@@ -106,14 +105,15 @@ module.exports = (options) => ({
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        CLIENT: JSON.stringify(process.env.CLIENT || 'hmpps'),
       },
     }),
     new webpack.NamedModulesPlugin(),
   ]),
   resolve: {
-    alias: {
+    alias: Object.assign({},{
       moment: 'moment/moment.js',
-    },
+    },options.componentSubstitutes),
     modules: ['node_modules', 'app'],
     extensions: [
       '.js',
@@ -130,3 +130,6 @@ module.exports = (options) => ({
   target: 'web', // Make web variables accessible to webpack, e.g. window
   performance: options.performance || {},
 });
+
+
+module.exports = (options) => customerCodeResolver({ webPackConfig,options });
