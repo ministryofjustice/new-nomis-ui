@@ -24,7 +24,6 @@ class Login extends PureComponent { // eslint-disable-line react/prefer-stateles
   };
 
   render() {
-
     const title = (<div>
       <FormattedMessage {...translations.title} />
       <span>{ProductGlobals.serviceName}</span>

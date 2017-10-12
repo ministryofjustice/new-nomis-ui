@@ -1,6 +1,6 @@
 
 
 export default {
-  customerName: 'SYSON',
+  customerName: 'SYSCON',
   serviceName: 'Prison Manager',
 };
