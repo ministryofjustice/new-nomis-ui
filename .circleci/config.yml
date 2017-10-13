@@ -29,7 +29,7 @@ jobs:
           command: |
              set -e
              yarn test
-      - run: NODE_ENV=production yarn build
+      - run: export CLIENT=hmpps && NODE_ENV=production yarn build
       - store_artifacts:
           path: test-report.html
       - store_artifacts:
@@ -78,6 +78,7 @@ jobs:
                BUILD_VERSION=${VERSION}.${CIRCLE_BRANCH}.${CIRCLE_BUILD_NUM}
              fi
              docker build --rm=false . \
+                 --build-arg CLIENT=hmpps \
                  --tag "sysconjusticesystems/elite2-web:$BUILD_VERSION" \
                  --label "maintainer=michael.willis@syscon.net" \
                  --label "build.number=$CIRCLE_BUILD_NUM" \
@@ -90,6 +91,28 @@ jobs:
                docker tag sysconjusticesystems/elite2-web:$BUILD_VERSION sysconjusticesystems/elite2-web:latest
                docker push sysconjusticesystems/elite2-web:latest
              fi
+
+  build_docker_demo:
+    <<: *defaults
+    steps:
+      - checkout
+      - setup_remote_docker:
+          exclusive: true
+      - run:
+          command: |
+             CLIENT=$(echo $CIRCLE_TAG | sed 's/demo-release-*//')
+             BUILD_VERSION=ELITE2_WEB_${CLIENT}_DEMO
+             docker build --rm=false Dockerfile-demo \
+                 --build-arg CLIENT=${CLIENT} \
+                 --tag "sysconjusticesystems/elite2-web:$BUILD_VERSION" \
+                 --label "maintainer=michael.willis@syscon.net" \
+                 --label "build.number=$CIRCLE_BUILD_NUM" \
+                 --label "build.url=$CIRCLE_BUILD_URL" \
+                 --label "build.gitref=$CIRCLE_SHA1"
+             docker login -u $DOCKER_USER -p $DOCKER_PASS
+             docker push sysconjusticesystems/elite2-web:$BUILD_VERSION
+             docker tag sysconjusticesystems/elite2-web:$BUILD_VERSION sysconjusticesystems/elite2-web:demo-latest
+             docker push sysconjusticesystems/elite2-web:demo-latest
 
 workflows:
   version: 2
@@ -104,6 +127,7 @@ workflows:
                   - deploy-to-preprod
                   - deploy-to-prod
                   - intergalactic
+                  - demo-release-.*
       - build_docker:
           requires:
             - build
@@ -113,4 +137,9 @@ workflows:
           filters:
             branches:
               only: master
-
+      - build_docker_demo:
+          filters:
+            tags:
+              only: /^demo-release-.*/
+            branches:
+              ignore: /.*/

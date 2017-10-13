@@ -1,4 +1,6 @@
 FROM node:8.4-slim
+ARG CLIENT
+ENV CLIENT ${CLIENT:-hmpps}
 
 # Create app directory
 RUN mkdir -p /app
@@ -6,6 +8,7 @@ WORKDIR /app
 ADD . .
 
 RUN yarn --frozen-lockfile && \
+    export CLIENT=${CLIENT} && \
     yarn build
 
 ENV PORT=3000

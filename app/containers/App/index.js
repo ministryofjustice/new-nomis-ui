@@ -11,6 +11,7 @@ import Breadcrumbs from 'containers/Breadcrumbs';
 import BreadcrumbsAlt from 'containers/Breadcrumbs/alt';
 import MobileMenu from 'containers/MobileMenu';
 import Footer from 'containers/Footer';
+import ProductGlobals from 'product-globals';
 
 class App extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -38,7 +39,7 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
     if (mobileMenuOpen) {
       return (
         <div className="app-content">
-          <Helmet title="P-Nomis" />
+          <Helmet title={ProductGlobals.serviceName} />
           <Header />
           <MobileMenu />
         </div>
@@ -47,7 +48,7 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
 
     return (
       <div className="app-content">
-        <Helmet title="P-Nomis" />
+        <Helmet title={ProductGlobals.serviceName} />
         <Header />
         <Modal />
         { this.props.router.location.pathname !== '/login' ?
