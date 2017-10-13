@@ -29,7 +29,7 @@ jobs:
           command: |
              set -e
              yarn test
-      - run: NODE_ENV=production yarn build
+      - run: export CLIENT=hmpps && NODE_ENV=production yarn build
       - store_artifacts:
           path: test-report.html
       - store_artifacts:
@@ -100,10 +100,10 @@ jobs:
           exclusive: true
       - run:
           command: |
-             VERSION=$(echo $CIRCLE_TAG | sed 's/demo-release-*//')
-             BUILD_VERSION=ELITE2_WEB_${VERSION}_DEMO
+             CLIENT=$(echo $CIRCLE_TAG | sed 's/demo-release-*//')
+             BUILD_VERSION=ELITE2_WEB_${CLIENT}_DEMO
              docker build --rm=false Dockerfile-demo \
-                 --build-arg CLIENT=syscon \
+                 --build-arg CLIENT=${CLIENT} \
                  --tag "sysconjusticesystems/elite2-web:$BUILD_VERSION" \
                  --label "maintainer=michael.willis@syscon.net" \
                  --label "build.number=$CIRCLE_BUILD_NUM" \
