@@ -8,6 +8,7 @@ WORKDIR /app
 ADD . .
 
 RUN yarn --frozen-lockfile && \
+    export CLIENT=${CLIENT} && \
     yarn build
 
 ENV PORT=3000
