@@ -1,4 +1,6 @@
 FROM node:8.4-slim
+ARG CLIENT
+ENV CLIENT ${CLIENT:-hmpps}
 
 # Create app directory
 RUN mkdir -p /app
