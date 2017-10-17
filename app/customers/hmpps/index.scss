@@ -8,3 +8,11 @@
   width: 42px;
   height: 35px;
 }
+
+
+.button-link {
+  @extend .button;
+
+  background: $govuk-blue !important;
+  border-bottom: $black !important;
+}

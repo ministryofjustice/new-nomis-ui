@@ -1,0 +1,148 @@
+
+
+#add-case-note-link-desktop {
+   display: block;
+   float: right;
+}
+
+#add-case-note-link-mobile {
+  display: none;
+  margin-bottom: 15px;
+}
+
+@include media-breakpoint-down(sm) {
+  #add-case-note-link-desktop {
+      display: none;
+  }
+
+  #add-case-note-link-mobile {
+    display: block;
+  }
+}
+
+
+.header-details {
+
+  display: flex;
+  flex-direction: row;
+  margin-top: 15px;
+
+  .photo {
+    width: 228px;
+    height: 285px;
+    min-width: 228px;
+    min-height: 285px;
+  }
+
+  .offender-name {
+    width: 20em;
+  }
+
+  label {
+    font-size: 24px;
+  }
+
+  b {
+    font-size: 24px;
+  }
+
+  @include media-breakpoint-down(md) {
+    label {
+      font-size: 16px !important;
+    }
+    b {
+      font-size: 16px !important;
+    }
+  }
+
+
+  @include media-breakpoint-down(md) {
+    .photo {
+      min-width: 100px;
+      min-height: 125px;
+      width: 100px;
+      height: 125px;
+    }
+
+    .offender-name h1 {
+      margin-top: 0;
+    }
+  }
+
+  .alert-codes {
+    color: red;
+    font-weight: bold;
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    width: 150px;
+  }
+
+  .location-information {
+    width: 10em;
+  }
+
+  .information {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1em;
+
+    .mobile-view {
+      display: none;
+    }
+
+    .desktop-view {
+      display: block;
+    }
+
+    @include media-breakpoint-down(sm) {
+
+      .mobile-view {
+        display: block;
+
+        .column {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 1em;
+          margin-right: 1em;
+        }
+      }
+    }
+
+    .groups {
+      display: flex;
+      flex-direction: row;
+
+      @include media-breakpoint-down(sm) {
+
+        .desktop-view {
+          display: none !important;
+        }
+
+        flex-direction: row-reverse !important;
+        margin-left: -100px;
+      }
+
+      .grouped {
+        width: 228px;
+
+        @include media-breakpoint-down(md) {
+          width: 170px !important;
+        }
+
+        display: flex;
+        flex-direction: column;
+        margin-right: 3em;
+
+        .column {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 1em;
+          margin-right: 1em;
+        }
+
+      }
+    }
+  }
+}
+

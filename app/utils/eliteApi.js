@@ -27,7 +27,7 @@ export const officerAssignments = (token, _, pagination, baseUrl) => axios({
 export const bookingDetails = (token, baseUrl, id) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `/bookings/${id}` })
+  url: `/bookings/details/${id}` })
     .then((response) => response.data);
 
 export const bookingAliases = (token, baseUrl, id) => axios({

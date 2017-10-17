@@ -2,43 +2,106 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import EliteImage from 'containers/EliteContainers/Image';
 import EliteOfficerName from 'containers/EliteContainers/OfficerName';
+import { Link } from 'react-router';
+
 import { toFullName } from 'utils/stringUtils';
 
-import {
-  HeaderWrapper,
-  FaceImage,
-  AddCaseNoteButton,
-  AddCaseNoteButtonComponent,
-  InmateName,
-  InformationBlock,
-  AlertCodes,
-  ContentWrapper,
-  InformationWrapper,
-} from './header.theme';
+import './header.scss';
 
 function Header({ inmateData, onImageClick }) {
-  const { firstName, lastName, offenderNo, facialImageId, alertsCodes, assignedLivingUnit, assignedOfficerId } = inmateData;
+  const { firstName, lastName, offenderNo, facialImageId, alertsCodes, assignedLivingUnit, assignedOfficerId, iepLevel } = inmateData;
 
   const nameString = toFullName({ firstName, lastName });
 
   return (
-    <HeaderWrapper data-name={'HeaderWrapper'}>
-      <ContentWrapper data-name={'ContentWrapper'}>
-        <FaceImage data-name={'FaceImage'} onClick={() => onImageClick(facialImageId)}>
-          <EliteImage imageId={facialImageId} />
-        </FaceImage>
-        <InformationWrapper data-name={'InformationWrapper'}>
-          <InmateName>{nameString}</InmateName>
-          <InformationBlock><span>ID: </span>{offenderNo}</InformationBlock>
-          <InformationBlock><span>Key Worker: </span><officername><EliteOfficerName staffId={assignedOfficerId} /></officername></InformationBlock>
-          <InformationBlock><span>Alerts: </span><AlertCodes>{alertsCodes.join(', ')}</AlertCodes></InformationBlock>
-          <InformationBlock><span>Location: </span>{assignedLivingUnit.description} - {assignedLivingUnit.agencyName}</InformationBlock>
-        </InformationWrapper>
-      </ContentWrapper>
-      <AddCaseNoteButton>
-        <AddCaseNoteButtonComponent to={'/bookings/details/addCaseNote'} buttonstyle="link">Add new case note</AddCaseNoteButtonComponent>
-      </AddCaseNoteButton>
-    </HeaderWrapper>
+    <div>
+
+      <Link id="add-case-note-link-desktop" className="button-link" to={'/bookings/details/addCaseNote'}>Add new case note</Link>
+
+      <div className="header-details">
+
+      <div className="photo clickable" onClick={() => onImageClick(facialImageId)}>
+           <EliteImage imageId={facialImageId} />
+         </div>
+
+         <div className="information">
+
+           <div>
+
+               <div className="offender-name">
+                 <h1 className="heading-large">
+                   {nameString}
+                 </h1>
+               </div>
+
+               <div className="mobile-view">
+                 <div className="column">
+                   <label>Prison number</label>
+                   <b>{offenderNo}</b>
+                 </div>
+
+                 <div className="column">
+                   <label> Key worker </label>
+                   <b> <EliteOfficerName staffId={assignedOfficerId} /> </b>
+                 </div>
+               </div>
+
+           </div>
+
+
+           <div className="groups">
+
+             <div className="grouped desktop-view">
+
+               <div className="column">
+                 <label>Prison number</label>
+                 <b>{offenderNo}</b>
+               </div>
+
+               <div className="column">
+                 <label> Key worker </label>
+                 <b> <EliteOfficerName staffId={assignedOfficerId} /> </b>
+               </div>
+
+             </div>
+
+             <div className="grouped">
+
+               <div className="column">
+                 <label>IEP</label>
+                 <b> { iepLevel } </b>
+               </div>
+
+               <div className="column">
+                 <label> CSRA </label>
+                 <b> -- </b>
+               </div>
+
+             </div>
+
+             <div className="grouped ">
+
+               <div className="column">
+                 <label>Alerts</label>
+                 <div className="alert-codes">
+                   {alertsCodes.join(', ')}
+                 </div>
+               </div>
+
+               <div className="column">
+                 <label> Location </label>
+                 <div className="location-information">
+                   <b> {assignedLivingUnit.description} - {assignedLivingUnit.agencyName} </b>
+                 </div>
+               </div>
+
+             </div>
+           </div>
+
+         </div>
+    </div>
+      <Link id="add-case-note-link-mobile" className="button-link" to={'/bookings/details/addCaseNote'}>Add new case note</Link>
+    </div>
   );
 }
 

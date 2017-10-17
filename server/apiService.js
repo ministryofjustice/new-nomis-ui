@@ -16,6 +16,31 @@ axios.interceptors.request.use((config) => {
   return config;
 }, (error) => Promise.reject(error));
 
+
+const getSentenceData = (req) => service.callApi({
+  method: 'get',
+  url: `bookings/${req.params.bookingId}/sentenceDetail`,
+  headers: {},
+  reqHeaders: req.headers,
+  onTokenRefresh: (token) => { req.headers.jwt = token },
+}).then(response => new Promise(r => r({ sentence: response.data })));
+
+const getIepSummary = (req) => service.callApi({
+  method: 'get',
+  url: `bookings/${req.params.bookingId}/iepSummary`,
+  headers: {},
+  reqHeaders: req.headers,
+  onTokenRefresh: (token) => { req.headers.jwt = token },
+}).then(response => new Promise(r => r({ iepSummary: response.data })));
+
+const getDetails = (req) => service.callApi({
+  method: 'get',
+  url: `bookings/${req.params.bookingId}`,
+  headers: {},
+  reqHeaders: req.headers,
+  onTokenRefresh: (token) => { req.headers.jwt = token },
+}).then(response => new Promise(r => r({ details: response.data })));
+
 const callApi = ({ method, url, headers,reqHeaders, onTokenRefresh,responseType, data }) => {
   const { token, refreshToken } = session.getSessionData(reqHeaders);
 
@@ -68,6 +93,9 @@ const service = {
   httpRequestRetry,
   refreshTokenRequest,
   errorStatusCode,
+  getIepSummary,
+  getSentenceData,
+  getDetails,
 };
 
 module.exports = service;

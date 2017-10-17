@@ -2,3 +2,9 @@
 @import "colours/organisation";
 @import './_font_stack';
 
+.button-link {
+  @extend .button;
+
+  background: $govuk-blue !important;
+  border-bottom: $black !important;
+}
