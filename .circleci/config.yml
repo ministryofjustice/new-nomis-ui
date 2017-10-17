@@ -100,9 +100,10 @@ jobs:
           exclusive: true
       - run:
           command: |
+             VERSION=$(egrep version package.json  | awk -F"\"" '{print $4}')
              CLIENT=$(echo $CIRCLE_TAG | sed 's/demo-release-*//')
-             BUILD_VERSION=ELITE2_WEB_${CLIENT}_DEMO
-             docker build --rm=false Dockerfile-demo \
+             BUILD_VERSION=ELITE2_WEB_${CLIENT}_DEMO_${VERSION}
+             docker build --rm=false . \
                  --build-arg CLIENT=${CLIENT} \
                  --tag "sysconjusticesystems/elite2-web:$BUILD_VERSION" \
                  --label "maintainer=michael.willis@syscon.net" \
