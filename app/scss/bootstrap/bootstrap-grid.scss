@@ -225,8 +225,8 @@
   flex: 1;
   display: flex;
   justify-content: center;
-  padding-left: 6px;
-  padding-right: 6px;
+  padding-left: 15px;
+  padding-right: 15px;
   padding-bottom: 40px;
 }
 .main-content {
@@ -244,12 +244,12 @@
 }
 @media (min-width: 768px) {
   .main-content, .header-content, .footer-content, .nav-content {
-    width: 750px;
+    width: 738px;
   }
 }
 @media (min-width: 992px) {
   .main-content, .header-content, .footer-content, .nav-content {
-    width: 970px;
+    width: 962px;
   }
 }
 @media (min-width: 1200px) {
