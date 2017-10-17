@@ -3,6 +3,7 @@
 
   import Dropdown from 'components/Dropdown';
   import MenuToggle from 'components/MenuToggle';
+  import ProductGlobals from 'product-globals';
 
   import {
   DesktopOnly,
@@ -45,7 +46,7 @@
             <Logo className="header-image">
             </Logo>
             <LogoText to="/">HMPPS</LogoText>
-            <Title>Prison-NOMIS</Title>
+            <Title>{ProductGlobals.serviceName}</Title>
           </LeftContent>
           <RightContent>
             <DesktopOnly>
