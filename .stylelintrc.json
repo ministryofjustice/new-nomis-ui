@@ -10,6 +10,11 @@
     "max-nesting-depth": null,
     "order/properties-alphabetical-order": null,
     "number-leading-zero": null,
-    "selector-max-compound-selectors": null
+    "selector-max-compound-selectors": null,
+    "no-missing-end-of-source-newline": null,
+    "color-named": null,
+    "rule-empty-line-before": null,
+    "selector-max-id": null,
+    "indentation": null
   }
 }

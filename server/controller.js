@@ -47,23 +47,8 @@ const keyDates = (req,res) => {
     res.end();
     return;
   }
-  const getSentenceData = apiService.callApi({
-    method: 'get',
-    url: `bookings/${req.params.bookingId}/sentenceDetail`,
-    headers: {},
-    reqHeaders: req.headers,
-    onTokenRefresh: (token) => { req.headers.jwt = token },
-  }).then(response => new Promise(r => r({ sentence: response.data })));
 
-  const getiepSummary = apiService.callApi({
-    method: 'get',
-    url: `bookings/${req.params.bookingId}/iepSummary`,
-    headers: {},
-    reqHeaders: req.headers,
-    onTokenRefresh: (token) => { req.headers.jwt = token },
-  }).then(response => new Promise(r => r({ iepSummary: response.data })));
-
-  Promise.all([getSentenceData, getiepSummary]).then(response => {
+  Promise.all([apiService.getSentenceData(req), apiService.getIepSummary(req)]).then(response => {
     const sentence = keyDatesMapper.sentence(response[0].sentence);
     const other = keyDatesMapper.otherDates(response[0].sentence);
     const iepSummary = response[1].iepSummary;
@@ -81,8 +66,39 @@ const keyDates = (req,res) => {
   });
 };
 
+const bookingDetails = (req, res) => {
+  const bookingId = req.params.bookingId;
+
+  if (!bookingId) {
+    res.status(400);
+    res.end();
+    return;
+  }
+  
+  const getIepLevel = apiService.getIepSummary(req)
+    .then(response => new Promise(r => r({ iepLevel: response.iepSummary.iepLevel })))
+    .catch(response => new Promise(r => r({ iepLevel: '--' }))); // eslint-disable-line no-unused-vars
+
+  Promise.all([apiService.getDetails(req), getIepLevel]).then(response => {
+    const details = response[0].details;
+    const iepLevel = (response[1] && response[1].iepLevel) || {};
+
+    const data = Object.assign({}, details, {
+      iepLevel,
+    });
+
+    res.setHeader('jwt', session.extendSession(req.headers));
+
+    res.json(data);
+  }).catch(error => {
+    res.status(errorStatusCode(error.response));
+    res.end();
+  });
+}
+
 module.exports = {
   keyDates,
   login,
   images,
+  bookingDetails,
 }
