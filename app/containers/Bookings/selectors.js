@@ -105,57 +105,41 @@ const selectOffenderDetails = () => createSelector(
   selectBookingDetail(),
   intlSelector(),
   (bookingDetails, { intl }) => {
-    // Mash data into what is needed for the DataGridViewComponent.
-    // date of birth
     const dateOfBirth = intl.formatDate(Date.parse(bookingDetails.getIn(['Data', 'dateOfBirth'])));
-    // age
     const age = bookingDetails.getIn(['Data', 'age']);
-    // gender
     const gender = bookingDetails.getIn(['Data', 'physicalAttributes', 'gender']);
     const ethnicity = bookingDetails.getIn(['Data', 'physicalAttributes', 'ethnicity']);
-    // assessments
     const assessments = bookingDetails.getIn(['Data', 'assessments']).map((ass) => {
       const value = ass.get('classification');
       const code = ass.get('assessmentCode');
       const title = ass.get('assessmentDesc');
       return { key: [value, code, title].join('-'), title, value };
     });
-
-    const personalGrid = [{
-      key: 'dateOfBirth',
-      title: 'Date of birth',
-      value: dateOfBirth,
-    }, {
-      key: 'age',
-      title: 'Age',
-      value: age.toString(),
-    },
-    {
-      key: 'gender',
-      title: 'Gender',
-      value: gender,
-    },
-    {
-      key: 'ethnicity',
-      title: 'Ethnicity',
-      value: ethnicity,
-    },
-    ].concat(assessments && assessments.toJS ? assessments.toJS() : []);
-
     const aliases = bookingDetails.getIn(['Data', 'aliases']).toJS();
+    const physicalAttributes = bookingDetails.getIn(['Data', 'physicalAttributes']).toJS();
+    const physicalMarks = bookingDetails.getIn(['Data','physicalMarks']).toJS();
+    const physicalCharacteristics = bookingDetails.getIn(['Data','physicalCharacteristics']).toJS();
 
-    const aliasGrid = aliases.map((alias, index) => {
-      //eslint-disable-next-line
-      const { firstName, lastName, age: aliasAge, ethnicity, nameType, dob: aliasDateofbirth, gender: aliasGender } = alias;
-      const name = toFullName({ firstName, lastName });
-      const formattedDob = intl.formatDate(Date.parse(aliasDateofbirth));
-      return { key: `${firstName + lastName + aliasAge + ethnicity + nameType + index}`, title: nameType, values: [{ name }, { aliasAge }, { aliasGender }, { formattedDob }, { ethnicity }] };
-    });
+    const characteristics =
+      physicalCharacteristics.reduce((result, current) => {
+        if (!current.characteristic) { return result; }
+
+        const key = current.characteristic.replace(' ','').toLowerCase();
+        result[key] = current.detail;
+        return result;
+      }, {});
 
     return {
-      personalGrid,
-      aliasGrid,
-    };
+      dateOfBirth,
+      age,
+      gender,
+      ethnicity,
+      assessments,
+      aliases,
+      physicalAttributes,
+      physicalMarks,
+      physicalCharacteristics: characteristics,
+    }
   }
 );
 
