@@ -9,7 +9,7 @@ import { selectOffenderDetails } from '../../selectors';
 import { showLargePhoto } from '../../actions';
 import './index.scss'
 
-const FormatValue = ({ start, end }) => ((start && `${start} ${end}`) || '--').trimEnd();
+const FormatValue = ({ start, end }) => ((start && <span> { (start && end && `${start} ${end}`) || `${start}`} </span>) || <span>{'--'}</span>);
 
 class OffenderDetails extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -24,85 +24,108 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
     return (<div className="offender-details">
 
         <div className="row">
+
            <div className="col-md-6">
-              <h3 className="heading-medium">Personal details</h3>
+
+             <div className="row">
+                 <h3 className="heading-medium">Personal details</h3>
+             </div>
+
+             <div className="row border-bottom-line">
+
+               <div className="col-md-3 col-xs-4">
+                 <label>Date of birth</label>
+               </div>
+
+               <div className="col-md-6">
+                 <b> {dateOfBirth} </b>
+               </div>
+             </div>
+
+             <div className="row border-bottom-line">
+
+               <div className="col-md-3 col-xs-4">
+                 <label>Age</label>
+               </div>
+
+               <div className="col-md-6">
+                 <b> {age} </b>
+               </div>
+
+             </div>
+
+             <div className="row border-bottom-line">
+
+               <div className="col-md-3 col-xs-4">
+                 <label>Gender</label>
+               </div>
+
+               <div className="col-md-6">
+                 <b> {gender} </b>
+               </div>
+
+             </div>
+
+
+             <div className="row border-bottom-line">
+
+               <div className="col-md-3 col-xs-4">
+                 <label>Ethnicity</label>
+               </div>
+
+               <div className="col-md-6">
+                 <b> {ethnicity} </b>
+               </div>
+
+             </div>
+
+
            </div>
 
           <div className="col-md-6">
-            <h3 className="heading-medium"> Aliases </h3>
+
+            <div className="row">
+                <h3 className="heading-medium"> Aliases </h3>
+            </div>
+
+
+            <div className="row border-bottom-line">
+
+              <div className="col-md-3 col-xs-4">
+                <label>Current</label>
+              </div>
+
+              <div className="col-md-6">
+                <b>--</b>
+              </div>
+
+            </div>
+
+            <div className="row border-bottom-line">
+
+              <div className="col-md-3 col-xs-4">
+                <label>2010 - 2014</label>
+              </div>
+
+              <div className="col-md-6">
+                <b>--</b>
+              </div>
+
+            </div>
+
+            <div className="row border-bottom-line">
+
+              <div className="col-md-3 col-xs-4">
+                <label>2005 - 2009</label>
+              </div>
+
+              <div className="col-md-6">
+                <b>--</b>
+              </div>
+
+            </div>
+
           </div>
-        </div>
-
-        <div className="row border-bottom-line">
-
-          <div className="col-md-3">
-              <label>Date of birth</label>
-          </div>
-
-          <div className="col-md-3">
-            <b> {dateOfBirth} </b>
-          </div>
-
-          <div className="col-md-3">
-            <label>Current</label>
-          </div>
-
-          <div className="col-md-3">
-            <b>--</b>
-          </div>
-
-        </div>
-
-        <div className="row border-bottom-line">
-
-          <div className="col-md-3">
-            <label>Age</label>
-          </div>
-
-          <div className="col-md-3">
-            <b> {age} </b>
-          </div>
-
-          <div className="col-md-3">
-            <label>2010 - 2014</label>
-          </div>
-
-          <div className="col-md-3">
-            <b>--</b>
-          </div>
-
-        </div>
-
-        <div className="row border-bottom-line">
-
-          <div className="col-md-3">
-            <label>Gender</label>
-          </div>
-
-          <div className="col-md-3">
-            <b> {gender} </b>
-          </div>
-
-          <div className="col-md-3">
-            <label>2005 - 2009</label>
-          </div>
-
-          <div className="col-md-3">
-            <b>--</b>
-          </div>
-
-        </div>
-
-        <div className="row border-bottom-line">
-
-          <div className="col-md-3">
-            <label>Ethnicity</label>
-          </div>
-
-          <div className="col-md-3">
-            <b> {ethnicity} </b>
-          </div>
-
         </div>
 
         <div className="row">
@@ -113,7 +136,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
 
         <div className="row border-bottom-line">
 
-          <div className="col-md-3">
+          <div className="col-md-3 col-xs-4">
             <label>Height</label>
           </div>
 
@@ -123,7 +146,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
              </b>
           </div>
 
-          <div className="col-md-3">
+          <div className="col-md-3 col-xs-4">
             <label>Hair colour</label>
           </div>
 
@@ -137,17 +160,17 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
 
         <div className="row border-bottom-line">
 
-          <div className="col-md-3">
+          <div className="col-md-3 col-xs-4">
             <label>Weight</label>
           </div>
 
-          <div className="col-lg-3">
+          <div className="col-md-3">
             <b>
               <FormatValue start={physicalAttributes.weightKilograms} end="kg" />
             </b>
           </div>
 
-          <div className="col-md-3">
+          <div className="col-md-3 col-xs-4">
             <label> Facial hair</label>
           </div>
 
@@ -161,7 +184,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
 
         <div className="row border-bottom-line">
 
-          <div className="col-md-3">
+          <div className="col-md-3 col-xs-4">
             <label>Build</label>
           </div>
 
@@ -169,7 +192,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
             <b> <FormatValue start={physicalCharacteristics.build} /> </b>
           </div>
 
-          <div className="col-md-3">
+          <div className="col-md-3 col-xs-4">
             <label> Right eye colour</label>
           </div>
 
@@ -181,7 +204,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
 
         <div className="row border-bottom-line">
 
-          <div className="col-md-3">
+          <div className="col-md-3 col-xs-4">
             <label>Complexion</label>
           </div>
 
@@ -189,7 +212,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
             <b> <FormatValue start={physicalCharacteristics.complexion} /> </b>
           </div>
 
-          <div className="col-md-3">
+          <div className="col-md-3 col-xs-4">
             <label> Left eye colour</label>
           </div>
 
@@ -201,7 +224,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
 
         <div className="row border-bottom-line">
 
-          <div className="col-md-3">
+          <div className="col-md-3 col-xs-4">
             <label>Shape of face </label>
           </div>
 
@@ -209,7 +232,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
             <b> <FormatValue start={physicalCharacteristics.righteyecolour} /> </b>
           </div>
 
-          <div className="col-md-3">
+          <div className="col-md-3  col-xs-4">
             <label> Shoe size</label>
           </div>
 
@@ -241,7 +264,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
               </div>
 
               <div className="row border-bottom-line">
-                <div className="col-md-3">
+                <div className="col-md-3 col-xs-4">
                   <label>Type</label>
                 </div>
 
@@ -251,7 +274,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
               </div>
 
               <div className="row border-bottom-line">
-                <div className="col-md-3">
+                <div className="col-md-3 col-xs-4">
                   <label>Body part</label>
                 </div>
 
@@ -260,17 +283,18 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
                 </div>
               </div>
 
-              <div className="row">
-                <div className="col-md-3">
-                  <label>Visual</label>
-                </div>
+                { mark.imageId && <div className="row">
+                  <div className="col-md-3 col-xs-4">
+                    <label>Visual</label>
+                  </div>
 
-                <div className="col-md-3">
-                  <div className="photo clickable" onClick={() => showPhoto(mark.imageId)}>
-                    { (mark.imageId && <EliteImage imageId={mark.imageId} />) || '--'}
+                  <div className="col-md-3">
+                    <div className="photo clickable" onClick={() => showPhoto(mark.imageId)}>
+                      { (mark.imageId && <EliteImage imageId={mark.imageId} />) || '--'}
+                    </div>
                   </div>
                 </div>
-              </div>
+                }
 
             </div>)}
 

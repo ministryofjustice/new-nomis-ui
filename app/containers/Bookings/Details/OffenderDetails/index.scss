@@ -10,6 +10,10 @@ $gutter-size: 15px;
     margin-bottom: $gutter-size;
     margin-left: 0;
 
+    b {
+      word-wrap: break-word;
+    }
+
     .col-md-12:first-child{
       padding-left: 0;
     }
@@ -19,6 +23,19 @@ $gutter-size: 15px;
     }
     .col-md-3:first-child {
        padding-left: 0;
+    }
+
+    @include media-breakpoint-down(md) {
+      .col-md-12 {
+        padding-left: 0;
+      }
+      .col-md-6 {
+        padding-left: 0;
+
+      }
+      .col-md-3  {
+        padding-left: 0;
+      }
     }
   }
 
