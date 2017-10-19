@@ -10,7 +10,6 @@ import EliteImage from 'containers/EliteContainers/Image';
 
 import { analyticsServiceBuilder } from 'utils/analyticsService';
 import OffenderDetails from './OffenderDetails';
-import OffenderDetailsMobile from './OffenderDetails/mobile';
 import CaseNotes from './CaseNotes';
 import Alerts from './Alerts';
 import KeyDates from './KeyDates';
@@ -26,7 +25,7 @@ import {
 const analyticsService = analyticsServiceBuilder();
 
 const tabData = [
-    { tabId: DETAILS_TABS.OFFENDER_DETAILS, title: 'Offender details', mobileTitle: 'Offender', component: OffenderDetails, componentMobile: OffenderDetailsMobile },
+    { tabId: DETAILS_TABS.OFFENDER_DETAILS, title: 'Offender details', mobileTitle: 'Offender', component: OffenderDetails, componentMobile: OffenderDetails },
     { tabId: DETAILS_TABS.ALERTS, title: 'Alerts', mobileTitle: 'Alerts', component: Alerts, componentMobile: Alerts },
     { tabId: DETAILS_TABS.CASE_NOTES, title: 'Case notes', mobileTitle: 'Case notes', component: CaseNotes, componentMobile: CaseNotes },
     { tabId: DETAILS_TABS.KEY_DATES, title: 'Key dates', mobileTitle: 'Key dates', component: KeyDates, componentMobile: KeyDates },

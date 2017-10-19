@@ -86,6 +86,8 @@
     "one-var": 0,
     "no-unused-expressions": 0,
     "no-trailing-spaces": 0,
+    "react/no-array-index-key": 0,
+    "no-param-reassign": 0
   },
   "settings": {
     "import/resolver": {

@@ -29,7 +29,6 @@ class EliteImage extends PureComponent { // eslint-disable-line react/prefer-sta
     // thus for now leaving it as an img.
     return <Image style={{ backgroundImage:`url(${dataURL})` }} />; // eslint-disable-line
   }
-
 }
 
 export function mapDispatchToProps(dispatch, props) {

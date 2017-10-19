@@ -1,0 +1,45 @@
+$gutter-size: 15px;
+
+.offender-details {
+
+  .photo {
+    width: 160px;
+    height: 200px;
+  }
+  .row {
+    margin-bottom: $gutter-size;
+    margin-left: 0;
+
+    b {
+      word-wrap: break-word;
+    }
+
+    .col-md-12:first-child{
+      padding-left: 0;
+    }
+    .col-md-6:first-child{
+      padding-left: 0;
+
+    }
+    .col-md-3:first-child {
+       padding-left: 0;
+    }
+
+    @include media-breakpoint-down(md) {
+      .col-md-12 {
+        padding-left: 0;
+      }
+      .col-md-6 {
+        padding-left: 0;
+
+      }
+      .col-md-3  {
+        padding-left: 0;
+      }
+    }
+  }
+
+  .border-bottom-line {
+    border-bottom: solid .1px lightgrey;
+  }
+}
