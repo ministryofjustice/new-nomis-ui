@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import EliteImage from '../../../EliteContainers/image';
+import EliteImage from 'containers/EliteContainers/Image/index';
 
 import { selectOffenderDetails } from '../../selectors';
 import { showLargePhoto } from '../../actions';
