@@ -4,6 +4,8 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const appInsights = require('applicationinsights');
+
 const logger = require('./logger');
 const argv = require('minimist')(process.argv.slice(2));
 const setup = require('./middlewares/frontendMiddleware');
@@ -16,6 +18,18 @@ const apiProxy = require('./apiproxy');
 const application = require('./app');
 const controller = require('./controller');
 const session = require('./session');
+
+if (process.env.NODE_ENV === 'production') {
+  appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY || 'secret')
+    .setAutoDependencyCorrelation(true)
+    .setAutoCollectRequests(true)
+    .setAutoCollectPerformance(true)
+    .setAutoCollectExceptions(true)
+    .setAutoCollectDependencies(true)
+    .setAutoCollectConsole(true)
+    .setUseDiskRetryCaching(true)
+    .start();
+}
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', req.headers.host);
