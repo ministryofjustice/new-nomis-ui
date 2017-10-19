@@ -19,8 +19,8 @@ const application = require('./app');
 const controller = require('./controller');
 const session = require('./session');
 
-if (process.env.NODE_ENV === 'production') {
-  appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY || 'secret')
+if (process.env.NODE_ENV === 'production' && process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
+  appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY)
     .setAutoDependencyCorrelation(true)
     .setAutoCollectRequests(true)
     .setAutoCollectPerformance(true)
