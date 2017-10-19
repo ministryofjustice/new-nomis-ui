@@ -162,12 +162,12 @@ applicationinsights-js@^1.0.0, applicationinsights-js@^1.0.3:
   version "1.0.12"
   resolved "https://registry.yarnpkg.com/applicationinsights-js/-/applicationinsights-js-1.0.12.tgz#3829fdf9a6b648e2945f1b633b8ae3bd7d4d30f6"
 
-applicationinsights@^0.20.1:
-  version "0.20.1"
-  resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-0.20.1.tgz#fb967e0519330c0593eeb5afb5a078836c2430be"
+applicationinsights@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-1.0.0.tgz#f5942e53f861da6881f242460689c344f8358473"
   dependencies:
-    diagnostic-channel "0.1.0"
-    diagnostic-channel-publishers "0.1.2"
+    diagnostic-channel "0.2.0"
+    diagnostic-channel-publishers "0.2.1"
     zone.js "0.7.6"
 
 aproba@^1.0.3:
@@ -2566,13 +2566,13 @@ detect-indent@^4.0.0:
   dependencies:
     repeating "^2.0.0"
 
-diagnostic-channel-publishers@0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/diagnostic-channel-publishers/-/diagnostic-channel-publishers-0.1.2.tgz#33b2c333392fd7e973313b4efadf8c600bfea61e"
+diagnostic-channel-publishers@0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/diagnostic-channel-publishers/-/diagnostic-channel-publishers-0.2.1.tgz#8e2d607a8b6d79fe880b548bc58cc6beb288c4f3"
 
-diagnostic-channel@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/diagnostic-channel/-/diagnostic-channel-0.1.0.tgz#7a6ad8ad5066bac544da0a379ba174ba362a57cf"
+diagnostic-channel@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/diagnostic-channel/-/diagnostic-channel-0.2.0.tgz#cc99af9612c23fb1fff13612c72f2cbfaa8d5a17"
   dependencies:
     semver "^5.3.0"
 
