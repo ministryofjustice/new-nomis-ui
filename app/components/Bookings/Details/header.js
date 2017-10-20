@@ -9,7 +9,7 @@ import { toFullName } from 'utils/stringUtils';
 import './header.scss';
 
 function Header({ inmateData, onImageClick }) {
-  const { firstName, lastName, offenderNo, facialImageId, alertsCodes, assignedLivingUnit, assignedOfficerId, iepLevel } = inmateData;
+  const { firstName, lastName, offenderNo, facialImageId, alertsCodes, assignedLivingUnit, assignedOfficerId, iepLevel, csra } = inmateData;
 
   const nameString = toFullName({ firstName, lastName });
 
@@ -74,7 +74,7 @@ function Header({ inmateData, onImageClick }) {
 
                <div className="column">
                  <label> CSRA </label>
-                 <b> -- </b>
+                 <b> { csra } </b>
                </div>
 
              </div>
@@ -91,7 +91,7 @@ function Header({ inmateData, onImageClick }) {
                <div className="column">
                  <label> Location </label>
                  <div className="location-information">
-                   <b> {assignedLivingUnit.description} - {assignedLivingUnit.agencyName} </b>
+                   <b> {assignedLivingUnit.description} {assignedLivingUnit.agencyName} </b>
                  </div>
                </div>
 
