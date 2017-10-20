@@ -85,8 +85,6 @@ const bookingDetails = (req, res) => {
     const firstAssessment = details.assessments[0];
 
     const csraLevel = firstAssessment && firstAssessment.assessmentCode === 'CSR' ? firstAssessment.classification : '--';
-
-    debugger;
     const data = Object.assign({}, details, {
       iepLevel,
     },
@@ -101,11 +99,11 @@ const bookingDetails = (req, res) => {
     res.status(errorStatusCode(error.response));
     res.end();
   });
-}
+};
 
 module.exports = {
   keyDates,
   login,
   images,
   bookingDetails,
-}
+};
