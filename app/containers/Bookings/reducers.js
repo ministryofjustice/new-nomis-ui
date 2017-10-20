@@ -15,6 +15,11 @@ import moment from 'moment';
 import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
 
 import {
+  LOGOUT_SUCCESS,
+} from 'containers/Authentication/constants';
+
+
+import {
   SEARCH_LOADING,
   SEARCH_SUCCESS,
   SEARCH_ERROR,
@@ -35,6 +40,7 @@ import {
   SET_KEYDATES,
   DETAILS_ERROR,
 } from './constants';
+
 
 import results from './Results/resultsData';
 
@@ -110,6 +116,20 @@ function searchReducer(state = initialState, action) {
 
       return state;
     }
+
+    case LOGOUT_SUCCESS: {
+      return fromJS({
+        loading: false,
+        results: [],
+        error: null,
+        query: { firstName: '', lastName: '' },
+        sortOrder: 'ASC',
+        pagination: { perPage: 10, pageNumber: 0 },
+        details: {},
+        resultsView: 'List', // List or Grid
+      });
+    }
+
 
     case SEARCH_LOADING: {
       return state.set('loading', true);

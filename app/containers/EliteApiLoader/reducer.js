@@ -114,7 +114,19 @@ function EliteApiReducer(state = initialState, action) {
         }),
         Summaries: Map({}),
         Details: Map({}),
-      })).set('Images',Map({}));
+      })).set('Images',Map({})).set('User', Map({
+        CaseLoads: Map({}),
+        Data: [],
+        CaseNoteTypes: [],
+        CaseNoteSubTypes: [],
+      })).set('caseNoteTypes', Map({
+        Types: [],
+        subTypes: [],
+      }).set('AlertTypes', {}).set('AllCaseNoteFilters', Map({
+        Sources: [],
+        Types: [],
+        SubTypes: [],
+      })))
     }
 
     case BOOKINGS.CLEAR: {
