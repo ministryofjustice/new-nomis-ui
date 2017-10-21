@@ -14,7 +14,7 @@ const FormatValue = ({ start, end }) => ((start && <span> { (start && end && `${
 class OffenderDetails extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { offenderDetails, showPhoto } = this.props;
-    const { dateOfBirth, age, gender, ethnicity, physicalAttributes,physicalCharacteristics, physicalMarks } = offenderDetails;
+    const { dateOfBirth, age, gender, ethnicity, physicalAttributes,physicalCharacteristics, physicalMarks, aliases } = offenderDetails;
 
     const marksGroupedIntoPairs = physicalMarks.reduce((result, value, index, array) => {
       if (index % 2 === 0) { result.push(array.slice(index, index + 2)); }
@@ -88,39 +88,14 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
                 <h3 className="heading-medium"> Aliases </h3>
             </div>
 
-
             <div className="row border-bottom-line">
 
               <div className="col-md-3 col-xs-4">
-                <label>Current</label>
+                <label></label>
               </div>
 
               <div className="col-md-6">
-                <b>--</b>
-              </div>
-
-            </div>
-
-            <div className="row border-bottom-line">
-
-              <div className="col-md-3 col-xs-4">
-                <label>2010 - 2014</label>
-              </div>
-
-              <div className="col-md-6">
-                <b>--</b>
-              </div>
-
-            </div>
-
-            <div className="row border-bottom-line">
-
-              <div className="col-md-3 col-xs-4">
-                <label>2005 - 2009</label>
-              </div>
-
-              <div className="col-md-6">
-                <b>--</b>
+                <b>{aliases[0].lastName}, {aliases[0].firstName}</b>
               </div>
 
             </div>
@@ -142,7 +117,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
 
           <div className="col-md-3">
              <b>
-               <FormatValue start={physicalAttributes.heightFeet} end="feet" />
+               <FormatValue start={physicalAttributes.heightMetres} end="metres" />
              </b>
           </div>
 
@@ -152,7 +127,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
 
           <div className="col-md-3">
             <b>
-              <FormatValue start={physicalCharacteristics.haircolour} />
+              <FormatValue start={physicalCharacteristics['hair-colour']} />
             </b>
           </div>
 
@@ -176,7 +151,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
 
           <div className="col-md-3">
             <b>
-              <FormatValue start={physicalCharacteristics.facialHair} />
+              <FormatValue start={physicalCharacteristics['facial-hair']} />
             </b>
           </div>
 
@@ -197,7 +172,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
           </div>
 
           <div className="col-md-3">
-            <b> <FormatValue start={physicalCharacteristics.righteyecolour} /> </b>
+            <b> <FormatValue start={physicalCharacteristics['right-eye-colour']} /> </b>
           </div>
 
         </div>
@@ -205,11 +180,11 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
         <div className="row border-bottom-line">
 
           <div className="col-md-3 col-xs-4">
-            <label>Complexion</label>
+            <label>Hair Colour</label>
           </div>
 
           <div className="col-md-3">
-            <b> <FormatValue start={physicalCharacteristics.complexion} /> </b>
+            <b> <FormatValue start={physicalCharacteristics['hair-colour']} /> </b>
           </div>
 
           <div className="col-md-3 col-xs-4">
@@ -217,7 +192,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
           </div>
 
           <div className="col-md-3">
-            <b> <FormatValue start={physicalCharacteristics.lefteyecolour} /> </b>
+            <b> <FormatValue start={physicalCharacteristics['left-eye-colour']} /> </b>
           </div>
 
         </div>
@@ -229,7 +204,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
           </div>
 
           <div className="col-md-3">
-            <b> <FormatValue start={physicalCharacteristics.righteyecolour} /> </b>
+            <b> <FormatValue start={physicalCharacteristics['shape-of-face']} /> </b>
           </div>
 
           <div className="col-md-3  col-xs-4">
@@ -237,7 +212,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
           </div>
 
           <div className="col-md-3">
-            <b> <FormatValue start={physicalCharacteristics.shoesize} /> </b>
+            <b> <FormatValue start={physicalCharacteristics['shoe-size']} /> </b>
           </div>
 
         </div>

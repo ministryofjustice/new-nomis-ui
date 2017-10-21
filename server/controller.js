@@ -82,10 +82,15 @@ const bookingDetails = (req, res) => {
   Promise.all([apiService.getDetails(req), getIepLevel]).then(response => {
     const details = response[0].details;
     const iepLevel = (response[1] && response[1].iepLevel) || {};
+    const firstAssessment = details.assessments[0];
 
+    const csraLevel = firstAssessment && firstAssessment.assessmentCode === 'CSR' ? firstAssessment.classification : '--';
     const data = Object.assign({}, details, {
       iepLevel,
-    });
+    },
+      {
+        csra: csraLevel,
+      });
 
     res.setHeader('jwt', session.extendSession(req.headers));
 
@@ -94,11 +99,11 @@ const bookingDetails = (req, res) => {
     res.status(errorStatusCode(error.response));
     res.end();
   });
-}
+};
 
 module.exports = {
   keyDates,
   login,
   images,
   bookingDetails,
-}
+};
