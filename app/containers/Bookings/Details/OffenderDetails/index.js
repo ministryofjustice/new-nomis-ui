@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-
+import { toFullName } from 'utils/stringUtils';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import EliteImage from 'containers/EliteContainers/Image/index';
@@ -21,6 +21,8 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
       return result;
     }, []);
 
+    const firstAlias = aliases ? aliases[0] : null;
+    const alias = firstAlias ? toFullName({ lastName: firstAlias.lastName, firstName: firstAlias.firstName }) : 'N/A';
     return (<div className="offender-details">
 
         <div className="row">
@@ -91,11 +93,11 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
             <div className="row border-bottom-line">
 
               <div className="col-md-3 col-xs-4">
-                <label></label>
+                <label>{ alias === 'N/A' ? '--' : 'Current' }</label>
               </div>
 
               <div className="col-md-6">
-                <b>{aliases[0].lastName}, {aliases[0].firstName}</b>
+                <b>{alias}</b>
               </div>
 
             </div>
