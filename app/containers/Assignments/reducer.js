@@ -42,7 +42,7 @@ function searchReducer(state = initialState, action) {
       const currentFirstId = cP.pageNumber * cP.perPage;
       let newPerPage;
       if (view === 'Grid') {
-        newPerPage = 15;
+        newPerPage = 10;
       } else if (view === 'List') {
         newPerPage = 10;
       }

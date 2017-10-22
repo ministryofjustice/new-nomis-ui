@@ -57,7 +57,7 @@ const detailsState = fromJS({
   locations: [],
   totalResults: 0,
   caseNotes: {
-    Pagination: { perPage: 5, pageNumber: 0 },
+    Pagination: { perPage: 10, pageNumber: 0 },
     Query: { source: [], typeSubType: { type: [], subType: [] }, dateRange: { startDate: null, endDate: null } },
     viewId: 0,
     viewOptions: ['LIST', 'DETAIL'],
@@ -195,7 +195,7 @@ function searchReducer(state = initialState, action) {
       const currentFirstId = cP.pageNumber * cP.perPage;
       let newPerPage;
       if (action.payload === 'Grid') {
-        newPerPage = 15;
+        newPerPage = 10;
       } else if (action.payload === 'List') {
         newPerPage = 10;
       }

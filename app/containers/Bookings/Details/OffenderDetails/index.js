@@ -182,11 +182,11 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
         <div className="row border-bottom-line">
 
           <div className="col-md-3 col-xs-4">
-            <label>Hair Colour</label>
+            <label>Complexion</label>
           </div>
 
           <div className="col-md-3">
-            <b> <FormatValue start={physicalCharacteristics['hair-colour']} /> </b>
+            <b> <FormatValue start={physicalCharacteristics.complexion} /> </b>
           </div>
 
           <div className="col-md-3 col-xs-4">
