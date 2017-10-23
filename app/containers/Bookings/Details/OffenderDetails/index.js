@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import EliteImage from 'containers/EliteContainers/Image/index';
 import { toFullName } from 'utils/stringUtils';
-import 'scss/core/responsive.scss';
 
 import { selectOffenderDetails } from '../../selectors';
 import { showLargePhoto } from '../../actions';
@@ -108,7 +107,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
           </div>
         </div>
 
-        <div className="desktop-only">
+        <div className="desktop">
           <div className="row border-bottom-line">
 
             <div className="col-md-3 col-xs-6">
@@ -133,7 +132,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
           </div>
         </div>
 
-        <div className="mobile-only">
+        <div className="mobile">
           <div className="row border-bottom-line">
 
             <div className="col-md-3 col-xs-6">
@@ -163,7 +162,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
           </div>
         </div>
 
-        <div className="desktop-only">
+        <div className="desktop">
             {characteristicsGroupedIntoPairs.map(pair =>
               <div className="row border-bottom-line">
                 {pair.map(info => (
@@ -183,7 +182,7 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
             )}
         </div>
 
-        <div className="mobile-only">
+        <div className="mobile">
           {characteristicsGroupedIntoPairs.map(pair =>
             <div>
               {pair.map(info => (

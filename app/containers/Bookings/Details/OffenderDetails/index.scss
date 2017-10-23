@@ -9,7 +9,16 @@ $gutter-size: 15px;
     padding-left: 0;
   }
 
-  .mobile-only {
+  .desktop {
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
+  }
+
+  .mobile {
+    @include media-breakpoint-up(lg) {
+      display: none;
+    }
      .row {
        padding-left: 0 !important;
      }
