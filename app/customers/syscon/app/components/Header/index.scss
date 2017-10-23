@@ -14,6 +14,12 @@
     justify-content: start;
   }
 
+  @include media-breakpoint-down(xs) {
+    .desktop-only {
+      display: none;
+    }
+  }
+
   .brand-header {
     display: flex;
     flex-direction: row;
