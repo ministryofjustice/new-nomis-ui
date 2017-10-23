@@ -1,28 +1,27 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { toFullName } from 'utils/stringUtils';
+
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import EliteImage from 'containers/EliteContainers/Image/index';
+import { toFullName } from 'utils/stringUtils';
 
 import { selectOffenderDetails } from '../../selectors';
 import { showLargePhoto } from '../../actions';
+
 import './index.scss'
 
 const FormatValue = ({ start, end }) => ((start && <span> { (start && end && `${start} ${end}`) || `${start}`} </span>) || <span>{'--'}</span>);
+const Alias = ({ lastName, firstName }) => <span> {toFullName({ lastName, firstName })} </span>
 
 class OffenderDetails extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { offenderDetails, showPhoto } = this.props;
-    const { dateOfBirth, age, gender, ethnicity, physicalAttributes,physicalCharacteristics, physicalMarks, aliases } = offenderDetails;
+    const { dateOfBirth, age, gender, ethnicity, physicalAttributes,physicalCharacteristics, physicalMarks,aliases } = offenderDetails;
 
-    const marksGroupedIntoPairs = physicalMarks.reduce((result, value, index, array) => {
-      if (index % 2 === 0) { result.push(array.slice(index, index + 2)); }
-      return result;
-    }, []);
+    const marksGroupedIntoPairs = groupByPairs(physicalMarks);
+    const characteristicsGroupedIntoPairs = groupByPairs(physicalCharacteristics);
 
-    const firstAlias = aliases ? aliases[0] : null;
-    const alias = firstAlias ? toFullName({ lastName: firstAlias.lastName, firstName: firstAlias.firstName }) : 'N/A';
     return (<div className="offender-details">
 
         <div className="row">
@@ -35,22 +34,22 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
 
              <div className="row border-bottom-line">
 
-               <div className="col-md-3 col-xs-4">
+               <div className="col-md-6 col-xs-6">
                  <label>Date of birth</label>
                </div>
 
-               <div className="col-md-6">
+               <div className="col-md-6 col-xs-6">
                  <b> {dateOfBirth} </b>
                </div>
              </div>
 
              <div className="row border-bottom-line">
 
-               <div className="col-md-3 col-xs-4">
+               <div className="col-md-6 col-xs-6">
                  <label>Age</label>
                </div>
 
-               <div className="col-md-6">
+               <div className="col-md-6 col-xs-6">
                  <b> {age} </b>
                </div>
 
@@ -58,11 +57,11 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
 
              <div className="row border-bottom-line">
 
-               <div className="col-md-3 col-xs-4">
+               <div className="col-md-6 col-xs-6">
                  <label>Gender</label>
                </div>
 
-               <div className="col-md-6">
+               <div className="col-md-6 col-xs-6">
                  <b> {gender} </b>
                </div>
 
@@ -71,11 +70,11 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
 
              <div className="row border-bottom-line">
 
-               <div className="col-md-3 col-xs-4">
+               <div className="col-md-6 col-xs-6">
                  <label>Ethnicity</label>
                </div>
 
-               <div className="col-md-6">
+               <div className="col-md-6 col-xs-6">
                  <b> {ethnicity} </b>
                </div>
 
@@ -90,19 +89,16 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
                 <h3 className="heading-medium"> Aliases </h3>
             </div>
 
-            <div className="row border-bottom-line">
-
-              <div className="col-md-3 col-xs-4">
-                <label>{ alias === 'N/A' ? '--' : 'Current' }</label>
-              </div>
-
-              <div className="col-md-6">
-                <b>{alias}</b>
-              </div>
+            {aliases.map(alias =>
+            <div className="row border-bottom-line" key={`${alias.firstName}_${alias.lastName}`}>
+                <div className="col-md-6 col-xs-6">
+                  <b>
+                    <Alias {...alias} />
+                  </b>
+                </div>
+              </div>)}
 
             </div>
-
-          </div>
         </div>
 
         <div className="row">
@@ -111,113 +107,102 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
           </div>
         </div>
 
-        <div className="row border-bottom-line">
+        <div className="desktop">
+          <div className="row border-bottom-line">
 
-          <div className="col-md-3 col-xs-4">
-            <label>Height</label>
+            <div className="col-md-3 col-xs-6">
+              <label>Height</label>
+            </div>
+
+            <div className="col-md-3 col-xs-6">
+               <b>
+                 <FormatValue start={physicalAttributes.heightMetres} end="metres" />
+               </b>
+            </div>
+
+              <div className="col-md-3 col-xs-6">
+                <label>Weight</label>
+              </div>
+
+              <div className="col-md-3 col-xs-6">
+                <b>
+                  <FormatValue start={physicalAttributes.weightKilograms} end="kg" />
+                </b>
+              </div>
           </div>
-
-          <div className="col-md-3">
-             <b>
-               <FormatValue start={physicalAttributes.heightMetres} end="metres" />
-             </b>
-          </div>
-
-          <div className="col-md-3 col-xs-4">
-            <label>Hair colour</label>
-          </div>
-
-          <div className="col-md-3">
-            <b>
-              <FormatValue start={physicalCharacteristics['hair-colour']} />
-            </b>
-          </div>
-
         </div>
 
-        <div className="row border-bottom-line">
+        <div className="mobile">
+          <div className="row border-bottom-line">
 
-          <div className="col-md-3 col-xs-4">
-            <label>Weight</label>
+            <div className="col-md-3 col-xs-6">
+              <label>Height</label>
+            </div>
+
+            <div className="col-md-3 col-xs-6">
+              <b>
+                <FormatValue start={physicalAttributes.heightMetres} end="metres" />
+              </b>
+            </div>
+
           </div>
 
-          <div className="col-md-3">
-            <b>
-              <FormatValue start={physicalAttributes.weightKilograms} end="kg" />
-            </b>
-          </div>
+          <div className="row border-bottom-line">
 
-          <div className="col-md-3 col-xs-4">
-            <label> Facial hair</label>
-          </div>
+            <div className="col-md-3 col-xs-6">
+              <label>Weight</label>
+            </div>
 
-          <div className="col-md-3">
-            <b>
-              <FormatValue start={physicalCharacteristics['facial-hair']} />
-            </b>
-          </div>
+            <div className="col-md-3 col-xs-6">
+              <b>
+                <FormatValue start={physicalAttributes.weightKilograms} end="kg" />
+              </b>
+            </div>
 
+          </div>
         </div>
 
-        <div className="row border-bottom-line">
+        <div className="desktop">
+            {characteristicsGroupedIntoPairs.map(pair =>
+              <div className="row border-bottom-line">
+                {pair.map(info => (
+                 <div key={`${info.characteristic}_${info.details}`}>
+                    <div className="col-md-3 col-xs-6">
+                      <label>{info.characteristic}</label>
+                    </div>
 
-          <div className="col-md-3 col-xs-4">
-            <label>Build</label>
-          </div>
-
-          <div className="col-md-3">
-            <b> <FormatValue start={physicalCharacteristics.build} /> </b>
-          </div>
-
-          <div className="col-md-3 col-xs-4">
-            <label> Right eye colour</label>
-          </div>
-
-          <div className="col-md-3">
-            <b> <FormatValue start={physicalCharacteristics['right-eye-colour']} /> </b>
-          </div>
-
+                    <div className="col-md-3 col-xs-6">
+                        <b>
+                         <FormatValue start={info.detail} />
+                        </b>
+                     </div>
+                 </div>
+                   ))}
+              </div>
+            )}
         </div>
 
-        <div className="row border-bottom-line">
+        <div className="mobile">
+          {characteristicsGroupedIntoPairs.map(pair =>
+            <div>
+              {pair.map(info => (
+                <div key={`${info.characteristic}_${info.details}`}>
 
-          <div className="col-md-3 col-xs-4">
-            <label>Complexion</label>
-          </div>
+                  <div className="row border-bottom-line col-md-3 col-xs-6">
+                    <label>{info.characteristic}</label>
+                  </div>
 
-          <div className="col-md-3">
-            <b> <FormatValue start={physicalCharacteristics.complexion} /> </b>
-          </div>
-
-          <div className="col-md-3 col-xs-4">
-            <label> Left eye colour</label>
-          </div>
-
-          <div className="col-md-3">
-            <b> <FormatValue start={physicalCharacteristics['left-eye-colour']} /> </b>
-          </div>
-
+                  <div className="row border-bottom-line col-md-3 col-xs-6">
+                    <b>
+                      <FormatValue start={info.detail} />
+                    </b>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        <div className="row border-bottom-line">
-
-          <div className="col-md-3 col-xs-4">
-            <label>Shape of face </label>
-          </div>
-
-          <div className="col-md-3">
-            <b> <FormatValue start={physicalCharacteristics['shape-of-face']} /> </b>
-          </div>
-
-          <div className="col-md-3  col-xs-4">
-            <label> Shoe size</label>
-          </div>
-
-          <div className="col-md-3">
-            <b> <FormatValue start={physicalCharacteristics['shoe-size']} /> </b>
-          </div>
-
-        </div>
 
         {marksGroupedIntoPairs.length > 0 && <div className="row">
           <div className="col-md-12">
@@ -283,6 +268,11 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
     );
   }
 }
+
+const groupByPairs = (dataset) => dataset.reduce((result, value, index, array) => {
+  if (index % 2 === 0) { result.push(array.slice(index, index + 2)); }
+  return result;
+}, []);
 
 OffenderDetails.propTypes = {
   offenderDetails: PropTypes.object.isRequired,

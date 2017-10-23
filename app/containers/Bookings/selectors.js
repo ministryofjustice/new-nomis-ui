@@ -120,15 +120,6 @@ const selectOffenderDetails = () => createSelector(
     const physicalMarks = bookingDetails.getIn(['Data','physicalMarks']).toJS();
     const physicalCharacteristics = bookingDetails.getIn(['Data','physicalCharacteristics']).toJS();
 
-    const characteristics =
-      physicalCharacteristics.reduce((result, current) => {
-        if (!current.characteristic) { return result; }
-
-        const key = current.characteristic.split(' ').join('-').toLowerCase();
-        result[key] = current.detail;
-        return result;
-      }, {});
-
     return {
       dateOfBirth,
       age,
@@ -138,7 +129,7 @@ const selectOffenderDetails = () => createSelector(
       aliases,
       physicalAttributes,
       physicalMarks,
-      physicalCharacteristics: characteristics,
+      physicalCharacteristics,
     }
   }
 );
