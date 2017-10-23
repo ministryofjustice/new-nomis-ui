@@ -20,17 +20,15 @@ export default ({ user, switchCaseLoad, mobileMenuOpen, setMobileMenuOpen }) => 
                  SYSCON
                </h1>
              </span>
-
-             <span className="section">
+             <span className="section desktop-only">
                <span className="divider"></span>
              </span>
 
-             <span className="section">
+             <span className="section desktop-only">
                <h1>
                  Prison Manager
                </h1>
              </span>
-
            </div>
 
 
