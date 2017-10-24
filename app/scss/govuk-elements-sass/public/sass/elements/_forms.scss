@@ -59,7 +59,7 @@ textarea {
 // Form group is used to wrap label and input pairs
 .form-group {
   margin-bottom: $gutter-half;
-
+  width: 100%;
   @include media(tablet) {
     margin-bottom: $gutter;
   }
@@ -170,6 +170,7 @@ textarea.form-control {
   // Disable opacity and background image for Firefox
   opacity: 1;
   background-image: none;
+  width: 100%;
 }
 // scss-lint:enable QualifyingElement
 

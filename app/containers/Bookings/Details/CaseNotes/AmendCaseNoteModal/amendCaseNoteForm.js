@@ -12,10 +12,10 @@ const AmendCaseNoteForm = (props) => {
       <SubmissionError error={error}>{error}</SubmissionError>
       <Field name="caseNoteAmendmentText" component={TextArea} title="Case note amendment" type="text" autocomplete="off" spellcheck="true" />
       <div className="actions">
-        <button className="button col-xs-4" type="submit" disabled={submitting} onClick={isMobile ? goBack : null}>
+        <button className="button col-xs-12 col-sm-4" type="submit" disabled={submitting} onClick={isMobile ? goBack : null}>
           Save amendment
         </button>
-        <button className="cancel-button col-xs-2" type="reset" disabled={submitting} onClick={isMobile ? goBack : closeModal}>
+        <button className="cancel-button col-xs-12 col-sm-2" type="reset" disabled={submitting} onClick={isMobile ? goBack : closeModal}>
           Cancel
         </button>
       </div>

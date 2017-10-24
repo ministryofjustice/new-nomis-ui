@@ -57,11 +57,11 @@ class AddCaseNoteForm extends Component {
 
           <div className="actions">
 
-            <button className="button col-xs-4" type="submit" disabled={submitting}>
+            <button className="button col-xs-12 col-sm-4" type="submit" disabled={submitting}>
               Save case note
             </button>
 
-            <button className="cancel-button col-xs-2" type="reset" onClick={this.goBackToBookingDetails}>
+            <button className="cancel-button col-xs-12 col-sm-2" type="reset" onClick={this.goBackToBookingDetails}>
               Cancel
             </button>
 
