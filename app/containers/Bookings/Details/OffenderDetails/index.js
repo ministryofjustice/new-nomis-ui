@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
@@ -14,9 +14,8 @@ import './index.scss'
 const FormatValue = ({ start, end }) => ((start && <span> { (start && end && `${start} ${end}`) || `${start}`} </span>) || <span>{'--'}</span>);
 const Alias = ({ lastName, firstName }) => <span> {toFullName({ lastName, firstName })} </span>
 
-class OffenderDetails extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
   render() {
-    const { offenderDetails, showPhoto } = this.props;
     const { dateOfBirth, age, gender, ethnicity, physicalAttributes,physicalCharacteristics, physicalMarks,aliases } = offenderDetails;
 
     const marksGroupedIntoPairs = groupByPairs(physicalMarks);
@@ -266,8 +265,8 @@ class OffenderDetails extends PureComponent { // eslint-disable-line react/prefe
       </div>
 
     );
-  }
-}
+  },
+})
 
 const groupByPairs = (dataset) => dataset.reduce((result, value, index, array) => {
   if (index % 2 === 0) { result.push(array.slice(index, index + 2)); }

@@ -1,0 +1,24 @@
+$gutter-size: 15px;
+
+.quick-look {
+
+  overflow: hidden;
+
+  b, label {
+    word-wrap: break-word;
+  }
+
+  div[class^="col-"] {
+    padding-left: 0;
+    margin-bottom: $gutter-size;
+  }
+
+  .border-bottom-line {
+    border-bottom: solid .1px lightgrey;
+    margin-top: .5em;
+  };
+
+  .panel {
+    padding-right: $gutter-size !important;
+  }
+}

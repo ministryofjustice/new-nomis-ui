@@ -17,29 +17,48 @@ axios.interceptors.request.use((config) => {
 }, (error) => Promise.reject(error));
 
 
-const getSentenceData = (req) => service.callApi({
+const getSentenceData = async (req) => service.callApi({
   method: 'get',
   url: `bookings/${req.params.bookingId}/sentenceDetail`,
   headers: {},
   reqHeaders: req.headers,
   onTokenRefresh: (token) => { req.headers.jwt = token },
-}).then(response => new Promise(r => r({ sentence: response.data })));
+}).then(response => new Promise(r => r(response.data)));
 
-const getIepSummary = (req) => service.callApi({
+const getIepSummary = async (req) => service.callApi({
   method: 'get',
   url: `bookings/${req.params.bookingId}/iepSummary`,
   headers: {},
   reqHeaders: req.headers,
   onTokenRefresh: (token) => { req.headers.jwt = token },
-}).then(response => new Promise(r => r({ iepSummary: response.data })));
+}).then(response => new Promise(r => r(response.data)))
+  .catch(_ => new Promise(r => r(null)));  // eslint-disable-line no-unused-vars
 
-const getDetails = (req) => service.callApi({
+const getDetails = async (req) => service.callApi({
   method: 'get',
   url: `bookings/${req.params.bookingId}`,
   headers: {},
   reqHeaders: req.headers,
   onTokenRefresh: (token) => { req.headers.jwt = token },
-}).then(response => new Promise(r => r({ details: response.data })));
+}).then(response => new Promise(r => r(response.data)));
+
+const getBalances = async (req) => service.callApi({
+  method: 'get',
+  url: `bookings/${req.params.bookingId}/balances`,
+  headers: {},
+  reqHeaders: req.headers,
+  onTokenRefresh: (token) => { req.headers.jwt = token },
+}).then(response => new Promise(r => r(response.data)))
+  .catch(_ => new Promise(r => r(null)));  // eslint-disable-line no-unused-vars
+
+const getMainSentence = async (req) => service.callApi({
+  method: 'get',
+  url: `bookings/${req.params.bookingId}/mainSentence`,
+  headers: {},
+  reqHeaders: req.headers,
+  onTokenRefresh: (token) => { req.headers.jwt = token },
+}).then(response => new Promise(r => r(response.data)))
+  .catch(_ => new Promise(r => r(null)));  // eslint-disable-line no-unused-vars
 
 const callApi = ({ method, url, headers,reqHeaders, onTokenRefresh,responseType, data }) => {
   const { token, refreshToken } = session.getSessionData(reqHeaders);
@@ -96,6 +115,8 @@ const service = {
   getIepSummary,
   getSentenceData,
   getDetails,
+  getBalances,
+  getMainSentence,
 };
 
 module.exports = service;

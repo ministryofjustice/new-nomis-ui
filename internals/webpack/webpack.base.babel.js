@@ -6,6 +6,9 @@ const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const cssnano = require('cssnano');
+
 const customerCodeResolver = require('../customerCodeResolver');
 
 const webPackConfig = (options) => ({
@@ -88,6 +91,11 @@ const webPackConfig = (options) => ({
   },
   plugins: options.plugins.concat([
     new ExtractTextPlugin({ filename: 'styles.css', allChunks: true }),
+    new OptimizeCssAssetsPlugin({
+      cssProcessor: cssnano,
+      cssProcessorOptions: { discardComments: { removeAll: true } },
+      canPrint: true,
+    }),
     new webpack.ProvidePlugin({
       // make fetch available
       fetch: 'exports-loader?self.fetch!whatwg-fetch',

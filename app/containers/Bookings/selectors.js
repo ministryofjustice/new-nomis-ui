@@ -9,6 +9,10 @@ import { intlSelector } from 'containers/LanguageProvider/selectors';
 
 const selectSearch = () => (state) => state.get('search');
 
+const selectQuickLookViewModel = () => createSelector(
+  selectSearch(),
+  (searchState) => searchState.getIn(['details','quickLookViewModel'])
+);
 const selectLocations = () => createSelector(
   selectSearch(),
   (searchState) => searchState.getIn(['details', 'locations']).toJS()
@@ -312,4 +316,5 @@ export {
   intlSelector,
   selectKeyDatesViewModel,
   selectError,
+  selectQuickLookViewModel,
 };

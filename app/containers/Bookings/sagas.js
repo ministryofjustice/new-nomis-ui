@@ -13,6 +13,7 @@ import {
   loadMyLocations,
   searchOffenders,
   loadKeyDates,
+  loadQuickLook,
 } from 'utils/eliteApi';
 
 import {
@@ -59,6 +60,8 @@ import {
   SET_DETAILS_TAB,
   LOAD_KEY_DATES,
   SET_KEYDATES,
+  LOAD_QUICK_LOOK,
+  SET_QUICK_LOOK,
 } from './constants';
 
 export function* loadKeyDatesWatcher() {
@@ -85,6 +88,22 @@ export function* hidePhotoWatcher() {
 
 export function* toggleSortOrderWatcher() {
   yield takeLatest(TOGGLE_SORT_ORDER, toggleSort);
+}
+
+export function* loadQuickLookWatcher() {
+  yield takeLatest(LOAD_QUICK_LOOK, onLoadQuickLook);
+}
+
+export function* onLoadQuickLook(action) {
+  try {
+    const viewModel = yield call(loadQuickLook, action.payload);
+    yield put({
+      type: SET_QUICK_LOOK,
+      payload: viewModel,
+    });
+  } catch (err) {
+    yield put({ type: DETAILS_ERROR, payload: { error: err.userMessage } });
+  }
 }
 
 export function* onLoadKeyDates(action) {
@@ -385,4 +404,5 @@ export default [
   newSearchWatcher,
   toggleSortOrderWatcher,
   loadKeyDatesWatcher,
+  loadQuickLookWatcher,
 ];

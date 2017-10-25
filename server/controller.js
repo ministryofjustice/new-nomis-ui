@@ -2,6 +2,16 @@ const apiService = require('./apiService'),
   errorStatusCode = apiService.errorStatusCode;
 const session = require('./session');
 
+const asyncMiddleware = fn =>
+  (req, res, next) => {
+    res.setHeader('jwt', session.extendSession(req.headers));
+    Promise.resolve(fn(req, res, next))
+      .catch(error => {
+        res.status(errorStatusCode(error.response));
+        res.end();
+      });
+  };
+
 const keyDatesMapper = require('./view-model-mappers/keydates');
 
 const login = (req, res) => {
@@ -41,32 +51,28 @@ const images = (req, res) => {
   });
 };
 
-const keyDates = (req,res) => {
+const keyDates = asyncMiddleware(async (req,res) => {
   if (!req.params.bookingId) {
     res.status(400);
     res.end();
     return;
   }
 
-  Promise.all([apiService.getSentenceData(req), apiService.getIepSummary(req)]).then(response => {
-    const sentence = keyDatesMapper.sentence(response[0].sentence);
-    const other = keyDatesMapper.otherDates(response[0].sentence);
-    const iepSummary = response[1].iepSummary;
+  const sentenceData = await apiService.getSentenceData(req);
+  const sentence = keyDatesMapper.sentence(sentenceData);
+  const other = keyDatesMapper.otherDates(sentenceData);
+  const iepSummary = (await apiService.getIepSummary(req));
 
-    res.setHeader('jwt', session.extendSession(req.headers));
-    res.json({
-      iepLevel: iepSummary.iepLevel,
-      daysSinceReview: iepSummary.daysSinceReview,
-      sentence,
-      other,
-    });
-  }).catch(error => {
-    res.status(errorStatusCode(error.response));
-    res.end();
-  });
-};
+  const data = {
+    iepLevel: iepSummary.iepLevel,
+    daysSinceReview: iepSummary.daysSinceReview,
+    sentence,
+    other,
+  };
+  res.json(data);
+});
 
-const bookingDetails = (req, res) => {
+const bookingDetails = asyncMiddleware(async (req, res) => {
   const bookingId = req.params.bookingId;
 
   if (!bookingId) {
@@ -75,35 +81,48 @@ const bookingDetails = (req, res) => {
     return;
   }
   
-  const getIepLevel = apiService.getIepSummary(req)
-    .then(response => new Promise(r => r({ iepLevel: response.iepSummary.iepLevel })))
-    .catch(response => new Promise(r => r({ iepLevel: '--' }))); // eslint-disable-line no-unused-vars
+  const details = (await apiService.getDetails(req));
+  const iepLevel = (await apiService.getIepSummary(req)).iepLevel;
+  const firstAssessment = details.assessments[0];
+  const csraLevel = firstAssessment && firstAssessment.assessmentCode === 'CSR' ? firstAssessment.classification : '--';
 
-  Promise.all([apiService.getDetails(req), getIepLevel]).then(response => {
-    const details = response[0].details;
-    const iepLevel = (response[1] && response[1].iepLevel) || {};
-    const firstAssessment = details.assessments[0];
+  const data = {
+    ...details,
+    iepLevel ,
+    csra: csraLevel,
+  };
 
-    const csraLevel = firstAssessment && firstAssessment.assessmentCode === 'CSR' ? firstAssessment.classification : '--';
-    const data = Object.assign({}, details, {
-      iepLevel,
-    },
-      {
-        csra: csraLevel,
-      });
+  res.json(data);
+});
 
-    res.setHeader('jwt', session.extendSession(req.headers));
+const quickLook = asyncMiddleware(async (req, res) => {
+  const bookingId = req.params.bookingId;
 
-    res.json(data);
-  }).catch(error => {
-    res.status(errorStatusCode(error.response));
+  if (!bookingId) {
+    res.status(400);
     res.end();
-  });
-};
+    return;
+  }
+
+  const balance = await apiService.getBalances(req);
+  const sentence = await apiService.getMainSentence(req);
+
+  const data = {
+    balance,
+    sentence: sentence && {
+      type: sentence.mainOffenceDescription,
+      lengthOfSentence: sentence.sentenceLength,
+      releaseDate: sentence.releaseDate,
+    },
+  };
+
+  res.json(data);
+});
 
 module.exports = {
   keyDates,
   login,
   images,
   bookingDetails,
+  quickLook,
 };
