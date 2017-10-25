@@ -52,11 +52,12 @@ app.use((req,res,next) => {
 app.use(express.static('fonts'));
 app.use(express.static('img'));
 
+
 app.use('/app/login',jsonParser, controller.login);
 app.use('/app/photo', jsonParser, controller.images);
 app.use('/app/keydates/:bookingId', jsonParser, controller.keyDates);
 app.use('/app/bookings/details/:bookingId', jsonParser, controller.bookingDetails);
-
+app.use('/app/bookings/quicklook/:bookingId', jsonParser, controller.quickLook);
 
 app.use('/app',jsonParser, application.sessionHandler);
 app.use('/health', apiProxy);

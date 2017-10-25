@@ -252,7 +252,6 @@ export const CaseNoteTypeMapper = (res) => {
 const flatten = list => list.reduce(
   (a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []
 );
-
 export const imageMeta = (token, baseUrl, imageId) => axios({
   baseURL: baseUrl,
   method: 'get',
@@ -315,5 +314,11 @@ export const searchOffenders = ({ baseUrl, query,
   }));
 
 export const loadKeyDates = (bookingId) => axios({
+  method: 'get',
   url: `/app/keydates/${bookingId}`,
 }).then(response => response.data);
+
+export const loadQuickLook = (bookingId) => axios({
+  method: 'get',
+  url: `/app/bookings/quicklook/${bookingId}`,
+}).then((response) => response.data);

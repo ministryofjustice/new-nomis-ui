@@ -17,7 +17,6 @@ export const TOGGLE_SORT_ORDER = 'app/bookings/search/results/sortOrder';
 export const SET_PAGINATION = 'app/bookings/search/results/pagination/set';
 export const UPDATE_PAGINATION = 'app/bookings/search/results/pagination/update';
 
-
 export const VIEW_DETAILS = 'app/bookings/details/view';
 export const SET_DETAILS = 'app/bookings/details/set';
 export const SET_DETAILS_TAB = 'app/bookings/details/tab/set';
@@ -30,12 +29,16 @@ export const DETAILS_TABS = {
   ALERTS: 2,
   CASE_NOTES: 3,
   KEY_DATES: 4,
+  QUICK_LOOK: 5,
 };
 
 export const DETAILS_ERROR = 'app/bookings/details/error';
 
 export const SET_ALERTS_PAGINATION = 'app/bookings/details/alerts/pagination/set';
 export const UPDATE_ALERTS_PAGINATION = 'app/bookings/details/alerts/pagination/update';
+export const LOAD_QUICK_LOOK = 'app/bookings/details/quicklook';
+export const SET_QUICK_LOOK = 'app/bookings/details/quicklook/set';
+
 
 export const SET_CASENOTES_PAGINATION = 'app/bookings/details/casenotes/pagination/set';
 export const UPDATE_CASENOTES_PAGINATION = 'app/bookings/details/casenotes/pagination/update';

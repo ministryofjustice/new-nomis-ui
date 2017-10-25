@@ -22,6 +22,7 @@ import {
   LOAD_LOCATIONS,
   TOGGLE_SORT_ORDER,
   LOAD_KEY_DATES,
+  LOAD_QUICK_LOOK,
 } from './constants';
 
 
@@ -149,6 +150,13 @@ export function toggleSortOrder(sortOrder) {
 export function loadKeyDates(bookingId) {
   return {
     type: LOAD_KEY_DATES,
+    payload: bookingId,
+  }
+}
+
+export function loadQuickLook(bookingId) {
+  return {
+    type: LOAD_QUICK_LOOK,
     payload: bookingId,
   }
 }

@@ -1,3 +1,5 @@
+const path = require('path');
+const fs = require('fs');
 
 
 module.exports = ({ webPackConfig,options }) => {
@@ -17,6 +19,14 @@ module.exports = ({ webPackConfig,options }) => {
     header: `customers/${process.env.CLIENT}/app/components/Header/index.js`,
     'product-globals': `customers/${process.env.CLIENT}/app/product-globals.js`,
   };
+
+  Object.keys(componentSubstitutes).forEach(key => {
+    const filePath = path.join(__dirname,'../../app',componentSubstitutes[key]);
+    if (fs.existsSync(filePath) === false) {
+      const error = `Required file not found - ${filePath}`;
+      throw error;
+    }
+  });
 
   const extendedOptions = Object.assign({},
     options,

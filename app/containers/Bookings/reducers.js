@@ -39,6 +39,7 @@ import {
   SET_LOCATIONS,
   SET_KEYDATES,
   DETAILS_ERROR,
+  SET_QUICK_LOOK,
 } from './constants';
 
 
@@ -46,7 +47,7 @@ import results from './Results/resultsData';
 
 const detailsState = fromJS({
   id: 20847,
-  activeTabId: DETAILS_TABS.OFFENDER_DETAILS,
+  activeTabId: DETAILS_TABS.QUICK_LOOK,
   tabs: [{ tabId: DETAILS_TABS.OFFENDER_DETAILS, title: 'Offender Details' },
          { tabId: DETAILS_TABS.PHYSICAL_ATTR, title: 'Physical Attributes' },
          { tabId: DETAILS_TABS.ALERTS, title: 'Alerts' },
@@ -220,6 +221,10 @@ function searchReducer(state = initialState, action) {
 
     case SET_KEYDATES: {
       return state.setIn(['details','keyDatesViewModel'], fromJS(action.payload));
+    }
+
+    case SET_QUICK_LOOK: {
+      return state.setIn(['details','quickLookViewModel'],fromJS(action.payload));
     }
 
     case DETAILS_ERROR: {
