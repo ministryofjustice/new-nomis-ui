@@ -1,9 +1,13 @@
 const jwt = require('jsonwebtoken');
+const version = require('./application-version');
 
 const minutes = process.env.WEB_SESSION_TIMEOUT_IN_MINUTES || 20;
 const key = process.env.NOMS_TOKEN || 'test';
 
-const newJWT = (data) => jwt.sign({ data,
+const newJWT = (data) => jwt.sign({ data: {
+  ...data,
+  applicationVersion: version,
+},
   exp: Math.floor(Date.now() / 1000) + (60 * minutes),
 }, key);
 
