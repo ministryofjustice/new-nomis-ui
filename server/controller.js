@@ -1,6 +1,7 @@
 const apiService = require('./apiService'), 
   errorStatusCode = apiService.errorStatusCode;
 const session = require('./session');
+const moment = require('moment');
 
 const asyncMiddleware = fn =>
   (req, res, next) => {
@@ -106,10 +107,32 @@ const quickLook = asyncMiddleware(async (req, res) => {
 
   const balance = await apiService.getBalances(req);
   const sentence = await apiService.getMainSentence(req);
+  const activityData = await apiService.getActivitiesForToday(req);
+
+  const unique = (array) => array.reduce((result, current) => {
+    if (result.indexOf(current) < 0) { result.push(current); }
+    return result;
+  },[]);
+
+  const filterMorning = (array) => array.filter(a => moment(a.startTime).get('hour') < 12);
+  const filterAfternoon = (array) => array.filter(a => moment(a.startTime).get('hour') > 11);
+  const selectDescription = (array) => array.map(a => a.eventSourceDesc);
+
+  const activities = {
+    morningActivities: unique(selectDescription(filterMorning(activityData))).map(description => ({ description })),
+    afternoonActivities: unique(selectDescription(filterAfternoon(activityData))).map(description => ({ description })),
+  };
+
+  const hasSentenceInformation =
+    sentence &&
+    sentence.mainOffenceDescription &&
+    sentence.sentenceLength &&
+    sentence.releaseDate;
 
   const data = {
     balance,
-    sentence: sentence && {
+    activities: activities && (activities.morningActivities || activities.afternoonActivities) ,
+    sentence: hasSentenceInformation && {
       type: sentence.mainOffenceDescription,
       lengthOfSentence: sentence.sentenceLength,
       releaseDate: sentence.releaseDate,

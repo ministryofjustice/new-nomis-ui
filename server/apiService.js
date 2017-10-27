@@ -3,6 +3,7 @@ const session = require('./session');
 const useApiAuth = (process.env.USE_API_GATEWAY_AUTH || 'no') === 'yes';
 const gatewayToken = require('./jwtToken');
 
+
 axios.defaults.baseURL = process.env.API_ENDPOINT_URL || 'http://localhost:7080/api';
 
 axios.interceptors.request.use((config) => {
@@ -59,6 +60,21 @@ const getMainSentence = async (req) => service.callApi({
   onTokenRefresh: (token) => { req.headers.jwt = token },
 }).then(response => new Promise(r => r(response.data)))
   .catch(_ => new Promise(r => r(null)));  // eslint-disable-line no-unused-vars
+
+const getActivitiesForToday = async (req) => 
+  // const iso8601Format = 'YYYY-MM-DD';
+  // const startTime = moment().format(iso8601Format);
+  // const endTime = moment().format(iso8601Format);
+
+   service.callApi({
+     method: 'get',
+     url: `bookings/${req.params.bookingId}/activities`,
+     headers: {},
+     reqHeaders: req.headers,
+     onTokenRefresh: (token) => { req.headers.jwt = token },
+   }).then(response => new Promise(r => r(response.data)))
+    .catch(_ => new Promise(r => r(null)))  // eslint-disable-line no-unused-vars
+
 
 const callApi = ({ method, url, headers,reqHeaders, onTokenRefresh,responseType, data }) => {
   const { token, refreshToken } = session.getSessionData(reqHeaders);
@@ -117,6 +133,7 @@ const service = {
   getDetails,
   getBalances,
   getMainSentence,
+  getActivitiesForToday,
 };
 
 module.exports = service;
