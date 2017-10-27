@@ -158,7 +158,7 @@ const Balances = ({ spends, cash, savings,currency }) =>
     </div>
 </div>
 
-const SentenceDetail = ({ type, lengthOfSentence, releaseDate }) =>
+const SentenceDetail = ({ type, releaseDate }) =>
   <div className="panel panel-border-narrow">
 
     <div className="row border-bottom-line">
@@ -174,7 +174,7 @@ const SentenceDetail = ({ type, lengthOfSentence, releaseDate }) =>
         </b>
       </div>
     </div>
-    
+
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
         <label>
