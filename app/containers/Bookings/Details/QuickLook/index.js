@@ -174,21 +174,7 @@ const SentenceDetail = ({ type, lengthOfSentence, releaseDate }) =>
         </b>
       </div>
     </div>
-
-    <div className="row border-bottom-line">
-      <div className="col-lg-6 col-xs-6">
-        <label>
-          Length of sentence
-        </label>
-      </div>
-
-      <div className="col-lg-6 col-xs-6" >
-        <b>
-          {lengthOfSentence || '--'}
-        </b>
-      </div>
-    </div>
-
+    
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
         <label>
