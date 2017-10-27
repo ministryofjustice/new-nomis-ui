@@ -17,10 +17,6 @@ import {
 
 import './index.scss';
 
-
-// TODO: Add keys to maps
-
-
 class HiddenInformation extends Component {
 
   constructor() {
@@ -211,7 +207,7 @@ const SentenceDetail = ({ type, lengthOfSentence, releaseDate }) =>
 
 const Activities = ({ activities }) => <div>
     {(activities.morningActivities || []).map((activity,index) =>
-      <div className="row border-bottom-line">
+      <div className="row border-bottom-line" key={`${activity}_${index}_am`}>
          <div className="col-lg-6">
            {index === 0 && <label>Morning (AM)</label>}
          </div>
@@ -225,7 +221,7 @@ const Activities = ({ activities }) => <div>
     )}
 
   {(activities.afternoonActivities || []).map((activity,index) =>
-    <div className="row border-bottom-line">
+    <div className="row border-bottom-line" key={`${activity}_${index}_pm`}>
       <div className="col-lg-6">
         {index === 0 && <label>Afternoon (PM)</label>}
       </div>
