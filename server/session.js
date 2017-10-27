@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const path = require('path');
 const version = require('./application-version');
 
 const minutes = process.env.WEB_SESSION_TIMEOUT_IN_MINUTES || 20;
