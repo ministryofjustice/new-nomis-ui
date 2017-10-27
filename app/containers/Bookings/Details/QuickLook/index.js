@@ -41,7 +41,7 @@ class HiddenInformation extends Component {
   render() {
     if (this.state.hidden) {
       return (<div>
-          <div className="link col-xs-12" role="button" onClick={this.showDetails}>
+          <div className="link" role="button" onClick={this.showDetails}>
             &#9658;
             Show details
         </div>
@@ -49,7 +49,7 @@ class HiddenInformation extends Component {
     }
     return (<div>
       <div>
-        <div className="link col-xs-12" role="button" onClick={this.hideDetails}>
+        <div className="link" role="button" onClick={this.hideDetails}>
           &#9660;
           Hide details
         </div>
@@ -97,7 +97,9 @@ const Details = ({ age, gender, ethnicity }) =>
 
   </div>
 
-const Balances = ({ spends, cash, savings }) =>
+const notZeroOrNull = (value) => !!value && value !== 0;
+
+const Balances = ({ spends, cash, savings,currency }) =>
   <div className="panel panel-border-narrow">
 
     <div className="row border-bottom-line">
@@ -108,13 +110,13 @@ const Balances = ({ spends, cash, savings }) =>
 
        <div className="col-lg-6 col-xs-6">
          <b>
-           { spends && <FormattedNumber
+           { notZeroOrNull(spends) && <FormattedNumber
              value={spends}
              style="currency"
-             currency="GBP"
+             currency={currency}
            /> }
 
-           { !spends && <span>Nill</span>}
+           { !notZeroOrNull(spends) && <span>Nill</span>}
          </b>
        </div>
      </div>
@@ -126,13 +128,13 @@ const Balances = ({ spends, cash, savings }) =>
 
       <div className="col-lg-6 col-xs-6">
         <b>
-          {cash && <FormattedNumber
+          {notZeroOrNull(cash) && <FormattedNumber
             value={cash}
             style="currency"
-            currency="GBP"
+            currency={currency}
           />}
 
-          {!cash && <span>Nill</span>}
+          {!notZeroOrNull(cash) && <span>Nill</span>}
         </b>
       </div>
     </div>
@@ -144,19 +146,19 @@ const Balances = ({ spends, cash, savings }) =>
 
       <div className="col-lg-6 col-xs-6">
         <b>
-          {savings && <FormattedNumber
+          {notZeroOrNull(savings) && <FormattedNumber
             value={savings}
             style="currency"
-            currency="GBP"
+            currency={currency}
           />}
 
-          {!savings && <span>Nill</span>}
+          {!notZeroOrNull(savings) && <span>Nill</span>}
         </b>
       </div>
     </div>
 </div>
 
-const SentenceDetail = ({ type, lengthOfSentence, releaseDate }) =>
+const SentenceDetail = ({ type, releaseDate }) =>
   <div className="panel panel-border-narrow">
 
     <div className="row border-bottom-line">
@@ -169,20 +171,6 @@ const SentenceDetail = ({ type, lengthOfSentence, releaseDate }) =>
       <div className="col-lg-6 col-xs-6">
         <b>
           {type}
-        </b>
-      </div>
-    </div>
-
-    <div className="row border-bottom-line">
-      <div className="col-lg-6 col-xs-6">
-        <label>
-          Length of sentence
-        </label>
-      </div>
-
-      <div className="col-lg-6 col-xs-6" >
-        <b>
-          {lengthOfSentence || '--'}
         </b>
       </div>
     </div>
@@ -203,6 +191,36 @@ const SentenceDetail = ({ type, lengthOfSentence, releaseDate }) =>
 
   </div>
 
+const Activities = ({ activities }) => <div>
+    {(activities.morningActivities || []).map((activity,index) =>
+      <div className="row border-bottom-line" key={`${activity}_${index}_am`}>
+         <div className="col-lg-6">
+           {index === 0 && <label>Morning (AM)</label>}
+         </div>
+
+        <div className="col-lg-6">
+          <b>
+            {activity.description}
+          </b>
+        </div>
+      </div>
+    )}
+
+  {(activities.afternoonActivities || []).map((activity,index) =>
+    <div className="row border-bottom-line" key={`${activity}_${index}_pm`}>
+      <div className="col-lg-6">
+        {index === 0 && <label>Afternoon (PM)</label>}
+      </div>
+
+      <div className="col-lg-6">
+        <b>
+          {activity.description}
+        </b>
+      </div>
+    </div>
+  )}
+</div>
+
 
 class QuickLook extends Component {
 
@@ -213,11 +231,11 @@ class QuickLook extends Component {
   }
 
   render() {
-    const { viewModel,offenderDetails,sentence } = this.props;
+    const { viewModel,offenderDetails } = this.props;
 
     if (!viewModel) { return <div>Loading....</div> }
 
-    const { balances } = (viewModel && viewModel.toJS());
+    const { balance,sentence, activities } = (viewModel && viewModel.toJS());
 
     return (<div className="quick-look">
 
@@ -240,16 +258,26 @@ class QuickLook extends Component {
         </div>
       </div>
        <div className="row">
-          <h3 className="heading-medium">
-              Money
-          </h3>
 
          <div className="col-md-6">
+           <h3 className="heading-medium">
+             Money
+           </h3>
+
             <HiddenInformation>
-                 <Balances {...balances} />
+                 <Balances {...balance} />
             </HiddenInformation>
          </div>
-       </div>
+
+        <div className="col-md-6">
+          <h3 className="heading-medium">
+            Prison activities
+          </h3>
+          <Activities activities={activities} />
+          {activities && <div>No activity assigned</div>}
+        </div>
+
+      </div>
     </div>)
   }
 }

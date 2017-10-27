@@ -1,5 +1,3 @@
-$gutter-size: 15px;
-
 .quick-look {
 
   overflow: hidden;
@@ -10,15 +8,18 @@ $gutter-size: 15px;
 
   div[class^="col-"] {
     padding-left: 0;
-    margin-bottom: $gutter-size;
   }
 
   .border-bottom-line {
+    @include add-gutter-padding-bottom();
     border-bottom: solid .1px lightgrey;
-    margin-top: .5em;
   };
 
   .panel {
-    padding-right: $gutter-size !important;
+    @include add-gutter-padding-left();
+  }
+
+  .link {
+    @include add-gutter-padding-bottom();
   }
 }

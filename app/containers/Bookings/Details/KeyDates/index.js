@@ -51,9 +51,9 @@ const SentenceView = ({ startDate, additionalDaysAwarded, dtoReleaseDates, nonDt
   }
 
   return (<div>
-    <b className="bold">
+    <h3 className="heading-medium">
       Sentence key dates
-    </b>
+    </h3>
 
     <div className="section">
 
@@ -89,9 +89,9 @@ class KeyDates extends Component {
         <div className="key-dates">
 
          <div>
-            <b className="bold">
+            <h3 className="heading-medium">
               Incentives and earned privileges
-            </b>
+            </h3>
 
             <div className="section">
               <div className="information-group">
@@ -122,9 +122,9 @@ class KeyDates extends Component {
 
           { shouldShowOtherDates && (
             <div>
-              <b className="bold">
+              <h3 className="heading-medium">
                 Other dates
-              </b>
+              </h3>
 
               <div className="section">
 
