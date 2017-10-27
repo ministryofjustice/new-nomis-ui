@@ -38,7 +38,7 @@ import './app.scss';
 import configureStore from './store';
 
 import registerSessionTimeoutHandler from './utils/sessionTimeoutHandler';
-import updatAapplicationWatcher from './utils/update-application-watcher'
+import updateApplicationWatcher from './utils/update-application-watcher'
 
 // Import i18n messages
 import { translationMessages } from './translations/i18n';
@@ -52,7 +52,7 @@ const initialState = {};
 export const store = configureStore(initialState, browserHistory);
 
 registerSessionTimeoutHandler(store);
-updatAapplicationWatcher();
+updateApplicationWatcher();
 
 // Sync history and store, as the react-router-redux reducer
 // is under the non-default key ("routing"), selectLocationState
