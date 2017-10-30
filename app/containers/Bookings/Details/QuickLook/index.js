@@ -97,8 +97,6 @@ const Details = ({ age, gender, ethnicity }) =>
 
   </div>
 
-const notZeroOrNull = (value) => !!value && value !== 0;
-
 const Balances = ({ spends, cash, savings,currency }) =>
   <div className="panel panel-border-narrow">
 
@@ -110,13 +108,11 @@ const Balances = ({ spends, cash, savings,currency }) =>
 
        <div className="col-lg-6 col-xs-6">
          <b>
-           { notZeroOrNull(spends) && <FormattedNumber
+           <FormattedNumber
              value={spends}
              style="currency"
              currency={currency}
-           /> }
-
-           { !notZeroOrNull(spends) && <span>Nill</span>}
+           />
          </b>
        </div>
      </div>
@@ -128,13 +124,11 @@ const Balances = ({ spends, cash, savings,currency }) =>
 
       <div className="col-lg-6 col-xs-6">
         <b>
-          {notZeroOrNull(cash) && <FormattedNumber
+          <FormattedNumber
             value={cash}
             style="currency"
             currency={currency}
-          />}
-
-          {!notZeroOrNull(cash) && <span>Nill</span>}
+          />
         </b>
       </div>
     </div>
@@ -146,13 +140,11 @@ const Balances = ({ spends, cash, savings,currency }) =>
 
       <div className="col-lg-6 col-xs-6">
         <b>
-          {notZeroOrNull(savings) && <FormattedNumber
+          <FormattedNumber
             value={savings}
             style="currency"
             currency={currency}
-          />}
-
-          {!notZeroOrNull(savings) && <span>Nill</span>}
+          />
         </b>
       </div>
     </div>
@@ -273,8 +265,8 @@ class QuickLook extends Component {
           <h3 className="heading-medium">
             Prison activities
           </h3>
-          <Activities activities={activities} />
-          {activities && <div>No activity assigned</div>}
+          { activities && <Activities activities={activities} /> }
+          { !activities && <div>No activity assigned</div>}
         </div>
 
       </div>
