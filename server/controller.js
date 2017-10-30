@@ -131,7 +131,7 @@ const quickLook = asyncMiddleware(async (req, res) => {
 
   const data = {
     balance,
-    activities: activities && (activities.morningActivities || activities.afternoonActivities) ,
+    activities: (activities.morningActivities.length > 0 || activities.afternoonActivities.length > 0) ? activities : null ,
     sentence: hasSentenceInformation && {
       type: sentence.mainOffenceDescription,
       lengthOfSentence: sentence.sentenceLength,
