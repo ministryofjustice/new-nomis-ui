@@ -39,11 +39,16 @@ AmendmentBlock.propTypes = {
 };
 
 function CaseNoteDetails(props) {
-  const { viewList, openAmendModal, displayAmendCaseNoteModal } = props;
-  const { authorName, originalNoteText, occurrenceDateTime, subTypeDescription, typeDescription, amendments } = props.caseNote.toJS(); // amendments
+  const { viewList, openAmendModal, displayAmendCaseNoteModal, caseNote } = props;
+
+  if (!caseNote) {
+    return <div>Loading..</div>
+  }
+
+  const { authorName, originalNoteText, occurrenceDateTime, subTypeDescription, typeDescription, amendments } = caseNote.toJS(); // amendments
   let amendmentList = null;
   if (amendments && amendments.length > 0) {
-    amendmentList = amendments.map((am) => <AmendmentBlock data-name={'AmendmentBlock'} dateTime={am.creationDateTime} authorName={am.authorName} text={am.additionalNoteText} />);
+    amendmentList = amendments.map((am) => <AmendmentBlock key={am.creationDateTime} data-name={'AmendmentBlock'} dateTime={am.creationDateTime} authorName={am.authorName} text={am.additionalNoteText} />);
   }
   return (
     <div>

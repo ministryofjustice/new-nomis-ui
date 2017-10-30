@@ -23,7 +23,7 @@ const KeyDatePair = ({ title, text, date }) => (
       </label>
     ) }
   <span>
-    { text && <b>{text}</b> }
+    { text !== 0 && text && <b>{text}</b> }
     { date &&
     <b>
       <FormattedDate value={date} />

@@ -78,16 +78,21 @@ function AmendmentBlock({ amendment }) {
 }
 
 AmendmentBlock.propTypes = {
-  amendment: PropTypes.array.isRequired,
+  amendment: PropTypes.object.isRequired,
 };
 
 function CaseNoteListItem(props) {
-  const { action } = props;
-  const { authorName, originalNoteText, amendments, occurrenceDateTime, subTypeDescription, typeDescription } = props.caseNote.toJS(); // amendments
+  const { action, caseNote } = props;
+
+  if (!caseNote) {
+    return <div>Loading..</div>
+  }
+
+  const { authorName, originalNoteText, amendments, occurrenceDateTime, subTypeDescription, typeDescription } = caseNote.toJS(); // amendments
 
   let amendmentList = null;
   if (amendments && amendments.length > 0) {
-    amendmentList = amendments.map((am) => <AmendmentBlock amendment={am} />);
+    amendmentList = amendments.map((am) => <AmendmentBlock amendment={am} key={am.creationDateTime} />);
   }
 
   return (

@@ -18,6 +18,7 @@ const apiProxy = require('./apiproxy');
 const application = require('./app');
 const controller = require('./controller');
 const session = require('./session');
+const clientVersionValidator = require('./middlewares/validate-client-version');
 
 if (process.env.NODE_ENV === 'production' && process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
   appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY)
@@ -30,6 +31,8 @@ if (process.env.NODE_ENV === 'production' && process.env.APPINSIGHTS_INSTRUMENTA
     .setUseDiskRetryCaching(true)
     .start();
 }
+
+app.use(clientVersionValidator);
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', req.headers.host);
