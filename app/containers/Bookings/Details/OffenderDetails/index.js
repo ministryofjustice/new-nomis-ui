@@ -79,7 +79,6 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
 
              </div>
 
-
            </div>
 
           <div className="col-md-6">
@@ -243,6 +242,16 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
                   <b>{mark.bodyPart}</b>
                 </div>
               </div>
+
+                <div className="row border-bottom-line">
+                  <div className="col-md-3 col-xs-4">
+                    <label>Comment</label>
+                  </div>
+
+                  <div className="col-md-3">
+                    <b>{mark.comment}</b>
+                  </div>
+                </div>
 
                 { mark.imageId && <div className="row">
                   <div className="col-md-3 col-xs-4">

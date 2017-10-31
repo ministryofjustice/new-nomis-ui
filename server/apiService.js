@@ -62,13 +62,9 @@ const getMainSentence = async (req) => service.callApi({
   .catch(_ => new Promise(r => r(null)));  // eslint-disable-line no-unused-vars
 
 const getActivitiesForToday = async (req) => 
-  // const iso8601Format = 'YYYY-MM-DD';
-  // const startTime = moment().format(iso8601Format);
-  // const endTime = moment().format(iso8601Format);
-
    service.callApi({
      method: 'get',
-     url: `bookings/${req.params.bookingId}/activities`,
+     url: `bookings/${req.params.bookingId}/activities/today`,
      headers: {},
      reqHeaders: req.headers,
      onTokenRefresh: (token) => { req.headers.jwt = token },
