@@ -85,25 +85,18 @@ const casenoteQueryStringGen = (caseNoteOptions) => {
   }
 
   const iso8601Format = 'YYYY-MM-DD';
-  const dateFilterKeys = {
-    startDate: 'occurrenceDateTime:gteq',
-    endDate: 'occurrenceDateTime:lteq',
-  };
   const dateFilters = [];
-
   if (startDate) {
     const dateFrom = moment(startDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC).format(iso8601Format);
-    dateFilters.push(`${dateFilterKeys.startDate}:'${dateFrom}'`);
+    dateFilters.push(`&from=${dateFrom}`);
   }
-
   if (endDate) {
     const dateTo = moment(endDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC).format(iso8601Format);
-    dateFilters.push(`${dateFilterKeys.endDate}:'${dateTo}'`);
+    dateFilters.push(`&to=${dateTo}`);
   }
-
-  if (dateFilters.length > 0) { queryArray.push(dateFilters.join(',and:')); }
-
-  return queryArray.length > 0 ? `&query=${queryArray.join(',and:')}` : '';
+  const query = queryArray.length > 0 ? `&query=${queryArray.join(',and:')}` : '';
+  const dates = dateFilters.join('');
+  return query + dates;
 };
 
 export const bookingCaseNotes = (token, baseUrl, id, pagination, query) => {
