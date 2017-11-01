@@ -85,7 +85,7 @@ const bookingDetails = asyncMiddleware(async (req, res) => {
   const details = (await apiService.getDetails(req));
   const iepLevel = (await apiService.getIepSummary(req)).iepLevel;
 
-  const csraAssessment = details.assessments.filter((assessment) => assessment.cellSharingAlertFlag === true && assessment.classification !== undefined);
+  const csraAssessment = details.assessments.filter((assessment) => assessment.cellSharingAlertFlag === true && !assessment.classification);
   const csraLevel = csraAssessment && csraAssessment.length > 0 ? csraAssessment[0].classification : '--';
 
   const data = {
