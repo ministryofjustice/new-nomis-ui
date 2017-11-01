@@ -11,9 +11,9 @@
   }
 
   .border-bottom-line {
-    @include add-gutter-padding-bottom();
+    @include add-gutter-padding-top();
     border-bottom: solid .1px lightgrey;
-  };
+  }
 
   .panel {
     @include add-gutter-padding-left();

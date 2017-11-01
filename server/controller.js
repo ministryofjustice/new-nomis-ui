@@ -116,11 +116,17 @@ const quickLook = asyncMiddleware(async (req, res) => {
 
   const filterMorning = (array) => array.filter(a => moment(a.startTime).get('hour') < 12);
   const filterAfternoon = (array) => array.filter(a => moment(a.startTime).get('hour') > 11);
-  const selectDescription = (array) => array.map(a => a.eventSourceDesc);
 
   const activities = {
-    morningActivities: unique(selectDescription(filterMorning(activityData))).map(description => ({ description })),
-    afternoonActivities: unique(selectDescription(filterAfternoon(activityData))).map(description => ({ description })),
+    morningActivities: unique(filterMorning(activityData)).map(activity => ({
+      description: activity.description,
+      startTime: activity.startTime,
+      endTime: activity.endTime,
+    })),
+    afternoonActivities: unique(filterAfternoon(activityData)).map(activity => ({
+      description: activity.description,
+      eventStartTime: activity.eventStartTime,
+    })),
   };
 
   const hasSentenceInformation =

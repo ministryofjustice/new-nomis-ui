@@ -9,7 +9,6 @@ export const login = (username, password, baseUrl) => axios({
   data: { username, password } })
   .then((response) => response.data);
 
-
 export const officerAssignments = (token, _, pagination, baseUrl) => axios({
   baseURL: baseUrl,
   method: 'get',
