@@ -109,7 +109,7 @@ const Balances = ({ spends, cash, savings,currency }) =>
        <div className="col-lg-6 col-xs-6">
          <b>
            <FormattedNumber
-             value={spends}
+             value={spends || 0}
              style="currency"
              currency={currency}
            />
@@ -125,7 +125,7 @@ const Balances = ({ spends, cash, savings,currency }) =>
       <div className="col-lg-6 col-xs-6">
         <b>
           <FormattedNumber
-            value={cash}
+            value={cash || 0}
             style="currency"
             currency={currency}
           />
@@ -141,7 +141,7 @@ const Balances = ({ spends, cash, savings,currency }) =>
       <div className="col-lg-6 col-xs-6">
         <b>
           <FormattedNumber
-            value={savings}
+            value={savings || 0}
             style="currency"
             currency={currency}
           />

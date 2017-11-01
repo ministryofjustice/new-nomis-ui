@@ -40,8 +40,9 @@ const ErrorMessage = () => (<div>
 </div>)
 
 
-const SentenceView = ({ startDate, additionalDaysAwarded, dtoReleaseDates, nonDtoReleaseDate, sentenceExpiryDates }) => {
+const SentenceView = ({ startDate, additionalDaysAwarded, dtoReleaseDates, nonDtoReleaseDate, sentenceExpiryDates, other }) => {
   const shouldShowNonDtoReleaseDate = nonDtoReleaseDate && nonDtoReleaseDate.label && nonDtoReleaseDate.value;
+  const shouldShowOtherDates = other && other.dates && other.dates.length > 0;
 
   if (
     !startDate &&
@@ -56,15 +57,15 @@ const SentenceView = ({ startDate, additionalDaysAwarded, dtoReleaseDates, nonDt
     </h3>
 
     <div className="section">
-
       <div className="information-group">
-        <KeyDatePair title="Start date" date={startDate} />
         { (dtoReleaseDates || []).map(pair => <KeyDatePair key={pair.label} title={pair.label} date={pair.value} />)}
-        <KeyDatePair title=" Additional days awarded" text={additionalDaysAwarded} />
-      </div>
-      <div className="information-group">
+        { additionalDaysAwarded && <KeyDatePair title=" Additional days awarded" text={additionalDaysAwarded} /> }
         { (sentenceExpiryDates || []).map(pair => <KeyDatePair title={pair.label} date={pair.value} />)}
         { shouldShowNonDtoReleaseDate && <KeyDatePair title={nonDtoReleaseDate.label} date={nonDtoReleaseDate.value} /> }
+        { shouldShowOtherDates &&
+          other.dates.map(otherDate => <KeyDatePair key={otherDate.label} title={otherDate.label} date={otherDate.value} />)
+        }
+
       </div>
     </div>
   </div>)
@@ -83,8 +84,6 @@ class KeyDates extends Component {
     if (!viewModel) { return <div>Loading....</div> }
 
     const { iepLevel, daysSinceReview, sentence, other } = viewModel && viewModel.toJS();
-    const shouldShowOtherDates = other && other.dates && other.dates.length > 0;
-
     return (
         <div className="key-dates">
 
@@ -98,43 +97,28 @@ class KeyDates extends Component {
 
                 <div className="information">
                   <label>
-                      IEP Level
+                    IEP Level
                   </label>
-                  <span>
+                  <b>
                     {iepLevel}
-                  </span>
+                  </b>
                 </div>
 
                 <div className="information">
                   <label>
                     Days since review
                   </label>
-                  <span>
+                  <b>
                     {daysSinceReview}
-                  </span>
+                  </b>
                 </div>
 
               </div>
             </div>
           </div>
 
-          { sentence && <SentenceView {...sentence} /> }
+          { sentence && <SentenceView {...sentence} other={other} /> }
 
-          { shouldShowOtherDates && (
-            <div>
-              <h3 className="heading-medium">
-                Other dates
-              </h3>
-
-              <div className="section">
-
-                <div className="information-group">
-                  {other.dates.map(otherDate => <KeyDatePair key={otherDate.label} title={otherDate.label} date={otherDate.value} />)}
-                </div>
-
-              </div>
-            </div>
-          )}
 
         </div>
     )
