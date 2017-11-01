@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormattedNumber, FormattedDate } from 'react-intl';
+import { FormattedNumber, FormattedDate,FormattedTime } from 'react-intl';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -90,7 +90,7 @@ const Details = ({ age, gender, ethnicity }) =>
       </div>
       <div className="col-lg-6 col-xs-6">
         <b>
-          {ethnicity}
+          {ethnicity || '--'}
         </b>
       </div>
     </div>
@@ -103,7 +103,7 @@ const Balances = ({ spends, cash, savings,currency }) =>
     <div className="row border-bottom-line">
 
        <div className="col-lg-6 col-xs-6">
-          <label>Spending</label>
+          <label>Spends</label>
        </div>
 
        <div className="col-lg-6 col-xs-6">
@@ -190,10 +190,16 @@ const Activities = ({ activities }) => <div>
            {index === 0 && <label>Morning (AM)</label>}
          </div>
 
-        <div className="col-lg-6">
+        <div className="col-lg-3">
           <b>
             {activity.description}
           </b>
+        </div>
+        <div className="col-lg-3">
+          <FormattedTime value={activity.startTime} /> {activity.endTime && <span>
+          <span> - </span>
+          <FormattedTime value={activity.endTime} />
+        </span>}
         </div>
       </div>
     )}
@@ -204,10 +210,16 @@ const Activities = ({ activities }) => <div>
         {index === 0 && <label>Afternoon (PM)</label>}
       </div>
 
-      <div className="col-lg-6">
+      <div className="col-lg-3">
         <b>
           {activity.description}
         </b>
+      </div>
+      <div className="col-lg-3">
+        <FormattedTime value={activity.startTime} /> {activity.endTime && <span>
+        <span> - </span>
+        <FormattedTime value={activity.endTime} />
+      </span>}
       </div>
     </div>
   )}
