@@ -7,10 +7,10 @@ const longName = (label) => ({
   HDCED: 'Home det. eligibility',
   PED: 'Parole eligibility',
   HDCAD: 'Home det. approved',
-  APD: 'Approved parole',
+  APD: 'Approved parole date',
   ROTL: 'Release on temp. licence',
-  ERSED: 'Early release scheme eligibility',
-  LED: 'Licence expiry',
+  ERSED: 'Early removal scheme eligibility',
+  LED: 'Licence expiry date',
 
 }[label] || label);
 
