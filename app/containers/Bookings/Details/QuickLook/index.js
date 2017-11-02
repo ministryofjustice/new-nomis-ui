@@ -184,11 +184,26 @@ const SentenceDetail = ({ type, releaseDate }) =>
   </div>
 
 const Activities = ({ activities }) => <div>
+
+  <div className="row border-bottom-line">
+
+    <div className="col-lg-6">
+        <label>Morning (AM)</label>
+    </div>
+
+    {(!activities.morningActivities || activities.morningActivities.length === 0) &&
+      <div>
+        <div className="col-lg-6">
+          <label>No activity assigned</label>
+        </div>
+      </div>
+    }
+
     {(activities.morningActivities || []).map((activity,index) =>
-      <div className="row border-bottom-line" key={`${activity}_${index}_am`}>
-         <div className="col-lg-6">
-           {index === 0 && <label>Morning (AM)</label>}
-         </div>
+      <div key={`${activity}_${index}_am`}>
+
+        <div className="col-lg-6">
+        </div>
 
         <div className="col-lg-3">
           <b>
@@ -196,33 +211,59 @@ const Activities = ({ activities }) => <div>
           </b>
         </div>
         <div className="col-lg-3">
-          <FormattedTime value={activity.startTime} /> {activity.endTime && <span>
-          <span> - </span>
-          <FormattedTime value={activity.endTime} />
-        </span>}
+        <b>
+          <FormattedTime value={activity.startTime} /> {activity.endTime &&
+          <span>
+           <span> - </span>
+           <FormattedTime value={activity.endTime} />
+          </span>}
+        </b>
+       </div>
+      </div>
+    )}
+
+  </div>
+
+
+  <div className="row border-bottom-line">
+
+    <div className="col-lg-6">
+      <label>Afternoon (PM)</label>
+    </div>
+
+    {(!activities.afternoonActivities || activities.afternoonActivities.length === 0) &&
+    <div>
+      <div className="col-lg-6">
+        <label>No activity assigned</label>
+      </div>
+    </div>
+    }
+
+    {(activities.afternoonActivities || []).map((activity,index) =>
+      <div key={`${activity}_${index}_pm`}>
+
+        <div className="col-lg-6">
+        </div>
+
+        <div className="col-lg-3">
+          <b>
+            {activity.description}
+          </b>
+        </div>
+        <div className="col-lg-3">
+          <b>
+            <FormattedTime value={activity.startTime} /> {activity.endTime &&
+            <span>
+              <span> - </span>
+              <FormattedTime value={activity.endTime} />
+            </span>}
+          </b>
         </div>
       </div>
     )}
 
-  {(activities.afternoonActivities || []).map((activity,index) =>
-    <div className="row border-bottom-line" key={`${activity}_${index}_pm`}>
-      <div className="col-lg-6">
-        {index === 0 && <label>Afternoon (PM)</label>}
-      </div>
+  </div>
 
-      <div className="col-lg-3">
-        <b>
-          {activity.description}
-        </b>
-      </div>
-      <div className="col-lg-3">
-        <FormattedTime value={activity.startTime} /> {activity.endTime && <span>
-        <span> - </span>
-        <FormattedTime value={activity.endTime} />
-      </span>}
-      </div>
-    </div>
-  )}
 </div>
 
 
