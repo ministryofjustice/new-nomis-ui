@@ -4,7 +4,7 @@
   @include add-gutter-margin-bottom();
 
   div[class^="col-"] {
-    padding-left: 0;
+    padding-left: 0 !important;
   }
 
   .desktop {
