@@ -10,7 +10,7 @@ describe('query-build', () => {
     expect(result).toBe(`startDate:eq:${startDate}`);
   });
 
-  it('should construct query that matches start and end date', () => {
+  it('should construct a query with multiple a eq parameters', () => {
     const startDate = '01/01/2017';
     const endDate = '20/10/2017';
 
@@ -18,18 +18,17 @@ describe('query-build', () => {
     expect(result).toBe(`startDate:eq:${startDate}:and:endDate:eq:${endDate}`);
   });
 
-  it('should construct a query for startDate greater or equal to 12/01/2017', () => {
+  it('should construct a query with a qteq parameter', () => {
     const startDate = '12/01/2017';
     const result = new QueryBuilder('startDate').greaterThanOrEqual(startDate).build();
 
     expect(result).toBe(`startDate:gteq:${startDate}`);
   });
 
-  it('should construct a less then or equal to query', () => {
+  it('should construct a query with a lteq parameter', () => {
     const startDate = '12/01/2017';
     const result = new QueryBuilder('startDate').lessThanOrEqual(startDate).build();
 
     expect(result).toBe(`startDate:lteq:${startDate}`);
   });
-
 })

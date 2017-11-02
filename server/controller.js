@@ -1,4 +1,4 @@
-const apiService = require('./apiService'), 
+const apiService = require('./apiService'),
   errorStatusCode = apiService.errorStatusCode;
 const session = require('./session');
 const moment = require('moment');
@@ -81,7 +81,7 @@ const bookingDetails = asyncMiddleware(async (req, res) => {
     res.end();
     return;
   }
-  
+
   const details = (await apiService.getDetails(req));
   const iepLevel = (await apiService.getIepSummary(req)).iepLevel;
 
@@ -110,11 +110,6 @@ const quickLook = asyncMiddleware(async (req, res) => {
   const sentence = await apiService.getMainSentence(req);
   const activityData = await apiService.getActivitiesForToday(req);
 
-  const unique = (array) => array.reduce((result, current) => {
-    if (result.indexOf(current) < 0) { result.push(current); }
-    return result;
-  },[]);
-
   const filterMorning = (array) => array.filter(a => moment(a.startTime).get('hour') < 12);
   const filterAfternoon = (array) => array.filter(a => moment(a.startTime).get('hour') > 11);
 
@@ -122,12 +117,12 @@ const quickLook = asyncMiddleware(async (req, res) => {
   const afternoonActivity = filterAfternoon(activityData);
 
   const activities = {
-    morningActivities: morningActivity && unique(morningActivity).map(activity => ({
+    morningActivities: morningActivity && morningActivity.map(activity => ({
       description: activity.eventSourceDesc,
       startTime: activity.startTime,
       endTime: activity.endTime,
     })),
-    afternoonActivities: afternoonActivity && unique(afternoonActivity).map(activity => ({
+    afternoonActivities: afternoonActivity && afternoonActivity.map(activity => ({
       description: activity.eventSourceDesc,
       startTime: activity.startTime,
       endTime: activity.endTime,
