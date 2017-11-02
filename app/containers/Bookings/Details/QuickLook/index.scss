@@ -7,7 +7,7 @@
   }
 
   div[class^="col-"] {
-    padding-left: 0;
+    padding-left: 0 !important;
   }
 
   .border-bottom-line {
@@ -20,6 +20,10 @@
   }
 
   .link {
+    @include add-gutter-padding-bottom();
+  }
+
+  .add-padding-bottom {
     @include add-gutter-padding-bottom();
   }
 }

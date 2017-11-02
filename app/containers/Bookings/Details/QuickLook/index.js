@@ -17,48 +17,6 @@ import {
 
 import './index.scss';
 
-class HiddenInformation extends Component {
-
-  constructor() {
-    super();
-
-    this.showDetails = this.showDetails.bind(this);
-    this.hideDetails = this.hideDetails.bind(this);
-  }
-
-  componentWillMount() {
-    this.setState({ hidden: true });
-  }
-
-  showDetails() {
-    this.setState({ hidden: false })
-  }
-
-  hideDetails() {
-    this.setState({ hidden: true })
-  }
-
-  render() {
-    if (this.state.hidden) {
-      return (<div>
-          <div className="link" role="button" onClick={this.showDetails}>
-            &#9658;
-            Show details
-        </div>
-       </div>)
-    }
-    return (<div>
-      <div>
-        <div className="link" role="button" onClick={this.hideDetails}>
-          &#9660;
-          Hide details
-        </div>
-      </div>
-        {this.props.children}
-      </div>)
-  }
-}
-
 const Details = ({ age, gender, ethnicity }) =>
   <div className="quick-look">
 
@@ -98,8 +56,7 @@ const Details = ({ age, gender, ethnicity }) =>
   </div>
 
 const Balances = ({ spends, cash, savings,currency }) =>
-  <div className="panel panel-border-narrow">
-
+<div>
     <div className="row border-bottom-line">
 
        <div className="col-lg-6 col-xs-6">
@@ -115,7 +72,7 @@ const Balances = ({ spends, cash, savings,currency }) =>
            />
          </b>
        </div>
-     </div>
+    </div>
 
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
@@ -183,82 +140,44 @@ const SentenceDetail = ({ type, releaseDate }) =>
 
   </div>
 
-const Activities = ({ activities }) => <div>
+const Activities = ({ activities,period }) => <div>
 
   <div className="row border-bottom-line">
 
-    <div className="col-lg-6">
-        <label>Morning (AM)</label>
+    <div className="col-lg-6 col-xs-6">
+        <label>{period}</label>
     </div>
 
-    {(!activities.morningActivities || activities.morningActivities.length === 0) &&
+    {(!activities || activities.length === 0) &&
       <div>
-        <div className="col-lg-6">
+        <div className="col-lg-6 col-xs-6">
           <label>No activity assigned</label>
         </div>
       </div>
     }
 
-    {(activities.morningActivities || []).map((activity,index) =>
-      <div key={`${activity}_${index}_am`}>
+    {(activities || []).map((activity,index) =>
+      <div className="row border-bottom-line" key={`${activity}_${index}_${period}`}>
 
-        <div className="col-lg-6">
+        <div className="col-lg-6 col-xs-6">
         </div>
 
-        <div className="col-lg-3">
+        <div className="col-lg-6 col-xs-6">
           <b>
             {activity.description}
           </b>
         </div>
-        <div className="col-lg-3">
-        <b>
-          <FormattedTime value={activity.startTime} /> {activity.endTime &&
-          <span>
-           <span> - </span>
-           <FormattedTime value={activity.endTime} />
-          </span>}
-        </b>
-       </div>
-      </div>
-    )}
-
-  </div>
-
-
-  <div className="row border-bottom-line">
-
-    <div className="col-lg-6">
-      <label>Afternoon (PM)</label>
-    </div>
-
-    {(!activities.afternoonActivities || activities.afternoonActivities.length === 0) &&
-    <div>
-      <div className="col-lg-6">
-        <label>No activity assigned</label>
-      </div>
-    </div>
-    }
-
-    {(activities.afternoonActivities || []).map((activity,index) =>
-      <div key={`${activity}_${index}_pm`}>
-
-        <div className="col-lg-6">
-        </div>
-
-        <div className="col-lg-3">
-          <b>
-            {activity.description}
-          </b>
-        </div>
-        <div className="col-lg-3">
-          <b>
+        <div className="row add-padding-bottom">
+          <div className="col-lg-6 col-xs-6">
+          </div>
+          <div className="col-lg-6 col-xs-6">
             <FormattedTime value={activity.startTime} /> {activity.endTime &&
             <span>
-              <span> - </span>
-              <FormattedTime value={activity.endTime} />
+             <span> - </span>
+             <FormattedTime value={activity.endTime} />
             </span>}
-          </b>
-        </div>
+          </div>
+       </div>
       </div>
     )}
 
@@ -298,7 +217,7 @@ class QuickLook extends Component {
           <h3 className="heading-medium">
             Offences
           </h3>
-          { sentence && <HiddenInformation> <SentenceDetail {...sentence} /> </HiddenInformation>}
+          { sentence && <SentenceDetail {...sentence} /> }
           { !sentence && <div> No offence details are available at this time </div> }
         </div>
       </div>
@@ -308,17 +227,15 @@ class QuickLook extends Component {
            <h3 className="heading-medium">
              Money
            </h3>
-
-            <HiddenInformation>
-                 <Balances {...balance} />
-            </HiddenInformation>
+               <Balances {...balance} />
          </div>
 
         <div className="col-md-6">
           <h3 className="heading-medium">
             Prison activities
           </h3>
-          { activities && <Activities activities={activities} /> }
+          { activities && <Activities activities={activities.morningActivities} period={'Morning (AM)'} /> }
+          { activities && <Activities activities={activities.afternoonActivities} period={'Afternoon (PM)'} /> }
           { !activities && <div>No activity assigned</div>}
         </div>
 

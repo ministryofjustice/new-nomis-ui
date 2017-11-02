@@ -217,48 +217,42 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
             { pairs.map((mark,index) =>
               <div className="col-md-6" key={`physicalMarks_${index}`}>
 
-              <div className="row">
-                <div className="col-md-6">
-                   <b> { `Mark ${index + 1}` } </b>
-                </div>
-              </div>
-
               <div className="row border-bottom-line">
-                <div className="col-md-3 col-xs-4">
+                <div className="col-md-6 col-xs-6">
                   <label>Type</label>
                 </div>
 
-                <div className="col-md-3">
+                <div className="col-md-6 col-xs-6">
                   <b>{mark.type}</b>
                 </div>
               </div>
 
               <div className="row border-bottom-line">
-                <div className="col-md-3 col-xs-4">
+                <div className="col-md-6 col-xs-6">
                   <label>Body part</label>
                 </div>
 
-                <div className="col-md-3">
+                <div className="col-md-6 col-xs-6">
                   <b>{mark.bodyPart}</b>
                 </div>
               </div>
 
                 <div className="row border-bottom-line">
-                  <div className="col-md-3 col-xs-4">
+                  <div className="col-md-6 col-xs-6">
                     <label>Comment</label>
                   </div>
 
-                  <div className="col-md-3">
+                  <div className="col-md-6 col-xs-6">
                     <b>{mark.comment}</b>
                   </div>
                 </div>
 
                 { mark.imageId && <div className="row">
-                  <div className="col-md-3 col-xs-4">
+                  <div className="col-md-6 col-xs-6">
                     <label>Visual</label>
                   </div>
 
-                  <div className="col-md-3">
+                  <div className="col-md-6 col-xs-6">
                     <div className="photo clickable" onClick={() => showPhoto(mark.imageId)}>
                       { (mark.imageId && <EliteImage imageId={mark.imageId} />) || '--'}
                     </div>
