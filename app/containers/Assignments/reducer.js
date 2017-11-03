@@ -11,7 +11,7 @@ import {
 } from '../Authentication/constants';
 
 
-const initialState = Map({
+export const initialState = Map({
   pagination: Map({ perPage: 10, pageNumber: 0 }),
   view: 'List',
   sortOrder: 'ASC',
@@ -21,10 +21,7 @@ function searchReducer(state = initialState, action) {
   switch (action.type) {
 
     case LOGOUT_SUCCESS: {
-      return state
-        .set('pagination',Map({ perPage: 10, pageNumber: 0 }))
-        .set('view', 'List')
-        .set('sortOrder','ASC')
+      return initialState;
     }
 
     case SET_ASSIGNMENTS_PAGINATION: {

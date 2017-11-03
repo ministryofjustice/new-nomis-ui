@@ -9,7 +9,7 @@ import {
   LOGOUT_SUCCESS,
 } from '../Authentication/constants';
 
-const initialState = fromJS({
+export const initialState = fromJS({
   loading: false,
   error: null,
   locations: [],
@@ -26,7 +26,7 @@ function homeReducer(state = initialState, action) {
     }
 
     case LOGOUT_SUCCESS: {
-      return state.set('locations', fromJS([]));
+      return initialState;
     }
 
     default: {

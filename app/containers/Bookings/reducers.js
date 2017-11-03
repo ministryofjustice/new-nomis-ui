@@ -68,7 +68,7 @@ const detailsState = fromJS({
   addCaseNoteModal: false,
 });
 
-const initialState = fromJS({
+export const initialState = fromJS({
   loading: false,
   results, // for test purposes putting something in here...
   error: null,
@@ -119,16 +119,7 @@ function searchReducer(state = initialState, action) {
     }
 
     case LOGOUT_SUCCESS: {
-      return fromJS({
-        loading: false,
-        results: [],
-        error: null,
-        query: { firstName: '', lastName: '' },
-        sortOrder: 'ASC',
-        pagination: { perPage: 10, pageNumber: 0 },
-        details: {},
-        resultsView: 'List', // List or Grid
-      });
+      return initialState;
     }
 
 

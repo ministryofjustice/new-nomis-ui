@@ -65,7 +65,7 @@ const CaseNotesDefault = fromJS({
   Query: {},
 });
 
-const initialState = fromJS({
+export const initialState = fromJS({
   Bookings: {
     Search: {},
     Summaries: {},
@@ -105,28 +105,7 @@ function EliteApiReducer(state = initialState, action) {
   switch (action.type) {
 
     case LOGOUT_SUCCESS: {
-      return state.set('Bookings', Map({
-        Search: Map({
-          officerAssignments: Map({
-            MetaData: Map({}),
-            Sorted: Map({}),
-          }),
-        }),
-        Summaries: Map({}),
-        Details: Map({}),
-      })).set('Images',Map({})).set('User', Map({
-        CaseLoads: Map({}),
-        Data: [],
-        CaseNoteTypes: [],
-        CaseNoteSubTypes: [],
-      })).set('caseNoteTypes', Map({
-        Types: [],
-        subTypes: [],
-      }).set('AlertTypes', {}).set('AllCaseNoteFilters', Map({
-        Sources: [],
-        Types: [],
-        SubTypes: [],
-      })))
+      return initialState;
     }
 
     case BOOKINGS.CLEAR: {
