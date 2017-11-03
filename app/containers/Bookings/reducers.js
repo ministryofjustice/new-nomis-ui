@@ -47,7 +47,7 @@ import results from './Results/resultsData';
 
 const detailsState = fromJS({
   id: 20847,
-  activeTabId: DETAILS_TABS.QUICK_LOOK,
+  activeTabId: DETAILS_TABS.OFFENDER_DETAILS,
   tabs: [{ tabId: DETAILS_TABS.OFFENDER_DETAILS, title: 'Offender Details' },
          { tabId: DETAILS_TABS.PHYSICAL_ATTR, title: 'Physical Attributes' },
          { tabId: DETAILS_TABS.ALERTS, title: 'Alerts' },

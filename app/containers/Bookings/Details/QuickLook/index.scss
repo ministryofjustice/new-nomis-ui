@@ -1,6 +1,7 @@
 .quick-look {
 
   overflow: hidden;
+  @include add-gutter-margin-bottom();
 
   b, label {
     word-wrap: break-word;
