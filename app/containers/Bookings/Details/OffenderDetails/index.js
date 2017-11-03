@@ -89,7 +89,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
 
             {aliases.map(alias =>
             <div className="row border-bottom-line" key={`${alias.firstName}_${alias.lastName}`}>
-                <div className="col-md-6 col-xs-6">
+                <div className="col-md-6 col-xs-12">
                   <b>
                     <Alias {...alias} />
                   </b>
