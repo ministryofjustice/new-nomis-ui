@@ -11,7 +11,6 @@ import homePageReducer, { initialState as initialHomePage } from 'containers/Hom
 
 
 describe('Ensure that the application state is reset on logout', () => {
-
   it('should reset assignments state', () => {
     const state = assignmentReducer({},{
       type: LOGOUT_SUCCESS,
@@ -51,5 +50,4 @@ describe('Ensure that the application state is reset on logout', () => {
 
     expect(state.toJS()).toEqual(initialHomePage.toJS());
   });
-
 });
