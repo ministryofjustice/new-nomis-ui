@@ -3,6 +3,7 @@ $person-details-background-colour: #F2F2F2;
 .booking-grid {
   margin-left: 3px;
 
+
   .sort-by-select {
     margin-bottom: 8px;
 
@@ -32,6 +33,7 @@ $person-details-background-colour: #F2F2F2;
         margin-top: .5em;
         margin-right: .5em;
         background: $person-details-background-colour;
+        padding: 1px;
 
         .person-details {
           padding: 1em 0.5em;
@@ -43,10 +45,7 @@ $person-details-background-colour: #F2F2F2;
           }
 
           .ancillary-text {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: clip;
-            font-size: 14px;
+            word-wrap: break-word;
           }
         }
 
