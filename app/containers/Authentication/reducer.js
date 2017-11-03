@@ -27,7 +27,7 @@ import {
 // import { push } from 'react-router-redux';
 
 
-const initialState = fromJS({
+export const initialState = fromJS({
   user: null,
   loginData: null,
   loggedIn: false,
@@ -50,10 +50,7 @@ function authenticationReducer(state = initialState, action) {
       return state.set('loginData', action.payload);
     }
     case LOGOUT_SUCCESS: {
-      return state
-        .set('user', null)
-        .set('loginData',null)
-        .set('loggedIn', false);
+      return initialState;
     }
     case CHANGE_USERNAME_INPUT: {
       return state
