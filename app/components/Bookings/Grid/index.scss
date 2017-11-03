@@ -39,9 +39,7 @@ $person-details-background-colour: #F2F2F2;
           padding: 1em 0.5em;
 
           .person-name {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            word-wrap: break-word;
           }
 
           .ancillary-text {
