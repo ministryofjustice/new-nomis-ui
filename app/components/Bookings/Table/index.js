@@ -14,45 +14,63 @@ const onViewDetails = (e, row, viewDetails) => {
 };
 
 const Table = ({ results, viewDetails, sortOrder, sortOrderChange }) => (
-  <table className="booking-table">
-    <thead>
-      <tr>
-        <th> </th>
-        <th> <span> Name </span> {sortOrderChange &&
-          (sortOrder === 'ASC' ? <ArrowUp sortOrderChange={sortOrderChange} /> : <ArrowDown sortOrderChange={sortOrderChange} />)
-        }
-        </th>
-        <th> ID </th>
-        <th className="visible-md visible-lg"> IEP</th>
-        <th className="visible-md visible-lg"> Age</th>
-        <th> Location </th>
-      </tr>
-    </thead>
-    <tbody>
+  <div className="booking-table">
+    <div className="row">
+
+      <div className="col-xs-3 col-md-2">
+      </div>
+
+      <div className="col-xs-4 col-md-3">
+        <b> Name </b> {sortOrderChange &&
+      (sortOrder === 'ASC' ? <ArrowUp sortOrderChange={sortOrderChange} /> : <ArrowDown sortOrderChange={sortOrderChange} />)}
+      </div>
+
+      <div className="col-xs-2 col-md-2">
+        <b> ID </b>
+      </div>
+
+      <div className="visible-md visible-lg col-md-2">
+        <b> IEP </b>
+      </div>
+
+      <div className="visible-md visible-lg col-md-1">
+        <b> Age </b>
+      </div>
+
+      <div className="col-xs-3 col-md-2">
+        <b> Location </b>
+      </div>
+    </div>
+
       {(results || []).map((row) =>
-        <tr key={row.bookingId}>
-          <td>
+        <div className="row" key={row.bookingId}>
+          <div className="col-xs-3 col-md-2 remove-left-padding">
             <div className="photo clickable" onClick={(e) => onViewDetails(e, row, viewDetails)}>
               <EliteImage imageId={row.facialImageId} />
             </div>
-          </td>
-          <td>
+          </div>
+          <div className="col-xs-4 col-md-3 add-margin-top">
             <span>
               <div role="link" className="bold link" onClick={(e) => onViewDetails(e, row, viewDetails)}>
                 <Name lastName={row.lastName} firstName={row.firstName} />
               </div>
             </span>
-          </td>
-          <td><span>{row.offenderNo}</span></td>
-          <td className="visible-md visible-lg">
+          </div>
+          <div className="col-xs-2 col-md-2 add-margin-top">
+            <span>{row.offenderNo}</span>
+          </div>
+          <div className="visible-md visible-lg col-md-2 add-margin-top">
             <span>{row.iepLevel}</span>
-          </td>
-          <td className="visible-md visible-lg"><span>{row.age}</span></td>
-          <td><span>{row.assignedLivingUnitDesc}</span></td>
-        </tr>
+          </div>
+          <div className="visible-md visible-lg col-md-1 add-margin-top">
+            <span>{row.age}</span>
+          </div>
+          <div className="col-xs-3 col-md-2 add-margin-top">
+            <span>{row.assignedLivingUnitDesc}</span>
+          </div>
+        </div>
     )}
-    </tbody>
-  </table>
+    </div>
 );
 
 Table.propTypes = {

@@ -6,10 +6,21 @@
     width: 80px;
   }
 
-  @include media-breakpoint-down(xs) {
-    .link {
-      font-size: 16px;
+  .remove-left-padding {
+    padding-left: 0 !important;
+  }
+
+  .add-margin-top {
+    margin-top: 4%;
+    @include media-breakpoint-down(xs) {
+      margin-top: 10% !important;
     }
+  }
+
+  .row {
+    border-bottom: solid .5px lightgrey;
+    @include add-gutter-padding-bottom();
+    @include add-gutter-padding-top();
   }
 
   @media (max-width: 359px) {
@@ -17,5 +28,9 @@
       height: 65px;
       width: 52px;
     }
+  }
+
+  span {
+    word-wrap: break-word;
   }
 }
