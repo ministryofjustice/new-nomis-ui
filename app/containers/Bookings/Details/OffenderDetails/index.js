@@ -66,7 +66,6 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
 
              </div>
 
-
              <div className="row border-bottom-line">
 
                <div className="col-md-6 col-xs-6">
@@ -86,6 +85,8 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
             <div className="row">
                 <h3 className="heading-medium"> Aliases </h3>
             </div>
+
+            {aliases && aliases.length === 0 && <div> -- </div>}
 
             {aliases.map(alias =>
             <div className="row border-bottom-line" key={`${alias.firstName}_${alias.lastName}`}>
@@ -201,9 +202,8 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
           )}
         </div>
 
-
         {marksGroupedIntoPairs.length > 0 && <div className="row">
-          <div className="col-md-12">
+          <div className="col-xs-12">
               <h3 className="heading-medium">
                 Distinguishing marks
               </h3>

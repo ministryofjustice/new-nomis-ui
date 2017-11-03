@@ -108,7 +108,7 @@ const Balances = ({ spends, cash, savings,currency }) =>
 </div>
 
 const SentenceDetail = ({ type, releaseDate }) =>
-  <div className="panel panel-border-narrow">
+  <div>
 
     <div className="row border-bottom-line">
         <div className="col-lg-6 col-xs-6">
@@ -223,14 +223,14 @@ class QuickLook extends Component {
       </div>
        <div className="row">
 
-         <div className="col-md-6">
+         <div className="col-md-6 col-xs-12">
            <h3 className="heading-medium">
              Money
            </h3>
                <Balances {...balance} />
          </div>
 
-        <div className="col-md-6">
+        <div className="col-md-6 col-xs-12">
           <h3 className="heading-medium">
             Prison activities
           </h3>
