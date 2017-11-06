@@ -23,7 +23,7 @@ const KeyDatePair = ({ title, text, date }) => (
       </label>
     ) }
   <span>
-    { text !== 0 && text && <b>{text}</b> }
+    { text && <b>{text}</b> }
     { date &&
     <b>
       <FormattedDate value={date} />
@@ -59,7 +59,7 @@ const SentenceView = ({ startDate, additionalDaysAwarded, dtoReleaseDates, nonDt
     <div className="section">
       <div className="information-group">
         { (dtoReleaseDates || []).map(pair => <KeyDatePair key={pair.label} title={pair.label} date={pair.value} />)}
-        { additionalDaysAwarded && <KeyDatePair title=" Additional days awarded" text={additionalDaysAwarded} /> }
+        { additionalDaysAwarded && additionalDaysAwarded !== 0 ? <KeyDatePair title=" Additional days awarded" text={additionalDaysAwarded} /> : null}
         { (sentenceExpiryDates || []).map(pair => <KeyDatePair title={pair.label} date={pair.value} />)}
         { shouldShowNonDtoReleaseDate && <KeyDatePair title={nonDtoReleaseDate.label} date={nonDtoReleaseDate.value} /> }
         { shouldShowOtherDates &&
@@ -118,8 +118,6 @@ class KeyDates extends Component {
           </div>
 
           { sentence && <SentenceView {...sentence} other={other} /> }
-
-
         </div>
     )
   }
