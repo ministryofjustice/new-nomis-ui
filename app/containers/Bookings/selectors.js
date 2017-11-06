@@ -111,7 +111,7 @@ const selectOffenderDetails = () => createSelector(
   (bookingDetails, { intl }) => {
     const dateOfBirth = intl.formatDate(Date.parse(bookingDetails.getIn(['Data', 'dateOfBirth'])));
     const age = bookingDetails.getIn(['Data', 'age']);
-    const religion = bookingDetails.getIn(['Data', 'physicalAttributes', 'religion']);
+    const religion = bookingDetails.getIn(['Data', 'religion']);
     const ethnicity = bookingDetails.getIn(['Data', 'physicalAttributes', 'ethnicity']);
     const assessments = bookingDetails.getIn(['Data', 'assessments']).map((ass) => {
       const value = ass.get('classification');
