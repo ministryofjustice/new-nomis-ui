@@ -91,7 +91,12 @@ function Header({ inmateData, onImageClick }) {
                <div className="column">
                  <label> Location </label>
                  <div className="location-information">
-                   <b> {assignedLivingUnit.description} {assignedLivingUnit.agencyName} </b>
+                   <div>
+                     <b> {assignedLivingUnit.description} </b>
+                   </div>
+                   <div>
+                     <b> {assignedLivingUnit.agencyName} </b>
+                   </div>
                  </div>
                </div>
 
