@@ -17,7 +17,7 @@ import {
 
 import './index.scss';
 
-const Details = ({ age, gender, ethnicity }) =>
+const Details = ({ age, religion, ethnicity }) =>
   <div className="quick-look">
 
     <div className="row border-bottom-line">
@@ -33,11 +33,11 @@ const Details = ({ age, gender, ethnicity }) =>
 
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
-        <label>Gender</label>
+        <label>Religion</label>
       </div>
       <div className="col-lg-6 col-xs-6">
         <b>
-          {gender}
+          {religion || '--'}
         </b>
       </div>
     </div>

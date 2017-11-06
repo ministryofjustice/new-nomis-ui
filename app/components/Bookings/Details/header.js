@@ -74,7 +74,7 @@ function Header({ inmateData, onImageClick }) {
 
                <div className="column">
                  <label> CSRA </label>
-                 <b> { csra } </b>
+                 <b> { csra || '--' } </b>
                </div>
 
              </div>
@@ -84,7 +84,7 @@ function Header({ inmateData, onImageClick }) {
                <div className="column">
                  <label>Alerts</label>
                  <div className="alert-codes">
-                   {alertsCodes.join(', ')}
+                   {alertsCodes.join(', ') || '--'}
                  </div>
                </div>
 
