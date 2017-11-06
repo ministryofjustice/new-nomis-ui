@@ -16,7 +16,7 @@ const Alias = ({ lastName, firstName }) => <span> {toFullName({ lastName, firstN
 
 const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
   render() {
-    const { dateOfBirth, age, gender, ethnicity, physicalAttributes,physicalCharacteristics, physicalMarks,aliases } = offenderDetails;
+    const { dateOfBirth, age, religion, ethnicity, physicalAttributes,physicalCharacteristics, physicalMarks,aliases } = offenderDetails;
 
     const marksGroupedIntoPairs = groupByPairs(physicalMarks);
     const characteristicsGroupedIntoPairs = groupByPairs(physicalCharacteristics);
@@ -57,11 +57,11 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
              <div className="row border-bottom-line">
 
                <div className="col-md-6 col-xs-6">
-                 <label>Gender</label>
+                 <label>Religion</label>
                </div>
 
                <div className="col-md-6 col-xs-6">
-                 <b> {gender} </b>
+                 <b> {religion || '--'} </b>
                </div>
 
              </div>
@@ -73,7 +73,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
                </div>
 
                <div className="col-md-6 col-xs-6">
-                 <b> {ethnicity} </b>
+                 <b> {ethnicity || '--'} </b>
                </div>
 
              </div>
