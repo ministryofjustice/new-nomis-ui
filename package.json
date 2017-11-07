@@ -1,6 +1,6 @@
 {
   "name": "elite2-web",
-  "version": "1.0.10",
+  "version": "1.0.12",
   "description": "Elite 2 Web",
   "engines": {
     "npm": ">=3",
