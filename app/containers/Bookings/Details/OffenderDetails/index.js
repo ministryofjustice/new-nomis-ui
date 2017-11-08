@@ -16,7 +16,7 @@ const Alias = ({ lastName, firstName }) => <span> {toFullName({ lastName, firstN
 
 const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
   render() {
-    const { dateOfBirth, age, religion, ethnicity, physicalAttributes,physicalCharacteristics, physicalMarks,aliases } = offenderDetails;
+    const { dateOfBirth, age, gender, ethnicity, physicalAttributes,physicalCharacteristics, physicalMarks,aliases } = offenderDetails;
 
     const marksGroupedIntoPairs = groupByPairs(physicalMarks);
     const characteristicsGroupedIntoPairs = groupByPairs(physicalCharacteristics);
@@ -57,11 +57,11 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
              <div className="row border-bottom-line">
 
                <div className="col-md-6 col-xs-6">
-                 <label>Religion</label>
+                 <label>Gender</label>
                </div>
 
                <div className="col-md-6 col-xs-6">
-                 <b> {religion || '--'} </b>
+                 <b> {gender || '--'} </b>
                </div>
 
              </div>
@@ -288,8 +288,6 @@ export function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = createStructuredSelector({
   offenderDetails: selectOffenderDetails(),
-  // activeTabId: selectCurrentDetailTabId(),
 });
 
-// Wrap the component to inject dispatch and state into it
 export default connect(mapStateToProps, mapDispatchToProps)(OffenderDetails);

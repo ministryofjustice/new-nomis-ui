@@ -3,6 +3,8 @@ const apiService = require('./apiService'),
 const session = require('./session');
 const moment = require('moment');
 
+const RiskAssessment = require('./model/riskAssessment');
+
 const asyncMiddleware = fn =>
   (req, res, next) => {
     res.setHeader('jwt', session.extendSession(req.headers));
@@ -86,14 +88,13 @@ const bookingDetails = asyncMiddleware(async (req, res) => {
   const iepLevel = (await apiService.getIepSummary(req)).iepLevel;
 
   const csraAssessment = details.assessments
-    .filter((assessment) => assessment.cellSharingAlertFlag === true && assessment.classification);
-
-  const csraLevel = csraAssessment && csraAssessment.length > 0 && csraAssessment[0].classification;
+    .map(assessment => new RiskAssessment(assessment))
+    .filter((assessment) => assessment.isCRSA() && assessment.isActive())[0];
 
   const data = {
     ...details,
     iepLevel ,
-    csra: csraLevel,
+    csra: csraAssessment && csraAssessment.riskLevel(),
   };
 
   res.json(data);
