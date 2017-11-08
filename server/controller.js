@@ -88,7 +88,7 @@ const bookingDetails = asyncMiddleware(async (req, res) => {
   const iepLevel = (await apiService.getIepSummary(req)).iepLevel;
 
   const csraAssessment = details.assessments
-    .map(assessment => new RiskAssessment(assessment))
+    .map(assessment => RiskAssessment(assessment))
     .filter((assessment) => assessment.isCRSA() && assessment.isActive())[0];
 
   const data = {
