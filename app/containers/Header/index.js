@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { intlShape } from 'react-intl';
 import { connect } from 'react-redux';
@@ -11,8 +11,7 @@ import { selectMobileMenuOpen } from 'selectors/app';
 import { switchCaseLoad } from '../EliteApiLoader/actions';
 import { selectUserHeaderInfo } from './selectors';
 
-class HeaderContainer extends Component {  // eslint-disable-line react/prefer-stateless-function
-
+const HeaderContainer = () => ({
   render() {
     const { headerUser, mobileMenuOpen, switchCaseLoad: switchCL } = this.props;
 
@@ -24,8 +23,8 @@ class HeaderContainer extends Component {  // eslint-disable-line react/prefer-s
         setMobileMenuOpen={this.props.setMobileMenuOpen}
       />
     );
-  }
-}
+  },
+})
 
 HeaderContainer.contextTypes = {
   intl: intlShape.isRequired,

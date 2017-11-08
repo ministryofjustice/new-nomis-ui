@@ -84,7 +84,8 @@ export default function createRoutes(store) {
       onEnter: () => {
         // doesn't actually go anywhere, just logs user out.
         // logout saga will lead to a redirect to '/login'.
-        store.dispatch(logOut());
+        // store.dispatch(logOut());
+        window.location = '/login';
       },
     },
     {
