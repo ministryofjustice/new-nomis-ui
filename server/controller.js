@@ -1,9 +1,8 @@
-const apiService = require('./apiService'),
-  errorStatusCode = apiService.errorStatusCode;
+const elite2Api = require('./elite2Api'),
+  errorStatusCode = elite2Api.errorStatusCode;
 const session = require('./session');
-const moment = require('moment');
 
-const RiskAssessment = require('./model/riskAssessment');
+const bookingService = require('./services/booking');
 
 const asyncMiddleware = fn =>
   (req, res, next) => {
@@ -15,10 +14,8 @@ const asyncMiddleware = fn =>
       });
   };
 
-const keyDatesMapper = require('./view-model-mappers/keydates');
-
 const login = (req, res) => {
-  apiService.httpRequest({
+  elite2Api.httpRequest({
     method: 'post',
     url: '/users/login',
     data: req.body,
@@ -33,7 +30,7 @@ const login = (req, res) => {
 };
 
 const images = (req, res) => {
-  apiService.callApi({
+  elite2Api.callApi({
     method: 'get',
     url: `images${req.url}`,
     responseType: 'stream',
@@ -61,17 +58,7 @@ const keyDates = asyncMiddleware(async (req,res) => {
     return;
   }
 
-  const sentenceData = await apiService.getSentenceData(req);
-  const sentence = keyDatesMapper.sentence(sentenceData);
-  const other = keyDatesMapper.otherDates(sentenceData);
-  const iepSummary = (await apiService.getIepSummary(req));
-
-  const data = {
-    iepLevel: iepSummary.iepLevel,
-    daysSinceReview: iepSummary.daysSinceReview,
-    sentence,
-    other,
-  };
+  const data = await bookingService.getKeyDatesVieModel(req);
   res.json(data);
 });
 
@@ -84,19 +71,7 @@ const bookingDetails = asyncMiddleware(async (req, res) => {
     return;
   }
 
-  const details = (await apiService.getDetails(req));
-  const iepLevel = (await apiService.getIepSummary(req)).iepLevel;
-
-  const csraAssessment = details.assessments
-    .map(assessment => new RiskAssessment(assessment))
-    .filter((assessment) => assessment.isCRSA() && assessment.isActive())[0];
-
-  const data = {
-    ...details,
-    iepLevel ,
-    csra: csraAssessment && csraAssessment.riskLevel(),
-  };
-
+  const data = await bookingService.getBookingDetailsViewModel(req);
   res.json(data);
 });
 
@@ -108,46 +83,8 @@ const quickLook = asyncMiddleware(async (req, res) => {
     res.end();
     return;
   }
-
-  const balance = await apiService.getBalances(req);
-  const sentence = await apiService.getMainSentence(req);
-  const activityData = await apiService.getActivitiesForToday(req);
-
-  const filterMorning = (array) => array.filter(a => moment(a.startTime).get('hour') < 12);
-  const filterAfternoon = (array) => array.filter(a => moment(a.startTime).get('hour') > 11);
-
-  const morningActivity = filterMorning(activityData);
-  const afternoonActivity = filterAfternoon(activityData);
-
-  const activities = {
-    morningActivities: morningActivity && morningActivity.map(activity => ({
-      description: activity.eventSourceDesc,
-      startTime: activity.startTime,
-      endTime: activity.endTime,
-    })),
-    afternoonActivities: afternoonActivity && afternoonActivity.map(activity => ({
-      description: activity.eventSourceDesc,
-      startTime: activity.startTime,
-      endTime: activity.endTime,
-    })),
-  };
-
-  const hasSentenceInformation =
-    sentence &&
-    sentence.mainOffenceDescription &&
-    sentence.sentenceLength &&
-    sentence.releaseDate;
-
-  const data = {
-    balance,
-    activities: (activities.morningActivities.length > 0 || activities.afternoonActivities.length > 0) ? activities : null ,
-    sentence: hasSentenceInformation && {
-      type: sentence.mainOffenceDescription,
-      lengthOfSentence: sentence.sentenceLength,
-      releaseDate: sentence.releaseDate,
-    },
-  };
-
+   
+  const data = await bookingService.getQuickLookViewModel(req);
   res.json(data);
 });
 

@@ -199,7 +199,7 @@ class QuickLook extends Component {
 
     if (!viewModel) { return <div>Loading....</div> }
 
-    const { balance,sentence, activities } = (viewModel && viewModel.toJS());
+    const { balance, sentence, activities, positiveCaseNotes, negativeCaseNotes } = (viewModel && viewModel.toJS());
 
     return (<div className="quick-look">
 
@@ -240,6 +240,42 @@ class QuickLook extends Component {
         </div>
 
       </div>
+
+      <div className="row">
+        <div className="col-md-6 col-xs-12">
+
+          <h3 className="heading-medium">
+            Case notes
+          </h3>
+
+          <div className="row border-bottom-line">
+            <div className="col-lg-6 col-xs-6">
+              <label>Negative entries total</label>
+            </div>
+
+            <div className="col-lg-6 col-xs-6">
+              <b>
+                <b> {negativeCaseNotes} </b>
+              </b>
+            </div>
+          </div>
+
+          <div className="row border-bottom-line">
+            <div className="col-lg-6 col-xs-6">
+              <label>Positive entries total</label>
+            </div>
+
+            <div className="col-lg-6 col-xs-6">
+              <b>
+                <b> {positiveCaseNotes} </b>
+              </b>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
     </div>)
   }
 }
