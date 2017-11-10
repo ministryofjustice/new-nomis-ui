@@ -3,7 +3,7 @@ const chai = require('chai'),
   expect = chai.expect;
 
 const sinonChai = require('sinon-chai');
-const apiService = require('../server/apiService');
+const apiService = require('../server/elite2Api');
 const session = require('../server/session');
 
 chai.use(sinonChai);

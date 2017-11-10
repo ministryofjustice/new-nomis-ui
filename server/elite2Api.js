@@ -2,7 +2,7 @@ const axios = require('axios');
 const session = require('./session');
 const useApiAuth = (process.env.USE_API_GATEWAY_AUTH || 'no') === 'yes';
 const gatewayToken = require('./jwtToken');
-
+const QueryBuilder = require('./QueryBuilder');
 
 axios.defaults.baseURL = process.env.API_ENDPOINT_URL || 'http://localhost:7080/api';
 
@@ -18,57 +18,38 @@ axios.interceptors.request.use((config) => {
 }, (error) => Promise.reject(error));
 
 
-const getSentenceData = async (req) => service.callApi({
-  method: 'get',
-  url: `bookings/${req.params.bookingId}/sentenceDetail`,
-  headers: {},
-  reqHeaders: req.headers,
-  onTokenRefresh: (token) => { req.headers.jwt = token },
-}).then(response => new Promise(r => r(response.data)));
+const getSentenceData = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/sentenceDetail` });
+const getIepSummary = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/iepSummary` });
+const getDetails = (req) => getRequest({ req,url: `bookings/${req.params.bookingId}` });
+const getBalances = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/balances` });
+const getMainSentence = (req) => getRequest({ req,url: `bookings/${req.params.bookingId}/mainSentence` });
+const getActivitiesForToday = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/activities/today` });
 
-const getIepSummary = async (req) => service.callApi({
-  method: 'get',
-  url: `bookings/${req.params.bookingId}/iepSummary`,
-  headers: {},
-  reqHeaders: req.headers,
-  onTokenRefresh: (token) => { req.headers.jwt = token },
-}).then(response => new Promise(r => r(response.data)))
-  .catch(_ => new Promise(r => r(null)));  // eslint-disable-line no-unused-vars
+const getPositiveCaseNotes = ({ req, fromDate }) => {
+  const query = new QueryBuilder('fromDate').greaterThanOrEqual(fromDate).build();
 
-const getDetails = async (req) => service.callApi({
-  method: 'get',
-  url: `bookings/${req.params.bookingId}`,
-  headers: {},
-  reqHeaders: req.headers,
-  onTokenRefresh: (token) => { req.headers.jwt = token },
-}).then(response => new Promise(r => r(response.data)));
+  return getRequest({
+    req,
+    url: `bookings/${req.params.bookingId}/caseNotes/POS/IEP_ENC/count?query=${query}`,
+  });
+};
 
-const getBalances = async (req) => service.callApi({
-  method: 'get',
-  url: `bookings/${req.params.bookingId}/balances`,
-  headers: {},
-  reqHeaders: req.headers,
-  onTokenRefresh: (token) => { req.headers.jwt = token },
-}).then(response => new Promise(r => r(response.data)))
-  .catch(_ => new Promise(r => r(null)));  // eslint-disable-line no-unused-vars
+const getNegativeCaseNotes = ({ req, fromDate }) => {
+  const query = new QueryBuilder('fromDate').greaterThanOrEqual(fromDate).build();
 
-const getMainSentence = async (req) => service.callApi({
+  return getRequest({
+    req,
+    url: `bookings/${req.params.bookingId}/caseNotes/NEG/IEP_WARN/count?query=${query}`,
+  });
+};
+
+const getRequest = ({ req, url }) => service.callApi({
   method: 'get',
-  url: `bookings/${req.params.bookingId}/mainSentence`,
+  url,
   headers: {},
   reqHeaders: req.headers,
   onTokenRefresh: (token) => { req.headers.jwt = token },
 }).then(response => new Promise(r => r(response.data)))
-  .catch(_ => new Promise(r => r(null)));  // eslint-disable-line no-unused-vars
-
-const getActivitiesForToday = async (req) => 
-   service.callApi({
-     method: 'get',
-     url: `bookings/${req.params.bookingId}/activities/today`,
-     headers: {},
-     reqHeaders: req.headers,
-     onTokenRefresh: (token) => { req.headers.jwt = token },
-   }).then(response => new Promise(r => r(response.data)))
     .catch(_ => new Promise(r => r(null)))  // eslint-disable-line no-unused-vars
 
 
@@ -130,6 +111,8 @@ const service = {
   getBalances,
   getMainSentence,
   getActivitiesForToday,
+  getPositiveCaseNotes,
+  getNegativeCaseNotes,
 };
 
 module.exports = service;

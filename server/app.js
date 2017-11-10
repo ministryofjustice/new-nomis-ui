@@ -1,5 +1,5 @@
 const session = require('./session');
-const apiService = require('./apiService'),
+const apiService = require('./elite2Api'),
   errorStatusCode = apiService.errorStatusCode;
 
 const sessionHandler = (req, res) => {
