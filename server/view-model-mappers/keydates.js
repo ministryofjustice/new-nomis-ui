@@ -6,7 +6,7 @@ const longName = (label) => ({
   PRRD: 'Post-recall release date',
   HDCED: 'Home det. eligibility',
   PED: 'Parole eligibility',
-  HDCAD: 'Home det. approved',
+  HDCAD: 'Home det. actual',
   APD: 'Approved parole date',
   ROTL: 'Release on temp. licence',
   ERSED: 'Early removal scheme eligibility',
@@ -21,7 +21,7 @@ const otherDates = (data) => Object.assign({}, {
   dates: removeBlankEntries([
     labelValue({ label: longName('HDCED'), value: data.homeDetentionCurfewEligibilityDate }),
     labelValue({ label: longName('PED'), value: data.paroleEligibilityDate }),
-    labelValue({ label: longName('HDCAD'), value: data.homeDetentionCurfewApprovedDate }),
+    labelValue({ label: longName('HDCAD'), value: data.homeDetentionCurfewActualDate }),
     labelValue({ label: longName('APD'), value: data.approvedParoleDate }),
     labelValue({ label: longName('ROTL'), value: data.releaseOnTemporaryLicenceDate }),
     labelValue({ label: longName('ERSED'), value: data.earlyReleaseSchemeEligibilityDate }),

@@ -35,7 +35,7 @@ const getBookingDetailsViewModel = async (req) => {
 };
 
 const getQuickLookViewModel = async (req) => {
-  const threeMonthsInThePast = moment().subtract(3,'months');
+  const threeMonthsInThePast = moment().subtract(3, 'months');
   const filterMorning = (array) => array.filter(a => moment(a.startTime).get('hour') < 12);
   const filterAfternoon = (array) => array.filter(a => moment(a.startTime).get('hour') > 11);
   const hasAnyActivity = (activities) => activities.morningActivities.length > 0 || activities.afternoonActivities.length > 0;
@@ -47,7 +47,8 @@ const getQuickLookViewModel = async (req) => {
   });
 
   const balance = await elite2Api.getBalances(req);
-  const sentence = await elite2Api.getMainSentence(req);
+  const offenceData = await elite2Api.getMainOffence(req);
+  const sentenceData = await elite2Api.getSentenceData(req);
   const activityData = await elite2Api.getActivitiesForToday(req);
   const positiveCaseNotes = await elite2Api.getPositiveCaseNotes({ req, fromDate: threeMonthsInThePast });
   const negativeCaseNotes = await elite2Api.getNegativeCaseNotes({ req, fromDate: threeMonthsInThePast });
@@ -60,10 +61,9 @@ const getQuickLookViewModel = async (req) => {
     afternoonActivities: afternoonActivity && afternoonActivity.map(data => activityMapper(data)),
   };
 
-  const hasSentenceInformation =
-    sentence &&
-    sentence.mainOffenceDescription &&
-    sentence.releaseDate;
+  const offenceDetails = offenceData && offenceData.map(offenceDetail => ({
+    type: offenceDetail.offenceDescription,
+  }));
 
   return {
     balance: balance && {
@@ -75,13 +75,10 @@ const getQuickLookViewModel = async (req) => {
     activities: hasAnyActivity(activities) ? activities : null,
     positiveCaseNotes: (positiveCaseNotes && positiveCaseNotes.count) || 0,
     negativeCaseNotes: (negativeCaseNotes && negativeCaseNotes.count) || 0,
-    sentence: hasSentenceInformation && {
-      type: sentence.mainOffenceDescription,
-      lengthOfSentence: sentence.sentenceLength,
-      releaseDate: sentence.releaseDate,
-    },
+    offences: (offenceDetails && offenceDetails.length > 0) ? offenceDetails : null,
+    releaseDate: sentenceData ? sentenceData.releaseDate : null,
   };
-}
+};
 
 const service = {
   getQuickLookViewModel,

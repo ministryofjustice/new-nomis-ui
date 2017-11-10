@@ -19,15 +19,17 @@ describe('Booking Service Quick look', () => {
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
     sandbox.stub(elite2Api, 'getBalances');
-    sandbox.stub(elite2Api, 'getMainSentence');
+    sandbox.stub(elite2Api, 'getMainOffence');
     sandbox.stub(elite2Api, 'getActivitiesForToday');
     sandbox.stub(elite2Api, 'getPositiveCaseNotes');
     sandbox.stub(elite2Api, 'getNegativeCaseNotes');
+    sandbox.stub(elite2Api, 'getSentenceData');
     elite2Api.getBalances.returns(null);
-    elite2Api.getMainSentence.returns(null);
+    elite2Api.getMainOffence.returns(null);
     elite2Api.getActivitiesForToday.returns([]);
     elite2Api.getPositiveCaseNotes.returns(null);
     elite2Api.getNegativeCaseNotes.returns(null);
+    elite2Api.getSentenceData.returns(null);
   });
 
   afterEach(() => sandbox.restore());
@@ -52,18 +54,19 @@ describe('Booking Service Quick look', () => {
     expect(data.balance.currency).to.equal('GBP');
   });
 
-  it('should call getMainSentence', async () => {
-    elite2Api.getMainSentence.returns({
-      mainOffenceDescription: 'basic',
-      releaseDate: '2017-11-09',
-    });
+  it('should call getMainOffence', async () => {
+    elite2Api.getMainOffence.returns([
+      {
+        bookingId: 1,
+        offenceDescription: 'basic',
+      },
+    ]);
 
     const data = await bookingService.getQuickLookViewModel(req);
 
-    expect(elite2Api.getMainSentence).to.be.called;
+    expect(elite2Api.getMainOffence).to.be.called;
 
-    expect(data.sentence.type).to.equal('basic');
-    expect(data.sentence.releaseDate).to.equal('2017-11-09');
+    expect(data.offences[0].type).to.equal('basic');
   });
 
   it('should call getActivitiesForToday', async () => {

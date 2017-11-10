@@ -22,7 +22,7 @@ const getSentenceData = (req) => getRequest({ req, url: `bookings/${req.params.b
 const getIepSummary = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/iepSummary` });
 const getDetails = (req) => getRequest({ req,url: `bookings/${req.params.bookingId}` });
 const getBalances = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/balances` });
-const getMainSentence = (req) => getRequest({ req,url: `bookings/${req.params.bookingId}/mainSentence` });
+const getMainOffence = (req) => getRequest({ req,url: `bookings/${req.params.bookingId}/mainOffence` });
 const getActivitiesForToday = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/activities/today` });
 
 const getPositiveCaseNotes = ({ req, fromDate }) => {
@@ -53,7 +53,7 @@ const getRequest = ({ req, url }) => service.callApi({
     .catch(_ => new Promise(r => r(null)))  // eslint-disable-line no-unused-vars
 
 
-const callApi = ({ method, url, headers,reqHeaders, onTokenRefresh,responseType, data }) => {
+const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseType, data }) => {
   const { token, refreshToken } = session.getSessionData(reqHeaders);
 
   return service.httpRequest({
@@ -61,10 +61,10 @@ const callApi = ({ method, url, headers,reqHeaders, onTokenRefresh,responseType,
     method,
     responseType,
     data,
-    headers: getHeaders({ headers,reqHeaders,token }),
+    headers: getHeaders({ headers, reqHeaders, token }),
   }).catch(error => {
     if (error.response.status === 401) {
-      return service.refreshTokenRequest({ token: refreshToken,headers,reqHeaders }).then(response => {
+      return service.refreshTokenRequest({ token: refreshToken, headers, reqHeaders }).then(response => {
         onTokenRefresh(session.newJWT(response.data));
         return service.httpRequestRetry({
           url,
@@ -89,10 +89,10 @@ function httpRequestRetry(options) {
 const refreshTokenRequest = ({ headers, reqHeaders, token }) => axios({
   method: 'post',
   url: '/users/token',
-  headers: getHeaders({ headers,reqHeaders,token }),
+  headers: getHeaders({ headers, reqHeaders, token }),
 });
 
-const getHeaders = ({ headers,reqHeaders, token }) => Object.assign({}, headers, {
+const getHeaders = ({ headers, reqHeaders, token }) => Object.assign({}, headers, {
   authorization: token,
   'access-control-allow-origin': reqHeaders.host,
 });
@@ -109,7 +109,7 @@ const service = {
   getSentenceData,
   getDetails,
   getBalances,
-  getMainSentence,
+  getMainOffence,
   getActivitiesForToday,
   getPositiveCaseNotes,
   getNegativeCaseNotes,

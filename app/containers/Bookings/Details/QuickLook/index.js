@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormattedNumber, FormattedDate,FormattedTime } from 'react-intl';
+import { FormattedNumber, FormattedDate, FormattedTime } from 'react-intl';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -9,7 +9,6 @@ import {
   selectQuickLookViewModel,
   selectOffenderDetails,
 } from 'containers/Bookings/selectors'
-
 
 import {
   loadQuickLook,
@@ -55,7 +54,7 @@ const Details = ({ age, religion, ethnicity }) =>
 
   </div>
 
-const Balances = ({ spends, cash, savings,currency }) =>
+const Balances = ({ spends, cash, savings, currency }) =>
 <div>
     <div className="row border-bottom-line">
 
@@ -107,23 +106,27 @@ const Balances = ({ spends, cash, savings,currency }) =>
     </div>
 </div>
 
-const SentenceDetail = ({ type, releaseDate }) =>
+const OffenceDetails = ({ offences, releaseDate }) =>
   <div>
 
-    <div className="row border-bottom-line">
-        <div className="col-lg-6 col-xs-6">
-          <label>
-            Type
-          </label>
-        </div>
+    {(offences || []).map((offence, index) =>
+    <div className="row border-bottom-line" key={`${offence}_${index}`}>
+      <div className="col-lg-6 col-xs-6">
+        <label>
+          Type
+        </label>
+      </div>
 
       <div className="col-lg-6 col-xs-6">
         <b>
-          {type}
+          {offence.type}
         </b>
       </div>
-    </div>
 
+    </div>
+    )}
+
+    {releaseDate &&
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
         <label>
@@ -137,10 +140,11 @@ const SentenceDetail = ({ type, releaseDate }) =>
         </b>
       </div>
     </div>
+    }
 
   </div>
 
-const Activities = ({ activities,period }) => <div>
+const Activities = ({ activities, period }) => <div>
 
   <div className="row border-bottom-line">
 
@@ -156,7 +160,7 @@ const Activities = ({ activities,period }) => <div>
       </div>
     }
 
-    {(activities || []).map((activity,index) =>
+    {(activities || []).map((activity, index) =>
       <div className="row border-bottom-line" key={`${activity}_${index}_${period}`}>
 
         <div className="col-lg-6 col-xs-6">
@@ -185,21 +189,20 @@ const Activities = ({ activities,period }) => <div>
 
 </div>
 
-
 class QuickLook extends Component {
 
   componentDidMount() {
-    const { loadViewModel,bookingId } = this.props;
+    const { loadViewModel, bookingId } = this.props;
     
     loadViewModel(bookingId);
   }
 
   render() {
-    const { viewModel,offenderDetails } = this.props;
+    const { viewModel, offenderDetails } = this.props;
 
     if (!viewModel) { return <div>Loading....</div> }
 
-    const { balance, sentence, activities, positiveCaseNotes, negativeCaseNotes } = (viewModel && viewModel.toJS());
+    const { balance, offences, releaseDate, activities, positiveCaseNotes, negativeCaseNotes } = (viewModel && viewModel.toJS());
 
     return (<div className="quick-look">
 
@@ -217,8 +220,8 @@ class QuickLook extends Component {
           <h3 className="heading-medium">
             Offences
           </h3>
-          { sentence && <SentenceDetail {...sentence} /> }
-          { !sentence && <div> No offence details are available at this time </div> }
+          { offences && <OffenceDetails offences={offences} releaseDate={releaseDate} /> }
+          { !offences && <div> No offence details are available at this time </div> }
         </div>
       </div>
        <div className="row">
@@ -279,7 +282,6 @@ class QuickLook extends Component {
     </div>)
   }
 }
-
 
 export function mapDispatchToProps(dispatch) {
   return {
