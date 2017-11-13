@@ -52,6 +52,7 @@ const getQuickLookViewModel = async (req) => {
   const activityData = await elite2Api.getActivitiesForToday(req);
   const positiveCaseNotes = await elite2Api.getPositiveCaseNotes({ req, fromDate: threeMonthsInThePast });
   const negativeCaseNotes = await elite2Api.getNegativeCaseNotes({ req, fromDate: threeMonthsInThePast });
+  const contacts = await elite2Api.getContacts(req);
 
   const morningActivity = filterMorning(activityData);
   const afternoonActivity = filterAfternoon(activityData);
@@ -77,6 +78,13 @@ const getQuickLookViewModel = async (req) => {
     negativeCaseNotes: (negativeCaseNotes && negativeCaseNotes.count) || 0,
     offences: (offenceDetails && offenceDetails.length > 0) ? offenceDetails : null,
     releaseDate: sentenceData ? sentenceData.releaseDate : null,
+    nextOfKin: contacts && contacts.nextOfKin.length > 0 && contacts.nextOfKin.map(contact => ({
+      firstName: contact.firstName,
+      lastName: contact.lastName,
+      middleName: contact.middleName,
+      relationship: contact.relationshipDescription,
+      contactTypeDescription: contact.contactTypeDescription,
+    })),
   };
 };
 

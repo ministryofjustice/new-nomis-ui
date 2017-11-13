@@ -24,6 +24,7 @@ const getDetails = (req) => getRequest({ req,url: `bookings/${req.params.booking
 const getBalances = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/balances` });
 const getMainOffence = (req) => getRequest({ req,url: `bookings/${req.params.bookingId}/mainOffence` });
 const getActivitiesForToday = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/activities/today` });
+const getContacts = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/contacts` });
 
 const getPositiveCaseNotes = ({ req, fromDate }) => {
   const query = new QueryBuilder('fromDate').greaterThanOrEqual(fromDate).build();
@@ -113,6 +114,7 @@ const service = {
   getActivitiesForToday,
   getPositiveCaseNotes,
   getNegativeCaseNotes,
+  getContacts,
 };
 
 module.exports = service;

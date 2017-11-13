@@ -24,12 +24,15 @@ describe('Booking Service Quick look', () => {
     sandbox.stub(elite2Api, 'getPositiveCaseNotes');
     sandbox.stub(elite2Api, 'getNegativeCaseNotes');
     sandbox.stub(elite2Api, 'getSentenceData');
+    sandbox.stub(elite2Api, 'getContacts');
+
     elite2Api.getBalances.returns(null);
     elite2Api.getMainOffence.returns(null);
     elite2Api.getActivitiesForToday.returns([]);
     elite2Api.getPositiveCaseNotes.returns(null);
     elite2Api.getNegativeCaseNotes.returns(null);
     elite2Api.getSentenceData.returns(null);
+    elite2Api.getContacts.returns(null);
   });
 
   afterEach(() => sandbox.restore());
@@ -122,4 +125,32 @@ describe('Booking Service Quick look', () => {
 
     expect(data.negativeCaseNotes).to.equal(1);
   });
+
+  it('should call getContacts', async () => {
+    elite2Api.getContacts.returns({
+      nextOfKin: [
+        {
+          lastName: 'BALOG',
+          firstName: 'EVA',
+          middleName: 'GOLAB',
+          contactType: 'S',
+          contactTypeDescription: 'Social/Family',
+          relationship: 'SIS',
+          relationshipDescription: 'Sister',
+          emergencyContact: true,
+        },
+      ],
+    });
+
+    const data = await bookingService.getQuickLookViewModel(req);
+
+    expect(elite2Api.getContacts).to.be.called;
+
+    expect(data.nextOfKin.length).to.equal(1);
+    expect(data.nextOfKin[0].firstName).to.equal('EVA');
+    expect(data.nextOfKin[0].lastName).to.equal('BALOG');
+    expect(data.nextOfKin[0].middleName).to.equal('GOLAB');
+    expect(data.nextOfKin[0].relationship).to.equal('Sister');
+    expect(data.nextOfKin[0].contactTypeDescription).to.equal('Social/Family');
+  })
 });
