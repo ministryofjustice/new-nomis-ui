@@ -125,6 +125,8 @@ const selectOffenderDetails = () => createSelector(
     const physicalAttributes = bookingDetails.getIn(['Data', 'physicalAttributes']).toJS();
     const physicalMarks = bookingDetails.getIn(['Data','physicalMarks']).toJS();
     const physicalCharacteristics = bookingDetails.getIn(['Data','physicalCharacteristics']).toJS();
+    const activeAlertCount = bookingDetails.getIn(['Data','activeAlertCount']);
+    const inactiveAlertCount = bookingDetails.getIn(['Data','inactiveAlertCount']);
 
     return {
       dateOfBirth,
@@ -137,6 +139,8 @@ const selectOffenderDetails = () => createSelector(
       physicalAttributes,
       physicalMarks,
       physicalCharacteristics,
+      activeAlertCount,
+      inactiveAlertCount,
     }
   }
 );
