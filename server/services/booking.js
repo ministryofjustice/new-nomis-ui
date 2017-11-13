@@ -78,13 +78,13 @@ const getQuickLookViewModel = async (req) => {
     negativeCaseNotes: (negativeCaseNotes && negativeCaseNotes.count) || 0,
     offences: (offenceDetails && offenceDetails.length > 0) ? offenceDetails : null,
     releaseDate: sentenceData ? sentenceData.releaseDate : null,
-    nextOfKin: contacts && contacts.nextOfKin.length > 0 && contacts.nextOfKin.map(contact => ({
+    nextOfKin: (contacts && contacts.nextOfKin.length > 0 && contacts.nextOfKin.map(contact => ({
       firstName: contact.firstName,
       lastName: contact.lastName,
       middleName: contact.middleName,
       relationship: contact.relationshipDescription,
       contactTypeDescription: contact.contactTypeDescription,
-    })),
+    }))) || [],
   };
 };
 

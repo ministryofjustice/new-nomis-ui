@@ -218,6 +218,20 @@ const NegativeAndPositiveCaseNoteCount = ({ negativeCaseNotes,positiveCaseNotes 
 
 const NextOfKin = ({ nextOfKin }) => <div>
 
+  {nextOfKin.length === 0 && <div>
+
+    <div className="row border-bottom-line">
+      <div className="col-lg-6 col-xs-6">
+        <label>Next of kin</label>
+      </div>
+
+      <div className="col-lg-6 col-xs-6">
+        <b>
+          No next of kin identified
+        </b>
+      </div>
+    </div>
+  </div>}
 
   {(nextOfKin || []).map((kin, index) => <div key={`${kin.firstName}_${kin.lastName}_${index}`}>
     <div className="row border-bottom-line">
