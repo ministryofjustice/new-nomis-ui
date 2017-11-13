@@ -70,13 +70,31 @@
     }
   }
 
-  .alert-codes {
-    color: red;
-    font-weight: bold;
+   .alerts {
     flex-wrap: wrap;
     display: flex;
     flex-direction: row;
-    width: 150px;
+
+     @include media-breakpoint-down(lg) {
+       flex-direction: column;
+     }
+
+    .active-alert {
+      color: red;
+      padding-right: .5em;
+      border-right: solid 3px black;
+
+      @include media-breakpoint-down(lg) {
+        border: 0;
+      }
+    }
+
+     .inactive-alert {
+       padding-left: .5em;
+       @include media-breakpoint-down(lg) {
+         padding: 0;
+       }
+     }
   }
 
   .location-information {
