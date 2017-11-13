@@ -9,7 +9,7 @@ function properCase(word) {
  * @param name name to be converted.
  * @returns name converted to proper case.
  */
-function properCaseName(name) {
+export function properCaseName(name) {
   return isBlank(name) ? '' : name.split('-').map(properCase).join('-');
 }
 
