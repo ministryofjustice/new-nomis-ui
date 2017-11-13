@@ -114,7 +114,7 @@ const OffenceDetails = ({ offences, releaseDate }) =>
     <div className="row border-bottom-line" key={`${offence}_${index}`}>
       <div className="col-lg-6 col-xs-6">
         <label>
-          Type
+          Main Offence/Offences
         </label>
       </div>
 
