@@ -152,5 +152,13 @@ describe('Booking Service Quick look', () => {
     expect(data.nextOfKin[0].middleName).to.equal('GOLAB');
     expect(data.nextOfKin[0].relationship).to.equal('Sister');
     expect(data.nextOfKin[0].contactTypeDescription).to.equal('Social/Family');
-  })
+  });
+
+
+  it('should return an empty array when no contacts details are returned', async () => {
+    const data = await bookingService.getQuickLookViewModel(req);
+
+    expect(elite2Api.getContacts).to.be.called;
+    expect(data.nextOfKin.length).to.equal(0);
+  });
 });
