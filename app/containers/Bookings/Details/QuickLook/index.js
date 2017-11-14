@@ -240,12 +240,18 @@ const NextOfKin = ({ nextOfKin }) => <div>
       </div>
 
       <div className="col-lg-6 col-xs-6">
+        <div>
         <b>
-          {`${kin.lastName && properCaseName(kin.lastName)},${kin.firstName && properCaseName(kin.firstName)} `}
-          {kin.middleName && `${properCaseName(kin.middleName)}`}
-          {kin.contactTypeDescription && `${kin.contactTypeDescription} `}
-          {kin.relationship && (kin.relationship)}
+          {`${kin.lastName && properCaseName(kin.lastName)}, ${kin.firstName && properCaseName(kin.firstName)} `}
+          {kin.middleName && `${properCaseName(kin.middleName)} `}
         </b>
+        </div>
+        <div>
+        <b>
+          {kin.contactTypeDescription && `${kin.contactTypeDescription} `}
+          {kin.relationship && `(${kin.relationship})`}
+        </b>
+      </div>
       </div>
     </div>
   </div>)}
