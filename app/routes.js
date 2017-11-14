@@ -249,7 +249,7 @@ export default function createRoutes(store) {
     {
       path: '/bookings/details',
       name: 'search results',
-      onEnter: onEnter({ authRequired: true, routeName: 'booking details' }),
+      onEnter: onEnter({ authRequired: true, routeName: 'offender details' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),
