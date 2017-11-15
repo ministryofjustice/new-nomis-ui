@@ -2,7 +2,6 @@ const axios = require('axios');
 const session = require('./session');
 const useApiAuth = (process.env.USE_API_GATEWAY_AUTH || 'no') === 'yes';
 const gatewayToken = require('./jwtToken');
-const QueryBuilder = require('./QueryBuilder');
 
 axios.defaults.baseURL = process.env.API_ENDPOINT_URL || 'http://localhost:7080/api';
 
@@ -26,23 +25,15 @@ const getMainOffence = (req) => getRequest({ req,url: `bookings/${req.params.boo
 const getActivitiesForToday = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/activities/today` });
 const getContacts = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/contacts` });
 
-const getPositiveCaseNotes = ({ req, fromDate }) => {
-  const query = new QueryBuilder('fromDate').greaterThanOrEqual(fromDate).build();
+const getPositiveCaseNotes = ({ req, fromDate, toDate }) => getRequest({
+  req,
+  url: `bookings/${req.params.bookingId}/caseNotes/POS/IEP_ENC/count?fromDate=${fromDate}&toDate=${toDate}`,
+});
 
-  return getRequest({
-    req,
-    url: `bookings/${req.params.bookingId}/caseNotes/POS/IEP_ENC/count?query=${query}`,
-  });
-};
-
-const getNegativeCaseNotes = ({ req, fromDate }) => {
-  const query = new QueryBuilder('fromDate').greaterThanOrEqual(fromDate).build();
-
-  return getRequest({
-    req,
-    url: `bookings/${req.params.bookingId}/caseNotes/NEG/IEP_WARN/count?query=${query}`,
-  });
-};
+const getNegativeCaseNotes = ({ req, fromDate, toDate }) => getRequest({
+  req,
+  url: `bookings/${req.params.bookingId}/caseNotes/NEG/IEP_WARN/count?fromDate=${fromDate}&toDate=${toDate}`,
+});
 
 const getRequest = ({ req, url }) => service.callApi({
   method: 'get',
