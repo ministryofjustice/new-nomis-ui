@@ -2,6 +2,7 @@ const sinon = require('sinon');
 const chai = require('chai'),
   expect = chai.expect;
 const sinonChai = require('sinon-chai');
+const moment = require('moment');
 
 const elite2Api = require('../server/elite2Api');
 const bookingService = require('../server/services/booking');
@@ -125,6 +126,31 @@ describe('Booking Service Quick look', () => {
 
     expect(data.negativeCaseNotes).to.equal(1);
   });
+
+  it('should call getPositiveCaseNotes with iso format and fromDate three months in the past', async () => {
+    await bookingService.getQuickLookViewModel(req);
+    const { fromDate, toDate } = elite2Api.getPositiveCaseNotes.getCall(0).args[0];
+
+    const isoDateFormat = 'YYYY-MM-DD';
+    const threeMonthsInThePast = moment().subtract(3,'months').format(isoDateFormat);
+    const today = moment().format(isoDateFormat);
+
+    expect(fromDate).to.equal(threeMonthsInThePast);
+    expect(toDate).to.equal(today);
+  });
+
+  it('should call getNegativeCaseNotes with iso format and fromDate three months in the past', async () => {
+    await bookingService.getQuickLookViewModel(req);
+    const { fromDate, toDate } = elite2Api.getNegativeCaseNotes.getCall(0).args[0];
+
+    const isoDateFormat = 'YYYY-MM-DD';
+    const threeMonthsInThePast = moment().subtract(3,'months').format(isoDateFormat);
+    const today = moment().format(isoDateFormat);
+
+    expect(fromDate).to.equal(threeMonthsInThePast);
+    expect(toDate).to.equal(today);
+  });
+
 
   it('should call getContacts', async () => {
     elite2Api.getContacts.returns({

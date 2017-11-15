@@ -35,7 +35,10 @@ const getBookingDetailsViewModel = async (req) => {
 };
 
 const getQuickLookViewModel = async (req) => {
-  const threeMonthsInThePast = moment().subtract(3, 'months');
+  const isoDateFotnmat = 'YYYY-MM-DD';
+  const threeMonthsInThePast = moment().subtract(3, 'months').format(isoDateFotnmat);
+  const today = moment().format(isoDateFotnmat);
+
   const filterMorning = (array) => array.filter(a => moment(a.startTime).get('hour') < 12);
   const filterAfternoon = (array) => array.filter(a => moment(a.startTime).get('hour') > 11);
   const hasAnyActivity = (activities) => activities.morningActivities.length > 0 || activities.afternoonActivities.length > 0;
@@ -50,8 +53,8 @@ const getQuickLookViewModel = async (req) => {
   const offenceData = await elite2Api.getMainOffence(req);
   const sentenceData = await elite2Api.getSentenceData(req);
   const activityData = await elite2Api.getActivitiesForToday(req);
-  const positiveCaseNotes = await elite2Api.getPositiveCaseNotes({ req, fromDate: threeMonthsInThePast });
-  const negativeCaseNotes = await elite2Api.getNegativeCaseNotes({ req, fromDate: threeMonthsInThePast });
+  const positiveCaseNotes = await elite2Api.getPositiveCaseNotes({ req, fromDate: threeMonthsInThePast,toDate: today });
+  const negativeCaseNotes = await elite2Api.getNegativeCaseNotes({ req, fromDate: threeMonthsInThePast,toDate: today });
   const contacts = await elite2Api.getContacts(req);
 
   const morningActivity = filterMorning(activityData);
