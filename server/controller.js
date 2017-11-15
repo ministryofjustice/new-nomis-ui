@@ -11,6 +11,8 @@ const asyncMiddleware = fn =>
       .catch(error => {
         res.status(errorStatusCode(error.response));
         res.end();
+
+        throw error;
       });
   };
 
