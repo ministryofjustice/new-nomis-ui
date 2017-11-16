@@ -24,6 +24,7 @@ const getBalances = (req) => getRequest({ req, url: `bookings/${req.params.booki
 const getMainOffence = (req) => getRequest({ req,url: `bookings/${req.params.bookingId}/mainOffence` });
 const getActivitiesForToday = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/activities/today` });
 const getContacts = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/contacts` });
+const getAdjudications = ({ req , fromDate }) => getRequest({ req, url: `bookings/${req.params.bookingId}/adjudications?fromDate=${fromDate}` });
 
 const getPositiveCaseNotes = ({ req, fromDate, toDate }) => getRequest({
   req,
@@ -42,7 +43,7 @@ const getRequest = ({ req, url }) => service.callApi({
   reqHeaders: req.headers,
   onTokenRefresh: (token) => { req.headers.jwt = token },
 }).then(response => new Promise(r => r(response.data)))
-    .catch(_ => new Promise(r => r(null)))  // eslint-disable-line no-unused-vars
+    .catch(_ => new Promise(r => r(null)));  // eslint-disable-line no-unused-vars
 
 
 const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseType, data }) => {
@@ -106,6 +107,7 @@ const service = {
   getPositiveCaseNotes,
   getNegativeCaseNotes,
   getContacts,
+  getAdjudications,
 };
 
 module.exports = service;

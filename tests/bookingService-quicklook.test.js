@@ -4,6 +4,8 @@ const chai = require('chai'),
 const sinonChai = require('sinon-chai');
 const moment = require('moment');
 
+const isoDateFormat = require('./../server/constants').isoDateFormat;
+
 const elite2Api = require('../server/elite2Api');
 const bookingService = require('../server/services/booking');
 
@@ -26,6 +28,7 @@ describe('Booking Service Quick look', () => {
     sandbox.stub(elite2Api, 'getNegativeCaseNotes');
     sandbox.stub(elite2Api, 'getSentenceData');
     sandbox.stub(elite2Api, 'getContacts');
+    sandbox.stub(elite2Api, 'getAdjudications');
 
     elite2Api.getBalances.returns(null);
     elite2Api.getMainOffence.returns(null);
@@ -34,6 +37,9 @@ describe('Booking Service Quick look', () => {
     elite2Api.getNegativeCaseNotes.returns(null);
     elite2Api.getSentenceData.returns(null);
     elite2Api.getContacts.returns(null);
+    elite2Api.getAdjudications.returns({
+      awards: [],
+    });
   });
 
   afterEach(() => sandbox.restore());
@@ -131,7 +137,6 @@ describe('Booking Service Quick look', () => {
     await bookingService.getQuickLookViewModel(req);
     const { fromDate, toDate } = elite2Api.getPositiveCaseNotes.getCall(0).args[0];
 
-    const isoDateFormat = 'YYYY-MM-DD';
     const threeMonthsInThePast = moment().subtract(3,'months').format(isoDateFormat);
     const today = moment().format(isoDateFormat);
 
@@ -143,12 +148,88 @@ describe('Booking Service Quick look', () => {
     await bookingService.getQuickLookViewModel(req);
     const { fromDate, toDate } = elite2Api.getNegativeCaseNotes.getCall(0).args[0];
 
-    const isoDateFormat = 'YYYY-MM-DD';
     const threeMonthsInThePast = moment().subtract(3,'months').format(isoDateFormat);
     const today = moment().format(isoDateFormat);
 
     expect(fromDate).to.equal(threeMonthsInThePast);
     expect(toDate).to.equal(today);
+  });
+
+  it('should call getAdjudications with fromDate three months in the past and be in iso formatted', async () => {
+    await bookingService.getQuickLookViewModel(req);
+
+    const threeMonthsInThePast = moment().subtract(3,'months').format(isoDateFormat);
+    const { fromDate } = elite2Api.getAdjudications.getCall(0).args[0];
+
+    expect(fromDate).to.equal(threeMonthsInThePast);
+  });
+
+  it('should call return an empty awards array and a proven count of zero when no data is returned', async () => {
+    const data = await bookingService.getQuickLookViewModel(req);
+
+    expect(data.adjudications.proven).to.equal(0);
+    expect(data.adjudications.awards.length).to.equal(0);
+  });
+
+
+  it('should call getAdjudications and populate the response with proven adjudication count', async () => {
+    elite2Api.getAdjudications.returns({
+      awards: [
+        {},
+        {},
+      ],
+    });
+
+    const data = await bookingService.getQuickLookViewModel(req);
+
+    expect(data.adjudications.proven).to.equal(2);
+  });
+
+  it('should call getAdjudications and populate the response with awards formatted with duration and description', async () => {
+    elite2Api.getAdjudications.returns({
+      awards: [
+        {
+          months: 10,
+          sanctionCodeDescription: 'comment 1',
+          comment: 'c1',
+        },
+        {
+          days: 20,
+          sanctionCodeDescription: 'comment 2',
+          comment: 'c2',
+        },
+        {
+          months: 1,
+          sanctionCodeDescription: 'comment 3',
+          comment: 'c3',
+        },
+        {
+          days: 1,
+          sanctionCodeDescription: 'comment 4',
+          comment: 'c4',
+        },
+      ],
+    });
+
+    const data = await bookingService.getQuickLookViewModel(req);
+
+    const { awards } = data.adjudications;
+
+    expect(awards[0].durationText).to.equal('10 Months');
+    expect(awards[0].sanctionCodeDescription).to.equal('comment 1');
+    expect(awards[0].comment).to.equal('c1');
+
+    expect(awards[1].durationText).to.equal('20 Days');
+    expect(awards[1].sanctionCodeDescription).to.equal('comment 2');
+    expect(awards[1].comment).to.equal('c2');
+
+    expect(awards[2].durationText).to.equal('1 Month');
+    expect(awards[2].sanctionCodeDescription).to.equal('comment 3');
+    expect(awards[2].comment).to.equal('c3');
+
+    expect(awards[3].durationText).to.equal('1 Day');
+    expect(awards[3].sanctionCodeDescription).to.equal('comment 4');
+    expect(awards[3].comment).to.equal('c4');
   });
 
 
