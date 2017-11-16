@@ -4,6 +4,7 @@ import { FormattedNumber, FormattedDate, FormattedTime } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { properCaseName } from 'utils/stringUtils';
+import DisplayValue from 'components/FormComponents/DisplayValue';
 
 import {
   selectBookingDetailsId,
@@ -17,7 +18,7 @@ import {
 
 import './index.scss';
 
-const Details = ({ age, religion, ethnicity }) =>
+export const Details = ({ age, religion, ethnicity }) =>
   <div className="quick-look">
 
     <div className="row border-bottom-line">
@@ -37,7 +38,7 @@ const Details = ({ age, religion, ethnicity }) =>
       </div>
       <div className="col-lg-6 col-xs-6">
         <b>
-          {religion || '--'}
+          <DisplayValue value={religion} />
         </b>
       </div>
     </div>
@@ -48,14 +49,14 @@ const Details = ({ age, religion, ethnicity }) =>
       </div>
       <div className="col-lg-6 col-xs-6">
         <b>
-          {ethnicity || '--'}
+          <DisplayValue value={ethnicity} />
         </b>
       </div>
     </div>
 
   </div>
 
-const Balances = ({ spends, cash, savings, currency }) =>
+export const Balances = ({ spends, cash, savings, currency }) =>
 <div>
     <div className="row border-bottom-line">
 
@@ -66,6 +67,7 @@ const Balances = ({ spends, cash, savings, currency }) =>
        <div className="col-lg-6 col-xs-6">
          <b>
            <FormattedNumber
+             id="spends"
              value={spends || 0}
              style="currency"
              currency={currency}
@@ -82,6 +84,7 @@ const Balances = ({ spends, cash, savings, currency }) =>
       <div className="col-lg-6 col-xs-6">
         <b>
           <FormattedNumber
+            id="cash"
             value={cash || 0}
             style="currency"
             currency={currency}
@@ -98,6 +101,7 @@ const Balances = ({ spends, cash, savings, currency }) =>
       <div className="col-lg-6 col-xs-6">
         <b>
           <FormattedNumber
+            id="savings"
             value={savings || 0}
             style="currency"
             currency={currency}
@@ -107,8 +111,10 @@ const Balances = ({ spends, cash, savings, currency }) =>
     </div>
 </div>
 
-const OffenceDetails = ({ offences, releaseDate }) =>
+export const OffenceDetails = ({ offences, releaseDate }) =>
   <div>
+
+    {!offences && <div> No offence details are available at this time </div>}
 
     {(offences || []).map((offence, index) =>
     <div className="row border-bottom-line" key={`${offence}_${index}`}>
@@ -145,7 +151,7 @@ const OffenceDetails = ({ offences, releaseDate }) =>
 
   </div>
 
-const Activities = ({ activities, period }) => <div>
+export const Activities = ({ activities, period }) => <div>
 
   <div className="row border-bottom-line">
 
@@ -216,9 +222,46 @@ const NegativeAndPositiveCaseNoteCount = ({ negativeCaseNotes,positiveCaseNotes 
 </div>
 </div>
 
-const NextOfKin = ({ nextOfKin }) => <div>
+export const Adjudications = ({ awards, proven }) => <div>
+  <div className="row border-bottom-line">
+    <div className="col-lg-6 col-xs-6">
+      <label>Proven adjudications</label>
+    </div>
 
-  {nextOfKin.length === 0 && <div>
+    <div className="col-lg-6 col-xs-6">
+      <b>
+        <b> {proven} </b>
+      </b>
+    </div>
+  </div>
+
+   {(!awards || awards.length === 0) && <div className="add-gutter-margin-top">
+    <div className="col-lg-6 col-xs-6">
+       <label>Active adjudications</label>
+    </div>
+
+    <div className="col-lg-6 col-xs-6">
+      <b> No active awards </b>
+    </div>
+  </div> }
+
+  {(awards || []).map((award, index) => <div className="row add-gutter-margin-top">
+    <div className="col-lg-6 col-xs-6">
+      {index === 0 && <label>Active adjudications</label> }
+    </div>
+
+    <div className="col-lg-6 col-xs-6">
+      <b> {award.durationText} {award.sanctionCodeDescription} </b>
+      <div> {award.comment} </div>
+      <div> <FormattedDate value={award.effectiveDate} /> </div>
+    </div>
+  </div>)}
+
+</div>
+
+export const NextOfKin = ({ nextOfKin = [] }) => <div>
+
+  { nextOfKin.length === 0 && <div>
 
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
@@ -226,14 +269,12 @@ const NextOfKin = ({ nextOfKin }) => <div>
       </div>
 
       <div className="col-lg-6 col-xs-6">
-        <b>
-          No next of kin identified
-        </b>
+        <b> No next of kin identified </b>
       </div>
     </div>
   </div>}
 
-  {(nextOfKin || []).map((kin, index) => <div key={`${kin.firstName}_${kin.lastName}_${index}`}>
+  { nextOfKin.map((kin, index) => <div key={`${kin.firstName}_${kin.lastName}_${index}`}>
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
         {index === 0 && <label>Next of kin</label>}
@@ -270,7 +311,8 @@ class QuickLook extends Component {
 
     if (!viewModel) { return <div>Loading....</div> }
 
-    const { balance, offences, releaseDate, activities, positiveCaseNotes, negativeCaseNotes, nextOfKin } = (viewModel && viewModel.toJS());
+    const { balance, offences, releaseDate, activities, positiveCaseNotes, negativeCaseNotes, nextOfKin, adjudications } = (viewModel && viewModel.toJS());
+    const { awards, proven } = adjudications;
 
     return (<div className="quick-look">
 
@@ -288,8 +330,7 @@ class QuickLook extends Component {
           <h3 className="heading-medium">
             Offences
           </h3>
-          { offences && <OffenceDetails offences={offences} releaseDate={releaseDate} /> }
-          { !offences && <div> No offence details are available at this time </div> }
+           <OffenceDetails offences={offences} releaseDate={releaseDate} />
         </div>
       </div>
        <div className="row">
@@ -304,11 +345,11 @@ class QuickLook extends Component {
          <div className="col-md-6 col-xs-12">
 
            <h3 className="heading-medium">
-             Case notes
+             Case notes and adjudications
            </h3>
 
            <NegativeAndPositiveCaseNoteCount negativeCaseNotes={negativeCaseNotes} positiveCaseNotes={positiveCaseNotes} />
-
+           <Adjudications awards={awards} proven={proven} />
          </div>
 
       </div>

@@ -3,6 +3,20 @@ const moment = require('moment');
 
 const RiskAssessment = require('../model/riskAssessment');
 const keyDatesMapper = require('../view-model-mappers/keydates');
+const isoDateFormat = require('./../constants').isoDateFormat;
+
+const pluraliseDay = (days) => days > 1 ? 'Days' : 'Day'
+const pluraliseMonth = (months) => months > 1 ? 'Months' : 'Month';
+
+
+const awardMapper = (award) => ({
+  sanctionCodeDescription: award.sanctionCodeDescription,
+  comment: award.comment,
+  effectiveDate: award.effectiveDate,
+  durationText: (award.days && `${award.days} ${pluraliseDay(award.days)}`) ||
+  (award.months && `${award.months} ${pluraliseMonth(award.months)}`),
+})
+
 
 const getKeyDatesVieModel = async (req) => {
   const sentenceData = await elite2Api.getSentenceData(req);
@@ -35,9 +49,8 @@ const getBookingDetailsViewModel = async (req) => {
 };
 
 const getQuickLookViewModel = async (req) => {
-  const isoDateFotnmat = 'YYYY-MM-DD';
-  const threeMonthsInThePast = moment().subtract(3, 'months').format(isoDateFotnmat);
-  const today = moment().format(isoDateFotnmat);
+  const threeMonthsInThePast = moment().subtract(3, 'months').format(isoDateFormat);
+  const today = moment().format(isoDateFormat);
 
   const filterMorning = (array) => array.filter(a => moment(a.startTime).get('hour') < 12);
   const filterAfternoon = (array) => array.filter(a => moment(a.startTime).get('hour') > 11);
@@ -56,6 +69,7 @@ const getQuickLookViewModel = async (req) => {
   const positiveCaseNotes = await elite2Api.getPositiveCaseNotes({ req, fromDate: threeMonthsInThePast,toDate: today });
   const negativeCaseNotes = await elite2Api.getNegativeCaseNotes({ req, fromDate: threeMonthsInThePast,toDate: today });
   const contacts = await elite2Api.getContacts(req);
+  const adjudications = await elite2Api.getAdjudications({ req, fromDate: threeMonthsInThePast });
 
   const morningActivity = filterMorning(activityData);
   const afternoonActivity = filterAfternoon(activityData);
@@ -81,6 +95,10 @@ const getQuickLookViewModel = async (req) => {
     negativeCaseNotes: (negativeCaseNotes && negativeCaseNotes.count) || 0,
     offences: (offenceDetails && offenceDetails.length > 0) ? offenceDetails : null,
     releaseDate: sentenceData ? sentenceData.releaseDate : null,
+    adjudications: {
+      proven: (adjudications && adjudications.awards && adjudications.awards.length) || 0,
+      awards: adjudications && adjudications.awards && adjudications.awards.map(award => awardMapper(award)),
+    },
     nextOfKin: (contacts && contacts.nextOfKin.length > 0 && contacts.nextOfKin.map(contact => ({
       firstName: contact.firstName,
       lastName: contact.lastName,
