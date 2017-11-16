@@ -174,6 +174,7 @@ describe('Booking Service Quick look', () => {
 
   it('should call getAdjudications and populate the response with proven adjudication count', async () => {
     elite2Api.getAdjudications.returns({
+      provenAdjudications: 2,
       awards: [
         {},
         {},
