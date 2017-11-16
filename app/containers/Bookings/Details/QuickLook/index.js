@@ -247,7 +247,7 @@ export const Adjudications = ({ awards, proven }) => <div>
 
   {(awards || []).map((award, index) => <div className="row add-gutter-margin-top">
     <div className="col-lg-6 col-xs-6">
-      {index === 0 && <label>Active adjudications</label> }
+      {index === 0 && <label>Active awards</label> }
     </div>
 
     <div className="col-lg-6 col-xs-6">
@@ -342,19 +342,29 @@ class QuickLook extends Component {
                <Balances {...balance} />
          </div>
 
-         <div className="col-md-6 col-xs-12">
 
+         <div className="col-md-6 col-xs-12">
            <h3 className="heading-medium">
-             Case notes and adjudications
+             Other
            </h3>
 
-           <NegativeAndPositiveCaseNoteCount negativeCaseNotes={negativeCaseNotes} positiveCaseNotes={positiveCaseNotes} />
-           <Adjudications awards={awards} proven={proven} />
+           <NextOfKin nextOfKin={nextOfKin} />
          </div>
 
-      </div>
+
+       </div>
 
       <div className="row">
+
+        <div className="col-md-6 col-xs-12">
+
+          <h3 className="heading-medium">
+            Case notes and adjudications
+          </h3>
+
+          <NegativeAndPositiveCaseNoteCount negativeCaseNotes={negativeCaseNotes} positiveCaseNotes={positiveCaseNotes} />
+          <Adjudications awards={awards} proven={proven} />
+        </div>
 
         <div className="col-md-6 col-xs-12">
           <h3 className="heading-medium">
@@ -364,15 +374,6 @@ class QuickLook extends Component {
           { activities && <Activities activities={activities.afternoonActivities} period={'Afternoon (PM)'} /> }
           { !activities && <div>No activity assigned</div>}
         </div>
-
-        <div className="col-md-6 col-xs-12">
-           <h3 className="heading-medium">
-             Other
-           </h3>
-
-          <NextOfKin nextOfKin={nextOfKin} />
-        </div>
-
       </div>
 
     </div>)
