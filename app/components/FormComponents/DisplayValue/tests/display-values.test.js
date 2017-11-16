@@ -1,10 +1,8 @@
 import React from 'react';
-import DisplayValue from '../index';
 import { shallow } from 'enzyme';
-
+import DisplayValue from '../index';
 
 describe('DisplayValue component', () => {
-
   it('should display a double dash when no value is present', () => {
     const displayValue = shallow(<DisplayValue value={null} />);
 
@@ -15,5 +13,5 @@ describe('DisplayValue component', () => {
     const displayValue = shallow(<DisplayValue value={'hello, world'} />);
 
     displayValue.contains('<span>hello, world</span>');
-  })
-})
+  });
+});

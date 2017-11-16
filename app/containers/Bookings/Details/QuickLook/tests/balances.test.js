@@ -31,6 +31,4 @@ describe('Balance component', () => {
         currency={'gbp'}
       />)).toBe(true);
   });
-
-
-})
+});
