@@ -15,6 +15,7 @@
     "color-named": null,
     "rule-empty-line-before": null,
     "selector-max-id": null,
-    "indentation": null
+    "indentation": null,
+    "selector-no-qualifying-type": null
   }
 }

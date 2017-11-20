@@ -8,112 +8,157 @@ import { toFullName } from 'utils/stringUtils';
 
 import './header.scss';
 
+const Alerts = ({ activeAlertCount, inactiveAlertCount }) => <div className="alerts">
+  <span className="active-alert"> <b>{activeAlertCount}</b> <span> active </span> </span>
+  <span> <b className="inactive-alert">{inactiveAlertCount}</b> <span> inactive </span> </span>
+</div>
+
+const Location = ({ assignedLivingUnit }) => <div>
+  <label>Location</label>
+
+  <div>
+    <b> {assignedLivingUnit.description} </b>
+  </div>
+
+  <div>
+    <b> {assignedLivingUnit.agencyName} </b>
+  </div>
+</div>
+
+const MobileOnlyLayout = ({ iepLevel, csra, activeAlertCount, inactiveAlertCount, assignedLivingUnit }) => <div className="visible-mobile no-top-gutter ">
+
+     <div className="row">
+
+       <div className="col-xs-12 no-left-gutter">
+
+          <div className="row">
+            <div className="col-xs-6 no-left-gutter">
+              <label>IEP</label>
+              <b>{iepLevel}</b>
+            </div>
+
+            <div className="col-xs-6 no-left-gutter">
+              <label>CSRA</label>
+              <b>{csra}</b>
+            </div>
+          </div>
+
+
+          <div className="row">
+
+            <div className="col-xs-6 no-left-gutter">
+              <label>Alerts</label>
+              <Alerts activeAlertCount={activeAlertCount} inactiveAlertCount={inactiveAlertCount} />
+            </div>
+
+            <div className="col-xs-6 no-left-gutter">
+              <Location assignedLivingUnit={assignedLivingUnit} />
+            </div>
+          </div>
+
+     </div>
+
+   </div>
+</div>
+
+const DesktopOnlyLayout = ({ iepLevel, csra, activeAlertCount, inactiveAlertCount, assignedLivingUnit }) => <div className="visible-desktop">
+  <div className="col-sm-2">
+    <div className="row">
+      <div className="col">
+        <label>IEP</label>
+        <b>{iepLevel}</b>
+      </div>
+    </div>
+
+    <div className="row">
+      <div className="col">
+        <label>CSRA</label>
+        <b>{csra}</b>
+      </div>
+    </div>
+  </div>
+
+  <div className="col-sm-4">
+    <div className="row">
+
+      <div className="col">
+        <label>Alerts</label>
+        <Alerts activeAlertCount={activeAlertCount} inactiveAlertCount={inactiveAlertCount} />
+      </div>
+    </div>
+
+    <div className="row">
+      <div className="col">
+        <Location assignedLivingUnit={assignedLivingUnit} />
+      </div>
+    </div>
+  </div>
+</div>
+
 function Header({ inmateData, onImageClick }) {
   const { firstName, lastName, offenderNo, facialImageId, activeAlertCount,inactiveAlertCount, assignedLivingUnit, assignedOfficerId, iepLevel, csra } = inmateData;
 
   const nameString = toFullName({ firstName, lastName });
 
   return (
-    <div>
+    <div className="header-details">
 
-      <Link id="add-case-note-link-desktop" className="button-link" to={'/bookings/details/addCaseNote'}>Add new case note</Link>
+      <div className="row">
 
-      <div className="header-details">
+          <div className="col-lg-2 col-sm-3 col-md-2 col-xs-4 no-left-gutter no-right-gutter">
+              <div className="photo clickable" onClick={() => onImageClick(facialImageId)}>
+                <EliteImage imageId={facialImageId} />
+              </div>
+          </div>
 
-      <div className="photo clickable" onClick={() => onImageClick(facialImageId)}>
-           <EliteImage imageId={facialImageId} />
-         </div>
+          <div className="col-lg-10 col-sm-8 col-md-8 col-xs-8 no-left-gutter no-right-gutter add-gutter-bottom-mobile">
+              <div className="col-sm-8 no-left-gutter">
+                <h1 className="heading-medium">
+                  {nameString}
+                </h1>
+              </div>
+              <div className="col pull-right no-right-gutter no-left-gutter visible-desktop">
+                <Link id="add-case-note-link-desktop" className="button-link hide-desktop-button" to={'/bookings/details/addCaseNote'}>Add new case note</Link>
+              </div>
+          </div>
 
-         <div className="information">
+          <div className="col-sm-3 col-xs-6 no-left-gutter">
+              <div className="row">
+                <div className="col">
+                  <label>Prison number</label>
+                  <b>{offenderNo}</b>
+                </div>
+              </div>
 
-           <div>
+              <div className="row">
+                <div className="col">
+                  <label>Key worker</label>
+                  <b> <EliteOfficerName staffId={assignedOfficerId} /> </b>
+                </div>
+              </div>
+          </div>
 
-               <div className="offender-name">
-                 <h1 className="heading-large">
-                   {nameString}
-                 </h1>
-               </div>
+         <MobileOnlyLayout
+           activeAlertCount={activeAlertCount}
+           inactiveAlertCount={inactiveAlertCount}
+           assignedLivingUnit={assignedLivingUnit}
+           iepLevel={iepLevel}
+           csra={csra}
+         />
 
-               <div className="mobile-view">
-                 <div className="column">
-                   <label>Prison number</label>
-                   <b>{offenderNo}</b>
-                 </div>
+        <DesktopOnlyLayout
+          activeAlertCount={activeAlertCount}
+          inactiveAlertCount={inactiveAlertCount}
+          assignedLivingUnit={assignedLivingUnit}
+          iepLevel={iepLevel}
+          csra={csra}
+        />
 
-                 <div className="column">
-                   <label> Key worker </label>
-                   <b> <EliteOfficerName staffId={assignedOfficerId} /> </b>
-                 </div>
-               </div>
+        <div className="show-full-screen-button">
+            <Link id="add-case-note-link-desktop" className="button-link" to={'/bookings/details/addCaseNote'}>Add new case note</Link>
+        </div>
 
-           </div>
-
-
-           <div className="groups">
-
-             <div className="grouped desktop-view">
-
-               <div className="column">
-                 <label>Prison number</label>
-                 <b>{offenderNo}</b>
-               </div>
-
-               <div className="column">
-                 <label> Key worker </label>
-                 <b> <EliteOfficerName staffId={assignedOfficerId} /> </b>
-               </div>
-
-             </div>
-
-             <div className="grouped">
-
-               <div className="column">
-                 <label>IEP</label>
-                 <b> { iepLevel } </b>
-               </div>
-
-               <div className="column">
-                 <label> CSRA </label>
-                 <b> { csra || '--' } </b>
-               </div>
-
-             </div>
-
-             <div className="grouped ">
-
-               <div className="column">
-                 <label>Alerts</label>
-
-                 <div className="alerts">
-
-                   <div className="active-alert">
-                     <b>{activeAlertCount}</b> active
-                   </div>
-
-                   <div className="inactive-alert">
-                     <b>{inactiveAlertCount}</b> inactive
-                   </div>
-                 </div>
-               </div>
-
-               <div className="column">
-                 <label> Location </label>
-                 <div className="location-information">
-                   <div>
-                     <b> {assignedLivingUnit.description} </b>
-                   </div>
-                   <div>
-                     <b> {assignedLivingUnit.agencyName} </b>
-                   </div>
-                 </div>
-               </div>
-
-             </div>
-           </div>
-
-         </div>
-    </div>
-      <Link id="add-case-note-link-mobile" className="button-link" to={'/bookings/details/addCaseNote'}>Add new case note</Link>
+     </div>
     </div>
   );
 }
