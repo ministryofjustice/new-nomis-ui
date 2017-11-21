@@ -96,7 +96,7 @@ const getQuickLookViewModel = async (req) => {
     offences: (offenceDetails && offenceDetails.length > 0) ? offenceDetails : null,
     releaseDate: sentenceData ? sentenceData.releaseDate : null,
     adjudications: {
-      proven: (adjudications && adjudications.provenAdjudications) || 0,
+      proven: (adjudications && adjudications.adjudicationCount) || 0,
       awards: adjudications && adjudications.awards && adjudications.awards.map(award => awardMapper(award)),
     },
     nextOfKin: (contacts && contacts.nextOfKin.length > 0 && contacts.nextOfKin.map(contact => ({
