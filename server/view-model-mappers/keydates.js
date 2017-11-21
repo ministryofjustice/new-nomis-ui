@@ -4,12 +4,12 @@ const longName = (label) => ({
   CRD: 'Conditional release date',
   NPD: 'Non-parole date',
   PRRD: 'Post-recall release date',
-  HDCED: 'Home det. eligibility',
-  PED: 'Parole eligibility',
-  HDCAD: 'Home det. actual',
+  HDCED: 'Home det. eligibility date',
+  PED: 'Parole eligibility date',
+  HDCAD: 'Home det. actual date',
   APD: 'Approved parole date',
-  ROTL: 'Release on temp. licence',
-  ERSED: 'Early removal scheme eligibility',
+  ROTL: 'Release on temp. licence date',
+  ERSED: 'Early removal scheme eligibility date',
   LED: 'Licence expiry date',
 
 }[label] || label);
