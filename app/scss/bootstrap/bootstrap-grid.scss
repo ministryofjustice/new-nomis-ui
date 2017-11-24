@@ -175,6 +175,36 @@
   padding: 0 0 0 0 !important;
 }
 
+.hidden-xs-down {
+  @include media-breakpoint-down(xs) {
+    display: none;
+  }
+}
+.hidden-sm-down {
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
+}
+
+.hidden-md-down {
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+.hidden-lg-down {
+  @include media-breakpoint-down(lg) {
+    display: none;
+  }
+}
+
+.visible-lg-down {
+  display: none;
+  @include media-breakpoint-down(lg) {
+    display: block;
+  }
+}
+
 
 .visible-xs,
 .visible-sm,

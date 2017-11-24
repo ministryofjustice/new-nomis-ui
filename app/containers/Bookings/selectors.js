@@ -292,6 +292,16 @@ const selectDisplayAddCaseNoteModal = () => createSelector(
   (detailsState) => detailsState.get('addCaseNoteModal')
 );
 
+const selectScheduledActivities = () => createSelector(
+  selectDetails(),
+  (detailsState) => (detailsState.get('scheduledActivities') && detailsState.get('scheduledActivities').toJS()) || null,
+);
+
+const selectCurrentFilter = () => createSelector(
+  selectDetails(),
+  (detailsState) => detailsState.get('currentFilter'),
+);
+
 export {
   selectSearch,
   selectSearchResults,
@@ -324,4 +334,6 @@ export {
   selectKeyDatesViewModel,
   selectError,
   selectQuickLookViewModel,
+  selectScheduledActivities,
+  selectCurrentFilter,
 };

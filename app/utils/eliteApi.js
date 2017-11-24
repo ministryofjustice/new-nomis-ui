@@ -314,3 +314,13 @@ export const loadQuickLook = (bookingId) => axios({
   method: 'get',
   url: `/app/bookings/quicklook/${bookingId}`,
 }).then((response) => response.data);
+
+export const loadScheduledActivitiesForThisWeek = (bookingId) => axios({
+  method: 'get',
+  url: `/app/bookings/scheduled/activities/forThisWeek/${bookingId}`,
+}).then(response => response.data);
+
+export const loadScheduledActivitiesForNextWeek = (bookingId) => axios({
+  method: 'get',
+  url: `/app/bookings/scheduled/activities/forNextWeek/${bookingId}`,
+}).then(response => response.data);

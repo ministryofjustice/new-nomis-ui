@@ -90,10 +90,38 @@ const quickLook = asyncMiddleware(async (req, res) => {
   res.json(data);
 });
 
+const appointmentsForThisWeek = asyncMiddleware(async (req,res) => {
+  const bookingId = req.params.bookingId;
+
+  if (!bookingId) {
+    res.status(400);
+    res.end();
+    return;
+  }
+
+  const data = await bookingService.getScheduledActivitiesForThisWeek(req);
+  res.json(data);
+});
+
+const appointmentsForNextWeek = asyncMiddleware(async (req,res) => {
+  const bookingId = req.params.bookingId;
+
+  if (!bookingId) {
+    res.status(400);
+    res.end();
+    return;
+  }
+
+  const data = await bookingService.getScheduledActivitiesForNextWeek(req);
+  res.json(data);
+});
+
 module.exports = {
   keyDates,
   login,
   images,
   bookingDetails,
   quickLook,
+  appointmentsForNextWeek,
+  appointmentsForThisWeek,
 };

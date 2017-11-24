@@ -1,0 +1,68 @@
+
+
+.whereabouts {
+
+  h1.heading-medium {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  @include media-breakpoint-up(xl) {
+
+    .filters {
+      border-bottom: solid 1px;
+      @include add-gutter-margin-bottom();
+    }
+  }
+
+  .whereabouts-day-header {
+    @include media-breakpoint-up(lg) {
+      margin-top: 0.9em !important;
+    }
+  }
+
+  .appointment {
+    min-height: 100px;
+  }
+
+  .appointment.morning {
+    background: #E9F3F9;
+  }
+
+  .appointment.afternoon {
+    background: #D5E8F4;
+  }
+
+
+  @include media-breakpoint-down(lg) {
+
+    div[class^="col-"] {
+
+      .whereabouts-startTime {
+        margin-left: 10px !important;
+      }
+
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }
+
+    .appointment-row {
+      border-top: solid 1px;
+    }
+
+    .appointments {
+      @include add-gutter-padding-top();
+      @include add-gutter-margin-bottom();
+    }
+
+    .whereabouts-day-header {
+      display: inline-block;
+      @include add-gutter-margin-right();
+    }
+    .whereabouts-date-header {
+      display: inline-block;
+    }
+
+  }
+
+}

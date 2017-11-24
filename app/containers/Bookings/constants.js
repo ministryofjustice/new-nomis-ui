@@ -23,6 +23,9 @@ export const SET_DETAILS_TAB = 'app/bookings/details/tab/set';
 export const LOAD_KEY_DATES = 'app/bookings/details/tab/load/keydates';
 export const SET_KEYDATES = 'app/bookings/details/tab/set/keydates';
 
+export const SET_SCHEDULED_ACTIVITIES = 'app/bookings/details/scheduled-activities/set';
+export const LOAD_SCHEDULED_ACTIVITIES = 'app/bookings/details/scheduled-activities/load';
+
 export const DETAILS_TABS = {
   OFFENDER_DETAILS: 0,
   PHYSICAL_ATTR: 1,

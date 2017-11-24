@@ -25,6 +25,8 @@ const getMainOffence = (req) => getRequest({ req,url: `bookings/${req.params.boo
 const getActivitiesForToday = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/activities/today` });
 const getContacts = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/contacts` });
 const getAdjudications = ({ req , fromDate }) => getRequest({ req, url: `bookings/${req.params.bookingId}/adjudications?fromDate=${fromDate}` });
+const getAppointmentsForThisWeek = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/appointments/thisWeek` });
+const getAppointmentsForNextWeek = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/appointments/nextWeek` });
 
 const getPositiveCaseNotes = ({ req, fromDate, toDate }) => getRequest({
   req,
@@ -108,6 +110,8 @@ const service = {
   getNegativeCaseNotes,
   getContacts,
   getAdjudications,
+  getAppointmentsForThisWeek,
+  getAppointmentsForNextWeek,
 };
 
 module.exports = service;

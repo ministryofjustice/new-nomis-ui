@@ -23,6 +23,7 @@ import {
   TOGGLE_SORT_ORDER,
   LOAD_KEY_DATES,
   LOAD_QUICK_LOOK,
+  LOAD_SCHEDULED_ACTIVITIES,
 } from './constants';
 
 
@@ -172,4 +173,23 @@ export function resetCaseNoteFilterFormField(field) {
     },
     payload: null,
   };
+}
+
+export function loadScheduledActivitiesForThisWeek(bookingId) {
+  return {
+    type: LOAD_SCHEDULED_ACTIVITIES,
+    payload: {
+      bookingId,
+    },
+  }
+}
+
+export function loadScheduledActivitiesForNextWeek(bookingId) {
+  return {
+    type: LOAD_SCHEDULED_ACTIVITIES,
+    payload: {
+      bookingId,
+      nextWeek: true,
+    },
+  }
 }

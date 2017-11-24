@@ -34,12 +34,12 @@ const MobileOnlyLayout = ({ iepLevel, csra, activeAlertCount, inactiveAlertCount
           <div className="row">
             <div className="col-xs-6 no-left-gutter">
               <label>IEP</label>
-              <b>{iepLevel}</b>
+              <b>{iepLevel || '--'}</b>
             </div>
 
             <div className="col-xs-6 no-left-gutter">
               <label>CSRA</label>
-              <b>{csra}</b>
+              <b>{csra || '--'}</b>
             </div>
           </div>
 
@@ -66,14 +66,14 @@ const DesktopOnlyLayout = ({ iepLevel, csra, activeAlertCount, inactiveAlertCoun
     <div className="row">
       <div className="col">
         <label>IEP</label>
-        <b>{iepLevel}</b>
+        <b>{iepLevel || '--'}</b>
       </div>
     </div>
 
     <div className="row">
       <div className="col">
         <label>CSRA</label>
-        <b>{csra}</b>
+        <b>{csra || '--'}</b>
       </div>
     </div>
   </div>
