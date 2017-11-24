@@ -4,7 +4,7 @@ const fs = require('fs');
 const modifyResponse = require('node-http-proxy-json');
 
 const useApiAuth = (process.env.USE_API_GATEWAY_AUTH || 'no') === 'yes';
-const baseUrl = process.env.API_ENDPOINT_URL || 'http://localhost:7080/api';
+const baseUrl = process.env.API_ENDPOINT_URL || 'http://localhost:8080/api';
 
 const HEALTH_CHECK_PATH = '/info/health';
 const appInfo = getAppInfo();

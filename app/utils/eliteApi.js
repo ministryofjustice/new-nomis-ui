@@ -129,6 +129,7 @@ export const addCaseNote = (token, baseUrl, bookingId, type, subType, text, occu
     data })
     .then((response) => response.data);
 };
+
 export const amendCaseNote = (token, baseUrl, bookingId, caseNoteId, text) => {
   const data = {
     text,
@@ -143,6 +144,7 @@ export const amendCaseNote = (token, baseUrl, bookingId, caseNoteId, text) => {
     data })
     .then((response) => response.data);
 };
+
 export const users = {
   me: (token, baseUrl) => axios({
     baseURL: baseUrl,
@@ -168,17 +170,12 @@ export const users = {
     method: 'get',
     url: `/users/staff/${id}`,
   }).then((response) => response.data),
+  caseNoteTypes: (token, baseUrl) => axios({
+    baseURL: baseUrl,
+    method: 'get',
+    url: '/users/me/caseNoteTypes',
+  }).then((response) => CaseNoteTypeMapper(response.data)),
 };
-
-
-export const loadSomeCaseNoteSources = (token, baseUrl, offset) => axios({
-  baseURL: baseUrl,
-  method: 'get',
-  headers: {
-    'Page-Offset': offset.offset,
-    'Page-Limit': offset.limit,
-  },
-  url: 'reference-domains/caseNoteSources' });
 
 export const loadSomeCaseNoteTypes = (token, baseUrl, offset) => axios({
   baseURL: baseUrl,
@@ -187,21 +184,7 @@ export const loadSomeCaseNoteTypes = (token, baseUrl, offset) => axios({
     'Page-Limit': offset.limit,
   },
   method: 'get',
-  url: 'reference-domains/caseNoteTypes?includeSubTypes=true' });
-
-export const loadSomeCaseNoteSubTypes = (token, baseUrl, offset, type) => axios({
-  baseURL: baseUrl,
-  method: 'get',
-  headers: {
-    'Page-Offset': offset.offset,
-    'Page-Limit': offset.limit,
-  },
-  url: `reference-domains/caseNoteSubTypes/${type}` });
-
-export const loadSomeUserCaseNoteTypes = (token, baseUrl) => axios({
-  baseURL: baseUrl,
-  method: 'get',
-  url: 'users/me/caseNoteTypes?includeSubTypes=true' });
+  url: 'reference-domains/caseNoteTypes' });
 
 export const getAll = (func, itemName, args) => {
   const newFunc = (token, baseUrl, offset = { offset: 0, limit: 1000 }) => func(token, baseUrl, offset, args).then((response) => {
@@ -219,19 +202,12 @@ export const getAll = (func, itemName, args) => {
 };
 
 export const loadAllCaseNoteFilterItems = (token, baseUrl) => {
-  const sources = getAll(loadSomeCaseNoteSources, 'referenceCodes')(token, baseUrl);
   const types = getAll(loadSomeCaseNoteTypes, 'referenceCodes')(token, baseUrl);
-  return Promise.all([sources, types]).then((res) => {
-    const allSources = res[0].map((s) => ({ code: s.code, description: s.description }));
-    const allTypes = res[1].map((t) => ({ code: t.code, description: t.description }));
-    const subTypes = res[1].map((t) => (t.subCodes.map((sc) => ({ code: sc.code, description: sc.description, parentCode: t.code }))));
-    return { sources: allSources, types: allTypes, subTypes };
+  return Promise.all([types]).then((res) => {
+    const allTypes = res[0].map((t) => ({ code: t.code, description: t.description }));
+    const subTypes = res[0].map((t) => (t.subCodes.map((sc) => ({ code: sc.code, description: sc.description, parentCode: t.code }))));
+    return { types: allTypes, subTypes };
   });
-};
-
-export const loadAllUserCaseNoteTypes = (token, baseUrl) => {
-  const types = getAll(loadSomeUserCaseNoteTypes, 'caseNoteTypes')(token, baseUrl);
-  return types.then((res) => CaseNoteTypeMapper(res));
 };
 
 export const CaseNoteTypeMapper = (res) => {
@@ -244,6 +220,7 @@ export const CaseNoteTypeMapper = (res) => {
 const flatten = list => list.reduce(
   (a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []
 );
+
 export const imageMeta = (token, baseUrl, imageId) => axios({
   baseURL: baseUrl,
   method: 'get',
@@ -276,7 +253,6 @@ export const imageData = (token, baseUrl, imageId) => axios({
       const dataURL = `data:${response.headers['content-type']};base64,${b64}`;
       return dataURL;
     });
-
 
 export const loadMyLocations = (token, baseUrl) => axios({
   baseURL: `${baseUrl}`,

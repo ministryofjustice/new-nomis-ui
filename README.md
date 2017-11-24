@@ -17,13 +17,13 @@ cd elite2-web
 `yarn start`
 ```
 
-This will point at a API server at localhost:7080  This can be overridden in development mode by adding a `.env`
+This will point at a API server at localhost:8080  This can be overridden in development mode by adding a `.env`
 file e.g.
 
 ```properties
 PORT=3000
 USE_API_GATEWAY_AUTH=no
-API_ENDPOINT_URL=http://localhost:7080/api
+API_ENDPOINT_URL=http://localhost:8080/api
 ```
 
 `.gitignore` ensures this is not checked in.
@@ -101,7 +101,7 @@ by changing the `SPRING_DATASOURCE_URL` in the `docker-compose.yml` file
 ## Access API proxy
 The API reached when running locally through the node proxy:-
  
-[localhost:7080/api](http://localhost:7080/api/)
+[localhost:8080/api](http://localhost:8080/api/)
 
 e.g. You can test this with Curl:
 

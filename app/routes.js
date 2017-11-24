@@ -185,24 +185,6 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/filterCaseNotes',
-      name: 'filterCaseNotes',
-      onEnter: onEnter({ authRequired: true, routeName: 'filterCaseNotes' }),
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/Bookings/Details/CaseNotes/caseNoteFilterFormMobile'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([component]) => {
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    },
-    {
       path: '/assignments',
       name: 'assignments',
       onEnter: onEnter({ authRequired: true, routeName: 'assignments' }),

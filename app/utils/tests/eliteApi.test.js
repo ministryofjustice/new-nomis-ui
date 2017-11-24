@@ -1,7 +1,7 @@
 import { CaseNoteTypeMapper } from '../eliteApi';
 
 describe('eliteApi', () => {
-  it('loadAllUserCaseNoteTypes', () => {
+  it('user.caseNoteTypes', () => {
     const data = [{
       domain: 'TASK_TYPE',
       code: 'ACP',

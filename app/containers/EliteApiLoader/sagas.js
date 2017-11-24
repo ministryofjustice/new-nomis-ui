@@ -16,7 +16,6 @@ import {
   bookingCaseNotes,
   users,
   loadAllCaseNoteFilterItems,
-  loadAllUserCaseNoteTypes,
 } from 'utils/eliteApi';
 
 import {
@@ -36,7 +35,7 @@ import {
   OFFICERS,
   CASENOTETYPES,
   USER,
-  ALLCASENOTESOURCETYPESUBTYPEDATA,
+  ALLCASENOTETYPESUBTYPEDATA,
 } from './constants';
 
 export function* bookingDetailsWatcher() {
@@ -236,20 +235,20 @@ export function* preloadData() {
   const token = yield getToken();
   const apiServer = yield select(selectApi());
 
-  yield call(preloadAllCaseNoteSourcesTypesSubTypes, token, apiServer);
-  yield call(preloadCaseNoteTypes, token, apiServer);
+  yield call(preloadAllCaseNoteTypesSubTypes, token, apiServer);
+  yield call(preloadUserCaseNoteTypes, token, apiServer);
 }
 
-export function* preloadAllCaseNoteSourcesTypesSubTypes(token, apiServer) {
+export function* preloadAllCaseNoteTypesSubTypes(token, apiServer) {
   const items = yield call(loadAllCaseNoteFilterItems, token, apiServer);
-  yield put({ type: ALLCASENOTESOURCETYPESUBTYPEDATA, payload: items });
+  yield put({ type: ALLCASENOTETYPESUBTYPEDATA, payload: items });
 }
 
-export function* preloadCaseNoteTypes(token, apiServer) {
+export function* preloadUserCaseNoteTypes(token, apiServer) {
   yield put({ type: CASENOTETYPES.PRELOAD.LOADING, payload: {} });
 
   try {
-    const res = yield call(loadAllUserCaseNoteTypes, token, apiServer);
+    const res = yield call(users.caseNoteTypes, token, apiServer);
     yield put({ type: CASENOTETYPES.PRELOAD.SUCCESS, payload: res });
     return null;
   } catch (err) {

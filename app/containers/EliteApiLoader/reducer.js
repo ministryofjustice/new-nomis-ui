@@ -22,7 +22,7 @@ import {
   CASENOTETYPES,
   OFFICERS,
   USER,
-  ALLCASENOTESOURCETYPESUBTYPEDATA,
+  ALLCASENOTETYPESUBTYPEDATA,
 } from './constants';
 
 import {
@@ -88,7 +88,6 @@ export const initialState = fromJS({
   },
   CaseNoteTypesSelect: { Types: Set([]), TypeList: List([]) },
   AllCaseNoteFilters: {
-    Sources: [],
     Types: [],
     SubTypes: [],
   },
@@ -332,12 +331,10 @@ function EliteApiReducer(state = initialState, action) {
       return state.setIn(['User', 'CaseLoads'], fromJS({ Status: { Type: 'ERROR', Error: action.payload.error } }));
     }
 
-    case ALLCASENOTESOURCETYPESUBTYPEDATA: {
-      const { sources, types, subTypes } = action.payload;
-      const SourceMap = {};
+    case ALLCASENOTETYPESUBTYPEDATA: {
+      const { types, subTypes } = action.payload;
       const TypeMap = {};
       const SubTypeMap = {};
-      const Sources = sources.map((x) => { SourceMap[x.code] = x.description; return ({ label: x.description, value: x.code }); });
       const Types = types.map((x) => { TypeMap[x.code] = x.description; return ({ label: x.description, value: x.code }); });
       const SubTypes = subTypes.reduce((arr, sT) => arr.concat(sT.map((x) => ({ label: x.description, value: x.code, parent: x.parentCode }))), []);
       SubTypes.forEach((x) => {
@@ -347,9 +344,9 @@ function EliteApiReducer(state = initialState, action) {
         SubTypeMap[x.value] = x.label;
       });
 
-      return state.set('AllCaseNoteFilters', Map({ Sources,
-        Types,
-        SubTypes })).set('CaseNoteTypes', Map({ Types: TypeMap, SubTypes: SubTypeMap }));
+      return state
+        .set('AllCaseNoteFilters', Map({ Types, SubTypes }))
+        .set('CaseNoteTypes', Map({ Types: TypeMap, SubTypes: SubTypeMap }));
     }
 
     default: {
