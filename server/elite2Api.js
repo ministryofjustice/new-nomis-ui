@@ -3,7 +3,7 @@ const session = require('./session');
 const useApiAuth = (process.env.USE_API_GATEWAY_AUTH || 'no') === 'yes';
 const gatewayToken = require('./jwtToken');
 
-axios.defaults.baseURL = process.env.API_ENDPOINT_URL || 'http://localhost:7080/api';
+axios.defaults.baseURL = process.env.API_ENDPOINT_URL || 'http://localhost:8080/api';
 
 axios.interceptors.request.use((config) => {
   if (useApiAuth) {

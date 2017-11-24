@@ -116,4 +116,4 @@ export const CASENOTETYPES = {
   },
 };
 
-export const ALLCASENOTESOURCETYPESUBTYPEDATA = 'sup daaaaawwwwwg';
+export const ALLCASENOTETYPESUBTYPEDATA = 'sup daaaaawwwwwg';
