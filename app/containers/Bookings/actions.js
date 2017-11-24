@@ -23,7 +23,7 @@ import {
   TOGGLE_SORT_ORDER,
   LOAD_KEY_DATES,
   LOAD_QUICK_LOOK,
-  LOAD_SCHEDULED_ACTIVITIES,
+  LOAD_SCHEDULED_EVENTS,
 } from './constants';
 
 
@@ -175,18 +175,18 @@ export function resetCaseNoteFilterFormField(field) {
   };
 }
 
-export function loadScheduledActivitiesForThisWeek(bookingId) {
+export function loadScheduledEventsForThisWeek(bookingId) {
   return {
-    type: LOAD_SCHEDULED_ACTIVITIES,
+    type: LOAD_SCHEDULED_EVENTS,
     payload: {
       bookingId,
     },
   }
 }
 
-export function loadScheduledActivitiesForNextWeek(bookingId) {
+export function loadScheduledEventsForNextWeek(bookingId) {
   return {
-    type: LOAD_SCHEDULED_ACTIVITIES,
+    type: LOAD_SCHEDULED_EVENTS,
     payload: {
       bookingId,
       nextWeek: true,

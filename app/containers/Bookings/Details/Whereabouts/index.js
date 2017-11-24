@@ -6,21 +6,21 @@ import moment from 'moment';
 
 import {
   selectBookingDetailsId,
-  selectScheduledActivities,
+  selectScheduledEvents,
   selectHeaderDetail,
   selectCurrentFilter,
 } from 'containers/Bookings/selectors'
 
 import {
-  loadScheduledActivitiesForThisWeek,
-  loadScheduledActivitiesForNextWeek,
+  loadScheduledEventsForThisWeek,
+  loadScheduledEventsForNextWeek,
 } from 'containers/Bookings/actions';
 
 import { toFullName } from 'utils/stringUtils';
 
 import './index.scss';
 
-export const Appointment = ({ startTime,endTime, description }) =>
+export const Event = ({ startTime,endTime, description }) =>
 <div className="row add-gutter-margin-bottom add-gutter-margin-bottom">
 
   <div className="col-xl-5 col-lg-6 col-md-6 col-xs-6">
@@ -47,19 +47,19 @@ export const DayAndDate = ({ value }) => <h1 className="heading-medium whereabou
 class Whereabouts extends Component {
 
   componentDidMount() {
-    const { loadThisWeeksScheduledActivities, bookingId } = this.props;
+    const { loadThisWeeksScheduledEvents, bookingId } = this.props;
 
-    loadThisWeeksScheduledActivities(bookingId);
+    loadThisWeeksScheduledEvents(bookingId);
   }
 
   render() {
-    const scheduledActivities = this.props.scheduledActivities;
+    const scheduledEvents = this.props.scheduledEvents;
 
-    if (!scheduledActivities && !scheduledActivities) {
+    if (!scheduledEvents && !scheduledEvents) {
       return <div>Loading scheduled activities....</div>
     }
 
-    const { loadThisWeeksScheduledActivities, loadNextWeeksScheduledActivities, bookingId, currentFilter } = this.props;
+    const { loadThisWeeksScheduledEvents, loadNextWeeksScheduledEvents, bookingId, currentFilter } = this.props;
     const { thisWeek, nextWeek } = currentFilter.toJS();
 
     const { firstName, lastName } = this.props.offenderDetails;
@@ -75,14 +75,14 @@ class Whereabouts extends Component {
         <div className="col-xs-6 col-lg-2 no-left-gutter">
           <div className="form-group">
             <div className="multiple-choice">
-              <input checked={thisWeek && 'checked'} type="radio" name="radio-inline-group" value="Yes" onClick={() => loadThisWeeksScheduledActivities(bookingId)}></input>
+              <input checked={thisWeek && 'checked'} type="radio" name="radio-inline-group" value="Yes" onClick={() => loadThisWeeksScheduledEvents(bookingId)}></input>
               <label>This week</label>
             </div>
           </div>
         </div>
         <div className="col-xs-6 col-lg-2 no-left-gutter">
           <div className="multiple-choice">
-            <input checked={nextWeek && 'checked'} type="radio" name="radio-inline-group" value="Yes" onClick={() => loadNextWeeksScheduledActivities(bookingId)}></input>
+            <input checked={nextWeek && 'checked'} type="radio" name="radio-inline-group" value="Yes" onClick={() => loadNextWeeksScheduledEvents(bookingId)}></input>
             <label>Next week</label>
           </div>
       </div>
@@ -98,7 +98,7 @@ class Whereabouts extends Component {
           <h1 className="heading-medium">Afternoon (PM)</h1>
         </div>
       </div>
-      {scheduledActivities.map(entry =>
+      {scheduledEvents.map(entry =>
 
         <div className="row appointment-row">
 
@@ -125,7 +125,7 @@ class Whereabouts extends Component {
 
               <div className="col-lg-5 ">
                 <div className="appointment morning add-gutter-top add-gutter-bottom">
-                  {entry.forMorning.map(morning => Appointment({ ...morning }))}
+                  {entry.forMorning.map(morning => Event({ ...morning }))}
                 </div>
               </div>
 
@@ -138,7 +138,7 @@ class Whereabouts extends Component {
 
               <div className="col-lg-5">
                 <div className="appointment afternoon add-gutter-top">
-                  {entry.forAfternoon.map(afternoon => Appointment({ ...afternoon }))}
+                  {entry.forAfternoon.map(afternoon => Event({ ...afternoon }))}
                 </div>
               </div>
           </div>
@@ -149,14 +149,14 @@ class Whereabouts extends Component {
 }
 export function mapDispatchToProps(dispatch) {
   return {
-    loadThisWeeksScheduledActivities: (bookingId) => dispatch(loadScheduledActivitiesForThisWeek(bookingId)),
-    loadNextWeeksScheduledActivities: (bookingId) => dispatch(loadScheduledActivitiesForNextWeek(bookingId)),
+    loadThisWeeksScheduledEvents: (bookingId) => dispatch(loadScheduledEventsForThisWeek(bookingId)),
+    loadNextWeeksScheduledEvents: (bookingId) => dispatch(loadScheduledEventsForNextWeek(bookingId)),
   }
 }
 
 const mapStateToProps = createStructuredSelector({
   bookingId: selectBookingDetailsId(),
-  scheduledActivities: selectScheduledActivities(),
+  scheduledEvents: selectScheduledEvents(),
   offenderDetails: selectHeaderDetail(),
   currentFilter: selectCurrentFilter(),
 });

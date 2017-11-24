@@ -90,7 +90,7 @@ const quickLook = asyncMiddleware(async (req, res) => {
   res.json(data);
 });
 
-const appointmentsForThisWeek = asyncMiddleware(async (req,res) => {
+const eventsForThisWeek = asyncMiddleware(async (req,res) => {
   const bookingId = req.params.bookingId;
 
   if (!bookingId) {
@@ -99,11 +99,11 @@ const appointmentsForThisWeek = asyncMiddleware(async (req,res) => {
     return;
   }
 
-  const data = await bookingService.getScheduledActivitiesForThisWeek(req);
+  const data = await bookingService.getScheduledEventsForThisWeek(req);
   res.json(data);
 });
 
-const appointmentsForNextWeek = asyncMiddleware(async (req,res) => {
+const eventsForNextWeek = asyncMiddleware(async (req,res) => {
   const bookingId = req.params.bookingId;
 
   if (!bookingId) {
@@ -112,7 +112,7 @@ const appointmentsForNextWeek = asyncMiddleware(async (req,res) => {
     return;
   }
 
-  const data = await bookingService.getScheduledActivitiesForNextWeek(req);
+  const data = await bookingService.getScheduledEventsForNextWeek(req);
   res.json(data);
 });
 
@@ -122,6 +122,6 @@ module.exports = {
   images,
   bookingDetails,
   quickLook,
-  appointmentsForNextWeek,
-  appointmentsForThisWeek,
+  eventsForNextWeek,
+  eventsForThisWeek,
 };

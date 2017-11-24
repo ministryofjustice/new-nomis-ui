@@ -315,12 +315,12 @@ export const loadQuickLook = (bookingId) => axios({
   url: `/app/bookings/quicklook/${bookingId}`,
 }).then((response) => response.data);
 
-export const loadScheduledActivitiesForThisWeek = (bookingId) => axios({
+export const loadScheduledEventsForThisWeek = (bookingId) => axios({
   method: 'get',
-  url: `/app/bookings/scheduled/activities/forThisWeek/${bookingId}`,
+  url: `/app/bookings/scheduled/events/forThisWeek/${bookingId}`,
 }).then(response => response.data);
 
-export const loadScheduledActivitiesForNextWeek = (bookingId) => axios({
+export const loadScheduledEventsForNextWeek = (bookingId) => axios({
   method: 'get',
-  url: `/app/bookings/scheduled/activities/forNextWeek/${bookingId}`,
+  url: `/app/bookings/scheduled/events/forNextWeek/${bookingId}`,
 }).then(response => response.data);

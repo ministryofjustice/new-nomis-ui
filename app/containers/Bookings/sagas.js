@@ -14,8 +14,8 @@ import {
   searchOffenders,
   loadKeyDates,
   loadQuickLook,
-  loadScheduledActivitiesForThisWeek,
-  loadScheduledActivitiesForNextWeek,
+  loadScheduledEventsForThisWeek,
+  loadScheduledEventsForNextWeek,
 } from 'utils/eliteApi';
 
 import {
@@ -64,12 +64,12 @@ import {
   SET_KEYDATES,
   LOAD_QUICK_LOOK,
   SET_QUICK_LOOK,
-  LOAD_SCHEDULED_ACTIVITIES,
-  SET_SCHEDULED_ACTIVITIES,
+  LOAD_SCHEDULED_EVENTS,
+  SET_SCHEDULED_EVENTS,
 } from './constants';
 
-export function* loadScheduledActivitiesWatcher() {
-  yield takeLatest(LOAD_SCHEDULED_ACTIVITIES, onLoadScheduledActivities);
+export function* loadScheduledEventsWatcher() {
+  yield takeLatest(LOAD_SCHEDULED_EVENTS, onLoadScheduledEvents);
 }
 
 export function* loadKeyDatesWatcher() {
@@ -126,12 +126,12 @@ export function* onLoadKeyDates(action) {
   }
 }
 
-export function* onLoadScheduledActivities(action) {
-  const fetchScheduledActivities = action.payload.nextWeek === true ? loadScheduledActivitiesForNextWeek : loadScheduledActivitiesForThisWeek;
-  const data = yield call(fetchScheduledActivities, action.payload.bookingId);
+export function* onLoadScheduledEvents(action) {
+  const fetchScheduledEvents = action.payload.nextWeek === true ? loadScheduledEventsForNextWeek : loadScheduledEventsForThisWeek;
+  const data = yield call(fetchScheduledEvents, action.payload.bookingId);
 
   yield put({
-    type: SET_SCHEDULED_ACTIVITIES,
+    type: SET_SCHEDULED_EVENTS,
     payload: {
       data,
       nextWeek: action.payload.nextWeek,
@@ -427,5 +427,5 @@ export default [
   toggleSortOrderWatcher,
   loadKeyDatesWatcher,
   loadQuickLookWatcher,
-  loadScheduledActivitiesWatcher,
+  loadScheduledEventsWatcher,
 ];

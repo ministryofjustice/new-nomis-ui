@@ -61,8 +61,8 @@ app.use('/app/photo', jsonParser, controller.images);
 app.use('/app/keydates/:bookingId', jsonParser, controller.keyDates);
 app.use('/app/bookings/details/:bookingId', jsonParser, controller.bookingDetails);
 app.use('/app/bookings/quicklook/:bookingId', jsonParser, controller.quickLook);
-app.use('/app/bookings/scheduled/activities/forThisWeek/:bookingId', jsonParser, controller.appointmentsForThisWeek);
-app.use('/app/bookings/scheduled/activities/forNextWeek/:bookingId', jsonParser, controller.appointmentsForNextWeek);
+app.use('/app/bookings/scheduled/events/forThisWeek/:bookingId', jsonParser, controller.eventsForThisWeek);
+app.use('/app/bookings/scheduled/events/forNextWeek/:bookingId', jsonParser, controller.eventsForNextWeek);
 
 app.use('/app',jsonParser, application.sessionHandler);
 app.use('/health', apiProxy);

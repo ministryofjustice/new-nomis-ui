@@ -117,36 +117,36 @@ const getQuickLookViewModel = async (req) => {
   };
 };
 
-const getScheduledActivitiesForThisWeek = async (req) => {
-  const data = await elite2Api.getAppointmentsForThisWeek(req) || [];
-  return buildScheduledActivities(data, buildCalendarViewFor([0,1,2,3,4,5,6]));
+const getScheduledEventsForThisWeek = async (req) => {
+  const data = await elite2Api.getEventsForThisWeek(req) || [];
+  return buildScheduledEvents(data, buildCalendarViewFor([0,1,2,3,4,5,6]));
 };
 
-const getScheduledActivitiesForNextWeek = async (req) => {
-  const data = await elite2Api.getAppointmentsForNextWeek(req) || [];
-  return buildScheduledActivities(data, buildCalendarViewFor([7,8,9,10,11,12,13]));
+const getScheduledEventsForNextWeek = async (req) => {
+  const data = await elite2Api.getEventsForNextWeek(req) || [];
+  return buildScheduledEvents(data, buildCalendarViewFor([7,8,9,10,11,12,13]));
 };
 
-const buildScheduledActivities = (data, calendarView) => {
+const buildScheduledEvents = (data, calendarView) => {
   const groupedByDate = groupBy('eventDate', data);
   const filterMorning = (array) => array.filter(a => moment(a.startTime).get('hour') < 12);
   const filterAfternoon = (array) => array.filter(a => moment(a.startTime).get('hour') > 11);
-  const toAppointment = (entry) => ({
-    description: entry.eventSubTypeDesc,
+  const toEvent = (entry) => ({
+    description: entry.eventSourceDesc || entry.eventSubTypeDesc,
     startTime: entry.startTime,
     endTime: entry.endTime,
   });
 
   return calendarView.map(view => {
-    const activities = Object.keys(groupedByDate)
+    const events = Object.keys(groupedByDate)
       .filter(key => moment(key).format(isoDateFormat) === view.date.format(isoDateFormat))
       .map(date => groupedByDate[date])
       .reduce((result,current) => result.concat(current),[]);
 
     return {
       date: view.date,
-      forMorning: filterMorning(activities).map(entry => toAppointment(entry)) || [],
-      forAfternoon: filterAfternoon(activities).map(entry => toAppointment(entry)) || [],
+      forMorning: filterMorning(events).map(entry => toEvent(entry)) || [],
+      forAfternoon: filterAfternoon(events).map(entry => toEvent(entry)) || [],
     }
   });
 };
@@ -164,8 +164,8 @@ const service = {
   getQuickLookViewModel,
   getKeyDatesVieModel,
   getBookingDetailsViewModel,
-  getScheduledActivitiesForThisWeek,
-  getScheduledActivitiesForNextWeek,
+  getScheduledEventsForThisWeek,
+  getScheduledEventsForNextWeek,
 };
 
 module.exports = service;

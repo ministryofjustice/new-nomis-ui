@@ -10,7 +10,7 @@ const bookingService = require('../server/services/booking');
 
 chai.use(sinonChai);
 
-describe('Booking service appointments', () => {
+describe('Booking service events', () => {
   let sandbox;
   const req = {
     params: {
@@ -20,8 +20,8 @@ describe('Booking service appointments', () => {
 
   beforeEach(() => {
     sandbox = sinon.createSandbox();
-    sandbox.stub(elite2Api, 'getAppointmentsForThisWeek');
-    sandbox.stub(elite2Api, 'getAppointmentsForNextWeek');
+    sandbox.stub(elite2Api, 'getEventsForThisWeek');
+    sandbox.stub(elite2Api, 'getEventsForNextWeek');
   });
 
   afterEach(() => {
@@ -29,10 +29,10 @@ describe('Booking service appointments', () => {
   });
 
   it('should call getAppointments and return data with a slot for each day, for 7 days starting from today', async () => {
-    elite2Api.getAppointmentsForThisWeek.returns(null);
+    elite2Api.getEventsForThisWeek.returns(null);
 
     const startDate = moment();
-    const data = await bookingService.getScheduledActivitiesForThisWeek(req);
+    const data = await bookingService.getScheduledEventsForThisWeek(req);
 
     expect(data.length).to.equal(7);
 
@@ -46,10 +46,10 @@ describe('Booking service appointments', () => {
   });
 
   it('should call getAppointments and return data with a slot for each day, for 7 days starting from next week', async () => {
-    elite2Api.getAppointmentsForThisWeek.returns(null);
+    elite2Api.getEventsForThisWeek.returns(null);
 
     const startDate = moment().add('days', 7);
-    const data = await bookingService.getScheduledActivitiesForNextWeek(req);
+    const data = await bookingService.getScheduledEventsForNextWeek(req);
 
     expect(data.length).to.equal(7);
     expect(data[0].date.format(isoDateFormat)).to.equal(startDate.format(isoDateFormat));
@@ -61,39 +61,54 @@ describe('Booking service appointments', () => {
     expect(data[6].date.format(isoDateFormat)).to.equal(startDate.add(1,'days').format(isoDateFormat));
   });
 
+  it('should use the eventSubTypeDesc when eventSourceDesc is missing', async () => {
+    const today = moment();
+    elite2Api.getEventsForThisWeek.returns([
+      {
+        eventSubTypeDesc: 'Prison Activity',
+        startTime: '2017-12-12T09:00:00',
+        endTime: '2017-12-12T10:00:00',
+        eventDate: today,
+      },
+    ]);
+
+    const data = await bookingService.getScheduledEventsForThisWeek(req);
+    expect(data[0].forMorning[0].description).to.equal('Prison Activity');
+  });
+
   it('should place appointments into the correct weekly calender slot', async () => {
     const today = moment();
     const threeDaysInTheFuture = moment().add(3,'days');
 
-    elite2Api.getAppointmentsForThisWeek.returns([
+    elite2Api.getEventsForThisWeek.returns([
       {
-        eventSubTypeDesc: 'Workshop morning',
+        eventSourceeDesc: 'Workshop morning',
         startTime: '2017-12-12T09:00:00',
         endTime: '2017-12-12T10:00:00',
         eventDate: today,
       },
       {
-        eventSubTypeDesc: 'Workshop afternoon',
+        eventSourceeDesc: 'Workshop afternoon',
         startTime: '2017-12-12T19:00:00',
         endTime: '2017-12-12T20:00:00',
         eventDate: today,
       },
 
       {
-        eventSubTypeDesc: 'Workshop morning',
+        eventSourceeDesc: 'Workshop morning',
         startTime: '2017-12-12T09:00:00',
         endTime: '2017-12-12T10:00:00',
         eventDate: threeDaysInTheFuture,
       },
       {
-        eventSubTypeDesc: 'Workshop afternoon',
+        eventSourceeDesc: 'Workshop afternoon',
         startTime: '2017-12-12T19:00:00',
         endTime: '2017-12-12T20:00:00',
         eventDate: threeDaysInTheFuture,
       },
     ]);
 
-    const data = await bookingService.getScheduledActivitiesForThisWeek(req);
+    const data = await bookingService.getScheduledEventsForThisWeek(req);
 
     expect(data[0].date.format(isoDateFormat)).to.equal(today.format(isoDateFormat));
     expect(data[0].forMorning.length).to.equal(1);

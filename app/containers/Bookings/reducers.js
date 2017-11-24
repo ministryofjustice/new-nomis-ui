@@ -40,7 +40,7 @@ import {
   SET_KEYDATES,
   DETAILS_ERROR,
   SET_QUICK_LOOK,
-  SET_SCHEDULED_ACTIVITIES,
+  SET_SCHEDULED_EVENTS,
 } from './constants';
 
 
@@ -223,9 +223,9 @@ function searchReducer(state = initialState, action) {
       return state.setIn(['details','quickLookViewModel'],fromJS(action.payload));
     }
 
-    case SET_SCHEDULED_ACTIVITIES: {
+    case SET_SCHEDULED_EVENTS: {
       return state
-        .setIn(['details','scheduledActivities'],fromJS(action.payload.data))
+        .setIn(['details','scheduledEvents'],fromJS(action.payload.data))
         .setIn(['details', 'currentFilter'], fromJS({
           thisWeek: !action.payload.nextWeek,
           nextWeek: action.payload.nextWeek,
