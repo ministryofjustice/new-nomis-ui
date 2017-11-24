@@ -14,6 +14,8 @@ import {
   searchOffenders,
   loadKeyDates,
   loadQuickLook,
+  loadScheduledEventsForThisWeek,
+  loadScheduledEventsForNextWeek,
 } from 'utils/eliteApi';
 
 import {
@@ -62,7 +64,13 @@ import {
   SET_KEYDATES,
   LOAD_QUICK_LOOK,
   SET_QUICK_LOOK,
+  LOAD_SCHEDULED_EVENTS,
+  SET_SCHEDULED_EVENTS,
 } from './constants';
+
+export function* loadScheduledEventsWatcher() {
+  yield takeLatest(LOAD_SCHEDULED_EVENTS, onLoadScheduledEvents);
+}
 
 export function* loadKeyDatesWatcher() {
   yield takeLatest(LOAD_KEY_DATES, onLoadKeyDates);
@@ -116,6 +124,20 @@ export function* onLoadKeyDates(action) {
   } catch (err) {
     yield put({ type: DETAILS_ERROR, payload: { error: err.userMessage } });
   }
+}
+
+export function* onLoadScheduledEvents(action) {
+  const fetchScheduledEvents = action.payload.nextWeek === true ? loadScheduledEventsForNextWeek : loadScheduledEventsForThisWeek;
+  const data = yield call(fetchScheduledEvents, action.payload.bookingId);
+
+  yield put({
+    type: SET_SCHEDULED_EVENTS,
+    payload: {
+      data,
+      nextWeek: action.payload.nextWeek,
+    },
+
+  });
 }
 
 export function* setLocations(action) {
@@ -405,4 +427,5 @@ export default [
   toggleSortOrderWatcher,
   loadKeyDatesWatcher,
   loadQuickLookWatcher,
+  loadScheduledEventsWatcher,
 ];

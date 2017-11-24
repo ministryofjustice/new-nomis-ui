@@ -90,7 +90,8 @@
     "no-param-reassign": 0,
     "react/style-prop-object": 0,
     "import/no-duplicates" :0,
-    "import/no-named-as-default-member": 0
+    "import/no-named-as-default-member": 0,
+    "no-unused-vars": 0
   },
   "settings": {
     "import/resolver": {

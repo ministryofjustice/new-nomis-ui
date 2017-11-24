@@ -6,7 +6,7 @@ const longName = (label) => ({
   PRRD: 'Post-recall release date',
   HDCED: 'Home det. eligibility date',
   PED: 'Parole eligibility date',
-  HDCAD: 'Home det. actual date',
+  HDCAD: 'HDC eligibility date',
   APD: 'Approved parole date',
   ROTL: 'Release on temp. licence date',
   ERSED: 'Early removal scheme eligibility date',

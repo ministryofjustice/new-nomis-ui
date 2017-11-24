@@ -250,6 +250,7 @@ describe('Booking Service Quick look', () => {
       ],
     });
 
+
     const data = await bookingService.getQuickLookViewModel(req);
 
     expect(elite2Api.getContacts).to.be.called;

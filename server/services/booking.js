@@ -8,6 +8,14 @@ const isoDateFormat = require('./../constants').isoDateFormat;
 const pluraliseDay = (days) => days > 1 ? 'Days' : 'Day'
 const pluraliseMonth = (months) => months > 1 ? 'Months' : 'Month';
 
+const groupBy = (property,array) => array.reduce((result,current) => {
+  const date = current[property];
+  if (!result[date]) { result[date] = []; }
+
+  result[date].push(current);
+
+  return result;
+},[]);
 
 const awardMapper = (award) => ({
   sanctionCodeDescription: award.sanctionCodeDescription,
@@ -15,7 +23,7 @@ const awardMapper = (award) => ({
   effectiveDate: award.effectiveDate,
   durationText: (award.days && `${award.days} ${pluraliseDay(award.days)}`) ||
   (award.months && `${award.months} ${pluraliseMonth(award.months)}`),
-})
+});
 
 
 const getKeyDatesVieModel = async (req) => {
@@ -97,9 +105,9 @@ const getQuickLookViewModel = async (req) => {
     releaseDate: sentenceData ? sentenceData.releaseDate : null,
     adjudications: {
       proven: (adjudications && adjudications.adjudicationCount) || 0,
-      awards: adjudications && adjudications.awards && adjudications.awards.map(award => awardMapper(award)),
+      awards: (adjudications && adjudications.awards && adjudications.awards.map(award => awardMapper(award))) || [],
     },
-    nextOfKin: (contacts && contacts.nextOfKin.length > 0 && contacts.nextOfKin.map(contact => ({
+    nextOfKin: (contacts && contacts.nextOfKin && contacts.nextOfKin.map(contact => ({
       firstName: contact.firstName,
       lastName: contact.lastName,
       middleName: contact.middleName,
@@ -109,10 +117,55 @@ const getQuickLookViewModel = async (req) => {
   };
 };
 
+const getScheduledEventsForThisWeek = async (req) => {
+  const data = await elite2Api.getEventsForThisWeek(req) || [];
+  return buildScheduledEvents(data, buildCalendarViewFor([0,1,2,3,4,5,6]));
+};
+
+const getScheduledEventsForNextWeek = async (req) => {
+  const data = await elite2Api.getEventsForNextWeek(req) || [];
+  return buildScheduledEvents(data, buildCalendarViewFor([7,8,9,10,11,12,13]));
+};
+
+const buildScheduledEvents = (data, calendarView) => {
+  const groupedByDate = groupBy('eventDate', data);
+  const filterMorning = (array) => array.filter(a => moment(a.startTime).get('hour') < 12);
+  const filterAfternoon = (array) => array.filter(a => moment(a.startTime).get('hour') > 11);
+  const toEvent = (entry) => ({
+    description: entry.eventSourceDesc || entry.eventSubTypeDesc,
+    startTime: entry.startTime,
+    endTime: entry.endTime,
+  });
+
+  return calendarView.map(view => {
+    const events = Object.keys(groupedByDate)
+      .filter(key => moment(key).format(isoDateFormat) === view.date.format(isoDateFormat))
+      .map(date => groupedByDate[date])
+      .reduce((result,current) => result.concat(current),[]);
+
+    return {
+      date: view.date,
+      forMorning: filterMorning(events).map(entry => toEvent(entry)) || [],
+      forAfternoon: filterAfternoon(events).map(entry => toEvent(entry)) || [],
+    }
+  });
+};
+
+const buildCalendarViewFor = (days) => days.map(day => moment().add(day,'days'))
+  .reduce((result, current) => {
+    result.push({
+      date: current,
+    });
+
+    return result;
+  },[]);
+
 const service = {
   getQuickLookViewModel,
   getKeyDatesVieModel,
   getBookingDetailsViewModel,
+  getScheduledEventsForThisWeek,
+  getScheduledEventsForNextWeek,
 };
 
 module.exports = service;

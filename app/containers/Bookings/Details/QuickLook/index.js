@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { properCaseName } from 'utils/stringUtils';
 import DisplayValue from 'components/FormComponents/DisplayValue';
+import { Link } from 'react-router';
 
 import {
   selectBookingDetailsId,
@@ -333,26 +334,26 @@ class QuickLook extends Component {
            <OffenceDetails offences={offences} releaseDate={releaseDate} />
         </div>
       </div>
-       <div className="row">
 
-         <div className="col-md-6 col-xs-12">
-           <h3 className="heading-medium">
-             Money
-           </h3>
-               <Balances {...balance} />
-         </div>
+     <div className="row">
 
-
-         <div className="col-md-6 col-xs-12">
-           <h3 className="heading-medium">
-             Other
-           </h3>
-
-           <NextOfKin nextOfKin={nextOfKin} />
-         </div>
-
-
+       <div className="col-md-6 col-xs-12">
+         <h3 className="heading-medium">
+           Money
+         </h3>
+             <Balances {...balance} />
        </div>
+
+
+       <div className="col-md-6 col-xs-12">
+         <h3 className="heading-medium">
+           Other
+         </h3>
+
+         <NextOfKin nextOfKin={nextOfKin} />
+       </div>
+
+     </div>
 
       <div className="row">
 
@@ -368,11 +369,11 @@ class QuickLook extends Component {
 
         <div className="col-md-6 col-xs-12">
           <h3 className="heading-medium">
-            Prison activities
+              <Link className="link" to={'/bookings/details/whereabouts'}> Prison activities</Link>
           </h3>
           { activities && <Activities activities={activities.morningActivities} period={'Morning (AM)'} /> }
           { activities && <Activities activities={activities.afternoonActivities} period={'Afternoon (PM)'} /> }
-          { !activities && <div>No activity assigned</div>}
+          { !activities && <div>No activity assigned</div> }
         </div>
       </div>
 
