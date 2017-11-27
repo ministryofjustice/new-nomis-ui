@@ -66,7 +66,7 @@ class ScheduledEvents extends Component {
 
     return (<div className="whereabouts">
 
-      <h1> {`${properCase(firstName)} ${properCase(lastName)}s`} scheduled </h1>
+      <h1> Scheduled of {`${properCase(firstName)} ${properCase(lastName)}`} </h1>
 
       <div className="row filters">
 
