@@ -369,7 +369,7 @@ class QuickLook extends Component {
 
         <div className="col-md-6 col-xs-12">
           <h3 className="heading-medium">
-              <Link className="link" to={'/bookings/details/whereabouts'}> Prison activities</Link>
+              <Link className="link" to={'/bookings/details/scheduled'}> Prisoners scheduled</Link>
           </h3>
           { activities && <Activities activities={activities.morningActivities} period={'Morning (AM)'} /> }
           { activities && <Activities activities={activities.afternoonActivities} period={'Afternoon (PM)'} /> }

@@ -28,7 +28,7 @@ describe('Booking service events', () => {
     sandbox.restore()
   });
 
-  it('should call getAppointments and return data with a slot for each day, for 7 days starting from today', async () => {
+  it('should call getScheduledEventsForThisWeek and return data with a slot for each day, for 7 days starting from today', async () => {
     elite2Api.getEventsForThisWeek.returns(null);
 
     const startDate = moment();
@@ -45,7 +45,7 @@ describe('Booking service events', () => {
     expect(data[6].date.format(isoDateFormat)).to.equal(startDate.add(1,'days').format(isoDateFormat));
   });
 
-  it('should call getAppointments and return data with a slot for each day, for 7 days starting from next week', async () => {
+  it('should call getScheduledEventsForNextWeek and return data with a slot for each day, for 7 days starting from next week', async () => {
     elite2Api.getEventsForThisWeek.returns(null);
 
     const startDate = moment().add('days', 7);
@@ -68,6 +68,7 @@ describe('Booking service events', () => {
         eventSubTypeDesc: 'Prison Activity',
         startTime: '2017-12-12T09:00:00',
         endTime: '2017-12-12T10:00:00',
+        eventStatus: 'SCH',
         eventDate: today,
       },
     ]);
@@ -76,7 +77,7 @@ describe('Booking service events', () => {
     expect(data[0].forMorning[0].description).to.equal('Prison Activity');
   });
 
-  it('should place appointments into the correct weekly calender slot', async () => {
+  it('should place events into the correct weekly calender slot', async () => {
     const today = moment();
     const threeDaysInTheFuture = moment().add(3,'days');
 
@@ -85,12 +86,14 @@ describe('Booking service events', () => {
         eventSourceeDesc: 'Workshop morning',
         startTime: '2017-12-12T09:00:00',
         endTime: '2017-12-12T10:00:00',
+        eventStatus: 'SCH',
         eventDate: today,
       },
       {
         eventSourceeDesc: 'Workshop afternoon',
         startTime: '2017-12-12T19:00:00',
         endTime: '2017-12-12T20:00:00',
+        eventStatus: 'SCH',
         eventDate: today,
       },
 
@@ -98,12 +101,14 @@ describe('Booking service events', () => {
         eventSourceeDesc: 'Workshop morning',
         startTime: '2017-12-12T09:00:00',
         endTime: '2017-12-12T10:00:00',
+        eventStatus: 'SCH',
         eventDate: threeDaysInTheFuture,
       },
       {
         eventSourceeDesc: 'Workshop afternoon',
         startTime: '2017-12-12T19:00:00',
         endTime: '2017-12-12T20:00:00',
+        eventStatus: 'SCH',
         eventDate: threeDaysInTheFuture,
       },
     ]);
@@ -118,4 +123,19 @@ describe('Booking service events', () => {
     expect(data[3].forMorning.length).to.equal(1);
     expect(data[3].forAfternoon.length).to.equal(1);
   });
+
+  it('should show the eventSubTypeDesc if no eventSourceDesc is supplied', async () => {
+    elite2Api.getEventsForThisWeek.returns([
+      {
+        eventSubTypeDesc: 'test',
+        startTime: '2017-12-12T09:00:00',
+        endTime: '2017-12-12T10:00:00',
+        eventStatus: 'SCH',
+        eventDate: moment(),
+      },
+    ]);
+
+    const data = await bookingService.getScheduledEventsForThisWeek(req);
+    expect(data[0].forMorning[0].description).to.equal('test');
+  })
 });

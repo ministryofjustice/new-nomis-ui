@@ -22,7 +22,7 @@ const getIepSummary = (req) => getRequest({ req, url: `bookings/${req.params.boo
 const getDetails = (req) => getRequest({ req,url: `bookings/${req.params.bookingId}` });
 const getBalances = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/balances` });
 const getMainOffence = (req) => getRequest({ req,url: `bookings/${req.params.bookingId}/mainOffence` });
-const getActivitiesForToday = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/activities/today` });
+const getEventsForToday = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/events/today` });
 const getContacts = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/contacts` });
 const getAdjudications = ({ req , fromDate }) => getRequest({ req, url: `bookings/${req.params.bookingId}/adjudications?fromDate=${fromDate}` });
 const getEventsForThisWeek = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/events/thisWeek` });
@@ -105,7 +105,7 @@ const service = {
   getDetails,
   getBalances,
   getMainOffence,
-  getActivitiesForToday,
+  getEventsForToday,
   getPositiveCaseNotes,
   getNegativeCaseNotes,
   getContacts,

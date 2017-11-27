@@ -5,8 +5,8 @@ const RiskAssessment = require('../model/riskAssessment');
 const keyDatesMapper = require('../view-model-mappers/keydates');
 const isoDateFormat = require('./../constants').isoDateFormat;
 
-const pluraliseDay = (days) => days > 1 ? 'Days' : 'Day'
-const pluraliseMonth = (months) => months > 1 ? 'Months' : 'Month';
+const pluraliseDay = (days) => days > 1 ? 'days' : 'day';
+const pluraliseMonth = (months) => months > 1 ? 'months' : 'month';
 
 const groupBy = (property,array) => array.reduce((result,current) => {
   const date = current[property];
@@ -18,13 +18,40 @@ const groupBy = (property,array) => array.reduce((result,current) => {
 },[]);
 
 const awardMapper = (award) => ({
-  sanctionCodeDescription: award.sanctionCodeDescription,
+  sanctionCodeDescription: descriptionWithLimit(award),
   comment: award.comment,
   effectiveDate: award.effectiveDate,
-  durationText: (award.days && `${award.days} ${pluraliseDay(award.days)}`) ||
-  (award.months && `${award.months} ${pluraliseMonth(award.months)}`),
+  durationText: durationText(award),
 });
 
+const toEvent = (entry) => ({
+  description: entry.eventSourceDesc || entry.eventSubTypeDesc,
+  startTime: entry.startTime,
+  endTime: entry.endTime,
+});
+
+const descriptionWithLimit = (award) => {
+  switch (award.sanctionCode) {
+    case 'STOP_PCT': {
+      return `${award.sanctionCodeDescription.replace('(%)','').trim()} (${award.limit}%)`;
+    }
+
+    case 'STOP_EARN': {
+      return `${award.sanctionCodeDescription.replace('(amount)','').trim()} (£${parseFloat(award.limit).toFixed(2)})`;
+    }
+
+    default: return award.sanctionCodeDescription;
+  }
+};
+
+const durationText = (award) => {
+  if (award.months && award.days) {
+    return `${award.months} ${pluraliseMonth(award.months)} and ${award.days} ${pluraliseDay(award.days)}`
+  }
+
+  return (award.months && `${award.months} ${pluraliseMonth(award.months)}`) ||
+       (award.days && `${award.days} ${pluraliseDay(award.days)}`);
+};
 
 const getKeyDatesVieModel = async (req) => {
   const sentenceData = await elite2Api.getSentenceData(req);
@@ -64,16 +91,10 @@ const getQuickLookViewModel = async (req) => {
   const filterAfternoon = (array) => array.filter(a => moment(a.startTime).get('hour') > 11);
   const hasAnyActivity = (activities) => activities.morningActivities.length > 0 || activities.afternoonActivities.length > 0;
 
-  const activityMapper = (activity) => ({
-    description: activity.eventSourceDesc,
-    startTime: activity.startTime,
-    endTime: activity.endTime,
-  });
-
   const balance = await elite2Api.getBalances(req);
   const offenceData = await elite2Api.getMainOffence(req);
   const sentenceData = await elite2Api.getSentenceData(req);
-  const activityData = await elite2Api.getActivitiesForToday(req);
+  const activityData = await elite2Api.getEventsForToday(req);
   const positiveCaseNotes = await elite2Api.getPositiveCaseNotes({ req, fromDate: threeMonthsInThePast,toDate: today });
   const negativeCaseNotes = await elite2Api.getNegativeCaseNotes({ req, fromDate: threeMonthsInThePast,toDate: today });
   const contacts = await elite2Api.getContacts(req);
@@ -83,8 +104,8 @@ const getQuickLookViewModel = async (req) => {
   const afternoonActivity = filterAfternoon(activityData);
 
   const activities = {
-    morningActivities: morningActivity && morningActivity.map(data => activityMapper(data)),
-    afternoonActivities: afternoonActivity && afternoonActivity.map(data => activityMapper(data)),
+    morningActivities: morningActivity && morningActivity.map(data => toEvent(data)),
+    afternoonActivities: afternoonActivity && afternoonActivity.map(data => toEvent(data)),
   };
 
   const offenceDetails = offenceData && offenceData.map(offenceDetail => ({
@@ -131,17 +152,13 @@ const buildScheduledEvents = (data, calendarView) => {
   const groupedByDate = groupBy('eventDate', data);
   const filterMorning = (array) => array.filter(a => moment(a.startTime).get('hour') < 12);
   const filterAfternoon = (array) => array.filter(a => moment(a.startTime).get('hour') > 11);
-  const toEvent = (entry) => ({
-    description: entry.eventSourceDesc || entry.eventSubTypeDesc,
-    startTime: entry.startTime,
-    endTime: entry.endTime,
-  });
 
   return calendarView.map(view => {
     const events = Object.keys(groupedByDate)
       .filter(key => moment(key).format(isoDateFormat) === view.date.format(isoDateFormat))
       .map(date => groupedByDate[date])
-      .reduce((result,current) => result.concat(current),[]);
+      .reduce((result,current) => result.concat(current),[])
+      .filter(event => event.eventStatus === 'SCH');
 
     return {
       date: view.date,

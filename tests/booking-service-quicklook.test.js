@@ -23,7 +23,7 @@ describe('Booking Service Quick look', () => {
     sandbox = sinon.sandbox.create();
     sandbox.stub(elite2Api, 'getBalances');
     sandbox.stub(elite2Api, 'getMainOffence');
-    sandbox.stub(elite2Api, 'getActivitiesForToday');
+    sandbox.stub(elite2Api, 'getEventsForToday');
     sandbox.stub(elite2Api, 'getPositiveCaseNotes');
     sandbox.stub(elite2Api, 'getNegativeCaseNotes');
     sandbox.stub(elite2Api, 'getSentenceData');
@@ -32,7 +32,7 @@ describe('Booking Service Quick look', () => {
 
     elite2Api.getBalances.returns(null);
     elite2Api.getMainOffence.returns(null);
-    elite2Api.getActivitiesForToday.returns([]);
+    elite2Api.getEventsForToday.returns([]);
     elite2Api.getPositiveCaseNotes.returns(null);
     elite2Api.getNegativeCaseNotes.returns(null);
     elite2Api.getSentenceData.returns(null);
@@ -79,8 +79,8 @@ describe('Booking Service Quick look', () => {
     expect(data.offences[0].type).to.equal('basic');
   });
 
-  it('should call getActivitiesForToday', async () => {
-    elite2Api.getActivitiesForToday.returns([
+  it('should call getEventsForToday', async () => {
+    elite2Api.getEventsForToday.returns([
       {
         eventSourceDesc: 'workshop 1',
         startTime: '2017-01-01T10:41:10.572',
@@ -95,7 +95,7 @@ describe('Booking Service Quick look', () => {
 
     const data = await bookingService.getQuickLookViewModel(req);
 
-    expect(elite2Api.getActivitiesForToday).to.be.called;
+    expect(elite2Api.getEventsForToday).to.be.called;
 
     expect(data.activities.morningActivities.length).to.equal(1);
     expect(data.activities.afternoonActivities.length).to.equal(1);
@@ -216,21 +216,85 @@ describe('Booking Service Quick look', () => {
 
     const { awards } = data.adjudications;
 
-    expect(awards[0].durationText).to.equal('10 Months');
+    expect(awards[0].durationText).to.equal('10 months');
     expect(awards[0].sanctionCodeDescription).to.equal('comment 1');
     expect(awards[0].comment).to.equal('c1');
 
-    expect(awards[1].durationText).to.equal('20 Days');
+    expect(awards[1].durationText).to.equal('20 days');
     expect(awards[1].sanctionCodeDescription).to.equal('comment 2');
     expect(awards[1].comment).to.equal('c2');
 
-    expect(awards[2].durationText).to.equal('1 Month');
+    expect(awards[2].durationText).to.equal('1 month');
     expect(awards[2].sanctionCodeDescription).to.equal('comment 3');
     expect(awards[2].comment).to.equal('c3');
 
-    expect(awards[3].durationText).to.equal('1 Day');
+    expect(awards[3].durationText).to.equal('1 day');
     expect(awards[3].sanctionCodeDescription).to.equal('comment 4');
     expect(awards[3].comment).to.equal('c4');
+  });
+
+  it('should append the award description with a properly formatted level, like 50% stoppage of earnings', async () => {
+    elite2Api.getAdjudications.returns({
+      awards: [
+        {
+          days: 1,
+          sanctionCodeDescription: 'Stoppage of Earnings (%)',
+          comment: 'c1',
+          sanctionCode: 'STOP_PCT',
+          limit: 50,
+        },
+        {
+          days: 1,
+          sanctionCodeDescription: 'Stoppage of Earnings (amount)',
+          comment: 'c2',
+          sanctionCode: 'STOP_EARN',
+          limit: 50,
+        },
+        {
+          days: 1,
+          sanctionCodeDescription: 'Stoppage of Earnings',
+          comment: 'c3',
+          sanctionCode: 'STOP_PCT',
+          limit: 50,
+        },
+        {
+          days: 1,
+          sanctionCodeDescription: 'Stoppage of Earnings',
+          comment: 'c4',
+          sanctionCode: 'STOP_EARN',
+          limit: 50,
+        },
+      ],
+    });
+
+    const data = await bookingService.getQuickLookViewModel(req);
+    const { awards } = data.adjudications;
+
+    expect(awards[0].sanctionCodeDescription).to.equal('Stoppage of Earnings (50%)');
+    expect(awards[1].sanctionCodeDescription).to.equal('Stoppage of Earnings (£50.00)');
+    expect(awards[2].sanctionCodeDescription).to.equal('Stoppage of Earnings (50%)');
+    expect(awards[3].sanctionCodeDescription).to.equal('Stoppage of Earnings (£50.00)');
+  });
+
+  it('should display months and days', async () => {
+    elite2Api.getAdjudications.returns({
+      awards: [
+        {
+          months: 10,
+          days: 2,
+        },
+        {
+          months: 1,
+          days: 1,
+        },
+      ],
+    });
+
+    const data = await bookingService.getQuickLookViewModel(req);
+    const { awards } = data.adjudications;
+
+    expect(awards[0].durationText).to.equal('10 months and 2 days');
+    expect(awards[1].durationText).to.equal('1 month and 1 day');
   });
 
 
@@ -249,7 +313,6 @@ describe('Booking Service Quick look', () => {
         },
       ],
     });
-
 
     const data = await bookingService.getQuickLookViewModel(req);
 

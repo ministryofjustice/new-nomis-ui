@@ -1,5 +1,5 @@
 
-function properCase(word) {
+export function properCase(word) {
   return ((typeof word === 'string') && (word.length >= 1)) ? word[0].toUpperCase() + word.toLowerCase().slice(1) : word;
 }
 

@@ -273,14 +273,14 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/bookings/details/whereabouts',
-      name: 'whereabouts',
-      onEnter: onEnter({ authRequired: true, routeName: 'whereabouts 7 day view' }),
+      path: '/bookings/details/scheduled',
+      name: 'scheduled',
+      onEnter: onEnter({ authRequired: true, routeName: 'scheduled 7 day view' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),
           System.import('containers/Bookings/sagas'),
-          System.import('containers/Bookings/Details/Whereabouts'),
+          System.import('containers/Bookings/Details/Scheduled'),
         ]);
 
         const renderRoute = loadModule(cb);

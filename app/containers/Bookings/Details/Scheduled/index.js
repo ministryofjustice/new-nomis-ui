@@ -16,7 +16,7 @@ import {
   loadScheduledEventsForNextWeek,
 } from 'containers/Bookings/actions';
 
-import { toFullName } from 'utils/stringUtils';
+import { properCase } from 'utils/stringUtils';
 
 import './index.scss';
 
@@ -44,7 +44,7 @@ export const DayAndDate = ({ value }) => <h1 className="heading-medium whereabou
   {moment(value).format('dddd')}
 </h1>
 
-class Whereabouts extends Component {
+class ScheduledEvents extends Component {
 
   componentDidMount() {
     const { loadThisWeeksScheduledEvents, bookingId } = this.props;
@@ -64,11 +64,9 @@ class Whereabouts extends Component {
 
     const { firstName, lastName } = this.props.offenderDetails;
 
-    const nameString = toFullName({ firstName, lastName }).replace(',','');
-
     return (<div className="whereabouts">
 
-      <h1> {`${nameString}s' whereabouts`} </h1>
+      <h1> {`${properCase(firstName)} ${properCase(lastName)}s`} scheduled </h1>
 
       <div className="row filters">
 
@@ -161,4 +159,4 @@ const mapStateToProps = createStructuredSelector({
   currentFilter: selectCurrentFilter(),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Whereabouts);
+export default connect(mapStateToProps, mapDispatchToProps)(ScheduledEvents);
