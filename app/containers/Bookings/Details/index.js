@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import TabNav from 'components/Bookings/Details/tabMenu';
 import TabNavMobile from 'components/Bookings/Details/tabMenuMobile';
-import NavLink from 'components/NavLink';
+import { Link } from 'react-router';
 import { selectDeviceFormat, selectSearchContext } from 'selectors/app';
 import EliteImage from 'containers/EliteContainers/Image';
 
@@ -67,10 +67,10 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
 
     return (
 
-      <div className="detail-content">
+      <div className="detail-content add-gutter-top-lg-down">
         { this.props.searchContext === 'assignments' ?
-          <NavLink route="/assignments" key="Assignments" text="< Back to assignments" /> :
-          <NavLink route="/results" key="Results" text="< Back to search results" />
+          <Link className="link" to="/assignments" key="Assignments"> {'<'} Back to assignments </Link> :
+          <Link className="link" to="/results" key="Results"> {'<'} Back to search results </Link>
         }
 
         <BookingsDetailsHeader />

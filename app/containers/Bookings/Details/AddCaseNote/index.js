@@ -22,17 +22,16 @@ const selector = formValueSelector('addCaseNote');
 
 class AddCaseNoteForm extends Component {
 
-  constructor(props) {
-    super(props);
-    this.goBackToBookingDetails = this.goBackToBookingDetails.bind(this);
-  }
-
-  goBackToBookingDetails() {
-    this.props.dispatch(viewDetails(this.props.bookingDetailsId, DETAILS_TABS.CASE_NOTES));
-  }
-
   render() {
-    const { handleSubmit, submitting, error, caseNoteTypes, locale, typeValue } = this.props;
+    const {
+      handleSubmit,
+      submitting,
+      error,
+      caseNoteTypes,
+      locale,
+      typeValue,
+      bookingDetailsId,
+      goBackToBookingDetails} = this.props;
 
     return (
       <div className="add-case-note">
@@ -61,7 +60,7 @@ class AddCaseNoteForm extends Component {
               Save case note
             </button>
 
-            <button className="cancel-button col-xs-12 col-sm-2" type="reset" onClick={this.goBackToBookingDetails}>
+            <button className="cancel-button col-xs-12 col-sm-2" type="reset" onClick={() => goBackToBookingDetails(bookingDetailsId)}>
               Cancel
             </button>
 
@@ -85,8 +84,9 @@ AddCaseNoteForm.defaultProps = {
   error: '',
 };
 
-export function mapDispatchToProps() {
+export function mapDispatchToProps(dispatch) {
   return {
+    goBackToBookingDetails: (bookingId) => dispatch(viewDetails(bookingId, DETAILS_TABS.CASE_NOTES)),
     onSubmit: createFormAction((formData) => (
       {
         type: ADD_NEW_CASENOTE.BASE,

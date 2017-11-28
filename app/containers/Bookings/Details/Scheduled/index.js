@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { FormattedDate } from 'react-intl';
 import moment from 'moment';
+import { Link } from 'react-router';
 
 import {
   selectBookingDetailsId,
@@ -17,6 +18,8 @@ import {
 } from 'containers/Bookings/actions';
 
 import { properCase } from 'utils/stringUtils';
+import { viewDetails } from '../../actions';
+import { DETAILS_TABS } from '../../constants';
 
 import './index.scss';
 
@@ -48,7 +51,6 @@ class ScheduledEvents extends Component {
 
   componentDidMount() {
     const { loadThisWeeksScheduledEvents, bookingId } = this.props;
-
     loadThisWeeksScheduledEvents(bookingId);
   }
 
@@ -59,12 +61,19 @@ class ScheduledEvents extends Component {
       return <div>Loading scheduled activities....</div>
     }
 
-    const { loadThisWeeksScheduledEvents, loadNextWeeksScheduledEvents, bookingId, currentFilter } = this.props;
-    const { thisWeek, nextWeek } = currentFilter.toJS();
+    const {
+      loadThisWeeksScheduledEvents,
+      loadNextWeeksScheduledEvents,
+      backToQuickLook,
+      bookingId,
+      currentFilter } = this.props;
 
+    const { thisWeek, nextWeek } = currentFilter.toJS();
     const { firstName, lastName } = this.props.offenderDetails;
 
-    return (<div className="whereabouts">
+    return (<div className="whereabouts add-gutter-top-md-down">
+
+      <Link onClick={() => backToQuickLook(bookingId)} className="link" role="link"> {'<'} Back to quicklook</Link>
 
       <h1> Scheduled for {`${properCase(firstName)} ${properCase(lastName)}`} </h1>
 
@@ -142,6 +151,7 @@ class ScheduledEvents extends Component {
           </div>
 
         </div>)}
+
     </div>)
   }
 }
@@ -149,6 +159,7 @@ export function mapDispatchToProps(dispatch) {
   return {
     loadThisWeeksScheduledEvents: (bookingId) => dispatch(loadScheduledEventsForThisWeek(bookingId)),
     loadNextWeeksScheduledEvents: (bookingId) => dispatch(loadScheduledEventsForNextWeek(bookingId)),
+    backToQuickLook: (bookingId) => dispatch(viewDetails(bookingId, DETAILS_TABS.QUICK_LOOK)),
   }
 }
 
@@ -157,6 +168,7 @@ const mapStateToProps = createStructuredSelector({
   scheduledEvents: selectScheduledEvents(),
   offenderDetails: selectHeaderDetail(),
   currentFilter: selectCurrentFilter(),
+  bookingDetailsId: selectBookingDetailsId(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ScheduledEvents);

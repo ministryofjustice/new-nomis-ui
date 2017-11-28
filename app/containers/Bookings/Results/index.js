@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import BookingTable from 'components/Bookings/Table';
 import BookingGrid from 'components/Bookings/Grid';
-import NavLink from 'components/NavLink';
+import { Link } from 'react-router';
 import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMessage';
 import { connect } from 'react-redux';
 import ResultsViewToggle from 'components/ResultsViewToggle';
@@ -53,8 +53,8 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
 
     return (
       <div className="booking-search">
-        <div className="mobile-only">
-          <NavLink route="/" key="Home" text="Home" />
+        <div className="mobile-only add-gutter-top">
+          <Link className="link" to="/" key="Home">Home</Link>
         </div>
 
         <div className="row">

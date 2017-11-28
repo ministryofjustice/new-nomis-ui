@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { toFullName } from 'utils/stringUtils';
+import { Link } from 'react-router';
 
-import {
-  BreadcrumbLink,
-  BreadcrumbLinkWrapper,
-} from './theme';
+import './index.scss';
 
 function Breadcrumbs({ route, inmateData, context }) {
   let breadcrumbArray = [];
@@ -28,7 +26,6 @@ function Breadcrumbs({ route, inmateData, context }) {
   } else if (routeString.length > 0) {
     const routeStringArray = route.split('/');
 
-
     routeStringArray.shift();
 
     let routeStr = '';
@@ -44,14 +41,14 @@ function Breadcrumbs({ route, inmateData, context }) {
   }
 
   return (
-    <div className="nav-content" data-name={'Breadcrumbs'}>
+    <div className="bread-crumbs nav-content" data-name={'Breadcrumbs'}>
       {breadcrumbArray.map((breadcrumb, i) => i !== breadcrumbArray.length - 1 ?
-        <BreadcrumbLinkWrapper key={breadcrumb.name}>
-          <BreadcrumbLink to={breadcrumb.route} key={breadcrumb.name}>{breadcrumb.name}</BreadcrumbLink>
+        <span className="link-wrapper" key={breadcrumb.name}>
+          <Link to={breadcrumb.route} key={breadcrumb.name} className="link" >{breadcrumb.name}</Link>
           <span>{'>'}</span>
-        </BreadcrumbLinkWrapper>
+        </span>
         :
-        <BreadcrumbLink key={breadcrumb.name}>{breadcrumb.name}</BreadcrumbLink>)
+        <Link className="font-small" key={breadcrumb.name}>{breadcrumb.name}</Link>)
       }
     </div>
   );

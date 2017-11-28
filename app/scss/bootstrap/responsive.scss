@@ -1,0 +1,247 @@
+@mixin add-gutter-padding-top() {
+  padding-top: 15px;
+
+  @media (max-width: 767px) {
+    padding-top: 10px;
+  }
+}
+
+@mixin add-gutter-padding-right() {
+  padding-right: 15px;
+
+  @media (max-width: 767px) {
+    padding-right: 10px;
+  }
+}
+
+@mixin add-gutter-padding-bottom() {
+  padding-bottom: 15px;
+
+  @media (max-width: 767px) {
+    padding-bottom: 10px;
+  }
+}
+
+@mixin add-gutter-padding-left() {
+  padding-left: 15px;
+
+  @media (max-width: 767px) {
+    padding-left: 10px;
+  }
+}
+
+@mixin add-gutter-margin-top() {
+  margin-top: 15px;
+
+  @media (max-width: 767px) {
+    margin-top: 10px;
+  }
+}
+
+@mixin add-gutter-margin-right() {
+  margin-right: 15px;
+
+  @media (max-width: 767px) {
+    margin-right: 10px;
+  }
+}
+
+@mixin add-gutter-margin-bottom() {
+  margin-bottom: 15px;
+
+  @media (max-width: 767px) {
+    margin-bottom: 10px;
+  }
+}
+
+@mixin add-gutter-margin-left() {
+  margin-left: 15px;
+
+  @media (max-width: 767px) {
+    margin-left: 10px;
+  }
+}
+
+
+.add-gutter-margin-top {
+  @include add-gutter-margin-top();
+}
+
+.add-gutter-padding-top {
+  @include add-gutter-padding-top();
+}
+
+.add-gutter-top {
+  @include add-gutter-margin-top();
+  @include add-gutter-padding-top();
+}
+
+.add-gutter-margin-right {
+  @include add-gutter-margin-right();
+}
+
+.add-gutter-padding-right {
+  @include add-gutter-padding-right();
+}
+
+.add-gutter-right {
+  @include add-gutter-margin-right();
+  @include add-gutter-padding-right();
+}
+
+.add-gutter-margin-bottom {
+  @include add-gutter-margin-bottom();
+}
+
+.add-gutter-padding-bottom {
+  @include add-gutter-padding-bottom();
+}
+
+.add-gutter-bottom {
+  @include add-gutter-margin-bottom();
+  @include add-gutter-padding-bottom();
+}
+
+.add-gutter-margin-left {
+  @include add-gutter-margin-left();
+}
+
+.add-gutter-padding-left {
+  @include add-gutter-padding-left();
+}
+
+.add-gutter-left {
+  @include add-gutter-margin-left();
+  @include add-gutter-padding-left();
+}
+
+.no-top-margin {
+  margin-top: 0 !important;
+}
+
+.no-top-padding {
+  padding-top: 0 !important;
+}
+
+.no-top-gutter {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.no-right-margin {
+  margin-right : 0 !important;
+}
+
+.no-right-padding {
+  padding-right: 0 !important;
+}
+
+.no-right-gutter {
+  padding-right: 0 !important;
+}
+
+.no-bottom-margin {
+  margin-bottom: 0 !important;
+}
+
+.no-bottom-padding {
+  padding-bottom: 0 !important;
+}
+
+.no-bottom-gutter {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.no-left-padding {
+  padding-left: 0 !important;
+}
+
+.no-left-margin {
+  margin-left: 0 !important;
+}
+
+.no-left-gutter {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+.no-gutters {
+  margin: 0 0 0 0 !important;
+  padding: 0 0 0 0 !important;
+}
+
+.hidden-xs-down {
+  @include media-breakpoint-down(xs) {
+    display: none;
+  }
+}
+
+.hidden-sm-down {
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
+}
+
+.hidden-md-down {
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+.hidden-lg-down {
+  @include media-breakpoint-down(lg) {
+    display: none;
+  }
+}
+
+.visible-lg-down {
+  display: none;
+  @include media-breakpoint-down(lg) {
+    display: block;
+  }
+}
+
+.visible-sm-down {
+  display: none;
+  @include media-breakpoint-down(sm) {
+    display: block;
+  }
+}
+
+.add-gutter-top-xl-down {
+  @include media-breakpoint-down(xl) {
+    @include add-gutter-margin-top();
+    @include add-gutter-padding-top();
+  }
+}
+
+.add-gutter-top-lg-down {
+  @include media-breakpoint-down(lg) {
+    @include add-gutter-margin-top();
+    @include add-gutter-padding-top();
+  }
+}
+
+.add-gutter-top-md-down {
+  @include media-breakpoint-down(md) {
+    @include add-gutter-margin-top();
+    @include add-gutter-padding-top();
+  }
+}
+
+
+.add-gutter-top-sm-down {
+  @include media-breakpoint-down(sm) {
+    @include add-gutter-margin-top();
+    @include add-gutter-padding-top();
+  }
+}
+
+.add-gutter-top-xs-down {
+  @include media-breakpoint-down(xs) {
+    @include add-gutter-margin-top();
+    @include add-gutter-padding-top();
+  }
+}
+
