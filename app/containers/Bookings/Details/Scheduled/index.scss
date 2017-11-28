@@ -37,6 +37,11 @@
 
   @include media-breakpoint-down(lg) {
 
+    .back-to-quicklook {
+      @include add-gutter-margin-top();
+      color: red;
+    }
+
     div[class^="col-"] {
 
       .whereabouts-startTime {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm, Field, formValueSelector } from 'redux-form/immutable';
 import { createStructuredSelector } from 'reselect';
@@ -20,57 +20,49 @@ import './index.scss';
 
 const selector = formValueSelector('addCaseNote');
 
-class AddCaseNoteForm extends Component {
+const AddCaseNoteForm = ({
+      handleSubmit,
+      submitting,
+      error,
+      caseNoteTypes,
+      locale,
+      typeValue,
+      bookingDetailsId,
+      goBackToBookingDetails }) =>
 
-  constructor(props) {
-    super(props);
-    this.goBackToBookingDetails = this.goBackToBookingDetails.bind(this);
-  }
+  <div className="add-case-note">
+    <h1 className="bold-large">Add new case note</h1>
+    <form onSubmit={handleSubmit}>
+      <SubmissionError error={error}>{error}</SubmissionError>
 
-  goBackToBookingDetails() {
-    this.props.dispatch(viewDetails(this.props.bookingDetailsId, DETAILS_TABS.CASE_NOTES));
-  }
+      <TypeAndSubTypeSelector selectedType={typeValue} types={caseNoteTypes.types} subTypes={caseNoteTypes.subTypes} />
 
-  render() {
-    const { handleSubmit, submitting, error, caseNoteTypes, locale, typeValue } = this.props;
+      <Field name="caseNoteText" component={TextArea} title="Case note" autocomplete="off" spellcheck="true" />
 
-    return (
-      <div className="add-case-note">
-        <h1 className="bold-large">Add new case note</h1>
-        <form onSubmit={handleSubmit}>
-          <SubmissionError error={error}>{error}</SubmissionError>
-
-          <TypeAndSubTypeSelector selectedType={typeValue} types={caseNoteTypes.types} subTypes={caseNoteTypes.subTypes} />
-
-          <Field name="caseNoteText" component={TextArea} title="Case note" autocomplete="off" spellcheck="true" />
-
-          <div className="occurrence-date-time">
-            <Field
-              name="occurrenceDateTime"
-              component={DateTimePicker}
-              editable
-              locale={locale}
-              title="Occurrence date and time:"
-              shouldShowDay={(date) => date.isBefore(moment())}
-            />
-          </div>
-
-          <div className="actions">
-
-            <button className="button col-xs-12 col-sm-4" type="submit" disabled={submitting}>
-              Save case note
-            </button>
-
-            <button className="cancel-button col-xs-12 col-sm-2" type="reset" onClick={this.goBackToBookingDetails}>
-              Cancel
-            </button>
-
-          </div>
-        </form>
+      <div className="occurrence-date-time">
+        <Field
+          name="occurrenceDateTime"
+          component={DateTimePicker}
+          editable
+          locale={locale}
+          title="Occurrence date and time:"
+          shouldShowDay={(date) => date.isBefore(moment())}
+        />
       </div>
-    );
-  }
-}
+
+      <div className="actions">
+
+        <button className="button col-xs-12 col-sm-4" type="submit" disabled={submitting}>
+          Save case note
+        </button>
+
+        <button className="cancel-button col-xs-12 col-sm-2" type="reset" onClick={() => goBackToBookingDetails(bookingDetailsId)}>
+          Cancel
+        </button>
+
+      </div>
+    </form>
+  </div>
 
 AddCaseNoteForm.propTypes = {
   caseNoteTypes: PropTypes.object.isRequired,
@@ -85,8 +77,9 @@ AddCaseNoteForm.defaultProps = {
   error: '',
 };
 
-export function mapDispatchToProps() {
+export function mapDispatchToProps(dispatch) {
   return {
+    goBackToBookingDetails: (bookingId) => dispatch(viewDetails(bookingId, DETAILS_TABS.CASE_NOTES)),
     onSubmit: createFormAction((formData) => (
       {
         type: ADD_NEW_CASENOTE.BASE,

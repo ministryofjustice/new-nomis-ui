@@ -14,7 +14,7 @@ class Breadcrumbs extends Component {
 
   static contextTypes = {
     intl: intlShape.isRequired,
-  }
+  };
 
   render() {
     const { user, deviceFormat, route, searchContext } = this.props;
