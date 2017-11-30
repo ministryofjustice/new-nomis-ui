@@ -6,11 +6,12 @@ const longName = (label) => ({
   PRRD: 'Post-recall release date',
   HDCED: 'Home det. eligibility date',
   PED: 'Parole eligibility date',
-  HDCAD: 'HDC eligibility date',
-  APD: 'Approved parole date',
+  HDCAD: 'Home det. actual date',
+  APD: 'Actual parole date',
   ROTL: 'Release on temp. licence date',
   ERSED: 'Early removal scheme eligibility date',
   LED: 'Licence expiry date',
+  TD: 'Tariff date',
 
 }[label] || label);
 
@@ -19,12 +20,13 @@ const removeBlankEntries = (array) => array.filter(value => !!value);
 
 const otherDates = (data) => Object.assign({}, {
   dates: removeBlankEntries([
+    labelValue({ label: longName('TD'), value: data.tariffDate }),
     labelValue({ label: longName('HDCED'), value: data.homeDetentionCurfewEligibilityDate }),
     labelValue({ label: longName('PED'), value: data.paroleEligibilityDate }),
     labelValue({ label: longName('HDCAD'), value: data.homeDetentionCurfewActualDate }),
-    labelValue({ label: longName('APD'), value: data.approvedParoleDate }),
+    labelValue({ label: longName('APD'), value: data.actualParoleDate }),
     labelValue({ label: longName('ROTL'), value: data.releaseOnTemporaryLicenceDate }),
-    labelValue({ label: longName('ERSED'), value: data.earlyReleaseSchemeEligibilityDate }),
+    labelValue({ label: longName('ERSED'), value: data.earlyRemovalSchemeEligibilityDate }),
     labelValue({ label: longName('LED'), value: data.licenceExpiryDate }),
   ]),
 });
