@@ -112,7 +112,7 @@ export const Balances = ({ spends, cash, savings, currency }) =>
     </div>
 </div>
 
-export const OffenceDetails = ({ offences, releaseDate, tariffDate }) =>
+export const OffenceDetails = ({ offences, releaseDate, indeterminateReleaseDate }) =>
   <div>
 
     {!offences && <div> No offence details are available at this time </div>}
@@ -134,7 +134,7 @@ export const OffenceDetails = ({ offences, releaseDate, tariffDate }) =>
     </div>
     )}
 
-    {(releaseDate || tariffDate) &&
+    {(releaseDate || indeterminateReleaseDate) &&
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
         <label>
@@ -316,7 +316,7 @@ class QuickLook extends Component {
 
     if (!viewModel) { return <div>Loading....</div> }
 
-    const { balance, offences, releaseDate, tariffDate, activities, positiveCaseNotes, negativeCaseNotes, nextOfKin, adjudications } = (viewModel && viewModel.toJS());
+    const { balance, offences, releaseDate, indeterminateReleaseDate, activities, positiveCaseNotes, negativeCaseNotes, nextOfKin, adjudications } = (viewModel && viewModel.toJS());
     const { awards, proven } = adjudications;
 
     return (<div className="quick-look">
@@ -335,7 +335,7 @@ class QuickLook extends Component {
           <h3 className="heading-medium">
             Offences
           </h3>
-           <OffenceDetails offences={offences} releaseDate={releaseDate} tariffDate={tariffDate} />
+           <OffenceDetails offences={offences} releaseDate={releaseDate} indeterminateReleaseDate={indeterminateReleaseDate} />
         </div>
       </div>
 
