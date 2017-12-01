@@ -24,3 +24,10 @@ a.link{
 .form-control {
   background-color: white;
 }
+
+@media (min-width: 39rem) {
+  p {
+    width: 39rem;
+  }
+}
+

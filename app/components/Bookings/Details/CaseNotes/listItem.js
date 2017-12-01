@@ -58,18 +58,20 @@ function AmendmentBlock({ amendment }) {
               <div>
                   Amendment
               </div>
-              <FormattedDate value={Date.parse(amendment.creationDateTime)} /> <FormattedTime value={amendment.creationDateTime} />
             </Bold>
 
-            <Separator>
-              -
-            </Separator>
+            <p>
+              {amendment.additionalNoteText}
+            </p>
 
-            {amendment.authorName}
           </div>
 
+          <b>
+              <FormattedDate value={Date.parse(amendment.creationDateTime)} /> {' - '} <FormattedTime value={amendment.creationDateTime} />
+          </b>
+
           <div>
-            {amendment.additionalNoteText}
+            {amendment.authorName}
           </div>
 
         </AmendmentBox>
@@ -110,11 +112,11 @@ function CaseNoteListItem(props) {
             </span>
           </Bold>
 
-          <Separator className="hidden-md hidden-lg hidden-lx"> </Separator>
+          <Separator className="hidden-md hidden-lg hidden-xl"> </Separator>
           <span className="col-md-12">{authorName}</span>
         </Block>
 
-        <div className="col-xs-12 col-md-10">
+        <div className="col-xs-12 col-md-7">
           <Block>
             <Bold>
               {typeDescription} | {subTypeDescription}
@@ -122,7 +124,9 @@ function CaseNoteListItem(props) {
           </Block>
 
           <Block>
-            {originalNoteText}
+            <p>
+              {originalNoteText}
+            </p>
             <div>
               {amendmentList}
             </div>

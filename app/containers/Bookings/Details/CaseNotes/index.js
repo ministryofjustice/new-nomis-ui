@@ -15,9 +15,7 @@ import {
 } from '../../selectors';
 
 import CaseNoteList from './caseNoteList';
-import CaseNoteListMobile from './caseNoteListMobile';
 import CaseNoteDetails from './caseNoteDetails';
-import CaseNoteDetailsMobile from './caseNoteDetailsMobile';
 
 import {
   selectCaseNotes,
@@ -40,13 +38,10 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
 
   render() {
     const { caseNotesView, openAmendModal, displayAmendCaseNoteModal, deviceFormat } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
-
     if (caseNotesView === 'LIST') {
-      return deviceFormat === 'desktop' ? <CaseNoteList /> : <CaseNoteListMobile />;
+      return <CaseNoteList />
     }
-    return deviceFormat === 'desktop' ?
-      <CaseNoteDetails displayAmendCaseNoteModal={displayAmendCaseNoteModal} openAmendModal={openAmendModal} /> :
-      <CaseNoteDetailsMobile />;
+    return <CaseNoteDetails displayAmendCaseNoteModal={displayAmendCaseNoteModal} openAmendModal={openAmendModal} />
   }
 }
 
