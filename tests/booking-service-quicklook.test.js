@@ -333,4 +333,53 @@ describe('Booking Service Quick look', () => {
     expect(elite2Api.getContacts).to.be.called;
     expect(data.nextOfKin.length).to.equal(0);
   });
+
+  it('should return true for indeterminateReleaseDate when there is a tariff date but no release date', async () => {
+    elite2Api.getSentenceData.returns({
+      tariffDate: '2017-01-01',
+    });
+
+    const data = await bookingService.getQuickLookViewModel(req);
+
+    expect(elite2Api.getSentenceData).to.be.called;
+    expect(data.tariffDate).to.equal('2017-01-01');
+    expect(data.indeterminateReleaseDate).to.be.true;
+  });
+
+  it('should return false for indeterminateReleaseDate when there is a release date and there is a tariff date', async () => {
+    elite2Api.getSentenceData.returns({
+      releaseDate: '2016-12-12',
+      tariffDate: '2017-01-01',
+    });
+
+    const data = await bookingService.getQuickLookViewModel(req);
+
+    expect(elite2Api.getSentenceData).to.be.called;
+    expect(data.releaseDate).to.equal('2016-12-12');
+    expect(data.tariffDate).to.equal('2017-01-01');
+    expect(data.indeterminateReleaseDate).to.be.false;
+  });
+
+  it('should return false for indeterminateReleaseDate when there is a release date but there is no tariff date', async () => {
+    elite2Api.getSentenceData.returns({
+      releaseDate: '2016-12-12',
+    });
+
+    const data = await bookingService.getQuickLookViewModel(req);
+
+    expect(elite2Api.getSentenceData).to.be.called;
+    expect(data.releaseDate).to.equal('2016-12-12');
+    expect(data.indeterminateReleaseDate).to.be.false;
+  });
+
+  it('should return false for indeterminateReleaseDate when there is neither a release date or a tariff date', async () => {
+    elite2Api.getSentenceData.returns({
+      additionalDaysAwarded: 4,
+    });
+
+    const data = await bookingService.getQuickLookViewModel(req);
+
+    expect(elite2Api.getSentenceData).to.be.called;
+    expect(data.indeterminateReleaseDate).to.be.false;
+  });
 });
