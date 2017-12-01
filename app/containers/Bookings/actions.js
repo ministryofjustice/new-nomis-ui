@@ -16,7 +16,7 @@ import {
   VIEW_CASENOTE_LIST,
   SET_ADD_CASENOTE_MODAL,
   ADD_NEW_CASENOTE,
-  SET_AMEND_CASENOTE_MODAL,
+  SET_AMEND_CASENOTE,
   SHOW_LARGE_PHOTO_BOOKING_DETAILS,
   HIDE_LARGE_PHOTO_BOOKING_DETAILS,
   LOAD_LOCATIONS,
@@ -98,13 +98,13 @@ export function closeAddCaseNoteModal() {
 }
 export function openAmendCaseNoteModal() {
   return {
-    type: SET_AMEND_CASENOTE_MODAL,
+    type: SET_AMEND_CASENOTE,
     payload: true,
   };
 }
 export function closeAmendCaseNoteModal() {
   return {
-    type: SET_AMEND_CASENOTE_MODAL,
+    type: SET_AMEND_CASENOTE,
     payload: false,
   };
 }

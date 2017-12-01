@@ -3,18 +3,19 @@ import PropTypes from 'prop-types';
 import { FormattedDate, FormattedTime } from 'react-intl';
 
 import {
-  DateBlock,
-  TimeBlock,
   TypeDescription,
 } from './listItem.theme';
 
 export const DateTimeBlock = ({ dateTime }) => <div>
-  <DateBlock>
+  <span>
     <FormattedDate value={Date.parse(dateTime)} />
-  </DateBlock>
-  <TimeBlock>
+  </span>
+  <span>
+    {' - '}
+  </span>
+  <span>
     <FormattedTime value={Date.parse(dateTime)} />
-  </TimeBlock>
+  </span>
 </div>;
 
 DateTimeBlock.propTypes = {
@@ -24,7 +25,7 @@ DateTimeBlock.propTypes = {
 export const TypeDescriptionBlock = ({ typeDetails }) => {
   const { typeDescription, subTypeDescription } = typeDetails;
   return (<TypeDescription>
-    {typeDescription} - {subTypeDescription}
+    {typeDescription} {'|'} {subTypeDescription}
   </TypeDescription>);
 };
 

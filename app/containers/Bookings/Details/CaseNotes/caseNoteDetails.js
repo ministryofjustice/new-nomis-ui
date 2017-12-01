@@ -17,15 +17,21 @@ import {
 class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   render() {
-    const { viewList, caseNoteDetails, openAmendModal, displayAmendCaseNoteModal } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
+    const { viewList, caseNoteDetails, openAmendModal, displayAmendCaseNoteModal } = this.props;
 
-    return (caseNoteDetails && <CaseNoteDetailsBlock displayAmendCaseNoteModal={displayAmendCaseNoteModal} viewList={viewList} caseNote={caseNoteDetails} openAmendModal={openAmendModal} />) || null;
+    return (caseNoteDetails &&
+     <div>
+       <CaseNoteDetailsBlock
+         displayAmendCaseNoteModal={displayAmendCaseNoteModal}
+         viewList={viewList} caseNote={caseNoteDetails}
+         openAmendModal={openAmendModal}
+       />
+     </div>) || null;
   }
 }
 
 CaseNotes.propTypes = {
   viewList: PropTypes.func.isRequired,
-  openAmendModal: PropTypes.func.isRequired,
   displayAmendCaseNoteModal: PropTypes.bool.isRequired,
 };
 

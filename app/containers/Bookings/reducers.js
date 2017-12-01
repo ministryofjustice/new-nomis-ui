@@ -33,7 +33,7 @@ import {
   SET_ALERTS_PAGINATION,
   SET_CASENOTES_PAGINATION,
   SET_ADD_CASENOTE_MODAL,
-  SET_AMEND_CASENOTE_MODAL,
+  SET_AMEND_CASENOTE,
   CASE_NOTE_FILTER,
   SET_LARGE_PHOTO_VISIBILITY,
   SET_LOCATIONS,
@@ -171,7 +171,7 @@ function searchReducer(state = initialState, action) {
       return state.setIn(['details', 'caseNotes', 'caseNoteDetailId'], null).setIn(['details', 'caseNotes', 'viewId'], 0);
     }
 
-    case SET_AMEND_CASENOTE_MODAL: {
+    case SET_AMEND_CASENOTE: {
       return state.setIn(['details', 'caseNotes', 'amendCaseNoteModal'], action.payload);
     }
 

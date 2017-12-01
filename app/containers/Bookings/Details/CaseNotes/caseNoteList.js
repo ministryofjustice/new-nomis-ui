@@ -25,8 +25,6 @@ import {
   setCaseNotesDetailView,
 } from '../../actions';
 
-import { CaseNoteList } from './caseNoteList.theme';
-
 class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentWillMount() {
@@ -44,12 +42,12 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
             <div>
               <NoSearchResultsReturnedMessage resultCount={caseNotes.toJS().length} />
             </div>
-            <CaseNoteList>
+            <div className="add-gutter-top">
               {caseNotes.map((caseNote) => <CaseNoteListItem
                 action={() => setCaseNoteView(caseNote.get('caseNoteId'))}
                 caseNote={caseNote} key={caseNote.get('caseNoteId')}
               />)}
-            </CaseNoteList>
+            </div>
             <PreviousNextNavigation pagination={caseNotesPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)} />
           </div>
           :

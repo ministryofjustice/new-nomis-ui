@@ -51,7 +51,7 @@ export const VIEW_CASENOTE_DETAILS = 'app/bookings/details/casenotes/view/detail
 export const SET_CASENOTE_DETAILS = 'app/bookings/details/casenotes/details/set';
 
 export const SET_ADD_CASENOTE_MODAL = 'app/bookings/details/addCaseNotesModal';
-export const SET_AMEND_CASENOTE_MODAL = 'app/bookings/details/casenotes/amendCaseNotesModal';
+export const SET_AMEND_CASENOTE = 'app/bookings/details/casenotes/amendCaseNotes';
 
 export const SHOW_LARGE_PHOTO_BOOKING_DETAILS = 'SHOW_LARGE_PHOTO_BOOKING_DETAILS';
 export const HIDE_LARGE_PHOTO_BOOKING_DETAILS = 'HIDE_LARGE_PHOTO_BOOKING_DETAILS';

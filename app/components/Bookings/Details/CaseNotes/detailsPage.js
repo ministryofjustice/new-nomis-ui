@@ -1,84 +1,122 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedDate, FormattedTime } from 'react-intl';
+import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { createStructuredSelector } from 'reselect';
+
 
 import AmendCaseNoteModal from 'containers/Bookings/Details/CaseNotes/AmendCaseNoteModal';
 
+import { viewDetails } from 'containers/Bookings/actions';
+import { DETAILS_TABS } from 'containers/Bookings/constants';
+
 import {
-  CaseNoteDetailsWrapper,
-  CaseNoteDetailsLeft,
-  CaseNoteDetailsRight,
-  RightHeader,
-  CaseNoteText,
-  AmendmentButton,
-  Amendment,
-  AmendmentHeader,
-  AmendmentTitle,
-  AmendmentText,
-} from './detailsPage.theme';
+  selectBookingDetailsId,
+  selectScheduledEvents,
+  selectHeaderDetail,
+  selectCurrentFilter,
+} from 'containers/Bookings/selectors'
 
 import {
   DateTimeBlock,
-  TypeDescriptionBlock,
 } from './sharedCaseNoteComponents';
 
-const AmendmentBlock = ({ dateTime, authorName, text }) => (<Amendment>
-  <AmendmentTitle>{text}</AmendmentTitle>
-  <AmendmentHeader>
-    {authorName}
-  </AmendmentHeader>
-  <AmendmentText>
-    <FormattedDate value={Date.parse(dateTime)} /> <FormattedTime value={Date.parse(dateTime)} />
-  </AmendmentText>
-</Amendment>);
+import './details-page.scss';
 
-AmendmentBlock.propTypes = {
-  dateTime: PropTypes.string.isRequired,
-  authorName: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-};
+const AmendmentBlock = ({ dateTime, authorName, text }) => (<div className="row amendment add-gutter-top">
+  <div className="content">
+    <h2 className="heading-small">Amendment</h2>
+    <p>
+      {text}
+    </p>
+    <h2 className="heading-small">
+      <DateTimeBlock dateTime={dateTime} />
+    </h2>
 
-function CaseNoteDetails(props) {
-  const { viewList, openAmendModal, displayAmendCaseNoteModal, caseNote } = props;
+    <div>
+      {authorName}
+    </div>
+  </div>
+</div>);
+
+
+const CaseNoteDetails = (props) => {
+  const { displayAmendCaseNoteModal, caseNote, backToCaseNotes,addAmendment } = props;
 
   if (!caseNote) {
     return <div>Loading..</div>
   }
 
-  const { authorName, originalNoteText, occurrenceDateTime, subTypeDescription, typeDescription, amendments } = caseNote.toJS(); // amendments
-  let amendmentList = null;
-  if (amendments && amendments.length > 0) {
-    amendmentList = amendments.map((am) => <AmendmentBlock key={am.creationDateTime} data-name={'AmendmentBlock'} dateTime={am.creationDateTime} authorName={am.authorName} text={am.additionalNoteText} />);
-  }
+  const {
+    authorName,
+    originalNoteText,
+    occurrenceDateTime,
+    subTypeDescription,
+    typeDescription,
+    amendments,
+    bookingId,
+  } = caseNote.toJS();
+  const amendmentList = amendments.map((am) =>
+    <AmendmentBlock
+      key={am.creationDateTime}
+      data-name={'AmendmentBlock'}
+      dateTime={am.creationDateTime}
+      authorName={am.authorName}
+      text={am.additionalNoteText}
+    />
+  );
+
   return (
-    <div>
+    <div className="case-note-details">
       {displayAmendCaseNoteModal ? <AmendCaseNoteModal /> : null}
-      <CaseNoteDetailsWrapper>
-        <CaseNoteDetailsLeft>
-          <DateTimeBlock dateTime={occurrenceDateTime} />
-          <AmendmentButton buttonstyle="link" onClick={openAmendModal}>Make amendment</AmendmentButton>
-          <AmendmentButton buttonstyle="link" onClick={viewList}>Return to case notes</AmendmentButton>
-        </CaseNoteDetailsLeft>
-        <CaseNoteDetailsRight>
-          <div>
-            <TypeDescriptionBlock typeDetails={{ typeDescription, subTypeDescription }} />
-            <CaseNoteText>{originalNoteText}</CaseNoteText>
-          </div>
-          <RightHeader>
-            {authorName}
-          </RightHeader>
-          {amendmentList}
-        </CaseNoteDetailsRight>
-      </CaseNoteDetailsWrapper>
+       <div className="row add-gutter-top">
+
+         <div className="col-lg-2">
+           <Link className="link clickable" onClick={() => backToCaseNotes(bookingId)}> {'<'} Back to list </Link>
+         </div>
+
+         <div className="col-lg-7">
+           <h2 className="heading-medium">
+             {typeDescription} {'|'} {subTypeDescription}
+           </h2>
+           <p>
+              {originalNoteText}
+           </p>
+
+           <h2 className="heading-small">
+             <DateTimeBlock dateTime={occurrenceDateTime} />
+           </h2>
+
+           <div>
+             {authorName}
+           </div>
+           {amendmentList}
+
+           <div className="add-gutter-top add-gutter-bottom">
+             <button className="button-grey" onClick={() => addAmendment()}>Make amendment</button>
+           </div>
+         </div>
+       </div>
     </div>
   );
 }
 
 CaseNoteDetails.propTypes = {
   caseNote: PropTypes.object.isRequired,
-  viewList: PropTypes.func.isRequired,
-  openAmendModal: PropTypes.func.isRequired,
   displayAmendCaseNoteModal: PropTypes.bool.isRequired,
 };
 
-export default CaseNoteDetails;
+export function mapDispatchToProps(dispatch) {
+  return {
+    backToCaseNotes: (bookingId) => dispatch(viewDetails(bookingId, DETAILS_TABS.CASE_NOTES)),
+    addAmendment: () => dispatch(push('/amendCaseNote')),
+  }
+}
+
+
+const mapStateToProps = createStructuredSelector({
+  bookingId: selectBookingDetailsId(),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(CaseNoteDetails);
+
