@@ -27,6 +27,8 @@ const getContacts = (req) => getRequest({ req, url: `bookings/${req.params.booki
 const getAdjudications = ({ req , fromDate }) => getRequest({ req, url: `bookings/${req.params.bookingId}/adjudications?fromDate=${fromDate}` });
 const getEventsForThisWeek = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/events/thisWeek` });
 const getEventsForNextWeek = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/events/nextWeek` });
+const getCategoryAssessment = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/assessment/CATEGORY` });
+
 
 const getPositiveCaseNotes = ({ req, fromDate, toDate }) => getRequest({
   req,
@@ -112,6 +114,7 @@ const service = {
   getAdjudications,
   getEventsForThisWeek,
   getEventsForNextWeek,
+  getCategoryAssessment,
 };
 
 module.exports = service;
