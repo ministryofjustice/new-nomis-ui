@@ -56,6 +56,7 @@ const durationText = (award) => {
 const getKeyDatesVieModel = async (req) => {
   const sentenceData = await elite2Api.getSentenceData(req);
   const iepSummary = (await elite2Api.getIepSummary(req));
+  const categoryAssessment = await elite2Api.getCategoryAssessment(req);
 
   const sentence = keyDatesMapper.sentence(sentenceData);
   const other = keyDatesMapper.otherDates(sentenceData);
@@ -65,6 +66,7 @@ const getKeyDatesVieModel = async (req) => {
     daysSinceReview: iepSummary.daysSinceReview,
     sentence,
     other,
+    reCategorisationDate: categoryAssessment && categoryAssessment.nextReviewDate,
   };
 };
 

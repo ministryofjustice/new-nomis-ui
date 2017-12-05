@@ -40,24 +40,18 @@ const ErrorMessage = () => (<div>
 </div>)
 
 
-const SentenceView = ({ startDate, additionalDaysAwarded, dtoReleaseDates, nonDtoReleaseDate, sentenceExpiryDates, other }) => {
+const SentenceView = ({ additionalDaysAwarded, dtoReleaseDates, nonDtoReleaseDate, sentenceExpiryDates, other,reCategorisationDate }) => {
   const shouldShowNonDtoReleaseDate = nonDtoReleaseDate && nonDtoReleaseDate.label && nonDtoReleaseDate.value;
   const shouldShowOtherDates = other && other.dates && other.dates.length > 0;
 
-  if (
-    !startDate &&
-    !additionalDaysAwarded &&
-    !nonDtoReleaseDate) {
-    return <div></div>
-  }
-
   return (<div>
     <h3 className="heading-medium">
-      Sentence key dates
+      Key dates
     </h3>
 
     <div className="section">
       <div className="information-group">
+
         { (dtoReleaseDates || []).map(pair => <KeyDatePair key={pair.label} title={pair.label} date={pair.value} />)}
         { additionalDaysAwarded && additionalDaysAwarded !== 0 ? <KeyDatePair title=" Additional days awarded" text={additionalDaysAwarded} /> : null}
         { (sentenceExpiryDates || []).map(pair => <KeyDatePair title={pair.label} date={pair.value} />)}
@@ -65,6 +59,7 @@ const SentenceView = ({ startDate, additionalDaysAwarded, dtoReleaseDates, nonDt
         { shouldShowOtherDates &&
           other.dates.map(otherDate => <KeyDatePair key={otherDate.label} title={otherDate.label} date={otherDate.value} />)
         }
+        <KeyDatePair title="Re-categorisation date" date={reCategorisationDate} />
 
       </div>
     </div>
@@ -83,7 +78,7 @@ class KeyDates extends Component {
     if (error) { return <ErrorMessage /> }
     if (!viewModel) { return <div>Loading....</div> }
 
-    const { iepLevel, daysSinceReview, sentence, other } = viewModel && viewModel.toJS();
+    const { iepLevel, daysSinceReview, sentence, other, reCategorisationDate } = viewModel && viewModel.toJS();
     return (
         <div className="key-dates">
 
@@ -117,7 +112,7 @@ class KeyDates extends Component {
             </div>
           </div>
 
-          { sentence && <SentenceView {...sentence} other={other} /> }
+          { sentence && <SentenceView {...sentence} other={other} reCategorisationDate={reCategorisationDate} /> }
         </div>
     )
   }
