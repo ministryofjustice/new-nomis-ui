@@ -59,7 +59,18 @@ const SentenceView = ({ additionalDaysAwarded, dtoReleaseDates, nonDtoReleaseDat
         { shouldShowOtherDates &&
           other.dates.map(otherDate => <KeyDatePair key={otherDate.label} title={otherDate.label} date={otherDate.value} />)
         }
-        <KeyDatePair title="Re-categorisation date" date={reCategorisationDate} />
+
+        <div className="information">
+          <label>
+            Re-categorisation date
+          </label>
+
+          <b>
+            {reCategorisationDate || '--'}
+            {reCategorisationDate && <FormattedDate value={reCategorisationDate} /> }
+          </b>
+
+        </div>
 
       </div>
     </div>
