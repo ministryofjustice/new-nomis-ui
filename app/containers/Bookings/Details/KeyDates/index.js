@@ -66,7 +66,7 @@ const SentenceView = ({ additionalDaysAwarded, dtoReleaseDates, nonDtoReleaseDat
           </label>
 
           <b>
-            {reCategorisationDate || '--'}
+            {!reCategorisationDate && '--'}
             {reCategorisationDate && <FormattedDate value={reCategorisationDate} /> }
           </b>
 
