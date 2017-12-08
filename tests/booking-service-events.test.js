@@ -196,6 +196,7 @@ describe('Booking service events', () => {
         eventSubTypeDesc: 'appointment',
         eventSourceDesc: 'health check up',
         startTime: '2017-12-12T09:00:00',
+        endTime: '2017-12-12T11:30:00',
         eventStatus: 'SCH',
         eventDate: today,
       },
@@ -204,7 +205,7 @@ describe('Booking service events', () => {
         eventSubTypeDesc: 'appointment',
         eventSourceDesc: 'health check up',
         startTime: '2017-12-12T09:00:00',
-        endTime: '2017-12-12T11:30:00',
+        endTime: null,
         eventStatus: 'SCH',
         eventDate: today,
       },
@@ -217,13 +218,12 @@ describe('Booking service events', () => {
         eventStatus: 'SCH',
         eventDate: today,
       },
-
     ]);
 
     const data = await bookingService.getScheduledEventsForThisWeek(req);
 
     expect(data[0].forMorning[0].startTime).to.equal('2017-12-12T09:00:00');
-    expect(data[0].forMorning[0].endTime).to.equal(undefined);
+    expect(data[0].forMorning[0].endTime).to.equal(null);
 
     expect(data[0].forMorning[1].startTime).to.equal('2017-12-12T09:00:00');
     expect(data[0].forMorning[1].endTime).to.equal('2017-12-12T10:00:00');

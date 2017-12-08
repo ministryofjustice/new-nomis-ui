@@ -60,6 +60,19 @@ const durationText = (award) => {
        (award.days && `${award.days} ${pluraliseDay(award.days)}`);
 };
 
+const byStartTimeThenByEndTime = (a,b) => {
+  if (moment(a.startTime).isBefore(moment(b.startTime))) { return -1; }
+  if (moment(a.startTime).isAfter(moment(b.startTime))) { return 1; }
+
+  if (!a.endTime) return -1;
+  if (!b.endTime) return 1;
+
+  if (moment(a.endTime).isBefore(moment(b.endTime))) { return -1; }
+  if (moment(a.endTime).isAfter(moment(b.endTime))) { return 1; }
+
+  return 0;
+}
+
 const getKeyDatesVieModel = async (req) => {
   const sentenceData = await elite2Api.getSentenceData(req);
   const iepSummary = (await elite2Api.getIepSummary(req));
@@ -113,8 +126,12 @@ const getQuickLookViewModel = async (req) => {
   const afternoonActivity = filterAfternoon(activityData);
 
   const activities = {
-    morningActivities: morningActivity && morningActivity.map(data => toEvent(data)),
-    afternoonActivities: afternoonActivity && afternoonActivity.map(data => toEvent(data)),
+    morningActivities: morningActivity && morningActivity
+      .map(data => toEvent(data))
+      .sort(byStartTimeThenByEndTime),
+    afternoonActivities: afternoonActivity && afternoonActivity
+      .map(data => toEvent(data))
+      .sort(byStartTimeThenByEndTime),
   };
 
   const offenceDetails = offenceData && offenceData.map(offenceDetail => ({
@@ -169,15 +186,7 @@ const buildScheduledEvents = (data, calendarView) => {
       .filter(key => moment(key).format(isoDateFormat) === view.date.format(isoDateFormat))
       .map(date => groupedByDate[date])
       .reduce((result,current) => result.concat(current),[])
-      .sort((a,b) => {
-        if (moment(a.startTime).isBefore(moment(b.startTime))) { return -1; }
-        if (moment(a.startTime).isAfter(moment(b.startTime))) { return 1; }
-
-        if (moment(a.endTime).isBefore(moment(b.endTime))) { return -1; }
-        if (moment(a.endTime).isAfter(moment(b.endTime))) { return 1; }
-
-        return 0;
-      })
+      .sort(byStartTimeThenByEndTime)
       .filter(event => event.eventStatus === 'SCH');
 
     return {
