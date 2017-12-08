@@ -167,7 +167,7 @@ export const Activities = ({ activities, period }) => <div>
     {(!activities || activities.length === 0) &&
       <div>
         <div className="col-lg-6 col-xs-6">
-          <label>{"Today's"} scheduled is empty</label>
+          <label>{"Today's"} schedule is empty</label>
         </div>
       </div>
     }
