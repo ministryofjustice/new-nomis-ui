@@ -384,7 +384,7 @@ class QuickLook extends Component {
           { activities && <Activities activities={activities.afternoonActivities} period={'Afternoon (PM)'} /> }
           { !activities && <div>No activity assigned</div> }
 
-          <Link className="link" to={'/bookings/details/scheduled'}> Seven day scheduled</Link>
+          <Link className="link" to={'/bookings/details/scheduled'}> Seven day schedule</Link>
         </div>
       </div>
 
