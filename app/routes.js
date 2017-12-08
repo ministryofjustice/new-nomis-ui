@@ -113,24 +113,6 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/sessionTimeout',
-      name: 'sessionTimeout',
-      onEnter: onEnter({ authRequired: false, routeName: 'session timed out' }),
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/SessionTimeout'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([component]) => {
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    },
-    {
       path: '/modalMobile',
       name: 'modalMobile',
       onEnter: onEnter({ authRequired: true, routeName: 'modalMobile' }),

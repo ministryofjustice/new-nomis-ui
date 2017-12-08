@@ -39,11 +39,8 @@ export default function registerSessionTimeoutHandler(store) {
     const loggedIn = selectLoggedIn()(store.getState());
 
     if (status === 401 && loggedIn) {
-      store.dispatch({
-        type: LOGOUT_SUCCESS,
-      });
-      store.dispatch(push('/sessionTimeout'));
-      return null;
+      alert('Your session has expired, please click OK to be redirected back to the login page');
+      window.location = '/login';
     }
     return Promise.reject(error);
   });
