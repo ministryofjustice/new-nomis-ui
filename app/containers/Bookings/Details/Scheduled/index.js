@@ -82,7 +82,7 @@ class ScheduledEvents extends Component {
 
       <Link onClick={() => backToQuickLook(bookingId)} className="link" role="link"> {'<'} Back to quick look</Link>
 
-      <h1> Scheduled for {`${properCase(firstName)} ${properCase(lastName)}`} </h1>
+      <h1> Schedule for {`${properCase(firstName)} ${properCase(lastName)}`} </h1>
 
       <div className="row filters">
 
