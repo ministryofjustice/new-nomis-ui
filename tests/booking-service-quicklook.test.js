@@ -82,11 +82,13 @@ describe('Booking Service Quick look', () => {
   it('should call getEventsForToday', async () => {
     elite2Api.getEventsForToday.returns([
       {
+        eventSubType: 'PA',
         eventSourceDesc: 'workshop 1',
         startTime: '2017-01-01T10:41:10.572',
         endTime: '2017-01-01T10:41:10.572',
       },
       {
+        eventSubType: 'PA',
         eventSourceDesc: 'workshop 2',
         startTime: '2017-01-01T12:41:10.572',
         endTime: '2017-01-01T15:41:10.572',
@@ -100,11 +102,11 @@ describe('Booking Service Quick look', () => {
     expect(data.activities.morningActivities.length).to.equal(1);
     expect(data.activities.afternoonActivities.length).to.equal(1);
 
-    expect(data.activities.morningActivities[0].description).to.equal('workshop 1');
+    expect(data.activities.morningActivities[0].type).to.equal('workshop 1');
     expect(data.activities.morningActivities[0].startTime).to.equal('2017-01-01T10:41:10.572');
     expect(data.activities.morningActivities[0].endTime).to.equal('2017-01-01T10:41:10.572');
 
-    expect(data.activities.afternoonActivities[0].description).to.equal('workshop 2');
+    expect(data.activities.afternoonActivities[0].type).to.equal('workshop 2');
     expect(data.activities.afternoonActivities[0].startTime).to.equal('2017-01-01T12:41:10.572');
     expect(data.activities.afternoonActivities[0].endTime).to.equal('2017-01-01T15:41:10.572');
   });

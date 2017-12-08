@@ -24,11 +24,18 @@ const awardMapper = (award) => ({
   durationText: durationText(award),
 });
 
-const toEvent = (entry) => ({
-  description: entry.eventSourceDesc || entry.eventSubTypeDesc,
-  startTime: entry.startTime,
-  endTime: entry.endTime,
-});
+const getComment = (entry) => entry.eventSubType === 'PA' ? null : entry.eventSourceDesc;
+
+const toEvent = (entry) => {
+  const comment = getComment(entry);
+  return {
+    type: (entry.eventSubType === 'PA' && entry.eventSourceDesc) || entry.eventSubTypeDesc,
+    comment,
+    shortComment: comment && comment.length > 40 ? `${comment.substring(0, 40)}...` : comment,
+    startTime: entry.startTime,
+    endTime: entry.endTime,
+  }
+};
 
 const descriptionWithLimit = (award) => {
   switch (award.sanctionCode) {
@@ -162,6 +169,15 @@ const buildScheduledEvents = (data, calendarView) => {
       .filter(key => moment(key).format(isoDateFormat) === view.date.format(isoDateFormat))
       .map(date => groupedByDate[date])
       .reduce((result,current) => result.concat(current),[])
+      .sort((a,b) => {
+        if (moment(a.startTime).isBefore(moment(b.startTime))) { return -1; }
+        if (moment(a.startTime).isAfter(moment(b.startTime))) { return 1; }
+
+        if (moment(a.endTime).isBefore(moment(b.endTime))) { return -1; }
+        if (moment(a.endTime).isAfter(moment(b.endTime))) { return 1; }
+
+        return 0;
+      })
       .filter(event => event.eventStatus === 'SCH');
 
     return {

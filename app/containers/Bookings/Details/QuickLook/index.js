@@ -167,7 +167,7 @@ export const Activities = ({ activities, period }) => <div>
     {(!activities || activities.length === 0) &&
       <div>
         <div className="col-lg-6 col-xs-6">
-          <label>No activity assigned</label>
+          <label>{"Today's"} schedule is empty</label>
         </div>
       </div>
     }
@@ -179,9 +179,14 @@ export const Activities = ({ activities, period }) => <div>
         </div>
 
         <div className="col-lg-6 col-xs-6">
-          <b>
-            {activity.description}
-          </b>
+          <span>
+            <b> {activity.type} </b>
+            {activity.shortComment && <b>{' - '}</b>}
+          </span>
+
+          <span>
+            {activity.shortComment}
+          </span>
         </div>
         <div className="row add-padding-bottom">
           <div className="col-lg-6 col-xs-6">
@@ -373,11 +378,13 @@ class QuickLook extends Component {
 
         <div className="col-md-6 col-xs-12">
           <h3 className="heading-medium">
-              <Link className="link" to={'/bookings/details/scheduled'}> Scheduled</Link>
+             Scheduled for today
           </h3>
           { activities && <Activities activities={activities.morningActivities} period={'Morning (AM)'} /> }
           { activities && <Activities activities={activities.afternoonActivities} period={'Afternoon (PM)'} /> }
           { !activities && <div>No activity assigned</div> }
+
+          <Link className="link" to={'/bookings/details/scheduled'}> Seven day scheduled</Link>
         </div>
       </div>
 

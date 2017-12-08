@@ -34,7 +34,6 @@
     background: #D5E8F4;
   }
 
-
   @include media-breakpoint-down(lg) {
 
     .back-to-quicklook {
@@ -65,10 +64,10 @@
       display: inline-block;
       @include add-gutter-margin-right();
     }
+
     .whereabouts-date-header {
       display: inline-block;
     }
 
   }
-
 }

@@ -23,7 +23,7 @@ import { DETAILS_TABS } from '../../constants';
 
 import './index.scss';
 
-export const Event = ({ startTime,endTime, description }) =>
+export const Event = ({ startTime, endTime, type, shortComment }) =>
 <div className="row add-gutter-margin-bottom add-gutter-margin-bottom">
 
   <div className="col-xl-5 col-lg-6 col-md-6 col-xs-6">
@@ -36,12 +36,19 @@ export const Event = ({ startTime,endTime, description }) =>
   </div>
 
   <div className="col-xl-7 col-lg-6 col-md-6 col-xs-6">
-    <b>
-      {description}
-    </b>
-  </div>
 
+    <span>
+      <b> {type} </b>
+      {shortComment && <b>{' - '}</b>}
+    </span>
+
+    <span>
+       {shortComment}
+    </span>
+
+  </div>
 </div>
+
 
 export const DayAndDate = ({ value }) => <h1 className="heading-medium whereabouts-day-header">
   {moment(value).format('dddd')}
@@ -73,7 +80,7 @@ class ScheduledEvents extends Component {
 
     return (<div className="whereabouts add-gutter-top-md-down">
 
-      <Link onClick={() => backToQuickLook(bookingId)} className="link" role="link"> {'<'} Back to quicklook</Link>
+      <Link onClick={() => backToQuickLook(bookingId)} className="link" role="link"> {'<'} Back to quick look</Link>
 
       <h1> Scheduled for {`${properCase(firstName)} ${properCase(lastName)}`} </h1>
 

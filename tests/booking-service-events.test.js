@@ -28,6 +28,7 @@ describe('Booking service events', () => {
     sandbox.restore()
   });
 
+
   it('should call getScheduledEventsForThisWeek and return data with a slot for each day, for 7 days starting from today', async () => {
     elite2Api.getEventsForThisWeek.returns(null);
 
@@ -61,21 +62,6 @@ describe('Booking service events', () => {
     expect(data[6].date.format(isoDateFormat)).to.equal(startDate.add(1,'days').format(isoDateFormat));
   });
 
-  it('should use the eventSubTypeDesc when eventSourceDesc is missing', async () => {
-    const today = moment();
-    elite2Api.getEventsForThisWeek.returns([
-      {
-        eventSubTypeDesc: 'Prison Activity',
-        startTime: '2017-12-12T09:00:00',
-        endTime: '2017-12-12T10:00:00',
-        eventStatus: 'SCH',
-        eventDate: today,
-      },
-    ]);
-
-    const data = await bookingService.getScheduledEventsForThisWeek(req);
-    expect(data[0].forMorning[0].description).to.equal('Prison Activity');
-  });
 
   it('should place events into the correct weekly calender slot', async () => {
     const today = moment();
@@ -124,18 +110,125 @@ describe('Booking service events', () => {
     expect(data[3].forAfternoon.length).to.equal(1);
   });
 
-  it('should show the eventSubTypeDesc if no eventSourceDesc is supplied', async () => {
+  it('should use eventSourceDesc to indicate the type for activities only', async () => {
+    const today = moment().format('YYYY-MM-DD');
     elite2Api.getEventsForThisWeek.returns([
       {
-        eventSubTypeDesc: 'test',
+        eventSubType: 'PA',
+        eventSubTypeDesc: 'Prison Activity',
+        eventSourceDesc: 'Wing cleaner',
         startTime: '2017-12-12T09:00:00',
         endTime: '2017-12-12T10:00:00',
         eventStatus: 'SCH',
-        eventDate: moment(),
+        eventDate: today,
       },
     ]);
 
     const data = await bookingService.getScheduledEventsForThisWeek(req);
-    expect(data[0].forMorning[0].description).to.equal('test');
-  })
+    expect(data[0].forMorning[0].type).to.equal('Wing cleaner');
+  });
+
+  it('should use the eventSubTypeDesc when eventSourceDesc is missing', async () => {
+    const today = moment().format('YYYY-MM-DD');
+    elite2Api.getEventsForThisWeek.returns([
+      {
+        eventSubTypeDesc: 'Prison Activity',
+        startTime: '2017-12-12T09:00:00',
+        endTime: '2017-12-12T10:00:00',
+        eventStatus: 'SCH',
+        eventDate: today,
+      },
+    ]);
+
+    const data = await bookingService.getScheduledEventsForThisWeek(req);
+    expect(data[0].forMorning[0].type).to.equal('Prison Activity');
+  });
+
+
+  it('should format the event with the following subTypeDesc - sourceTypeDesc ', async () => {
+    const today = moment().format('YYYY-MM-DD');
+
+    elite2Api.getEventsForThisWeek.returns([
+      {
+        eventType: 'NOT_PA',
+        eventSubTypeDesc: 'appointment',
+        eventSourceDesc: 'health check up',
+        startTime: '2017-12-12T09:00:00',
+        endTime: '2017-12-12T10:00:00',
+        eventStatus: 'SCH',
+        eventDate: today,
+      },
+    ]);
+
+    const data = await bookingService.getScheduledEventsForThisWeek(req);
+
+    expect(data[0].forMorning[0].type).to.equal('appointment');
+    expect(data[0].forMorning[0].comment).to.equal('health check up');
+  });
+
+  it('should show use eventSourceDesc for an activities type', async () => {
+    const today = moment().format('YYYY-MM-DD');
+
+    elite2Api.getEventsForThisWeek.returns([
+      {
+        eventType: 'NOT_PA',
+        eventSubTypeDesc: 'appointment',
+        eventSourceDesc: 'health check up',
+        startTime: '2017-12-12T09:00:00',
+        endTime: '2017-12-12T10:00:00',
+        eventStatus: 'SCH',
+        eventDate: today,
+      },
+    ]);
+
+    const data = await bookingService.getScheduledEventsForThisWeek(req);
+
+    expect(data[0].forMorning[0].type).to.equal('appointment');
+    expect(data[0].forMorning[0].comment).to.equal('health check up');
+  });
+
+  it('should order events by start time then by end time', async () => {
+    const today = moment().format('YYYY-MM-DD');
+
+    elite2Api.getEventsForThisWeek.returns([
+      {
+        eventType: 'NOT_PA',
+        eventSubTypeDesc: 'appointment',
+        eventSourceDesc: 'health check up',
+        startTime: '2017-12-12T09:00:00',
+        eventStatus: 'SCH',
+        eventDate: today,
+      },
+      {
+        eventType: 'NOT_PA',
+        eventSubTypeDesc: 'appointment',
+        eventSourceDesc: 'health check up',
+        startTime: '2017-12-12T09:00:00',
+        endTime: '2017-12-12T11:30:00',
+        eventStatus: 'SCH',
+        eventDate: today,
+      },
+      {
+        eventType: 'NOT_PA',
+        eventSubTypeDesc: 'appointment',
+        eventSourceDesc: 'health check up',
+        startTime: '2017-12-12T09:00:00',
+        endTime: '2017-12-12T10:00:00',
+        eventStatus: 'SCH',
+        eventDate: today,
+      },
+
+    ]);
+
+    const data = await bookingService.getScheduledEventsForThisWeek(req);
+
+    expect(data[0].forMorning[0].startTime).to.equal('2017-12-12T09:00:00');
+    expect(data[0].forMorning[0].endTime).to.equal(undefined);
+
+    expect(data[0].forMorning[1].startTime).to.equal('2017-12-12T09:00:00');
+    expect(data[0].forMorning[1].endTime).to.equal('2017-12-12T10:00:00');
+
+    expect(data[0].forMorning[2].startTime).to.equal('2017-12-12T09:00:00');
+    expect(data[0].forMorning[2].endTime).to.equal('2017-12-12T11:30:00');
+  });
 });
