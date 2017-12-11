@@ -27,9 +27,9 @@ class EliteOfficerName extends PureComponent { // eslint-disable-line react/pref
     const { name } = this.props;
 
     if (name.firstName || name.lastName) {
-      return <span>{toFullName(name)}</span>;
+      return <span>{toFullName(name) || '--'}</span>;
     }
-    return <span>{name.staffId}</span>;
+    return <span>{name.staffId || '--'}</span>;
   }
 }
 
