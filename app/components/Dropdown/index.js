@@ -19,66 +19,48 @@ class Dropdown extends Component {
     this.state = {
       isOpen: false,
     };
-    this.mounted = true;
-    this.handleDocumentClick = this.handleDocumentClick.bind(this);
-    this.handleMouseDown = this.handleMouseDown.bind(this);
+
+    this.closeMenu = this.closeMenu.bind(this);
+    this.toggleMenu = this.toggleMenu.bind(this);
   }
 
-  componentDidMount() {
-    document.addEventListener('mousedown', this.handleDocumentClick, false);
-    document.addEventListener('touchend', this.handleDocumentClick, false);
+  closeMenu() {
+    this.setState({ isOpen: false });
   }
-
-  componentWillUnmount() {
-    this.mounted = false;
-    document.removeEventListener('mousedown', this.handleDocumentClick, false);
-    document.removeEventListener('touchend', this.handleDocumentClick, false);
+  toggleMenu() {
+    this.setState({ isOpen: !this.state.isOpen });
   }
-
-  handleMouseDown(event) {
-    if (event.target.dataset.id === 'dropdown-option') return;
-    if (event.type === 'mousedown' && event.button !== 0) return;
-    event.stopPropagation();
-    event.preventDefault();
-
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
-  }
-
-  handleDocumentClick(event) {
-    if (this.mounted) {
-      if (!this.wrapper.contains(event.target)) {
-        this.setState({ isOpen: false });
-      }
-    }
-  }
-
   render() {
     const { user, switchCaseLoad } = this.props;
-    let dropDownSelections = [];
-    dropDownSelections.push(<DropdownMenuLink key={'My Assignments'} to={'/assignments'} data-id={'dropdown-option'}>My Assignments <NotificationNumberAssignments>{user.totalAssignments}</NotificationNumberAssignments></DropdownMenuLink>);
-    const facilityArray = user.caseLoadOptions.map((option) => {
-      const newObj = <DropdownMenuOption key={option.caseLoadId} onClick={() => { switchCaseLoad(option.caseLoadId); }} data-id={'dropdown-option'}>{option.description}</DropdownMenuOption>;
-      return newObj;
-    });
-    dropDownSelections = dropDownSelections.concat(facilityArray);
-    dropDownSelections.push(
-      <DropdownMenuLink key={'logout'} data-id={'dropdown-option'} to={'/logout'}>
-        Log out
-      </DropdownMenuLink>);
     const caseLoadDesc = user.activeCaseLoad && user.activeCaseLoad.description ? user.activeCaseLoad.description : user.activeCaseLoadId;
 
     return (
       <MenuWrapper innerRef={(wrapper) => { this.wrapper = wrapper; }} onMouseDown={this.handleMouseDown} onTouchStart={this.handleMouseDown}>
-        <InfoWrapper data-name={'InfoWrapper'}>
+        <InfoWrapper className="clickable" onClick={() => this.toggleMenu()}>
           <UserName>{toFullName(user)}
             <NotificationNumberUser>{user.totalAssignments}</NotificationNumberUser>
           </UserName>
           <CaseLoad>{caseLoadDesc}</CaseLoad>
         </InfoWrapper>
         <DropdownMenu>
-          { this.state.isOpen ? dropDownSelections : null }
+          { this.state.isOpen &&
+          <div>
+            <DropdownMenuLink key={'My Assignments'} to={'/assignments'} onClick={() => this.toggleMenu()}>
+              My Assignments
+              <NotificationNumberAssignments>{user.totalAssignments}</NotificationNumberAssignments>
+            </DropdownMenuLink>
+
+            {user.caseLoadOptions.map((option) =>
+              <DropdownMenuOption key={option.caseLoadId} onClick={() => { this.closeMenu(); switchCaseLoad(option.caseLoadId); }}>
+                {option.description}
+                </DropdownMenuOption>)
+            }
+
+            <DropdownMenuLink key={'logout'} onClick={() => this.closeMenu()} to={'/logout'}>
+              Log out
+            </DropdownMenuLink>
+
+          </div> }
         </DropdownMenu>
       </MenuWrapper>
     );

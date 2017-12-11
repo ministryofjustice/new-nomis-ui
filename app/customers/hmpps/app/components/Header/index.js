@@ -50,15 +50,13 @@
           </LeftContent>
           <RightContent>
             <DesktopOnly>
-              {user ? <Dropdown switchCaseLoad={switchCaseLoad} user={user} /> : null}
+              {user && <Dropdown switchCaseLoad={switchCaseLoad} user={user} /> }
             </DesktopOnly>
             <MobileOnly>
-              { user ?
+              { user &&
                 <ToggleWrapper>
                   <MenuToggle toggleState={mobileMenuOpen} onToggle={mobileMenuOpen ? this.closeMenu : this.openMenu} />
                 </ToggleWrapper>
-                  :
-                null
               }
             </MobileOnly>
           </RightContent>
