@@ -25,6 +25,12 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
 
         <div className="row">
 
+          <div className="visible-xs">
+            <h2 className="heading-large">
+              Offender
+            </h2>
+          </div>
+
            <div className="col-md-6">
 
              <div className="row">

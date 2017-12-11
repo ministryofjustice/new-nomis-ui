@@ -328,6 +328,12 @@ class QuickLook extends Component {
 
       <div className="row">
 
+        <div className="visible-xs">
+          <h2 className="heading-large">
+            Quick look
+          </h2>
+        </div>
+
         <div className="col-md-6 col-xs-12">
           <h3 className="heading-medium">
             Personal details
