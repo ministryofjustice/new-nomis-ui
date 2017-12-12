@@ -231,17 +231,6 @@ export function* newSearch(action) {
       },
     });
 
-    if (result.bookings.length === 1) {
-      yield put({
-        type: VIEW_DETAILS,
-        payload: {
-          bookingId: result.bookings[0].bookingId,
-        },
-      });
-
-      return;
-    }
-
     yield put({
       type: SEARCH_SUCCESS,
       payload: {
