@@ -39,7 +39,12 @@ class Alerts extends PureComponent { // eslint-disable-line react/prefer-statele
           :
           <LoadingMessage>Loading alerts ...</LoadingMessage>
         }
-        <PreviousNextNavigation pagination={alertsPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: alertsPagination.perPage, pageNumber: id }, id)} />
+        <PreviousNextNavigation
+          pagination={alertsPagination} totalRecords={totalResults} pageAction={(id) => {
+            setPagination(bookingId, { perPage: alertsPagination.perPage, pageNumber: id }, id)
+            if (window) window.scrollTo(0,0);
+          }}
+        />
       </div>
     );
   }
