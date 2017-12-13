@@ -44,21 +44,7 @@ export const TabMenuItem = styled.div`
   background-color: ${({ active }) => active ? mobileTabNav : colours.baseFont};
   background-repeat: no-repeat;
   background-position: 50% 23%;
-  
-  @media
-    only screen and (-webkit-min-device-pixel-ratio: 2),
-    only screen and (   min--moz-device-pixel-ratio: 2),
-    only screen and (     -o-min-device-pixel-ratio: 2/1),
-    only screen and (        min-device-pixel-ratio: 2),
-    only screen and (                min-resolution: 192dpi),
-    only screen and (                min-resolution: 2dppx) {
-      background-image: url('${({ retinaBgImg }) => retinaBgImg}');
-      background-size: 36%;
-      
-      &:first-child {
-        background-size: 60%;
-      }
-    }
+
 `;
 
 export const TextHolder = styled.div`
