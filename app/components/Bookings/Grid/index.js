@@ -8,7 +8,7 @@ import './index.scss';
 
 const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
   <div className="booking-grid">
-    {sortOrderChange !== undefined ?
+    {sortOrderChange &&
       <div className="row sort-by-select visible-md visible-lg">
         <span className="col-xs-1">Sort by:</span>
         <select
@@ -16,14 +16,13 @@ const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
             sortOrderChange(e.target.value);
           }}
         >
-          <option value="asc">Names A to Z</option>
-          <option value="desc">Names Z to A</option>
+          <option value="ASC">Names A to Z </option>
+          <option value="DESC">Names Z to A </option>
         </select>
       </div>
-      :
-      null
     }
-    {sortOrderChange !== undefined ? <div className="separator" /> : null}
+
+    {sortOrderChange && <div className="separator" />}
 
     <div className="grid">
       {results.map((row) => (
