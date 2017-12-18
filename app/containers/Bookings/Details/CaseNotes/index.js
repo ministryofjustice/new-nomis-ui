@@ -36,6 +36,12 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
     loadCaseNotes(bookingId, caseNotesPagination, caseNotesQuery);
   }
 
+  componentDidUpdate() {
+    if (window) {
+      window.scrollTo(0,0);
+    }
+  }
+
   render() {
     const { caseNotesView, openAmendModal, displayAmendCaseNoteModal, deviceFormat } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
     if (caseNotesView === 'LIST') {
