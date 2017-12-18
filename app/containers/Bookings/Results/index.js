@@ -46,6 +46,10 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
     this.props.loadLocations();
   }
 
+  componentDidUpdate() {
+    this.refs.focuspoint.scrollIntoView();
+  }
+
   render() {
     const {
       locations, sortOrder, toggleSortOrder, viewDetails, results, totalResults, pagination, setPage, resultsView, setResultsView, loadingStatus} = this.props; //eslint-disable-line
@@ -57,7 +61,7 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
           <Link className="link" to="/" key="Home">Home</Link>
         </div>
 
-        <div className="row">
+        <div className="row" ref="focuspoint">
           <h1 className="heading-xlarge"> Search results </h1>
           <SearchAgainForm locations={locations} />
         </div>
