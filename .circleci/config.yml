@@ -36,7 +36,6 @@ jobs:
              export GIT_REF=${CIRCLE_SHA1}
              export GIT_DATE=$(TZ=UTC git log --format=%ci -n1 $CIRCLE_SHA1)
              yarn record-build-info
-             cat ./build-info.json
       - store_artifacts:
           path: test-report.html
       - store_artifacts:
@@ -57,15 +56,14 @@ jobs:
         - attach_workspace:
             at: /tmp/circleci-elite2-web/
         - run: |
-            BUILD_NUMBER=$(egrep buildNumber ./build-info.json  | awk -F"\"" '{print $4}')
-            GIT_REF=$(egrep gitRef ./build-info.json  | awk -F"\"" '{print $4}')
+            BUILD_NUMBER=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
+            GIT_REF=$(egrep gitRef build-info.json  | awk -F"\"" '{print $4}')
             git add --force --verbose build-info.json build
             git config user.name "Circle CI"
             git config user.email "circle@circleci.com"
             CI_MESSAGE=$(git log --format=%B -n 1 $GIT_REF)
             git commit -m "Deployment of build $BUILD_NUMBER" -m "$CI_MESSAGE" -m "From gitref $GIT_REF"
             git push --force origin HEAD:deploy-to-dev
-            git tag demo-release-${CIRCLE_BUILD_NUM}-syscon
 
   build_docker:
     <<: *defaults
@@ -77,31 +75,32 @@ jobs:
           exclusive: true
       - run:
           command: |
-             VERSION=$(egrep buildNumber ./build-info.json  | awk -F"\"" '{print $4}')
-             GIT_REF=$(egrep gitRef ./build-info.json  | awk -F"\"" '{print $4}')
-             GIT_DATE=$(egrep gitDate ./build-info.json  | awk -F"\"" '{print $4}')
+             VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
+             GIT_REF=$(egrep gitRef build-info.json  | awk -F"\"" '{print $4}')
+             GIT_DATE=$(egrep gitDate build-info.json  | awk -F"\"" '{print $4}')
              if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
                BUILD_VERSION=ELITE2_WEB_${VERSION}
              else
-               BUILD_VERSION=${CIRCLE_BRANCH}.${VERSION}
+               BUILD_VERSION=${VERSION}.${CIRCLE_BRANCH}
              fi
 
              docker build --rm=false . \
                  --build-arg CLIENT=hmpps \
                  --build-arg BUILD_NUMBER=$VERSION \
                  --build-arg GIT_REF=$GIT_REF \
-                 --build-arg GIT_DATE=$GIT_DATE \
+                 --build-arg GIT_DATE="$GIT_DATE" \
                  --tag "sysconjusticesystems/elite2-web:$BUILD_VERSION" \
                  --label "maintainer=michael.willis@syscon.net" \
                  --label "build.number=$CIRCLE_BUILD_NUM" \
                  --label "build.url=$CIRCLE_BUILD_URL" \
-                 --label "build.gitref=$CIRCLE_SHA1"
+                 --label "build.gitref=$GIT_REF"
              docker login -u $DOCKER_USER -p $DOCKER_PASS
              docker push sysconjusticesystems/elite2-web:$BUILD_VERSION
 
              if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
                docker tag sysconjusticesystems/elite2-web:$BUILD_VERSION sysconjusticesystems/elite2-web:latest
                docker push sysconjusticesystems/elite2-web:latest
+               git tag client-release-${VERSION}-syscon
              fi
 
   build_client_docker:
@@ -112,15 +111,16 @@ jobs:
           exclusive: true
       - run:
           command: |
-             CLIENT=$(echo $CIRCLE_TAG | 's/client-release-[0-9]*-//')
+             CLIENT=$(echo $CIRCLE_TAG | sed 's/client-release-.*-//')
              DATE=$(date '+%Y-%m-%d')
              VERSION=${DATE}.${CIRCLE_BUILD_NUM}
              BUILD_VERSION=ELITE2_WEB_${CLIENT}_${VERSION}
+             GIT_DATE=$(TZ=UTC git log --format=%ci -n1 $CIRCLE_SHA1)
              docker build --rm=false . \
                  --build-arg CLIENT=${CLIENT} \
                  --build-arg BUILD_NUMBER=$VERSION \
                  --build-arg GIT_REF=${CIRCLE_SHA1} \
-                 --build-arg GIT_DATE=$(TZ=UTC git log --format=%ci -n1 $CIRCLE_SHA1) \
+                 --build-arg GIT_DATE="${GIT_DATE}" \
                  --tag "sysconjusticesystems/elite2-web:$BUILD_VERSION" \
                  --label "maintainer=michael.willis@syscon.net" \
                  --label "build.number=$CIRCLE_BUILD_NUM" \
@@ -128,8 +128,8 @@ jobs:
                  --label "build.gitref=$CIRCLE_SHA1"
              docker login -u $DOCKER_USER -p $DOCKER_PASS
              docker push sysconjusticesystems/elite2-web:$BUILD_VERSION
-             docker tag sysconjusticesystems/elite2-web:$BUILD_VERSION sysconjusticesystems/elite2-web:demo-latest
-             docker push sysconjusticesystems/elite2-web:demo-latest
+             docker tag sysconjusticesystems/elite2-web:$BUILD_VERSION sysconjusticesystems/elite2-web:${CLIENT}-latest
+             docker push sysconjusticesystems/elite2-web:${CLIENT}-latest
 
 workflows:
   version: 2
