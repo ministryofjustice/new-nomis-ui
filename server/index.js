@@ -8,12 +8,11 @@ const appInsights = require('applicationinsights');
 
 const logger = require('./logger');
 const argv = require('minimist')(process.argv.slice(2));
-const setup = require('./middlewares/frontendMiddleware');
+const setup = require('./middlewares/frontend-middleware');
 const resolve = require('path').resolve;
 const app = express();
 const jsonParser = bodyParser.json();
 
-// If you need a backend, e.g. an API, add your custom backend-specific middleware here
 const apiProxy = require('./apiproxy');
 const application = require('./app');
 const controller = require('./controller');
@@ -55,7 +54,6 @@ app.use((req,res,next) => {
 app.use(express.static('fonts'));
 app.use(express.static('img'));
 
-
 app.use('/app/login',jsonParser, controller.login);
 app.use('/app/photo', jsonParser, controller.images);
 app.use('/app/keydates/:bookingId', jsonParser, controller.keyDates);
@@ -63,6 +61,7 @@ app.use('/app/bookings/details/:bookingId', jsonParser, controller.bookingDetail
 app.use('/app/bookings/quicklook/:bookingId', jsonParser, controller.quickLook);
 app.use('/app/bookings/scheduled/events/forThisWeek/:bookingId', jsonParser, controller.eventsForThisWeek);
 app.use('/app/bookings/scheduled/events/forNextWeek/:bookingId', jsonParser, controller.eventsForNextWeek);
+app.use('/app/bookings/scheduled/appointments/:bookingId', jsonParser, controller.appointments);
 
 app.use('/app',jsonParser, application.sessionHandler);
 app.use('/health', apiProxy);

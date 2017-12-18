@@ -1,7 +1,7 @@
 const axios = require('axios');
 const session = require('./session');
 const useApiAuth = (process.env.USE_API_GATEWAY_AUTH || 'no') === 'yes';
-const gatewayToken = require('./jwtToken');
+const gatewayToken = require('./jwt-token');
 
 axios.defaults.baseURL = process.env.API_ENDPOINT_URL || 'http://localhost:8080/api';
 
@@ -28,6 +28,8 @@ const getAdjudications = ({ req , fromDate }) => getRequest({ req, url: `booking
 const getEventsForThisWeek = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/events/thisWeek` });
 const getEventsForNextWeek = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/events/nextWeek` });
 const getCategoryAssessment = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/assessment/CATEGORY` });
+const getAppointmentTypes = (req) => getRequest({ url: '/reference-domains/scheduleReasons?eventType=APP' });
+const getLocationsForAppointments = (req) => getRequest({ url: '/reference-domains/scheduleReasons?eventType=APP' });
 
 
 const getPositiveCaseNotes = ({ req, fromDate, toDate }) => getRequest({
@@ -115,6 +117,8 @@ const service = {
   getEventsForThisWeek,
   getEventsForNextWeek,
   getCategoryAssessment,
+  getLocationsForAppointments,
+  getAppointmentTypes,
 };
 
 module.exports = service;

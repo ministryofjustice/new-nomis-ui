@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const compression = require('compression');
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
-const googleAnalyticsInjector = require('../googleAnalytics').inject;
+const googleAnalyticsInjector = require('../google-analytics').inject;
 
 // Dev middleware
 const addDevMiddlewares = (app, options, webpackConfig) => {

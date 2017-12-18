@@ -6,11 +6,11 @@ const moment = require('moment');
 
 const isoDateFormat = require('./../server/constants').isoDateFormat;
 const elite2Api = require('../server/elite2Api');
-const bookingService = require('../server/services/booking');
+const eventsService = require('../server/services/events');
 
 chai.use(sinonChai);
 
-describe('Booking service events', () => {
+describe('Events service', () => {
   let sandbox;
   const req = {
     params: {
@@ -22,10 +22,12 @@ describe('Booking service events', () => {
     sandbox = sinon.createSandbox();
     sandbox.stub(elite2Api, 'getEventsForThisWeek');
     sandbox.stub(elite2Api, 'getEventsForNextWeek');
+    sandbox.stub(elite2Api, 'getAppointmentTypes');
+    sandbox.stub(elite2Api, 'getLocationsForAppointments');
   });
 
   afterEach(() => {
-    sandbox.restore()
+    sandbox.restore();
   });
 
 
@@ -33,7 +35,7 @@ describe('Booking service events', () => {
     elite2Api.getEventsForThisWeek.returns(null);
 
     const startDate = moment();
-    const data = await bookingService.getScheduledEventsForThisWeek(req);
+    const data = await eventsService.getScheduledEventsForThisWeek(req);
 
     expect(data.length).to.equal(7);
 
@@ -50,7 +52,7 @@ describe('Booking service events', () => {
     elite2Api.getEventsForThisWeek.returns(null);
 
     const startDate = moment().add('days', 7);
-    const data = await bookingService.getScheduledEventsForNextWeek(req);
+    const data = await eventsService.getScheduledEventsForNextWeek(req);
 
     expect(data.length).to.equal(7);
     expect(data[0].date.format(isoDateFormat)).to.equal(startDate.format(isoDateFormat));
@@ -99,7 +101,7 @@ describe('Booking service events', () => {
       },
     ]);
 
-    const data = await bookingService.getScheduledEventsForThisWeek(req);
+    const data = await eventsService.getScheduledEventsForThisWeek(req);
 
     expect(data[0].date.format(isoDateFormat)).to.equal(today.format(isoDateFormat));
     expect(data[0].forMorning.length).to.equal(1);
@@ -124,7 +126,7 @@ describe('Booking service events', () => {
       },
     ]);
 
-    const data = await bookingService.getScheduledEventsForThisWeek(req);
+    const data = await eventsService.getScheduledEventsForThisWeek(req);
     expect(data[0].forMorning[0].type).to.equal('Wing cleaner');
   });
 
@@ -140,7 +142,7 @@ describe('Booking service events', () => {
       },
     ]);
 
-    const data = await bookingService.getScheduledEventsForThisWeek(req);
+    const data = await eventsService.getScheduledEventsForThisWeek(req);
     expect(data[0].forMorning[0].type).to.equal('Prison Activity');
   });
 
@@ -160,7 +162,7 @@ describe('Booking service events', () => {
       },
     ]);
 
-    const data = await bookingService.getScheduledEventsForThisWeek(req);
+    const data = await eventsService.getScheduledEventsForThisWeek(req);
 
     expect(data[0].forMorning[0].type).to.equal('appointment');
     expect(data[0].forMorning[0].comment).to.equal('health check up');
@@ -181,7 +183,7 @@ describe('Booking service events', () => {
       },
     ]);
 
-    const data = await bookingService.getScheduledEventsForThisWeek(req);
+    const data = await eventsService.getScheduledEventsForThisWeek(req);
 
     expect(data[0].forMorning[0].type).to.equal('appointment');
     expect(data[0].forMorning[0].comment).to.equal('health check up');
@@ -220,7 +222,7 @@ describe('Booking service events', () => {
       },
     ]);
 
-    const data = await bookingService.getScheduledEventsForThisWeek(req);
+    const data = await eventsService.getScheduledEventsForThisWeek(req);
 
     expect(data[0].forMorning[0].startTime).to.equal('2017-12-12T09:00:00');
     expect(data[0].forMorning[0].endTime).to.equal(null);
@@ -230,5 +232,31 @@ describe('Booking service events', () => {
 
     expect(data[0].forMorning[2].startTime).to.equal('2017-12-12T09:00:00');
     expect(data[0].forMorning[2].endTime).to.equal('2017-12-12T11:30:00');
+  });
+
+  it('should call getAppointmentsViewModel', async () => {
+    elite2Api.getLocationsForAppointments.returns([
+      {
+        locationId: -26,
+        description: 'LEI-CARP',
+        livingUnit: false,
+        usageLocationId: 19908,
+        usageLocationType: 'APP',
+      },
+    ]);
+
+    elite2Api.getAppointmentTypes.returns([
+      {
+        code: 'CABA',
+        description: 'Bail',
+      },
+    ]);
+
+    const data = await eventsService.getAppointmentViewModel(req);
+    expect(data.locations.length).to.equal(1);
+    expect(data.appointmentTypes.length).to.equal(1);
+
+    expect(elite2Api.getLocationsForAppointments).to.be.called;
+    expect(elite2Api.getAppointmentTypes).to.be.called;
   });
 });
