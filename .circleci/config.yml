@@ -36,6 +36,7 @@ jobs:
              export GIT_REF=${CIRCLE_SHA1}
              export GIT_DATE=$(TZ=UTC git log --format=%ci -n1 $CIRCLE_SHA1)
              yarn record-build-info
+             cat ./build-info.json
       - store_artifacts:
           path: test-report.html
       - store_artifacts:
@@ -56,8 +57,8 @@ jobs:
         - attach_workspace:
             at: /tmp/circleci-elite2-web/
         - run: |
-            BUILD_NUMBER=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
-            GIT_REF=$(egrep gitRef build-info.json  | awk -F"\"" '{print $4}')
+            BUILD_NUMBER=$(egrep buildNumber ./build-info.json  | awk -F"\"" '{print $4}')
+            GIT_REF=$(egrep gitRef ./build-info.json  | awk -F"\"" '{print $4}')
             git add --force --verbose build-info.json build
             git config user.name "Circle CI"
             git config user.email "circle@circleci.com"
@@ -76,9 +77,9 @@ jobs:
           exclusive: true
       - run:
           command: |
-             VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
-             GIT_REF=$(egrep gitRef build-info.json  | awk -F"\"" '{print $4}')
-             GIT_DATE=$(egrep gitDate build-info.json  | awk -F"\"" '{print $4}')
+             VERSION=$(egrep buildNumber ./build-info.json  | awk -F"\"" '{print $4}')
+             GIT_REF=$(egrep gitRef ./build-info.json  | awk -F"\"" '{print $4}')
+             GIT_DATE=$(egrep gitDate ./build-info.json  | awk -F"\"" '{print $4}')
              if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
                BUILD_VERSION=ELITE2_WEB_${VERSION}
              else
@@ -103,7 +104,7 @@ jobs:
                docker push sysconjusticesystems/elite2-web:latest
              fi
 
-  build_docker_demo:
+  build_client_docker:
     <<: *defaults
     steps:
       - checkout
@@ -111,7 +112,7 @@ jobs:
           exclusive: true
       - run:
           command: |
-             CLIENT=$(echo $CIRCLE_TAG | 's/demo-release-[0-9]*-//')
+             CLIENT=$(echo $CIRCLE_TAG | 's/client-release-[0-9]*-//')
              DATE=$(date '+%Y-%m-%d')
              VERSION=${DATE}.${CIRCLE_BUILD_NUM}
              BUILD_VERSION=ELITE2_WEB_${CLIENT}_${VERSION}
@@ -143,7 +144,7 @@ workflows:
                   - deploy-to-preprod
                   - deploy-to-prod
                   - intergalactic
-                  - demo-release-.*
+                  - client-release-.*
       - build_docker:
           requires:
             - build
@@ -153,9 +154,9 @@ workflows:
           filters:
             branches:
               only: master
-      - build_docker_demo:
+      - build_client_docker:
           filters:
             tags:
-              only: /^demo-release-.*/
+              only: /^client-release-.*/
             branches:
               ignore: /.*/
