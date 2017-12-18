@@ -34,7 +34,7 @@ jobs:
              DATE=$(date '+%Y-%m-%d')
              export BUILD_NUMBER=${DATE}.${CIRCLE_BUILD_NUM}
              export GIT_REF=${CIRCLE_SHA1}
-             export GIT_DATE=$(TZ=UTC git log --pretty=format:"%cI" -n1 $CIRCLE_SHA1)
+             export GIT_DATE=${DATE}
              yarn record-build-info
       - store_artifacts:
           path: test-report.html
@@ -115,7 +115,7 @@ jobs:
              DATE=$(date '+%Y-%m-%d')
              VERSION=${DATE}.${CIRCLE_BUILD_NUM}
              BUILD_VERSION=ELITE2_WEB_${CLIENT}_${VERSION}
-             GIT_DATE=$(TZ=UTC git log --pretty=format:"%cI" -n1 $CIRCLE_SHA1)
+             GIT_DATE=${DATE}
              docker build --rm=false . \
                  --build-arg CLIENT=${CLIENT} \
                  --build-arg BUILD_NUMBER=$VERSION \
