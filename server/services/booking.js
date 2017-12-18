@@ -1,64 +1,11 @@
 const elite2Api = require('../elite2Api');
 const moment = require('moment');
 
-const RiskAssessment = require('../model/riskAssessment');
-const keyDatesMapper = require('../view-model-mappers/keydates');
+const RiskAssessment = require('../model/risk-assessment');
+const keyDatesMapper = require('../data-mappers/keydates');
 const isoDateFormat = require('./../constants').isoDateFormat;
-
-const pluraliseDay = (days) => days > 1 ? 'days' : 'day';
-const pluraliseMonth = (months) => months > 1 ? 'months' : 'month';
-
-const groupBy = (property,array) => array.reduce((result,current) => {
-  const date = current[property];
-  if (!result[date]) { result[date] = []; }
-
-  result[date].push(current);
-
-  return result;
-},[]);
-
-const awardMapper = (award) => ({
-  sanctionCodeDescription: descriptionWithLimit(award),
-  comment: award.comment,
-  effectiveDate: award.effectiveDate,
-  durationText: durationText(award),
-});
-
-const getComment = (entry) => entry.eventSubType === 'PA' ? null : entry.eventSourceDesc;
-
-const toEvent = (entry) => {
-  const comment = getComment(entry);
-  return {
-    type: (entry.eventSubType === 'PA' && entry.eventSourceDesc) || entry.eventSubTypeDesc,
-    comment,
-    shortComment: comment && comment.length > 40 ? `${comment.substring(0, 40)}...` : comment,
-    startTime: entry.startTime,
-    endTime: entry.endTime,
-  }
-};
-
-const descriptionWithLimit = (award) => {
-  switch (award.sanctionCode) {
-    case 'STOP_PCT': {
-      return `${award.sanctionCodeDescription.replace('(%)','').trim()} (${award.limit}%)`;
-    }
-
-    case 'STOP_EARN': {
-      return `${award.sanctionCodeDescription.replace('(amount)','').trim()} (£${parseFloat(award.limit).toFixed(2)})`;
-    }
-
-    default: return award.sanctionCodeDescription;
-  }
-};
-
-const durationText = (award) => {
-  if (award.months && award.days) {
-    return `${award.months} ${pluraliseMonth(award.months)} and ${award.days} ${pluraliseDay(award.days)}`
-  }
-
-  return (award.months && `${award.months} ${pluraliseMonth(award.months)}`) ||
-       (award.days && `${award.days} ${pluraliseDay(award.days)}`);
-};
+const toAward = require('../data-mappers/to-award');
+const toEvent = require('../data-mappers/to-event');
 
 const byStartTimeThenByEndTime = (a,b) => {
   if (moment(a.startTime).isBefore(moment(b.startTime))) { return -1; }
@@ -71,7 +18,7 @@ const byStartTimeThenByEndTime = (a,b) => {
   if (moment(a.endTime).isAfter(moment(b.endTime))) { return 1; }
 
   return 0;
-}
+};
 
 const getKeyDatesVieModel = async (req) => {
   const sentenceData = await elite2Api.getSentenceData(req);
@@ -154,7 +101,7 @@ const getQuickLookViewModel = async (req) => {
     indeterminateReleaseDate: Boolean(sentenceData && sentenceData.tariffDate && !sentenceData.releaseDate),
     adjudications: {
       proven: (adjudications && adjudications.adjudicationCount) || 0,
-      awards: (adjudications && adjudications.awards && adjudications.awards.map(award => awardMapper(award))) || [],
+      awards: (adjudications && adjudications.awards && adjudications.awards.map(award => toAward(award))) || [],
     },
     nextOfKin: (contacts && contacts.nextOfKin && contacts.nextOfKin.map(contact => ({
       firstName: contact.firstName,
@@ -166,52 +113,10 @@ const getQuickLookViewModel = async (req) => {
   };
 };
 
-const getScheduledEventsForThisWeek = async (req) => {
-  const data = await elite2Api.getEventsForThisWeek(req) || [];
-  return buildScheduledEvents(data, buildCalendarViewFor([0,1,2,3,4,5,6]));
-};
-
-const getScheduledEventsForNextWeek = async (req) => {
-  const data = await elite2Api.getEventsForNextWeek(req) || [];
-  return buildScheduledEvents(data, buildCalendarViewFor([7,8,9,10,11,12,13]));
-};
-
-const buildScheduledEvents = (data, calendarView) => {
-  const groupedByDate = groupBy('eventDate', data);
-  const filterMorning = (array) => array.filter(a => moment(a.startTime).get('hour') < 12);
-  const filterAfternoon = (array) => array.filter(a => moment(a.startTime).get('hour') > 11);
-
-  return calendarView.map(view => {
-    const events = Object.keys(groupedByDate)
-      .filter(key => moment(key).format(isoDateFormat) === view.date.format(isoDateFormat))
-      .map(date => groupedByDate[date])
-      .reduce((result,current) => result.concat(current),[])
-      .sort(byStartTimeThenByEndTime)
-      .filter(event => event.eventStatus === 'SCH');
-
-    return {
-      date: view.date,
-      forMorning: filterMorning(events).map(entry => toEvent(entry)) || [],
-      forAfternoon: filterAfternoon(events).map(entry => toEvent(entry)) || [],
-    }
-  });
-};
-
-const buildCalendarViewFor = (days) => days.map(day => moment().add(day,'days'))
-  .reduce((result, current) => {
-    result.push({
-      date: current,
-    });
-
-    return result;
-  },[]);
-
 const service = {
   getQuickLookViewModel,
   getKeyDatesVieModel,
   getBookingDetailsViewModel,
-  getScheduledEventsForThisWeek,
-  getScheduledEventsForNextWeek,
 };
 
 module.exports = service;

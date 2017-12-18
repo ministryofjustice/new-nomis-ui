@@ -1,5 +1,5 @@
 
-const RiskAssessment = require('../riskAssessment');
+const RiskAssessment = require('../risk-assessment');
 
 describe('RiskAssessmentModel',() => {
   it('should be active and be a CRSA with a riskLevel of basic', () => {

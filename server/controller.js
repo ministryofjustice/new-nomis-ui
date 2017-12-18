@@ -1,8 +1,12 @@
+const express = require('express');
+const router = express.Router();
+
 const elite2Api = require('./elite2Api'),
   errorStatusCode = elite2Api.errorStatusCode;
 const session = require('./session');
 
 const bookingService = require('./services/booking');
+const eventsService = require('./services/events');
 
 const asyncMiddleware = fn =>
   (req, res, next) => {
@@ -99,7 +103,7 @@ const eventsForThisWeek = asyncMiddleware(async (req,res) => {
     return;
   }
 
-  const data = await bookingService.getScheduledEventsForThisWeek(req);
+  const data = await eventsService.getScheduledEventsForThisWeek(req);
   res.json(data);
 });
 
@@ -112,9 +116,16 @@ const eventsForNextWeek = asyncMiddleware(async (req,res) => {
     return;
   }
 
-  const data = await bookingService.getScheduledEventsForNextWeek(req);
+  const data = await eventsService.getScheduledEventsForNextWeek(req);
   res.json(data);
 });
+
+const appointments = router.get(asyncMiddleware(async (req,res) => {
+  const viewModel = await eventsService.getAppointmentViewModel(req);
+  res.json(viewModel);
+})).post(asyncMiddleware(async (req,res,next) => {
+  next();
+}));
 
 module.exports = {
   keyDates,
@@ -124,4 +135,5 @@ module.exports = {
   quickLook,
   eventsForNextWeek,
   eventsForThisWeek,
+  appointments,
 };
