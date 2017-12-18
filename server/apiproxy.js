@@ -25,10 +25,11 @@ function generateToken() {
 
 function getAppInfo() {
   const packageData = JSON.parse(fs.readFileSync('./package.json'));
+  const buildVersion = fs.existsSync('./build-info.json') ? JSON.parse(fs.readFileSync('./build-info.json')).buildNumber : packageData.version;
 
   return {
     name: packageData.name,
-    version: packageData.version,
+    version: buildVersion,
     description: packageData.description,
   };
 }

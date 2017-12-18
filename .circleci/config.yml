@@ -30,6 +30,12 @@ jobs:
              set -e
              yarn test
       - run: export CLIENT=hmpps && NODE_ENV=production yarn build
+      - run: |
+             DATE=$(date '+%Y-%m-%d')
+             export BUILD_NUMBER=${DATE}.${CIRCLE_BUILD_NUM}
+             export GIT_REF=${CIRCLE_SHA1}
+             export GIT_DATE=$(TZ=UTC git log --format=%ci -n1 $CIRCLE_SHA1)
+             yarn record-build-info
       - store_artifacts:
           path: test-report.html
       - store_artifacts:
@@ -41,7 +47,7 @@ jobs:
           paths:
             - node_modules
             - build
-
+            - build-info.json
 
   deploy_release:
       <<: *defaults
@@ -50,35 +56,40 @@ jobs:
         - attach_workspace:
             at: /tmp/circleci-elite2-web/
         - run: |
-            VERSION=$(egrep version package.json  | awk -F"\"" '{print $4}')
-            export BUILD_NUMBER=${VERSION}.${CIRCLE_BRANCH}.${CIRCLE_BUILD_NUM}
-            export GIT_REF=${CIRCLE_SHA1}
-            export GIT_DATE=$(TZ=UTC git log --format=%cI -n1 $CIRCLE_SHA1)
-            yarn record-build-info
-        - run: |
+            BUILD_NUMBER=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
+            GIT_REF=$(egrep gitRef build-info.json  | awk -F"\"" '{print $4}')
             git add --force --verbose build-info.json build
             git config user.name "Circle CI"
             git config user.email "circle@circleci.com"
-            CI_MESSAGE=$(git log --format=%B -n 1 $CIRCLE_SHA1)
-            git commit -m "Deployment of build $BUILD_NUMBER" -m "$CI_MESSAGE" -m "From gitref $CIRCLE_SHA1"
+            CI_MESSAGE=$(git log --format=%B -n 1 $GIT_REF)
+            git commit -m "Deployment of build $BUILD_NUMBER" -m "$CI_MESSAGE" -m "From gitref $GIT_REF"
             git push --force origin HEAD:deploy-to-dev
+            git tag demo-release-${CIRCLE_BUILD_NUM}-syscon
 
   build_docker:
     <<: *defaults
     steps:
       - checkout
+      - attach_workspace:
+          at: /tmp/circleci-elite2-web/
       - setup_remote_docker:
           exclusive: true
       - run:
           command: |
-             VERSION=$(egrep version package.json  | awk -F"\"" '{print $4}')
+             VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
+             GIT_REF=$(egrep gitRef build-info.json  | awk -F"\"" '{print $4}')
+             GIT_DATE=$(egrep gitDate build-info.json  | awk -F"\"" '{print $4}')
              if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
                BUILD_VERSION=ELITE2_WEB_${VERSION}
              else
-               BUILD_VERSION=${VERSION}.${CIRCLE_BRANCH}.${CIRCLE_BUILD_NUM}
+               BUILD_VERSION=${CIRCLE_BRANCH}.${VERSION}
              fi
+
              docker build --rm=false . \
                  --build-arg CLIENT=hmpps \
+                 --build-arg BUILD_NUMBER=$VERSION \
+                 --build-arg GIT_REF=$GIT_REF \
+                 --build-arg GIT_DATE=$GIT_DATE \
                  --tag "sysconjusticesystems/elite2-web:$BUILD_VERSION" \
                  --label "maintainer=michael.willis@syscon.net" \
                  --label "build.number=$CIRCLE_BUILD_NUM" \
@@ -100,11 +111,15 @@ jobs:
           exclusive: true
       - run:
           command: |
-             VERSION=$(egrep version package.json  | awk -F"\"" '{print $4}')
-             CLIENT=$(echo $CIRCLE_TAG | sed 's/demo-release-*//')
-             BUILD_VERSION=ELITE2_WEB_${CLIENT}_DEMO_${VERSION}
+             CLIENT=$(echo $CIRCLE_TAG | 's/demo-release-[0-9]*-//')
+             DATE=$(date '+%Y-%m-%d')
+             VERSION=${DATE}.${CIRCLE_BUILD_NUM}
+             BUILD_VERSION=ELITE2_WEB_${CLIENT}_${VERSION}
              docker build --rm=false . \
                  --build-arg CLIENT=${CLIENT} \
+                 --build-arg BUILD_NUMBER=$VERSION \
+                 --build-arg GIT_REF=${CIRCLE_SHA1} \
+                 --build-arg GIT_DATE=$(TZ=UTC git log --format=%ci -n1 $CIRCLE_SHA1) \
                  --tag "sysconjusticesystems/elite2-web:$BUILD_VERSION" \
                  --label "maintainer=michael.willis@syscon.net" \
                  --label "build.number=$CIRCLE_BUILD_NUM" \

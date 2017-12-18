@@ -1,5 +1,5 @@
 
-const version = require('../application-version');
+const buildNumber = require('../application-version');
 const session = require('../session');
 
 module.exports = function (req,res,next) {
@@ -15,7 +15,7 @@ module.exports = function (req,res,next) {
     return;
   }
     
-  if (clientVersion !== version) {
+  if (clientVersion !== buildNumber) {
     res.status(205); // http reset content
     res.end();
     return;
