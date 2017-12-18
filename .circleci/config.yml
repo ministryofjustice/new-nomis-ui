@@ -101,6 +101,7 @@ jobs:
                docker tag sysconjusticesystems/elite2-web:$BUILD_VERSION sysconjusticesystems/elite2-web:latest
                docker push sysconjusticesystems/elite2-web:latest
                git tag client-release-${VERSION}-syscon
+               git push --tags
              fi
 
   build_client_docker:
