@@ -19,14 +19,8 @@ import { viewDetails,loadAppointmentViewModel } from '../../actions';
 
 import './index.scss';
 
-const AddAppointment = ({ handleSubmit,error,submitting, locale, goBackToBookingDetails, bookingId, offenderName, viewModel }) => ({
-  render() {
-    const { appointmentTypes, locations } = viewModel || {
-      appointmentTypes: [],
-      locations: [],
-    };
-
-    return (<div className="add-appointment">
+const AddAppointment = ({ handleSubmit,error,submitting, locale, goBackToBookingDetails, bookingId, offenderName, viewModel }) =>
+  <div className="add-appointment">
 
       <form onSubmit={handleSubmit}>
 
@@ -64,7 +58,7 @@ const AddAppointment = ({ handleSubmit,error,submitting, locale, goBackToBooking
               title="Select type of appointment"
               autocomplete="true"
               component={Select}
-              options={appointmentTypes.map(type => ({
+              options={viewModel.appointmentTypes.map(type => ({
                 label: type.description,
                 value: type.code,
               }))}
@@ -78,7 +72,7 @@ const AddAppointment = ({ handleSubmit,error,submitting, locale, goBackToBooking
               title="Select location"
               autocomplete="true"
               component={Select}
-              options={locations.map(location => ({
+              options={viewModel.locations.map(location => ({
                 label: location.description,
                 value: location.locationId,
               }))}
@@ -130,9 +124,7 @@ const AddAppointment = ({ handleSubmit,error,submitting, locale, goBackToBooking
           </div>
         </div>
       </form>
-    </div>)
-  },
-});
+    </div>
 
 export function mapDispatchToProps(dispatch) {
   return {
