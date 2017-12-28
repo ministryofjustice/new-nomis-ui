@@ -209,7 +209,7 @@ export const Activities = ({ activities, period }) => <div>
 const NegativeAndPositiveCaseNoteCount = ({ negativeCaseNotes,positiveCaseNotes }) => <div>
 <div className="row border-bottom-line">
   <div className="col-lg-6 col-xs-6">
-    <label>Negative entries total</label>
+    <label>IEP Warnings </label>
   </div>
 
   <div className="col-lg-6 col-xs-6">
@@ -221,7 +221,7 @@ const NegativeAndPositiveCaseNoteCount = ({ negativeCaseNotes,positiveCaseNotes 
 
 <div className="row border-bottom-line">
   <div className="col-lg-6 col-xs-6">
-    <label>Positive entries total</label>
+    <label>IEP Encouragement</label>
   </div>
 
   <div className="col-lg-6 col-xs-6">
@@ -375,7 +375,7 @@ class QuickLook extends Component {
         <div className="col-md-6 col-xs-12">
 
           <h3 className="heading-medium">
-            Case notes and adjudications
+            Case notes and adjudications (Last 3 months)
           </h3>
 
           <NegativeAndPositiveCaseNoteCount negativeCaseNotes={negativeCaseNotes} positiveCaseNotes={positiveCaseNotes} />
@@ -388,7 +388,6 @@ class QuickLook extends Component {
           </h3>
           { activities && <Activities activities={activities.morningActivities} period={'Morning (AM)'} /> }
           { activities && <Activities activities={activities.afternoonActivities} period={'Afternoon (PM)'} /> }
-          { !activities && <div>No activity assigned</div> }
 
           <Link className="link" to={'/bookings/details/scheduled'}> Seven day schedule</Link>
         </div>
