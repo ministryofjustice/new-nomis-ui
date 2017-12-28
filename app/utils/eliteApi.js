@@ -300,3 +300,20 @@ export const loadScheduledEventsForNextWeek = (bookingId) => axios({
   method: 'get',
   url: `/app/bookings/scheduled/events/forNextWeek/${bookingId}`,
 }).then(response => response.data);
+
+export const loadAppointmentViewModel = ({ agencyId }) => axios({
+  method: 'get',
+  url: `/app/bookings/loadAppointmentViewModel/${agencyId}`,
+}).then(response => response.data);
+
+export const addAppointment = ({ bookingId, startTime, endTime, appointmentType, locationId, comment }) => axios({
+  method: 'post',
+  url: `/app/bookings/addAppointment/${bookingId}`,
+  data: {
+    startTime,
+    endTime,
+    appointmentType,
+    locationId,
+    comment,
+  },
+});

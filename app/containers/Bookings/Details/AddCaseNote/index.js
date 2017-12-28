@@ -84,7 +84,8 @@ export function mapDispatchToProps(dispatch) {
       {
         type: ADD_NEW_CASENOTE.BASE,
         payload: {
-          query: { ...formData.toJS(),
+          query: {
+            ...formData.toJS(),
             typeAndSubType: {
               type: formData.toJS().typeValue,
               subType: formData.toJS().subTypeValue,

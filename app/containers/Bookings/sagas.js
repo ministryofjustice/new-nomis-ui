@@ -6,6 +6,8 @@ import { selectApi } from 'containers/ConfigLoader/selectors';
 import { bookingDetailsSaga as bookingDetailsElite } from 'containers/EliteApiLoader/sagas';
 import { loadBookingAlerts, loadBookingCaseNotes, resetCaseNotes } from 'containers/EliteApiLoader/actions';
 import { BOOKINGS } from 'containers/EliteApiLoader/constants';
+import { DATE_TIME_FORMAT_SPEC } from 'containers/App/constants';
+import moment from 'moment';
 
 import {
   addCaseNote,
@@ -16,6 +18,8 @@ import {
   loadQuickLook,
   loadScheduledEventsForThisWeek,
   loadScheduledEventsForNextWeek,
+  loadAppointmentViewModel,
+  addAppointment,
 } from 'utils/eliteApi';
 
 import {
@@ -66,7 +70,12 @@ import {
   SET_QUICK_LOOK,
   LOAD_SCHEDULED_EVENTS,
   SET_SCHEDULED_EVENTS,
+  APPOINTMENT,
 } from './constants';
+
+export function* addAppointmentWatcher() {
+  yield takeLatest(APPOINTMENT.ADD, onAddAppointment);
+}
 
 export function* loadScheduledEventsWatcher() {
   yield takeLatest(LOAD_SCHEDULED_EVENTS, onLoadScheduledEvents);
@@ -100,6 +109,32 @@ export function* toggleSortOrderWatcher() {
 
 export function* loadQuickLookWatcher() {
   yield takeLatest(LOAD_QUICK_LOOK, onLoadQuickLook);
+}
+
+export function* onAddAppointment(action) {
+  try {
+    const bookingId = yield select(selectBookingDetailsId());
+
+    const { appointmentType, location, startTime, endTime, eventDate, comment } = action.payload;
+    const eventStartTime = moment(eventDate, 'DD/MM/YYYY');
+
+    eventStartTime.hour(moment(startTime).hour());
+    eventStartTime.minute(moment(startTime).minute());
+    eventStartTime.second(moment(startTime).second());
+
+    yield call(addAppointment, {
+      appointmentType,
+      locationId: location,
+      comment,
+      startTime: moment(eventStartTime).format(DATE_TIME_FORMAT_SPEC),
+      endTime: endTime && moment(endTime).format(DATE_TIME_FORMAT_SPEC),
+      bookingId,
+    });
+
+    yield put(push('/bookings/details'));
+  } catch (err) {
+    yield put({ type: APPOINTMENT.ERROR, payload: new SubmissionError({ _error: 'Unable to create a new appointment at this time.' }) });
+  }
 }
 
 export function* onLoadQuickLook(action) {
@@ -428,4 +463,5 @@ export default [
   loadKeyDatesWatcher,
   loadQuickLookWatcher,
   loadScheduledEventsWatcher,
+  addAppointmentWatcher,
 ];

@@ -1,10 +1,14 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import { SubmissionError } from 'redux-form/immutable';
-import { login, users } from 'utils/eliteApi';
+import { login, users, loadAppointmentViewModel } from 'utils/eliteApi';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 import { PRELOADDATA, USER } from 'containers/EliteApiLoader/constants';
 import { LOAD_ASSIGNMENTS } from 'containers/Assignments/constants';
+
+import {
+  APPOINTMENT,
+} from 'containers/Bookings/constants';
 
 import {
   LOGIN,
@@ -36,10 +40,18 @@ export function* loginUser(action) {
     const apiUrl = yield select(selectApi());
     const res = yield call(login, username, password, apiUrl);
     const user = yield call(users.me, res, apiUrl);
+
+    const viewModel = yield call(loadAppointmentViewModel, { agencyId: user.activeCaseLoadId });
+    yield put({
+      type: APPOINTMENT.SET_VIEW_MODEL,
+      payload: viewModel,
+    });
+
     yield put({ type: LOGIN_SUCCESS, payload: { user, loginData: res } });
     yield put({ type: PRELOADDATA.BASE });
     yield put({ type: USER.CASELOADS.BASE });
     yield put({ type: LOAD_ASSIGNMENTS, payload: {} });
+
     if (redirect) yield put(push(redirect));
   } catch (err) {
     yield put({ type: LOGIN_ERROR, payload: new SubmissionError({ _error: messages.authFailed }) });

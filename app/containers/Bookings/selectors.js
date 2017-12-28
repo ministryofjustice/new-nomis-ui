@@ -61,7 +61,7 @@ const selectKeyDatesViewModel = () => createSelector(
 const selectError = () => createSelector(
   selectSearch(),
   (searchState) => searchState.getIn(['details','error'])
-)
+);
 
 const selectShouldShowLargePhoto = () => createSelector(
    selectSearch(),
@@ -91,6 +91,14 @@ const selectBookingDetail = () => createSelector(
     return dets;
   }
 );
+
+const selectName = () => createSelector(
+  selectBookingDetail(),
+  (details) => {
+    const { firstName, lastName } = details.get('Data').toJS();
+    return toFullName({ firstName, lastName });
+  }
+)
 
 const selectHeaderDetail = () => createSelector(
   selectBookingDetail(),
@@ -302,6 +310,11 @@ const selectCurrentFilter = () => createSelector(
   (detailsState) => detailsState.get('currentFilter'),
 );
 
+const selectAppointmentViewModel = () => createSelector(
+  selectSearch(),
+  (search) => search.get('appointmentViewModel').toJS(),
+);
+
 export {
   selectSearch,
   selectSearchResults,
@@ -336,4 +349,6 @@ export {
   selectQuickLookViewModel,
   selectScheduledEvents,
   selectCurrentFilter,
+  selectAppointmentViewModel,
+  selectName,
 };

@@ -24,6 +24,7 @@ import {
   LOAD_KEY_DATES,
   LOAD_QUICK_LOOK,
   LOAD_SCHEDULED_EVENTS,
+  APPOINTMENT,
 } from './constants';
 
 
@@ -191,5 +192,12 @@ export function loadScheduledEventsForNextWeek(bookingId) {
       bookingId,
       nextWeek: true,
     },
+  }
+}
+
+export function loadAppointmentViewModel(bookingId) {
+  return {
+    type: APPOINTMENT.LOAD_VIEW_MODAL,
+    payload: bookingId,
   }
 }

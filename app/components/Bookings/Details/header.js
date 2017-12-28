@@ -56,6 +56,11 @@ const MobileOnlyLayout = ({ iepLevel, csra, activeAlertCount, inactiveAlertCount
             </div>
           </div>
 
+         <div className="show-full-screen-button">
+           <Link className="button-link add-gutter-bottom" to={'/bookings/details/addCaseNote'}>Add new case note</Link>
+           <Link className="button-link" to={'/bookings/details/addAppointment'}>Add Appointment</Link>
+         </div>
+
      </div>
 
    </div>
@@ -78,7 +83,7 @@ const DesktopOnlyLayout = ({ iepLevel, csra, activeAlertCount, inactiveAlertCoun
     </div>
   </div>
 
-  <div className="col-sm-4">
+  <div className="col-sm-3">
     <div className="row">
 
       <div className="col">
@@ -91,6 +96,15 @@ const DesktopOnlyLayout = ({ iepLevel, csra, activeAlertCount, inactiveAlertCoun
       <div className="col">
         <Location assignedLivingUnit={assignedLivingUnit} />
       </div>
+    </div>
+  </div>
+
+  <div className="col pull-right no-right-gutter no-left-gutter visible-desktop">
+    <div className="add-gutter-bottom">
+      <Link className="button-link hide-desktop-button" to={'/bookings/details/addCaseNote'}>Add new case note</Link>
+    </div>
+    <div>
+      <Link className="button-link hide-desktop-button" to={'/bookings/details/addAppointment'}>Add Appointment</Link>
     </div>
   </div>
 </div>
@@ -111,14 +125,11 @@ function Header({ inmateData, onImageClick }) {
               </div>
           </div>
 
-          <div className="col-lg-10 col-sm-8 col-md-8 col-xs-8 no-left-gutter no-right-gutter add-gutter-bottom-mobile">
+          <div className="col-lg-8 col-sm-8 col-md-8 col-xs-8 no-left-gutter no-right-gutter add-gutter-bottom-mobile">
               <div className="col-sm-8 no-left-gutter">
                 <h1 className="heading-medium">
                   {nameString}
                 </h1>
-              </div>
-              <div className="col pull-right no-right-gutter no-left-gutter visible-desktop">
-                <Link id="add-case-note-link-desktop" className="button-link hide-desktop-button" to={'/bookings/details/addCaseNote'}>Add new case note</Link>
               </div>
           </div>
 
@@ -153,10 +164,6 @@ function Header({ inmateData, onImageClick }) {
           iepLevel={iepLevel}
           csra={csra}
         />
-
-        <div className="show-full-screen-button">
-            <Link id="add-case-note-link-desktop" className="button-link" to={'/bookings/details/addCaseNote'}>Add new case note</Link>
-        </div>
 
      </div>
     </div>

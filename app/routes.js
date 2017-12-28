@@ -277,6 +277,28 @@ export default function createRoutes(store) {
       },
     },
     {
+      path: '/bookings/details/addAppointment',
+      name: 'AddAppointment',
+      onEnter: onEnter({ authRequired: true, routeName: 'Add appointment' }),
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/Bookings/reducers'),
+          System.import('containers/Bookings/sagas'),
+          System.import('containers/Bookings/Details/addAppointment'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('search', reducer.default);
+          injectSagas('search', sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
       // This MUST be the last object in array
       path: '*',
       name: 'notfound',
