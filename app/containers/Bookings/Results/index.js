@@ -46,7 +46,7 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
     this.props.loadLocations();
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     this.refs.focuspoint.scrollIntoView();
   }
 

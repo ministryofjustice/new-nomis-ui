@@ -5,15 +5,14 @@ const isoDateFormat = require('./../constants').isoDateFormat;
 const toEvent = require('../data-mappers/to-event');
 
 const getAppointmentViewModel = async (req) => {
-  const locations = elite2Api.getLocationsForAppointments(req);
-  const appointmentTypes = elite2Api.getAppointmentTypes(req);
+  const locations = await elite2Api.getLocationsForAppointments(req);
+  const appointmentTypes = await elite2Api.getAppointmentTypes(req);
 
   return {
     locations,
     appointmentTypes,
   }
 };
-const createAppointment = async (req) => {};
 
 const getScheduledEventsForThisWeek = async (req) => {
   const data = await elite2Api.getEventsForThisWeek(req) || [];
@@ -72,7 +71,6 @@ const service = {
   getScheduledEventsForThisWeek,
   getScheduledEventsForNextWeek,
   getAppointmentViewModel,
-  createAppointment,
 };
 
 module.exports = service;

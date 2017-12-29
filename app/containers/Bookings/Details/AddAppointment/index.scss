@@ -1,0 +1,19 @@
+.add-appointment {
+  .form-control {
+    width: 100% !important;
+  }
+
+  .time-picker > .form-control {
+    width: 45% !important;
+    padding-right: 1px;
+    overflow: hidden;
+  }
+
+  .rdtPicker {
+    width: 350px !important;
+  }
+
+  select {
+    height: 2em;
+  }
+}

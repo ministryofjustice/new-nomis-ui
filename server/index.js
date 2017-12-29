@@ -61,7 +61,8 @@ app.use('/app/bookings/details/:bookingId', jsonParser, controller.bookingDetail
 app.use('/app/bookings/quicklook/:bookingId', jsonParser, controller.quickLook);
 app.use('/app/bookings/scheduled/events/forThisWeek/:bookingId', jsonParser, controller.eventsForThisWeek);
 app.use('/app/bookings/scheduled/events/forNextWeek/:bookingId', jsonParser, controller.eventsForNextWeek);
-app.use('/app/bookings/scheduled/appointments/:bookingId', jsonParser, controller.appointments);
+app.use('/app/bookings/loadAppointmentViewModel/:agencyId', jsonParser, controller.loadAppointmentViewModel);
+app.use('/app/bookings/addAppointment/:bookingId', jsonParser, controller.addAppointment);
 
 app.use('/app',jsonParser, application.sessionHandler);
 app.use('/health', apiProxy);

@@ -28,9 +28,11 @@ const getAdjudications = ({ req , fromDate }) => getRequest({ req, url: `booking
 const getEventsForThisWeek = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/events/thisWeek` });
 const getEventsForNextWeek = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/events/nextWeek` });
 const getCategoryAssessment = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/assessment/CATEGORY` });
-const getAppointmentTypes = (req) => getRequest({ url: '/reference-domains/scheduleReasons?eventType=APP' });
-const getLocationsForAppointments = (req) => getRequest({ url: '/reference-domains/scheduleReasons?eventType=APP' });
-
+const getAppointmentTypes = (req) => getRequest({ req, url: 'reference-domains/scheduleReasons?eventType=APP' });
+const getLocationsForAppointments = (req) => {
+  const url = `agencies/${req.params.agencyId}/locations?eventType=APP`;
+  return getRequest({ req, url });
+};
 
 const getPositiveCaseNotes = ({ req, fromDate, toDate }) => getRequest({
   req,
@@ -42,6 +44,14 @@ const getNegativeCaseNotes = ({ req, fromDate, toDate }) => getRequest({
   url: `bookings/${req.params.bookingId}/caseNotes/NEG/IEP_WARN/count?fromDate=${fromDate}&toDate=${toDate}`,
 });
 
+const addAppointment = ({ req }) => service.callApi({
+  method: 'post',
+  url: `bookings/${req.params.bookingId}/appointments`,
+  reqHeaders: req.headers,
+  data: req.body,
+  onTokenRefresh: (token) => { req.headers.jwt = token },
+});
+
 const getRequest = ({ req, url }) => service.callApi({
   method: 'get',
   url,
@@ -50,7 +60,6 @@ const getRequest = ({ req, url }) => service.callApi({
   onTokenRefresh: (token) => { req.headers.jwt = token },
 }).then(response => new Promise(r => r(response.data)))
     .catch(_ => new Promise(r => r(null)));  // eslint-disable-line no-unused-vars
-
 
 const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseType, data }) => {
   const { token, refreshToken } = session.getSessionData(reqHeaders);
@@ -119,6 +128,7 @@ const service = {
   getCategoryAssessment,
   getLocationsForAppointments,
   getAppointmentTypes,
+  addAppointment,
 };
 
 module.exports = service;

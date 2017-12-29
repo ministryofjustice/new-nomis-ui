@@ -120,12 +120,32 @@ const eventsForNextWeek = asyncMiddleware(async (req,res) => {
   res.json(data);
 });
 
-const appointments = router.get(asyncMiddleware(async (req,res) => {
+const loadAppointmentViewModel = asyncMiddleware(async (req,res) => {
+  const agencyId = req.params.agencyId;
+
+  if (!agencyId) {
+    res.status(400);
+    res.end();
+    return;
+  }
+
   const viewModel = await eventsService.getAppointmentViewModel(req);
   res.json(viewModel);
-})).post(asyncMiddleware(async (req,res,next) => {
-  next();
-}));
+});
+
+const addAppointment = asyncMiddleware(async (req,res) => {
+  const bookingId = req.params.bookingId;
+
+  if (!bookingId) {
+    res.status(400);
+    res.end();
+    return;
+  }
+
+  await elite2Api.addAppointment({ req });
+  res.status(200);
+  res.end();
+});
 
 module.exports = {
   keyDates,
@@ -135,5 +155,6 @@ module.exports = {
   quickLook,
   eventsForNextWeek,
   eventsForThisWeek,
-  appointments,
+  loadAppointmentViewModel,
+  addAppointment,
 };

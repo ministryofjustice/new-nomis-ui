@@ -28,6 +28,11 @@ const selectToken = () => createSelector(
   (loginState) => loginState.get('loginData')
 );
 
+const selectActiveCaseLoad = () => createSelector(
+  selectUser(),
+  (user) => user.activeCaseLoadId,
+);
+
 export {
   selectLogin,
   selectUser,
@@ -35,4 +40,5 @@ export {
   selectUsername,
   selectPassword,
   selectToken,
+  selectActiveCaseLoad,
 };
