@@ -312,7 +312,7 @@ const selectCurrentFilter = () => createSelector(
 
 const selectAppointmentViewModel = () => createSelector(
   selectSearch(),
-  (search) => search.get('appointmentViewModel').toJS(),
+  (search) => search.get('appointmentViewModel') && search.get('appointmentViewModel').toJS(),
 );
 
 export {
