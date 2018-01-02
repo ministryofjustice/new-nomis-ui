@@ -150,7 +150,7 @@ const mapStateToProps = createStructuredSelector({
   offenderName: selectName(),
 });
 
-const validate = (form) => {
+export const validate = (form) => {
   if (!form) return {};
 
   const { startTime, endTime, appointmentType, location, eventDate, comment } = form.toJS();
@@ -182,7 +182,7 @@ const validate = (form) => {
     error.endTime = "End time shouldn't be in the past";
   }
 
-  if (moment().isBefore(moment(eventDate))) {
+  if (moment(eventDate).isBefore(now, 'day')) {
     error.eventDate = "Date shouldn't be in the past";
   }
 
