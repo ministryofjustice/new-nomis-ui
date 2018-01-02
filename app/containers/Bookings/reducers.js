@@ -234,9 +234,6 @@ function searchReducer(state = initialState, action) {
     }
 
     case APPOINTMENT.SET_VIEW_MODEL: {
-      console.error('APPOINTMENT.SET_VIEW_MODEL:');
-      console.error(action);
-
       return state.set('appointmentViewModel',fromJS(action.payload));
     }
 
