@@ -35,28 +35,40 @@ const AddCaseNoteForm = ({
     <form onSubmit={handleSubmit}>
       <SubmissionError error={error}>{error}</SubmissionError>
 
-      <TypeAndSubTypeSelector selectedType={typeValue} types={caseNoteTypes.types} subTypes={caseNoteTypes.subTypes} />
+      <div className="row">
+        <div className="col-sm-4 no-left-gutter">
+          <TypeAndSubTypeSelector selectedType={typeValue} types={caseNoteTypes.types} subTypes={caseNoteTypes.subTypes} />
+        </div>
+      </div>
 
-      <Field name="caseNoteText" component={TextArea} title="Case note" autocomplete="off" spellcheck="true" />
+      <div className="row">
+        <div className="col-sm-4 no-left-gutter">
+          <Field name="caseNoteText" component={TextArea} title="Case note" autocomplete="off" spellcheck="true" />
+        </div>
+      </div>
 
-      <div className="occurrence-date-time">
-        <Field
-          name="occurrenceDateTime"
-          component={DateTimePicker}
-          editable
-          locale={locale}
-          title="Occurrence date and time:"
-          shouldShowDay={(date) => date.isBefore(moment())}
-        />
+      <div className="row">
+        <div className="col-sm-4 no-left-gutter">
+          <div className="occurrence-date-time">
+            <Field
+              name="occurrenceDateTime"
+              component={DateTimePicker}
+              editable
+              locale={locale}
+              title="Occurrence date and time:"
+              shouldShowDay={(date) => date.isBefore(moment())}
+            />
+          </div>
+        </div>
       </div>
 
       <div className="actions">
 
-        <button className="button col-xs-12 col-sm-4" type="submit" disabled={submitting}>
+        <button className="button col-xs-12 col-sm-2" type="submit" disabled={submitting}>
           Save case note
         </button>
 
-        <button className="cancel-button col-xs-12 col-sm-2" type="reset" onClick={() => goBackToBookingDetails(bookingDetailsId)}>
+        <button className="cancel-button col-xs-12 col-sm-1" type="reset" onClick={() => goBackToBookingDetails(bookingDetailsId)}>
           Cancel
         </button>
 

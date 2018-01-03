@@ -1,12 +1,27 @@
 .add-appointment {
-  .form-control {
-    width: 100% !important;
+
+  @include media-breakpoint-down(md) {
+
+    @include add-gutter-margin-top();
+  }
+
+  @include media-breakpoint-down(xs) {
+    button:first-child {
+      @include add-gutter-margin-bottom();
+    }
   }
 
   .time-picker > .form-control {
     width: 45% !important;
-    padding-right: 1px;
-    overflow: hidden;
+    margin-right: 5px;
+  }
+
+  .col-xs-6 {
+    padding-right: 0 !important;
+  }
+
+  .form-control {
+    width: 100% !important;
   }
 
   .rdtPicker {

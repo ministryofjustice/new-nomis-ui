@@ -2,26 +2,6 @@
 
   @include add-gutter-margin-top();
 
-  .show-full-screen-button {
-    display: none;
-  }
-
-  @include media-breakpoint-down(lg) {
-
-    .hide-desktop-button {
-      display: none;
-    }
-
-    .show-full-screen-button {
-      display: block;
-
-      .button-link {
-        width: 100%;
-        text-align: center;
-      }
-    }
-  }
-
   label {
     display: block;
   }
@@ -59,7 +39,7 @@
     display: none;
   }
 
-  @include media-breakpoint-between(md,xl) {
+  @include media-breakpoint-up(md) {
     .visible-desktop {
       display: block;
     }
@@ -69,7 +49,7 @@
     }
   }
 
-  @include media-breakpoint-between(xs,sm) {
+  @include media-breakpoint-down(md) {
     .visible-desktop {
       display: none;
     }
@@ -85,6 +65,13 @@
     }
   }
 
+  @media(max-width: 952px) {
+    .button-link {
+      width: 100% !important;
+      text-align: center;
+      padding: 5px !important;
+    }
+  }
 
   @media (max-width: 534px) {
     .photo {
