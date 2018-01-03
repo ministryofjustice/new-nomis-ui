@@ -101,7 +101,7 @@ const DesktopOnlyLayout = ({ iepLevel, csra, activeAlertCount, inactiveAlertCoun
 
   <div className="col pull-right no-right-gutter no-left-gutter visible-desktop">
     <div className="add-gutter-bottom">
-      <Link className="button-link hide-desktop-button" to={'/bookings/details/addCaseNote'}>Add new case note</Link>
+      <Link className="button-link hide-desktop-button" to={'/bookings/details/addCaseNote'}>Add case note</Link>
     </div>
     <div>
       <Link className="button-link hide-desktop-button" to={'/bookings/details/addAppointment'}>Add Appointment</Link>

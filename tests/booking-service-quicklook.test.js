@@ -29,6 +29,7 @@ describe('Booking Service Quick look', () => {
     sandbox.stub(elite2Api, 'getSentenceData');
     sandbox.stub(elite2Api, 'getContacts');
     sandbox.stub(elite2Api, 'getAdjudications');
+    sandbox.stub(elite2Api, 'getLastVisit');
 
     elite2Api.getBalances.returns(null);
     elite2Api.getMainOffence.returns(null);
@@ -37,6 +38,7 @@ describe('Booking Service Quick look', () => {
     elite2Api.getNegativeCaseNotes.returns(null);
     elite2Api.getSentenceData.returns(null);
     elite2Api.getContacts.returns(null);
+    elite2Api.getLastVisit.returns(null);
     elite2Api.getAdjudications.returns({
       awards: [],
     });
@@ -383,5 +385,25 @@ describe('Booking Service Quick look', () => {
 
     expect(elite2Api.getSentenceData).to.be.called;
     expect(data.indeterminateReleaseDate).to.be.false;
+  });
+
+  it('should call lastVisit', async () => {
+    elite2Api.getLastVisit.returns({
+      eventStatusDescription: 'Not attended',
+      visitTypeDescription: 'Social Contact',
+      leadVisitor: 'JOHN SMITH',
+      relationshipDescription: 'Brother',
+      startTime: '2017-12-22T10:00:00',
+      endTime: '2017-12-22T12:00:00',
+      cancelReasonDescription: 'All visits canceled',
+    });
+
+    const data = await bookingService.getQuickLookViewModel(req);
+    const visit = data.lastVisit;
+    expect(visit.date).to.equal('2017-12-22T10:00:00');
+    expect(visit.leadVisitor).to.equal('John Smith (Brother)');
+    expect(visit.status).to.equal('Not attended');
+    expect(visit.type).to.equal('Social Contact');
+    expect(visit.cancellationReason).to.equal('All visits canceled');
   });
 });

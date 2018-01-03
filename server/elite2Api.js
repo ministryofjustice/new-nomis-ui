@@ -44,6 +44,8 @@ const getNegativeCaseNotes = ({ req, fromDate, toDate }) => getRequest({
   url: `bookings/${req.params.bookingId}/caseNotes/NEG/IEP_WARN/count?fromDate=${fromDate}&toDate=${toDate}`,
 });
 
+const getLastVisit = (req) => getRequest({ req, url: `/bookings/${req.params.bookingId}/visits/last` });
+
 const addAppointment = ({ req }) => service.callApi({
   method: 'post',
   url: `bookings/${req.params.bookingId}/appointments`,
@@ -129,6 +131,7 @@ const service = {
   getLocationsForAppointments,
   getAppointmentTypes,
   addAppointment,
+  getLastVisit,
 };
 
 module.exports = service;

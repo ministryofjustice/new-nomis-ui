@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import { properCaseName } from 'utils/stringUtils';
 import DisplayValue from 'components/FormComponents/DisplayValue';
 import { Link } from 'react-router';
+import { properCase } from 'utils/stringUtils';
 
 import {
   selectBookingDetailsId,
@@ -308,6 +309,61 @@ export const NextOfKin = ({ nextOfKin = [] }) => <div>
   </div>)}
 </div>
 
+export const LastVisit = ({ date, type, status, leadVisitor, relationshipDescription, cancellationReason }) => <div>
+
+    <div className="row border-bottom-line">
+      <div className="col-lg-6 col-xs-6">
+        <label>Last visit date</label>
+      </div>
+
+      <div className="col-lg-6 col-xs-6">
+        <b> <FormattedDate value={date} /> </b>
+      </div>
+    </div>
+
+  <div className="row border-bottom-line">
+    <div className="col-lg-6 col-xs-6">
+      <label>Type of visit</label>
+    </div>
+
+    <div className="col-lg-6 col-xs-6">
+      <b> <DisplayValue value={type} /> </b>
+    </div>
+  </div>
+
+  <div className="row border-bottom-line">
+    <div className="col-lg-6 col-xs-6">
+      <label>Lead visitor</label>
+    </div>
+
+    <div className="col-lg-6 col-xs-6">
+      <b> <DisplayValue value={leadVisitor} /> </b>
+    </div>
+  </div>
+
+  <div className="row border-bottom-line">
+    <div className="col-lg-6 col-xs-6">
+      <label>Visit status</label>
+    </div>
+
+    <div className="col-lg-6 col-xs-6">
+      <b> <DisplayValue value={status} /> </b>
+    </div>
+  </div>
+
+  {cancellationReason && <div className="row border-bottom-line">
+    <div className="col-lg-6 col-xs-6">
+      <label>Reason</label>
+    </div>
+
+    <div className="col-lg-6 col-xs-6">
+      <b> {cancellationReason} </b>
+    </div>
+  </div> }
+
+</div>
+
+
 class QuickLook extends Component {
 
   componentDidMount() {
@@ -321,7 +377,7 @@ class QuickLook extends Component {
 
     if (!viewModel) { return <div>Loading....</div> }
 
-    const { balance, offences, releaseDate, indeterminateReleaseDate, activities, positiveCaseNotes, negativeCaseNotes, nextOfKin, adjudications } = (viewModel && viewModel.toJS());
+    const { balance, offences, releaseDate, indeterminateReleaseDate, activities, positiveCaseNotes, negativeCaseNotes, nextOfKin, adjudications, lastVisit } = (viewModel && viewModel.toJS());
     const { awards, proven } = adjudications;
 
     return (<div className="quick-look">
@@ -373,13 +429,31 @@ class QuickLook extends Component {
       <div className="row">
 
         <div className="col-md-6 col-xs-12">
+          <div>
+            <h3 className="heading-medium">
+              Case notes and adjudications (Last 3 months)
+            </h3>
 
-          <h3 className="heading-medium">
-            Case notes and adjudications (Last 3 months)
-          </h3>
+            <NegativeAndPositiveCaseNoteCount negativeCaseNotes={negativeCaseNotes} positiveCaseNotes={positiveCaseNotes} />
+            <Adjudications awards={awards} proven={proven} />
+          </div>
+          <div className="add-gutter-top">
+            <h3 className="heading-medium">
+              Last visit
+            </h3>
 
-          <NegativeAndPositiveCaseNoteCount negativeCaseNotes={negativeCaseNotes} positiveCaseNotes={positiveCaseNotes} />
-          <Adjudications awards={awards} proven={proven} />
+            { lastVisit && <LastVisit {...lastVisit} /> }
+            { !lastVisit && <div className="row border-bottom-line">
+              <div className="col-lg-6 col-xs-6">
+                <label>Last visit date</label>
+              </div>
+
+              <div className="col-lg-6 col-xs-6">
+                <b> No visit history </b>
+              </div>
+            </div>}
+
+          </div>
         </div>
 
         <div className="col-md-6 col-xs-12">
