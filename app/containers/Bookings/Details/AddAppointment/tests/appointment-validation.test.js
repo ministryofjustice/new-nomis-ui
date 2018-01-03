@@ -3,7 +3,7 @@ import moment from 'moment';
 import { validate } from '../index';
 
 describe('Create appointment validation', () => {
-  it('check that Appointment type, location, date and start time have been inputted', () => {
+  it('check that Appointment type, location, date and start time have been entered', () => {
     const error = validate(Map({
 
     }));
@@ -38,5 +38,30 @@ describe('Create appointment validation', () => {
 
     expect(error.startTime).toBe('Start time shouldn\'t be in the past');
     expect(error.endTime).toBe('End time shouldn\'t be in the past');
+  });
+
+  it('should ensure the end time does not come before the start time', () => {
+    const tomorrow = moment().add(1, 'days');
+    const startTime = moment().add(1, 'days');
+    const endTime = moment().add(1, 'days');
+
+    startTime.hour(23);
+    endTime.hour(0);
+
+    const error = validate(Map({
+      eventDate: tomorrow,
+      startTime,
+      endTime,
+    }));
+
+    expect(error.endTime).toBe('End time shouldn\'t be before Start time');
+  });
+
+  it('should ensure a valid event date is entered', () => {
+    const error = validate(Map({
+      eventDate: 'aljshdflakhdKJHFD',
+    }));
+
+    expect(error.eventDate).toBe('Please enter a valid date');
   });
 });

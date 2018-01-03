@@ -11,7 +11,6 @@ import {
 class DatePicker extends Component {
   constructor() {
     super();
-    this.renderInput = this.renderInput.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -19,31 +18,28 @@ class DatePicker extends Component {
     this.props.input.onChange(moment(date).format(DEFAULT_MOMENT_DATE_FORMAT_SPEC));
   }
 
-  renderInput(props, openCalendar) {
-    return <input type="date" {...props} onClick={openCalendar} />
-  }
-
   render() {
     const { title,shouldShowDay,locale, meta: { touched, error } } = this.props;
 
-    return (<div className={!(touched && error) ? 'form-group' : 'form-group form-group-error'}>
+    return (<div className={(touched && error && 'form-group form-group-error') || 'form-group'}>
 
       <label className="form-label">
         {title}
       </label>
 
       <div className="error-message">
-        {touched && ((error && <span>{error}</span>))}
+        {touched && error && <span>{error}</span>}
       </div>
-
 
       <Datetime
         className={touched && error && 'form-control form-control-error'}
-        renderInput={this.renderInput}
         onChange={this.handleChange}
         timeFormat={false}
         isValidDate={shouldShowDay}
         locale={locale}
+        readOnly
+        closeOnSelect
+        strictParsing
       />
      </div>)
   }

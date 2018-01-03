@@ -92,7 +92,8 @@
     "import/no-duplicates" :0,
     "import/no-named-as-default-member": 0,
     "no-unused-vars": 0,
-    "react/no-string-refs": 0
+    "react/no-string-refs": 0,
+    "react/prefer-stateless-function": 0,
   },
   "settings": {
     "import/resolver": {

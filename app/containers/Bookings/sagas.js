@@ -8,6 +8,8 @@ import { loadBookingAlerts, loadBookingCaseNotes, resetCaseNotes } from 'contain
 import { BOOKINGS } from 'containers/EliteApiLoader/constants';
 import { DATE_TIME_FORMAT_SPEC } from 'containers/App/constants';
 import moment from 'moment';
+import { notify } from 'react-notify-toast';
+
 
 import {
   addCaseNote,
@@ -114,24 +116,32 @@ export function* loadQuickLookWatcher() {
 export function* onAddAppointment(action) {
   try {
     const bookingId = yield select(selectBookingDetailsId());
-
     const { appointmentType, location, startTime, endTime, eventDate, comment } = action.payload;
     const eventStartTime = moment(eventDate, 'DD/MM/YYYY');
+    const eventEndTime = endTime && moment(eventDate, 'DD/MM/YYYY');
 
     eventStartTime.hour(moment(startTime).hour());
     eventStartTime.minute(moment(startTime).minute());
     eventStartTime.second(moment(startTime).second());
+
+    if (eventEndTime) {
+      eventEndTime.hour(moment(endTime).hour());
+      eventEndTime.minute(moment(endTime).minute());
+      eventEndTime.second(moment(endTime).second());
+    }
 
     yield call(addAppointment, {
       appointmentType,
       locationId: location,
       comment,
       startTime: moment(eventStartTime).format(DATE_TIME_FORMAT_SPEC),
-      endTime: endTime && moment(endTime).format(DATE_TIME_FORMAT_SPEC),
+      endTime: eventEndTime && moment(eventEndTime).format(DATE_TIME_FORMAT_SPEC),
       bookingId,
     });
 
     yield put(push('/bookings/details'));
+
+    yield notify.show('Appointment has been created successfully.','success');
   } catch (err) {
     yield put({ type: APPOINTMENT.ERROR, payload: new SubmissionError({ _error: 'Unable to create a new appointment at this time.' }) });
   }
@@ -322,6 +332,8 @@ export function* addCasenoteSaga(action) {
     // Go to casenotes tab...
     yield put(setDetailsTab(3));
     yield put(push('/bookings/details'));
+
+    yield notify.show('Case note has been created successfully.','success');
   } catch (e) {
     yield put({ type: ADD_NEW_CASENOTE.ERROR, payload: new SubmissionError(e.message) });
   }
