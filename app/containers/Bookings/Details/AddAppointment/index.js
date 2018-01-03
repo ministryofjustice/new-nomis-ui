@@ -12,6 +12,7 @@ import TimePicker from 'components/FormComponents/TimePicker';
 import { selectLocale } from 'containers/LanguageProvider/selectors';
 import { SubmissionError, TextArea } from 'components/FormComponents';
 import { selectActiveCaseLoad } from 'containers/Authentication/selectors';
+import { DATE_ONLY_FORMAT_SPEC, DATE_TIME_FORMAT_SPEC } from 'containers/App/constants';
 
 import { DETAILS_TABS, APPOINTMENT } from '../../constants';
 import { selectBookingDetailsId,selectAppointmentViewModel,selectName } from '../../selectors';
@@ -19,13 +20,21 @@ import { viewDetails,loadAppointmentViewModel } from '../../actions';
 
 import './index.scss';
 
-const AddAppointment = ({ handleSubmit,error,submitting, locale, goBackToBookingDetails, bookingId, offenderName, viewModel }) =>
-  <div className="add-appointment">
+class AddAppointment extends Component {
+
+  render() {
+    const { handleSubmit,error,submitting, locale, goBackToBookingDetails, bookingId, offenderName, viewModel } = this.props;
+
+    if (this.props && this.props.error) {
+      window.scrollTo(0,0);
+    }
+
+    return (<div className="add-appointment">
 
       <form onSubmit={handleSubmit}>
 
         <div className="row">
-          <div className="col-lg-4 no-left-gutter">
+          <div className="col-md-4 no-left-gutter">
             <h1 className="heading-large no-top-gutter">
               Add new appointment
             </h1>
@@ -40,19 +49,19 @@ const AddAppointment = ({ handleSubmit,error,submitting, locale, goBackToBooking
         </div>
 
         <div className="row">
-          <div className="col-lg-2 no-left-gutter">
+          <div className="col-md-2 no-left-gutter">
             <label>Name</label>
           </div>
         </div>
 
         <div className="row add-gutter-margin-bottom">
-          <div className="col-lg-2 no-left-gutter">
+          <div className="col-md-2 no-left-gutter">
             <b> {offenderName} </b>
           </div>
         </div>
 
         <div className="row">
-          <div className="col-lg-4 no-left-gutter">
+          <div className="col-md-4 no-left-gutter">
             <Field
               name="appointmentType"
               title="Select type of appointment"
@@ -66,7 +75,7 @@ const AddAppointment = ({ handleSubmit,error,submitting, locale, goBackToBooking
           </div>
         </div>
         <div className="row">
-          <div className="col-lg-4 no-left-gutter">
+          <div className="col-md-4 no-left-gutter">
             <Field
               name="location"
               title="Select location"
@@ -81,7 +90,7 @@ const AddAppointment = ({ handleSubmit,error,submitting, locale, goBackToBooking
         </div>
 
         <div className="row">
-          <div className="col-lg-2 no-left-gutter">
+          <div className="col-md-2 no-left-gutter">
             <Field
               name="eventDate"
               title="Select date"
@@ -93,7 +102,7 @@ const AddAppointment = ({ handleSubmit,error,submitting, locale, goBackToBooking
         </div>
 
         <div className="row add-gutter-margin-bottom">
-          <div className="col-lg-2 no-left-gutter">
+          <div className="col-xs-6 col-md-2 no-left-gutter">
             <Field
               name="startTime"
               title="Start time"
@@ -101,7 +110,7 @@ const AddAppointment = ({ handleSubmit,error,submitting, locale, goBackToBooking
             />
           </div>
 
-          <div className="col-lg-2 no-left-gutter">
+          <div className="col-xs-6 col-md-2 no-left-gutter">
             <Field
               className="add-gutter-top"
               name="endTime"
@@ -112,19 +121,22 @@ const AddAppointment = ({ handleSubmit,error,submitting, locale, goBackToBooking
         </div>
 
         <div className="row">
-          <div className="col-lg-4 add-gutter-margin-top no-left-gutter">
+          <div className="col-md-4 add-gutter-margin-top no-left-gutter">
             <Field name="comment" component={TextArea} title="Comments (optional)" autocomplete="off" spellcheck="true" />
           </div>
         </div>
 
         <div className="row">
-          <div className="col-lg-4 no-left-gutter">
+          <div className="col-md-4 no-left-gutter">
             <button className="button add-gutter-margin-right" type="submit" disabled={submitting}> Add appointment </button>
             <button className="button-grey" onClick={() => goBackToBookingDetails(bookingId)}> Cancel </button>
           </div>
         </div>
       </form>
-    </div>
+    </div>)
+  }
+}
+
 
 export function mapDispatchToProps(dispatch) {
   return {
@@ -156,7 +168,7 @@ export const validate = (form) => {
   const { startTime, endTime, appointmentType, location, eventDate, comment } = form.toJS();
   const error = {};
   const now = moment();
-  const isToday = moment(eventDate,'DD/MM/YYYY').isSame(now, 'day');
+  const isToday = moment(eventDate, DATE_ONLY_FORMAT_SPEC).isSame(now, 'day');
 
   if (!appointmentType) {
     error.appointmentType = 'Please select an appointment type';
@@ -168,6 +180,10 @@ export const validate = (form) => {
 
   if (!eventDate) {
     error.eventDate = 'Please select a date';
+  }
+
+  if (eventDate && moment(eventDate, DATE_ONLY_FORMAT_SPEC).isValid() === false) {
+    error.eventDate = 'Please enter a valid date';
   }
 
   if (!startTime) {
@@ -182,12 +198,17 @@ export const validate = (form) => {
     error.endTime = "End time shouldn't be in the past";
   }
 
-  if (moment(eventDate).isBefore(now, 'day')) {
+  if (moment(eventDate, DATE_ONLY_FORMAT_SPEC).isBefore(now, 'day')) {
     error.eventDate = "Date shouldn't be in the past";
   }
 
-  if (comment && comment.length > 4000) {
-    error.comment = 'Maximum length should not exceed 4000 characters';
+  if (moment(endTime, DATE_TIME_FORMAT_SPEC).isBefore(moment(startTime, DATE_TIME_FORMAT_SPEC), 'minute')) {
+    error.endTime = 'End time shouldn\'t be before Start time';
+    error.startTime = 'Start time should\'t be after End time';
+  }
+
+  if (comment && comment.length > 3600) {
+    error.comment = 'Maximum length should not exceed 3600 characters';
   }
 
   return error;
