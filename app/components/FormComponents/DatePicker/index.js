@@ -8,40 +8,55 @@ import {
   DATE_TIME_FORMAT_SPEC,
 } from 'containers/App/constants';
 
+import './index.scss';
+
 class DatePicker extends Component {
   constructor() {
     super();
     this.handleChange = this.handleChange.bind(this);
+    this.renderInput = this.renderInput.bind(this);
   }
 
   handleChange(date) {
     this.props.input.onChange(moment(date).format(DEFAULT_MOMENT_DATE_FORMAT_SPEC));
   }
 
+  renderInput(props) {
+    return (
+      <div>
+        <input {...props} readOnly />
+      </div>
+    );
+  }
+
   render() {
     const { title,shouldShowDay,locale, meta: { touched, error } } = this.props;
 
-    return (<div className={(touched && error && 'form-group form-group-error') || 'form-group'}>
+    return (
+      <div className="date-picker-component">
+          <div className={(touched && error && 'form-group form-group-error') || 'form-group'}>
 
-      <label className="form-label">
-        {title}
-      </label>
+          <label className="form-label">
+            {title}
+          </label>
 
-      <div className="error-message">
-        {touched && error && <span>{error}</span>}
-      </div>
+          <div className="error-message">
+            {touched && error && <span>{error}</span>}
+          </div>
 
-      <Datetime
-        className={touched && error && 'form-control form-control-error'}
-        onChange={this.handleChange}
-        timeFormat={false}
-        isValidDate={shouldShowDay}
-        locale={locale}
-        readOnly
-        closeOnSelect
-        strictParsing
-      />
-     </div>)
+          <Datetime
+            className={(touched && error && 'form-control-error')}
+            onChange={this.handleChange}
+            timeFormat={false}
+            isValidDate={shouldShowDay}
+            locale={locale}
+            closeOnSelect
+            strictParsing
+            renderInput={this.renderInput}
+          />
+
+         </div>
+      </div>)
   }
 }
 
