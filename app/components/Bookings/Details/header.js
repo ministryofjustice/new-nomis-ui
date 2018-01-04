@@ -104,7 +104,7 @@ const DesktopOnlyLayout = ({ iepLevel, csra, activeAlertCount, inactiveAlertCoun
       <Link className="button-link hide-desktop-button" to={'/bookings/details/addCaseNote'}>Add case note</Link>
     </div>
     <div>
-      <Link className="button-link hide-desktop-button" to={'/bookings/details/addAppointment'}>Add Appointment</Link>
+      <Link className="button-link hide-desktop-button" to={'/bookings/details/addAppointment'}>Add appointment</Link>
     </div>
   </div>
 </div>
