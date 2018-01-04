@@ -2,6 +2,10 @@
 
   @include add-gutter-margin-top();
 
+  .button-link {
+    min-width: 9em !important;
+  }
+
   label {
     display: block;
   }

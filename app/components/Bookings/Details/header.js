@@ -56,9 +56,9 @@ const MobileOnlyLayout = ({ iepLevel, csra, activeAlertCount, inactiveAlertCount
             </div>
           </div>
 
-         <div>
+         <div className="show-full-screen-button">
            <Link className="button-link add-gutter-bottom" to={'/bookings/details/addCaseNote'}>Add new case note</Link>
-           <Link className="button-link" to={'/bookings/details/addAppointment'}>Add new appointment</Link>
+           <Link className="button-link" to={'/bookings/details/addAppointment'}>Add Appointment</Link>
          </div>
 
      </div>
@@ -99,12 +99,12 @@ const DesktopOnlyLayout = ({ iepLevel, csra, activeAlertCount, inactiveAlertCoun
     </div>
   </div>
 
-  <div className="col-sm-12 col-md-12 col-lg-2 pull-right no-right-gutter no-left-gutter">
+  <div className="col pull-right no-right-gutter no-left-gutter visible-desktop">
     <div className="add-gutter-bottom">
-      <Link className="button-link" to={'/bookings/details/addCaseNote'}>Add new case note</Link>
+      <Link className="button-link hide-desktop-button" to={'/bookings/details/addCaseNote'}>Add case note</Link>
     </div>
     <div>
-      <Link className="button-link" to={'/bookings/details/addAppointment'}>Add new appointment</Link>
+      <Link className="button-link hide-desktop-button" to={'/bookings/details/addAppointment'}>Add Appointment</Link>
     </div>
   </div>
 </div>

@@ -68,6 +68,7 @@ const getQuickLookViewModel = async (req) => {
   const negativeCaseNotes = await elite2Api.getNegativeCaseNotes({ req, fromDate: threeMonthsInThePast,toDate: today });
   const contacts = await elite2Api.getContacts(req);
   const adjudications = await elite2Api.getAdjudications({ req, fromDate: threeMonthsInThePast });
+  const lastVisit = await elite2Api.getLastVisit(req);
 
   const morningActivity = filterMorning(activityData);
   const afternoonActivity = filterAfternoon(activityData);
@@ -85,7 +86,21 @@ const getQuickLookViewModel = async (req) => {
     type: offenceDetail.offenceDescription,
   }));
 
+  const mapVisit = (visit) => {
+    const nameParts = visit.leadVisitor.split(' ');
+    const toName = (value) => value && value.split('').map((letter,index) => index === 0 ? letter.toUpperCase() : letter.toLowerCase()).join('');
+
+    return {
+      leadVisitor: `${toName(nameParts[0])} ${toName(nameParts[1])} (${visit.relationshipDescription})`,
+      date: visit.startTime,
+      type: visit.visitTypeDescription,
+      cancellationReason: visit.cancelReasonDescription,
+      status: visit.eventStatusDescription,
+    };
+  };
+
   return {
+    lastVisit: lastVisit && mapVisit(lastVisit),
     balance: balance && {
       spends: balance.spends,
       cash: balance.cash,
