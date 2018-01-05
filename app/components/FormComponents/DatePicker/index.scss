@@ -1,7 +1,7 @@
 .date-picker-component {
 
   .form-group-error {
-    .rdtPicker {
+    .rdtPicker {  /* stylelint-disable-line */
       @include media-breakpoint-down(xs) {
         margin-left: -1em !important;
       }
