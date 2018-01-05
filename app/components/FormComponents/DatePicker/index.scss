@@ -1,6 +1,10 @@
 .date-picker-component {
-   .form-control {
-      width: 100% !important;
-      height: 2em !important;
-   }
+
+  .form-group-error {
+    .rdtPicker {
+      @include media-breakpoint-down(xs) {
+        margin-left: -1em !important;
+      }
+    }
+  }
 }
