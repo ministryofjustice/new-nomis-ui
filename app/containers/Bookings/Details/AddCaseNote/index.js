@@ -42,7 +42,7 @@ const AddCaseNoteForm = ({
       </div>
 
       <div className="row">
-        <div className="col-sm-4 no-left-gutter">
+        <div className="col-sm-8 no-left-gutter">
           <Field name="caseNoteText" component={TextArea} title="Case note" autocomplete="off" spellcheck="true" />
         </div>
       </div>
