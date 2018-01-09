@@ -39,11 +39,11 @@ class TimePicker extends Component {
   }
 
   setInputValue(data) {
-    if (data.hours && data.minutes && data.hours !== '--' && data.minutes !== '--') {
+    if (data.hours && data.hours !== '--' && data.minutes !== '--') {
       const today = moment();
 
       today.hours(parseInt(data.hours));
-      today.minutes(parseInt(data.minutes));
+      today.minutes(parseInt(data.minutes || 0));
       today.seconds(0);
 
       this.props.input.onChange(today.format(DATE_TIME_FORMAT_SPEC));
