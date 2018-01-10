@@ -6,12 +6,14 @@ import { createStructuredSelector } from 'reselect';
 import { properCaseName } from 'utils/stringUtils';
 import DisplayValue from 'components/FormComponents/DisplayValue';
 import { Link } from 'react-router';
-import { properCase } from 'utils/stringUtils';
+import { properCase, toFullName } from 'utils/stringUtils';
+import EliteOfficerName from 'containers/EliteContainers/OfficerName';
 
 import {
   selectBookingDetailsId,
   selectQuickLookViewModel,
   selectOffenderDetails,
+  selectHeaderDetail,
 } from 'containers/Bookings/selectors'
 
 import {
@@ -363,6 +365,31 @@ export const LastVisit = ({ date, type, status, leadVisitor, relationshipDescrip
 
 </div>
 
+const AssignedStaffMembers = ({ members,keyWorkerId }) =>
+  <div>
+
+    <div className="row border-bottom-line">
+      <div className="col-lg-6 col-xs-6">
+        <label>Key Worker</label>
+      </div>
+
+      <div className="col-lg-6 col-xs-6">
+        <b> { (keyWorkerId && <EliteOfficerName staffId={keyWorkerId} />) || 'No key worker identified'} </b>
+      </div>
+    </div>
+    
+    <div className="row border-bottom-line">
+      <div className="col-lg-6 col-xs-6">
+        <label>Community Offender Manager</label>
+      </div>
+
+      <div className="col-lg-6 col-xs-6">
+        <b> { toFullName({ ...members.communityOffenderManager }) || ' No community offender manager identified'} </b>
+      </div>
+    </div>
+
+  </div>
+
 
 class QuickLook extends Component {
 
@@ -373,11 +400,11 @@ class QuickLook extends Component {
   }
 
   render() {
-    const { viewModel, offenderDetails } = this.props;
+    const { viewModel, offenderDetails, headerDetails } = this.props;
 
     if (!viewModel) { return <div>Loading....</div> }
 
-    const { balance, offences, releaseDate, indeterminateReleaseDate, activities, positiveCaseNotes, negativeCaseNotes, nextOfKin, adjudications, lastVisit } = (viewModel && viewModel.toJS());
+    const { balance, offences, releaseDate, indeterminateReleaseDate, activities, positiveCaseNotes, negativeCaseNotes, nextOfKin, adjudications, lastVisit, assignedStaffMembers } = (viewModel && viewModel.toJS());
     const { awards, proven } = adjudications;
 
     return (<div className="quick-look">
@@ -418,12 +445,15 @@ class QuickLook extends Component {
 
        <div className="col-md-6 col-xs-12">
          <h3 className="heading-medium">
-           Other
+           Assigned staff members
          </h3>
 
-         <NextOfKin nextOfKin={nextOfKin} />
-       </div>
+         <AssignedStaffMembers
+           members={assignedStaffMembers}
+           keyWorkerId={headerDetails.assignedOfficerId}
+         />
 
+       </div>
      </div>
 
       <div className="row">
@@ -437,23 +467,35 @@ class QuickLook extends Component {
             <NegativeAndPositiveCaseNoteCount negativeCaseNotes={negativeCaseNotes} positiveCaseNotes={positiveCaseNotes} />
             <Adjudications awards={awards} proven={proven} />
           </div>
-          <div className="add-gutter-top">
-            <h3 className="heading-medium">
-              Last visit
-            </h3>
+        </div>
 
-            { lastVisit && <LastVisit {...lastVisit} /> }
-            { !lastVisit && <div className="row border-bottom-line">
-              <div className="col-lg-6 col-xs-6">
-                <label>Last visit date</label>
-              </div>
+        <div className="col-md-6 col-xs-12">
 
-              <div className="col-lg-6 col-xs-6">
-                <b> No visit history </b>
-              </div>
-            </div>}
+          <h3 className="heading-medium">
+            Last visit
+          </h3>
 
-          </div>
+          { lastVisit && <LastVisit {...lastVisit} /> }
+          { !lastVisit && <div className="row border-bottom-line">
+            <div className="col-lg-6 col-xs-6">
+              <label>Last visit date</label>
+            </div>
+
+            <div className="col-lg-6 col-xs-6">
+              <b> No visit history </b>
+            </div>
+          </div>}
+
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-md-6 col-xs-12">
+          <h3 className="heading-medium">
+            Other
+          </h3>
+
+          <NextOfKin nextOfKin={nextOfKin} />
         </div>
 
         <div className="col-md-6 col-xs-12">
@@ -466,6 +508,7 @@ class QuickLook extends Component {
           <Link className="link" to={'/bookings/details/scheduled'}> Seven day schedule</Link>
         </div>
       </div>
+
 
     </div>)
   }
@@ -481,6 +524,7 @@ const mapStateToProps = createStructuredSelector({
   bookingId: selectBookingDetailsId(),
   viewModel: selectQuickLookViewModel(),
   offenderDetails: selectOffenderDetails(),
+  headerDetails: selectHeaderDetail(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuickLook);

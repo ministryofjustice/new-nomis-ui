@@ -70,6 +70,7 @@ const getQuickLookViewModel = async (req) => {
   const contacts = await elite2Api.getContacts(req);
   const adjudications = await elite2Api.getAdjudications({ req, fromDate: threeMonthsInThePast });
   const lastVisit = await elite2Api.getLastVisit(req);
+  const relationships = await elite2Api.getRelationships(req);
 
   const morningActivity = filterMorning(activityData);
   const afternoonActivity = filterAfternoon(activityData);
@@ -87,8 +88,19 @@ const getQuickLookViewModel = async (req) => {
     type: offenceDetail.offenceDescription,
   }));
 
+  const getFirstRelationshipByType = (relationshipType, data) => {
+    const results = data.filter(rel => rel.relationship === relationshipType);
+    return results.length >= 1 ? {
+      firstName: results[0].firstName,
+      lastName: results[0].lastName,
+    } : null;
+  };
+
   return {
     lastVisit: lastVisit && toVisit(lastVisit),
+    assignedStaffMembers: {
+      communityOffenderManager: relationships && getFirstRelationshipByType('COM',relationships),
+    },
     balance: balance && {
       spends: balance.spends,
       cash: balance.cash,
