@@ -6,6 +6,7 @@ const keyDatesMapper = require('../data-mappers/keydates');
 const isoDateFormat = require('./../constants').isoDateFormat;
 const toAward = require('../data-mappers/to-award');
 const toEvent = require('../data-mappers/to-event');
+const toVisit = require('../data-mappers/to-visit');
 
 const byStartTimeThenByEndTime = (a,b) => {
   if (moment(a.startTime).isBefore(moment(b.startTime))) { return -1; }
@@ -69,7 +70,6 @@ const getQuickLookViewModel = async (req) => {
   const contacts = await elite2Api.getContacts(req);
   const adjudications = await elite2Api.getAdjudications({ req, fromDate: threeMonthsInThePast });
   const lastVisit = await elite2Api.getLastVisit(req);
-  const relationships = await elite2Api.getRelationships(req);
 
   const morningActivity = filterMorning(activityData);
   const afternoonActivity = filterAfternoon(activityData);
@@ -87,35 +87,8 @@ const getQuickLookViewModel = async (req) => {
     type: offenceDetail.offenceDescription,
   }));
 
-  const mapVisit = (visit) => {
-    const nameParts = visit.leadVisitor.split(' ');
-    const toName = (value) => value && value.split('').map((letter,index) => index === 0 ? letter.toUpperCase() : letter.toLowerCase()).join('');
-
-    return {
-      leadVisitor: `${toName(nameParts[0])} ${toName(nameParts[1])} (${visit.relationshipDescription})`,
-      date: visit.startTime,
-      type: visit.visitTypeDescription,
-      cancellationReason: visit.cancelReasonDescription,
-      status: visit.eventStatusDescription,
-    };
-  };
-
-  const getFirstRelationshipByType = (relationshipType, data) => {
-    const results = data.filter(rel => rel.relationship === relationshipType);
-    return results.length >= 1 ? {
-      firstName: results[0].firstName,
-      lastName: results[0].lastName,
-    } : null;
-  };
-
-  console.error(relationships);
-
   return {
-    assignedStaffMembers: {
-      prisonOffenderManager: relationships && getFirstRelationshipByType('POM',relationships),
-      communityOffenderManager: relationships && getFirstRelationshipByType('COM',relationships),
-    },
-    lastVisit: lastVisit && mapVisit(lastVisit),
+    lastVisit: lastVisit && toVisit(lastVisit),
     balance: balance && {
       spends: balance.spends,
       cash: balance.cash,
