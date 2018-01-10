@@ -5,6 +5,7 @@ const sinonChai = require('sinon-chai');
 const moment = require('moment');
 
 const isoDateFormat = require('./../server/constants').isoDateFormat;
+const isoDateTimeFormat = require('./../server/constants').isoDateTimeFormat;
 
 const elite2Api = require('../server/elite2Api');
 const bookingService = require('../server/services/booking');
@@ -387,9 +388,10 @@ describe('Booking Service Quick look', () => {
     expect(data.indeterminateReleaseDate).to.be.false;
   });
 
-  it('should call lastVisit', async () => {
+  it('should only show attended, cancelled and ongoing', async () => {
     elite2Api.getLastVisit.returns({
-      eventStatusDescription: 'Not attended',
+      eventStatusDescription: 'Expired',
+      eventStatus: 'EXP',
       visitTypeDescription: 'Social Contact',
       leadVisitor: 'JOHN SMITH',
       relationshipDescription: 'Brother',
@@ -399,11 +401,100 @@ describe('Booking Service Quick look', () => {
     });
 
     const data = await bookingService.getQuickLookViewModel(req);
-    const visit = data.lastVisit;
-    expect(visit.date).to.equal('2017-12-22T10:00:00');
-    expect(visit.leadVisitor).to.equal('John Smith (Brother)');
-    expect(visit.status).to.equal('Not attended');
-    expect(visit.type).to.equal('Social Contact');
-    expect(visit.cancellationReason).to.equal('All visits canceled');
+    expect(data.lastVisit).to.equal(null);
+  });
+
+  it('should only show an attended visit', async () => {
+    elite2Api.getLastVisit.returns({
+      eventStatus: 'SCH',
+      eventOutcome: 'ATT',
+      eventOutcomeDescription: 'Attended',
+      visitTypeDescription: 'Social Contact',
+      leadVisitor: 'JOHN SMITH',
+      relationshipDescription: 'Brother',
+      startTime: '2017-12-22T10:00:00',
+      endTime: '2017-12-22T12:00:00',
+    });
+
+    const data = await bookingService.getQuickLookViewModel(req);
+    expect(data.lastVisit.status).to.equal('Attended');
+  });
+
+  it('should only show cancelled visit (status CANC)', async () => {
+    elite2Api.getLastVisit.returns({
+      eventStatus: 'CANC',
+      eventStatusDescription: 'Cancelled',
+      visitTypeDescription: 'Social Contact',
+      leadVisitor: 'JOHN SMITH',
+      relationshipDescription: 'Brother',
+      startTime: '2017-12-22T10:00:00',
+      endTime: '2017-12-22T12:00:00',
+    });
+
+    const data = await bookingService.getQuickLookViewModel(req);
+    expect(data.lastVisit.status).to.equal('Cancelled');
+  });
+
+  it('should ensure that event status "CANC" (Cancel) overrides the outcome status', async () => {
+    elite2Api.getLastVisit.returns({
+      eventStatus: 'CANC',
+      eventStatusDescription: 'Cancelled',
+      cancelReasonDescription: 'some reason',
+      eventOutcome: 'ATT',
+      eventOutcomeDescription: 'Attended',
+      visitTypeDescription: 'Social Contact',
+      leadVisitor: 'JOHN SMITH',
+      relationshipDescription: 'Brother',
+      startTime: '2017-12-22T10:00:00',
+      endTime: '2017-12-22T12:00:00',
+    });
+
+    const data = await bookingService.getQuickLookViewModel(req);
+    expect(data.lastVisit.status).to.equal('Cancelled');
+    expect(data.lastVisit.cancellationReason).to.equal('some reason');
+  });
+
+  it('should show a visit as ongoing when its currently in progress', async () => {
+    const now = moment().subtract(5, 'minutes');
+    const fiveMinutesTime = moment().add(50,'minutes');
+
+    elite2Api.getLastVisit.returns({
+      eventStatus: 'SCH',
+      eventStatusDescription: 'Scheduled (Approved)',
+      visitType: 'OFFI',
+      visitTypeDescription: 'Official Visit',
+      leadVisitor: 'first last',
+      relationship: 'COM',
+      relationshipDescription: 'Community Offender Manager',
+      location: 'VISITS',
+      eventOutcome: 'ATT',
+      eventOutcomeDescription: 'Attended',
+      startTime: now.format(isoDateTimeFormat).toString(),
+      endTime: fiveMinutesTime.format(isoDateTimeFormat).toString(),
+    });
+
+    const data = await bookingService.getQuickLookViewModel(req);
+
+    expect(data.lastVisit.status).to.equal('Ongoing');
+  });
+
+  it('should show an attended visit even though its currently expired', async () => {
+    elite2Api.getLastVisit.returns({
+      eventStatus: 'EXP',
+      eventStatusDescription: 'Expired',
+      visitType: 'SCON',
+      visitTypeDescription: 'Social Contact',
+      leadVisitor: 'JOHN SMITH',
+      relationship: 'FA',
+      relationshipDescription: 'Father',
+      startTime: '2017-12-23T09:00:00',
+      endTime: '2017-12-23T12:00:00',
+      location: 'SOCIAL VISITS',
+      eventOutcome: 'ATT',
+      eventOutcomeDescription: 'Attended',
+    });
+
+    const data = await bookingService.getQuickLookViewModel(req);
+    expect(data.lastVisit.status).to.equal('Attended');
   });
 });
