@@ -29,7 +29,7 @@ const getEventsForThisWeek = (req) => getRequest({ req, url: `bookings/${req.par
 const getEventsForNextWeek = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/events/nextWeek` });
 const getCategoryAssessment = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/assessment/CATEGORY` });
 const getAppointmentTypes = (req) => getRequest({ req, url: 'reference-domains/scheduleReasons?eventType=APP' });
-const getRelationships = (req) => getRequest({req, url:  `bookings/${req.params.bookingId}/relationships`});
+const getRelationships = (req) => getRequest({ req, url: `bookings/${req.params.bookingId}/relationships` });
 
 const getLocationsForAppointments = (req) => {
   const url = `agencies/${req.params.agencyId}/locations?eventType=APP`;

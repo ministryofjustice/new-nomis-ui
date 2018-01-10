@@ -377,17 +377,7 @@ const AssignedStaffMembers = ({ members,keyWorkerId }) =>
         <b> { (keyWorkerId && <EliteOfficerName staffId={keyWorkerId} />) || 'No key worker identified'} </b>
       </div>
     </div>
-
-    <div className="row border-bottom-line">
-      <div className="col-lg-6 col-xs-6">
-        <label>Prison Offender Manager</label>
-      </div>
-
-      <div className="col-lg-6 col-xs-6">
-        <b> { toFullName({ ...members.prisonOffenderManager }) || 'No prison offender manager identified'}</b>
-      </div>
-    </div>
-
+    
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
         <label>Community Offender Manager</label>

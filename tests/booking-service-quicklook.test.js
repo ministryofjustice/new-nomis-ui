@@ -31,6 +31,7 @@ describe('Booking Service Quick look', () => {
     sandbox.stub(elite2Api, 'getContacts');
     sandbox.stub(elite2Api, 'getAdjudications');
     sandbox.stub(elite2Api, 'getLastVisit');
+    sandbox.stub(elite2Api, 'getRelationships');
 
     elite2Api.getBalances.returns(null);
     elite2Api.getMainOffence.returns(null);
@@ -40,6 +41,7 @@ describe('Booking Service Quick look', () => {
     elite2Api.getSentenceData.returns(null);
     elite2Api.getContacts.returns(null);
     elite2Api.getLastVisit.returns(null);
+    elite2Api.getRelationships.returns(null);
     elite2Api.getAdjudications.returns({
       awards: [],
     });
@@ -496,5 +498,50 @@ describe('Booking Service Quick look', () => {
 
     const data = await bookingService.getQuickLookViewModel(req);
     expect(data.lastVisit.status).to.equal('Attended');
+  });
+
+  it('should call getRelationships', async () => {
+    elite2Api.getRelationships.returns([
+      {
+        lastName: 'Bull',
+        firstName: 'Dom3',
+        contactType: 'O',
+        contactTypeDescription: 'Official',
+        relationship: 'COM',
+        relationshipDescription: 'Community Offender Manager',
+        emergencyContact: false,
+        nextOfKin: false,
+        relationshipId: 18718,
+        personId: 13518,
+      },
+      {
+        lastName: 'Dom2',
+        firstName: 'Bull',
+        contactType: 'O',
+        contactTypeDescription: 'Official',
+        relationship: 'POM',
+        relationshipDescription: 'Prison Offender Manager',
+        emergencyContact: false,
+        nextOfKin: false,
+        relationshipId: 18773,
+        personId: 13499,
+      },
+      {
+        lastName: 'BALOG',
+        firstName: 'IVOR',
+        contactType: 'S',
+        contactTypeDescription: 'Social/ Family',
+        relationship: 'BRO',
+        relationshipDescription: 'Brother',
+        emergencyContact: false,
+        nextOfKin: false,
+        relationshipId: 18593,
+        personId: 13318,
+      }]);
+
+    const data = await bookingService.getQuickLookViewModel(req);
+
+    expect(data.assignedStaffMembers.communityOffenderManager.firstName).to.equal('Dom3');
+    expect(data.assignedStaffMembers.communityOffenderManager.lastName).to.equal('Bull');
   });
 });
