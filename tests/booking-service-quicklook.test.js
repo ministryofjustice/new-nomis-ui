@@ -495,7 +495,6 @@ describe('Booking Service Quick look', () => {
     });
 
     const data = await bookingService.getQuickLookViewModel(req);
-
     expect(data.lastVisit.status).to.equal('Attended');
   });
 });
