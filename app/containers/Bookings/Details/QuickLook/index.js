@@ -406,7 +406,7 @@ class QuickLook extends Component {
 
     const { balance, offences, releaseDate, indeterminateReleaseDate, activities, positiveCaseNotes, negativeCaseNotes, nextOfKin, adjudications, lastVisit, assignedStaffMembers } = (viewModel && viewModel.toJS());
     const { awards, proven } = adjudications;
-    console.error(assignedStaffMembers);
+
     return (<div className="quick-look">
 
       <div className="row">
