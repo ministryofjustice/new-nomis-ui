@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { toFullName } from 'utils/stringUtils';
 import { Link } from 'react-router';
+import { splitCamelCase, properCase } from 'utils/stringUtils';
 
 import './index.scss';
 
@@ -32,8 +33,10 @@ function Breadcrumbs({ route, inmateData, context }) {
 
     const routeArray = routeStringArray.map((routeObj) => {
       const routeName = routeObj.charAt(0).toUpperCase() + routeObj.slice(1);
+
       routeStr += `/${routeObj}`;
-      return { name: routeName, route: routeStr };
+
+      return { name: properCase(splitCamelCase(routeName)), route: routeStr };
     });
 
     breadcrumbArray = breadcrumbArray.concat({ name: 'Home', route: '/' });
@@ -48,7 +51,7 @@ function Breadcrumbs({ route, inmateData, context }) {
           <span>{'>'}</span>
         </span>
         :
-        <Link className="font-small" key={breadcrumb.name}>{breadcrumb.name}</Link>)
+        <Link className="font-xsmall" key={breadcrumb.name}>{breadcrumb.name}</Link>)
       }
     </div>
   );
