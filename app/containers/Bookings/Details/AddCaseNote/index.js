@@ -68,7 +68,12 @@ const AddCaseNoteForm = ({
           Save case note
         </button>
 
-        <button className="cancel-button col-xs-12 col-sm-1" type="reset" onClick={() => goBackToBookingDetails(bookingDetailsId)}>
+        <button
+          className="cancel-button col-xs-12 col-sm-1" type="reset" onClick={(e) => {
+            e.preventDefault();
+            goBackToBookingDetails(bookingDetailsId);
+          }}
+        >
           Cancel
         </button>
 
