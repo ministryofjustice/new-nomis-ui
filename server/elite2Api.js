@@ -33,7 +33,11 @@ const getRelationships = (req) => getRequest({ req, url: `bookings/${req.params.
 
 const getLocationsForAppointments = (req) => {
   const url = `agencies/${req.params.agencyId}/locations?eventType=APP`;
-  return getRequest({ req, url });
+  return getRequest({ req,
+    url,
+    headers: {
+      'Sort-Fields': 'description',
+    } });
 };
 
 const getPositiveCaseNotes = ({ req, fromDate, toDate }) => getRequest({
@@ -56,10 +60,10 @@ const addAppointment = ({ req }) => service.callApi({
   onTokenRefresh: (token) => { req.headers.jwt = token },
 });
 
-const getRequest = ({ req, url }) => service.callApi({
+const getRequest = ({ req, url, headers }) => service.callApi({
   method: 'get',
   url,
-  headers: {},
+  headers: headers || {},
   reqHeaders: req.headers,
   onTokenRefresh: (token) => { req.headers.jwt = token },
 }).then(response => new Promise(r => r(response.data)))
