@@ -1,3 +1,5 @@
+
+
 .add-appointment {
 
   @include media-breakpoint-down(md) {
@@ -30,5 +32,11 @@
 
   select {
     height: 2em;
+  }
+
+  textarea {
+    @include media-breakpoint-up(xs) {
+      height: 120px !important;
+    }
   }
 }

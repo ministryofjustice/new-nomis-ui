@@ -56,7 +56,7 @@ class TimePicker extends Component {
   render() {
     const { title,meta: { touched, error } } = this.props;
     const hours = ['--', ...formatNumbersUpTo(24)];
-    const minutes = ['--', ...formatNumbersUpTo(60)];
+    const minutes = ['--', '00','05','10','15','20','25','30','35','40','45','50','55'];
 
     return (<div className={!(touched && error) ? 'time-picker form-group' : 'time-picker form-group form-group-error'}>
 

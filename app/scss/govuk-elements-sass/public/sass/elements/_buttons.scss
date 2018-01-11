@@ -49,3 +49,13 @@
     background-image: file-url("icon-pointer-2x.png");
   }
 }
+
+.button-cancel {
+  @extend .button;
+  @include button ($panel-colour);
+}
+
+.button-link {
+  @extend .button;
+  @include button ($govuk-blue);
+}

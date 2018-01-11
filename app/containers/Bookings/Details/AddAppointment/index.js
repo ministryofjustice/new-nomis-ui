@@ -39,7 +39,6 @@ class AddAppointment extends Component {
               Add new appointment
             </h1>
 
-
             {error && <div className="error-summary">
               <div className="error-message">
                 {error}
@@ -121,7 +120,7 @@ class AddAppointment extends Component {
         </div>
 
         <div className="row">
-          <div className="col-md-4 add-gutter-margin-top no-left-gutter">
+          <div className="col-md-4 no-left-gutter">
             <Field name="comment" component={TextArea} title="Comments (optional)" autocomplete="off" spellcheck="true" />
           </div>
         </div>
@@ -129,7 +128,7 @@ class AddAppointment extends Component {
         <div className="row">
           <div className="col-md-4 no-left-gutter">
             <button className="button add-gutter-margin-right" type="submit" disabled={submitting}> Add appointment </button>
-            <button className="button-grey" onClick={() => goBackToBookingDetails(bookingId)}> Cancel </button>
+            <button className="button button-cancel" onClick={() => goBackToBookingDetails(bookingId)}> Cancel </button>
           </div>
         </div>
       </form>

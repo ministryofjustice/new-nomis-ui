@@ -10,18 +10,3 @@
 }
 
 
-.button-link {
-  @extend .button;
-
-  background: $govuk-blue !important;
-  border-bottom: $black !important;
-}
-
-.button-grey {
-  @extend .button;
-
-  background: $panel-colour !important;
-  border-bottom: $black !important;
-  color: black !important;
-}
-
