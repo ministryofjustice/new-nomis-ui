@@ -100,7 +100,7 @@ class AddAppointment extends Component {
           </div>
         </div>
 
-        <div className="row add-gutter-margin-bottom">
+        <div className="row">
           <div className="col-xs-6 col-md-2 no-left-gutter">
             <Field
               name="startTime"
