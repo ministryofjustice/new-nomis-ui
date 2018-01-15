@@ -370,7 +370,7 @@ const AssignedStaffMembers = ({ members,keyWorkerId }) =>
 
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
-        <label>Key Worker</label>
+        <label>Key worker</label>
       </div>
 
       <div className="col-lg-6 col-xs-6">
