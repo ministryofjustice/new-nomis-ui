@@ -11,6 +11,7 @@ import {
   CASENOTETYPES,
   OFFICERS,
   USER,
+  APPOINTMENT,
 } from './constants';
 
 export function loadImage(imageId) {
@@ -86,4 +87,12 @@ export function switchCaseLoad(caseLoadId) {
     type: USER.SWITCHCASELOAD.BASE,
     payload: { caseLoadId },
   };
+}
+
+
+export function loadAppointmentViewModel(bookingId) {
+  return {
+    type: APPOINTMENT.LOAD_VIEW_MODAL,
+    payload: bookingId,
+  }
 }

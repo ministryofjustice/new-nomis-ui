@@ -13,10 +13,14 @@ import { selectLocale } from 'containers/LanguageProvider/selectors';
 import { SubmissionError, TextArea } from 'components/FormComponents';
 import { selectActiveCaseLoad } from 'containers/Authentication/selectors';
 import { DATE_ONLY_FORMAT_SPEC, DATE_TIME_FORMAT_SPEC } from 'containers/App/constants';
+import { loadAppointmentViewModel } from 'containers/EliteApiLoader/actions';
+import { APPOINTMENT } from 'containers/EliteApiLoader/constants';
+import { selectAppointmentTypesAndLocations } from 'containers/EliteApiLoader/selectors';
 
-import { DETAILS_TABS, APPOINTMENT } from '../../constants';
-import { selectBookingDetailsId,selectAppointmentViewModel,selectName } from '../../selectors';
-import { viewDetails,loadAppointmentViewModel } from '../../actions';
+import { DETAILS_TABS } from '../../constants';
+import { selectBookingDetailsId,selectName } from '../../selectors';
+import { viewDetails } from '../../actions';
+
 
 import './index.scss';
 
@@ -162,7 +166,7 @@ const mapStateToProps = createStructuredSelector({
   locale: selectLocale(),
   bookingId: selectBookingDetailsId(),
   activeCaseLoad: selectActiveCaseLoad(),
-  viewModel: selectAppointmentViewModel(),
+  viewModel: selectAppointmentTypesAndLocations(),
   offenderName: selectName(),
 });
 

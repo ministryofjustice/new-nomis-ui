@@ -125,7 +125,7 @@ const validate = (stuff) => {
   const { caseNoteText, occurrenceDateTime, subTypeValue, typeValue } = stuff.toJS();
   const errors = {};
 
-  if (!!caseNoteText && caseNoteText.length > 4000) {
+  if (!caseNoteText && caseNoteText.length > 4000) {
     errors.caseNoteText = 'Maximum length should not exceed 4000 characters';
   }
 

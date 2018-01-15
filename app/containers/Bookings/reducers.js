@@ -41,7 +41,6 @@ import {
   DETAILS_ERROR,
   SET_QUICK_LOOK,
   SET_SCHEDULED_EVENTS,
-  APPOINTMENT,
 } from './constants';
 
 
@@ -231,10 +230,6 @@ function searchReducer(state = initialState, action) {
           thisWeek: !action.payload.nextWeek,
           nextWeek: action.payload.nextWeek,
         }));
-    }
-
-    case APPOINTMENT.SET_VIEW_MODEL: {
-      return state.set('appointmentViewModel',fromJS(action.payload));
     }
 
     case DETAILS_ERROR: {
