@@ -98,7 +98,7 @@ const selectName = () => createSelector(
     const { firstName, lastName } = details.get('Data').toJS();
     return toFullName({ firstName, lastName });
   }
-)
+);
 
 const selectHeaderDetail = () => createSelector(
   selectBookingDetail(),
@@ -310,11 +310,6 @@ const selectCurrentFilter = () => createSelector(
   (detailsState) => detailsState.get('currentFilter'),
 );
 
-const selectAppointmentViewModel = () => createSelector(
-  selectSearch(),
-  (search) => search.get('appointmentViewModel').toJS(),
-);
-
 export {
   selectSearch,
   selectSearchResults,
@@ -349,6 +344,5 @@ export {
   selectQuickLookViewModel,
   selectScheduledEvents,
   selectCurrentFilter,
-  selectAppointmentViewModel,
   selectName,
 };

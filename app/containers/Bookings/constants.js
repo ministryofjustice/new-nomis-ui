@@ -67,14 +67,6 @@ export const ADD_NEW_CASENOTE = {
   ERROR: 'app/bookings/details/addNewCaseNote/ERROR',
 };
 
-export const APPOINTMENT = {
-  LOAD_VIEW_MODAL: 'app/bookings/details/loadViewModel',
-  SET_VIEW_MODEL: 'app/bookings/details/setViewModel',
-  ADD: 'app/bookings/details/addAppointment',
-  SUCCESS: 'app/bookings/details/addAppointment/SUCCESS',
-  ERROR: 'app/bookings/details/addAppointment/ERROR',
-}
-
 export const CASE_NOTE_FILTER = {
   BASE: 'app/bookings/details/setCaseNotesQuery',
   LOADING: 'app/bookings/details/setCaseNotesQuery/LOADING',

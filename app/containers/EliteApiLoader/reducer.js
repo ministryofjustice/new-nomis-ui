@@ -23,6 +23,7 @@ import {
   OFFICERS,
   USER,
   ALLCASENOTETYPESUBTYPEDATA,
+  APPOINTMENT,
 } from './constants';
 
 import {
@@ -348,6 +349,11 @@ function EliteApiReducer(state = initialState, action) {
         .set('AllCaseNoteFilters', Map({ Types, SubTypes }))
         .set('CaseNoteTypes', Map({ Types: TypeMap, SubTypes: SubTypeMap }));
     }
+
+    case APPOINTMENT.SET_VIEW_MODEL: {
+      return state.set('AppointmentTypesAndLocations',fromJS(action.payload));
+    }
+
 
     default: {
       return state;

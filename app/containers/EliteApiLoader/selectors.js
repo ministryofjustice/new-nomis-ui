@@ -9,7 +9,7 @@ const selectUsersTypesAndSubTypes = () => createSelector(
     types: user.get('CaseNoteTypes'),
     subTypes: user.get('CaseNoteSubTypes'),
   })
-)
+);
 
 const selectEliteApi = () => (state) => state.get('eliteApiLoader');
 
@@ -213,7 +213,14 @@ const selectUserCaseLoads = () => createSelector(
 const selectLoadingBookingDetailsStatus = () => createSelector(
    selectEliteApi(),
   (state) => state.getIn(['Bookings','Details','LoadingStatus'])
-)
+);
+
+
+const selectAppointmentTypesAndLocations = () => createSelector(
+  selectEliteApi(),
+  (state) => state.get('AppointmentTypesAndLocations').toJS()
+);
+
 
 export {
   selectEliteApi,
@@ -238,4 +245,5 @@ export {
   selectUserCaseLoads,
   selectLoadingBookingDetailsStatus,
   selectUsersTypesAndSubTypes,
+  selectAppointmentTypesAndLocations,
 };

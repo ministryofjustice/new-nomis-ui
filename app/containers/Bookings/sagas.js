@@ -25,6 +25,11 @@ import {
 } from 'utils/eliteApi';
 
 import {
+  APPOINTMENT,
+} from 'containers/EliteApiLoader/constants';
+
+
+import {
   selectSearchResultsPagination,
   selectSearchResultsSortOrder,
   selectSearchQuery,
@@ -72,7 +77,6 @@ import {
   SET_QUICK_LOOK,
   LOAD_SCHEDULED_EVENTS,
   SET_SCHEDULED_EVENTS,
-  APPOINTMENT,
 } from './constants';
 
 export function* addAppointmentWatcher() {

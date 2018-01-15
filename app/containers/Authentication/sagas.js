@@ -8,7 +8,7 @@ import { LOAD_ASSIGNMENTS } from 'containers/Assignments/constants';
 
 import {
   APPOINTMENT,
-} from 'containers/Bookings/constants';
+} from 'containers/EliteApiLoader/constants';
 
 import {
   LOGIN,

@@ -4,6 +4,8 @@ import { loadAssignments } from 'containers/Assignments/actions';
 import { getToken } from 'containers/Authentication/sagas';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 
+import { setMobileMenuOpen } from 'globalReducers/app';
+
 import {
   searchOffenders,
   officerAssignments,
@@ -16,7 +18,13 @@ import {
   bookingCaseNotes,
   users,
   loadAllCaseNoteFilterItems,
+  loadAppointmentViewModel,
 } from 'utils/eliteApi';
+
+import {
+  APPOINTMENT,
+} from 'containers/EliteApiLoader/constants';
+
 
 import {
   selectBookingResultStatus,
@@ -286,13 +294,25 @@ export function* userSwitchCaseLoadsSaga(action) {
   try {
     yield call(users.switchCaseLoads, token, apiServer, caseLoadId);
     yield put({ type: USER.SWITCHCASELOAD.SUCCESS, payload: { caseLoadId } });
-    yield put({ type: BOOKINGS.CLEAR });
+
     yield put(loadAssignments(true));
     const state = yield select();
     const currPath = state.getIn(['route', 'locationBeforeTransitions', 'pathname']);
-    if (currPath !== '/' && currPath !== '/assignments') {
+
+    yield put(setMobileMenuOpen(false));
+
+    if (currPath !== '/assignments') {
       yield put(push('/'));
     }
+
+    yield put({ type: BOOKINGS.CLEAR });
+
+    const viewModel = yield call(loadAppointmentViewModel, { agencyId: caseLoadId });
+
+    yield put({
+      type: APPOINTMENT.SET_VIEW_MODEL,
+      payload: viewModel,
+    });
   } catch (e) {
     yield put({ type: USER.SWITCHCASELOAD.ERROR });
   }
