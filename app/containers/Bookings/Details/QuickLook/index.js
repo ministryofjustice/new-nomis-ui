@@ -374,7 +374,7 @@ const AssignedStaffMembers = ({ members,keyWorkerId }) =>
       </div>
 
       <div className="col-lg-6 col-xs-6">
-        <b> { (keyWorkerId && <EliteOfficerName staffId={keyWorkerId} />) || 'No key worker identified'} </b>
+        <b> { (keyWorkerId && <EliteOfficerName staffId={keyWorkerId} />) || 'Not assigned'} </b>
       </div>
     </div>
     
@@ -384,7 +384,7 @@ const AssignedStaffMembers = ({ members,keyWorkerId }) =>
       </div>
 
       <div className="col-lg-6 col-xs-6">
-        <b> { toFullName({ ...members.communityOffenderManager }) || ' No community offender manager identified'} </b>
+        <b> { toFullName({ ...members.communityOffenderManager }) || 'Not assigned'} </b>
       </div>
     </div>
 
