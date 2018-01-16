@@ -7,11 +7,10 @@ const toEvent = require('../data-mappers/to-event');
 const getAppointmentViewModel = async (req) => {
   const locationsData = await elite2Api.getLocationsForAppointments(req);
   const appointmentTypes = await elite2Api.getAppointmentTypes(req);
-  const toCamelCase = (word) => word.split(' ').map(part => `${part[0].toUpperCase()}${part.substring(1).toLowerCase()}`).join(' ');
 
   const locations = locationsData.map((type) => ({
     code: type.code,
-    description: toCamelCase(type.userDescription || type.description),
+    description: type.userDescription || type.description,
   })).sort((a,b) => {
     if (a.description < b.description) return -1;
     if (a.description > b.description) return 1;
