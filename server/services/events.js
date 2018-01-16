@@ -5,8 +5,17 @@ const isoDateFormat = require('./../constants').isoDateFormat;
 const toEvent = require('../data-mappers/to-event');
 
 const getAppointmentViewModel = async (req) => {
-  const locations = await elite2Api.getLocationsForAppointments(req);
+  const locationsData = await elite2Api.getLocationsForAppointments(req);
   const appointmentTypes = await elite2Api.getAppointmentTypes(req);
+
+  const locations = locationsData.map((type) => ({
+    code: type.code,
+    description: type.userDescription || type.description,
+  })).sort((a,b) => {
+    if (a.description < b.description) return -1;
+    if (a.description > b.description) return 1;
+    return 0;
+  });
 
   return {
     locations,

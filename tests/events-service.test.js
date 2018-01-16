@@ -259,4 +259,54 @@ describe('Events service', () => {
     expect(elite2Api.getLocationsForAppointments).to.be.called;
     expect(elite2Api.getAppointmentTypes).to.be.called;
   });
+
+  it('should use userDescription where possible and description as a fallback', async () => {
+    elite2Api.getLocationsForAppointments.returns([
+      {
+        locationId: -26,
+        description: 'LEI-CARP',
+        userDescription: 'Leeds',
+        livingUnit: false,
+        usageLocationId: 19908,
+        usageLocationType: 'APP',
+      },
+      {
+        locationId: -26,
+        description: 'Yrk',
+        livingUnit: false,
+        usageLocationId: 19908,
+        usageLocationType: 'APP',
+      },
+    ]);
+
+    const data = await eventsService.getAppointmentViewModel(req);
+
+    expect(data.locations[0].description).to.equal('Leeds');
+    expect(data.locations[1].description).to.equal('Yrk');
+  });
+
+  it('should sort locations alphabetically', async () => {
+    elite2Api.getLocationsForAppointments.returns([
+      {
+        locationId: -26,
+        description: 'Yrk',
+        livingUnit: false,
+        usageLocationId: 19908,
+        usageLocationType: 'APP',
+      },
+      {
+        locationId: -26,
+        description: 'LEI-CARP',
+        userDescription: 'Leeds',
+        livingUnit: false,
+        usageLocationId: 19908,
+        usageLocationType: 'APP',
+      },
+    ]);
+
+    const data = await eventsService.getAppointmentViewModel(req);
+
+    expect(data.locations[0].description).to.equal('Leeds');
+    expect(data.locations[1].description).to.equal('Yrk');
+  });
 });

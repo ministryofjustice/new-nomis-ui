@@ -83,6 +83,11 @@ const selectBookingDetailsId = () => createSelector(
   (searchState) => searchState.getIn(['details', 'id'])
 );
 
+const selectOffenderAgencyId = () => createSelector(
+  selectHeaderDetail(),
+  (state) => state.assignedLivingUnit.agencyId,
+);
+
 const selectBookingDetail = () => createSelector(
   selectEliteBookingDetails(),
   selectBookingDetailsId(),
@@ -345,4 +350,5 @@ export {
   selectScheduledEvents,
   selectCurrentFilter,
   selectName,
+  selectOffenderAgencyId,
 };

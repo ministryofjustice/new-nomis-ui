@@ -58,7 +58,7 @@ const MobileOnlyLayout = ({ iepLevel, csra, activeAlertCount, inactiveAlertCount
 
          <div className="show-full-screen-button">
            <Link className="button-link add-gutter-bottom" to={'/bookings/details/addCaseNote'}>Add new case note</Link>
-           <Link className="button-link" to={'/bookings/details/addAppointment'}>Add Appointment</Link>
+           <Link className="button-link" to={'/bookings/details/addAppointment'}>Add appointment</Link>
          </div>
 
      </div>

@@ -94,7 +94,7 @@ const CaseNoteDetails = (props) => {
            {amendmentList}
 
            <div className="add-gutter-top add-gutter-bottom">
-             <button className="button-grey" onClick={() => addAmendment()}>Make amendment</button>
+             <button className="button-cancel" onClick={() => addAmendment()}>Make amendment</button>
            </div>
          </div>
        </div>

@@ -46,6 +46,18 @@ import {
   ALLCASENOTETYPESUBTYPEDATA,
 } from './constants';
 
+export function* loadAppointmentsViewModalWatcher() {
+  yield takeEvery(APPOINTMENT.LOAD_VIEW_MODAL, loadAppointmentsViewModel);
+}
+
+export function* loadAppointmentsViewModel(action) {
+  const viewModel = yield call(loadAppointmentViewModel, { agencyId: action.payload });
+  yield put({
+    type: APPOINTMENT.SET_VIEW_MODEL,
+    payload: viewModel,
+  });
+}
+
 export function* bookingDetailsWatcher() {
   yield takeEvery(BOOKINGS.DETAILS.BASE, bookingDetailsSaga);
 }
@@ -306,13 +318,6 @@ export function* userSwitchCaseLoadsSaga(action) {
     }
 
     yield put({ type: BOOKINGS.CLEAR });
-
-    const viewModel = yield call(loadAppointmentViewModel, { agencyId: caseLoadId });
-
-    yield put({
-      type: APPOINTMENT.SET_VIEW_MODEL,
-      payload: viewModel,
-    });
   } catch (e) {
     yield put({ type: USER.SWITCHCASELOAD.ERROR });
   }
@@ -328,4 +333,5 @@ export default [
   bookingCaseNotesWatch,
   userCaseLoadsWatcher,
   userSwitchCaseLoadsWatcher,
+  loadAppointmentsViewModalWatcher,
 ];

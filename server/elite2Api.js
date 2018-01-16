@@ -33,11 +33,7 @@ const getRelationships = (req) => getRequest({ req, url: `bookings/${req.params.
 
 const getLocationsForAppointments = (req) => {
   const url = `agencies/${req.params.agencyId}/locations?eventType=APP`;
-  return getRequest({ req,
-    url,
-    headers: {
-      'Sort-Fields': 'description',
-    } });
+  return getRequest({ req, url });
 };
 
 const getPositiveCaseNotes = ({ req, fromDate, toDate }) => getRequest({

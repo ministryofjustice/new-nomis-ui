@@ -11,14 +11,13 @@ import DatePicker from 'components/FormComponents/DatePicker';
 import TimePicker from 'components/FormComponents/TimePicker';
 import { selectLocale } from 'containers/LanguageProvider/selectors';
 import { SubmissionError, TextArea } from 'components/FormComponents';
-import { selectActiveCaseLoad } from 'containers/Authentication/selectors';
 import { DATE_ONLY_FORMAT_SPEC, DATE_TIME_FORMAT_SPEC } from 'containers/App/constants';
 import { loadAppointmentViewModel } from 'containers/EliteApiLoader/actions';
 import { APPOINTMENT } from 'containers/EliteApiLoader/constants';
 import { selectAppointmentTypesAndLocations } from 'containers/EliteApiLoader/selectors';
 
 import { DETAILS_TABS } from '../../constants';
-import { selectBookingDetailsId,selectName } from '../../selectors';
+import { selectBookingDetailsId,selectName, selectOffenderAgencyId } from '../../selectors';
 import { viewDetails } from '../../actions';
 
 
@@ -26,8 +25,18 @@ import './index.scss';
 
 class AddAppointment extends Component {
 
+  componentDidMount() {
+    const { loadViewModel, offendersAgencyId } = this.props;
+
+    loadViewModel(offendersAgencyId);
+  }
+
   render() {
     const { handleSubmit,error,submitting, locale, goBackToBookingDetails, bookingId, offenderName, viewModel } = this.props;
+
+    if (!viewModel) {
+      return <div> Loading, please wait</div>;
+    }
 
     if (this.props && this.props.error) {
       window.scrollTo(0,0);
@@ -149,7 +158,7 @@ class AddAppointment extends Component {
 export function mapDispatchToProps(dispatch) {
   return {
     goBackToBookingDetails: (bookingId) => dispatch(viewDetails(bookingId, DETAILS_TABS.OFFENDER_DETAILS)),
-    loadViewModel: (bookingId,activeCaseLoad) => dispatch(loadAppointmentViewModel(bookingId,activeCaseLoad)),
+    loadViewModel: (agencyId) => dispatch(loadAppointmentViewModel(agencyId)),
     onSubmit: createFormAction((formData) => (
       {
         type: APPOINTMENT.ADD,
@@ -165,7 +174,7 @@ export function mapDispatchToProps(dispatch) {
 const mapStateToProps = createStructuredSelector({
   locale: selectLocale(),
   bookingId: selectBookingDetailsId(),
-  activeCaseLoad: selectActiveCaseLoad(),
+  offendersAgencyId: selectOffenderAgencyId(),
   viewModel: selectAppointmentTypesAndLocations(),
   offenderName: selectName(),
 });
