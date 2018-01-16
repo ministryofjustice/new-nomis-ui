@@ -9,7 +9,7 @@ const getAppointmentViewModel = async (req) => {
   const appointmentTypes = await elite2Api.getAppointmentTypes(req);
 
   const locations = locationsData.map((type) => ({
-    code: type.code,
+    locationId: type.locationId,
     description: type.userDescription || type.description,
   })).sort((a,b) => {
     if (a.description < b.description) return -1;
