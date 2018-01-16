@@ -258,6 +258,12 @@ describe('Events service', () => {
 
     expect(elite2Api.getLocationsForAppointments).to.be.called;
     expect(elite2Api.getAppointmentTypes).to.be.called;
+
+    expect(data.locations[0].locationId).to.equal(-26);
+    expect(data.locations[0].description).to.equal('LEI-CARP');
+
+    expect(data.appointmentTypes[0].code).to.equal('CABA');
+    expect(data.appointmentTypes[0].description).to.equal('Bail');
   });
 
   it('should use userDescription where possible and description as a fallback', async () => {
