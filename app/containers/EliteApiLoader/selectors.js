@@ -218,7 +218,7 @@ const selectLoadingBookingDetailsStatus = () => createSelector(
 
 const selectAppointmentTypesAndLocations = () => createSelector(
   selectEliteApi(),
-  (state) => state.get('AppointmentTypesAndLocations').toJS()
+  (state) => state.get('AppointmentTypesAndLocations') && state.get('AppointmentTypesAndLocations').toJS()
 );
 
 

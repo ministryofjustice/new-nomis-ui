@@ -41,12 +41,6 @@ export function* loginUser(action) {
     const res = yield call(login, username, password, apiUrl);
     const user = yield call(users.me, res, apiUrl);
 
-    const viewModel = yield call(loadAppointmentViewModel, { agencyId: user.activeCaseLoadId });
-    yield put({
-      type: APPOINTMENT.SET_VIEW_MODEL,
-      payload: viewModel,
-    });
-
     yield put({ type: LOGIN_SUCCESS, payload: { user, loginData: res } });
     yield put({ type: PRELOADDATA.BASE });
     yield put({ type: USER.CASELOADS.BASE });

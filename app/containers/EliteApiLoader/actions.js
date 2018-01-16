@@ -90,9 +90,9 @@ export function switchCaseLoad(caseLoadId) {
 }
 
 
-export function loadAppointmentViewModel(bookingId) {
+export function loadAppointmentViewModel(agencyId) {
   return {
     type: APPOINTMENT.LOAD_VIEW_MODAL,
-    payload: bookingId,
+    payload: agencyId,
   }
 }
