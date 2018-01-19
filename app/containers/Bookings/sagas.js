@@ -40,9 +40,7 @@ import {
 } from './selectors';
 
 import {
-  closeAddCaseNoteModal,
   setDetailsTab,
-  closeAmendCaseNoteModal,
 } from './actions';
 
 import {
@@ -325,7 +323,6 @@ export function* addCasenoteSaga(action) {
     yield call(addCaseNote, token, apiServer, bookingId, type, subType, text, occurrenceDateTime);
 
     yield put({ type: ADD_NEW_CASENOTE.SUCCESS });
-    yield put(closeAddCaseNoteModal());
     // Reset casenotes
     yield put(resetCaseNotes(bookingId));
     // load casenotes again...
@@ -344,31 +341,31 @@ export function* addCasenoteSaga(action) {
 }
 
 export function* amendCaseNoteWatcher() {
-  yield takeLatest(AMEND_CASENOTE.BASE, amendCaseNoteSaga);
+  yield takeLatest(AMEND_CASENOTE.BASE, onAmendCaseNote);
 }
 
-export function* amendCaseNoteSaga(action) {
-  const { caseNoteAmendmentText: text } = action.payload.query;
+export function* onAmendCaseNote(action) {
+  const { amendmentText } = action.payload;
   const bookingId = yield select(selectBookingDetailsId());
   const caseNoteId = yield select(selectCaseNotesDetailId());
-  const token = yield getToken();
   const apiServer = yield select(selectApi());
 
   try {
-    yield call(amendCaseNote, token, apiServer, bookingId, caseNoteId, text);
-    yield put({ type: ADD_NEW_CASENOTE.SUCCESS });
+    yield call(amendCaseNote, apiServer, bookingId, caseNoteId, amendmentText);
+    yield put({ type: AMEND_CASENOTE.SUCCESS });
 
-    yield put(closeAmendCaseNoteModal());
     // Reset casenotes
     const pagination = yield select(selectCaseNotesPagination());
     const query = yield select(selectCaseNotesQuery());
     yield put(resetCaseNotes(bookingId, pagination, query));
     // load casenotes again...
     yield put(loadBookingCaseNotes(bookingId, pagination, query));
-  } catch (e) {
-    yield put({ type: ADD_NEW_CASENOTE.ERROR, payload: new SubmissionError(e.message) });
+    yield put(push('/bookings/details'));
+    yield notify.show('Case note has been amended successfully.','success');
+  } catch (err) {
+    yield put({ type: AMEND_CASENOTE.ERROR,
+      payload: new SubmissionError({ _error: err.message || 'Unable to amend case note at this time.' }) });
   }
-  return 'done';
 }
 
 

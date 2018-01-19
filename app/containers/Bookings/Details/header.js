@@ -6,16 +6,15 @@ import { createStructuredSelector } from 'reselect';
 import BookingsDetailsHeader from 'components/Bookings/Details/header';
 
 import { selectHeaderDetail } from '../selectors';
-import { openAddCaseNoteModal, showLargePhoto } from '../actions';
+import { showLargePhoto } from '../actions';
 
 class Header extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   render() {
-    const { headerDetails, openAddCaseNote, showPhoto } = this.props;
+    const { headerDetails, showPhoto } = this.props;
     return (
       <BookingsDetailsHeader
         inmateData={headerDetails}
-        openAddCaseNote={openAddCaseNote}
         onImageClick={showPhoto}
       />
     );
@@ -24,12 +23,10 @@ class Header extends PureComponent { // eslint-disable-line react/prefer-statele
 
 Header.propTypes = {
   headerDetails: PropTypes.object.isRequired,
-  openAddCaseNote: PropTypes.func.isRequired,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
-    openAddCaseNote: () => dispatch(openAddCaseNoteModal()),
     showPhoto: (imageId) => dispatch(showLargePhoto(imageId)),
   };
 }

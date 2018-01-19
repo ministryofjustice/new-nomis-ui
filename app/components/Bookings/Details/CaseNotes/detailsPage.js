@@ -5,17 +5,11 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { createStructuredSelector } from 'reselect';
 
-
-import AmendCaseNoteModal from 'containers/Bookings/Details/CaseNotes/AmendCaseNoteModal';
-
 import { viewDetails } from 'containers/Bookings/actions';
 import { DETAILS_TABS } from 'containers/Bookings/constants';
 
 import {
   selectBookingDetailsId,
-  selectScheduledEvents,
-  selectHeaderDetail,
-  selectCurrentFilter,
 } from 'containers/Bookings/selectors'
 
 import {
@@ -42,7 +36,7 @@ const AmendmentBlock = ({ dateTime, authorName, text }) => (<div className="row 
 
 
 const CaseNoteDetails = (props) => {
-  const { displayAmendCaseNoteModal, caseNote, backToCaseNotes,addAmendment } = props;
+  const { caseNote, backToCaseNotes, addAmendment } = props;
 
   if (!caseNote) {
     return <div>Loading..</div>
@@ -57,6 +51,7 @@ const CaseNoteDetails = (props) => {
     amendments,
     bookingId,
   } = caseNote.toJS();
+
   const amendmentList = amendments.map((am) =>
     <AmendmentBlock
       key={am.creationDateTime}
@@ -69,10 +64,9 @@ const CaseNoteDetails = (props) => {
 
   return (
     <div className="case-note-details">
-      {displayAmendCaseNoteModal ? <AmendCaseNoteModal /> : null}
        <div className="row add-gutter-top">
 
-         <div className="col-lg-2">
+         <div className="col-lg-2 add-gutter-bottom">
            <Link className="link clickable" onClick={() => backToCaseNotes(bookingId)}> {'<'} Back to list </Link>
          </div>
 
@@ -104,19 +98,17 @@ const CaseNoteDetails = (props) => {
 
 CaseNoteDetails.propTypes = {
   caseNote: PropTypes.object.isRequired,
-  displayAmendCaseNoteModal: PropTypes.bool.isRequired,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
     backToCaseNotes: (bookingId) => dispatch(viewDetails(bookingId, DETAILS_TABS.CASE_NOTES)),
-    addAmendment: () => dispatch(push('/amendCaseNote')),
+    addAmendment: () => dispatch(push('/bookings/details/amendCaseNote')),
   }
 }
-
 
 const mapStateToProps = createStructuredSelector({
   bookingId: selectBookingDetailsId(),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(CaseNoteDetails);
 
+export default connect(mapStateToProps, mapDispatchToProps)(CaseNoteDetails);

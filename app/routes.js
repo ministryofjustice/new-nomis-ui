@@ -151,24 +151,6 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/amendCaseNote',
-      name: 'amendCaseNote',
-      onEnter: onEnter({ authRequired: true, routeName: 'amendCaseNote' }),
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/Bookings/Details/CaseNotes/AmendCaseNoteMobilePage'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([component]) => {
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    },
-    {
       path: '/assignments',
       name: 'assignments',
       onEnter: onEnter({ authRequired: true, routeName: 'assignments' }),
@@ -294,6 +276,24 @@ export default function createRoutes(store) {
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('search', reducer.default);
           injectSagas('search', sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      path: '/bookings/details/amendCaseNote',
+      name: 'amendCaseNote',
+      onEnter: onEnter({ authRequired: true, routeName: 'amendCaseNote' }),
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/Bookings/Details/CaseNotes/AmendCaseNote'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
           renderRoute(component);
         });
 
