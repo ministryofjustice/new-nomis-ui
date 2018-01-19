@@ -17,14 +17,12 @@ import {
 class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   render() {
-    const { viewList, caseNoteDetails, openAmendModal, displayAmendCaseNoteModal } = this.props;
+    const { viewList, caseNoteDetails } = this.props;
 
     return (caseNoteDetails &&
      <div>
        <CaseNoteDetailsBlock
-         displayAmendCaseNoteModal={displayAmendCaseNoteModal}
          viewList={viewList} caseNote={caseNoteDetails}
-         openAmendModal={openAmendModal}
        />
      </div>) || null;
   }
@@ -32,7 +30,6 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
 
 CaseNotes.propTypes = {
   viewList: PropTypes.func.isRequired,
-  displayAmendCaseNoteModal: PropTypes.bool.isRequired,
 };
 
 CaseNotes.defaultProps = {

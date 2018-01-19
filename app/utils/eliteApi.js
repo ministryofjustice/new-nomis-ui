@@ -130,20 +130,24 @@ export const addCaseNote = (token, baseUrl, bookingId, type, subType, text, occu
     .then((response) => response.data);
 };
 
-export const amendCaseNote = (token, baseUrl, bookingId, caseNoteId, text) => {
-  const data = {
-    text,
-  };
+export const amendCaseNote = (baseUrl, bookingId, caseNoteId, amendmentText) => axios({
+  baseURL: baseUrl,
+  method: 'put',
+  url: `/bookings/${bookingId}/caseNotes/${caseNoteId}`,
+  headers: {
+    'content-type': 'application/json',
+  },
+  data: {
+    text: amendmentText,
+  },
+}).then((response) => response.data)
+  .catch(error => {
+    if (error.response.status === 403) {
+      error.message = 'You are not authorised to amend this case note.';
+    }
 
-  return axios({
-    baseURL: baseUrl,
-    method: 'put',
-    url: `/bookings/${bookingId}/caseNotes/${caseNoteId}`,
-    headers: {
-      'content-type': 'application/json' },
-    data })
-    .then((response) => response.data);
-};
+    throw error;
+  });
 
 export const users = {
   me: (token, baseUrl) => axios({

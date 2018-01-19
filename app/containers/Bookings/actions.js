@@ -14,9 +14,7 @@ import {
   UPDATE_CASENOTES_PAGINATION,
   VIEW_CASENOTE_DETAILS,
   VIEW_CASENOTE_LIST,
-  SET_ADD_CASENOTE_MODAL,
   ADD_NEW_CASENOTE,
-  SET_AMEND_CASENOTE,
   SHOW_LARGE_PHOTO_BOOKING_DETAILS,
   HIDE_LARGE_PHOTO_BOOKING_DETAILS,
   LOAD_LOCATIONS,
@@ -84,30 +82,6 @@ export function setCaseNotesPagination(bookingId, pagination, query) {
   };
 }
 
-export function openAddCaseNoteModal() {
-  return {
-    type: SET_ADD_CASENOTE_MODAL,
-    payload: true,
-  };
-}
-export function closeAddCaseNoteModal() {
-  return {
-    type: SET_ADD_CASENOTE_MODAL,
-    payload: false,
-  };
-}
-export function openAmendCaseNoteModal() {
-  return {
-    type: SET_AMEND_CASENOTE,
-    payload: true,
-  };
-}
-export function closeAmendCaseNoteModal() {
-  return {
-    type: SET_AMEND_CASENOTE,
-    payload: false,
-  };
-}
 export function addNewCaseNote({ bookingId, type, subType, occurrenceDateTime }) {
   return {
     meta: { debounce: 'simple' },

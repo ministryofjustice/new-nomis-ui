@@ -275,11 +275,6 @@ const selectCaseNotes = () => createSelector(
   (caseNotesState) => caseNotesState.get('caseNotes')
 );
 
-const selectDisplayAmendCaseNoteModal = () => createSelector(
-  selectCaseNotes(),
-  (caseNoteState) => caseNoteState.get('amendCaseNoteModal')
-);
-
 const selectCaseNotesPagination = () => createSelector(
   selectCaseNotes(),
   (caseNotesState) => caseNotesState.get('Pagination').toJS()
@@ -339,7 +334,6 @@ export {
   selectCaseNotesView,
   selectCaseNotesDetailId,
   selectDisplayAddCaseNoteModal,
-  selectDisplayAmendCaseNoteModal,
   selectShouldShowLargePhoto,
   selectImageId,
   selectLocations,

@@ -11,7 +11,6 @@ import {
   selectCaseNotesPagination,
   selectBookingDetailsId,
   selectCaseNotesView,
-  selectDisplayAmendCaseNoteModal,
 } from '../../selectors';
 
 import CaseNoteList from './caseNoteList';
@@ -26,7 +25,6 @@ import {
 import {
   setCaseNotesPagination,
   setCaseNotesDetailView,
-  openAmendCaseNoteModal,
 } from '../../actions';
 
 class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -43,11 +41,11 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
   }
 
   render() {
-    const { caseNotesView, openAmendModal, displayAmendCaseNoteModal, deviceFormat } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
+    const { caseNotesView, openAmendModal, deviceFormat } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
     if (caseNotesView === 'LIST') {
       return <CaseNoteList />
     }
-    return <CaseNoteDetails displayAmendCaseNoteModal={displayAmendCaseNoteModal} openAmendModal={openAmendModal} />
+    return <CaseNoteDetails />
   }
 }
 
@@ -56,9 +54,7 @@ CaseNotes.propTypes = {
   caseNotesPagination: PropTypes.object.isRequired,
   caseNotesQuery: PropTypes.object.isRequired,
   loadCaseNotes: PropTypes.func.isRequired,
-  openAmendModal: PropTypes.func.isRequired,
   caseNotesView: PropTypes.string.isRequired,
-  displayAmendCaseNoteModal: PropTypes.bool.isRequired,
   deviceFormat: PropTypes.string.isRequired,
 };
 
@@ -72,7 +68,6 @@ export function mapDispatchToProps(dispatch) {
     loadCaseNotes: (id, pagination, query) => dispatch(loadBookingCaseNotes(id, pagination, query)),
     setPagination: (id, pagination, query) => dispatch(setCaseNotesPagination(id, pagination, query)),
     setCaseNoteView: (id) => dispatch(setCaseNotesDetailView(id)),
-    openAmendModal: () => dispatch(openAmendCaseNoteModal()),
   };
 }
 
@@ -84,7 +79,6 @@ const mapStateToProps = createStructuredSelector({
   bookingId: selectBookingDetailsId(),
   totalResults: selectTotalCaseNotes(),
   caseNotesView: selectCaseNotesView(),
-  displayAmendCaseNoteModal: selectDisplayAmendCaseNoteModal(),
   deviceFormat: selectDeviceFormat(),
 });
 

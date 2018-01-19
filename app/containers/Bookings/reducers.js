@@ -32,8 +32,6 @@ import {
   SET_RESULTS_VIEW,
   SET_ALERTS_PAGINATION,
   SET_CASENOTES_PAGINATION,
-  SET_ADD_CASENOTE_MODAL,
-  SET_AMEND_CASENOTE,
   CASE_NOTE_FILTER,
   SET_LARGE_PHOTO_VISIBILITY,
   SET_LOCATIONS,
@@ -169,14 +167,6 @@ function searchReducer(state = initialState, action) {
 
     case VIEW_CASENOTE_LIST: {
       return state.setIn(['details', 'caseNotes', 'caseNoteDetailId'], null).setIn(['details', 'caseNotes', 'viewId'], 0);
-    }
-
-    case SET_AMEND_CASENOTE: {
-      return state.setIn(['details', 'caseNotes', 'amendCaseNoteModal'], action.payload);
-    }
-
-    case SET_ADD_CASENOTE_MODAL: {
-      return state.setIn(['details', 'addCaseNoteModal'], action.payload);
     }
 
     case SET_DETAILS_TAB: {

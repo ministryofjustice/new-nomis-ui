@@ -1,0 +1,18 @@
+.amend-case-note {
+
+  @include media-breakpoint-down(md) {
+    @include add-gutter-margin-top();
+  }
+
+  @include media-breakpoint-down(xs) {
+    button:first-child {
+      @include add-gutter-margin-bottom();
+    }
+  }
+
+  textarea {
+    @include media-breakpoint-up(xs) {
+      height: 120px !important;
+    }
+  }
+}
