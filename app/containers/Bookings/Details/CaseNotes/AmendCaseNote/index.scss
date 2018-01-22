@@ -9,10 +9,4 @@
       @include add-gutter-margin-bottom();
     }
   }
-
-  textarea {
-    @include media-breakpoint-up(xs) {
-      height: 120px !important;
-    }
-  }
 }

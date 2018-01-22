@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { setDeviceFormat } from 'globalReducers/app';
-import { selectMobileMenuOpen } from 'selectors/app';
+import { selectMobileMenuOpen, selectShouldShowSpinner } from 'selectors/app';
 import Modal from 'containers/Modal';
 import Header from 'containers/Header';
 import Breadcrumbs from 'containers/Breadcrumbs';
@@ -13,6 +13,7 @@ import MobileMenu from 'containers/MobileMenu';
 import Footer from 'containers/Footer';
 import ProductGlobals from 'product-globals';
 import Notifications from 'react-notify-toast';
+import Spinner from 'components/Spinner';
 
 
 class App extends PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -36,7 +37,7 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
   }
 
   render() {
-    const { mobileMenuOpen } = this.props;
+    const { mobileMenuOpen, shouldShowSpinner } = this.props;
 
     if (mobileMenuOpen) {
       return (
@@ -65,6 +66,7 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
           null
         }
         <main className="container">
+          {shouldShowSpinner && <Spinner /> }
           <div className="main-content">
             {React.Children.toArray(this.props.children)}
           </div>
@@ -90,6 +92,7 @@ App.defaultProps = {
 
 const mapStateToProps = createStructuredSelector({
   mobileMenuOpen: selectMobileMenuOpen(),
+  shouldShowSpinner: selectShouldShowSpinner(),
 });
 
 const mapDispatchToProps = (dispatch) => ({
