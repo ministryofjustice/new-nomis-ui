@@ -42,7 +42,7 @@ class AmendCaseNote extends Component {
         </div>
 
         <div className="row">
-          <div className="col-md-4 no-left-gutter">
+          <div className="col-md-8 no-left-gutter">
             <Field name="amendmentText" component={TextArea} title="Case note amendment" autocomplete="off" spellcheck="true" />
           </div>
         </div>
@@ -89,6 +89,10 @@ export const validate = (form) => {
 
   if (!amendmentText) {
     error.amendmentText = 'Required';
+  }
+
+  if (amendmentText && amendmentText.length > 4000) {
+    error.amendmentText = 'Maximum length should not exceed 4000 characters';
   }
 
   return error;

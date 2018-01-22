@@ -6,6 +6,7 @@ const SET_MOBILE_MENU_OPEN = 'globalReducer/app/SET_MOBILE_MENU_OPEN';
 const SET_MODAL_OPEN = 'globalReducer/app/SET_MODAL_OPEN';
 const SET_MODAL_DATA = 'globalReducer/app/SET_MODAL_DATA';
 const SET_SEARCH_CONTEXT = 'globalReducer/app/SET_SEARCH_CONTEXT';
+const SET_SPINNER_VISIBILITY = 'globalReducer/app/SET_SPINNER_VISIBILITY';
 
 // Initial State
 const initialState = fromJS({
@@ -18,6 +19,7 @@ const initialState = fromJS({
     body: 'body',
   },
   searchContext: 'none',
+  shouldShowSpinner: false,
 });
 
 // Reducer
@@ -38,6 +40,8 @@ export default function appReducer(state = initialState, action) {
     case SET_SEARCH_CONTEXT:
       return state
         .set('searchContext', action.payload);
+    case SET_SPINNER_VISIBILITY: 
+      return state.set('shouldShowSpinner', action.payload);
     default:
       return state;
   }
@@ -67,4 +71,14 @@ export const setModalData = (obj) => ({
 export const setSearchContext = (context) => ({
   type: SET_SEARCH_CONTEXT,
   payload: context,
+});
+
+export const showSpinner = () => ({
+  type: SET_SPINNER_VISIBILITY,
+  payload: true,
+});
+
+export const hideSpinner = () => ({
+  type: SET_SPINNER_VISIBILITY,
+  payload: false,
 });

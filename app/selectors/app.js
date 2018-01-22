@@ -27,10 +27,16 @@ const selectSearchContext = () => createSelector(
   (state) => state.get('searchContext')
 );
 
+const selectShouldShowSpinner = () => createSelector(
+  selectApp(),
+  (app) => app.get('shouldShowSpinner'),
+);
+
 export {
   selectDeviceFormat,
   selectMobileMenuOpen,
   selectModalOpen,
   selectModalData,
   selectSearchContext,
+  selectShouldShowSpinner,
 };

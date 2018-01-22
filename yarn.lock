@@ -8567,6 +8567,10 @@ specificity@^0.3.1:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/specificity/-/specificity-0.3.2.tgz#99e6511eceef0f8d9b57924937aac2cb13d13c42"
 
+spin.js@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/spin.js/-/spin.js-3.1.0.tgz#c2d2a4ba83dd6a81e01e0a61b125292b34807128"
+
 sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
