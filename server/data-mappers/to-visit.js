@@ -28,11 +28,14 @@ module.exports = (visit) => {
     status = 'Ongoing';
   }
 
-  const nameParts = visit.leadVisitor.split(' ');
+  const nameParts = visit.leadVisitor && visit.leadVisitor.split(' ');
   const toName = (value) => value && value.split('').map((letter,index) => index === 0 ? letter.toUpperCase() : letter.toLowerCase()).join('');
 
+  const leadVisitorName = nameParts ? `${toName(nameParts[0])} ${toName(nameParts[1])}` : '--';
+  const leadVisitorRelationship = visit.relationshipDescription ? ` (${visit.relationshipDescription})` : '';
+
   return {
-    leadVisitor: `${toName(nameParts[0])} ${toName(nameParts[1])} (${visit.relationshipDescription})`,
+    leadVisitor: `${leadVisitorName}${leadVisitorRelationship}`,
     date: visit.startTime,
     type: visit.visitTypeDescription,
     cancellationReason: isCancelledVisit && visit.cancelReasonDescription,
