@@ -9,6 +9,7 @@ import { BOOKINGS } from 'containers/EliteApiLoader/constants';
 import { DATE_TIME_FORMAT_SPEC } from 'containers/App/constants';
 import moment from 'moment';
 import { notify } from 'react-notify-toast';
+import { showSpinner, hideSpinner } from 'globalReducers/app';
 
 
 import {
@@ -151,40 +152,51 @@ export function* onAddAppointment(action) {
 
 export function* onLoadQuickLook(action) {
   try {
+    yield put(showSpinner());
     const viewModel = yield call(loadQuickLook, action.payload);
     yield put({
       type: SET_QUICK_LOOK,
       payload: viewModel,
     });
+    yield put(hideSpinner());
   } catch (err) {
+    yield put(hideSpinner());
     yield put({ type: DETAILS_ERROR, payload: { error: err.userMessage } });
   }
 }
 
 export function* onLoadKeyDates(action) {
   try {
+    yield put(showSpinner());
     const viewModel = yield call(loadKeyDates, action.payload);
     yield put({
       type: SET_KEYDATES,
       payload: viewModel,
     });
+    yield put(hideSpinner());
   } catch (err) {
+    yield put(hideSpinner());
     yield put({ type: DETAILS_ERROR, payload: { error: err.userMessage } });
   }
 }
 
 export function* onLoadScheduledEvents(action) {
-  const fetchScheduledEvents = action.payload.nextWeek === true ? loadScheduledEventsForNextWeek : loadScheduledEventsForThisWeek;
-  const data = yield call(fetchScheduledEvents, action.payload.bookingId);
+  try {
+    yield put(showSpinner());
+    const fetchScheduledEvents = action.payload.nextWeek === true ? loadScheduledEventsForNextWeek : loadScheduledEventsForThisWeek;
+    const data = yield call(fetchScheduledEvents, action.payload.bookingId);
 
-  yield put({
-    type: SET_SCHEDULED_EVENTS,
-    payload: {
-      data,
-      nextWeek: action.payload.nextWeek,
-    },
-
-  });
+    yield put({
+      type: SET_SCHEDULED_EVENTS,
+      payload: {
+        data,
+        nextWeek: action.payload.nextWeek,
+      },
+    });
+    yield put(hideSpinner());
+  } catch (error) {
+    yield put(hideSpinner());
+  }
 }
 
 export function* setLocations(action) {
@@ -229,6 +241,7 @@ export function* toggleSort(action) {
 
   const sortOrder = action.payload || (previousSortOrder === 'ASC' ? 'DESC' : 'ASC');
 
+  yield put(showSpinner());
   const result = yield call(searchOffenders, {
     token,
     baseUrl,
@@ -250,6 +263,8 @@ export function* toggleSort(action) {
       meta: { totalRecords: result.totalRecords, sortOrder },
     },
   });
+
+  yield put(hideSpinner());
 }
 
 export function* newSearch(action) {
@@ -259,6 +274,8 @@ export function* newSearch(action) {
     const baseUrl = yield select(selectApi());
     const sortOrder = yield (action.payload.sortOrder || select(selectSearchResultsSortOrder()));
     let pagination = yield (action.payload.pagination || select(selectSearchResultsPagination()));
+
+    yield put(showSpinner());
 
     if (resetPagination) {
       pagination = { ...pagination, pageNumber: 0 };
@@ -299,7 +316,10 @@ export function* newSearch(action) {
     });
 
     if (action.redirectToResults) { yield put(push('/results')); }
+
+    yield put(hideSpinner());
   } catch (err) {
+    yield put(hideSpinner());
     yield put({ type: SEARCH_ERROR, payload: new SubmissionError({ _error: err.message }) });
   }
 }
@@ -374,6 +394,7 @@ export function* detailsWatcher() {
 }
 
 export function* viewDetails(action) {
+  yield put(showSpinner());
   yield put({ type: SET_DETAILS, payload: action.payload });
   const { Type } = yield call(bookingDetailsElite, action); //eslint-disable-line
   if (Type !== 'ERROR') {
@@ -383,6 +404,8 @@ export function* viewDetails(action) {
       yield put({ type: SET_DETAILS_TAB, payload: action.payload });
     }
   }
+
+  yield put(hideSpinner());
 }
 
 export function* searchResultPaginationWatcher() {
@@ -404,7 +427,6 @@ export function* updateSearchResultView(action) {
   const currentQuery = yield select(selectSearchQuery());
   yield put({ type: SEARCH, payload: { query: currentQuery } });
 }
-
 
 export function* detailAlertsPaginationWatcher() {
   yield takeLatest(UPDATE_ALERTS_PAGINATION, detailAlertsPagination);
@@ -432,13 +454,8 @@ export function* setCaseNoteFilterWatcher() {
 
 export function* setCaseNoteFilterSaga(action) {
   const { query, resetPagination, goToPage } = action.payload;
-  // console.log(query);
   let pagination = yield select(selectSearchResultsPagination());
   const bookingId = yield select(selectBookingDetailsId());
-  // console.log(query, pagination, bookingId);
-  // const sortOrder = yield select(selectSearchResultsSortOrder());
-  // console.log(pagination);
-
 
   try {
     if (resetPagination) {
@@ -450,10 +467,8 @@ export function* setCaseNoteFilterSaga(action) {
       payload: {
         query,
       } });
-    // console.log(goToPage);
     if (goToPage) yield put(push(goToPage));
   } catch (err) {
-    console.error(err); // eslint-disable-line
     yield put({ type: CASE_NOTE_FILTER.ERROR, payload: new SubmissionError({ _error: err.message }) });
   }
 }

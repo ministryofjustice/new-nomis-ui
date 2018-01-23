@@ -13,7 +13,6 @@ import AssignmentsHeaderMobile from 'components/AssignmentsHeader/mobile';
 import { setSearchContext } from 'globalReducers/app';
 import BookingTable from 'components/Bookings/Table';
 import BookingGrid from 'components/Bookings/Grid';
-import HandleBookingLoadingStatus from 'components/Bookings/HandleBookingLoadingStatus';
 
 
 import { selectUser } from '../Authentication/selectors';
@@ -66,12 +65,9 @@ class Assignments extends PureComponent { // eslint-disable-line react/prefer-st
           </div>
         }
 
-        <HandleBookingLoadingStatus {...this.props} >
+        <Results {...this.props} />
+        <PreviousNextNavigation pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />
 
-          <Results {...this.props} />
-          <PreviousNextNavigation pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />
-
-        </HandleBookingLoadingStatus>
       </div>
     );
   }

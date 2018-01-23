@@ -402,13 +402,13 @@ class QuickLook extends Component {
   render() {
     const { viewModel, offenderDetails, headerDetails } = this.props;
 
-    if (!viewModel) { return <div>Loading....</div> }
+    if (!viewModel) { return <div></div> }
 
     const { balance, offences, releaseDate, indeterminateReleaseDate, activities, positiveCaseNotes, negativeCaseNotes, nextOfKin, adjudications, lastVisit, assignedStaffMembers } = (viewModel && viewModel.toJS());
     const { awards, proven } = adjudications;
 
     return (<div className="quick-look">
-
+      
       <div className="row">
 
         <div className="visible-xs">

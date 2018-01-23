@@ -37,7 +37,7 @@ class Alerts extends PureComponent { // eslint-disable-line react/prefer-statele
         {alertsStatus.Type === 'SUCCESS' ?
           <AlertList alerts={alerts} deviceFormat={deviceFormat} />
           :
-          <LoadingMessage>Loading alerts ...</LoadingMessage>
+          <div></div>
         }
         <PreviousNextNavigation
           pagination={alertsPagination} totalRecords={totalResults} pageAction={(id) => {

@@ -51,7 +51,7 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
             <PreviousNextNavigation pagination={caseNotesPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)} />
           </div>
           :
-          <LoadingMessage>Loading case notes ...</LoadingMessage>
+          <div></div>
         }
       </div>
     );
