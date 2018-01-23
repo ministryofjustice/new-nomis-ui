@@ -31,11 +31,11 @@ module.exports = (visit) => {
   const nameParts = visit.leadVisitor && visit.leadVisitor.split(' ');
   const toName = (value) => value && value.split('').map((letter,index) => index === 0 ? letter.toUpperCase() : letter.toLowerCase()).join('');
 
-  const leadVisitorName = nameParts ? `${toName(nameParts[0])} ${toName(nameParts[1])}` : '--';
+  const leadVisitorName = nameParts && `${toName(nameParts[0])} ${toName(nameParts[1])}`;
   const leadVisitorRelationship = visit.relationshipDescription ? ` (${visit.relationshipDescription})` : '';
 
   return {
-    leadVisitor: `${leadVisitorName}${leadVisitorRelationship}`,
+    leadVisitor: (leadVisitorName) && `${leadVisitorName}${leadVisitorRelationship}`,
     date: visit.startTime,
     type: visit.visitTypeDescription,
     cancellationReason: isCancelledVisit && visit.cancelReasonDescription,

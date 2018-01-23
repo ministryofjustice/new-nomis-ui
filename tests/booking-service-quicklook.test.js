@@ -538,23 +538,6 @@ describe('Booking Service Quick look', () => {
     expect(data.lastVisit.leadVisitor).to.equal('John Smith');
   });
 
-  it('should show double-dash for lead visitor if no lead visitor name in API response', async () => {
-    elite2Api.getLastVisit.returns({
-      eventStatus: 'EXP',
-      eventStatusDescription: 'Expired',
-      visitType: 'SCON',
-      visitTypeDescription: 'Social Contact',
-      startTime: '2017-12-23T09:00:00',
-      endTime: '2017-12-23T12:00:00',
-      location: 'SOCIAL VISITS',
-      eventOutcome: 'ATT',
-      eventOutcomeDescription: 'Attended',
-    });
-
-    const data = await bookingService.getQuickLookViewModel(req);
-    expect(data.lastVisit.leadVisitor).to.equal('--');
-  });
-
   it('should call getRelationships', async () => {
     elite2Api.getRelationships.returns([
       {

@@ -311,7 +311,7 @@ export const NextOfKin = ({ nextOfKin = [] }) => <div>
   </div>)}
 </div>
 
-export const LastVisit = ({ date, type, status, leadVisitor, relationshipDescription, cancellationReason }) => <div>
+export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason }) => <div>
 
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
