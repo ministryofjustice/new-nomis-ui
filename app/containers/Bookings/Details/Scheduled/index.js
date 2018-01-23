@@ -23,6 +23,8 @@ import { DETAILS_TABS } from '../../constants';
 
 import './index.scss';
 
+const RadioButton = () => <div></div>
+
 export const Event = ({ startTime, endTime, type, shortComment }) =>
 <div className="row add-gutter-margin-bottom add-gutter-margin-bottom">
 
@@ -65,7 +67,7 @@ class ScheduledEvents extends Component {
     const scheduledEvents = this.props.scheduledEvents;
 
     if (!scheduledEvents && !scheduledEvents) {
-      return <div>Loading scheduled activities....</div>
+      return <div></div>
     }
 
     const {
@@ -89,14 +91,30 @@ class ScheduledEvents extends Component {
         <div className="col-xs-6 col-lg-2 no-left-gutter">
           <div className="form-group">
             <div className="multiple-choice">
-              <input checked={thisWeek && 'checked'} type="radio" name="radio-inline-group" value="Yes" onClick={() => loadThisWeeksScheduledEvents(bookingId)}></input>
+              <input
+                checked={thisWeek && 'checked'}
+                type="radio"
+                name="radio-inline-group"
+                value="Yes"
+                onClick={() => loadThisWeeksScheduledEvents(bookingId)}
+                onChange={(event) => event.preventDefault()}
+              >
+              </input>
               <label>This week</label>
             </div>
           </div>
         </div>
         <div className="col-xs-6 col-lg-2 no-left-gutter">
           <div className="multiple-choice">
-            <input checked={nextWeek && 'checked'} type="radio" name="radio-inline-group" value="Yes" onClick={() => loadNextWeeksScheduledEvents(bookingId)}></input>
+            <input
+              checked={nextWeek && 'checked'}
+              type="radio"
+              name="radio-inline-group"
+              value="Yes"
+              onClick={() => loadNextWeeksScheduledEvents(bookingId)}
+              onChange={(event) => event.preventDefault()}
+            >
+            </input>
             <label>Next week</label>
           </div>
       </div>
@@ -112,9 +130,9 @@ class ScheduledEvents extends Component {
           <h1 className="heading-medium">Afternoon (PM)</h1>
         </div>
       </div>
-      {scheduledEvents.map(entry =>
+      {scheduledEvents.map((entry,index) =>
 
-        <div className="row appointment-row">
+        <div className="row appointment-row" key={`event_${index}`}>
 
           <div className="appointments">
 
@@ -139,7 +157,9 @@ class ScheduledEvents extends Component {
 
               <div className="col-lg-5 ">
                 <div className="appointment morning add-gutter-top add-gutter-bottom">
-                  {entry.forMorning.map(morning => Event({ ...morning }))}
+                  {entry.forMorning.map((morning,morningIndex) => <div key={`morning_events_${morningIndex}`}>
+                    <Event {...morning} />
+                  </div>)}
                 </div>
               </div>
 
@@ -152,7 +172,9 @@ class ScheduledEvents extends Component {
 
               <div className="col-lg-5">
                 <div className="appointment afternoon add-gutter-top">
-                  {entry.forAfternoon.map(afternoon => Event({ ...afternoon }))}
+                  {entry.forAfternoon.map((afternoon,afternoonIndex) => <div key={`afternoon_events_${afternoonIndex}`}>
+                    <Event {...afternoon} />
+                    </div>)}
                 </div>
               </div>
           </div>

@@ -5,6 +5,7 @@ import { login, users, loadAppointmentViewModel } from 'utils/eliteApi';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 import { PRELOADDATA, USER } from 'containers/EliteApiLoader/constants';
 import { LOAD_ASSIGNMENTS } from 'containers/Assignments/constants';
+import { showSpinner, hideSpinner } from 'globalReducers/app';
 
 import {
   APPOINTMENT,
@@ -39,15 +40,18 @@ export function* loginUser(action) {
   try {
     const apiUrl = yield select(selectApi());
     const res = yield call(login, username, password, apiUrl);
-    const user = yield call(users.me, res, apiUrl);
 
+    yield put(showSpinner());
+    const user = yield call(users.me, res, apiUrl);
     yield put({ type: LOGIN_SUCCESS, payload: { user, loginData: res } });
+
     yield put({ type: PRELOADDATA.BASE });
     yield put({ type: USER.CASELOADS.BASE });
     yield put({ type: LOAD_ASSIGNMENTS, payload: {} });
 
     if (redirect) yield put(push(redirect));
   } catch (err) {
+    yield put(hideSpinner());
     yield put({ type: LOGIN_ERROR, payload: new SubmissionError({ _error: messages.authFailed }) });
   }
 }

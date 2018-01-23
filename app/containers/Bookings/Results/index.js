@@ -9,7 +9,7 @@ import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMe
 import { connect } from 'react-redux';
 import ResultsViewToggle from 'components/ResultsViewToggle';
 import { setSearchContext } from 'globalReducers/app';
-import HandleBookingLoadingStatus from 'components/Bookings/HandleBookingLoadingStatus';
+import { selectShouldShowSpinner } from 'selectors/app';
 import SearchAgainForm from './SearchForm';
 import './index.scss';
 
@@ -52,7 +52,7 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
 
   render() {
     const {
-      locations, sortOrder, toggleSortOrder, viewDetails, results, totalResults, pagination, setPage, resultsView, setResultsView, loadingStatus} = this.props; //eslint-disable-line
+      locations, sortOrder, toggleSortOrder, viewDetails, results, totalResults, pagination, setPage, resultsView, setResultsView, loadingStatus, shouldShowSpinner} = this.props; //eslint-disable-line
     const { perPage: pP, pageNumber: pN } = pagination;
 
     return (
@@ -63,12 +63,10 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
 
         <div className="row" ref="focuspoint">
           <h1 className="heading-xlarge"> Search results </h1>
-          <SearchAgainForm locations={locations} />
+          {shouldShowSpinner === false && <SearchAgainForm locations={locations} /> }
         </div>
 
-        <HandleBookingLoadingStatus {...this.props} >
-
-          <div className="row toggle-and-count-view">
+         <div className="row toggle-and-count-view">
             {totalResults > 0 ?
               <div>
                 <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />
@@ -96,7 +94,6 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
             <PreviousNextNavigation pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />
           </div>
 
-        </HandleBookingLoadingStatus>
       </div>
     );
   }
@@ -141,6 +138,7 @@ const mapStateToProps = createStructuredSelector({
   locations: selectLocations(),
   sortOrder: selectSearchResultsSortOrder(),
   loadingStatus: selectLoadingBookingDetailsStatus(),
+  shouldShowSpinner: selectShouldShowSpinner(),
 });
 
 // Wrap the component to inject dispatch and state into it

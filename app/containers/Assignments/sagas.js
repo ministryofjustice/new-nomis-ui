@@ -1,6 +1,8 @@
 import { takeLatest, put, select, call } from 'redux-saga/effects';
 import { searchSaga as searchSagaElite } from 'containers/EliteApiLoader/sagas';
 
+import { hideSpinner, showSpinner } from 'globalReducers/app';
+
 import {
   selectAssignmentsPagination,
   selectAssignmentsSortOrder,
@@ -27,12 +29,15 @@ export function* assignmentLoadSaga(action) {
   const sortOrder = yield select(selectAssignmentsSortOrder());
 
   try {
+    yield put(showSpinner());
     if (resetPagination) {
       pagination = Object.assign(pagination, { pageNumber: 0 });
       yield put({ type: SET_ASSIGNMENTS_PAGINATION, payload: pagination });
     }
     yield call(searchSagaElite, { query: 'officerAssignments', pagination, sortOrder });
+    yield put(hideSpinner());
   } catch (err) {
+    yield put(hideSpinner());
     console.error('error loading assignment data', err); // eslint-disable-line
     // yield put({ type: SEARCH_ERROR, payload: new SubmissionError({ _error: err.message }) });
   }

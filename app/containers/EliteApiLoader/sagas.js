@@ -4,7 +4,7 @@ import { loadAssignments } from 'containers/Assignments/actions';
 import { getToken } from 'containers/Authentication/sagas';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 
-import { setMobileMenuOpen } from 'globalReducers/app';
+import { setMobileMenuOpen, showSpinner, hideSpinner } from 'globalReducers/app';
 
 import {
   searchOffenders,
@@ -51,11 +51,17 @@ export function* loadAppointmentsViewModalWatcher() {
 }
 
 export function* loadAppointmentsViewModel(action) {
-  const viewModel = yield call(loadAppointmentViewModel, { agencyId: action.payload });
-  yield put({
-    type: APPOINTMENT.SET_VIEW_MODEL,
-    payload: viewModel,
-  });
+  try {
+    yield put(showSpinner());
+    const viewModel = yield call(loadAppointmentViewModel, { agencyId: action.payload });
+    yield put({
+      type: APPOINTMENT.SET_VIEW_MODEL,
+      payload: viewModel,
+    });
+    yield put(hideSpinner());
+  } catch (error) {
+    yield put(hideSpinner());
+  }
 }
 
 export function* bookingDetailsWatcher() {
@@ -113,27 +119,25 @@ export function* bookingAlertsWatch() {
 }
 
 export function* bookingAlertsSaga(action) {
-  // Check if loaded or currently loading.
   const { bookingId, pagination } = action.payload;
-
   const allDetails = yield select(selectBookingDetails());
   const currentAlertsStatus = allDetails.getIn([bookingId, 'Alerts', 'Paginations', paginationHash(pagination), 'Status', 'Type']);
 
-  // To enable alert details caching, swap commenting of following two lines (see EM-59)
-  // if (currentAlertsStatus === 'SUCCESS' || currentAlertsStatus === 'LOADING') {
   if (currentAlertsStatus === 'LOADING') {
     return { Type: currentAlertsStatus };
   }
 
-  // Run the call
+  yield put(showSpinner());
   yield put({ type: BOOKINGS.ALERTS.LOADING, payload: { bookingId, pagination } });
   const token = yield getToken();
   const apiServer = yield select(selectApi());
   try {
     const data = yield call(bookingAlerts, token, apiServer, bookingId, pagination);
     yield put({ type: BOOKINGS.ALERTS.SUCCESS, payload: { bookingId, pagination, results: data.alerts, meta: { totalRecords: data.totalRecords } } });
+    yield put(hideSpinner());
     return { Type: 'SUCCESS' };
   } catch (err) {
+    yield put(hideSpinner());
     yield put({ type: BOOKINGS.ALERTS.ERROR, payload: { bookingId, error: err } });
     return { Type: 'ERROR', Error: err };
   }
@@ -144,29 +148,27 @@ export function* bookingCaseNotesWatch() {
 }
 
 export function* bookingCaseNotesSaga(action) {
-  // Check if loaded or currently loading.
   const { bookingId, pagination, query } = action.payload;
 
   const allDetails = yield select(selectBookingDetails());
   const currentCaseNotesStatus = allDetails.getIn([bookingId, 'CaseNotes', 'Query', queryHash(query), 'Paginations', paginationHash(pagination), 'Status', 'Type']);
-
-  // To enable case note caching, swap commenting of following two lines (see EM-59)
-  // if (currentCaseNotesStatus === 'SUCCESS' || currentCaseNotesStatus === 'LOADING') {
   if (currentCaseNotesStatus === 'LOADING') {
     return { Type: currentCaseNotesStatus };
   }
 
-  // Run the call
+  yield put(showSpinner());
+
   yield put({ type: BOOKINGS.CASENOTES.LOADING, payload: { bookingId, pagination, query } });
   const token = yield getToken();
   const apiServer = yield select(selectApi());
   try {
     const response = yield call(bookingCaseNotes, token, apiServer, bookingId, pagination, query);
     yield put({ type: BOOKINGS.CASENOTES.SUCCESS, payload: { bookingId, pagination, query, results: response.data, meta: { totalRecords: response.totalRecords } } });
-
+    yield put(hideSpinner());
     return { Type: 'SUCCESS' };
   } catch (err) {
     yield put({ type: BOOKINGS.CASENOTES.ERROR, payload: { bookingId, pagination, query, error: err } });
+    yield put(hideSpinner());
     return { Type: 'ERROR', Error: err };
   }
 }

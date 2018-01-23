@@ -35,7 +35,7 @@ class AddAppointment extends Component {
     const { handleSubmit,error,submitting, locale, goBackToBookingDetails, bookingId, offenderName, viewModel } = this.props;
 
     if (!viewModel) {
-      return <div> Loading, please wait</div>;
+      return <div></div>;
     }
 
     if (this.props && this.props.error) {

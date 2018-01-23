@@ -87,7 +87,7 @@ class KeyDates extends Component {
     const { viewModel, error } = this.props;
 
     if (error) { return <ErrorMessage /> }
-    if (!viewModel) { return <div>Loading....</div> }
+    if (!viewModel) { return <div></div> }
 
     const { iepLevel, daysSinceReview, sentence, other, reCategorisationDate } = viewModel && viewModel.toJS();
     return (
