@@ -24,6 +24,9 @@ const Wrapper = styled.div`
 const Row = styled.div`
   border-bottom: #F2F2F2 solid 1px;
   margin-bottom: 1em;
+  
+  padding: 15px;
+ 
   &:hover{
     background: #f8f8f8;
   }
@@ -47,6 +50,10 @@ const AmendmentBox = styled.div`
    padding-left: 1em;
    padding-right: 1em;
    padding-bottom: 1em;
+`;
+
+const RightPadding = styled.span`
+   margin-right: 3px;
 `;
 
 function AmendmentBlock({ amendment }) {
@@ -90,7 +97,7 @@ function CaseNoteListItem(props) {
     return <div>Loading..</div>
   }
 
-  const { authorName, originalNoteText, amendments, occurrenceDateTime, subTypeDescription, typeDescription } = caseNote.toJS(); // amendments
+  const { authorName, originalNoteText, amendments, occurrenceDateTime,creationDateTime, subTypeDescription, typeDescription } = caseNote.toJS(); // amendments
 
   let amendmentList = null;
   if (amendments && amendments.length > 0) {
@@ -104,11 +111,11 @@ function CaseNoteListItem(props) {
         <Block className="col-xs-12 col-md-2">
           <Bold>
             <span className="col-md-12">
-              <FormattedDate value={Date.parse(occurrenceDateTime)} />
+              <FormattedDate value={Date.parse(creationDateTime)} />
             </span>
             <Separator className="hidden-md hidden-lg hidden-lx"> </Separator>
             <span className="col-md-12">
-              <FormattedTime value={occurrenceDateTime} />
+              <FormattedTime value={creationDateTime} />
             </span>
           </Bold>
 
@@ -122,7 +129,13 @@ function CaseNoteListItem(props) {
               {typeDescription} | {subTypeDescription}
             </Bold>
           </Block>
-
+          {occurrenceDateTime &&
+          <Block>
+            <RightPadding> Occurrence date: </RightPadding>
+            <span>
+                <FormattedDate value={occurrenceDateTime} /> - <FormattedTime value={occurrenceDateTime} />
+            </span>
+          </Block>}
           <Block>
             <p>
               {originalNoteText}

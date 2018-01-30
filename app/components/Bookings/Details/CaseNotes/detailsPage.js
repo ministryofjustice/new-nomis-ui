@@ -4,6 +4,8 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { createStructuredSelector } from 'reselect';
+import { FormattedDate, FormattedTime } from 'react-intl';
+
 
 import { viewDetails } from 'containers/Bookings/actions';
 import { DETAILS_TABS } from 'containers/Bookings/constants';
@@ -46,6 +48,7 @@ const CaseNoteDetails = (props) => {
     authorName,
     originalNoteText,
     occurrenceDateTime,
+    creationDateTime,
     subTypeDescription,
     typeDescription,
     amendments,
@@ -71,26 +74,37 @@ const CaseNoteDetails = (props) => {
          </div>
 
          <div className="col-lg-7">
+
            <h2 className="heading-medium">
              {typeDescription} {'|'} {subTypeDescription}
            </h2>
+
            <p>
               {originalNoteText}
            </p>
 
            <h2 className="heading-small">
-             <DateTimeBlock dateTime={occurrenceDateTime} />
+             <DateTimeBlock dateTime={creationDateTime} />
            </h2>
 
            <div>
              {authorName}
            </div>
+
+           {occurrenceDateTime && <div>
+               <span className="right-padding"> Occurrence date: </span>
+               <span>
+                  <FormattedDate value={occurrenceDateTime} /> - <FormattedTime value={occurrenceDateTime} />
+              </span>
+           </div>}
+
            {amendmentList}
 
            <div className="add-gutter-top add-gutter-bottom">
              <button className="button-cancel" onClick={() => addAmendment()}>Make amendment</button>
            </div>
          </div>
+
        </div>
     </div>
   );
