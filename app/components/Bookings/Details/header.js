@@ -25,49 +25,8 @@ const Location = ({ assignedLivingUnit }) => <div>
   </div>
 </div>
 
-const MobileOnlyLayout = ({ iepLevel, csra, activeAlertCount, inactiveAlertCount, assignedLivingUnit }) => <div className="visible-mobile no-top-gutter ">
-
-     <div className="row">
-
-       <div className="col-xs-12 no-left-gutter">
-
-          <div className="row">
-            <div className="col-xs-6 no-left-gutter">
-              <label>IEP</label>
-              <b>{iepLevel || '--'}</b>
-            </div>
-
-            <div className="col-xs-6 no-left-gutter">
-              <label>CSRA</label>
-              <b>{csra || '--'}</b>
-            </div>
-          </div>
-
-
-          <div className="row">
-
-            <div className="col-xs-6 no-left-gutter">
-              <label>Alerts</label>
-              <Alerts activeAlertCount={activeAlertCount} inactiveAlertCount={inactiveAlertCount} />
-            </div>
-
-            <div className="col-xs-6 no-left-gutter">
-              <Location assignedLivingUnit={assignedLivingUnit} />
-            </div>
-          </div>
-
-         <div className="show-full-screen-button">
-           <Link className="button-link add-gutter-bottom" to={'/bookings/details/addCaseNote'}>Add new case note</Link>
-           <Link className="button-link" to={'/bookings/details/addAppointment'}>Add appointment</Link>
-         </div>
-
-     </div>
-
-   </div>
-</div>
-
-const DesktopOnlyLayout = ({ iepLevel, csra, activeAlertCount, inactiveAlertCount, assignedLivingUnit }) => <div className="visible-desktop">
-  <div className="col-sm-2">
+const MiddleSection = ({ iepLevel, csra, activeAlertCount, inactiveAlertCount, assignedLivingUnit }) => <div className="middle-section">
+  <div className="col-xs-6 col-sm-3">
     <div className="row">
       <div className="col">
         <label>IEP</label>
@@ -83,7 +42,7 @@ const DesktopOnlyLayout = ({ iepLevel, csra, activeAlertCount, inactiveAlertCoun
     </div>
   </div>
 
-  <div className="col-sm-3">
+  <div className="col-xs-6 col-sm-4">
     <div className="row">
 
       <div className="col">
@@ -98,15 +57,6 @@ const DesktopOnlyLayout = ({ iepLevel, csra, activeAlertCount, inactiveAlertCoun
       </div>
     </div>
   </div>
-
-  <div className="col pull-right no-right-gutter no-left-gutter visible-desktop">
-    <div className="add-gutter-bottom">
-      <Link className="button-link hide-desktop-button" to={'/bookings/details/addCaseNote'}>Add case note</Link>
-    </div>
-    <div>
-      <Link className="button-link hide-desktop-button" to={'/bookings/details/addAppointment'}>Add appointment</Link>
-    </div>
-  </div>
 </div>
 
 function Header({ inmateData, onImageClick }) {
@@ -119,54 +69,68 @@ function Header({ inmateData, onImageClick }) {
 
       <div className="row">
 
-          <div className="col-lg-2 col-sm-3 col-md-2 col-xs-4 no-left-gutter no-right-gutter">
+          <div className="col-md-2 col-xs-3 no-left-gutter no-right-gutter">
               <div className="photo clickable" onClick={() => onImageClick(facialImageId)}>
                 <EliteImage imageId={facialImageId} />
               </div>
           </div>
 
-          <div className="col-lg-8 col-sm-8 col-md-8 col-xs-8 no-left-gutter no-right-gutter add-gutter-bottom-mobile">
-              <div className="col-sm-8 no-left-gutter">
+          <div className="col-xs-8 no-left-gutter no-right-gutter add-gutter-bottom-mobile">
+
+            <div className="row">
+              <div className="col-md-8">
                 <h1 className="heading-medium">
                   {nameString}
                 </h1>
               </div>
-          </div>
+            </div>
 
-          <div className="col-sm-3 col-xs-6 no-left-gutter">
-              <div className="row">
-                <div className="col">
-                  <label>Prison number</label>
-                  <b>{offenderNo}</b>
-                </div>
+            <div className="row">
+
+              <div className="col-md-4 col-sm-5 col-xs-8">
+                  <div className="row">
+                    <div className="col">
+                      <label>Prison number</label>
+                      <b>{offenderNo}</b>
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col">
+                      <label>Key worker</label>
+                      <b> <EliteOfficerName staffId={assignedOfficerId} /> </b>
+                    </div>
+                  </div>
               </div>
 
-              <div className="row">
-                <div className="col">
-                  <label>Key worker</label>
-                  <b> <EliteOfficerName staffId={assignedOfficerId} /> </b>
-                </div>
+              <div className="visible-large">
+                  <MiddleSection {...inmateData} />
               </div>
+
+           </div>
+
           </div>
 
-         <MobileOnlyLayout
-           activeAlertCount={activeAlertCount}
-           inactiveAlertCount={inactiveAlertCount}
-           assignedLivingUnit={assignedLivingUnit}
-           iepLevel={iepLevel}
-           csra={csra}
-         />
+        <div className="row">
 
-        <DesktopOnlyLayout
-          activeAlertCount={activeAlertCount}
-          inactiveAlertCount={inactiveAlertCount}
-          assignedLivingUnit={assignedLivingUnit}
-          iepLevel={iepLevel}
-          csra={csra}
-        />
+          <div className="visible-small">
+              <MiddleSection {...inmateData} />
+          </div>
+
+          <div>
+            <div>
+              <Link className="button-link" to={'/bookings/details/addCaseNote'}>Add case note</Link>
+            </div>
+
+            <div className="add-gutter-margin-top">
+              <Link className="button-link" to={'/bookings/details/addAppointment'}>Add appointment</Link>
+            </div>
+          </div>
+
+        </div>
+      </div>
 
      </div>
-    </div>
   );
 }
 

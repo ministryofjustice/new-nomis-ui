@@ -44,7 +44,6 @@ export const TabMenuItem = styled.div`
   background-color: ${({ active }) => active ? mobileTabNav : colours.baseFont};
   background-repeat: no-repeat;
   background-position: 50% 23%;
-
 `;
 
 export const TextHolder = styled.div`

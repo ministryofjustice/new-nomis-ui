@@ -37,7 +37,7 @@
       margin-bottom: 1em;
     }
     .button{
-      padding-top: .2em !important;
+      margin-top: .2em !important;
     }
   }
 
@@ -70,6 +70,12 @@
 
       .button{
         margin-top: -.5em;
+      }
+
+      @media(max-width: 1199px){
+        .button {
+          margin-top: 0.5em;
+        }
       }
 
       .reset-filters{

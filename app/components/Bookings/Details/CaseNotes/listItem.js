@@ -11,8 +11,8 @@ const Wrapper = styled.div`
   .col-md-6,
   .col-md-12,
   .col-xs-12 {
-    padding:0 !important;
-    margin:0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
   
   .row{
@@ -26,6 +26,10 @@ const Row = styled.div`
   margin-bottom: 1em;
   
   padding: 15px;
+  
+  @media(max-width: 992px) {
+     padding-left: 0;  
+  }
  
   &:hover{
     background: #f8f8f8;

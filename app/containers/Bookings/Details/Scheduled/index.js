@@ -23,8 +23,6 @@ import { DETAILS_TABS } from '../../constants';
 
 import './index.scss';
 
-const RadioButton = () => <div></div>
-
 export const Event = ({ startTime, endTime, type, shortComment }) =>
 <div className="row add-gutter-margin-bottom add-gutter-margin-bottom">
 

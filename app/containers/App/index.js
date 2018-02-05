@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { setDeviceFormat } from 'globalReducers/app';
 import { selectMobileMenuOpen, selectShouldShowSpinner } from 'selectors/app';
-import Modal from 'containers/Modal';
 import Header from 'containers/Header';
 import Breadcrumbs from 'containers/Breadcrumbs';
 import BreadcrumbsAlt from 'containers/Breadcrumbs/alt';
@@ -54,7 +53,6 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
         <Notifications />
         <Helmet title={ProductGlobals.serviceName} />
         <Header />
-        <Modal />
         { this.props.router.location.pathname !== '/login' ?
           <nav className="nav-container">
             { this.props.router.location.pathname !== '/bookings/details' ?
