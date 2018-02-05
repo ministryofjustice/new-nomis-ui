@@ -26,6 +26,10 @@ export const TabMenuItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  
+  @media(max-width: 1200px) {
+     font-size: 19px;
+  }
 
   cursor: ${({ active }) => active ? 'normal' : 'pointer'};
 

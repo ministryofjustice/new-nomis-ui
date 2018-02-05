@@ -115,24 +115,6 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/modalMobile',
-      name: 'modalMobile',
-      onEnter: onEnter({ authRequired: true, routeName: 'modalMobile' }),
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/InformationPageMobile'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([component]) => {
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    },
-    {
       path: '/bookings/details/addCaseNote',
       name: 'addCaseNote',
       onEnter: onEnter({ authRequired: true, routeName: 'addCaseNote' }),
