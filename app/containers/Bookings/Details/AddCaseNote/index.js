@@ -120,9 +120,10 @@ const mapStateToProps = createStructuredSelector({
   bookingDetailsId: selectBookingDetailsId(),
 });
 
-const validate = (stuff) => {
+export const validate = (stuff) => {
   if (!stuff) return {};
   const { caseNoteText, occurrenceDateTime, subTypeValue, typeValue } = stuff.toJS();
+  const now = moment();
   const errors = {};
 
   if (caseNoteText && caseNoteText.length > 4000) {
@@ -143,6 +144,8 @@ const validate = (stuff) => {
 
   if (!occurrenceDateTime) {
     errors.occurrenceDateTime = 'Required';
+  } else if (now.isBefore(occurrenceDateTime)) {
+    errors.occurrenceDateTime = 'Occurrence date and time can\'t be in the future';
   }
 
   return errors;
