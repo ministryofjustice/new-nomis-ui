@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="360px" height="178px" viewBox="0 0 360 178" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="background: #FFFFFF;">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Mobile_BottomBar_sizes</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Mobile_BottomBar_sizes">
+            <g id="Bottom-buttons" transform="translate(0.000000, 108.000000)">
+                <rect id="Rectangle-2" fill="#0B0C0C" x="0" y="0" width="360" height="70"></rect>
+                <g id="KeyDates_icon" transform="translate(311.000000, 14.000000)">
+                    <g>
+                        <path d="M7,4 L7,2 C7,0.666666667 7.33333333,0 8,0 C8.66666667,0 9,0.666666667 9,2 L9,4 C9,5.33333333 8.66666667,6 8,6 C7.33333333,6 7,5.33333333 7,4 Z" id="Path" fill="#FFFFFF"></path>
+                        <path d="M19,4 L19,2 C19,0.666666667 19.3333333,0 20,0 C20.6666667,0 21,0.666666667 21,2 L21,4 C21,5.33333333 20.6666667,6 20,6 C19.3333333,6 19,5.33333333 19,4 Z" id="Path" fill="#FFFFFF"></path>
+                        <path d="M28,28 L0,28 L0,4 L6,4 C6,5.72291667 6.346,7 8,7 C9.654,7 10,5.72291667 10,4 L18,4 C18,5.72291667 18.346,7 20,7 C21.654,7 22,5.72291667 22,4 L28,4 L28,28 Z" id="Path" fill="#FFFFFF"></path>
+                        <polygon id="Path" fill="#0B0C0C" points="2 26 26 26 26 9 2 9"></polygon>
+                        <g id="Group-2" transform="translate(1.000000, 9.000000)" fill="#FFFFFF">
+                            <rect id="Rectangle" x="5.68434189e-14" y="4" width="26" height="1"></rect>
+                            <rect id="Rectangle" x="5.68434189e-14" y="0" width="26" height="1"></rect>
+                            <rect id="Rectangle" x="5.68434189e-14" y="8" width="26" height="1"></rect>
+                            <rect id="Rectangle" x="5.68434189e-14" y="12" width="26" height="1"></rect>
+                            <rect id="Rectangle" x="5.68434189e-14" y="16" width="26" height="1"></rect>
+                            <rect id="Rectangle-10" x="5" y="0" width="1" height="18"></rect>
+                            <rect id="Rectangle-10" x="10" y="0" width="1" height="18"></rect>
+                            <rect id="Rectangle-10" x="15" y="0" width="1" height="18"></rect>
+                            <rect id="Rectangle-10" x="20" y="0" width="1" height="18"></rect>
+                            <rect id="Rectangle-10" x="5.68434189e-14" y="0" width="1" height="18"></rect>
+                        </g>
+                        <polygon id="Path" fill="#FFFFFF" points="23.0005349 24 25.0005349 24 25.0005349 23 23.0005349 23"></polygon>
+                        <polygon id="Path" fill="#FFFFFF" points="18.0005349 24 20.0005349 24 20.0005349 23 18.0005349 23"></polygon>
+                        <polygon id="Path" fill="#FFFFFF" points="3.00053486 12 5.00053486 12 5.00053486 11 3.00053486 11"></polygon>
+                    </g>
+                </g>
+                <g id="Alerts_icon" transform="translate(166.000000, 16.000000)">
+                    <g>
+                        <path d="M16.6285399,1.56564997 L27.6193628,21.5545542 C28.4176605,23.0064105 27.8878465,24.8305208 26.4359902,25.6288184 C25.9931316,25.8723225 25.4959333,26 24.9905443,26 L3.00889857,26 C1.35204432,26 0.00889857401,24.6568542 0.00889857401,23 C0.00889857401,22.4946111 0.136576028,21.9974128 0.380080131,21.5545542 L11.370903,1.56564997 C12.1692007,0.113793632 13.9933109,-0.416020342 15.4451673,0.382277337 C15.9438899,0.6564981 16.3543191,1.0669273 16.6285399,1.56564997 Z" id="Triangle" fill="#FFFFFF"></path>
+                        <polygon id="!" fill="#0B0C0C" points="12 7 16 7 16 17 12 17"></polygon>
+                        <path d="M12,20.9895288 C12,20.7172761 12.0522188,20.4607342 12.156658,20.2198953 C12.2610971,19.9790564 12.4055691,19.7678892 12.5900783,19.5863874 C12.7745875,19.4048857 12.9886846,19.2617806 13.232376,19.1570681 C13.4760674,19.0523555 13.7371614,19 14.0156658,19 C14.2872076,19 14.5430797,19.0523555 14.7832898,19.1570681 C15.0234999,19.2617806 15.2341157,19.4048857 15.4151436,19.5863874 C15.5961715,19.7678892 15.7389029,19.9790564 15.843342,20.2198953 C15.9477812,20.4607342 16,20.7172761 16,20.9895288 C16,21.2687623 15.9477812,21.5305398 15.843342,21.7748691 C15.7389029,22.0191984 15.5961715,22.2321108 15.4151436,22.4136126 C15.2341157,22.5951143 15.0234999,22.7382194 14.7832898,22.8429319 C14.5430797,22.9476445 14.2872076,23 14.0156658,23 C13.7371614,23 13.4760674,22.9476445 13.232376,22.8429319 C12.9886846,22.7382194 12.7745875,22.5951143 12.5900783,22.4136126 C12.4055691,22.2321108 12.2610971,22.0191984 12.156658,21.7748691 C12.0522188,21.5305398 12,21.2687623 12,20.9895288 Z" id="!" fill="#0B0C0C"></path>
+                    </g>
+                </g>
+                <g id="QuickLook_icon" transform="translate(93.000000, 14.000000)" fill="#FFFFFF">
+                    <g>
+                        <path d="M27.2300875,23.5190375 L20.8058375,17.0947875 C19.8485875,18.5831625 18.5824625,19.8501625 17.0940875,20.8065375 L23.5192125,27.2307875 C24.5447125,28.2562875 26.2063375,28.2562875 27.2300875,27.2307875 C28.2564625,26.2070375 28.2564625,24.5454125 27.2300875,23.5190375" id="Fill-1"></path>
+                        <path d="M10.5,18.375 C6.1565,18.375 2.625,14.8435 2.625,10.5 C2.625,6.157375 6.1565,2.625 10.5,2.625 C14.842625,2.625 18.375,6.157375 18.375,10.5 C18.375,14.8435 14.842625,18.375 10.5,18.375 M21,10.5 C21,4.701375 16.298625,0 10.5,0 C4.701375,0 0,4.701375 0,10.5 C0,16.298625 4.701375,21 10.5,21 C16.298625,21 21,16.298625 21,10.5" id="Fill-3"></path>
+                        <path d="M4.375,10.5 L6.125,10.5 C6.125,8.087625 8.08675,6.125 10.5,6.125 L10.5,4.375 C7.123375,4.375 4.375,7.12425 4.375,10.5" id="Fill-5"></path>
+                    </g>
+                </g>
+                <g id="personal_icon" transform="translate(22.000000, 14.000000)">
+                    <g id="Group-3">
+                        <g>
+                            <rect id="Rectangle-4" fill="#FFFFFF" x="0" y="0" width="28" height="28" rx="3"></rect>
+                            <path d="M9,17 C9,17 5,17.8075538 5,21.9999994 C5,23.2769296 5.00052432,21.1033678 5.00052432,22.9998899 C5.00052432,23.0000367 10.9724421,23.0000367 22.9162777,22.9998899 C22.9162777,22.9998899 23,22.7269447 23,21.9999994 C23,17.8075538 19,17 19,17 L17,17 C16.0692794,18.0129754 15.1506973,19.0078014 14,18.9999975 C12.8493027,18.9921935 11.9201435,18.0008698 11,17 L9,17 Z" id="Combined-Shape" fill="#0B0C0C"></path>
+                            <path d="M14.0000438,16.9998745 C11.230922,16.981901 9.03134716,12.7142434 9.00020728,8.99994861 C8.96906741,5.28565385 12.4545834,4 14.0000438,4 C15.5455041,4 18.9999941,5.28565385 18.9999941,8.99994861 C18.9999941,12.7142434 16.7691655,17.0178481 14.0000438,16.9998745 Z" id="Fill-7" fill="#0B0C0C"></path>
+                        </g>
+                    </g>
+                </g>
+                <g id="CaseNotes_icon" transform="translate(239.000000, 14.000000)">
+                    <g>
+                        <polygon id="Combined-Shape" fill="#FFFFFF" points="6 5 26 5 26 28 6 28"></polygon>
+                        <rect id="Rectangle-8" fill="#0B0C0C" x="8" y="8" width="13" height="2"></rect>
+                        <rect id="Rectangle-8" fill="#0B0C0C" x="8" y="11" width="10" height="2"></rect>
+                        <rect id="Rectangle-8" fill="#0B0C0C" x="8" y="14" width="13" height="2"></rect>
+                        <rect id="Rectangle-8" fill="#0B0C0C" x="8" y="17" width="9" height="2"></rect>
+                        <rect id="Rectangle-8" fill="#0B0C0C" x="8" y="20" width="12" height="2"></rect>
+                        <rect id="Rectangle-8" fill="#0B0C0C" x="8" y="23" width="13" height="2"></rect>
+                        <polygon id="Combined-Shape" fill="#FFFFFF" points="0 0 21 0 21 4 5 4 5 23 0 23"></polygon>
+                    </g>
+                </g>
+                <text id="Personal" font-family="GDSTransportWebsite, GDS Transport Website" font-size="13" font-weight="300" fill="#FFFFFF">
+                    <tspan x="10" y="64">Personal</tspan>
+                </text>
+                <text id="Quick-look" font-family="GDSTransportWebsite, GDS Transport Website" font-size="13" font-weight="300" fill="#FFFFFF">
+                    <tspan x="77" y="64">Quick look</tspan>
+                </text>
+                <text id="Alerts" font-family="GDSTransportWebsite, GDS Transport Website" font-size="13" font-weight="300" fill="#FFFFFF">
+                    <tspan x="163" y="64">Alerts</tspan>
+                </text>
+                <text id="Case-notes" font-family="GDSTransportWebsite, GDS Transport Website" font-size="13" font-weight="300" fill="#FFFFFF">
+                    <tspan x="221" y="64">Case notes</tspan>
+                </text>
+                <text id="Key-dates" font-family="GDSTransportWebsite, GDS Transport Website" font-size="13" font-weight="300" fill="#FFFFFF">
+                    <tspan x="297" y="64">Key dates</tspan>
+                </text>
+            </g>
+            <rect id="Rectangle-11" fill="#F8F8F8" x="70" y="108" width="2" height="70"></rect>
+            <rect id="Rectangle-11" fill="#F8F8F8" x="143" y="108" width="2" height="70"></rect>
+            <rect id="Rectangle-11" fill="#F8F8F8" x="215" y="108" width="2" height="70"></rect>
+            <rect id="Rectangle-11" fill="#F8F8F8" x="288" y="108" width="2" height="70"></rect>
+            <rect id="Rectangle-12" fill-opacity="0.7" fill="#D53880" x="238" y="122" width="28" height="28"></rect>
+            <rect id="Rectangle-12" fill-opacity="0.7" fill="#D53880" x="311" y="122" width="28" height="28"></rect>
+            <rect id="Rectangle-12" fill-opacity="0.7" fill="#D53880" x="166" y="122" width="28" height="28"></rect>
+            <rect id="Rectangle-12" fill-opacity="0.7" fill="#D53880" x="93" y="122" width="28" height="28"></rect>
+            <rect id="Rectangle-12" fill-opacity="0.7" fill="#D53880" x="22" y="122" width="28" height="28"></rect>
+            <text id="Icons-are-within-28p" font-family="GDSTransportWebsite-Bold, GDS Transport Website" font-size="13" font-weight="bold" fill="#D53880">
+                <tspan x="17" y="27">Icons are within 28px by 28px maximum container</tspan>
+                <tspan x="17" y="45" font-family="GDSTransportWebsite, GDS Transport Website" font-size="11" font-weight="300">- alerts icon is 26px high (28px wide)</tspan>
+                <tspan x="17" y="60" font-family="GDSTransportWebsite, GDS Transport Website" font-size="11" font-weight="300">- case notes icon is 26px wide (28px high)</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
