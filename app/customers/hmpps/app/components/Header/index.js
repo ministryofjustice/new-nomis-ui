@@ -20,6 +20,7 @@ import {
   LogoText,
   Title,
   ToggleWrapper,
+  UnstyledLink,
 } from './header.theme';
 
 class Header extends Component {
@@ -45,12 +46,15 @@ class Header extends Component {
       <PageHeader>
         <div className="header-content">
           <LeftContent>
-            <Link to="/">
-              <Logo className="header-image">
-              </Logo>
-            </Link>
+          <Link to="/">
+            <Logo className="header-image">
+            </Logo>
+          </Link>
+
+          <UnstyledLink to="/">
             <LogoText>HMPPS</LogoText>
             <Title>{ProductGlobals.serviceName}</Title>
+          </UnstyledLink>
           </LeftContent>
           <RightContent>
             <DesktopOnly>
