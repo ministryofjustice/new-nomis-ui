@@ -27,13 +27,12 @@ export const TabMenuItem = styled.div`
   flex-grow: 1;
   color: white;
   text-align: center;
-  font-size: 12px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-around;
 
-  border-right: #303030 1px solid;
+  border-right: #F8F8F8 2px solid;
 
   &:last-child {
     border-right: 2px;
@@ -43,9 +42,10 @@ export const TabMenuItem = styled.div`
   background-image: url('${({ bgImg }) => bgImg}');
   background-color: ${({ active }) => active ? mobileTabNav : colours.baseFont};
   background-repeat: no-repeat;
-  background-position: 50% 23%;
+  background-position: 50% 28%;  
 `;
 
+
 export const TextHolder = styled.div`
-  font-size: 15px;
+  font-size: 14px;
 `;
