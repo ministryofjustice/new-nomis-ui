@@ -3,8 +3,9 @@
 @import 'font_stack';
 
 .header-image{
-  background-image: url('/img/logo-crest-white.png');
-
+  -webkit-mask-image: url('/img/hmpps_crest.svg');
+  mask-image: url('/img/hmpps_crest.svg');
+  background-color: white;
   width: 42px;
   height: 35px;
 }

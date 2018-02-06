@@ -10,19 +10,11 @@ import {
 
 function TabMenuMobile({ tabData, activeTabId }) {
   const imgArray = [
-    '/img/tab-menu-mobile-OFFENDER.png',
-    '/img/tab-menu-mobile-PHYSICAL.png',
-    '/img/tab-menu-mobile-ALERTS.png',
-    '/img/tab-menu-mobile-CASENOTES.png',
-    '/img/tab-menu-mobile-MORE.png',
-  ];
-
-  const imgArrayRetina = [
-    '/img/tab-menu-mobile-OFFENDER@2x.png',
-    '/img/tab-menu-mobile-PHYSICAL@2x.png',
-    '/img/tab-menu-mobile-ALERTS@2x.png',
-    '/img/tab-menu-mobile-CASENOTES@2x.png',
-    '/img/tab-menu-mobile-MORE@2x.png',
+    '/img/personal_icon.svg',
+    '/img/QuickLook_icon.svg',
+    '/img/Alerts_icon.svg',
+    '/img/CaseNotes_icon.svg',
+    '/img/KeyDates_icon.svg',
   ];
 
   return (
@@ -33,7 +25,6 @@ function TabMenuMobile({ tabData, activeTabId }) {
           active={tab.tabId === activeTabId}
           onClick={tab.tabId === activeTabId ? null : tab.action}
           bgImg={imgArray[i]}
-          retinaBgImg={imgArrayRetina[i]}
         >
           <TextHolder>{tab.mobileTitle}</TextHolder>
         </TabMenuItem>)}
