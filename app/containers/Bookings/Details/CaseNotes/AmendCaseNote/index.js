@@ -23,7 +23,7 @@ class AmendCaseNote extends Component {
       window.scrollTo(0,0);
     }
 
-    return (<div className="amend-case-note">
+    return (<div className="amend-case-note add-gutter-margin-top">
 
       <form onSubmit={handleSubmit}>
 
