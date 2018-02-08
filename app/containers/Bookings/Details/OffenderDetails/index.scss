@@ -1,5 +1,11 @@
 .offender-details {
 
+  @include media-breakpoint-down(sm) {
+    h3.heading-medium {
+      margin-top: 0 !important;
+    }
+  }
+
   overflow: hidden;
   @include add-gutter-margin-bottom();
 

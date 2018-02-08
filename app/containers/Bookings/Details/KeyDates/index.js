@@ -94,7 +94,7 @@ class KeyDates extends Component {
         <div className="key-dates">
 
          <div>
-            <h3 className="heading-medium">
+            <h3 className="heading-medium no-top-margin">
               Incentives and earned privileges
             </h3>
 
