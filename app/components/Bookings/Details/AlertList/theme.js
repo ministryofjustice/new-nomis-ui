@@ -3,21 +3,22 @@ import colours from 'theme/colours';
 import { media } from 'utils/style-utils';
 
 export const AlertHolder = styled.div`
-  padding-top: 15px;
+  margin-top: 0 !important;
 `;
 
 export const AlertItem = styled.div`
   position: relative;
   display: flex;
-  padding: 20px 0;
+  padding: 0 0 20px 0;
+  ${media.desktop` padding: 20px 0 20px 0;`}
   border-bottom: 1px solid ${colours.bookings.details.datagrid.gridLineColour};
-  color: ${(props) => props.expired ? colours.bookings.details.alerts.greyText : colours.baseFont};
+  color: ${(props) => props.expired ? '#6F777B' : colours.baseFont};
 `;
 
 export const AlertTypeWrapper = styled.div`
   width: 40%;
   ${media.desktop`width: 190px;`}
-  color: ${(props) => props.expired ? colours.bookings.details.alerts.greyText : colours.bookings.details.alerts.warningTextColour};
+  color: ${(props) => props.expired ? '#6F777B' : colours.bookings.details.alerts.warningTextColour};
 `;
 
 export const AlertType = styled.div`

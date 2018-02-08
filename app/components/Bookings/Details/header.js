@@ -26,7 +26,7 @@ const Location = ({ assignedLivingUnit }) => <div>
 </div>
 
 const MiddleSection = ({ iepLevel, csra, activeAlertCount, inactiveAlertCount, assignedLivingUnit }) => <div className="middle-section">
-  <div className="col-xs-6 col-sm-3">
+  <div className="col-xs-4 col-sm-3">
     <div className="row">
       <div className="col">
         <label>IEP</label>
@@ -42,21 +42,45 @@ const MiddleSection = ({ iepLevel, csra, activeAlertCount, inactiveAlertCount, a
     </div>
   </div>
 
-  <div className="col-xs-6 col-sm-4">
-    <div className="row">
+  <div className="visible-large">
+    <div className="col-xs-6 col-sm-4">
+      <div className="row">
 
-      <div className="col">
-        <label>Alerts</label>
-        <Alerts activeAlertCount={activeAlertCount} inactiveAlertCount={inactiveAlertCount} />
+        <div className="col">
+          <label>Alerts</label>
+          <Alerts activeAlertCount={activeAlertCount} inactiveAlertCount={inactiveAlertCount} />
+        </div>
       </div>
-    </div>
 
-    <div className="row">
-      <div className="col">
-        <Location assignedLivingUnit={assignedLivingUnit} />
+      <div className="row">
+        <div className="col">
+          <Location assignedLivingUnit={assignedLivingUnit} />
+        </div>
       </div>
     </div>
   </div>
+
+  <div className="visible-small">
+    <div className="col-xs-4">
+      <div className="row">
+
+        <div className="col">
+          <label>Alerts</label>
+          <Alerts activeAlertCount={activeAlertCount} inactiveAlertCount={inactiveAlertCount} />
+        </div>
+      </div>
+
+    </div>
+
+    <div className="col-xs-4">
+      <div className="row">
+        <div className="col">
+          <Location assignedLivingUnit={assignedLivingUnit} />
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 function Header({ inmateData, onImageClick }) {
@@ -75,7 +99,7 @@ function Header({ inmateData, onImageClick }) {
               </div>
           </div>
 
-          <div className="col-xs-8 no-left-gutter no-right-gutter add-gutter-bottom-mobile">
+          <div className="col-xs-9 col-sm-9 col-md-10 col-lg-8 no-left-gutter no-right-gutter add-gutter-bottom-mobile">
 
             <div className="row">
               <div className="col-md-8">
@@ -87,7 +111,7 @@ function Header({ inmateData, onImageClick }) {
 
             <div className="row">
 
-              <div className="col-md-4 col-sm-5 col-xs-8">
+              <div className="col-md-4 col-sm-4 col-xs-12">
                   <div className="row">
                     <div className="col">
                       <label>Prison number</label>

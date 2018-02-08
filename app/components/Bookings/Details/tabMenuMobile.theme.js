@@ -32,7 +32,7 @@ export const TabMenuItem = styled.div`
   align-items: center;
   justify-content: space-around;
 
-  border-right: #F8F8F8 2px solid;
+  border-right: #F8F8F8 1px solid;
 
   &:last-child {
     border-right: 2px;

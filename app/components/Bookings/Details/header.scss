@@ -26,12 +26,6 @@
     }
   }
 
-  /* override col-xs-3 to become col-xs-4 to increase the size of the photo */
-  @media(max-width: 400px) {
-    .col-xs-3 {
-       width: 33.33333333% !important;
-    }
-  }
 
   @include add-gutter-margin-top();
 
@@ -102,7 +96,7 @@
     display: flex;
     flex-direction: row;
 
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(md) {
       flex-direction: column;
       .inactive-alert {
         padding-left: 0 !important;
@@ -118,7 +112,7 @@
     .inactive-alert {
       padding-left: .5em;
 
-      @include media-breakpoint-up(md) {
+      @include media-breakpoint-up(lg) {
         border-left: solid 3px black;
       }
     }
