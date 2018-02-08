@@ -1,11 +1,10 @@
 .quick-look {
 
-
   overflow: hidden;
   @include add-gutter-margin-bottom();
 
   @include media-breakpoint-down(sm) {
-    h3.heading-medium {
+    .top-heading {
       margin-top: 0 !important;
     }
   }

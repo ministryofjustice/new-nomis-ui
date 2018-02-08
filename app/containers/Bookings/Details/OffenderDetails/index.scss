@@ -1,7 +1,7 @@
 .offender-details {
 
   @include media-breakpoint-down(sm) {
-    h3.heading-medium {
+    .top-heading {
       margin-top: 0 !important;
     }
   }
