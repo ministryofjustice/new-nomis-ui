@@ -48,7 +48,7 @@ class AddAppointment extends Component {
 
         <div className="row">
           <div className="col-md-4 no-left-gutter">
-            <h1 className="heading-large no-top-gutter">
+            <h1 className="heading-large">
               Add new appointment
             </h1>
 

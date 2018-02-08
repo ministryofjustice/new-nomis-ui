@@ -4,7 +4,6 @@ import { createStructuredSelector } from 'reselect';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import BookingTable from 'components/Bookings/Table';
 import BookingGrid from 'components/Bookings/Grid';
-import { Link } from 'react-router';
 import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMessage';
 import { connect } from 'react-redux';
 import ResultsViewToggle from 'components/ResultsViewToggle';
@@ -42,7 +41,6 @@ const ResultsViewBuilder = ({ viewName, results, onViewDetails, sortOrderChange,
 class SearchResults extends Component { // eslint-disable-line react/prefer-stateless-function
 
   componentWillMount() {
-    this.props.setSearchContext('search');
     this.props.loadLocations();
   }
 
@@ -57,12 +55,9 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
 
     return (
       <div className="booking-search">
-        <div className="mobile-only add-gutter-top">
-          <Link className="link" to="/" key="Home">Home</Link>
-        </div>
 
         <div className="row" ref="focuspoint">
-          <h1 className="heading-xlarge"> Search results </h1>
+          <h1 className="heading-xlarge add-gutter-top"> Search results </h1>
           {shouldShowSpinner === false && <SearchAgainForm locations={locations} /> }
         </div>
 
@@ -107,7 +102,6 @@ SearchResults.propTypes = {
   setPage: PropTypes.func.isRequired,
   resultsView: PropTypes.string,
   setResultsView: PropTypes.func,
-  setSearchContext: PropTypes.func,
   locations: PropTypes.array,
 };
 
@@ -115,7 +109,6 @@ SearchResults.defaultProps = {
   totalResults: 0,
   resultsView: 'List',
   setResultsView: () => {},
-  setSearchContext: () => {},
   locations: [],
 };
 
@@ -124,7 +117,6 @@ export function mapDispatchToProps(dispatch) {
     viewDetails: (bookingId) => dispatch(vD(bookingId)),
     setPage: (pagination) => dispatch(sP(pagination)),
     setResultsView: (pagination) => dispatch(setResultsView(pagination)),
-    setSearchContext: (context) => dispatch(setSearchContext(context)),
     loadLocations: () => dispatch(loadLocations()),
     toggleSortOrder: () => dispatch(toggleSortOrder()),
   };
@@ -141,5 +133,4 @@ const mapStateToProps = createStructuredSelector({
   shouldShowSpinner: selectShouldShowSpinner(),
 });
 
-// Wrap the component to inject dispatch and state into it
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

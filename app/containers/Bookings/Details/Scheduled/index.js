@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { FormattedDate } from 'react-intl';
 import moment from 'moment';
-import { Link } from 'react-router';
 
 import {
   selectBookingDetailsId,
@@ -18,13 +17,11 @@ import {
 } from 'containers/Bookings/actions';
 
 import { properCase } from 'utils/stringUtils';
-import { viewDetails } from '../../actions';
-import { DETAILS_TABS } from '../../constants';
 
 import './index.scss';
 
 export const Event = ({ startTime, endTime, type, shortComment }) =>
-<div className="row add-gutter-margin-bottom add-gutter-margin-bottom">
+<div className="row add-gutter-margin-bottom">
 
   <div className="col-xl-5 col-lg-6 col-md-6 col-xs-6">
     <span className="whereabouts-startTime">
@@ -71,18 +68,15 @@ class ScheduledEvents extends Component {
     const {
       loadThisWeeksScheduledEvents,
       loadNextWeeksScheduledEvents,
-      backToQuickLook,
       bookingId,
       currentFilter } = this.props;
 
     const { thisWeek, nextWeek } = currentFilter.toJS();
     const { firstName, lastName } = this.props.offenderDetails;
 
-    return (<div className="whereabouts add-gutter-top-md-down">
+    return (<div className="whereabouts">
 
-      <Link onClick={() => backToQuickLook(bookingId)} className="link" role="link"> {'<'} Back to quick look</Link>
-
-      <h1> Schedule for {`${properCase(firstName)} ${properCase(lastName)}`} </h1>
+      <h1 className="heading-large"> Schedule for {`${properCase(firstName)} ${properCase(lastName)}`} </h1>
 
       <div className="row filters">
 
@@ -178,7 +172,6 @@ class ScheduledEvents extends Component {
           </div>
 
         </div>)}
-
     </div>)
   }
 }
@@ -186,7 +179,6 @@ export function mapDispatchToProps(dispatch) {
   return {
     loadThisWeeksScheduledEvents: (bookingId) => dispatch(loadScheduledEventsForThisWeek(bookingId)),
     loadNextWeeksScheduledEvents: (bookingId) => dispatch(loadScheduledEventsForNextWeek(bookingId)),
-    backToQuickLook: (bookingId) => dispatch(viewDetails(bookingId, DETAILS_TABS.QUICK_LOOK)),
   }
 }
 

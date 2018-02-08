@@ -7,7 +7,6 @@ import { setDeviceFormat } from 'globalReducers/app';
 import { selectMobileMenuOpen, selectShouldShowSpinner } from 'selectors/app';
 import Header from 'containers/Header';
 import Breadcrumbs from 'containers/Breadcrumbs';
-import BreadcrumbsAlt from 'containers/Breadcrumbs/alt';
 import MobileMenu from 'containers/MobileMenu';
 import Footer from 'containers/Footer';
 import ProductGlobals from 'product-globals';
@@ -51,24 +50,23 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
     return (
       <div className="app-content">
         <Notifications />
+
         <Helmet title={ProductGlobals.serviceName} />
         <Header />
-        { this.props.router.location.pathname !== '/login' ?
-          <nav className="nav-container">
-            { this.props.router.location.pathname !== '/bookings/details' ?
-              <Breadcrumbs route={this.props.router.location.pathname} /> :
-              <BreadcrumbsAlt route={this.props.router.location.pathname} />
-            }
-          </nav>
-            :
-          null
-        }
+
+        <nav className="nav-container">
+           <div className="nav-content">
+            <Breadcrumbs route={this.props.router.location.pathname} />
+           </div>
+        </nav>
+
         <main className="container">
           {shouldShowSpinner && <Spinner /> }
           <div className="main-content">
             {React.Children.toArray(this.props.children)}
           </div>
         </main>
+
         <Footer />
       </div>
     );

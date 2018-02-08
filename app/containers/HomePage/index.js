@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { LOAD_ASSIGNMENTS } from 'containers/Assignments/constants';
-import { setSearchContext } from 'globalReducers/app';
 import Name from 'components/Name';
 import { Link } from 'react-router';
 
@@ -24,7 +23,6 @@ import {
 class HomePage extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentWillMount() {
-    this.props.setSearchContext('none');
     this.props.loadLocations();
   }
 
@@ -55,12 +53,10 @@ class HomePage extends PureComponent { // eslint-disable-line react/prefer-state
 }
 
 HomePage.defaultProps = {
-  setSearchContext: () => {},
   loadLocations: () => {},
 };
 
 HomePage.propTypes = {
-  setSearchContext: PropTypes.func,
   loadLocations: PropTypes.func,
   locations: PropTypes.array.isRequired,
 };
@@ -69,7 +65,6 @@ export function mapDispatchToProps(dispatch) {
   return {
     logOut: () => dispatch(logOut()),
     test: () => dispatch({ type: LOAD_ASSIGNMENTS, payload: {} }),
-    setSearchContext: (context) => dispatch(setSearchContext(context)),
     loadLocations: () => dispatch(loadLocations()),
   };
 }

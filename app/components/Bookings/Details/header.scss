@@ -26,14 +26,12 @@
     }
   }
 
-
   /* override col-xs-3 to become col-xs-4 to increase the size of the photo */
   @media(max-width: 400px) {
     .col-xs-3 {
        width: 33.33333333% !important;
     }
   }
-
 
   @include add-gutter-margin-top();
 

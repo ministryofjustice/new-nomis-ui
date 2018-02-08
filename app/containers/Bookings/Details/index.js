@@ -67,11 +67,7 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
 
     return (
 
-      <div className="detail-content add-gutter-top-lg-down">
-        { this.props.searchContext === 'assignments' ?
-          <Link className="link" to="/assignments" key="Assignments"> {'<'} Back to assignments </Link> :
-          <Link className="link" to="/results" key="Results"> {'<'} Back to search results </Link>
-        }
+      <div className="detail-content">
 
         <BookingsDetailsHeader />
 
@@ -100,7 +96,6 @@ Details.propTypes = {
   deviceFormat: PropTypes.string.isRequired,
   activeTabId: PropTypes.number.isRequired,
   setTab: PropTypes.func.isRequired,
-  searchContext: PropTypes.string.isRequired,
 };
 
 export function mapDispatchToProps(dispatch) {

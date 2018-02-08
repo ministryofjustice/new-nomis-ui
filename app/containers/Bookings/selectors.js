@@ -107,10 +107,7 @@ const selectName = () => createSelector(
 
 const selectHeaderDetail = () => createSelector(
   selectBookingDetail(),
-  (bookingDetails) => {
-    const data = bookingDetails.get('Data').toJS();
-    return data;
-  }
+  (bookingDetails) => bookingDetails && bookingDetails.get('Data').toJS()
 );
 
 const selectCurrentDetailTabId = () => createSelector(

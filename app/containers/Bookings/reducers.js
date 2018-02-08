@@ -41,9 +41,6 @@ import {
   SET_SCHEDULED_EVENTS,
 } from './constants';
 
-
-import results from './Results/resultsData';
-
 const detailsState = fromJS({
   id: 20847,
   activeTabId: DETAILS_TABS.OFFENDER_DETAILS,
@@ -73,7 +70,6 @@ const detailsState = fromJS({
 
 export const initialState = fromJS({
   loading: false,
-  results, // for test purposes putting something in here...
   error: null,
   query: { firstName: '', lastName: '' }, // for test purposes putting something in here...
   sortOrder: 'ASC',

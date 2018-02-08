@@ -11,6 +11,7 @@ import moment from 'moment';
 import { notify } from 'react-notify-toast';
 import { showSpinner, hideSpinner } from 'globalReducers/app';
 
+import { setSearchContext } from 'globalReducers/app';
 
 import {
   addCaseNote,
@@ -303,8 +304,12 @@ export function* newSearch(action) {
         },
       });
 
+      yield put(setSearchContext(''));
+
       return;
     }
+
+    yield put(setSearchContext('results'));
 
     yield put({
       type: SEARCH_SUCCESS,
@@ -404,7 +409,6 @@ export function* viewDetails(action) {
       yield put({ type: SET_DETAILS_TAB, payload: action.payload });
     }
   }
-
   yield put(hideSpinner());
 }
 
