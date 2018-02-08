@@ -20,11 +20,13 @@ export const buildBreadcrumb = ({ route, offender, context }) => {
   const addCaseNote = { name: 'Add case note', route: '/addCaseNote' };
   const addAppointments = { name: 'Add appointment', route: '/addAppointment' };
   const addSchedule = { name: 'Schedule', route: '/scheduled' };
+  const amendCaseNote = { name: 'Amend case note', route: '/amendCaseNote' };
+  const assignments =  { route: '/assignments', name: 'My assignments' };
 
   let searchContext = null;
 
   if (context === 'assignments') {
-    searchContext = { name: 'Assignments', route: '/assignments' };
+    searchContext = assignments;
   }
 
   if (context === 'results') {
@@ -68,6 +70,20 @@ export const buildBreadcrumb = ({ route, offender, context }) => {
     return [
       ...offenderBasedBreadcrumbs,
       addSchedule,
+    ];
+  }
+
+  if (route === '/bookings/details/amendCaseNote') {
+    return [
+      ...offenderBasedBreadcrumbs,
+      amendCaseNote,
+    ];
+  }
+
+  if (route === '/assignments') {
+    return [
+      homeCrumb,
+      assignments,
     ];
   }
 
