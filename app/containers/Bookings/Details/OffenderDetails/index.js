@@ -27,7 +27,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
            <div className="col-md-6">
 
              <div className="row">
-                 <h3 className="heading-medium">Personal details</h3>
+                 <h3 className="heading-medium top-heading">Personal details</h3>
              </div>
 
              <div className="row border-bottom-line">

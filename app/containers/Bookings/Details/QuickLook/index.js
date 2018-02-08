@@ -412,7 +412,7 @@ class QuickLook extends Component {
       <div className="row">
 
         <div className="col-md-6 col-xs-12">
-          <h3 className="heading-medium">
+          <h3 className="heading-medium top-heading">
             Personal details
           </h3>
 
