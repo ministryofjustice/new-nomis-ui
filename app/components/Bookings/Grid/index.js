@@ -9,7 +9,7 @@ import './index.scss';
 const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
   <div className="booking-grid">
     {sortOrderChange &&
-      <div className="row sort-by-select visible-md visible-lg">
+      <div className="no-left-gutter sort-by-select visible-md visible-lg">
         <span className="col-xs-1">Sort by:</span>
         <select
           className="form-control" value={sortOrder} onChange={(e) => {

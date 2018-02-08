@@ -3,9 +3,12 @@ $person-details-background-colour: #F2F2F2;
 .booking-grid {
   margin-left: 3px;
 
-
   .sort-by-select {
     margin-bottom: 8px;
+
+    span {
+      padding-left: 0;
+    }
 
     select {
       margin-top: -20px;
