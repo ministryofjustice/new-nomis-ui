@@ -21,7 +21,7 @@ export const buildBreadcrumb = ({ route, offender, context }) => {
   const addAppointments = { name: 'Add appointment', route: '/addAppointment' };
   const addSchedule = { name: 'Schedule', route: '/scheduled' };
   const amendCaseNote = { name: 'Amend case note', route: '/amendCaseNote' };
-  const assignments =  { route: '/assignments', name: 'My assignments' };
+  const assignments = { route: '/assignments', name: 'My assignments' };
 
   let searchContext = null;
 
