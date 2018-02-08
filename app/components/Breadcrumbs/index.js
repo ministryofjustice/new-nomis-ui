@@ -3,48 +3,90 @@ import PropTypes from 'prop-types';
 import { toFullName } from 'utils/stringUtils';
 import { Link } from 'react-router';
 import { splitCamelCase, properCase } from 'utils/stringUtils';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectHeaderDetail } from 'containers/Bookings/selectors';
 
 import './index.scss';
 
-function Breadcrumbs({ route, inmateData, context }) {
-  let breadcrumbArray = [];
+export const buildBreadcrumb = ({ route, offender, context }) => {
+  const nameString = offender &&
+    toFullName({ firstName: offender.firstName, lastName: offender.lastName });
+  
+  if (route === '/') { return []; }
 
-  const routeString = route.substr(1);
+  const homeCrumb = { name: 'Home', route: '/' };
+  const offenderCrumb = { name: nameString, route: '/bookings/details' };
+  const addCaseNote = { name: 'Add case note', route: '/addCaseNote' };
+  const addAppointments = { name: 'Add appointment', route: '/addAppointment' };
+  const addSchedule = { name: 'Schedule', route: '/scheduled' };
 
-  if (route === '/bookings/details') {
-    const { firstName, lastName } = inmateData;
-    const nameString = toFullName({ firstName, lastName });
+  let searchContext = null;
 
-    breadcrumbArray = breadcrumbArray.concat({ name: 'Home', route: '/' });
-
-    if (context === 'assignments') {
-      breadcrumbArray = breadcrumbArray.concat({ name: 'Assignments', route: '/assignments' });
-    } else {
-      breadcrumbArray = breadcrumbArray.concat({ name: 'Results', route: '/results' });
-    }
-
-    breadcrumbArray = breadcrumbArray.concat({ name: nameString, route: '/' });
-  } else if (routeString.length > 0) {
-    const routeStringArray = route.split('/');
-
-    routeStringArray.shift();
-
-    let routeStr = '';
-
-    const routeArray = routeStringArray.map((routeObj) => {
-      const routeName = routeObj.charAt(0).toUpperCase() + routeObj.slice(1);
-
-      routeStr += `/${routeObj}`;
-
-      return { name: properCase(splitCamelCase(routeName)), route: routeStr };
-    });
-
-    breadcrumbArray = breadcrumbArray.concat({ name: 'Home', route: '/' });
-    breadcrumbArray = breadcrumbArray.concat(routeArray);
+  if (context === 'assignments') {
+    searchContext = { name: 'Assignments', route: '/assignments' };
   }
 
+  if (context === 'results') {
+    searchContext = { name: 'Results', route: '/results' };
+  }
+
+  let offenderBasedBreadcrumbs = [];
+
+  if (searchContext) {
+    offenderBasedBreadcrumbs = [
+      homeCrumb,
+      searchContext,
+      offenderCrumb,
+    ];
+  } else {
+    offenderBasedBreadcrumbs = [
+      homeCrumb,
+      offenderCrumb,
+    ];
+  }
+
+  if (route === '/bookings/details') {
+    return [...offenderBasedBreadcrumbs];
+  }
+
+  if (route === '/bookings/details/addCaseNote') {
+    return [
+      ...offenderBasedBreadcrumbs,
+      addCaseNote,
+    ];
+  }
+
+  if (route === '/bookings/details/addAppointment') {
+    return [
+      ...offenderBasedBreadcrumbs,
+      addAppointments,
+    ];
+  }
+
+  if (route === '/bookings/details/scheduled') {
+    return [
+      ...offenderBasedBreadcrumbs,
+      addSchedule,
+    ];
+  }
+
+  const routes = route.substring(1).split('/')
+    .filter(part => !!part)
+    .map(r => ({
+      name: `${r[0].toUpperCase()}${r.substring(1)}`,
+      route: r,
+    }));
+
+  return [homeCrumb,...routes];
+};
+
+
+function Breadcrumbs({ route, offenderDetails, context }) {
+  const breadcrumbArray = buildBreadcrumb({ route, offender: offenderDetails , context });
+
   return (
-    <div className="bread-crumbs nav-content" data-name={'Breadcrumbs'}>
+    <div className="bread-crumbs col-xs-12 no-left-gutter" data-name={'Breadcrumbs'}>
       {breadcrumbArray.map((breadcrumb, i) => i !== breadcrumbArray.length - 1 ?
         <span className="link-wrapper" key={breadcrumb.name}>
           <Link to={breadcrumb.route} key={breadcrumb.name} className="link" >{breadcrumb.name}</Link>
@@ -56,14 +98,22 @@ function Breadcrumbs({ route, inmateData, context }) {
     </div>
   );
 }
+
 Breadcrumbs.defaultProps = {
   context: null,
 };
 
 Breadcrumbs.propTypes = {
   route: PropTypes.string.isRequired,
-  inmateData: PropTypes.object.isRequired,
   context: PropTypes.string,
 };
 
-export default Breadcrumbs;
+const mapStateToProps = createStructuredSelector({
+  offenderDetails: selectHeaderDetail(),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Breadcrumbs);

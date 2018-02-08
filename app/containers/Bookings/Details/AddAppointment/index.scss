@@ -2,10 +2,11 @@
 
 .add-appointment {
 
-  @include media-breakpoint-down(md) {
-
-    @include add-gutter-margin-top();
+  h1{
+    margin-top: .5em;
+    margin-bottom: .5em;
   }
+
 
   @include media-breakpoint-down(xs) {
     button:first-child {

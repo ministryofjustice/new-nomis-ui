@@ -5,7 +5,6 @@ import { createStructuredSelector } from 'reselect';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import ResultsViewToggle from 'components/ResultsViewToggle';
 import ResultsViewToggleMobile from 'components/ResultsViewToggle/mobile';
-import NavLink from 'components/NavLink';
 import { selectDeviceFormat } from 'selectors/app';
 import { viewDetails as vD } from 'containers/Bookings/actions';
 import AssignmentsHeader from 'components/AssignmentsHeader';
@@ -43,7 +42,7 @@ const Results = ({ resultsView, results, viewDetails }) => resultsView === 'List
 class Assignments extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentWillMount() {
-    this.props.setSearchContext('assignments');
+    this.props.setContext('assignments');
   }
 
   render() {
@@ -59,7 +58,6 @@ class Assignments extends PureComponent { // eslint-disable-line react/prefer-st
           />
           :
           <div>
-            <NavLink route="/" key="Home" text="Home" />
             <AssignmentsHeaderMobile user={user} options={{ assignments: totalResults }} />
             <ResultsViewToggleMobile resultsView={resultsView} setResultsView={setResultsView} />
           </div>
@@ -83,7 +81,7 @@ Assignments.propTypes = {
   setPage: PropTypes.func.isRequired,
   resultsView: PropTypes.string.isRequired,
   setResultsView: PropTypes.func.isRequired,
-  setSearchContext: PropTypes.func,
+  setContext: PropTypes.func,
 };
 
 Assignments.defaultProps = {
@@ -92,7 +90,7 @@ Assignments.defaultProps = {
   totalResults: 0,
   searchQuery: {},
   user: PropTypes.object.isRequired,
-  setSearchContext: () => {},
+  setContext: () => {},
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -100,7 +98,7 @@ export function mapDispatchToProps(dispatch) {
     viewDetails: (bookingId) => dispatch(vD(bookingId)),
     setPage: (pagination) => dispatch(setAssignmentsPagination(pagination)),
     setResultsView: (view) => dispatch(setAssignmentsView(view)),
-    setSearchContext: (context) => dispatch(setSearchContext(context)),
+    setContext: (context) => dispatch(setSearchContext(context)),
     toggleSortOrder: () => dispatch(toggleAssignmentsSortOrder()),
   };
 }

@@ -7,6 +7,7 @@ export const AssignmentsHeaderWrapper = styled.div`
   height: 214px;
   border-bottom: 2px solid ${colours.baseFont};
   margin-bottom: 11px;
+  margin-top: 15px;
 `;
 
 export const PortraitImage = styled.div`
