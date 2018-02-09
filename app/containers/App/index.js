@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { setDeviceFormat } from 'globalReducers/app';
-import { selectMobileMenuOpen, selectShouldShowSpinner } from 'selectors/app';
+import { selectMobileMenuOpen, selectShouldShowSpinner, selectShouldShowTerms } from 'selectors/app';
 import Header from 'containers/Header';
 import Breadcrumbs from 'containers/Breadcrumbs';
 import MobileMenu from 'containers/MobileMenu';
@@ -12,7 +12,8 @@ import Footer from 'containers/Footer';
 import ProductGlobals from 'product-globals';
 import Notifications from 'react-notify-toast';
 import Spinner from 'components/Spinner';
-
+import Terms from 'containers/Footer/terms-and-conditions';
+import { hideTerms } from 'globalReducers/app';
 
 class App extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -35,7 +36,7 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
   }
 
   render() {
-    const { mobileMenuOpen, shouldShowSpinner } = this.props;
+    const { mobileMenuOpen, shouldShowSpinner, shouldShowTerms,hideTermsAndConditions } = this.props;
 
     if (mobileMenuOpen) {
       return (
@@ -56,15 +57,18 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
 
         <nav className="nav-container">
            <div className="nav-content">
-            <Breadcrumbs route={this.props.router.location.pathname} />
+             {!shouldShowTerms && <Breadcrumbs route={this.props.router.location.pathname} /> }
            </div>
         </nav>
 
         <main className="container">
           {shouldShowSpinner && <Spinner /> }
+          {!shouldShowTerms &&
           <div className="main-content">
             {React.Children.toArray(this.props.children)}
-          </div>
+          </div>}
+          {shouldShowTerms && <Terms close={() => hideTermsAndConditions()} />}
+
         </main>
 
         <Footer />
@@ -89,10 +93,12 @@ App.defaultProps = {
 const mapStateToProps = createStructuredSelector({
   mobileMenuOpen: selectMobileMenuOpen(),
   shouldShowSpinner: selectShouldShowSpinner(),
+  shouldShowTerms: selectShouldShowTerms(),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setDeviceFormat: (format) => dispatch(setDeviceFormat(format)),
+  hideTermsAndConditions: () => dispatch(hideTerms()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
