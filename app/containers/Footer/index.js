@@ -1,39 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import Footer from 'components/Footer';
+import { showTerms } from 'globalReducers/app';
 
-import { setModalOpen, setModalData } from 'globalReducers/app';
+import './footer.scss';
 
-import ModalData from './modal-data';
+const Footer = ({ showTermsAndConditions }) =>
+      <footer className="FooterContainer">
+        <div className="footer-content">
+          <div className="FooterLinksContainer">
+            <div className="FooterLink" onClick={() => showTermsAndConditions()}>Terms and conditions</div>
+          </div>
+          <div className="FooterSignature">Powered by Syscon Justice Systems</div>
+        </div>
+      </footer>
 
-class FooterContainer extends Component {  // eslint-disable-line react/prefer-stateless-function
-  render() {
-    return (<Footer
-      modalData={ModalData}
-      setModalOpen={this.props.setModalOpen}
-      setModalData={this.props.setModalData}
-    />);
-  }
-
-}
-
-FooterContainer.propTypes = {
-  setModalOpen: PropTypes.func.isRequired,
-  setModalData: PropTypes.func.isRequired,
+Footer.propTypes = {
+  showTermsAndConditions: PropTypes.func.isRequired,
 };
 
-FooterContainer.defaultProps = {
+Footer.defaultProps = {
 };
 
 const mapStateToProps = createStructuredSelector({
+
 });
 
-const mapDispatchToProps = {
-  setModalOpen,
-  setModalData,
-};
+const mapDispatchToProps = (dispatch) => ({
+  showTermsAndConditions: () => dispatch(showTerms()),
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(FooterContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(Footer);

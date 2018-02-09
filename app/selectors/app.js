@@ -32,6 +32,12 @@ const selectShouldShowSpinner = () => createSelector(
   (app) => app.get('shouldShowSpinner'),
 );
 
+const selectShouldShowTerms = () => createSelector(
+  selectApp(),
+  (app) => app.get('shouldShowTerms'),
+);
+
+
 export {
   selectDeviceFormat,
   selectMobileMenuOpen,
@@ -39,4 +45,5 @@ export {
   selectModalData,
   selectSearchContext,
   selectShouldShowSpinner,
+  selectShouldShowTerms,
 };

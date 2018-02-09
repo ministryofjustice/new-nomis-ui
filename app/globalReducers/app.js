@@ -7,6 +7,7 @@ const SET_MODAL_OPEN = 'globalReducer/app/SET_MODAL_OPEN';
 const SET_MODAL_DATA = 'globalReducer/app/SET_MODAL_DATA';
 const SET_SEARCH_CONTEXT = 'globalReducer/app/SET_SEARCH_CONTEXT';
 const SET_SPINNER_VISIBILITY = 'globalReducer/app/SET_SPINNER_VISIBILITY';
+const SET_TERMS_VISIBILITY = 'globalReducer/app/SET_TERMS_VISIBILITY';
 
 // Initial State
 const initialState = fromJS({
@@ -20,6 +21,7 @@ const initialState = fromJS({
   },
   searchContext: 'none',
   shouldShowSpinner: false,
+  shouldShowTerms: false,
 });
 
 // Reducer
@@ -42,6 +44,8 @@ export default function appReducer(state = initialState, action) {
         .set('searchContext', action.payload);
     case SET_SPINNER_VISIBILITY: 
       return state.set('shouldShowSpinner', action.payload);
+    case SET_TERMS_VISIBILITY:
+      return state.set('shouldShowTerms', action.payload)
     default:
       return state;
   }
@@ -80,5 +84,15 @@ export const showSpinner = () => ({
 
 export const hideSpinner = () => ({
   type: SET_SPINNER_VISIBILITY,
+  payload: false,
+});
+
+export const showTerms = () => ({
+  type: SET_TERMS_VISIBILITY,
+  payload: true,
+});
+
+export const hideTerms = () => ({
+  type: SET_TERMS_VISIBILITY,
   payload: false,
 });
