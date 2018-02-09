@@ -13,7 +13,7 @@ import ProductGlobals from 'product-globals';
 import Notifications from 'react-notify-toast';
 import Spinner from 'components/Spinner';
 import Terms from 'containers/Footer/terms-and-conditions';
-import { hideTerms } from 'globalReducers/app';
+import { hideTerms, showTerms } from 'globalReducers/app';
 
 class App extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -36,14 +36,14 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
   }
 
   render() {
-    const { mobileMenuOpen, shouldShowSpinner, shouldShowTerms,hideTermsAndConditions } = this.props;
+    const { mobileMenuOpen, shouldShowSpinner, shouldShowTerms,hideTermsAndConditions,showTermsAndConditions } = this.props;
 
     if (mobileMenuOpen) {
       return (
         <div className="app-content">
           <Helmet title={ProductGlobals.serviceName} />
           <Header />
-          <MobileMenu />
+          <MobileMenu showTerms={() => showTermsAndConditions()} />
         </div>
       );
     }
@@ -99,6 +99,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = (dispatch) => ({
   setDeviceFormat: (format) => dispatch(setDeviceFormat(format)),
   hideTermsAndConditions: () => dispatch(hideTerms()),
+  showTermsAndConditions: () => dispatch(showTerms()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
