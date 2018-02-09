@@ -15,12 +15,7 @@ import { MobileMenuContainer,
 
 import forwardBack from '../../assets/forward-arrow.svg';
 
-function MobileMenu({ user, modalData, setMobileMenuOpen, setModalData, switchCaseLoad }) {
-  const linkClick = (e) => {
-    setModalData(modalData[e.currentTarget.dataset.name]);
-    removeMobileMenu();
-  };
-
+function MobileMenu({ user, setMobileMenuOpen, showTerms, switchCaseLoad }) {
   const removeMobileMenu = () => {
     setMobileMenuOpen(false);
   };
@@ -44,7 +39,12 @@ function MobileMenu({ user, modalData, setMobileMenuOpen, setModalData, switchCa
         return newObj;
       })}
       <MobileMenuOption key={'logout'} to={'/logout'} data-id={'dropdown-option'} onClick={removeMobileMenu}>Log out<ForwardArrow svg={forwardBack} /></MobileMenuOption>
-      <MobileMenuAdditionalOption data-name={'terms'} to={'/modalMobile'} onClick={linkClick}>Terms and conditions</MobileMenuAdditionalOption>
+      <MobileMenuAdditionalOption
+        onClick={() => {
+          setMobileMenuOpen(false);
+          showTerms();
+        }}
+      >Terms and conditions</MobileMenuAdditionalOption>
       <MobileMenuSignature>Powered by Syscon Justice Systems</MobileMenuSignature>
     </MobileMenuContainer>
   );
@@ -52,9 +52,7 @@ function MobileMenu({ user, modalData, setMobileMenuOpen, setModalData, switchCa
 
 MobileMenu.propTypes = {
   user: PropTypes.object,
-  modalData: PropTypes.object.isRequired,
   setMobileMenuOpen: PropTypes.func.isRequired,
-  setModalData: PropTypes.func.isRequired,
   switchCaseLoad: PropTypes.func.isRequired,
 };
 
