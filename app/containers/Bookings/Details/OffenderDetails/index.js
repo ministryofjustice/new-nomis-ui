@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import EliteImage from 'containers/EliteContainers/Image/index';
 import { toFullName } from 'utils/stringUtils';
+import DisplayValue from 'components/FormComponents/DisplayValue';
+
 
 import { selectOffenderDetails } from '../../selectors';
 import { showLargePhoto } from '../../actions';
@@ -16,7 +18,16 @@ const Alias = ({ lastName, firstName }) => <span> {toFullName({ lastName, firstN
 
 const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
   render() {
-    const { dateOfBirth, age, gender, ethnicity, physicalAttributes,physicalCharacteristics, physicalMarks,aliases } = offenderDetails;
+    const {
+      dateOfBirth,
+      age,
+      gender,
+      ethnicity,
+      physicalAttributes,
+      physicalCharacteristics,
+      physicalMarks,
+      aliases,
+      religion } = offenderDetails;
 
     const marksGroupedIntoPairs = groupByPairs(physicalMarks);
     const characteristicsGroupedIntoPairs = groupByPairs(physicalCharacteristics);
@@ -48,7 +59,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
                </div>
 
                <div className="col-md-6 col-xs-6">
-                 <b> {age} </b>
+                 <b> <DisplayValue value={age} /> </b>
                </div>
 
              </div>
@@ -60,7 +71,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
                </div>
 
                <div className="col-md-6 col-xs-6">
-                 <b> {gender || '--'} </b>
+                 <b> <DisplayValue value={gender} /> </b>
                </div>
 
              </div>
@@ -72,9 +83,20 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => ({
                </div>
 
                <div className="col-md-6 col-xs-6">
-                 <b> {ethnicity || '--'} </b>
+                 <b> <DisplayValue value={ethnicity} /> </b>
                </div>
 
+             </div>
+
+             <div className="row border-bottom-line">
+               <div className="col-lg-6 col-xs-6">
+                 <label>Religion</label>
+               </div>
+               <div className="col-lg-6 col-xs-6">
+                 <b>
+                   <DisplayValue value={religion} />
+                 </b>
+               </div>
              </div>
 
            </div>

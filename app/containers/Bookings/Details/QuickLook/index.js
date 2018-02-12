@@ -22,44 +22,6 @@ import {
 
 import './index.scss';
 
-export const Details = ({ age, religion, ethnicity }) =>
-  <div className="quick-look">
-
-    <div className="row border-bottom-line">
-      <div className="col-lg-6 col-xs-6">
-        <label>Age</label>
-      </div>
-      <div className="col-lg-6 col-xs-6">
-        <b>
-          {age}
-        </b>
-      </div>
-    </div>
-
-    <div className="row border-bottom-line">
-      <div className="col-lg-6 col-xs-6">
-        <label>Religion</label>
-      </div>
-      <div className="col-lg-6 col-xs-6">
-        <b>
-          <DisplayValue value={religion} />
-        </b>
-      </div>
-    </div>
-
-    <div className="row border-bottom-line">
-      <div className="col-lg-6 col-xs-6">
-        <label>Ethnicity</label>
-      </div>
-      <div className="col-lg-6 col-xs-6">
-        <b>
-          <DisplayValue value={ethnicity} />
-        </b>
-      </div>
-    </div>
-
-  </div>
-
 export const Balances = ({ spends, cash, savings, currency }) =>
 <div>
     <div className="row border-bottom-line">
@@ -412,43 +374,22 @@ class QuickLook extends Component {
       <div className="row">
 
         <div className="col-md-6 col-xs-12">
-          <h3 className="heading-medium top-heading">
-            Personal details
-          </h3>
-
-          <Details {...offenderDetails} />
-        </div>
-
-        <div className="col-md-6 col-xs-12">
           <h3 className="heading-medium">
             Offences
           </h3>
            <OffenceDetails offences={offences} releaseDate={releaseDate} indeterminateReleaseDate={indeterminateReleaseDate} />
         </div>
+
+
+        <div className="col-md-6 col-xs-12">
+          <h3 className="heading-medium">
+            Money
+          </h3>
+          <Balances {...balance} />
+        </div>
+
       </div>
 
-     <div className="row">
-
-       <div className="col-md-6 col-xs-12">
-         <h3 className="heading-medium">
-           Money
-         </h3>
-             <Balances {...balance} />
-       </div>
-
-
-       <div className="col-md-6 col-xs-12">
-         <h3 className="heading-medium">
-           Assigned staff members
-         </h3>
-
-         <AssignedStaffMembers
-           members={assignedStaffMembers}
-           keyWorkerId={headerDetails.assignedOfficerId}
-         />
-
-       </div>
-     </div>
 
       <div className="row">
 
@@ -485,13 +426,31 @@ class QuickLook extends Component {
 
       <div className="row">
         <div className="col-md-6 col-xs-12">
-          <h3 className="heading-medium">
-            Other
-          </h3>
 
-          <NextOfKin nextOfKin={nextOfKin} />
+          <div className="row">
+            <div className="col-xs-12">
+              <h3 className="heading-medium">
+                Assigned staff members
+              </h3>
+
+              <AssignedStaffMembers
+                members={assignedStaffMembers}
+                keyWorkerId={headerDetails.assignedOfficerId}
+              />
+            </div>
+          </div>
+          
+          <div className="row">
+            <div className="col-xs-12">
+                <h3 className="heading-medium">
+                  Other
+                </h3>
+
+                <NextOfKin nextOfKin={nextOfKin} />
+              </div>
+          </div>
+
         </div>
-
         <div className="col-md-6 col-xs-12">
           <h3 className="heading-medium">
             Schedule for today
