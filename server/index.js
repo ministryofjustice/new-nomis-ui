@@ -54,6 +54,12 @@ app.use((req,res,next) => {
 app.use(express.static('fonts'));
 app.use(express.static('img'));
 
+app.use('/feedbackUrl', jsonParser, (req,res) => {
+  res.json({
+    url: process.env.FEEDBACK_URL || 'https://www.surveymonkey.co.uk/r/HRK8X3V',
+  });
+})
+
 app.use('/app/login',jsonParser, controller.login);
 app.use('/app/photo', jsonParser, controller.images);
 app.use('/app/keydates/:bookingId', jsonParser, controller.keyDates);

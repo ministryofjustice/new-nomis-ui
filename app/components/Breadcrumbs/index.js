@@ -105,7 +105,7 @@ function Breadcrumbs({ route, offenderDetails, context }) {
     <div className="bread-crumbs col-xs-12 no-left-gutter" data-name={'Breadcrumbs'}>
       {breadcrumbArray.map((breadcrumb, i) => i !== breadcrumbArray.length - 1 ?
         <span className="link-wrapper" key={breadcrumb.name}>
-          <Link to={breadcrumb.route} key={breadcrumb.name} className="link" >{breadcrumb.name}</Link>
+          <Link to={breadcrumb.route} key={breadcrumb.name} className="crumb" >{breadcrumb.name}</Link>
           <span>{'>'}</span>
         </span>
         :
