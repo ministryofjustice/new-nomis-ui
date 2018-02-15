@@ -46,7 +46,7 @@ class SearchForm extends PureComponent {  // eslint-disable-line react/prefer-st
               Select location
             </label>
             <Field className="form-control" name="locationPrefix" component="select">
-              <option>All</option>
+              <option> All </option>
               {locations.map((location) =>
                 <option key={location.locationPrefix} value={location.locationPrefix}>{location.description}</option>
               )}

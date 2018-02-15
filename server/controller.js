@@ -1,5 +1,3 @@
-const express = require('express');
-
 const elite2Api = require('./elite2Api'),
   errorStatusCode = elite2Api.errorStatusCode;
 const session = require('./session');
@@ -22,12 +20,20 @@ const asyncMiddleware = fn =>
 const login = (req, res) => {
   elite2Api.httpRequest({
     method: 'post',
-    url: '/users/login',
-    data: req.body,
+    url: 'oauth/token',
+    headers: {
+      authorization: `Basic ${elite2Api.encodeClientCredentials()}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    params: {
+      grant_type: 'password',
+      username: req.body.username.toString().toUpperCase(),
+      password: req.body.password,
+    },
   }).then((response) => {
-    const jwtToken = session.newJWT(response.data);
-    res.setHeader('jwt', jwtToken);
-    res.json(jwtToken);
+    const oauthToken = session.newJWT(response.data);
+    res.setHeader('jwt', oauthToken);
+    res.json(oauthToken);
   }).catch(error => {
     res.status(errorStatusCode(error.response));
     res.end();
@@ -37,7 +43,7 @@ const login = (req, res) => {
 const images = (req, res) => {
   elite2Api.callApi({
     method: 'get',
-    url: `images${req.url}`,
+    url: `api/images${req.url}`,
     responseType: 'stream',
     headers: {},
     reqHeaders: req.headers,

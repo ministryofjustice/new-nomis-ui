@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 
-function generateTokenForNomisAPI() {
+const useApiAuth = (process.env.USE_API_GATEWAY_AUTH || 'no') === 'yes';
+
+function generateToken() {
   const nomsToken = process.env.NOMS_TOKEN;
   const milliseconds = Math.round((new Date()).getTime() / 1000);
   const payload = {
@@ -12,4 +14,7 @@ function generateTokenForNomisAPI() {
   return jwt.sign(payload, cert, { algorithm: 'ES256' });
 }
 
-module.exports = generateTokenForNomisAPI;
+module.exports = {
+  generateToken,
+  useApiAuth,
+};

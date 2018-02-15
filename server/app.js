@@ -5,7 +5,7 @@ const apiService = require('./elite2Api'),
 const sessionHandler = (req, res) => {
   apiService.callApi({
     method: req.method,
-    url: req.url,
+    url: `/api${req.url}`,
     headers: getPagingHeaders(req),
     data: req.body,
     reqHeaders: req.headers,
@@ -21,7 +21,7 @@ const sessionHandler = (req, res) => {
 };
 
 const getPagingHeaders = (req) => {
-  const headers = {}
+  const headers = {};
   const pagingHeaders = ['page-offset','page-limit','sort-fields','sort-order'];
 
   pagingHeaders.forEach(k => {
