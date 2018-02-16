@@ -272,8 +272,8 @@ export const searchOffenders = ({ baseUrl, query,
   axios({
     baseURL: `${baseUrl}`,
     url: query.keywords ?
-       `search-offenders/${parseLocationPrefix(query.locationPrefix)}/${query.keywords}` :
-       `search-offenders/${parseLocationPrefix(query.locationPrefix)}`,
+       `locations/description/${query.locationPrefix}/inmates?keywords=${query.keywords}` :
+       `locations/description/${query.locationPrefix}/inmates`,
     headers: {
       'Page-Offset': pagination.offset,
       'Page-Limit': pagination.limit,
