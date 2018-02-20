@@ -38,7 +38,7 @@ class SearchAgainForm extends React.PureComponent {  // eslint-disable-line reac
                   Enter prisoner Name or ID
                 </label>
 
-            <Field name="keywords" component="input" type="text" title="Last Name, First Name or ID" placeholder="Enter Name or ID" autoComplete="off" className="form-control" />
+            <Field name="keywords" component="input" type="text" title="Last Name, First Name or ID" placeholder="Last Name, First Name or ID" autoComplete="off" className="form-control" />
 
           </div>
 
@@ -47,7 +47,6 @@ class SearchAgainForm extends React.PureComponent {  // eslint-disable-line reac
                   Select location
                 </label>
             <Field className="form-control" name="locationPrefix" component="select">
-              <option> All </option>
               {locations.map((location) =>
                 <option key={location.locationPrefix} value={location.locationPrefix}>{location.description}</option>
                   )}

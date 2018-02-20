@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const sinon = require('sinon');
 const chai = require('chai'),
   expect = chai.expect;
@@ -22,8 +23,8 @@ describe('apiService', () => {
 
   it('should call httpRequest with the correct parameters', () => {
     const sessionData = {
-      token: '123',
-      refreshToken: '321',
+      access_token: '123',
+      refresh_token: '321',
     };
 
     apiService.httpRequest.resolves({ data: 'success' });
@@ -43,7 +44,7 @@ describe('apiService', () => {
     expect(apiService.httpRequest).to.be.calledWith({
       headers: {
         'access-control-allow-origin': 'localhost',
-        authorization: sessionData.token,
+        authorization: `bearer ${sessionData.access_token}`,
       },
       method: 'post',
       responseType: undefined,
@@ -54,15 +55,13 @@ describe('apiService', () => {
 
 
   it('request a new token when the existing one expires', () => {
-    const token = '123';
-    const refreshToken = '321';
+    const access_token = '123';
+    const refresh_token = '321';
+    const newRefreshToken = '555';
     const newToken = '456';
 
-    const jwt = session.newJWT({
-      token: newToken,
-    });
 
-    sandbox.stub(session,'getSessionData').returns({ token,refreshToken });
+    sandbox.stub(session,'getSessionData').returns({ access_token,refresh_token });
 
     apiService.httpRequest.rejects({
       response: {
@@ -72,7 +71,8 @@ describe('apiService', () => {
 
     apiService.refreshTokenRequest.resolves({
       data: {
-        token: newToken,
+        access_token: newToken,
+        refresh_token: newRefreshToken,
       },
     });
 
@@ -90,10 +90,15 @@ describe('apiService', () => {
 
     const result = apiService.callApi(options);
 
+    const jwt = session.newJWT({
+      access_token: newToken,
+      refresh_token: newRefreshToken,
+    });
+
     result.then(response => {
       expect(response.data).to.equal('success');
-      expect(apiService.refreshTokenRequest).to.be.calledWith({ headers: { }, reqHeaders: { host: 'localhost' }, token: refreshToken });
+      expect(apiService.refreshTokenRequest).to.be.calledWith({ headers: { }, reqHeaders: { host: 'localhost' }, token: refresh_token });
       expect(options.onTokenRefresh).to.be.calledWith(jwt);
     });
   })
-})
+});

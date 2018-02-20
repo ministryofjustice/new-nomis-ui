@@ -39,6 +39,7 @@ import {
   selectCaseNotesPagination,
   selectCaseNotesQuery,
   selectCaseNotesDetailId,
+  selectLocations,
 } from './selectors';
 
 import {
@@ -275,9 +276,14 @@ export function* newSearch(action) {
     const baseUrl = yield select(selectApi());
     const sortOrder = yield (action.payload.sortOrder || select(selectSearchResultsSortOrder()));
     let pagination = yield (action.payload.pagination || select(selectSearchResultsPagination()));
+    const locations = yield select(selectLocations());
 
     yield put(showSpinner());
 
+    // Temporary hack to set a default location if one is not provided.  This is because select box does not default to first item in list
+    if (!query.locationPrefix && locations.length > 0) {
+      query.locationPrefix = locations[0].locationPrefix;
+    }
     if (resetPagination) {
       pagination = { ...pagination, pageNumber: 0 };
       yield put({ type: SET_PAGINATION, payload: pagination });

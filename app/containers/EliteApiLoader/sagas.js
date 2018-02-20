@@ -34,6 +34,11 @@ import {
   selectBookingDetails,
 } from './selectors';
 
+import {
+  loadLocations,
+} from '../Bookings/actions';
+
+
 import { paginationHash, queryHash } from './helpers';
 
 import {
@@ -307,8 +312,9 @@ export function* userSwitchCaseLoadsSaga(action) {
 
   try {
     yield call(users.switchCaseLoads, token, apiServer, caseLoadId);
-    yield put({ type: USER.SWITCHCASELOAD.SUCCESS, payload: { caseLoadId } });
+    yield put({ type: USER.SWITCHCASELOAD.SUCCESS, payload: action.payload });
 
+    yield put(loadLocations());
     yield put(loadAssignments(true));
     const state = yield select();
     const currPath = state.getIn(['route', 'locationBeforeTransitions', 'pathname']);

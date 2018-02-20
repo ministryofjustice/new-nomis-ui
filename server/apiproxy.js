@@ -2,26 +2,11 @@ const proxy = require('http-proxy-middleware');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const modifyResponse = require('node-http-proxy-json');
+const elite2Api = require('./elite2Api');
+const tokenGeneration = require('./jwt-token');
 
-const useApiAuth = (process.env.USE_API_GATEWAY_AUTH || 'no') === 'yes';
-const baseUrl = process.env.API_ENDPOINT_URL || 'http://localhost:8080/api';
-
-const HEALTH_CHECK_PATH = '/info/health';
+const HEALTH_CHECK_PATH = 'health';
 const appInfo = getAppInfo();
-
-function generateToken() {
-  const nomsToken = process.env.NOMS_TOKEN;
-  const milliseconds = Math.round((new Date()).getTime() / 1000);
-
-  const payload = {
-    iat: milliseconds,
-    token: nomsToken,
-  };
-
-  const privateKey = process.env.NOMS_PRIVATE_KEY || '';
-  const cert = new Buffer(privateKey);
-  return jwt.sign(payload, cert, { algorithm: 'ES256' });
-}
 
 function getAppInfo() {
   const packageData = JSON.parse(fs.readFileSync('./package.json'));
@@ -80,10 +65,10 @@ const onProxyRequest = (proxyReq, req) => {
     proxyReq.setHeader('elite-authorization', authHeader);
   }
 
-  if (useApiAuth) {
+  if (tokenGeneration.useApiAuth) {
     // Add Api Gateway JWT header token
     try {
-      const jwToken = generateToken();
+      const jwToken = tokenGeneration.generateToken();
       proxyReq.setHeader('authorization', `Bearer ${jwToken}`);
     } catch (err) {
       proxyReq.setHeader('authorization', 'JUNK');
@@ -93,13 +78,12 @@ const onProxyRequest = (proxyReq, req) => {
 
 // proxy middleware options
 const options = {
-  target: baseUrl,                  // target host
+  target: elite2Api.baseUrl,                  // target host
   changeOrigin: true,               // needed for virtual hosted sites
   ws: true,                         // proxy websockets
   pathRewrite: {
-    '^/api': '',                    // rewrite path
-    '^/api/info': '/info',                    // rewrite path
-    '^/api/swagger.json': 'swagger.json',                    // rewrite path
+    '^/api': 'api',                    // rewrite path
+    '^/info': 'info',                    // rewrite path
     '^/health': HEALTH_CHECK_PATH,
   },
   //eslint-disable-next-line
