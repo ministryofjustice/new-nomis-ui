@@ -14,6 +14,7 @@ import Notifications from 'react-notify-toast';
 import Spinner from 'components/Spinner';
 import Terms from 'containers/Footer/terms-and-conditions';
 import { hideTerms, showTerms } from 'globalReducers/app';
+import FeedbackLink from 'containers/FeedbackLink';
 
 class App extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -54,6 +55,9 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
 
         <Helmet title={ProductGlobals.serviceName} />
         <Header />
+
+
+        <FeedbackLink />
 
         <nav className="nav-container">
            <div className="nav-content">
