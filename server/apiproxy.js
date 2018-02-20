@@ -85,6 +85,8 @@ const options = {
     '^/api': 'api',                    // rewrite path
     '^/info': 'info',                    // rewrite path
     '^/health': HEALTH_CHECK_PATH,
+    '^/docs/swagger-resources': '/swagger-resources',
+    '^/docs/api': '/api',
   },
   //eslint-disable-next-line
   logProvider: (provider) => require('winston'),

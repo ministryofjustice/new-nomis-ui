@@ -73,6 +73,7 @@ app.use('/app/bookings/addAppointment/:bookingId', jsonParser, controller.addApp
 app.use('/app',jsonParser, application.sessionHandler);
 app.use('/health', apiProxy);
 app.use('/info', apiProxy);
+app.use('/docs', apiProxy);
 app.use('/api/swagger.json', apiProxy);
 
 // In production we need to pass these values in instead of relying on webpack
