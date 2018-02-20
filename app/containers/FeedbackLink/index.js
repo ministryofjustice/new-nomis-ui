@@ -23,7 +23,14 @@ class FeedbackLink extends React.Component {
       <div className="feedback-link">
         <div className="container">
           <div className="main-content">
-            <span> Your <a href={this.state.url} target="_"> feedback </a> will to help us improve this service. </span>
+            <span> Your <a
+              href="#" onClick={(e) => {
+                e.preventDefault();
+                if (window) {
+                  window.open(this.state.url);
+                }
+              }}
+            > feedback </a> will to help us improve this service. </span>
           </div>
         </div>
       </div>) || <div></div>;
