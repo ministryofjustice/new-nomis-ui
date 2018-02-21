@@ -57,7 +57,7 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
         <Header />
 
 
-        <FeedbackLink />
+        {!shouldShowTerms && <FeedbackLink /> }
 
         <nav className="nav-container">
            <div className="nav-content">

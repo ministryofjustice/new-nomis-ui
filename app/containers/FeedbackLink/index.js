@@ -1,48 +1,73 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { selectUser } from '../Authentication/selectors';
+import { setFeedbackUrl } from 'globalReducers/app';
 
 import './index.scss';
 
+export const FeedbackLink = ({ user, feedbackUrl, requestFeedbackUrl, openWindow }) => {
+  if (user && !feedbackUrl) {
+    requestFeedbackUrl();
+  }
 
-class FeedbackLink extends React.Component {
-  componentWillReceiveProps(props) {
-    if (!props.user) { return; }
+  return (user && feedbackUrl &&
+    <div className="feedback-link">
+      <div className="container">
+        <div className="main-content">
+            <span> Your <a
+              href="#" onClick={(e) => {
+                if (e && e.preventDefault) {
+                  e.preventDefault();
+                }
+                openWindow(feedbackUrl);
+              }}
+            > feedback </a> will to help us improve this service. </span>
+        </div>
+      </div>
+    </div>) || <div></div>;
+}
 
-    if (this.state && this.state.url) { return; }
+class FeedbackLinkContainer extends React.Component {
 
+  constructor() {
+    super();
+    this.requestFeedbackUrl = this.requestFeedbackUrl.bind(this);
+    this.openWindow = this.openWindow.bind(this);
+  }
+
+  requestFeedbackUrl() {
     axios.get('/feedbackUrl').then(response => {
-      this.setState(response.data);
+      this.props.setFeedbackUrl(response.data.url);
     });
   }
 
+  openWindow(url) {
+    if (window) {
+      window.open(url);
+    }
+  }
+
   render() {
-    return (this.props.user && this.state && this.state.url &&
-      <div className="feedback-link">
-        <div className="container">
-          <div className="main-content">
-            <span> Your <a
-              href="#" onClick={(e) => {
-                e.preventDefault();
-                if (window) {
-                  window.open(this.state.url);
-                }
-              }}
-            > feedback </a> will to help us improve this service. </span>
-          </div>
-        </div>
-      </div>) || <div></div>;
+    return (<FeedbackLink
+      requestFeedbackUrl={this.requestFeedbackUrl}
+      openWindow={this.openWindow}
+      user={this.props.user}
+      feedbackUrl={this.props.feedbackUrl}
+    />)
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  user: selectUser(),
-});
+const mapStateToProps = (imState) => {
+  const state = imState.toJS();
 
-const mapDispatchToProps = {
-
+  return ({
+    user: state.authentication.user,
+    feedbackUrl: state.app.feedbackUrl,
+  });
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FeedbackLink);
+const mapDispatchToProps = (dispatch) => ({
+  setFeedbackUrl: (url) => dispatch(setFeedbackUrl(url)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FeedbackLinkContainer);

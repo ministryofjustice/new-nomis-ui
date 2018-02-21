@@ -55,10 +55,17 @@ app.use(express.static('fonts'));
 app.use(express.static('img'));
 
 app.use('/feedbackUrl', jsonParser, (req,res) => {
+  const url = process.env.FEEDBACK_URL;
+
+  if (!url) {
+    res.end();
+    return;
+  }
+
   res.json({
-    url: process.env.FEEDBACK_URL || 'https://www.surveymonkey.co.uk/r/LDM3V68',
+    url,
   });
-})
+});
 
 app.use('/app/login',jsonParser, controller.login);
 app.use('/app/photo', jsonParser, controller.images);
