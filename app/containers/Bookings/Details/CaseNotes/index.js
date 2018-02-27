@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
@@ -27,21 +27,27 @@ import {
   setCaseNotesDetailView,
 } from '../../actions';
 
-class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+class CaseNotes extends Component { // eslint-disable-line react/prefer-stateless-function
 
   componentWillMount() {
     const { loadCaseNotes, bookingId, caseNotesPagination, caseNotesQuery } = this.props;
     loadCaseNotes(bookingId, caseNotesPagination, caseNotesQuery);
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     if (window) {
       window.scrollTo(0,0);
     }
   }
 
+  componentWillReceiveProps(props) {
+    if (this.props && this.props.caseNotes !== props.caseNotes) {
+      window.scrollTo(0,0);
+    }
+  }
+
   render() {
-    const { caseNotesView, openAmendModal, deviceFormat } = this.props; // totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination
+    const { caseNotesView } = this.props;
     if (caseNotesView === 'LIST') {
       return <CaseNoteList />
     }
@@ -55,7 +61,6 @@ CaseNotes.propTypes = {
   caseNotesQuery: PropTypes.object.isRequired,
   loadCaseNotes: PropTypes.func.isRequired,
   caseNotesView: PropTypes.string.isRequired,
-  deviceFormat: PropTypes.string.isRequired,
 };
 
 CaseNotes.defaultProps = {
