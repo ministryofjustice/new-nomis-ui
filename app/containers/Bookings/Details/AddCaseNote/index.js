@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { reduxForm, Field, formValueSelector } from 'redux-form/immutable';
 import { createStructuredSelector } from 'reselect';
 import { createFormAction } from 'redux-form-saga';
@@ -7,11 +8,13 @@ import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import { selectLocale } from 'containers/LanguageProvider/selectors';
 import { SubmissionError, TextArea } from 'components/FormComponents';
-import DateTimePicker from 'components/FormComponents/DateTimePicker';
-import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
-import moment from 'moment';
 
+import DatePicker from 'components/FormComponents/DatePicker';
+import TimePicker from 'components/FormComponents/TimePicker';
+import { DATE_ONLY_FORMAT_SPEC, DATE_TIME_FORMAT_SPEC } from 'containers/App/constants';
+import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
 import { selectUsersTypesAndSubTypes } from 'containers/EliteApiLoader/selectors';
+
 import { DETAILS_TABS, ADD_NEW_CASENOTE } from '../../constants';
 import { selectBookingDetailsId } from '../../selectors';
 import { viewDetails } from '../../actions';
@@ -28,7 +31,8 @@ const AddCaseNoteForm = ({
       locale,
       typeValue,
       bookingDetailsId,
-      goBackToBookingDetails }) =>
+      goBackToBookingDetails,
+      eventDate }) =>
 
   <div className="add-case-note">
     <h1 className="bold-large">Add new case note</h1>
@@ -48,35 +52,44 @@ const AddCaseNoteForm = ({
       </div>
 
       <div className="row">
-        <div className="col-sm-4 no-left-gutter">
-          <div className="occurrence-date-time">
-            <Field
-              name="occurrenceDateTime"
-              component={DateTimePicker}
-              editable
-              locale={locale}
-              title="Occurrence date and time:"
-              shouldShowDay={(date) => date.isBefore(moment())}
-            />
-          </div>
+        <div className="col-sm-3 col-md-2 col-xs-6 no-left-gutter event-date">
+          <Field
+            name="eventDate"
+            title="Select date"
+            component={DatePicker}
+            locale={locale}
+            defaultValue={eventDate || moment()}
+          />
+        </div>
+        <div className="col-sm-3 col-md-2 col-xs-6 no-left-gutter">
+          <Field
+            name="startTime"
+            title="Time"
+            component={TimePicker}
+            date={eventDate || moment()}
+            now={moment()}
+            pastTimeOnly
+          />
         </div>
       </div>
 
-      <div className="actions">
+      <div className="row">
+        <div className="col-md-3 no-left-gutter">
 
-        <button className="button col-xs-12 col-sm-2" type="submit" disabled={submitting}>
-          Save case note
-        </button>
+          <button className="button add-gutter-margin-right add-gutter-margin-bottom" type="submit" disabled={submitting}>
+            Save case note
+          </button>
 
-        <button
-          className="cancel-button col-xs-12 col-sm-1" type="reset" onClick={(e) => {
-            e.preventDefault();
-            goBackToBookingDetails(bookingDetailsId);
-          }}
-        >
-          Cancel
-        </button>
+          <button
+            className="button button-cancel" type="reset" onClick={(e) => {
+              e.preventDefault();
+              goBackToBookingDetails(bookingDetailsId);
+            }}
+          >
+            Cancel
+          </button>
 
+        </div>
       </div>
     </form>
   </div>
@@ -118,44 +131,42 @@ const mapStateToProps = createStructuredSelector({
   locale: selectLocale(),
   typeValue: (state) => selector(state, 'typeValue'),
   bookingDetailsId: selectBookingDetailsId(),
+  eventDate: (state) => formValueSelector('addCaseNote')(state,'eventDate'),
 });
 
 export const validate = (stuff) => {
   if (!stuff) return {};
-  const { caseNoteText, occurrenceDateTime, subTypeValue, typeValue } = stuff.toJS();
-  const now = moment();
-  const errors = {};
+  const { caseNoteText, startTime, subTypeValue, typeValue } = stuff.toJS();
+  const error = {};
 
   if (caseNoteText && caseNoteText.length > 4000) {
-    errors.caseNoteText = 'Maximum length should not exceed 4000 characters';
+    error.caseNoteText = 'Maximum length should not exceed 4000 characters';
   }
 
   if (!typeValue) {
-    errors.typeValue = 'Required';
+    error.typeValue = 'Required';
   }
 
   if (!subTypeValue) {
-    errors.subTypeValue = 'Required';
+    error.subTypeValue = 'Required';
   }
 
   if (!caseNoteText) {
-    errors.caseNoteText = 'Required';
+    error.caseNoteText = 'Required';
   }
 
-  if (!occurrenceDateTime) {
-    errors.occurrenceDateTime = 'Required';
-  } else if (now.isBefore(occurrenceDateTime)) {
-    errors.occurrenceDateTime = 'Occurrence date and time can\'t be in the future';
+  if (!startTime) {
+    error.startTime = 'Please select a time';
   }
 
-  return errors;
+  return error;
 };
 
 const asForm = reduxForm({
   form: 'addCaseNote',
   validate,
   initialValues: Map({
-    typeAndSubType: Map({ typeValue: '', subTypeValue: '', text: '' }),
+    typeAndSubType: Map({ eventDate: moment(), typeValue: '', subTypeValue: '', text: '' }),
   }),
 })(AddCaseNoteForm);
 

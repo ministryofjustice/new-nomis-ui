@@ -32,7 +32,7 @@ class AddAppointment extends Component {
   }
 
   render() {
-    const { handleSubmit,error,submitting, locale, goBackToBookingDetails, bookingId, offenderName, viewModel } = this.props;
+    const { handleSubmit,error,submitting, locale, goBackToBookingDetails, bookingId, offenderName, viewModel,eventDate } = this.props;
 
     if (!viewModel) {
       return <div></div>;
@@ -119,6 +119,9 @@ class AddAppointment extends Component {
               name="startTime"
               title="Start time"
               component={TimePicker}
+              date={eventDate}
+              now={moment()}
+              futureTimeOnly
             />
           </div>
 
@@ -128,6 +131,9 @@ class AddAppointment extends Component {
               name="endTime"
               title="End time (optional)"
               component={TimePicker}
+              date={eventDate}
+              now={moment()}
+              futureTimeOnly
             />
           </div>
         </div>
@@ -177,6 +183,7 @@ const mapStateToProps = createStructuredSelector({
   offendersAgencyId: selectOffenderAgencyId(),
   viewModel: selectAppointmentTypesAndLocations(),
   offenderName: selectName(),
+  eventDate: (state) => formValueSelector('addAppointment')(state,'eventDate'),
 });
 
 export const validate = (form) => {

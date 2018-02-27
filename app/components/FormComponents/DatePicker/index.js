@@ -53,6 +53,7 @@ class DatePicker extends Component {
             closeOnSelect
             strictParsing
             renderInput={this.renderInput}
+            defaultValue={this.props.defaultValue}
           />
 
          </div>

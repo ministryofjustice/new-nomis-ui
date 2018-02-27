@@ -5,26 +5,24 @@
      margin-bottom: .5em;
    }
 
-   .actions{
-     margin-top: 1em;
-   }
-   .actions > button {
-       margin-right: .5em;
-       margin-top: .5em;
-   }
-
-  .date-time-picker{
-     width:30%;
-     @include media-breakpoint-down(xs){
-       width:100%;
-     }
-  }
   .occurrence-date-time{
     margin-bottom: 0.5em;
   }
 
   .form-control {
-    width: 100% !important;
+    width: 100%;
   }
 
+  .time-picker > .form-control {
+    width: 45% !important;
+    margin-right: 5px;
+  }
+
+  .rdtPicker {
+    width: 350px !important;
+  }
+
+  .rdt input{
+    height: 1.8em;
+  }
 }
