@@ -59,6 +59,7 @@ const AddCaseNoteForm = ({
             component={DatePicker}
             locale={locale}
             defaultValue={eventDate || moment()}
+            shouldShowDay={(date) => date.isBefore(moment())}
           />
         </div>
         <div className="col-sm-3 col-md-2 col-xs-6 no-left-gutter">
