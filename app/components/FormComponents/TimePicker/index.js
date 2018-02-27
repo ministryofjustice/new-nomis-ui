@@ -11,7 +11,7 @@ const formatNumbersUpTo = (total) => [...Array(total).keys()].map(i => {
   return i;
 });
 
-const ConstructHours = ({ dateOnly, dateTime ,futureTimeOnly, pastTimeOnly, enableFilters }) => {
+const constructHours = ({ dateOnly, dateTime ,futureTimeOnly, pastTimeOnly, enableFilters }) => {
   const hours = ['--', ...formatNumbersUpTo(24)];
   if (!enableFilters) {
     return hours;
@@ -20,7 +20,7 @@ const ConstructHours = ({ dateOnly, dateTime ,futureTimeOnly, pastTimeOnly, enab
   return ['--', ...hours.filter(filter)];
 };
 
-const ConstructMinutes = ({ selectedHour, dateOnly, dateTime ,futureTimeOnly, pastTimeOnly,enableFilters }) => {
+const constructMinutes = ({ selectedHour, dateOnly, dateTime ,futureTimeOnly, pastTimeOnly,enableFilters }) => {
   const minutes = ['--', '00','05','10','15','20','25','30','35','40','45','50','55'];
   if (!enableFilters) {
     return minutes;
@@ -86,8 +86,8 @@ class TimePicker extends Component {
     const enableFilters = (isToday && (futureTimeOnly || pastTimeOnly));
     const selectedHour = this.state && this.state.hours;
 
-    const hours = ConstructHours({ dateTime, dateOnly, futureTimeOnly, pastTimeOnly,enableFilters });
-    const minutes = ConstructMinutes({ selectedHour ,dateTime,dateOnly,futureTimeOnly, pastTimeOnly, enableFilters });
+    const hours = constructHours({ dateTime, dateOnly, futureTimeOnly, pastTimeOnly,enableFilters });
+    const minutes = constructMinutes({ selectedHour ,dateTime,dateOnly,futureTimeOnly, pastTimeOnly, enableFilters });
 
     return (<div className={!(touched && error) ? 'time-picker form-group' : 'time-picker form-group form-group-error'}>
 
