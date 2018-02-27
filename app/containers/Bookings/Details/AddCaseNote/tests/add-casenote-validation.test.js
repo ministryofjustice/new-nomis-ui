@@ -11,19 +11,7 @@ describe('Add casenote validation', () => {
     expect(error.typeValue).toBe('Required');
     expect(error.subTypeValue).toBe('Required');
     expect(error.caseNoteText).toBe('Required');
-    expect(error.occurrenceDateTime).toBe('Required');
-  });
-
-
-  it('should not allow occurrence date in the future', () => {
-    const today = moment();
-    const tomorrow = today.add(1, 'days');
-
-
-    const error = validate(Map({
-      occurrenceDateTime: tomorrow,
-    }));
-
-    expect(error.occurrenceDateTime).toBe('Occurrence date and time can\'t be in the future');
+    expect(error.startTime).toBe('Please select a time');
+    expect(error.endTime).toBe(undefined);
   });
 });

@@ -7,7 +7,6 @@ import { bookingDetailsSaga as bookingDetailsElite } from 'containers/EliteApiLo
 import { loadBookingAlerts, loadBookingCaseNotes, resetCaseNotes } from 'containers/EliteApiLoader/actions';
 import { BOOKINGS } from 'containers/EliteApiLoader/constants';
 import { DATE_TIME_FORMAT_SPEC } from 'containers/App/constants';
-import moment from 'moment';
 import { notify } from 'react-notify-toast';
 import { showSpinner, hideSpinner } from 'globalReducers/app';
 
@@ -121,26 +120,15 @@ export function* loadQuickLookWatcher() {
 export function* onAddAppointment(action) {
   try {
     const bookingId = yield select(selectBookingDetailsId());
-    const { appointmentType, location, startTime, endTime, eventDate, comment } = action.payload;
-    const eventStartTime = moment(eventDate, 'DD/MM/YYYY');
-    const eventEndTime = endTime && moment(eventDate, 'DD/MM/YYYY');
+    const { appointmentType, location, startTime, endTime, comment } = action.payload;
 
-    eventStartTime.hour(moment(startTime).hour());
-    eventStartTime.minute(moment(startTime).minute());
-    eventStartTime.second(moment(startTime).second());
-
-    if (eventEndTime) {
-      eventEndTime.hour(moment(endTime).hour());
-      eventEndTime.minute(moment(endTime).minute());
-      eventEndTime.second(moment(endTime).second());
-    }
 
     yield call(addAppointment, {
       appointmentType,
       locationId: location,
       comment,
-      startTime: moment(eventStartTime).format(DATE_TIME_FORMAT_SPEC),
-      endTime: eventEndTime && moment(eventEndTime).format(DATE_TIME_FORMAT_SPEC),
+      startTime,
+      endTime,
       bookingId,
     });
 
@@ -149,6 +137,36 @@ export function* onAddAppointment(action) {
     yield notify.show('Appointment has been created successfully.','success');
   } catch (err) {
     yield put({ type: APPOINTMENT.ERROR, payload: new SubmissionError({ _error: 'Unable to create a new appointment at this time.' }) });
+  }
+}
+
+export function* addCasenoteWatcher() {
+  yield takeLatest(ADD_NEW_CASENOTE.BASE, addCasenoteSaga);
+}
+
+export function* addCasenoteSaga(action) {
+  const { typeAndSubType: { type, subType }, caseNoteText: text,startTime } = action.payload.query;
+  const bookingId = yield select(selectBookingDetailsId());
+  const token = yield getToken();
+  const apiServer = yield select(selectApi());
+  try {
+    yield call(addCaseNote, token, apiServer, bookingId, type, subType, text, startTime);
+
+    yield put({ type: ADD_NEW_CASENOTE.SUCCESS });
+    // Reset casenotes
+    yield put(resetCaseNotes(bookingId));
+    // load casenotes again...
+    const pagination = yield select(selectCaseNotesPagination());
+    const query = yield select(selectCaseNotesQuery());
+    yield put(loadBookingCaseNotes(bookingId, pagination, query));
+
+    // Go to casenotes tab...
+    yield put(setDetailsTab(3));
+    yield put(push('/bookings/details'));
+
+    yield notify.show('Case note has been created successfully.','success');
+  } catch (e) {
+    yield put({ type: ADD_NEW_CASENOTE.ERROR, payload: new SubmissionError(e.message) });
   }
 }
 
@@ -338,37 +356,6 @@ export function* newSearch(action) {
 export function* searchSaga(action) {
   yield newSearch(action);
   yield put(push('/results'));
-}
-
-export function* addCasenoteWatcher() {
-  yield takeLatest(ADD_NEW_CASENOTE.BASE, addCasenoteSaga);
-}
-
-export function* addCasenoteSaga(action) {
-  const { typeAndSubType: { type, subType }, caseNoteText: text, occurrenceDateTime } = action.payload.query;
-  const bookingId = yield select(selectBookingDetailsId());
-
-  const token = yield getToken();
-  const apiServer = yield select(selectApi());
-  try {
-    yield call(addCaseNote, token, apiServer, bookingId, type, subType, text, occurrenceDateTime);
-
-    yield put({ type: ADD_NEW_CASENOTE.SUCCESS });
-    // Reset casenotes
-    yield put(resetCaseNotes(bookingId));
-    // load casenotes again...
-    const pagination = yield select(selectCaseNotesPagination());
-    const query = yield select(selectCaseNotesQuery());
-    yield put(loadBookingCaseNotes(bookingId, pagination, query));
-
-    // Go to casenotes tab...
-    yield put(setDetailsTab(3));
-    yield put(push('/bookings/details'));
-
-    yield notify.show('Case note has been created successfully.','success');
-  } catch (e) {
-    yield put({ type: ADD_NEW_CASENOTE.ERROR, payload: new SubmissionError(e.message) });
-  }
 }
 
 export function* amendCaseNoteWatcher() {
