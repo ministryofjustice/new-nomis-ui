@@ -64,4 +64,10 @@ describe('Create appointment validation', () => {
 
     expect(error.eventDate).toBe('Please enter a valid date');
   });
+
+  it('should ensure the correct error message when there are no locations available', () => {
+    const error = validate(Map({}), { viewModel: { locations: [] } });
+
+    expect(error.location).toBe('No appointment locations set up; please see your Systems administrator');
+  });
 });
