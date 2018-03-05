@@ -30,11 +30,11 @@ class DatePicker extends Component {
   }
 
   render() {
-    const { title,shouldShowDay,locale, meta: { touched, error } } = this.props;
+    const { title,shouldShowDay,locale, showError, input, meta: { touched, error } } = this.props;
 
     return (
       <div className="date-picker-component">
-          <div className={(touched && error && 'form-group form-group-error') || 'form-group'}>
+          <div className={((showError || (touched && error)) && 'form-group form-group-error') || 'form-group'}>
 
           <label className="form-label">
             {title}
@@ -45,7 +45,7 @@ class DatePicker extends Component {
           </div>
 
           <Datetime
-            className={(touched && error && 'form-control-error')}
+            className={(showError || (touched && error)) && 'form-control-error'}
             onChange={this.handleChange}
             timeFormat={false}
             isValidDate={shouldShowDay}
@@ -54,6 +54,7 @@ class DatePicker extends Component {
             strictParsing
             renderInput={this.renderInput}
             defaultValue={this.props.defaultValue}
+            value={input.value}
           />
 
          </div>

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import DatePicker from 'containers/FormContainers/datePicker';
+import DatePicker from 'components/FormComponents/DatePicker';
 import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form/immutable';
 import { createFormAction } from 'redux-form-saga';
@@ -35,34 +35,62 @@ const FilterForm = ({ handleSubmit, submitting, error, caseNoteFilters, locale, 
   return (
     <form className="filter-form" onSubmit={handleSubmit}>
 
-      <h3 className="bold-medium">
-        Filters
-      </h3>
-
-      <TypeAndSubTypeSelector selectedType={typeValue} selectedSubType={subTypeValue} types={type} subTypes={subType} />
-
-      <div className="form-group date-range">
-        <label className="form-label date-range-label">
-          Date range
-        </label>
-
-        {dateRangeNotValid &&
-          <div className="error-message">
-                Start date must come before or equal to the end date
+      <div className="row">
+        <div className="col-sm-12 col-md-6 no-left-gutter">
+          <h3 className="bold-medium no-left-gutter">
+            Filters
+          </h3>
+        </div>
+        <div className="col-sm-12 col-md-6 no-left-gutter">
+          <label className="form-label date-range-label hidden-md-down">
+            Date range
+          </label>
+          <div className="pull-right link reset-filters-large clickable" onClick={resetFields}>
+            Clear filters
           </div>
-        }
-
-        <Field name="startDate" showError={dateRangeNotValid} component={DatePicker} locale={locale} title="From" />
-        <Field name="endDate" showError={dateRangeNotValid} component={DatePicker} locale={locale} title="To" />
+        </div>
       </div>
 
-      <div className="buttons">
-        <div className="pull-right link reset-filters clickable" onClick={resetFields}>
-            Clear filters
+      <div className="row add-gutter-margin-top no-left-gutter">
+
+        <div className="col-sm-12 col-md-6 stack-type-subtype no-left-gutter no-right-gutter">
+          <TypeAndSubTypeSelector selectedType={typeValue} selectedSubType={subTypeValue} types={type} subTypes={subType} />
         </div>
-        <button className="button" type="submit" disabled={dateRangeNotValid || (submitting || error)}>
-            Apply filters
-        </button>
+
+        <div className="col-sm-12 col-md-4 no-left-gutter no-right-gutter">
+
+          {dateRangeNotValid &&
+            <div className="error-message">
+                  Start date must come before or equal to the end date
+            </div>
+          }
+
+          <label className="form-label date-range-label hidden add-gutter-margin-bottom add-gutter-margin-top">
+            Date range
+          </label>
+
+          <div className="stack-dates">
+            <Field name="startDate" showError={dateRangeNotValid} component={DatePicker} locale={locale} title="From" />
+            <Field name="endDate" showError={dateRangeNotValid} component={DatePicker} locale={locale} title="To" />
+          </div>
+
+        </div>
+
+        <div className="row reset-filters-small">
+          <div className="col no-gutters pull-right">
+            <div className="link clickable add-gutter-bottom" onClick={resetFields}>
+              Clear filters
+            </div>
+          </div>
+        </div>
+
+        <div className="col-sm-4 col-md-2 no-left-gutter no-right-gutter">
+          <div className="margin30">
+            <button className="button" type="submit" disabled={dateRangeNotValid || (submitting || error)}>
+              Apply filters
+            </button>
+          </div>
+        </div>
       </div>
 
     </form>
