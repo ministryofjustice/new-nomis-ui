@@ -1,94 +1,92 @@
-.filter-form{
+.filter-form {
+  @mixin large-inline-stack {
+    width: 45%;
+    display: inline-block;
+    margin-left: 10px;
+  }
+
+  @mixin small-inline-stack {
+    width: 100%;
+    display: block;
+    margin-left: 0;
+  }
+
   margin-bottom: 2em;
+  margin-top: 0;
 
-  .form-control{
-    width:100% !important;
-    height: 36px !important;
+  @include media-breakpoint-up(sm) {
+    margin-top: 1.875em;
   }
 
-  .date-picker{
-    display: inline-block !important;
-    width: 50% !important;
-    padding-right: 2px !important;
-    padding-left: 2px !important;
-    clear: both;
-  }
-
-  .react-datepicker__input-container {
-    display: block !important;
-  }
-
-  .date-range-label{
-    font-weight: bold;
-
-  }
-
-  .reset-filters{
-    margin-top: .3em;
-    margin-bottom: 1em;
-  }
-
-  .filter-title{
+  .hidden {
     display: none;
   }
 
-  @include media-breakpoint-down(md) {
-    h3 {
-      margin-bottom: 1em;
+  .reset-filters-small {
+    display: none;
+  }
+
+  .rdtPicker {
+    width: 322px !important;
+  }
+
+  @media(max-width: 991px) {
+    .hidden {
+      display: block;
     }
-    .button{
-      margin-top: .2em !important;
+
+    .reset-filters-large {
+      display: none;
+    }
+
+    .reset-filters-small {
+      display: block;
     }
   }
 
-  @include media-breakpoint-up(lg){
-    padding: 1em;
-    background-color: $highlight-colour;
-    margin-top: 1em;
-    position: relative;
-
-
-    .form-group{
-      width: 21% !important;
-      display: inline-block;
-      padding-right: 2px;
-      padding-left: 2px;
-
-      margin: auto !important;
-    }
-
-    .date-range{
-      width:35% !important;
-      margin-top: -5em;
-      margin-left: 1em !important;
-      margin-right: .5em !important;
-    }
-
-    .buttons{
-      display: inline-block;
-      width: 20%;
-
-      .button{
-        margin-top: -.5em;
-      }
-
-      @media(max-width: 1199px){
-        .button {
-          margin-top: 0.5em;
-        }
-      }
-
-      .reset-filters{
-        width:100px;
-        height:100px;
-        position:absolute;
-        bottom:0px;
-        right:0px;
-      }
-    }
-
+  .form-control{
+    width:100%;
+    height: 36px !important;
   }
 
+  .date-range-label {
+    font-weight: bold;
+  }
+
+  .margin30 {
+    @include media-breakpoint-up(lg) {
+      margin-top: 30px;
+    }
+  }
+
+
+  .stack-type-subtype .form-group {
+    @include large-inline-stack();
+
+    @media(max-width: 991px) {
+      @include small-inline-stack();
+    }
+  }
+
+  .stack-type-subtype .form-group:first-child {
+     margin-left: 0;
+  }
+
+  .stack-dates .date-picker-component {
+    @include large-inline-stack();
+
+    @media(max-width: 991px) {
+      width: 49%;
+    }
+
+    @include media-breakpoint-down(xs) {
+      @include small-inline-stack();
+    }
+  }
+
+  .stack-dates .date-picker-component:first-child {
+      margin-left: 0;
+  }
 }
 
 
