@@ -186,7 +186,7 @@ const mapStateToProps = createStructuredSelector({
   eventDate: (state) => formValueSelector('addAppointment')(state,'eventDate'),
 });
 
-export const validate = (form) => {
+export const validate = (form, props) => {
   if (!form) return {};
 
   const { startTime, endTime, appointmentType, location, eventDate, comment } = form.toJS();
@@ -199,7 +199,11 @@ export const validate = (form) => {
   }
 
   if (!location) {
-    error.location = 'Please select a location';
+    if (props && props.viewModel && (!props.viewModel.locations || props.viewModel.locations.length === 0)) {
+      error.location = 'No appointment locations set up; please see your Systems administrator';
+    } else {
+      error.location = 'Please select a location';
+    }
   }
 
   if (!eventDate) {
