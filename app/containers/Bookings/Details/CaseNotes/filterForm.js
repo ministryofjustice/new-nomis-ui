@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import DatePicker from 'components/FormComponents/DatePicker';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form/immutable';
 import { createFormAction } from 'redux-form-saga';
 import { createStructuredSelector } from 'reselect';
 import { selectLocale } from 'containers/LanguageProvider/selectors';
 import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
+import { DATE_ONLY_FORMAT_SPEC, DATE_TIME_FORMAT_SPEC } from 'containers/App/constants';
 
 import './filterForm.scss';
 
@@ -28,9 +30,10 @@ import {
 
 const selector = formValueSelector('caseNoteFilter');
 
-const FilterForm = ({ handleSubmit, submitting, error, caseNoteFilters, locale, dateRangeValid, typeValue, subTypeValue, resetFields }) => {
+const FilterForm = ({ handleSubmit, submitting, error, caseNoteFilters, locale, typeValue, subTypeValue, resetFields }) => {
   const { type, subType } = caseNoteFilters;
-  const dateRangeNotValid = dateRangeValid === false;
+
+  const dateRangeNotValid = error.dateRangeValid === false;
 
   return (
     <form className="filter-form" onSubmit={handleSubmit}>
@@ -61,7 +64,7 @@ const FilterForm = ({ handleSubmit, submitting, error, caseNoteFilters, locale, 
 
           {dateRangeNotValid &&
             <div className="error-message">
-                  Start date must come before or equal to the end date
+                  Start date must be equal to or before the end date
             </div>
           }
 
@@ -70,8 +73,23 @@ const FilterForm = ({ handleSubmit, submitting, error, caseNoteFilters, locale, 
           </label>
 
           <div className="stack-dates">
-            <Field name="startDate" showError={dateRangeNotValid} component={DatePicker} locale={locale} title="From" />
-            <Field name="endDate" showError={dateRangeNotValid} component={DatePicker} locale={locale} title="To" />
+            <Field
+              name="startDate"
+              showError={dateRangeNotValid}
+              component={DatePicker}
+              locale={locale}
+              title="From"
+              shouldShowDay={(date) => date.isBefore(moment())}
+            />
+
+            <Field
+              name="endDate"
+              showError={dateRangeNotValid}
+              component={DatePicker}
+              locale={locale}
+              title="To"
+              shouldShowDay={(date) => date.isBefore(moment())}
+            />
           </div>
 
         </div>
@@ -111,6 +129,21 @@ FilterForm.defaultProps = {
   isMobile: false,
 };
 
+export const validate = (form) => {
+  const errors = {};
+
+  const values = form.toJS();
+  const startDate = moment(values.startDate, DATE_ONLY_FORMAT_SPEC);
+  const endDate = moment(values.endDate, DATE_ONLY_FORMAT_SPEC);
+
+  if (endDate.isBefore(startDate,'day')) {
+    errors._error = {
+      dateRangeValid: false,
+    };
+  }
+
+  return errors;
+};
 
 export function mapDispatchToProps(dispatch) {
   return {
@@ -120,6 +153,7 @@ export function mapDispatchToProps(dispatch) {
       dispatch(resetCaseNoteFilterFormField('startDate'));
       dispatch(resetCaseNoteFilterFormField('endDate'));
     },
+    validate,
     onSubmit: createFormAction((formData) => (
       {
         type: CASE_NOTE_FILTER.BASE,
