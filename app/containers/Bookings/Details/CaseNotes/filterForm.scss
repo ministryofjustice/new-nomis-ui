@@ -28,7 +28,11 @@
   }
 
   .rdtPicker {
-    width: 322px !important;
+    width: 322px;
+
+    @include media-breakpoint-down(xs) {
+      width: 100%;
+    }
   }
 
   .rdtOpen .rdtPicker {

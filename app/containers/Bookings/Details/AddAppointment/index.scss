@@ -20,7 +20,11 @@
   }
 
   .rdtPicker {
-    width: 350px !important;
+    width: 350px;
+
+    @include media-breakpoint-down(xs) {
+      width: 100%;
+    }
   }
 
   .col-xs-6 {
