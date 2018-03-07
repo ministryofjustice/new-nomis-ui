@@ -1,3 +1,4 @@
+
 .filter-form {
   @mixin large-inline-stack {
     width: 45%;
@@ -28,7 +29,12 @@
 
   .rdtPicker {
     width: 322px !important;
-    position: static;
+  }
+
+  .rdtOpen .rdtPicker {
+    @include media-breakpoint-down(xs) {
+      position: static;
+    }
   }
 
   @media(max-width: 991px) {
@@ -59,7 +65,6 @@
       margin-top: 30px;
     }
   }
-
 
   .stack-type-subtype .form-group {
     @include large-inline-stack();

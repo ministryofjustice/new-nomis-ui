@@ -35,6 +35,7 @@ const login = (req, res) => {
     res.setHeader('jwt', oauthToken);
     res.json(oauthToken);
   }).catch(error => {
+    console.error(error);
     res.status(errorStatusCode(error.response));
     res.end();
   });

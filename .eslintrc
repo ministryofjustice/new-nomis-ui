@@ -94,6 +94,7 @@
     "no-unused-vars": 0,
     "react/no-string-refs": 0,
     "react/prefer-stateless-function": 0,
+    "no-underscore-dangle": 0
   },
   "settings": {
     "import/resolver": {

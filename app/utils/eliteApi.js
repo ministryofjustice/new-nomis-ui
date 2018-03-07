@@ -1,6 +1,6 @@
 import axios from 'axios';
 import moment from 'moment';
-import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
+import { DATE_ONLY_FORMAT_SPEC } from 'containers/App/constants';
 
 export const login = (username, password, baseUrl) => axios({
   baseURL: baseUrl,
@@ -86,11 +86,11 @@ const casenoteQueryStringGen = (caseNoteOptions) => {
   const iso8601Format = 'YYYY-MM-DD';
   const dateFilters = [];
   if (startDate) {
-    const dateFrom = moment(startDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC).format(iso8601Format);
+    const dateFrom = moment(startDate, DATE_ONLY_FORMAT_SPEC).format(iso8601Format);
     dateFilters.push(`&from=${dateFrom}`);
   }
   if (endDate) {
-    const dateTo = moment(endDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC).format(iso8601Format);
+    const dateTo = moment(endDate, DATE_ONLY_FORMAT_SPEC).format(iso8601Format);
     dateFilters.push(`&to=${dateTo}`);
   }
   const query = queryArray.length > 0 ? `&query=${queryArray.join(',and:')}` : '';
