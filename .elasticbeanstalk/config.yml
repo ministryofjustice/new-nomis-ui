@@ -1,0 +1,8 @@
+branch-defaults:
+  master:
+    environment: notm-dev
+deploy:
+  artifact: Dockerrun.aws.json
+global:
+  application_name: notm-dev
+  default_region: eu-west-2

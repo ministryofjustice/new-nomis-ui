@@ -18,40 +18,25 @@ import {
 } from 'containers/EliteApiLoader/constants';
 
 import {
-  LOGIN_SUCCESS,
-  LOGOUT_SUCCESS,
   CHANGE_USERNAME_INPUT,
   CHANGE_PASSWORD_INPUT,
-  TOKEN_UPDATE,
+  USER_ME,
 } from './constants';
-// import { push } from 'react-router-redux';
 
 
 export const initialState = fromJS({
   user: null,
-  loginData: null,
-  loggedIn: false,
-  lastLogin: null,
   usernameInput: '',
   passwordInput: '',
 });
 
 function authenticationReducer(state = initialState, action) {
   switch (action.type) {
-    case LOGIN_SUCCESS: {
+    case USER_ME: {
       return state
         .set('user', { ...action.payload.user })
-        .set('loginData', action.payload.loginData)
-        .set('loggedIn', true)
-        .set('lastLogin', Date().toString());
     }
 
-    case TOKEN_UPDATE: {
-      return state.set('loginData', action.payload);
-    }
-    case LOGOUT_SUCCESS: {
-      return initialState;
-    }
     case CHANGE_USERNAME_INPUT: {
       return state
         .set('usernameInput', action.username);

@@ -5,23 +5,23 @@
  */
 
 import {
-  LOGIN,
-  LOGOUT,
   CHANGE_USERNAME_INPUT,
   CHANGE_PASSWORD_INPUT,
+  USER_ME,
+  RETRIEVE_USER_ME,
 } from './constants';
 
-export function logIn(payload) {
+export function retrieveUserMe() {
   return {
-    type: LOGIN,
-    payload,
-  };
+    type: RETRIEVE_USER_ME,
+  }
 }
 
-export function logOut() {
+export function userMe(payload) {
   return {
-    type: LOGOUT,
-  };
+    type: USER_ME,
+    payload,
+  }
 }
 
 export function changeUsernameInput(username) {
@@ -30,12 +30,6 @@ export function changeUsernameInput(username) {
     username,
   };
 }
-//
-// export function refresh() {
-//   return {
-//
-//   }
-// }
 
 export function changePasswordInput(password) {
   return {

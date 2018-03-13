@@ -38,7 +38,12 @@ function MobileMenu({ user, setMobileMenuOpen, showTerms, switchCaseLoad }) {
         const newObj = <MobileMenuOption key={option.caseLoadId} onClick={() => { switchCaseLoad(option.caseLoadId); }} data-id={'dropdown-option'}>{option.description}<ForwardArrow svg={forwardBack} /></MobileMenuOption>;
         return newObj;
       })}
-      <MobileMenuOption key={'logout'} to={'/logout'} data-id={'dropdown-option'} onClick={removeMobileMenu}>Log out<ForwardArrow svg={forwardBack} /></MobileMenuOption>
+      <MobileMenuOption
+        key={'logout'}
+        href={'/logout'} data-id={'dropdown-option'}
+      >
+        Log out<ForwardArrow svg={forwardBack} />
+      </MobileMenuOption>
       <MobileMenuAdditionalOption
         onClick={() => {
           setMobileMenuOpen(false);

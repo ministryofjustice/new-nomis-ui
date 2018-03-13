@@ -1,34 +1,66 @@
-const jwt = require('jsonwebtoken');
-const buildNumber = require('./application-version');
+const config = require('./config');
 
-const minutes = process.env.WEB_SESSION_TIMEOUT_IN_MINUTES || 20;
-const key = process.env.NOMS_TOKEN || 'test';
+const sessionExpiryMinutes = config.hmppsCookie.expiryMinutes * 60 * 1000;
 
-const newJWT = (data) => jwt.sign({ data: {
-  ...data,
-  applicationVersion: buildNumber,
-},
-  exp: Math.floor(Date.now() / 1000) + (60 * minutes),
-}, key);
+const encodeToBase64 = (string) => new Buffer(string).toString('base64');
 
-const getSessionData = (headers) => {
-  try {
-    const token = headers.jwt;
-    if (!token) return null;
+const decodedFromBase64 = (string) => new Buffer(string, 'base64').toString('ascii');
 
-    return jwt.verify(token, key).data;
-  } catch (e) { } // eslint-disable-line no-empty
-  return null;
+const isAuthenticated = (request) => request.session && request.session.isAuthenticated;
+
+const hmppsSessionMiddleWare = (req,res, next) => {
+  const hmppsCookie = req.cookies[config.hmppsCookie.name];
+
+  if (!hmppsCookie) {
+    next();
+    return;
+  }
+
+  const cookie = getHmppsCookieData(hmppsCookie);
+
+  if (cookie.access_token && cookie.refresh_token) {
+    req.access_token = cookie.access_token;
+    req.refresh_token = cookie.refresh_token;
+
+    if (!isAuthenticated(req)) {
+      req.session.isAuthenticated = true;
+    }
+  }
+
+  next();
+}
+
+const setHmppsCookie = (res, { access_token, refresh_token }) => {
+  const tokens = encodeToBase64(JSON.stringify({ access_token, refresh_token }));
+  const cookieConfig = {
+    domain: config.hmppsCookie.domain,
+    encode: String,
+    expires: new Date(Date.now() + sessionExpiryMinutes),
+    maxAge: sessionExpiryMinutes,
+    path: '/',
+    httpOnly: true,
+    secure: config.app.production,
+  };
+
+  res.cookie(config.hmppsCookie.name, tokens, cookieConfig);
 };
 
-const isAuthenticated = (headers) => getSessionData(headers) !== null;
-const extendSession = (headers) => newJWT(getSessionData(headers));
+const getHmppsCookieData = (cookie) => JSON.parse(decodedFromBase64(cookie));
+
+const updateHmppsCookie = (response) => (tokens) => {
+  setHmppsCookie(response, tokens);
+};
+
+const deleteHmppsCookie = (response) => {
+  response.clearCookie(config.hmppsCookie.name, { path: '/' });
+}
 
 const service = {
+  deleteHmppsCookie,
+  hmppsSessionMiddleWare,
+  setHmppsCookie,
+  updateHmppsCookie,
   isAuthenticated,
-  getSessionData,
-  newJWT,
-  extendSession,
 };
 
 module.exports = service;

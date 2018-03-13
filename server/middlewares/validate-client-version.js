@@ -3,7 +3,7 @@ const buildNumber = require('../application-version');
 const session = require('../session');
 
 module.exports = function (req,res,next) {
-  const sessionData = session.getSessionData(req.headers);
+  const sessionData = req.auth_token;
   if (!sessionData) {
     next();
     return;
@@ -14,7 +14,7 @@ module.exports = function (req,res,next) {
     next();
     return;
   }
-    
+
   if (clientVersion !== buildNumber) {
     res.status(205); // http reset content
     res.end();

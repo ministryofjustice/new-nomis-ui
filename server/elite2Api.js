@@ -25,56 +25,58 @@ axios.interceptors.request.use((config) => {
 }, (error) => Promise.reject(error));
 
 
-const getSentenceData = (req) => getRequest({ req, url: `api/bookings/${req.params.bookingId}/sentenceDetail` });
-const getIepSummary = (req) => getRequest({ req, url: `api/bookings/${req.params.bookingId}/iepSummary` });
-const getDetails = (req) => getRequest({ req,url: `api/bookings/${req.params.bookingId}` });
-const getBalances = (req) => getRequest({ req, url: `api/bookings/${req.params.bookingId}/balances` });
-const getMainOffence = (req) => getRequest({ req,url: `api/bookings/${req.params.bookingId}/mainOffence` });
-const getEventsForToday = (req) => getRequest({ req, url: `api/bookings/${req.params.bookingId}/events/today` });
-const getContacts = (req) => getRequest({ req, url: `api/bookings/${req.params.bookingId}/contacts` });
-const getAdjudications = ({ req , fromDate }) => getRequest({ req, url: `api/bookings/${req.params.bookingId}/adjudications?fromDate=${fromDate}` });
-const getEventsForThisWeek = (req) => getRequest({ req, url: `api/bookings/${req.params.bookingId}/events/thisWeek` });
-const getEventsForNextWeek = (req) => getRequest({ req, url: `api/bookings/${req.params.bookingId}/events/nextWeek` });
-const getCategoryAssessment = (req) => getRequest({ req, url: `api/bookings/${req.params.bookingId}/assessment/CATEGORY` });
-const getAppointmentTypes = (req) => getRequest({ req, url: 'api/reference-domains/scheduleReasons?eventType=APP' });
-const getRelationships = (req) => getRequest({ req, url: `api/bookings/${req.params.bookingId}/relationships` });
+const getSentenceData = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/sentenceDetail` });
+const getIepSummary = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/iepSummary` });
+const getDetails = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}` });
+const getBalances = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/balances` });
+const getMainOffence = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/mainOffence` });
+const getEventsForToday = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/events/today` });
+const getContacts = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/contacts` });
+const getAdjudications = ({ req, res, fromDate }) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/adjudications?fromDate=${fromDate}` });
+const getEventsForThisWeek = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/events/thisWeek` });
+const getEventsForNextWeek = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/events/nextWeek` });
+const getCategoryAssessment = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/assessment/CATEGORY` });
+const getAppointmentTypes = (req, res) => getRequest({ req, res, url: 'api/reference-domains/scheduleReasons?eventType=APP' });
+const getRelationships = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/relationships` });
 
-const getLocationsForAppointments = (req) => {
+const getLocationsForAppointments = (req, res) => {
   const url = `api/agencies/${req.params.agencyId}/locations?eventType=APP`;
-  return getRequest({ req, url });
+  return getRequest({ req, res, url });
 };
 
-const getPositiveCaseNotes = ({ req, fromDate, toDate }) => getRequest({
+const getPositiveCaseNotes = ({ req, res, fromDate, toDate }) => getRequest({
   req,
+  res,
   url: `api/bookings/${req.params.bookingId}/caseNotes/POS/IEP_ENC/count?fromDate=${fromDate}&toDate=${toDate}`,
 });
 
-const getNegativeCaseNotes = ({ req, fromDate, toDate }) => getRequest({
+const getNegativeCaseNotes = ({ req, res, fromDate, toDate }) => getRequest({
   req,
+  res,
   url: `api/bookings/${req.params.bookingId}/caseNotes/NEG/IEP_WARN/count?fromDate=${fromDate}&toDate=${toDate}`,
 });
 
-const getLastVisit = (req) => getRequest({ req, url: `api/bookings/${req.params.bookingId}/visits/last` });
+const getLastVisit = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/visits/last` });
 
-const addAppointment = ({ req }) => service.callApi({
+const addAppointment = ({ req, res }) => service.callApi({
   method: 'post',
   url: `api/bookings/${req.params.bookingId}/appointments`,
-  reqHeaders: req.headers,
+  reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },
   data: req.body,
-  onTokenRefresh: (token) => { req.headers.jwt = token },
+  onTokenRefresh: session.updateHmppsCookie(res),
 });
 
-const getRequest = ({ req, url, headers }) => service.callApi({
+const getRequest = ({ req, res, url, headers }) => service.callApi({
   method: 'get',
   url,
   headers: headers || {},
-  reqHeaders: req.headers,
-  onTokenRefresh: (token) => { req.headers.jwt = token },
+  reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },
+  onTokenRefresh: session.updateHmppsCookie(res),
 }).then(response => new Promise(r => r(response.data)))
     .catch(_ => new Promise(r => r(null)));  // eslint-disable-line no-unused-vars
 
 const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseType, data }) => {
-  const { access_token, refresh_token } = session.getSessionData(reqHeaders);
+  const { access_token, refresh_token } = reqHeaders.jwt;
 
   return service.httpRequest({
     url,
@@ -84,15 +86,16 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
     headers: getHeaders({ headers, reqHeaders, access_token }),
   }).catch(error => {
     if (error.response.status === 401) {
-      return service.refreshTokenRequest({ token: refresh_token, headers, reqHeaders }).then(response => {
-        onTokenRefresh(session.newJWT(response.data));
-        return service.httpRequestRetry({
-          url,
-          method,
-          responseType,
-          headers: getHeaders({ headers, reqHeaders, token: response.data.access_token }),
-        });
-      })
+      return service.refreshTokenRequest({ token: refresh_token, headers, reqHeaders })
+        .then(response => {
+          onTokenRefresh(response.data);
+          return service.httpRequestRetry({
+            url,
+            method,
+            responseType,
+            headers: getHeaders({ headers, reqHeaders, token: response.data.access_token }),
+          });
+        })
     }
     throw error;
   });

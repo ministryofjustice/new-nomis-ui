@@ -56,7 +56,7 @@ class Dropdown extends Component {
                 </DropdownMenuOption>)
             }
 
-            <DropdownMenuLink key={'logout'} onClick={() => this.closeMenu()} to={'/logout'}>
+            <DropdownMenuLink key={'logout'} href={'/logout'}>
               Log out
             </DropdownMenuLink>
 

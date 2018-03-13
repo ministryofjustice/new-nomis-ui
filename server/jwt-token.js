@@ -9,7 +9,8 @@ function generateToken() {
     iat: milliseconds,
     token: nomsToken,
   };
-  const privateKey = process.env.NOMS_PRIVATE_KEY || '';
+  const base64PrivateKey = process.env.API_GATEWAY_PRIVATE_KEY || '';
+  const privateKey = Buffer.from(base64PrivateKey, 'base64');
   const cert = new Buffer(privateKey);
   return jwt.sign(payload, cert, { algorithm: 'ES256' });
 }

@@ -10,7 +10,6 @@ import { analyticsServiceBuilder } from 'utils/analyticsService';
 
 const analyticsService = analyticsServiceBuilder();
 
-// logIn
 const errorLoading = (err) => {
   console.error('Dynamic page loading failed', err); // eslint-disable-line no-console
 };
@@ -25,28 +24,12 @@ const checkAndCloseMobileMenu = (store) => {
   }
 }
 
-const checkAndForceLogout = (store, pathname) => {
-  if (store.getState().get('authentication').get('loggedIn') && (pathname === '/login')) {
-    store.dispatch(logOut());
-  }
-}
-
 function onEnterMethodGenerator(store) {
   return (options = { routeName: 'unknown' }) => (nextState, replace) => {
     OnRouteVisit(options.routeName);
 
     // Any route navigation must close mobile menu if it is open.
     checkAndCloseMobileMenu(store);
-
-    // Any navigation to /login page (e.g. via browser back button) must result in proper logout
-    checkAndForceLogout(store, nextState.location.pathname);
-
-    if (options.authRequired && !store.getState().get('authentication').get('loggedIn')) {
-      replace({ // eslint-disable-line no-unreachable
-        pathname: '/login',
-        state: { nextPathname: nextState.location.pathname },
-      });
-    }
   };
 }
 
@@ -61,39 +44,9 @@ export default function createRoutes(store) {
 
   return [
     {
-      path: '/login',
-      name: 'login',
-      onEnter: onEnter({ routeName: 'login' }),
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/Login'),
-          System.import('containers/Bookings/reducers'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([component,bookingReducers]) => {
-          injectReducer('search', bookingReducers.default);
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    },
-    {
-      path: '/logout',
-      name: 'logout',
-      onEnter: () => {
-        // doesn't actually go anywhere, just logs user out.
-        // logout saga will lead to a redirect to '/login'.
-        // store.dispatch(logOut());
-        window.location = '/login';
-      },
-    },
-    {
       path: '/',
       name: 'homepage',
-      onEnter: onEnter({ authRequired: true, routeName: 'homepage' }),
+      onEnter: onEnter({ routeName: 'homepage' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/HomePage/reducers'),
@@ -117,7 +70,7 @@ export default function createRoutes(store) {
     {
       path: '/bookings/details/addCaseNote',
       name: 'addCaseNote',
-      onEnter: onEnter({ authRequired: true, routeName: 'addCaseNote' }),
+      onEnter: onEnter({ routeName: 'addCaseNote' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/Details/AddCaseNote'),
@@ -135,7 +88,7 @@ export default function createRoutes(store) {
     {
       path: '/assignments',
       name: 'assignments',
-      onEnter: onEnter({ authRequired: true, routeName: 'assignments' }),
+      onEnter: onEnter({ routeName: 'assignments' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),
@@ -157,7 +110,7 @@ export default function createRoutes(store) {
     {
       path: '/results',
       name: 'search results',
-      onEnter: onEnter({ authRequired: true, routeName: 'search results' }),
+      onEnter: onEnter({ routeName: 'search results' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),
@@ -179,7 +132,7 @@ export default function createRoutes(store) {
     {
       path: '/bookings/details',
       name: 'search results',
-      onEnter: onEnter({ authRequired: true, routeName: 'offender details' }),
+      onEnter: onEnter({ routeName: 'offender details' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),
@@ -201,7 +154,7 @@ export default function createRoutes(store) {
     {
       path: '/bookings',
       name: 'search results',
-      onEnter: onEnter({ authRequired: true, routeName: 'search results' }),
+      onEnter: onEnter({ routeName: 'search results' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),
@@ -223,7 +176,7 @@ export default function createRoutes(store) {
     {
       path: '/bookings/details/scheduled',
       name: 'scheduled',
-      onEnter: onEnter({ authRequired: true, routeName: 'scheduled 7 day view' }),
+      onEnter: onEnter({ routeName: 'scheduled 7 day view' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),
@@ -245,7 +198,7 @@ export default function createRoutes(store) {
     {
       path: '/bookings/details/addAppointment',
       name: 'AddAppointment',
-      onEnter: onEnter({ authRequired: true, routeName: 'Add appointment' }),
+      onEnter: onEnter({ routeName: 'Add appointment' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),
@@ -267,7 +220,7 @@ export default function createRoutes(store) {
     {
       path: '/bookings/details/amendCaseNote',
       name: 'amendCaseNote',
-      onEnter: onEnter({ authRequired: true, routeName: 'amendCaseNote' }),
+      onEnter: onEnter({ routeName: 'amendCaseNote' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/Details/CaseNotes/AmendCaseNote'),

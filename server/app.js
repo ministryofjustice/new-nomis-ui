@@ -8,11 +8,11 @@ const sessionHandler = (req, res) => {
     url: `/api${req.url}`,
     headers: getPagingHeaders(req),
     data: req.body,
-    reqHeaders: req.headers,
-    onTokenRefresh: (token) => { req.headers.jwt = token },
+    reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },
+    onTokenRefresh: session.updateHmppsCookie(res),
   }).then(response => {
-    copyHeadersOverToRes(response.headers,res);
-    res.setHeader('jwt', session.extendSession(req.headers));
+    copyHeadersOverToRes(response.headers, res);
+
     res.json(response.data);
   }).catch(error => {
     res.status(errorStatusCode(error.response));

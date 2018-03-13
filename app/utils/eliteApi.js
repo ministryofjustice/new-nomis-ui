@@ -9,7 +9,7 @@ export const login = (username, password, baseUrl) => axios({
   data: { username, password } })
   .then((response) => response.data);
 
-export const officerAssignments = (token, _, pagination, baseUrl) => axios({
+export const officerAssignments = (_, pagination, baseUrl) => axios({
   baseURL: baseUrl,
   method: 'get',
   headers: {
@@ -23,19 +23,19 @@ export const officerAssignments = (token, _, pagination, baseUrl) => axios({
     })
   );
 
-export const bookingDetails = (token, baseUrl, id) => axios({
+export const bookingDetails = (baseUrl, id) => axios({
   baseURL: baseUrl,
   method: 'get',
   url: `/bookings/details/${id}` })
     .then((response) => response.data);
 
-export const bookingAliases = (token, baseUrl, id) => axios({
+export const bookingAliases = (baseUrl, id) => axios({
   baseURL: baseUrl,
   method: 'get',
   url: `/bookings/${id}/aliases` })
     .then((response) => response.data);
 
-export const bookingAlerts = (token, baseUrl, id, pagination) => axios({
+export const bookingAlerts = (baseUrl, id, pagination) => axios({
   baseURL: baseUrl,
   method: 'get',
   headers: {
@@ -98,7 +98,7 @@ const casenoteQueryStringGen = (caseNoteOptions) => {
   return query + dates;
 };
 
-export const bookingCaseNotes = (token, baseUrl, id, pagination, query) => {
+export const bookingCaseNotes = (baseUrl, id, pagination, query) => {
   const queryParams = `?${casenoteQueryStringGen(query)}`;
   return axios({
     baseURL: baseUrl,
@@ -114,7 +114,7 @@ export const bookingCaseNotes = (token, baseUrl, id, pagination, query) => {
     }));
 };
 
-export const addCaseNote = (token, baseUrl, bookingId, type, subType, text, occurrenceDateTime) => {
+export const addCaseNote = (baseUrl, bookingId, type, subType, text, occurrenceDateTime) => {
   const data = {
     type, subType, text, occurrenceDateTime,
   };
@@ -150,38 +150,35 @@ export const amendCaseNote = (baseUrl, bookingId, caseNoteId, amendmentText) => 
   });
 
 export const users = {
-  me: (token, baseUrl) => axios({
+  me: (baseUrl) => axios({
     baseURL: baseUrl,
-    headers: {
-      jwt: token,
-    },
     method: 'get',
     url: '/users/me',
   }).then((response) => response.data),
-  caseLoads: (token, baseUrl) => axios({
+  caseLoads: (baseUrl) => axios({
     baseURL: baseUrl,
     method: 'get',
     url: '/users/me/caseLoads',
   }).then((response) => response.data),
-  switchCaseLoads: (token, baseUrl, caseLoadId) => axios({
+  switchCaseLoads: (baseUrl, caseLoadId) => axios({
     baseURL: baseUrl,
     method: 'put',
     url: '/users/me/activeCaseLoad',
     data: { caseLoadId },
   }).then((response) => response.data),
-  staff: (token, baseUrl, id) => axios({
+  staff: (baseUrl, id) => axios({
     baseURL: baseUrl,
     method: 'get',
     url: `/users/staff/${id}`,
   }).then((response) => response.data),
-  caseNoteTypes: (token, baseUrl) => axios({
+  caseNoteTypes: (baseUrl) => axios({
     baseURL: baseUrl,
     method: 'get',
     url: '/users/me/caseNoteTypes',
   }).then((response) => CaseNoteTypeMapper(response.data)),
 };
 
-export const loadSomeCaseNoteTypes = (token, baseUrl, offset) => axios({
+export const loadSomeCaseNoteTypes = (baseUrl, offset) => axios({
   baseURL: baseUrl,
   headers: {
     'Page-Offset': offset.offset,
@@ -191,12 +188,12 @@ export const loadSomeCaseNoteTypes = (token, baseUrl, offset) => axios({
   url: 'reference-domains/caseNoteTypes' });
 
 export const getAll = (func, itemName, args) => {
-  const newFunc = (token, baseUrl, offset = { offset: 0, limit: 1000 }) => func(token, baseUrl, offset, args).then((response) => {
+  const newFunc = (baseUrl, offset = { offset: 0, limit: 1000 }) => func(baseUrl, offset, args).then((response) => {
     const items = response.data;
     const newOffset = response.headers['page-offset'] + response.headers['page-limit'];
     const newLimit = response.headers['total-records'] - newOffset;
     if (newLimit > 0) {
-      return newFunc(token, baseUrl, { offset: newOffset, limit: newLimit }, args)
+      return newFunc(baseUrl, { offset: newOffset, limit: newLimit }, args)
         .then((newItems) => items.concat(newItems)
         );
     }
@@ -205,8 +202,8 @@ export const getAll = (func, itemName, args) => {
   return newFunc;
 };
 
-export const loadAllCaseNoteFilterItems = (token, baseUrl) => {
-  const types = getAll(loadSomeCaseNoteTypes, 'referenceCodes')(token, baseUrl);
+export const loadAllCaseNoteFilterItems = (baseUrl) => {
+  const types = getAll(loadSomeCaseNoteTypes, 'referenceCodes')(baseUrl);
   return Promise.all([types]).then((res) => {
     const allTypes = res[0].map((t) => ({ code: t.code, description: t.description }));
     const subTypes = res[0].map((t) => (t.subCodes.map((sc) => ({ code: sc.code, description: sc.description, parentCode: t.code }))));
@@ -225,19 +222,19 @@ const flatten = list => list.reduce(
   (a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []
 );
 
-export const imageMeta = (token, baseUrl, imageId) => axios({
+export const imageMeta = (baseUrl, imageId) => axios({
   baseURL: baseUrl,
   method: 'get',
   url: `images/${imageId}` })
     .then((response) => response.data);
 
-export const officerDetails = (token, baseUrl, staffId, username) => axios({
+export const officerDetails = (baseUrl, staffId, username) => axios({
   baseURL: baseUrl,
   method: 'get',
   url: (staffId) ? `users/staff/${staffId}` : `users/${username}` })
     .then((res) => res.data);
 
-export const imageData = (token, baseUrl, imageId) => axios({
+export const imageData = (baseUrl, imageId) => axios({
   baseURL: baseUrl,
   method: 'get',
   url: `photo/${imageId}/data`,
@@ -258,10 +255,12 @@ export const imageData = (token, baseUrl, imageId) => axios({
       return dataURL;
     });
 
-export const loadMyLocations = (token, baseUrl) => axios({
+export const loadMyLocations = (baseUrl) => axios({
   baseURL: `${baseUrl}`,
   method: 'get',
-  url: '/users/me/locations' })
+  url: '/users/me/locations',
+  withCredentials: true,
+})
   .then((response) => response.data);
 
 const parseLocationPrefix = (prefix) => prefix === 'All' ? '_' : (prefix || '_');
@@ -280,6 +279,7 @@ export const searchOffenders = ({ baseUrl, query,
       'Sort-Fields': ['lastName', 'firstName'],
       'Sort-Order': sort.order,
     },
+    withCredentials: true,
   }).then((response) => ({
     bookings: response.data,
     totalRecords: parseInt(response.headers['total-records']),
@@ -288,26 +288,31 @@ export const searchOffenders = ({ baseUrl, query,
 export const loadKeyDates = (bookingId) => axios({
   method: 'get',
   url: `/app/keydates/${bookingId}`,
+  withCredentials: true,
 }).then(response => response.data);
 
 export const loadQuickLook = (bookingId) => axios({
   method: 'get',
   url: `/app/bookings/quicklook/${bookingId}`,
+  withCredentials: true,
 }).then((response) => response.data);
 
 export const loadScheduledEventsForThisWeek = (bookingId) => axios({
   method: 'get',
   url: `/app/bookings/scheduled/events/forThisWeek/${bookingId}`,
+  withCredentials: true,
 }).then(response => response.data);
 
 export const loadScheduledEventsForNextWeek = (bookingId) => axios({
   method: 'get',
   url: `/app/bookings/scheduled/events/forNextWeek/${bookingId}`,
+  withCredentials: true,
 }).then(response => response.data);
 
 export const loadAppointmentViewModel = ({ agencyId }) => axios({
   method: 'get',
   url: `/app/bookings/loadAppointmentViewModel/${agencyId}`,
+  withCredentials: true,
 }).then(response => response.data);
 
 export const addAppointment = ({ bookingId, startTime, endTime, appointmentType, locationId, comment }) => axios({
@@ -320,4 +325,5 @@ export const addAppointment = ({ bookingId, startTime, endTime, appointmentType,
     locationId,
     comment,
   },
+  withCredentials: true,
 });

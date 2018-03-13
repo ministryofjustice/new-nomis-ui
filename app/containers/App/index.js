@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { setDeviceFormat } from 'globalReducers/app';
+import { retrieveUserMe } from 'containers/Authentication/actions';
 import { selectMobileMenuOpen, selectShouldShowSpinner, selectShouldShowTerms } from 'selectors/app';
 import Header from 'containers/Header';
 import Breadcrumbs from 'containers/Breadcrumbs';
@@ -26,6 +27,10 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
 
   componentWillMount() {
     this.resizeWindow();
+  }
+
+  componentDidMount() {
+    this.props.retrieveUserMe();
   }
 
   resizeWindow() {
@@ -91,6 +96,7 @@ App.propTypes = {
 App.defaultProps = {
   children: [],
   setDeviceFormat: () => {},
+  retrieveUserMe: () => {},
   mobileMenuOpen: false,
 };
 
@@ -101,6 +107,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  retrieveUserMe: (format) => dispatch(retrieveUserMe()),
   setDeviceFormat: (format) => dispatch(setDeviceFormat(format)),
   hideTermsAndConditions: () => dispatch(hideTerms()),
   showTermsAndConditions: () => dispatch(showTerms()),

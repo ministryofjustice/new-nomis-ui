@@ -8,11 +8,6 @@ const selectUser = () => createSelector(
   (loginState) => loginState.get('user')
 );
 
-const selectLoggedIn = () => createSelector(
-  selectLogin(),
-  (loginState) => loginState.get('loggedIn')
-);
-
 const selectUsername = () => createSelector(
   selectLogin(),
   (loginState) => loginState.get('usernameInput')
@@ -23,11 +18,6 @@ const selectPassword = () => createSelector(
   (loginState) => loginState.get('passwordInput')
 );
 
-const selectToken = () => createSelector(
-  selectLogin(),
-  (loginState) => loginState.get('loginData')
-);
-
 const selectActiveCaseLoad = () => createSelector(
   selectUser(),
   (user) => user.activeCaseLoadId,
@@ -36,9 +26,7 @@ const selectActiveCaseLoad = () => createSelector(
 export {
   selectLogin,
   selectUser,
-  selectLoggedIn,
   selectUsername,
   selectPassword,
-  selectToken,
   selectActiveCaseLoad,
 };

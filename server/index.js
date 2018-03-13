@@ -2,22 +2,42 @@
 require('dotenv').config();
 
 const express = require('express');
-const bodyParser = require('body-parser');
-
+const { json: jsonParser, urlencoded } = require('body-parser');
+const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
+const hsts = require('hsts');
 const appInsights = require('applicationinsights');
+const helmet = require('helmet');
+const { resolve } = require('path');
+
 
 const logger = require('./logger');
 const argv = require('minimist')(process.argv.slice(2));
 const setup = require('./middlewares/frontend-middleware');
-const resolve = require('path').resolve;
 const app = express();
-const jsonParser = bodyParser.json();
 
 const apiProxy = require('./apiproxy');
 const application = require('./app');
 const controller = require('./controller');
 const session = require('./session');
+const config = require('./config');
 const clientVersionValidator = require('./middlewares/validate-client-version');
+
+const sixtyDaysInSeconds = 5184000;
+const sessionExpiryMinutes = config.session.expiryMinutes * 60 * 1000;
+
+const sessionConfig = {
+  name: config.session.name,
+  secret: config.session.secret,
+  sameSite: true,
+  expires: new Date(Date.now() + sessionExpiryMinutes),
+  maxAge: sessionExpiryMinutes, // 1 hour
+};
+
+app.set('trust proxy', 1) // trust first proxy
+
+// set the view engine to ejs
+app.set('view engine', 'ejs');
 
 if (process.env.NODE_ENV === 'production' && process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
   appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY)
@@ -31,6 +51,21 @@ if (process.env.NODE_ENV === 'production' && process.env.APPINSIGHTS_INSTRUMENTA
     .start();
 }
 
+if (process.env.NODE_ENV === 'production') {
+  sessionConfig.cookie.secure = true // serve secure cookies
+}
+
+app.use(helmet());
+app.use(hsts({
+  maxAge: sixtyDaysInSeconds,
+  includeSubDomains: true,
+  preload: true,
+}));
+app.use(cookieParser());
+app.use(jsonParser());
+
+app.use(cookieSession(sessionConfig));
+
 app.use(clientVersionValidator);
 
 app.use((req, res, next) => {
@@ -40,21 +75,20 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req,res,next) => {
-  if (req.url.indexOf('app') >= 0 && req.url !== '/app/login') {
-    if (session.isAuthenticated(req.headers) === false) {
-      res.status(401);
-      res.end();
-      return;
-    }
-  }
-  next();
-});
 
 app.use(express.static('fonts'));
 app.use(express.static('img'));
 
-app.use('/feedbackUrl', jsonParser, (req,res) => {
+app.use(session.hmppsSessionMiddleWare);
+
+// Update a value in the cookie so that the set-cookie will be sent.
+// Only changes every minute so that it's not sent with every request.
+app.use((req, res, next) => {
+  req.session.nowInMinutes = Math.floor(Date.now() / 60e3)
+  next()
+})
+
+app.use('/feedbackUrl', (req,res) => {
   const url = process.env.FEEDBACK_URL;
 
   if (!url) {
@@ -67,17 +101,19 @@ app.use('/feedbackUrl', jsonParser, (req,res) => {
   });
 });
 
-app.use('/app/login',jsonParser, controller.login);
-app.use('/app/photo', jsonParser, controller.images);
-app.use('/app/keydates/:bookingId', jsonParser, controller.keyDates);
-app.use('/app/bookings/details/:bookingId', jsonParser, controller.bookingDetails);
-app.use('/app/bookings/quicklook/:bookingId', jsonParser, controller.quickLook);
-app.use('/app/bookings/scheduled/events/forThisWeek/:bookingId', jsonParser, controller.eventsForThisWeek);
-app.use('/app/bookings/scheduled/events/forNextWeek/:bookingId', jsonParser, controller.eventsForNextWeek);
-app.use('/app/bookings/loadAppointmentViewModel/:agencyId', jsonParser, controller.loadAppointmentViewModel);
-app.use('/app/bookings/addAppointment/:bookingId', jsonParser, controller.addAppointment);
+app.get('/login', controller.loginIndex);
+app.post('/login', urlencoded({ extended: false }), controller.login);
+app.get('/logout', controller.logout);
+app.use('/app/photo', controller.images);
+app.use('/app/keydates/:bookingId', controller.keyDates);
+app.use('/app/bookings/details/:bookingId', controller.bookingDetails);
+app.use('/app/bookings/quicklook/:bookingId', controller.quickLook);
+app.use('/app/bookings/scheduled/events/forThisWeek/:bookingId', controller.eventsForThisWeek);
+app.use('/app/bookings/scheduled/events/forNextWeek/:bookingId', controller.eventsForNextWeek);
+app.use('/app/bookings/loadAppointmentViewModel/:agencyId', controller.loadAppointmentViewModel);
+app.use('/app/bookings/addAppointment/:bookingId', controller.addAppointment);
 
-app.use('/app',jsonParser, application.sessionHandler);
+app.use('/app', application.sessionHandler);
 app.use('/health', apiProxy);
 app.use('/info', apiProxy);
 app.use('/docs', apiProxy);

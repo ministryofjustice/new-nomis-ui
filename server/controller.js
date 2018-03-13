@@ -1,13 +1,13 @@
 const elite2Api = require('./elite2Api'),
   errorStatusCode = elite2Api.errorStatusCode;
 const session = require('./session');
+const config = require('./config');
 
 const bookingService = require('./services/booking');
 const eventsService = require('./services/events');
 
 const asyncMiddleware = fn =>
   (req, res, next) => {
-    res.setHeader('jwt', session.extendSession(req.headers));
     Promise.resolve(fn(req, res, next))
       .catch(error => {
         res.status(errorStatusCode(error.response));
@@ -16,6 +16,10 @@ const asyncMiddleware = fn =>
         throw error;
       });
   };
+
+const loginIndex = (req, res) => {
+  res.render('pages/login', { authError: false });
+};
 
 const login = (req, res) => {
   elite2Api.httpRequest({
@@ -31,14 +35,22 @@ const login = (req, res) => {
       password: req.body.password,
     },
   }).then((response) => {
-    const oauthToken = session.newJWT(response.data);
-    res.setHeader('jwt', oauthToken);
-    res.json(oauthToken);
+    req.session.isAuthenticated = true;
+
+    session.setHmppsCookie(res, response.data);
+
+    res.redirect('/');
   }).catch(error => {
     console.error(error);
     res.status(errorStatusCode(error.response));
-    res.end();
+    res.render('pages/login', { authError: true });
   });
+};
+
+const logout = (req, res) => {
+  session.deleteHmppsCookie(res);
+  req.session = null;
+  res.redirect('/login');
 };
 
 const images = (req, res) => {
@@ -47,11 +59,9 @@ const images = (req, res) => {
     url: `api/images${req.url}`,
     responseType: 'stream',
     headers: {},
-    reqHeaders: req.headers,
-    onTokenRefresh: (token) => { req.headers.jwt = token },
+    reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },
+    onTokenRefresh: session.updateHmppsCookie(res),
   }).then(response => {
-    res.setHeader('jwt', session.extendSession(req.headers));
-
     Object.keys(response.headers).forEach(key => {
       res.setHeader(key, response.headers[key]);
     });
@@ -70,7 +80,7 @@ const keyDates = asyncMiddleware(async (req,res) => {
     return;
   }
 
-  const data = await bookingService.getKeyDatesVieModel(req);
+  const data = await bookingService.getKeyDatesVieModel(req, res);
   res.json(data);
 });
 
@@ -83,7 +93,7 @@ const bookingDetails = asyncMiddleware(async (req, res) => {
     return;
   }
 
-  const data = await bookingService.getBookingDetailsViewModel(req);
+  const data = await bookingService.getBookingDetailsViewModel(req, res);
   res.json(data);
 });
 
@@ -95,8 +105,8 @@ const quickLook = asyncMiddleware(async (req, res) => {
     res.end();
     return;
   }
-   
-  const data = await bookingService.getQuickLookViewModel(req);
+
+  const data = await bookingService.getQuickLookViewModel(req, res);
   res.json(data);
 });
 
@@ -109,7 +119,7 @@ const eventsForThisWeek = asyncMiddleware(async (req,res) => {
     return;
   }
 
-  const data = await eventsService.getScheduledEventsForThisWeek(req);
+  const data = await eventsService.getScheduledEventsForThisWeek(req, res);
   res.json(data);
 });
 
@@ -122,7 +132,7 @@ const eventsForNextWeek = asyncMiddleware(async (req,res) => {
     return;
   }
 
-  const data = await eventsService.getScheduledEventsForNextWeek(req);
+  const data = await eventsService.getScheduledEventsForNextWeek(req, res);
   res.json(data);
 });
 
@@ -135,7 +145,7 @@ const loadAppointmentViewModel = asyncMiddleware(async (req,res) => {
     return;
   }
 
-  const viewModel = await eventsService.getAppointmentViewModel(req);
+  const viewModel = await eventsService.getAppointmentViewModel(req, res);
   res.json(viewModel);
 });
 
@@ -148,7 +158,7 @@ const addAppointment = asyncMiddleware(async (req,res) => {
     return;
   }
 
-  await elite2Api.addAppointment({ req });
+  await elite2Api.addAppointment({ req, res });
   res.status(200);
   res.end();
 });
@@ -156,6 +166,8 @@ const addAppointment = asyncMiddleware(async (req,res) => {
 module.exports = {
   keyDates,
   login,
+  loginIndex,
+  logout,
   images,
   bookingDetails,
   quickLook,

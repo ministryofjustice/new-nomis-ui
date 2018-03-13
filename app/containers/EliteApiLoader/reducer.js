@@ -26,10 +26,6 @@ import {
   APPOINTMENT,
 } from './constants';
 
-import {
-  LOGOUT_SUCCESS,
-} from '../Authentication/constants';
-
 const SortedSearchQuery = fromJS({
   Paginations: {},
   SortedIds: {},
@@ -103,11 +99,6 @@ export const initialState = fromJS({
 
 function EliteApiReducer(state = initialState, action) {
   switch (action.type) {
-
-    case LOGOUT_SUCCESS: {
-      return initialState;
-    }
-
     case BOOKINGS.CLEAR: {
       return state.set('Bookings', Map({
         Search: Map({}),

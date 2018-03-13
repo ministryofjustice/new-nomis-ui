@@ -34,7 +34,7 @@ describe('apiService', () => {
       url: '/users/me',
       reqHeaders: {
         host: 'localhost',
-        jwt: session.newJWT(sessionData),
+        jwt: { access_token: 'abc.def.ghi', refresh_token: 'foo.bar.baz' },
       },
       headers: {},
       onTokenRefresh: () => {
@@ -44,7 +44,7 @@ describe('apiService', () => {
     expect(apiService.httpRequest).to.be.calledWith({
       headers: {
         'access-control-allow-origin': 'localhost',
-        authorization: `bearer ${sessionData.access_token}`,
+        authorization: 'bearer abc.def.ghi',
       },
       method: 'post',
       responseType: undefined,
@@ -59,9 +59,6 @@ describe('apiService', () => {
     const refresh_token = '321';
     const newRefreshToken = '555';
     const newToken = '456';
-
-
-    sandbox.stub(session,'getSessionData').returns({ access_token,refresh_token });
 
     apiService.httpRequest.rejects({
       response: {
@@ -84,20 +81,24 @@ describe('apiService', () => {
       headers: {},
       reqHeaders: {
         host: 'localhost',
+        jwt: {
+          access_token,
+          refresh_token,
+        },
       },
       onTokenRefresh: sandbox.spy(),
     };
 
     const result = apiService.callApi(options);
 
-    const jwt = session.newJWT({
+    const jwt = {
       access_token: newToken,
       refresh_token: newRefreshToken,
-    });
+    };
 
     result.then(response => {
       expect(response.data).to.equal('success');
-      expect(apiService.refreshTokenRequest).to.be.calledWith({ headers: { }, reqHeaders: { host: 'localhost' }, token: refresh_token });
+      expect(apiService.refreshTokenRequest).to.be.calledWith({ headers: { }, reqHeaders: { host: 'localhost', jwt: { access_token, refresh_token } }, token: refresh_token });
       expect(options.onTokenRefresh).to.be.calledWith(jwt);
     });
   })

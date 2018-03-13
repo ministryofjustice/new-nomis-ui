@@ -1,7 +1,6 @@
 import { put, select, call, takeLatest, takeEvery } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import { loadAssignments } from 'containers/Assignments/actions';
-import { getToken } from 'containers/Authentication/sagas';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 
 import { setMobileMenuOpen, showSpinner, hideSpinner } from 'globalReducers/app';
@@ -84,12 +83,12 @@ export function* bookingDetailsSaga(action) {
   }
 
   yield put({ type: BOOKINGS.DETAILS.LOADING, payload: { bookingId } });
-  const token = yield getToken();
+
   const apiServer = yield select(selectApi());
 
   try {
-    const data = yield call(bookingDetails, token, apiServer, bookingId);
-    const aliases = yield call(bookingAliases, token, apiServer, bookingId);
+    const data = yield call(bookingDetails, apiServer, bookingId);
+    const aliases = yield call(bookingAliases, apiServer, bookingId);
     yield put({ type: BOOKINGS.DETAILS.SUCCESS, payload: { ...data, aliases } });
     return { Type: 'SUCCESS' };
   } catch (err) {
@@ -105,12 +104,13 @@ export function* searchSaga({ query, pagination, sortOrder }) {
     return { inmatesSummaries: yield select(selectBookingResults({ query, pagination, sortOrder })) };
   }
   yield put({ type: BOOKINGS.SEARCH.LOADING, payload: { query, pagination, sortOrder } });
-  const token = yield getToken();
+
   const apiServer = yield select(selectApi());
+
   try {
     const isOffAss = query === 'officerAssignments';
     const bookingListFunction = isOffAss ? officerAssignments : searchOffenders;
-    const res = yield call(bookingListFunction, token, query, pagination, apiServer);
+    const res = yield call(bookingListFunction, query, pagination, apiServer);
     yield put({ type: BOOKINGS.SEARCH.SUCCESS, payload: { query, pagination, sortOrder, results: res.bookings, meta: { totalRecords: res.totalRecords } } });
     return { inmatesSummaries: res.inmatesSummaries };
   } catch (err) {
@@ -134,10 +134,11 @@ export function* bookingAlertsSaga(action) {
 
   yield put(showSpinner());
   yield put({ type: BOOKINGS.ALERTS.LOADING, payload: { bookingId, pagination } });
-  const token = yield getToken();
+
   const apiServer = yield select(selectApi());
+
   try {
-    const data = yield call(bookingAlerts, token, apiServer, bookingId, pagination);
+    const data = yield call(bookingAlerts, apiServer, bookingId, pagination);
     yield put({ type: BOOKINGS.ALERTS.SUCCESS, payload: { bookingId, pagination, results: data.alerts, meta: { totalRecords: data.totalRecords } } });
     yield put(hideSpinner());
     return { Type: 'SUCCESS' };
@@ -164,10 +165,11 @@ export function* bookingCaseNotesSaga(action) {
   yield put(showSpinner());
 
   yield put({ type: BOOKINGS.CASENOTES.LOADING, payload: { bookingId, pagination, query } });
-  const token = yield getToken();
+
   const apiServer = yield select(selectApi());
+
   try {
-    const response = yield call(bookingCaseNotes, token, apiServer, bookingId, pagination, query);
+    const response = yield call(bookingCaseNotes, apiServer, bookingId, pagination, query);
     yield put({ type: BOOKINGS.CASENOTES.SUCCESS, payload: { bookingId, pagination, query, results: response.data, meta: { totalRecords: response.totalRecords } } });
     yield put(hideSpinner());
     return { Type: 'SUCCESS' };
@@ -197,12 +199,12 @@ export function* imageLoadSaga(action) {
   }
 
   yield put({ type: IMAGES.LOADING, payload: { imageId } });
-  const token = yield getToken();
+
   const apiServer = yield select(selectApi());
 
   try {
-    const metaRes = yield call(imageMeta, token, apiServer, imageId);
-    const dataURL = yield call(imageData, token, apiServer, imageId);
+    const metaRes = yield call(imageMeta, apiServer, imageId);
+    const dataURL = yield call(imageData, apiServer, imageId);
 
     yield put({ type: IMAGES.SUCCESS, payload: { imageId, meta: metaRes, dataURL } });
     return null;
@@ -233,11 +235,11 @@ export function* officerLoadSaga(action) {
   }
 
   yield put({ type: OFFICERS.LOADING, payload: { officerKey } });
-  const token = yield getToken();
+
   const apiServer = yield select(selectApi());
 
   try {
-    const res = yield call(officerDetails, token, apiServer, staffId, username);
+    const res = yield call(officerDetails, apiServer, staffId, username);
 
     if (!res) {
       yield put({ type: OFFICERS.ERROR, payload: { officerKey, error: 'SEEMED FINE, BUT APPARENTLY NO RESPONSE' } });
@@ -259,23 +261,22 @@ export function* preloadDataWatcher() {
 }
 
 export function* preloadData() {
-  const token = yield getToken();
   const apiServer = yield select(selectApi());
 
-  yield call(preloadAllCaseNoteTypesSubTypes, token, apiServer);
-  yield call(preloadUserCaseNoteTypes, token, apiServer);
+  yield call(preloadAllCaseNoteTypesSubTypes, apiServer);
+  yield call(preloadUserCaseNoteTypes, apiServer);
 }
 
-export function* preloadAllCaseNoteTypesSubTypes(token, apiServer) {
-  const items = yield call(loadAllCaseNoteFilterItems, token, apiServer);
+export function* preloadAllCaseNoteTypesSubTypes(apiServer) {
+  const items = yield call(loadAllCaseNoteFilterItems, apiServer);
   yield put({ type: ALLCASENOTETYPESUBTYPEDATA, payload: items });
 }
 
-export function* preloadUserCaseNoteTypes(token, apiServer) {
+export function* preloadUserCaseNoteTypes(apiServer) {
   yield put({ type: CASENOTETYPES.PRELOAD.LOADING, payload: {} });
 
   try {
-    const res = yield call(users.caseNoteTypes, token, apiServer);
+    const res = yield call(users.caseNoteTypes, apiServer);
     yield put({ type: CASENOTETYPES.PRELOAD.SUCCESS, payload: res });
     return null;
   } catch (err) {
@@ -289,11 +290,10 @@ export function* userCaseLoadsWatcher() {
 }
 
 export function* userCaseLoadsSaga() {
-  const token = yield getToken();
   const apiServer = yield select(selectApi());
 
   try {
-    const caseloads = yield call(users.caseLoads, token, apiServer);
+    const caseloads = yield call(users.caseLoads, apiServer);
     yield put({ type: USER.CASELOADS.SUCCESS, payload: { caseloads } });
   } catch (e) {
     yield put({ type: USER.CASELOADS.ERROR, payload: { error: e } });
@@ -306,12 +306,11 @@ export function* userSwitchCaseLoadsWatcher() {
 }
 
 export function* userSwitchCaseLoadsSaga(action) {
-  const token = yield getToken();
   const apiServer = yield select(selectApi());
   const { caseLoadId } = action.payload;
 
   try {
-    yield call(users.switchCaseLoads, token, apiServer, caseLoadId);
+    yield call(users.switchCaseLoads, apiServer, caseLoadId);
     yield put({ type: USER.SWITCHCASELOAD.SUCCESS, payload: action.payload });
 
     yield put(loadLocations());

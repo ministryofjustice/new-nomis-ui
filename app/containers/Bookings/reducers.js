@@ -14,11 +14,6 @@ import { fromJS } from 'immutable';
 import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
 
 import {
-  LOGOUT_SUCCESS,
-} from 'containers/Authentication/constants';
-
-
-import {
   SEARCH_LOADING,
   SEARCH_SUCCESS,
   SEARCH_ERROR,
@@ -80,11 +75,6 @@ export const initialState = fromJS({
 
 function searchReducer(state = initialState, action) {
   switch (action.type) {
-
-    case LOGOUT_SUCCESS: {
-      return initialState;
-    }
-
 
     case SEARCH_LOADING: {
       return state.set('loading', true);

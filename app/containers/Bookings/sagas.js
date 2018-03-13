@@ -1,7 +1,6 @@
 import { takeLatest, put, select, call } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import { SubmissionError } from 'redux-form/immutable';
-import { getToken } from 'containers/Authentication/sagas';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 import { bookingDetailsSaga as bookingDetailsElite } from 'containers/EliteApiLoader/sagas';
 import { loadBookingAlerts, loadBookingCaseNotes, resetCaseNotes } from 'containers/EliteApiLoader/actions';
@@ -147,10 +146,9 @@ export function* addCasenoteWatcher() {
 export function* addCasenoteSaga(action) {
   const { typeAndSubType: { type, subType }, caseNoteText: text,startTime } = action.payload.query;
   const bookingId = yield select(selectBookingDetailsId());
-  const token = yield getToken();
   const apiServer = yield select(selectApi());
   try {
-    yield call(addCaseNote, token, apiServer, bookingId, type, subType, text, startTime);
+    yield call(addCaseNote, apiServer, bookingId, type, subType, text, startTime);
 
     yield put({ type: ADD_NEW_CASENOTE.SUCCESS });
     // Reset casenotes
@@ -220,9 +218,8 @@ export function* onLoadScheduledEvents(action) {
 }
 
 export function* setLocations(action) {
-  const token = yield getToken();
   const apiServer = yield select(selectApi());
-  const locations = yield call(loadMyLocations, token, apiServer, action);
+  const locations = yield call(loadMyLocations, apiServer, action);
 
   yield put({
     type: SET_LOCATIONS,
@@ -253,7 +250,6 @@ export function* hidePhoto(action) {
 }
 
 export function* toggleSort(action) {
-  const token = yield getToken();
   const baseUrl = yield select(selectApi());
   const previousSortOrder = yield select(selectSearchResultsSortOrder());
   const pagination = yield select(selectSearchResultsPagination());
@@ -263,7 +259,6 @@ export function* toggleSort(action) {
 
   yield put(showSpinner());
   const result = yield call(searchOffenders, {
-    token,
     baseUrl,
     query,
     pagination: {
@@ -290,7 +285,6 @@ export function* toggleSort(action) {
 export function* newSearch(action) {
   try {
     const { query, resetPagination } = action.payload;
-    const token = yield getToken();
     const baseUrl = yield select(selectApi());
     const sortOrder = yield (action.payload.sortOrder || select(selectSearchResultsSortOrder()));
     let pagination = yield (action.payload.pagination || select(selectSearchResultsPagination()));
@@ -308,7 +302,6 @@ export function* newSearch(action) {
     }
 
     const result = yield call(searchOffenders, {
-      token,
       baseUrl,
       query,
       pagination: {

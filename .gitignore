@@ -44,5 +44,6 @@ coverage/
 tmp/
 eslint-report.html
 test-report.html
+.vscode/
 
 scss-report.txt

@@ -7,7 +7,6 @@ import { LOAD_ASSIGNMENTS } from 'containers/Assignments/constants';
 import Name from 'components/Name';
 import { Link } from 'react-router';
 
-import { logOut } from '../Authentication/actions';
 import { selectUser } from '../Authentication/selectors';
 import SearchForm from './SearchForm';
 
@@ -63,7 +62,6 @@ HomePage.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    logOut: () => dispatch(logOut()),
     test: () => dispatch({ type: LOAD_ASSIGNMENTS, payload: {} }),
     loadLocations: () => dispatch(loadLocations()),
   };

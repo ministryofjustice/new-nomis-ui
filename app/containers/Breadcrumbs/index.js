@@ -12,7 +12,7 @@ class Breadcrumbs extends Component {
   render() {
     const { user, route, searchContext } = this.props;
 
-    return route !== '/login' && user &&
+    return user &&
       <BreadcrumbsComponent route={route} inmateData={{}} context={searchContext} />
   }
 }
