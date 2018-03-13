@@ -185,9 +185,9 @@ workflows:
               only: /^client-release-.*/
             branches:
               ignore: /.*/
-      - deploy_release_eb:
-          requires:
-            - build_docker
-          filters:
-            branches:
-              only: master
+#      - deploy_release_eb:
+#          requires:
+#            - build_docker
+#          filters:
+#            branches:
+#              only: master
