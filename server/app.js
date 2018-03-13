@@ -1,6 +1,8 @@
 const session = require('./session');
-const apiService = require('./elite2Api'),
-  errorStatusCode = apiService.errorStatusCode;
+const apiService = require('./elite2Api');
+const { logger } = require('./services/logger');
+
+const errorStatusCode = apiService.errorStatusCode;
 
 const sessionHandler = (req, res) => {
   apiService.callApi({
@@ -15,6 +17,7 @@ const sessionHandler = (req, res) => {
 
     res.json(response.data);
   }).catch(error => {
+    logger.error(error);
     res.status(errorStatusCode(error.response));
     res.end();
   })

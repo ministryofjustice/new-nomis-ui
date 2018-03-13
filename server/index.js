@@ -5,13 +5,13 @@ const express = require('express');
 const { json: jsonParser, urlencoded } = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
+const bunyanMiddleware = require('bunyan-middleware');
 const hsts = require('hsts');
 const appInsights = require('applicationinsights');
 const helmet = require('helmet');
 const { resolve } = require('path');
+const { logger } = require('./services/logger');
 
-
-const logger = require('./logger');
 const argv = require('minimist')(process.argv.slice(2));
 const setup = require('./middlewares/frontend-middleware');
 const app = express();
@@ -66,6 +66,10 @@ app.use(jsonParser());
 
 app.use(cookieSession(sessionConfig));
 
+app.use(bunyanMiddleware({ 
+  logger,
+}));
+
 app.use(clientVersionValidator);
 
 app.use((req, res, next) => {
@@ -85,7 +89,7 @@ app.use(session.hmppsSessionMiddleWare);
 // Only changes every minute so that it's not sent with every request.
 app.use((req, res, next) => {
   req.session.nowInMinutes = Math.floor(Date.now() / 60e3);
-  next()
+  next();
 });
 
 app.use('/feedbackUrl', (req,res) => {
@@ -134,7 +138,7 @@ const port = argv.port || process.env.PORT || 3000;
 // Start your app.
 app.listen(port, host, (err) => {
   if (err) {
-    return logger.error(err.message);
+    return logger.error(err);
   }
-  logger.appStarted(port, prettyHost);
+  logger.info(`Application started on port: ${port}, ${prettyHost}`);
 });

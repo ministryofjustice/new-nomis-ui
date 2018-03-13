@@ -4,6 +4,7 @@ const fs = require('fs');
 const modifyResponse = require('node-http-proxy-json');
 const elite2Api = require('./elite2Api');
 const tokenGeneration = require('./jwt-token');
+const { logger } = require('./services/logger');
 
 const HEALTH_CHECK_PATH = 'health';
 const appInfo = getAppInfo();
@@ -70,7 +71,8 @@ const onProxyRequest = (proxyReq, req) => {
     try {
       const jwToken = tokenGeneration.generateToken();
       proxyReq.setHeader('authorization', `Bearer ${jwToken}`);
-    } catch (err) {
+    } catch (error) {
+      logger.error(error);
       proxyReq.setHeader('authorization', 'JUNK');
     }
   }

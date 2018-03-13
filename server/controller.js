@@ -5,11 +5,13 @@ const config = require('./config');
 
 const bookingService = require('./services/booking');
 const eventsService = require('./services/events');
+const { logger } = require('./services/logger');
 
 const asyncMiddleware = fn =>
   (req, res, next) => {
     Promise.resolve(fn(req, res, next))
       .catch(error => {
+        logger.error(error);
         res.status(errorStatusCode(error.response));
         res.end();
 
@@ -41,7 +43,7 @@ const login = (req, res) => {
 
     res.redirect('/');
   }).catch(error => {
-    console.error(error);
+    logger.error(error);
     res.status(errorStatusCode(error.response));
     res.render('pages/login', { authError: true });
   });
@@ -68,6 +70,7 @@ const images = (req, res) => {
 
     response.data.pipe(res);
   }).catch(error => {
+    logger.error(error);
     res.status(errorStatusCode(error.response));
     res.end();
   });

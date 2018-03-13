@@ -4,6 +4,7 @@ const session = require('./session');
 const querystring = require('querystring');
 const FormData = require('form-data');
 const gatewayToken = require('./jwt-token');
+const { logger } = require('./services/logger');
 
 const baseUrl = process.env.API_ENDPOINT_URL || 'http://localhost:8080/';
 const apiClientId = process.env.API_CLIENT_ID || 'elite2apiclient';
@@ -22,7 +23,10 @@ axios.interceptors.request.use((config) => {
     config.headers.authorization = `Bearer ${gatewayToken.generateToken()}`; // eslint-disable-line no-param-reassign
   }
   return config;
-}, (error) => Promise.reject(error));
+}, (error) => {
+  logger.error(error);
+  return Promise.reject(error)
+});
 
 
 const getSentenceData = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/sentenceDetail` });
@@ -73,7 +77,10 @@ const getRequest = ({ req, res, url, headers }) => service.callApi({
   reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },
   onTokenRefresh: session.updateHmppsCookie(res),
 }).then(response => new Promise(r => r(response.data)))
-    .catch(_ => new Promise(r => r(null)));  // eslint-disable-line no-unused-vars
+    .catch(error => {
+      logger.error(error);
+      return new Promise(r => r(null))
+    });
 
 const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseType, data }) => {
   const { access_token, refresh_token } = reqHeaders.jwt;
@@ -85,6 +92,7 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
     data,
     headers: getHeaders({ headers, reqHeaders, access_token }),
   }).catch(error => {
+    logger.error(error);
     if (error.response.status === 401) {
       return service.refreshTokenRequest({ token: refresh_token, headers, reqHeaders })
         .then(response => {
