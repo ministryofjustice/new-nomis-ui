@@ -34,7 +34,7 @@ const sessionConfig = {
   maxAge: sessionExpiryMinutes, // 1 hour
 };
 
-app.set('trust proxy', 1) // trust first proxy
+app.set('trust proxy', 1); // trust first proxy
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -52,7 +52,7 @@ if (process.env.NODE_ENV === 'production' && process.env.APPINSIGHTS_INSTRUMENTA
 }
 
 if (process.env.NODE_ENV === 'production') {
-  sessionConfig.cookie.secure = true // serve secure cookies
+  sessionConfig.secure = true // serve secure cookies
 }
 
 app.use(helmet());
@@ -84,9 +84,9 @@ app.use(session.hmppsSessionMiddleWare);
 // Update a value in the cookie so that the set-cookie will be sent.
 // Only changes every minute so that it's not sent with every request.
 app.use((req, res, next) => {
-  req.session.nowInMinutes = Math.floor(Date.now() / 60e3)
+  req.session.nowInMinutes = Math.floor(Date.now() / 60e3);
   next()
-})
+});
 
 app.use('/feedbackUrl', (req,res) => {
   const url = process.env.FEEDBACK_URL;
