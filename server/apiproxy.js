@@ -80,12 +80,12 @@ const onProxyRequest = (proxyReq, req) => {
 
 // proxy middleware options
 const options = {
-  target: elite2Api.baseUrl,                  // target host
-  changeOrigin: true,               // needed for virtual hosted sites
-  ws: true,                         // proxy websockets
+  target: elite2Api.baseUrl,              // target host
+  changeOrigin: true,                     // needed for virtual hosted sites
+  ws: true,                               // proxy websockets
   pathRewrite: {
-    '^/api': 'api',                    // rewrite path
-    '^/info': 'info',                    // rewrite path
+    '^/api': 'api',
+    '^/info': 'info',
     '^/health': HEALTH_CHECK_PATH,
     '^/docs/swagger-resources': '/swagger-resources',
     '^/docs/api': '/api',
@@ -95,6 +95,7 @@ const options = {
   onError: onErrorHandler,
   onProxyRes: onProxyResponse,
   onProxyReq: onProxyRequest,
+  proxyTimeout: 2000,                     // milliseconds
 };
 
 // create the proxy (without context)
