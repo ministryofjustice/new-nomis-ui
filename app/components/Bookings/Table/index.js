@@ -43,7 +43,7 @@ const Table = ({ results, viewDetails, sortOrder, sortOrderChange }) => (
     </div>
 
       {(results || []).map((row) =>
-        <div className="row" key={row.bookingId}>
+        <div className="row" key={`booking_table_${row.bookingId}`}>
           <div className="col-xs-3 col-md-2 remove-left-padding">
             <div className="photo clickable" onClick={(e) => onViewDetails(e, row, viewDetails)}>
               <EliteImage imageId={row.facialImageId} />

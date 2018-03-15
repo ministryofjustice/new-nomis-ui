@@ -83,30 +83,3 @@ export const DropdownMenuLink = styled(Link)`
 export const DropdownMenuOptionLogOut = styled(DropdownMenuOption)`
   background: ${colours.userMenu.logout};
 `;
-
-export const NotificationNumber = styled.div`
-  height: 20px;
-  width: 20px;
-  margin: auto;
-  text-align: center;
-  line-height: 22px;
-  border-radius: 10px;
-  background-color: ${colours.userMenu.notification};
-  color: ${colours.baseFont};
-  font-size: 12px;
-`;
-
-export const NotificationNumberUser = styled(NotificationNumber)`
-  position: absolute;
-  top: -9px;
-  left: -15px;
-`;
-
-export const NotificationNumberAssignments = styled(NotificationNumber)`
-  position: relative;
-  top: -2px;
-  left: 4px;
-  display: inline;
-  padding: 2px 5px;
-  font-weight: bold;
-`;

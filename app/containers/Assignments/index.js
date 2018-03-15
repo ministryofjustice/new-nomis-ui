@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import ResultsViewToggle from 'components/ResultsViewToggle';
 import ResultsViewToggleMobile from 'components/ResultsViewToggle/mobile';
@@ -13,26 +12,11 @@ import { setSearchContext } from 'globalReducers/app';
 import BookingTable from 'components/Bookings/Table';
 import BookingGrid from 'components/Bookings/Grid';
 
-
-import { selectUser } from '../Authentication/selectors';
-
 import {
   setAssignmentsPagination,
   setAssignmentsView,
   toggleAssignmentsSortOrder,
 } from './actions';
-
-import {
-  selectAssignmentsResults,
-  selectAssignmentsTotal,
-  selectAssignmentsPagination,
-  selectAssignmentsView,
-  selectAssignmentsSortOrder,
-} from './selectors';
-
-import {
-  selectLoadingBookingDetailsStatus,
-} from '../EliteApiLoader/selectors';
 
 const Results = ({ resultsView, results, viewDetails }) => resultsView === 'List' ?
     <BookingTable viewName={resultsView} results={results} viewDetails={viewDetails} />
@@ -46,8 +30,18 @@ class Assignments extends PureComponent { // eslint-disable-line react/prefer-st
   }
 
   render() {
-    const { sortOrder,results,toggleSortOrder,deviceFormat, searchOptions, searchQuery, viewDetails, totalResults, pagination, setPage, resultsView, setResultsView, user,loadingStatus } = this.props; //eslint-disable-line
-    const { perPage: pP } = pagination;
+    const {
+      deviceFormat,
+      totalResults, 
+      pagination, 
+      setPage, 
+      resultsView, 
+      setResultsView, 
+      user,
+      error,
+    } = this.props;
+
+    const { perPage } = pagination;
 
     return (
       <div>
@@ -63,8 +57,13 @@ class Assignments extends PureComponent { // eslint-disable-line react/prefer-st
           </div>
         }
 
+        {error && 
+        <div className="error-summary">
+            <div className="error-message"> {error} </div>
+        </div>}
+
         <Results {...this.props} />
-        <PreviousNextNavigation pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />
+        <PreviousNextNavigation pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage, pageNumber: id }); }} />
 
       </div>
     );
@@ -73,10 +72,6 @@ class Assignments extends PureComponent { // eslint-disable-line react/prefer-st
 
 Assignments.propTypes = {
   deviceFormat: PropTypes.string,
-  results: PropTypes.array.isRequired,
-  viewDetails: PropTypes.func.isRequired,
-  searchQuery: PropTypes.object,
-  totalResults: PropTypes.number,
   pagination: PropTypes.object.isRequired,
   setPage: PropTypes.func.isRequired,
   resultsView: PropTypes.string.isRequired,
@@ -103,17 +98,26 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
-const mapStateToProps = createStructuredSelector({
-  deviceFormat: selectDeviceFormat(),
-  results: selectAssignmentsResults(),
-  totalResults: selectAssignmentsTotal(),
-  pagination: selectAssignmentsPagination(),
-  resultsView: selectAssignmentsView(),
-  user: selectUser(),
-  sortOrder: selectAssignmentsSortOrder(),
-  loadingStatus: selectLoadingBookingDetailsStatus(),
+const mapStateToProps = (imustate) => {
+  const state = imustate.toJS();
+  const officerAssignments = state.eliteApiLoader.Bookings.Search.officerAssignments;
 
-});
+  const assignments = officerAssignments && {
+    results: officerAssignments.results,
+    totalResults: officerAssignments.meta && officerAssignments.meta.totalRecords,
+    pagination: officerAssignments.pagination,
+    error: officerAssignments.error,
+  };
 
-// Wrap the component to inject dispatch and state into it
+  const props = {
+    ...assignments,
+    deviceFormat: state.app.deviceFormat,
+    resultsView: state.assignments.view,
+    user: state.authentication.user,
+    sortOrder: state.assignments.sortOrder,
+  };
+
+  return props;
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(Assignments);

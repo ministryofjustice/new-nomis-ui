@@ -106,38 +106,31 @@ function EliteApiReducer(state = initialState, action) {
         Details: Map({}),
       }));
     }
+
     case BOOKINGS.SEARCH.LOADING: {
-      // Initialises a searchQuery &/or the sortorder/pagination object with status loading.
       const { query, pagination, sortOrder } = action.payload;
-      let QueryState = state.getIn(['Bookings', 'Search', query]);
-      if (!QueryState) {
-        QueryState = SearchQueryDefault;
-      }
-      // Loading a specific combination of query, pagination & sortOrder --- set Status.Type to LOADING for this specific combination.
-      const newQuery = QueryState.setIn(['Sorted', sortOrder], SortedSearchQuery.setIn(['Paginations', paginationHash(pagination), 'Status', 'Type'], 'LOADING'));
 
-      return state.setIn(['Bookings', 'Search', queryHash(query)], newQuery);
+      const resultResultModel = {
+        pagination: pagination || { pageNumber: 0, perPage: 10 },
+        sortOrder: sortOrder || 'ASC',
+      };
+
+      return state.setIn(['Bookings', 'Search', queryHash(query)], fromJS(resultResultModel));
     }
 
+    case BOOKINGS.SEARCH.ERROR:
     case BOOKINGS.SEARCH.SUCCESS: {
-      // Assuming that bookings search loading has already been called.
-      const { query, pagination, sortOrder, results, meta } = action.payload;
-      let newState;
-      newState = state.updateIn(['Bookings', 'Search', queryHash(query), 'Sorted', sortOrder],
-                              (sortPageState) => sortPageState.setIn(['Paginations', paginationHash(pagination), 'Status', 'Type'], 'SUCCESS')
-                                                              .update('SortedIds', (SortedIds) => results.reduce((sIds, inmateSummary, id) => sIds.set(originalId(id, pagination), inmateSummary.bookingId), SortedIds)));
+      const { query, pagination, sortOrder, results, meta, error } = action.payload;
 
-      newState = newState.setIn(['Bookings', 'Search', queryHash(query), 'MetaData', 'TotalRecords'], meta.totalRecords);
-      newState = newState.updateIn(['Bookings', 'Summaries'], (summaryState) => results.reduce((tempState, inmateSummary) => tempState.set(inmateSummary.bookingId, inmateSummary), summaryState));
-
-      return newState;
-    }
-
-    case BOOKINGS.SEARCH.ERROR: {
-      // Assuming that bookings search loading has already been called.
-      const { query, pagination, sortOrder, error } = action.payload;
-      return state.updateIn(['Bookings', 'Search', queryHash(query), 'Sorted', sortOrder, pagination], (sortPageState) => sortPageState.set(['Status'], fromJS({ Type: 'ERROR', error })))
-        .setIn(['Bookings', 'Details','LoadingStatus'], fromJS({ Type: null }));
+      const resultResultModel = {
+        pagination,
+        sortOrder,
+        results,
+        meta,
+        error,
+      };
+             
+      return state.setIn(['Bookings', 'Search', queryHash(query)], fromJS(resultResultModel));
     }
 
     case BOOKINGS.DETAILS.LOADING: {

@@ -26,8 +26,6 @@ import {
 
 
 import {
-  selectBookingResultStatus,
-  selectBookingResults,
   selectImageStatus,
   selectOfficerStatus,
   selectBookingDetails,
@@ -92,17 +90,12 @@ export function* bookingDetailsSaga(action) {
     yield put({ type: BOOKINGS.DETAILS.SUCCESS, payload: { ...data, aliases } });
     return { Type: 'SUCCESS' };
   } catch (err) {
-    yield put({ type: BOOKINGS.DETAILS.ERROR, payload: { bookingId, error: 'Something went wrong.' } });
+    yield put({ type: BOOKINGS.DETAILS.ERROR, payload: { bookingId, error: 'Something went wrong, please try again later' } });
     return { Type: 'ERROR', Error: err };
   }
 }
 
 export function* searchSaga({ query, pagination, sortOrder }) {
-  // First Check to see if this has already been called.
-  const currentStatus = yield select(selectBookingResultStatus({ query, pagination, sortOrder }));
-  if (currentStatus.Type === 'SUCCESS') {
-    return { inmatesSummaries: yield select(selectBookingResults({ query, pagination, sortOrder })) };
-  }
   yield put({ type: BOOKINGS.SEARCH.LOADING, payload: { query, pagination, sortOrder } });
 
   const apiServer = yield select(selectApi());
@@ -111,11 +104,10 @@ export function* searchSaga({ query, pagination, sortOrder }) {
     const isOffAss = query === 'officerAssignments';
     const bookingListFunction = isOffAss ? officerAssignments : searchOffenders;
     const res = yield call(bookingListFunction, query, pagination, apiServer);
+
     yield put({ type: BOOKINGS.SEARCH.SUCCESS, payload: { query, pagination, sortOrder, results: res.bookings, meta: { totalRecords: res.totalRecords } } });
-    return { inmatesSummaries: res.inmatesSummaries };
   } catch (err) {
-    yield put({ type: BOOKINGS.SEARCH.ERROR, payload: { query, pagination, sortOrder, error: err } });
-    return { error: err };
+    yield put({ type: BOOKINGS.SEARCH.ERROR, payload: { query, pagination, sortOrder, error: 'Something went wrong, please try again later' } });
   }
 }
 
@@ -311,10 +303,11 @@ export function* userSwitchCaseLoadsSaga(action) {
 
   try {
     yield call(users.switchCaseLoads, apiServer, caseLoadId);
-    yield put({ type: USER.SWITCHCASELOAD.SUCCESS, payload: action.payload });
+    yield put({ type: USER.SWITCHCASELOAD.SUCCESS, payload: caseLoadId });
 
     yield put(loadLocations());
     yield put(loadAssignments(true));
+    
     const state = yield select();
     const currPath = state.getIn(['route', 'locationBeforeTransitions', 'pathname']);
 

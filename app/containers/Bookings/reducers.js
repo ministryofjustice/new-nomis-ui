@@ -128,17 +128,7 @@ function searchReducer(state = initialState, action) {
     }
 
     case SET_RESULTS_VIEW: {
-      const cP = state.get('pagination').toJS();
-      const currentFirstId = cP.pageNumber * cP.perPage;
-      let newPerPage;
-      if (action.payload === 'Grid') {
-        newPerPage = 10;
-      } else if (action.payload === 'List') {
-        newPerPage = 10;
-      }
-      const newPageNumber = Math.floor(currentFirstId / newPerPage);
-      const newPagination = { perPage: newPerPage, pageNumber: newPageNumber };
-      return state.set('pagination', fromJS(newPagination)).set('resultsView', fromJS(action.payload));
+      return state.set('resultsView', fromJS(action.payload));
     }
 
     case CASE_NOTE_FILTER.SUCCESS: {
