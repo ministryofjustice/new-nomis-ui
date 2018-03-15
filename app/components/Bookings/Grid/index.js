@@ -25,8 +25,8 @@ const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
     {sortOrderChange && <div className="separator" />}
 
     <div className="grid">
-      {results.map((row) => (
-        <div className="grid-item" key={row.bookingId}>
+      {(results || []).map((row) => (
+        <div className="grid-item" key={`booking_grid_${row.bookingId}`}>
 
           <div className="person-block">
 

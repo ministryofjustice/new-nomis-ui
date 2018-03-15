@@ -1,10 +1,10 @@
 import { takeLatest, put, select, call } from 'redux-saga/effects';
-import { searchSaga as searchSagaElite } from 'containers/EliteApiLoader/sagas';
+import { SubmissionError } from 'redux-form';
 
+import { searchSaga as searchSagaElite } from 'containers/EliteApiLoader/sagas';
 import { hideSpinner, showSpinner } from 'globalReducers/app';
 
 import {
-  selectAssignmentsPagination,
   selectAssignmentsSortOrder,
 } from './selectors';
 
@@ -18,6 +18,10 @@ import {
   TOGGLE_ASSIGNMENTS_SORT_ORDER,
 } from './constants';
 
+import {
+  SEARCH_ERROR,
+} from '../Bookings/constants';
+
 export function* assignmentLoadWatcher() {
   yield takeLatest(LOAD_ASSIGNMENTS, assignmentLoadSaga);
 }
@@ -25,21 +29,19 @@ export function* assignmentLoadWatcher() {
 export function* assignmentLoadSaga(action) {
   const { resetPagination } = action.payload;
 
-  let pagination = yield select(selectAssignmentsPagination());
-  const sortOrder = yield select(selectAssignmentsSortOrder());
+  const pagination = yield select((state) => state.toJS().assignments && state.toJS().assignments.pagination);
+  const sortOrder = yield select((state) => state.toJS().assignments && state.toJS().assignments.sortOrder);
 
   try {
     yield put(showSpinner());
     if (resetPagination) {
-      pagination = Object.assign(pagination, { pageNumber: 0 });
-      yield put({ type: SET_ASSIGNMENTS_PAGINATION, payload: pagination });
+      yield put({ type: SET_ASSIGNMENTS_PAGINATION, payload: { ...pagination, pageNumber: 0 } });
     }
     yield call(searchSagaElite, { query: 'officerAssignments', pagination, sortOrder });
     yield put(hideSpinner());
   } catch (err) {
     yield put(hideSpinner());
-    console.error('error loading assignment data', err); // eslint-disable-line
-    // yield put({ type: SEARCH_ERROR, payload: new SubmissionError({ _error: err.message }) });
+    yield put({ type: SEARCH_ERROR, payload: new SubmissionError({ _error: 'Something went wrong, please try again later.' }) });
   }
 }
 
