@@ -5,160 +5,72 @@
       <!-- The first thing in any HTML file should be the charset -->
       <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
       <!-- Allow installing the app to the homescreen -->
-      <link rel="manifest" href="manifest.json">
+      <link rel="manifest" href="/manifest.json">
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
       <meta name="mobile-web-app-capable" content="yes">
       <title>Prison-NOMIS</title>
-      <link href="/styles.css" rel="stylesheet">
 
-
-      <style>
-        .header-content {
-          max-width: 1170px;
-          height: 100%;
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          justify-content: space-between;
-          margin: 0 auto;
-        }
-
-        .c-global-header {
-          font-family: "nta", Arial, sans-serif;
-          color: #0B0C0C;
-          display: -webkit-box;
-          display:    -moz-box;
-          display: -ms-flexbox;
-          display: -webkit-flex;
-          display:         flex;
-          -webkit-box-direction: normal;
-          -webkit-box-orient: horizontal;
-              -ms-flex-direction: row;
-          -webkit-flex-direction: row;
-                  flex-direction: row;
-          -webkit-box-align: center;
-          -ms-flex-align: center;
-          -webkit-align-items: center;
-                  align-items: center;
-          -webkit-box-pack: center;
-          -ms-flex-pack: center;
-          -webkit-justify-content: center;
-                  justify-content: center;
-          color: #FFFFFF;
-          background-color: #0B0C0C;
-          z-index: 999;
-          height: 60px;
-          width: 100%;
-        }
-
-        .brand-header {
-          float: left;
-        }
-
-        .header-image {
-          margin-left: 10px;
-          margin-right: 5px;
-          float: left;
-        }
-
-        .c-proposition-title {
-          text-decoration: none;
-          color: white;
-        }
-
-        .c-proposition-title__department {
-          display: inline-block;
-          color: white;
-          font-size: 26px;
-          padding: 3px 15px 0 10px;
-          font-weight: bold;
-          border-right: solid white 1px;
-          margin-right: 15px;
-          text-decoration: none;
-        }
-
-        .c-proposition-title__service {
-          text-align: left;
-          padding-left: 10px;
-          font-size: 26px;
-          -ms-flex-positive: 1;
-          -webkit-flex-grow: 1;
-                  flex-grow: 1;
-          text-decoration: none;
-          color: white;
-          padding-left: 0;
-        }
-
-        .c-heading {
-          margin-top: 20px;
-          margin-bottom: 20px;
-          font-size: 36px;
-          font-weight: bold;
-          color: #0B0C0C;
-        }
-
-      </style>
+      <meta content="#000000" name="theme-color">
+      <link href="/styles/grid.css" rel="stylesheet">
+      <!--<![endif]--><!--[if gt IE 8 ]>
+          <link rel='stylesheet' href='/styles/grid.css' type='text/css'>
+      <![endif]--><!--[if lt IE 9]>
+          <link rel='stylesheet' href='/styles/grid-old-ie.css' type='text/css'>
+      <![endif]-->
+      <link href="/styles/gov-uk.css" rel="stylesheet">
+      <link href="/styles/app.css" rel="stylesheet">
   </head>
   <body>
-
-
-    <!-- The app hooks into this div -->
     <div id="app">
-      <div class="app-content">
-        <header class="c-global-header">
+      <div class="content">
+        <header class="page-header">
           <div class="header-content">
-            <div class="brand-header">
-              <a href="/">
-                <div class="header-image eutrZT"></div>
+            <div class="left-content">
+              <a class="link" href="/" id="header_logo_keyworker_management_link" title="Key worker management link">
+                <div class="logo header-image"></div>
               </a>
-              <a class="c-proposition-title" href="/">
-                <span class="c-proposition-title__department">HMPPS</span>
-                <span class="c-proposition-title__service">Prison-NOMIS</span>
+              <a class="unstyled-link" href="/" id="header_logo_text_keyworker_management_link" title="Key worker management link">
+                <span class="logo-text">HMPPS</span>
+                <span class="title">Prison-NOMIS</span>
               </a>
             </div>
           </div>
         </header>
-
-        <main class="container">
-          <div class="main-content">
-              <div class="header">
-                <h1 class="c-heading">Sign in to Prison-NOMIS</h1>
-              </div>
-              <form method="POST" action="/login">
-                <div class="col-md-8">
-                  <% if (authError) { %>
-                    <div class="row">
-                      <div class="error-summary col-sm-6">The username or password you have entered is invalid.</div>
-                    </div>
-                  <% } %>
+        <div class="inner-content">
+          <div class="pure-g">
+            <div>
+              <h1 class="heading-large">Login</h1>
+              <div class="pure-u-md-8-12">
+                <% if (authError) { %>
                   <div class="row">
-                    <div class="form-group">
-                      <label class="form-label">Username</label>
-                      <div class="error-message"></div>
-                      <div>
-                        <input class="form-control" name="username"  autocomplete="off" type="text" required>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Password</label>
-                      <div class="error-message"></div>
-                      <div>
-                        <input class="form-control" name="password" autocomplete="off" type="password" required>
-                      </div>
-                    </div>
-                    <input class="button alert col-sm-2" value="Sign In" type="submit">
+                    <div class="error-summary col-sm-6">The username or password you have entered is invalid.</div>
                   </div>
-                  <div class="row">&nbsp;</div>
-                </div>
-              </form>
+                <% } %>
+                <form method="POST" action="/login">
+                  <div class="form-group">
+                    <label class="form-label" for="username">Username</label>
+                    <input class="form-control" id="username" name="username" type="text" value="" autocomplete="off" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input class="form-control" id="password" name="password" type="password" value="" autocomplete="off">
+                  </div>
+                  <button class="button pure-u-md-2-12" type="submit">Sign in</button>
+                </form>
+              </div>
+            </div>
           </div>
-        </main>
+        </div>
         <footer class="FooterContainer">
           <div class="footer-content">
             <div class="FooterLinksContainer">
-              <div class="FooterLink">Terms and conditions</div>
+              <div class="FooterLink">
+                Terms and conditions
+              </div>
             </div>
-            <div class="FooterSignature">Powered by Syscon Justice Systems</div>
+            <div class="FooterSignature">
+              Powered by TBC
+            </div>
           </div>
         </footer>
       </div>

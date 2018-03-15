@@ -2,20 +2,20 @@
 require('dotenv').config();
 
 const express = require('express');
-const { json: jsonParser, urlencoded } = require('body-parser');
+const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 const bunyanMiddleware = require('bunyan-middleware');
 const hsts = require('hsts');
 const appInsights = require('applicationinsights');
 const helmet = require('helmet');
-const { resolve } = require('path');
-const { logger } = require('./services/logger');
+const path = require('path');
 
 const argv = require('minimist')(process.argv.slice(2));
 const setup = require('./middlewares/frontend-middleware');
 const app = express();
 
+const { logger } = require('./services/logger');
 const apiProxy = require('./apiproxy');
 const application = require('./app');
 const controller = require('./controller');
@@ -61,29 +61,18 @@ app.use(hsts({
   includeSubDomains: true,
   preload: true,
 }));
-app.use(cookieParser());
-app.use(jsonParser());
+
+app.use(bunyanMiddleware({ logger }));
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use(cookieSession(sessionConfig));
-
-app.use(bunyanMiddleware({ 
-  logger,
-}));
+app.use(cookieParser());
 
 app.use(clientVersionValidator);
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', req.headers.host);
-  res.header('Cache-control', 'no-store');
-  res.header('Pragma', 'no-cache');
-  next();
-});
-
-
-app.use(express.static('fonts'));
-app.use(express.static('img'));
-
-app.use(session.hmppsSessionMiddleWare);
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Update a value in the cookie so that the set-cookie will be sent.
 // Only changes every minute so that it's not sent with every request.
@@ -105,9 +94,18 @@ app.use('/feedbackUrl', (req,res) => {
   });
 });
 
-app.get('/login', controller.loginIndex);
-app.post('/login', urlencoded({ extended: false }), controller.login);
+app.use('/health', apiProxy);
+app.use('/info', apiProxy);
+app.use('/docs', apiProxy);
+app.use('/api/swagger.json', apiProxy);
+
+app.get('/login', session.loginMiddleware, controller.loginIndex);
+app.post('/login', controller.login);
 app.get('/logout', controller.logout);
+
+app.use(session.hmppsSessionMiddleWare);
+app.use(session.extendHmppsCookieMiddleWare);
+
 app.use('/app/photo', controller.images);
 app.use('/app/keydates/:bookingId', controller.keyDates);
 app.use('/app/bookings/details/:bookingId', controller.bookingDetails);
@@ -118,14 +116,10 @@ app.use('/app/bookings/loadAppointmentViewModel/:agencyId', controller.loadAppoi
 app.use('/app/bookings/addAppointment/:bookingId', controller.addAppointment);
 
 app.use('/app', application.sessionHandler);
-app.use('/health', apiProxy);
-app.use('/info', apiProxy);
-app.use('/docs', apiProxy);
-app.use('/api/swagger.json', apiProxy);
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
-  outputPath: resolve(process.cwd(), 'build'),
+  outputPath: path.resolve(process.cwd(), 'build'),
   publicPath: '/',
 });
 
