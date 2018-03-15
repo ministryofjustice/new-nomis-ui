@@ -29,9 +29,6 @@ function MobileMenu({ user, setMobileMenuOpen, showTerms, switchCaseLoad }) {
       <MobileMenuOption to={'/'} onClick={removeMobileMenu}>Search<ForwardArrow svg={forwardBack} /></MobileMenuOption>
       <MobileMenuOption to={'/assignments'} onClick={removeMobileMenu}>
         My Assignments
-        <NotificationNumberAssignments>
-          {user.totalAssignments}
-        </NotificationNumberAssignments>
         <ForwardArrow svg={forwardBack} />
       </MobileMenuOption>
       {user.caseLoadOptions.map((option) => {
