@@ -8,7 +8,7 @@ module.exports = {
     expiryMinutes: process.env.WEB_SESSION_TIMEOUT_IN_MINUTES || 20,
   },
   session: {
-    name: process.env.SESSION_COOKIE_NAME || 'notm-session-dev',
+    name: 'notm-session',
     secret: process.env.SESSION_COOKIE_SECRET || 'keyboard cat',
     expiryMinutes: process.env.WEB_SESSION_TIMEOUT_IN_MINUTES || 20,
   },
