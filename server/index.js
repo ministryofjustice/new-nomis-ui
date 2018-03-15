@@ -67,8 +67,8 @@ app.use(bunyanMiddleware({ logger }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(cookieSession(sessionConfig));
 app.use(cookieParser());
+app.use(cookieSession(sessionConfig));
 
 app.use(clientVersionValidator);
 
