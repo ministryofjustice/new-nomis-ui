@@ -46,7 +46,7 @@ function authenticationReducer(state = initialState, action) {
         .set('passwordInput', action.password);
     }
     case USER.SWITCHCASELOAD.SUCCESS: {
-      return state.update('user', (userState) => ({ ...userState, activeCaseLoadId: action.payload.caseLoadId }));
+      return state.update('user', (userState) => ({ ...userState, activeCaseLoadId: action.payload }));
     }
     default: {
       return state;
