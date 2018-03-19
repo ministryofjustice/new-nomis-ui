@@ -2,36 +2,58 @@ const config = require('./config');
 
 const sessionExpiryMinutes = config.hmppsCookie.expiryMinutes * 60 * 1000;
 
-const encodeToBase64 = (string) => new Buffer(string).toString('base64');
+const encodeToBase64 = (string) => Buffer.from(string).toString('base64');
+const decodedFromBase64 = (string) => Buffer.from(string, 'base64').toString('ascii');
+const getNowInMinutes = () => Math.floor(Date.now() / 60e3);
 
-const decodedFromBase64 = (string) => new Buffer(string, 'base64').toString('ascii');
+const isAuthenticated = (req) => req.session && req.session.isAuthenticated;
+const isHmppsCookieValid = (cookie) => {
+  if (!cookie) {
+    return false;
+  }
 
-const isAuthenticated = (request) => request.session && request.session.isAuthenticated;
+  const cookieData = getHmppsCookieData(cookie);
 
-const hmppsSessionMiddleWare = (req,res, next) => {
+  if (!cookieData.access_token || !cookieData.refresh_token) {
+    return false;
+  }
+
+  return true;
+};
+
+const hmppsSessionMiddleWare = (req, res, next) => {
   const hmppsCookie = req.cookies[config.hmppsCookie.name];
+  const isXHRRequest = req.xhr || req.headers.accept.indexOf('json') > -1;
 
-  if (!hmppsCookie) {
-    next();
+  if (!isHmppsCookieValid(hmppsCookie)) {
+    req.session = null;
+
+    if (isXHRRequest) {
+      res.status(401);
+      res.end();
+      return;
+    }
+
+    res.redirect('/login');
     return;
   }
 
   const cookie = getHmppsCookieData(hmppsCookie);
 
-  if (cookie.access_token && cookie.refresh_token) {
-    req.access_token = cookie.access_token;
-    req.refresh_token = cookie.refresh_token;
+  req.access_token = cookie.access_token;
+  req.refresh_token = cookie.refresh_token;
 
-    if (!isAuthenticated(req)) {
-      req.session.isAuthenticated = true;
-    }
+
+  if (!isAuthenticated(req)) {
+    req.session.isAuthenticated = true;
   }
 
   next();
-}
+};
 
 const setHmppsCookie = (res, { access_token, refresh_token }) => {
-  const tokens = encodeToBase64(JSON.stringify({ access_token, refresh_token }));
+  const tokens = encodeToBase64(JSON.stringify({ access_token, refresh_token, nowInMinutes: getNowInMinutes() }));
+
   const cookieConfig = {
     domain: config.hmppsCookie.domain,
     encode: String,
@@ -47,20 +69,55 @@ const setHmppsCookie = (res, { access_token, refresh_token }) => {
 
 const getHmppsCookieData = (cookie) => JSON.parse(decodedFromBase64(cookie));
 
-const updateHmppsCookie = (response) => (tokens) => {
-  setHmppsCookie(response, tokens);
+const extendHmppsCookieMiddleWare = (req, res, next) => {
+  const hmppsCookie = req.cookies[config.hmppsCookie.name];
+
+  if (!hmppsCookie) {
+    next();
+    return;
+  }
+
+  const { nowInMinutes, access_token, refresh_token } = getHmppsCookieData(hmppsCookie);
+
+  if (nowInMinutes === getNowInMinutes()) {
+    next();
+    return;
+  }
+
+  setHmppsCookie(res, { access_token, refresh_token });
+  next();
 };
 
-const deleteHmppsCookie = (response) => {
-  response.clearCookie(config.hmppsCookie.name, { path: '/' });
-}
+const updateHmppsCookie = (res) => (tokens) => {
+  setHmppsCookie(res, tokens);
+};
+
+const deleteHmppsCookie = (res) => {
+  res.cookie(config.hmppsCookie.name, '', { expires: new Date(0), domain: config.hmppsCookie.domain, path: '/' });
+};
+
+const loginMiddleware = (req, res, next) => {
+  if (req.url.includes('logout')) {
+    next();
+    return;
+  }
+
+  if (isAuthenticated(req)) {
+    res.redirect('/');
+    return;
+  }
+  next();
+};
 
 const service = {
-  deleteHmppsCookie,
-  hmppsSessionMiddleWare,
   setHmppsCookie,
   updateHmppsCookie,
+  deleteHmppsCookie,
   isAuthenticated,
+  getNowInMinutes,
+  hmppsSessionMiddleWare,
+  extendHmppsCookieMiddleWare,
+  loginMiddleware,
 };
 
 module.exports = service;
