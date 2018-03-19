@@ -101,7 +101,7 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
             url,
             method,
             responseType,
-            headers: getHeaders({ headers, reqHeaders, token: response.data.access_token }),
+            headers: getHeaders({ headers, reqHeaders, access_token: response.data.access_token }),
           });
         })
     }
