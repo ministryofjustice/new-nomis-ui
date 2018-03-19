@@ -121,7 +121,7 @@ const refreshTokenRequest = ({ headers, reqHeaders, token }) => axios({
   method: 'post',
   url: 'oauth/token',
   headers: getClientHeaders({ headers, reqHeaders }),
-  form: `refresh_token=${token}&grant_type=refresh_token`,
+  data: `refresh_token=${token}&grant_type=refresh_token`,
 });
 
 const getClientHeaders = ({ headers, reqHeaders }) => Object.assign({}, headers, {

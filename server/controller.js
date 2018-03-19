@@ -24,7 +24,7 @@ const loginIndex = (req, res) => {
 };
 
 const login = (req, res) => {
-  const data = `username=${req.body.username.toString().toUpperCase()}&password=${req.body.password}&grant_type=password`;
+  const loginData = `username=${req.body.username.toString().toUpperCase()}&password=${req.body.password}&grant_type=password`;
   elite2Api.httpRequest({
     method: 'post',
     url: 'oauth/token',
@@ -32,7 +32,7 @@ const login = (req, res) => {
       authorization: `Basic ${elite2Api.encodeClientCredentials()}`,
       'Content-Type': 'application/x-www-form-urlencoded',
     },
-    form: data,
+    data: loginData,
   }).then((response) => {
     req.session.isAuthenticated = true;
 
