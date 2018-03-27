@@ -35,6 +35,7 @@ import {
   toggleSortOrder,
 } from '../actions';
 
+import { NEW_SEARCH } from '../constants';
 
 const ResultsViewBuilder = ({ viewName, results, onViewDetails, sortOrderChange, sortOrder, router }) => viewName === 'List' ?
   <BookingTable results={results} viewDetails={onViewDetails} sortOrderChange={sortOrderChange} sortOrder={sortOrder} /> :
@@ -48,6 +49,12 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
 
   componentDidMount() {
     this.refs.focuspoint.scrollIntoView();
+
+    const { locationPrefix, keywords } = this.props.location.query;
+
+    if (locationPrefix || keywords) {
+      this.props.getSearchResults({ locationPrefix, keywords })
+    }
   }
 
   render() {
@@ -122,6 +129,7 @@ export function mapDispatchToProps(dispatch) {
     setResultsView: (pagination) => dispatch(setResultsView(pagination)),
     loadLocations: () => dispatch(loadLocations()),
     toggleSortOrder: () => dispatch(toggleSortOrder()),
+    getSearchResults: (query) => dispatch({ type: NEW_SEARCH, payload: { query, resetPagination: true } }),
   };
 }
 

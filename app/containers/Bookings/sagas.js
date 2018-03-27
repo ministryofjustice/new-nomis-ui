@@ -1,5 +1,6 @@
 import { takeLatest, put, select, call } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
+import qs from 'query-string';
 import { SubmissionError } from 'redux-form/immutable';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 import { bookingDetailsSaga as bookingDetailsElite } from 'containers/EliteApiLoader/sagas';
@@ -313,6 +314,7 @@ export function* newSearch(action) {
         type: VIEW_DETAILS,
         payload: {
           bookingId: result.bookings[0].bookingId,
+          activeTabId: DETAILS_TABS.OFFENDER_DETAILS,
         },
       });
 
@@ -332,7 +334,10 @@ export function* newSearch(action) {
       },
     });
 
-    if (action.redirectToResults) { yield put(push('/results')); }
+    yield put(push({
+      pathname: '/results',
+      search: `?${qs.stringify(query)}`,
+    }));
 
     yield put(hideSpinner());
   } catch (err) {
