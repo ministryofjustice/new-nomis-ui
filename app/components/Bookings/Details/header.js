@@ -9,8 +9,14 @@ import { toFullName } from 'utils/stringUtils';
 import './header.scss';
 
 const Alerts = ({ activeAlertCount, inactiveAlertCount }) => <div className="alerts">
-  <span className="active-alert"> <b>{activeAlertCount}</b> <span> active </span> </span>
-  <span> <b className="inactive-alert">{inactiveAlertCount}</b> <span> inactive </span> </span>
+  <span className="active-alert">
+    <strong>{activeAlertCount}</strong>
+    <span> active </span>
+  </span>
+  <span>
+    <strong className="inactive-alert">{inactiveAlertCount}</strong>
+    <span> inactive </span>
+  </span>
 </div>
 
 const Location = ({ assignedLivingUnit }) =>
@@ -18,11 +24,11 @@ const Location = ({ assignedLivingUnit }) =>
     <label>Location</label>
 
     <div>
-      <b> {assignedLivingUnit && assignedLivingUnit.get('description')} </b>
+      <strong>{assignedLivingUnit && assignedLivingUnit.get('description')}</strong>
     </div>
 
     <div>
-      <b> {assignedLivingUnit && assignedLivingUnit.get('agencyName')} </b>
+      <strong>{assignedLivingUnit && assignedLivingUnit.get('agencyName')}</strong>
     </div>
   </div>
 
@@ -32,14 +38,14 @@ const MiddleSection = ({ inmateData }) => <div className="middle-section">
     <div className="row">
       <div className="col">
         <label>IEP</label>
-        <b>{inmateData.get('iepLevel') || '--'}</b>
+        <strong>{inmateData.get('iepLevel') || '--'}</strong>
       </div>
     </div>
 
     <div className="row">
       <div className="col">
         <label>CSRA</label>
-        <b>{inmateData.get('csra') || '--'}</b>
+        <strong>{inmateData.get('csra') || '--'}</strong>
       </div>
     </div>
   </div>
@@ -65,7 +71,6 @@ const MiddleSection = ({ inmateData }) => <div className="middle-section">
   <div className="visible-small">
     <div className="col-xs-4">
       <div className="row">
-
         <div className="col">
           <label>Alerts</label>
           <Alerts activeAlertCount={inmateData.get('activeAlertCount')} inactiveAlertCount={inmateData.get('inactiveAlertCount')} />
@@ -115,14 +120,14 @@ function Header({ inmateData, onImageClick, bookingId }) {
                   <div className="row">
                     <div className="col">
                       <label>Prison number</label>
-                      <b>{inmateData.get('offenderNo')}</b>
+                      <strong>{inmateData.get('offenderNo')}</strong>
                     </div>
                   </div>
 
                   <div className="row">
                     <div className="col">
                       <label>Key worker</label>
-                      <b> <EliteOfficerName staffId={inmateData.get('assignedOfficerId')} /> </b>
+                      <strong>{inmateData.get('assignedOfficerId') && <EliteOfficerName staffId={inmateData.get('assignedOfficerId')} /> }</strong>
                     </div>
                   </div>
               </div>

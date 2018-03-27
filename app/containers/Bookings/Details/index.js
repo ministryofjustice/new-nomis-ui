@@ -35,11 +35,24 @@ const tabData = [
   { tabId: DETAILS_TABS.KEY_DATES, title: 'Key dates', mobileTitle: 'Key dates', component: KeyDates, componentMobile: KeyDates },
 ];
 
+const parseActiveTab = (needle) => {
+  const keys = Object.keys(DETAILS_TABS);
+  const haystack = keys.map(key => DETAILS_TABS[key]);
+
+  if (haystack.includes(needle)) {
+    return needle;
+  }
+
+  return DETAILS_TABS.OFFENDER_DETAILS;
+}
+
 class Details extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   async componentDidMount() {
     const { activeTab, bookingId } = this.props.params;
-    this.props.viewDetails(bookingId, activeTab || DETAILS_TABS.OFFENDER_DETAILS);
+    const tab = parseActiveTab(activeTab);
+
+    this.props.viewDetails(bookingId, tab);
   }
 
   render() {
@@ -52,9 +65,7 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
       params,
     } = this.props;
 
-    const activeTab = params.activeTab;
-
-    const activeTabId = activeTab || DETAILS_TABS.OFFENDER_DETAILS;
+    const activeTabId = parseActiveTab(params.activeTab);
     const bookingId = Number(params.bookingId);
     const itemId = params.itemId;
     const viewMode = params.viewMode;
