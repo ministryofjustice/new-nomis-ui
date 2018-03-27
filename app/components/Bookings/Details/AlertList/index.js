@@ -1,6 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { FormattedDate } from 'react-intl';
+import uuid from 'uuid/v4';
+
+import { List } from 'immutable';
 
 import {
   AlertHolder,
@@ -15,37 +18,39 @@ import {
 } from './theme';
 
 function AlertList({ alerts }) {
-  if (!alerts || !alerts.length) {
+  if (!alerts.size) {
     return <h1 className="bold-medium">There are no alerts for this offender.</h1>
   }
 
   return (
     <AlertHolder>
-      {alerts.map((alert, index) => {
-        const key = `${alert.alertId},${index}`;
-        return (<AlertItem key={key} expired={alert.expired}>
-          <AlertTypeWrapper expired={alert.expired}>
-            <AlertType>{alert.alertType}</AlertType>
-            <AlertTypeDescription>{String(alert.alertTypeDescription)}</AlertTypeDescription>
+      {alerts.map((alert) => (
+        <AlertItem key={uuid()} expired={alert.get('expired')}>
+          <AlertTypeWrapper expired={alert.get('expired')}>
+            <AlertType>{alert.get('alertType')}</AlertType>
+            <AlertTypeDescription>{String(alert.get('alertTypeDescription'))}</AlertTypeDescription>
           </AlertTypeWrapper>
           <AlertCodeWrapper>
-            <AlertCodeDescription>{alert.alertCodeDescription} ({alert.alertCode})</AlertCodeDescription>
-            {alert.expired ?
-              <AlertComment>Expired: <FormattedDate value={Date.parse(alert.dateExpires)} /></AlertComment>
+            <AlertCodeDescription>{alert.get('alertCodeDescription')} ({alert.get('alertCode')})</AlertCodeDescription>
+            {alert.get('expired') ?
+              <AlertComment>Expired: <FormattedDate value={Date.parse(alert.get('dateExpires'))} /></AlertComment>
               :
-              <AlertComment>{alert.comment}</AlertComment>
+              <AlertComment>{alert.get('comment')}</AlertComment>
             }
-            <AlertEntryDate>Entry date: <FormattedDate value={Date.parse(alert.dateCreated)} /></AlertEntryDate>
+            <AlertEntryDate>Entry date: <FormattedDate value={Date.parse(alert.get('dateCreated'))} /></AlertEntryDate>
           </AlertCodeWrapper>
-        </AlertItem>);
-      })
-      }
+        </AlertItem>)
+      )}
     </AlertHolder>
   );
 }
 
 AlertList.propTypes = {
-  alerts: PropTypes.array.isRequired,
+  alerts: ImmutablePropTypes.list,
+};
+
+AlertList.defaultProps = {
+  alerts: List([]),
 };
 
 export default AlertList;

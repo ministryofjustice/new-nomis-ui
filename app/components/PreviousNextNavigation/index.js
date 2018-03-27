@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import uuid from 'uuid/v4';
+import { Map, List } from 'immutable';
 
 import { PrevNextNavContainer, PrevNextNavWrapper, PrevNavigatorRegion, NextNavigatorRegion, NavigatorContent, VisuallyHiddenSpan, PageNumbers } from './theme';
 
@@ -38,12 +40,18 @@ const GetNextNavigationRegion = ({ pN, pageAction, totalPages }) =>
 
 
 PreviousNextNavigation.propTypes = {
-  pagination: PropTypes.object.isRequired,
-  totalRecords: PropTypes.number.isRequired,
-  pageAction: PropTypes.func.isRequired,
+  pagination: PropTypes.object,
+  totalRecords: PropTypes.number,
+  pageAction: PropTypes.func,
 };
 
 PreviousNextNavigation.defaultProps = {
+  pagination: Map({
+    perPage: 10,
+    pageNumber: 0,
+  }),
+  totalRecords: 0,
+  pageAction: () => {},
 };
 
 export default PreviousNextNavigation;

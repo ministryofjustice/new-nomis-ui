@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { param } from 'change-case';
+
 import TabNav from 'components/Bookings/Details/tabMenu';
 import TabNavMobile from 'components/Bookings/Details/tabMenuMobile';
 import { Link } from 'react-router';
@@ -16,7 +18,7 @@ import KeyDates from './KeyDates';
 import QuickLook from './QuickLook';
 import BookingsDetailsHeader from './header';
 import { selectCurrentDetailTabId, selectDisplayAddCaseNoteModal, selectShouldShowLargePhoto, selectImageId } from '../selectors';
-import { setDetailsTab, hideLargePhoto } from '../actions';
+import { setDetailsTab, hideLargePhoto, viewDetails } from '../actions';
 import './index.scss';
 
 import {
@@ -35,22 +37,31 @@ const tabData = [
 
 class Details extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
+  async componentDidMount() {
+    const { activeTab, bookingId } = this.props.params;
+    this.props.viewDetails(bookingId, activeTab || DETAILS_TABS.OFFENDER_DETAILS);
+  }
+
   render() {
     const {
-      activeTabId,
       setTab,
       deviceFormat,
       imageId,
       shouldShowLargePhoto,
       hidePhoto,
+      params,
     } = this.props;
 
-    const ActiveTab = tabData.filter(tab => tab.tabId === activeTabId)[0];
+    const activeTab = params.activeTab;
 
+    const activeTabId = activeTab || DETAILS_TABS.OFFENDER_DETAILS;
+    const bookingId = Number(params.bookingId);
+    const itemId = params.itemId;
+    const viewMode = params.viewMode;
+    const ActiveTab = tabData.filter(tab => tab.tabId === activeTabId)[0];
     const TabComponentDesktop = ActiveTab.component;
     const TabComponentMobile = ActiveTab.componentMobile;
     const TabComponent = deviceFormat === 'desktop' ? TabComponentDesktop : TabComponentMobile;
-
 
     if (shouldShowLargePhoto) {
       return (
@@ -69,24 +80,24 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
 
       <div className="detail-content">
 
-        <BookingsDetailsHeader />
+        <BookingsDetailsHeader bookingId={bookingId} />
 
         {deviceFormat === 'desktop' ?
           <TabNav
             tabData={tabData.map((tab) => Object.assign(tab, { action: () => {
               analyticsService.pageView(`offender details - ${tab.title}`);
-              setTab(tab.tabId);
+              this.props.viewDetails(bookingId, tab.tabId);
             } }))}
             activeTabId={activeTabId}
           /> :
           <TabNavMobile
             tabData={tabData.map((tab) => Object.assign(tab, { action: () => {
               analyticsService.pageView(`offender details - ${tab.title}`);
-              setTab(tab.tabId);
+              this.props.viewDetails(bookingId, tab.tabId);
             } }))}
             activeTabId={activeTabId}
           />}
-        <TabComponent />
+        <TabComponent bookingId={bookingId} itemId={itemId} />
       </div>
     );
   }
@@ -94,13 +105,20 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
 
 Details.propTypes = {
   deviceFormat: PropTypes.string.isRequired,
-  activeTabId: PropTypes.number.isRequired,
+  // activeTabId: PropTypes.number.isRequired,
   setTab: PropTypes.func.isRequired,
+};
+
+Details.defaultProps = {
+  deviceFormat: '',
+  activeTabId: '',
+  setTab: () => {},
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
-    setTab: (id) => dispatch(setDetailsTab(id)),
+    viewDetails: (bookingId, activeTabId) => dispatch(viewDetails(bookingId, activeTabId)),
+    setTab: (id, bookingId) => dispatch(setDetailsTab(id, bookingId)),
     hidePhoto: (imageId) => dispatch(hideLargePhoto(imageId)),
   };
 }

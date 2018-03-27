@@ -28,7 +28,6 @@ import {
   APPOINTMENT,
 } from 'containers/EliteApiLoader/constants';
 
-
 import {
   selectSearchResultsPagination,
   selectSearchResultsSortOrder,
@@ -45,6 +44,7 @@ import {
 } from './actions';
 
 import {
+  DETAILS_TABS,
   SEARCH,
   SEARCH_SUCCESS,
   SEARCH_ERROR,
@@ -131,7 +131,7 @@ export function* onAddAppointment(action) {
       bookingId,
     });
 
-    yield put(push('/bookings/details'));
+    yield put(push(`/offenders/${bookingId}`));
 
     yield notify.show('Appointment has been created successfully.','success');
   } catch (err) {
@@ -145,22 +145,17 @@ export function* addCasenoteWatcher() {
 
 export function* addCasenoteSaga(action) {
   const { typeAndSubType: { type, subType }, caseNoteText: text,startTime } = action.payload.query;
-  const bookingId = yield select(selectBookingDetailsId());
+  const bookingId = action.payload.bookingId;
   const apiServer = yield select(selectApi());
   try {
     yield call(addCaseNote, apiServer, bookingId, type, subType, text, startTime);
 
     yield put({ type: ADD_NEW_CASENOTE.SUCCESS });
-    // Reset casenotes
     yield put(resetCaseNotes(bookingId));
-    // load casenotes again...
-    const pagination = yield select(selectCaseNotesPagination());
-    const query = yield select(selectCaseNotesQuery());
-    yield put(loadBookingCaseNotes(bookingId, pagination, query));
 
-    // Go to casenotes tab...
-    yield put(setDetailsTab(3));
-    yield put(push('/bookings/details'));
+    yield put(loadBookingCaseNotes(bookingId));
+
+    yield put(push(`/offenders/${bookingId}/${DETAILS_TABS.CASE_NOTES}`));
 
     yield notify.show('Case note has been created successfully.','success');
   } catch (e) {
@@ -293,8 +288,8 @@ export function* newSearch(action) {
     yield put(showSpinner());
 
     // Temporary hack to set a default location if one is not provided.  This is because select box does not default to first item in list
-    if (!query.locationPrefix && locations.length > 0) {
-      query.locationPrefix = locations[0].locationPrefix;
+    if (!query.locationPrefix && locations.size > 0) {
+      query.locationPrefix = locations.getIn([0, 'locationPrefix']);
     }
     if (resetPagination) {
       pagination = { ...pagination, pageNumber: 0 };
@@ -356,22 +351,17 @@ export function* amendCaseNoteWatcher() {
 }
 
 export function* onAmendCaseNote(action) {
-  const { amendmentText } = action.payload;
-  const bookingId = yield select(selectBookingDetailsId());
-  const caseNoteId = yield select(selectCaseNotesDetailId());
+  const { amendmentText, bookingId, caseNoteId } = action.payload;
+
   const apiServer = yield select(selectApi());
 
   try {
     yield call(amendCaseNote, apiServer, bookingId, caseNoteId, amendmentText);
     yield put({ type: AMEND_CASENOTE.SUCCESS });
 
-    // Reset casenotes
-    const pagination = yield select(selectCaseNotesPagination());
-    const query = yield select(selectCaseNotesQuery());
-    yield put(resetCaseNotes(bookingId, pagination, query));
-    // load casenotes again...
-    yield put(loadBookingCaseNotes(bookingId, pagination, query));
-    yield put(push('/bookings/details'));
+    yield put(loadBookingCaseNotes(bookingId));
+
+    yield put(push(`/offenders/${bookingId}/${DETAILS_TABS.CASE_NOTES}`));
     yield notify.show('Case note has been amended successfully.','success');
   } catch (err) {
     yield put({ type: AMEND_CASENOTE.ERROR,
@@ -384,16 +374,13 @@ export function* detailsWatcher() {
   yield takeLatest(VIEW_DETAILS, viewDetails);
 }
 
+
 export function* viewDetails(action) {
   yield put(showSpinner());
   yield put({ type: SET_DETAILS, payload: action.payload });
   const { Type } = yield call(bookingDetailsElite, action); //eslint-disable-line
   if (Type !== 'ERROR') {
-    yield put(push('/bookings/details'));
-
-    if (typeof action.payload.activeTabId === 'number') {
-      yield put({ type: SET_DETAILS_TAB, payload: action.payload });
-    }
+    yield put(push(`/offenders/${action.payload.bookingId}/${action.payload.activeTabId}`))
   }
   yield put(hideSpinner());
 }
@@ -435,7 +422,7 @@ export function* detailCaseNotesPaginationWatcher() {
 export function* detailCaseNotesPagination(action) {
   // Load new data first, then switch in view.
   yield put(loadBookingCaseNotes(action.payload.bookingId, action.payload.pagination, action.payload.query));
-  yield put({ type: SET_CASENOTES_PAGINATION, payload: action.payload.pagination });
+  yield put({ type: BOOKINGS.CASENOTES.SET_PAGINATION, payload: action.payload });
 }
 
 export function* setCaseNoteFilterWatcher() {
@@ -444,15 +431,12 @@ export function* setCaseNoteFilterWatcher() {
 
 export function* setCaseNoteFilterSaga(action) {
   const { query, resetPagination, goToPage } = action.payload;
-  let pagination = yield select(selectSearchResultsPagination());
-  const bookingId = yield select(selectBookingDetailsId());
 
   try {
     if (resetPagination) {
-      pagination = Object.assign(pagination, { pageNumber: 0 });
-      yield put({ type: SET_CASENOTES_PAGINATION, payload: pagination });
+      yield put({ type: BOOKINGS.CASENOTES.RESET, payload: action.payload });
     }
-    yield put({ type: BOOKINGS.CASENOTES.BASE, payload: { bookingId, query, pagination } });
+    yield put({ type: BOOKINGS.CASENOTES.BASE, payload: action.payload });
     yield put({ type: CASE_NOTE_FILTER.SUCCESS,
       payload: {
         query,

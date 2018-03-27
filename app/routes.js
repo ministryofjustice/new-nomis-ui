@@ -68,7 +68,7 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/bookings/details/addCaseNote',
+      path: '/offenders/:bookingId/addCaseNote',
       name: 'addCaseNote',
       onEnter: onEnter({ routeName: 'addCaseNote' }),
       getComponent(nextState, cb) {
@@ -130,7 +130,71 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/bookings/details',
+      path: '/offenders/:bookingId/scheduled',
+      name: 'scheduled',
+      onEnter: onEnter({ routeName: 'scheduled 7 day view' }),
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/Bookings/reducers'),
+          System.import('containers/Bookings/sagas'),
+          System.import('containers/Bookings/Details/Scheduled'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('search', reducer.default);
+          injectSagas('search', sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      path: '/offenders/:bookingId/addAppointment',
+      name: 'AddAppointment',
+      onEnter: onEnter({ routeName: 'Add appointment' }),
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/Bookings/reducers'),
+          System.import('containers/Bookings/sagas'),
+          System.import('containers/Bookings/Details/AddAppointment'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('search', reducer.default);
+          injectSagas('search', sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      path: '/offenders/:bookingId/amendCaseNote/:caseNoteId',
+      name: 'amendCaseNote',
+      onEnter: onEnter({ routeName: 'amendCaseNote' }),
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/Bookings/Details/CaseNotes/AmendCaseNote'),
+          System.import('containers/Bookings/sagas'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component,sagas]) => {
+          injectSagas('bookings', sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      path: '/offenders/:bookingId(/:activeTab)(/:itemId)',
       name: 'search results',
       onEnter: onEnter({ routeName: 'offender details' }),
       getComponent(nextState, cb) {
@@ -167,68 +231,6 @@ export default function createRoutes(store) {
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('search', reducer.default);
           injectSagas('search', sagas.default);
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    },
-    {
-      path: '/bookings/details/scheduled',
-      name: 'scheduled',
-      onEnter: onEnter({ routeName: 'scheduled 7 day view' }),
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/Bookings/reducers'),
-          System.import('containers/Bookings/sagas'),
-          System.import('containers/Bookings/Details/Scheduled'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('search', reducer.default);
-          injectSagas('search', sagas.default);
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    },
-    {
-      path: '/bookings/details/addAppointment',
-      name: 'AddAppointment',
-      onEnter: onEnter({ routeName: 'Add appointment' }),
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/Bookings/reducers'),
-          System.import('containers/Bookings/sagas'),
-          System.import('containers/Bookings/Details/AddAppointment'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('search', reducer.default);
-          injectSagas('search', sagas.default);
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    },
-    {
-      path: '/bookings/details/amendCaseNote',
-      name: 'amendCaseNote',
-      onEnter: onEnter({ routeName: 'amendCaseNote' }),
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/Bookings/Details/CaseNotes/AmendCaseNote'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([component]) => {
           renderRoute(component);
         });
 

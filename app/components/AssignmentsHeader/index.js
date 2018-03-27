@@ -6,7 +6,6 @@ import { AssignmentsHeaderWrapper,
   PortraitImage,
   UserName,
   CaseLoad,
-  // SwitchCaseLoad,
   YouHaveAssignments,
   NotificationNumberAssignments,
   ResultsViewToggleWrapper,
@@ -17,10 +16,25 @@ function AssignmentsHeader({ user, options, resultsViewToggle }) {
   return user && (
     <AssignmentsHeaderWrapper>
       <PortraitImage background={'/img/assignmentsHeader-missing-portrait.png'} />
-      <UserName>{toFullName(user)}</UserName>
-      <CaseLoad>{user.activeCaseLoadId}</CaseLoad>{/* <SwitchCaseLoad>Switch Caseload</SwitchCaseLoad> */}
-      <YouHaveAssignments>You have <NotificationNumberAssignments>{options.assignments}</NotificationNumberAssignments> Assignments</YouHaveAssignments>
-      <ResultsViewToggleWrapper>{resultsViewToggle}</ResultsViewToggleWrapper>
+      <UserName>
+        {toFullName({
+          firstName: user.firstName,
+          lastName: user.lastName,
+          name: user.name,
+        })}
+      </UserName>
+
+      <CaseLoad>{user.activeCaseLoadId}</CaseLoad>
+
+      <YouHaveAssignments>
+        <span>You have </span>
+        <NotificationNumberAssignments>{options.assignments} &nbsp;</NotificationNumberAssignments>
+        <span>Assignments</span>
+      </YouHaveAssignments>
+
+      <ResultsViewToggleWrapper>
+        {resultsViewToggle}
+      </ResultsViewToggleWrapper>
     </AssignmentsHeaderWrapper>
   );
 }

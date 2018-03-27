@@ -5,18 +5,19 @@ import { Link } from 'react-router';
 import { splitCamelCase, properCase } from 'utils/stringUtils';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectHeaderDetail } from 'containers/Bookings/selectors';
+
+import { Model as offenderDetailsModel } from 'helpers/dataMappers/offenderDetails';
 
 import './index.scss';
 
-export const buildBreadcrumb = ({ route, offender, context }) => {
+export const buildBreadcrumb = ({ route, offender, context, bookingId }) => {
   const nameString = offender &&
     toFullName({ firstName: offender.firstName, lastName: offender.lastName });
-  
+
   if (route === '/') { return []; }
 
   const homeCrumb = { name: 'Home', route: '/' };
-  const offenderCrumb = { name: nameString, route: '/bookings/details' };
+  const offenderCrumb = { name: nameString, route: `/offenders/${bookingId}` };
   const addCaseNote = { name: 'Add case note', route: '/addCaseNote' };
   const addAppointments = { name: 'Add appointment', route: '/addAppointment' };
   const addSchedule = { name: 'Schedule', route: '/scheduled' };
@@ -48,32 +49,32 @@ export const buildBreadcrumb = ({ route, offender, context }) => {
     ];
   }
 
-  if (route === '/bookings/details') {
+  if (route === `/offenders/${bookingId}`) {
     return [...offenderBasedBreadcrumbs];
   }
 
-  if (route === '/bookings/details/addCaseNote') {
+  if (route === `/offenders/${bookingId}/addCaseNote`) {
     return [
       ...offenderBasedBreadcrumbs,
       addCaseNote,
     ];
   }
 
-  if (route === '/bookings/details/addAppointment') {
+  if (route === `/offenders/${bookingId}/addAppointment`) {
     return [
       ...offenderBasedBreadcrumbs,
       addAppointments,
     ];
   }
 
-  if (route === '/bookings/details/scheduled') {
+  if (route === `/offenders/${bookingId}/scheduled`) {
     return [
       ...offenderBasedBreadcrumbs,
       addSchedule,
     ];
   }
 
-  if (route === '/bookings/details/amendCaseNote') {
+  if (route === `/offenders/${bookingId}/amendCaseNote`) {
     return [
       ...offenderBasedBreadcrumbs,
       amendCaseNote,
@@ -98,8 +99,8 @@ export const buildBreadcrumb = ({ route, offender, context }) => {
 };
 
 
-function Breadcrumbs({ route, offenderDetails, context }) {
-  const breadcrumbArray = buildBreadcrumb({ route, offender: offenderDetails , context });
+function Breadcrumbs({ route, offenderDetails, context, bookingId }) {
+  const breadcrumbArray = buildBreadcrumb({ route, offender: offenderDetails , context, bookingId });
 
   return (
     <div className="bread-crumbs col-xs-12 no-left-gutter" data-name={'Breadcrumbs'}>
@@ -115,21 +116,18 @@ function Breadcrumbs({ route, offenderDetails, context }) {
   );
 }
 
-Breadcrumbs.defaultProps = {
-  context: null,
-};
-
 Breadcrumbs.propTypes = {
   route: PropTypes.string.isRequired,
-  context: PropTypes.string,
+  context: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = createStructuredSelector({
-  offenderDetails: selectHeaderDetail(),
-});
+const mapStateToProps = (immutableState, props) => {
+  const offenderDetails = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.bookingId, 'Data']) || offenderDetailsModel;
 
-const mapDispatchToProps = (dispatch) => ({
+  return {
+    offenderDetails,
+    bookingId: props.bookingId,
+  };
+};
 
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Breadcrumbs);
+export default connect(mapStateToProps)(Breadcrumbs);

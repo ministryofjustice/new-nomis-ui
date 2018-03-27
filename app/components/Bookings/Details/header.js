@@ -13,31 +13,33 @@ const Alerts = ({ activeAlertCount, inactiveAlertCount }) => <div className="ale
   <span> <b className="inactive-alert">{inactiveAlertCount}</b> <span> inactive </span> </span>
 </div>
 
-const Location = ({ assignedLivingUnit }) => <div>
-  <label>Location</label>
-
+const Location = ({ assignedLivingUnit }) =>
   <div>
-    <b> {assignedLivingUnit.description} </b>
+    <label>Location</label>
+
+    <div>
+      <b> {assignedLivingUnit && assignedLivingUnit.get('description')} </b>
+    </div>
+
+    <div>
+      <b> {assignedLivingUnit && assignedLivingUnit.get('agencyName')} </b>
+    </div>
   </div>
 
-  <div>
-    <b> {assignedLivingUnit.agencyName} </b>
-  </div>
-</div>
 
-const MiddleSection = ({ iepLevel, csra, activeAlertCount, inactiveAlertCount, assignedLivingUnit }) => <div className="middle-section">
+const MiddleSection = ({ inmateData }) => <div className="middle-section">
   <div className="col-xs-4 col-sm-3">
     <div className="row">
       <div className="col">
         <label>IEP</label>
-        <b>{iepLevel || '--'}</b>
+        <b>{inmateData.get('iepLevel') || '--'}</b>
       </div>
     </div>
 
     <div className="row">
       <div className="col">
         <label>CSRA</label>
-        <b>{csra || '--'}</b>
+        <b>{inmateData.get('csra') || '--'}</b>
       </div>
     </div>
   </div>
@@ -48,13 +50,13 @@ const MiddleSection = ({ iepLevel, csra, activeAlertCount, inactiveAlertCount, a
 
         <div className="col">
           <label>Alerts</label>
-          <Alerts activeAlertCount={activeAlertCount} inactiveAlertCount={inactiveAlertCount} />
+          <Alerts activeAlertCount={inmateData.get('activeAlertCount')} inactiveAlertCount={inmateData.get('inactiveAlertCount')} />
         </div>
       </div>
 
       <div className="row">
         <div className="col">
-          <Location assignedLivingUnit={assignedLivingUnit} />
+          <Location assignedLivingUnit={inmateData.get('assignedLivingUnit')} />
         </div>
       </div>
     </div>
@@ -66,7 +68,7 @@ const MiddleSection = ({ iepLevel, csra, activeAlertCount, inactiveAlertCount, a
 
         <div className="col">
           <label>Alerts</label>
-          <Alerts activeAlertCount={activeAlertCount} inactiveAlertCount={inactiveAlertCount} />
+          <Alerts activeAlertCount={inmateData.get('activeAlertCount')} inactiveAlertCount={inmateData.get('inactiveAlertCount')} />
         </div>
       </div>
 
@@ -75,7 +77,7 @@ const MiddleSection = ({ iepLevel, csra, activeAlertCount, inactiveAlertCount, a
     <div className="col-xs-4">
       <div className="row">
         <div className="col">
-          <Location assignedLivingUnit={assignedLivingUnit} />
+          <Location assignedLivingUnit={inmateData.get('assignedLivingUnit')} />
         </div>
       </div>
     </div>
@@ -83,10 +85,8 @@ const MiddleSection = ({ iepLevel, csra, activeAlertCount, inactiveAlertCount, a
 
 </div>
 
-function Header({ inmateData, onImageClick }) {
-  const { firstName, lastName, offenderNo, facialImageId, activeAlertCount,inactiveAlertCount, assignedLivingUnit, assignedOfficerId, iepLevel, csra } = inmateData;
-
-  const nameString = toFullName({ firstName, lastName });
+function Header({ inmateData, onImageClick, bookingId }) {
+  const nameString = toFullName({ firstName: inmateData.get('firstName'), lastName: inmateData.get('lastName') });
 
   return (
     <div className="header-details">
@@ -94,8 +94,8 @@ function Header({ inmateData, onImageClick }) {
       <div className="row">
 
           <div className="col-md-2 col-xs-3 no-left-gutter no-right-gutter">
-              <div className="photo clickable" onClick={() => onImageClick(facialImageId)}>
-                <EliteImage imageId={facialImageId} />
+              <div className="photo clickable" onClick={() => onImageClick(inmateData.get('facialImageId'))}>
+                <EliteImage imageId={inmateData.get('facialImageId')} />
               </div>
           </div>
 
@@ -115,20 +115,20 @@ function Header({ inmateData, onImageClick }) {
                   <div className="row">
                     <div className="col">
                       <label>Prison number</label>
-                      <b>{offenderNo}</b>
+                      <b>{inmateData.get('offenderNo')}</b>
                     </div>
                   </div>
 
                   <div className="row">
                     <div className="col">
                       <label>Key worker</label>
-                      <b> <EliteOfficerName staffId={assignedOfficerId} /> </b>
+                      <b> <EliteOfficerName staffId={inmateData.get('assignedOfficerId')} /> </b>
                     </div>
                   </div>
               </div>
 
               <div className="visible-large">
-                  <MiddleSection {...inmateData} />
+                  <MiddleSection inmateData={inmateData} />
               </div>
 
            </div>
@@ -138,16 +138,16 @@ function Header({ inmateData, onImageClick }) {
         <div className="row">
 
           <div className="visible-small">
-              <MiddleSection {...inmateData} />
+              <MiddleSection inmateData={inmateData} />
           </div>
 
           <div>
             <div>
-              <Link className="button-link" to={'/bookings/details/addCaseNote'}>Add case note</Link>
+              <Link className="button-link" to={`/offenders/${bookingId}/addCaseNote`}>Add case note</Link>
             </div>
 
             <div className="add-gutter-margin-top">
-              <Link className="button-link" to={'/bookings/details/addAppointment'}>Add appointment</Link>
+              <Link className="button-link" to={`/offenders/${bookingId}/addAppointment`}>Add appointment</Link>
             </div>
           </div>
 
@@ -161,6 +161,7 @@ function Header({ inmateData, onImageClick }) {
 Header.propTypes = {
   inmateData: PropTypes.object.isRequired,
   onImageClick: PropTypes.func.isRequired,
+  bookingId: PropTypes.number.isRequired,
 };
 
 export default Header;

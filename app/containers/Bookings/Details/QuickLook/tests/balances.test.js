@@ -5,7 +5,14 @@ import { Balances } from '../index';
 
 describe('Balance component', () => {
   it('should show zero when values', () => {
-    const balances = shallow(<Balances spends={null} cash={null} savings={null} currency={'gbp'} />);
+    const balances = shallow(
+      <Balances
+        spends={0}
+        cash={0}
+        savings={0}
+        currency={'gbp'}
+      />
+    );
 
     expect(balances.contains(
       <FormattedNumber

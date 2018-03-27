@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { reduxForm, Field } from 'redux-form/immutable';
 import { createFormAction } from 'redux-form-saga';
 
@@ -48,7 +49,7 @@ class SearchAgainForm extends React.PureComponent {  // eslint-disable-line reac
                 </label>
             <Field className="form-control" name="locationPrefix" component="select">
               {locations.map((location) =>
-                <option key={location.locationPrefix} value={location.locationPrefix}>{location.description}</option>
+                <option key={location.get('locationPrefix')} value={location.get('locationPrefix')}>{location.get('description')}</option>
                   )}
             </Field>
 
@@ -57,19 +58,19 @@ class SearchAgainForm extends React.PureComponent {  // eslint-disable-line reac
           <div className="row col-md-3">
 
             <label className="form-label visible-md visible-lg">
-                  &nbsp;
+                &nbsp;
             </label>
 
             <div className="visible-md visible-lg">
               <button className="button" type="submit" disabled={submitting}>
-                    Search again
+                Search again
               </button>
             </div>
 
             <div className="visible-xs visible-sm">
               <button className="button" type="submit" disabled={submitting}>
-                    Search again
-                  </button>
+                Search again
+              </button>
             </div>
 
           </div>
@@ -83,7 +84,7 @@ SearchAgainForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
-  locations: PropTypes.array.isRequired,
+  locations: ImmutablePropTypes.list.isRequired,
 };
 
 SearchAgainForm.defaultProps = {

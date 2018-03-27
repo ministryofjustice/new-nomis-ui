@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { createStructuredSelector } from 'reselect';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import BookingTable from 'components/Bookings/Table';
 import BookingGrid from 'components/Bookings/Grid';
 import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMessage';
+import { List } from 'immutable';
 import { connect } from 'react-redux';
 import ResultsViewToggle from 'components/ResultsViewToggle';
 import { setSearchContext } from 'globalReducers/app';
@@ -34,7 +36,7 @@ import {
 } from '../actions';
 
 
-const ResultsViewBuilder = ({ viewName, results, onViewDetails, sortOrderChange, sortOrder }) => viewName === 'List' ?
+const ResultsViewBuilder = ({ viewName, results, onViewDetails, sortOrderChange, sortOrder, router }) => viewName === 'List' ?
   <BookingTable results={results} viewDetails={onViewDetails} sortOrderChange={sortOrderChange} sortOrder={sortOrder} /> :
   <BookingGrid results={results} viewDetails={onViewDetails} sortOrderChange={sortOrderChange} sortOrder={sortOrder} />;
 
@@ -72,7 +74,7 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
 
           <div className="row">
 
-            <NoSearchResultsReturnedMessage resultCount={results.length} />
+            <NoSearchResultsReturnedMessage resultCount={results.size} />
 
             {totalResults > 0 &&
               <ResultsViewBuilder
@@ -95,21 +97,22 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
 }
 
 SearchResults.propTypes = {
-  results: PropTypes.array.isRequired,
+  results: ImmutablePropTypes.list.isRequired,
   viewDetails: PropTypes.func.isRequired,
   totalResults: PropTypes.number,
   pagination: PropTypes.object.isRequired,
   setPage: PropTypes.func.isRequired,
   resultsView: PropTypes.string,
   setResultsView: PropTypes.func,
-  locations: PropTypes.array,
+  locations: ImmutablePropTypes.list,
 };
 
 SearchResults.defaultProps = {
+  results: List([]),
   totalResults: 0,
   resultsView: 'List',
   setResultsView: () => {},
-  locations: [],
+  locations: List([]),
 };
 
 export function mapDispatchToProps(dispatch) {

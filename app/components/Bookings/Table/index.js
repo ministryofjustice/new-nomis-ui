@@ -1,19 +1,24 @@
 import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import React from 'react';
+import { browserHistory } from 'react-router'
 
 import EliteImage from 'containers/EliteContainers/Image';
 import Name from 'components/Name';
+import { DETAILS_TABS } from 'containers/Bookings/constants';
+
 import './index.scss';
 
 const ArrowUp = ({ sortOrderChange }) => <span className="clickable" onClick={sortOrderChange}> &#9650; </span>;
 const ArrowDown = ({ sortOrderChange }) => <span className="clickable" onClick={sortOrderChange}> &#9660; </span>;
 
-const onViewDetails = (e, row, viewDetails) => {
-  e.preventDefault(e);
-  viewDetails(row.bookingId);
+const onViewDetails = (event, row) => {
+  event.preventDefault();
+
+  browserHistory.push(`/offenders/${row.get('bookingId')}/${DETAILS_TABS.OFFENDER_DETAILS}`)
 };
 
-const Table = ({ results, viewDetails, sortOrder, sortOrderChange }) => (
+const Table = ({ results, sortOrder, sortOrderChange }) => (
   <div className="booking-table">
     <div className="row">
 
@@ -42,43 +47,45 @@ const Table = ({ results, viewDetails, sortOrder, sortOrderChange }) => (
       </div>
     </div>
 
-      {(results || []).map((row) =>
-        <div className="row" key={`booking_table_${row.bookingId}`}>
+      {(results).map((row) =>
+        <div className="row" key={`booking_table_${row.get('bookingId')}`}>
           <div className="col-xs-3 col-md-2 remove-left-padding">
-            <div className="photo clickable" onClick={(e) => onViewDetails(e, row, viewDetails)}>
-              <EliteImage imageId={row.facialImageId} />
+            <div className="photo clickable" onClick={(e) => onViewDetails(e, row)}>
+              <EliteImage imageId={row.get('facialImageId')} />
             </div>
           </div>
           <div className="col-xs-4 col-md-3 add-margin-top">
             <span>
-              <div role="link" className="bold link" onClick={(e) => onViewDetails(e, row, viewDetails)}>
-                <Name lastName={row.lastName} firstName={row.firstName} />
+              <div role="link" className="bold link" onClick={(e) => onViewDetails(e, row)}>
+                <Name lastName={row.get('lastName')} firstName={row.get('firstName')} />
               </div>
             </span>
           </div>
           <div className="col-xs-2 col-md-2 add-margin-top">
-            <span>{row.offenderNo}</span>
+            <span>{row.get('offenderNo')}</span>
           </div>
           <div className="visible-md visible-lg col-md-2 add-margin-top">
-            <span>{row.iepLevel}</span>
+            <span>{row.get('iepLevel')}</span>
           </div>
           <div className="visible-md visible-lg col-md-1 add-margin-top">
-            <span>{row.age}</span>
+            <span>{row.get('age')}</span>
           </div>
           <div className="col-xs-3 col-md-2 add-margin-top">
-            <span>{row.assignedLivingUnitDesc}</span>
+            <span>{row.get('assignedLivingUnitDesc')}</span>
           </div>
         </div>
     )}
     </div>
 );
 
+Table.defaultProps = {
+  sortOrderChange: () => {},
+}
+
 Table.propTypes = {
-  results: PropTypes.array.isRequired,
-  viewDetails: PropTypes.func.isRequired,
+  results: ImmutablePropTypes.list.isRequired,
   sortOrderChange: PropTypes.func.isRequired,
   sortOrder: PropTypes.string.isRequired,
-
 };
 
 export default Table;

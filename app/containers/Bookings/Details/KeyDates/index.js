@@ -3,6 +3,13 @@ import { FormattedDate } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import ImmutablePropTypes from 'react-immutable-proptypes';
+
+import uuid from 'uuid/v4';
+import { Map, List } from 'immutable';
+
+import { Model as keyDatesModel } from 'helpers/dataMappers/keydates';
+
 import {
   selectBookingDetailsId,
   selectKeyDatesViewModel,
@@ -41,58 +48,58 @@ const ErrorMessage = () => (<div>
 
 
 const SentenceView = ({ additionalDaysAwarded, dtoReleaseDates, nonDtoReleaseDate, sentenceExpiryDates, other,reCategorisationDate }) => {
-  const shouldShowNonDtoReleaseDate = nonDtoReleaseDate && nonDtoReleaseDate.label && nonDtoReleaseDate.value;
-  const shouldShowOtherDates = other && other.dates && other.dates.length > 0;
+  const shouldShowNonDtoReleaseDate = Boolean((nonDtoReleaseDate.get('label') && nonDtoReleaseDate.get('value')));
+  const shouldShowOtherDates = other.get('dates').size > 0;
 
-  return (<div>
-    <h3 className="heading-medium">
-      Key dates
-    </h3>
+  return (
+    <div>
+      <h3 className="heading-medium">
+        Key dates
+      </h3>
 
-    <div className="section">
-      <div className="information-group">
+      <div className="section">
+        <div className="information-group">
 
-        { (dtoReleaseDates || []).map(pair => <KeyDatePair key={pair.label} title={pair.label} date={pair.value} />)}
-        { additionalDaysAwarded && additionalDaysAwarded !== 0 ? <KeyDatePair title=" Additional days awarded" text={additionalDaysAwarded} /> : null}
-        { (sentenceExpiryDates || []).map(pair => <KeyDatePair title={pair.label} date={pair.value} />)}
-        { shouldShowNonDtoReleaseDate && <KeyDatePair title={nonDtoReleaseDate.label} date={nonDtoReleaseDate.value} /> }
-        { shouldShowOtherDates &&
-          other.dates.map(otherDate => <KeyDatePair key={otherDate.label} title={otherDate.label} date={otherDate.value} />)
-        }
+          { dtoReleaseDates.map(pair => <KeyDatePair key={uuid()} title={pair.get('label')} date={pair.get('value')} />)}
+          { additionalDaysAwarded ? <KeyDatePair title=" Additional days awarded" text={additionalDaysAwarded} /> : null}
+          { sentenceExpiryDates.map(pair => <KeyDatePair title={pair.get('label')} date={pair.get('value')} />)}
+          { shouldShowNonDtoReleaseDate && <KeyDatePair title={nonDtoReleaseDate.get('label')} date={nonDtoReleaseDate.get('value')} /> }
+          { shouldShowOtherDates &&
+            other.get('dates').map(otherDate => <KeyDatePair key={otherDate.get('label')} title={otherDate.get('label')} date={otherDate.get('value')} />)
+          }
 
-        <div className="information">
-          <label>
-            Re-categorisation date
-          </label>
+          <div className="information">
+            <label>
+              Re-categorisation date
+            </label>
 
-          <b>
-            {!reCategorisationDate && '--'}
-            {reCategorisationDate && <FormattedDate value={reCategorisationDate} /> }
-          </b>
+            <b>
+              {!reCategorisationDate && '--'}
+              {reCategorisationDate && <FormattedDate value={reCategorisationDate} /> }
+            </b>
 
+          </div>
         </div>
-
       </div>
     </div>
-  </div>)
+  )
 }
 
 class KeyDates extends Component {
   componentDidMount() {
-    const { bookingId,loadContent } = this.props;
+    const { bookingId, loadContent } = this.props;
 
     loadContent(bookingId);
   }
   render() {
-    const { viewModel, error } = this.props;
+    const { keyDates, error } = this.props;
 
-    if (error) { return <ErrorMessage /> }
-    if (!viewModel) { return <div></div> }
+    const sentence = keyDates.get('sentence');
 
-    const { iepLevel, daysSinceReview, sentence, other, reCategorisationDate } = viewModel && viewModel.toJS();
+    if (error.size > 0) { return <ErrorMessage /> }
+
     return (
         <div className="key-dates">
-
          <div>
             <h3 className="heading-medium no-top-margin">
               Incentives and earned privileges
@@ -106,7 +113,7 @@ class KeyDates extends Component {
                     IEP Level
                   </label>
                   <b>
-                    {iepLevel}
+                    {keyDates.get('iepLevel')}
                   </b>
                 </div>
 
@@ -115,7 +122,7 @@ class KeyDates extends Component {
                     Days since review
                   </label>
                   <b>
-                    {daysSinceReview}
+                    {keyDates.get('daysSinceReview')}
                   </b>
                 </div>
 
@@ -123,7 +130,14 @@ class KeyDates extends Component {
             </div>
           </div>
 
-          { sentence && <SentenceView {...sentence} other={other} reCategorisationDate={reCategorisationDate} /> }
+            <SentenceView
+              additionalDaysAwarded={sentence.get('additionalDaysAwarded')}
+              dtoReleaseDates={sentence.get('dtoReleaseDates')}
+              nonDtoReleaseDate={sentence.get('nonDtoReleaseDate')}
+              sentenceExpiryDates={sentence.get('sentenceExpiryDates')}
+              other={keyDates.get('other')}
+              reCategorisationDate={keyDates.get('reCategorisationDate')}
+            />
         </div>
     )
   }
@@ -135,11 +149,17 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
-const mapStateToProps = createStructuredSelector({
-  bookingId: selectBookingDetailsId(),
-  viewModel: selectKeyDatesViewModel(),
-  error: selectError(),
-});
+const mapStateToProps = (immutableState, props) => {
+  const keyDates = immutableState.getIn(['search','details','keyDatesViewModel']) || keyDatesModel;
+  const error = immutableState.getIn(['search','details','error']) || Map({});
+
+  return {
+    keyDates,
+    bookingId: props.bookingId,
+    error,
+  }
+};
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(KeyDates);
 

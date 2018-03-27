@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { intlShape } from 'react-intl';
 import { connect } from 'react-redux';
@@ -8,7 +8,7 @@ import { loadImage } from 'containers/EliteApiLoader/actions';
 import { selectImageDataUrl } from './selectors';
 import { Image } from './theme';
 
-class EliteImage extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+class EliteImage extends Component { // eslint-disable-line react/prefer-stateless-function
 
   static contextTypes = {
     intl: intlShape.isRequired,
@@ -19,7 +19,11 @@ class EliteImage extends PureComponent { // eslint-disable-line react/prefer-sta
     loadImage: PropTypes.func.isRequired,
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    this.props.loadImage();
+  }
+
+  componentDidUpdate() {
     this.props.loadImage();
   }
 

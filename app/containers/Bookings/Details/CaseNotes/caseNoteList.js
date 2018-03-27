@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
+import uuid from 'uuid/v4';
 import { createStructuredSelector } from 'reselect';
 
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
@@ -26,33 +27,27 @@ import {
 } from '../../actions';
 
 class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
-
-  componentWillMount() {
-    const { loadCaseNotes, bookingId, caseNotesPagination, caseNotesQuery } = this.props;
-    loadCaseNotes(bookingId, caseNotesPagination, caseNotesQuery);
-  }
-
   render() {
     const { setCaseNoteView, caseNotesStatus, caseNotes, totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination } = this.props;
     return (
       <div>
-        {caseNotesStatus.Type === 'SUCCESS' ?
+        <div>
+          <CaseNoteFilterForm bookingId={bookingId} />
           <div>
-            <CaseNoteFilterForm />
-            <div>
-              <NoSearchResultsReturnedMessage resultCount={caseNotes.toJS().length} />
-            </div>
-            <div className="add-gutter-top">
-              {caseNotes.map((caseNote) => <CaseNoteListItem
-                action={() => setCaseNoteView(caseNote.get('caseNoteId'))}
-                caseNote={caseNote} key={caseNote.get('caseNoteId')}
-              />)}
-            </div>
-            <PreviousNextNavigation pagination={caseNotesPagination} totalRecords={totalResults} pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)} />
+            <NoSearchResultsReturnedMessage resultCount={caseNotes.size} />
           </div>
-          :
-          <div></div>
-        }
+          <div className="add-gutter-top">
+            {caseNotes.map((caseNote) => <CaseNoteListItem
+              action={() => setCaseNoteView(caseNote.get('caseNoteId'))}
+              caseNote={caseNote} key={uuid()}
+            />)}
+          </div>
+          <PreviousNextNavigation
+            pagination={caseNotesPagination}
+            totalRecords={totalResults}
+            pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)}
+          />
+        </div>
       </div>
     );
   }
@@ -64,7 +59,6 @@ CaseNotes.propTypes = {
   caseNotes: PropTypes.object.isRequired,
   caseNotesPagination: PropTypes.object.isRequired,
   caseNotesQuery: PropTypes.object.isRequired,
-  loadCaseNotes: PropTypes.func.isRequired,
   setPagination: PropTypes.func.isRequired,
   totalResults: PropTypes.number,
   setCaseNoteView: PropTypes.func.isRequired,
@@ -75,22 +69,4 @@ CaseNotes.defaultProps = {
   totalResults: 0,
 };
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    loadCaseNotes: (id, pagination, query) => dispatch(loadBookingCaseNotes(id, pagination, query)),
-    setPagination: (id, pagination, query) => dispatch(setCaseNotesPagination(id, pagination, query)),
-    setCaseNoteView: (id) => dispatch(setCaseNotesDetailView(id)),
-  };
-}
-
-const mapStateToProps = createStructuredSelector({
-  caseNotes: selectCaseNotes(),
-  caseNotesStatus: selectCaseNotesStatus(),
-  caseNotesPagination: selectCaseNotesPagination(),
-  caseNotesQuery: selectCaseNotesQuery(),
-  bookingId: selectBookingDetailsId(),
-  totalResults: selectTotalCaseNotes(),
-});
-
-// Wrap the component to inject dispatch and state into it
-export default connect(mapStateToProps, mapDispatchToProps)(CaseNotes);
+export default CaseNotes;

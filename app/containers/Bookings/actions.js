@@ -5,6 +5,10 @@
  */
 
 import {
+  BOOKINGS,
+} from 'containers/EliteApiLoader/constants';
+
+import {
   SEARCH,
   VIEW_DETAILS,
   SET_DETAILS_TAB,
@@ -23,7 +27,6 @@ import {
   LOAD_QUICK_LOOK,
   LOAD_SCHEDULED_EVENTS,
 } from './constants';
-
 
 export function loadLocations(offset) {
   return {
@@ -104,10 +107,10 @@ export function setResultsView(view) {
   };
 }
 
-export function setCaseNotesDetailView(caseNoteId) {
+export function setCaseNotesDetailView(bookingId, caseNoteId) {
   return {
-    type: VIEW_CASENOTE_DETAILS,
-    payload: { caseNoteId },
+    type: BOOKINGS.CASENOTES.VIEW_DETAILS,
+    payload: { bookingId, caseNoteId },
   };
 }
 export function setCaseNotesListView() {

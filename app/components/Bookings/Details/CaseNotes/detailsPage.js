@@ -38,7 +38,13 @@ const AmendmentBlock = ({ dateTime, authorName, text }) => (<div className="row 
 
 
 const CaseNoteDetails = (props) => {
-  const { caseNote, backToCaseNotes, addAmendment } = props;
+  const {
+    caseNote,
+    backToCaseNotes,
+    addAmendment,
+    caseNoteId,
+    bookingId,
+  } = props;
 
   if (!caseNote) {
     return <div>Loading..</div>
@@ -52,7 +58,6 @@ const CaseNoteDetails = (props) => {
     subTypeDescription,
     typeDescription,
     amendments,
-    bookingId,
   } = caseNote.toJS();
 
   const amendmentList = amendments.map((am) =>
@@ -101,7 +106,7 @@ const CaseNoteDetails = (props) => {
            {amendmentList}
 
            <div className="add-gutter-top add-gutter-bottom">
-             <button className="button-cancel" onClick={() => addAmendment()}>Make amendment</button>
+             <button className="button-cancel" onClick={() => addAmendment(bookingId, caseNoteId)}>Make amendment</button>
            </div>
          </div>
 
@@ -116,13 +121,14 @@ CaseNoteDetails.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    backToCaseNotes: (bookingId) => dispatch(viewDetails(bookingId, DETAILS_TABS.CASE_NOTES)),
-    addAmendment: () => dispatch(push('/bookings/details/amendCaseNote')),
+    backToCaseNotes: (bookingId) => dispatch(push(`/offenders/${bookingId}/${DETAILS_TABS.CASE_NOTES}`)),
+    addAmendment: (bookingId, caseNoteId) => dispatch(push(`/offenders/${bookingId}/amendCaseNote/${caseNoteId}`)),
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  bookingId: selectBookingDetailsId(),
+const mapStateToProps = (state, props) => ({
+  bookingId: props.bookingId,
+  caseNoteId: props.caseNoteId,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CaseNoteDetails);

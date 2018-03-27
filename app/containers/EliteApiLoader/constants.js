@@ -40,7 +40,6 @@ export const BOOKINGS = {
   },
   DETAILS: {
     BASE: 'app/eliteApiLoader/bookings/DETAILS',
-    LOADING: 'app/eliteApiLoader/bookings/DETAILS/loading',
     SUCCESS: 'app/eliteApiLoader/bookings/DETAILS/success',
     ERROR: 'app/eliteApiLoader/bookings/DETAILS/error',
   },
@@ -56,6 +55,8 @@ export const BOOKINGS = {
     LOADING: 'app/eliteApiLoader/bookings/CASENOTES/loading',
     SUCCESS: 'app/eliteApiLoader/bookings/CASENOTES/success',
     ERROR: 'app/eliteApiLoader/bookings/CASENOTES/error',
+    SET_PAGINATION: 'app/eliteApiLoader/bookings/CASENOTES/set-pagination',
+    VIEW_DETAILS: 'app/eliteApiLoader/bookings/CASENOTES/view-details',
   },
 };
 

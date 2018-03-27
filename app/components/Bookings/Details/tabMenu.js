@@ -16,7 +16,7 @@ function TabMenu({ tabData, activeTabId }) {
 
 TabMenu.propTypes = {
   tabData: PropTypes.array.isRequired,
-  activeTabId: PropTypes.number.isRequired,
+  activeTabId: PropTypes.string.isRequired,
 };
 
 

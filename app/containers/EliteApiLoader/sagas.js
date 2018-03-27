@@ -73,15 +73,6 @@ export function* bookingDetailsWatcher() {
 export function* bookingDetailsSaga(action) {
   const { bookingId } = action.payload;
 
-  const allDetails = yield select(selectBookingDetails());
-  const currentStatus = allDetails.getIn([bookingId, 'Status', 'Type']);
-
-  if (currentStatus === 'SUCCESS' || currentStatus === 'LOADING') {
-    return { Type: currentStatus };
-  }
-
-  yield put({ type: BOOKINGS.DETAILS.LOADING, payload: { bookingId } });
-
   const apiServer = yield select(selectApi());
 
   try {
@@ -96,8 +87,6 @@ export function* bookingDetailsSaga(action) {
 }
 
 export function* searchSaga({ query, pagination, sortOrder }) {
-  yield put({ type: BOOKINGS.SEARCH.LOADING, payload: { query, pagination, sortOrder } });
-
   const apiServer = yield select(selectApi());
 
   try {
@@ -117,20 +106,13 @@ export function* bookingAlertsWatch() {
 
 export function* bookingAlertsSaga(action) {
   const { bookingId, pagination } = action.payload;
-  const allDetails = yield select(selectBookingDetails());
-  const currentAlertsStatus = allDetails.getIn([bookingId, 'Alerts', 'Paginations', paginationHash(pagination), 'Status', 'Type']);
-
-  if (currentAlertsStatus === 'LOADING') {
-    return { Type: currentAlertsStatus };
-  }
+  const apiServer = yield select(selectApi());
 
   yield put(showSpinner());
-  yield put({ type: BOOKINGS.ALERTS.LOADING, payload: { bookingId, pagination } });
-
-  const apiServer = yield select(selectApi());
 
   try {
     const data = yield call(bookingAlerts, apiServer, bookingId, pagination);
+
     yield put({ type: BOOKINGS.ALERTS.SUCCESS, payload: { bookingId, pagination, results: data.alerts, meta: { totalRecords: data.totalRecords } } });
     yield put(hideSpinner());
     return { Type: 'SUCCESS' };
@@ -148,15 +130,7 @@ export function* bookingCaseNotesWatch() {
 export function* bookingCaseNotesSaga(action) {
   const { bookingId, pagination, query } = action.payload;
 
-  const allDetails = yield select(selectBookingDetails());
-  const currentCaseNotesStatus = allDetails.getIn([bookingId, 'CaseNotes', 'Query', queryHash(query), 'Paginations', paginationHash(pagination), 'Status', 'Type']);
-  if (currentCaseNotesStatus === 'LOADING') {
-    return { Type: currentCaseNotesStatus };
-  }
-
   yield put(showSpinner());
-
-  yield put({ type: BOOKINGS.CASENOTES.LOADING, payload: { bookingId, pagination, query } });
 
   const apiServer = yield select(selectApi());
 
@@ -307,7 +281,7 @@ export function* userSwitchCaseLoadsSaga(action) {
 
     yield put(loadLocations());
     yield put(loadAssignments(true));
-    
+
     const state = yield select();
     const currPath = state.getIn(['route', 'locationBeforeTransitions', 'pathname']);
 

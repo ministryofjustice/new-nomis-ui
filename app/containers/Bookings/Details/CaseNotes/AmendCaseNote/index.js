@@ -17,7 +17,7 @@ import './index.scss';
 class AmendCaseNote extends Component {
 
   render() {
-    const { handleSubmit, error, submitting, goBackToBookingDetails, bookingId } = this.props;
+    const { handleSubmit, error, submitting, goBackToBookingDetails, bookingId, caseNoteId } = this.props;
 
     if (this.props && this.props.error) {
       window.scrollTo(0,0);
@@ -63,7 +63,7 @@ class AmendCaseNote extends Component {
   }
 }
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch, props) {
   return {
     goBackToBookingDetails: (bookingId) => dispatch(viewDetails(bookingId, DETAILS_TABS.CASE_NOTES)),
     onSubmit: createFormAction((formData) => (
@@ -71,15 +71,18 @@ export function mapDispatchToProps(dispatch) {
         type: AMEND_CASENOTE.BASE,
         payload: {
           ...formData.toJS(),
+          bookingId: props.params.bookingId,
+          caseNoteId: props.params.caseNoteId,
         },
       }),
       [AMEND_CASENOTE.SUCCESS, AMEND_CASENOTE.ERROR]),
   };
 }
 
-const mapStateToProps = createStructuredSelector({
-  bookingId: selectBookingDetailsId(),
-});
+const mapStateToProps = (state, props) => ({
+  bookingId: props.params.bookingId,
+  caseNoteId: props.params.caseNoteId,
+})
 
 export const validate = (form) => {
   if (!form) return {};

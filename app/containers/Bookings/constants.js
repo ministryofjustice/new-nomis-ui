@@ -27,12 +27,13 @@ export const SET_SCHEDULED_EVENTS = 'app/bookings/details/scheduled-events/set';
 export const LOAD_SCHEDULED_EVENTS = 'app/bookings/details/scheduled-events/load';
 
 export const DETAILS_TABS = {
-  OFFENDER_DETAILS: 0,
-  PHYSICAL_ATTR: 1,
-  ALERTS: 2,
-  CASE_NOTES: 3,
-  KEY_DATES: 4,
-  QUICK_LOOK: 5,
+  OFFENDER_DETAILS: 'personal',
+  PHYSICAL_ATTR: 'physical-attributes',
+  ALERTS: 'alerts',
+  CASE_NOTES: 'case-notes',
+  KEY_DATES: 'key-dates',
+  QUICK_LOOK: 'quick-look',
+  SCHEDULED: 'scheduled',
 };
 
 export const DETAILS_ERROR = 'app/bookings/details/error';

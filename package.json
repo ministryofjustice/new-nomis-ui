@@ -4,7 +4,7 @@
   "description": "Elite 2 Web",
   "engines": {
     "npm": ">=3",
-    "node": "8.*.*"
+    "node": ">=8.4.0"
   },
   "author": "Syscon",
   "license": "UNLICENSED",
@@ -48,158 +48,9 @@
   "lint-staged": {
     "*.js": "lint:eslint"
   },
-  "babel": {
-    "presets": [
-      [
-        "latest",
-        {
-          "es2015": {
-            "modules": false
-          }
-        }
-      ],
-      "react",
-      "stage-0"
-    ],
-    "env": {
-      "production": {
-        "only": [
-          "app"
-        ],
-        "plugins": [
-          "transform-react-remove-prop-types",
-          "transform-react-constant-elements",
-          "transform-react-inline-elements"
-        ]
-      },
-      "test": {
-        "plugins": [
-          "transform-es2015-modules-commonjs",
-          "dynamic-import-node"
-        ]
-      }
-    }
-  },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "extends": "airbnb",
-    "env": {
-      "browser": true,
-      "node": true,
-      "jest": true,
-      "es6": true
-    },
-    "plugins": [
-      "redux-saga",
-      "react",
-      "jsx-a11y"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 6,
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    },
-    "rules": {
-      "arrow-parens": [
-        "error",
-        "always"
-      ],
-      "arrow-body-style": [
-        2,
-        "as-needed"
-      ],
-      "comma-dangle": [
-        2,
-        "always-multiline"
-      ],
-      "import/imports-first": 0,
-      "import/newline-after-import": 0,
-      "import/no-dynamic-require": 0,
-      "import/no-extraneous-dependencies": 0,
-      "import/no-named-as-default": 0,
-      "import/no-unresolved": 2,
-      "import/prefer-default-export": 0,
-      "indent": [
-        2,
-        2,
-        {
-          "SwitchCase": 1
-        }
-      ],
-      "jsx-a11y/aria-props": 2,
-      "jsx-a11y/heading-has-content": 0,
-      "jsx-a11y/href-no-hash": 2,
-      "jsx-a11y/label-has-for": 2,
-      "jsx-a11y/mouse-events-have-key-events": 2,
-      "jsx-a11y/role-has-required-aria-props": 2,
-      "jsx-a11y/role-supports-aria-props": 2,
-      "max-len": 0,
-      "newline-per-chained-call": 0,
-      "no-confusing-arrow": 0,
-      "no-console": 1,
-      "no-use-before-define": 0,
-      "prefer-template": 2,
-      "class-methods-use-this": 0,
-      "react/forbid-prop-types": 0,
-      "react/jsx-first-prop-new-line": [
-        2,
-        "multiline"
-      ],
-      "react/jsx-filename-extension": 0,
-      "react/jsx-no-target-blank": 0,
-      "react/require-extension": 0,
-      "react/self-closing-comp": 0,
-      "redux-saga/no-yield-in-race": 2,
-      "redux-saga/yield-effects": 2,
-      "require-yield": 0,
-      "import/no-webpack-loader-syntax": 0
-    },
-    "settings": {
-      "import/resolver": {
-        "webpack": {
-          "config": "./internals/webpack/webpack.prod.babel.js"
-        }
-      }
-    }
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "test/*.js",
-      "app/**/*.{js,jsx}",
-      "!app/**/*.test.{js,jsx}",
-      "!app/*/RbGenerated*/*.{js,jsx}",
-      "!app/app.js",
-      "!app/routes.js",
-      "!app/theme/global-styles.js"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "statements": 98,
-        "branches": 91,
-        "functions": 98,
-        "lines": 98
-      }
-    },
-    "moduleDirectories": [
-      "node_modules",
-      "app"
-    ],
-    "moduleNameMapper": {
-      ".*\\.(css|less|styl|scss|sass)$": "<rootDir>/internals/mocks/cssModule.js",
-      ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/image.js"
-    },
-    "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js",
-    "roots": [
-      "tests",
-      "app",
-      "server"
-    ]
-  },
   "dependencies": {
     "applicationinsights": "^1.0.0",
-    "axios": "^0.15.3",
+    "axios": "^0.18.0",
     "babel-polyfill": "6.20.0",
     "body-parser": "^1.17.2",
     "bootstrap": "4.0.0-alpha.6",
@@ -220,6 +71,7 @@
     "express": "^4.15.5",
     "express-interceptor": "^1.2.0",
     "fontfaceobserver": "2.0.7",
+    "pngquant-bin": "3.1.1",
     "govuk-elements-sass": "^3.1.1",
     "gsap": "^1.19.1",
     "helmet": "^3.12.0",
@@ -248,6 +100,7 @@
     "react-dom": "^15.6.1",
     "react-ga": "^2.2.0",
     "react-helmet": "3.2.2",
+    "react-immutable-proptypes": "^2.1.0",
     "react-intl": "2.1.5",
     "react-measure": "^2.0.2",
     "react-notify-toast": "^0.4.0",
@@ -278,6 +131,7 @@
     "styled-components": "1.1.2",
     "stylelint-config-sass-guidelines": "^3.1.0",
     "svg-inline-loader": "^0.7.1",
+    "uuid": "^3.2.1",
     "wallaby-webpack": "^0.0.32",
     "warning": "3.0.0",
     "whatwg-fetch": "2.0.1",
@@ -288,6 +142,7 @@
     "babel-cli": "6.18.0",
     "babel-core": "6.21.0",
     "babel-eslint": "^7.2.3",
+    "babel-jest": "^22.4.3",
     "babel-loader": "6.2.10",
     "babel-plugin-dynamic-import-node": "1.0.0",
     "babel-plugin-react-intl": "2.2.0",

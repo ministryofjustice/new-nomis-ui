@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, formValueSelector } from 'redux-form/immutable';
 import { connect } from 'react-redux';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 import { createStructuredSelector } from 'reselect';
 import { createFormAction } from 'redux-form-saga';
 import moment from 'moment';
+import { toFullName } from 'utils/stringUtils';
 
 import Select from 'components/FormComponents/SelectWithLabel';
 import DatePicker from 'components/FormComponents/DatePicker';
@@ -15,6 +16,7 @@ import { DATE_ONLY_FORMAT_SPEC, DATE_TIME_FORMAT_SPEC } from 'containers/App/con
 import { loadAppointmentViewModel } from 'containers/EliteApiLoader/actions';
 import { APPOINTMENT } from 'containers/EliteApiLoader/constants';
 import { selectAppointmentTypesAndLocations } from 'containers/EliteApiLoader/selectors';
+import { Model as offenderDetailsModel } from 'helpers/dataMappers/offenderDetails';
 
 import { DETAILS_TABS } from '../../constants';
 import { selectBookingDetailsId,selectName, selectOffenderAgencyId } from '../../selectors';
@@ -25,7 +27,7 @@ import './index.scss';
 
 class AddAppointment extends Component {
 
-  componentDidMount() {
+  componentDidMount(nextProps) {
     const { loadViewModel, offendersAgencyId } = this.props;
 
     loadViewModel(offendersAgencyId);
@@ -176,15 +178,34 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
+const mapStateToProps = (immutableState, props) => {
+  const languageState = immutableState.get('language');
+  const locale = navigator.languages[0] || navigator.language || navigator.browserLanguage || languageState.get('locale');
 
-const mapStateToProps = createStructuredSelector({
-  locale: selectLocale(),
-  bookingId: selectBookingDetailsId(),
-  offendersAgencyId: selectOffenderAgencyId(),
-  viewModel: selectAppointmentTypesAndLocations(),
-  offenderName: selectName(),
-  eventDate: (state) => formValueSelector('addAppointment')(state,'eventDate'),
-});
+  const bookingId = props.params.bookingId;
+  const offenderDetails = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.params.bookingId, 'Data']) || offenderDetailsModel;
+  const offendersAgencyId = offenderDetails.getIn(['assignedLivingUnit','agencyId']);
+  const offenderName = toFullName({
+    firstName: offenderDetails.get('firstName'),
+    lastName: offenderDetails.get('lastName'),
+  });
+
+  const eventDate = formValueSelector('addAppointment')(immutableState,'eventDate');
+  const viewModel = (immutableState.getIn(['eliteApiLoader','AppointmentTypesAndLocations']) || Map({
+    appointmentTypes: List([]),
+    locations: List([]),
+  })).toJS();
+
+  return {
+    locale,
+    bookingId,
+    offenderDetails,
+    offendersAgencyId,
+    offenderName,
+    eventDate,
+    viewModel,
+  }
+}
 
 export const validate = (form, props) => {
   if (!form) return {};

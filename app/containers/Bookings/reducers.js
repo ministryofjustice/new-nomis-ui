@@ -13,6 +13,9 @@
 import { fromJS } from 'immutable';
 import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
 
+import { transform as quickLookTransformer } from 'helpers/dataMappers/quickLook';
+import { transform as keyDatesTransformer } from 'helpers/dataMappers/keydates';
+
 import {
   SEARCH_LOADING,
   SEARCH_SUCCESS,
@@ -21,7 +24,6 @@ import {
   VIEW_CASENOTE_DETAILS,
   VIEW_CASENOTE_LIST,
   SET_PAGINATION,
-  SET_DETAILS_TAB,
   DETAILS_TABS,
   SET_RESULTS_VIEW,
   SET_ALERTS_PAGINATION,
@@ -34,6 +36,7 @@ import {
   SET_QUICK_LOOK,
   SET_SCHEDULED_EVENTS,
 } from './constants';
+
 
 const detailsState = fromJS({
   id: 20847,
@@ -102,31 +105,6 @@ function searchReducer(state = initialState, action) {
       return state.setIn(['details', 'alertsPagination'], fromJS(action.payload));
     }
 
-    case SET_CASENOTES_PAGINATION: {
-      return state.setIn(['details', 'caseNotes', 'Pagination'], fromJS(action.payload));
-    }
-
-    case SET_DETAILS: {
-      // reset view to beginning.
-      return state.set('details', detailsState.set('id', action.payload.bookingId));
-    }
-
-    case VIEW_CASENOTE_DETAILS: {
-      return state.setIn(['details', 'caseNotes', 'caseNoteDetailId'], action.payload.caseNoteId).setIn(['details', 'caseNotes', 'viewId'], 1);
-    }
-
-    case VIEW_CASENOTE_LIST: {
-      return state.setIn(['details', 'caseNotes', 'caseNoteDetailId'], null).setIn(['details', 'caseNotes', 'viewId'], 0);
-    }
-
-    case SET_DETAILS_TAB: {
-      const newState = state.setIn(['details', 'activeTabId'], action.payload.activeTabId);
-      if (action.payload.activeTabId === DETAILS_TABS.CASE_NOTES) {
-        return newState.setIn(['details', 'caseNotes', 'viewId'], 0);
-      }
-      return newState;
-    }
-
     case SET_RESULTS_VIEW: {
       return state.set('resultsView', fromJS(action.payload));
     }
@@ -146,11 +124,11 @@ function searchReducer(state = initialState, action) {
     }
 
     case SET_KEYDATES: {
-      return state.setIn(['details','keyDatesViewModel'], fromJS(action.payload));
+      return state.setIn(['details','keyDatesViewModel'], keyDatesTransformer(fromJS(action.payload)));
     }
 
     case SET_QUICK_LOOK: {
-      return state.setIn(['details','quickLookViewModel'],fromJS(action.payload));
+      return state.setIn(['details','quickLookViewModel'], quickLookTransformer(fromJS(action.payload)));
     }
 
     case SET_SCHEDULED_EVENTS: {

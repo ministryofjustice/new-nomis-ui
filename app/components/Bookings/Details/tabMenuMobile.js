@@ -36,7 +36,7 @@ function TabMenuMobile({ tabData, activeTabId }) {
 
 TabMenuMobile.propTypes = {
   tabData: PropTypes.array.isRequired,
-  activeTabId: PropTypes.number.isRequired,
+  activeTabId: PropTypes.string.isRequired,
 };
 
 

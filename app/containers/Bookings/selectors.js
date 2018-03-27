@@ -15,7 +15,7 @@ const selectQuickLookViewModel = () => createSelector(
 );
 const selectLocations = () => createSelector(
   selectSearch(),
-  (searchState) => searchState.getIn(['details', 'locations']).toJS()
+  (searchState) => searchState.getIn(['details', 'locations'])
 );
 
 const selectSearchResults = () => createSelector(
@@ -39,7 +39,7 @@ const selectSearchResultsSortOrder = () => createSelector(
 );
 
 const selectSearchResultsV2 = () => createSelector(
-  (state) => state.getIn(['search', 'results']).toJS(),
+  (state) => state.getIn(['search', 'results']),
   (results) => results
 );
 
@@ -125,10 +125,10 @@ const selectOffenderDetails = () => createSelector(
     const ethnicity = bookingDetails.getIn(['Data', 'physicalAttributes', 'ethnicity']);
     const gender = bookingDetails.getIn(['Data', 'physicalAttributes', 'gender']);
 
-    const assessments = bookingDetails.getIn(['Data', 'assessments']).map((ass) => {
-      const value = ass.get('classification');
-      const code = ass.get('assessmentCode');
-      const title = ass.get('assessmentDesc');
+    const assessments = bookingDetails.getIn(['Data', 'assessments']).map((assessment) => {
+      const value = assessment.get('classification');
+      const code = assessment.get('assessmentCode');
+      const title = assessment.get('assessmentDesc');
       return { key: [value, code, title].join('-'), title, value };
     });
     const aliases = bookingDetails.getIn(['Data', 'aliases']).toJS();

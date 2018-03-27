@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import React from 'react';
 
 import EliteImage from 'containers/EliteContainers/Image';
@@ -25,27 +26,27 @@ const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
     {sortOrderChange && <div className="separator" />}
 
     <div className="grid">
-      {(results || []).map((row) => (
-        <div className="grid-item" key={`booking_grid_${row.bookingId}`}>
+      {(results).map((row) => (
+        <div className="grid-item" key={`booking_grid_${row.get('bookingId')}`}>
 
           <div className="person-block">
 
-            <div className="grid-photo" onClick={() => viewDetails(row.bookingId)}>
-              <EliteImage imageId={row.facialImageId} />
+            <div className="grid-photo" onClick={() => viewDetails(row.get('bookingId'))}>
+              <EliteImage imageId={row.get('facialImageId')} />
             </div>
 
             <div className="person-details">
 
               <div className="person-name bold">
-                <Name lastName={row.lastName} firstName={row.firstName} />
+                <Name lastName={row.get('lastName')} firstName={row.get('firstName')} />
               </div>
 
               <div className="ancillary-text">
-                {row.offenderNo}
+                {row.get('offenderNo')}
               </div>
 
               <div className="ancillary-text">
-                {row.assignedLivingUnitDesc}
+                {row.get('assignedLivingUnitDesc')}
               </div>
 
             </div>
@@ -56,8 +57,12 @@ const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
   </div>
 );
 
+Grid.defaultProps = {
+  sortOrderChange: () => {},
+}
+
 Grid.propTypes = {
-  results: PropTypes.array.isRequired,
+  results: ImmutablePropTypes.list.isRequired,
   viewDetails: PropTypes.func.isRequired,
   sortOrderChange: PropTypes.func.isRequired,
   sortOrder: PropTypes.string.isRequired,

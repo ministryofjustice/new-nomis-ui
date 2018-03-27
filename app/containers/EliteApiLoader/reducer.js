@@ -12,6 +12,10 @@
 
 import { fromJS, Map, Set, List } from 'immutable';
 
+import { transform as transformOffenderDetails } from 'helpers/dataMappers/offenderDetails';
+import { Model as caseNoteModel, transform as caseNotesTransformer } from 'helpers/dataMappers/caseNotes';
+import { transform as officerAssignmentsTransformer } from 'helpers/dataMappers/officerAssignments';
+
 import { queryHash, paginationHash, originalId } from './helpers';
 
 import {
@@ -107,17 +111,6 @@ function EliteApiReducer(state = initialState, action) {
       }));
     }
 
-    case BOOKINGS.SEARCH.LOADING: {
-      const { query, pagination, sortOrder } = action.payload;
-
-      const resultResultModel = {
-        pagination: pagination || { pageNumber: 0, perPage: 10 },
-        sortOrder: sortOrder || 'ASC',
-      };
-
-      return state.setIn(['Bookings', 'Search', queryHash(query)], fromJS(resultResultModel));
-    }
-
     case BOOKINGS.SEARCH.ERROR:
     case BOOKINGS.SEARCH.SUCCESS: {
       const { query, pagination, sortOrder, results, meta, error } = action.payload;
@@ -129,23 +122,14 @@ function EliteApiReducer(state = initialState, action) {
         meta,
         error,
       };
-             
-      return state.setIn(['Bookings', 'Search', queryHash(query)], fromJS(resultResultModel));
-    }
 
-    case BOOKINGS.DETAILS.LOADING: {
-      return state
-        .setIn(['Bookings', 'Details', action.payload.bookingId], fromJS({ Status: { Type: 'LOADING' }, Data: {}, Alerts: {} }))
-        .setIn(['Bookings', 'Details','LoadingStatus'], { Type: 'LOADING' });
+      return state.setIn(['Bookings', 'Search', queryHash(query)], officerAssignmentsTransformer(fromJS(resultResultModel)));
     }
 
     case BOOKINGS.DETAILS.SUCCESS: {
-      const key = ['Bookings', 'Details', action.payload.bookingId];
+      const key = ['Bookings', 'Details', action.payload.bookingId.toString(), 'Data'];
 
-      return state.updateIn(key, (bookingDetails) =>
-        bookingDetails.setIn(['Status', 'Type'], 'SUCCESS')
-        .set('Data', fromJS(action.payload)))
-        .setIn(['Bookings', 'Details','LoadingStatus'], { Type: null });
+      return state.setIn(key, transformOffenderDetails(fromJS(action.payload)));
     }
 
     case BOOKINGS.DETAILS.ERROR: {
@@ -158,78 +142,41 @@ function EliteApiReducer(state = initialState, action) {
         .setIn(['Bookings','Details','LoadingStatus'], { Type: 'ERROR', error });
     }
 
-    case BOOKINGS.ALERTS.LOADING: {
-      const { bookingId, pagination } = action.payload;
-      let AlertsState = state.getIn(['Bookings', 'Details', bookingId, 'Alerts']);
-      if (!AlertsState) {
-        AlertsState = BookingDetailsAlertsDefault;
-      }
-      const newAlerts = AlertsState.setIn(['Paginations', paginationHash(pagination)], fromJS({ Status: { Type: 'LOADING' }, items: [] }));
-
-      return state.setIn(['Bookings', 'Details', bookingId, 'Alerts'], newAlerts);
-    }
-
     case BOOKINGS.ALERTS.SUCCESS: {
       const { pagination, bookingId, results, meta } = action.payload;
-      // Simplifying...
+
       return state
         .setIn(['Bookings', 'Details', bookingId, 'Alerts', 'MetaData', 'TotalRecords'], meta.totalRecords)
-        .updateIn(['Bookings', 'Details', bookingId, 'Alerts', 'Paginations', paginationHash(pagination)],
-          (pag) => pag.setIn(['Status', 'Type'], 'SUCCESS')
-                      .set('items', results));
+        .setIn(['Bookings', 'Details', bookingId, 'Alerts', 'Paginations', paginationHash(pagination),'items'], fromJS(results));
     }
 
     case BOOKINGS.CASENOTES.RESET: {
-      const { bookingId, pagination, query } = action.payload;
-      // If pagination and query exist only reset that specific set of casenotes.
-      if (pagination && query) {
-        let CaseNotes = state.getIn(['Bookings', 'Details', bookingId, 'CaseNotes']);
-
-        if (!CaseNotes) {
-          CaseNotes = CaseNotesDefault;
-        }
-
-        let QueryState = CaseNotes.getIn(['Query', queryHash(query)]);
-
-        if (!QueryState) {
-          QueryState = CaseNoteQueryDefault;
-        }
-
-        const newQueryState = QueryState.setIn(['Paginations', paginationHash(pagination)], fromJS({ Status: { Type: 'RESET' }, items: [] }));
-        return state.setIn(['Bookings', 'Details', bookingId, 'CaseNotes'], CaseNotes.setIn(['Query', queryHash(query)], newQueryState));
-      }
-      return state.setIn(['Bookings', 'Details', bookingId, 'CaseNotes'], CaseNotesDefault);
+      const { bookingId } = action.payload;
+      return state.setIn(['Bookings', 'Details', bookingId, 'CaseNotes'], caseNoteModel);
     }
 
-    case BOOKINGS.CASENOTES.LOADING: {
-      // Init Casenotes query/pagination obj.
-      const { bookingId, pagination, query } = action.payload;
-      let CaseNotes = state.getIn(['Bookings', 'Details', bookingId, 'CaseNotes']);
+    case BOOKINGS.CASENOTES.SET_PAGINATION: {
+      const { bookingId,pagination } = action.payload;
 
-      if (!CaseNotes) {
-        CaseNotes = CaseNotesDefault;
-      }
-
-      let QueryState = CaseNotes.getIn(['Query', queryHash(query)]);
-
-      if (!QueryState) {
-        QueryState = CaseNoteQueryDefault;
-      }
-
-      const newQueryState = QueryState.setIn(['Paginations', paginationHash(pagination)], fromJS({ Status: { Type: 'LOADING' }, items: [] }));
-
-      return state.setIn(['Bookings', 'Details', bookingId, 'CaseNotes'], CaseNotes.setIn(['Query', queryHash(query)], newQueryState));
+      return state.setIn(['Bookings', 'Details', bookingId, 'CaseNotes','pagination'], fromJS(pagination));
     }
 
     case BOOKINGS.CASENOTES.SUCCESS: {
-      const { pagination, bookingId, query, results, meta } = action.payload;
-      // Simplifying... had a plan to store the items differently... lets hope this is fine!
+      const { bookingId } = action.payload;
+      const path = ['Bookings', 'Details', bookingId, 'CaseNotes'];
+
+      return state.setIn(path, caseNotesTransformer(fromJS(action.payload)));
+    }
+
+
+    case BOOKINGS.CASENOTES.VIEW_DETAILS: {
+      const { bookingId, caseNoteId } = action.payload;
+
+      const rootPath = ['Bookings', 'Details', bookingId, 'CaseNotes'];
 
       return state
-        .setIn(['Bookings', 'Details', bookingId, 'CaseNotes', 'Query', queryHash(query), 'MetaData', 'TotalRecords'], meta.totalRecords)
-        .updateIn(['Bookings', 'Details', bookingId, 'CaseNotes', 'Query', queryHash(query), 'Paginations', paginationHash(pagination)],
-          (pag) => pag.setIn(['Status', 'Type'], 'SUCCESS')
-                      .set('items', fromJS(results.map((caseNote) => ({ ...caseNote })))));
+              .setIn([...rootPath, 'caseNoteDetailId'], caseNoteId)
+              .setIn([...rootPath,'selectedViewOption'], 'details');
     }
 
     case LOCATIONS.LOADING: {

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import uuid from 'uuid/v4';
 import { FormattedDate, FormattedTime } from 'react-intl';
 
 const Block = styled.div`
@@ -14,7 +15,7 @@ const Wrapper = styled.div`
     padding: 0 !important;
     margin: 0 !important;
   }
-  
+
   .row{
      display:block;
      margin-bottom: 1.5em;
@@ -24,13 +25,13 @@ const Wrapper = styled.div`
 const Row = styled.div`
   border-bottom: #F2F2F2 solid 1px;
   margin-bottom: 1em;
-  
+
   padding: 15px;
-  
+
   @media(max-width: 992px) {
-     padding-left: 0;  
+     padding-left: 0;
   }
- 
+
   &:hover{
     background: #f8f8f8;
   }
@@ -49,7 +50,7 @@ const AmendmentBox = styled.div`
    background : #DEE0E2;
    margin-top:  .5em;
    margin-bottom: .5em;
-   
+
    padding-top: .5em;
    padding-left: 1em;
    padding-right: 1em;
@@ -61,6 +62,8 @@ const RightPadding = styled.span`
 `;
 
 function AmendmentBlock({ amendment }) {
+  const shouldShowTime = Boolean(amendment.creationDateTime && amendment.creationDateTime);
+
   return (
     <div>
         <AmendmentBox>
@@ -77,14 +80,20 @@ function AmendmentBlock({ amendment }) {
 
           </div>
 
-          <b>
-              <FormattedDate value={Date.parse(amendment.creationDateTime)} /> {' - '} <FormattedTime value={amendment.creationDateTime} />
-          </b>
-
+          { shouldShowTime && (
+            <div>
+              <strong>
+                <FormattedDate value={Date.parse(amendment.creationDateTime)} />
+              </strong>
+                <span>&nbsp;-&nbsp;</span>
+              <strong>
+                <FormattedTime value={amendment.creationDateTime} />
+              </strong>
+            </div>
+          )}
           <div>
             {amendment.authorName}
           </div>
-
         </AmendmentBox>
     </div>
   );
@@ -105,7 +114,7 @@ function CaseNoteListItem(props) {
 
   let amendmentList = null;
   if (amendments && amendments.length > 0) {
-    amendmentList = amendments.map((am) => <AmendmentBlock amendment={am} key={am.creationDateTime} />);
+    amendmentList = amendments.map((am) => <AmendmentBlock amendment={am} key={uuid()} />);
   }
 
   return (

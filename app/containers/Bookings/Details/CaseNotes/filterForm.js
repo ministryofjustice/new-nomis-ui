@@ -9,6 +9,9 @@ import { createStructuredSelector } from 'reselect';
 import { selectLocale } from 'containers/LanguageProvider/selectors';
 import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
 import { DATE_ONLY_FORMAT_SPEC, DATE_TIME_FORMAT_SPEC } from 'containers/App/constants';
+import {
+  DETAILS_TABS,
+} from 'containers/Bookings/constants';
 
 import './filterForm.scss';
 
@@ -145,7 +148,7 @@ export const validate = (form) => {
   return errors;
 };
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch, props) {
   return {
     resetFields: () => {
       dispatch(resetCaseNoteFilterFormField('typeValue'));
@@ -158,6 +161,11 @@ export function mapDispatchToProps(dispatch) {
       {
         type: CASE_NOTE_FILTER.BASE,
         payload: {
+          bookingId: props.bookingId,
+          pagination: {
+            perPage: 10,
+            pageNumber: 0,
+          },
           query: { ...formData.toJS(),
             dateRange: {
               startDate: formData.toJS().startDate,
@@ -168,7 +176,7 @@ export function mapDispatchToProps(dispatch) {
               subType: formData.toJS().subTypeValue,
             } },
           resetPagination: true,
-          goToPage: '/bookings/details',
+          goToPage: `/offenders/${props.bookingId}/${DETAILS_TABS.CASE_NOTES}/`,
         },
       }), [CASE_NOTE_FILTER.SUCCESS, CASE_NOTE_FILTER.ERROR]),
   };

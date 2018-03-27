@@ -3,18 +3,20 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { FormattedDate } from 'react-intl';
 import moment from 'moment';
+import { List } from 'immutable';
+import uuid from 'uuid/v4';
 
-import {
-  selectBookingDetailsId,
-  selectScheduledEvents,
-  selectHeaderDetail,
-  selectCurrentFilter,
-} from 'containers/Bookings/selectors'
+import { Model as offenderDetailsModel } from 'helpers/dataMappers/offenderDetails';
 
 import {
   loadScheduledEventsForThisWeek,
   loadScheduledEventsForNextWeek,
+  viewDetails,
 } from 'containers/Bookings/actions';
+
+import {
+  DETAILS_TABS,
+} from 'containers/Bookings/constants';
 
 import { properCase } from 'utils/stringUtils';
 
@@ -54,7 +56,8 @@ export const DayAndDate = ({ value }) => <h1 className="heading-medium whereabou
 class ScheduledEvents extends Component {
 
   componentDidMount() {
-    const { loadThisWeeksScheduledEvents, bookingId } = this.props;
+    const { loadThisWeeksScheduledEvents, bookingId, loadBookingDetails } = this.props;
+    loadBookingDetails(bookingId);
     loadThisWeeksScheduledEvents(bookingId);
   }
 
@@ -62,7 +65,7 @@ class ScheduledEvents extends Component {
     const scheduledEvents = this.props.scheduledEvents;
 
     if (!scheduledEvents && !scheduledEvents) {
-      return <div></div>
+      return null;
     }
 
     const {
@@ -122,20 +125,18 @@ class ScheduledEvents extends Component {
           <h1 className="heading-medium">Afternoon (PM)</h1>
         </div>
       </div>
-      {scheduledEvents.map((entry,index) =>
+      {scheduledEvents.map((entry) =>
 
-        <div className="row appointment-row" key={`event_${index}`}>
-
+        <div className="row appointment-row" key={uuid()}>
           <div className="appointments">
-
               <div className="col-lg-2 no-left-gutter">
                 <DayAndDate
                   className="whereabouts-day-header"
-                  value={entry.date}
+                  value={entry.get('date')}
                 />
                 <FormattedDate
                   className="heading-medium whereabouts-date-header"
-                  value={entry.date}
+                  value={entry.get('date')}
                   month="long"
                   day="2-digit"
                 />
@@ -149,8 +150,13 @@ class ScheduledEvents extends Component {
 
               <div className="col-lg-5 ">
                 <div className="appointment morning add-gutter-top add-gutter-bottom">
-                  {entry.forMorning.map((morning,morningIndex) => <div key={`morning_events_${morningIndex}`}>
-                    <Event {...morning} />
+                  {entry.get('forMorning').map((morning) => <div key={uuid()}>
+                    <Event
+                      startTime={morning.get('startTime')}
+                      endTime={morning.get('endTime')}
+                      type={morning.get('type')}
+                      shortComment={morning.get('shortComment')}
+                    />
                   </div>)}
                 </div>
               </div>
@@ -164,8 +170,13 @@ class ScheduledEvents extends Component {
 
               <div className="col-lg-5">
                 <div className="appointment afternoon add-gutter-top">
-                  {entry.forAfternoon.map((afternoon,afternoonIndex) => <div key={`afternoon_events_${afternoonIndex}`}>
-                    <Event {...afternoon} />
+                  {entry.get('forAfternoon').map((afternoon) => <div key={uuid()}>
+                    <Event
+                      startTime={afternoon.get('startTime')}
+                      endTime={afternoon.get('endTime')}
+                      type={afternoon.get('type')}
+                      shortComment={afternoon.get('shortComment')}
+                    />
                     </div>)}
                 </div>
               </div>
@@ -179,15 +190,23 @@ export function mapDispatchToProps(dispatch) {
   return {
     loadThisWeeksScheduledEvents: (bookingId) => dispatch(loadScheduledEventsForThisWeek(bookingId)),
     loadNextWeeksScheduledEvents: (bookingId) => dispatch(loadScheduledEventsForNextWeek(bookingId)),
+    loadBookingDetails: (bookingId) => dispatch(viewDetails(bookingId, DETAILS_TABS.SCHEDULED)),
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  bookingId: selectBookingDetailsId(),
-  scheduledEvents: selectScheduledEvents(),
-  offenderDetails: selectHeaderDetail(),
-  currentFilter: selectCurrentFilter(),
-  bookingDetailsId: selectBookingDetailsId(),
-});
+const mapStateToProps = (immutableState, props) => {
+  const bookingId = Number(props.params.bookingId);
+  const scheduledEvents = immutableState.getIn(['search', 'details', 'scheduledEvents']) || List([]);
+  const offenderDetails = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', bookingId.toString(), 'Data']) || offenderDetailsModel;
+  const offenderName = { firstName: offenderDetails.get('firstName'), lastName: offenderDetails.get('lastName') }
+  const currentFilter = immutableState.getIn(['search', 'details', 'currentFilter']);
+
+  return {
+    bookingId,
+    scheduledEvents,
+    offenderDetails: offenderName,
+    currentFilter,
+  }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ScheduledEvents);

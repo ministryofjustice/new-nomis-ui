@@ -16,7 +16,6 @@ import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
 import { selectUsersTypesAndSubTypes } from 'containers/EliteApiLoader/selectors';
 
 import { DETAILS_TABS, ADD_NEW_CASENOTE } from '../../constants';
-import { selectBookingDetailsId } from '../../selectors';
 import { viewDetails } from '../../actions';
 
 import './index.scss';
@@ -30,7 +29,7 @@ const AddCaseNoteForm = ({
       caseNoteTypes,
       locale,
       typeValue,
-      bookingDetailsId,
+      params: { bookingId },
       goBackToBookingDetails,
       eventDate }) =>
 
@@ -84,7 +83,7 @@ const AddCaseNoteForm = ({
           <button
             className="button button-cancel" type="reset" onClick={(e) => {
               e.preventDefault();
-              goBackToBookingDetails(bookingDetailsId);
+              goBackToBookingDetails(bookingId);
             }}
           >
             Cancel
@@ -108,13 +107,14 @@ AddCaseNoteForm.defaultProps = {
   error: '',
 };
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch, props) {
   return {
     goBackToBookingDetails: (bookingId) => dispatch(viewDetails(bookingId, DETAILS_TABS.CASE_NOTES)),
     onSubmit: createFormAction((formData) => (
       {
         type: ADD_NEW_CASENOTE.BASE,
         payload: {
+          bookingId: props.params.bookingId,
           query: {
             ...formData.toJS(),
             typeAndSubType: {
@@ -131,7 +131,6 @@ const mapStateToProps = createStructuredSelector({
   caseNoteTypes: selectUsersTypesAndSubTypes(),
   locale: selectLocale(),
   typeValue: (state) => selector(state, 'typeValue'),
-  bookingDetailsId: selectBookingDetailsId(),
   eventDate: (state) => formValueSelector('addCaseNote')(state,'eventDate'),
 });
 
