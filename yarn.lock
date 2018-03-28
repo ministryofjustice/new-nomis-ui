@@ -5205,7 +5205,7 @@ imagemin-pngquant@^5.0.0:
     execa "^0.10.0"
     is-png "^1.0.0"
     is-stream "^1.1.0"
-    pngquant-bin "^4.0.0"
+    pngquant-bin "^3.1.1"
 
 imagemin-svgo@^5.1.0:
   version "5.2.4"
@@ -8266,15 +8266,6 @@ pngquant-bin@3.1.1:
   dependencies:
     bin-build "^2.0.0"
     bin-wrapper "^3.0.0"
-    logalot "^2.0.0"
-
-pngquant-bin@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/pngquant-bin/-/pngquant-bin-4.0.0.tgz#468adf7036f50fae09c9c264ef62b6d10c02f5c2"
-  dependencies:
-    bin-build "^3.0.0"
-    bin-wrapper "^3.0.0"
-    execa "^0.10.0"
     logalot "^2.0.0"
 
 poll-endpoint-for@^0.0.3:
