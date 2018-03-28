@@ -56,9 +56,9 @@ export const DayAndDate = ({ value }) => <h1 className="heading-medium whereabou
 class ScheduledEvents extends Component {
 
   componentDidMount() {
-    const { loadThisWeeksScheduledEvents, bookingId, loadBookingDetails } = this.props;
-    loadBookingDetails(bookingId);
-    loadThisWeeksScheduledEvents(bookingId);
+    const { loadThisWeeksScheduledEvents, offenderNo, loadBookingDetails } = this.props;
+    loadBookingDetails(offenderNo);
+    loadThisWeeksScheduledEvents(offenderNo);
   }
 
   render() {
@@ -71,7 +71,7 @@ class ScheduledEvents extends Component {
     const {
       loadThisWeeksScheduledEvents,
       loadNextWeeksScheduledEvents,
-      bookingId,
+      offenderNo,
       currentFilter } = this.props;
 
     const { thisWeek, nextWeek } = currentFilter.toJS();
@@ -91,7 +91,7 @@ class ScheduledEvents extends Component {
                 type="radio"
                 name="radio-inline-group"
                 value="Yes"
-                onClick={() => loadThisWeeksScheduledEvents(bookingId)}
+                onClick={() => loadThisWeeksScheduledEvents(offenderNo)}
                 onChange={(event) => event.preventDefault()}
               >
               </input>
@@ -106,7 +106,7 @@ class ScheduledEvents extends Component {
               type="radio"
               name="radio-inline-group"
               value="Yes"
-              onClick={() => loadNextWeeksScheduledEvents(bookingId)}
+              onClick={() => loadNextWeeksScheduledEvents(offenderNo)}
               onChange={(event) => event.preventDefault()}
             >
             </input>
@@ -188,21 +188,21 @@ class ScheduledEvents extends Component {
 }
 export function mapDispatchToProps(dispatch) {
   return {
-    loadThisWeeksScheduledEvents: (bookingId) => dispatch(loadScheduledEventsForThisWeek(bookingId)),
-    loadNextWeeksScheduledEvents: (bookingId) => dispatch(loadScheduledEventsForNextWeek(bookingId)),
-    loadBookingDetails: (bookingId) => dispatch(viewDetails(bookingId, DETAILS_TABS.SCHEDULED)),
+    loadThisWeeksScheduledEvents: (offenderNo) => dispatch(loadScheduledEventsForThisWeek(offenderNo)),
+    loadNextWeeksScheduledEvents: (offenderNo) => dispatch(loadScheduledEventsForNextWeek(offenderNo)),
+    loadBookingDetails: (offenderNo) => dispatch(viewDetails(offenderNo, DETAILS_TABS.SCHEDULED)),
   }
 }
 
 const mapStateToProps = (immutableState, props) => {
-  const bookingId = Number(props.params.bookingId);
+  const offenderNo = props.params.offenderNo;
   const scheduledEvents = immutableState.getIn(['search', 'details', 'scheduledEvents']) || List([]);
-  const offenderDetails = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', bookingId.toString(), 'Data']) || offenderDetailsModel;
+  const offenderDetails = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', offenderNo, 'Data']) || offenderDetailsModel;
   const offenderName = { firstName: offenderDetails.get('firstName'), lastName: offenderDetails.get('lastName') }
   const currentFilter = immutableState.getIn(['search', 'details', 'currentFilter']);
 
   return {
-    bookingId,
+    offenderNo,
     scheduledEvents,
     offenderDetails: offenderName,
     currentFilter,

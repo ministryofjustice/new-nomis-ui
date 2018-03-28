@@ -97,7 +97,7 @@ Assignments.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    viewDetails: (bookingId) => dispatch(vD(bookingId)),
+    viewDetails: (offenderNo) => dispatch(vD(offenderNo)),
     setPage: (pagination) => dispatch(setAssignmentsPagination(pagination)),
     setResultsView: (view) => dispatch(setAssignmentsView(view)),
     setContext: (context) => dispatch(setSearchContext(context)),

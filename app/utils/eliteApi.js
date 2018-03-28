@@ -23,26 +23,26 @@ export const officerAssignments = (_, pagination, baseUrl) => axios({
     })
   );
 
-export const bookingDetails = (baseUrl, id) => axios({
+export const bookingDetails = (baseUrl, offenderNo) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `/bookings/details/${id}` })
+  url: `/bookings/details/${offenderNo}` })
     .then((response) => response.data);
 
-export const bookingAliases = (baseUrl, id) => axios({
+export const bookingAliases = (baseUrl, offenderNo) => axios({
   baseURL: baseUrl,
   method: 'get',
-  url: `/bookings/${id}/aliases` })
+  url: `/bookings/${offenderNo}/aliases` })
     .then((response) => response.data);
 
-export const bookingAlerts = (baseUrl, id, pagination) => axios({
+export const bookingAlerts = (baseUrl, offenderNo, pagination) => axios({
   baseURL: baseUrl,
   method: 'get',
   headers: {
     'Page-Offset': pagination.perPage * pagination.pageNumber,
     'Page-Limit': pagination.perPage,
   },
-  url: `/bookings/${id}/alerts` })
+  url: `/bookings/${offenderNo}/alerts` })
     .then((response) => ({
       alerts: response.data,
       totalRecords: parseInt(response.headers['total-records']),
@@ -98,7 +98,7 @@ const casenoteQueryStringGen = (caseNoteOptions) => {
   return query + dates;
 };
 
-export const bookingCaseNotes = (baseUrl, id, pagination, query) => {
+export const bookingCaseNotes = (baseUrl, offenderNo, pagination, query) => {
   const queryParams = `?${casenoteQueryStringGen(query)}`;
   return axios({
     baseURL: baseUrl,
@@ -107,14 +107,14 @@ export const bookingCaseNotes = (baseUrl, id, pagination, query) => {
       'Page-Offset': pagination.perPage * pagination.pageNumber,
       'Page-Limit': pagination.perPage,
     },
-    url: `/bookings/${id}/caseNotes${queryParams}` })
+    url: `/bookings/${offenderNo}/caseNotes${queryParams}` })
     .then((response) => ({
       data: response.data,
       totalRecords: parseInt(response.headers['total-records']),
     }));
 };
 
-export const addCaseNote = (baseUrl, bookingId, type, subType, text, occurrenceDateTime) => {
+export const addCaseNote = (baseUrl, offenderNo, type, subType, text, occurrenceDateTime) => {
   const data = {
     type, subType, text, occurrenceDateTime,
   };
@@ -122,7 +122,7 @@ export const addCaseNote = (baseUrl, bookingId, type, subType, text, occurrenceD
   return axios({
     baseURL: baseUrl,
     method: 'post',
-    url: `/bookings/${bookingId}/caseNotes`,
+    url: `/bookings/${offenderNo}/caseNotes`,
     headers: {
       'content-type': 'application/json',
       'X-Requested-With': 'XMLHttpRequest' },
@@ -130,10 +130,10 @@ export const addCaseNote = (baseUrl, bookingId, type, subType, text, occurrenceD
     .then((response) => response.data);
 };
 
-export const amendCaseNote = (baseUrl, bookingId, caseNoteId, amendmentText) => axios({
+export const amendCaseNote = (baseUrl, offenderNo, caseNoteId, amendmentText) => axios({
   baseURL: baseUrl,
   method: 'put',
-  url: `/bookings/${bookingId}/caseNotes/${caseNoteId}`,
+  url: `/bookings/${offenderNo}/caseNotes/${caseNoteId}`,
   headers: {
     'content-type': 'application/json',
   },
@@ -285,27 +285,27 @@ export const searchOffenders = ({ baseUrl, query,
     totalRecords: parseInt(response.headers['total-records']),
   }));
 
-export const loadKeyDates = (bookingId) => axios({
+export const loadKeyDates = (offenderNo) => axios({
   method: 'get',
-  url: `/app/keydates/${bookingId}`,
+  url: `/app/keydates/${offenderNo}`,
   withCredentials: true,
 }).then(response => response.data);
 
-export const loadQuickLook = (bookingId) => axios({
+export const loadQuickLook = (offenderNo) => axios({
   method: 'get',
-  url: `/app/bookings/quicklook/${bookingId}`,
+  url: `/app/bookings/quicklook/${offenderNo}`,
   withCredentials: true,
 }).then((response) => response.data);
 
-export const loadScheduledEventsForThisWeek = (bookingId) => axios({
+export const loadScheduledEventsForThisWeek = (offenderNo) => axios({
   method: 'get',
-  url: `/app/bookings/scheduled/events/forThisWeek/${bookingId}`,
+  url: `/app/bookings/scheduled/events/forThisWeek/${offenderNo}`,
   withCredentials: true,
 }).then(response => response.data);
 
-export const loadScheduledEventsForNextWeek = (bookingId) => axios({
+export const loadScheduledEventsForNextWeek = (offenderNo) => axios({
   method: 'get',
-  url: `/app/bookings/scheduled/events/forNextWeek/${bookingId}`,
+  url: `/app/bookings/scheduled/events/forNextWeek/${offenderNo}`,
   withCredentials: true,
 }).then(response => response.data);
 
@@ -315,9 +315,9 @@ export const loadAppointmentViewModel = ({ agencyId }) => axios({
   withCredentials: true,
 }).then(response => response.data);
 
-export const addAppointment = ({ bookingId, startTime, endTime, appointmentType, locationId, comment }) => axios({
+export const addAppointment = ({ offenderNo, startTime, endTime, appointmentType, locationId, comment }) => axios({
   method: 'post',
-  url: `/app/bookings/addAppointment/${bookingId}`,
+  url: `/app/bookings/addAppointment/${offenderNo}`,
   data: {
     startTime,
     endTime,

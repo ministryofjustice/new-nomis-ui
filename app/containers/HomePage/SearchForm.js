@@ -73,7 +73,6 @@ export default reduxForm({
   form: 'search',
   onSubmit: createFormAction((formData) => ({
     type: NEW_SEARCH,
-    redirectToResults: true,
     payload: {
       query: formData.toJS(),
       resetPagination: true,

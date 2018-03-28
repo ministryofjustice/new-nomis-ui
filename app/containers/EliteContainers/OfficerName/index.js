@@ -9,7 +9,6 @@ import { selectOfficerName } from './selectors';
 
 
 class EliteOfficerName extends PureComponent { // eslint-disable-line react/prefer-stateless-function
-
   static contextTypes = {
     intl: intlShape.isRequired,
   }
@@ -19,7 +18,7 @@ class EliteOfficerName extends PureComponent { // eslint-disable-line react/pref
     loadOfficer: PropTypes.func.isRequired,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.loadOfficer();
   }
 

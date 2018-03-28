@@ -161,7 +161,7 @@ export function mapDispatchToProps(dispatch, props) {
       {
         type: CASE_NOTE_FILTER.BASE,
         payload: {
-          bookingId: props.bookingId,
+          offenderNo: props.offenderNo,
           pagination: {
             perPage: 10,
             pageNumber: 0,
@@ -176,7 +176,7 @@ export function mapDispatchToProps(dispatch, props) {
               subType: formData.toJS().subTypeValue,
             } },
           resetPagination: true,
-          goToPage: `/offenders/${props.bookingId}/${DETAILS_TABS.CASE_NOTES}/`,
+          goToPage: `/offenders/${props.offenderNo}/${DETAILS_TABS.CASE_NOTES}/`,
         },
       }), [CASE_NOTE_FILTER.SUCCESS, CASE_NOTE_FILTER.ERROR]),
   };

@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import React from 'react';
-import { browserHistory } from 'react-router'
+import { browserHistory } from 'react-router';
+import uuid from 'uuid/v4';
 
 import EliteImage from 'containers/EliteContainers/Image';
 import Name from 'components/Name';
@@ -15,7 +16,7 @@ const ArrowDown = ({ sortOrderChange }) => <span className="clickable" onClick={
 const onViewDetails = (event, row) => {
   event.preventDefault();
 
-  browserHistory.push(`/offenders/${row.get('bookingId')}/${DETAILS_TABS.OFFENDER_DETAILS}`)
+  browserHistory.push(`/offenders/${row.get('offenderNo')}/${DETAILS_TABS.OFFENDER_DETAILS}`)
 };
 
 const Table = ({ results, sortOrder, sortOrderChange }) => (
@@ -48,7 +49,7 @@ const Table = ({ results, sortOrder, sortOrderChange }) => (
     </div>
 
       {(results).map((row) =>
-        <div className="row" key={`booking_table_${row.get('bookingId')}`}>
+        <div className="row" key={uuid()}>
           <div className="col-xs-3 col-md-2 remove-left-padding">
             <div className="photo clickable" onClick={(e) => onViewDetails(e, row)}>
               <EliteImage imageId={row.get('facialImageId')} />

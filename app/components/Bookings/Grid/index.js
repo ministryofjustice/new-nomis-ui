@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import React from 'react';
+import uuid from 'uuid/v4';
 
 import EliteImage from 'containers/EliteContainers/Image';
 import Name from 'components/Name';
@@ -27,11 +28,11 @@ const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
 
     <div className="grid">
       {(results).map((row) => (
-        <div className="grid-item" key={`booking_grid_${row.get('bookingId')}`}>
+        <div className="grid-item" key={uuid()}>
 
           <div className="person-block">
 
-            <div className="grid-photo" onClick={() => viewDetails(row.get('bookingId'))}>
+            <div className="grid-photo" onClick={() => viewDetails(row.get('offenderNo'))}>
               <EliteImage imageId={row.get('facialImageId')} />
             </div>
 

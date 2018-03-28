@@ -35,11 +35,24 @@ const tabData = [
   { tabId: DETAILS_TABS.KEY_DATES, title: 'Key dates', mobileTitle: 'Key dates', component: KeyDates, componentMobile: KeyDates },
 ];
 
+const parseActiveTab = (needle) => {
+  const keys = Object.keys(DETAILS_TABS);
+  const haystack = keys.map(key => DETAILS_TABS[key]);
+
+  if (haystack.includes(needle)) {
+    return needle;
+  }
+
+  return DETAILS_TABS.OFFENDER_DETAILS;
+}
+
 class Details extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   async componentDidMount() {
-    const { activeTab, bookingId } = this.props.params;
-    this.props.viewDetails(bookingId, activeTab || DETAILS_TABS.OFFENDER_DETAILS);
+    const { activeTab, offenderNo } = this.props.params;
+    const tab = parseActiveTab(activeTab);
+
+    this.props.viewDetails(offenderNo, tab);
   }
 
   render() {
@@ -52,10 +65,8 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
       params,
     } = this.props;
 
-    const activeTab = params.activeTab;
-
-    const activeTabId = activeTab || DETAILS_TABS.OFFENDER_DETAILS;
-    const bookingId = Number(params.bookingId);
+    const activeTabId = parseActiveTab(params.activeTab);
+    const offenderNo = params.offenderNo;
     const itemId = params.itemId;
     const viewMode = params.viewMode;
     const ActiveTab = tabData.filter(tab => tab.tabId === activeTabId)[0];
@@ -80,24 +91,24 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
 
       <div className="detail-content">
 
-        <BookingsDetailsHeader bookingId={bookingId} />
+        <BookingsDetailsHeader offenderNo={offenderNo} />
 
         {deviceFormat === 'desktop' ?
           <TabNav
             tabData={tabData.map((tab) => Object.assign(tab, { action: () => {
               analyticsService.pageView(`offender details - ${tab.title}`);
-              this.props.viewDetails(bookingId, tab.tabId);
+              this.props.viewDetails(offenderNo, tab.tabId);
             } }))}
             activeTabId={activeTabId}
           /> :
           <TabNavMobile
             tabData={tabData.map((tab) => Object.assign(tab, { action: () => {
               analyticsService.pageView(`offender details - ${tab.title}`);
-              this.props.viewDetails(bookingId, tab.tabId);
+              this.props.viewDetails(offenderNo, tab.tabId);
             } }))}
             activeTabId={activeTabId}
           />}
-        <TabComponent bookingId={bookingId} itemId={itemId} />
+        <TabComponent offenderNo={offenderNo} itemId={itemId} />
       </div>
     );
   }
@@ -105,7 +116,6 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
 
 Details.propTypes = {
   deviceFormat: PropTypes.string.isRequired,
-  // activeTabId: PropTypes.number.isRequired,
   setTab: PropTypes.func.isRequired,
 };
 
@@ -117,8 +127,8 @@ Details.defaultProps = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    viewDetails: (bookingId, activeTabId) => dispatch(viewDetails(bookingId, activeTabId)),
-    setTab: (id, bookingId) => dispatch(setDetailsTab(id, bookingId)),
+    viewDetails: (offenderNo, activeTabId) => dispatch(viewDetails(offenderNo, activeTabId)),
+    setTab: (id, offenderNo) => dispatch(setDetailsTab(id, offenderNo)),
     hidePhoto: (imageId) => dispatch(hideLargePhoto(imageId)),
   };
 }

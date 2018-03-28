@@ -6,8 +6,6 @@ import { push } from 'react-router-redux';
 import { createStructuredSelector } from 'reselect';
 import { FormattedDate, FormattedTime } from 'react-intl';
 
-
-import { viewDetails } from 'containers/Bookings/actions';
 import { DETAILS_TABS } from 'containers/Bookings/constants';
 
 import {
@@ -43,7 +41,7 @@ const CaseNoteDetails = (props) => {
     backToCaseNotes,
     addAmendment,
     caseNoteId,
-    bookingId,
+    offenderNo,
   } = props;
 
   if (!caseNote) {
@@ -75,7 +73,7 @@ const CaseNoteDetails = (props) => {
        <div className="row add-gutter-top">
 
          <div className="col-lg-2 add-gutter-bottom">
-           <Link className="link clickable" onClick={() => backToCaseNotes(bookingId)}> {'<'} Back to list </Link>
+           <Link className="link clickable" onClick={() => backToCaseNotes(offenderNo)}> {'<'} Back to list </Link>
          </div>
 
          <div className="col-lg-7">
@@ -106,7 +104,7 @@ const CaseNoteDetails = (props) => {
            {amendmentList}
 
            <div className="add-gutter-top add-gutter-bottom">
-             <button className="button-cancel" onClick={() => addAmendment(bookingId, caseNoteId)}>Make amendment</button>
+             <button className="button-cancel" onClick={() => addAmendment(offenderNo, caseNoteId)}>Make amendment</button>
            </div>
          </div>
 
@@ -121,13 +119,13 @@ CaseNoteDetails.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    backToCaseNotes: (bookingId) => dispatch(push(`/offenders/${bookingId}/${DETAILS_TABS.CASE_NOTES}`)),
-    addAmendment: (bookingId, caseNoteId) => dispatch(push(`/offenders/${bookingId}/amendCaseNote/${caseNoteId}`)),
+    backToCaseNotes: (offenderNo) => dispatch(push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}`)),
+    addAmendment: (offenderNo, caseNoteId) => dispatch(push(`/offenders/${offenderNo}/amendCaseNote/${caseNoteId}`)),
   }
 }
 
 const mapStateToProps = (state, props) => ({
-  bookingId: props.bookingId,
+  offenderNo: props.offenderNo,
   caseNoteId: props.caseNoteId,
 });
 

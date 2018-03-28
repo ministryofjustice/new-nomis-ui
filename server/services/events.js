@@ -5,6 +5,9 @@ const isoDateFormat = require('./../constants').isoDateFormat;
 const toEvent = require('../data-mappers/to-event');
 
 const getAppointmentViewModel = async (req, res) => {
+  const { bookingId } = await elite2Api.getDetailsLight(req, res);
+  req.bookingId = bookingId;
+
   const locationsData = await elite2Api.getLocationsForAppointments(req, res);
   const appointmentTypes = await elite2Api.getAppointmentTypes(req, res);
 
@@ -24,11 +27,17 @@ const getAppointmentViewModel = async (req, res) => {
 };
 
 const getScheduledEventsForThisWeek = async (req, res) => {
+  const { bookingId } = await elite2Api.getDetailsLight(req, res);
+  req.bookingId = bookingId;
+
   const data = await elite2Api.getEventsForThisWeek(req, res) || [];
   return buildScheduledEvents(data, buildCalendarViewFor([0,1,2,3,4,5,6]));
 };
 
 const getScheduledEventsForNextWeek = async (req, res) => {
+  const { bookingId } = await elite2Api.getDetailsLight(req, res);
+  req.bookingId = bookingId;
+
   const data = await elite2Api.getEventsForNextWeek(req, res) || [];
   return buildScheduledEvents(data, buildCalendarViewFor([7,8,9,10,11,12,13]));
 };

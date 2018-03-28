@@ -56,11 +56,11 @@ export function search(searchObj) {
   };
 }
 
-export function viewDetails(bookingId, activeTabId) {
+export function viewDetails(offenderNo, activeTabId) {
   return {
     meta: { debounce: 'simple' },
     type: VIEW_DETAILS,
-    payload: { bookingId, activeTabId },
+    payload: { offenderNo, activeTabId },
   };
 }
 
@@ -71,25 +71,25 @@ export function setPagination(pagination) {
   };
 }
 
-export function setAlertPagination(bookingId, pagination) {
+export function setAlertPagination(offenderNo, pagination) {
   return {
     type: UPDATE_ALERTS_PAGINATION,
-    payload: { bookingId, pagination },
+    payload: { offenderNo, pagination },
   };
 }
 
-export function setCaseNotesPagination(bookingId, pagination, query) {
+export function setCaseNotesPagination(offenderNo, pagination, query) {
   return {
     type: UPDATE_CASENOTES_PAGINATION,
-    payload: { bookingId, pagination, query },
+    payload: { offenderNo, pagination, query },
   };
 }
 
-export function addNewCaseNote({ bookingId, type, subType, occurrenceDateTime }) {
+export function addNewCaseNote({ offenderNo, type, subType, occurrenceDateTime }) {
   return {
     meta: { debounce: 'simple' },
     type: ADD_NEW_CASENOTE.BASE,
-    payload: { bookingId, type, subType, occurrenceDateTime },
+    payload: { offenderNo, type, subType, occurrenceDateTime },
   };
 }
 
@@ -107,10 +107,10 @@ export function setResultsView(view) {
   };
 }
 
-export function setCaseNotesDetailView(bookingId, caseNoteId) {
+export function setCaseNotesDetailView(offenderNo, caseNoteId) {
   return {
     type: BOOKINGS.CASENOTES.VIEW_DETAILS,
-    payload: { bookingId, caseNoteId },
+    payload: { offenderNo, caseNoteId },
   };
 }
 export function setCaseNotesListView() {
@@ -125,17 +125,17 @@ export function toggleSortOrder(sortOrder) {
   };
 }
 
-export function loadKeyDates(bookingId) {
+export function loadKeyDates(offenderNo) {
   return {
     type: LOAD_KEY_DATES,
-    payload: bookingId,
+    payload: offenderNo,
   }
 }
 
-export function loadQuickLook(bookingId) {
+export function loadQuickLook(offenderNo) {
   return {
     type: LOAD_QUICK_LOOK,
-    payload: bookingId,
+    payload: offenderNo,
   }
 }
 
@@ -152,20 +152,20 @@ export function resetCaseNoteFilterFormField(field) {
   };
 }
 
-export function loadScheduledEventsForThisWeek(bookingId) {
+export function loadScheduledEventsForThisWeek(offenderNo) {
   return {
     type: LOAD_SCHEDULED_EVENTS,
     payload: {
-      bookingId,
+      offenderNo,
     },
   }
 }
 
-export function loadScheduledEventsForNextWeek(bookingId) {
+export function loadScheduledEventsForNextWeek(offenderNo) {
   return {
     type: LOAD_SCHEDULED_EVENTS,
     payload: {
-      bookingId,
+      offenderNo,
       nextWeek: true,
     },
   }

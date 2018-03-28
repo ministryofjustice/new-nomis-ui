@@ -87,9 +87,9 @@ const SentenceView = ({ additionalDaysAwarded, dtoReleaseDates, nonDtoReleaseDat
 
 class KeyDates extends Component {
   componentDidMount() {
-    const { bookingId, loadContent } = this.props;
+    const { offenderNo, loadContent } = this.props;
 
-    loadContent(bookingId);
+    loadContent(offenderNo);
   }
   render() {
     const { keyDates, error } = this.props;
@@ -155,7 +155,7 @@ const mapStateToProps = (immutableState, props) => {
 
   return {
     keyDates,
-    bookingId: props.bookingId,
+    offenderNo: props.offenderNo,
     error,
   }
 };

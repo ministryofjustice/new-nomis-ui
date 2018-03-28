@@ -28,11 +28,11 @@ import {
 
 class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { setCaseNoteView, caseNotesStatus, caseNotes, totalResults, caseNotesPagination, bookingId, caseNotesQuery, setPagination } = this.props;
+    const { setCaseNoteView, caseNotesStatus, caseNotes, totalResults, caseNotesPagination, offenderNo, caseNotesQuery, setPagination } = this.props;
     return (
       <div>
         <div>
-          <CaseNoteFilterForm bookingId={bookingId} />
+          <CaseNoteFilterForm offenderNo={offenderNo} />
           <div>
             <NoSearchResultsReturnedMessage resultCount={caseNotes.size} />
           </div>
@@ -45,7 +45,7 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
           <PreviousNextNavigation
             pagination={caseNotesPagination}
             totalRecords={totalResults}
-            pageAction={(id) => setPagination(bookingId, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)}
+            pageAction={(id) => setPagination(offenderNo, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)}
           />
         </div>
       </div>
@@ -54,7 +54,7 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
 }
 
 CaseNotes.propTypes = {
-  bookingId: PropTypes.number.isRequired,
+  offenderNo: PropTypes.string.isRequired,
   caseNotesStatus: PropTypes.object,
   caseNotes: PropTypes.object.isRequired,
   caseNotesPagination: PropTypes.object.isRequired,
