@@ -119,7 +119,7 @@ export function* loadQuickLookWatcher() {
 
 export function* onAddAppointment(action) {
   try {
-    const bookingId = yield select(selectBookingDetailsId());
+    const offenderNo = yield select(selectBookingDetailsId());
     const { appointmentType, location, startTime, endTime, comment } = action.payload;
 
 
@@ -129,10 +129,10 @@ export function* onAddAppointment(action) {
       comment,
       startTime,
       endTime,
-      bookingId,
+      offenderNo,
     });
 
-    yield put(push(`/offenders/${bookingId}`));
+    yield put(push(`/offenders/${offenderNo}`));
 
     yield notify.show('Appointment has been created successfully.','success');
   } catch (err) {
@@ -146,17 +146,17 @@ export function* addCasenoteWatcher() {
 
 export function* addCasenoteSaga(action) {
   const { typeAndSubType: { type, subType }, caseNoteText: text,startTime } = action.payload.query;
-  const bookingId = action.payload.bookingId;
+  const offenderNo = action.payload.offenderNo;
   const apiServer = yield select(selectApi());
   try {
-    yield call(addCaseNote, apiServer, bookingId, type, subType, text, startTime);
+    yield call(addCaseNote, apiServer, offenderNo, type, subType, text, startTime);
 
     yield put({ type: ADD_NEW_CASENOTE.SUCCESS });
-    yield put(resetCaseNotes(bookingId));
+    yield put(resetCaseNotes(offenderNo));
 
-    yield put(loadBookingCaseNotes(bookingId));
+    yield put(loadBookingCaseNotes(offenderNo));
 
-    yield put(push(`/offenders/${bookingId}/${DETAILS_TABS.CASE_NOTES}`));
+    yield put(push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}`));
 
     yield notify.show('Case note has been created successfully.','success');
   } catch (e) {
@@ -198,7 +198,7 @@ export function* onLoadScheduledEvents(action) {
   try {
     yield put(showSpinner());
     const fetchScheduledEvents = action.payload.nextWeek === true ? loadScheduledEventsForNextWeek : loadScheduledEventsForThisWeek;
-    const data = yield call(fetchScheduledEvents, action.payload.bookingId);
+    const data = yield call(fetchScheduledEvents, action.payload.offenderNo);
 
     yield put({
       type: SET_SCHEDULED_EVENTS,
@@ -281,6 +281,7 @@ export function* toggleSort(action) {
 export function* newSearch(action) {
   try {
     const { query, resetPagination } = action.payload;
+
     const baseUrl = yield select(selectApi());
     const sortOrder = yield (action.payload.sortOrder || select(selectSearchResultsSortOrder()));
     let pagination = yield (action.payload.pagination || select(selectSearchResultsPagination()));
@@ -313,7 +314,7 @@ export function* newSearch(action) {
       yield put({
         type: VIEW_DETAILS,
         payload: {
-          bookingId: result.bookings[0].bookingId,
+          offenderNo: result.bookings[0].offenderNo,
           activeTabId: DETAILS_TABS.OFFENDER_DETAILS,
         },
       });
@@ -334,9 +335,15 @@ export function* newSearch(action) {
       },
     });
 
+    const queryString = qs.stringify({
+      ...pagination,
+      locationPrefix: query.locationPrefix,
+      keywords: query.keywords || '',
+    });
+
     yield put(push({
       pathname: '/results',
-      search: `?${qs.stringify(query)}`,
+      search: `?${queryString}`,
     }));
 
     yield put(hideSpinner());
@@ -348,7 +355,6 @@ export function* newSearch(action) {
 
 export function* searchSaga(action) {
   yield newSearch(action);
-  yield put(push('/results'));
 }
 
 export function* amendCaseNoteWatcher() {
@@ -356,17 +362,17 @@ export function* amendCaseNoteWatcher() {
 }
 
 export function* onAmendCaseNote(action) {
-  const { amendmentText, bookingId, caseNoteId } = action.payload;
+  const { amendmentText, offenderNo, caseNoteId } = action.payload;
 
   const apiServer = yield select(selectApi());
 
   try {
-    yield call(amendCaseNote, apiServer, bookingId, caseNoteId, amendmentText);
+    yield call(amendCaseNote, apiServer, offenderNo, caseNoteId, amendmentText);
     yield put({ type: AMEND_CASENOTE.SUCCESS });
 
-    yield put(loadBookingCaseNotes(bookingId));
+    yield put(loadBookingCaseNotes(offenderNo));
 
-    yield put(push(`/offenders/${bookingId}/${DETAILS_TABS.CASE_NOTES}`));
+    yield put(push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}`));
     yield notify.show('Case note has been amended successfully.','success');
   } catch (err) {
     yield put({ type: AMEND_CASENOTE.ERROR,
@@ -385,7 +391,7 @@ export function* viewDetails(action) {
   yield put({ type: SET_DETAILS, payload: action.payload });
   const { Type } = yield call(bookingDetailsElite, action); //eslint-disable-line
   if (Type !== 'ERROR') {
-    yield put(push(`/offenders/${action.payload.bookingId}/${action.payload.activeTabId}`))
+    yield put(push(`/offenders/${action.payload.offenderNo}/${action.payload.activeTabId}`))
   }
   yield put(hideSpinner());
 }
@@ -416,7 +422,7 @@ export function* detailAlertsPaginationWatcher() {
 
 export function* detailAlertsPagination(action) {
   // Load new data first, then switch in view.
-  yield put(loadBookingAlerts(action.payload.bookingId, action.payload.pagination));
+  yield put(loadBookingAlerts(action.payload.offenderNo, action.payload.pagination));
   yield put({ type: SET_ALERTS_PAGINATION, payload: action.payload.pagination });
 }
 
@@ -426,7 +432,7 @@ export function* detailCaseNotesPaginationWatcher() {
 
 export function* detailCaseNotesPagination(action) {
   // Load new data first, then switch in view.
-  yield put(loadBookingCaseNotes(action.payload.bookingId, action.payload.pagination, action.payload.query));
+  yield put(loadBookingCaseNotes(action.payload.offenderNo, action.payload.pagination, action.payload.query));
   yield put({ type: BOOKINGS.CASENOTES.SET_PAGINATION, payload: action.payload });
 }
 

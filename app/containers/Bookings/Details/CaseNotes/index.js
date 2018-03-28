@@ -37,8 +37,8 @@ import { VIEW_DETAILS } from '../../constants';
 class CaseNotes extends Component { // eslint-disable-line react/prefer-stateless-function
 
   componentWillMount() {
-    const { loadCaseNotes, bookingId, caseNotesPagination, caseNotesQuery } = this.props;
-    loadCaseNotes(bookingId, caseNotesPagination, caseNotesQuery);
+    const { loadCaseNotes, offenderNo, caseNotesPagination, caseNotesQuery } = this.props;
+    loadCaseNotes(offenderNo, caseNotesPagination, caseNotesQuery);
   }
 
   componentDidMount() {
@@ -55,7 +55,7 @@ class CaseNotes extends Component { // eslint-disable-line react/prefer-stateles
 
   render() {
     const {
-      bookingId,
+      offenderNo,
       caseNoteId,
       setCaseNoteView,
       caseNotesStatus,
@@ -67,12 +67,12 @@ class CaseNotes extends Component { // eslint-disable-line react/prefer-stateles
     } = this.props;
 
     if (caseNoteId) {
-      return <CaseNoteDetails bookingId={bookingId} caseNoteId={caseNoteId} />
+      return <CaseNoteDetails offenderNo={offenderNo} caseNoteId={caseNoteId} />
     }
 
     return (
       <CaseNoteList
-        bookingId={bookingId}
+        offenderNo={offenderNo}
         caseNotes={caseNotes}
         caseNotesPagination={caseNotesPagination}
         caseNotesQuery={caseNotesQuery}
@@ -85,7 +85,7 @@ class CaseNotes extends Component { // eslint-disable-line react/prefer-stateles
 }
 
 CaseNotes.propTypes = {
-  bookingId: PropTypes.number.isRequired,
+  offenderNo: PropTypes.number.isRequired,
   caseNotesPagination: PropTypes.object.isRequired,
   caseNotesQuery: PropTypes.object.isRequired,
   loadCaseNotes: PropTypes.func.isRequired,
@@ -100,13 +100,13 @@ export function mapDispatchToProps(dispatch, props) {
   return {
     loadCaseNotes: (id, pagination, query) => dispatch(loadBookingCaseNotes(id, pagination, query)),
     setPagination: (id, pagination, query) => dispatch(setCaseNotesPagination(id, pagination, query)),
-    setCaseNoteView: (id) => dispatch(push(`/offenders/${props.bookingId}/${DETAILS_TABS.CASE_NOTES}/${id}`)),
+    setCaseNoteView: (id) => dispatch(push(`/offenders/${props.offenderNo}/${DETAILS_TABS.CASE_NOTES}/${id}`)),
   };
 }
 
 const mapStateToProps = (immutableState, props) => {
-  const bookingId = Number(props.bookingId);
-  const caseNotes = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', bookingId, 'CaseNotes']) || caseNoteModel;
+  const offenderNo = props.offenderNo;
+  const caseNotes = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', offenderNo, 'CaseNotes']) || caseNoteModel;
   const results = caseNotes.get('results');
   const totalResults = caseNotes.getIn(['meta', 'totalRecords']);
   const caseNotesPagination = caseNotes.get('pagination').toJS();
@@ -117,7 +117,7 @@ const mapStateToProps = (immutableState, props) => {
   return {
     caseNotes: results,
     caseNoteId: props.itemId,
-    bookingId,
+    offenderNo,
     deviceFormat,
     totalResults,
     caseNotesPagination,

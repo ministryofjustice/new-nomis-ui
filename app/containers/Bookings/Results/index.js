@@ -50,10 +50,16 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
   componentDidMount() {
     this.refs.focuspoint.scrollIntoView();
 
-    const { locationPrefix, keywords } = this.props.location.query;
+    const { locationPrefix, keywords, perPage, pageNumber } = this.props.location.query;
+
+    let pagination;
+
+    if (perPage && pageNumber) {
+      pagination = { perPage, pageNumber };
+    }
 
     if (locationPrefix || keywords) {
-      this.props.getSearchResults({ locationPrefix, keywords })
+      this.props.getSearchResults({ locationPrefix, keywords, pagination })
     }
   }
 
@@ -124,7 +130,7 @@ SearchResults.defaultProps = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    viewDetails: (bookingId) => dispatch(vD(bookingId)),
+    viewDetails: (offenderNo) => dispatch(vD(offenderNo)),
     setPage: (pagination) => dispatch(sP(pagination)),
     setResultsView: (pagination) => dispatch(setResultsView(pagination)),
     loadLocations: () => dispatch(loadLocations()),

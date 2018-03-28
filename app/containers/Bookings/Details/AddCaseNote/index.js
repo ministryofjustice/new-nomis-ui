@@ -29,7 +29,7 @@ const AddCaseNoteForm = ({
       caseNoteTypes,
       locale,
       typeValue,
-      params: { bookingId },
+      params: { offenderNo },
       goBackToBookingDetails,
       eventDate }) =>
 
@@ -83,7 +83,7 @@ const AddCaseNoteForm = ({
           <button
             className="button button-cancel" type="reset" onClick={(e) => {
               e.preventDefault();
-              goBackToBookingDetails(bookingId);
+              goBackToBookingDetails(offenderNo);
             }}
           >
             Cancel
@@ -109,12 +109,12 @@ AddCaseNoteForm.defaultProps = {
 
 export function mapDispatchToProps(dispatch, props) {
   return {
-    goBackToBookingDetails: (bookingId) => dispatch(viewDetails(bookingId, DETAILS_TABS.CASE_NOTES)),
+    goBackToBookingDetails: (offenderNo) => dispatch(viewDetails(offenderNo, DETAILS_TABS.CASE_NOTES)),
     onSubmit: createFormAction((formData) => (
       {
         type: ADD_NEW_CASENOTE.BASE,
         payload: {
-          bookingId: props.params.bookingId,
+          offenderNo: props.params.offenderNo,
           query: {
             ...formData.toJS(),
             typeAndSubType: {

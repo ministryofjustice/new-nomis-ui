@@ -16,12 +16,12 @@ import {
 } from '../../actions';
 
 const CaseNotes = (props) => {
-  const { viewList, caseNoteDetails, caseNoteId, bookingId } = props;
+  const { viewList, caseNoteDetails, caseNoteId, offenderNo } = props;
 
   return (caseNoteDetails &&
     <div>
       <CaseNoteDetailsBlock
-        bookingId={bookingId}
+        offenderNo={offenderNo}
         caseNoteId={caseNoteId}
         viewList={viewList}
         caseNote={caseNoteDetails}
@@ -33,9 +33,6 @@ CaseNotes.propTypes = {
   viewList: PropTypes.func.isRequired,
 };
 
-CaseNotes.defaultProps = {
-
-};
 
 export function mapDispatchToProps(dispatch) {
   return {
@@ -44,10 +41,11 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = (immutableState, props) => {
-  const bookingId = Number(props.bookingId);
-  const caseNotes = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', bookingId, 'CaseNotes']) || caseNoteModel;
+  const offenderNo = props.offenderNo;
+  const caseNotes = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', offenderNo, 'CaseNotes']) || caseNoteModel;
   const results = caseNotes.get('results');
-  const caseNoteDetails = results.find(detail => detail.get('caseNoteId') === Number(props.caseNoteId));
+  const caseNoteId = Number(props.caseNoteId)
+  const caseNoteDetails = results.find(detail => detail.get('caseNoteId') === caseNoteId);
 
   return {
     caseNoteDetails,

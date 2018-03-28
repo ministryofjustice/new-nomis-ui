@@ -295,7 +295,7 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = (immutableState, props) => {
-  const offenderDetails = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.bookingId.toString(), 'Data']) || offenderDetailsModel;
+  const offenderDetails = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']) || offenderDetailsModel;
 
   return {
     offenderDetails,

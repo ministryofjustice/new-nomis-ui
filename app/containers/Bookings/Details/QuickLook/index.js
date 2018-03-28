@@ -372,13 +372,13 @@ const AssignedStaffMembers = ({ communityOffenderManager ,keyWorkerId }) =>
 class QuickLook extends Component {
 
   componentDidMount() {
-    const { loadViewModel, bookingId } = this.props;
+    const { loadViewModel, offenderNo } = this.props;
 
-    loadViewModel(bookingId);
+    loadViewModel(offenderNo);
   }
 
   render() {
-    const { viewModel, offenderDetails, bookingId } = this.props;
+    const { viewModel, offenderDetails, offenderNo } = this.props;
     const adjudications = viewModel.get('adjudications');
     const lastVisit = viewModel.get('lastVisit');
     const activities = viewModel.get('activities');
@@ -496,7 +496,7 @@ class QuickLook extends Component {
             <Activities activities={activities.get('morningActivities')} period={'Morning (AM)'} />
             <Activities activities={activities.get('afternoonActivities')} period={'Afternoon (PM)'} />
 
-            <Link className="link" to={`/offenders/${bookingId}/scheduled`}> Seven day schedule</Link>
+            <Link className="link" to={`/offenders/${offenderNo}/scheduled`}> Seven day schedule</Link>
           </div>
         </div>
       </div>
@@ -506,16 +506,16 @@ class QuickLook extends Component {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    loadViewModel: (bookingId) => dispatch(loadQuickLook(bookingId)),
+    loadViewModel: (offenderNo) => dispatch(loadQuickLook(offenderNo)),
   }
 }
 
 const mapStateToProps = (immutableState, props) => {
-  const data = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.bookingId, 'Data']) || offenderProfileModel;
+  const data = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']) || offenderProfileModel;
   const viewModel = immutableState.getIn(['search', 'details', 'quickLookViewModel']) || quickLookModel;
 
   return {
-    bookingId: props.bookingId,
+    offenderNo: props.offenderNo,
     viewModel,
     offenderDetails: data,
   };

@@ -34,7 +34,7 @@ class AddAppointment extends Component {
   }
 
   render() {
-    const { handleSubmit,error,submitting, locale, goBackToBookingDetails, bookingId, offenderName, viewModel,eventDate } = this.props;
+    const { handleSubmit,error,submitting, locale, goBackToBookingDetails, offenderNo, offenderName, viewModel,eventDate } = this.props;
 
     if (!viewModel) {
       return <div></div>;
@@ -152,7 +152,7 @@ class AddAppointment extends Component {
             <button
               className="button button-cancel" onClick={(e) => {
                 e.preventDefault();
-                goBackToBookingDetails(bookingId);
+                goBackToBookingDetails(offenderNo);
               }}
             > Cancel </button>
           </div>
@@ -165,7 +165,7 @@ class AddAppointment extends Component {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    goBackToBookingDetails: (bookingId) => dispatch(viewDetails(bookingId, DETAILS_TABS.OFFENDER_DETAILS)),
+    goBackToBookingDetails: (offenderNo) => dispatch(viewDetails(offenderNo, DETAILS_TABS.OFFENDER_DETAILS)),
     loadViewModel: (agencyId) => dispatch(loadAppointmentViewModel(agencyId)),
     onSubmit: createFormAction((formData) => (
       {
@@ -182,8 +182,8 @@ const mapStateToProps = (immutableState, props) => {
   const languageState = immutableState.get('language');
   const locale = navigator.languages[0] || navigator.language || navigator.browserLanguage || languageState.get('locale');
 
-  const bookingId = props.params.bookingId;
-  const offenderDetails = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.params.bookingId, 'Data']) || offenderDetailsModel;
+  const offenderNo = props.params.offenderNo;
+  const offenderDetails = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.params.offenderNo, 'Data']) || offenderDetailsModel;
   const offendersAgencyId = offenderDetails.getIn(['assignedLivingUnit','agencyId']);
   const offenderName = toFullName({
     firstName: offenderDetails.get('firstName'),
@@ -198,7 +198,7 @@ const mapStateToProps = (immutableState, props) => {
 
   return {
     locale,
-    bookingId,
+    offenderNo,
     offenderDetails,
     offendersAgencyId,
     offenderName,

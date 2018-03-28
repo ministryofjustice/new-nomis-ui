@@ -68,7 +68,7 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/offenders/:bookingId/addCaseNote',
+      path: '/offenders/:offenderNo/addCaseNote',
       name: 'addCaseNote',
       onEnter: onEnter({ routeName: 'addCaseNote' }),
       getComponent(nextState, cb) {
@@ -130,7 +130,7 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/offenders/:bookingId/scheduled',
+      path: '/offenders/:offenderNo/scheduled',
       name: 'scheduled',
       onEnter: onEnter({ routeName: 'scheduled 7 day view' }),
       getComponent(nextState, cb) {
@@ -152,7 +152,7 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/offenders/:bookingId/addAppointment',
+      path: '/offenders/:offenderNo/addAppointment',
       name: 'AddAppointment',
       onEnter: onEnter({ routeName: 'Add appointment' }),
       getComponent(nextState, cb) {
@@ -174,7 +174,7 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/offenders/:bookingId/amendCaseNote/:caseNoteId',
+      path: '/offenders/:offenderNo/amendCaseNote/:caseNoteId',
       name: 'amendCaseNote',
       onEnter: onEnter({ routeName: 'amendCaseNote' }),
       getComponent(nextState, cb) {
@@ -194,7 +194,7 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/offenders/:bookingId(/:activeTab)(/:itemId)',
+      path: '/offenders/:offenderNo(/:activeTab)(/:itemId)',
       name: 'search results',
       onEnter: onEnter({ routeName: 'offender details' }),
       getComponent(nextState, cb) {

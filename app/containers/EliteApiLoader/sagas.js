@@ -71,17 +71,20 @@ export function* bookingDetailsWatcher() {
 }
 
 export function* bookingDetailsSaga(action) {
-  const { bookingId } = action.payload;
+  const { offenderNo } = action.payload;
 
   const apiServer = yield select(selectApi());
 
   try {
-    const data = yield call(bookingDetails, apiServer, bookingId);
+    const data = yield call(bookingDetails, apiServer, offenderNo);
+    const bookingId = data.bookingId;
     const aliases = yield call(bookingAliases, apiServer, bookingId);
+
     yield put({ type: BOOKINGS.DETAILS.SUCCESS, payload: { ...data, aliases } });
+
     return { Type: 'SUCCESS' };
   } catch (err) {
-    yield put({ type: BOOKINGS.DETAILS.ERROR, payload: { bookingId, error: 'Something went wrong, please try again later' } });
+    yield put({ type: BOOKINGS.DETAILS.ERROR, payload: { offenderNo, error: 'Something went wrong, please try again later' } });
     return { Type: 'ERROR', Error: err };
   }
 }
@@ -105,20 +108,20 @@ export function* bookingAlertsWatch() {
 }
 
 export function* bookingAlertsSaga(action) {
-  const { bookingId, pagination } = action.payload;
+  const { offenderNo, pagination } = action.payload;
   const apiServer = yield select(selectApi());
 
   yield put(showSpinner());
 
   try {
-    const data = yield call(bookingAlerts, apiServer, bookingId, pagination);
+    const data = yield call(bookingAlerts, apiServer, offenderNo, pagination);
 
-    yield put({ type: BOOKINGS.ALERTS.SUCCESS, payload: { bookingId, pagination, results: data.alerts, meta: { totalRecords: data.totalRecords } } });
+    yield put({ type: BOOKINGS.ALERTS.SUCCESS, payload: { offenderNo, pagination, results: data.alerts, meta: { totalRecords: data.totalRecords } } });
     yield put(hideSpinner());
     return { Type: 'SUCCESS' };
   } catch (err) {
     yield put(hideSpinner());
-    yield put({ type: BOOKINGS.ALERTS.ERROR, payload: { bookingId, error: err } });
+    yield put({ type: BOOKINGS.ALERTS.ERROR, payload: { offenderNo, error: err } });
     return { Type: 'ERROR', Error: err };
   }
 }
@@ -128,19 +131,19 @@ export function* bookingCaseNotesWatch() {
 }
 
 export function* bookingCaseNotesSaga(action) {
-  const { bookingId, pagination, query } = action.payload;
+  const { offenderNo, pagination, query } = action.payload;
 
   yield put(showSpinner());
 
   const apiServer = yield select(selectApi());
 
   try {
-    const response = yield call(bookingCaseNotes, apiServer, bookingId, pagination, query);
-    yield put({ type: BOOKINGS.CASENOTES.SUCCESS, payload: { bookingId, pagination, query, results: response.data, meta: { totalRecords: response.totalRecords } } });
+    const response = yield call(bookingCaseNotes, apiServer, offenderNo, pagination, query);
+    yield put({ type: BOOKINGS.CASENOTES.SUCCESS, payload: { offenderNo, pagination, query, results: response.data, meta: { totalRecords: response.totalRecords } } });
     yield put(hideSpinner());
     return { Type: 'SUCCESS' };
   } catch (err) {
-    yield put({ type: BOOKINGS.CASENOTES.ERROR, payload: { bookingId, pagination, query, error: err } });
+    yield put({ type: BOOKINGS.CASENOTES.ERROR, payload: { offenderNo, pagination, query, error: err } });
     yield put(hideSpinner());
     return { Type: 'ERROR', Error: err };
   }

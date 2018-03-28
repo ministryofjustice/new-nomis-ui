@@ -28,31 +28,31 @@ export function loadOfficer(staffId, username) {
   };
 }
 
-export function loadBookingDetails(bookingId) {
+export function loadBookingDetails(offenderNo) {
   return {
     type: BOOKINGS.DETAILS.BASE,
-    payload: { bookingId },
+    payload: { offenderNo },
   };
 }
 
-export function loadBookingAlerts(bookingId, pagination) {
+export function loadBookingAlerts(offenderNo, pagination) {
   return {
     type: BOOKINGS.ALERTS.BASE,
-    payload: { bookingId, pagination },
+    payload: { offenderNo, pagination },
   };
 }
 
-export function loadBookingCaseNotes(bookingId, pagination, query) {
+export function loadBookingCaseNotes(offenderNo, pagination, query) {
   return {
     type: BOOKINGS.CASENOTES.BASE,
-    payload: { bookingId, pagination, query },
+    payload: { offenderNo, pagination, query },
   };
 }
 
-export function resetCaseNotes(bookingId) {
+export function resetCaseNotes(offenderNo) {
   return {
     type: BOOKINGS.CASENOTES.RESET,
-    payload: { bookingId },
+    payload: { offenderNo },
   };
 }
 

@@ -90,7 +90,7 @@ const MiddleSection = ({ inmateData }) => <div className="middle-section">
 
 </div>
 
-function Header({ inmateData, onImageClick, bookingId }) {
+function Header({ inmateData, onImageClick, offenderNo }) {
   const nameString = toFullName({ firstName: inmateData.get('firstName'), lastName: inmateData.get('lastName') });
 
   return (
@@ -148,11 +148,11 @@ function Header({ inmateData, onImageClick, bookingId }) {
 
           <div>
             <div>
-              <Link className="button-link" to={`/offenders/${bookingId}/addCaseNote`}>Add case note</Link>
+              <Link className="button-link" to={`/offenders/${offenderNo}/addCaseNote`}>Add case note</Link>
             </div>
 
             <div className="add-gutter-margin-top">
-              <Link className="button-link" to={`/offenders/${bookingId}/addAppointment`}>Add appointment</Link>
+              <Link className="button-link" to={`/offenders/${offenderNo}/addAppointment`}>Add appointment</Link>
             </div>
           </div>
 
@@ -166,7 +166,7 @@ function Header({ inmateData, onImageClick, bookingId }) {
 Header.propTypes = {
   inmateData: PropTypes.object.isRequired,
   onImageClick: PropTypes.func.isRequired,
-  bookingId: PropTypes.number.isRequired,
+  offenderNo: PropTypes.string.isRequired,
 };
 
 export default Header;

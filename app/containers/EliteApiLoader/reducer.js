@@ -127,15 +127,14 @@ function EliteApiReducer(state = initialState, action) {
     }
 
     case BOOKINGS.DETAILS.SUCCESS: {
-      const key = ['Bookings', 'Details', action.payload.bookingId.toString(), 'Data'];
-
+      const key = ['Bookings', 'Details', action.payload.offenderNo, 'Data'];
       return state.setIn(key, transformOffenderDetails(fromJS(action.payload)));
     }
 
     case BOOKINGS.DETAILS.ERROR: {
       const { error } = action.payload;
 
-      const key = ['Bookings', 'Details', action.payload.bookingId];
+      const key = ['Bookings', 'Details', action.payload.offenderNo];
 
       return state
         .deleteIn(key)
@@ -143,36 +142,36 @@ function EliteApiReducer(state = initialState, action) {
     }
 
     case BOOKINGS.ALERTS.SUCCESS: {
-      const { pagination, bookingId, results, meta } = action.payload;
+      const { pagination, offenderNo, results, meta } = action.payload;
 
       return state
-        .setIn(['Bookings', 'Details', bookingId, 'Alerts', 'MetaData', 'TotalRecords'], meta.totalRecords)
-        .setIn(['Bookings', 'Details', bookingId, 'Alerts', 'Paginations', paginationHash(pagination),'items'], fromJS(results));
+        .setIn(['Bookings', 'Details', offenderNo, 'Alerts', 'MetaData', 'TotalRecords'], meta.totalRecords)
+        .setIn(['Bookings', 'Details', offenderNo, 'Alerts', 'Paginations', paginationHash(pagination),'items'], fromJS(results));
     }
 
     case BOOKINGS.CASENOTES.RESET: {
-      const { bookingId } = action.payload;
-      return state.setIn(['Bookings', 'Details', bookingId, 'CaseNotes'], caseNoteModel);
+      const { offenderNo } = action.payload;
+      return state.setIn(['Bookings', 'Details', offenderNo, 'CaseNotes'], caseNoteModel);
     }
 
     case BOOKINGS.CASENOTES.SET_PAGINATION: {
-      const { bookingId,pagination } = action.payload;
+      const { offenderNo, pagination } = action.payload;
 
-      return state.setIn(['Bookings', 'Details', bookingId, 'CaseNotes','pagination'], fromJS(pagination));
+      return state.setIn(['Bookings', 'Details', offenderNo, 'CaseNotes','pagination'], fromJS(pagination));
     }
 
     case BOOKINGS.CASENOTES.SUCCESS: {
-      const { bookingId } = action.payload;
-      const path = ['Bookings', 'Details', bookingId, 'CaseNotes'];
+      const { offenderNo } = action.payload;
+      const path = ['Bookings', 'Details', offenderNo, 'CaseNotes'];
 
       return state.setIn(path, caseNotesTransformer(fromJS(action.payload)));
     }
 
 
     case BOOKINGS.CASENOTES.VIEW_DETAILS: {
-      const { bookingId, caseNoteId } = action.payload;
+      const { offenderNo, caseNoteId } = action.payload;
 
-      const rootPath = ['Bookings', 'Details', bookingId, 'CaseNotes'];
+      const rootPath = ['Bookings', 'Details', offenderNo, 'CaseNotes'];
 
       return state
               .setIn([...rootPath, 'caseNoteDetailId'], caseNoteId)

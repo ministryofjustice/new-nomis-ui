@@ -12,11 +12,11 @@ import { showLargePhoto } from '../actions';
 
 class Header extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { headerDetails, showPhoto, bookingId } = this.props;
+    const { headerDetails, showPhoto, offenderNo } = this.props;
 
     return (
       <BookingsDetailsHeader
-        bookingId={bookingId}
+        offenderNo={offenderNo}
         inmateData={headerDetails}
         onImageClick={showPhoto}
       />
@@ -54,7 +54,7 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = (immutableState, props) => {
-  const headerDetails = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.bookingId.toString(), 'Data']);
+  const headerDetails = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']);
 
   return {
     headerDetails,

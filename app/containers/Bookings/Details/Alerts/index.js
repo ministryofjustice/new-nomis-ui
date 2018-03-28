@@ -33,20 +33,20 @@ import {
 class Alerts extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount() {
-    const { loadAlerts, bookingId, alertsPagination } = this.props;
+    const { loadAlerts, offenderNo, alertsPagination } = this.props;
 
-    loadAlerts(bookingId, alertsPagination);
+    loadAlerts(offenderNo, alertsPagination);
   }
 
   render() {
-    const { alerts, totalResults, alertsPagination, bookingId, setPagination, deviceFormat } = this.props;
+    const { alerts, totalResults, alertsPagination, offenderNo, setPagination, deviceFormat } = this.props;
     return (
       <div>
         <AlertList alerts={alerts} deviceFormat={deviceFormat} />
 
         <PreviousNextNavigation
           pagination={alertsPagination} totalRecords={totalResults} pageAction={(id) => {
-            setPagination(bookingId, { perPage: alertsPagination.perPage, pageNumber: id }, id)
+            setPagination(offenderNo, { perPage: alertsPagination.perPage, pageNumber: id }, id)
             if (window) window.scrollTo(0,0);
           }}
         />
@@ -58,7 +58,7 @@ class Alerts extends PureComponent { // eslint-disable-line react/prefer-statele
 Alerts.propTypes = {
   loadAlerts: PropTypes.func.isRequired,
   setPagination: PropTypes.func.isRequired,
-  bookingId: PropTypes.number.isRequired,
+  offenderNo: PropTypes.number.isRequired,
   alertsPagination: PropTypes.object.isRequired,
   alerts: ImmutablePropTypes.list.isRequired,
   totalResults: PropTypes.number,
@@ -77,7 +77,7 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = (immutableState,props) => {
-  const alerts = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', Number(props.bookingId), 'Alerts']) || alertsModel;
+  const alerts = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Alerts']) || alertsModel;
 
   const pagination = immutableState.getIn(['search', 'details', 'alertsPagination']).toJS();
   const alertItems = alerts.getIn(['Paginations', paginationHash(pagination), 'items']) || List([]);
@@ -85,7 +85,7 @@ const mapStateToProps = (immutableState,props) => {
   const deviceFormat = immutableState.getIn(['app','deviceFormat']);
 
   return {
-    bookingId: Number(props.bookingId),
+    offenderNo: props.offenderNo,
     alerts: alertItems,
     alertsPagination: pagination,
     totalResults,

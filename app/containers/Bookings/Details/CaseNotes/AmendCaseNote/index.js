@@ -17,7 +17,7 @@ import './index.scss';
 class AmendCaseNote extends Component {
 
   render() {
-    const { handleSubmit, error, submitting, goBackToBookingDetails, bookingId, caseNoteId } = this.props;
+    const { handleSubmit, error, submitting, goBackToBookingDetails, offenderNo, caseNoteId } = this.props;
 
     if (this.props && this.props.error) {
       window.scrollTo(0,0);
@@ -53,7 +53,7 @@ class AmendCaseNote extends Component {
             <button
               className="button button-cancel" onClick={(e) => {
                 e.preventDefault();
-                goBackToBookingDetails(bookingId);
+                goBackToBookingDetails(offenderNo);
               }}
             > Cancel </button>
           </div>
@@ -65,13 +65,13 @@ class AmendCaseNote extends Component {
 
 export function mapDispatchToProps(dispatch, props) {
   return {
-    goBackToBookingDetails: (bookingId) => dispatch(viewDetails(bookingId, DETAILS_TABS.CASE_NOTES)),
+    goBackToBookingDetails: (offenderNo) => dispatch(viewDetails(offenderNo, DETAILS_TABS.CASE_NOTES)),
     onSubmit: createFormAction((formData) => (
       {
         type: AMEND_CASENOTE.BASE,
         payload: {
           ...formData.toJS(),
-          bookingId: props.params.bookingId,
+          offenderNo: props.params.offenderNo,
           caseNoteId: props.params.caseNoteId,
         },
       }),
@@ -80,7 +80,7 @@ export function mapDispatchToProps(dispatch, props) {
 }
 
 const mapStateToProps = (state, props) => ({
-  bookingId: props.params.bookingId,
+  offenderNo: props.params.offenderNo,
   caseNoteId: props.params.caseNoteId,
 })
 
