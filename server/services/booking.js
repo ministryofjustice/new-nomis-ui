@@ -22,6 +22,9 @@ const byStartTimeThenByEndTime = (a,b) => {
 };
 
 const getKeyDatesVieModel = async (req, res) => {
+  const { bookingId } = await elite2Api.getDetailsLight(req, res);
+  req.bookingId = bookingId;
+
   const sentenceData = await elite2Api.getSentenceData(req, res);
   const iepSummary = (await elite2Api.getIepSummary(req, res));
   const categoryAssessment = await elite2Api.getCategoryAssessment(req, res);
@@ -40,6 +43,9 @@ const getKeyDatesVieModel = async (req, res) => {
 
 const getBookingDetailsViewModel = async (req, res) => {
   const details = (await elite2Api.getDetails(req, res));
+  const { bookingId } = details;
+  req.bookingId = bookingId;
+
   const iepLevel = (await elite2Api.getIepSummary(req, res)).iepLevel;
 
   const csraAssessment = details.assessments
@@ -48,7 +54,7 @@ const getBookingDetailsViewModel = async (req, res) => {
 
   return {
     ...details,
-    iepLevel ,
+    iepLevel,
     csra: csraAssessment && csraAssessment.riskLevel(),
   };
 };
@@ -60,6 +66,9 @@ const getQuickLookViewModel = async (req, res) => {
   const filterMorning = (array) => array.filter(a => moment(a.startTime).get('hour') < 12);
   const filterAfternoon = (array) => array.filter(a => moment(a.startTime).get('hour') > 11);
   const hasAnyActivity = (activities) => activities.morningActivities.length > 0 || activities.afternoonActivities.length > 0;
+
+  const { bookingId } = await elite2Api.getDetailsLight(req, res);
+  req.bookingId = bookingId;
 
   const balance = await elite2Api.getBalances(req, res);
   const offenceData = await elite2Api.getMainOffence(req, res);

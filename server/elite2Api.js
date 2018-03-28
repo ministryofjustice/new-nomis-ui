@@ -29,19 +29,20 @@ axios.interceptors.request.use((config) => {
 });
 
 
-const getSentenceData = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/sentenceDetail` });
-const getIepSummary = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/iepSummary` });
-const getDetails = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}` });
-const getBalances = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/balances` });
-const getMainOffence = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/mainOffence` });
-const getEventsForToday = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/events/today` });
-const getContacts = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/contacts` });
-const getAdjudications = ({ req, res, fromDate }) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/adjudications?fromDate=${fromDate}` });
-const getEventsForThisWeek = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/events/thisWeek` });
-const getEventsForNextWeek = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/events/nextWeek` });
-const getCategoryAssessment = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/assessment/CATEGORY` });
+const getSentenceData = (req, res) => getRequest({ req, res, url: `api/bookings/${req.bookingId}/sentenceDetail` });
+const getIepSummary = (req, res) => getRequest({ req, res, url: `api/bookings/${req.bookingId}/iepSummary` });
+const getDetailsLight = (req, res) => getRequest({ req, res, url: `api/bookings/offenderNo/${req.params.offenderNo}?fullInfo=false` });
+const getDetails = (req, res) => getRequest({ req, res, url: `api/bookings/offenderNo/${req.params.offenderNo}?fullInfo=true` });
+const getBalances = (req, res) => getRequest({ req, res, url: `api/bookings/${req.bookingId}/balances` });
+const getMainOffence = (req, res) => getRequest({ req, res, url: `api/bookings/${req.bookingId}/mainOffence` });
+const getEventsForToday = (req, res) => getRequest({ req, res, url: `api/bookings/${req.bookingId}/events/today` });
+const getContacts = (req, res) => getRequest({ req, res, url: `api/bookings/${req.bookingId}/contacts` });
+const getAdjudications = ({ req, res, fromDate }) => getRequest({ req, res, url: `api/bookings/${req.bookingId}/adjudications?fromDate=${fromDate}` });
+const getEventsForThisWeek = (req, res) => getRequest({ req, res, url: `api/bookings/${req.bookingId}/events/thisWeek` });
+const getEventsForNextWeek = (req, res) => getRequest({ req, res, url: `api/bookings/${req.bookingId}/events/nextWeek` });
+const getCategoryAssessment = (req, res) => getRequest({ req, res, url: `api/bookings/${req.bookingId}/assessment/CATEGORY` });
 const getAppointmentTypes = (req, res) => getRequest({ req, res, url: 'api/reference-domains/scheduleReasons?eventType=APP' });
-const getRelationships = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/relationships` });
+const getRelationships = (req, res) => getRequest({ req, res, url: `api/bookings/${req.bookingId}/relationships` });
 
 const getLocationsForAppointments = (req, res) => {
   const url = `api/agencies/${req.params.agencyId}/locations?eventType=APP`;
@@ -51,20 +52,20 @@ const getLocationsForAppointments = (req, res) => {
 const getPositiveCaseNotes = ({ req, res, fromDate, toDate }) => getRequest({
   req,
   res,
-  url: `api/bookings/${req.params.bookingId}/caseNotes/POS/IEP_ENC/count?fromDate=${fromDate}&toDate=${toDate}`,
+  url: `api/bookings/${req.bookingId}/caseNotes/POS/IEP_ENC/count?fromDate=${fromDate}&toDate=${toDate}`,
 });
 
 const getNegativeCaseNotes = ({ req, res, fromDate, toDate }) => getRequest({
   req,
   res,
-  url: `api/bookings/${req.params.bookingId}/caseNotes/NEG/IEP_WARN/count?fromDate=${fromDate}&toDate=${toDate}`,
+  url: `api/bookings/${req.bookingId}/caseNotes/NEG/IEP_WARN/count?fromDate=${fromDate}&toDate=${toDate}`,
 });
 
-const getLastVisit = (req, res) => getRequest({ req, res, url: `api/bookings/${req.params.bookingId}/visits/last` });
+const getLastVisit = (req, res) => getRequest({ req, res, url: `api/bookings/${req.bookingId}/visits/last` });
 
 const addAppointment = ({ req, res }) => service.callApi({
   method: 'post',
-  url: `api/bookings/${req.params.bookingId}/appointments`,
+  url: `api/bookings/${req.bookingId}/appointments`,
   reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },
   data: req.body,
   onTokenRefresh: session.updateHmppsCookie(res),
@@ -145,6 +146,7 @@ const service = {
   errorStatusCode,
   getIepSummary,
   getSentenceData,
+  getDetailsLight,
   getDetails,
   getBalances,
   getMainOffence,

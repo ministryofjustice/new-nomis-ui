@@ -1,5 +1,7 @@
+const query = require('url')
 const elite2Api = require('./elite2Api'),
   errorStatusCode = elite2Api.errorStatusCode;
+const elite2ApiFallThrough = require('./app').sessionHandler;
 const session = require('./session');
 const config = require('./config');
 
@@ -74,7 +76,7 @@ const images = (req, res) => {
 };
 
 const keyDates = asyncMiddleware(async (req,res) => {
-  if (!req.params.bookingId) {
+  if (!req.params.offenderNo) {
     res.status(400);
     res.end();
     return;
@@ -85,9 +87,7 @@ const keyDates = asyncMiddleware(async (req,res) => {
 });
 
 const bookingDetails = asyncMiddleware(async (req, res) => {
-  const bookingId = req.params.bookingId;
-
-  if (!bookingId) {
+  if (!req.params.offenderNo) {
     res.status(400);
     res.end();
     return;
@@ -98,9 +98,7 @@ const bookingDetails = asyncMiddleware(async (req, res) => {
 });
 
 const quickLook = asyncMiddleware(async (req, res) => {
-  const bookingId = req.params.bookingId;
-
-  if (!bookingId) {
+  if (!req.params.offenderNo) {
     res.status(400);
     res.end();
     return;
@@ -111,9 +109,7 @@ const quickLook = asyncMiddleware(async (req, res) => {
 });
 
 const eventsForThisWeek = asyncMiddleware(async (req,res) => {
-  const bookingId = req.params.bookingId;
-
-  if (!bookingId) {
+  if (!req.params.offenderNo) {
     res.status(400);
     res.end();
     return;
@@ -124,9 +120,7 @@ const eventsForThisWeek = asyncMiddleware(async (req,res) => {
 });
 
 const eventsForNextWeek = asyncMiddleware(async (req,res) => {
-  const bookingId = req.params.bookingId;
-
-  if (!bookingId) {
+  if (!req.params.offenderNo) {
     res.status(400);
     res.end();
     return;
@@ -150,9 +144,7 @@ const loadAppointmentViewModel = asyncMiddleware(async (req,res) => {
 });
 
 const addAppointment = asyncMiddleware(async (req,res) => {
-  const bookingId = req.params.bookingId;
-
-  if (!bookingId) {
+  if (!req.params.offenderNo) {
     res.status(400);
     res.end();
     return;
@@ -161,6 +153,48 @@ const addAppointment = asyncMiddleware(async (req,res) => {
   await elite2Api.addAppointment({ req, res });
   res.status(200);
   res.end();
+});
+
+const alerts = asyncMiddleware(async (req, res) => {
+  if (!req.params.offenderNo) {
+    res.status(400);
+    res.end();
+    return;
+  }
+
+  const { bookingId } = await elite2Api.getDetailsLight(req, res);
+  req.bookingId = bookingId;
+  req.url = `/bookings/${bookingId}/alerts`;
+
+  elite2ApiFallThrough(req, res);
+});
+
+const caseNotes = asyncMiddleware(async (req, res) => {
+  if (!req.params.offenderNo) {
+    res.status(400);
+    res.end();
+    return;
+  }
+
+  const queryString = query.parse(req.url).query
+  const { bookingId } = await elite2Api.getDetailsLight(req, res);
+  req.url = `/bookings/${bookingId}/caseNotes?${queryString}`;
+
+  elite2ApiFallThrough(req, res);
+});
+
+const updateCaseNote = asyncMiddleware(async (req, res) => {
+  if (!req.params.offenderNo || !req.params.caseNoteId) {
+    res.status(400);
+    res.end();
+    return;
+  }
+
+  const { caseNoteId } = req.params;
+  const { bookingId } = await elite2Api.getDetailsLight(req, res);
+  req.url = `/bookings/${bookingId}/caseNotes/${caseNoteId}`;
+
+  elite2ApiFallThrough(req, res);
 });
 
 module.exports = {
@@ -175,4 +209,7 @@ module.exports = {
   eventsForThisWeek,
   loadAppointmentViewModel,
   addAppointment,
+  alerts,
+  caseNotes,
+  updateCaseNote,
 };
