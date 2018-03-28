@@ -85,7 +85,7 @@ class CaseNotes extends Component { // eslint-disable-line react/prefer-stateles
 }
 
 CaseNotes.propTypes = {
-  offenderNo: PropTypes.number.isRequired,
+  offenderNo: PropTypes.string.isRequired,
   caseNotesPagination: PropTypes.object.isRequired,
   caseNotesQuery: PropTypes.object.isRequired,
   loadCaseNotes: PropTypes.func.isRequired,

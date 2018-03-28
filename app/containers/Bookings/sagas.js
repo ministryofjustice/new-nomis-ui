@@ -1,6 +1,6 @@
 import { takeLatest, put, select, call } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
-import qs from 'query-string';
+import qs from 'querystring';
 import { SubmissionError } from 'redux-form/immutable';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 import { bookingDetailsSaga as bookingDetailsElite } from 'containers/EliteApiLoader/sagas';

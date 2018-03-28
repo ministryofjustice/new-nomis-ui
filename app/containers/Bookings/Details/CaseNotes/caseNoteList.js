@@ -54,7 +54,7 @@ class CaseNotes extends PureComponent { // eslint-disable-line react/prefer-stat
 }
 
 CaseNotes.propTypes = {
-  offenderNo: PropTypes.number.isRequired,
+  offenderNo: PropTypes.string.isRequired,
   caseNotesStatus: PropTypes.object,
   caseNotes: PropTypes.object.isRequired,
   caseNotesPagination: PropTypes.object.isRequired,

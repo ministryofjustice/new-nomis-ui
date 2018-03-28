@@ -58,7 +58,7 @@ class Alerts extends PureComponent { // eslint-disable-line react/prefer-statele
 Alerts.propTypes = {
   loadAlerts: PropTypes.func.isRequired,
   setPagination: PropTypes.func.isRequired,
-  offenderNo: PropTypes.number.isRequired,
+  offenderNo: PropTypes.string.isRequired,
   alertsPagination: PropTypes.object.isRequired,
   alerts: ImmutablePropTypes.list.isRequired,
   totalResults: PropTypes.number,

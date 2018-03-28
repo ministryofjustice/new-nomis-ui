@@ -197,7 +197,7 @@ export function mapDispatchToProps(dispatch) {
 const mapStateToProps = (immutableState, props) => {
   const offenderNo = props.params.offenderNo;
   const scheduledEvents = immutableState.getIn(['search', 'details', 'scheduledEvents']) || List([]);
-  const offenderDetails = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', offenderNo.toString(), 'Data']) || offenderDetailsModel;
+  const offenderDetails = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', offenderNo, 'Data']) || offenderDetailsModel;
   const offenderName = { firstName: offenderDetails.get('firstName'), lastName: offenderDetails.get('lastName') }
   const currentFilter = immutableState.getIn(['search', 'details', 'currentFilter']);
 
