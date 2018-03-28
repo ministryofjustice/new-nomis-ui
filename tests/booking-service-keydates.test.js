@@ -11,9 +11,7 @@ chai.use(sinonChai);
 describe('Booking Service Booking details', () => {
   let sandbox;
   const req = {
-    params: {
-      bookingId: 1,
-    },
+    bookingId: 1,
   };
 
   beforeEach(() => {
@@ -21,6 +19,11 @@ describe('Booking Service Booking details', () => {
     sandbox.stub(elite2Api, 'getCategoryAssessment');
     sandbox.stub(elite2Api, 'getSentenceData');
     sandbox.stub(elite2Api, 'getIepSummary');
+    sandbox.stub(elite2Api, 'getDetailsLight');
+
+    elite2Api.getDetailsLight.returns({
+      bookingId: 1,
+    });
   });
 
   afterEach(() => sandbox.restore());

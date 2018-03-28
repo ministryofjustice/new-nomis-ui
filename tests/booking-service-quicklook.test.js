@@ -15,9 +15,7 @@ chai.use(sinonChai);
 describe('Booking Service Quick look', () => {
   let sandbox;
   const req = {
-    params: {
-      bookingId: 1,
-    },
+    bookingId: 1,
   };
 
   beforeEach(() => {
@@ -32,6 +30,7 @@ describe('Booking Service Quick look', () => {
     sandbox.stub(elite2Api, 'getAdjudications');
     sandbox.stub(elite2Api, 'getLastVisit');
     sandbox.stub(elite2Api, 'getRelationships');
+    sandbox.stub(elite2Api, 'getDetailsLight');
 
     elite2Api.getBalances.returns(null);
     elite2Api.getMainOffence.returns(null);
@@ -44,6 +43,9 @@ describe('Booking Service Quick look', () => {
     elite2Api.getRelationships.returns(null);
     elite2Api.getAdjudications.returns({
       awards: [],
+    });
+    elite2Api.getDetailsLight.returns({
+      bookingId: 1,
     });
   });
 

@@ -13,9 +13,7 @@ chai.use(sinonChai);
 describe('Events service', () => {
   let sandbox;
   const req = {
-    params: {
-      bookingId: 1,
-    },
+    bookingId: 1,
   };
 
   beforeEach(() => {
@@ -24,6 +22,11 @@ describe('Events service', () => {
     sandbox.stub(elite2Api, 'getEventsForNextWeek');
     sandbox.stub(elite2Api, 'getAppointmentTypes');
     sandbox.stub(elite2Api, 'getLocationsForAppointments');
+    sandbox.stub(elite2Api, 'getDetailsLight');
+
+    elite2Api.getDetailsLight.returns({
+      bookingId: 1,
+    });
   });
 
   afterEach(() => {

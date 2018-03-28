@@ -11,16 +11,18 @@ chai.use(sinonChai);
 describe('Booking Service Booking details', () => {
   let sandbox;
   const req = {
-    params: {
-      bookingId: 1,
-    },
+    bookingId: 1,
   };
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
     sandbox.stub(elite2Api, 'getDetails');
     sandbox.stub(elite2Api, 'getIepSummary');
+    sandbox.stub(elite2Api, 'getDetailsLight');
 
+    elite2Api.getDetailsLight.returns({
+      bookingId: 1,
+    });
     elite2Api.getDetails.returns({
       assessments: [{
         classification: 'basic',
