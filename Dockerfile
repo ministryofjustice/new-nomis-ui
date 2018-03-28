@@ -1,4 +1,4 @@
-FROM node:8.4-slim
+FROM node:8.10-slim
 ARG CLIENT
 ARG BUILD_NUMBER
 ARG GIT_REF

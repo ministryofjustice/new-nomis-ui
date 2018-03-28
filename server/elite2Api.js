@@ -2,7 +2,6 @@
 const axios = require('axios');
 const session = require('./session');
 const querystring = require('querystring');
-const FormData = require('form-data');
 const gatewayToken = require('./jwt-token');
 const { logger } = require('./services/logger');
 
