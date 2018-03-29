@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { splitCamelCase, properCase } from 'utils/stringUtils';
 import { connect } from 'react-redux';
 
-import { DETAILS_TABS } from 'containers/bookings/constants';
+import { DETAILS_TABS } from 'containers/Bookings/constants';
 
 import { Model as offenderDetailsModel } from 'helpers/dataMappers/offenderDetails';
 
