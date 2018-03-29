@@ -5,9 +5,6 @@ const isoDateFormat = require('./../constants').isoDateFormat;
 const toEvent = require('../data-mappers/to-event');
 
 const getAppointmentViewModel = async (req, res) => {
-  const { bookingId } = await elite2Api.getDetailsLight(req, res);
-  req.bookingId = bookingId;
-
   const locationsData = await elite2Api.getLocationsForAppointments(req, res);
   const appointmentTypes = await elite2Api.getAppointmentTypes(req, res);
 

@@ -119,9 +119,7 @@ export function* loadQuickLookWatcher() {
 
 export function* onAddAppointment(action) {
   try {
-    const offenderNo = yield select(selectBookingDetailsId());
-    const { appointmentType, location, startTime, endTime, comment } = action.payload;
-
+    const { appointmentType, location, startTime, endTime, comment, offenderNo } = action.payload;
 
     yield call(addAppointment, {
       appointmentType,
@@ -132,7 +130,7 @@ export function* onAddAppointment(action) {
       offenderNo,
     });
 
-    yield put(push(`/offenders/${offenderNo}`));
+    yield put(push(`/offenders/${offenderNo}/${DETAILS_TABS.OFFENDER_DETAILS}`));
 
     yield notify.show('Appointment has been created successfully.','success');
   } catch (err) {

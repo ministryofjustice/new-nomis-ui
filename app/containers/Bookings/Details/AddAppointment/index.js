@@ -26,11 +26,22 @@ import { viewDetails } from '../../actions';
 import './index.scss';
 
 class AddAppointment extends Component {
-
   componentDidMount(nextProps) {
+    const { loadViewModel, offendersAgencyId, offenderNo } = this.props;
+
+    if (!offendersAgencyId) {
+      this.props.viewDetails(offenderNo);
+    } else {
+      loadViewModel(offendersAgencyId);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
     const { loadViewModel, offendersAgencyId } = this.props;
 
-    loadViewModel(offendersAgencyId);
+    if (!prevProps.offendersAgencyId && offendersAgencyId) {
+      loadViewModel(offendersAgencyId);
+    }
   }
 
   render() {
@@ -163,8 +174,9 @@ class AddAppointment extends Component {
 }
 
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch, props) {
   return {
+    viewDetails: (offenderNo) => dispatch(viewDetails(offenderNo, DETAILS_TABS.ADD_APPOINTMENT)),
     goBackToBookingDetails: (offenderNo) => dispatch(viewDetails(offenderNo, DETAILS_TABS.OFFENDER_DETAILS)),
     loadViewModel: (agencyId) => dispatch(loadAppointmentViewModel(agencyId)),
     onSubmit: createFormAction((formData) => (
@@ -172,6 +184,7 @@ export function mapDispatchToProps(dispatch) {
         type: APPOINTMENT.ADD,
         payload: {
           ...formData.toJS(),
+          offenderNo: props.params.offenderNo,
         },
       }),
       [APPOINTMENT.SUCCESS, APPOINTMENT.ERROR]),
