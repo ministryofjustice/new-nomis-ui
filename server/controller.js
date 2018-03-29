@@ -150,6 +150,9 @@ const addAppointment = asyncMiddleware(async (req,res) => {
     return;
   }
 
+  const { bookingId } = await elite2Api.getDetailsLight(req, res);
+  req.bookingId = bookingId;
+
   await elite2Api.addAppointment({ req, res });
   res.status(200);
   res.end();
@@ -183,6 +186,19 @@ const caseNotes = asyncMiddleware(async (req, res) => {
   elite2ApiFallThrough(req, res);
 });
 
+const addCaseNote = asyncMiddleware(async (req, res) => {
+  if (!req.params.offenderNo) {
+    res.status(400);
+    res.end();
+    return;
+  }
+
+  const { bookingId } = await elite2Api.getDetailsLight(req, res);
+  req.url = `/bookings/${bookingId}/caseNotes`;
+
+  elite2ApiFallThrough(req, res);
+});
+
 const updateCaseNote = asyncMiddleware(async (req, res) => {
   if (!req.params.offenderNo || !req.params.caseNoteId) {
     res.status(400);
@@ -211,5 +227,6 @@ module.exports = {
   addAppointment,
   alerts,
   caseNotes,
+  addCaseNote,
   updateCaseNote,
 };

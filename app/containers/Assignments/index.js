@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import ResultsViewToggle from 'components/ResultsViewToggle';
 import ResultsViewToggleMobile from 'components/ResultsViewToggle/mobile';
@@ -12,6 +13,8 @@ import { setSearchContext } from 'globalReducers/app';
 import BookingTable from 'components/Bookings/Table';
 import BookingGrid from 'components/Bookings/Grid';
 
+import { DETAILS_TABS } from 'containers/Bookings/constants';
+
 import { Model as OfficerAssignmentsModel } from 'helpers/dataMappers/officerAssignments';
 import { Model as UserModel } from 'helpers/dataMappers/user';
 
@@ -20,6 +23,7 @@ import {
   setAssignmentsView,
   toggleAssignmentsSortOrder,
 } from './actions';
+
 
 const Results = ({ resultsView, results, viewDetails, sortOrder }) => resultsView === 'List' ?
     <BookingTable viewName={resultsView} results={results} viewDetails={viewDetails} sortOrder={sortOrder} />
@@ -97,7 +101,7 @@ Assignments.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    viewDetails: (offenderNo) => dispatch(vD(offenderNo)),
+    viewDetails: (offenderNo) => dispatch(vD(offenderNo, DETAILS_TABS.OFFENDER_DETAILS)),
     setPage: (pagination) => dispatch(setAssignmentsPagination(pagination)),
     setResultsView: (view) => dispatch(setAssignmentsView(view)),
     setContext: (context) => dispatch(setSearchContext(context)),
