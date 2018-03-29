@@ -11,22 +11,21 @@ import { Model as offenderDetailsModel } from 'helpers/dataMappers/offenderDetai
 
 import './index.scss';
 
+const normaliseName = (name) => {
+  const formatted = name.replace('-', ' ').split(/(?=[A-Z])/).map((s) => {
+    return s.toLowerCase();
+  }).join(' ');
+
+  return properCase(formatted);
+};
+
 const getRouteForBookingTab = (url, offenderNo) => {
   const parts = url.split('/');
   const lastPart = parts[parts.length - 1];
   const values = Object.keys(DETAILS_TABS).map(key => DETAILS_TABS[key]);
   const isTab = Boolean(lastPart && values.filter(v => v === lastPart).length > 0);
-  const uppercaseFirstLetter = (word) => word && `${word[0].toUpperCase()}${word.substring(1)}`;
 
-  return isTab && { name: uppercaseFirstLetter(lastPart).replace('-', ' '), route: `/offenders/${offenderNo}/${lastPart}` };
-};
-
-const normaliseName = (name) => {
-  const formatted = name.split(/(?=[A-Z])/).map((s) => {
-    return s.toLowerCase();
-  }).join(' ');
-
-  return properCase(formatted);
+  return isTab && { name: normaliseName(lastPart), route: `/offenders/${offenderNo}/${lastPart}` };
 };
 
 export const buildBreadcrumb = ({ route, offender, context, offenderNo }) => {

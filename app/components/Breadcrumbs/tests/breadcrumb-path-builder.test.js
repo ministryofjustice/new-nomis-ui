@@ -66,7 +66,7 @@ describe('Breadcrumb path builder', () => {
     expect(breadcrumbs[2].route).toBe('/offenders/12345/personal');
 
     expect(breadcrumbs[3].name).toBe('Add appointment');
-    expect(breadcrumbs[3].route).toBe('addAppointment');
+    expect(breadcrumbs[3].route).toBe('/offenders/12345/addAppointment');
   });
 
   it('should produce a breadcrumb structure that drives Home > Results > Doe, John > Schedule', () => {
@@ -82,7 +82,7 @@ describe('Breadcrumb path builder', () => {
     expect(breadcrumbs[2].route).toBe('/offenders/12345/personal');
 
     expect(breadcrumbs[3].name).toBe('Schedule');
-    expect(breadcrumbs[3].route).toBe('schedule');
+    expect(breadcrumbs[3].route).toBe('/offenders/12345/schedule');
   });
 
   it('should produce a breadcrumb structure that drives Home > Results > Doe, John > Amend case note', () => {
@@ -143,7 +143,7 @@ describe('Breadcrumb path builder', () => {
     expect(breadcrumbs[2].route).toBe('/offenders/12345/personal');
 
     expect(breadcrumbs[3].name).toBe('Add appointment');
-    expect(breadcrumbs[3].route).toBe('addAppointment');
+    expect(breadcrumbs[3].route).toBe('/offenders/12345/addAppointment');
   });
 
   it('should produce a breadcrumb structure that drives Home > My assignments > Doe, John > Schedule', () => {
@@ -159,7 +159,7 @@ describe('Breadcrumb path builder', () => {
     expect(breadcrumbs[2].route).toBe('/offenders/12345/personal');
 
     expect(breadcrumbs[3].name).toBe('Schedule');
-    expect(breadcrumbs[3].route).toBe('schedule');
+    expect(breadcrumbs[3].route).toBe('/offenders/12345/schedule');
   });
 
   it('should produce a breadcrumb structure that drives Home > My assignments > Doe, John > Amend case note', () => {
@@ -211,7 +211,7 @@ describe('Breadcrumb path builder', () => {
     expect(breadcrumbs[1].route).toBe('/offenders/12345/personal');
 
     expect(breadcrumbs[2].name).toBe('Add appointment');
-    expect(breadcrumbs[2].route).toBe('addAppointment');
+    expect(breadcrumbs[2].route).toBe('/offenders/12345/addAppointment');
   });
 
   it('should produce a breadcrumb structure that drives Home > Doe,John > Schedule', () => {
@@ -224,7 +224,7 @@ describe('Breadcrumb path builder', () => {
     expect(breadcrumbs[1].route).toBe('/offenders/12345/personal');
 
     expect(breadcrumbs[2].name).toBe('Schedule');
-    expect(breadcrumbs[2].route).toBe('schedule');
+    expect(breadcrumbs[2].route).toBe('/offenders/12345/schedule');
   });
 
   it('should produce a breadcrumb structure that drives Home > Doe, John > Amend case note', () => {
