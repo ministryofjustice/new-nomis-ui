@@ -12,9 +12,7 @@ import { Model as offenderDetailsModel } from 'helpers/dataMappers/offenderDetai
 import './index.scss';
 
 const normaliseName = (name) => {
-  const formatted = name.replace('-', ' ').split(/(?=[A-Z])/).map((s) => {
-    return s.toLowerCase();
-  }).join(' ');
+  const formatted = name.replace('-', ' ').split(/(?=[A-Z])/).map((s) => s.toLowerCase()).join(' ');
 
   return properCase(formatted);
 };
