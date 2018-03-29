@@ -33,7 +33,7 @@ export const DETAILS_TABS = {
   CASE_NOTES: 'case-notes',
   KEY_DATES: 'key-dates',
   QUICK_LOOK: 'quick-look',
-  SCHEDULED: 'scheduled',
+  SCHEDULED: 'schedule',
   ADD_APPOINTMENT: 'addAppointment',
 };
 

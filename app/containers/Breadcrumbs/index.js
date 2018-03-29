@@ -10,14 +10,14 @@ import { selectUser } from '../Authentication/selectors';
 class Breadcrumbs extends Component {
 
   render() {
-    const { user, route, searchContext,bookingId } = this.props;
+    const { user, route, searchContext,offenderNo } = this.props;
 
     return user && (
       <BreadcrumbsComponent
         route={route}
         inmateData={{}}
         context={searchContext}
-        bookingId={bookingId}
+        offenderNo={offenderNo}
       />
     );
   }
