@@ -35,7 +35,7 @@ import {
   toggleSortOrder,
 } from '../actions';
 
-import { NEW_SEARCH } from '../constants';
+import { NEW_SEARCH, DETAILS_TABS } from '../constants';
 
 const ResultsViewBuilder = ({ viewName, results, onViewDetails, sortOrderChange, sortOrder, router }) => viewName === 'List' ?
   <BookingTable results={results} viewDetails={onViewDetails} sortOrderChange={sortOrderChange} sortOrder={sortOrder} /> :
@@ -130,7 +130,7 @@ SearchResults.defaultProps = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    viewDetails: (offenderNo) => dispatch(vD(offenderNo)),
+    viewDetails: (offenderNo) => dispatch(vD(offenderNo, DETAILS_TABS.OFFENDER_DETAILS)),
     setPage: (pagination) => dispatch(sP(pagination)),
     setResultsView: (pagination) => dispatch(setResultsView(pagination)),
     loadLocations: () => dispatch(loadLocations()),

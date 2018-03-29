@@ -23,16 +23,16 @@ import './index.scss';
 const selector = formValueSelector('addCaseNote');
 
 const AddCaseNoteForm = ({
-      handleSubmit,
-      submitting,
-      error,
-      caseNoteTypes,
-      locale,
-      typeValue,
-      params: { offenderNo },
-      goBackToBookingDetails,
-      eventDate }) =>
-
+  handleSubmit,
+  submitting,
+  error,
+  caseNoteTypes,
+  locale,
+  typeValue,
+  params: { offenderNo },
+  goBackToBookingDetails,
+  eventDate,
+}) => (
   <div className="add-case-note">
     <h1 className="bold-large">Add new case note</h1>
     <form onSubmit={handleSubmit}>
@@ -93,6 +93,7 @@ const AddCaseNoteForm = ({
       </div>
     </form>
   </div>
+);
 
 AddCaseNoteForm.propTypes = {
   caseNoteTypes: PropTypes.object.isRequired,

@@ -73,12 +73,16 @@ export default function createRoutes(store) {
       onEnter: onEnter({ routeName: 'addCaseNote' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
+          System.import('containers/Bookings/reducers'),
+          System.import('containers/Bookings/sagas'),
           System.import('containers/Bookings/Details/AddCaseNote'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component]) => {
+        importModules.then(([bookingReducers, sagas, component]) => {
+          injectReducer('search', bookingReducers.default);
+          injectSagas('search', sagas.default);
           renderRoute(component);
         });
 

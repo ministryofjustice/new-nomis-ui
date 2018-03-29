@@ -116,6 +116,7 @@ app.use('/app/bookings/loadAppointmentViewModel/:agencyId', controller.loadAppoi
 app.use('/app/bookings/addAppointment/:offenderNo', controller.addAppointment);
 app.use('/app/bookings/:offenderNo/alerts', controller.alerts);
 app.get('/app/bookings/:offenderNo/caseNotes', controller.caseNotes);
+app.post('/app/bookings/:offenderNo/caseNotes', controller.addCaseNote);
 app.put('/app/bookings/:offenderNo/caseNotes/:caseNoteId', controller.updateCaseNote);
 
 app.use('/app', application.sessionHandler);
