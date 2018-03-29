@@ -496,7 +496,7 @@ class QuickLook extends Component {
             <Activities activities={activities.get('morningActivities')} period={'Morning (AM)'} />
             <Activities activities={activities.get('afternoonActivities')} period={'Afternoon (PM)'} />
 
-            <Link className="link" to={`/offenders/${offenderNo}/scheduled`}> Seven day schedule</Link>
+            <Link className="link" to={`/offenders/${offenderNo}/schedule`}> Seven day schedule</Link>
           </div>
         </div>
       </div>

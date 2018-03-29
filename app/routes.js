@@ -130,8 +130,8 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/offenders/:offenderNo/scheduled',
-      name: 'scheduled',
+      path: '/offenders/:offenderNo/schedule',
+      name: 'schedule',
       onEnter: onEnter({ routeName: 'scheduled 7 day view' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([

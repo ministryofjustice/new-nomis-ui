@@ -66,7 +66,7 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
 
         <nav className="nav-container">
            <div className="nav-content">
-             {!shouldShowTerms && <Breadcrumbs route={this.props.router.location.pathname} bookingId={this.props.params.bookingId} /> }
+             {!shouldShowTerms && <Breadcrumbs route={this.props.router.location.pathname} offenderNo={this.props.params.offenderNo} /> }
            </div>
         </nav>
 
