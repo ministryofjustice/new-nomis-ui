@@ -6,7 +6,6 @@ import { selectApi } from 'containers/ConfigLoader/selectors';
 import { bookingDetailsSaga as bookingDetailsElite } from 'containers/EliteApiLoader/sagas';
 import { loadBookingAlerts, loadBookingCaseNotes, resetCaseNotes } from 'containers/EliteApiLoader/actions';
 import { BOOKINGS } from 'containers/EliteApiLoader/constants';
-import { DATE_TIME_FORMAT_SPEC } from 'containers/App/constants';
 import { notify } from 'react-notify-toast';
 import { showSpinner, hideSpinner } from 'globalReducers/app';
 
@@ -21,7 +20,6 @@ import {
   loadQuickLook,
   loadScheduledEventsForThisWeek,
   loadScheduledEventsForNextWeek,
-  loadAppointmentViewModel,
   addAppointment,
 } from 'utils/eliteApi';
 
@@ -33,20 +31,11 @@ import {
   selectSearchResultsPagination,
   selectSearchResultsSortOrder,
   selectSearchQuery,
-  selectBookingDetailsId,
-  selectCaseNotesPagination,
-  selectCaseNotesQuery,
-  selectCaseNotesDetailId,
   selectLocations,
 } from './selectors';
 
 import {
-  setDetailsTab,
-} from './actions';
-
-import {
   DETAILS_TABS,
-  SEARCH,
   SEARCH_SUCCESS,
   SEARCH_ERROR,
   VIEW_DETAILS,
@@ -56,7 +45,6 @@ import {
   SET_PAGINATION,
   UPDATE_ALERTS_PAGINATION,
   SET_ALERTS_PAGINATION,
-  SET_CASENOTES_PAGINATION,
   UPDATE_CASENOTES_PAGINATION,
   UPDATE_RESULTS_VIEW,
   SET_RESULTS_VIEW,
@@ -70,7 +58,6 @@ import {
   SET_LOCATIONS,
   NEW_SEARCH,
   TOGGLE_SORT_ORDER,
-  SET_DETAILS_TAB,
   LOAD_KEY_DATES,
   SET_KEYDATES,
   LOAD_QUICK_LOOK,
@@ -96,9 +83,6 @@ export function* newSearchWatcher() {
 }
 export function* loadLocationsWatcher() {
   yield takeLatest(LOAD_LOCATIONS, setLocations);
-}
-export function* searchWatcher() {
-  yield takeLatest(SEARCH, searchSaga);
 }
 
 export function* showPhotoWatcher() {
@@ -281,8 +265,8 @@ export function* newSearch(action) {
     const { query, resetPagination } = action.payload;
 
     const baseUrl = yield select(selectApi());
-    const sortOrder = yield (action.payload.sortOrder || select(selectSearchResultsSortOrder()));
-    let pagination = yield (action.payload.pagination || select(selectSearchResultsPagination()));
+    const sortOrder = yield select(selectSearchResultsSortOrder());
+    let pagination = yield (select(selectSearchResultsPagination()));
     const locations = yield select(selectLocations());
 
     yield put(showSpinner());
@@ -291,10 +275,12 @@ export function* newSearch(action) {
     if (!query.locationPrefix && locations.size > 0) {
       query.locationPrefix = locations.getIn([0, 'locationPrefix']);
     }
+
     if (resetPagination) {
       pagination = { ...pagination, pageNumber: 0 };
-      yield put({ type: SET_PAGINATION, payload: pagination });
     }
+
+    yield put({ type: SET_PAGINATION, payload: pagination });
 
     const result = yield call(searchOffenders, {
       baseUrl,
@@ -307,20 +293,6 @@ export function* newSearch(action) {
         order: sortOrder,
       },
     });
-
-    if (result.bookings.length === 1 && pagination.pageNumber === 0) {
-      yield put({
-        type: VIEW_DETAILS,
-        payload: {
-          offenderNo: result.bookings[0].offenderNo,
-          activeTabId: DETAILS_TABS.OFFENDER_DETAILS,
-        },
-      });
-
-      yield put(setSearchContext(''));
-
-      return;
-    }
 
     yield put(setSearchContext('results'));
 
@@ -349,10 +321,6 @@ export function* newSearch(action) {
     yield put(hideSpinner());
     yield put({ type: SEARCH_ERROR, payload: new SubmissionError({ _error: err.message }) });
   }
-}
-
-export function* searchSaga(action) {
-  yield newSearch(action);
 }
 
 export function* amendCaseNoteWatcher() {
@@ -387,10 +355,18 @@ export function* detailsWatcher() {
 export function* viewDetails(action) {
   yield put(showSpinner());
   yield put({ type: SET_DETAILS, payload: action.payload });
-  const { Type } = yield call(bookingDetailsElite, action); //eslint-disable-line
+
+  const { Type } = yield call(bookingDetailsElite, action);
+  const previousPath = yield select(state => state.getIn(['route', 'locationBeforeTransitions', 'pathname']));
+
   if (Type !== 'ERROR') {
-    yield put(push(`/offenders/${action.payload.offenderNo}/${action.payload.activeTabId}`))
+    const nextPath = `/offenders/${action.payload.offenderNo}/${action.payload.activeTabId}`;
+
+    if (previousPath && previousPath !== nextPath) {
+      yield put(push(nextPath));
+    }
   }
+
   yield put(hideSpinner());
 }
 
@@ -401,7 +377,7 @@ export function* searchResultPaginationWatcher() {
 export function* updateSearchResultPagination(action) {
   yield put({ type: SET_PAGINATION, payload: action.payload });
   const currentQuery = yield select(selectSearchQuery());
-  yield put({ type: SEARCH, payload: { query: currentQuery } });
+  yield put({ type: NEW_SEARCH, payload: { query: currentQuery } });
 }
 
 export function* searchResultViewWatcher() {
@@ -411,7 +387,7 @@ export function* searchResultViewWatcher() {
 export function* updateSearchResultView(action) {
   yield put({ type: SET_RESULTS_VIEW, payload: action.payload });
   const currentQuery = yield select(selectSearchQuery());
-  yield put({ type: SEARCH, payload: { query: currentQuery } });
+  yield put({ type: NEW_SEARCH, payload: { query: currentQuery } });
 }
 
 export function* detailAlertsPaginationWatcher() {
@@ -457,7 +433,6 @@ export function* setCaseNoteFilterSaga(action) {
 }
 
 export default [
-  searchWatcher,
   detailsWatcher,
   searchResultPaginationWatcher,
   searchResultViewWatcher,
