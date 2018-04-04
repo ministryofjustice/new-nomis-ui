@@ -3,7 +3,7 @@ const chai = require('chai'),
   expect = chai.expect;
 const sinonChai = require('sinon-chai');
 
-const elite2Api = require('../server/elite2Api');
+const elite2Api = require('../server/api/elite2Api');
 const bookingService = require('../server/services/booking');
 
 chai.use(sinonChai);
@@ -12,6 +12,12 @@ describe('Booking Service Booking details', () => {
   let sandbox;
   const req = {
     bookingId: 1,
+    params: {
+      offenderNo: 'A12345',
+    },
+    headers: {
+      host: '',
+    },
   };
 
   beforeEach(() => {

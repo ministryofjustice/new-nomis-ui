@@ -1,5 +1,5 @@
 const moment = require('moment');
-const elite2Api = require('../elite2Api');
+const elite2Api = require('../api/elite2Api');
 const utils = require('../utils');
 const isoDateFormat = require('./../constants').isoDateFormat;
 const toEvent = require('../data-mappers/to-event');

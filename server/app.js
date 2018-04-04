@@ -1,13 +1,14 @@
+const url = require('url');
 const session = require('./session');
-const apiService = require('./elite2Api');
+const retry = require('./api/retry');
 const { logger } = require('./services/logger');
 
-const errorStatusCode = apiService.errorStatusCode;
-
 const sessionHandler = (req, res) => {
-  apiService.callApi({
+  const destination = url.resolve(process.env.API_ENDPOINT_URL, `api${req.url}`);
+
+  retry.callApi({
     method: req.method,
-    url: `/api${req.url}`,
+    url: destination,
     headers: getPagingHeaders(req),
     data: req.body,
     reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },
@@ -18,7 +19,7 @@ const sessionHandler = (req, res) => {
     res.json(response.data);
   }).catch(error => {
     logger.error(error);
-    res.status(errorStatusCode(error.response));
+    res.status(retry.errorStatusCode(error.response));
     res.end();
   })
 };

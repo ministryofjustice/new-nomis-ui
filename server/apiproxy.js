@@ -1,8 +1,6 @@
 const proxy = require('http-proxy-middleware');
-const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const modifyResponse = require('node-http-proxy-json');
-const elite2Api = require('./elite2Api');
 const tokenGeneration = require('./jwt-token');
 const { logger } = require('./services/logger');
 
@@ -80,7 +78,7 @@ const onProxyRequest = (proxyReq, req) => {
 
 // proxy middleware options
 const options = {
-  target: elite2Api.baseUrl,              // target host
+  target: process.env.API_ENDPOINT_URL,              // target host
   changeOrigin: true,                     // needed for virtual hosted sites
   ws: true,                               // proxy websockets
   pathRewrite: {

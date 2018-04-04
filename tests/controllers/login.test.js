@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 const request = require('supertest');
 
 const { loginIndex, login } = require('../../server/controller');
-const elite2Api = require('../../server/elite2Api');
+const retry = require('../../server/api/retry');
 
 chai.use(sinonChai);
 
@@ -33,14 +33,14 @@ describe('POST /signin', () => {
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
-    sandbox.stub(elite2Api,'httpRequest');
+    sandbox.stub(retry,'httpRequest');
   });
 
   afterEach(() => sandbox.restore());
 
   describe('Successful signin', () => {
     it('redirects to "/" path', () => {
-      elite2Api.httpRequest.resolves({
+      retry.httpRequest.resolves({
         data: {
           access_token: 'abc.def.egs',
           refresh_token: 'der.ffg.eew',
@@ -59,7 +59,7 @@ describe('POST /signin', () => {
 
   describe('Unsuccessful signin', () => {
     it('redirects to "/login" path', () => {
-      elite2Api.httpRequest.rejects({ response: { status: 401 } });
+      retry.httpRequest.rejects({ response: { status: 401 } });
 
       return request(app)
         .post('/login')
