@@ -43,6 +43,7 @@ Header.defaultProps = {
     assignedOfficerId: '',
     iepLevel: '',
     csra: '',
+    keyworker: null,
   }),
   showPhoto: () => {},
 };

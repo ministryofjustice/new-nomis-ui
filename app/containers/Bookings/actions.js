@@ -1,22 +1,9 @@
-/*
- *
- * Authentication actions
- *
- */
-
 import {
-  BOOKINGS,
-} from 'containers/EliteApiLoader/constants';
-
-import {
-  SEARCH,
   VIEW_DETAILS,
-  SET_DETAILS_TAB,
   UPDATE_PAGINATION,
   UPDATE_RESULTS_VIEW,
   UPDATE_ALERTS_PAGINATION,
   UPDATE_CASENOTES_PAGINATION,
-  VIEW_CASENOTE_DETAILS,
   VIEW_CASENOTE_LIST,
   ADD_NEW_CASENOTE,
   SHOW_LARGE_PHOTO_BOOKING_DETAILS,
@@ -46,13 +33,6 @@ export function hideLargePhoto(imageId) {
   return {
     type: HIDE_LARGE_PHOTO_BOOKING_DETAILS,
     payload: { imageId },
-  };
-}
-
-export function search(searchObj) {
-  return {
-    type: SEARCH,
-    searchObj,
   };
 }
 
@@ -93,13 +73,6 @@ export function addNewCaseNote({ offenderNo, type, subType, occurrenceDateTime }
   };
 }
 
-export function setDetailsTab(activeTabId) {
-  return {
-    type: SET_DETAILS_TAB,
-    payload: { activeTabId },
-  };
-}
-
 export function setResultsView(view) {
   return {
     type: UPDATE_RESULTS_VIEW,
@@ -107,12 +80,6 @@ export function setResultsView(view) {
   };
 }
 
-export function setCaseNotesDetailView(offenderNo, caseNoteId) {
-  return {
-    type: BOOKINGS.CASENOTES.VIEW_DETAILS,
-    payload: { offenderNo, caseNoteId },
-  };
-}
 export function setCaseNotesListView() {
   return {
     type: VIEW_CASENOTE_LIST,

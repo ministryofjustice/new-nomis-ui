@@ -4,8 +4,6 @@
  *
  */
 
-export const SEARCH = 'app/search/SEARCH';
-export const SEARCH_LOADING = 'app/search/SEARCH/loading';
 export const SEARCH_SUCCESS = 'app/search/SEARCH/success';
 export const SEARCH_ERROR = 'app/search/SEARCH/error';
 export const NEW_SEARCH = 'app/search/SEARCH/NEW_SEARCH';
@@ -19,7 +17,6 @@ export const UPDATE_PAGINATION = 'app/bookings/search/results/pagination/update'
 
 export const VIEW_DETAILS = 'app/bookings/details/view';
 export const SET_DETAILS = 'app/bookings/details/set';
-export const SET_DETAILS_TAB = 'app/bookings/details/tab/set';
 export const LOAD_KEY_DATES = 'app/bookings/details/tab/load/keydates';
 export const SET_KEYDATES = 'app/bookings/details/tab/set/keydates';
 
@@ -49,7 +46,6 @@ export const SET_CASENOTES_PAGINATION = 'app/bookings/details/casenotes/paginati
 export const UPDATE_CASENOTES_PAGINATION = 'app/bookings/details/casenotes/pagination/update';
 
 export const VIEW_CASENOTE_LIST = 'app/bookings/details/casenotes/view/list';
-export const VIEW_CASENOTE_DETAILS = 'app/bookings/details/casenotes/view/details';
 
 export const SHOW_LARGE_PHOTO_BOOKING_DETAILS = 'SHOW_LARGE_PHOTO_BOOKING_DETAILS';
 export const HIDE_LARGE_PHOTO_BOOKING_DETAILS = 'HIDE_LARGE_PHOTO_BOOKING_DETAILS';

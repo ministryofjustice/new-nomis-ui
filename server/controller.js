@@ -1,9 +1,10 @@
-const query = require('url')
-const elite2Api = require('./elite2Api'),
-  errorStatusCode = elite2Api.errorStatusCode;
+const url = require('url')
+const baseUrl = process.env.API_ENDPOINT_URL || 'http://localhost:3000';
 const elite2ApiFallThrough = require('./app').sessionHandler;
-const session = require('./session');
+const retry = require('./api/retry');
 
+const elite2Api = require('./api/elite2Api');
+const session = require('./session');
 const bookingService = require('./services/booking');
 const eventsService = require('./services/events');
 const { logger } = require('./services/logger');
@@ -13,53 +14,38 @@ const asyncMiddleware = fn =>
     Promise.resolve(fn(req, res, next))
       .catch(error => {
         logger.error(error);
-        res.status(errorStatusCode(error.response));
+        res.status(retry.errorStatusCode(error.response));
         res.end();
 
         throw error;
       });
   };
 
-const loginIndex = async (req, res) => {
-  let isApiUp = true;
-  await elite2Api.getApiHealth().catch(error => {
-    logger.error(error);
-    isApiUp = false;
-  });
-  res.render('pages/login', { authError: false, apiUp: isApiUp });
+const loginIndex = (req, res) => {
+  res.render('pages/login', { authError: false });
 };
 
-const login = async (req, res) => {
-  let isApiUp = true;
-  await elite2Api.getApiHealth().catch(error => {
+const login = (req, res) => {
+  const loginData = `username=${req.body.username.toString().toUpperCase()}&password=${req.body.password}&grant_type=password`;
+  retry.httpRequest({
+    method: 'post',
+    url: url.resolve(baseUrl,'oauth/token'),
+    headers: {
+      authorization: `Basic ${retry.encodeClientCredentials()}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    data: loginData,
+  }).then((response) => {
+    req.session.isAuthenticated = true;
+
+    session.setHmppsCookie(res, response.data);
+
+    res.redirect('/');
+  }).catch(error => {
     logger.error(error);
-    isApiUp = false;
+    res.status(retry.errorStatusCode(error.response));
+    res.render('pages/login', { authError: true });
   });
-  if (isApiUp) {
-    const loginData = `username=${req.body.username.toString().toUpperCase()}&password=${req.body.password}&grant_type=password`;
-    elite2Api.httpRequest({
-      method: 'post',
-      url: 'oauth/token',
-      headers: {
-        authorization: `Basic ${elite2Api.encodeClientCredentials()}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      data: loginData,
-    }).then((response) => {
-      req.session.isAuthenticated = true;
-
-      session.setHmppsCookie(res, response.data);
-
-      res.redirect('/');
-    }).catch(error => {
-      logger.error(error);
-      res.status(errorStatusCode(error.response));
-      res.render('pages/login', { authError: true, apiUp: true });
-    });
-  } else {
-    res.status(503);
-    res.render('pages/login', { authError: false, apiUp: false });
-  }
 };
 
 const logout = (req, res) => {
@@ -69,9 +55,9 @@ const logout = (req, res) => {
 };
 
 const images = (req, res) => {
-  elite2Api.callApi({
+  retry.callApi({
     method: 'get',
-    url: `api/images${req.url}`,
+    url: url.resolve(baseUrl,`api/images${req.url}`),
     responseType: 'stream',
     headers: {},
     reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },
@@ -84,7 +70,7 @@ const images = (req, res) => {
     response.data.pipe(res);
   }).catch(error => {
     logger.error(error);
-    res.status(errorStatusCode(error.response));
+    res.status(retry.errorStatusCode(error.response));
     res.end();
   });
 };
@@ -193,7 +179,7 @@ const caseNotes = asyncMiddleware(async (req, res) => {
     return;
   }
 
-  const queryString = query.parse(req.url).query;
+  const queryString = url.parse(req.url).query
   const { bookingId } = await elite2Api.getDetailsLight(req, res);
   req.url = `/bookings/${bookingId}/caseNotes?${queryString}`;
 

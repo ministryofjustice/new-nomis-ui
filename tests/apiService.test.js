@@ -4,7 +4,7 @@ const chai = require('chai'),
   expect = chai.expect;
 
 const sinonChai = require('sinon-chai');
-const apiService = require('../server/elite2Api');
+const apiService = require('../server/api/retry');
 const session = require('../server/session');
 
 chai.use(sinonChai);

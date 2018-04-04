@@ -1,4 +1,4 @@
-const elite2Api = require('../elite2Api');
+const elite2Api = require('../api/elite2Api');
 const moment = require('moment');
 
 const RiskAssessment = require('../model/risk-assessment');
@@ -42,7 +42,7 @@ const getKeyDatesVieModel = async (req, res) => {
 };
 
 const getBookingDetailsViewModel = async (req, res) => {
-  const details = (await elite2Api.getDetails(req, res));
+  const details = await elite2Api.getDetails(req, res);
   const { bookingId } = details;
   req.bookingId = bookingId;
 
@@ -52,9 +52,12 @@ const getBookingDetailsViewModel = async (req, res) => {
     .map(assessment => RiskAssessment(assessment))
     .filter((assessment) => assessment.isCRSA() && assessment.isActive())[0];
 
+  const keyworker = await elite2Api.getKeyworker(req, res);
+
   return {
     ...details,
     iepLevel,
+    keyworker,
     csra: csraAssessment && csraAssessment.riskLevel(),
   };
 };

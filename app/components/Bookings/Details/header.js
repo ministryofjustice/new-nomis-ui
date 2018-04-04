@@ -127,7 +127,7 @@ function Header({ inmateData, onImageClick, offenderNo }) {
                   <div className="row">
                     <div className="col">
                       <label>Key worker</label>
-                      <strong>{inmateData.get('assignedOfficerId') && <EliteOfficerName staffId={inmateData.get('assignedOfficerId')} /> }</strong>
+                      <strong>{inmateData.get('keyworker') && <EliteOfficerName staffId={inmateData.getIn(['keyworker','staffId'])} /> }</strong>
                     </div>
                   </div>
               </div>

@@ -5,7 +5,7 @@ const sinonChai = require('sinon-chai');
 const moment = require('moment');
 
 const isoDateFormat = require('./../server/constants').isoDateFormat;
-const elite2Api = require('../server/elite2Api');
+const elite2Api = require('../server/api/elite2Api');
 const eventsService = require('../server/services/events');
 
 chai.use(sinonChai);
