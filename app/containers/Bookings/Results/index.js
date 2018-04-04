@@ -1,31 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { createStructuredSelector } from 'reselect';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import BookingTable from 'components/Bookings/Table';
 import BookingGrid from 'components/Bookings/Grid';
 import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMessage';
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 import { connect } from 'react-redux';
 import ResultsViewToggle from 'components/ResultsViewToggle';
-import { setSearchContext } from 'globalReducers/app';
-import { selectShouldShowSpinner } from 'selectors/app';
+import { Model as searchModel } from 'helpers/dataMappers/search';
+
 import SearchAgainForm from './SearchForm';
+
 import './index.scss';
-
-import {
-  selectSearchResultsV2,
-  selectSearchResultsTotalRecords,
-  selectSearchResultsPagination,
-  selectResultsView,
-  selectLocations,
-  selectSearchResultsSortOrder,
-} from '../selectors';
-
-import {
-  selectLoadingBookingDetailsStatus,
-} from '../../EliteApiLoader/selectors';
 
 import {
   viewDetails as vD,
@@ -41,8 +28,7 @@ const ResultsViewBuilder = ({ viewName, results, onViewDetails, sortOrderChange,
   <BookingTable results={results} viewDetails={onViewDetails} sortOrderChange={sortOrderChange} sortOrder={sortOrder} /> :
   <BookingGrid results={results} viewDetails={onViewDetails} sortOrderChange={sortOrderChange} sortOrder={sortOrder} />;
 
-class SearchResults extends Component { // eslint-disable-line react/prefer-stateless-function
-
+class SearchResults extends Component {
   componentWillMount() {
     this.props.loadLocations();
   }
@@ -51,21 +37,39 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
     this.refs.focuspoint.scrollIntoView();
 
     const { locationPrefix, keywords, perPage, pageNumber } = this.props.location.query;
+    const pagination = (perPage && pageNumber) ? { perPage, pageNumber } : this.props.pagination;
 
-    let pagination;
-
-    if (perPage && pageNumber) {
-      pagination = { perPage, pageNumber };
-    }
-
-    if (locationPrefix || keywords) {
+    if (locationPrefix) {
+      this.props.setPage(pagination);
       this.props.getSearchResults({ locationPrefix, keywords, pagination })
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!Map(prevProps.location.query).equals(Map(this.props.location.query))) {
+      const { locationPrefix, keywords, perPage, pageNumber } = this.props.location.query;
+      const pagination = (perPage && pageNumber) ? { perPage, pageNumber } : this.props.pagination;
+
+      if (locationPrefix) {
+        this.props.setPage(pagination);
+        this.props.getSearchResults({ locationPrefix, keywords, pagination })
+      }
     }
   }
 
   render() {
     const {
-      locations, sortOrder, toggleSortOrder, viewDetails, results, totalResults, pagination, setPage, resultsView, setResultsView, loadingStatus, shouldShowSpinner} = this.props; //eslint-disable-line
+      locations,
+      sortOrder,
+      viewDetails,
+      results,
+      totalResults,
+      pagination,
+      setPage,
+      resultsView,
+      shouldShowSpinner,
+    } = this.props;
+
     const { perPage: pP, pageNumber: pN } = pagination;
 
     return (
@@ -76,33 +80,33 @@ class SearchResults extends Component { // eslint-disable-line react/prefer-stat
           {shouldShowSpinner === false && <SearchAgainForm locations={locations} /> }
         </div>
 
-         <div className="row toggle-and-count-view">
-            {totalResults > 0 ?
-              <div>
-                <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />
-                <div>{Math.min((pP * pN) + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults} results</div>
-              </div>
-               : null}
-          </div>
+        <div className="row toggle-and-count-view">
+          {totalResults > 0 ?
+            <div>
+              <ResultsViewToggle resultsView={resultsView} setResultsView={this.props.setResultsView} />
+              <div>{Math.min((pP * pN) + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults} results</div>
+            </div>
+            : null}
+        </div>
 
-          <div className="row">
+        <div className="row">
 
-            <NoSearchResultsReturnedMessage resultCount={results.size} />
+          <NoSearchResultsReturnedMessage resultCount={results.size} />
 
-            {totalResults > 0 &&
+          {totalResults > 0 &&
               <ResultsViewBuilder
                 viewName={resultsView}
                 results={results}
                 onViewDetails={viewDetails}
-                sortOrderChange={toggleSortOrder}
+                sortOrderChange={this.props.toggleSortOrder}
                 sortOrder={sortOrder}
               />
-            }
-          </div>
+          }
+        </div>
 
-          <div className="row">
-            <PreviousNextNavigation pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />
-          </div>
+        <div className="row">
+          <PreviousNextNavigation pagination={pagination} totalRecords={totalResults} pageAction={(id) => { setPage({ perPage: pP, pageNumber: id }); }} />
+        </div>
 
       </div>
     );
@@ -135,19 +139,34 @@ export function mapDispatchToProps(dispatch) {
     setResultsView: (pagination) => dispatch(setResultsView(pagination)),
     loadLocations: () => dispatch(loadLocations()),
     toggleSortOrder: () => dispatch(toggleSortOrder()),
-    getSearchResults: (query) => dispatch({ type: NEW_SEARCH, payload: { query, resetPagination: true } }),
+    getSearchResults: (query) => dispatch({ type: NEW_SEARCH, payload: { query } }),
   };
 }
 
-const mapStateToProps = createStructuredSelector({
-  results: selectSearchResultsV2(),
-  totalResults: selectSearchResultsTotalRecords(),
-  pagination: selectSearchResultsPagination(),
-  resultsView: selectResultsView(),
-  locations: selectLocations(),
-  sortOrder: selectSearchResultsSortOrder(),
-  loadingStatus: selectLoadingBookingDetailsStatus(),
-  shouldShowSpinner: selectShouldShowSpinner(),
-});
+const mapStateToProps = (state, props) => {
+  const results = state.getIn(['search', 'results']) || searchModel.get('results');
+  const { perPage, pageNumber, sortOrder } = props.location.query;
+  const totalResults = state.getIn(['search', 'totalResults']) || searchModel.get('totalResults');
+  const resultsView = state.getIn(['search', 'resultsView']) || searchModel.get('resultsView');
+  const locations = state.getIn(['search', 'details', 'locations']) || searchModel.getIn(['details', 'location']);
+  const sOrder = sortOrder || state.getIn(['search', 'sortOrder']);
+  const shouldShowSpinner = state.getIn(['app', 'shouldShowSpinner']);
+
+  let pagination = state.getIn(['search', 'pagination']);
+
+  if (perPage && pageNumber) {
+    pagination = Map({ perPage: Number(perPage), pageNumber: Number(pageNumber) });
+  }
+
+  return {
+    results,
+    totalResults,
+    pagination: pagination.toJS(),
+    resultsView,
+    locations,
+    sortOrder: sOrder,
+    shouldShowSpinner,
+  }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

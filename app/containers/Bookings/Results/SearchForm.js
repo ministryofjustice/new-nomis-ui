@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { reduxForm, Field } from 'redux-form/immutable';
@@ -12,45 +12,51 @@ import {
 
 import './SearchForm.scss';
 
-class SearchAgainForm extends React.PureComponent {  // eslint-disable-line react/prefer-stateless-function
-
+class SearchAgainForm extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { handleSubmit, locations, submitting } = this.props;
 
     return (
       <form className="search-again" onSubmit={handleSubmit}>
-
         {this.props.error ?
           <div className="error-summary">
             <h2 className="heading-medium error-summary-heading">
                       Search Error
-                  </h2>
+            </h2>
             <div className="error-message">
               {this.props.error}
             </div>
           </div>
-              : null}
+          : null}
 
         <div className="filter-box">
 
           <div className="row col-md-4">
 
             <label className="form-label visible-md visible-lg">
-                  Enter prisoner Name or ID
-                </label>
+              Enter prisoner Name or ID
+            </label>
 
-            <Field name="keywords" component="input" type="text" title="Last Name, First Name or ID" placeholder="Last Name, First Name or ID" autoComplete="off" className="form-control" />
+            <Field
+              name="keywords"
+              component="input"
+              type="text"
+              title="Last Name, First Name or ID"
+              placeholder="Last Name, First Name or ID"
+              autoComplete="off"
+              className="form-control"
+            />
 
           </div>
 
           <div className="row col-md-4">
             <label className="form-label visible-md visible-lg">
-                  Select location
-                </label>
+              Select location
+            </label>
             <Field className="form-control" name="locationPrefix" component="select">
               {locations.map((location) =>
                 <option key={location.get('locationPrefix')} value={location.get('locationPrefix')}>{location.get('description')}</option>
-                  )}
+              )}
             </Field>
 
           </div>
@@ -93,6 +99,12 @@ SearchAgainForm.defaultProps = {
 
 export default reduxForm({
   form: 'search',
-  onSubmit: createFormAction((formData) => ({ type: NEW_SEARCH, payload: { query: formData.toJS(), resetPagination: true } }), [SEARCH_SUCCESS, SEARCH_ERROR]),
+  onSubmit: createFormAction((formData) => ({
+    type: NEW_SEARCH,
+    payload: {
+      query: formData.toJS(),
+      resetPagination: true,
+    },
+  }), [SEARCH_SUCCESS, SEARCH_ERROR]),
 
 })(SearchAgainForm);
