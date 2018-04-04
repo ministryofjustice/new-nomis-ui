@@ -70,6 +70,12 @@ const addAppointment = ({ req, res }) => service.callApi({
   onTokenRefresh: session.updateHmppsCookie(res),
 });
 
+const getApiHealth = () => axios({
+  method: 'get',
+  url: 'health',
+  headers: {},
+});
+
 const getRequest = ({ req, res, url, headers }) => service.callApi({
   method: 'get',
   url,
@@ -143,6 +149,7 @@ const service = {
   httpRequestRetry,
   refreshTokenRequest,
   errorStatusCode,
+  getApiHealth,
   getIepSummary,
   getSentenceData,
   getDetailsLight,

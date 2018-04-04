@@ -3,7 +3,6 @@ const elite2Api = require('./elite2Api'),
   errorStatusCode = elite2Api.errorStatusCode;
 const elite2ApiFallThrough = require('./app').sessionHandler;
 const session = require('./session');
-const config = require('./config');
 
 const bookingService = require('./services/booking');
 const eventsService = require('./services/events');
@@ -21,31 +20,46 @@ const asyncMiddleware = fn =>
       });
   };
 
-const loginIndex = (req, res) => {
-  res.render('pages/login', { authError: false });
+const loginIndex = async (req, res) => {
+  let isApiUp = true;
+  await elite2Api.getApiHealth().catch(error => {
+    logger.error(error);
+    isApiUp = false;
+  });
+  res.render('pages/login', { authError: false, apiUp: isApiUp });
 };
 
-const login = (req, res) => {
-  const loginData = `username=${req.body.username.toString().toUpperCase()}&password=${req.body.password}&grant_type=password`;
-  elite2Api.httpRequest({
-    method: 'post',
-    url: 'oauth/token',
-    headers: {
-      authorization: `Basic ${elite2Api.encodeClientCredentials()}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    data: loginData,
-  }).then((response) => {
-    req.session.isAuthenticated = true;
-
-    session.setHmppsCookie(res, response.data);
-
-    res.redirect('/');
-  }).catch(error => {
+const login = async (req, res) => {
+  let isApiUp = true;
+  await elite2Api.getApiHealth().catch(error => {
     logger.error(error);
-    res.status(errorStatusCode(error.response));
-    res.render('pages/login', { authError: true });
+    isApiUp = false;
   });
+  if (isApiUp) {
+    const loginData = `username=${req.body.username.toString().toUpperCase()}&password=${req.body.password}&grant_type=password`;
+    elite2Api.httpRequest({
+      method: 'post',
+      url: 'oauth/token',
+      headers: {
+        authorization: `Basic ${elite2Api.encodeClientCredentials()}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data: loginData,
+    }).then((response) => {
+      req.session.isAuthenticated = true;
+
+      session.setHmppsCookie(res, response.data);
+
+      res.redirect('/');
+    }).catch(error => {
+      logger.error(error);
+      res.status(errorStatusCode(error.response));
+      res.render('pages/login', { authError: true, apiUp: true });
+    });
+  } else {
+    res.status(503);
+    res.render('pages/login', { authError: false, apiUp: false });
+  }
 };
 
 const logout = (req, res) => {
@@ -179,7 +193,7 @@ const caseNotes = asyncMiddleware(async (req, res) => {
     return;
   }
 
-  const queryString = query.parse(req.url).query
+  const queryString = query.parse(req.url).query;
   const { bookingId } = await elite2Api.getDetailsLight(req, res);
   req.url = `/bookings/${bookingId}/caseNotes?${queryString}`;
 
