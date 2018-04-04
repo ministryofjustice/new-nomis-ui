@@ -17,23 +17,23 @@ export const officerAssignments = (_, pagination, baseUrl) => axios({
     'Page-Limit': pagination.perPage,
   },
   url: '/users/me/bookingAssignments' })
-    .then((response) => ({
-      bookings: response.data,
-      totalRecords: parseInt(response.headers['total-records']),
-    })
+  .then((response) => ({
+    bookings: response.data,
+    totalRecords: parseInt(response.headers['total-records']),
+  })
   );
 
 export const bookingDetails = (baseUrl, offenderNo) => axios({
   baseURL: baseUrl,
   method: 'get',
   url: `/bookings/details/${offenderNo}` })
-    .then((response) => response.data);
+  .then((response) => response.data);
 
 export const bookingAliases = (baseUrl, offenderNo) => axios({
   baseURL: baseUrl,
   method: 'get',
   url: `/bookings/${offenderNo}/aliases` })
-    .then((response) => response.data);
+  .then((response) => response.data);
 
 export const bookingAlerts = (baseUrl, offenderNo, pagination) => axios({
   baseURL: baseUrl,
@@ -43,11 +43,11 @@ export const bookingAlerts = (baseUrl, offenderNo, pagination) => axios({
     'Page-Limit': pagination.perPage,
   },
   url: `/bookings/${offenderNo}/alerts` })
-    .then((response) => ({
-      alerts: response.data,
-      totalRecords: parseInt(response.headers['total-records']),
-    })
-    );
+  .then((response) => ({
+    alerts: response.data,
+    totalRecords: parseInt(response.headers['total-records']),
+  })
+  );
 
 const casenoteQueryStringGen = (caseNoteOptions) => {
   const { source, typeSubType, dateRange } = caseNoteOptions;
@@ -226,34 +226,34 @@ export const imageMeta = (baseUrl, imageId) => axios({
   baseURL: baseUrl,
   method: 'get',
   url: `images/${imageId}` })
-    .then((response) => response.data);
+  .then((response) => response.data);
 
 export const officerDetails = (baseUrl, staffId, username) => axios({
   baseURL: baseUrl,
   method: 'get',
   url: (staffId) ? `users/staff/${staffId}` : `users/${username}` })
-    .then((res) => res.data);
+  .then((res) => res.data);
 
 export const imageData = (baseUrl, imageId) => axios({
   baseURL: baseUrl,
   method: 'get',
   url: `photo/${imageId}/data`,
   responseType: 'arraybuffer' })
-    .then((response) => {
-      // Convert Response to a dataURL
-      const arr = new Uint8Array(response.data);
+  .then((response) => {
+    // Convert Response to a dataURL
+    const arr = new Uint8Array(response.data);
 
-      // Convert the int array to a binary string
-      // We have to use apply() as we are converting an *array*
-      // and String.fromCharCode() takes one or more single values, not
-      // an array.
-      const raw = String.fromCharCode.apply(null, arr);
+    // Convert the int array to a binary string
+    // We have to use apply() as we are converting an *array*
+    // and String.fromCharCode() takes one or more single values, not
+    // an array.
+    const raw = String.fromCharCode.apply(null, arr);
 
-      // This works!!!
-      const b64 = btoa(raw);
-      const dataURL = `data:${response.headers['content-type']};base64,${b64}`;
-      return dataURL;
-    });
+    // This works!!!
+    const b64 = btoa(raw);
+    const dataURL = `data:${response.headers['content-type']};base64,${b64}`;
+    return dataURL;
+  });
 
 export const loadMyLocations = (baseUrl) => axios({
   baseURL: `${baseUrl}`,
@@ -263,16 +263,15 @@ export const loadMyLocations = (baseUrl) => axios({
 })
   .then((response) => response.data);
 
-const parseLocationPrefix = (prefix) => prefix === 'All' ? '_' : (prefix || '_');
 
 export const searchOffenders = ({ baseUrl, query,
-                                  sort = { order: 'ASC' },
-                                  pagination = { offset: 0, limit: 1000 } }) =>
+  sort = { order: 'ASC' },
+  pagination = { offset: 0, limit: 1000 } }) =>
   axios({
     baseURL: `${baseUrl}`,
     url: query.keywords ?
-       `locations/description/${query.locationPrefix}/inmates?keywords=${query.keywords}` :
-       `locations/description/${query.locationPrefix}/inmates`,
+      `locations/description/${query.locationPrefix}/inmates?keywords=${query.keywords}` :
+      `locations/description/${query.locationPrefix}/inmates`,
     headers: {
       'Page-Offset': pagination.offset,
       'Page-Limit': pagination.limit,

@@ -1,16 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
-import { Map, List } from 'immutable';
-import EliteImage from 'containers/EliteContainers/Image/index';
-import { toFullName } from 'utils/stringUtils';
-import DisplayValue from 'components/FormComponents/DisplayValue';
 import { FormattedDate } from 'react-intl';
+
+import EliteImage from 'containers/EliteContainers/Image/index';
+import DisplayValue from 'components/FormComponents/DisplayValue';
+import { toFullName } from 'utils/stringUtils';
 import { Model as offenderDetailsModel } from 'helpers/dataMappers/offenderDetails';
 
-import { selectOffenderDetails } from '../../selectors';
 import { showLargePhoto } from '../../actions';
 
 import './index.scss'
@@ -26,90 +23,90 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
   return (
     <div className="offender-details">
       <div className="row">
-          <div className="col-md-6">
+        <div className="col-md-6">
 
-            <div className="row">
-                <h3 className="heading-medium top-heading">Personal details</h3>
+          <div className="row">
+            <h3 className="heading-medium top-heading">Personal details</h3>
+          </div>
+
+          <div className="row border-bottom-line">
+
+            <div className="col-md-6 col-xs-6">
+              <label>Date of birth</label>
             </div>
 
-            <div className="row border-bottom-line">
+            <div className="col-md-6 col-xs-6">
+              {offenderDetails.get('dateOfBirth') && <strong> <FormattedDate value={offenderDetails.get('dateOfBirth')} /> </strong>}
+            </div>
+          </div>
 
-              <div className="col-md-6 col-xs-6">
-                <label>Date of birth</label>
-              </div>
+          <div className="row border-bottom-line">
 
-              <div className="col-md-6 col-xs-6">
-                {offenderDetails.get('dateOfBirth') && <b> <FormattedDate value={offenderDetails.get('dateOfBirth')} /> </b>}
-              </div>
+            <div className="col-md-6 col-xs-6">
+              <label>Age</label>
             </div>
 
-            <div className="row border-bottom-line">
-
-              <div className="col-md-6 col-xs-6">
-                <label>Age</label>
-              </div>
-
-              <div className="col-md-6 col-xs-6">
-                <b> <DisplayValue value={offenderDetails.get('age')} /> </b>
-              </div>
-
-            </div>
-
-            <div className="row border-bottom-line">
-
-              <div className="col-md-6 col-xs-6">
-                <label>Gender</label>
-              </div>
-
-              <div className="col-md-6 col-xs-6">
-                <b> <DisplayValue value={physicalAttributes.get('gender')} /> </b>
-              </div>
-
-            </div>
-
-            <div className="row border-bottom-line">
-
-              <div className="col-md-6 col-xs-6">
-                <label>Ethnicity</label>
-              </div>
-
-              <div className="col-md-6 col-xs-6">
-                <b> <DisplayValue value={physicalAttributes.get('ethnicity')} /> </b>
-              </div>
-
-            </div>
-
-            <div className="row border-bottom-line">
-              <div className="col-lg-6 col-xs-6">
-                <label>Religion</label>
-              </div>
-              <div className="col-lg-6 col-xs-6">
-                <b>
-                  <DisplayValue value={offenderDetails.get('religion')} />
-                </b>
-              </div>
+            <div className="col-md-6 col-xs-6">
+              <strong> <DisplayValue value={offenderDetails.get('age')} /> </strong>
             </div>
 
           </div>
 
+          <div className="row border-bottom-line">
+
+            <div className="col-md-6 col-xs-6">
+              <label>Gender</label>
+            </div>
+
+            <div className="col-md-6 col-xs-6">
+              <strong> <DisplayValue value={physicalAttributes.get('gender')} /> </strong>
+            </div>
+
+          </div>
+
+          <div className="row border-bottom-line">
+
+            <div className="col-md-6 col-xs-6">
+              <label>Ethnicity</label>
+            </div>
+
+            <div className="col-md-6 col-xs-6">
+              <strong> <DisplayValue value={physicalAttributes.get('ethnicity')} /> </strong>
+            </div>
+
+          </div>
+
+          <div className="row border-bottom-line">
+            <div className="col-lg-6 col-xs-6">
+              <label>Religion</label>
+            </div>
+            <div className="col-lg-6 col-xs-6">
+              <strong>
+                <DisplayValue value={offenderDetails.get('religion')} />
+              </strong>
+            </div>
+          </div>
+
+        </div>
+
         <div className="col-md-6">
 
           <div className="row">
-              <h3 className="heading-medium"> Aliases </h3>
+            <h3 className="heading-medium"> Aliases </h3>
           </div>
 
           {offenderDetails.get('aliases') && offenderDetails.get('aliases').size === 0 && <div> -- </div>}
 
           {offenderDetails.get('aliases').map(alias =>
-          <div className="row border-bottom-line" key={uuid()}>
+            (<div className="row border-bottom-line" key={uuid()}>
               <div className="col-md-6 col-xs-12">
-                <b>
+                <strong>
                   <Alias firstName={alias.get('firstName')} lastName={alias.get('lastName')} />
-                </b>
+                </strong>
               </div>
-            </div>)}
+            </div>))}
 
-          </div>
+        </div>
       </div>
 
       <div className="row">
@@ -126,20 +123,20 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
           </div>
 
           <div className="col-md-3 col-xs-6">
-              <b>
-                <FormatValue start={offenderDetails.getIn(['physicalAttributes','heightMetres'])} end="metres" />
-              </b>
+            <strong>
+              <FormatValue start={offenderDetails.getIn(['physicalAttributes','heightMetres'])} end="metres" />
+            </strong>
           </div>
 
-            <div className="col-md-3 col-xs-6">
-              <label>Weight</label>
-            </div>
+          <div className="col-md-3 col-xs-6">
+            <label>Weight</label>
+          </div>
 
-            <div className="col-md-3 col-xs-6">
-              <b>
-                <FormatValue start={offenderDetails.getIn(['physicalAttributes', 'weightKilograms'])} end="kg" />
-              </b>
-            </div>
+          <div className="col-md-3 col-xs-6">
+            <strong>
+              <FormatValue start={offenderDetails.getIn(['physicalAttributes', 'weightKilograms'])} end="kg" />
+            </strong>
+          </div>
         </div>
       </div>
 
@@ -151,9 +148,9 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
           </div>
 
           <div className="col-md-3 col-xs-6">
-            <b>
+            <strong>
               <FormatValue start={offenderDetails.getIn(['physicalAttributes', 'heightMetres'])} end="metres" />
-            </b>
+            </strong>
           </div>
 
         </div>
@@ -165,37 +162,37 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
           </div>
 
           <div className="col-md-3 col-xs-6">
-            <b>
+            <strong>
               <FormatValue start={offenderDetails.getIn(['physicalAttributes','weightKilograms'])} end="kg" />
-            </b>
+            </strong>
           </div>
 
         </div>
       </div>
 
       <div className="desktop">
-          {characteristicsGroupedIntoPairs.map(pair =>
-            <div className="row border-bottom-line" key={uuid()}>
-              {pair.map(info => (
-                <div key={uuid()}>
-                  <div className="col-md-3 col-xs-6">
-                    <label>{info.characteristic}</label>
-                  </div>
-
-                  <div className="col-md-3 col-xs-6">
-                      <b>
-                        <FormatValue start={info.detail} />
-                      </b>
-                    </div>
+        {characteristicsGroupedIntoPairs.map(pair =>
+          (<div className="row border-bottom-line" key={uuid()}>
+            {pair.map(info => (
+              <div key={uuid()}>
+                <div className="col-md-3 col-xs-6">
+                  <label>{info.characteristic}</label>
                 </div>
-                  ))}
-            </div>
-          )}
+
+                <div className="col-md-3 col-xs-6">
+                  <strong>
+                    <FormatValue start={info.detail} />
+                  </strong>
+                </div>
+              </div>
+            ))}
+          </div>)
+        )}
       </div>
 
       <div className="mobile">
         {characteristicsGroupedIntoPairs.map(pair =>
-          <div key={uuid()}>
+          (<div key={uuid()}>
             {pair.map(info => (
               <div key={uuid()}>
 
@@ -204,50 +201,50 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
                 </div>
 
                 <div className="row border-bottom-line col-md-3 col-xs-6">
-                  <b>
+                  <strong>
                     <FormatValue start={info.detail} />
-                  </b>
+                  </strong>
                 </div>
               </div>
             ))}
-          </div>
+          </div>)
         )}
       </div>
 
       {marksGroupedIntoPairs.length > 0 && <div className="row">
         <div className="col-xs-12">
-            <h3 className="heading-medium">
+          <h3 className="heading-medium">
               Distinguishing marks
-            </h3>
+          </h3>
         </div>
       </div> }
 
 
       {marksGroupedIntoPairs.map((pairs) =>
 
-        <div className="row" key={uuid()}>
-          { pairs.map((mark,index) =>
-            <div className="col-md-6" key={uuid()}>
+        (<div className="row" key={uuid()}>
+          { pairs.map((mark) =>
+            (<div className="col-md-6" key={uuid()}>
 
-            <div className="row border-bottom-line">
-              <div className="col-md-6 col-xs-6">
-                <label>Type</label>
+              <div className="row border-bottom-line">
+                <div className="col-md-6 col-xs-6">
+                  <label>Type</label>
+                </div>
+
+                <div className="col-md-6 col-xs-6">
+                  <strong>{mark.type}</strong>
+                </div>
               </div>
 
-              <div className="col-md-6 col-xs-6">
-                <b>{mark.type}</b>
-              </div>
-            </div>
+              <div className="row border-bottom-line">
+                <div className="col-md-6 col-xs-6">
+                  <label>Body part</label>
+                </div>
 
-            <div className="row border-bottom-line">
-              <div className="col-md-6 col-xs-6">
-                <label>Body part</label>
+                <div className="col-md-6 col-xs-6">
+                  <strong>{mark.bodyPart}</strong>
+                </div>
               </div>
-
-              <div className="col-md-6 col-xs-6">
-                <b>{mark.bodyPart}</b>
-              </div>
-            </div>
 
               <div className="row border-bottom-line">
                 <div className="col-md-6 col-xs-6">
@@ -255,7 +252,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
                 </div>
 
                 <div className="col-md-6 col-xs-6">
-                  <b>{mark.comment}</b>
+                  <strong>{mark.comment}</strong>
                 </div>
               </div>
 
@@ -271,9 +268,9 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
                 </div>
               </div>
               }
-          </div>)}
+            </div>))}
 
-        </div>
+        </div>)
       )}
     </div>
   );
@@ -283,10 +280,6 @@ const groupByPairs = (dataset) => dataset.reduce((result, value, index, array) =
   if (index % 2 === 0) { result.push(array.slice(index, index + 2)); }
   return result;
 }, []);
-
-OffenderDetails.propTypes = {
-  offenderDetails: ImmutablePropTypes.map,
-};
 
 export function mapDispatchToProps(dispatch) {
   return {

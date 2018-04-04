@@ -5,15 +5,15 @@ import { connect } from 'react-redux';
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import ResultsViewToggle from 'components/ResultsViewToggle';
 import ResultsViewToggleMobile from 'components/ResultsViewToggle/mobile';
-import { selectDeviceFormat } from 'selectors/app';
-import { viewDetails as vD } from 'containers/Bookings/actions';
 import AssignmentsHeader from 'components/AssignmentsHeader';
 import AssignmentsHeaderMobile from 'components/AssignmentsHeader/mobile';
-import { setSearchContext } from 'globalReducers/app';
 import BookingTable from 'components/Bookings/Table';
 import BookingGrid from 'components/Bookings/Grid';
 
+import { viewDetails as vD } from 'containers/Bookings/actions';
 import { DETAILS_TABS } from 'containers/Bookings/constants';
+
+import { setSearchContext } from 'globalReducers/app';
 
 import { Model as OfficerAssignmentsModel } from 'helpers/dataMappers/officerAssignments';
 import { Model as UserModel } from 'helpers/dataMappers/user';
@@ -26,12 +26,11 @@ import {
 
 
 const Results = ({ resultsView, results, viewDetails, sortOrder }) => resultsView === 'List' ?
-    <BookingTable viewName={resultsView} results={results} viewDetails={viewDetails} sortOrder={sortOrder} />
-    :
-    <BookingGrid viewName={resultsView} results={results} viewDetails={viewDetails} sortOrder={sortOrder} />
+  <BookingTable viewName={resultsView} results={results} viewDetails={viewDetails} sortOrder={sortOrder} />
+  :
+  <BookingGrid viewName={resultsView} results={results} viewDetails={viewDetails} sortOrder={sortOrder} />
 
-class Assignments extends Component { // eslint-disable-line react/prefer-stateless-function
-
+class Assignments extends Component {
   componentDidMount() {
     this.props.setContext('assignments');
   }
@@ -70,7 +69,7 @@ class Assignments extends Component { // eslint-disable-line react/prefer-statel
 
         {error &&
         <div className="error-summary">
-            <div className="error-message"> {error} </div>
+          <div className="error-message"> {error} </div>
         </div>}
 
         <Results
@@ -91,12 +90,12 @@ class Assignments extends Component { // eslint-disable-line react/prefer-statel
 }
 
 Assignments.propTypes = {
-  deviceFormat: PropTypes.string,
+  deviceFormat: PropTypes.string.isRequired,
   pagination: PropTypes.object.isRequired,
   setPage: PropTypes.func.isRequired,
   resultsView: PropTypes.string.isRequired,
   setResultsView: PropTypes.func.isRequired,
-  setContext: PropTypes.func,
+  setContext: PropTypes.func.isRequired,
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -109,7 +108,7 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
-const mapStateToProps = (immutableState, ownProps) => {
+const mapStateToProps = (immutableState) => {
   const assignments = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Search', 'officerAssignments']) || OfficerAssignmentsModel;
   const results = assignments.get('results');
   const totalResults = assignments.getIn(['meta', 'totalRecords']);

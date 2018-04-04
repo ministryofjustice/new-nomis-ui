@@ -1,15 +1,10 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 
 import CaseNoteDetailsBlock from 'components/Bookings/Details/CaseNotes/detailsPage';
 import { Model as caseNoteModel } from 'helpers/dataMappers/caseNotes';
-
-import {
-  selectCaseNoteDetails,
-} from './selectors';
 
 import {
   setCaseNotesListView,
@@ -52,5 +47,4 @@ const mapStateToProps = (immutableState, props) => {
   }
 }
 
-// Wrap the component to inject dispatch and state into it
 export default connect(mapStateToProps, mapDispatchToProps)(CaseNotes);

@@ -16,7 +16,7 @@ import { transform as transformOffenderDetails } from 'helpers/dataMappers/offen
 import { Model as caseNoteModel, transform as caseNotesTransformer } from 'helpers/dataMappers/caseNotes';
 import { transform as officerAssignmentsTransformer } from 'helpers/dataMappers/officerAssignments';
 
-import { queryHash, paginationHash, originalId } from './helpers';
+import { queryHash, paginationHash } from './helpers';
 
 import {
   BOOKINGS,
@@ -29,42 +29,6 @@ import {
   ALLCASENOTETYPESUBTYPEDATA,
   APPOINTMENT,
 } from './constants';
-
-const SortedSearchQuery = fromJS({
-  Paginations: {},
-  SortedIds: {},
-});
-
-const SearchQueryDefault = fromJS({
-  MetaData: {
-    TotalRecords: undefined,
-  },
-  Sorted: {
-    Descending: {
-    },
-    Ascending: {
-
-    },
-  },
-});
-
-const BookingDetailsAlertsDefault = fromJS({
-  MetaData: {
-    TotalRecords: undefined,
-  },
-  Paginations: {},
-});
-
-const CaseNoteQueryDefault = fromJS({
-  MetaData: {
-    TotalRecords: undefined,
-  },
-  Paginations: {},
-});
-
-const CaseNotesDefault = fromJS({
-  Query: {},
-});
 
 export const initialState = fromJS({
   Bookings: {
@@ -174,8 +138,8 @@ function EliteApiReducer(state = initialState, action) {
       const rootPath = ['Bookings', 'Details', offenderNo, 'CaseNotes'];
 
       return state
-              .setIn([...rootPath, 'caseNoteDetailId'], caseNoteId)
-              .setIn([...rootPath,'selectedViewOption'], 'details');
+        .setIn([...rootPath, 'caseNoteDetailId'], caseNoteId)
+        .setIn([...rootPath,'selectedViewOption'], 'details');
     }
 
     case LOCATIONS.LOADING: {

@@ -1,13 +1,10 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects';
-import { userMe, users } from 'utils/eliteApi';
+import { users } from 'utils/eliteApi';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 import { PRELOADDATA, USER } from 'containers/EliteApiLoader/constants';
 import { LOAD_ASSIGNMENTS } from 'containers/Assignments/constants';
 import { showSpinner, hideSpinner } from 'globalReducers/app';
 
-import {
-  APPOINTMENT,
-} from 'containers/EliteApiLoader/constants';
 
 import {
   USER_ME,
@@ -18,7 +15,7 @@ export function* userMeWatcher() {
   yield takeLatest(RETRIEVE_USER_ME, updateUserDetails);
 }
 
-export function* updateUserDetails(action) {
+export function* updateUserDetails() {
   try {
     yield put(showSpinner());
 

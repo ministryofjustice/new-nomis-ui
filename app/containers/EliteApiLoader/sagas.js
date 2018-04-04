@@ -28,15 +28,11 @@ import {
 import {
   selectImageStatus,
   selectOfficerStatus,
-  selectBookingDetails,
 } from './selectors';
 
 import {
   loadLocations,
 } from '../Bookings/actions';
-
-
-import { paginationHash, queryHash } from './helpers';
 
 import {
   BOOKINGS,

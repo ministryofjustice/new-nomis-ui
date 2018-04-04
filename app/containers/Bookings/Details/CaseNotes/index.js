@@ -3,39 +3,20 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { createStructuredSelector } from 'reselect';
-import { Map, List } from 'immutable';
+
 import { DETAILS_TABS } from 'containers/Bookings/constants';
+import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
 
 import { Model as caseNoteModel } from 'helpers/dataMappers/caseNotes';
-
-
-import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
-import { selectDeviceFormat } from 'selectors/app';
-import {
-  selectCaseNotesQuery,
-  selectCaseNotesPagination,
-  selectBookingDetailsId,
-  selectCaseNotesView,
-} from '../../selectors';
 
 import CaseNoteList from './caseNoteList';
 import CaseNoteDetails from './caseNoteDetails';
 
 import {
-  selectCaseNotes,
-  selectCaseNotesStatus,
-  selectTotalCaseNotes,
-} from './selectors';
-
-import {
   setCaseNotesPagination,
-  setCaseNotesDetailView,
 } from '../../actions';
-import { VIEW_DETAILS } from '../../constants';
 
-class CaseNotes extends Component { // eslint-disable-line react/prefer-stateless-function
-
+class CaseNotes extends Component {
   componentWillMount() {
     const { loadCaseNotes, offenderNo, caseNotesPagination, caseNotesQuery } = this.props;
     loadCaseNotes(offenderNo, caseNotesPagination, caseNotesQuery);
@@ -58,7 +39,6 @@ class CaseNotes extends Component { // eslint-disable-line react/prefer-stateles
       offenderNo,
       caseNoteId,
       setCaseNoteView,
-      caseNotesStatus,
       caseNotes,
       totalResults,
       caseNotesPagination,
@@ -125,5 +105,4 @@ const mapStateToProps = (immutableState, props) => {
   };
 };
 
-// Wrap the component to inject dispatch and state into it
 export default connect(mapStateToProps, mapDispatchToProps)(CaseNotes);

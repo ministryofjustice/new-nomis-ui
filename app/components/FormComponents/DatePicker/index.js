@@ -4,8 +4,6 @@ import moment from 'moment';
 import 'react-datetime/css/react-datetime.css';
 import {
   DEFAULT_MOMENT_DATE_FORMAT_SPEC,
-  DEFAULT_MOMENT_TIME_FORMAT_SPEC,
-  DATE_TIME_FORMAT_SPEC,
 } from 'containers/App/constants';
 
 import './index.scss';
@@ -34,7 +32,7 @@ class DatePicker extends Component {
 
     return (
       <div className="date-picker-component">
-          <div className={((showError || (touched && error)) && 'form-group form-group-error') || 'form-group'}>
+        <div className={((showError || (touched && error)) && 'form-group form-group-error') || 'form-group'}>
 
           <label className="form-label">
             {title}
@@ -57,7 +55,7 @@ class DatePicker extends Component {
             value={input.value}
           />
 
-         </div>
+        </div>
       </div>)
   }
 }

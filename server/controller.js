@@ -2,7 +2,6 @@ const url = require('url')
 const baseUrl = process.env.API_ENDPOINT_URL || 'http://localhost:3000';
 const elite2ApiFallThrough = require('./app').sessionHandler;
 const retry = require('./api/retry');
-
 const elite2Api = require('./api/elite2Api');
 const session = require('./session');
 const bookingService = require('./services/booking');

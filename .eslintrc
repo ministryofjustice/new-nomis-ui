@@ -37,13 +37,6 @@
     "import/no-unresolved": 0,
     "import/extensions": 0,
     "import/prefer-default-export": 0,
-    "indent": [
-      2,
-      2,
-      {
-        "SwitchCase": 1
-      }
-    ],
     "jsx-a11y/aria-props": 2,
     "jsx-a11y/heading-has-content": 0,
     "jsx-a11y/href-no-hash": 0,
@@ -91,7 +84,6 @@
     "react/style-prop-object": 0,
     "import/no-duplicates" :0,
     "import/no-named-as-default-member": 0,
-    "no-unused-vars": 0,
     "react/no-string-refs": 0,
     "react/prefer-stateless-function": 0,
     "no-underscore-dangle": 0

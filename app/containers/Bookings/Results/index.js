@@ -24,7 +24,7 @@ import {
 
 import { NEW_SEARCH, DETAILS_TABS } from '../constants';
 
-const ResultsViewBuilder = ({ viewName, results, onViewDetails, sortOrderChange, sortOrder, router }) => viewName === 'List' ?
+const ResultsViewBuilder = ({ viewName, results, onViewDetails, sortOrderChange, sortOrder }) => viewName === 'List' ?
   <BookingTable results={results} viewDetails={onViewDetails} sortOrderChange={sortOrderChange} sortOrder={sortOrder} /> :
   <BookingGrid results={results} viewDetails={onViewDetails} sortOrderChange={sortOrderChange} sortOrder={sortOrder} />;
 

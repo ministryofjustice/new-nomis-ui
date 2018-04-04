@@ -1,29 +1,16 @@
 import React, { Component } from 'react';
 import { FormattedNumber, FormattedDate, FormattedTime } from 'react-intl';
-
-import PropTypes from 'prop-types';
-import uuid from 'uuid/v4';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { Map, List } from 'immutable';
-
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import uuid from 'uuid/v4';
 
 import { properCaseName } from 'utils/stringUtils';
 import DisplayValue from 'components/FormComponents/DisplayValue';
 import { Link } from 'react-router';
-import { properCase, toFullName } from 'utils/stringUtils';
+import { toFullName } from 'utils/stringUtils';
 import EliteOfficerName from 'containers/EliteContainers/OfficerName';
 
 import { Model as quickLookModel } from 'helpers/dataMappers/quickLook';
 import { Model as offenderProfileModel } from 'helpers/dataMappers/offenderDetails';
-
-import {
-  selectBookingDetailsId,
-  selectQuickLookViewModel,
-  selectOffenderDetails,
-  selectHeaderDetail,
-} from 'containers/Bookings/selectors'
 
 import {
   loadQuickLook,
@@ -32,23 +19,23 @@ import {
 import './index.scss';
 
 export const Balances = ({ spends, cash, savings, currency }) =>
-<div>
+  (<div>
     <div className="row border-bottom-line">
 
-       <div className="col-lg-6 col-xs-6">
-          <label>Spends</label>
-       </div>
+      <div className="col-lg-6 col-xs-6">
+        <label>Spends</label>
+      </div>
 
-       <div className="col-lg-6 col-xs-6">
-         <strong>
-           <FormattedNumber
-             id="spends"
-             value={spends}
-             style="currency"
-             currency={currency}
-           />
-         </strong>
-       </div>
+      <div className="col-lg-6 col-xs-6">
+        <strong>
+          <FormattedNumber
+            id="spends"
+            value={spends}
+            style="currency"
+            currency={currency}
+          />
+        </strong>
+      </div>
     </div>
 
     <div className="row border-bottom-line">
@@ -84,14 +71,14 @@ export const Balances = ({ spends, cash, savings, currency }) =>
         </strong>
       </div>
     </div>
-</div>
+  </div>)
 
 export const OffenceDetails = ({ offences, releaseDate, indeterminateReleaseDate }) => (
-<div>
+  <div>
     {!offences.size && <div> No offence details are available at this time </div>}
 
     {offences.map((offence) =>
-      <div className="row border-bottom-line" key={uuid()}>
+      (<div className="row border-bottom-line" key={uuid()}>
         <div className="col-lg-6 col-xs-6">
           <label>
             Main Offence/Offences
@@ -104,10 +91,10 @@ export const OffenceDetails = ({ offences, releaseDate, indeterminateReleaseDate
           </b>
         </div>
 
-      </div>
-      )}
+      </div>)
+    )}
 
-      {(releaseDate || indeterminateReleaseDate) &&
+    {(releaseDate || indeterminateReleaseDate) &&
       <div className="row border-bottom-line">
         <div className="col-lg-6 col-xs-6">
           <label>
@@ -117,11 +104,11 @@ export const OffenceDetails = ({ offences, releaseDate, indeterminateReleaseDate
 
         <div className="col-lg-6 col-xs-6">
           {releaseDate ?
-          <b>
-            <FormattedDate value={releaseDate} />
-          </b>
+            <b>
+              <FormattedDate value={releaseDate} />
+            </b>
             :
-          <b>Indeterminate</b>
+            <b>Indeterminate</b>
           }
         </div>
       </div>
@@ -135,7 +122,7 @@ export const Activities = ({ activities, period }) => (
     <div className="row border-bottom-line">
 
       <div className="col-lg-6 col-xs-6">
-          <label>{period}</label>
+        <label>{period}</label>
       </div>
 
       {(activities.size === 0) &&
@@ -146,8 +133,8 @@ export const Activities = ({ activities, period }) => (
         </div>
       }
 
-      {activities.map((activity, index) =>
-        <div className="row border-bottom-line" key={uuid()}>
+      {activities.map((activity) =>
+        (<div className="row border-bottom-line" key={uuid()}>
 
           <div className="col-lg-6 col-xs-6">
           </div>
@@ -173,8 +160,8 @@ export const Activities = ({ activities, period }) => (
                 </span>
               }
             </div>
-        </div>
-        </div>
+          </div>
+        </div>)
       )}
 
     </div>
@@ -235,7 +222,7 @@ export const Adjudications = ({ awards, proven }) => (
       </div>
     </div> }
 
-    {awards.map((award, index) => <div key={uuid()} className="row add-gutter-margin-top">
+    {awards.map((award, index) => (<div key={uuid()} className="row add-gutter-margin-top">
       <div className="col-lg-6 col-xs-6">
         {index === 0 && <label>Active awards</label> }
       </div>
@@ -245,7 +232,7 @@ export const Adjudications = ({ awards, proven }) => (
         <div> {award.get('comment')} </div>
         <div> {award.get('effectiveDate') && <FormattedDate value={award.get('effectiveDate')} /> } </div>
       </div>
-    </div>)}
+    </div>))}
   </div>
 );
 
@@ -264,7 +251,7 @@ export const NextOfKin = ({ nextOfKin }) => (
       </div>
     </div>}
 
-    { nextOfKin.map((kin, index) => <div key={uuid()}>
+    { nextOfKin.map((kin, index) => (<div key={uuid()}>
       <div className="row border-bottom-line">
         <div className="col-lg-6 col-xs-6">
           {index === 0 && <label>Next of kin</label>}
@@ -272,33 +259,33 @@ export const NextOfKin = ({ nextOfKin }) => (
 
         <div className="col-lg-6 col-xs-6">
           <div>
-          <b>
-            {properCaseName(kin.get('lastName'))}, {properCaseName(kin.get('firstName'))}
-            {properCaseName(kin.get('middleName'))}
-          </b>
+            <b>
+              {properCaseName(kin.get('lastName'))}, {properCaseName(kin.get('firstName'))}
+              {properCaseName(kin.get('middleName'))}
+            </b>
           </div>
           <div>
-          <b>
-            {kin.get('contactTypeDescription')}
-            {kin.get('relationship') && `(${kin.get('relationship')})`}
-          </b>
-        </div>
+            <b>
+              {kin.get('contactTypeDescription')}
+              {kin.get('relationship') && `(${kin.get('relationship')})`}
+            </b>
+          </div>
         </div>
       </div>
-    </div>)}
+    </div>))}
   </div>
 );
 
-export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason }) => <div>
-    <div className="row border-bottom-line">
-      <div className="col-lg-6 col-xs-6">
-        <label>Last visit date</label>
-      </div>
-
-      <div className="col-lg-6 col-xs-6">
-        <b><FormattedDate value={date} /> </b>
-      </div>
+export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason }) => (<div>
+  <div className="row border-bottom-line">
+    <div className="col-lg-6 col-xs-6">
+      <label>Last visit date</label>
     </div>
+
+    <div className="col-lg-6 col-xs-6">
+      <b><FormattedDate value={date} /> </b>
+    </div>
+  </div>
 
   <div className="row border-bottom-line">
     <div className="col-lg-6 col-xs-6">
@@ -340,10 +327,10 @@ export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason 
     </div>
   </div> }
 
-</div>
+</div>)
 
 const AssignedStaffMembers = ({ communityOffenderManager ,keyWorkerId }) =>
-  <div>
+  (<div>
 
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
@@ -367,10 +354,9 @@ const AssignedStaffMembers = ({ communityOffenderManager ,keyWorkerId }) =>
       </div>
     </div>
 
-  </div>
+  </div>)
 
 class QuickLook extends Component {
-
   componentDidMount() {
     const { loadViewModel, offenderNo } = this.props;
 
@@ -480,12 +466,12 @@ class QuickLook extends Component {
 
             <div className="row">
               <div className="col-xs-12">
-                  <h3 className="heading-medium">
+                <h3 className="heading-medium">
                     Other
-                  </h3>
+                </h3>
 
-                  <NextOfKin nextOfKin={viewModel.get('nextOfKin')} />
-                </div>
+                <NextOfKin nextOfKin={viewModel.get('nextOfKin')} />
+              </div>
             </div>
 
           </div>

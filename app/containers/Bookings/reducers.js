@@ -11,22 +11,16 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
 
 import { transform as quickLookTransformer } from 'helpers/dataMappers/quickLook';
 import { transform as keyDatesTransformer } from 'helpers/dataMappers/keydates';
 
 import {
-  SEARCH_LOADING,
   SEARCH_SUCCESS,
-  SEARCH_ERROR,
-  VIEW_CASENOTE_DETAILS,
-  VIEW_CASENOTE_LIST,
   SET_PAGINATION,
   DETAILS_TABS,
   SET_RESULTS_VIEW,
   SET_ALERTS_PAGINATION,
-  SET_CASENOTES_PAGINATION,
   CASE_NOTE_FILTER,
   SET_LARGE_PHOTO_VISIBILITY,
   SET_LOCATIONS,
@@ -41,9 +35,9 @@ const detailsState = fromJS({
   id: 20847,
   activeTabId: DETAILS_TABS.OFFENDER_DETAILS,
   tabs: [{ tabId: DETAILS_TABS.OFFENDER_DETAILS, title: 'Offender Details' },
-         { tabId: DETAILS_TABS.PHYSICAL_ATTR, title: 'Physical Attributes' },
-         { tabId: DETAILS_TABS.ALERTS, title: 'Alerts' },
-         { tabId: DETAILS_TABS.CASE_NOTES, title: 'Case Notes' }],
+    { tabId: DETAILS_TABS.PHYSICAL_ATTR, title: 'Physical Attributes' },
+    { tabId: DETAILS_TABS.ALERTS, title: 'Alerts' },
+    { tabId: DETAILS_TABS.CASE_NOTES, title: 'Case Notes' }],
   alertsPagination: { perPage: 10, pageNumber: 0 },
   shouldShowLargePhoto: false,
   imageId: 0,
@@ -65,7 +59,6 @@ const detailsState = fromJS({
 });
 
 export const initialState = fromJS({
-  loading: false,
   error: null,
   query: { firstName: '', lastName: '' }, // for test purposes putting something in here...
   sortOrder: 'ASC',
@@ -77,23 +70,13 @@ export const initialState = fromJS({
 
 function searchReducer(state = initialState, action) {
   switch (action.type) {
-
-    case SEARCH_LOADING: {
-      return state.set('loading', true);
-    }
-
     case SEARCH_SUCCESS: {
       return state
-        .set('loading', false)
         .set('error', null)
         .set('query', fromJS(action.payload.searchQuery))
         .set('results', fromJS(action.payload.searchResults))
         .set('totalResults', fromJS(action.payload.meta.totalRecords))
         .set('sortOrder', fromJS(action.payload.meta.sortOrder));
-    }
-
-    case SEARCH_ERROR: {
-      return state.set('loading', false);
     }
 
     case SET_PAGINATION: {
@@ -114,8 +97,8 @@ function searchReducer(state = initialState, action) {
 
     case SET_LARGE_PHOTO_VISIBILITY: {
       return state
-         .setIn(['details', 'shouldShowLargePhoto'], fromJS(action.payload.shouldShowLargePhoto))
-         .setIn(['details', 'imageId'], fromJS(action.payload.imageId));
+        .setIn(['details', 'shouldShowLargePhoto'], fromJS(action.payload.shouldShowLargePhoto))
+        .setIn(['details', 'imageId'], fromJS(action.payload.imageId));
     }
 
     case SET_LOCATIONS: {

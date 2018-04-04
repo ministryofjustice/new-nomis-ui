@@ -1,13 +1,10 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { Map, List } from 'immutable';
+import { Map } from 'immutable';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 
 import BookingsDetailsHeader from 'components/Bookings/Details/header';
 
-import { selectHeaderDetail } from '../selectors';
 import { showLargePhoto } from '../actions';
 
 class Header extends PureComponent { // eslint-disable-line react/prefer-stateless-function

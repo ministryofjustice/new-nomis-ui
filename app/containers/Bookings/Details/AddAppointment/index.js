@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { reduxForm, Field, formValueSelector } from 'redux-form/immutable';
 import { connect } from 'react-redux';
 import { Map, List } from 'immutable';
-import { createStructuredSelector } from 'reselect';
 import { createFormAction } from 'redux-form-saga';
 import moment from 'moment';
 import { toFullName } from 'utils/stringUtils';
@@ -10,23 +9,22 @@ import { toFullName } from 'utils/stringUtils';
 import Select from 'components/FormComponents/SelectWithLabel';
 import DatePicker from 'components/FormComponents/DatePicker';
 import TimePicker from 'components/FormComponents/TimePicker';
-import { selectLocale } from 'containers/LanguageProvider/selectors';
-import { SubmissionError, TextArea } from 'components/FormComponents';
+import { TextArea } from 'components/FormComponents';
+
 import { DATE_ONLY_FORMAT_SPEC, DATE_TIME_FORMAT_SPEC } from 'containers/App/constants';
 import { loadAppointmentViewModel } from 'containers/EliteApiLoader/actions';
 import { APPOINTMENT } from 'containers/EliteApiLoader/constants';
-import { selectAppointmentTypesAndLocations } from 'containers/EliteApiLoader/selectors';
+
 import { Model as offenderDetailsModel } from 'helpers/dataMappers/offenderDetails';
 
 import { DETAILS_TABS } from '../../constants';
-import { selectBookingDetailsId,selectName, selectOffenderAgencyId } from '../../selectors';
 import { viewDetails } from '../../actions';
 
 
 import './index.scss';
 
 class AddAppointment extends Component {
-  componentDidMount(nextProps) {
+  componentDidMount() {
     const { loadViewModel, offendersAgencyId, offenderNo } = this.props;
 
     if (!offendersAgencyId) {
@@ -187,7 +185,7 @@ export function mapDispatchToProps(dispatch, props) {
           offenderNo: props.params.offenderNo,
         },
       }),
-      [APPOINTMENT.SUCCESS, APPOINTMENT.ERROR]),
+    [APPOINTMENT.SUCCESS, APPOINTMENT.ERROR]),
   };
 }
 

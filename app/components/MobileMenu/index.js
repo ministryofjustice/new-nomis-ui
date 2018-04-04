@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { toFullName } from 'utils/stringUtils';
 
-import { MobileMenuContainer,
-         MobileMenuHeader,
-         MobileMenuOption,
-         MobileMenuAdditionalOption,
-         MobileMenuSignature,
-         UserName,
-         CaseLoad,
-         NotificationNumberAssignments,
-         ForwardArrow,
-       } from './theme';
+import {
+  MobileMenuContainer,
+  MobileMenuHeader,
+  MobileMenuOption,
+  MobileMenuAdditionalOption,
+  MobileMenuSignature,
+  UserName,
+  CaseLoad,
+  ForwardArrow,
+} from './theme';
 
 import forwardBack from '../../assets/forward-arrow.svg';
 
