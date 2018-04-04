@@ -33,6 +33,7 @@ describe('POST /signin', () => {
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
+    sandbox.stub(retry,'getApiHealth');
     sandbox.stub(retry,'httpRequest');
   });
 
@@ -40,6 +41,11 @@ describe('POST /signin', () => {
 
   describe('Successful signin', () => {
     it('redirects to "/" path', () => {
+      retry.getApiHealth.resolves({
+        data: {
+          status: 'UP',
+        },
+      });
       retry.httpRequest.resolves({
         data: {
           access_token: 'abc.def.egs',
@@ -57,8 +63,13 @@ describe('POST /signin', () => {
     });
   });
 
-  describe('Unsuccessful signin', () => {
+  describe('Unsuccessful signin - API up', () => {
     it('redirects to "/login" path', () => {
+      retry.getApiHealth.resolves({
+        data: {
+          status: 'UP',
+        },
+      });
       retry.httpRequest.rejects({ response: { status: 401 } });
 
       return request(app)
@@ -68,6 +79,21 @@ describe('POST /signin', () => {
         .expect((res) => {
           expect(res.error.path).to.equal('/login');
           expect(res.text).to.include('The username or password you have entered is invalid.');
+        });
+    });
+  });
+
+  describe('Unsuccessful signin - API down', () => {
+    it('redirects to "/login" path', () => {
+      retry.getApiHealth.rejects({ response: { status: 503 } });
+
+      return request(app)
+        .post('/login')
+        .send('username=officer&password=password')
+        .expect(503)
+        .expect((res) => {
+          expect(res.error.path).to.equal('/login');
+          expect(res.text).to.include('Service unavailable. Please try again later.');
         });
     });
   });
