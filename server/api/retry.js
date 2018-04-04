@@ -71,6 +71,12 @@ function httpRequestRetry(options) {
   return axios(options);
 }
 
+const getApiHealth = () => axios({
+  method: 'get',
+  url: nurl.resolve(process.env.API_ENDPOINT_URL,'health'),
+  headers: {},
+});
+
 const refreshTokenRequest = ({ headers, reqHeaders, token }) => axios({
   method: 'post',
   url: nurl.resolve(process.env.API_ENDPOINT_URL,'oauth/token'),
@@ -99,6 +105,7 @@ const service = {
   errorStatusCode,
   encodeClientCredentials,
   getRequest,
+  getApiHealth,
 };
 
 module.exports = service;
