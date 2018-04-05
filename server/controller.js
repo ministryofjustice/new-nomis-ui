@@ -157,7 +157,7 @@ const loadAppointmentViewModel = asyncMiddleware(async (req,res) => {
   res.json(viewModel);
 });
 
-const addAppointment = asyncMiddleware(async (req,res) => {
+const addAppointment = asyncMiddleware(async (req, res) => {
   if (!req.params.offenderNo) {
     res.status(400);
     res.end();
@@ -165,11 +165,9 @@ const addAppointment = asyncMiddleware(async (req,res) => {
   }
 
   const { bookingId } = await elite2Api.getDetailsLight(req, res);
-  req.bookingId = bookingId;
+  req.url = `/bookings/${bookingId}/appointments`;
 
-  await elite2Api.addAppointment({ req, res });
-  res.status(200);
-  res.end();
+  elite2ApiFallThrough(req, res);
 });
 
 const alerts = asyncMiddleware(async (req, res) => {
