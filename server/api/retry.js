@@ -5,9 +5,10 @@ const nurl = require('url');
 const session = require('../session');
 const gatewayToken = require('../jwt-token');
 const { logger } = require('../services/logger');
+const config = require('../config');
 
-const apiClientId = process.env.API_CLIENT_ID || 'elite2apiclient';
-const apiClientSecret = process.env.API_CLIENT_SECRET || 'clientsecret';
+const apiClientId = config.apis.elite2.clientId;
+const apiClientSecret = config.apis.elite2.clientSecret;
 
 const encodeClientCredentials = () => new Buffer(`${querystring.escape(apiClientId)}:${querystring.escape(apiClientSecret)}`).toString('base64');
 
@@ -21,7 +22,7 @@ const getRequest = ({ req, res, url, headers, disableGatewayMode }) => service.c
 }).then(response => new Promise(r => r(response.data))).catch(error => {
   logger.error(error);
   return new Promise(r => r(null))
-});  
+});
 
 const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseType, data, disableGatewayMode = false }) => {
   const { access_token, refresh_token } = reqHeaders.jwt;
@@ -52,7 +53,7 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
 };
 
 function httpRequest(options, disableGatewayMode) {
-  if (!disableGatewayMode && gatewayToken.useApiAuth) {
+  if (!disableGatewayMode && config.app.useApiAuthGateway) {
     options.headers = options.headers || {};
     const apiToken = options.headers.authorization;
     if (apiToken) {
@@ -68,14 +69,14 @@ function httpRequestRetry(options, disableGatewayMode) {
 }
 
 const getApiHealth = () => httpRequest({
-  url: nurl.resolve(process.env.API_ENDPOINT_URL, 'health'),
+  url: nurl.resolve(config.apis.elite2.url, 'health'),
   method: 'get',
   timeout: 2000,
 }).then(() => true, () => false);
 
 const refreshTokenRequest = ({ headers, reqHeaders, token }) => axios({
   method: 'post',
-  url: nurl.resolve(process.env.API_ENDPOINT_URL, 'oauth/token'),
+  url: nurl.resolve(config.apis.elite2.url, 'oauth/token'),
   headers: getClientHeaders({ headers, reqHeaders }),
   data: `refresh_token=${token}&grant_type=refresh_token`,
 });

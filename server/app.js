@@ -2,9 +2,10 @@ const url = require('url');
 const session = require('./session');
 const retry = require('./api/retry');
 const { logger } = require('./services/logger');
+const config = require('./config');
 
 const sessionHandler = (req, res) => {
-  const destination = url.resolve(process.env.API_ENDPOINT_URL, `api${req.url}`);
+  const destination = url.resolve(config.apis.elite2.url, `api${req.url}`);
 
   retry.callApi({
     method: req.method,

@@ -11,7 +11,6 @@ const appInsights = require('applicationinsights');
 const helmet = require('helmet');
 const path = require('path');
 
-const argv = require('minimist')(process.argv.slice(2));
 const setup = require('./middlewares/frontend-middleware');
 const app = express();
 
@@ -39,8 +38,8 @@ app.set('trust proxy', 1); // trust first proxy
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
-if (process.env.NODE_ENV === 'production' && process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
-  appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY)
+if (config.app.production && config.analytics.appInsightsKey) {
+  appInsights.setup(config.analytics.appInsightsKey)
     .setAutoDependencyCorrelation(true)
     .setAutoCollectRequests(true)
     .setAutoCollectPerformance(true)
@@ -51,7 +50,7 @@ if (process.env.NODE_ENV === 'production' && process.env.APPINSIGHTS_INSTRUMENTA
     .start();
 }
 
-if (process.env.NODE_ENV === 'production') {
+if (config.app.production) {
   sessionConfig.secure = true // serve secure cookies
 }
 
@@ -82,7 +81,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/feedbackUrl', (req,res) => {
-  const url = process.env.FEEDBACK_URL;
+  const url = config.app.feedbackUrl;
 
   if (!url) {
     res.end();
@@ -128,15 +127,13 @@ setup(app, {
 });
 
 // get the intended host and port number, use localhost and port 3000 if not provided
-const customHost = argv.host || process.env.HOST;
-const host = customHost || null; // Let http.Server use its default IPv6/4 host
-const prettyHost = customHost || 'localhost';
-const port = argv.port || process.env.PORT || 3000;
+const host = config.app.host; // Let http.Server use its default IPv6/4 host
+const port = config.app.port;
 
 // Start your app.
 app.listen(port, host, (err) => {
   if (err) {
     return logger.error(err);
   }
-  logger.info(`Application started on port: ${port}, ${prettyHost}`);
+  logger.info(`Application started on port: ${port}, ${host}`);
 });
