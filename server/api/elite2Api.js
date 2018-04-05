@@ -1,5 +1,4 @@
 const url = require('url');
-const session = require('../session');
 const getRequest = require('./retry').getRequest;
 
 const baseUrl = process.env.API_ENDPOINT_URL || 'http://localhost:3000';
