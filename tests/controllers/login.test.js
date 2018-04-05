@@ -65,7 +65,6 @@ describe('POST /signin', () => {
 
   describe('Unsuccessful signin - API up', () => {
     it('redirects to "/login" path', () => {
-
       retry.httpRequest.rejects({ response: { status: 401 } });
 
       return request(app)
