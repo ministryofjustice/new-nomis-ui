@@ -23,19 +23,24 @@ const asyncMiddleware = fn =>
 
 const loginIndex = async (req, res) => {
   let isApiUp = true;
+  logger.info('loginIndex - About to call the health check endpoint');
   await retry.getApiHealth().catch(error => {
     logger.error(error);
     isApiUp = false;
   });
+  logger.info(`loginIndex - health check called and the isaAppUp = ${isApiUp}`);
   res.render('pages/login', { authError: false, apiUp: isApiUp });
 };
 
 const login = async (req, res) => {
   let isApiUp = true;
+  logger.info('login - About to call the health check endpoint');
   await retry.getApiHealth().catch(error => {
     logger.error(error);
     isApiUp = false;
   });
+  logger.info(`login - health check called and the isaAppUp = ${isApiUp}`);
+
   if (isApiUp) {
     const loginData = `username=${req.body.username.toString().toUpperCase()}&password=${req.body.password}&grant_type=password`;
     retry.httpRequest({
