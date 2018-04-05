@@ -36,12 +36,17 @@ const getNegativeCaseNotes = ({ req, res, fromDate, toDate }) => getRequest({
 const getLastVisit = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings/${req.bookingId}/visits/last`) });
 
 const getKeyworker = async (req, res) => {
-  const keyworkerBaseUrl = process.env.KEYWORKER_API_URL;
+  const keyworkerApiUrl = process.env.KEYWORKER_API_URL;
 
-  if (keyworkerBaseUrl) {
+  if (keyworkerApiUrl) {
     const me = await getMyInformation(req,res);
 
-    return getRequest({ req, res, url: url.resolve(keyworkerBaseUrl, `key-worker/${me.activeCaseLoadId}/offender/${req.params.offenderNo}`) });
+    return getRequest({
+      url: url.resolve(keyworkerApiUrl, `key-worker/${me.activeCaseLoadId}/offender/${req.params.offenderNo}`),
+      req,
+      res,
+      disableGatewayMode: true,
+    });
   }
 
   return getRequest({ req, res, url: url.resolve(baseUrl,`api/bookings/offenderNo/${req.params.offenderNo}/key-worker`) });

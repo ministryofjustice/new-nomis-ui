@@ -459,7 +459,7 @@ class QuickLook extends Component {
 
                 <AssignedStaffMembers
                   communityOffenderManager={assignedStaffMembers.get('communityOffenderManager')}
-                  keyWorkerId={offenderDetails.get('assignedOfficerId')}
+                  keyWorkerId={offenderDetails.getIn(['keyworker','staffId'])}
                 />
               </div>
             </div>
