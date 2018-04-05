@@ -22,50 +22,42 @@ const asyncMiddleware = fn =>
   };
 
 const loginIndex = async (req, res) => {
-  let isApiUp = true;
-  logger.info('loginIndex - About to call the health check endpoint');
-  await retry.getApiHealth().catch(error => {
-    logger.error(error);
-    isApiUp = false;
-  });
+  const isApiUp = await retry.getApiHealth();
   logger.info(`loginIndex - health check called and the isaAppUp = ${isApiUp}`);
   res.render('pages/login', { authError: false, apiUp: isApiUp });
 };
 
 const login = async (req, res) => {
-  let isApiUp = true;
-  logger.info('login - About to call the health check endpoint');
-  await retry.getApiHealth().catch(error => {
-    logger.error(error);
-    isApiUp = false;
-  });
-  logger.info(`login - health check called and the isaAppUp = ${isApiUp}`);
+  const loginData = `username=${req.body.username.toString().toUpperCase()}&password=${req.body.password}&grant_type=password`;
+  retry.httpRequest({
+    method: 'post',
+    url: url.resolve(baseUrl, 'oauth/token'),
+    headers: {
+      authorization: `Basic ${retry.encodeClientCredentials()}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    data: loginData,
+    timeout: 2000,
+  }).then((response) => {
+    req.session.isAuthenticated = true;
 
-  if (isApiUp) {
-    const loginData = `username=${req.body.username.toString().toUpperCase()}&password=${req.body.password}&grant_type=password`;
-    retry.httpRequest({
-      method: 'post',
-      url: url.resolve(baseUrl, 'oauth/token'),
-      headers: {
-        authorization: `Basic ${retry.encodeClientCredentials()}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      data: loginData,
-    }).then((response) => {
-      req.session.isAuthenticated = true;
+    session.setHmppsCookie(res, response.data);
 
-      session.setHmppsCookie(res, response.data);
-
-      res.redirect('/');
-    }).catch(error => {
-      logger.error(error);
-      res.status(retry.errorStatusCode(error.response));
+    res.redirect('/');
+  }).catch(error => {
+    const code = retry.errorStatusCode(error.response);
+    res.status(code);
+    if (code < 500) {
+      logger.warn('Login failed, invalid password', { user: String(req.body.username) });
       res.render('pages/login', { authError: true, apiUp: true });
-    });
-  } else {
-    res.status(503);
-    res.render('pages/login', { authError: false, apiUp: false });
-  }
+    } else {
+      logger.error(error);
+      res.render('pages/login', { authError: false, apiUp: false });
+    }
+
+
+    res.render('pages/login', { authError: true, apiUp: true });
+  });
 };
 
 const logout = (req, res) => {

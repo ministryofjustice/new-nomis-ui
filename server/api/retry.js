@@ -53,6 +53,7 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
 
 function httpRequest(options, disableGatewayMode) {
   if (!disableGatewayMode && gatewayToken.useApiAuth) {
+    options.headers = options.headers || {};
     const apiToken = options.headers.authorization;
     if (apiToken) {
       options.headers['elite-authorization'] = apiToken; // eslint-disable-line no-param-reassign
@@ -66,11 +67,15 @@ function httpRequestRetry(options, disableGatewayMode) {
   return httpRequest(options, disableGatewayMode);
 }
 
-const getApiHealth = () => httpRequest({ url: nurl.resolve(process.env.API_ENDPOINT_URL, '/health'), method: 'get', headers: {} });
+const getApiHealth = () => httpRequest({
+  url: nurl.resolve(process.env.API_ENDPOINT_URL, 'health'),
+  method: 'get',
+  timeout: 2000,
+}).then(() => true, () => false);
 
 const refreshTokenRequest = ({ headers, reqHeaders, token }) => axios({
   method: 'post',
-  url: nurl.resolve(process.env.API_ENDPOINT_URL,'oauth/token'),
+  url: nurl.resolve(process.env.API_ENDPOINT_URL, 'oauth/token'),
   headers: getClientHeaders({ headers, reqHeaders }),
   data: `refresh_token=${token}&grant_type=refresh_token`,
 });

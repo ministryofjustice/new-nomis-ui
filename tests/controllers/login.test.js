@@ -65,11 +65,6 @@ describe('POST /signin', () => {
 
   describe('Unsuccessful signin - API up', () => {
     it('redirects to "/login" path', () => {
-      retry.getApiHealth.resolves({
-        data: {
-          status: 'UP',
-        },
-      });
       retry.httpRequest.rejects({ response: { status: 401 } });
 
       return request(app)
@@ -85,7 +80,7 @@ describe('POST /signin', () => {
 
   describe('Unsuccessful signin - API down', () => {
     it('redirects to "/login" path', () => {
-      retry.getApiHealth.rejects({ response: { status: 503 } });
+      retry.httpRequest.rejects({ response: { status: 503 } });
 
       return request(app)
         .post('/login')
