@@ -11,32 +11,19 @@ const apiClientSecret = process.env.API_CLIENT_SECRET || 'clientsecret';
 
 const encodeClientCredentials = () => new Buffer(`${querystring.escape(apiClientId)}:${querystring.escape(apiClientSecret)}`).toString('base64');
 
-axios.interceptors.request.use((config) => {
-  if (gatewayToken.useApiAuth) {
-    const backendToken = config.headers.authorization;
-    if (backendToken) {
-      config.headers['elite-authorization'] = backendToken; // eslint-disable-line no-param-reassign
-    }
-    config.headers.authorization = `Bearer ${gatewayToken.generateToken()}`; // eslint-disable-line no-param-reassign
-  }
-  return config;
-}, (error) => {
-  logger.error(error);
-  return Promise.reject(error)
-});
-
-const getRequest = ({ req, res, url, headers }) => service.callApi({
+const getRequest = ({ req, res, url, headers, disableGatewayMode }) => service.callApi({
   method: 'get',
   url,
   headers: headers || {},
   reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },
   onTokenRefresh: session.updateHmppsCookie(res),
+  disableGatewayMode,
 }).then(response => new Promise(r => r(response.data))).catch(error => {
   logger.error(error);
   return new Promise(r => r(null))
 });  
 
-const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseType, data }) => {
+const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseType, data, disableGatewayMode = false }) => {
   const { access_token, refresh_token } = reqHeaders.jwt;
 
   return service.httpRequest({
@@ -45,7 +32,9 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
     responseType,
     data,
     headers: getHeaders({ headers, reqHeaders, access_token }),
-  }).catch(error => {
+  }, disableGatewayMode
+  ).catch(error => {
+    logger.error(url);
     logger.error(error);
     if (error.response.status === 401) {
       return service.refreshTokenRequest({ token: refresh_token, headers, reqHeaders })
@@ -56,19 +45,29 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
             method,
             responseType,
             headers: getHeaders({ headers, reqHeaders, access_token: response.data.access_token }),
-          });
+          }, disableGatewayMode);
         })
     }
     throw error;
   });
 };
 
-function httpRequest(options) {
+function httpRequest(options, disableGatewayMode) {
+  if (disableGatewayMode) {
+    logger.error('Gateway disabled');
+  }
+  if (!disableGatewayMode && gatewayToken.useApiAuth) {
+    const apiToken = options.headers.authorization;
+    if (apiToken) {
+      options.headers['elite-authorization'] = apiToken; // eslint-disable-line no-param-reassign
+    }
+    options.headers.authorization = `Bearer ${gatewayToken.generateToken()}`; // eslint-disable-line no-param-reassign
+  }
   return axios(options);
 }
 
-function httpRequestRetry(options) {
-  return axios(options);
+function httpRequestRetry(options, disableGatewayMode) {
+  return httpRequest(options, disableGatewayMode);
 }
 
 const refreshTokenRequest = ({ headers, reqHeaders, token }) => axios({

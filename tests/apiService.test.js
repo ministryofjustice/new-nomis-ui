@@ -5,7 +5,6 @@ const chai = require('chai'),
 
 const sinonChai = require('sinon-chai');
 const apiService = require('../server/api/retry');
-const session = require('../server/session');
 
 chai.use(sinonChai);
 
@@ -22,11 +21,6 @@ describe('apiService', () => {
   afterEach(() => sandbox.restore());
 
   it('should call httpRequest with the correct parameters', () => {
-    const sessionData = {
-      access_token: '123',
-      refresh_token: '321',
-    };
-
     apiService.httpRequest.resolves({ data: 'success' });
 
     apiService.callApi({

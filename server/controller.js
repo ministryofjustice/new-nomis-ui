@@ -40,6 +40,8 @@ const login = (req, res) => {
 
     session.setHmppsCookie(res, response.data);
 
+    logger.error(response.data);
+
     res.redirect('/');
   }).catch(error => {
     logger.error(error);
@@ -179,7 +181,7 @@ const caseNotes = asyncMiddleware(async (req, res) => {
     return;
   }
 
-  const queryString = url.parse(req.url).query
+  const queryString = url.parse(req.url).query;
   const { bookingId } = await elite2Api.getDetailsLight(req, res);
   req.url = `/bookings/${bookingId}/caseNotes?${queryString}`;
 
