@@ -1,6 +1,5 @@
 import React,{ Component } from 'react';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { FormattedDate } from 'react-intl';
 import moment from 'moment';
 import { List } from 'immutable';
@@ -23,38 +22,37 @@ import { properCase } from 'utils/stringUtils';
 import './index.scss';
 
 export const Event = ({ startTime, endTime, type, shortComment }) =>
-<div className="row add-gutter-margin-bottom">
+  (<div className="row add-gutter-margin-bottom">
 
-  <div className="col-xl-5 col-lg-6 col-md-6 col-xs-6">
-    <span className="whereabouts-startTime">
-      {moment(startTime).format('HH:mm')}
-    </span>
+    <div className="col-xl-5 col-lg-6 col-md-6 col-xs-6">
+      <span className="whereabouts-startTime">
+        {moment(startTime).format('HH:mm')}
+      </span>
 
-    {endTime && <span>-</span>}
-    <span className="whereabouts-endTime"> {endTime && moment(endTime).format('HH:mm')} </span>
-  </div>
+      {endTime && <span>-</span>}
+      <span className="whereabouts-endTime"> {endTime && moment(endTime).format('HH:mm')} </span>
+    </div>
 
-  <div className="col-xl-7 col-lg-6 col-md-6 col-xs-6">
+    <div className="col-xl-7 col-lg-6 col-md-6 col-xs-6">
 
-    <span>
-      <b> {type} </b>
-      {shortComment && <b>{' - '}</b>}
-    </span>
+      <span>
+        <b> {type} </b>
+        {shortComment && <b>{' - '}</b>}
+      </span>
 
-    <span>
-       {shortComment}
-    </span>
+      <span>
+        {shortComment}
+      </span>
 
-  </div>
-</div>
+    </div>
+  </div>)
 
 
-export const DayAndDate = ({ value }) => <h1 className="heading-medium whereabouts-day-header">
+export const DayAndDate = ({ value }) => (<h1 className="heading-medium whereabouts-day-header">
   {moment(value).format('dddd')}
-</h1>
+</h1>)
 
 class ScheduledEvents extends Component {
-
   componentDidMount() {
     const { loadThisWeeksScheduledEvents, offenderNo, loadBookingDetails } = this.props;
     loadBookingDetails(offenderNo);
@@ -112,7 +110,7 @@ class ScheduledEvents extends Component {
             </input>
             <label>Next week</label>
           </div>
-      </div>
+        </div>
 
       </div>
 
@@ -127,62 +125,62 @@ class ScheduledEvents extends Component {
       </div>
       {scheduledEvents.map((entry) =>
 
-        <div className="row appointment-row" key={uuid()}>
+        (<div className="row appointment-row" key={uuid()}>
           <div className="appointments">
-              <div className="col-lg-2 no-left-gutter">
-                <DayAndDate
-                  className="whereabouts-day-header"
-                  value={entry.get('date')}
-                />
-                <FormattedDate
-                  className="heading-medium whereabouts-date-header"
-                  value={entry.get('date')}
-                  month="long"
-                  day="2-digit"
-                />
-              </div>
+            <div className="col-lg-2 no-left-gutter">
+              <DayAndDate
+                className="whereabouts-day-header"
+                value={entry.get('date')}
+              />
+              <FormattedDate
+                className="heading-medium whereabouts-date-header"
+                value={entry.get('date')}
+                month="long"
+                day="2-digit"
+              />
+            </div>
 
-              <div className="visible-lg-down add-gutter-top">
-                <div className="col-lg-12">
-                  <b>Morning (AM)</b>
-                </div>
+            <div className="visible-lg-down add-gutter-top">
+              <div className="col-lg-12">
+                <b>Morning (AM)</b>
               </div>
+            </div>
 
-              <div className="col-lg-5 ">
-                <div className="appointment morning add-gutter-top add-gutter-bottom">
-                  {entry.get('forMorning').map((morning) => <div key={uuid()}>
-                    <Event
-                      startTime={morning.get('startTime')}
-                      endTime={morning.get('endTime')}
-                      type={morning.get('type')}
-                      shortComment={morning.get('shortComment')}
-                    />
-                  </div>)}
-                </div>
+            <div className="col-lg-5 ">
+              <div className="appointment morning add-gutter-top add-gutter-bottom">
+                {entry.get('forMorning').map((morning) => (<div key={uuid()}>
+                  <Event
+                    startTime={morning.get('startTime')}
+                    endTime={morning.get('endTime')}
+                    type={morning.get('type')}
+                    shortComment={morning.get('shortComment')}
+                  />
+                </div>))}
               </div>
+            </div>
 
 
-              <div className="visible-lg-down add-gutter-top add-gutter-bottom">
-                <div className="col-lg-12">
-                  <b>Afternoon (PM)</b>
-                </div>
+            <div className="visible-lg-down add-gutter-top add-gutter-bottom">
+              <div className="col-lg-12">
+                <b>Afternoon (PM)</b>
               </div>
+            </div>
 
-              <div className="col-lg-5">
-                <div className="appointment afternoon add-gutter-top">
-                  {entry.get('forAfternoon').map((afternoon) => <div key={uuid()}>
-                    <Event
-                      startTime={afternoon.get('startTime')}
-                      endTime={afternoon.get('endTime')}
-                      type={afternoon.get('type')}
-                      shortComment={afternoon.get('shortComment')}
-                    />
-                    </div>)}
-                </div>
+            <div className="col-lg-5">
+              <div className="appointment afternoon add-gutter-top">
+                {entry.get('forAfternoon').map((afternoon) => (<div key={uuid()}>
+                  <Event
+                    startTime={afternoon.get('startTime')}
+                    endTime={afternoon.get('endTime')}
+                    type={afternoon.get('type')}
+                    shortComment={afternoon.get('shortComment')}
+                  />
+                </div>))}
               </div>
+            </div>
           </div>
 
-        </div>)}
+        </div>))}
     </div>)
   }
 }

@@ -14,7 +14,6 @@ export const paginationHash = (pagination) => {
 };
 
 // Helper functions to translate between the original sortedId based on a relative ids + pagination information;
-export const originalId = (id, { pageNumber, perPage }) => id + (pageNumber * perPage);
 export const idsFromPagination = (pagination) => {
   const N = pagination.pageNumber;
   const M = pagination.perPage;

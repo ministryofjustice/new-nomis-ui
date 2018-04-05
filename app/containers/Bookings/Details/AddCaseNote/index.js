@@ -11,7 +11,6 @@ import { SubmissionError, TextArea } from 'components/FormComponents';
 
 import DatePicker from 'components/FormComponents/DatePicker';
 import TimePicker from 'components/FormComponents/TimePicker';
-import { DATE_ONLY_FORMAT_SPEC, DATE_TIME_FORMAT_SPEC } from 'containers/App/constants';
 import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
 import { selectUsersTypesAndSubTypes } from 'containers/EliteApiLoader/selectors';
 
@@ -124,7 +123,7 @@ export function mapDispatchToProps(dispatch, props) {
             } },
         },
       }),
-      [ADD_NEW_CASENOTE.SUCCESS, ADD_NEW_CASENOTE.ERROR]),
+    [ADD_NEW_CASENOTE.SUCCESS, ADD_NEW_CASENOTE.ERROR]),
   };
 }
 

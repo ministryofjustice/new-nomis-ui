@@ -1,12 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { param } from 'change-case';
 
 import TabNav from 'components/Bookings/Details/tabMenu';
 import TabNavMobile from 'components/Bookings/Details/tabMenuMobile';
-import { Link } from 'react-router';
 import { selectDeviceFormat, selectSearchContext } from 'selectors/app';
 import EliteImage from 'containers/EliteContainers/Image';
 
@@ -18,7 +16,7 @@ import KeyDates from './KeyDates';
 import QuickLook from './QuickLook';
 import BookingsDetailsHeader from './header';
 import { selectCurrentDetailTabId, selectDisplayAddCaseNoteModal, selectShouldShowLargePhoto, selectImageId } from '../selectors';
-import { setDetailsTab, hideLargePhoto, viewDetails } from '../actions';
+import { hideLargePhoto, viewDetails } from '../actions';
 import './index.scss';
 
 import {
@@ -46,8 +44,7 @@ const parseActiveTab = (needle) => {
   return DETAILS_TABS.OFFENDER_DETAILS;
 }
 
-class Details extends PureComponent { // eslint-disable-line react/prefer-stateless-function
-
+class Details extends Component { // eslint-disable-line react/prefer-stateless-function
   async componentDidMount() {
     const { activeTab, offenderNo } = this.props.params;
     const tab = parseActiveTab(activeTab);
@@ -57,7 +54,6 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
 
   render() {
     const {
-      setTab,
       deviceFormat,
       imageId,
       shouldShowLargePhoto,
@@ -68,7 +64,6 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
     const activeTabId = parseActiveTab(params.activeTab);
     const offenderNo = params.offenderNo;
     const itemId = params.itemId;
-    const viewMode = params.viewMode;
     const ActiveTab = tabData.filter(tab => tab.tabId === activeTabId)[0];
     const TabComponentDesktop = ActiveTab.component;
     const TabComponentMobile = ActiveTab.componentMobile;
@@ -116,19 +111,16 @@ class Details extends PureComponent { // eslint-disable-line react/prefer-statel
 
 Details.propTypes = {
   deviceFormat: PropTypes.string.isRequired,
-  setTab: PropTypes.func.isRequired,
 };
 
 Details.defaultProps = {
   deviceFormat: '',
   activeTabId: '',
-  setTab: () => {},
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
     viewDetails: (offenderNo, activeTabId) => dispatch(viewDetails(offenderNo, activeTabId)),
-    setTab: (id, offenderNo) => dispatch(setDetailsTab(id, offenderNo)),
     hidePhoto: (imageId) => dispatch(hideLargePhoto(imageId)),
   };
 }

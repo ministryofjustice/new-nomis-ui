@@ -1,20 +1,10 @@
 import React,{ Component } from 'react';
 import { FormattedDate } from 'react-intl';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-
-import ImmutablePropTypes from 'react-immutable-proptypes';
-
 import uuid from 'uuid/v4';
-import { Map, List } from 'immutable';
+import { Map } from 'immutable';
 
 import { Model as keyDatesModel } from 'helpers/dataMappers/keydates';
-
-import {
-  selectBookingDetailsId,
-  selectKeyDatesViewModel,
-  selectError,
-} from '../../selectors'
 
 import {
   loadKeyDates,
@@ -29,14 +19,14 @@ const KeyDatePair = ({ title, text, date }) => (
         {title}
       </label>
     ) }
-  <span>
-    { text && <b>{text}</b> }
-    { date &&
+    <span>
+      { text && <b>{text}</b> }
+      { date &&
     <b>
       <FormattedDate value={date} />
     </b>}
-  </span>
-</div>)
+    </span>
+  </div>)
 
 const ErrorMessage = () => (<div>
   <div className="error-summary">
@@ -99,46 +89,46 @@ class KeyDates extends Component {
     if (error.size > 0) { return <ErrorMessage /> }
 
     return (
-        <div className="key-dates">
-         <div>
-            <h3 className="heading-medium no-top-margin">
+      <div className="key-dates">
+        <div>
+          <h3 className="heading-medium no-top-margin">
               Incentives and earned privileges
-            </h3>
+          </h3>
 
-            <div className="section">
-              <div className="information-group">
+          <div className="section">
+            <div className="information-group">
 
-                <div className="information">
-                  <label>
+              <div className="information">
+                <label>
                     IEP Level
-                  </label>
-                  <b>
-                    {keyDates.get('iepLevel')}
-                  </b>
-                </div>
-
-                <div className="information">
-                  <label>
-                    Days since review
-                  </label>
-                  <b>
-                    {keyDates.get('daysSinceReview')}
-                  </b>
-                </div>
-
+                </label>
+                <b>
+                  {keyDates.get('iepLevel')}
+                </b>
               </div>
+
+              <div className="information">
+                <label>
+                    Days since review
+                </label>
+                <b>
+                  {keyDates.get('daysSinceReview')}
+                </b>
+              </div>
+
             </div>
           </div>
-
-            <SentenceView
-              additionalDaysAwarded={sentence.get('additionalDaysAwarded')}
-              dtoReleaseDates={sentence.get('dtoReleaseDates')}
-              nonDtoReleaseDate={sentence.get('nonDtoReleaseDate')}
-              sentenceExpiryDates={sentence.get('sentenceExpiryDates')}
-              other={keyDates.get('other')}
-              reCategorisationDate={keyDates.get('reCategorisationDate')}
-            />
         </div>
+
+        <SentenceView
+          additionalDaysAwarded={sentence.get('additionalDaysAwarded')}
+          dtoReleaseDates={sentence.get('dtoReleaseDates')}
+          nonDtoReleaseDate={sentence.get('nonDtoReleaseDate')}
+          sentenceExpiryDates={sentence.get('sentenceExpiryDates')}
+          other={keyDates.get('other')}
+          reCategorisationDate={keyDates.get('reCategorisationDate')}
+        />
+      </div>
     )
   }
 }

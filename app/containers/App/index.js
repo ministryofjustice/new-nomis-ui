@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
@@ -17,8 +17,7 @@ import Terms from 'containers/Footer/terms-and-conditions';
 import { hideTerms, showTerms } from 'globalReducers/app';
 import FeedbackLink from 'containers/FeedbackLink';
 
-class App extends PureComponent { // eslint-disable-line react/prefer-stateless-function
-
+class App extends Component {
   constructor(props) {
     super(props);
     this.resizeWindow = this.resizeWindow.bind(this);
@@ -65,9 +64,9 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
         {!shouldShowTerms && <FeedbackLink /> }
 
         <nav className="nav-container">
-           <div className="nav-content">
-             {!shouldShowTerms && <Breadcrumbs route={this.props.router.location.pathname} offenderNo={this.props.params.offenderNo} /> }
-           </div>
+          <div className="nav-content">
+            {!shouldShowTerms && <Breadcrumbs route={this.props.router.location.pathname} offenderNo={this.props.params.offenderNo} /> }
+          </div>
         </nav>
 
         <main className="container">
@@ -107,7 +106,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  retrieveUserMe: (format) => dispatch(retrieveUserMe()),
+  retrieveUserMe: () => dispatch(retrieveUserMe()),
   setDeviceFormat: (format) => dispatch(setDeviceFormat(format)),
   hideTermsAndConditions: () => dispatch(hideTerms()),
   showTermsAndConditions: () => dispatch(showTerms()),

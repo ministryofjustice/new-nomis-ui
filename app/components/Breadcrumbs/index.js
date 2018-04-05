@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { toFullName } from 'utils/stringUtils';
 import { Link } from 'react-router';
-import { splitCamelCase, properCase } from 'utils/stringUtils';
+import { properCase } from 'utils/stringUtils';
 import { connect } from 'react-redux';
 
 import { DETAILS_TABS } from 'containers/Bookings/constants';

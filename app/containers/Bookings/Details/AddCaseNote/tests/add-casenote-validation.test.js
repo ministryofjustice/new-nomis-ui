@@ -1,5 +1,4 @@
 import { Map } from 'immutable';
-import moment from 'moment';
 import { validate } from '../index';
 
 describe('Add casenote validation', () => {

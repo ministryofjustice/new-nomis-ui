@@ -1,4 +1,4 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import moment from 'moment';
 
 import {
@@ -11,7 +11,7 @@ const formatNumbersUpTo = (total) => [...Array(total).keys()].map(i => {
   return i;
 });
 
-const constructHours = ({ dateOnly, dateTime ,futureTimeOnly, pastTimeOnly, enableFilters }) => {
+const constructHours = ({ dateTime ,futureTimeOnly, enableFilters }) => {
   const hours = ['--', ...formatNumbersUpTo(24)];
   if (!enableFilters) {
     return hours;
@@ -20,7 +20,7 @@ const constructHours = ({ dateOnly, dateTime ,futureTimeOnly, pastTimeOnly, enab
   return ['--', ...hours.filter(filter)];
 };
 
-const constructMinutes = ({ selectedHour, dateOnly, dateTime ,futureTimeOnly, pastTimeOnly,enableFilters }) => {
+const constructMinutes = ({ selectedHour, dateTime, futureTimeOnly, enableFilters }) => {
   const minutes = ['--', '00','05','10','15','20','25','30','35','40','45','50','55'];
   if (!enableFilters) {
     return minutes;
@@ -36,7 +36,6 @@ const constructMinutes = ({ selectedHour, dateOnly, dateTime ,futureTimeOnly, pa
 
 
 class TimePicker extends Component {
-
   constructor() {
     super();
     this.onHoursChange = this.onHoursChange.bind(this);
@@ -100,15 +99,19 @@ class TimePicker extends Component {
       </div>
 
       <select disabled={!this.props.date} className={!(touched && error) ? 'form-control add-gutter-margin-right select-hours' : 'form-control form-control-error add-gutter-margin-right'} name="hours" onChange={this.onHoursChange} defaultValue={'--'}>
-        {hours.map(hour => <option key={hour}>
-          {hour}
-        </option>)}
+        {hours.map(hour => (
+          <option key={hour}>
+            {hour}
+          </option>
+        ))}
       </select>
 
       <select disabled={!this.props.date} className={!(touched && error) ? 'form-control select-minutes' : 'form-control form-control-error'} name="minutes" onChange={this.onMinutesChange} defaultValue={'--'}>
-        {minutes.map(minute => <option key={minute}>
-          {minute}
-        </option>)}
+        {minutes.map(minute => (
+          <option key={minute}>
+            {minute}
+          </option>
+        ))}
       </select>
     </div>)
   }

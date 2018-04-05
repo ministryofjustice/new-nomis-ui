@@ -1,6 +1,5 @@
 
 const buildNumber = require('../application-version');
-const session = require('../session');
 
 module.exports = function (req,res,next) {
   const sessionData = req.auth_token;

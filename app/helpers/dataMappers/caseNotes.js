@@ -26,7 +26,7 @@ export const Model = Map({
 
 
 export function transform(data) {
-  return Model.mergeDeepWith((prev, next, key) => {
+  return Model.mergeDeepWith((prev, next) => {
     if (!next) {
       return prev;
     }

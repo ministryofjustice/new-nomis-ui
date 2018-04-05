@@ -8,7 +8,7 @@ import { createFormAction } from 'redux-form-saga';
 import { createStructuredSelector } from 'reselect';
 import { selectLocale } from 'containers/LanguageProvider/selectors';
 import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
-import { DATE_ONLY_FORMAT_SPEC, DATE_TIME_FORMAT_SPEC } from 'containers/App/constants';
+import { DATE_ONLY_FORMAT_SPEC } from 'containers/App/constants';
 import {
   DETAILS_TABS,
 } from 'containers/Bookings/constants';

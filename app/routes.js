@@ -25,7 +25,7 @@ const checkAndCloseMobileMenu = (store) => {
 }
 
 function onEnterMethodGenerator(store) {
-  return (options = { routeName: 'unknown' }) => (nextState, replace) => {
+  return (options = { routeName: 'unknown' }) => () => {
     OnRouteVisit(options.routeName);
 
     // Any route navigation must close mobile menu if it is open.

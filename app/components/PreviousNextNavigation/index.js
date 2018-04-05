@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import uuid from 'uuid/v4';
-import { Map, List } from 'immutable';
+import { Map } from 'immutable';
 
 import { PrevNextNavContainer, PrevNextNavWrapper, PrevNavigatorRegion, NextNavigatorRegion, NavigatorContent, VisuallyHiddenSpan, PageNumbers } from './theme';
 
