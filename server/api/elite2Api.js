@@ -16,7 +16,7 @@ const getAdjudications = ({ req, res, fromDate }) => getRequest({ req, res, url:
 const getEventsForThisWeek = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl,`api/bookings/${req.bookingId}/events/thisWeek`) });
 const getEventsForNextWeek = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings/${req.bookingId}/events/nextWeek`) });
 const getCategoryAssessment = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl,`api/bookings/${req.bookingId}/assessment/CATEGORY`) });
-const getAppointmentTypes = (req, res) => getRequest({ req, res, url: url.resolve('api/reference-domains/scheduleReasons?eventType=APP') });
+const getAppointmentTypes = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, 'api/reference-domains/scheduleReasons?eventType=APP') });
 const getRelationships = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl,`api/bookings/${req.bookingId}/relationships`) });
 const getLocationsForAppointments = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl,`api/agencies/${req.params.agencyId}/locations?eventType=APP`) });
 const getMyInformation = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, 'api/users/me') });
@@ -34,7 +34,7 @@ const getNegativeCaseNotes = ({ req, res, fromDate, toDate }) => getRequest({
   url: url.resolve(baseUrl,`api/bookings/${req.bookingId}/caseNotes/NEG/IEP_WARN/count?fromDate=${fromDate}&toDate=${toDate}`),
 });
 
-const getLastVisit = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl`api/bookings/${req.bookingId}/visits/last`) });
+const getLastVisit = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings/${req.bookingId}/visits/last`) });
 
 const getKeyworker = async (req, res) => {
   const keyworkerBaseUrl = process.env.KEYWORKER_API_URL;
@@ -47,14 +47,6 @@ const getKeyworker = async (req, res) => {
 
   return getRequest({ req, res, url: url.resolve(baseUrl,`api/bookings/offenderNo/${req.params.offenderNo}/key-worker`) });
 };
-
-const addAppointment = ({ req, res }) => service.callApi({
-  method: 'post',
-  url: url.resolve(baseUrl,`api/bookings/${req.bookingId}/appointments`),
-  reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },
-  data: req.body,
-  onTokenRefresh: session.updateHmppsCookie(res),
-});
 
 const service = {
   getIepSummary,
@@ -73,7 +65,6 @@ const service = {
   getCategoryAssessment,
   getLocationsForAppointments,
   getAppointmentTypes,
-  addAppointment,
   getLastVisit,
   getRelationships,
   getKeyworker,
