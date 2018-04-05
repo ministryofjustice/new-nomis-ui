@@ -23,7 +23,7 @@ const asyncMiddleware = fn =>
 
 const loginIndex = async (req, res) => {
   let isApiUp = true;
-  await retry.getApiHealth(req).catch(error => {
+  await retry.getApiHealth().catch(error => {
     logger.error(error);
     isApiUp = false;
   });
@@ -32,7 +32,7 @@ const loginIndex = async (req, res) => {
 
 const login = async (req, res) => {
   let isApiUp = true;
-  await retry.getApiHealth(req).catch(error => {
+  await retry.getApiHealth().catch(error => {
     logger.error(error);
     isApiUp = false;
   });

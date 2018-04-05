@@ -34,7 +34,6 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
     headers: getHeaders({ headers, reqHeaders, access_token }),
   }, disableGatewayMode
   ).catch(error => {
-    logger.error(url);
     logger.error(error);
     if (error.response.status === 401) {
       return service.refreshTokenRequest({ token: refresh_token, headers, reqHeaders })
