@@ -53,9 +53,6 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
 };
 
 function httpRequest(options, disableGatewayMode) {
-  if (disableGatewayMode) {
-    logger.error('Gateway disabled');
-  }
   if (!disableGatewayMode && gatewayToken.useApiAuth) {
     const apiToken = options.headers.authorization;
     if (apiToken) {
@@ -69,6 +66,8 @@ function httpRequest(options, disableGatewayMode) {
 function httpRequestRetry(options, disableGatewayMode) {
   return httpRequest(options, disableGatewayMode);
 }
+
+const getApiHealth = () => httpRequest({ url: nurl.resolve(process.env.API_ENDPOINT_URL, '/health'), method: 'get', headers: {} });
 
 const refreshTokenRequest = ({ headers, reqHeaders, token }) => axios({
   method: 'post',
@@ -98,6 +97,7 @@ const service = {
   errorStatusCode,
   encodeClientCredentials,
   getRequest,
+  getApiHealth,
 };
 
 module.exports = service;

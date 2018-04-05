@@ -49,7 +49,7 @@ const onProxyResponse = (proxyRes, req, res) => {
 
   // If health check request, check and translate response content-type
   if (req.path === HEALTH_CHECK_PATH) {
-    proxyRes.headers['content-type'] = 'application/json;charset=UTF-8';  // eslint-disable-line no-param-reassign
+    proxyRes.headers['content-type'] = 'application/json;charset=UTF-8'; // eslint-disable-line no-param-reassign
 
     delete proxyRes.headers['content-length']; // eslint-disable-line no-param-reassign
 
@@ -78,9 +78,9 @@ const onProxyRequest = (proxyReq, req) => {
 
 // proxy middleware options
 const options = {
-  target: process.env.API_ENDPOINT_URL,              // target host
-  changeOrigin: true,                     // needed for virtual hosted sites
-  ws: true,                               // proxy websockets
+  target: process.env.API_ENDPOINT_URL, // target host
+  changeOrigin: true, // needed for virtual hosted sites
+  ws: true, // proxy websockets
   pathRewrite: {
     '^/api': 'api',
     '^/info': 'info',
@@ -88,12 +88,12 @@ const options = {
     '^/docs/swagger-resources': '/swagger-resources',
     '^/docs/api': '/api',
   },
-  //eslint-disable-next-line
+  // eslint-disable-next-line
   logProvider: (provider) => require('winston'),
   onError: onErrorHandler,
   onProxyRes: onProxyResponse,
   onProxyReq: onProxyRequest,
-  proxyTimeout: 2000,                     // milliseconds
+  proxyTimeout: 2000, // milliseconds
 };
 
 // create the proxy (without context)

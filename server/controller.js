@@ -21,33 +21,46 @@ const asyncMiddleware = fn =>
       });
   };
 
-const loginIndex = (req, res) => {
-  res.render('pages/login', { authError: false });
+const loginIndex = async (req, res) => {
+  let isApiUp = true;
+  await retry.getApiHealth(req).catch(error => {
+    logger.error(error);
+    isApiUp = false;
+  });
+  res.render('pages/login', { authError: false, apiUp: isApiUp });
 };
 
-const login = (req, res) => {
-  const loginData = `username=${req.body.username.toString().toUpperCase()}&password=${req.body.password}&grant_type=password`;
-  retry.httpRequest({
-    method: 'post',
-    url: url.resolve(baseUrl,'oauth/token'),
-    headers: {
-      authorization: `Basic ${retry.encodeClientCredentials()}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    data: loginData,
-  }).then((response) => {
-    req.session.isAuthenticated = true;
-
-    session.setHmppsCookie(res, response.data);
-
-    logger.error(response.data);
-
-    res.redirect('/');
-  }).catch(error => {
+const login = async (req, res) => {
+  let isApiUp = true;
+  await retry.getApiHealth(req).catch(error => {
     logger.error(error);
-    res.status(retry.errorStatusCode(error.response));
-    res.render('pages/login', { authError: true });
+    isApiUp = false;
   });
+  if (isApiUp) {
+    const loginData = `username=${req.body.username.toString().toUpperCase()}&password=${req.body.password}&grant_type=password`;
+    retry.httpRequest({
+      method: 'post',
+      url: url.resolve(baseUrl, 'oauth/token'),
+      headers: {
+        authorization: `Basic ${retry.encodeClientCredentials()}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data: loginData,
+    }).then((response) => {
+      req.session.isAuthenticated = true;
+
+      session.setHmppsCookie(res, response.data);
+
+      res.redirect('/');
+    }).catch(error => {
+      logger.error(error);
+      res.status(retry.errorStatusCode(error.response));
+      res.render('pages/login', { authError: true, apiUp: true });
+    });
+  } else {
+    res.status(503);
+    res.render('pages/login', { authError: false, apiUp: false });
+  }
 };
 
 const logout = (req, res) => {
@@ -145,7 +158,7 @@ const loadAppointmentViewModel = asyncMiddleware(async (req,res) => {
   res.json(viewModel);
 });
 
-const addAppointment = asyncMiddleware(async (req,res) => {
+const addAppointment = asyncMiddleware(async (req, res) => {
   if (!req.params.offenderNo) {
     res.status(400);
     res.end();
@@ -153,11 +166,9 @@ const addAppointment = asyncMiddleware(async (req,res) => {
   }
 
   const { bookingId } = await elite2Api.getDetailsLight(req, res);
-  req.bookingId = bookingId;
+  req.url = `/bookings/${bookingId}/appointments`;
 
-  await elite2Api.addAppointment({ req, res });
-  res.status(200);
-  res.end();
+  elite2ApiFallThrough(req, res);
 });
 
 const alerts = asyncMiddleware(async (req, res) => {

@@ -118,8 +118,6 @@ const service = {
   hmppsSessionMiddleWare,
   extendHmppsCookieMiddleWare,
   loginMiddleware,
-  getHmppsCookieData,
-
 };
 
 module.exports = service;

@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 const sinon = require('sinon');
-const chai = require('chai'),
-  expect = chai.expect;
+const chai = require('chai');
+const { expect } = chai;
 
 const sinonChai = require('sinon-chai');
 const apiService = require('../server/api/retry');
