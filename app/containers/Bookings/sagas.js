@@ -362,7 +362,7 @@ export function* viewDetails(action) {
   if (Type !== 'ERROR') {
     const nextPath = `/offenders/${action.payload.offenderNo}/${action.payload.activeTabId}`;
 
-    if (previousPath && previousPath !== nextPath) {
+    if (previousPath !== nextPath && window.location.pathname !== nextPath) {
       yield put(push(nextPath));
     }
   }
