@@ -1,5 +1,5 @@
 const url = require('url')
-const baseUrl = process.env.API_ENDPOINT_URL || 'http://localhost:3000';
+const config = require('./config');
 const elite2ApiFallThrough = require('./app').sessionHandler;
 const retry = require('./api/retry');
 
@@ -8,6 +8,8 @@ const session = require('./session');
 const bookingService = require('./services/booking');
 const eventsService = require('./services/events');
 const { logger } = require('./services/logger');
+
+const baseUrl = config.apis.elite2.url;
 
 const asyncMiddleware = fn =>
   (req, res, next) => {
@@ -69,7 +71,7 @@ const logout = (req, res) => {
 const images = (req, res) => {
   retry.callApi({
     method: 'get',
-    url: url.resolve(baseUrl,`api/images${req.url}`),
+    url: url.resolve(baseUrl, `api/images${req.url}`),
     responseType: 'stream',
     headers: {},
     reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },

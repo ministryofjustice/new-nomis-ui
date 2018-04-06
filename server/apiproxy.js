@@ -1,8 +1,11 @@
 const proxy = require('http-proxy-middleware');
 const fs = require('fs');
 const modifyResponse = require('node-http-proxy-json');
+
 const tokenGeneration = require('./jwt-token');
 const { logger } = require('./services/logger');
+const config = require('./config');
+
 
 const HEALTH_CHECK_PATH = 'health';
 const appInfo = getAppInfo();
@@ -64,7 +67,7 @@ const onProxyRequest = (proxyReq, req) => {
     proxyReq.setHeader('elite-authorization', authHeader);
   }
 
-  if (tokenGeneration.useApiAuth) {
+  if (config.app.useApiAuthGateway) {
     // Add Api Gateway JWT header token
     try {
       const jwToken = tokenGeneration.generateToken();
@@ -78,7 +81,7 @@ const onProxyRequest = (proxyReq, req) => {
 
 // proxy middleware options
 const options = {
-  target: process.env.API_ENDPOINT_URL, // target host
+  target: config.apis.elite2.url, // target host
   changeOrigin: true, // needed for virtual hosted sites
   ws: true, // proxy websockets
   pathRewrite: {

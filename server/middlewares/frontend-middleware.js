@@ -4,6 +4,7 @@ const path = require('path');
 const compression = require('compression');
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
 const googleAnalyticsInjector = require('../google-analytics').inject;
+const config = require('../config');
 
 // Dev middleware
 const addDevMiddlewares = (app, options, webpackConfig) => {
@@ -53,7 +54,7 @@ const addProdMiddlewares = (app, options) => {
   // smaller (applies also to assets). You can read more about that technique
   // and other good practices on official Express.js docs http://mxs.is/googmy
   app.use(compression());
-  app.use(googleAnalyticsInjector(process.env.GOOGLE_ANALYTICS_ID || 'UA-106741063-1'));
+  app.use(googleAnalyticsInjector(config.analytics.google_analytics_id));
   app.use(publicPath, express.static(outputPath));
 
   app.get('*', (req, res) => {
@@ -65,9 +66,7 @@ const addProdMiddlewares = (app, options) => {
  * Front-end middleware
  */
 module.exports = (app, options) => {
-  const isProd = process.env.NODE_ENV === 'production';
-
-  if (isProd) {
+  if (config.app.production) {
     addProdMiddlewares(app, options);
   } else {
     const webpackConfig = require('../../internals/webpack/webpack.dev.babel');
