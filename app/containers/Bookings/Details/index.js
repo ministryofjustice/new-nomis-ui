@@ -44,8 +44,8 @@ const parseActiveTab = (needle) => {
   return DETAILS_TABS.OFFENDER_DETAILS;
 }
 
-class Details extends Component { // eslint-disable-line react/prefer-stateless-function
-  async componentDidMount() {
+class Details extends Component {
+  componentDidMount() {
     const { activeTab, offenderNo } = this.props.params;
     const tab = parseActiveTab(activeTab);
 
@@ -55,7 +55,7 @@ class Details extends Component { // eslint-disable-line react/prefer-stateless-
   render() {
     const {
       deviceFormat,
-      imageId,
+      imageSrcUrl,
       shouldShowLargePhoto,
       hidePhoto,
       params,
@@ -73,10 +73,10 @@ class Details extends Component { // eslint-disable-line react/prefer-stateless-
       return (
         <div className="large-image-container">
           <div className="image-container">
-            <EliteImage imageId={imageId} />
+            <EliteImage src={imageSrcUrl} />
           </div>
           <div className="button-container">
-            <button type="button" className="cancel-button" onClick={() => hidePhoto(imageId)}>Close</button>
+            <button type="button" className="cancel-button" onClick={() => hidePhoto(imageSrcUrl)}>Close</button>
           </div>
         </div>
       );
@@ -121,7 +121,7 @@ Details.defaultProps = {
 export function mapDispatchToProps(dispatch) {
   return {
     viewDetails: (offenderNo, activeTabId) => dispatch(viewDetails(offenderNo, activeTabId)),
-    hidePhoto: (imageId) => dispatch(hideLargePhoto(imageId)),
+    hidePhoto: (imageSrcUrl) => dispatch(hideLargePhoto(imageSrcUrl)),
   };
 }
 // selectShouldShowCarouselForMobile
@@ -131,7 +131,7 @@ const mapStateToProps = createStructuredSelector({
   displayAddDetailsModal: selectDisplayAddCaseNoteModal(),
   searchContext: selectSearchContext(),
   shouldShowLargePhoto: selectShouldShowLargePhoto(),
-  imageId: selectImageId(),
+  imageSrcUrl: selectImageId(),
 });
 
 // Wrap the component to inject dispatch and state into it

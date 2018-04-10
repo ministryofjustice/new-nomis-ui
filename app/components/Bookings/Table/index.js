@@ -5,6 +5,8 @@ import { browserHistory } from 'react-router';
 import uuid from 'uuid/v4';
 
 import EliteImage from 'containers/EliteContainers/Image';
+import { offenderImageUrl } from 'containers/Bookings/constants';
+
 import Name from 'components/Name';
 import { DETAILS_TABS } from 'containers/Bookings/constants';
 
@@ -52,7 +54,7 @@ const Table = ({ results, sortOrder, sortOrderChange }) => (
         <div className="row" key={uuid()}>
           <div className="col-xs-3 col-md-2 remove-left-padding">
             <div className="photo clickable" onClick={(e) => onViewDetails(e, row)}>
-              <EliteImage imageId={row.get('facialImageId')} />
+              <EliteImage src={offenderImageUrl(row.get('offenderNo'))} />
             </div>
           </div>
           <div className="col-xs-4 col-md-3 add-margin-top">

@@ -69,11 +69,6 @@ const selectImage = () => createSelector(
   (images, id) => images.get(id)
 );
 
-const selectImageStatus = () => createSelector(
-  selectImage(),
-  (image) => { if (image) return image.get('Status').toJS(); return { Type: 'NOT STARTED' }; }
-);
-
 
 const selectOfficers = () => createSelector(
   selectEliteApi(),
@@ -230,7 +225,6 @@ export {
   calcBookingResults,
   calcBookingResultsTotalRecords,
   selectImage,
-  selectImageStatus,
   selectOfficer,
   selectOfficerStatus,
   selectBookingDetails,

@@ -4,6 +4,8 @@ import React from 'react';
 import uuid from 'uuid/v4';
 
 import EliteImage from 'containers/EliteContainers/Image';
+import { offenderImageUrl } from 'containers/Bookings/constants';
+
 import Name from 'components/Name';
 
 import './index.scss';
@@ -33,7 +35,7 @@ const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
           <div className="person-block">
 
             <div className="grid-photo" onClick={() => viewDetails(row.get('offenderNo'))}>
-              <EliteImage imageId={row.get('facialImageId')} />
+              <EliteImage src={offenderImageUrl(row.get('offenderNo'))} />
             </div>
 
             <div className="person-details">

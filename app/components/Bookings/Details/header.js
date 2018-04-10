@@ -5,6 +5,7 @@ import EliteOfficerName from 'containers/EliteContainers/OfficerName';
 import { Link } from 'react-router';
 
 import { toFullName } from 'utils/stringUtils';
+import { offenderImageUrl } from 'containers/Bookings/constants';
 
 import './header.scss';
 
@@ -99,8 +100,8 @@ function Header({ inmateData, onImageClick, offenderNo }) {
       <div className="row">
 
           <div className="col-md-2 col-xs-3 no-left-gutter no-right-gutter">
-              <div className="photo clickable" onClick={() => onImageClick(inmateData.get('facialImageId'))}>
-                <EliteImage imageId={inmateData.get('facialImageId')} />
+              <div className="photo clickable" onClick={() => onImageClick(offenderImageUrl(offenderNo))}>
+                <EliteImage src={offenderImageUrl(offenderNo)} />
               </div>
           </div>
 

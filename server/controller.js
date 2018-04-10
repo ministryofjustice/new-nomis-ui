@@ -68,19 +68,15 @@ const logout = (req, res) => {
   res.redirect('/login');
 };
 
-const images = (req, res) => {
+const fetchImage = ({ targetEndpoint, req, res }) => {
   retry.callApi({
     method: 'get',
-    url: url.resolve(baseUrl, `api/images${req.url}`),
+    url: targetEndpoint,
     responseType: 'stream',
     headers: {},
     reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },
     onTokenRefresh: session.updateHmppsCookie(res),
   }).then(response => {
-    Object.keys(response.headers).forEach(key => {
-      res.setHeader(key, response.headers[key]);
-    });
-
     response.data.pipe(res);
   }).catch(error => {
     logger.error(error);
@@ -88,6 +84,25 @@ const images = (req, res) => {
     res.end();
   });
 };
+
+const offenderImage = asyncMiddleware(async (req, res) => {
+  const { bookingId } = await elite2Api.getDetailsLight(req, res);
+
+  fetchImage({
+    targetEndpoint: url.resolve(baseUrl, `api/bookings/${bookingId}/image/data`),
+    req,
+    res,
+  });
+});
+
+const getImage = asyncMiddleware(async (req, res) => {
+  fetchImage({
+    targetEndpoint: url.resolve(baseUrl, `api/images/${req.params.imageId}/data`),
+    req,
+    res,
+  });
+});
+
 
 const keyDates = asyncMiddleware(async (req,res) => {
   if (!req.params.offenderNo) {
@@ -230,7 +245,6 @@ module.exports = {
   login,
   loginIndex,
   logout,
-  images,
   bookingDetails,
   quickLook,
   eventsForNextWeek,
@@ -241,4 +255,6 @@ module.exports = {
   caseNotes,
   addCaseNote,
   updateCaseNote,
+  offenderImage,
+  getImage,
 };

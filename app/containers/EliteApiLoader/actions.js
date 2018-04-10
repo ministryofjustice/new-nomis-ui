@@ -6,20 +6,12 @@
 //
 import {
   BOOKINGS,
-  IMAGES,
   ALERTTYPES,
   CASENOTETYPES,
   OFFICERS,
   USER,
   APPOINTMENT,
 } from './constants';
-
-export function loadImage(imageId) {
-  return {
-    type: IMAGES.BASE,
-    payload: { imageId },
-  };
-}
 
 export function loadOfficer(staffId, username) {
   return {
