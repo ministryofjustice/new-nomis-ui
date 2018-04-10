@@ -222,38 +222,11 @@ const flatten = list => list.reduce(
   (a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []
 );
 
-export const imageMeta = (baseUrl, imageId) => axios({
-  baseURL: baseUrl,
-  method: 'get',
-  url: `images/${imageId}` })
-  .then((response) => response.data);
-
 export const officerDetails = (baseUrl, staffId, username) => axios({
   baseURL: baseUrl,
   method: 'get',
   url: (staffId) ? `users/staff/${staffId}` : `users/${username}` })
   .then((res) => res.data);
-
-export const imageData = (baseUrl, imageId) => axios({
-  baseURL: baseUrl,
-  method: 'get',
-  url: `photo/${imageId}/data`,
-  responseType: 'arraybuffer' })
-  .then((response) => {
-    // Convert Response to a dataURL
-    const arr = new Uint8Array(response.data);
-
-    // Convert the int array to a binary string
-    // We have to use apply() as we are converting an *array*
-    // and String.fromCharCode() takes one or more single values, not
-    // an array.
-    const raw = String.fromCharCode.apply(null, arr);
-
-    // This works!!!
-    const b64 = btoa(raw);
-    const dataURL = `data:${response.headers['content-type']};base64,${b64}`;
-    return dataURL;
-  });
 
 export const loadMyLocations = (baseUrl) => axios({
   baseURL: `${baseUrl}`,

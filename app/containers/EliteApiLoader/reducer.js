@@ -22,7 +22,6 @@ import {
   BOOKINGS,
   LOCATIONS,
   ALERTTYPES,
-  IMAGES,
   CASENOTETYPES,
   OFFICERS,
   USER,
@@ -180,14 +179,6 @@ function EliteApiReducer(state = initialState, action) {
     case ALERTTYPES.CODE.ERROR: {
       const { alertType, alertCode, error } = action.payload;
       return state.setIn(['AlertTypes', alertType, 'Codes', alertCode, 'Status'], fromJS({ Type: 'ERROR', Error: error }));
-    }
-
-    case IMAGES.LOADING: {
-      return state.setIn(['Images', action.payload.imageId, 'Status', 'Type'], 'LOADING');
-    }
-
-    case IMAGES.SUCCESS: {
-      return state.updateIn(['Images', action.payload.imageId], (im) => im.setIn(['Status', 'Type'], 'SUCCESS').set('dataURL', action.payload.dataURL).set('meta', action.payload.meta));
     }
 
     case OFFICERS.LOADING: {

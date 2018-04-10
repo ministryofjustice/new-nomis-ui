@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { FormattedDate } from 'react-intl';
 
 import EliteImage from 'containers/EliteContainers/Image/index';
+import { imageUrl } from 'containers/Bookings/constants';
+
 import DisplayValue from 'components/FormComponents/DisplayValue';
 import { toFullName } from 'utils/stringUtils';
 import { Model as offenderDetailsModel } from 'helpers/dataMappers/offenderDetails';
@@ -262,8 +264,8 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
                 </div>
 
                 <div className="col-md-6 col-xs-6">
-                  <div className="photo clickable" onClick={() => showPhoto(mark.imageId)}>
-                    { (mark.imageId && <EliteImage imageId={mark.imageId} />) || '--'}
+                  <div className="photo clickable" onClick={() => showPhoto(imageUrl(mark.imageId))}>
+                    { (mark.imageId && <EliteImage src={imageUrl(mark.imageId)} />) || '--'}
                   </div>
                 </div>
               </div>
@@ -283,7 +285,7 @@ const groupByPairs = (dataset) => dataset.reduce((result, value, index, array) =
 
 export function mapDispatchToProps(dispatch) {
   return {
-    showPhoto: (imageId) => dispatch(showLargePhoto(imageId)),
+    showPhoto: (imageSrcUrl) => dispatch(showLargePhoto(imageSrcUrl)),
   };
 }
 

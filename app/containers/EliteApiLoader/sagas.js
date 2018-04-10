@@ -8,8 +8,6 @@ import { setMobileMenuOpen, showSpinner, hideSpinner } from 'globalReducers/app'
 import {
   searchOffenders,
   officerAssignments,
-  imageMeta,
-  imageData,
   officerDetails,
   bookingDetails,
   bookingAliases,
@@ -26,7 +24,6 @@ import {
 
 
 import {
-  selectImageStatus,
   selectOfficerStatus,
 } from './selectors';
 
@@ -37,7 +34,6 @@ import {
 import {
   BOOKINGS,
   PRELOADDATA,
-  IMAGES,
   OFFICERS,
   CASENOTETYPES,
   USER,
@@ -142,40 +138,6 @@ export function* bookingCaseNotesSaga(action) {
     yield put({ type: BOOKINGS.CASENOTES.ERROR, payload: { offenderNo, pagination, query, error: err } });
     yield put(hideSpinner());
     return { Type: 'ERROR', Error: err };
-  }
-}
-
-export function* imageLoadWatch() {
-  yield takeEvery(IMAGES.BASE, imageLoadSaga);
-}
-
-export function* imageLoadSaga(action) {
-  const { imageId } = action.payload;
-
-  if (!imageId) {
-    // nothing to load here...
-    return null;
-  }
-
-  // First check to see if this image already been loaded.
-  const currentStatus = yield select(selectImageStatus(), { imageId });
-  if (currentStatus.Type === 'SUCCESS' || currentStatus.Type === 'LOADING') {
-    return null;
-  }
-
-  yield put({ type: IMAGES.LOADING, payload: { imageId } });
-
-  const apiServer = yield select(selectApi());
-
-  try {
-    const metaRes = yield call(imageMeta, apiServer, imageId);
-    const dataURL = yield call(imageData, apiServer, imageId);
-
-    yield put({ type: IMAGES.SUCCESS, payload: { imageId, meta: metaRes, dataURL } });
-    return null;
-  } catch (err) {
-    yield put({ type: IMAGES.ERROR, payload: { imageId, error: err } });
-    return null;
   }
 }
 
@@ -299,7 +261,6 @@ export function* userSwitchCaseLoadsSaga(action) {
 
 export default [
   preloadDataWatcher,
-  imageLoadWatch,
   officerLoadWatch,
   bookingDetailsWatcher,
   bookingAlertsWatch,

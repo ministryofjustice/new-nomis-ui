@@ -105,7 +105,6 @@ app.get('/logout', controller.logout);
 app.use(session.hmppsSessionMiddleWare);
 app.use(session.extendHmppsCookieMiddleWare);
 
-app.use('/app/photo', controller.images);
 app.use('/app/keydates/:offenderNo', controller.keyDates);
 app.use('/app/bookings/details/:offenderNo', controller.bookingDetails);
 app.use('/app/bookings/quicklook/:offenderNo', controller.quickLook);
@@ -117,7 +116,8 @@ app.use('/app/bookings/:offenderNo/alerts', controller.alerts);
 app.get('/app/bookings/:offenderNo/caseNotes', controller.caseNotes);
 app.post('/app/bookings/:offenderNo/caseNotes', controller.addCaseNote);
 app.put('/app/bookings/:offenderNo/caseNotes/:caseNoteId', controller.updateCaseNote);
-
+app.get('/app/bookings/:offenderNo/image/data', controller.offenderImage);
+app.get('/app/images/:imageId/data', controller.getImage);
 app.use('/app', application.sessionHandler);
 
 // In production we need to pass these values in instead of relying on webpack

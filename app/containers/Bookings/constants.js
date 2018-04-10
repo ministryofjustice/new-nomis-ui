@@ -23,6 +23,9 @@ export const SET_KEYDATES = 'app/bookings/details/tab/set/keydates';
 export const SET_SCHEDULED_EVENTS = 'app/bookings/details/scheduled-events/set';
 export const LOAD_SCHEDULED_EVENTS = 'app/bookings/details/scheduled-events/load';
 
+export const offenderImageUrl = (offenderNo) => `/app/bookings/${offenderNo}/image/data`;
+export const imageUrl = (imageId) => `/app/images/${imageId}/data`;
+
 export const DETAILS_TABS = {
   OFFENDER_DETAILS: 'personal',
   PHYSICAL_ATTR: 'physical-attributes',

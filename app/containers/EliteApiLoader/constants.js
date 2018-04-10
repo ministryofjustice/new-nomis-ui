@@ -68,14 +68,6 @@ export const ELITE_ADD_CASENOTE = {
   ERROR: 'app/eliteApiLoader/ADD_CASENOTE/error',
 };
 
-// Images
-export const IMAGES = {
-  BASE: 'app/eliteApiLoader/IMAGES',
-  LOADING: 'app/eliteApiLoader/IMAGES/loading',
-  SUCCESS: 'app/eliteApiLoader/IMAGES/success',
-  ERROR: 'app/eliteApiLoader/IMAGES/error',
-};
-
 // Users/Officer Data
 export const OFFICERS = {
   BASE: 'app/eliteApiLoader/OFFICERS',
