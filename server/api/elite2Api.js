@@ -1,19 +1,20 @@
 const url = require('url');
 const getRequest = require('./retry').getRequest;
 const config = require('../config');
+const utils = require('../utils');
 
 const baseUrl = config.apis.elite2.url;
 
 const getSentenceData = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings/${req.bookingId}/sentenceDetail`) });
 const getIepSummary = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings/${req.bookingId}/iepSummary`) });
-const getDetailsLight = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings/offenderNo/${req.params.offenderNo}?fullInfo=false`) });
+const getDetailsLight = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl,`api/bookings/offenderNo/${req.params.offenderNo}?fullInfo=false`) });
 const getDetails = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings/offenderNo/${req.params.offenderNo}?fullInfo=true`) });
 const getBalances = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings/${req.bookingId}/balances`) });
 const getMainOffence = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings/${req.bookingId}/mainOffence`) });
-const getEventsForToday = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings/${req.bookingId}/events/today`) });
-const getContacts = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings/${req.bookingId}/contacts`) });
-const getAdjudications = ({ req, res, fromDate }) => getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings/${req.bookingId}/adjudications?fromDate=${fromDate}`) });
-const getEventsForThisWeek = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings/${req.bookingId}/events/thisWeek`) });
+const getEventsForToday = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl,`api/bookings/${req.bookingId}/events/today`) });
+const getContacts = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl,`api/bookings/${req.bookingId}/contacts`) });
+const getAdjudications = ({ req, res, fromDate }) => getRequest({ req, res, url: url.resolve(baseUrl,`api/bookings/${req.bookingId}/adjudications?fromDate=${fromDate}`) });
+const getEventsForThisWeek = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl,`api/bookings/${req.bookingId}/events/thisWeek`) });
 const getEventsForNextWeek = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings/${req.bookingId}/events/nextWeek`) });
 const getCategoryAssessment = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl,`api/bookings/${req.bookingId}/assessment/CATEGORY`) });
 const getAppointmentTypes = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, 'api/reference-domains/scheduleReasons?eventType=APP') });
@@ -25,13 +26,13 @@ const getMyInformation = (req, res) => getRequest({ req, res, url: url.resolve(b
 const getPositiveCaseNotes = ({ req, res, fromDate, toDate }) => getRequest({
   req,
   res,
-  url: url.resolve(baseUrl, `api/bookings/${req.bookingId}/caseNotes/POS/IEP_ENC/count?fromDate=${fromDate}&toDate=${toDate}`),
+  url: url.resolve(baseUrl,`api/bookings/${req.bookingId}/caseNotes/POS/IEP_ENC/count?fromDate=${fromDate}&toDate=${toDate}`),
 });
 
 const getNegativeCaseNotes = ({ req, res, fromDate, toDate }) => getRequest({
   req,
   res,
-  url: url.resolve(baseUrl, `api/bookings/${req.bookingId}/caseNotes/NEG/IEP_WARN/count?fromDate=${fromDate}&toDate=${toDate}`),
+  url: url.resolve(baseUrl,`api/bookings/${req.bookingId}/caseNotes/NEG/IEP_WARN/count?fromDate=${fromDate}&toDate=${toDate}`),
 });
 
 const getLastVisit = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings/${req.bookingId}/visits/last`) });
@@ -50,8 +51,24 @@ const getKeyworker = async (req, res) => {
     });
   }
 
-  return getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings/offenderNo/${req.params.offenderNo}/key-worker`) });
+  return getRequest({ req, res, url: url.resolve(baseUrl,`api/bookings/offenderNo/${req.params.offenderNo}/key-worker`) });
 };
+
+const getSummaryForOffenders = (req, res, people) =>
+  getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings?iepLevel=true&${people.map(offenderNo => `offenderNo=${offenderNo}`).join('&')}`) });
+
+const getAssignedOffenders = (req, res) => {
+  const pagination = ['page-offset','page-limit','sort-fields','sort-order'];
+  const headers = utils.extractProperties(pagination, req.headers);
+
+  return getRequest({
+    url: url.resolve(baseUrl, 'api/users/me/bookingAssignments'),
+    headers,
+    req,
+    res,
+  });
+};
+
 
 const service = {
   getIepSummary,
@@ -73,6 +90,9 @@ const service = {
   getLastVisit,
   getRelationships,
   getKeyworker,
+  getMyInformation,
+  getSummaryForOffenders,
+  getAssignedOffenders,
 };
 
 module.exports = service;

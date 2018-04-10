@@ -6,6 +6,7 @@ const session = require('../session');
 const gatewayToken = require('../jwt-token');
 const { logger } = require('../services/logger');
 const config = require('../config');
+const utils = require('../utils');
 
 const apiClientId = config.apis.elite2.clientId;
 const apiClientSecret = config.apis.elite2.clientSecret;
@@ -19,7 +20,10 @@ const getRequest = ({ req, res, url, headers, disableGatewayMode }) => service.c
   reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },
   onTokenRefresh: session.updateHmppsCookie(res),
   disableGatewayMode,
-}).then(response => new Promise(r => r(response.data))).catch(error => {
+}).then(response => new Promise(r => {
+  copyPaginationHeadersOver(response.headers, res);
+  return r(response.data);
+})).catch(error => {
   logger.error(error);
   return new Promise(r => r(null))
 });
@@ -32,9 +36,10 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
     method,
     responseType,
     data,
-    headers: getHeaders({ headers, reqHeaders, access_token }),
+    headers: getAuthHeaders({ headers, reqHeaders, access_token }),
   }, disableGatewayMode
   ).catch(error => {
+    logger.error(url);
     logger.error(error);
     if (error.response.status === 401) {
       return service.refreshTokenRequest({ token: refresh_token, headers, reqHeaders })
@@ -44,7 +49,7 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
             url,
             method,
             responseType,
-            headers: getHeaders({ headers, reqHeaders, access_token: response.data.access_token }),
+            headers: getAuthHeaders({ headers, reqHeaders, access_token: response.data.access_token }),
           }, disableGatewayMode);
         })
     }
@@ -87,10 +92,19 @@ const getClientHeaders = ({ headers, reqHeaders }) => Object.assign({}, headers,
   'access-control-allow-origin': reqHeaders.host,
 });
 
-const getHeaders = ({ headers, reqHeaders, access_token }) => Object.assign({}, headers, {
+const getAuthHeaders = ({ headers, reqHeaders, access_token }) => Object.assign({}, headers, {
   authorization: `bearer ${access_token}`,
   'access-control-allow-origin': reqHeaders.host,
 });
+
+function copyPaginationHeadersOver(axiosResponseHeaders, res) {
+  const pagination = ['page-offset','page-limit','sort-fields','sort-order', 'total-records'];
+  const responseHeaders = utils.extractProperties(pagination, axiosResponseHeaders);
+  Object.keys(responseHeaders).forEach(key => {
+    logger.error(key, responseHeaders[key]);
+    res.setHeader(key, responseHeaders[key]);
+  });
+}
 
 const errorStatusCode = (response) => (response && response.status) || 500;
 
