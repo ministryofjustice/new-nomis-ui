@@ -57,8 +57,8 @@ $person-details-background-colour: #F2F2F2;
           img {
             min-width: 80px;
             min-height: 100px;
-            background-size: cover;
-            background-position: center;
+            object-fit: cover;
+            object-position: center;
           }
         }
       }
