@@ -7,6 +7,8 @@ const elite2Api = require('./api/elite2Api');
 const session = require('./session');
 const bookingService = require('./services/booking');
 const eventsService = require('./services/events');
+const keyworkerService = require('./services/keyworker');
+
 const { logger } = require('./services/logger');
 
 const baseUrl = config.apis.elite2.url;
@@ -56,8 +58,6 @@ const login = async (req, res) => {
       logger.error(error);
       res.render('pages/login', { authError: false, apiUp: false });
     }
-
-
     res.render('pages/login', { authError: true, apiUp: true });
   });
 };
@@ -240,6 +240,11 @@ const updateCaseNote = asyncMiddleware(async (req, res) => {
   elite2ApiFallThrough(req, res);
 });
 
+const myAssignments = asyncMiddleware(async (req, res) => {
+  const result = await keyworkerService.getAssignedOffenders(req, res);
+  res.json(result);
+});
+
 module.exports = {
   keyDates,
   login,
@@ -257,4 +262,5 @@ module.exports = {
   updateCaseNote,
   offenderImage,
   getImage,
+  myAssignments,
 };
