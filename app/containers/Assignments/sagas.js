@@ -1,8 +1,4 @@
-import { takeLatest, put, select, call } from 'redux-saga/effects';
-import { SubmissionError } from 'redux-form';
-
-import { searchSaga as searchSagaElite } from 'containers/EliteApiLoader/sagas';
-import { hideSpinner, showSpinner } from 'globalReducers/app';
+import { takeLatest, put, select } from 'redux-saga/effects';
 
 import {
   selectAssignmentsSortOrder,
@@ -17,10 +13,6 @@ import {
   SET_ASSIGNMENTS_SORT_ORDER,
   TOGGLE_ASSIGNMENTS_SORT_ORDER,
 } from './constants';
-
-import {
-  SEARCH_ERROR,
-} from '../Bookings/constants';
 
 
 export function* assignmentsPaginationWatcher() {

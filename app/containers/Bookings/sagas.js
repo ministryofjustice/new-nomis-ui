@@ -341,7 +341,7 @@ export function* onAmendCaseNote(action) {
   } catch (err) {
     yield put({
       type: AMEND_CASENOTE.ERROR,
-      payload: new SubmissionError({ _error: err.message || 'Unable to amend case note at this time.' })
+      payload: new SubmissionError({ _error: err.message || 'Unable to amend case note at this time.' }),
     });
   }
 }
@@ -429,7 +429,7 @@ export function* setCaseNoteFilterSaga(action) {
       type: CASE_NOTE_FILTER.SUCCESS,
       payload: {
         query,
-      }
+      },
     });
     if (goToPage) yield put(push(goToPage));
   } catch (err) {

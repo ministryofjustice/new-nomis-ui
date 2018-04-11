@@ -7,7 +7,7 @@ import serialize from 'form-serialize';
 import './searchForm.scss';
 import { bookingSearch } from '../Bookings/actions';
 
-class SearchForm extends Component { 
+class SearchForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
@@ -69,7 +69,7 @@ SearchForm.defaultProps = {
   error: '',
 };
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
   return {
     defaultLocationPrefix: '',
     error: state.getIn(['home','searchError']),
