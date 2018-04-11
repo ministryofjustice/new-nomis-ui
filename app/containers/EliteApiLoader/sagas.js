@@ -6,8 +6,6 @@ import { selectApi } from 'containers/ConfigLoader/selectors';
 import { setMobileMenuOpen, showSpinner, hideSpinner } from 'globalReducers/app';
 
 import {
-  searchOffenders,
-  officerAssignments,
   officerDetails,
   bookingDetails,
   bookingAliases,
@@ -33,7 +31,7 @@ import {
 
 import {
   BOOKINGS,
-  PRELOADDATA,
+  LOAD_CASE_NOTE_TYPES_SUBTYPES,
   OFFICERS,
   CASENOTETYPES,
   USER,
@@ -68,30 +66,20 @@ export function* bookingDetailsSaga(action) {
   const apiServer = yield select(selectApi());
 
   try {
-    const data = yield call(bookingDetails, apiServer, offenderNo);
-    const bookingId = data.bookingId;
-    const aliases = yield call(bookingAliases, apiServer, bookingId);
+    const key = ['Bookings', 'Details', action.payload.offenderNo, 'Data'];
+    const notLoaded = Boolean(yield select(state => state.getIn(key))) === false;
 
-    yield put({ type: BOOKINGS.DETAILS.SUCCESS, payload: { ...data, aliases } });
+    if (notLoaded) {
+      const data = yield call(bookingDetails, apiServer, offenderNo);
+      const bookingId = data.bookingId;
+      const aliases = yield call(bookingAliases, apiServer, bookingId);
 
+      yield put({ type: BOOKINGS.DETAILS.SUCCESS, payload: { ...data, aliases } });
+    }
     return { Type: 'SUCCESS' };
   } catch (err) {
     yield put({ type: BOOKINGS.DETAILS.ERROR, payload: { offenderNo, error: 'Something went wrong, please try again later' } });
     return { Type: 'ERROR', Error: err };
-  }
-}
-
-export function* searchSaga({ query, pagination, sortOrder }) {
-  const apiServer = yield select(selectApi());
-
-  try {
-    const isOffAss = query === 'officerAssignments';
-    const bookingListFunction = isOffAss ? officerAssignments : searchOffenders;
-    const res = yield call(bookingListFunction, query, pagination, apiServer);
-
-    yield put({ type: BOOKINGS.SEARCH.SUCCESS, payload: { query, pagination, sortOrder, results: res.bookings, meta: { totalRecords: res.totalRecords } } });
-  } catch (err) {
-    yield put({ type: BOOKINGS.SEARCH.ERROR, payload: { query, pagination, sortOrder, error: 'Something went wrong, please try again later' } });
   }
 }
 
@@ -183,11 +171,11 @@ export function* officerLoadSaga(action) {
 }
 
 
-export function* preloadDataWatcher() {
-  yield takeLatest(PRELOADDATA.BASE, preloadData);
+export function* loadCaseNoteTypesSubTypesWatcher() {
+  yield takeLatest(LOAD_CASE_NOTE_TYPES_SUBTYPES, loadCaseNoteTypesSubTypes);
 }
 
-export function* preloadData() {
+export function* loadCaseNoteTypesSubTypes() {
   const apiServer = yield select(selectApi());
 
   yield call(preloadAllCaseNoteTypesSubTypes, apiServer);
@@ -260,7 +248,7 @@ export function* userSwitchCaseLoadsSaga(action) {
 }
 
 export default [
-  preloadDataWatcher,
+  loadCaseNoteTypesSubTypesWatcher,
   officerLoadWatch,
   bookingDetailsWatcher,
   bookingAlertsWatch,

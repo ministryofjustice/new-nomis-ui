@@ -19,7 +19,6 @@ import {
   setPagination as sP,
   setResultsView,
   loadLocations,
-  toggleSortOrder,
 } from '../actions';
 
 import { NEW_SEARCH, DETAILS_TABS } from '../constants';
@@ -29,31 +28,25 @@ const ResultsViewBuilder = ({ viewName, results, onViewDetails, sortOrderChange,
   <BookingGrid results={results} viewDetails={onViewDetails} sortOrderChange={sortOrderChange} sortOrder={sortOrder} />;
 
 class SearchResults extends Component {
-  componentWillMount() {
-    this.props.loadLocations();
-  }
 
   componentDidMount() {
     this.refs.focuspoint.scrollIntoView();
-
-    const { locationPrefix, keywords, perPage, pageNumber } = this.props.location.query;
-    const pagination = (perPage && pageNumber) ? { perPage, pageNumber } : this.props.pagination;
-
-    if (locationPrefix) {
-      this.props.setPage(pagination);
-      this.props.getSearchResults({ locationPrefix, keywords, pagination })
-    }
+    this.props.loadLocations();
+    this.loadSearch();
   }
 
   componentDidUpdate(prevProps) {
     if (!Map(prevProps.location.query).equals(Map(this.props.location.query))) {
-      const { locationPrefix, keywords, perPage, pageNumber } = this.props.location.query;
-      const pagination = (perPage && pageNumber) ? { perPage, pageNumber } : this.props.pagination;
+      this.loadSearch();
+    }
+  }
 
-      if (locationPrefix) {
-        this.props.setPage(pagination);
-        this.props.getSearchResults({ locationPrefix, keywords, pagination })
-      }
+  loadSearch() {
+    const { locationPrefix, keywords, perPage, pageNumber, sortOrder } = this.props.location.query;
+    const pagination = (perPage && pageNumber) ? { perPage, pageNumber } : this.props.pagination;
+
+    if (locationPrefix) {
+      this.props.getSearchResults({ locationPrefix, keywords, pagination, sortOrder });
     }
   }
 
@@ -71,13 +64,14 @@ class SearchResults extends Component {
     } = this.props;
 
     const { perPage: pP, pageNumber: pN } = pagination;
+    const { locationPrefix } = this.props.location.query;
 
     return (
       <div className="booking-search">
 
         <div className="row" ref="focuspoint">
           <h1 className="heading-xlarge add-gutter-top"> Search results </h1>
-          {shouldShowSpinner === false && <SearchAgainForm locations={locations} /> }
+          {shouldShowSpinner === false && <SearchAgainForm locations={locations} locationPrefix={locationPrefix} /> }
         </div>
 
         <div className="row toggle-and-count-view">
@@ -132,13 +126,13 @@ SearchResults.defaultProps = {
   locations: List([]),
 };
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch, props) {
   return {
     viewDetails: (offenderNo) => dispatch(vD(offenderNo, DETAILS_TABS.OFFENDER_DETAILS)),
-    setPage: (pagination) => dispatch(sP(pagination)),
+    setPage: (pagination) => dispatch(sP({ ...props.location.query, ...pagination })),
     setResultsView: (pagination) => dispatch(setResultsView(pagination)),
     loadLocations: () => dispatch(loadLocations()),
-    toggleSortOrder: () => dispatch(toggleSortOrder()),
+    toggleSortOrder: (sortOrder) => dispatch(sP({ ...props.location.query, sortOrder })),
     getSearchResults: (query) => dispatch({ type: NEW_SEARCH, payload: { query } }),
   };
 }

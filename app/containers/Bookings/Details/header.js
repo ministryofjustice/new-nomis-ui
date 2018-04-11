@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { Map } from 'immutable';
 import { connect } from 'react-redux';
@@ -7,7 +7,7 @@ import BookingsDetailsHeader from 'components/Bookings/Details/header';
 
 import { showLargePhoto } from '../actions';
 
-class Header extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+class Header extends Component { 
   render() {
     const { headerDetails, showPhoto, offenderNo } = this.props;
 

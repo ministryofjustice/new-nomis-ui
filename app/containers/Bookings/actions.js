@@ -1,3 +1,6 @@
+
+import { LOAD_CASE_NOTE_TYPES_SUBTYPES } from 'containers/EliteApiLoader/constants';
+
 import {
   VIEW_DETAILS,
   UPDATE_PAGINATION,
@@ -13,7 +16,9 @@ import {
   LOAD_KEY_DATES,
   LOAD_QUICK_LOOK,
   LOAD_SCHEDULED_EVENTS,
+  NEW_SEARCH,
 } from './constants';
+
 
 export function loadLocations(offset) {
   return {
@@ -134,6 +139,30 @@ export function loadScheduledEventsForNextWeek(offenderNo) {
     payload: {
       offenderNo,
       nextWeek: true,
+    },
+  }
+}
+
+export function loadCaseNoteTypesAndSubTypes() {
+  return { 
+    type: LOAD_CASE_NOTE_TYPES_SUBTYPES,
+  }
+}
+
+export function bookingSearch(formData) {
+  return {
+    type: NEW_SEARCH,
+    payload: {
+      query: {
+        ...formData,
+        locationPrefix: formData.locationPrefix,
+        pagination: {
+          perPage: 10,
+          pageNumber: 0,  
+        },
+        sortOrder: 'ASC',
+      },
+      resetPagination: true,
     },
   }
 }

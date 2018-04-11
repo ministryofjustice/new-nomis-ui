@@ -1,30 +1,32 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { reduxForm, Field } from 'redux-form/immutable';
-import { createFormAction } from 'redux-form-saga';
+import serialize from 'form-serialize';
 
-import {
-  NEW_SEARCH,
-  SEARCH_ERROR,
-  SEARCH_SUCCESS,
-} from '../constants';
+import { bookingSearch } from 'containers/Bookings/actions';
 
 import './SearchForm.scss';
 
-class SearchAgainForm extends Component { // eslint-disable-line react/prefer-stateless-function
+class SearchAgainForm extends Component {
+  handleSubmit(event) {
+    event.preventDefault();
+    const formData = serialize(event.target, { hash: true });
+    this.props.onSubmit(formData);
+  }
+
   render() {
-    const { handleSubmit, locations, submitting } = this.props;
+    const { error, locations, submitting, defaultLocationPrefix } = this.props;
 
     return (
-      <form className="search-again" onSubmit={handleSubmit}>
-        {this.props.error ?
+      <form className="search-again" onSubmit={event => this.handleSubmit(event)}>
+        {error ?
           <div className="error-summary">
             <h2 className="heading-medium error-summary-heading">
-                      Search Error
+              Search Error
             </h2>
             <div className="error-message">
-              {this.props.error}
+              {error}
             </div>
           </div>
           : null}
@@ -37,9 +39,8 @@ class SearchAgainForm extends Component { // eslint-disable-line react/prefer-st
               Enter prisoner Name or ID
             </label>
 
-            <Field
+            <input
               name="keywords"
-              component="input"
               type="text"
               title="Last Name, First Name or ID"
               placeholder="Last Name, First Name or ID"
@@ -53,16 +54,14 @@ class SearchAgainForm extends Component { // eslint-disable-line react/prefer-st
             <label className="form-label visible-md visible-lg">
               Select location
             </label>
-            <Field className="form-control" name="locationPrefix" component="select">
+            <select className="form-control" name="locationPrefix" defaultValue={defaultLocationPrefix}>
               {locations.map((location) =>
                 <option key={location.get('locationPrefix')} value={location.get('locationPrefix')}>{location.get('description')}</option>
               )}
-            </Field>
-
+            </select>
           </div>
 
           <div className="row col-md-3">
-
             <label className="form-label visible-md visible-lg">
                 &nbsp;
             </label>
@@ -87,8 +86,6 @@ class SearchAgainForm extends Component { // eslint-disable-line react/prefer-st
 }
 
 SearchAgainForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
   locations: ImmutablePropTypes.list.isRequired,
 };
@@ -97,14 +94,17 @@ SearchAgainForm.defaultProps = {
   error: '',
 };
 
-export default reduxForm({
-  form: 'search',
-  onSubmit: createFormAction((formData) => ({
-    type: NEW_SEARCH,
-    payload: {
-      query: formData.toJS(),
-      resetPagination: true,
-    },
-  }), [SEARCH_SUCCESS, SEARCH_ERROR]),
+function mapStateToProps(state, props) {
+  return {
+    defaultLocationPrefix: props.locationPrefix || (props.locations.length && props.locations[0].locationPrefix),
+    error: state.getIn(['home','searchError']),
+  }
+}
 
-})(SearchAgainForm);
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmit: (formData) => dispatch(bookingSearch(formData)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchAgainForm)

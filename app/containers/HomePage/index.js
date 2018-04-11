@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -19,9 +19,9 @@ import {
 } from './selectors';
 
 
-class HomePage extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+class HomePage extends Component {
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.loadLocations();
   }
 
