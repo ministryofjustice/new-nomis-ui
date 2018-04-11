@@ -16,7 +16,7 @@ class SearchAgainForm extends Component {
   }
 
   render() {
-    const { error, locations, submitting, defaultLocationPrefix } = this.props;
+    const { error, locations, submitting, locationPrefix, keywords } = this.props;
 
     return (
       <form className="search-again" onSubmit={event => this.handleSubmit(event)}>
@@ -46,6 +46,7 @@ class SearchAgainForm extends Component {
               placeholder="Last Name, First Name or ID"
               autoComplete="off"
               className="form-control"
+              defaultValue={keywords}
             />
 
           </div>
@@ -54,7 +55,7 @@ class SearchAgainForm extends Component {
             <label className="form-label visible-md visible-lg">
               Select location
             </label>
-            <select className="form-control" name="locationPrefix" defaultValue={defaultLocationPrefix}>
+            <select className="form-control" name="locationPrefix" defaultValue={locationPrefix}>
               {locations.map((location) =>
                 <option key={location.get('locationPrefix')} value={location.get('locationPrefix')}>{location.get('description')}</option>
               )}
@@ -96,7 +97,8 @@ SearchAgainForm.defaultProps = {
 
 function mapStateToProps(state, props) {
   return {
-    defaultLocationPrefix: props.locationPrefix || (props.locations.length && props.locations[0].locationPrefix),
+    keywords: props.query.keywords || '',
+    locationPrefix: props.query.locationPrefix || (props.locations.length && props.locations[0].locationPrefix),
     error: state.getIn(['home','searchError']),
   }
 }

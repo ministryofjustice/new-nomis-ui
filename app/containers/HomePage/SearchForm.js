@@ -49,7 +49,7 @@ class SearchForm extends Component {
               {locations.map((location) =>
                 <option key={location.locationPrefix} value={location.locationPrefix}>
                   {location.description}
-                 </option>
+                </option>
               )}
             </select>
           </div>

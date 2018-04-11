@@ -64,14 +64,14 @@ class SearchResults extends Component {
     } = this.props;
 
     const { perPage: pP, pageNumber: pN } = pagination;
-    const { locationPrefix } = this.props.location.query;
+    const { query } = this.props.location;
 
     return (
       <div className="booking-search">
 
         <div className="row" ref="focuspoint">
           <h1 className="heading-xlarge add-gutter-top"> Search results </h1>
-          {shouldShowSpinner === false && <SearchAgainForm locations={locations} locationPrefix={locationPrefix} /> }
+          {shouldShowSpinner === false && <SearchAgainForm locations={locations} query={query} /> }
         </div>
 
         <div className="row toggle-and-count-view">
