@@ -71,7 +71,7 @@ class SearchResults extends Component {
 
         <div className="row" ref="focuspoint">
           <h1 className="heading-xlarge add-gutter-top"> Search results </h1>
-          {shouldShowSpinner === false && <SearchAgainForm locations={locations} query={query} /> }
+          <SearchAgainForm locations={locations} query={query} />
         </div>
 
         <div className="row toggle-and-count-view">
@@ -85,7 +85,7 @@ class SearchResults extends Component {
 
         <div className="row">
 
-          <NoSearchResultsReturnedMessage resultCount={results.size} />
+          {!shouldShowSpinner && <NoSearchResultsReturnedMessage resultCount={results.size} /> }
 
           {totalResults > 0 &&
               <ResultsViewBuilder
