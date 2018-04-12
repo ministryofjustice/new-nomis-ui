@@ -66,7 +66,7 @@ export function* bookingDetailsSaga(action) {
   const apiServer = yield select(selectApi());
 
   try {
-    const key = ['Bookings', 'Details', action.payload.offenderNo, 'Data'];
+    const key = ['eliteApiLoader', 'Bookings', 'Details', action.payload.offenderNo, 'Data'];
     const notLoaded = Boolean(yield select(state => state.getIn(key))) === false;
 
     if (notLoaded) {
