@@ -25,9 +25,11 @@ const getKeyDatesVieModel = async (req, res) => {
   const { bookingId } = await elite2Api.getDetailsLight(req, res);
   req.bookingId = bookingId;
 
-  const sentenceData = await elite2Api.getSentenceData(req, res);
-  const iepSummary = (await elite2Api.getIepSummary(req, res));
-  const categoryAssessment = await elite2Api.getCategoryAssessment(req, res);
+  const [sentenceData, iepSummary, categoryAssessment] = await Promise.all([
+    elite2Api.getSentenceData(req, res),
+    elite2Api.getIepSummary(req, res),
+    elite2Api.getCategoryAssessment(req, res),
+  ]);
 
   const sentence = keyDatesMapper.sentence(sentenceData);
   const other = keyDatesMapper.otherDates(sentenceData);
@@ -73,16 +75,32 @@ const getQuickLookViewModel = async (req, res) => {
   const { bookingId } = await elite2Api.getDetailsLight(req, res);
   req.bookingId = bookingId;
 
-  const balance = await elite2Api.getBalances(req, res);
-  const offenceData = await elite2Api.getMainOffence(req, res);
-  const sentenceData = await elite2Api.getSentenceData(req, res);
-  const activityData = await elite2Api.getEventsForToday(req, res);
-  const positiveCaseNotes = await elite2Api.getPositiveCaseNotes({ req, res, fromDate: threeMonthsInThePast,toDate: today });
-  const negativeCaseNotes = await elite2Api.getNegativeCaseNotes({ req, res, fromDate: threeMonthsInThePast,toDate: today });
-  const contacts = await elite2Api.getContacts(req, res);
-  const adjudications = await elite2Api.getAdjudications({ req, res, fromDate: threeMonthsInThePast });
-  const lastVisit = await elite2Api.getLastVisit(req, res);
-  const relationships = await elite2Api.getRelationships(req, res);
+  const apiCalls = [
+    elite2Api.getBalances(req, res),
+    elite2Api.getMainOffence(req, res),
+    elite2Api.getSentenceData(req, res),
+    elite2Api.getEventsForToday(req, res),
+    elite2Api.getPositiveCaseNotes({ req, res, fromDate: threeMonthsInThePast,toDate: today }),
+    elite2Api.getNegativeCaseNotes({ req, res, fromDate: threeMonthsInThePast,toDate: today }),
+    elite2Api.getContacts(req, res),
+    elite2Api.getAdjudications({ req, res, fromDate: threeMonthsInThePast }),
+    elite2Api.getLastVisit(req, res),
+    elite2Api.getRelationships(req, res),
+  ]
+
+  const [
+    balance,
+    offenceData,
+    sentenceData,
+    activityData,
+    positiveCaseNotes,
+    negativeCaseNotes,
+    contacts,
+    adjudications,
+    lastVisit,
+    relationships,
+  ] = await Promise.all(apiCalls)
+
 
   const morningActivity = filterMorning(activityData);
   const afternoonActivity = filterAfternoon(activityData);
