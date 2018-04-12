@@ -144,7 +144,7 @@ export function loadScheduledEventsForNextWeek(offenderNo) {
 }
 
 export function loadCaseNoteTypesAndSubTypes() {
-  return { 
+  return {
     type: LOAD_CASE_NOTE_TYPES_SUBTYPES,
   }
 }
@@ -158,7 +158,7 @@ export function bookingSearch(formData) {
         locationPrefix: formData.locationPrefix,
         pagination: {
           perPage: 10,
-          pageNumber: 0,  
+          pageNumber: 0,
         },
         sortOrder: 'ASC',
       },

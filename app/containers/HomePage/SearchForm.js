@@ -2,10 +2,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import serialize from 'form-serialize';
 
+import { buildSearchQueryString } from 'utils/stringUtils';
+
 import './searchForm.scss';
-import { bookingSearch } from '../Bookings/actions';
 
 class SearchForm extends Component {
 
@@ -78,7 +80,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return ({
-    onSubmit: (formData) => dispatch(bookingSearch(formData)),
+    onSubmit: (formData) => dispatch(push(`/results?${buildSearchQueryString(formData)}`)),
   })
 }
 

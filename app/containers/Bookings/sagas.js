@@ -1,6 +1,5 @@
 import { takeLatest, put, select, call } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
-import qs from 'querystring';
 import { SubmissionError } from 'redux-form/immutable';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 import { bookingDetailsSaga as bookingDetailsElite } from 'containers/EliteApiLoader/sagas';
@@ -8,6 +7,7 @@ import { loadBookingAlerts, loadBookingCaseNotes, resetCaseNotes } from 'contain
 import { BOOKINGS } from 'containers/EliteApiLoader/constants';
 import { notify } from 'react-notify-toast';
 import { showSpinner, hideSpinner } from 'globalReducers/app';
+import { buildSearchQueryString } from 'utils/stringUtils';
 
 import { setSearchContext } from 'globalReducers/app';
 
@@ -41,7 +41,6 @@ import {
   SET_DETAILS,
   DETAILS_ERROR,
   UPDATE_PAGINATION,
-  SET_PAGINATION,
   UPDATE_ALERTS_PAGINATION,
   SET_ALERTS_PAGINATION,
   UPDATE_CASENOTES_PAGINATION,
@@ -65,13 +64,6 @@ import {
   SET_SCHEDULED_EVENTS,
 } from './constants';
 
-const builSearchQueryString = (query) => qs.stringify({
-  locationPrefix: query.locationPrefix,
-  keywords: query.keywords || '',
-  perPage: query.perPage,
-  pageNumber: query.pageNumber,
-  sortOrder: query.sortOrder || 'ASC',
-});
 
 export function* addAppointmentWatcher() {
   yield takeLatest(APPOINTMENT.ADD, onAddAppointment);
@@ -280,7 +272,6 @@ export function* newSearch(action) {
       pagination = { ...pagination, pageNumber: 0 };
     }
 
-    yield put({ type: SET_PAGINATION, payload: pagination });
     const result = yield call(searchOffenders, {
       baseUrl,
       query,
@@ -304,7 +295,7 @@ export function* newSearch(action) {
       },
     });
 
-    const queryString = builSearchQueryString({
+    const queryString = buildSearchQueryString({
       ...query,
       ...pagination,
     });
@@ -375,7 +366,7 @@ export function* searchResultPaginationWatcher() {
 }
 
 export function* updateSearchResultPagination(action) {
-  const queryString = builSearchQueryString({
+  const queryString = buildSearchQueryString({
     ...action.payload,
   });
 
