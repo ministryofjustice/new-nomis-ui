@@ -20,3 +20,8 @@ export const buildSearchQueryString = (query) => qs.stringify({
   pageNumber: query.pageNumber || 0,
   sortOrder: query.sortOrder || 'ASC',
 });
+
+export const buildPaginationQueryString = (query) => qs.stringify({
+  perPage: query.perPage || 10,
+  pageNumber: query.pageNumber || 0,
+});

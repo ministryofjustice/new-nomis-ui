@@ -1,41 +1,35 @@
-import { fromJS, Map } from 'immutable';
+import { fromJS, Map, List } from 'immutable';
 
 import {
-  SET_ASSIGNMENTS_PAGINATION,
-  SET_ASSIGNMENTS_SORT_ORDER,
+  SET_ASSIGNMENTS,
   SET_ASSIGNMENTS_VIEW,
+  SET_ASSIGNMENTS_ERROR,
 } from './constants';
 
+
 export const initialState = Map({
-  pagination: Map({ perPage: 10, pageNumber: 0 }),
+  totalRecords: 0,
+  results: List([]),
   view: 'List',
-  sortOrder: 'ASC',
+  error: '',
 });
 
 function searchReducer(state = initialState, action) {
   switch (action.type) {
-    case SET_ASSIGNMENTS_PAGINATION: {
-      return state.set('pagination', fromJS(action.payload));
-    }
-
-    case SET_ASSIGNMENTS_SORT_ORDER: {
-      const { sortOrder } = action.payload;
-      return state.set('sortOrder', sortOrder);
+    case SET_ASSIGNMENTS: {
+      return state
+        .set('results', fromJS(action.payload.data))
+        .set('totalRecords', action.payload.totalRecords)
+        .set('error', '')
     }
 
     case SET_ASSIGNMENTS_VIEW: {
       const { view } = action.payload;
-      const cP = state.get('pagination').toJS();
-      const currentFirstId = cP.pageNumber * cP.perPage;
-      let newPerPage;
-      if (view === 'Grid') {
-        newPerPage = 10;
-      } else if (view === 'List') {
-        newPerPage = 10;
-      }
-      const newPageNumber = Math.floor(currentFirstId / newPerPage);
-      const newPagination = { perPage: newPerPage, pageNumber: newPageNumber };
-      return state.set('pagination', fromJS(newPagination)).set('view', view);
+      return state.set('view', view);
+    }
+
+    case SET_ASSIGNMENTS_ERROR: {
+      return state.set('error', action.payload);
     }
 
     default: {
