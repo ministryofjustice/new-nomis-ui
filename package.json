@@ -71,6 +71,7 @@
     "express": "^4.15.5",
     "express-interceptor": "^1.2.0",
     "fontfaceobserver": "2.0.7",
+    "form-serialize": "^0.7.2",
     "govuk-elements-sass": "^3.1.1",
     "gsap": "^1.19.1",
     "helmet": "^3.12.0",

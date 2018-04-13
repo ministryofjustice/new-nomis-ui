@@ -12,6 +12,10 @@ import BookingGrid from 'components/Bookings/Grid';
 
 import { viewDetails as vD } from 'containers/Bookings/actions';
 import { DETAILS_TABS } from 'containers/Bookings/constants';
+import {
+  LOAD_ASSIGNMENTS,
+} from 'containers/Assignments/constants';
+
 
 import { setSearchContext } from 'globalReducers/app';
 
@@ -33,6 +37,7 @@ const Results = ({ resultsView, results, viewDetails, sortOrder }) => resultsVie
 class Assignments extends Component {
   componentDidMount() {
     this.props.setContext('assignments');
+    this.props.loadAssignments();
   }
 
   render() {
@@ -54,7 +59,7 @@ class Assignments extends Component {
 
     return (
       <div>
-        { deviceFormat === 'desktop' ?
+        {deviceFormat === 'desktop' ?
           <AssignmentsHeader
             resultsViewToggle={<ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />}
             user={user}
@@ -68,9 +73,9 @@ class Assignments extends Component {
         }
 
         {error &&
-        <div className="error-summary">
-          <div className="error-message"> {error} </div>
-        </div>}
+          <div className="error-summary">
+            <div className="error-message"> {error} </div>
+          </div>}
 
         <Results
           resultsView={resultsView}
@@ -105,6 +110,7 @@ export function mapDispatchToProps(dispatch) {
     setResultsView: (view) => dispatch(setAssignmentsView(view)),
     setContext: (context) => dispatch(setSearchContext(context)),
     toggleSortOrder: () => dispatch(toggleAssignmentsSortOrder()),
+    loadAssignments: () => dispatch({ type: LOAD_ASSIGNMENTS, payload: {} }),
   };
 }
 
@@ -114,7 +120,7 @@ const mapStateToProps = (immutableState) => {
   const totalResults = assignments.getIn(['meta', 'totalRecords']);
   const pagination = assignments.get('pagination').toJS();
   const resultsView = immutableState.getIn(['assignments', 'view']);
-  const deviceFormat = immutableState.getIn(['app','deviceFormat']);
+  const deviceFormat = immutableState.getIn(['app', 'deviceFormat']);
   const user = immutableState.getIn(['authentication', 'user']) || UserModel.toJS();
   const error = assignments.get('error');
   const sortOrder = immutableState.getIn(['assignments', 'sortOrder']);

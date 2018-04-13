@@ -1,6 +1,5 @@
 import { takeLatest, put, select, call } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
-import qs from 'querystring';
 import { SubmissionError } from 'redux-form/immutable';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 import { bookingDetailsSaga as bookingDetailsElite } from 'containers/EliteApiLoader/sagas';
@@ -8,6 +7,7 @@ import { loadBookingAlerts, loadBookingCaseNotes, resetCaseNotes } from 'contain
 import { BOOKINGS } from 'containers/EliteApiLoader/constants';
 import { notify } from 'react-notify-toast';
 import { showSpinner, hideSpinner } from 'globalReducers/app';
+import { buildSearchQueryString } from 'utils/stringUtils';
 
 import { setSearchContext } from 'globalReducers/app';
 
@@ -31,7 +31,6 @@ import {
   selectSearchResultsPagination,
   selectSearchResultsSortOrder,
   selectSearchQuery,
-  selectLocations,
 } from './selectors';
 
 import {
@@ -42,7 +41,6 @@ import {
   SET_DETAILS,
   DETAILS_ERROR,
   UPDATE_PAGINATION,
-  SET_PAGINATION,
   UPDATE_ALERTS_PAGINATION,
   SET_ALERTS_PAGINATION,
   UPDATE_CASENOTES_PAGINATION,
@@ -65,6 +63,7 @@ import {
   LOAD_SCHEDULED_EVENTS,
   SET_SCHEDULED_EVENTS,
 } from './constants';
+
 
 export function* addAppointmentWatcher() {
   yield takeLatest(APPOINTMENT.ADD, onAddAppointment);
@@ -116,7 +115,7 @@ export function* onAddAppointment(action) {
 
     yield put(push(`/offenders/${offenderNo}/${DETAILS_TABS.OFFENDER_DETAILS}`));
 
-    yield notify.show('Appointment has been created successfully.','success');
+    yield notify.show('Appointment has been created successfully.', 'success');
   } catch (err) {
     yield put({ type: APPOINTMENT.ERROR, payload: new SubmissionError({ _error: 'Unable to create a new appointment at this time.' }) });
   }
@@ -127,7 +126,7 @@ export function* addCasenoteWatcher() {
 }
 
 export function* addCasenoteSaga(action) {
-  const { typeAndSubType: { type, subType }, caseNoteText: text,startTime } = action.payload.query;
+  const { typeAndSubType: { type, subType }, caseNoteText: text, startTime } = action.payload.query;
   const offenderNo = action.payload.offenderNo;
   const apiServer = yield select(selectApi());
   try {
@@ -140,7 +139,7 @@ export function* addCasenoteSaga(action) {
 
     yield put(push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}`));
 
-    yield notify.show('Case note has been created successfully.','success');
+    yield notify.show('Case note has been created successfully.', 'success');
   } catch (e) {
     yield put({ type: ADD_NEW_CASENOTE.ERROR, payload: new SubmissionError(e.message) });
   }
@@ -265,22 +264,13 @@ export function* newSearch(action) {
     const { query, resetPagination } = action.payload;
 
     const baseUrl = yield select(selectApi());
-    const sortOrder = yield select(selectSearchResultsSortOrder());
-    let pagination = yield (select(selectSearchResultsPagination()));
-    const locations = yield select(selectLocations());
+    let { pagination } = query;
 
     yield put(showSpinner());
-
-    // Temporary hack to set a default location if one is not provided.  This is because select box does not default to first item in list
-    if (!query.locationPrefix && locations.size > 0) {
-      query.locationPrefix = locations.getIn([0, 'locationPrefix']);
-    }
 
     if (resetPagination) {
       pagination = { ...pagination, pageNumber: 0 };
     }
-
-    yield put({ type: SET_PAGINATION, payload: pagination });
 
     const result = yield call(searchOffenders, {
       baseUrl,
@@ -290,7 +280,7 @@ export function* newSearch(action) {
         offset: pagination.perPage * pagination.pageNumber,
       },
       sort: {
-        order: sortOrder,
+        order: query.sortOrder,
       },
     });
 
@@ -301,14 +291,13 @@ export function* newSearch(action) {
       payload: {
         searchResults: result.bookings,
         searchQuery: query,
-        meta: { totalRecords: result.totalRecords, sortOrder },
+        meta: { totalRecords: result.totalRecords, sortOrder: query.sortOrder },
       },
     });
 
-    const queryString = qs.stringify({
+    const queryString = buildSearchQueryString({
+      ...query,
       ...pagination,
-      locationPrefix: query.locationPrefix,
-      keywords: query.keywords || '',
     });
 
     yield put(push({
@@ -319,7 +308,7 @@ export function* newSearch(action) {
     yield put(hideSpinner());
   } catch (err) {
     yield put(hideSpinner());
-    yield put({ type: SEARCH_ERROR, payload: new SubmissionError({ _error: err.message }) });
+    yield put({ type: SEARCH_ERROR, payload: { error: err.message } });
   }
 }
 
@@ -339,10 +328,12 @@ export function* onAmendCaseNote(action) {
     yield put(loadBookingCaseNotes(offenderNo));
 
     yield put(push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}`));
-    yield notify.show('Case note has been amended successfully.','success');
+    yield notify.show('Case note has been amended successfully.', 'success');
   } catch (err) {
-    yield put({ type: AMEND_CASENOTE.ERROR,
-      payload: new SubmissionError({ _error: err.message || 'Unable to amend case note at this time.' }) });
+    yield put({
+      type: AMEND_CASENOTE.ERROR,
+      payload: new SubmissionError({ _error: err.message || 'Unable to amend case note at this time.' }),
+    });
   }
 }
 
@@ -375,9 +366,14 @@ export function* searchResultPaginationWatcher() {
 }
 
 export function* updateSearchResultPagination(action) {
-  yield put({ type: SET_PAGINATION, payload: action.payload });
-  const currentQuery = yield select(selectSearchQuery());
-  yield put({ type: NEW_SEARCH, payload: { query: currentQuery } });
+  const queryString = buildSearchQueryString({
+    ...action.payload,
+  });
+
+  yield put(push({
+    pathname: '/results',
+    search: `?${queryString}`,
+  }));
 }
 
 export function* searchResultViewWatcher() {
@@ -386,8 +382,6 @@ export function* searchResultViewWatcher() {
 
 export function* updateSearchResultView(action) {
   yield put({ type: SET_RESULTS_VIEW, payload: action.payload });
-  const currentQuery = yield select(selectSearchQuery());
-  yield put({ type: NEW_SEARCH, payload: { query: currentQuery } });
 }
 
 export function* detailAlertsPaginationWatcher() {
@@ -422,10 +416,12 @@ export function* setCaseNoteFilterSaga(action) {
       yield put({ type: BOOKINGS.CASENOTES.RESET, payload: action.payload });
     }
     yield put({ type: BOOKINGS.CASENOTES.BASE, payload: action.payload });
-    yield put({ type: CASE_NOTE_FILTER.SUCCESS,
+    yield put({
+      type: CASE_NOTE_FILTER.SUCCESS,
       payload: {
         query,
-      } });
+      },
+    });
     if (goToPage) yield put(push(goToPage));
   } catch (err) {
     yield put({ type: CASE_NOTE_FILTER.ERROR, payload: new SubmissionError({ _error: err.message }) });

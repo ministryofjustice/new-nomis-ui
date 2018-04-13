@@ -6,7 +6,7 @@ import { push } from 'react-router-redux';
 
 import { DETAILS_TABS } from 'containers/Bookings/constants';
 import { loadBookingCaseNotes } from 'containers/EliteApiLoader/actions';
-
+import { loadCaseNoteTypesAndSubTypes } from 'containers/Bookings/actions';
 import { Model as caseNoteModel } from 'helpers/dataMappers/caseNotes';
 
 import CaseNoteList from './caseNoteList';
@@ -18,7 +18,9 @@ import {
 
 class CaseNotes extends Component {
   componentWillMount() {
-    const { loadCaseNotes, offenderNo, caseNotesPagination, caseNotesQuery } = this.props;
+    const { loadCaseNotes,loadTypesSubTypes, offenderNo, caseNotesPagination, caseNotesQuery } = this.props;
+    
+    loadTypesSubTypes();
     loadCaseNotes(offenderNo, caseNotesPagination, caseNotesQuery);
   }
 
@@ -81,6 +83,7 @@ export function mapDispatchToProps(dispatch, props) {
     loadCaseNotes: (id, pagination, query) => dispatch(loadBookingCaseNotes(id, pagination, query)),
     setPagination: (id, pagination, query) => dispatch(setCaseNotesPagination(id, pagination, query)),
     setCaseNoteView: (id) => dispatch(push(`/offenders/${props.offenderNo}/${DETAILS_TABS.CASE_NOTES}/${id}`)),
+    loadTypesSubTypes: () => dispatch(loadCaseNoteTypesAndSubTypes()),
   };
 }
 
