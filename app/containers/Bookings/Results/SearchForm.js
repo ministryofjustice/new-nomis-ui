@@ -87,7 +87,7 @@ class SearchAgainForm extends Component {
 }
 
 SearchAgainForm.propTypes = {
-  error: PropTypes.string.isRequired,
+  error: PropTypes.string,
   locations: ImmutablePropTypes.list.isRequired,
 };
 

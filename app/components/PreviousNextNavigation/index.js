@@ -5,7 +5,10 @@ import { Map } from 'immutable';
 import { PrevNextNavContainer, PrevNextNavWrapper, PrevNavigatorRegion, NextNavigatorRegion, NavigatorContent, VisuallyHiddenSpan, PageNumbers } from './theme';
 
 function PreviousNextNavigation({ pagination, totalRecords, pageAction }) {
-  const { perPage: pP, pageNumber: pN } = pagination;
+  const { perPage, pageNumber } = pagination;
+  const pP = Number(perPage);
+  const pN = Number(pageNumber);
+
   const totalPages = Math.ceil(totalRecords / (pP));
 
   return (

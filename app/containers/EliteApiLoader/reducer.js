@@ -14,9 +14,8 @@ import { fromJS, Map, Set, List } from 'immutable';
 
 import { transform as transformOffenderDetails } from 'helpers/dataMappers/offenderDetails';
 import { Model as caseNoteModel, transform as caseNotesTransformer } from 'helpers/dataMappers/caseNotes';
-import { transform as officerAssignmentsTransformer } from 'helpers/dataMappers/officerAssignments';
 
-import { queryHash, paginationHash } from './helpers';
+import { paginationHash } from './helpers';
 
 import {
   BOOKINGS,
@@ -72,21 +71,6 @@ function EliteApiReducer(state = initialState, action) {
         Summaries: Map({}),
         Details: Map({}),
       }));
-    }
-
-    case BOOKINGS.SEARCH.ERROR:
-    case BOOKINGS.SEARCH.SUCCESS: {
-      const { query, pagination, sortOrder, results, meta, error } = action.payload;
-
-      const resultResultModel = {
-        pagination,
-        sortOrder,
-        results,
-        meta,
-        error,
-      };
-
-      return state.setIn(['Bookings', 'Search', queryHash(query)], officerAssignmentsTransformer(fromJS(resultResultModel)));
     }
 
     case BOOKINGS.DETAILS.SUCCESS: {
