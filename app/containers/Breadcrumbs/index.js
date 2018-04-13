@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import BreadcrumbsComponent from 'components/Breadcrumbs';
 
-import { selectSearchContext } from 'selectors/app';
-import { selectUser } from '../Authentication/selectors';
-
 class Breadcrumbs extends Component {
-
   render() {
-    const { user, route, searchContext,offenderNo } = this.props;
+    const { user, route, searchContext,offenderNo, routeHistory } = this.props;
 
     return user && (
       <BreadcrumbsComponent
         route={route}
+        routeHistory={routeHistory}
         inmateData={{}}
         context={searchContext}
         offenderNo={offenderNo}
@@ -34,9 +30,10 @@ Breadcrumbs.defaultProps = {
   searchContext: '',
 };
 
-const mapStateToProps = createStructuredSelector({
-  user: selectUser(),
-  searchContext: selectSearchContext(),
+const mapStateToProps = (state) => ({
+  user: state.getIn(['authentication','user']),
+  searchContext: state.getIn(['app', 'searchContext']),
+  routeHistory: state.get('route'),
 });
 
 const mapDispatchToProps = {
