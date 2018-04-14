@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { reduxForm, Field, formValueSelector } from 'redux-form/immutable';
@@ -13,6 +13,7 @@ import DatePicker from 'components/FormComponents/DatePicker';
 import TimePicker from 'components/FormComponents/TimePicker';
 import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
 import { selectUsersTypesAndSubTypes } from 'containers/EliteApiLoader/selectors';
+import { loadCaseNoteTypesAndSubTypes } from 'containers/Bookings/actions';
 
 import { DETAILS_TABS, ADD_NEW_CASENOTE } from '../../constants';
 import { viewDetails } from '../../actions';
@@ -21,78 +22,87 @@ import './index.scss';
 
 const selector = formValueSelector('addCaseNote');
 
-const AddCaseNoteForm = ({
-  handleSubmit,
-  submitting,
-  error,
-  caseNoteTypes,
-  locale,
-  typeValue,
-  params: { offenderNo },
-  goBackToBookingDetails,
-  eventDate,
-}) => (
-  <div className="add-case-note">
-    <h1 className="bold-large">Add new case note</h1>
-    <form onSubmit={handleSubmit}>
-      <SubmissionError error={error}>{error}</SubmissionError>
+class AddCaseNoteForm extends Component {
 
-      <div className="row">
-        <div className="col-sm-4 no-left-gutter">
-          <TypeAndSubTypeSelector selectedType={typeValue} types={caseNoteTypes.types} subTypes={caseNoteTypes.subTypes} />
+  componentDidMount() {
+    this.props.loadCaseNoteTypes();
+  }
+
+  render() {
+    const {
+      handleSubmit,
+      submitting,
+      error,
+      caseNoteTypes,
+      locale,
+      typeValue,
+      params: { offenderNo },
+      goBackToBookingDetails,
+      eventDate,
+    } = this.props;
+    return (
+    <div className="add-case-note">
+      <h1 className="bold-large">Add new case note</h1>
+      <form onSubmit={handleSubmit}>
+        <SubmissionError error={error}>{error}</SubmissionError>
+
+        <div className="row">
+          <div className="col-sm-4 no-left-gutter">
+            <TypeAndSubTypeSelector selectedType={typeValue} types={caseNoteTypes.types} subTypes={caseNoteTypes.subTypes} />
+          </div>
         </div>
-      </div>
 
-      <div className="row">
-        <div className="col-sm-8 no-left-gutter">
-          <Field name="caseNoteText" component={TextArea} title="Case note" autocomplete="off" spellcheck="true" />
+        <div className="row">
+          <div className="col-sm-8 no-left-gutter">
+            <Field name="caseNoteText" component={TextArea} title="Case note" autocomplete="off" spellcheck="true" />
+          </div>
         </div>
-      </div>
 
-      <div className="row">
-        <div className="col-sm-3 col-md-2 col-xs-6 no-left-gutter event-date">
-          <Field
-            name="eventDate"
-            title="Select date"
-            component={DatePicker}
-            locale={locale}
-            defaultValue={eventDate || moment()}
-            shouldShowDay={(date) => date.isBefore(moment())}
-          />
+        <div className="row">
+          <div className="col-sm-3 col-md-2 col-xs-6 no-left-gutter event-date">
+            <Field
+              name="eventDate"
+              title="Select date"
+              component={DatePicker}
+              locale={locale}
+              defaultValue={eventDate || moment()}
+              shouldShowDay={(date) => date.isBefore(moment())}
+            />
+          </div>
+          <div className="col-sm-3 col-md-2 col-xs-6 no-left-gutter">
+            <Field
+              name="startTime"
+              title="Time"
+              component={TimePicker}
+              date={eventDate || moment()}
+              now={moment()}
+              pastTimeOnly
+            />
+          </div>
         </div>
-        <div className="col-sm-3 col-md-2 col-xs-6 no-left-gutter">
-          <Field
-            name="startTime"
-            title="Time"
-            component={TimePicker}
-            date={eventDate || moment()}
-            now={moment()}
-            pastTimeOnly
-          />
+
+        <div className="row">
+          <div className="col-md-3 no-left-gutter">
+
+            <button className="button add-gutter-margin-right add-gutter-margin-bottom" type="submit" disabled={submitting}>
+              Save case note
+            </button>
+
+            <button
+              className="button button-cancel" type="reset" onClick={(e) => {
+                e.preventDefault();
+                goBackToBookingDetails(offenderNo);
+              }}
+            >
+              Cancel
+            </button>
+
+          </div>
         </div>
-      </div>
-
-      <div className="row">
-        <div className="col-md-3 no-left-gutter">
-
-          <button className="button add-gutter-margin-right add-gutter-margin-bottom" type="submit" disabled={submitting}>
-            Save case note
-          </button>
-
-          <button
-            className="button button-cancel" type="reset" onClick={(e) => {
-              e.preventDefault();
-              goBackToBookingDetails(offenderNo);
-            }}
-          >
-            Cancel
-          </button>
-
-        </div>
-      </div>
-    </form>
-  </div>
-);
+      </form>
+    </div>);
+  }
+}
 
 AddCaseNoteForm.propTypes = {
   caseNoteTypes: PropTypes.object.isRequired,
@@ -110,6 +120,7 @@ AddCaseNoteForm.defaultProps = {
 export function mapDispatchToProps(dispatch, props) {
   return {
     goBackToBookingDetails: (offenderNo) => dispatch(viewDetails(offenderNo, DETAILS_TABS.CASE_NOTES)),
+    loadCaseNoteTypes: () => dispatch(loadCaseNoteTypesAndSubTypes()),
     onSubmit: createFormAction((formData) => (
       {
         type: ADD_NEW_CASENOTE.BASE,

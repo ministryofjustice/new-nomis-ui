@@ -21,11 +21,7 @@ export const USER = {
   },
 };
 
-// Preload Location &  Alert Type data
-
-export const PRELOADDATA = {
-  BASE: 'app/eliteApiLoader/preloadData',
-};
+export const LOAD_CASE_NOTE_TYPES_SUBTYPES = 'app/eliteApiLoader/loadCaseNotesTypesAndSubTypes';
 
 // Bookings
 
