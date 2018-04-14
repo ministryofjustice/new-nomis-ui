@@ -1,19 +1,8 @@
-/*
- *
- * Authentication reducer
- *
- */
-
-/*
- * TODO:
- *   Logout if not in use
- *   Complete proper authentication! use redux saga for log in messages...
- */
-
 import { fromJS } from 'immutable';
-
 import { transform as quickLookTransformer } from 'helpers/dataMappers/quickLook';
 import { transform as keyDatesTransformer } from 'helpers/dataMappers/keydates';
+import { LOCATION_CHANGE } from 'react-router-redux';
+
 
 import {
   SEARCH_SUCCESS,
@@ -30,6 +19,8 @@ import {
   SET_SCHEDULED_EVENTS,
 } from './constants';
 
+const objectIsNotEmpty = (obj) => Object.keys(obj).length !== 0;
+const isSearchResultRoute = (route) => route === '/results';
 
 const detailsState = fromJS({
   id: 20847,
@@ -56,6 +47,7 @@ const detailsState = fromJS({
     thisWeek: true,
     nextWeek: false,
   },
+  lastSearchResultQuery: null,
 });
 
 export const initialState = fromJS({
@@ -78,6 +70,11 @@ function searchReducer(state = initialState, action) {
         .set('totalResults', fromJS(action.payload.meta.totalRecords))
         .set('sortOrder', fromJS(action.payload.meta.sortOrder));
     }
+
+    case LOCATION_CHANGE:
+      return state.set('lastSearchResultQuery',
+          isSearchResultRoute(action.payload.pathname) &&
+          objectIsNotEmpty(action.payload.query) ? action.payload.query : state.get('lastSearchResultQuery'));
 
     case SET_PAGINATION: {
       return state.set('pagination', fromJS(action.payload));

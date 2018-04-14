@@ -5,12 +5,12 @@ import BreadcrumbsComponent from 'components/Breadcrumbs';
 
 class Breadcrumbs extends Component {
   render() {
-    const { user, route, searchContext,offenderNo, routeHistory } = this.props;
+    const { user, route, searchContext,offenderNo, lastSearchResultQuery } = this.props;
 
     return user && (
       <BreadcrumbsComponent
         route={route}
-        routeHistory={routeHistory}
+        lastSearchResultQuery={lastSearchResultQuery}
         inmateData={{}}
         context={searchContext}
         offenderNo={offenderNo}
@@ -33,7 +33,7 @@ Breadcrumbs.defaultProps = {
 const mapStateToProps = (state) => ({
   user: state.getIn(['authentication','user']),
   searchContext: state.getIn(['app', 'searchContext']),
-  routeHistory: state.get('route'),
+  lastSearchResultQuery: state.getIn(['search', 'lastSearchResultQuery']),
 });
 
 const mapDispatchToProps = {

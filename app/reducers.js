@@ -29,8 +29,6 @@ const routeInitialState = fromJS({
   locationBeforeTransitions: null,
 });
 
-const objectIsNotEmpty = (obj) => Object.keys(obj).length !== 0;
-const isSearchResultRoute = (route) => route === '/results';
 
 function routeReducer(state = routeInitialState, action) {
   switch (action.type) {
@@ -38,9 +36,6 @@ function routeReducer(state = routeInitialState, action) {
     case LOCATION_CHANGE:
       return state.merge({
         locationBeforeTransitions: action.payload,
-        lastSearchResultQuery:
-          isSearchResultRoute(action.payload.pathname) &&
-          objectIsNotEmpty(action.payload.query) ? action.payload.query : state.get('lastSearchResultQuery'),
       });
     default:
       return state;

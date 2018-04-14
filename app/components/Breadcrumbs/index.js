@@ -26,7 +26,7 @@ const getRouteForBookingTab = (url, offenderNo) => {
   return isTab && { name: normaliseName(lastPart), route: `/offenders/${offenderNo}/${lastPart}` };
 };
 
-export const buildBreadcrumb = ({ route, routeHistory, offender, context, offenderNo }) => {
+export const buildBreadcrumb = ({ route, lastSearchResultQuery, offender, context, offenderNo }) => {
   const nameString = offender && toFullName({ firstName: offender.get('firstName'), lastName: offender.get('lastName') });
 
   if (route === '/') { return []; }
@@ -42,8 +42,7 @@ export const buildBreadcrumb = ({ route, routeHistory, offender, context, offend
   }
 
   if (context === 'results') {
-    const lastQuery = routeHistory && routeHistory.toJS() && routeHistory.toJS().lastSearchResultQuery;
-    const queryString = qs.stringify(lastQuery);
+    const queryString = qs.stringify(lastSearchResultQuery);
     const url = '/results';
 
     searchContext = { name: 'Results', route: queryString ? `${url}?${queryString}` : url };
@@ -87,8 +86,8 @@ export const buildBreadcrumb = ({ route, routeHistory, offender, context, offend
 };
 
 
-function Breadcrumbs({ route, routeHistory, offenderDetails, context, offenderNo }) {
-  const breadcrumbArray = buildBreadcrumb({ route , routeHistory, offender: offenderDetails , context, offenderNo });
+function Breadcrumbs({ route, lastSearchResultQuery, offenderDetails, context, offenderNo }) {
+  const breadcrumbArray = buildBreadcrumb({ route , lastSearchResultQuery, offender: offenderDetails , context, offenderNo });
 
   return (
     <div className="bread-crumbs col-xs-12 no-left-gutter" data-name={'Breadcrumbs'}>
