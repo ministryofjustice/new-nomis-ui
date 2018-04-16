@@ -9,7 +9,6 @@ import {
   officerDetails,
   bookingDetails,
   bookingAliases,
-  bookingAlerts,
   bookingCaseNotes,
   users,
   loadAllCaseNoteFilterItems,
@@ -79,29 +78,6 @@ export function* bookingDetailsSaga(action) {
     return { Type: 'SUCCESS' };
   } catch (err) {
     yield put({ type: BOOKINGS.DETAILS.ERROR, payload: { offenderNo, error: 'Something went wrong, please try again later' } });
-    return { Type: 'ERROR', Error: err };
-  }
-}
-
-export function* bookingAlertsWatch() {
-  yield takeEvery(BOOKINGS.ALERTS.BASE, bookingAlertsSaga);
-}
-
-export function* bookingAlertsSaga(action) {
-  const { offenderNo, pagination } = action.payload;
-  const apiServer = yield select(selectApi());
-
-  yield put(showSpinner());
-
-  try {
-    const data = yield call(bookingAlerts, apiServer, offenderNo, pagination);
-
-    yield put({ type: BOOKINGS.ALERTS.SUCCESS, payload: { offenderNo, pagination, results: data.alerts, meta: { totalRecords: data.totalRecords } } });
-    yield put(hideSpinner());
-    return { Type: 'SUCCESS' };
-  } catch (err) {
-    yield put(hideSpinner());
-    yield put({ type: BOOKINGS.ALERTS.ERROR, payload: { offenderNo, error: err } });
     return { Type: 'ERROR', Error: err };
   }
 }
@@ -251,9 +227,9 @@ export default [
   loadCaseNoteTypesSubTypesWatcher,
   officerLoadWatch,
   bookingDetailsWatcher,
-  bookingAlertsWatch,
   bookingCaseNotesWatch,
   userCaseLoadsWatcher,
   userSwitchCaseLoadsWatcher,
   loadAppointmentsViewModalWatcher,
+  
 ];

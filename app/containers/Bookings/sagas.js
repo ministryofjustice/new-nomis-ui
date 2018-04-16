@@ -3,13 +3,14 @@ import { push } from 'react-router-redux';
 import { SubmissionError } from 'redux-form/immutable';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 import { bookingDetailsSaga as bookingDetailsElite } from 'containers/EliteApiLoader/sagas';
-import { loadBookingAlerts, loadBookingCaseNotes, resetCaseNotes } from 'containers/EliteApiLoader/actions';
+import { loadBookingCaseNotes, resetCaseNotes } from 'containers/EliteApiLoader/actions';
 import { BOOKINGS } from 'containers/EliteApiLoader/constants';
 import { notify } from 'react-notify-toast';
 import { showSpinner, hideSpinner } from 'globalReducers/app';
 import { buildSearchQueryString } from 'utils/stringUtils';
 
 import { setSearchContext } from 'globalReducers/app';
+
 
 import {
   addCaseNote,
@@ -21,6 +22,7 @@ import {
   loadScheduledEventsForThisWeek,
   loadScheduledEventsForNextWeek,
   addAppointment,
+  bookingAlerts,
 } from 'utils/eliteApi';
 
 import {
@@ -41,8 +43,6 @@ import {
   SET_DETAILS,
   DETAILS_ERROR,
   UPDATE_PAGINATION,
-  UPDATE_ALERTS_PAGINATION,
-  SET_ALERTS_PAGINATION,
   UPDATE_CASENOTES_PAGINATION,
   UPDATE_RESULTS_VIEW,
   SET_RESULTS_VIEW,
@@ -64,6 +64,30 @@ import {
   SET_SCHEDULED_EVENTS,
 } from './constants';
 
+
+export function* bookingAlertsWatcher() {
+  yield takeLatest(BOOKINGS.ALERTS.BASE, bookingAlertsSaga);
+}
+
+export function* bookingAlertsSaga(action) {
+  const { offenderNo, pagination } = action.payload;
+
+  const apiServer = yield select(selectApi());
+
+  yield put(showSpinner());
+
+  try {
+    const data = yield call(bookingAlerts, apiServer, offenderNo, pagination);
+
+    yield put({ type: BOOKINGS.ALERTS.SUCCESS, payload: { offenderNo, results: data.alerts, meta: { totalRecords: data.totalRecords } } });
+    yield put(hideSpinner());
+    return { Type: 'SUCCESS' };
+  } catch (err) {
+    yield put(hideSpinner());
+    yield put({ type: BOOKINGS.ALERTS.ERROR, payload: { offenderNo, error: err } });
+    return { Type: 'ERROR', Error: err };
+  }
+}
 
 export function* addAppointmentWatcher() {
   yield takeLatest(APPOINTMENT.ADD, onAddAppointment);
@@ -384,16 +408,6 @@ export function* updateSearchResultView(action) {
   yield put({ type: SET_RESULTS_VIEW, payload: action.payload });
 }
 
-export function* detailAlertsPaginationWatcher() {
-  yield takeLatest(UPDATE_ALERTS_PAGINATION, detailAlertsPagination);
-}
-
-export function* detailAlertsPagination(action) {
-  // Load new data first, then switch in view.
-  yield put(loadBookingAlerts(action.payload.offenderNo, action.payload.pagination));
-  yield put({ type: SET_ALERTS_PAGINATION, payload: action.payload.pagination });
-}
-
 export function* detailCaseNotesPaginationWatcher() {
   yield takeLatest(UPDATE_CASENOTES_PAGINATION, detailCaseNotesPagination);
 }
@@ -432,7 +446,6 @@ export default [
   detailsWatcher,
   searchResultPaginationWatcher,
   searchResultViewWatcher,
-  detailAlertsPaginationWatcher,
   detailCaseNotesPaginationWatcher,
   addCasenoteWatcher,
   amendCaseNoteWatcher,
@@ -446,4 +459,5 @@ export default [
   loadQuickLookWatcher,
   loadScheduledEventsWatcher,
   addAppointmentWatcher,
+  bookingAlertsWatcher, 
 ];

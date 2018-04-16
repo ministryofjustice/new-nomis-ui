@@ -59,6 +59,7 @@ class Details extends Component {
       shouldShowLargePhoto,
       hidePhoto,
       params,
+      location,
     } = this.props;
 
     const activeTabId = parseActiveTab(params.activeTab);
@@ -103,7 +104,7 @@ class Details extends Component {
             } }))}
             activeTabId={activeTabId}
           />}
-        <TabComponent offenderNo={offenderNo} itemId={itemId} />
+        <TabComponent location={location} offenderNo={offenderNo} itemId={itemId} />
       </div>
     );
   }

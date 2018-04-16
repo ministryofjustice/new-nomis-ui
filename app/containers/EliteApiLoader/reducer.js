@@ -1,26 +1,11 @@
-/*
- *
- * EliteApiLoader
- *
- */
-
-/*
- * TODO:
- *   Logout if not in use
- *   Complete proper authentication! use redux saga for log in messages...
- */
-
 import { fromJS, Map, Set, List } from 'immutable';
 
 import { transform as transformOffenderDetails } from 'helpers/dataMappers/offenderDetails';
 import { Model as caseNoteModel, transform as caseNotesTransformer } from 'helpers/dataMappers/caseNotes';
 
-import { paginationHash } from './helpers';
-
 import {
   BOOKINGS,
   LOCATIONS,
-  ALERTTYPES,
   CASENOTETYPES,
   OFFICERS,
   USER,
@@ -89,11 +74,11 @@ function EliteApiReducer(state = initialState, action) {
     }
 
     case BOOKINGS.ALERTS.SUCCESS: {
-      const { pagination, offenderNo, results, meta } = action.payload;
+      const { offenderNo, results, meta } = action.payload;
 
       return state
         .setIn(['Bookings', 'Details', offenderNo, 'Alerts', 'MetaData', 'TotalRecords'], meta.totalRecords)
-        .setIn(['Bookings', 'Details', offenderNo, 'Alerts', 'Paginations', paginationHash(pagination),'items'], fromJS(results));
+        .setIn(['Bookings', 'Details', offenderNo, 'Alerts', 'items'], fromJS(results));
     }
 
     case BOOKINGS.CASENOTES.RESET: {
@@ -134,35 +119,6 @@ function EliteApiReducer(state = initialState, action) {
       const SelectList = Object.keys(locs).map((locId) => ({ value: locId, label: locs[locId].description }));
 
       return state.setIn(['Locations', 'ids'], fromJS(action.payload.locations)).setIn(['Locations', 'Status', 'Type'], 'SUCCESS').setIn(['Locations', 'SelectList'], List(SelectList));
-    }
-
-    case ALERTTYPES.TYPE.LOADING: {
-      const { alertType } = action.payload;
-      return state.setIn(['AlertTypes', alertType, 'Status', 'Type'], 'LOADING');
-    }
-
-    case ALERTTYPES.TYPE.ERROR: {
-      const { alertType, error } = action.payload;
-      return state.setIn(['AlertTypes', alertType, 'Status'], fromJS({ Type: 'ERROR', Error: error }));
-    }
-
-    case ALERTTYPES.TYPE.SUCCESS: {
-      const { alertType, data } = action.payload;
-      return state.setIn(['AlertTypes', alertType, 'Status', 'Type'], 'SUCCESS').setIn(['AlertTypes', alertType, 'Data'], fromJS(data)); }
-
-    case ALERTTYPES.CODE.LOADING: {
-      const { alertType, alertCode } = action.payload;
-      return state.setIn(['AlertTypes', alertType, 'Codes', alertCode, 'Status', 'Type'], 'LOADING');
-    }
-
-    case ALERTTYPES.CODE.SUCCESS: {
-      const { alertType, alertCode, data } = action.payload;
-      return state.setIn(['AlertTypes', alertType, 'Codes', alertCode, 'Status', 'Type'], 'SUCCESS').setIn(['AlertTypes', alertType, 'Codes', alertCode, 'Data'], fromJS(data));
-    }
-
-    case ALERTTYPES.CODE.ERROR: {
-      const { alertType, alertCode, error } = action.payload;
-      return state.setIn(['AlertTypes', alertType, 'Codes', alertCode, 'Status'], fromJS({ Type: 'ERROR', Error: error }));
     }
 
     case OFFICERS.LOADING: {

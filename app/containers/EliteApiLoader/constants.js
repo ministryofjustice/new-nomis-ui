@@ -79,22 +79,6 @@ export const LOCATIONS = {
   SUCCESS: 'app/eliteApiLoader/LOCATIONS/success',
   ERROR: 'app/eliteApiLoader/LOCATIONS/error',
 };
-
-// AlertTypes
-export const ALERTTYPES = {
-  BASE: 'app/eliteApiLoader/ALERTTYPES',
-  TYPE: {
-    LOADING: 'app/eliteApiLoader/ALERTTYPES/loading',
-    SUCCESS: 'app/eliteApiLoader/ALERTTYPES/success',
-    ERROR: 'app/eliteApiLoader/ALERTTYPES/error',
-  },
-  CODE: {
-    LOADING: 'app/eliteApiLoader/ALERTTYPES/CODES/loading',
-    SUCCESS: 'app/eliteApiLoader/ALERTTYPES/CODES/success',
-    ERROR: 'app/eliteApiLoader/ALERTTYPES/CODES/error',
-  },
-};
-
 // CaseNoteTypes
 export const CASENOTETYPES = {
   BASE: 'app/eliteApiLoader/CASENOTETYPES',
