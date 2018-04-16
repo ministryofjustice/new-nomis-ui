@@ -1,8 +1,3 @@
-/*
- *
- * Booking constants
- *
- */
 
 export const SEARCH_SUCCESS = 'app/search/SEARCH/success';
 export const SEARCH_ERROR = 'app/search/SEARCH/error';
@@ -37,9 +32,6 @@ export const DETAILS_TABS = {
 };
 
 export const DETAILS_ERROR = 'app/bookings/details/error';
-
-export const SET_ALERTS_PAGINATION = 'app/bookings/details/alerts/pagination/set';
-export const UPDATE_ALERTS_PAGINATION = 'app/bookings/details/alerts/pagination/update';
 export const LOAD_QUICK_LOOK = 'app/bookings/details/quicklook';
 export const SET_QUICK_LOOK = 'app/bookings/details/quicklook/set';
 
@@ -78,9 +70,17 @@ export const AMEND_CASENOTE = {
   ERROR: 'app/bookings/details/amendCaseNote/ERROR',
 };
 
-/*
-{
-  type: 'app/bookings/search/results/pagination/update',
-  payload: {perPage:15, pageNumber: 1}
-}
-*/
+export const ALERTTYPES = {
+  BASE: 'app/eliteApiLoader/ALERTTYPES',
+  TYPE: {
+    LOADING: 'app/eliteApiLoader/ALERTTYPES/loading',
+    SUCCESS: 'app/eliteApiLoader/ALERTTYPES/success',
+    ERROR: 'app/eliteApiLoader/ALERTTYPES/error',
+  },
+  CODE: {
+    LOADING: 'app/eliteApiLoader/ALERTTYPES/CODES/loading',
+    SUCCESS: 'app/eliteApiLoader/ALERTTYPES/CODES/success',
+    ERROR: 'app/eliteApiLoader/ALERTTYPES/CODES/error',
+  },
+};
+

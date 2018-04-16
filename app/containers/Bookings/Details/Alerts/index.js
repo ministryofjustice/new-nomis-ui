@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import { push } from 'react-router-redux';
+import { Map } from 'immutable';
 
 import { List } from 'immutable';
 
@@ -10,30 +12,32 @@ import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import AlertList from 'components/Bookings/Details/AlertList';
 
 import { loadBookingAlerts } from 'containers/EliteApiLoader/actions';
-import { paginationHash } from 'containers/EliteApiLoader/helpers';
+import { buildPaginationQueryString } from 'utils/stringUtils';
 
 import { Model as alertsModel } from 'helpers/dataMappers/alerts';
 
-import {
-  setAlertPagination,
-} from '../../actions';
-
 class Alerts extends Component {
   componentDidMount() {
-    const { loadAlerts, offenderNo, alertsPagination } = this.props;
+    const { loadAlerts, offenderNo, pagination } = this.props;
 
-    loadAlerts(offenderNo, alertsPagination);
+    loadAlerts(offenderNo, pagination);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!Map(prevProps.pagination).equals(Map(this.props.pagination))) {
+      this.props.loadAlerts(this.props.offenderNo, this.props.pagination);
+    }
   }
 
   render() {
-    const { alerts, totalResults, alertsPagination, offenderNo, setPagination, deviceFormat } = this.props;
+    const { alerts, totalResults, pagination, offenderNo, setPagination, deviceFormat } = this.props;
     return (
       <div>
         <AlertList alerts={alerts} deviceFormat={deviceFormat} />
 
         <PreviousNextNavigation
-          pagination={alertsPagination} totalRecords={totalResults} pageAction={(id) => {
-            setPagination(offenderNo, { perPage: alertsPagination.perPage, pageNumber: id }, id)
+          pagination={pagination} totalRecords={totalResults} pageAction={(id) => {
+            setPagination(offenderNo, { perPage: pagination.perPage, pageNumber: id }, id)
             if (window) window.scrollTo(0,0);
           }}
         />
@@ -46,7 +50,7 @@ Alerts.propTypes = {
   loadAlerts: PropTypes.func.isRequired,
   setPagination: PropTypes.func.isRequired,
   offenderNo: PropTypes.string.isRequired,
-  alertsPagination: PropTypes.object.isRequired,
+  pagination: PropTypes.object.isRequired,
   alerts: ImmutablePropTypes.list.isRequired,
   deviceFormat: PropTypes.string.isRequired,
 };
@@ -55,21 +59,21 @@ Alerts.propTypes = {
 export function mapDispatchToProps(dispatch) {
   return {
     loadAlerts: (id, pagination) => dispatch(loadBookingAlerts(id, pagination)),
-    setPagination: (id, pagination) => dispatch(setAlertPagination(id, pagination)),
+    setPagination: (id, pagination) => dispatch(push(`/offenders/${id}/alerts?${buildPaginationQueryString(pagination)}`)),
   };
 }
 
-const mapStateToProps = (immutableState,props) => {
+const mapStateToProps = (immutableState, props) => {
   const alerts = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Alerts']) || alertsModel;
-  const pagination = immutableState.getIn(['search', 'details', 'alertsPagination']).toJS();
-  const alertItems = alerts.getIn(['Paginations', paginationHash(pagination), 'items']) || List([]);
+  const alertItems = alerts.get('items') || List([]);
   const totalResults = alerts.getIn(['MetaData','TotalRecords']);
   const deviceFormat = immutableState.getIn(['app','deviceFormat']);
+  const pagination = { perPage: props.location.query.perPage || 10, pageNumber: props.location.query.pageNumber || 0 };
 
   return {
+    pagination,
     offenderNo: props.offenderNo,
     alerts: alertItems,
-    alertsPagination: pagination,
     totalResults,
     deviceFormat,
   }

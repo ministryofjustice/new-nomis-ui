@@ -3,13 +3,11 @@ import { transform as quickLookTransformer } from 'helpers/dataMappers/quickLook
 import { transform as keyDatesTransformer } from 'helpers/dataMappers/keydates';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-
 import {
   SEARCH_SUCCESS,
   SET_PAGINATION,
   DETAILS_TABS,
   SET_RESULTS_VIEW,
-  SET_ALERTS_PAGINATION,
   CASE_NOTE_FILTER,
   SET_LARGE_PHOTO_VISIBILITY,
   SET_LOCATIONS,
@@ -78,10 +76,6 @@ function searchReducer(state = initialState, action) {
 
     case SET_PAGINATION: {
       return state.set('pagination', fromJS(action.payload));
-    }
-
-    case SET_ALERTS_PAGINATION: {
-      return state.setIn(['details', 'alertsPagination'], fromJS(action.payload));
     }
 
     case SET_RESULTS_VIEW: {
