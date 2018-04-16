@@ -103,6 +103,7 @@ jobs:
              if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
                docker login -u $DOCKER_USER -p $DOCKER_PASS
                docker tag sysconjusticesystems/elite2-web:$BUILD_VERSION sysconjusticesystems/elite2-web:latest
+               docker push sysconjusticesystems/elite2-web:$BUILD_VERSION
                docker push sysconjusticesystems/elite2-web:latest
              fi
 
