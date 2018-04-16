@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import serialize from 'form-serialize';
 
-import { bookingSearch } from 'containers/Bookings/actions';
+import { buildSearchQueryString } from 'utils/stringUtils';
 
 import './SearchForm.scss';
 
@@ -105,7 +106,7 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmit: (formData) => dispatch(bookingSearch(formData)),
+    onSubmit: (formData) => dispatch(push(`/results?${buildSearchQueryString(formData)}`)) ,
   }
 }
 

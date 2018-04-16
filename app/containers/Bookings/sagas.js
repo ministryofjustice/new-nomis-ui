@@ -261,16 +261,12 @@ export function* toggleSort(action) {
 
 export function* newSearch(action) {
   try {
-    const { query, resetPagination } = action.payload;
+    const { query } = action.payload;
 
     const baseUrl = yield select(selectApi());
-    let { pagination } = query;
+    const { pagination } = query;
 
     yield put(showSpinner());
-
-    if (resetPagination) {
-      pagination = { ...pagination, pageNumber: 0 };
-    }
 
     const result = yield call(searchOffenders, {
       baseUrl,

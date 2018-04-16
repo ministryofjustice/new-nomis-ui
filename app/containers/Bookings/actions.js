@@ -162,7 +162,6 @@ export function bookingSearch(formData) {
         },
         sortOrder: 'ASC',
       },
-      resetPagination: true,
     },
   }
 }
