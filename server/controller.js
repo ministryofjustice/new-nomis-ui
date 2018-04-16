@@ -1,4 +1,5 @@
-const url = require('url')
+const url = require('url');
+const path = require('path');
 const config = require('./config');
 const elite2ApiFallThrough = require('./app').sessionHandler;
 const retry = require('./api/retry');
@@ -80,8 +81,9 @@ const fetchImage = ({ targetEndpoint, req, res }) => {
     response.data.pipe(res);
   }).catch(error => {
     logger.error(error);
-    res.status(retry.errorStatusCode(error.response));
-    res.end();
+    const placeHolder = path.join(__dirname, './assets/images/image-missing.png');
+    res.status(302);
+    res.sendFile(placeHolder);
   });
 };
 

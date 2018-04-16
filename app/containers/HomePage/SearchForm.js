@@ -1,32 +1,34 @@
 
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { reduxForm, Field } from 'redux-form/immutable';
-import { createFormAction } from 'redux-form-saga';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import serialize from 'form-serialize';
 
-import {
-  NEW_SEARCH,
-  SEARCH_SUCCESS,
-  SEARCH_ERROR,
-} from '../Bookings/constants';
+import { buildSearchQueryString } from 'utils/stringUtils';
 
 import './searchForm.scss';
 
-class SearchForm extends PureComponent {  // eslint-disable-line react/prefer-stateless-function
+class SearchForm extends Component {
 
+  handleSubmit(event) {
+    event.preventDefault();
+    const formData = serialize(event.target, { hash: true });
+    this.props.onSubmit(formData);
+  }
   render() {
-    const { handleSubmit, locations, submitting } = this.props;
+    const { locations, defaultLocationPrefix, error } = this.props;
 
     return (
-      <form className="search-form" onSubmit={handleSubmit}>
+      <form className="search-form" onSubmit={event => this.handleSubmit(event)}>
 
-        {this.props.error ?
+        {error ?
           <div className="error-summary">
             <h2 className="heading-medium error-summary-heading">
               Search Error
             </h2>
             <div className="error-message">
-              {this.props.error}
+              {error}
             </div>
           </div>
           : null}
@@ -38,29 +40,29 @@ class SearchForm extends PureComponent {  // eslint-disable-line react/prefer-st
             Enter a prisoner name or number
           </label>
 
-          <Field name="keywords" component="input" type="text" title="Enter " placeholder="Last Name, First Name or ID" autoComplete="off" className="form-control search-input" />
-          <button type="submit" className="button button-start desktop-button" disabled={submitting}> Search</button>
+          <input name="keywords" type="text" title="Enter " placeholder="Last Name, First Name or ID" autoComplete="off" className="form-control search-input" />
+          <button type="submit" className="button button-start desktop-button"> Search</button>
 
           <div>
             <label className="form-label">
               Select location
             </label>
-            <Field className="form-control" name="locationPrefix" component="select">
+            <select className="form-control" name="locationPrefix" defaultValue={defaultLocationPrefix}>
               {locations.map((location) =>
-                <option key={location.locationPrefix} value={location.locationPrefix}>{location.description}</option>
+                <option key={location.locationPrefix} value={location.locationPrefix}>
+                  {location.description}
+                </option>
               )}
-            </Field>
+            </select>
           </div>
 
-          <button type="submit" className="button mobile-button" disabled={submitting}> Search </button>
+          <button type="submit" className="button mobile-button"> Search </button>
 
         </div>
       </form>);
   }
 }
 SearchForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
   locations: PropTypes.array.isRequired,
   error: PropTypes.string,
 };
@@ -69,18 +71,17 @@ SearchForm.defaultProps = {
   error: '',
 };
 
-export default reduxForm({
-  form: 'search',
-  onSubmit: createFormAction((formData) => ({
-    type: NEW_SEARCH,
-    payload: {
-      query: formData.toJS(),
-      resetPagination: true,
-      pagination: {
-        perPage: 10,
-      },
-      sortOrder: 'ASC',
-    },
-  }), [SEARCH_SUCCESS, SEARCH_ERROR]),
+function mapStateToProps(state) {
+  return {
+    defaultLocationPrefix: '',
+    error: state.getIn(['home','searchError']),
+  }
+}
 
-})(SearchForm);
+function mapDispatchToProps(dispatch) {
+  return ({
+    onSubmit: (formData) => dispatch(push(`/results?${buildSearchQueryString(formData)}`)),
+  })
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchForm)

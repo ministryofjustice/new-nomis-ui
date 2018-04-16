@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Map } from 'immutable';
 
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import ResultsViewToggle from 'components/ResultsViewToggle';
@@ -12,16 +13,18 @@ import BookingGrid from 'components/Bookings/Grid';
 
 import { viewDetails as vD } from 'containers/Bookings/actions';
 import { DETAILS_TABS } from 'containers/Bookings/constants';
+import {
+  LOAD_ASSIGNMENTS,
+} from 'containers/Assignments/constants';
+
 
 import { setSearchContext } from 'globalReducers/app';
 
-import { Model as OfficerAssignmentsModel } from 'helpers/dataMappers/officerAssignments';
 import { Model as UserModel } from 'helpers/dataMappers/user';
 
 import {
   setAssignmentsPagination,
   setAssignmentsView,
-  toggleAssignmentsSortOrder,
 } from './actions';
 
 
@@ -33,6 +36,13 @@ const Results = ({ resultsView, results, viewDetails, sortOrder }) => resultsVie
 class Assignments extends Component {
   componentDidMount() {
     this.props.setContext('assignments');
+    this.props.loadAssignments(this.props.location.query);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!Map(prevProps.location.query).equals(Map(this.props.location.query))) {
+      this.props.loadAssignments(this.props.location.query);
+    }
   }
 
   render() {
@@ -47,14 +57,13 @@ class Assignments extends Component {
       user,
       error,
       viewDetails,
-      sortOrder,
     } = this.props;
 
     const { perPage } = pagination;
 
     return (
       <div>
-        { deviceFormat === 'desktop' ?
+        {deviceFormat === 'desktop' ?
           <AssignmentsHeader
             resultsViewToggle={<ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />}
             user={user}
@@ -68,15 +77,15 @@ class Assignments extends Component {
         }
 
         {error &&
-        <div className="error-summary">
-          <div className="error-message"> {error} </div>
-        </div>}
+          <div className="error-summary">
+            <div className="error-message"> {error} </div>
+          </div>}
 
         <Results
           resultsView={resultsView}
           results={results}
           viewDetails={viewDetails}
-          sortOrder={sortOrder}
+          sortOrder="ASC"
         />
 
         <PreviousNextNavigation
@@ -98,26 +107,28 @@ Assignments.propTypes = {
   setContext: PropTypes.func.isRequired,
 };
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch, props) {
   return {
     viewDetails: (offenderNo) => dispatch(vD(offenderNo, DETAILS_TABS.OFFENDER_DETAILS)),
-    setPage: (pagination) => dispatch(setAssignmentsPagination(pagination)),
+    setPage: (pagination) => dispatch(setAssignmentsPagination({ ...props.location.query, ...pagination })),
     setResultsView: (view) => dispatch(setAssignmentsView(view)),
     setContext: (context) => dispatch(setSearchContext(context)),
-    toggleSortOrder: () => dispatch(toggleAssignmentsSortOrder()),
+    loadAssignments: (query = {}) => dispatch({ type: LOAD_ASSIGNMENTS, payload: { ...query } }),
   };
 }
 
-const mapStateToProps = (immutableState) => {
-  const assignments = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Search', 'officerAssignments']) || OfficerAssignmentsModel;
+const mapStateToProps = (immutableState, props) => {
+  const assignments = immutableState.getIn(['assignments']);
   const results = assignments.get('results');
-  const totalResults = assignments.getIn(['meta', 'totalRecords']);
-  const pagination = assignments.get('pagination').toJS();
-  const resultsView = immutableState.getIn(['assignments', 'view']);
-  const deviceFormat = immutableState.getIn(['app','deviceFormat']);
+  const totalResults = assignments.get('totalRecords');
+  const pagination = {
+    perPage: props.location.query.perPage || 10,
+    pageNumber: props.location.query.pageNumber || 0,
+  };
+  const resultsView = assignments.get('view');
+  const deviceFormat = immutableState.getIn(['app', 'deviceFormat']);
   const user = immutableState.getIn(['authentication', 'user']) || UserModel.toJS();
   const error = assignments.get('error');
-  const sortOrder = immutableState.getIn(['assignments', 'sortOrder']);
 
   return {
     results,
@@ -125,7 +136,6 @@ const mapStateToProps = (immutableState) => {
     totalResults,
     pagination,
     resultsView,
-    sortOrder,
     user,
     error,
   };

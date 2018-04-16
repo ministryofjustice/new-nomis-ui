@@ -12,7 +12,6 @@ export const SET_RESULTS_VIEW = 'app/bookings/search/results/viewFormat';
 export const UPDATE_RESULTS_VIEW = 'app/bookings/search/results/viewFormat/update';
 export const TOGGLE_SORT_ORDER = 'app/bookings/search/results/sortOrder';
 
-export const SET_PAGINATION = 'app/bookings/search/results/pagination/set';
 export const UPDATE_PAGINATION = 'app/bookings/search/results/pagination/update';
 
 export const VIEW_DETAILS = 'app/bookings/details/view';

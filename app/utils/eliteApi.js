@@ -9,7 +9,7 @@ export const login = (username, password, baseUrl) => axios({
   data: { username, password } })
   .then((response) => response.data);
 
-export const officerAssignments = (_, pagination, baseUrl) => axios({
+export const officerAssignments = (pagination, baseUrl) => axios({
   baseURL: baseUrl,
   method: 'get',
   headers: {
@@ -18,7 +18,7 @@ export const officerAssignments = (_, pagination, baseUrl) => axios({
   },
   url: '/users/me/bookingAssignments' })
   .then((response) => ({
-    bookings: response.data,
+    data: response.data,
     totalRecords: parseInt(response.headers['total-records']),
   })
   );
