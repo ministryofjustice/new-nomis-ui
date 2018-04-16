@@ -4,7 +4,7 @@ import { toFullName } from 'utils/stringUtils';
 import { Link } from 'react-router';
 import { properCase } from 'utils/stringUtils';
 import { connect } from 'react-redux';
-
+import qs from 'querystring';
 import { DETAILS_TABS } from 'containers/Bookings/constants';
 
 import { Model as offenderDetailsModel } from 'helpers/dataMappers/offenderDetails';
@@ -26,7 +26,7 @@ const getRouteForBookingTab = (url, offenderNo) => {
   return isTab && { name: normaliseName(lastPart), route: `/offenders/${offenderNo}/${lastPart}` };
 };
 
-export const buildBreadcrumb = ({ route, offender, context, offenderNo }) => {
+export const buildBreadcrumb = ({ route, routeHistory, offender, context, offenderNo }) => {
   const nameString = offender && toFullName({ firstName: offender.get('firstName'), lastName: offender.get('lastName') });
 
   if (route === '/') { return []; }
@@ -42,7 +42,11 @@ export const buildBreadcrumb = ({ route, offender, context, offenderNo }) => {
   }
 
   if (context === 'results') {
-    searchContext = { name: 'Results', route: '/results' };
+    const lastQuery = routeHistory && routeHistory.toJS() && routeHistory.toJS().lastSearchResultQuery;
+    const queryString = qs.stringify(lastQuery);
+    const url = '/results';
+
+    searchContext = { name: 'Results', route: queryString ? `${url}?${queryString}` : url };
   }
 
   let offenderBasedBreadcrumbs = [];
@@ -83,8 +87,8 @@ export const buildBreadcrumb = ({ route, offender, context, offenderNo }) => {
 };
 
 
-function Breadcrumbs({ route, offenderDetails, context, offenderNo }) {
-  const breadcrumbArray = buildBreadcrumb({ route, offender: offenderDetails , context, offenderNo });
+function Breadcrumbs({ route, routeHistory, offenderDetails, context, offenderNo }) {
+  const breadcrumbArray = buildBreadcrumb({ route , routeHistory, offender: offenderDetails , context, offenderNo });
 
   return (
     <div className="bread-crumbs col-xs-12 no-left-gutter" data-name={'Breadcrumbs'}>
@@ -101,8 +105,8 @@ function Breadcrumbs({ route, offenderDetails, context, offenderNo }) {
 }
 
 Breadcrumbs.propTypes = {
-  route: PropTypes.string.isRequired,
   context: PropTypes.string.isRequired,
+  route: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (immutableState, props) => {

@@ -29,15 +29,18 @@ const routeInitialState = fromJS({
   locationBeforeTransitions: null,
 });
 
-/**
- * Merge route into the global application state
- */
+const objectIsNotEmpty = (obj) => Object.keys(obj).length !== 0;
+const isSearchResultRoute = (route) => route === '/results';
+
 function routeReducer(state = routeInitialState, action) {
   switch (action.type) {
     /* istanbul ignore next */
     case LOCATION_CHANGE:
       return state.merge({
         locationBeforeTransitions: action.payload,
+        lastSearchResultQuery:
+          isSearchResultRoute(action.payload.pathname) &&
+          objectIsNotEmpty(action.payload.query) ? action.payload.query : state.get('lastSearchResultQuery'),
       });
     default:
       return state;
