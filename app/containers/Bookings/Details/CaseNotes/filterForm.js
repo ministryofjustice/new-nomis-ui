@@ -175,7 +175,6 @@ export function mapDispatchToProps(dispatch, props) {
               type: formData.toJS().typeValue,
               subType: formData.toJS().subTypeValue,
             } },
-          resetPagination: true,
           goToPage: `/offenders/${props.offenderNo}/${DETAILS_TABS.CASE_NOTES}/`,
         },
       }), [CASE_NOTE_FILTER.SUCCESS, CASE_NOTE_FILTER.ERROR]),
