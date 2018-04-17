@@ -13,16 +13,17 @@ const CaseNotes = (props) => {
     setCaseNoteView,
     caseNotes,
     totalResults,
-    caseNotesPagination,
+    pagination,
     offenderNo,
     caseNotesQuery,
     setPagination,
+    location,
   } = props;
 
   return (
     <div>
       <div>
-        <CaseNoteFilterForm offenderNo={offenderNo} />
+        <CaseNoteFilterForm offenderNo={offenderNo} location={location} />
         <div>
           <NoSearchResultsReturnedMessage resultCount={caseNotes.size} />
         </div>
@@ -33,9 +34,9 @@ const CaseNotes = (props) => {
           />))}
         </div>
         <PreviousNextNavigation
-          pagination={caseNotesPagination}
+          pagination={pagination}
           totalRecords={totalResults}
-          pageAction={(id) => setPagination(offenderNo, { perPage: caseNotesPagination.perPage, pageNumber: id }, caseNotesQuery)}
+          pageAction={(id) => setPagination(offenderNo, { perPage: pagination.perPage, pageNumber: id }, caseNotesQuery)}
         />
       </div>
     </div>
@@ -45,7 +46,7 @@ const CaseNotes = (props) => {
 CaseNotes.propTypes = {
   offenderNo: PropTypes.string.isRequired,
   caseNotes: PropTypes.object.isRequired,
-  caseNotesPagination: PropTypes.object.isRequired,
+  pagination: PropTypes.object.isRequired,
   caseNotesQuery: PropTypes.object.isRequired,
   setPagination: PropTypes.func.isRequired,
   totalResults: PropTypes.number,

@@ -21,6 +21,15 @@ export const buildSearchQueryString = (query) => qs.stringify({
   sortOrder: query.sortOrder || 'ASC',
 });
 
+export const buildCaseNotQueryString = (query) => qs.stringify({
+  perPage: query.perPage || 10,
+  pageNumber: query.pageNumber || 0,
+  type: query.type || '',
+  subType: query.subType || '',
+  startDate: query.startDate || '',
+  endDate: query.endDate || '',
+});
+
 export const buildPaginationQueryString = (query) => qs.stringify({
   perPage: query.perPage || 10,
   pageNumber: query.pageNumber || 0,

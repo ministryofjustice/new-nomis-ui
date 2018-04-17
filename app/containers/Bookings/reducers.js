@@ -5,10 +5,8 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 
 import {
   SEARCH_SUCCESS,
-  SET_PAGINATION,
   DETAILS_TABS,
   SET_RESULTS_VIEW,
-  CASE_NOTE_FILTER,
   SET_LARGE_PHOTO_VISIBILITY,
   SET_LOCATIONS,
   SET_KEYDATES,
@@ -27,7 +25,6 @@ const detailsState = fromJS({
     { tabId: DETAILS_TABS.PHYSICAL_ATTR, title: 'Physical Attributes' },
     { tabId: DETAILS_TABS.ALERTS, title: 'Alerts' },
     { tabId: DETAILS_TABS.CASE_NOTES, title: 'Case Notes' }],
-  alertsPagination: { perPage: 10, pageNumber: 0 },
   shouldShowLargePhoto: false,
   imageId: 0,
   locations: [],
@@ -74,16 +71,8 @@ function searchReducer(state = initialState, action) {
           isSearchResultRoute(action.payload.pathname) &&
           objectIsNotEmpty(action.payload.query) ? action.payload.query : state.get('lastSearchResultQuery'));
 
-    case SET_PAGINATION: {
-      return state.set('pagination', fromJS(action.payload));
-    }
-
     case SET_RESULTS_VIEW: {
       return state.set('resultsView', fromJS(action.payload));
-    }
-
-    case CASE_NOTE_FILTER.SUCCESS: {
-      return state.setIn(['details', 'caseNotes', 'Query'], fromJS(action.payload.query));
     }
 
     case SET_LARGE_PHOTO_VISIBILITY: {

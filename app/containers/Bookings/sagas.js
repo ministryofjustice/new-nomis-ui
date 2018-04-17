@@ -7,7 +7,7 @@ import { loadBookingCaseNotes, resetCaseNotes } from 'containers/EliteApiLoader/
 import { BOOKINGS } from 'containers/EliteApiLoader/constants';
 import { notify } from 'react-notify-toast';
 import { showSpinner, hideSpinner } from 'globalReducers/app';
-import { buildSearchQueryString } from 'utils/stringUtils';
+import { buildSearchQueryString, buildCaseNotQueryString } from 'utils/stringUtils';
 
 import { setSearchContext } from 'globalReducers/app';
 
@@ -43,7 +43,6 @@ import {
   SET_DETAILS,
   DETAILS_ERROR,
   UPDATE_PAGINATION,
-  UPDATE_CASENOTES_PAGINATION,
   UPDATE_RESULTS_VIEW,
   SET_RESULTS_VIEW,
   ADD_NEW_CASENOTE,
@@ -404,35 +403,22 @@ export function* updateSearchResultView(action) {
   yield put({ type: SET_RESULTS_VIEW, payload: action.payload });
 }
 
-export function* detailCaseNotesPaginationWatcher() {
-  yield takeLatest(UPDATE_CASENOTES_PAGINATION, detailCaseNotesPagination);
-}
-
-export function* detailCaseNotesPagination(action) {
-  // Load new data first, then switch in view.
-  yield put(loadBookingCaseNotes(action.payload.offenderNo, action.payload.pagination, action.payload.query));
-  yield put({ type: BOOKINGS.CASENOTES.SET_PAGINATION, payload: action.payload });
-}
-
 export function* setCaseNoteFilterWatcher() {
   yield takeLatest(CASE_NOTE_FILTER.BASE, setCaseNoteFilterSaga);
 }
 
 export function* setCaseNoteFilterSaga(action) {
-  const { query, resetPagination, goToPage } = action.payload;
+  const { query, offenderNo } = action.payload;
 
   try {
-    if (resetPagination) {
-      yield put({ type: BOOKINGS.CASENOTES.RESET, payload: action.payload });
-    }
-    yield put({ type: BOOKINGS.CASENOTES.BASE, payload: action.payload });
     yield put({
       type: CASE_NOTE_FILTER.SUCCESS,
       payload: {
         query,
       },
     });
-    if (goToPage) yield put(push(goToPage));
+
+    yield put(push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}?${buildCaseNotQueryString(query)}`));
   } catch (err) {
     yield put({ type: CASE_NOTE_FILTER.ERROR, payload: new SubmissionError({ _error: err.message }) });
   }
@@ -442,7 +428,6 @@ export default [
   detailsWatcher,
   searchResultPaginationWatcher,
   searchResultViewWatcher,
-  detailCaseNotesPaginationWatcher,
   addCasenoteWatcher,
   amendCaseNoteWatcher,
   setCaseNoteFilterWatcher,

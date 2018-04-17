@@ -50,9 +50,9 @@ export const bookingAlerts = (baseUrl, offenderNo, pagination) => axios({
   );
 
 const casenoteQueryStringGen = (caseNoteOptions) => {
-  const { source, typeSubType, dateRange } = caseNoteOptions;
-  let { type, subType } = typeSubType;
-  const { startDate, endDate } = dateRange;
+  const { source, startDate, endDate } = caseNoteOptions;
+  let { type, subType } = caseNoteOptions;
+
   const queryArray = [];
 
   if (type === 'All') { type = null; }
@@ -98,14 +98,15 @@ const casenoteQueryStringGen = (caseNoteOptions) => {
   return query + dates;
 };
 
-export const bookingCaseNotes = (baseUrl, offenderNo, pagination, query) => {
+export const bookingCaseNotes = (baseUrl, { offenderNo, query }) => {
   const queryParams = `?${casenoteQueryStringGen(query)}`;
+  
   return axios({
     baseURL: baseUrl,
     method: 'get',
     headers: {
-      'Page-Offset': pagination.perPage * pagination.pageNumber,
-      'Page-Limit': pagination.perPage,
+      'Page-Offset': query.perPage * query.pageNumber,
+      'Page-Limit': query.perPage,
     },
     url: `/bookings/${offenderNo}/caseNotes${queryParams}` })
     .then((response) => ({
