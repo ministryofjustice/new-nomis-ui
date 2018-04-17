@@ -5,7 +5,6 @@ import {
   VIEW_DETAILS,
   UPDATE_PAGINATION,
   UPDATE_RESULTS_VIEW,
-  UPDATE_CASENOTES_PAGINATION,
   VIEW_CASENOTE_LIST,
   ADD_NEW_CASENOTE,
   SHOW_LARGE_PHOTO_BOOKING_DETAILS,
@@ -54,13 +53,6 @@ export function setPagination(pagination) {
     payload: pagination,
   };
 }
-export function setCaseNotesPagination(offenderNo, pagination, query) {
-  return {
-    type: UPDATE_CASENOTES_PAGINATION,
-    payload: { offenderNo, pagination, query },
-  };
-}
-
 export function addNewCaseNote({ offenderNo, type, subType, occurrenceDateTime }) {
   return {
     meta: { debounce: 'simple' },

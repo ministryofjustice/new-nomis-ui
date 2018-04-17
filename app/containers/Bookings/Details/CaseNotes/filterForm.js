@@ -9,15 +9,8 @@ import { createStructuredSelector } from 'reselect';
 import { selectLocale } from 'containers/LanguageProvider/selectors';
 import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
 import { DATE_ONLY_FORMAT_SPEC } from 'containers/App/constants';
-import {
-  DETAILS_TABS,
-} from 'containers/Bookings/constants';
 
 import './filterForm.scss';
-
-import {
-  selectCaseNotesQuery,
-} from '../../selectors';
 
 import {
   CASE_NOTE_FILTER,
@@ -51,9 +44,9 @@ const FilterForm = ({ handleSubmit, submitting, error, caseNoteFilters, locale, 
           <label className="form-label date-range-label hidden-md-down">
             Date range
           </label>
-          <div className="pull-right link reset-filters-large clickable" onClick={resetFields}>
+          <button type="button" className="pull-right link reset-filters-large clickable" onClick={resetFields}>
             Clear filters
-          </div>
+          </button>
         </div>
       </div>
 
@@ -99,11 +92,11 @@ const FilterForm = ({ handleSubmit, submitting, error, caseNoteFilters, locale, 
 
         <div className="row reset-filters-small">
           <div className="col no-gutters pull-right">
-            <div className="link clickable add-gutter-bottom" onClick={resetFields}>
+            <button type="button" className="link clickable add-gutter-bottom" onClick={resetFields}>
               Clear filters
+            </button>
             </div>
           </div>
-        </div>
 
         <div className="col-sm-4 col-md-2 no-left-gutter no-right-gutter">
           <div className="margin30">
@@ -162,30 +155,29 @@ export function mapDispatchToProps(dispatch, props) {
         type: CASE_NOTE_FILTER.BASE,
         payload: {
           offenderNo: props.offenderNo,
-          pagination: {
+          query: {            
             perPage: 10,
             pageNumber: 0,
-          },
-          query: { ...formData.toJS(),
-            dateRange: {
-              startDate: formData.toJS().startDate,
-              endDate: formData.toJS().endDate,
-            },
-            typeSubType: {
-              type: formData.toJS().typeValue,
-              subType: formData.toJS().subTypeValue,
-            } },
-          goToPage: `/offenders/${props.offenderNo}/${DETAILS_TABS.CASE_NOTES}/`,
+            startDate: formData.toJS().startDate,
+            endDate: formData.toJS().endDate,
+            type: formData.toJS().typeValue,
+            subType: formData.toJS().subTypeValue,
+          }, 
         },
       }), [CASE_NOTE_FILTER.SUCCESS, CASE_NOTE_FILTER.ERROR]),
   };
 }
 
 const mapStateToProps = createStructuredSelector({
-  initialValues: selectCaseNotesQuery(),
+  initialValues: (state, props) => ({
+    typeValue: props.location.query.type,
+    subTypeValue: props.location.query.subType,
+    startDate: props.location.query.startDate,
+    endDate: props.location.query.endDate,
+  }),
   caseNoteFilters: caseNoteFilterSelectInfo(),
-  typeValue: (state) => selector(state, 'typeValue'),
-  subTypeValue: (state) => selector(state, 'subTypeValue'),
+  typeValue: (state, props) => selector(state, 'typeValue') || props.location.query.type,
+  subTypeValue: (state, props) => selector(state, 'subTypeValue') || props.location.query.subType,
   dateRangeValid: (state) => state.getIn(['search', 'details', 'caseNotes', 'dateRangeValid']),
   locale: selectLocale(),
 });

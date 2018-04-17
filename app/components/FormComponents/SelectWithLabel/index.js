@@ -1,6 +1,6 @@
 import React from 'react';
 
-const renderField = ({ resetValue, options, input, title, meta: { touched, error } }) => {
+const renderField = ({ resetValue, options, input, defaultValue, title, meta: { touched, error } }) => {
   if (resetValue === true) { setTimeout(() => input.onChange(null),100); }
 
   return (
@@ -12,9 +12,9 @@ const renderField = ({ resetValue, options, input, title, meta: { touched, error
         {touched && ((error && <span>{error}</span>))}
       </div>
 
-      <select className={!(touched && error) ? 'form-control' : 'form-control form-control-error'} {...input}>
+      <select className={!(touched && error) ? 'form-control' : 'form-control form-control-error'} {...input} defaultValue={defaultValue}>
 
-        <option value="" selected disabled hidden>Select</option>
+        <option value="" disabled hidden>Select</option>
 
         {options.map((option) =>
           <option key={option.value} value={option.value}>

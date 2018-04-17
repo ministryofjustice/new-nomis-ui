@@ -1,12 +1,5 @@
-/*
- *
- * Elite API actions
- *
- */
-//
 import {
   BOOKINGS,
-  ALERTTYPES,
   CASENOTETYPES,
   OFFICERS,
   USER,
@@ -34,10 +27,10 @@ export function loadBookingAlerts(offenderNo, pagination) {
   };
 }
 
-export function loadBookingCaseNotes(offenderNo, pagination, query) {
+export function loadBookingCaseNotes(offenderNo, query) {
   return {
     type: BOOKINGS.CASENOTES.BASE,
-    payload: { offenderNo, pagination, query },
+    payload: { offenderNo, query },
   };
 }
 
@@ -45,13 +38,6 @@ export function resetCaseNotes(offenderNo) {
   return {
     type: BOOKINGS.CASENOTES.RESET,
     payload: { offenderNo },
-  };
-}
-
-export function loadAlertTypeDetails(alertType, alertCode) {
-  return {
-    type: ALERTTYPES.BASE,
-    payload: { alertType, alertCode },
   };
 }
 

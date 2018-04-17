@@ -87,19 +87,19 @@ export function* bookingCaseNotesWatch() {
 }
 
 export function* bookingCaseNotesSaga(action) {
-  const { offenderNo, pagination, query } = action.payload;
+  const { offenderNo, query } = action.payload;
 
   yield put(showSpinner());
 
   const apiServer = yield select(selectApi());
 
   try {
-    const response = yield call(bookingCaseNotes, apiServer, offenderNo, pagination, query);
-    yield put({ type: BOOKINGS.CASENOTES.SUCCESS, payload: { offenderNo, pagination, query, results: response.data, meta: { totalRecords: response.totalRecords } } });
+    const response = yield call(bookingCaseNotes, apiServer, { offenderNo, query });
+    yield put({ type: BOOKINGS.CASENOTES.SUCCESS, payload: { offenderNo, query, results: response.data, meta: { totalRecords: response.totalRecords } } });
     yield put(hideSpinner());
     return { Type: 'SUCCESS' };
   } catch (err) {
-    yield put({ type: BOOKINGS.CASENOTES.ERROR, payload: { offenderNo, pagination, query, error: err } });
+    yield put({ type: BOOKINGS.CASENOTES.ERROR, payload: { offenderNo, query, error: err } });
     yield put(hideSpinner());
     return { Type: 'ERROR', Error: err };
   }
