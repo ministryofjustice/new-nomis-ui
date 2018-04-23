@@ -336,7 +336,7 @@ export function* amendCaseNoteWatcher() {
 }
 
 export function* onAmendCaseNote(action) {
-  const { amendmentText, offenderNo, caseNoteId } = action.payload;
+  const { amendmentText, offenderNo, caseNoteId, itemId } = action.payload;
 
   const apiServer = yield select(selectApi());
 
@@ -346,7 +346,7 @@ export function* onAmendCaseNote(action) {
 
     yield put(loadBookingCaseNotes(offenderNo));
 
-    yield put(push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}`));
+    yield put(push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}/${itemId || ''}`));
     yield notify.show('Case note has been amended successfully.', 'success');
   } catch (err) {
     yield put({

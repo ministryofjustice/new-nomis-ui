@@ -68,6 +68,7 @@ export function mapDispatchToProps(dispatch, props) {
           ...formData.toJS(),
           offenderNo: props.params.offenderNo,
           caseNoteId: props.params.caseNoteId,
+          itemId: props.params.caseNoteId,
         },
       }),
     [AMEND_CASENOTE.SUCCESS, AMEND_CASENOTE.ERROR]),
@@ -77,7 +78,7 @@ export function mapDispatchToProps(dispatch, props) {
 const mapStateToProps = (state, props) => ({
   offenderNo: props.params.offenderNo,
   caseNoteId: props.params.caseNoteId,
-})
+});
 
 export const validate = (form) => {
   if (!form) return {};
