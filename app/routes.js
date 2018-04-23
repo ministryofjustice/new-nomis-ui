@@ -178,19 +178,21 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/offenders/:offenderNo/amendCaseNote/:caseNoteId',
+      path: '/offenders/:offenderNo/case-notes/:caseNoteId/amendCaseNote',
       name: 'amendCaseNote',
       onEnter: onEnter({ routeName: 'amendCaseNote' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/Details/CaseNotes/AmendCaseNote'),
           System.import('containers/Bookings/sagas'),
+          System.import('containers/EliteApiLoader/reducer'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component,sagas]) => {
+        importModules.then(([component,sagas, reducer]) => {
           injectSagas('bookings', sagas.default);
+          injectReducer('search', reducer.default);
           renderRoute(component);
         });
 

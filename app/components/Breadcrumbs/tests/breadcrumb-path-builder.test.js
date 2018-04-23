@@ -20,7 +20,7 @@ describe('Breadcrumb path builder', () => {
     expect(breadcrumbs[0].route).toBe('/');
 
     expect(breadcrumbs[1].name).toBe('Results');
-    expect(breadcrumbs[1].route).toBe('results');
+    expect(breadcrumbs[1].route).toBe('/results');
   });
 
   it('should produce a breadcrumb structure that drives Home > Results > Surname, Name', () => {
@@ -50,7 +50,7 @@ describe('Breadcrumb path builder', () => {
     expect(breadcrumbs[2].route).toBe('/offenders/12345/personal');
 
     expect(breadcrumbs[3].name).toBe('Add case note');
-    expect(breadcrumbs[3].route).toBe('addCaseNote');
+    expect(breadcrumbs[3].route).toBe('/offenders/12345/addCaseNote');
   });
 
   it('should produce a breadcrumb structure that drives Home > Results > Surname, Name > Add appointment', () => {
@@ -98,7 +98,7 @@ describe('Breadcrumb path builder', () => {
     expect(breadcrumbs[2].route).toBe('/offenders/12345/personal');
 
     expect(breadcrumbs[3].name).toBe('Amend case note');
-    expect(breadcrumbs[3].route).toBe('amendCaseNote');
+    expect(breadcrumbs[3].route).toBe('/offenders/12345/amendCaseNote');
   });
 
   it('should produce a breadcrumb structure that drives Home > My assignments > Doe, John', () => {
@@ -127,7 +127,7 @@ describe('Breadcrumb path builder', () => {
     expect(breadcrumbs[2].route).toBe('/offenders/12345/personal');
 
     expect(breadcrumbs[3].name).toBe('Add case note');
-    expect(breadcrumbs[3].route).toBe('addCaseNote');
+    expect(breadcrumbs[3].route).toBe('/offenders/12345/addCaseNote');
   });
 
   it('should produce a breadcrumb structure that drives Home > My assignments > Doe, John > Add appointment', () => {
@@ -175,7 +175,7 @@ describe('Breadcrumb path builder', () => {
     expect(breadcrumbs[2].route).toBe('/offenders/12345/personal');
 
     expect(breadcrumbs[3].name).toBe('Amend case note');
-    expect(breadcrumbs[3].route).toBe('amendCaseNote');
+    expect(breadcrumbs[3].route).toBe('/offenders/12345/amendCaseNote');
   });
 
   it('should produce a breadcrumb structure that drives Home > Doe,John', () => {
@@ -198,7 +198,7 @@ describe('Breadcrumb path builder', () => {
     expect(breadcrumbs[1].route).toBe('/offenders/12345/personal');
 
     expect(breadcrumbs[2].name).toBe('Add case note');
-    expect(breadcrumbs[2].route).toBe('addCaseNote');
+    expect(breadcrumbs[2].route).toBe('/offenders/12345/addCaseNote');
   });
 
   it('should produce a breadcrumb structure that drives Home > Doe,John > Add appointment', () => {
@@ -237,7 +237,7 @@ describe('Breadcrumb path builder', () => {
     expect(breadcrumbs[1].route).toBe('/offenders/12345/personal');
 
     expect(breadcrumbs[2].name).toBe('Amend case note');
-    expect(breadcrumbs[2].route).toBe('amendCaseNote');
+    expect(breadcrumbs[2].route).toBe('/offenders/12345/amendCaseNote');
   });
 
   it('should produce a breadcrumb structure that drives Home > My assignments', () => {
@@ -247,6 +247,6 @@ describe('Breadcrumb path builder', () => {
     expect(breadcrumbs[0].route).toBe('/');
 
     expect(breadcrumbs[1].name).toBe('Assignments');
-    expect(breadcrumbs[1].route).toBe('assignments');
-  })
+    expect(breadcrumbs[1].route).toBe('/assignments');
+  });
 });

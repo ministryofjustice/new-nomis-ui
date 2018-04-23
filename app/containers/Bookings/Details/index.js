@@ -15,7 +15,7 @@ import Alerts from './Alerts';
 import KeyDates from './KeyDates';
 import QuickLook from './QuickLook';
 import BookingsDetailsHeader from './header';
-import { selectCurrentDetailTabId, selectDisplayAddCaseNoteModal, selectShouldShowLargePhoto, selectImageId } from '../selectors';
+import { selectShouldShowLargePhoto, selectImageId } from '../selectors';
 import { hideLargePhoto, viewDetails } from '../actions';
 import './index.scss';
 
@@ -42,14 +42,14 @@ const parseActiveTab = (needle) => {
   }
 
   return DETAILS_TABS.OFFENDER_DETAILS;
-}
+};
 
 class Details extends Component {
   componentDidMount() {
-    const { activeTab, offenderNo } = this.props.params;
+    const { activeTab, offenderNo, itemId } = this.props.params;
     const tab = parseActiveTab(activeTab);
 
-    this.props.viewDetails(offenderNo, tab);
+    this.props.viewDetails(offenderNo, tab, itemId);
   }
 
   render() {
@@ -93,14 +93,14 @@ class Details extends Component {
           <TabNav
             tabData={tabData.map((tab) => Object.assign(tab, { action: () => {
               analyticsService.pageView(`offender details - ${tab.title}`);
-              this.props.viewDetails(offenderNo, tab.tabId);
+              this.props.viewDetails(offenderNo, tab.tabId, itemId);
             } }))}
             activeTabId={activeTabId}
           /> :
           <TabNavMobile
             tabData={tabData.map((tab) => Object.assign(tab, { action: () => {
               analyticsService.pageView(`offender details - ${tab.title}`);
-              this.props.viewDetails(offenderNo, tab.tabId);
+              this.props.viewDetails(offenderNo, tab.tabId, itemId);
             } }))}
             activeTabId={activeTabId}
           />}
@@ -121,15 +121,14 @@ Details.defaultProps = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    viewDetails: (offenderNo, activeTabId) => dispatch(viewDetails(offenderNo, activeTabId)),
+    viewDetails: (offenderNo, activeTabId, itemId) => dispatch(viewDetails(offenderNo, activeTabId, itemId)),
     hidePhoto: (imageSrcUrl) => dispatch(hideLargePhoto(imageSrcUrl)),
   };
 }
 // selectShouldShowCarouselForMobile
 const mapStateToProps = createStructuredSelector({
   deviceFormat: selectDeviceFormat(),
-  activeTabId: selectCurrentDetailTabId(),
-  displayAddDetailsModal: selectDisplayAddCaseNoteModal(),
+  activeTabId: (state, props) => props.params.activeTab,
   searchContext: selectSearchContext(),
   shouldShowLargePhoto: selectShouldShowLargePhoto(),
   imageSrcUrl: selectImageId(),

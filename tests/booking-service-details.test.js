@@ -25,6 +25,7 @@ describe('Booking Service Booking details', () => {
     sandbox.stub(elite2Api, 'getDetails');
     sandbox.stub(elite2Api, 'getIepSummary');
     sandbox.stub(elite2Api, 'getDetailsLight');
+    sandbox.stub(elite2Api, 'getKeyworker');
 
     elite2Api.getDetailsLight.returns({
       bookingId: 1,
@@ -37,6 +38,9 @@ describe('Booking Service Booking details', () => {
       ],
     });
     elite2Api.getIepSummary.returns({ iepLevel: null });
+    elite2Api.getKeyworker.returns({
+      firstName: 'John',
+    })
   });
 
   afterEach(() => sandbox.restore());
@@ -50,5 +54,11 @@ describe('Booking Service Booking details', () => {
     const data = await bookingService.getBookingDetailsViewModel(req);
     expect(elite2Api.getIepSummary).to.be.called;
     expect(data.csra).to.equal('basic');
-  })
+  });
+
+  it('it should call getKeyworker', async () => {
+    const data = await bookingService.getBookingDetailsViewModel(req);
+    expect(elite2Api.getKeyworker).to.be.called;
+    expect(data.keyworker.firstName).to.equal('John');
+  });
 });

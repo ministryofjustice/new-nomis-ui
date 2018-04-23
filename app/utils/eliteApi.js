@@ -130,6 +130,15 @@ export const addCaseNote = (baseUrl, offenderNo, type, subType, text, occurrence
     data })
     .then((response) => response.data);
 };
+ 
+export const getCaseNote = (baseUrl, offenderNo, caseNoteId) => axios({
+  baseURL: baseUrl,
+  method: 'get',
+  url: `/bookings/${offenderNo}/caseNotes/${caseNoteId}`,
+  headers: {
+    'content-type': 'application/json',
+  },
+}).then((response) => response.data);
 
 export const amendCaseNote = (baseUrl, offenderNo, caseNoteId, amendmentText) => axios({
   baseURL: baseUrl,

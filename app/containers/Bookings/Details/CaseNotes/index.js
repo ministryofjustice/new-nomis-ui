@@ -53,7 +53,7 @@ class CaseNotes extends Component {
     const pagination = {
       perPage: query.perPage,
       pageNumber: query.pageNumber,
-    }
+    };
 
     if (caseNoteId) {
       return <CaseNoteDetails offenderNo={offenderNo} caseNoteId={caseNoteId} />

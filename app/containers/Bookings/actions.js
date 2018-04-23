@@ -39,11 +39,11 @@ export function hideLargePhoto(imageId) {
   };
 }
 
-export function viewDetails(offenderNo, activeTabId) {
+export function viewDetails(offenderNo, activeTabId, itemId) {
   return {
     meta: { debounce: 'simple' },
     type: VIEW_DETAILS,
-    payload: { offenderNo, activeTabId },
+    payload: { offenderNo, activeTabId, itemId },
   };
 }
 
@@ -73,6 +73,7 @@ export function setCaseNotesListView() {
     type: VIEW_CASENOTE_LIST,
   };
 }
+
 export function toggleSortOrder(sortOrder) {
   return {
     type: TOGGLE_SORT_ORDER,
