@@ -46,4 +46,6 @@ eslint-report.html
 test-report.html
 .vscode/
 
+.gradle
+
 scss-report.txt
