@@ -33,7 +33,7 @@ const loginIndex = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const loginData = `username=${req.body.username.toString().toUpperCase()}&password=${req.body.password}&grant_type=password`;
+  const loginData = `username=${req.body.username.toString().toUpperCase()}&password=${req.body.password}&grant_type=password`; 
   retry.httpRequest({
     method: 'post',
     url: url.resolve(baseUrl, 'oauth/token'),
@@ -45,14 +45,13 @@ const login = async (req, res) => {
     timeout: 2000,
   }).then((response) => {
     req.session.isAuthenticated = true;
-
     session.setHmppsCookie(res, response.data);
-
     res.redirect('/');
   }).catch(error => {
     const code = retry.errorStatusCode(error.response);
     res.status(code);
-    if (code < 500) {
+    logger.error(error); 
+    if (code === 401) {
       logger.warn('Login failed, invalid password', { user: String(req.body.username) });
       res.render('pages/login', { authError: true, apiUp: true });
     } else {
@@ -228,7 +227,7 @@ const addCaseNote = asyncMiddleware(async (req, res) => {
   elite2ApiFallThrough(req, res);
 });
 
-const updateCaseNote = asyncMiddleware(async (req, res) => {
+const caseNote = asyncMiddleware(async (req, res) => {
   if (!req.params.offenderNo || !req.params.caseNoteId) {
     res.status(400);
     res.end();
@@ -261,7 +260,7 @@ module.exports = {
   alerts,
   caseNotes,
   addCaseNote,
-  updateCaseNote,
+  caseNote,
   offenderImage,
   getImage,
   myAssignments,

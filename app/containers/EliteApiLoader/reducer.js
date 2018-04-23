@@ -12,6 +12,7 @@ import {
   ALLCASENOTETYPESUBTYPEDATA,
   APPOINTMENT,
 } from './constants';
+import { CASE_NOTE } from '../Bookings/constants';
 
 export const initialState = fromJS({
   Bookings: {
@@ -90,6 +91,25 @@ function EliteApiReducer(state = initialState, action) {
       const { offenderNo, pagination } = action.payload;
 
       return state.setIn(['Bookings', 'Details', offenderNo, 'CaseNotes','pagination'], fromJS(pagination));
+    }
+
+    case CASE_NOTE.SET: {
+      const { offenderNo, caseNoteDetails } = action.payload;
+      const path = ['Bookings', 'Details', offenderNo, 'CaseNoteDetails'];
+      const errorPath = [...path, 'error'];
+
+      return state
+        .setIn([...path], fromJS(caseNoteDetails))
+        .setIn([...errorPath],null);
+    }
+
+    case CASE_NOTE.ERROR: {
+      const { offenderNo, error } = action.payload;
+      const path = ['Bookings', 'Details', offenderNo, 'CaseNoteDetails'];
+      const errorPath = [...path, 'error'];
+
+      return state
+        .setIn([...errorPath],fromJS(error));
     }
 
     case BOOKINGS.CASENOTES.SUCCESS: {

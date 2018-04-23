@@ -5,6 +5,7 @@ import {
   USER,
   APPOINTMENT,
 } from './constants';
+import { CASE_NOTE } from '../Bookings/constants';
 
 export function loadOfficer(staffId, username) {
   return {
@@ -72,5 +73,16 @@ export function loadAppointmentViewModel(agencyId) {
   return {
     type: APPOINTMENT.LOAD_VIEW_MODAL,
     payload: agencyId,
+  }
+}
+
+
+export function loadCaseNote(offenderNo, caseNoteId) {
+  return {
+    type: CASE_NOTE.LOAD,
+    payload: {
+      offenderNo,
+      caseNoteId,
+    },
   }
 }

@@ -110,11 +110,6 @@ const selectHeaderDetail = () => createSelector(
   (bookingDetails) => bookingDetails && bookingDetails.get('Data').toJS()
 );
 
-const selectCurrentDetailTabId = () => createSelector(
-  selectDetails(),
-  (detailsState) => detailsState.get('activeTabId')
-);
-
 const selectOffenderDetails = () => createSelector(
   selectBookingDetail(),
   intlSelector(),
@@ -291,12 +286,6 @@ const selectCaseNotesDetailId = () => createSelector(
   selectCaseNotes(),
   (caseNotesState) => caseNotesState.get('caseNoteDetailId')
 );
-
-const selectDisplayAddCaseNoteModal = () => createSelector(
-  selectDetails(),
-  (detailsState) => detailsState.get('addCaseNoteModal')
-);
-
 const selectScheduledEvents = () => createSelector(
   selectDetails(),
   (detailsState) => (detailsState.get('scheduledEvents') && detailsState.get('scheduledEvents').toJS()) || null,
@@ -318,7 +307,6 @@ export {
   selectSearchResultsTotalRecords,
   selectResultsView,
   selectBookingDetail,
-  selectCurrentDetailTabId,
   selectOffenderDetails,
   selectOffenderDetailsMobile,
   selectPhysicalAttributes,
@@ -330,7 +318,6 @@ export {
   selectCaseNotesQuery,
   selectCaseNotesView,
   selectCaseNotesDetailId,
-  selectDisplayAddCaseNoteModal,
   selectShouldShowLargePhoto,
   selectImageId,
   selectLocations,

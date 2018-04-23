@@ -40,7 +40,6 @@ import {
   SEARCH_SUCCESS,
   SEARCH_ERROR,
   VIEW_DETAILS,
-  SET_DETAILS,
   DETAILS_ERROR,
   UPDATE_PAGINATION,
   UPDATE_RESULTS_VIEW,
@@ -61,8 +60,9 @@ import {
   SET_QUICK_LOOK,
   LOAD_SCHEDULED_EVENTS,
   SET_SCHEDULED_EVENTS,
+  CASE_NOTE,
 } from './constants';
-
+import { getCaseNote } from '../../utils/eliteApi';
 
 export function* bookingAlertsWatcher() {
   yield takeLatest(BOOKINGS.ALERTS.BASE, bookingAlertsSaga);
@@ -364,13 +364,12 @@ export function* detailsWatcher() {
 
 export function* viewDetails(action) {
   yield put(showSpinner());
-  yield put({ type: SET_DETAILS, payload: action.payload });
 
   const { Type } = yield call(bookingDetailsElite, action);
-  const previousPath = yield select(state => state.getIn(['route', 'locationBeforeTransitions', 'pathname']));
-
   if (Type !== 'ERROR') {
-    const nextPath = `/offenders/${action.payload.offenderNo}/${action.payload.activeTabId}`;
+    const previousPath = yield select(state => state.getIn(['route', 'locationBeforeTransitions', 'pathname']));
+
+    const nextPath = `/offenders/${action.payload.offenderNo}/${action.payload.activeTabId}/${action.payload.itemId || ''}`;
 
     if (previousPath !== nextPath && window.location.pathname !== nextPath) {
       yield put(push(nextPath));
@@ -424,6 +423,40 @@ export function* setCaseNoteFilterSaga(action) {
   }
 }
 
+export function* loadCaseNoteWatcher() {
+  yield takeLatest(CASE_NOTE.LOAD,loadCaseNote);
+}
+
+export function* loadCaseNote(action) {
+  try {
+    yield put(showSpinner());
+
+    const { offenderNo, caseNoteId } = action.payload;
+    
+    const apiServer = yield select(selectApi());
+  
+    const caseNoteDetails = yield call(getCaseNote, apiServer, offenderNo, caseNoteId);
+  
+    yield put({
+      type: CASE_NOTE.SET,
+      payload: {
+        offenderNo,
+        caseNoteDetails,
+      },
+    });
+    yield put(hideSpinner());
+  } catch (error) {
+    yield put({
+      type: CASE_NOTE.ERROR,
+      payload: {
+        offenderNo: action.payload.offenderNo,
+        error: 'Could not open the case note at this time, please try again later',
+      },
+    });
+    yield put(hideSpinner());
+  }
+}
+
 export default [
   detailsWatcher,
   searchResultPaginationWatcher,
@@ -441,4 +474,5 @@ export default [
   loadScheduledEventsWatcher,
   addAppointmentWatcher,
   bookingAlertsWatcher, 
+  loadCaseNoteWatcher,
 ];

@@ -46,7 +46,7 @@ export const buildBreadcrumb = ({ route, lastSearchResultQuery, offender, contex
     const url = '/results';
 
     searchContext = { name: 'Results', route: queryString ? `${url}?${queryString}` : url };
-  }
+  }  
 
   let offenderBasedBreadcrumbs = [];
 
@@ -73,13 +73,14 @@ export const buildBreadcrumb = ({ route, lastSearchResultQuery, offender, contex
     .filter(part => !!part)
     .map(r => ({
       name: normaliseName(r),
-      route: r,
+      route: `${route.substring(0, route.indexOf(r))}${r}`,
+      isOffenderRoute: r === offenderNo || r === 'offenders',
     }));
 
-  const isOffenderRoute = routes.map(r => r.route).indexOf(offenderNo) !== -1;
+  const isOffenderRoute = routes.filter(r => r.isOffenderRoute).length > 0;
 
   if (isOffenderRoute) {
-    return [...offenderBasedBreadcrumbs, ...routes.filter(r => r.route !== offenderNo && r.route !== 'offenders')]
+    return [...offenderBasedBreadcrumbs, ...routes.filter(r => !r.isOffenderRoute)];
   }
 
   return [homeCrumb,...routes];

@@ -55,6 +55,15 @@ export const ADD_NEW_CASENOTE = {
   ERROR: 'app/bookings/details/addNewCaseNote/ERROR',
 };
 
+export const LOAD_CASE_NOTE = 'app/bookings/details/casenote/load';
+
+export const CASE_NOTE = {
+  LOAD: 'LOAD_CASE_NOTE',
+  SET: 'SET_CASE_NOTE',
+  ERROR: 'LOAD_CASE_NOTE_ERROR',
+};
+
+
 export const CASE_NOTE_FILTER = {
   BASE: 'app/bookings/details/setCaseNotesQuery',
   LOADING: 'app/bookings/details/setCaseNotesQuery/LOADING',

@@ -65,7 +65,7 @@ function searchReducer(state = initialState, action) {
         .set('totalResults', fromJS(action.payload.meta.totalRecords))
         .set('sortOrder', fromJS(action.payload.meta.sortOrder));
     }
-
+    
     case LOCATION_CHANGE:
       return state.set('lastSearchResultQuery',
           isSearchResultRoute(action.payload.pathname) &&

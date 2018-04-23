@@ -115,7 +115,7 @@ CaseNoteDetails.propTypes = {
 export function mapDispatchToProps(dispatch) {
   return {
     backToCaseNotes: (offenderNo) => dispatch(push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}`)),
-    addAmendment: (offenderNo, caseNoteId) => dispatch(push(`/offenders/${offenderNo}/amendCaseNote/${caseNoteId}`)),
+    addAmendment: (offenderNo, caseNoteId) => dispatch(push(`/offenders/${offenderNo}/case-notes/${caseNoteId}/amendCaseNote`)),
   }
 }
 
