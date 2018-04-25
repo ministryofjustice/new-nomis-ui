@@ -47,7 +47,7 @@ function MobileMenu({ user, setMobileMenuOpen, showTerms, switchCaseLoad }) {
           showTerms();
         }}
       >Terms and conditions</MobileMenuAdditionalOption>
-      <MobileMenuSignature>Powered by Syscon Justice Systems</MobileMenuSignature>
+      <MobileMenuSignature></MobileMenuSignature>
     </MobileMenuContainer>
   );
 }
