@@ -17,11 +17,14 @@ export const officerAssignments = (pagination, baseUrl) => axios({
     'Page-Limit': pagination.perPage,
   },
   url: '/users/me/bookingAssignments' })
-  .then((response) => ({
-    data: response.data,
-    totalRecords: parseInt(response.headers['total-records']),
-  })
-  );
+  .then((response) => {
+    // The 'total-records' header is absent when there are no assignments. See server/services/keyworker.#getAssignedOffenders
+    const totalRecords = parseInt(response.headers['total-records']);
+    return {
+      data: response.data,
+      totalRecords: isNaN(totalRecords) ? 0 : totalRecords,
+    };
+  });
 
 export const bookingDetails = (baseUrl, offenderNo) => axios({
   baseURL: baseUrl,
