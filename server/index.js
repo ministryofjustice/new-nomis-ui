@@ -105,6 +105,9 @@ app.get('/logout', controller.logout);
 app.use(session.hmppsSessionMiddleWare);
 app.use(session.extendHmppsCookieMiddleWare);
 
+// Don't cache dynamic resources
+app.use(helmet.noCache());
+
 app.use('/app/keydates/:offenderNo', controller.keyDates);
 app.use('/app/bookings/details/:offenderNo', controller.bookingDetails);
 app.use('/app/bookings/quicklook/:offenderNo', controller.quickLook);
