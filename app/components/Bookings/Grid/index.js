@@ -35,7 +35,7 @@ const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
           <div className="person-block">
 
             <div className="grid-photo" onClick={() => viewDetails(row.get('offenderNo'))}>
-              <EliteImage src={offenderImageUrl(row.get('offenderNo'))} />
+              <EliteImage src={offenderImageUrl(row.get('facialImageId'))} />
             </div>
 
             <div className="person-details">

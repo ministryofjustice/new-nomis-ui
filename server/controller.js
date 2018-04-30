@@ -69,32 +69,28 @@ const logout = (req, res) => {
 };
 
 const fetchImage = ({ targetEndpoint, req, res }) => {
-  retry.callApi({
-    method: 'get',
-    url: targetEndpoint,
-    responseType: 'stream',
-    headers: {},
-    reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },
-    onTokenRefresh: session.updateHmppsCookie(res),
-  }).then(response => {
-    response.data.pipe(res);
-  }).catch(error => {
-    logger.error(error);
-    const placeHolder = path.join(__dirname, './assets/images/image-missing.png');
+  const placeHolder = path.join(__dirname, './assets/images/image-missing.png');
+
+  if (req.params.imageId === null || req.params.imageId === '0') {
     res.status(302);
     res.sendFile(placeHolder);
-  });
+  } else {
+    retry.callApi({
+      method: 'get',
+      url: targetEndpoint,
+      responseType: 'stream',
+      headers: {},
+      reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },
+      onTokenRefresh: session.updateHmppsCookie(res),
+    }).then(response => {
+      response.data.pipe(res);
+    }).catch(error => {
+      logger.error(error);
+      res.status(302);
+      res.sendFile(placeHolder);
+    });
+  }
 };
-
-const offenderImage = asyncMiddleware(async (req, res) => {
-  const { bookingId } = await elite2Api.getDetailsLight(req, res);
-
-  fetchImage({
-    targetEndpoint: url.resolve(baseUrl, `api/bookings/${bookingId}/image/data`),
-    req,
-    res,
-  });
-});
 
 const getImage = asyncMiddleware(async (req, res) => {
   fetchImage({
@@ -261,7 +257,6 @@ module.exports = {
   caseNotes,
   addCaseNote,
   caseNote,
-  offenderImage,
   getImage,
   myAssignments,
 };
