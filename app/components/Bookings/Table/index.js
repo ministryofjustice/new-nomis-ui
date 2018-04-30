@@ -54,7 +54,7 @@ const Table = ({ results, sortOrder, sortOrderChange }) => (
         <div className="row" key={uuid()}>
           <div className="col-xs-3 col-md-2 remove-left-padding">
             <div className="photo clickable" onClick={(e) => onViewDetails(e, row)}>
-              <EliteImage src={offenderImageUrl(row.get('offenderNo'))} />
+              <EliteImage src={offenderImageUrl(row.get('facialImageId'))} />
             </div>
           </div>
           <div className="col-xs-4 col-md-3 add-margin-top">

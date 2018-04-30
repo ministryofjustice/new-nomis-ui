@@ -17,8 +17,7 @@ export const SET_KEYDATES = 'app/bookings/details/tab/set/keydates';
 export const SET_SCHEDULED_EVENTS = 'app/bookings/details/scheduled-events/set';
 export const LOAD_SCHEDULED_EVENTS = 'app/bookings/details/scheduled-events/load';
 
-export const offenderImageUrl = (offenderNo) => `/app/bookings/${offenderNo}/image/data`;
-export const imageUrl = (imageId) => `/app/images/${imageId}/data`;
+export const offenderImageUrl = (imageId) => `/app/images/${imageId}/data`;
 
 export const DETAILS_TABS = {
   OFFENDER_DETAILS: 'personal',
@@ -34,7 +33,6 @@ export const DETAILS_TABS = {
 export const DETAILS_ERROR = 'app/bookings/details/error';
 export const LOAD_QUICK_LOOK = 'app/bookings/details/quicklook';
 export const SET_QUICK_LOOK = 'app/bookings/details/quicklook/set';
-
 
 export const SET_CASENOTES_PAGINATION = 'app/bookings/details/casenotes/pagination/set';
 export const UPDATE_CASENOTES_PAGINATION = 'app/bookings/details/casenotes/pagination/update';

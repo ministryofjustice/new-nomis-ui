@@ -100,8 +100,8 @@ function Header({ inmateData, onImageClick, offenderNo }) {
       <div className="row">
 
           <div className="col-md-2 col-xs-3 no-left-gutter no-right-gutter">
-              <div className="photo clickable" onClick={() => onImageClick(offenderImageUrl(offenderNo))}>
-                <EliteImage src={offenderImageUrl(offenderNo)} />
+              <div className="photo clickable" onClick={() => onImageClick(offenderImageUrl(inmateData.get('facialImageId')))}>
+                <EliteImage src={offenderImageUrl(inmateData.get('facialImageId'))} />
               </div>
           </div>
 
