@@ -34,14 +34,16 @@ const sessionConfig = {
 };
 
 const nocacheExceptImages = (req, res, next) => {
-  if (! req.url.match(/\/images/)) {
+  if (req.url.match(/\/images/)) {
+    res.setHeader('Cache-Control', 'max-age=86400'); // 24 hours
+  } else {
     res.setHeader('Surrogate-Control', 'no-store');
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     res.setHeader('Pragma', 'no-cache');
     res.setHeader('Expires', '0');
   }
   next();
-}
+};
 
 app.set('trust proxy', 1); // trust first proxy
 
