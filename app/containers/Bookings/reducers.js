@@ -19,7 +19,7 @@ const objectIsNotEmpty = (obj) => Object.keys(obj).length !== 0;
 const isSearchResultRoute = (route) => route === '/results';
 
 const detailsState = fromJS({
-  id: 20847,
+  id: 0,
   activeTabId: DETAILS_TABS.OFFENDER_DETAILS,
   tabs: [{ tabId: DETAILS_TABS.OFFENDER_DETAILS, title: 'Offender Details' },
     { tabId: DETAILS_TABS.PHYSICAL_ATTR, title: 'Physical Attributes' },

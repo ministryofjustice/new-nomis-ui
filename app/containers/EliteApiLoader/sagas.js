@@ -201,6 +201,8 @@ export function* userSwitchCaseLoadsSaga(action) {
   const { caseLoadId } = action.payload;
 
   try {
+    yield put(setMobileMenuOpen(false));
+    yield put(showSpinner());
     yield call(users.switchCaseLoads, apiServer, caseLoadId);
     yield put({ type: USER.SWITCHCASELOAD.SUCCESS, payload: caseLoadId });
 
@@ -210,15 +212,15 @@ export function* userSwitchCaseLoadsSaga(action) {
     const state = yield select();
     const currPath = state.getIn(['route', 'locationBeforeTransitions', 'pathname']);
 
-    yield put(setMobileMenuOpen(false));
+    yield put({ type: BOOKINGS.CLEAR });
+    yield put(hideSpinner());
 
     if (currPath !== '/assignments') {
       yield put(push('/'));
-    }
-
-    yield put({ type: BOOKINGS.CLEAR });
+    }    
   } catch (e) {
     yield put({ type: USER.SWITCHCASELOAD.ERROR });
+    yield put(hideSpinner());
   }
   return null;
 }
@@ -231,5 +233,4 @@ export default [
   userCaseLoadsWatcher,
   userSwitchCaseLoadsWatcher,
   loadAppointmentsViewModalWatcher,
-  
 ];

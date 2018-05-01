@@ -41,17 +41,7 @@ class App extends Component {
   }
 
   render() {
-    const { mobileMenuOpen, shouldShowSpinner, shouldShowTerms,hideTermsAndConditions,showTermsAndConditions } = this.props;
-
-    if (mobileMenuOpen) {
-      return (
-        <div className="app-content">
-          <Helmet title={ProductGlobals.serviceName} />
-          <Header />
-          <MobileMenu showTerms={() => showTermsAndConditions()} />
-        </div>
-      );
-    }
+    const { mobileMenuOpen, shouldShowSpinner, shouldShowTerms, hideTermsAndConditions, showTermsAndConditions } = this.props;
 
     return (
       <div className="app-content">
@@ -60,7 +50,7 @@ class App extends Component {
         <Helmet title={ProductGlobals.serviceName} />
         <Header />
 
-
+        {mobileMenuOpen && <MobileMenu showTerms={() => showTermsAndConditions()} />}
         {!shouldShowTerms && <FeedbackLink /> }
 
         <nav className="nav-container">

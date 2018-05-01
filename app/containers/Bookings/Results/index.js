@@ -17,6 +17,7 @@ import './index.scss';
 import {
   viewDetails as vD,
   setPagination as sP,
+  toggleSort,
   setResultsView,
   loadLocations,
 } from '../actions';
@@ -92,7 +93,7 @@ class SearchResults extends Component {
                 viewName={resultsView}
                 results={results}
                 onViewDetails={viewDetails}
-                sortOrderChange={this.props.toggleSortOrder}
+                sortOrderChange={() => this.props.toggleSortOrder(sortOrder)}
                 sortOrder={sortOrder}
               />
           }
@@ -124,7 +125,7 @@ SearchResults.defaultProps = {
   resultsView: 'List',
   setResultsView: () => {},
   locations: List([]),
-};
+}; 
 
 export function mapDispatchToProps(dispatch, props) {
   return {
@@ -132,7 +133,7 @@ export function mapDispatchToProps(dispatch, props) {
     setPage: (pagination) => dispatch(sP({ ...props.location.query, ...pagination })),
     setResultsView: (pagination) => dispatch(setResultsView(pagination)),
     loadLocations: () => dispatch(loadLocations()),
-    toggleSortOrder: (sortOrder) => dispatch(sP({ ...props.location.query, sortOrder })),
+    toggleSortOrder: (currentDirection) => dispatch(toggleSort(currentDirection, props.location.query)),
     getSearchResults: (query) => dispatch({ type: NEW_SEARCH, payload: { query } }),
   };
 }
@@ -143,7 +144,6 @@ const mapStateToProps = (state, props) => {
   const totalResults = state.getIn(['search', 'totalResults']) || searchModel.get('totalResults');
   const resultsView = state.getIn(['search', 'resultsView']) || searchModel.get('resultsView');
   const locations = state.getIn(['search', 'details', 'locations']) || searchModel.getIn(['details', 'location']);
-  const sOrder = sortOrder || state.getIn(['search', 'sortOrder']);
   const shouldShowSpinner = state.getIn(['app', 'shouldShowSpinner']);
 
   let pagination = state.getIn(['search', 'pagination']);
@@ -158,7 +158,7 @@ const mapStateToProps = (state, props) => {
     pagination: pagination.toJS(),
     resultsView,
     locations,
-    sortOrder: sOrder,
+    sortOrder,
     shouldShowSpinner,
   }
 };
