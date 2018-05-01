@@ -33,6 +33,16 @@ const sessionConfig = {
   maxAge: sessionExpiryMinutes, // 1 hour
 };
 
+const nocacheExceptImages = (req, res, next) => {
+  if (! req.url.match(/\/images/)) {
+    res.setHeader('Surrogate-Control', 'no-store');
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+  }
+  next();
+}
+
 app.set('trust proxy', 1); // trust first proxy
 
 // set the view engine to ejs
@@ -105,8 +115,8 @@ app.get('/logout', controller.logout);
 app.use(session.hmppsSessionMiddleWare);
 app.use(session.extendHmppsCookieMiddleWare);
 
-// Don't cache dynamic resources
-app.use(helmet.noCache());
+// Don't cache dynamic resources (though allow images to be cached)
+app.use(nocacheExceptImages);
 
 app.use('/app/keydates/:offenderNo', controller.keyDates);
 app.use('/app/bookings/details/:offenderNo', controller.bookingDetails);
