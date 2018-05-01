@@ -71,7 +71,7 @@ const logout = (req, res) => {
 const fetchImage = ({ targetEndpoint, req, res }) => {
   const placeHolder = path.join(__dirname, './assets/images/image-missing.png');
 
-  if (req.params.imageId === null || req.params.imageId === '0') {
+  if (req.params.imageId === null || req.params.imageId === '0' || req.params.imageId === 'undefined') {
     res.status(302);
     res.sendFile(placeHolder);
   } else {
