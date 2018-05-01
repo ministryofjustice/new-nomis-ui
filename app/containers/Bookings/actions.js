@@ -53,6 +53,15 @@ export function setPagination(pagination) {
     payload: pagination,
   };
 }
+export function toggleSort(currentDirection, pagination) {
+  const sortOrder = currentDirection === 'ASC' ? 'DESC' : 'ASC';
+  return {
+    type: UPDATE_PAGINATION,
+    payload: { ...pagination, sortOrder },
+  };
+}
+
+
 export function addNewCaseNote({ offenderNo, type, subType, occurrenceDateTime }) {
   return {
     meta: { debounce: 'simple' },

@@ -11,20 +11,15 @@ import { selectMobileMenuOpen } from 'selectors/app';
 import { switchCaseLoad } from '../EliteApiLoader/actions';
 import { selectUserHeaderInfo } from './selectors';
 
-const HeaderContainer = () => ({
-  render() {
-    const { headerUser, mobileMenuOpen, switchCaseLoad: switchCL } = this.props;
-
-    return (
-      <HeaderComponent
-        switchCaseLoad={switchCL}
-        user={headerUser}
-        mobileMenuOpen={mobileMenuOpen}
-        setMobileMenuOpen={this.props.setMobileMenuOpen}
-      />
-    );
-  },
-})
+const HeaderContainer = ({ headerUser, mobileMenuOpen, switchCaseLoad: switchCL,setMobileMenuOpen: setMobileOpen }) => (
+    <HeaderComponent
+      switchCaseLoad={switchCL}
+      user={headerUser}
+      mobileMenuOpen={mobileMenuOpen}
+      setMobileMenuOpen={setMobileOpen}
+    />
+  );
+ 
 
 HeaderContainer.contextTypes = {
   intl: intlShape.isRequired,

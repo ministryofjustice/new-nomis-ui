@@ -14,10 +14,10 @@ export const USER = {
     ERROR: 'app/eliteApiLoader/user/switchCaseload/error',
   },
   ASSIGNEDINMATES: {
-    BASE: 'app/eliteApiLoader/user/caseload',
-    LOADING: 'app/eliteApiLoader/user/caseload/loading',
-    SUCCESS: 'app/eliteApiLoader/user/caseload/success',
-    ERROR: 'app/eliteApiLoader/user/caseload/error',
+    BASE: 'app/eliteApiLoader/user/assignments',
+    LOADING: 'app/eliteApiLoader/user/assignments/loading',
+    SUCCESS: 'app/eliteApiLoader/user/assignments/success',
+    ERROR: 'app/eliteApiLoader/user/assignments/error',
   },
 };
 
