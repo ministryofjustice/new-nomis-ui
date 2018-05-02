@@ -11,6 +11,8 @@ import { SubmissionError, TextArea } from 'components/FormComponents';
 
 import DatePicker from 'components/FormComponents/DatePicker';
 import TimePicker from 'components/FormComponents/TimePicker';
+import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
+
 import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
 import { selectUsersTypesAndSubTypes } from 'containers/EliteApiLoader/selectors';
 import { loadCaseNoteTypesAndSubTypes } from 'containers/Bookings/actions';
@@ -65,6 +67,8 @@ class AddCaseNoteForm extends Component {
               title="Select date"
               component={DatePicker}
               locale={locale}
+              format={m => m ? m.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC, locale) : m}
+              parse={s => s ? moment(s, DEFAULT_MOMENT_DATE_FORMAT_SPEC, locale) : s}
               defaultValue={eventDate || moment()}
               shouldShowDay={(date) => date.isBefore(moment())}
             />
