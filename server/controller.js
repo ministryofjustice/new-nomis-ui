@@ -11,6 +11,7 @@ const eventsService = require('./services/events');
 const keyworkerService = require('./services/keyworker');
 
 const { logger } = require('./services/logger');
+const moment = require('moment');
 
 const baseUrl = config.apis.elite2.url;
 
@@ -68,11 +69,21 @@ const logout = (req, res) => {
   res.redirect('/login');
 };
 
+function enableCaching(res) {
+  res.setHeader('Cache-Control', 'max-age=3600');
+  const expirationDate = moment().add(1, 'h'); // one hour from now
+  const rfc822Date = moment(expirationDate).format('ddd, DD MMM YYYY HH:mm:ss ZZ');
+  res.setHeader('Expires', rfc822Date);
+  // Undo helmet noCache:
+  res.removeHeader('Surrogate-Control');
+  res.removeHeader('Pragma');
+}
+
 const fetchImage = ({ targetEndpoint, req, res }) => {
   const placeHolder = path.join(__dirname, './assets/images/image-missing.png');
+  enableCaching(res);
 
-  if (req.params.imageId === null || req.params.imageId === '0' || req.params.imageId === 'undefined') {
-    res.status(302);
+  if (!req.params.imageId || req.params.imageId === '0') {
     res.sendFile(placeHolder);
   } else {
     retry.callApi({
@@ -83,10 +94,10 @@ const fetchImage = ({ targetEndpoint, req, res }) => {
       reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },
       onTokenRefresh: session.updateHmppsCookie(res),
     }).then(response => {
+      res.type('image/png');
       response.data.pipe(res);
     }).catch(error => {
       logger.error(error);
-      res.status(302);
       res.sendFile(placeHolder);
     });
   }
