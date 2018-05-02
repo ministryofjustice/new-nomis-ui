@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import React from 'react';
 import { browserHistory } from 'react-router';
-import uuid from 'uuid/v4';
 
 import EliteImage from 'containers/EliteContainers/Image';
 import { offenderImageUrl } from 'containers/Bookings/constants';
@@ -51,7 +50,7 @@ const Table = ({ results, sortOrder, sortOrderChange }) => (
     </div>
 
       {(results).map((row) =>
-        <div className="row" key={uuid()}>
+        <div className="row" key={`booking_table_${row.get('offenderNo')}`}>
           <div className="col-xs-3 col-md-2 remove-left-padding">
             <div className="photo clickable" onClick={(e) => onViewDetails(e, row)}>
               <EliteImage src={offenderImageUrl(row.get('facialImageId'))} />
