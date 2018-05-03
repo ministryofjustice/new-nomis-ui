@@ -2,7 +2,7 @@
 const buildNumber = require('../application-version');
 
 module.exports = function (req,res,next) {
-  const sessionData = req.auth_token;
+  const sessionData = req.session;
   if (!sessionData) {
     next();
     return;
