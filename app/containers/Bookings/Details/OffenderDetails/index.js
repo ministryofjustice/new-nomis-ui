@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { FormattedDate } from 'react-intl';
 
 import EliteImage from 'containers/EliteContainers/Image/index';
-import { imageUrl } from 'containers/Bookings/constants';
+import { offenderImageUrl } from 'containers/Bookings/constants';
 
 import DisplayValue from 'components/FormComponents/DisplayValue';
 import { toFullName } from 'utils/stringUtils';
@@ -264,8 +264,8 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
                 </div>
 
                 <div className="col-md-6 col-xs-6">
-                  <div className="photo clickable" onClick={() => showPhoto(imageUrl(mark.imageId))}>
-                    { (mark.imageId && <EliteImage src={imageUrl(mark.imageId)} />) || '--'}
+                  <div className="photo clickable" onClick={() => showPhoto(offenderImageUrl(mark.imageId))}>
+                    { (mark.imageId && <EliteImage src={offenderImageUrl(mark.imageId)} />) || '--'}
                   </div>
                 </div>
               </div>

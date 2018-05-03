@@ -105,7 +105,7 @@ app.get('/logout', controller.logout);
 app.use(session.hmppsSessionMiddleWare);
 app.use(session.extendHmppsCookieMiddleWare);
 
-// Don't cache dynamic resources
+// Don't cache dynamic resources (except images which override this)
 app.use(helmet.noCache());
 
 app.use('/app/keydates/:offenderNo', controller.keyDates);

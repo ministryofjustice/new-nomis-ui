@@ -51,8 +51,8 @@ export const DropdownMenuOption = styled.a`
   background: ${colours.userMenu.bg};
   color: white;
   font-size: 19px;
-  align-items: center;
-  text-align: center;
+  align-items: left;
+  text-align: left;
   border-top: 1px solid lightblue;
   height: 60px;
   text-decoration: none;
@@ -70,8 +70,8 @@ export const DropdownMenuLink = styled(Link)`
   background: ${colours.userMenu.bg};
   color: white;
   font-size: 19px;
-  align-items: center;
-  text-align: center;
+  align-items: left;
+  text-align: left;
   border-top: 1px solid lightblue;
   height: 60px;
   text-decoration: none;
