@@ -19,7 +19,10 @@ class LoginSpecification extends GebReportingSpec {
     TestFixture fixture = new TestFixture(browser, elite2api)
 
     def "The login page is present"() {
-        when: 'I go to the login page'
+
+      elite2api.stubHealthCheck()
+
+      when: 'I go to the login page'
         to LoginPage
 
         then: 'The Login page is displayed'
