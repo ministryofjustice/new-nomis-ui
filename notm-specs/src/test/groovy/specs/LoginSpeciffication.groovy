@@ -11,7 +11,6 @@ import pages.LoginPage
 import static model.UserAccount.ITAG_USER
 import static model.UserAccount.NOT_KNOWN
 
-@Ignore
 class LoginSpecification extends GebReportingSpec {
 
     @Rule
@@ -28,6 +27,10 @@ class LoginSpecification extends GebReportingSpec {
     }
 
     def "Default URI redirects to Login page"() {
+
+        elite2api.stubHealthCheck()
+
+
         when: "I go to the website URL using an empty path"
         go '/'
 
@@ -36,6 +39,9 @@ class LoginSpecification extends GebReportingSpec {
     }
 
    def "Log in with valid credentials"() {
+
+        elite2api.stubHealthCheck()
+
         given: 'I am on the Login page'
         to LoginPage
 
@@ -47,5 +53,53 @@ class LoginSpecification extends GebReportingSpec {
 
         then: 'My credentials are accepted and I am shown the Key worker management page'
         at HomePage
+    }
+
+      def "Unknown user is rejected"() {
+
+        elite2api.stubHealthCheck()
+
+        given: 'I am on the Login page'
+        elite2api.stubInvalidOAuthTokenRequest(NOT_KNOWN)
+        to LoginPage
+
+        when: 'I login using an unknown username'
+        loginAs NOT_KNOWN, 'password'
+
+        then: 'I remain on the login page'
+        at LoginPage
+
+        and: 'I am told why I couldn\'t log in'
+        errors.message == 'The username or password you have entered is invalid.'
+    }
+
+    def "Unknown password is rejected"() {
+        elite2api.stubHealthCheck()
+
+        given: 'I am on the Login page'
+        elite2api.stubInvalidOAuthTokenRequest(ITAG_USER, true)
+        to LoginPage
+
+        when: 'I login using an unknown username'
+        loginAs ITAG_USER, 'wildGuess'
+
+        then: 'I remain on the login page'
+        at LoginPage
+
+        and: 'I am told why I couldn\'t log in'
+        errors.message == 'The username or password you have entered is invalid.'
+    }
+
+    def "Log out"() {
+        elite2api.stubHealthCheck()
+
+        given: "I have logged in"
+        fixture.loginAs(ITAG_USER)
+
+        when: "I log out"
+        header.logout()
+
+        then: "I am returned to the Login page."
+        at LoginPage
     }
 }

@@ -6,9 +6,7 @@ import geb.Module
 class HeaderModule extends Module {
 
     static content = {
-        dropDown   { $('.info-wrapper') }
-        username   { $('.info-wrapper .user-name').text() }
-        caseload   { $('.info-wrapper .case-load').text() }
+        dropDown   { $('.header-content .clickable') }
         logoutLink { $('a', text: 'Log out' ) }
     }
 

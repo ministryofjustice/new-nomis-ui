@@ -19,7 +19,7 @@ const asyncMiddleware = fn =>
     Promise.resolve(fn(req, res, next))
       .catch(error => {
         logger.error(error);
-        res.status(retry.errorStatusCode(error.response));
+        res.status(retry.errorStatusCode(error));
         res.end();
 
         throw error;
@@ -48,10 +48,10 @@ const login = async (req, res) => {
     session.setHmppsCookie(res, response.data);
     res.redirect('/');
   }).catch(error => {
-    const code = retry.errorStatusCode(error.response);
+    const code = retry.errorStatusCode(error);
     res.status(code);
     logger.error(error); 
-    if (code === 401) {
+    if (code < 500) {
       logger.warn('Login failed, invalid password', { user: String(req.body.username) });
       res.render('pages/login', { authError: true, apiUp: true });
     } else {
@@ -71,7 +71,7 @@ const logout = (req, res) => {
 const fetchImage = ({ targetEndpoint, req, res }) => {
   const placeHolder = path.join(__dirname, './assets/images/image-missing.png');
 
-  if (req.params.imageId === null || req.params.imageId === '0' || req.params.imageId === 'undefined') {
+  if (!req.params.imageId) {
     res.status(302);
     res.sendFile(placeHolder);
   } else {
@@ -99,7 +99,6 @@ const getImage = asyncMiddleware(async (req, res) => {
     res,
   });
 });
-
 
 const keyDates = asyncMiddleware(async (req,res) => {
   if (!req.params.offenderNo) {
