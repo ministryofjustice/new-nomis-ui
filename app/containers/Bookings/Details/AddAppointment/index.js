@@ -7,11 +7,11 @@ import moment from 'moment';
 import { toFullName } from 'utils/stringUtils';
 
 import Select from 'components/FormComponents/SelectWithLabel';
-import DatePicker from 'components/FormComponents/DatePicker';
+import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from 'components/FormComponents/DatePicker';
 import TimePicker from 'components/FormComponents/TimePicker';
 import { TextArea } from 'components/FormComponents';
 
-import { DATE_TIME_FORMAT_SPEC, DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
+import { DATE_TIME_FORMAT_SPEC } from 'containers/App/constants';
 
 import { loadAppointmentViewModel } from 'containers/EliteApiLoader/actions';
 import { APPOINTMENT } from 'containers/EliteApiLoader/constants';
@@ -120,8 +120,8 @@ class AddAppointment extends Component {
               title="Select date"
               component={DatePicker}
               locale={locale}
-              format={m => m ? m.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC, locale) : m}
-              parse={s => s ? moment(s, DEFAULT_MOMENT_DATE_FORMAT_SPEC, locale) : s}
+              format={momentToLocalizedDate(locale)}
+              parse={localizedDateToMoment(locale)}
               shouldShowDay={(date) => date.isAfter(moment().subtract('days',1))}
             />
           </div>

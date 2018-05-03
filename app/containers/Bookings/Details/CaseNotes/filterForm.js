@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import DatePicker from 'components/FormComponents/DatePicker';
+import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from 'components/FormComponents/DatePicker';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form/immutable';
@@ -8,7 +8,7 @@ import { createFormAction } from 'redux-form-saga';
 import { createStructuredSelector } from 'reselect';
 import { selectLocale } from 'containers/LanguageProvider/selectors';
 import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
-import { DATE_ONLY_FORMAT_SPEC, DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
+import { DATE_ONLY_FORMAT_SPEC } from 'containers/App/constants';
 
 import './filterForm.scss';
 
@@ -74,8 +74,8 @@ const FilterForm = ({ handleSubmit, submitting, error, caseNoteFilters, locale, 
               showError={dateRangeNotValid}
               component={DatePicker}
               locale={locale}
-              format={m => m ? m.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC, locale) : m}
-              parse={s => s ? moment(s, DEFAULT_MOMENT_DATE_FORMAT_SPEC, locale) : s}
+              format={momentToLocalizedDate(locale)}
+              parse={localizedDateToMoment(locale)}
               title="From"
               shouldShowDay={(date) => date && date.isBefore(moment())}
             />
@@ -84,8 +84,8 @@ const FilterForm = ({ handleSubmit, submitting, error, caseNoteFilters, locale, 
               name="endDate"
               showError={dateRangeNotValid}
               component={DatePicker}
-              format={m => m ? m.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC, locale) : m}
-              parse={s => s ? moment(s, DEFAULT_MOMENT_DATE_FORMAT_SPEC, locale) : s}
+              format={momentToLocalizedDate(locale)}
+              parse={localizedDateToMoment(locale)}
               locale={locale}
               title="To"
               shouldShowDay={(date) => date && date.isBefore(moment())}
