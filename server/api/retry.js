@@ -24,6 +24,10 @@ const getRequest = ({ req, res, url, headers, disableGatewayMode }) => service.c
   copyPaginationHeadersOver(response.headers, res);
   return r(response.data);
 })).catch(error => {
+  if (errorStatusCode(error) === 503) {
+    res.status(503);
+    res.end();
+  }
   logger.error(error);
   return new Promise(r => r(null))
 });
@@ -41,7 +45,8 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
   ).catch(error => {
     logger.error(url);
     logger.error(error);
-    if (error.response.status === 401) {
+
+    if (error.response && error.response.status === 401) {
       return service.refreshTokenRequest({ token: refresh_token, headers, reqHeaders })
         .then(response => {
           onTokenRefresh(response.data);
@@ -101,12 +106,21 @@ function copyPaginationHeadersOver(axiosResponseHeaders, res) {
   const pagination = ['page-offset','page-limit','sort-fields','sort-order', 'total-records'];
   const responseHeaders = utils.extractProperties(pagination, axiosResponseHeaders);
   Object.keys(responseHeaders).forEach(key => {
-    logger.error(key, responseHeaders[key]);
     res.setHeader(key, responseHeaders[key]);
   });
 }
 
-const errorStatusCode = (response) => (response && response.status) || 500;
+const errorStatusCode = (error) => {
+  if (error && error.response) {
+    return error.response.status;
+  }
+
+  if (error && error.code === 'ECONNREFUSED') { 
+    return 503;
+  }
+
+  return 500;
+}
 
 const service = {
   callApi,

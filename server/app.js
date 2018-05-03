@@ -20,7 +20,7 @@ const sessionHandler = (req, res) => {
     res.json(response.data);
   }).catch(error => {
     logger.error(error);
-    res.status(retry.errorStatusCode(error.response));
+    res.status(retry.errorStatusCode(error));
     res.end();
   })
 };

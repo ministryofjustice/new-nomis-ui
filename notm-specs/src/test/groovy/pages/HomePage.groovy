@@ -2,6 +2,8 @@ package pages
 
 import geb.Page
 
+import modules.ErrorsModule;
+import modules.HeaderModule;
 
 class HomePage extends Page {
 
@@ -14,6 +16,7 @@ class HomePage extends Page {
 
     static content = {
         errors { module(ErrorsModule) }
+        header(required: false) { module(HeaderModule) }
         headingText { $('.heading-xlarge').text() }
     }
 }

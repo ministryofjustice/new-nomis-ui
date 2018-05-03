@@ -123,6 +123,7 @@ class AddAppointment extends Component {
               format={momentToLocalizedDate(locale)}
               parse={localizedDateToMoment(locale)}
               shouldShowDay={(date) => date.isAfter(moment().subtract('days',1))}
+
             />
           </div>
         </div>
@@ -173,7 +174,6 @@ class AddAppointment extends Component {
     </div>)
   }
 }
-
 
 export function mapDispatchToProps(dispatch, props) {
   return {

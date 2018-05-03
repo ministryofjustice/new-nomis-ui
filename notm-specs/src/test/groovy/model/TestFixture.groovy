@@ -24,7 +24,6 @@ class TestFixture {
         browser.to LoginPage
         elite2Api.stubValidOAuthTokenRequest currentUser
         elite2Api.stubGetMyDetails currentUser
-        elite2Api.stubGetMyCaseloads currentUser.caseloads
         browser.page.loginAs currentUser, 'password'
 
         browser.at HomePage

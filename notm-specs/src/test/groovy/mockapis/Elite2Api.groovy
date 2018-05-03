@@ -59,6 +59,12 @@ class Elite2Api extends WireMockRule {
                         ]))))
     }
 
+    void stubHealthCheck() {
+         stubFor(
+               get('/health')
+                .willReturn(aResponse().withStatus(200))
+        )
+    }
 
     void stubGetMyDetails(UserAccount user) {
         stubFor(
