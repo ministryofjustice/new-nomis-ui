@@ -114,14 +114,14 @@ class AddAppointment extends Component {
 
         <div className="row">
           <div className="col-md-2 no-left-gutter">
-              <Field
-                name="eventDate"
-                title="Select date"
-                component={DatePicker}
-                locale={locale}
-                shouldShowDay={(date) => date.isAfter(moment().subtract('days',1))}
-                
-              />
+            <Field
+              name="eventDate"
+              title="Select date"
+              component={DatePicker}
+              locale={locale}
+              shouldShowDay={(date) => date.isAfter(moment().subtract('days',1))}
+
+            />
           </div>
         </div>
 
