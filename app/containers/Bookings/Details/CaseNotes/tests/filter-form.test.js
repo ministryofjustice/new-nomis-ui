@@ -1,11 +1,12 @@
+import moment from 'moment';
 import { Map } from 'immutable';
 import { validate } from '../filterForm';
 
 describe('Filter form validation', () => {
   it('should ensure that the start date does not come before the end date', () => {
     const values = Map({
-      startDate: '10/10/2018',
-      endDate: '09/10/2018',
+      startDate: moment({ year: 2018, M: 9, d: 10 }),
+      endDate: moment({ year: 2018, M: 9, d: 9 }),
     });
 
     const errors = validate(values);

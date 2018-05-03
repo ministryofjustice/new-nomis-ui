@@ -8,7 +8,7 @@ import {
 
 import './index.scss';
 
-class DatePicker extends Component {
+export class DatePicker extends Component {
   constructor() {
     super();
     this.handleChange = this.handleChange.bind(this);
@@ -60,4 +60,5 @@ class DatePicker extends Component {
   }
 }
 
-export default DatePicker;
+export const momentToLocalizedDate = locale => theMoment => theMoment ? theMoment.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC, locale) : theMoment;
+export const localizedDateToMoment = locale => localizedDateString => localizedDateString ? moment(localizedDateString, DEFAULT_MOMENT_DATE_FORMAT_SPEC, locale) : localizedDateString;
