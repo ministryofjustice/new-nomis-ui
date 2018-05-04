@@ -36,7 +36,7 @@ class FeedbackLinkContainer extends React.Component {
   }
 
   requestFeedbackUrl() {
-    axios.get('/feedbackUrl').then(response => {
+    axios.get('/config').then(response => {
       this.props.setFeedbackUrl(response.data.url);
     });
   }

@@ -9,6 +9,7 @@ import {
   CHANGE_PASSWORD_INPUT,
   USER_ME,
   RETRIEVE_USER_ME,
+  SET_OMIC_URL,
 } from './constants';
 
 export function retrieveUserMe() {
@@ -35,5 +36,12 @@ export function changePasswordInput(password) {
   return {
     type: CHANGE_PASSWORD_INPUT,
     password,
+  };
+}
+
+export function setOmicUrl(url) {
+  return {
+    type: SET_OMIC_URL,
+    url,
   };
 }

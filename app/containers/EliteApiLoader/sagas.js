@@ -225,6 +225,22 @@ export function* userSwitchCaseLoadsSaga(action) {
   return null;
 }
 
+export function* userRolesSaga() {
+  const apiServer = yield select(selectApi());
+
+  try {
+    const roles = yield call(users.roles, apiServer);
+    yield put({ type: USER.ROLES.SUCCESS, payload: { roles } });
+  } catch (e) {
+    yield put({ type: USER.ROLES.ERROR, payload: { error: e } });
+  }
+  return null;
+}
+
+export function* userRolesWatcher() {
+  yield takeLatest(USER.ROLES.BASE, userRolesSaga);
+}
+
 export default [
   loadCaseNoteTypesSubTypesWatcher,
   officerLoadWatch,
@@ -233,4 +249,5 @@ export default [
   userCaseLoadsWatcher,
   userSwitchCaseLoadsWatcher,
   loadAppointmentsViewModalWatcher,
+  userRolesWatcher
 ];

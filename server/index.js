@@ -79,16 +79,16 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/feedbackUrl', (req,res) => {
+app.use('/config', (req,res) => {
   const url = config.app.feedbackUrl;
-
-  if (!url) {
+  const omicUrl = config.apis.keyworker.ui_url;
+  if (!url && !omicUrl) {
     res.end();
     return;
   }
-
   res.json({
     url,
+    omicUrl
   });
 });
 
@@ -114,7 +114,7 @@ app.use(session.hmppsSessionMiddleWare);
 app.use(session.extendHmppsCookieMiddleWare);
 
 // Don't cache dynamic resources (except images which override this)
-app.use(helmet.noCache());
+//app.use(helmet.noCache());
 
 app.use('/app/keydates/:offenderNo', controller.keyDates);
 app.use('/app/bookings/details/:offenderNo', controller.bookingDetails);

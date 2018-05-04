@@ -19,6 +19,12 @@ export const USER = {
     SUCCESS: 'app/eliteApiLoader/user/assignments/success',
     ERROR: 'app/eliteApiLoader/user/assignments/error',
   },
+  ROLES: {
+    BASE: 'app/eliteApiLoader/user/role',
+    LOADING: 'app/eliteApiLoader/user/role/loading',
+    SUCCESS: 'app/eliteApiLoader/user/role/success',
+    ERROR: 'app/eliteApiLoader/user/role/error',
+  },
 };
 
 export const LOAD_CASE_NOTE_TYPES_SUBTYPES = 'app/eliteApiLoader/loadCaseNotesTypesAndSubTypes';

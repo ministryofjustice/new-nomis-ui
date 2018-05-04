@@ -22,6 +22,7 @@ module.exports = {
     },
     keyworker: {
       url: process.env.KEYWORKER_API_URL,
+      ui_url: process.env.OMIC_UI_URL,
     },
   },
   hmppsCookie: {

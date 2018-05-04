@@ -6,6 +6,7 @@ import {
   SEARCH_ERROR,
   SEARCH_SUCCESS,
 } from '../Bookings/constants';
+import {SET_OMIC_URL} from "../Authentication/constants";
 
 export const initialState = fromJS({
   loading: false,
@@ -30,6 +31,10 @@ function homeReducer(state = initialState, action) {
 
     case SEARCH_SUCCESS: {
       return state.set('searchError', null);
+    }
+
+    case SET_OMIC_URL: {
+      return state.set('omicUrl', action.url);
     }
 
     default: {
