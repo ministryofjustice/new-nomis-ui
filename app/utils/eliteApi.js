@@ -189,6 +189,11 @@ export const users = {
     method: 'get',
     url: '/users/me/caseNoteTypes',
   }).then((response) => CaseNoteTypeMapper(response.data)),
+  roles: (baseUrl) => axios({
+    baseURL: baseUrl,
+    method: 'get',
+    url: '/users/me/roles',
+  }).then((response) => response.data),
 };
 
 export const loadSomeCaseNoteTypes = (baseUrl, offset) => axios({

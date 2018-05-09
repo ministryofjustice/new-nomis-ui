@@ -16,11 +16,14 @@ import Spinner from 'components/Spinner';
 import Terms from 'containers/Footer/terms-and-conditions';
 import { hideTerms, showTerms } from 'globalReducers/app';
 import FeedbackLink from 'containers/FeedbackLink';
+import axios from 'axios/index';
+import { setFeedbackUrl, setOmicUrl } from '../../globalReducers/app';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.resizeWindow = this.resizeWindow.bind(this);
+    this.requestOmicAndFeedbackUrl = this.requestOmicAndFeedbackUrl.bind(this);
     window.addEventListener('resize', this.resizeWindow, true);
   }
 
@@ -30,6 +33,14 @@ class App extends Component {
 
   componentDidMount() {
     this.props.retrieveUserMe();
+    this.requestOmicAndFeedbackUrl();
+  }
+
+  requestOmicAndFeedbackUrl() {
+    axios.get('/config').then(response => {
+      this.props.setOmicUrl(response.data.omicUrl);
+      this.props.setFeedbackUrl(response.data.url);
+    });
   }
 
   resizeWindow() {
@@ -100,6 +111,8 @@ const mapDispatchToProps = (dispatch) => ({
   setDeviceFormat: (format) => dispatch(setDeviceFormat(format)),
   hideTermsAndConditions: () => dispatch(hideTerms()),
   showTermsAndConditions: () => dispatch(showTerms()),
+  setFeedbackUrl: (url) => dispatch(setFeedbackUrl(url)),
+  setOmicUrl: (url) => dispatch(setOmicUrl(url)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

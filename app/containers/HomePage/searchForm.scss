@@ -74,3 +74,19 @@
     width: 100%;
   }
 }
+
+.kw-manager-box {
+  padding: 0.5em;
+  background-color: $highlight-colour;
+  border: 0.15em solid #BFC1C3;
+  margin-top: 1em;
+
+  /* .heading-large {
+     margin-top: 0em !important;
+     margin-bottom: 1em !important;
+   }*/
+
+  @include media-breakpoint-down(sm) {
+    height: 5em;
+  }
+}

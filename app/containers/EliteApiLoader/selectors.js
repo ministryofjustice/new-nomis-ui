@@ -205,6 +205,11 @@ const selectUserCaseLoads = () => createSelector(
   }
 );
 
+const selectUserRoles = () => createSelector(
+  selectUser(),
+  (userState) => userState.getIn(['Roles', 'Data'])
+);
+
 const selectLoadingBookingDetailsStatus = () => createSelector(
    selectEliteApi(),
   (state) => state.getIn(['Bookings','Details','LoadingStatus'])
@@ -237,6 +242,7 @@ export {
   selectCaseNoteTypes,
   selectCaseNoteTypesSelect,
   selectUserCaseLoads,
+  selectUserRoles,
   selectLoadingBookingDetailsStatus,
   selectUsersTypesAndSubTypes,
   selectAppointmentTypesAndLocations,

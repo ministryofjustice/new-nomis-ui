@@ -79,16 +79,16 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/feedbackUrl', (req,res) => {
+app.use('/config', (req,res) => {
   const url = config.app.feedbackUrl;
-
-  if (!url) {
+  const omicUrl = config.apis.keyworker.ui_url;
+  if (!url && !omicUrl) {
     res.end();
     return;
   }
-
   res.json({
     url,
+    omicUrl,
   });
 });
 

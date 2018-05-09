@@ -9,6 +9,7 @@ const SET_SEARCH_CONTEXT = 'globalReducer/app/SET_SEARCH_CONTEXT';
 const SET_SPINNER_VISIBILITY = 'globalReducer/app/SET_SPINNER_VISIBILITY';
 const SET_TERMS_VISIBILITY = 'globalReducer/app/SET_TERMS_VISIBILITY';
 const SET_FEEDBACK_URL = 'globalReducer/app/SET_FEEDBACK_URL';
+const SET_OMIC_URL = 'app/Authentication/HomePage/SET_OMIC_URL';
 
 // Initial State
 const initialState = fromJS({
@@ -49,6 +50,8 @@ export default function appReducer(state = initialState, action) {
       return state.set('shouldShowTerms', action.payload);
     case SET_FEEDBACK_URL:
       return state.set('feedbackUrl', action.payload);
+    case SET_OMIC_URL:
+      return state.set('omicUrl', action.url);
     default:
       return state;
   }
@@ -103,4 +106,9 @@ export const hideTerms = () => ({
 export const setFeedbackUrl = (payload) => ({
   type: SET_FEEDBACK_URL,
   payload,
+});
+
+export const setOmicUrl = (url) => ({
+  type: SET_OMIC_URL,
+  url,
 });

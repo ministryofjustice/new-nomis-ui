@@ -1,16 +1,9 @@
 import React from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
-import { setFeedbackUrl } from 'globalReducers/app';
 
 import './index.scss';
 
-export const FeedbackLink = ({ user, feedbackUrl, requestFeedbackUrl, openWindow }) => {
-  if (user && !feedbackUrl) {
-    requestFeedbackUrl();
-  }
-
-  return (user && feedbackUrl &&
+export const FeedbackLink = ({ user, feedbackUrl, openWindow }) => (user && feedbackUrl &&
     <div className="feedback-link">
       <div className="container">
         <div className="main-content">
@@ -24,21 +17,13 @@ export const FeedbackLink = ({ user, feedbackUrl, requestFeedbackUrl, openWindow
             > feedback </a> will to help us improve this service. </span>
         </div>
       </div>
-    </div>) || <div></div>;
-}
+    </div>) || <div></div>
 
 class FeedbackLinkContainer extends React.Component {
 
   constructor() {
     super();
-    this.requestFeedbackUrl = this.requestFeedbackUrl.bind(this);
     this.openWindow = this.openWindow.bind(this);
-  }
-
-  requestFeedbackUrl() {
-    axios.get('/feedbackUrl').then(response => {
-      this.props.setFeedbackUrl(response.data.url);
-    });
   }
 
   openWindow(url) {
@@ -49,7 +34,6 @@ class FeedbackLinkContainer extends React.Component {
 
   render() {
     return (<FeedbackLink
-      requestFeedbackUrl={this.requestFeedbackUrl}
       openWindow={this.openWindow}
       user={this.props.user}
       feedbackUrl={this.props.feedbackUrl}
@@ -66,8 +50,4 @@ const mapStateToProps = (imState) => {
   });
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  setFeedbackUrl: (url) => dispatch(setFeedbackUrl(url)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FeedbackLinkContainer);
+export default connect(mapStateToProps)(FeedbackLinkContainer);

@@ -6,8 +6,6 @@ import { createStructuredSelector } from 'reselect';
 import { LOAD_ASSIGNMENTS } from 'containers/Assignments/constants';
 import Name from 'components/Name';
 import { Link } from 'react-router';
-
-import { selectUser } from '../Authentication/selectors';
 import SearchForm from './SearchForm';
 
 import {
@@ -15,14 +13,20 @@ import {
 } from '../Bookings/actions';
 
 import {
-  selectLocations,
+  selectLocations, selectUserHomeInfo, selectOmicUrl,
 } from './selectors';
 
+import './homepage.scss';
 
 class HomePage extends Component {
 
   componentDidMount() {
     this.props.loadLocations();
+  }
+
+  userIsKeyworkerAdmin() {
+    return this.props.user && this.props.user.roles
+      && this.props.user.roles.findIndex(e => e.roleCode === 'KW_ADMIN') >= 0;
   }
 
   render() {
@@ -32,22 +36,32 @@ class HomePage extends Component {
       return <div></div>
     }
 
-    return (
+    return (<div>
+      <h1 className="heading-xlarge">Hello <Name firstName={user.firstName} /></h1>
+      <SearchForm locations={locations} />
       <div>
-        <h1 className="heading-xlarge">Hello <Name firstName={user.firstName} /></h1>
-        <SearchForm locations={locations} />
+        <h1 className="heading-medium"> Other Tasks </h1>
         <div className="assignment-box">
-          <h1 className="heading-large" > View your assignments </h1>
+          <h2 className="heading-medium"> View your assignments </h2>
 
           <ul className="list-bullet">
             <li>
               <Link className="link" to="/assignments">As Key Worker</Link>
             </li>
           </ul>
-
         </div>
+        {this.userIsKeyworkerAdmin() && this.props.omicUrl
+           && <div className="kw-manager-box col-sm-4">
+          <a href={this.props.omicUrl} >
+            {/* <div className="kw-manager-image" /> */}
+            <div className="kw-manager-image-box">
+              <img src="/img/manage-key-workers2x.png" />
+            </div>
+            <div className="kw-manager-text-box">Manage Key workers</div>
+          </a>
+        </div>}
       </div>
-    );
+    </div>);
   }
 }
 
@@ -68,8 +82,9 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  user: selectUser(),
+  user: selectUserHomeInfo(),
   locations: selectLocations(),
+  omicUrl: selectOmicUrl(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
