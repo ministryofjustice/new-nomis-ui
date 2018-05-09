@@ -88,7 +88,7 @@ app.use('/config', (req,res) => {
   }
   res.json({
     url,
-    omicUrl
+    omicUrl,
   });
 });
 
@@ -114,7 +114,7 @@ app.use(session.hmppsSessionMiddleWare);
 app.use(session.extendHmppsCookieMiddleWare);
 
 // Don't cache dynamic resources (except images which override this)
-//app.use(helmet.noCache());
+app.use(helmet.noCache());
 
 app.use('/app/keydates/:offenderNo', controller.keyDates);
 app.use('/app/bookings/details/:offenderNo', controller.bookingDetails);
