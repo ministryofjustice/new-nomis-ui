@@ -13,7 +13,7 @@ import {
 } from '../Bookings/actions';
 
 import {
-  selectLocations, selectUserHomeInfo, selectOmicUrl
+  selectLocations, selectUserHomeInfo, selectOmicUrl,
 } from './selectors';
 
 import './homepage.scss';
@@ -26,7 +26,7 @@ class HomePage extends Component {
 
   userIsKeyworkerAdmin() {
     return this.props.user && this.props.user.roles
-      && this.props.user.roles.findIndex(e => e.roleCode === "KW_ADMIN") >= 0;
+      && this.props.user.roles.findIndex(e => e.roleCode === 'KW_ADMIN') >= 0;
   }
 
   render() {
@@ -36,9 +36,9 @@ class HomePage extends Component {
       return <div></div>
     }
 
-    return <div>
-      <h1 className="heading-xlarge">Hello <Name firstName={user.firstName}/></h1>
-      <SearchForm locations={locations}/>
+    return (<div>
+      <h1 className="heading-xlarge">Hello <Name firstName={user.firstName} /></h1>
+      <SearchForm locations={locations} />
       <div>
         <h1 className="heading-medium"> Other Tasks </h1>
         <div className="assignment-box">
@@ -53,15 +53,15 @@ class HomePage extends Component {
         {this.userIsKeyworkerAdmin() && this.props.omicUrl
            && <div className="kw-manager-box col-sm-4">
           <a href={this.props.omicUrl} >
-            {/*<div className="kw-manager-image" />*/}
+            {/* <div className="kw-manager-image" /> */}
             <div className="kw-manager-image-box">
-              <img src="/img/manage-key-workers2x.png"/>
+              <img src="/img/manage-key-workers2x.png" />
             </div>
             <div className="kw-manager-text-box">Manage Key workers</div>
           </a>
         </div>}
       </div>
-    </div>;
+    </div>);
   }
 }
 
@@ -72,7 +72,6 @@ HomePage.defaultProps = {
 HomePage.propTypes = {
   loadLocations: PropTypes.func,
   locations: PropTypes.array.isRequired,
-  omicUrl: PropTypes.string,
 };
 
 export function mapDispatchToProps(dispatch) {

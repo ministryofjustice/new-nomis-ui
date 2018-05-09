@@ -249,5 +249,5 @@ export default [
   userCaseLoadsWatcher,
   userSwitchCaseLoadsWatcher,
   loadAppointmentsViewModalWatcher,
-  userRolesWatcher
+  userRolesWatcher,
 ];

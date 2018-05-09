@@ -16,8 +16,8 @@ import Spinner from 'components/Spinner';
 import Terms from 'containers/Footer/terms-and-conditions';
 import { hideTerms, showTerms } from 'globalReducers/app';
 import FeedbackLink from 'containers/FeedbackLink';
-import axios from "axios/index";
-import {setFeedbackUrl, setOmicUrl} from "../../globalReducers/app";
+import axios from 'axios/index';
+import { setFeedbackUrl, setOmicUrl } from '../../globalReducers/app';
 
 class App extends Component {
   constructor(props) {

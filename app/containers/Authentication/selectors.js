@@ -3,14 +3,10 @@ import { createSelector } from 'reselect';
 
 const selectLogin = () => (state) => state.get('authentication');
 
-const selectUser = () => {
-  return createSelector(
+const selectUser = () => createSelector(
     selectLogin(),
-    (loginState) => {
-      return loginState.get('user');
-    }
+    (loginState) => loginState.get('user')
   );
-};
 
 const selectUsername = () => createSelector(
   selectLogin(),
@@ -32,6 +28,5 @@ export {
   selectUser,
   selectUsername,
   selectPassword,
-  selectOmicUrl,
   selectActiveCaseLoad,
 };

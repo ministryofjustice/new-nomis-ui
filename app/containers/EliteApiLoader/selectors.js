@@ -207,9 +207,7 @@ const selectUserCaseLoads = () => createSelector(
 
 const selectUserRoles = () => createSelector(
   selectUser(),
-  (userState) => {
-    return userState.getIn(['Roles', 'Data']);
-  }
+  (userState) => userState.getIn(['Roles', 'Data'])
 );
 
 const selectLoadingBookingDetailsStatus = () => createSelector(

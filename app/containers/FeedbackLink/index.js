@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setFeedbackUrl } from 'globalReducers/app';
 
 import './index.scss';
 
-export const FeedbackLink = ({ user, feedbackUrl, requestFeedbackUrl, openWindow }) => {
-  return (user && feedbackUrl &&
+export const FeedbackLink = ({ user, feedbackUrl, openWindow }) => (user && feedbackUrl &&
     <div className="feedback-link">
       <div className="container">
         <div className="main-content">
@@ -19,8 +17,7 @@ export const FeedbackLink = ({ user, feedbackUrl, requestFeedbackUrl, openWindow
             > feedback </a> will to help us improve this service. </span>
         </div>
       </div>
-    </div>) || <div></div>;
-}
+    </div>) || <div></div>
 
 class FeedbackLinkContainer extends React.Component {
 
@@ -37,7 +34,6 @@ class FeedbackLinkContainer extends React.Component {
 
   render() {
     return (<FeedbackLink
-      requestFeedbackUrl={this.requestFeedbackUrl}
       openWindow={this.openWindow}
       user={this.props.user}
       feedbackUrl={this.props.feedbackUrl}
