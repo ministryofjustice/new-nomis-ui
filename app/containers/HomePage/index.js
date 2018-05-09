@@ -11,31 +11,22 @@ import SearchForm from './SearchForm';
 import {
   loadLocations,
 } from '../Bookings/actions';
-import {setOmicUrl} from "../Authentication/actions";
 
 import {
   selectLocations, selectUserHomeInfo, selectOmicUrl
 } from './selectors';
-import axios from "axios/index";
 
 import './homepage.scss';
 
 class HomePage extends Component {
 
   componentDidMount() {
-    this.requestOmicUrl();
     this.props.loadLocations();
   }
 
   userIsKeyworkerAdmin() {
     return this.props.user && this.props.user.roles
       && this.props.user.roles.findIndex(e => e.roleCode === "KW_ADMIN") >= 0;
-  }
-
-  requestOmicUrl() {
-    axios.get('/config').then(response => {
-      this.props.setOmicUrl(response.data.omicUrl);
-    });
   }
 
   render() {
@@ -88,7 +79,6 @@ export function mapDispatchToProps(dispatch) {
   return {
     test: () => dispatch({ type: LOAD_ASSIGNMENTS, payload: {} }),
     loadLocations: () => dispatch(loadLocations()),
-    setOmicUrl: (url) => dispatch(setOmicUrl(url)),
   };
 }
 

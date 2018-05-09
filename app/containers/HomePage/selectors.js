@@ -4,6 +4,7 @@ import {selectUserCaseLoads, selectUserRoles} from "../EliteApiLoader/selectors"
 import {selectAssignmentsTotal} from "../Assignments/selectors";
 
 const selectHome = () => (state) => state.get('home');
+const selectApp = () => (state) => state.get('app');
 
 const selectLocations = () => createSelector(
   selectHome(),
@@ -26,9 +27,9 @@ const selectUserHomeInfo = () => createSelector(
 
 const selectOmicUrl = () => {
   return createSelector(
-    selectHome(),
-    (homeState) => {
-      return homeState.get('omicUrl');
+    selectApp(),
+    (appState) => {
+      return appState.get('omicUrl');
     }
   );
 };
