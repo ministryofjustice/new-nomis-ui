@@ -21,6 +21,7 @@ const controller = require('./controller');
 const session = require('./session');
 const config = require('./config');
 const clientVersionValidator = require('./middlewares/validate-client-version');
+const buildNumber = require('./application-version');
 
 const sixtyDaysInSeconds = 5184000;
 const sessionExpiryMinutes = config.session.expiryMinutes * 60 * 1000;
@@ -69,8 +70,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cookieSession(sessionConfig));
 
-app.use(clientVersionValidator);
-
 app.use(express.static(path.join(__dirname, '../public')));
 
 // Update a value in the cookie so that the set-cookie will be sent.
@@ -80,16 +79,16 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/feedbackUrl', (req,res) => {
+app.use('/config', (req,res) => {
   const url = config.app.feedbackUrl;
-
-  if (!url) {
+  const omicUrl = config.apis.keyworker.ui_url;
+  if (!url && !omicUrl) {
     res.end();
     return;
   }
-
   res.json({
     url,
+    omicUrl,
   });
 });
 
@@ -101,6 +100,15 @@ app.use('/api/swagger.json', apiProxy);
 app.get('/login', session.loginMiddleware, controller.loginIndex);
 app.post('/login', controller.login);
 app.get('/logout', controller.logout);
+
+app.use(clientVersionValidator);
+
+// Update values in the cookie so that the set-cookie will be sent.
+app.use((req, res, next) => {
+  // Keep track of when a server update occurs. Changes rarely.
+  req.session.applicationVersion = buildNumber;
+  next();
+});
 
 app.use(session.hmppsSessionMiddleWare);
 app.use(session.extendHmppsCookieMiddleWare);

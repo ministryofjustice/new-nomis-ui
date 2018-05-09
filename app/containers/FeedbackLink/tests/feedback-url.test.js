@@ -4,32 +4,6 @@ import { Map } from 'immutable';
 import FeedbackLinkContainer, { FeedbackLink } from '../index';
 
 describe('Feedback link', () => {
-  it('should not request the url when the user and feedbackUrl props has not been set', () => {
-    const requestFeedbackUrl = jest.fn();
-
-    shallow(<FeedbackLink requestFeedbackUrl={requestFeedbackUrl} />);
-
-    expect(requestFeedbackUrl).toHaveBeenCalledTimes(0);
-  });
-
-  it('should request the url when the user and url prop has been set', () => {
-    const requestFeedbackUrl = jest.fn();
-    const user = {};
-
-    shallow(<FeedbackLink requestFeedbackUrl={requestFeedbackUrl} user={user} />);
-
-    expect(requestFeedbackUrl).toHaveBeenCalledTimes(1);
-  });
-
-  it('should not request the url when the url and user has been set', () => {
-    const requestFeedbackUrl = jest.fn();
-    const user = {};
-
-    shallow(<FeedbackLink requestFeedbackUrl={requestFeedbackUrl} user={user} feedbackUrl={'http://google.com'} />);
-
-    expect(requestFeedbackUrl).toHaveBeenCalledTimes(0);
-  });
-
   it('should call openWindow on click with the correct url', () => {
     const url = 'http://google.com';
     const openWindow = jest.fn();
@@ -64,17 +38,18 @@ describe('Feedback link', () => {
   it('should pass the correct properties down to <FeedbackLink />', () => {
     const store = {
       getState: jest.fn(() => Map({
-        authentication: {},
-        app: {},
+        authentication: { user: 'user' },
+        app: { feedbackUrl: 'url' },
       })),
       dispatch: jest.fn(),
       subscribe: jest.fn(),
     };
-    
-    const component = mount(<FeedbackLinkContainer store={store} />);
+
+    const component = mount(<FeedbackLinkContainer store={store} user={'user'} feedbackUrl={'url'} />);
     const properties = component.find(FeedbackLink).props();
 
-    expect(typeof properties.requestFeedbackUrl).toBe('function');
+    expect(typeof properties.user).toBe('string');
+    expect(typeof properties.feedbackUrl).toBe('string');
     expect(typeof properties.openWindow).toBe('function');
   });
 });

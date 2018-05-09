@@ -57,14 +57,6 @@ describe('Create appointment validation', () => {
     expect(error.endTime).toBe('End time shouldn\'t be before Start time');
   });
 
-  it('should ensure a valid event date is entered', () => {
-    const error = validate(Map({
-      eventDate: 'aljshdflakhdKJHFD',
-    }));
-
-    expect(error.eventDate).toBe('Please enter a valid date');
-  });
-
   it('should ensure the correct error message when there are no locations available', () => {
     const error = validate(Map({}), { viewModel: { locations: [] } });
 

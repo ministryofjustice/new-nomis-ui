@@ -7,11 +7,12 @@ import moment from 'moment';
 import { toFullName } from 'utils/stringUtils';
 
 import Select from 'components/FormComponents/SelectWithLabel';
-import DatePicker from 'components/FormComponents/DatePicker';
+import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from 'components/FormComponents/DatePicker';
 import TimePicker from 'components/FormComponents/TimePicker';
 import { TextArea } from 'components/FormComponents';
 
-import { DATE_ONLY_FORMAT_SPEC, DATE_TIME_FORMAT_SPEC } from 'containers/App/constants';
+import { DATE_TIME_FORMAT_SPEC } from 'containers/App/constants';
+
 import { loadAppointmentViewModel } from 'containers/EliteApiLoader/actions';
 import { APPOINTMENT } from 'containers/EliteApiLoader/constants';
 
@@ -119,6 +120,8 @@ class AddAppointment extends Component {
               title="Select date"
               component={DatePicker}
               locale={locale}
+              format={momentToLocalizedDate(locale)}
+              parse={localizedDateToMoment(locale)}
               shouldShowDay={(date) => date.isAfter(moment().subtract('days',1))}
 
             />
@@ -216,7 +219,7 @@ const mapStateToProps = (immutableState, props) => {
     eventDate,
     viewModel,
   }
-}
+};
 
 export const validate = (form, props) => {
   if (!form) return {};
@@ -224,7 +227,7 @@ export const validate = (form, props) => {
   const { startTime, endTime, appointmentType, location, eventDate, comment } = form.toJS();
   const error = {};
   const now = moment();
-  const isToday = moment(eventDate, DATE_ONLY_FORMAT_SPEC).isSame(now, 'day');
+  const isToday = eventDate ? eventDate.isSame(now, 'day') : false;
 
   if (!appointmentType) {
     error.appointmentType = 'Please select an appointment type';
@@ -240,10 +243,13 @@ export const validate = (form, props) => {
 
   if (!eventDate) {
     error.eventDate = 'Please select a date';
-  }
-
-  if (eventDate && moment(eventDate, DATE_ONLY_FORMAT_SPEC).isValid() === false) {
-    error.eventDate = 'Please enter a valid date';
+  } else {
+    if (eventDate.isValid() === false) {
+      error.eventDate = 'Please enter a valid date';
+    }
+    if (eventDate.isBefore(now, 'day')) {
+      error.eventDate = "Date shouldn't be in the past";
+    }
   }
 
   if (!startTime) {
@@ -256,10 +262,6 @@ export const validate = (form, props) => {
 
   if (isToday && moment(endTime).isBefore(now)) {
     error.endTime = "End time shouldn't be in the past";
-  }
-
-  if (moment(eventDate, DATE_ONLY_FORMAT_SPEC).isBefore(now, 'day')) {
-    error.eventDate = "Date shouldn't be in the past";
   }
 
   if (moment(endTime, DATE_TIME_FORMAT_SPEC).isBefore(moment(startTime, DATE_TIME_FORMAT_SPEC), 'minute')) {

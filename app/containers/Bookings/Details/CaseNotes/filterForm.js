@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import DatePicker from 'components/FormComponents/DatePicker';
+import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from 'components/FormComponents/DatePicker';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form/immutable';
@@ -74,17 +74,21 @@ const FilterForm = ({ handleSubmit, submitting, error, caseNoteFilters, locale, 
               showError={dateRangeNotValid}
               component={DatePicker}
               locale={locale}
+              format={momentToLocalizedDate(locale)}
+              parse={localizedDateToMoment(locale)}
               title="From"
-              shouldShowDay={(date) => date.isBefore(moment())}
+              shouldShowDay={(date) => date && date.isBefore(moment())}
             />
 
             <Field
               name="endDate"
               showError={dateRangeNotValid}
               component={DatePicker}
+              format={momentToLocalizedDate(locale)}
+              parse={localizedDateToMoment(locale)}
               locale={locale}
               title="To"
-              shouldShowDay={(date) => date.isBefore(moment())}
+              shouldShowDay={(date) => date && date.isBefore(moment())}
             />
           </div>
 
@@ -128,11 +132,10 @@ FilterForm.defaultProps = {
 export const validate = (form) => {
   const errors = {};
 
-  const values = form.toJS();
-  const startDate = moment(values.startDate, DATE_ONLY_FORMAT_SPEC);
-  const endDate = moment(values.endDate, DATE_ONLY_FORMAT_SPEC);
+  const startDate = form.get('startDate');
+  const endDate = form.get('endDate');
 
-  if (endDate.isBefore(startDate,'day')) {
+  if (endDate && startDate && endDate.isBefore(startDate,'day')) {
     errors._error = {
       dateRangeValid: false,
     };
@@ -150,21 +153,27 @@ export function mapDispatchToProps(dispatch, props) {
       dispatch(resetCaseNoteFilterFormField('endDate'));
     },
     validate,
-    onSubmit: createFormAction((formData) => (
-      {
+    onSubmit: createFormAction((formData) => {
+      const startDateMoment = formData.get('startDate');
+      const startDate = startDateMoment ? startDateMoment.format(DATE_ONLY_FORMAT_SPEC) : '';
+      const endDateMoment = formData.get('endDate');
+      const endDate = endDateMoment ? endDateMoment.format(DATE_ONLY_FORMAT_SPEC) : '';
+
+      return {
         type: CASE_NOTE_FILTER.BASE,
         payload: {
           offenderNo: props.offenderNo,
-          query: {            
+          query: {
             perPage: 10,
             pageNumber: 0,
-            startDate: formData.toJS().startDate,
-            endDate: formData.toJS().endDate,
-            type: formData.toJS().typeValue,
-            subType: formData.toJS().subTypeValue,
-          }, 
+            startDate,
+            endDate,
+            type: formData.get('typeValue'),
+            subType: formData.get('subTypeValue'),
+          },
         },
-      }), [CASE_NOTE_FILTER.SUCCESS, CASE_NOTE_FILTER.ERROR]),
+      }
+    }, [CASE_NOTE_FILTER.SUCCESS, CASE_NOTE_FILTER.ERROR]),
   };
 }
 
