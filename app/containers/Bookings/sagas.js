@@ -152,6 +152,7 @@ export function* addCasenoteSaga(action) {
   const { typeAndSubType: { type, subType }, caseNoteText: text, startTime } = action.payload.query;
   const offenderNo = action.payload.offenderNo;
   const apiServer = yield select(selectApi());
+
   try {
     yield call(addCaseNote, apiServer, offenderNo, type, subType, text, startTime);
 
@@ -342,16 +343,13 @@ export function* onAmendCaseNote(action) {
 
   try {
     yield call(amendCaseNote, apiServer, offenderNo, caseNoteId, amendmentText);
-    yield put({ type: AMEND_CASENOTE.SUCCESS });
-
-    yield put(loadBookingCaseNotes(offenderNo));
-
     yield put(push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}/${itemId || ''}`));
+
     yield notify.show('Case note has been amended successfully.', 'success');
   } catch (err) {
     yield put({
       type: AMEND_CASENOTE.ERROR,
-      payload: new SubmissionError({ _error: err.message || 'Unable to amend case note at this time.' }),
+      payload: new SubmissionError({ _error: err.response.data.message || 'Unable to amend case note at this time.' }),
     });
   }
 }

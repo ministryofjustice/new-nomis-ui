@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import uuid from 'uuid/v4';
 
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import CaseNoteListItem from 'components/Bookings/Details/CaseNotes/listItem';
@@ -29,8 +28,9 @@ const CaseNotes = (props) => {
         </div>
         <div className="add-gutter-top">
           {caseNotes.map((caseNote) => (<CaseNoteListItem
+            key={caseNote.get('caseNoteId')}
             action={() => setCaseNoteView(caseNote.get('caseNoteId'))}
-            caseNote={caseNote} key={uuid()}
+            caseNote={caseNote}
           />))}
         </div>
         <PreviousNextNavigation
