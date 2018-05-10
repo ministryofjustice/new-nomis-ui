@@ -20,8 +20,16 @@ const sessionHandler = (req, res) => {
     res.json(response.data);
   }).catch(error => {
     logger.error(error);
+
     res.status(retry.errorStatusCode(error));
-    res.end();
+
+    if (error.response && error.response.data) {
+      res.json({
+        message: error.response.data.userMessage,
+      });
+    } else {
+      res.end();
+    }
   })
 };
 

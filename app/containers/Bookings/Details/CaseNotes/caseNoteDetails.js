@@ -16,17 +16,15 @@ import {
 class CaseNotes extends Component {
 
   componentDidMount() {
-    const { offenderNo, caseNoteId, getCaseNote } = this.props;
-
-    if (offenderNo && caseNoteId) {
-      getCaseNote(offenderNo, caseNoteId);
-    }
+    this.tryLoadCaseNote({ ...this.props });
   }
 
   componentDidUpdate() {
-    const { offenderNo, caseNoteDetails, caseNoteId, getCaseNote } = this.props;
+    this.tryLoadCaseNote({ ...this.props });
+  }
 
-    if (!caseNoteDetails && caseNoteId) {
+  tryLoadCaseNote({ offenderNo, caseNoteId, getCaseNote, caseNoteDetails }) {
+    if (shouldLoadCaseNote({ offenderNo, caseNoteId, caseNoteDetails })) {
       getCaseNote(offenderNo, caseNoteId);
     }
   }
@@ -59,6 +57,7 @@ CaseNotes.propTypes = {
   viewList: PropTypes.func.isRequired,
 };
 
+const shouldLoadCaseNote = ({ offenderNo, caseNoteId, caseNoteDetails }) => !caseNoteDetails && caseNoteId && offenderNo;
 
 export function mapDispatchToProps(dispatch) {
   return {
