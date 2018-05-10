@@ -2233,9 +2233,9 @@ only screen and (min-resolution:2dppx) {
   flex-direction: column;
 }
 
+
 .inner-content {
   flex: 1 1 0;
-  max-width: 1200px;
   padding-left: 15px;
   padding-right: 15px;
 }
