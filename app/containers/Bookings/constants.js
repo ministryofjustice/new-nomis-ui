@@ -10,14 +10,18 @@ export const TOGGLE_SORT_ORDER = 'app/bookings/search/results/sortOrder';
 export const UPDATE_PAGINATION = 'app/bookings/search/results/pagination/update';
 
 export const VIEW_DETAILS = 'app/bookings/details/view';
-export const SET_DETAILS = 'app/bookings/details/set';
 export const LOAD_KEY_DATES = 'app/bookings/details/tab/load/keydates';
 export const SET_KEYDATES = 'app/bookings/details/tab/set/keydates';
 
 export const SET_SCHEDULED_EVENTS = 'app/bookings/details/scheduled-events/set';
 export const LOAD_SCHEDULED_EVENTS = 'app/bookings/details/scheduled-events/load';
 
-export const offenderImageUrl = (imageId) => `/app/images/${imageId}/data`;
+export const offenderImageUrl = (imageId) => {
+  if (imageId) {
+    return `/app/images/${imageId}/data`;
+  }
+  return '/app/images/placeholder/data';
+};
 
 export const DETAILS_TABS = {
   OFFENDER_DETAILS: 'personal',
@@ -33,9 +37,6 @@ export const DETAILS_TABS = {
 export const DETAILS_ERROR = 'app/bookings/details/error';
 export const LOAD_QUICK_LOOK = 'app/bookings/details/quicklook';
 export const SET_QUICK_LOOK = 'app/bookings/details/quicklook/set';
-
-export const SET_CASENOTES_PAGINATION = 'app/bookings/details/casenotes/pagination/set';
-export const UPDATE_CASENOTES_PAGINATION = 'app/bookings/details/casenotes/pagination/update';
 
 export const VIEW_CASENOTE_LIST = 'app/bookings/details/casenotes/view/list';
 
@@ -76,18 +77,3 @@ export const AMEND_CASENOTE = {
   SUCCESS: 'app/bookings/details/amendCaseNote/SUCCESS',
   ERROR: 'app/bookings/details/amendCaseNote/ERROR',
 };
-
-export const ALERTTYPES = {
-  BASE: 'app/eliteApiLoader/ALERTTYPES',
-  TYPE: {
-    LOADING: 'app/eliteApiLoader/ALERTTYPES/loading',
-    SUCCESS: 'app/eliteApiLoader/ALERTTYPES/success',
-    ERROR: 'app/eliteApiLoader/ALERTTYPES/error',
-  },
-  CODE: {
-    LOADING: 'app/eliteApiLoader/ALERTTYPES/CODES/loading',
-    SUCCESS: 'app/eliteApiLoader/ALERTTYPES/CODES/success',
-    ERROR: 'app/eliteApiLoader/ALERTTYPES/CODES/error',
-  },
-};
-

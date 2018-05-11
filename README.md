@@ -53,7 +53,7 @@ or with in `docker-compose.yml`  Examples are shown below:-
       - API_ENDPOINT_URL=http://elite2-api:8080/api/
       - USE_API_GATEWAY_AUTH=yes
       - NOMS_TOKEN=<secret token>
-      - NOMS_PRIVATE_KEY=<a private RSA key>
+      - API_GATEWAY_PRIVATE_KEY=<a private RSA key>
       
 ## CI Build
 The CI build will kick off on all pushes to the git repo. It will checkout, build dependancies and run the tests
