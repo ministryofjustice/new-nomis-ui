@@ -55,7 +55,7 @@ class HomePage extends Component {
           <a href={this.props.omicUrl} >
             {/* <div className="kw-manager-image" /> */}
             <div className="kw-manager-image-box">
-              <img src="/img/manage-key-workers2x.png" />
+              <img className="kw-img" src="/img/manage-key-workers2x.png" />
             </div>
             <div className="kw-manager-text-box">Manage Key workers</div>
           </a>

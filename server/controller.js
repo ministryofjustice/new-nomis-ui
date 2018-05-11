@@ -83,7 +83,7 @@ const fetchImage = ({ targetEndpoint, req, res }) => {
   const placeHolder = path.join(__dirname, './assets/images/image-missing.png');
   enableCaching(res);
 
-  if (!req.params.imageId) {
+  if (!req.params.imageId || req.params.imageId === 'placeholder') {
     res.sendFile(placeHolder);
   } else {
     retry.callApi({

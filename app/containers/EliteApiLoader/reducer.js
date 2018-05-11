@@ -177,10 +177,6 @@ function EliteApiReducer(state = initialState, action) {
       return state.setIn(['User', 'CaseLoads'], fromJS({ Status: { Type: 'ERROR', Error: action.payload.error } }));
     }
 
-    // not used? case USER.ROLES.LOADING: {
-    //   return state.setIn(['User', 'CaseLoads'], fromJS({ Status: { Type: 'LOADING' } }));
-    // }
-
     case USER.ROLES.SUCCESS: {
       return state.setIn(['User', 'Roles'], fromJS({ Status: { Type: 'SUCCESS' }, Data: action.payload.roles }));
     }
