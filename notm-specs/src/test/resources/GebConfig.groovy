@@ -39,6 +39,6 @@ driver = {
     new ChromeDriver()
 }
 
-baseUrl = "http://notm-dev.hmpps.dsd.test:3000/"
+baseUrl = "http://localhost:3000/"
 
 reportsDir = "build/geb-reports"
