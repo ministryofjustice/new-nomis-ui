@@ -120,7 +120,7 @@ const errorStatusCode = (error) => {
   }
 
   return 500;
-}
+};
 
 const service = {
   callApi,
