@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'enzyme';
 import { IntlProvider } from 'react-intl';
 import {
-  DateTimeBlock,
+  // DateTimeBlock,
   DateTimeBlock2,
 } from './sharedCaseNoteComponents';
 
