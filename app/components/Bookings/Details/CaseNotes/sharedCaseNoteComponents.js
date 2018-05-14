@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedDate, FormattedTime, injectIntl } from 'react-intl';
+import { FormattedDate, FormattedTime } from 'react-intl';
 import { FormattedDate as FormattedDate2, FormattedTime as FormattedTime2 } from 'components/intl'
-import moment from 'moment';
 
 import {
   TypeDescription,
@@ -20,19 +19,13 @@ export const DateTimeBlock = ({ dateTime }) => <div>
   </span>
 </div>;
 
-export const DateTimeBlock2 = injectIntl(
-  ({ dateTime, intl }) => {
-    const m = moment(dateTime);
-    m.locale(intl.locale);
-    return (
+export const DateTimeBlock2 = ({ dateTime }) => (
       <div>
         <span><FormattedDate2 value={dateTime} /></span>
         <span>{' - '}</span>
         <span><FormattedTime2 value={dateTime} /></span>
       </div>
-    )
-  });
-
+  );
 
 DateTimeBlock.propTypes = {
   dateTime: PropTypes.string.isRequired,
