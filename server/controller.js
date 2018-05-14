@@ -59,7 +59,6 @@ const login = async (req, res) => {
       logger.error(error);
       res.render('pages/login', { authError: false, apiUp: false });
     }
-    res.render('pages/login', { authError: true, apiUp: true });
   });
 };
 
