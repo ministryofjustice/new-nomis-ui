@@ -1,7 +1,7 @@
 import React from 'react';
 import uuid from 'uuid/v4';
 import { connect } from 'react-redux';
-import { FormattedDate } from 'react-intl';
+import { FormattedDate } from 'components/intl';
 
 import EliteImage from 'containers/EliteContainers/Image/index';
 import { offenderImageUrl } from 'containers/Bookings/constants';

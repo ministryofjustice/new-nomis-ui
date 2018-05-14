@@ -1,6 +1,6 @@
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { FormattedDate } from 'react-intl';
+import { FormattedDate } from 'components/intl';
 import uuid from 'uuid/v4';
 
 import { List } from 'immutable';
@@ -33,11 +33,11 @@ function AlertList({ alerts }) {
           <AlertCodeWrapper>
             <AlertCodeDescription>{alert.get('alertCodeDescription')} ({alert.get('alertCode')})</AlertCodeDescription>
             {alert.get('expired') ?
-              <AlertComment>Expired: <FormattedDate value={Date.parse(alert.get('dateExpires'))} /></AlertComment>
+              <AlertComment>Expired: <FormattedDate value={alert.get('dateExpires')} /></AlertComment>
               :
               <AlertComment>{alert.get('comment')}</AlertComment>
             }
-            <AlertEntryDate>Entry date: <FormattedDate value={Date.parse(alert.get('dateCreated'))} /></AlertEntryDate>
+            <AlertEntryDate>Entry date: <FormattedDate value={alert.get('dateCreated')} /></AlertEntryDate>
           </AlertCodeWrapper>
         </AlertItem>)
       )}

@@ -1,6 +1,6 @@
 import React,{ Component } from 'react';
 import { connect } from 'react-redux';
-import { FormattedDate } from 'react-intl';
+import { FormattedDate } from 'components/intl';
 import moment from 'moment';
 import { List } from 'immutable';
 import uuid from 'uuid/v4';

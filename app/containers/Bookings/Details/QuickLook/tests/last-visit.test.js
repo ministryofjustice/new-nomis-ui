@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import DisplayValue from 'components/FormComponents/DisplayValue';
-import { FormattedDate } from 'react-intl';
+import { FormattedDate } from 'components/intl';
 import { LastVisit } from '../index';
 
 describe('Last visit component', () => {

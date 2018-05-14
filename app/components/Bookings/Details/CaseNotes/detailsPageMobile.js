@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { FormattedDate, FormattedTime } from 'react-intl';
+import { FormattedDate, FormattedTime } from 'components/intl';
 
 import {
   CaseNoteDetailsWrapper,
@@ -16,7 +16,7 @@ import {
 } from './detailsPageMobile.theme';
 
 import {
-  DateTimeBlock,
+  DateTimeBlock2,
   TypeDescriptionBlock,
 } from './sharedCaseNoteComponents';
 
@@ -24,7 +24,7 @@ const AmendmentBlock = ({ dateTime, authorName, text }) => (<Amendment data-name
   <AmendmentTitle>{text}</AmendmentTitle>
   <AmendmentText>{authorName}</AmendmentText>
   <AmendmentText>
-    <FormattedDate value={Date.parse(dateTime)} /> <FormattedTime value={Date.parse(dateTime)} />
+    <FormattedDate value={dateTime} /> <FormattedTime value={dateTime} />
   </AmendmentText>
 </Amendment>);
 
@@ -48,7 +48,7 @@ function CaseNoteDetailsMobile(props) {
           <NavButton buttonstyle="link" to={'/amendCaseNote'}>Make amendment</NavButton>
         </ButtonWrapper>
         <DateTimeBlockWrapper data-name={'DateTimeBlockWrapper'}>
-          <DateTimeBlock data-name={'DateTimeBlock'} dateTime={occurrenceDateTime} />
+          <DateTimeBlock2 data-name={'DateTimeBlock'} dateTime={occurrenceDateTime} />
         </DateTimeBlockWrapper>
         <TypeDescriptionBlock style={{ fontSize: '30px' }} data-name={'TypeDescriptionBlock'} typeDetails={{ typeDescription, subTypeDescription }} />
         <CaseNoteText data-name={'CaseNoteText'}>{originalNoteText}</CaseNoteText>

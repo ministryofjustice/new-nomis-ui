@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { FormattedNumber, FormattedDate, FormattedTime } from 'react-intl';
+import { FormattedNumber } from 'react-intl';
+import { FormattedDate, FormattedTime } from 'components/intl';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v4';
 
@@ -71,7 +72,7 @@ export const Balances = ({ spends, cash, savings, currency }) =>
         </strong>
       </div>
     </div>
-  </div>)
+  </div>);
 
 export const OffenceDetails = ({ offences, releaseDate, indeterminateReleaseDate }) => (
   <div>
