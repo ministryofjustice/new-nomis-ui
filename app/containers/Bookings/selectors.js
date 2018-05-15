@@ -110,98 +110,6 @@ const selectHeaderDetail = () => createSelector(
   (bookingDetails) => bookingDetails && bookingDetails.get('Data').toJS()
 );
 
-const selectOffenderDetails = () => createSelector(
-  selectBookingDetail(),
-  intlSelector(),
-  (bookingDetails, { intl }) => {
-    const dateOfBirth = intl.formatDate(Date.parse(bookingDetails.getIn(['Data', 'dateOfBirth'])));
-    const age = bookingDetails.getIn(['Data', 'age']);
-    const religion = bookingDetails.getIn(['Data', 'religion']);
-    const ethnicity = bookingDetails.getIn(['Data', 'physicalAttributes', 'ethnicity']);
-    const gender = bookingDetails.getIn(['Data', 'physicalAttributes', 'gender']);
-
-    const assessments = bookingDetails.getIn(['Data', 'assessments']).map((assessment) => {
-      const value = assessment.get('classification');
-      const code = assessment.get('assessmentCode');
-      const title = assessment.get('assessmentDesc');
-      return { key: [value, code, title].join('-'), title, value };
-    });
-    const aliases = bookingDetails.getIn(['Data', 'aliases']).toJS();
-    const physicalAttributes = bookingDetails.getIn(['Data', 'physicalAttributes']).toJS();
-    const physicalMarks = bookingDetails.getIn(['Data','physicalMarks']).toJS();
-    const physicalCharacteristics = bookingDetails.getIn(['Data','physicalCharacteristics']).toJS();
-    const activeAlertCount = bookingDetails.getIn(['Data','activeAlertCount']);
-    const inactiveAlertCount = bookingDetails.getIn(['Data','inactiveAlertCount']);
-
-    return {
-      dateOfBirth,
-      age,
-      religion,
-      gender,
-      ethnicity,
-      assessments,
-      aliases,
-      physicalAttributes,
-      physicalMarks,
-      physicalCharacteristics,
-      activeAlertCount,
-      inactiveAlertCount,
-    }
-  }
-);
-
-const selectOffenderDetailsMobile = () => createSelector(
-  selectBookingDetail(),
-  intlSelector(),
-  (bookingDetails, { intl }) => {
-    // Mash data into what is needed for the DataGridViewComponent.
-    // date of birth
-    const dateOfBirth = intl.formatDate(Date.parse(bookingDetails.getIn(['Data', 'dateOfBirth'])));
-    // age
-    const age = bookingDetails.getIn(['Data', 'age']);
-    // gender
-    const gender = bookingDetails.getIn(['Data', 'physicalAttributes', 'gender']);
-    // categorisation
-    // csra
-    const ethnicity = bookingDetails.getIn(['Data', 'physicalAttributes', 'ethnicity']);
-
-    const personalGrid = [{
-      key: 'dateOfBirth',
-      title: 'Date of birth',
-      value: dateOfBirth,
-    }, {
-      key: 'age',
-      title: 'Age',
-      value: age.toString(),
-    },
-    {
-      key: 'gender',
-      title: 'Gender',
-      value: gender,
-    },
-    {
-      key: 'ethnicity',
-      title: 'Ethnicity',
-      value: ethnicity,
-    },
-    ];
-
-    const aliases = bookingDetails.getIn(['Data', 'aliases']).toJS();
-
-    const aliasGrid = aliases.map((alias, index) => {
-      //eslint-disable-next-line
-      const { firstName, lastName, age: aliasAge, ethnicity, nameType } = alias;
-      const name = toFullName({ firstName, lastName });
-      return { key: `${firstName + lastName + aliasAge + ethnicity + nameType + index}`, title: nameType, values: [{ name }] };
-    });
-
-    return {
-      personalGrid,
-      aliasGrid,
-    };
-  }
-);
-
 const selectPhysicalAttributes = () => createSelector(
   selectBookingDetail(),
   (bookingDetails) => {
@@ -307,8 +215,6 @@ export {
   selectSearchResultsTotalRecords,
   selectResultsView,
   selectBookingDetail,
-  selectOffenderDetails,
-  selectOffenderDetailsMobile,
   selectPhysicalAttributes,
   selectPhysicalMarks,
   selectHeaderDetail,
