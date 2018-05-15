@@ -49,7 +49,6 @@ class LoginSpecification extends GebReportingSpec {
 
         given: 'I am on the Login page'
         to LoginPage
-        log.info("******SDAR starting test")
 
         elite2api.stubValidOAuthTokenRequest(ITAG_USER)
         elite2api.stubGetMyDetails(ITAG_USER)
