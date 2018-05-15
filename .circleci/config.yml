@@ -64,6 +64,9 @@ jobs:
           name: Run the node app.
           command: yarn start
           background: true
+      - run:
+          name: Wait for node app to start
+          command: sleep 20
       - restore_cache:
           key: gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
       - restore_cache:
@@ -86,7 +89,7 @@ jobs:
           path: notm-specs/build/geb-reports
           destination: integration/geb
       - store_test_results:
-          path: notm-specs/build/geb-reports
+          path: notm-specs/build/test-results
 
   deploy_release:
       <<: *defaults
