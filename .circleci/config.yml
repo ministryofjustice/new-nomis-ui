@@ -67,16 +67,16 @@ jobs:
       - restore_cache:
           key: gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
       - restore_cache:
-          key: gradle-cache-{{ checksum "keyworker-specs/build.gradle" }}
+          key: gradle-cache-{{ checksum "notm-specs/build.gradle" }}
       - run:
           name: Run Integration Tests
-          command: ./gradlew build
+          command: ./gradlew build --info
       - save_cache:
           key: gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
           paths:
               - /home/circleci/.gradle/wrapper
       - save_cache:
-          key: gradle-cache-{{ checksum "keyworker-specs/build.gradle" }}
+          key: gradle-cache-{{ checksum "notm-specs/build.gradle" }}
           paths:
               - /home/circleci/.gradle/caches
       - store_artifacts:
@@ -86,8 +86,7 @@ jobs:
           path: notm-specs/build/geb-reports
           destination: integration/geb
       - store_test_results:
-          paths:
-            - notm-specs/build/geb-reports
+          path: notm-specs/build/geb-reports
 
   deploy_release:
       <<: *defaults
