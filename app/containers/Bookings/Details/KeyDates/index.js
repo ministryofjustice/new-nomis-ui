@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { FormattedDate } from 'react-intl';
+import { FormattedDate } from 'components/intl';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v4';
 import { Map } from 'immutable';
@@ -26,7 +26,7 @@ const KeyDatePair = ({ title, text, date }) => (
       <FormattedDate value={date} />
     </b>}
     </span>
-  </div>)
+  </div>);
 
 const ErrorMessage = () => (<div>
   <div className="error-summary">
@@ -34,7 +34,7 @@ const ErrorMessage = () => (<div>
       There was a problem trying to retrieve the key dates information.
     </div>
   </div>
-</div>)
+</div>);
 
 
 const SentenceView = ({ additionalDaysAwarded, dtoReleaseDates, nonDtoReleaseDate, sentenceExpiryDates, other,reCategorisationDate }) => {
@@ -73,7 +73,7 @@ const SentenceView = ({ additionalDaysAwarded, dtoReleaseDates, nonDtoReleaseDat
       </div>
     </div>
   )
-}
+};
 
 class KeyDates extends Component {
   componentDidMount() {

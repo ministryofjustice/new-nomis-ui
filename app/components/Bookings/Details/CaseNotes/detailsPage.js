@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { FormattedDate, FormattedTime } from 'react-intl';
+import { FormattedDate, FormattedTime } from 'components/intl';
 
 import { DETAILS_TABS } from 'containers/Bookings/constants';
 
 import {
-  DateTimeBlock,
+  DateTimeBlock2,
 } from './sharedCaseNoteComponents';
 
 import './details-page.scss';
@@ -20,7 +20,7 @@ const AmendmentBlock = ({ dateTime, authorName, text }) => (<div className="row 
       {text}
     </p>
     <h2 className="heading-small">
-      <DateTimeBlock dateTime={dateTime} />
+      <DateTimeBlock2 dateTime={dateTime} />
     </h2>
 
     <div>
@@ -82,7 +82,7 @@ const CaseNoteDetails = (props) => {
           </p>
 
           <h2 className="heading-small">
-            <DateTimeBlock dateTime={creationDateTime} />
+            <DateTimeBlock2 dateTime={creationDateTime} />
           </h2>
 
           <div>
@@ -106,7 +106,7 @@ const CaseNoteDetails = (props) => {
       </div>
     </div>
   );
-}
+};
 
 CaseNoteDetails.propTypes = {
   caseNote: PropTypes.object.isRequired,

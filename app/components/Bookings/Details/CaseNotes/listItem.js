@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import uuid from 'uuid/v4';
-import { FormattedDate, FormattedTime } from 'react-intl';
+import { FormattedDate, FormattedTime } from 'components/intl';
 
 const Block = styled.div`
    margin-bottom: .5em;
@@ -83,7 +83,7 @@ function AmendmentBlock({ amendment }) {
           { shouldShowTime && (
             <div>
               <strong>
-                <FormattedDate value={Date.parse(amendment.creationDateTime)} />
+                <FormattedDate value={amendment.creationDateTime} />
               </strong>
                 <span>&nbsp;-&nbsp;</span>
               <strong>
@@ -124,7 +124,7 @@ function CaseNoteListItem(props) {
         <Block className="col-xs-12 col-md-2">
           <Bold>
             <span className="col-md-12">
-              <FormattedDate value={Date.parse(creationDateTime)} />
+              <FormattedDate value={creationDateTime} />
             </span>
             <Separator className="hidden-md hidden-lg hidden-lx"> </Separator>
             <span className="col-md-12">
