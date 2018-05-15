@@ -42,9 +42,6 @@ jobs:
           path: scss-report.txt
       - store_artifacts:
           path: eslint-report.html
-      - store_test_results:
-          paths:
-            - notm-specs/build/geb-reports
       - persist_to_workspace:
           root: .
           paths:
