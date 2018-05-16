@@ -31,20 +31,17 @@ class LoginSpecification extends GebReportingSpec {
         at LoginPage
     }
 
-    def "Default URI redirects to Login page"() {
-
+   def "Default URI redirects to Login page"() {
         elite2api.stubHealthCheck()
-
 
         when: "I go to the website URL using an empty path"
         go '/'
 
         then: 'The Login page is displayed'
         at LoginPage
-    }
+   }
 
    def "Log in with valid credentials"() {
-
         elite2api.stubHealthCheck()
 
         given: 'I am on the Login page'
@@ -60,8 +57,7 @@ class LoginSpecification extends GebReportingSpec {
         at HomePage
     }
 
-      def "Unknown user is rejected"() {
-
+    def "Unknown user is rejected"() {
         elite2api.stubHealthCheck()
 
         given: 'I am on the Login page'
