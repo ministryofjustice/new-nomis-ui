@@ -37,7 +37,6 @@ class Elite2Api extends WireMockRule {
                         .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
                         .withRequestBody(equalTo("username=${user.username}&password=password&grant_type=password"))
                         .willReturn(response))
-
     }
 
     void stubInvalidOAuthTokenRequest(UserAccount user, boolean badPassword = false) {
@@ -61,8 +60,13 @@ class Elite2Api extends WireMockRule {
 
     void stubHealthCheck() {
          stubFor(
-               get('/health')
-                .willReturn(aResponse().withStatus(200))
+                get('/health')
+                  .willReturn(aResponse()
+                    .withStatus(200)
+                    .withBody('''{"name":"elite2-web","version":"1.0.14","description":"Elite 2 Web",
+"api":{"status":"UP","healthInfo":{"status":"UP","version":"2018-05-15"},
+"diskSpace":{"status":"UP","total":510923390976,"free":114173091840,"threshold":10485760},
+"db":{"status":"UP","database":"HSQL Database Engine","hello":4}}}'''))
         )
     }
 
@@ -70,8 +74,7 @@ class Elite2Api extends WireMockRule {
         stubFor(
                 get('/api/users/me')
                         .withHeader('authorization', equalTo('bearer RW_TOKEN'))
-                        .willReturn(
-                        aResponse()
+                        .willReturn(aResponse()
                                 .withStatus(200)
                                 .withHeader('Content-Type', 'application/json')
                                 .withBody(JsonOutput.toJson([
@@ -89,8 +92,7 @@ class Elite2Api extends WireMockRule {
                         .willReturn(aResponse()
                                 .withStatus(200)
                                 .withHeader('Content-Type', 'application/json')
-                                .withBody('''[
-                                        {
+                                .withBody('[' + JsonOutput.toJson([
                                                 locationId: 1,
                                                 locationType: "LEI",
                                                 description: "Leeds",
@@ -101,35 +103,41 @@ class Elite2Api extends WireMockRule {
                                                 locationPrefix: "string",
                                                 operationalCapacity: 0,
                                                 userDescription: "string"
-                                        }
-                                        ]''')))
+                                        ]) + ']')))
 
-           stubFor(
-                get('/api/users/me/caseLoads')
-                        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
-                        .willReturn(aResponse()
-                                .withStatus(200)
-                                .withHeader('Content-Type', 'application/json')
-                                .withBody('''[
-                                        {                                              
-                                                "caseLoadId": 1,
-                                                "description": "LEI",
-                                                "type": "LEI",
-                                                "caseloadFunction": "LEI"
+        stubFor(
+            get('/api/users/me/roles')
+                .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+                .willReturn(aResponse()
+                  .withStatus(200)
+                  .withHeader('Content-Type', 'application/json')
+                  .withBody('''[{
+                    "roleId": 0,
+                    "roleCode": "KW_ADMIN",
+                    "roleName": "Key worker admin",
+                    "parentRoleCode": "code",
+                    "caseloadId": "1"
+                  }]''')))
 
-                                        },
-                                        {                                              
-                                                "caseLoadId": 2,
-                                                "description": "X-LEI",
-                                                "type": "X-LEI",
-                                                "caseloadFunction": "X-LEI"
-
-                                        }
-                                        ]''')))
-
-
-                        
-                        
+        stubFor(
+             get('/api/users/me/caseLoads')
+                     .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+                     .willReturn(aResponse()
+                             .withStatus(200)
+                             .withHeader('Content-Type', 'application/json')
+                             .withBody('''[
+                                     {                                              
+                                             "caseLoadId": 1,
+                                             "description": "LEI",
+                                             "type": "LEI",
+                                             "caseloadFunction": "LEI"
+                                     },
+                                     {                                              
+                                             "caseLoadId": 2,
+                                             "description": "X-LEI",
+                                             "type": "X-LEI",
+                                             "caseloadFunction": "X-LEI"
+                                     }
+                                     ]''')))
     }
-
 }

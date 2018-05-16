@@ -49,6 +49,45 @@ jobs:
             - build
             - build-info.json
 
+  integration_tests:
+    working_directory: ~/app
+    docker:
+      - image: circleci/openjdk:8u162-jdk-node-browsers
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/app
+      - run:
+          name: Run the node app.
+          command: yarn start
+          background: true
+      - run:
+          name: Wait for node app to start
+          command: sleep 20
+      - restore_cache:
+          key: gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+      - restore_cache:
+          key: gradle-cache-{{ checksum "notm-specs/build.gradle" }}
+      - run:
+          name: Run Integration Tests
+          command: ./gradlew build --info
+      - save_cache:
+          key: gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+          paths:
+              - /home/circleci/.gradle/wrapper
+      - save_cache:
+          key: gradle-cache-{{ checksum "notm-specs/build.gradle" }}
+          paths:
+              - /home/circleci/.gradle/caches
+      - store_artifacts:
+          path: notm-specs/build/reports
+          destination: integration/spock
+      - store_artifacts:
+          path: notm-specs/build/geb-reports
+          destination: integration/geb
+      - store_test_results:
+          path: notm-specs/build/test-results
+
   deploy_release:
       <<: *defaults
       steps:
@@ -143,11 +182,15 @@ workflows:
                   - deploy-to-prod
                   - intergalactic
                   - client-release-.*
+      - integration_tests:
+          requires:
+            - build
       - build_docker:
           requires:
             - build
       - deploy_release:
           requires:
+            - integration_tests
             - build
           filters:
             branches:

@@ -16,7 +16,7 @@ module.exports = {
   },
   apis: {
     elite2: {
-      url: process.env.API_ENDPOINT_URL || 'http://localhost:3000',
+      url: process.env.API_ENDPOINT_URL || 'http://localhost:8080',
       clientId: process.env.API_CLIENT_ID || 'elite2apiclient',
       clientSecret: process.env.API_CLIENT_SECRET || 'clientsecret',
     },
