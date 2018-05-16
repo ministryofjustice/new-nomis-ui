@@ -1,6 +1,7 @@
 package specs
 
 import geb.spock.GebReportingSpec
+import groovy.util.logging.Slf4j
 import org.junit.Rule
 import spock.lang.Ignore
 import mockapis.Elite2Api
@@ -11,6 +12,7 @@ import pages.LoginPage
 import static model.UserAccount.ITAG_USER
 import static model.UserAccount.NOT_KNOWN
 
+@Slf4j
 class LoginSpecification extends GebReportingSpec {
 
     @Rule
