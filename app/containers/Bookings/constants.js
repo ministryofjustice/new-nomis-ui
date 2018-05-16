@@ -59,6 +59,7 @@ export const LOAD_CASE_NOTE = 'app/bookings/details/casenote/load';
 export const CASE_NOTE = {
   LOAD: 'LOAD_CASE_NOTE',
   SET: 'SET_CASE_NOTE',
+  CLEAR: 'CLEAR_CASE_NOTE',
   ERROR: 'LOAD_CASE_NOTE_ERROR',
 };
 
