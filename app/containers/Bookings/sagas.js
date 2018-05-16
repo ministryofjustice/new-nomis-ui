@@ -430,7 +430,14 @@ export function* loadCaseNote(action) {
     yield put(showSpinner());
 
     const { offenderNo, caseNoteId } = action.payload;
-    
+
+    yield put({
+      type: CASE_NOTE.CLEAR,
+      payload: {
+        offenderNo,
+      },
+    });
+
     const apiServer = yield select(selectApi());
   
     const caseNoteDetails = yield call(getCaseNote, apiServer, offenderNo, caseNoteId);

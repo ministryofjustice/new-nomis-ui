@@ -93,14 +93,13 @@ function EliteApiReducer(state = initialState, action) {
       return state.setIn(['Bookings', 'Details', offenderNo, 'CaseNotes','pagination'], fromJS(pagination));
     }
 
+    case CASE_NOTE.CLEAR:
     case CASE_NOTE.SET: {
       const { offenderNo, caseNoteDetails } = action.payload;
       const path = ['Bookings', 'Details', offenderNo, 'CaseNoteDetails'];
-      const errorPath = [...path, 'error'];
 
       return state
-        .setIn([...path], fromJS(caseNoteDetails))
-        .setIn([...errorPath],null);
+        .setIn(path, fromJS(caseNoteDetails));
     }
 
     case CASE_NOTE.ERROR: {

@@ -19,14 +19,8 @@ class CaseNotes extends Component {
     this.tryLoadCaseNote({ ...this.props });
   }
 
-  componentDidUpdate() {
-    this.tryLoadCaseNote({ ...this.props });
-  }
-
-  tryLoadCaseNote({ offenderNo, caseNoteId, getCaseNote, caseNoteDetails }) {
-    if (shouldLoadCaseNote({ offenderNo, caseNoteId, caseNoteDetails })) {
-      getCaseNote(offenderNo, caseNoteId);
-    }
+  tryLoadCaseNote({ offenderNo, caseNoteId, getCaseNote }) {
+    getCaseNote(offenderNo, caseNoteId);
   }
 
   render() {
@@ -57,8 +51,6 @@ CaseNotes.propTypes = {
   viewList: PropTypes.func.isRequired,
 };
 
-const shouldLoadCaseNote = ({ offenderNo, caseNoteId, caseNoteDetails }) => !caseNoteDetails && caseNoteId && offenderNo;
-
 export function mapDispatchToProps(dispatch) {
   return {
     viewList: () => dispatch(setCaseNotesListView()),
@@ -75,6 +67,6 @@ const mapStateToProps = (immutableState, props) => {
     caseNoteDetails,
     error,
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CaseNotes);
