@@ -6,8 +6,8 @@ ext {
 
     ext {
         drivers = [
-                'chrome'
-                //'chromeMobile'
+                'chrome',
+                'chromeMobile'
                 //'chromeHeadless'
         ]
 

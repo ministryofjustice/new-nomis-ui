@@ -11,22 +11,24 @@ class HomePage extends Page {
   static at = {
     title == 'Prison-NOMIS'
     headingText == 'Hello Api'
+    searchButtonDesktop.text() == 'Search' || searchButtonMobile.text() == 'Search'
   }
 
   static content = {
     errors { module(ErrorsModule) }
     header(required: false) { module(HeaderModule) }
     headingText { $('.heading-xlarge').text() }
-    searchButton { $('.button-start', type: 'submit') }
+    searchButtonDesktop { $('.button-start', type: 'submit') }
+    searchButtonMobile { $('.mobile-button', type: 'submit') }
     locations { $('select option') }
   }
 
   void searchFor(String offenderInfo) {
-
     $('form').keywords = offenderInfo
-
-    assert searchButton.text() == 'Search'
-
-    searchButton.click()
+    if (searchButtonDesktop.displayed) {
+      searchButtonDesktop.click()
+    } else if (searchButtonMobile.displayed) {
+      searchButtonMobile.click()
+    }
   }
 }

@@ -23,10 +23,4 @@ class SearchResultsPage extends Page {
   def selectOffender(index) {
     images[index].click()
   }
-  /*
-  Name  ID IEP Age Location
-Smelley, DanielA1234ALStandard50A-1-8
-Smith, DanielA1234AJStandard60A-1-6
-Smith, DariusA1234AKStandard38A-1-7
-   */
 }

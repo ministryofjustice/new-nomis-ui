@@ -429,8 +429,8 @@ class Elite2Api extends WireMockRule {
         "occurrenceDateTime": "2017-10-31T14:38:53",
         "staffId": -2,
         "authorName": "User, Api",
-        "text": "stuff",
-        "originalNoteText": "stuff",
+        "text": "Case note body text",
+        "originalNoteText": "Case note body text",
         "amendments": []
     },
     {

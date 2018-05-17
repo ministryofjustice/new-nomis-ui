@@ -60,19 +60,12 @@ class CaseNotesSpecification extends GebReportingSpec {
     at OffenderCaseNotesPage
     // TODO check the green notification toast
     //message == "Case note has been created successfully"
-    caseNoteDetails*.text() == [
-      """16/05/2018
-13:18
-User, Api
-Chaplaincy | Faith Specific Action
-Occurrence date: 31/10/2017 - 14:38
-stuff""",
-      """06/05/2017
-17:11
-User, Api
-Communication | Communication OUT
-Occurrence date: 06/05/2017 - 17:11
-Test outward communication one."""
-    ]
+    // Check case note display; derives from wiremock response
+    caseNoteDetails*.text()[0].contains("User, Api")
+    caseNoteDetails*.text()[0].contains("Chaplaincy | Faith Specific Action")
+    caseNoteDetails*.text()[0].contains("Case note body text")
+    caseNoteDetails*.text()[1].contains("User, Api")
+    caseNoteDetails*.text()[1].contains("Communication | Communication OUT")
+    caseNoteDetails*.text()[1].contains("Test outward communication one.")
   }
 }
