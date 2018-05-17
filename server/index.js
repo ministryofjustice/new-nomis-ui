@@ -82,13 +82,15 @@ app.use((req, res, next) => {
 app.use('/config', (req,res) => {
   const url = config.app.feedbackUrl;
   const omicUrl = config.apis.keyworker.ui_url;
-  if (!url && !omicUrl) {
+  const mailTo = config.app.mailTo;
+  if (!url && !omicUrl && !mailTo) {
     res.end();
     return;
   }
   res.json({
     url,
     omicUrl,
+    mailTo,
   });
 });
 

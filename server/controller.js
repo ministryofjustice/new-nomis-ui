@@ -14,6 +14,7 @@ const { logger } = require('./services/logger');
 const moment = require('moment');
 
 const baseUrl = config.apis.elite2.url;
+const mailTo = config.app.mailTo;
 
 const asyncMiddleware = fn =>
   (req, res, next) => {
@@ -30,7 +31,7 @@ const asyncMiddleware = fn =>
 const loginIndex = async (req, res) => {
   const isApiUp = await retry.getApiHealth();
   logger.info(`loginIndex - health check called and the isaAppUp = ${isApiUp}`);
-  res.render('pages/login', { authError: false, apiUp: isApiUp });
+  res.render('pages/login', { authError: false, apiUp: isApiUp, mailTo });
 };
 
 const login = async (req, res) => {
@@ -54,10 +55,10 @@ const login = async (req, res) => {
     logger.error(error); 
     if (code < 500) {
       logger.warn('Login failed, invalid password', { user: String(req.body.username) });
-      res.render('pages/login', { authError: true, apiUp: true });
+      res.render('pages/login', { authError: true, apiUp: true, mailTo });
     } else {
       logger.error(error);
-      res.render('pages/login', { authError: false, apiUp: false });
+      res.render('pages/login', { authError: false, apiUp: false, mailTo });
     }
   });
 };
