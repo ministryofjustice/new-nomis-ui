@@ -17,7 +17,11 @@ import Terms from 'containers/Footer/terms-and-conditions';
 import { hideTerms, showTerms } from 'globalReducers/app';
 import FeedbackLink from 'containers/FeedbackLink';
 import axios from 'axios/index';
-import { setFeedbackUrl, setOmicUrl } from '../../globalReducers/app';
+import {
+  setFeedbackUrl,
+  setOmicUrl,
+  setMailTo,
+} from '../../globalReducers/app';
 
 class App extends Component {
   constructor(props) {
@@ -40,6 +44,7 @@ class App extends Component {
     axios.get('/config').then(response => {
       this.props.setOmicUrl(response.data.omicUrl);
       this.props.setFeedbackUrl(response.data.url);
+      this.props.setMailTo(response.data.mailTo);
     });
   }
 
@@ -112,6 +117,7 @@ const mapDispatchToProps = (dispatch) => ({
   hideTermsAndConditions: () => dispatch(hideTerms()),
   showTermsAndConditions: () => dispatch(showTerms()),
   setFeedbackUrl: (url) => dispatch(setFeedbackUrl(url)),
+  setMailTo: (mailTo) => dispatch(setMailTo(mailTo)),
   setOmicUrl: (url) => dispatch(setOmicUrl(url)),
 });
 
