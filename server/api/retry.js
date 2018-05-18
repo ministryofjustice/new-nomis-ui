@@ -28,8 +28,7 @@ const getRequest = ({ req, res, url, headers, disableGatewayMode }) => service.c
     res.status(503);
     res.end();
   }
-  logger.error(error);
-  return new Promise(r => r(null))
+  return new Promise(r => r(error))
 });
 
 const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseType, data, disableGatewayMode = false }) => {

@@ -33,8 +33,22 @@ export const initialState = fromJS({
 function authenticationReducer(state = initialState, action) {
   switch (action.type) {
     case USER_ME: {
+      const { user } = action.payload;
+
+      const isKeyWorkerAdmin = user.accessRoles
+        .filter(r => r.roleCode === 'KW_ADMIN')
+        .length > 0;
+
+      const isKeyWorker = user.staffRoles
+        .filter(r => r.role === 'KW')
+        .length > 0;
+
       return state
-        .set('user', { ...action.payload.user })
+        .set('user', {
+          isKeyWorkerAdmin,
+          isKeyWorker,
+          ...action.payload.user,
+        })
     }
 
     case CHANGE_USERNAME_INPUT: {
