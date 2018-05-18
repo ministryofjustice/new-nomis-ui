@@ -82,7 +82,7 @@ class Elite2Api extends WireMockRule {
         firstName       : user.staffMember.firstName,
         lastName        : user.staffMember.lastName,
         email           : 'itaguser@syscon.net',
-        activeCaseLoadId: 'LEI'
+        activeCaseLoadId: 'LEI',
       ]))))
 
     stubFor(
@@ -116,6 +116,17 @@ class Elite2Api extends WireMockRule {
             "roleName": "Key worker admin",
             "parentRoleCode": "code",
             "caseloadId": "1"
+          }]''')))
+
+    stubFor(
+      get("/api/staff/${user.staffMember.id}/${user.staffMember.assginedCaseload.id}/roles")
+        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody('''[{
+            "role": "KW",
+            "roleDescription": "Key worker"
           }]''')))
 
     stubFor(

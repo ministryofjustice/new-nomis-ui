@@ -9,6 +9,7 @@ const session = require('./session');
 const bookingService = require('./services/booking');
 const eventsService = require('./services/events');
 const keyworkerService = require('./services/keyworker');
+const userService = require('./services/user');
 
 const { logger } = require('./services/logger');
 const moment = require('moment');
@@ -256,6 +257,11 @@ const myAssignments = asyncMiddleware(async (req, res) => {
   res.json(result);
 });
 
+const user = asyncMiddleware(async (req, res) => {
+  const result = await userService.me(req, res);
+  res.json(result);
+});
+
 module.exports = {
   keyDates,
   login,
@@ -274,4 +280,5 @@ module.exports = {
   caseNote,
   getImage,
   myAssignments,
+  user,
 };

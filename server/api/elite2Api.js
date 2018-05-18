@@ -21,7 +21,8 @@ const getAppointmentTypes = (req, res) => getRequest({ req, res, url: url.resolv
 const getRelationships = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl,`api/bookings/${req.bookingId}/relationships`) });
 const getLocationsForAppointments = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl,`api/agencies/${req.params.agencyId}/locations?eventType=APP`) });
 const getMyInformation = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, 'api/users/me') });
-
+const getUserAccessRoles = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl,'api/users/me/roles') });
+const getStaffRoles = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, `api/staff/${req.params.staffId}/${req.params.agencyId}/roles`) });
 
 const getPositiveCaseNotes = ({ req, res, fromDate, toDate }) => getRequest({
   req,
@@ -93,6 +94,8 @@ const service = {
   getMyInformation,
   getSummaryForOffenders,
   getAssignedOffenders,
+  getUserAccessRoles,
+  getStaffRoles,
 };
 
 module.exports = service;

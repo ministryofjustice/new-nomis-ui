@@ -1,0 +1,25 @@
+
+
+.action-links {
+
+   .link-box {
+     background: #F8F8F8;
+     border: solid 2px #DEE0E2;
+
+     display:flex;
+     flex-direction: row;
+     align-items: center;
+     padding: .8em 0 .8em 0;
+     height: 100px;
+
+     img {
+       max-width: 50px;
+       max-height: 50px;
+       margin-left: 1em;
+     }
+
+     .heading-medium {
+       margin: .2em 0 0 0 ;
+     }
+   }
+}
