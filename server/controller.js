@@ -63,6 +63,10 @@ const login = async (req, res) => {
   });
 };
 
+const terms = async (req, res) => {
+  res.render('pages/terms', { mailTo });
+};
+
 const logout = (req, res) => {
   session.deleteHmppsCookie(res);
   req.session = null;
@@ -256,6 +260,7 @@ module.exports = {
   keyDates,
   login,
   loginIndex,
+  terms,
   logout,
   bookingDetails,
   quickLook,
