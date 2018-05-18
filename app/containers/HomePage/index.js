@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { LOAD_ASSIGNMENTS } from 'containers/Assignments/constants';
 import Name from 'components/Name';
-import ActionLinks from 'containers/ActionLinks';
+import ActionLinks from 'components/ActionLinks';
 import SearchForm from './SearchForm';
 
 import {

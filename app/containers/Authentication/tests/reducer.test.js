@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import authenticationRedeucer from '../reducer';
+import authenticationReducer from '../reducer';
 import { userMe } from '../actions';
 
 describe('Authentication reducer', () => {
@@ -20,7 +20,7 @@ describe('Authentication reducer', () => {
           { role: 'KW', roleDescription: 'Key Worker' },
       ],
     }
-    const state = authenticationRedeucer(Map({}), userMe({ user }));
+    const state = authenticationReducer(Map({}), userMe({ user }));
     const userState = state.get('user');
     
     expect(userState.isKeyWorker).toBe(true);
@@ -32,7 +32,7 @@ describe('Authentication reducer', () => {
             { roleCode: 'KW_ADMIN', roleDescription: 'Key Worker Admin' },
       ],
     }
-    const state = authenticationRedeucer(Map({}), userMe({ user }));
+    const state = authenticationReducer(Map({}), userMe({ user }));
     const userState = state.get('user');
       
     expect(userState.isKeyWorkerAdmin).toBe(true);

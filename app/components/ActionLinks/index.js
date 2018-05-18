@@ -3,25 +3,6 @@ import { Link } from 'react-router';
 
 import './index.scss';
 
-const ActionLinks = ({ isKeyWorkerAdmin, isKeyWorker, omicUrl }) => ((isKeyWorkerAdmin || isKeyWorker) &&
-  (<div className="action-links">
-
-    <h1 className="heading-medium"> Other Tasks </h1>
-
-    <div className="row">
-
-      {isKeyWorkerAdmin && omicUrl && <div className="col-sm-4 no-left-gutter add-gutter-bottom">
-        <KeyWorkerAdminLink omicUrl={omicUrl} />
-      </div>}
-
-      {isKeyWorker && <div className="col-sm-4 no-left-gutter">
-        <MyAllocationsLink />
-      </div>}
-
-    </div>
-  </div>)) || <div></div>
-
-
 export const KeyWorkerAdminLink = ({ omicUrl }) => (
 <div className="link-box">
   <img src="/img/manage-key-workers2x.png" className="add-gutter-margin-right" />
@@ -41,5 +22,29 @@ export const MyAllocationsLink = () => (
       <Link className="link" to="/assignments">My key worker allocations</Link>
     </div>
   </div>);
+
+const ActionLinks = ({ isKeyWorkerAdmin, isKeyWorker, omicUrl }) => {
+  if (!isKeyWorker && !isKeyWorkerAdmin) {
+    return <div></div>
+  }
+
+  return (<div className="action-links">
+
+    <h1 className="heading-medium"> Other Tasks </h1>
+
+    <div className="row">
+
+      {isKeyWorkerAdmin && omicUrl && <div className="col-sm-4 no-left-gutter add-gutter-bottom">
+        <KeyWorkerAdminLink omicUrl={omicUrl} />
+      </div>}
+
+      {isKeyWorker && <div className="col-sm-4 no-left-gutter">
+        <MyAllocationsLink />
+      </div>}
+
+    </div>
+  </div>)
+}
+
 
 export default ActionLinks;
