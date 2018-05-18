@@ -132,6 +132,7 @@ app.put('/app/bookings/:offenderNo/caseNotes/:caseNoteId', controller.caseNote);
 app.get('/app/bookings/:offenderNo/caseNotes/:caseNoteId', controller.caseNote);
 app.get('/app/images/:imageId/data', controller.getImage);
 app.get('/app/users/me/bookingAssignments', controller.myAssignments);
+app.get('/app/users/me', controller.user);
 
 app.use('/app', application.sessionHandler);
 

@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 
 import { LOAD_ASSIGNMENTS } from 'containers/Assignments/constants';
 import Name from 'components/Name';
-import { Link } from 'react-router';
+import ActionLinks from 'components/ActionLinks';
 import SearchForm from './SearchForm';
 
 import {
   loadLocations,
 } from '../Bookings/actions';
 
-import {
-  selectLocations, selectUserHomeInfo, selectOmicUrl,
-} from './selectors';
 
 import './homepage.scss';
 
@@ -24,14 +20,8 @@ class HomePage extends Component {
     this.props.loadLocations();
   }
 
-  userIsKeyworkerAdmin() {
-    return this.props.user && this.props.user.roles
-      && this.props.user.roles.findIndex(e => e.roleCode === 'KW_ADMIN') >= 0;
-  }
-
   render() {
-    const { user, locations } = this.props;
-
+    const { user, locations, omicUrl } = this.props;
     if (!user) {
       return <div></div>
     }
@@ -40,26 +30,13 @@ class HomePage extends Component {
       <h1 className="heading-xlarge">Hello <Name firstName={user.firstName} /></h1>
       <SearchForm locations={locations} />
       <div>
-        <h1 className="heading-medium"> Other Tasks </h1>
-        <div className="assignment-box">
-          <h2 className="heading-medium"> View your assignments </h2>
+        <ActionLinks
+          className="no-left-gutter"
+          isKeyWorkerAdmin={user.isKeyWorkerAdmin}
+          isKeyWorker={user.isKeyWorker}
+          omicUrl={omicUrl}
+        />
 
-          <ul className="list-bullet">
-            <li>
-              <Link className="link" to="/assignments">As Key Worker</Link>
-            </li>
-          </ul>
-        </div>
-        {this.userIsKeyworkerAdmin() && this.props.omicUrl
-           && <div className="kw-manager-box col-sm-4">
-          <a href={this.props.omicUrl} >
-            {/* <div className="kw-manager-image" /> */}
-            <div className="kw-manager-image-box">
-              <img className="kw-img" src="/img/manage-key-workers2x.png" />
-            </div>
-            <div className="kw-manager-text-box">Manage Key workers</div>
-          </a>
-        </div>}
       </div>
     </div>);
   }
@@ -81,10 +58,17 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
-const mapStateToProps = createStructuredSelector({
-  user: selectUserHomeInfo(),
-  locations: selectLocations(),
-  omicUrl: selectOmicUrl(),
-});
+
+const mapStateToProps = (state) => {
+  const user = state.getIn(['authentication','user']);
+  const locations = state.getIn(['home', 'locations']);
+  const omicUrl = state.getIn(['app', 'omicUrl']);
+
+  return {
+    user,
+    locations,
+    omicUrl,
+  }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
