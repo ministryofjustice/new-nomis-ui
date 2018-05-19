@@ -61,7 +61,7 @@ export function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = (state) => {
   const user = state.getIn(['authentication','user']);
-  const locations = state.getIn(['home', 'locations']);
+  const locations = state.getIn(['home', 'locations']).toJS();
   const omicUrl = state.getIn(['app', 'omicUrl']);
 
   return {
