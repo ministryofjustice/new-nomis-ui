@@ -187,11 +187,10 @@ workflows:
             - build
       - build_docker:
           requires:
-            - build
+            - integration_tests
       - deploy_release:
           requires:
             - integration_tests
-            - build
           filters:
             branches:
               only: master
