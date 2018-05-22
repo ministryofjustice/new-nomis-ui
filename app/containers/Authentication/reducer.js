@@ -35,13 +35,13 @@ function authenticationReducer(state = initialState, action) {
     case USER_ME: {
       const { user } = action.payload;
 
-      const isKeyWorkerAdmin = user.accessRoles
+      const isKeyWorkerAdmin = Boolean(user.accessRoles && user.accessRoles
         .filter(r => r.roleCode === 'KW_ADMIN')
-        .length > 0;
+        .length > 0);
 
-      const isKeyWorker = user.staffRoles
+      const isKeyWorker = Boolean(user.staffRoles && user.staffRoles
         .filter(r => r.role === 'KW')
-        .length > 0;
+        .length > 0);
 
       return state
         .set('user', {

@@ -37,4 +37,17 @@ describe('Authentication reducer', () => {
       
     expect(userState.isKeyWorkerAdmin).toBe(true);
   });
+
+  it('should handle situations where accessRoles and staffRoles are undefined', () => {
+    const user = {
+      ...userData,
+      accessRoles: undefined,
+      staffRoles: undefined,
+    }
+    const state = authenticationReducer(Map({}), userMe({ user }));
+    const userState = state.get('user');
+
+    expect(userState.isKeyWorkerAdmin).toBe(false);
+    expect(userState.isKeyWorker).toBe(false);
+  })
 })
