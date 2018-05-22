@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>personal_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Mobile_BottomBar" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-22.000000, -122.000000)">
+        <g id="Bottom-buttons" transform="translate(0.000000, 108.000000)">
+            <g id="personal_icon" transform="translate(22.000000, 14.000000)">
+                <g id="Group-3">
+                    <g>
+                        <rect id="Rectangle-4" fill="#FFFFFF" x="0" y="0" width="28" height="28" rx="3"></rect>
+                        <path d="M9,17 C9,17 5,17.8075538 5,21.9999994 C5,23.2769296 5.00052432,21.1033678 5.00052432,22.9998899 C5.00052432,23.0000367 10.9724421,23.0000367 22.9162777,22.9998899 C22.9162777,22.9998899 23,22.7269447 23,21.9999994 C23,17.8075538 19,17 19,17 L17,17 C16.0692794,18.0129754 15.1506973,19.0078014 14,18.9999975 C12.8493027,18.9921935 11.9201435,18.0008698 11,17 L9,17 Z" id="Combined-Shape" fill="#0B0C0C"></path>
+                        <path d="M14.0000438,16.9998745 C11.230922,16.981901 9.03134716,12.7142434 9.00020728,8.99994861 C8.96906741,5.28565385 12.4545834,4 14.0000438,4 C15.5455041,4 18.9999941,5.28565385 18.9999941,8.99994861 C18.9999941,12.7142434 16.7691655,17.0178481 14.0000438,16.9998745 Z" id="Fill-7" fill="#0B0C0C"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
