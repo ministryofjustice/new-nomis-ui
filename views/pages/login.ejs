@@ -68,10 +68,8 @@
         <footer class="FooterContainer">
           <div class="footer-content">
             <div class="FooterLinksContainer">
-              <div class="FooterLink">Terms and conditions</div>
-              <% if (mailTo) { %>
+              <div class="FooterLink"><a href="terms" class="link">Terms and conditions</a></div>
               <div class="FooterLink">Email <a class="link" href="mailto:<%= mailTo %>"><%= mailTo %></a></div>
-              <% } %>
             </div>
             <div class="FooterSignature"></div>
           </div>

@@ -9,7 +9,7 @@ import { showTerms } from 'globalReducers/app';
 import './footer.scss';
 
 // eslint-disable-next-line jsx-a11y/anchor-has-content
-const MailTo = ({ mailTo }) => mailTo ? (<div className="FooterLink">Email&nbsp;&nbsp;<a className="link" href={`mailto:${mailTo}`} />{mailTo}</div>) : null;
+const MailTo = ({ mailTo }) => (<div className="FooterLink">Email&nbsp;&nbsp;<a className="link" href={`mailto:${mailTo}`} />{mailTo}</div>);
 
 const Footer = ({ showTermsAndConditions, mailTo }) =>
       <footer className="FooterContainer">
