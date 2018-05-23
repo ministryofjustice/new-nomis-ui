@@ -31,6 +31,23 @@ const getRequest = ({ req, res, url, headers, disableGatewayMode }) => service.c
   return new Promise(r => r(error))
 });
 
+async function getKeyworkerRequest({ req, res, url, headers, disableGatewayMode }) {
+  try {
+    const request = await service.callApi({
+      method: 'get',
+      url,
+      headers: headers || {},
+      reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },
+      onTokenRefresh: session.updateHmppsCookie(res),
+      disableGatewayMode,
+    });
+
+    return request.data
+  } catch (error) {
+    return {}
+  }
+}
+
 const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseType, data, disableGatewayMode = false }) => {
   const { access_token, refresh_token } = reqHeaders.jwt;
 
@@ -130,6 +147,7 @@ const service = {
   encodeClientCredentials,
   getRequest,
   getApiHealth,
+  getKeyworkerRequest,
 };
 
 module.exports = service;

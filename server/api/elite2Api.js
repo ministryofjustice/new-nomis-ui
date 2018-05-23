@@ -1,5 +1,5 @@
 const url = require('url');
-const getRequest = require('./retry').getRequest;
+const { getRequest, getKeyworkerRequest } = require('./retry');
 const config = require('../config');
 const utils = require('../utils');
 
@@ -42,9 +42,9 @@ const getKeyworker = async (req, res) => {
   const keyworkerApiUrl = config.apis.keyworker.url;
 
   if (keyworkerApiUrl) {
-    const me = await getMyInformation(req,res);
+    const me = await getMyInformation(req, res);
 
-    return getRequest({
+    return getKeyworkerRequest({
       url: url.resolve(keyworkerApiUrl, `key-worker/${me.activeCaseLoadId}/offender/${req.params.offenderNo}`),
       req,
       res,
@@ -52,7 +52,11 @@ const getKeyworker = async (req, res) => {
     });
   }
 
-  return getRequest({ req, res, url: url.resolve(baseUrl,`api/bookings/offenderNo/${req.params.offenderNo}/key-worker`) });
+  return getRequest({
+    req,
+    res,
+    url: url.resolve(baseUrl, `api/bookings/offenderNo/${req.params.offenderNo}/key-worker`),
+  });
 };
 
 const getSummaryForOffenders = (req, res, people) =>
