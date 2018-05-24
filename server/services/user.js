@@ -18,8 +18,8 @@ const me = async (req, res) => {
 
   return {
     ...details,
-    accessRoles,
-    staffRoles,
+    accessRoles: accessRoles || [],
+    staffRoles: staffRoles || [],
   }
 }
 

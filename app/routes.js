@@ -7,6 +7,7 @@ import { getAsyncInjectors } from 'utils/asyncInjectors';
 import { logOut } from 'containers/Authentication/actions'; //eslint-disable-line
 import { setMobileMenuOpen } from 'globalReducers/app';
 import { analyticsServiceBuilder } from 'utils/analyticsService';
+import { push } from 'react-router-redux';
 
 const analyticsService = analyticsServiceBuilder();
 
@@ -24,8 +25,20 @@ const checkAndCloseMobileMenu = (store) => {
   }
 }
 
+const isKeyWorker = (store) => {
+  const state = store.getState();
+  const user = state.getIn(['authentication', 'user']);
+  
+  return user && user.isKeyWorker;
+}
+
 function onEnterMethodGenerator(store) {
-  return (options = { routeName: 'unknown' }) => () => {
+  return (options = { routeName: 'unknown', canAccess: null }) => () => {
+    if (options.canAccess && options.canAccess(store) === false) {
+      store.dispatch(push('/'));
+      return;
+    }
+
     OnRouteVisit(options.routeName);
 
     // Any route navigation must close mobile menu if it is open.
@@ -90,9 +103,9 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/assignments',
-      name: 'assignments',
-      onEnter: onEnter({ routeName: 'assignments' }),
+      path: '/myKeyWorkerAllocations',
+      name: 'my key worker allocations',
+      onEnter: onEnter({ routeName: 'my key worker allocations', canAccess: isKeyWorker }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),
@@ -190,7 +203,7 @@ export default function createRoutes(store) {
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component,sagas, reducer]) => {
+        importModules.then(([component, sagas, reducer]) => {
           injectSagas('search', sagas.default);
           injectReducer('search', reducer.default);
           renderRoute(component);

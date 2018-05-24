@@ -4,6 +4,8 @@ import { push } from 'react-router-redux';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 import { buildPaginationQueryString } from 'utils/stringUtils';
 import { officerAssignments } from 'utils/eliteApi';
+import { showSpinner, hideSpinner } from 'globalReducers/app';
+
 
 import {
   SET_ASSIGNMENTS,
@@ -18,19 +20,16 @@ export function* assignmentLoadWatcher() {
   yield takeLatest(LOAD_ASSIGNMENTS, assignmentLoadSaga);
 }
 
-export function* assignmentLoadSaga(action) {
-  const { perPage, pageNumber } = action.payload;
-  const pagination = {
-    perPage: perPage || 10,
-    pageNumber: pageNumber || 0,
-  };
-
+export function* assignmentLoadSaga() {
   try {
+    yield put(showSpinner());
     const apiServer = yield select(selectApi());
-    const response = yield call(officerAssignments, pagination, apiServer);
+    const response = yield call(officerAssignments, apiServer);
 
     yield put({ type: SET_ASSIGNMENTS, payload: response });
+    yield put(hideSpinner());
   } catch (error) {
+    yield put(hideSpinner());
     yield put({ type: SET_ASSIGNMENTS_ERROR, payload: 'Something went wrong please try again later' });
   }
 }

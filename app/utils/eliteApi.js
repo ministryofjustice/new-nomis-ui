@@ -9,22 +9,11 @@ export const login = (username, password, baseUrl) => axios({
   data: { username, password } })
   .then((response) => response.data);
 
-export const officerAssignments = (pagination, baseUrl) => axios({
+export const officerAssignments = (baseUrl) => axios({
   baseURL: baseUrl,
   method: 'get',
-  headers: {
-    'Page-Offset': pagination.perPage * pagination.pageNumber,
-    'Page-Limit': pagination.perPage,
-  },
   url: '/users/me/bookingAssignments' })
-  .then((response) => {
-    // The 'total-records' header is absent when there are no assignments. See server/services/keyworker.#getAssignedOffenders
-    const totalRecords = parseInt(response.headers['total-records']);
-    return {
-      data: response.data,
-      totalRecords: isNaN(totalRecords) ? 0 : totalRecords,
-    };
-  });
+  .then((response) => response.data);
 
 export const bookingDetails = (baseUrl, offenderNo) => axios({
   baseURL: baseUrl,

@@ -43,9 +43,10 @@ class Dropdown extends Component {
         <DropdownMenu>
           { this.state.isOpen &&
           <div>
+            {user.isKeyWorker && 
             <DropdownMenuLink key={'My Assignments'} to={'/assignments'} onClick={() => this.toggleMenu()}>
               My Assignments
-            </DropdownMenuLink>
+            </DropdownMenuLink>}
 
             {user.caseLoadOptions.map((option) =>
               <DropdownMenuOption key={option.caseLoadId} onClick={() => { this.closeMenu(); switchCaseLoad(option.caseLoadId); }}>

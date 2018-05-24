@@ -101,27 +101,27 @@ describe('Breadcrumb path builder', () => {
     expect(breadcrumbs[3].route).toBe('/offenders/12345/amendCaseNote');
   });
 
-  it('should produce a breadcrumb structure that drives Home > My assignments > Doe, John', () => {
+  it('should produce a breadcrumb structure that drives Home > My key worker allocations > Doe, John', () => {
     const breadcrumbs = buildBreadcrumb({ route: '/offenders/12345/personal', offender, context: 'assignments', offenderNo: '12345' });
 
     expect(breadcrumbs[0].name).toBe('Home');
     expect(breadcrumbs[0].route).toBe('/');
 
-    expect(breadcrumbs[1].name).toBe('My assignments');
-    expect(breadcrumbs[1].route).toBe('/assignments');
+    expect(breadcrumbs[1].name).toBe('My key worker allocations');
+    expect(breadcrumbs[1].route).toBe('/myKeyWorkerAllocations');
 
     expect(breadcrumbs[2].name).toBe('Doe, John');
     expect(breadcrumbs[2].route).toBe('/offenders/12345/personal');
   });
 
-  it('should produce a breadcrumb structure that drives Home > My assignments > Doe, John > Add case note', () => {
+  it('should produce a breadcrumb structure that drives Home > My key worker allocations > Doe, John > Add case note', () => {
     const breadcrumbs = buildBreadcrumb({ route: '/offenders/12345/addCaseNote', offender, context: 'assignments', offenderNo: '12345' });
 
     expect(breadcrumbs[0].name).toBe('Home');
     expect(breadcrumbs[0].route).toBe('/');
 
-    expect(breadcrumbs[1].name).toBe('My assignments');
-    expect(breadcrumbs[1].route).toBe('/assignments');
+    expect(breadcrumbs[1].name).toBe('My key worker allocations');
+    expect(breadcrumbs[1].route).toBe('/myKeyWorkerAllocations');
 
     expect(breadcrumbs[2].name).toBe('Doe, John');
     expect(breadcrumbs[2].route).toBe('/offenders/12345/personal');
@@ -130,14 +130,14 @@ describe('Breadcrumb path builder', () => {
     expect(breadcrumbs[3].route).toBe('/offenders/12345/addCaseNote');
   });
 
-  it('should produce a breadcrumb structure that drives Home > My assignments > Doe, John > Add appointment', () => {
+  it('should produce a breadcrumb structure that drives Home > My key worker allocations > Doe, John > Add appointment', () => {
     const breadcrumbs = buildBreadcrumb({ route: '/offenders/12345/addAppointment', offender, context: 'assignments', offenderNo: '12345' });
 
     expect(breadcrumbs[0].name).toBe('Home');
     expect(breadcrumbs[0].route).toBe('/');
 
-    expect(breadcrumbs[1].name).toBe('My assignments');
-    expect(breadcrumbs[1].route).toBe('/assignments');
+    expect(breadcrumbs[1].name).toBe('My key worker allocations');
+    expect(breadcrumbs[1].route).toBe('/myKeyWorkerAllocations');
 
     expect(breadcrumbs[2].name).toBe('Doe, John');
     expect(breadcrumbs[2].route).toBe('/offenders/12345/personal');
@@ -146,14 +146,14 @@ describe('Breadcrumb path builder', () => {
     expect(breadcrumbs[3].route).toBe('/offenders/12345/addAppointment');
   });
 
-  it('should produce a breadcrumb structure that drives Home > My assignments > Doe, John > Schedule', () => {
+  it('should produce a breadcrumb structure that drives Home > My key worker allocations > Doe, John > Schedule', () => {
     const breadcrumbs = buildBreadcrumb({ route: '/offenders/12345/schedule', offender, context: 'assignments', offenderNo: '12345' });
 
     expect(breadcrumbs[0].name).toBe('Home');
     expect(breadcrumbs[0].route).toBe('/');
 
-    expect(breadcrumbs[1].name).toBe('My assignments');
-    expect(breadcrumbs[1].route).toBe('/assignments');
+    expect(breadcrumbs[1].name).toBe('My key worker allocations');
+    expect(breadcrumbs[1].route).toBe('/myKeyWorkerAllocations');
 
     expect(breadcrumbs[2].name).toBe('Doe, John');
     expect(breadcrumbs[2].route).toBe('/offenders/12345/personal');
@@ -162,14 +162,14 @@ describe('Breadcrumb path builder', () => {
     expect(breadcrumbs[3].route).toBe('/offenders/12345/schedule');
   });
 
-  it('should produce a breadcrumb structure that drives Home > My assignments > Doe, John > Amend case note', () => {
+  it('should produce a breadcrumb structure that drives Home > My key worker allocations > Doe, John > Amend case note', () => {
     const breadcrumbs = buildBreadcrumb({ route: '/offenders/12345/amendCaseNote', offender, context: 'assignments', offenderNo: '12345' });
 
     expect(breadcrumbs[0].name).toBe('Home');
     expect(breadcrumbs[0].route).toBe('/');
 
-    expect(breadcrumbs[1].name).toBe('My assignments');
-    expect(breadcrumbs[1].route).toBe('/assignments');
+    expect(breadcrumbs[1].name).toBe('My key worker allocations');
+    expect(breadcrumbs[1].route).toBe('/myKeyWorkerAllocations');
 
     expect(breadcrumbs[2].name).toBe('Doe, John');
     expect(breadcrumbs[2].route).toBe('/offenders/12345/personal');

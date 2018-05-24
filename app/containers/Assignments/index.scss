@@ -1,0 +1,39 @@
+
+
+.my-allocations {
+
+  [class*='col-'] {
+    word-wrap: break-word;
+
+    b {
+      font-size: 16px;
+    }
+  }
+
+  .photo {
+    height: 100px;
+    width: 80px;
+  }
+
+  .inline-block {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .margin-top {
+    margin-top: 2em;
+  }
+
+  .line-bottom {
+     border-bottom: solid 2px #BFC1C3;
+  }
+
+  .grey-row {
+    background: #F6F6F6;
+  }
+
+  .table-headings {
+    padding-bottom: 0;
+  }
+
+}
