@@ -7,7 +7,6 @@ import { getAsyncInjectors } from 'utils/asyncInjectors';
 import { logOut } from 'containers/Authentication/actions'; //eslint-disable-line
 import { setMobileMenuOpen } from 'globalReducers/app';
 import { analyticsServiceBuilder } from 'utils/analyticsService';
-import { push } from 'react-router-redux';
 
 const analyticsService = analyticsServiceBuilder();
 
@@ -26,7 +25,7 @@ const checkAndCloseMobileMenu = (store) => {
 }
 
 function onEnterMethodGenerator(store) {
-  return (options = { routeName: 'unknown'}) => () => {
+  return (options = { routeName: 'unknown' }) => () => {
     OnRouteVisit(options.routeName);
 
     // Any route navigation must close mobile menu if it is open.
