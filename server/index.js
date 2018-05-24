@@ -102,6 +102,7 @@ app.use('/api/swagger.json', apiProxy);
 app.get('/login', session.loginMiddleware, controller.loginIndex);
 app.post('/login', controller.login);
 app.get('/logout', controller.logout);
+app.get('/terms', controller.terms);
 
 app.use(clientVersionValidator);
 
