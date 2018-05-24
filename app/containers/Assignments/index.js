@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { viewDetails as vD } from 'containers/Bookings/actions';
 import { DETAILS_TABS } from 'containers/Bookings/constants';
 import EliteImage from 'containers/EliteContainers/Image';
@@ -90,8 +91,14 @@ const ResultsView = ({ results, viewDetails }) => <div>
 
 class Assignments extends Component {
   componentDidMount() {
-    this.props.setContext('assignments');
-    this.props.loadAssignments();
+    const { user } = this.props;
+
+    if (user && user.isKeyWorker) {
+      this.props.setContext('assignments');
+      this.props.loadAssignments();
+    } else {
+      this.props.redirectToHome();
+    }
   }
 
   render() {
@@ -138,6 +145,7 @@ export function mapDispatchToProps(dispatch, props) {
     setResultsView: (view) => dispatch(setAssignmentsView(view)),
     setContext: (context) => dispatch(setSearchContext(context)),
     loadAssignments: () => dispatch(loadAssignments()),
+    redirectToHome: () => dispatch(push('/')),
   };
 }
 

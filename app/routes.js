@@ -25,20 +25,8 @@ const checkAndCloseMobileMenu = (store) => {
   }
 }
 
-const isKeyWorker = (store) => {
-  const state = store.getState();
-  const user = state.getIn(['authentication', 'user']);
-  
-  return user && user.isKeyWorker;
-}
-
 function onEnterMethodGenerator(store) {
-  return (options = { routeName: 'unknown', canAccess: null }) => () => {
-    if (options.canAccess && options.canAccess(store) === false) {
-      store.dispatch(push('/'));
-      return;
-    }
-
+  return (options = { routeName: 'unknown'}) => () => {
     OnRouteVisit(options.routeName);
 
     // Any route navigation must close mobile menu if it is open.
@@ -105,7 +93,7 @@ export default function createRoutes(store) {
     {
       path: '/myKeyWorkerAllocations',
       name: 'my key worker allocations',
-      onEnter: onEnter({ routeName: 'my key worker allocations', canAccess: isKeyWorker }),
+      onEnter: onEnter({ routeName: 'my key worker allocations' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),

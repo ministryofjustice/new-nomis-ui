@@ -27,10 +27,12 @@ function MobileMenu({ user, setMobileMenuOpen, showTerms, switchCaseLoad }) {
         <CaseLoad>{user.activeCaseLoad && user.activeCaseLoad.description ? user.activeCaseLoad.description : user.activeCaseLoadId}</CaseLoad>
       </MobileMenuHeader>
       <MobileMenuOption to={'/'} onClick={removeMobileMenu}>Search<ForwardArrow svg={forwardBack} /></MobileMenuOption>
-      <MobileMenuOption to={'/assignments'} onClick={removeMobileMenu}>
-        My Assignments
+
+       {user && user.isKeyWorker && <MobileMenuOption to={'/myKeyWorkerAllocations'} onClick={removeMobileMenu}>
+        My key worker allocations
         <ForwardArrow svg={forwardBack} />
-      </MobileMenuOption>
+      </MobileMenuOption> }
+
       {user.caseLoadOptions.map((option) => {
         const newObj = <MobileMenuOption key={option.caseLoadId} onClick={() => { switchCaseLoad(option.caseLoadId); }} data-id={'dropdown-option'}>{option.description}<ForwardArrow svg={forwardBack} /></MobileMenuOption>;
         return newObj;

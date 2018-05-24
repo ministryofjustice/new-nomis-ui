@@ -44,8 +44,8 @@ class Dropdown extends Component {
           { this.state.isOpen &&
           <div>
             {user.isKeyWorker && 
-            <DropdownMenuLink key={'My Assignments'} to={'/assignments'} onClick={() => this.toggleMenu()}>
-              My Assignments
+            <DropdownMenuLink key={'My Assignments'} to={'/myKeyWorkerAllocations'} onClick={() => this.toggleMenu()}>
+              My key worker allocations
             </DropdownMenuLink>}
 
             {user.caseLoadOptions.map((option) =>
