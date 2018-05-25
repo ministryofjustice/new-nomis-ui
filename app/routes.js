@@ -90,9 +90,9 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/assignments',
-      name: 'assignments',
-      onEnter: onEnter({ routeName: 'assignments' }),
+      path: '/myKeyWorkerAllocations',
+      name: 'my key worker allocations',
+      onEnter: onEnter({ routeName: 'my key worker allocations' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/Bookings/reducers'),
@@ -190,7 +190,7 @@ export default function createRoutes(store) {
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component,sagas, reducer]) => {
+        importModules.then(([component, sagas, reducer]) => {
           injectSagas('search', sagas.default);
           injectReducer('search', reducer.default);
           renderRoute(component);

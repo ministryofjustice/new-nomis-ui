@@ -10,9 +10,14 @@ const getPrisonMigrationStatus = (req, res, prisonId) =>
 const getAssignedOffenders = (req,res, staffId, prisonId) =>
     retry.getRequest({ req, res, disableGatewayMode: true, url: url.resolve(baseUrl, `key-worker/${staffId}/prison/${prisonId}/offenders`) });
 
+const getKeyworker = (req, res, staffId, prisonId) =>
+  retry.getRequest({ req, res, disableGatewayMode: true, url: url.resolve(baseUrl, `key-worker/${staffId}/prison/${prisonId}`) });
+
+
 const service = {
   getPrisonMigrationStatus,
   getAssignedOffenders,
+  getKeyworker,
 };
 
 module.exports = service;

@@ -1,4 +1,4 @@
-import { fromJS, Map, List } from 'immutable';
+import { fromJS, Map } from 'immutable';
 
 import {
   SET_ASSIGNMENTS,
@@ -8,18 +8,19 @@ import {
 
 
 export const initialState = Map({
-  totalRecords: 0,
-  results: List([]),
-  view: 'List',
+  capacity: 0,
+  allocations: [],
   error: '',
 });
 
 function searchReducer(state = initialState, action) {
   switch (action.type) {
     case SET_ASSIGNMENTS: {
+      const { allocations, capacity } = action.payload;
+
       return state
-        .set('results', fromJS(action.payload.data))
-        .set('totalRecords', action.payload.totalRecords)
+        .set('allocations', fromJS(allocations))
+        .set('capacity', fromJS(capacity))
         .set('error', '')
     }
 

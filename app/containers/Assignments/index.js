@@ -1,109 +1,140 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Map } from 'immutable';
-
-import PreviousNextNavigation from 'components/PreviousNextNavigation';
-import ResultsViewToggle from 'components/ResultsViewToggle';
-import ResultsViewToggleMobile from 'components/ResultsViewToggle/mobile';
-import AssignmentsHeader from 'components/AssignmentsHeader';
-import AssignmentsHeaderMobile from 'components/AssignmentsHeader/mobile';
-import BookingTable from 'components/Bookings/Table';
-import BookingGrid from 'components/Bookings/Grid';
-
+import { push } from 'react-router-redux';
 import { viewDetails as vD } from 'containers/Bookings/actions';
 import { DETAILS_TABS } from 'containers/Bookings/constants';
-import {
-  LOAD_ASSIGNMENTS,
-} from 'containers/Assignments/constants';
-
-
+import EliteImage from 'containers/EliteContainers/Image';
+import { offenderImageUrl } from 'containers/Bookings/constants';
+import Name from 'components/Name';
 import { setSearchContext } from 'globalReducers/app';
-
 import { Model as UserModel } from 'helpers/dataMappers/user';
-
+import ThresholdIndicator from 'components/ThresholdIndicator';
+import { FormattedDate } from 'components/intl';
 import {
   setAssignmentsPagination,
   setAssignmentsView,
+  loadAssignments,
 } from './actions';
 
 
-const Results = ({ resultsView, results, viewDetails, sortOrder }) => resultsView === 'List' ?
-  <BookingTable viewName={resultsView} results={results} viewDetails={viewDetails} sortOrder={sortOrder} />
-  :
-  <BookingGrid viewName={resultsView} results={results} viewDetails={viewDetails} sortOrder={sortOrder} />
+import './index.scss';
+
+const ResultsView = ({ results, viewDetails }) => <div>
+
+<div className="row add-gutter-bottom line-bottom table-headings">
+
+<div className="col-sm-3 col-xs-8 no-left-gutter">
+  <b> Name </b>
+</div>
+
+<div className="col-sm-2 col-xs-3">
+  <b> Prison no. </b>
+</div>
+
+<div className="col-sm-1 hidden-xs">
+  <b> Location </b>
+</div>
+
+<div className="col-sm-2 hidden-xs">
+  <b> CSRA </b>
+</div>
+
+<div className="col-sm-2 hidden-xs">
+  <b> IEP </b>
+</div>
+
+<div className="col-sm-2 hidden-xs">
+  <b> CRD </b>
+</div>
+
+</div>
+
+{results.map((row,index) => <div className={`row no-bottom-padding add-gutter-margin-bottom ${index % 2 === 0 && 'grey-row'}`} key={row.get('bookingId')}>
+    <div className="col-sm-3 col-xs-8 no-left-gutter">
+
+      <div className="photo clickable inline-block add-gutter-margin-right" onClick={() => viewDetails(row.get('offenderNo'))}>
+        <EliteImage src={offenderImageUrl(row.get('facialImageId'))} />
+      </div>
+
+       <div role="link" className="link clickable inline-block" onClick={() => viewDetails(row.get('offenderNo'))} >
+          <span>
+             <Name lastName={row.get('lastName')} firstName={row.get('firstName')} />
+          </span>
+       </div>
+
+    </div>
+
+
+  <div className="col-sm-2 col-xs-3 margin-top">
+    <span>{row.get('offenderNo')} </span>
+  </div>
+
+  <div className="col-sm-1 hidden-xs margin-top">
+    <span>{row.get('assignedLivingUnitDesc')} </span>
+  </div>
+
+  <div className="col-sm-2 hidden-xs margin-top">
+    {row.get('crsaLevel')}
+  </div>
+
+  <div className="col-sm-2 hidden-xs margin-top">
+    <span>{row.get('iepLevel')} </span>
+  </div>
+
+
+  <div className="col-sm-2 hidden-xs margin-top">
+    {row.get('conditionalReleaseDate') && <FormattedDate value={row.get('conditionalReleaseDate')} /> }
+  </div>
+</div>)}
+</div>
 
 class Assignments extends Component {
   componentDidMount() {
-    this.props.setContext('assignments');
-    this.props.loadAssignments(this.props.location.query);
-  }
+    const { user } = this.props;
 
-  componentDidUpdate(prevProps) {
-    if (!Map(prevProps.location.query).equals(Map(this.props.location.query))) {
-      this.props.loadAssignments(this.props.location.query);
+    if (user && user.isKeyWorker) {
+      this.props.setContext('assignments');
+      this.props.loadAssignments();
+    } else {
+      this.props.redirectToHome();
     }
   }
 
   render() {
     const {
       results,
-      deviceFormat,
       totalResults,
-      pagination,
-      setPage,
-      resultsView,
-      setResultsView,
-      user,
+      capacity,
       error,
       viewDetails,
     } = this.props;
 
-    const { perPage } = pagination;
-
     return (
-      <div>
-        {deviceFormat === 'desktop' ?
-          <AssignmentsHeader
-            resultsViewToggle={<ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />}
-            user={user}
-            options={{ assignments: totalResults }}
-          />
-          :
-          <div>
-            <AssignmentsHeaderMobile user={user} options={{ assignments: totalResults }} />
-            <ResultsViewToggleMobile resultsView={resultsView} setResultsView={setResultsView} />
-          </div>
-        }
+      <div className="my-allocations">
+
+        <h1 className="heading-large no-top-margin add-gutter-padding-top">
+           My key worker allocations
+        </h1>
+
+        {results.size > 0 && <h2 className="heading-medium no-top-margin add-gutter-padding-top">
+          <span className="add-gutter-margin-right"> Current allocations </span> <ThresholdIndicator maximum={capacity} value={totalResults} />
+        </h2>}
 
         {error &&
           <div className="error-summary">
             <div className="error-message"> {error} </div>
           </div>}
 
-        <Results
-          resultsView={resultsView}
-          results={results}
-          viewDetails={viewDetails}
-          sortOrder="ASC"
-        />
+        {results.size > 0 && <ResultsView results={results} viewDetails={viewDetails} /> }
+        {results.size === 0 && <h2 className="heading-medium"> No prisoners allocated. </h2>}
 
-        <PreviousNextNavigation
-          pagination={pagination}
-          totalRecords={totalResults}
-          pageAction={(id) => { setPage({ perPage, pageNumber: id }); }}
-        />
       </div>
     );
   }
 }
 
 Assignments.propTypes = {
-  deviceFormat: PropTypes.string.isRequired,
-  pagination: PropTypes.object.isRequired,
-  setPage: PropTypes.func.isRequired,
-  resultsView: PropTypes.string.isRequired,
-  setResultsView: PropTypes.func.isRequired,
   setContext: PropTypes.func.isRequired,
 };
 
@@ -113,18 +144,16 @@ export function mapDispatchToProps(dispatch, props) {
     setPage: (pagination) => dispatch(setAssignmentsPagination({ ...props.location.query, ...pagination })),
     setResultsView: (view) => dispatch(setAssignmentsView(view)),
     setContext: (context) => dispatch(setSearchContext(context)),
-    loadAssignments: (query = {}) => dispatch({ type: LOAD_ASSIGNMENTS, payload: { ...query } }),
+    loadAssignments: () => dispatch(loadAssignments()),
+    redirectToHome: () => dispatch(push('/')),
   };
 }
 
-const mapStateToProps = (immutableState, props) => {
+const mapStateToProps = (immutableState) => {
   const assignments = immutableState.getIn(['assignments']);
-  const results = assignments.get('results');
-  const totalResults = assignments.get('totalRecords');
-  const pagination = {
-    perPage: props.location.query.perPage || 10,
-    pageNumber: props.location.query.pageNumber || 0,
-  };
+  const results = assignments.get('allocations');
+  const capacity = assignments.get('capacity');
+  const totalResults = results.size;
   const resultsView = assignments.get('view');
   const deviceFormat = immutableState.getIn(['app', 'deviceFormat']);
   const user = immutableState.getIn(['authentication', 'user']) || UserModel.toJS();
@@ -132,9 +161,9 @@ const mapStateToProps = (immutableState, props) => {
 
   return {
     results,
-    deviceFormat,
+    capacity,
     totalResults,
-    pagination,
+    deviceFormat,
     resultsView,
     user,
     error,

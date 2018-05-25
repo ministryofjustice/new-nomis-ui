@@ -24,11 +24,12 @@ const getRequest = ({ req, res, url, headers, disableGatewayMode }) => service.c
   copyPaginationHeadersOver(response.headers, res);
   return r(response.data);
 })).catch(error => {
+  logger.error(error);  
   if (errorStatusCode(error) === 503) {
     res.status(503);
     res.end();
   }
-  return new Promise(r => r(error))
+  return new Promise(r => r())
 });
 
 async function getKeyworkerRequest({ req, res, url, headers, disableGatewayMode }) {

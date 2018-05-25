@@ -253,7 +253,7 @@ const caseNote = asyncMiddleware(async (req, res) => {
 });
 
 const myAssignments = asyncMiddleware(async (req, res) => {
-  const result = await keyworkerService.getAssignedOffenders(req, res);
+  const result = await keyworkerService.myAllocationsViewModel(req, res);
   res.json(result);
 });
 

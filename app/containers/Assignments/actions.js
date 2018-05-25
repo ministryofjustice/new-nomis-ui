@@ -4,9 +4,8 @@ import {
   UPDATE_ASSIGNMENTS_VIEW,
 } from './constants';
 
-export const loadAssignments = (resetPagination) => ({
+export const loadAssignments = () => ({
   type: LOAD_ASSIGNMENTS,
-  payload: { resetPagination },
 });
 
 export const setAssignmentsPagination = (pagination) => ({
