@@ -37,8 +37,19 @@
     text-decoration: underline;
   }
   a {
-    font-size: 16px;
-    color: black;
+    color: #005EA5;
+
+    &:-webkit-any-link {
+      text-decoration: none;
+    }
+    &:visited {
+      color: #4c2c92;
+      text-decoration: none;
+    }
+    &:hover {
+      color: #2B8CC4;
+      text-decoration: underline;
+    }
   }
 }
 

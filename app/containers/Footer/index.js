@@ -12,7 +12,7 @@ const Footer = ({ showTermsAndConditions, mailTo }) =>
       <footer className="FooterContainer">
         <div className="footer-content">
           <div className="FooterLinksContainer">
-            <div className="FooterLink" onClick={() => showTermsAndConditions()}>Terms and conditions</div>
+            <div className="FooterLink"><a onClick={showTermsAndConditions}>Terms and conditions</a></div>
             <div className="FooterLink">Email&nbsp;&nbsp;<a href={`mailto:${mailTo}`} >{mailTo}</a></div>
           </div>
           <div className="FooterSignature" />
@@ -21,10 +21,11 @@ const Footer = ({ showTermsAndConditions, mailTo }) =>
 
 Footer.propTypes = {
   showTermsAndConditions: PropTypes.func.isRequired,
-  mailTo: PropTypes.string.isRequired,
+  mailTo: PropTypes.string,
 };
 
 Footer.defaultProps = {
+  mailTo: '',
 };
 
 const selectMailTo = () => createSelector(
