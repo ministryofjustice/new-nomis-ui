@@ -1,6 +1,6 @@
 import { put, select, call, takeLatest, takeEvery } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
-import { loadAssignments } from 'containers/Assignments/actions';
+import { retrieveUserMe } from 'containers/Authentication/actions';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 
 import { setMobileMenuOpen, showSpinner, hideSpinner } from 'globalReducers/app';
@@ -23,10 +23,6 @@ import {
 import {
   selectOfficerStatus,
 } from './selectors';
-
-import {
-  loadLocations,
-} from '../Bookings/actions';
 
 import {
   BOOKINGS,
@@ -204,20 +200,11 @@ export function* userSwitchCaseLoadsSaga(action) {
     yield put(setMobileMenuOpen(false));
     yield put(showSpinner());
     yield call(users.switchCaseLoads, apiServer, caseLoadId);
-    yield put({ type: USER.SWITCHCASELOAD.SUCCESS, payload: caseLoadId });
-
-    yield put(loadLocations());
-    yield put(loadAssignments(true));
-
-    const state = yield select();
-    const currPath = state.getIn(['route', 'locationBeforeTransitions', 'pathname']);
+    yield put(retrieveUserMe());
 
     yield put({ type: BOOKINGS.CLEAR });
     yield put(hideSpinner());
-
-    if (currPath !== '/assignments') {
-      yield put(push('/'));
-    }    
+    yield put(push('/'));
   } catch (e) {
     yield put({ type: USER.SWITCHCASELOAD.ERROR });
     yield put(hideSpinner());
