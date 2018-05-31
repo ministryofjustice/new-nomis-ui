@@ -26,6 +26,8 @@
   border-right: 1px solid #0B0C0C;
   height: 19px;
   cursor: pointer;
+  text-decoration: underline;
+
 
   &:last-child {
     border-right: 0;
@@ -33,22 +35,15 @@
   &:first-child {
     padding-left: 14px;
   }
-  &:hover {
-    text-decoration: underline;
-  }
   a {
     color: #005EA5;
+    text-decoration: underline;
 
-    &:-webkit-any-link {
-      text-decoration: none;
-    }
     &:visited {
       color: #4c2c92;
-      text-decoration: none;
     }
     &:hover {
       color: #2B8CC4;
-      text-decoration: underline;
     }
   }
 }

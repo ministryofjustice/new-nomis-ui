@@ -6,7 +6,7 @@ module.exports = {
     port: argv.port || process.env.PORT || 3000,
     production: process.env.NODE_ENV === 'production',
     feedbackUrl: process.env.FEEDBACK_URL,
-    mailTo: process.env.MAIL_TO || 'enquiries@digital.justice.gov.uk',
+    mailTo: process.env.MAIL_TO || 'feedback@digital.justice.gov.uk',
     useApiAuthGateway: process.env.USE_API_GATEWAY_AUTH === 'yes',
     apiGatewayKey: process.env.API_GATEWAY_PRIVATE_KEY || '',
     nomsToken: process.env.NOMS_TOKEN,
