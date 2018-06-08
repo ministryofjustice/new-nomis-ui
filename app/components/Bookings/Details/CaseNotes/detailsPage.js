@@ -11,14 +11,20 @@ import {
   DateTimeBlock2,
 } from './sharedCaseNoteComponents';
 
+import {
+  PreStyle,
+} from './listItem.theme';
+
 import './details-page.scss';
 
 const AmendmentBlock = ({ dateTime, authorName, text }) => (<div className="row amendment add-gutter-top">
   <div className="content">
     <h2 className="heading-small">Amendment</h2>
-    <p>
-      {text}
-    </p>
+    <pre>
+      <PreStyle>
+        {text}
+      </PreStyle>
+    </pre>
     <h2 className="heading-small">
       <DateTimeBlock2 dateTime={dateTime} />
     </h2>
@@ -77,9 +83,11 @@ const CaseNoteDetails = (props) => {
             {typeDescription} {'|'} {subTypeDescription}
           </h2>
 
-          <p>
-            {originalNoteText}
-          </p>
+          <pre>
+            <PreStyle>
+              {originalNoteText}
+            </PreStyle>
+          </pre>
 
           <h2 className="heading-small">
             <DateTimeBlock2 dateTime={creationDateTime} />
