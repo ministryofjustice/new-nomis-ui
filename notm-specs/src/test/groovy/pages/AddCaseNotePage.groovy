@@ -28,15 +28,19 @@ class AddCaseNotePage extends Page {
   def createNewCaseNote(text) {
     def textarea = textareaElement.module(Textarea)
     textarea.text = text
+
     form.typeValue = "Chaplaincy"
-    Thread.sleep(3000)
 
-    form.subTypeValue = "Faith Specific Action"
-      datePicker.click()
-      days[0].click() // select 1st of this month for now
-      form.hours = "07"
-      form.minutes = "00"
-      saveButton.click()
+    def subTypeValue = "Faith Specific Action"
 
+    Thread.sleep(300)
+
+    form.subTypeValue = subTypeValue
+
+    datePicker.click()
+    days[0].click() // select 1st of this month for now
+    form.hours = "07"
+    form.minutes = "00"
+    saveButton.click()
   }
 }

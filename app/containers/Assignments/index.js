@@ -20,7 +20,7 @@ import {
 
 import './index.scss';
 
-const ResultsView = ({ results, viewDetails }) => <div>
+const ResultsView = ({ results, viewDetails }) => <div className="offender-table">
 
 <div className="row add-gutter-bottom line-bottom table-headings">
 
@@ -28,7 +28,7 @@ const ResultsView = ({ results, viewDetails }) => <div>
   <b> Name </b>
 </div>
 
-<div className="col-sm-2 col-xs-3">
+<div className="col-sm-1 col-xs-3">
   <b> Prison no. </b>
 </div>
 
@@ -36,11 +36,7 @@ const ResultsView = ({ results, viewDetails }) => <div>
   <b> Location </b>
 </div>
 
-<div className="col-sm-2 hidden-xs">
-  <b> CSRA </b>
-</div>
-
-<div className="col-sm-2 hidden-xs">
+<div className="col-sm-1 hidden-xs">
   <b> IEP </b>
 </div>
 
@@ -50,7 +46,7 @@ const ResultsView = ({ results, viewDetails }) => <div>
 
 </div>
 
-{results.map((row,index) => <div className={`row no-bottom-padding add-gutter-margin-bottom ${index % 2 === 0 && 'grey-row'}`} key={row.get('bookingId')}>
+{results.map((row,index) => <div className={`row no-bottom-padding add-gutter-margin-bottom offender ${index % 2 === 0 && 'grey-row'}`} key={row.get('bookingId')}>
     <div className="col-sm-3 col-xs-8 no-left-gutter">
 
       <div className="photo clickable inline-block add-gutter-margin-right" onClick={() => viewDetails(row.get('offenderNo'))}>
@@ -66,7 +62,7 @@ const ResultsView = ({ results, viewDetails }) => <div>
     </div>
 
 
-  <div className="col-sm-2 col-xs-3 margin-top">
+  <div className="col-sm-1 col-xs-3 margin-top">
     <span>{row.get('offenderNo')} </span>
   </div>
 
@@ -74,11 +70,7 @@ const ResultsView = ({ results, viewDetails }) => <div>
     <span>{row.get('assignedLivingUnitDesc')} </span>
   </div>
 
-  <div className="col-sm-2 hidden-xs margin-top">
-    {row.get('crsaLevel')}
-  </div>
-
-  <div className="col-sm-2 hidden-xs margin-top">
+  <div className="col-sm-1 hidden-xs margin-top">
     <span>{row.get('iepLevel')} </span>
   </div>
 
@@ -117,9 +109,9 @@ class Assignments extends Component {
            My key worker allocations
         </h1>
 
-        {results.size > 0 && <h2 className="heading-medium no-top-margin add-gutter-padding-top">
+        <h2 className="heading-medium no-top-margin add-gutter-padding-top">
           <span className="add-gutter-margin-right"> Current allocations </span> <ThresholdIndicator maximum={capacity} value={totalResults} />
-        </h2>}
+        </h2>
 
         {error &&
           <div className="error-summary">
@@ -127,7 +119,7 @@ class Assignments extends Component {
           </div>}
 
         {results.size > 0 && <ResultsView results={results} viewDetails={viewDetails} /> }
-        {results.size === 0 && <h2 className="heading-medium"> No prisoners allocated. </h2>}
+        {results.size === 0 && <h2 className="heading-small"> No prisoners allocated. </h2>}
 
       </div>
     );
