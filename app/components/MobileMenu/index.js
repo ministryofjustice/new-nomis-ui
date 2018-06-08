@@ -28,7 +28,7 @@ function MobileMenu({ user, setMobileMenuOpen, showTerms, switchCaseLoad }) {
       </MobileMenuHeader>
       <MobileMenuOption to={'/'} onClick={removeMobileMenu}>Search<ForwardArrow svg={forwardBack} /></MobileMenuOption>
 
-       {user && user.isKeyWorker && <MobileMenuOption to={'/myKeyWorkerAllocations'} onClick={removeMobileMenu}>
+       {user && user.isKeyWorker && <MobileMenuOption className="my-allocations-menu-link" to={'/myKeyWorkerAllocations'} onClick={removeMobileMenu}>
         My key worker allocations
         <ForwardArrow svg={forwardBack} />
       </MobileMenuOption> }

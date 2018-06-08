@@ -2,8 +2,15 @@ package mockapis
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import groovy.json.JsonOutput
+import model.Offender
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo
+import static com.github.tomakehurst.wiremock.client.WireMock.get
+import static com.github.tomakehurst.wiremock.client.WireMock.post
+import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching
+import static com.github.tomakehurst.wiremock.client.WireMock.matching
+import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson
 
 import model.UserAccount
 
@@ -30,7 +37,7 @@ class Elite2Api extends WireMockRule {
       response.withFixedDelay(5000)
     }
 
-    stubFor(
+    this.stubFor(
       post('/oauth/token')
         .withHeader('authorization', equalTo('Basic ZWxpdGUyYXBpY2xpZW50OmNsaWVudHNlY3JldA=='))
         .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
@@ -39,7 +46,7 @@ class Elite2Api extends WireMockRule {
   }
 
   void stubInvalidOAuthTokenRequest(UserAccount user, boolean badPassword = false) {
-    stubFor(
+    this.stubFor(
       post('/oauth/token')
         .withHeader('authorization', equalTo('Basic ZWxpdGUyYXBpY2xpZW50OmNsaWVudHNlY3JldA=='))
         .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
@@ -58,7 +65,7 @@ class Elite2Api extends WireMockRule {
   }
 
   void stubHealthCheck() {
-    stubFor(
+    this.stubFor(
       get('/health')
         .willReturn(aResponse()
         .withStatus(200)
@@ -70,7 +77,24 @@ class Elite2Api extends WireMockRule {
   }
 
   void stubGetMyDetails(UserAccount user) {
-    stubFor(
+    stubUsersMe(user)
+    stubLocations()
+    stubUserRoles()
+    stubStaffRoles(user)
+    stubCaseLoads()
+  }
+
+  void stubGetMyDetailsForKeyWorker(UserAccount user) {
+    stubValidOAuthTokenRequest(user)
+    stubUsersMe(user)
+    stubLocations()
+    stubStaffRolesForKeyWorker(user)
+    stubUserRoles()
+    stubCaseLoads()
+  }
+
+  void stubUsersMe(UserAccount user) {
+    this.stubFor(
       get('/api/users/me')
         .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
@@ -84,8 +108,11 @@ class Elite2Api extends WireMockRule {
         email           : 'itaguser@syscon.net',
         activeCaseLoadId: 'LEI',
       ]))))
+  }
 
-    stubFor(
+  void stubLocations() {
+
+    this.stubFor(
       get('/api/users/me/locations')
         .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
@@ -103,8 +130,10 @@ class Elite2Api extends WireMockRule {
         operationalCapacity: 0,
         userDescription    : "userDescription"
       ]) + ']')))
+  }
 
-    stubFor(
+  void stubUserRoles() {
+    this.stubFor(
       get('/api/users/me/roles')
         .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
@@ -117,19 +146,10 @@ class Elite2Api extends WireMockRule {
             "parentRoleCode": "code",
             "caseloadId": "1"
           }]''')))
+  }
 
-    stubFor(
-      get("/api/staff/${user.staffMember.id}/${user.staffMember.assginedCaseload.id}/roles")
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
-        .willReturn(aResponse()
-        .withStatus(200)
-        .withHeader('Content-Type', 'application/json')
-        .withBody('''[{
-            "role": "KW",
-            "roleDescription": "Key worker"
-          }]''')))
-
-    stubFor(
+  void stubCaseLoads() {
+    this.stubFor(
       get('/api/users/me/caseLoads')
         .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
@@ -151,8 +171,35 @@ class Elite2Api extends WireMockRule {
      ]''')))
   }
 
-  void stubOffenderSearch(String details) {
-    stubFor(
+  void stubStaffRoles(UserAccount user) {
+
+    this.stubFor(
+      get("/api/staff/${user.staffMember.id}/${user.staffMember.assginedCaseload.id}/roles")
+        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody('''[]''')))
+  }
+
+  void stubStaffRolesForKeyWorker(UserAccount user) {
+
+    def json = JsonOutput.toJson([
+      role: 'KW',
+      roleDescription: 'Key Worker'
+    ])
+    def body = "[${json}]"
+    this.stubFor(
+      get("/api/staff/${user.staffMember.id}/${user.staffMember.assginedCaseload.id}/roles")
+        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody(body)))
+  }
+
+  void stubOffenderSearch(String details, ArrayList<Offender> offenders) {
+    this.stubFor(
       get("/api/locations/description/LEI/inmates?keywords=${details}")
         .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
@@ -161,55 +208,11 @@ class Elite2Api extends WireMockRule {
         .withHeader('Page-Limit', '200')
         .withHeader('Page-Offset', '0')
         .withHeader('Total-Records', '3')
-        .withBody('''[
-    {
-        "bookingId": -12,
-        "bookingNo": "A00122",
-        "offenderNo": "A1234AL",
-        "firstName": "DANIEL",
-        "middleName": "JOHN",
-        "lastName": "SMELLEY",
-        "dateOfBirth": "1968-01-01",
-        "age": 50,
-        "agencyId": "LEI",
-        "assignedLivingUnitId": -10,
-        "assignedLivingUnitDesc": "A-1-8",
-        "facialImageId": -12,
-        "iepLevel": "Standard"
-    },
-    {
-        "bookingId": -10,
-        "bookingNo": "A00120",
-        "offenderNo": "A1234AJ",
-        "firstName": "DANIEL",
-        "middleName": "JOSEPH",
-        "lastName": "SMITH",
-        "dateOfBirth": "1958-01-01",
-        "age": 60,
-        "agencyId": "LEI",
-        "assignedLivingUnitId": -8,
-        "assignedLivingUnitDesc": "A-1-6",
-        "facialImageId": -10,
-        "iepLevel": "Standard"
-    },
-    {
-        "bookingId": -11,
-        "bookingNo": "A00121",
-        "offenderNo": "A1234AK",
-        "firstName": "DARIUS",
-        "lastName": "SMITH",
-        "dateOfBirth": "1979-12-31",
-        "age": 38,
-        "agencyId": "LEI",
-        "assignedLivingUnitId": -9,
-        "assignedLivingUnitDesc": "A-1-7",
-        "facialImageId": -11,
-        "iepLevel": "Standard"
-    }  ]''')))
+        .withBody(JsonOutput.toJson(offenders))))
   }
 
   void stubImage() {
-    stubFor(
+    this.stubFor(
       get(urlMatching("/api/images/.+/data"))
         .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
@@ -217,7 +220,7 @@ class Elite2Api extends WireMockRule {
   }
 
   void stubIEP() {
-    stubFor(
+    this.stubFor(
       get(urlMatching("/api/bookings/.+/iepSummary"))
         .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
@@ -234,7 +237,7 @@ class Elite2Api extends WireMockRule {
   }
 
   void stubKeyworkerOld() {
-    stubFor(
+    this.stubFor(
       get("/api/bookings/offenderNo/A1234AJ/key-worker")
         .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
@@ -316,7 +319,7 @@ class Elite2Api extends WireMockRule {
     "assignedOfficerId": -2
 }"""
 
-    stubFor(
+    this.stubFor(
       get("/api/bookings/offenderNo/A1234AJ?fullInfo=${fullInfo}")
         .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
@@ -326,7 +329,7 @@ class Elite2Api extends WireMockRule {
   }
 
   void stubAliases() {
-    stubFor(
+    this.stubFor(
       get(urlMatching("/api/bookings/.+/aliases"))
         .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
@@ -336,7 +339,7 @@ class Elite2Api extends WireMockRule {
   }
 
   void stubCaseNoteTypes() {
-    stubFor(
+    this.stubFor(
       get("/api/reference-domains/caseNoteTypes")
         .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
@@ -394,7 +397,7 @@ class Elite2Api extends WireMockRule {
   "subType": "FAITH",
   "text": "some text"
 }"""
-    stubFor(
+    this.stubFor(
       post(urlMatching("/api/bookings/.+/caseNotes"))
         .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .withRequestBody(equalToJson(data, true, true))
@@ -421,7 +424,7 @@ class Elite2Api extends WireMockRule {
   // NB also test error 403 from this post
 
   void stubGetCaseNote() {
-    stubFor(
+    this.stubFor(
       get(urlMatching("/api/bookings/.+/caseNotes"))
         .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
@@ -463,7 +466,7 @@ class Elite2Api extends WireMockRule {
   }
 
   void stubMeCaseNoteTypes() {
-    stubFor(
+    this.stubFor(
       get("/api/users/me/caseNoteTypes")
         .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
@@ -514,7 +517,7 @@ class Elite2Api extends WireMockRule {
   }
 
   void stubStaffDetails(id) {
-    stubFor(
+    this.stubFor(
       get("/api/users/staff/${id}")
         .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
@@ -527,4 +530,62 @@ class Elite2Api extends WireMockRule {
     "lastName": "Name${id}"
 }""")))
   }
+
+  void stubGetKeyWorker(def staffId, def offenderNo) {
+
+    this.stubFor(
+      get("/key-worker/${staffId}/offender/${offenderNo}")
+        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody()))
+  }
+
+  void getOffenderSummaryDetails(ArrayList offenders) {
+
+    String queryString = buildOffenderQueryString(offenders)
+
+    this.stubFor(
+      get("/api/bookings?iepLevel=true&${queryString}")
+        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody(JsonOutput.toJson(offenders))))
+  }
+
+  def stubCSRAssessments(ArrayList offenders) {
+    String queryString = buildOffenderQueryString(offenders)
+
+    this.stubFor(
+      get("/api/offender-assessments/CSR?${queryString}")
+        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody(JsonOutput.toJson(offenders))))
+  }
+
+  def stubSentenceDates(ArrayList offenders) {
+    String queryString = buildOffenderQueryString(offenders)
+
+    this.stubFor(
+      get("/api/offender-sentences/?${queryString}")
+        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody(JsonOutput.toJson(offenders))))
+  }
+
+
+  String buildOffenderQueryString(ArrayList offenders) {
+     return offenders
+       .stream()
+       .map{offender -> "offenderNo=${offender.offenderNo}"}
+       .collect(java.util.stream.Collectors.joining("&"))
+
+  }
+
 }
