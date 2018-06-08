@@ -70,4 +70,5 @@ export const AmendmentSubSection = styled.div`
 
 export const PreStyle = styled.pre`
    font-family: nta,Arial,sans-serif;
+   white-space: pre-wrap;
 `;
