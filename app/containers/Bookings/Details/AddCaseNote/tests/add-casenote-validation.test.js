@@ -1,7 +1,7 @@
 import { Map } from 'immutable';
 import { validate } from '../index';
 
-describe('Add casenote validation', () => {
+describe('Add case note validation', () => {
   it('should check that type, subtype, comment and occurrenceDateTime have been entered', () => {
     const error = validate(Map({
 
