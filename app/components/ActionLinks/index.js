@@ -19,7 +19,7 @@ export const MyAllocationsLink = () => (
     <img src="/img/ICON_MyKeyWorkerAssignments@2x.png" className="add-gutter-margin-right" />
 
     <div className="heading-medium">
-      <Link className="link" to="/myKeyWorkerAllocations">My key worker allocations</Link>
+      <Link className="link my-allocations-link" to="/myKeyWorkerAllocations">My key worker allocations</Link>
     </div>
   </div>);
 

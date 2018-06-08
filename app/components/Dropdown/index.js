@@ -44,7 +44,7 @@ class Dropdown extends Component {
           { this.state.isOpen &&
           <div>
             {user.isKeyWorker && 
-            <DropdownMenuLink key={'My Assignments'} to={'/myKeyWorkerAllocations'} onClick={() => this.toggleMenu()}>
+            <DropdownMenuLink className="my-allocations-menu-link" key={'My Assignments'} to={'/myKeyWorkerAllocations'} onClick={() => this.toggleMenu()}>
               My key worker allocations
             </DropdownMenuLink>}
 

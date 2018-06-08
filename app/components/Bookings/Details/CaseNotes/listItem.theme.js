@@ -67,3 +67,8 @@ export const AmendmentSubSection = styled.div`
   width: 100%
   font-weight: bold;
 `;
+
+export const PreStyle = styled.pre`
+   font-family: nta,Arial,sans-serif;
+   white-space: pre-wrap;
+`;

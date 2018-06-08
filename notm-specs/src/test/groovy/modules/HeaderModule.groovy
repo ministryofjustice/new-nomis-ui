@@ -9,14 +9,14 @@ class HeaderModule extends Module {
         dropDown   { $('.header-content .clickable') }
         dropDownMobile  { $('div#nav-icon span', 0) }
         logoutLink { $('a', text: 'Log out' ) }
+        myAllocationsMenuLink(required: false) { $('.my-allocations-menu-link') }
+        dropDownMenu { dropDown.displayed == true ? dropDown : dropDownMobile }
     }
 
+
+
   def logout() {
-    if (dropDownMobile.displayed) {
-      dropDownMobile.click()
-    } else if (dropDown.displayed) {
-      dropDown.click()
-    }
+    dropDownMenu.click()
     waitFor { logoutLink.displayed }
     logoutLink.click()
   }
