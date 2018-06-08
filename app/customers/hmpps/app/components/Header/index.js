@@ -47,7 +47,8 @@ class Header extends Component {
         <div className="header-content">
           <LeftContent>
           <Link to="/">
-            <Logo className="header-image">
+            <Logo>
+              <img src="/img/Crest@2x.png" alt="" width="42" height="35" />
             </Logo>
           </Link>
 
