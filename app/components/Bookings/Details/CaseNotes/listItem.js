@@ -4,6 +4,10 @@ import styled from 'styled-components';
 import uuid from 'uuid/v4';
 import { FormattedDate, FormattedTime } from 'components/intl';
 
+import {
+  PreStyle,
+} from './listItem.theme';
+
 const Block = styled.div`
    margin-bottom: .5em;
  `;
@@ -74,9 +78,11 @@ function AmendmentBlock({ amendment }) {
               </div>
             </Bold>
 
-            <p>
-              {amendment.additionalNoteText}
-            </p>
+            <pre>
+              <PreStyle>
+                {amendment.additionalNoteText}
+              </PreStyle>
+            </pre>
 
           </div>
 
@@ -150,9 +156,11 @@ function CaseNoteListItem(props) {
             </span>
           </Block>}
           <Block>
-            <p>
-              {originalNoteText}
-            </p>
+            <pre>
+              <PreStyle>
+                {originalNoteText}
+              </PreStyle>
+            </pre>
             <div>
               {amendmentList}
             </div>
