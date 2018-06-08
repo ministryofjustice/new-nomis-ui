@@ -116,6 +116,11 @@ app.use((req, res, next) => {
 app.use(session.hmppsSessionMiddleWare);
 app.use(session.extendHmppsCookieMiddleWare);
 
+app.use('/heart-beat', (req,res) => {
+  res.status(200);
+  res.end();
+});
+
 // Don't cache dynamic resources (except images which override this)
 app.use(helmet.noCache());
 

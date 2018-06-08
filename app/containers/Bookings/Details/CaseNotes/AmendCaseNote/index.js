@@ -3,21 +3,26 @@ import { reduxForm, Field } from 'redux-form/immutable';
 import { connect } from 'react-redux';
 import { createFormAction } from 'redux-form-saga';
 import { Map } from 'immutable';
+import SessionHeartbeatHandler from 'utils/sessionHeartbeatHandler';
 
 import { TextArea } from 'components/FormComponents';
 
 import { AMEND_CASENOTE } from '../../../constants';
 import { DETAILS_TABS } from '../../../constants';
-import { viewDetails } from '../../../actions';
+import { extendActiveSession, viewDetails } from '../../../actions';
+
 
 import './index.scss';
 
 const AmendCaseNote = (props) => {
-  const { handleSubmit, error, submitting, goBackToBookingDetails, offenderNo } = props;
+  const { handleSubmit, error, submitting, goBackToBookingDetails, offenderNo, extendSession } = props;
 
   if (this.props && this.props.error) {
     window.scrollTo(0,0);
   }
+
+  const sessionHandler = new SessionHeartbeatHandler(extendSession);
+
 
   return (<div className="amend-case-note add-gutter-margin-top">
 
@@ -39,7 +44,14 @@ const AmendCaseNote = (props) => {
 
       <div className="row">
         <div className="col-md-8 no-left-gutter">
-          <Field name="amendmentText" component={TextArea} title="Case note amendment" autocomplete="off" spellcheck="true" />
+          <Field
+            name="amendmentText"
+            component={TextArea}
+            title="Case note amendment"
+            autocomplete="off"
+            spellcheck="true"
+            onChange={() => sessionHandler.onUpdate()}
+          />
         </div>
       </div>
 
@@ -61,6 +73,7 @@ const AmendCaseNote = (props) => {
 export function mapDispatchToProps(dispatch, props) {
   return {
     goBackToBookingDetails: (offenderNo) => dispatch(viewDetails(offenderNo, DETAILS_TABS.CASE_NOTES)),
+    extendSession: () => dispatch(extendActiveSession()),
     onSubmit: createFormAction((formData) => (
       {
         type: AMEND_CASENOTE.BASE,

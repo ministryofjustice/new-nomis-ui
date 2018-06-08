@@ -15,9 +15,10 @@ import TimePicker from 'components/FormComponents/TimePicker';
 import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
 import { selectUsersTypesAndSubTypes } from 'containers/EliteApiLoader/selectors';
 import { loadCaseNoteTypesAndSubTypes } from 'containers/Bookings/actions';
+import SessionHeartbeatHandler from 'utils/SessionHeartbeatHandler'
 
 import { DETAILS_TABS, ADD_NEW_CASENOTE } from '../../constants';
-import { viewDetails } from '../../actions';
+import { viewDetails,extendActiveSession } from '../../actions';
 
 import './index.scss';
 
@@ -40,7 +41,11 @@ class AddCaseNoteForm extends Component {
       params: { offenderNo },
       goBackToBookingDetails,
       eventDate,
+      extendSession,
     } = this.props;
+
+    const sessionHandler = new SessionHeartbeatHandler(extendSession);
+
     return (
     <div className="add-case-note">
       <h1 className="bold-large">Add new case note</h1>
@@ -55,9 +60,17 @@ class AddCaseNoteForm extends Component {
 
         <div className="row">
           <div className="col-sm-8 no-left-gutter">
-            <Field name="caseNoteText" component={TextArea} title="Case note" autocomplete="off" spellcheck="true" />
+            <Field
+              name="caseNoteText"
+              component={TextArea}
+              title="Case note"
+              autocomplete="off"
+              spellcheck="true"
+              onChange={() => sessionHandler.onUpdate()}
+            />
           </div>
         </div>
+
 
         <div className="row">
           <div className="col-sm-3 col-md-2 col-xs-6 no-left-gutter event-date">
@@ -124,6 +137,7 @@ export function mapDispatchToProps(dispatch, props) {
   return {
     goBackToBookingDetails: (offenderNo) => dispatch(viewDetails(offenderNo, DETAILS_TABS.CASE_NOTES)),
     loadCaseNoteTypes: () => dispatch(loadCaseNoteTypesAndSubTypes()),
+    extendSession: () => dispatch(extendActiveSession()),
     onSubmit: createFormAction((formData) => (
       {
         type: ADD_NEW_CASENOTE.BASE,
