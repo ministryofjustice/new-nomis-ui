@@ -4,10 +4,8 @@
 
   [class*='col-'] {
     word-wrap: break-word;
-
-    b {
-      font-size: 16px;
-    }
+    margin-left: 0;
+    padding-left: 0;
   }
 
   .photo {
@@ -21,7 +19,7 @@
   }
 
   .margin-top {
-    margin-top: 2em;
+    margin-top: 2.5em;
   }
 
   .line-bottom {
@@ -32,8 +30,13 @@
     background: #F6F6F6;
   }
 
-  .table-headings {
-    padding-bottom: 0;
+  .offender-table {
+
+    .table-headings {
+      padding-bottom: 0;
+    }
+
+    font-size: 16px;
   }
 
 }

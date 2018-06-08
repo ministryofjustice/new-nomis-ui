@@ -22,7 +22,7 @@ module.exports = {
       clientSecret: process.env.API_CLIENT_SECRET || 'clientsecret',
     },
     keyworker: {
-      url: process.env.KEYWORKER_API_URL,
+      url: process.env.KEYWORKER_API_URL || 'http://localhost:8081',
       ui_url: process.env.OMIC_UI_URL,
     },
   },
