@@ -35,6 +35,16 @@ const AmendmentBlock = ({ dateTime, authorName, text }) => (<div className="row 
   </div>
 </div>);
 
+const sameCreator = (props) => {
+  if (!props || !props.caseNote) {
+    return true;
+  }
+  const caseNoteStaffId = props.caseNote.get('staffId');
+  if (!caseNoteStaffId || !props.currentStaffId) {
+    return true;
+  }
+  return (caseNoteStaffId === props.currentStaffId);
+}
 
 const CaseNoteDetails = (props) => {
   const {
@@ -106,9 +116,9 @@ const CaseNoteDetails = (props) => {
 
           {amendmentList}
 
-          <div className="add-gutter-top add-gutter-bottom">
+          {sameCreator(props) && <div className="add-gutter-top add-gutter-bottom">
             <button className="button-cancel" onClick={() => addAmendment(offenderNo, caseNoteId)}>Make amendment</button>
-          </div>
+          </div>}
         </div>
 
       </div>
@@ -127,9 +137,16 @@ export function mapDispatchToProps(dispatch) {
   }
 }
 
+function getCurrentStaffId(state) {
+  const auth = state.get('authentication');
+  const user = auth && auth.get('user');
+  return user && user.staffId;
+}
+
 const mapStateToProps = (state, props) => ({
   offenderNo: props.offenderNo,
   caseNoteId: props.caseNoteId,
+  currentStaffId: getCurrentStaffId(state),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CaseNoteDetails);
