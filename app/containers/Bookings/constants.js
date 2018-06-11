@@ -78,3 +78,5 @@ export const AMEND_CASENOTE = {
   SUCCESS: 'app/bookings/details/amendCaseNote/SUCCESS',
   ERROR: 'app/bookings/details/amendCaseNote/ERROR',
 };
+
+export const EXTEND_SESSION = 'EXTEND_SESSION';

@@ -74,6 +74,12 @@ class Elite2Api extends WireMockRule {
 "diskSpace":{"status":"UP","total":510923390976,"free":114173091840,"threshold":10485760},
 "db":{"status":"UP","database":"HSQL Database Engine","hello":4}}}'''))
     )
+
+    this.stubFor(
+      get('/heart-beat')
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withBody()))
   }
 
   void stubGetMyDetails(UserAccount user) {

@@ -15,6 +15,7 @@ import {
   LOAD_QUICK_LOOK,
   LOAD_SCHEDULED_EVENTS,
   NEW_SEARCH,
+  EXTEND_SESSION,
 } from './constants';
 
 
@@ -156,5 +157,11 @@ export function bookingSearch(formData) {
         sortOrder: 'ASC',
       },
     },
+  }
+}
+
+export function extendActiveSession() {
+  return {
+    type: EXTEND_SESSION,
   }
 }

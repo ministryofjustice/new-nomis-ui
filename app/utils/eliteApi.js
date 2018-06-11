@@ -301,3 +301,9 @@ export const addAppointment = ({ offenderNo, startTime, endTime, appointmentType
   },
   withCredentials: true,
 });
+
+export const extendSessionRequest = () => axios({
+  method: 'GET',
+  url: '/heart-beat',
+  withCredentials: true,
+})

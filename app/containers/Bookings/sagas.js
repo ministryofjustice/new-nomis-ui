@@ -23,6 +23,7 @@ import {
   loadScheduledEventsForNextWeek,
   addAppointment,
   bookingAlerts,
+  extendSessionRequest,
 } from 'utils/eliteApi';
 
 import {
@@ -61,9 +62,15 @@ import {
   LOAD_SCHEDULED_EVENTS,
   SET_SCHEDULED_EVENTS,
   CASE_NOTE,
+  EXTEND_SESSION,
 } from './constants';
 import { getCaseNote } from '../../utils/eliteApi';
 
+export function* extendActiveSessionWatcher() {
+  yield takeLatest(EXTEND_SESSION, function* () {
+    yield call(extendSessionRequest)
+  })
+}
 export function* bookingAlertsWatcher() {
   yield takeLatest(BOOKINGS.ALERTS.BASE, bookingAlertsSaga);
 }
@@ -480,4 +487,5 @@ export default [
   addAppointmentWatcher,
   bookingAlertsWatcher, 
   loadCaseNoteWatcher,
+  extendActiveSessionWatcher,
 ];
