@@ -35,15 +35,15 @@ const AmendmentBlock = ({ dateTime, authorName, text }) => (<div className="row 
   </div>
 </div>);
 
-const sameCreator = (props) => {
-  if (!props || !props.caseNote) {
+const sameCreator = ({ currentStaffId, caseNote }) => {
+  if (!caseNote) {
     return true;
   }
-  const caseNoteStaffId = props.caseNote.get('staffId');
-  if (!caseNoteStaffId || !props.currentStaffId) {
+  const caseNoteStaffId = caseNote.get('staffId');
+  if (!caseNoteStaffId || !currentStaffId) {
     return true;
   }
-  return (caseNoteStaffId === props.currentStaffId);
+  return (caseNoteStaffId === currentStaffId);
 }
 
 const CaseNoteDetails = (props) => {
