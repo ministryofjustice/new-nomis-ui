@@ -15,7 +15,7 @@ import TimePicker from 'components/FormComponents/TimePicker';
 import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
 import { selectUsersTypesAndSubTypes } from 'containers/EliteApiLoader/selectors';
 import { loadCaseNoteTypesAndSubTypes } from 'containers/Bookings/actions';
-import SessionHeartbeatHandler from 'utils/SessionHeartbeatHandler'
+import SessionHeartbeatHandler from 'utils/SessionHeartbeatHandler';
 
 import { DETAILS_TABS, ADD_NEW_CASENOTE } from '../../constants';
 import { viewDetails,extendActiveSession } from '../../actions';
