@@ -82,8 +82,8 @@ describe('Events service', () => {
       },
       {
         eventSourceeDesc: 'Workshop afternoon',
-        startTime: '2017-12-12T19:00:00',
-        endTime: '2017-12-12T20:00:00',
+        startTime: '2017-12-12T13:00:00',
+        endTime: '2017-12-12T14:00:00',
         eventStatus: 'SCH',
         eventDate: today,
       },
@@ -97,8 +97,15 @@ describe('Events service', () => {
       },
       {
         eventSourceeDesc: 'Workshop afternoon',
-        startTime: '2017-12-12T19:00:00',
-        endTime: '2017-12-12T20:00:00',
+        startTime: '2017-12-12T13:00:00',
+        endTime: '2017-12-12T14:00:00',
+        eventStatus: 'SCH',
+        eventDate: threeDaysInTheFuture,
+      },
+      {
+        eventSourceeDesc: 'Workshop ed',
+        startTime: '2017-12-12T17:00:00',
+        endTime: '2017-12-1218:00:00',
         eventStatus: 'SCH',
         eventDate: threeDaysInTheFuture,
       },
@@ -107,12 +114,13 @@ describe('Events service', () => {
     const data = await eventsService.getScheduledEventsForThisWeek(req);
 
     expect(data[0].date.format(isoDateFormat)).to.equal(today.format(isoDateFormat));
-    expect(data[0].forMorning.length).to.equal(1);
-    expect(data[0].forAfternoon.length).to.equal(1);
+    expect(data[0].morningActivities.length).to.equal(1);
+    expect(data[0].morningActivities.length).to.equal(1);
 
     expect(data[3].date.format(isoDateFormat)).to.equal(threeDaysInTheFuture.format(isoDateFormat));
-    expect(data[3].forMorning.length).to.equal(1);
-    expect(data[3].forAfternoon.length).to.equal(1);
+    expect(data[3].afternoonActivities.length).to.equal(1);
+    expect(data[3].afternoonActivities.length).to.equal(1);
+    expect(data[3].eveningDuties.length).to.equal(1);
   });
 
   it('should use eventSourceDesc to indicate the type for activities only', async () => {
@@ -130,7 +138,7 @@ describe('Events service', () => {
     ]);
 
     const data = await eventsService.getScheduledEventsForThisWeek(req);
-    expect(data[0].forMorning[0].type).to.equal('Wing cleaner');
+    expect(data[0].morningActivities[0].type).to.equal('Wing cleaner');
   });
 
   it('should use the eventSubTypeDesc when eventSourceDesc is missing', async () => {
@@ -146,7 +154,7 @@ describe('Events service', () => {
     ]);
 
     const data = await eventsService.getScheduledEventsForThisWeek(req);
-    expect(data[0].forMorning[0].type).to.equal('Prison Activity');
+    expect(data[0].morningActivities[0].type).to.equal('Prison Activity');
   });
 
 
@@ -167,8 +175,8 @@ describe('Events service', () => {
 
     const data = await eventsService.getScheduledEventsForThisWeek(req);
 
-    expect(data[0].forMorning[0].type).to.equal('appointment');
-    expect(data[0].forMorning[0].comment).to.equal('health check up');
+    expect(data[0].morningActivities[0].type).to.equal('appointment');
+    expect(data[0].morningActivities[0].comment).to.equal('health check up');
   });
 
   it('should show use eventSourceDesc for an activities type', async () => {
@@ -188,8 +196,8 @@ describe('Events service', () => {
 
     const data = await eventsService.getScheduledEventsForThisWeek(req);
 
-    expect(data[0].forMorning[0].type).to.equal('appointment');
-    expect(data[0].forMorning[0].comment).to.equal('health check up');
+    expect(data[0].morningActivities[0].type).to.equal('appointment');
+    expect(data[0].morningActivities[0].comment).to.equal('health check up');
   });
 
   it('should order events by start time then by end time', async () => {
@@ -227,14 +235,14 @@ describe('Events service', () => {
 
     const data = await eventsService.getScheduledEventsForThisWeek(req);
 
-    expect(data[0].forMorning[0].startTime).to.equal('2017-12-12T09:00:00');
-    expect(data[0].forMorning[0].endTime).to.equal(null);
+    expect(data[0].morningActivities[0].startTime).to.equal('2017-12-12T09:00:00');
+    expect(data[0].morningActivities[0].endTime).to.equal(null);
 
-    expect(data[0].forMorning[1].startTime).to.equal('2017-12-12T09:00:00');
-    expect(data[0].forMorning[1].endTime).to.equal('2017-12-12T10:00:00');
+    expect(data[0].morningActivities[1].startTime).to.equal('2017-12-12T09:00:00');
+    expect(data[0].morningActivities[1].endTime).to.equal('2017-12-12T10:00:00');
 
-    expect(data[0].forMorning[2].startTime).to.equal('2017-12-12T09:00:00');
-    expect(data[0].forMorning[2].endTime).to.equal('2017-12-12T11:30:00');
+    expect(data[0].morningActivities[2].startTime).to.equal('2017-12-12T09:00:00');
+    expect(data[0].morningActivities[2].endTime).to.equal('2017-12-12T11:30:00');
   });
 
   it('should call getAppointmentsViewModel', async () => {

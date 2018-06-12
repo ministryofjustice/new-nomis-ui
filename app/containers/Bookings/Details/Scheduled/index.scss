@@ -28,7 +28,19 @@
     background: #D5E8F4;
   }
 
+  .appointment.ed {
+    background: #BEDCEE;
+  }
+
+  .separator {
+    display: none;
+  }
+
   @include media-breakpoint-down(lg) {
+
+    .separator {
+      display: inline-block;
+    }
 
     div[class^="col-"] {
 
