@@ -5,21 +5,8 @@ const RiskAssessment = require('../model/risk-assessment');
 const keyDatesMapper = require('../data-mappers/keydates');
 const isoDateFormat = require('./../constants').isoDateFormat;
 const toAward = require('../data-mappers/to-award');
-const toEvent = require('../data-mappers/to-event');
 const toVisit = require('../data-mappers/to-visit');
-
-const byStartTimeThenByEndTime = (a,b) => {
-  if (moment(a.startTime).isBefore(moment(b.startTime))) { return -1; }
-  if (moment(a.startTime).isAfter(moment(b.startTime))) { return 1; }
-
-  if (!a.endTime) return -1;
-  if (!b.endTime) return 1;
-
-  if (moment(a.endTime).isBefore(moment(b.endTime))) { return -1; }
-  if (moment(a.endTime).isAfter(moment(b.endTime))) { return 1; }
-
-  return 0;
-};
+const toActivityViewModel = require('../data-mappers/to-activity-viewmodel');
 
 const getKeyDatesVieModel = async (req, res) => {
   const { bookingId } = await elite2Api.getDetailsLight(req, res);
@@ -68,10 +55,6 @@ const getQuickLookViewModel = async (req, res) => {
   const threeMonthsInThePast = moment().subtract(3, 'months').format(isoDateFormat);
   const today = moment().format(isoDateFormat);
 
-  const filterMorning = (array) => array.filter(a => moment(a.startTime).get('hour') < 12);
-  const filterAfternoon = (array) => array.filter(a => moment(a.startTime).get('hour') > 11);
-  const hasAnyActivity = (activities) => activities.morningActivities.length > 0 || activities.afternoonActivities.length > 0;
-
   const { bookingId } = await elite2Api.getDetailsLight(req, res);
   req.bookingId = bookingId;
 
@@ -86,7 +69,7 @@ const getQuickLookViewModel = async (req, res) => {
     elite2Api.getAdjudications({ req, res, fromDate: threeMonthsInThePast }),
     elite2Api.getLastVisit(req, res),
     elite2Api.getRelationships(req, res),
-  ]
+  ];
 
   const [
     balance,
@@ -99,20 +82,14 @@ const getQuickLookViewModel = async (req, res) => {
     adjudications,
     lastVisit,
     relationships,
-  ] = await Promise.all(apiCalls)
+  ] = await Promise.all(apiCalls);
 
 
-  const morningActivity = filterMorning(activityData);
-  const afternoonActivity = filterAfternoon(activityData);
-
-  const activities = {
-    morningActivities: morningActivity && morningActivity
-      .map(data => toEvent(data))
-      .sort(byStartTimeThenByEndTime),
-    afternoonActivities: afternoonActivity && afternoonActivity
-      .map(data => toEvent(data))
-      .sort(byStartTimeThenByEndTime),
-  };
+  const activities = toActivityViewModel(activityData);
+  const hasAnyActivity =
+    activities.morningActivities.length > 0 ||
+    activities.afternoonActivities.length > 0 ||
+    activities.eveningDuties.length > 0;
 
   const offenceDetails = offenceData && offenceData.map(offenceDetail => ({
     type: offenceDetail.offenceDescription,
@@ -137,7 +114,7 @@ const getQuickLookViewModel = async (req, res) => {
       savings: balance.savings,
       currency: balance.currency,
     },
-    activities: hasAnyActivity(activities) ? activities : null,
+    activities: hasAnyActivity ? activities : null,
     positiveCaseNotes: (positiveCaseNotes && positiveCaseNotes.count) || 0,
     negativeCaseNotes: (negativeCaseNotes && negativeCaseNotes.count) || 0,
     offences: (offenceDetails && offenceDetails.length > 0) ? offenceDetails : null,

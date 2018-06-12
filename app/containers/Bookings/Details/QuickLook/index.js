@@ -133,38 +133,37 @@ export const Activities = ({ activities, period }) => (
           </div>
         </div>
       }
+        {activities.map((activity,index) =>
+          (<div className={`row border-bottom-line ${index === 0 && 'no-top-gutter'}`} key={uuid()}>
 
-      {activities.map((activity) =>
-        (<div className="row border-bottom-line" key={uuid()}>
-
-          <div className="col-lg-6 col-xs-6">
-          </div>
-
-          <div className="col-lg-6 col-xs-6">
-            <span>
-              <b> {activity.get('type')} </b>
-              {activity.get('shortComment') && <b>{' - '}</b>}
-            </span>
-
-            <span>
-              {activity.get('shortComment')}
-            </span>
-          </div>
-          <div className="row add-padding-bottom">
-            <div className="col-lg-6 col-xs-6"></div>
             <div className="col-lg-6 col-xs-6">
-              {activity.get('startTime') && <FormattedTime value={activity.get('startTime')} />}
-              {activity.get('endTime') &&
-                <span>
-                  <span> - </span>
-                  <FormattedTime value={activity.get('endTime')} />
-                </span>
-              }
             </div>
-          </div>
-        </div>)
-      )}
 
+            <div className="col-lg-6 col-xs-6">
+              <span>
+                <b> {activity.get('type')} </b>
+                {activity.get('shortComment') && <b>{' - '}</b>}
+              </span>
+
+              <span>
+                {activity.get('shortComment')}
+              </span>
+            </div>
+
+            <div className="row add-padding-bottom">
+              <div className="col-lg-6 col-xs-6"></div>
+              <div className="col-lg-6 col-xs-6">
+                {activity.get('startTime') && <FormattedTime value={activity.get('startTime')} />}
+                {activity.get('endTime') &&
+                  <span>
+                    <span> - </span>
+                    <FormattedTime value={activity.get('endTime')} />
+                  </span>
+                }
+              </div>
+            </div>
+          </div>)
+        )}
     </div>
 
   </div>
@@ -482,6 +481,7 @@ class QuickLook extends Component {
             </h3>
             <Activities activities={activities.get('morningActivities')} period={'Morning (AM)'} />
             <Activities activities={activities.get('afternoonActivities')} period={'Afternoon (PM)'} />
+            <Activities activities={activities.get('eveningDuties')} period={'Evening duties (ED)'} />
 
             <Link className="link" to={`/offenders/${offenderNo}/schedule`}> Seven day schedule</Link>
           </div>

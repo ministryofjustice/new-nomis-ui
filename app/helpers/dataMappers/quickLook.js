@@ -10,6 +10,7 @@ export const Model = Map({
   activities: Map({
     morningActivities: List([]),
     afternoonActivities: List([]),
+    eveningDuties: List([]),
   }),
   nextOfKin: List([]),
   balance: Map({
