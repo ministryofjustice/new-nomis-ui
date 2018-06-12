@@ -17,7 +17,7 @@ describe('Event component', () => {
     const component = shallow(<Event startTime={'2017-12-12T08:00'} endTime={null} />);
     const endTime = component.find('.whereabouts-endTime').node;
 
-    expect(endTime.props.children[1]).toBe(null);
+    expect(endTime).toBe(undefined);
   });
 })
 

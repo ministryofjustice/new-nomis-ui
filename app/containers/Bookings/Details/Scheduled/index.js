@@ -24,16 +24,20 @@ import './index.scss';
 export const Event = ({ startTime, endTime, type, shortComment }) =>
   (<div className="row add-gutter-margin-bottom">
 
-    <div className="col-xl-5 col-lg-6 col-md-6 col-xs-6">
+    <div className="col-xl-5 col-lg-3 col-md-6 col-xs-6">
       <span className="whereabouts-startTime">
         {moment(startTime).format('HH:mm')}
       </span>
 
-      {endTime && <span>-</span>}
-      <span className="whereabouts-endTime"> {endTime && moment(endTime).format('HH:mm')} </span>
+      {endTime &&
+        <span>
+          <span className="separator">-</span>
+          <span className="whereabouts-endTime"> {moment(endTime).format('HH:mm')} </span>
+        </span>
+      }
     </div>
 
-    <div className="col-xl-7 col-lg-6 col-md-6 col-xs-6">
+    <div className="col-xl-7 col-lg-9 col-md-6 col-xs-6">
 
       <span>
         <b> {type} </b>
@@ -116,11 +120,14 @@ class ScheduledEvents extends Component {
 
       <div className="row hidden-lg-down">
         <div className="col-lg-2"></div>
-        <div className="col-lg-5">
+        <div className="col-lg-3">
           <h1 className="heading-medium">Morning (AM)</h1>
         </div>
-        <div className="col-lg-5">
+        <div className="col-lg-3">
           <h1 className="heading-medium">Afternoon (PM)</h1>
+        </div>
+        <div className="col-lg-3">
+          <h1 className="heading-medium">Evening Duty (ED)</h1>
         </div>
       </div>
       {scheduledEvents.map((entry) =>
@@ -146,9 +153,9 @@ class ScheduledEvents extends Component {
               </div>
             </div>
 
-            <div className="col-lg-5 ">
+            <div className="col-lg-3">
               <div className="appointment morning add-gutter-top add-gutter-bottom">
-                {entry.get('forMorning').map((morning) => (<div key={uuid()}>
+                  {entry.get('morningActivities').map((morning) => (<div key={uuid()}>
                   <Event
                     startTime={morning.get('startTime')}
                     endTime={morning.get('endTime')}
@@ -166,9 +173,9 @@ class ScheduledEvents extends Component {
               </div>
             </div>
 
-            <div className="col-lg-5">
+            <div className="col-lg-3">
               <div className="appointment afternoon add-gutter-top">
-                {entry.get('forAfternoon').map((afternoon) => (<div key={uuid()}>
+                {entry.get('afternoonActivities').map((afternoon) => (<div key={uuid()}>
                   <Event
                     startTime={afternoon.get('startTime')}
                     endTime={afternoon.get('endTime')}
@@ -178,6 +185,27 @@ class ScheduledEvents extends Component {
                 </div>))}
               </div>
             </div>
+
+
+            <div className="visible-lg-down add-gutter-top add-gutter-bottom">
+              <div className="col-lg-12">
+                <b>Evening Duty (ED)</b>
+              </div>
+            </div>
+
+            <div className="col-lg-3">
+              <div className="appointment ed add-gutter-top">
+                {entry.get('eveningDuties').map((afternoon) => (<div key={uuid()}>
+                  <Event
+                    startTime={afternoon.get('startTime')}
+                    endTime={afternoon.get('endTime')}
+                    type={afternoon.get('type')}
+                    shortComment={afternoon.get('shortComment')}
+                  />
+                </div>))}
+              </div>
+            </div>
+
           </div>
 
         </div>))}
