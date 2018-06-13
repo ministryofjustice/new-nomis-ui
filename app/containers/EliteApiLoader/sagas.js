@@ -2,8 +2,13 @@ import { put, select, call, takeLatest, takeEvery } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import { retrieveUserMe } from 'containers/Authentication/actions';
 import { selectApi } from 'containers/ConfigLoader/selectors';
+import { loadLocations } from 'containers/Bookings/actions';
 
-import { setMobileMenuOpen, showSpinner, hideSpinner } from 'globalReducers/app';
+import {
+  setMobileMenuOpen,
+  showSpinner,
+  hideSpinner,
+} from 'globalReducers/app';
 
 import {
   officerDetails,
@@ -201,8 +206,10 @@ export function* userSwitchCaseLoadsSaga(action) {
     yield put(showSpinner());
     yield call(users.switchCaseLoads, apiServer, caseLoadId);
     yield put(retrieveUserMe());
-
     yield put({ type: BOOKINGS.CLEAR });
+
+    yield put(loadLocations());
+
     yield put(hideSpinner());
     yield put(push('/'));
   } catch (e) {
