@@ -2,7 +2,8 @@ const moment = require('moment');
 const elite2Api = require('../api/elite2Api');
 const utils = require('../utils');
 const isoDateFormat = require('./../constants').isoDateFormat;
-const toEvent = require('../data-mappers/to-event');
+const toActivityViewModel = require('../data-mappers/to-activity-viewmodel');
+
 
 const getAppointmentViewModel = async (req, res) => {
   const [locationsData, appointmentTypes] = await Promise.all([
@@ -43,8 +44,7 @@ const getScheduledEventsForNextWeek = async (req, res) => {
 
 const buildScheduledEvents = (data, calendarView) => {
   const groupedByDate = utils.groupBy('eventDate', data);
-  const filterMorning = (array) => array.filter(a => moment(a.startTime).get('hour') < 12);
-  const filterAfternoon = (array) => array.filter(a => moment(a.startTime).get('hour') > 11);
+
 
   return calendarView.map(view => {
     const events = Object.keys(groupedByDate)
@@ -54,10 +54,11 @@ const buildScheduledEvents = (data, calendarView) => {
       .sort(byStartTimeThenByEndTime)
       .filter(event => event.eventStatus === 'SCH');
 
+    const activities = toActivityViewModel(events);
+
     return {
       date: view.date,
-      forMorning: filterMorning(events).map(entry => toEvent(entry)) || [],
-      forAfternoon: filterAfternoon(events).map(entry => toEvent(entry)) || [],
+      ...activities,
     }
   });
 };
