@@ -7,6 +7,21 @@
     margin-bottom: .5em;
   }
 
+  @include media-breakpoint-up(lg) {
+    .col-lg-3 {
+      width: 30% !important;
+      margin-right: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    h1.heading-medium.whereabouts-day-header {
+      font-size: 19px !important;
+      margin-top: 17px;
+    }
+  }
+
+
+
   @include media-breakpoint-up(xl) {
 
     .filters {
@@ -37,11 +52,6 @@
   }
 
   @include media-breakpoint-down(lg) {
-
-    .separator {
-      display: inline-block;
-    }
-
     div[class^="col-"] {
 
       .whereabouts-startTime {
@@ -63,12 +73,11 @@
 
     .whereabouts-day-header {
       display: inline-block;
-      @include add-gutter-margin-right();
+      @include add-gutter-margin-right()
     }
 
     .whereabouts-date-header {
       display: inline-block;
     }
-
   }
 }

@@ -27,7 +27,9 @@
   }
 
   .link {
+    display: block;
     @include add-gutter-padding-bottom();
+    @include add-gutter-margin-top();
   }
 
   .add-padding-bottom {
