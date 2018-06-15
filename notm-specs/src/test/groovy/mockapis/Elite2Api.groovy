@@ -147,8 +147,8 @@ class Elite2Api extends WireMockRule {
         .withHeader('Content-Type', 'application/json')
         .withBody('''[{
             "roleId": 0,
-            "roleCode": "KW_ADMIN",
-            "roleName": "Key worker admin",
+            "roleCode": "OMIC_ADMIN",
+            "roleName": "Omic admin",
             "parentRoleCode": "code",
             "caseloadId": "1"
           }]''')))

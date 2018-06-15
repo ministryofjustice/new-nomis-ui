@@ -26,7 +26,7 @@ describe('User service',() => {
   };
 
   const accessRoles = [
-    { roleId: -201,roleCode: 'KW_ADMIN',roleName: 'Keyworker Admin',caseloadId: 'NWEB' },
+    { roleId: -201,roleCode: 'OMIC_ADMIN',roleName: 'Omic Admin',caseloadId: 'NWEB' },
     { roleId: -100,roleCode: 'LICENCE_CA',roleName: 'Case Admin',caseloadId: 'NWEB' },
   ];
 

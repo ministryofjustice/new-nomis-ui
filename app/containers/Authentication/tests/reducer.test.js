@@ -11,7 +11,7 @@ describe('Authentication reducer', () => {
     activeCaseLoadId: 'LEI',
     accessRoles: [],
     staffRoles: [],
-  }
+  };
 
   it('should return state with a user as a key worker', () => {
     const user = {
@@ -19,7 +19,7 @@ describe('Authentication reducer', () => {
       staffRoles: [
           { role: 'KW', roleDescription: 'Key Worker' },
       ],
-    }
+    };
     const state = authenticationReducer(Map({}), userMe({ user }));
     const userState = state.get('user');
     
@@ -29,9 +29,9 @@ describe('Authentication reducer', () => {
     const user = {
       ...userData,
       accessRoles: [
-            { roleCode: 'KW_ADMIN', roleDescription: 'Key Worker Admin' },
+            { roleCode: 'OMIC_ADMIN', roleDescription: 'Key Worker Admin' },
       ],
-    }
+    };
     const state = authenticationReducer(Map({}), userMe({ user }));
     const userState = state.get('user');
       
@@ -43,11 +43,11 @@ describe('Authentication reducer', () => {
       ...userData,
       accessRoles: undefined,
       staffRoles: undefined,
-    }
+    };
     const state = authenticationReducer(Map({}), userMe({ user }));
     const userState = state.get('user');
 
     expect(userState.isKeyWorkerAdmin).toBe(false);
     expect(userState.isKeyWorker).toBe(false);
   })
-})
+});
