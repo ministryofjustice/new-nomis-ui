@@ -290,7 +290,7 @@ export const Visits = ({ lastVisit, nextVisit }) => (<div>
         cancellationReason={lastVisit.get('cancellationReason')}
       />
     )}
-    { lastVisit.size === 0 && <div className="row border-bottom-line">
+    { lastVisit.size === 0 && <div className="row">
       <div className="col-lg-6 col-xs-6">
         <label>Last visit date</label>
       </div>
