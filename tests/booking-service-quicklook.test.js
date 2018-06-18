@@ -31,6 +31,7 @@ describe('Booking Service Quick look', () => {
     sandbox.stub(elite2Api, 'getLastVisit');
     sandbox.stub(elite2Api, 'getRelationships');
     sandbox.stub(elite2Api, 'getDetailsLight');
+    sandbox.stub(elite2Api, 'getNextVisit');
 
     elite2Api.getBalances.returns(null);
     elite2Api.getMainOffence.returns(null);
@@ -41,6 +42,7 @@ describe('Booking Service Quick look', () => {
     elite2Api.getContacts.returns(null);
     elite2Api.getLastVisit.returns(null);
     elite2Api.getRelationships.returns(null);
+    elite2Api.getNextVisit.returns(null);
     elite2Api.getAdjudications.returns({
       awards: [],
     });

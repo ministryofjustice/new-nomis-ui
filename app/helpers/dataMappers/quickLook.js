@@ -2,6 +2,7 @@ import { Map, List } from 'immutable';
 
 export const Model = Map({
   lastVisit: Map({}),
+  nextVisit: Map({}),
   offences: List([]),
   adjudications: Map({
     awards: List([]),

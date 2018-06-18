@@ -37,6 +37,7 @@ const getNegativeCaseNotes = ({ req, res, fromDate, toDate }) => getRequest({
 });
 
 const getLastVisit = (req, res) => getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings/${req.bookingId}/visits/last`) });
+const getNextVisit = ({ req, res }) => getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings/${req.bookingId}/visits/next`) });
 
 const getSummaryForOffenders = (req, res, people) =>
   getRequest({ req, res, url: url.resolve(baseUrl, `api/bookings?iepLevel=true&${people.map(offenderNo => `offenderNo=${offenderNo}`).join('&')}`) });
@@ -100,6 +101,7 @@ const service = {
   getLocationsForAppointments,
   getAppointmentTypes,
   getLastVisit,
+  getNextVisit,
   getRelationships,
   getKeyworker,
   getMyInformation,

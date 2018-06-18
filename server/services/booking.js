@@ -5,7 +5,8 @@ const RiskAssessment = require('../model/risk-assessment');
 const keyDatesMapper = require('../data-mappers/keydates');
 const isoDateFormat = require('./../constants').isoDateFormat;
 const toAward = require('../data-mappers/to-award');
-const toVisit = require('../data-mappers/to-visit');
+const toVisit = require('../data-mappers/to-visit').toVisit;
+const toLastVisit = require('../data-mappers/to-visit').toLastVisit;
 const toActivityViewModel = require('../data-mappers/to-activity-viewmodel');
 
 const getKeyDatesVieModel = async (req, res) => {
@@ -68,6 +69,7 @@ const getQuickLookViewModel = async (req, res) => {
     elite2Api.getContacts(req, res),
     elite2Api.getAdjudications({ req, res, fromDate: threeMonthsInThePast }),
     elite2Api.getLastVisit(req, res),
+    elite2Api.getNextVisit({ req, res, fromDate: today }),
     elite2Api.getRelationships(req, res),
   ];
 
@@ -81,9 +83,9 @@ const getQuickLookViewModel = async (req, res) => {
     contacts,
     adjudications,
     lastVisit,
+    nextVisit,
     relationships,
   ] = await Promise.all(apiCalls);
-
 
   const activities = toActivityViewModel(activityData);
   const hasAnyActivity =
@@ -104,7 +106,8 @@ const getQuickLookViewModel = async (req, res) => {
   };
 
   return {
-    lastVisit: lastVisit && toVisit(lastVisit),
+    lastVisit: lastVisit && toLastVisit(lastVisit),
+    nextVisit: nextVisit && toVisit(nextVisit),
     assignedStaffMembers: {
       communityOffenderManager: relationships && getFirstRelationshipByType('COM',relationships),
     },
