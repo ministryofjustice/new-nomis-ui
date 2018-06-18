@@ -4,6 +4,8 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule
 import groovy.json.JsonOutput
 import model.Offender
 
+import java.util.stream.Collectors
+
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import static com.github.tomakehurst.wiremock.client.WireMock.get
@@ -548,7 +550,7 @@ class Elite2Api extends WireMockRule {
         .withBody()))
   }
 
-  void getOffenderSummaryDetails(ArrayList offenders) {
+  void getOffenderSummaryDetails(List<Offender> offenders) {
 
     String queryString = buildOffenderQueryString(offenders)
 
@@ -561,7 +563,7 @@ class Elite2Api extends WireMockRule {
         .withBody(JsonOutput.toJson(offenders))))
   }
 
-  def stubCSRAssessments(ArrayList offenders) {
+  def stubCSRAssessments(List<Offender> offenders) {
     String queryString = buildOffenderQueryString(offenders)
 
     this.stubFor(
@@ -573,7 +575,20 @@ class Elite2Api extends WireMockRule {
         .withBody(JsonOutput.toJson(offenders))))
   }
 
-  def stubSentenceDates(ArrayList offenders) {
+  def stubCaseNoteUsage(List<Offender> offenders) {
+    String queryString = "type=KA&numMonths=6&" + buildOffenderQueryString(offenders)
+
+    this.stubFor(
+      get("/api/case-notes/usage?${queryString}")
+        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody(JsonOutput.toJson(offenders))))
+  }
+
+
+  def stubSentenceDates(List<Offender> offenders) {
     String queryString = buildOffenderQueryString(offenders)
 
     this.stubFor(
@@ -586,11 +601,11 @@ class Elite2Api extends WireMockRule {
   }
 
 
-  String buildOffenderQueryString(ArrayList offenders) {
+  static String buildOffenderQueryString(List<Offender> offenders) {
      return offenders
        .stream()
-       .map{offender -> "offenderNo=${offender.offenderNo}"}
-       .collect(java.util.stream.Collectors.joining("&"))
+       .map{ o -> "offenderNo=${o.offenderNo}" }
+       .collect(Collectors.joining("&"))
 
   }
 

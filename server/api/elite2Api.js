@@ -82,7 +82,7 @@ const getOffendersSentenceDates = (req, res, ids) => getRequest({
 });
 
 const caseNoteUsageList = (req, res, ids) => getRequest({
-  url: url.resolve(baseUrl, `api/case-notes/usage?&type=KA&numMonths=6&${ids.map(offenderNo => `offenderNo=${offenderNo}`).join('&')}`),
+  url: url.resolve(baseUrl, `api/case-notes/usage?type=KA&numMonths=6&${ids.map(offenderNo => `offenderNo=${offenderNo}`).join('&')}`),
   req,
   res,
 });

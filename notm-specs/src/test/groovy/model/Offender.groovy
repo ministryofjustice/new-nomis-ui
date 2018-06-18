@@ -50,7 +50,7 @@ class Offender {
     return new Offender(-11,'A00121','A1234AK','DARIUS',null ,'BOB','1979-12-31', 38, 'LEI',-9,'A-1-7',-11, 'Standard')
   }
 
-  static  def SMITH() {
+  static def SMITH() {
     return new Offender(-10,'A00120','A1234AJ','DANIEL','JOSEPH','SMITH','1958-01-01',60, 'LEI',-8,'A-1-6', -10, 'Standard')
   }
 
