@@ -44,6 +44,10 @@ const ResultsView = ({ results, viewDetails }) => <div className="offender-table
   <b> CRD </b>
 </div>
 
+  <div className="col-sm-2 hidden-xs">
+    <b> Last key<br />worker activity </b>
+  </div>
+
 </div>
 
 {results.map((row,index) => <div className={`row no-bottom-padding add-gutter-margin-bottom offender ${index % 2 === 0 && 'grey-row'}`} key={row.get('bookingId')}>
@@ -78,6 +82,11 @@ const ResultsView = ({ results, viewDetails }) => <div className="offender-table
   <div className="col-sm-2 hidden-xs margin-top">
     {row.get('conditionalReleaseDate') && <FormattedDate value={row.get('conditionalReleaseDate')} /> }
   </div>
+
+  <div className="col-sm-2 hidden-xs margin-top">
+    {row.get('lastKeyWorkerSessionDate') && <FormattedDate value={row.get('lastKeyWorkerSessionDate')} /> }
+  </div>
+
 </div>)}
 </div>
 

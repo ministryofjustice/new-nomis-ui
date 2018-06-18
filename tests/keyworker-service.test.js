@@ -26,6 +26,7 @@ describe('Key worker service', () => {
     sandbox.stub(keyworkerApi, 'getKeyworker');
     sandbox.stub(elite2Api, 'getOffendersSentenceDates');
     sandbox.stub(elite2Api, 'getOffendersAssessments');
+    sandbox.stub(elite2Api, 'caseNoteUsageList');
 
     config.apis = {
       keyworker: {
@@ -110,6 +111,7 @@ describe('Key worker service', () => {
     keyworkerApi.getAssignedOffenders.returns(offenders);
     elite2Api.getSummaryForOffenders.returns(offenders);
     elite2Api.getOffendersSentenceDates.returns(offenders);
+    elite2Api.caseNoteUsageList.returns(offenders);
 
     await service.myAllocationsViewModel(req, res);
 
@@ -122,6 +124,7 @@ describe('Key worker service', () => {
     keyworkerApi.getAssignedOffenders.returns(offenders);
     elite2Api.getSummaryForOffenders.returns(offenders);
     elite2Api.getOffendersAssessments.returns(offenders);
+    elite2Api.caseNoteUsageList.returns(offenders);
 
     await service.myAllocationsViewModel(req, res);
 
@@ -132,6 +135,7 @@ describe('Key worker service', () => {
     const offenders = [{ offenderNo: 'A1' }, { offenderNo: 'A2' }];
     const sentenceDates = [{ offenderNo: 'A1',sentenceDetail: { conditionalReleaseDate: '20/10/2020' } }, { offenderNo: 'A2',sentenceDetail: { conditionalReleaseDate: '21/10/2020' } }];
     const assessments = [{ offenderNo: 'A1',classification: 'High' }, { offenderNo: 'A2',classification: 'Low' }];
+    const kwDates = [{ offenderNo: 'A1',latestCaseNote: '04/06/2018' }, { offenderNo: 'A2',latestCaseNote: '01/06/2018' }];
 
     keyworkerApi.getPrisonMigrationStatus.returns({ migrated: true });
     keyworkerApi.getKeyworker.returns({
@@ -142,12 +146,13 @@ describe('Key worker service', () => {
 
     elite2Api.getOffendersSentenceDates.returns(sentenceDates);
     elite2Api.getOffendersAssessments.returns(assessments);
+    elite2Api.caseNoteUsageList.returns(kwDates);
 
     const expected = {
       capacity: 15,
       allocations: [
-        { offenderNo: 'A1',conditionalReleaseDate: '20/10/2020',crsaLevel: 'High' },
-        { offenderNo: 'A2',conditionalReleaseDate: '21/10/2020',crsaLevel: 'Low' },
+        { offenderNo: 'A1',conditionalReleaseDate: '20/10/2020',crsaLevel: 'High', lastKeyWorkerSessionDate: '04/06/2018' },
+        { offenderNo: 'A2',conditionalReleaseDate: '21/10/2020',crsaLevel: 'Low', lastKeyWorkerSessionDate: '01/06/2018' },
       ],
     };
 

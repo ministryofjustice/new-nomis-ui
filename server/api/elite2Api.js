@@ -82,6 +82,12 @@ const getOffendersSentenceDates = (req, res, ids) => getRequest({
   res,
 });
 
+const caseNoteUsageList = (req, res, ids) => getRequest({
+  url: url.resolve(baseUrl, `api/case-notes/usage?type=KA&numMonths=6&${ids.map(offenderNo => `offenderNo=${offenderNo}`).join('&')}`),
+  req,
+  res,
+});
+
 const service = {
   getIepSummary,
   getAssessments,
@@ -111,6 +117,7 @@ const service = {
   getStaffRoles,
   getOffendersAssessments,
   getOffendersSentenceDates,
+  caseNoteUsageList,
 };
 
 module.exports = service;

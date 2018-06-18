@@ -28,7 +28,7 @@ class MyAllocationsSpecification extends GebReportingSpec {
     def staffId = ITAG_USER.staffMember.id
     def keyWorker = ITAG_USER.staffMember
 
-    ArrayList<Offender> offenders = new ArrayList<Offender>()
+    List<Offender> offenders = new ArrayList<Offender>()
     offenders.push(model.Offender.SMITH())
     offenders.push(model.Offender.BOB())
 
@@ -36,6 +36,7 @@ class MyAllocationsSpecification extends GebReportingSpec {
     elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
     elite2api.getOffenderSummaryDetails(offenders)
     elite2api.stubImage()
+    elite2api.stubCaseNoteUsage(offenders)
     elite2api.stubSentenceDates(offenders)
     elite2api.stubCSRAssessments(offenders)
 
