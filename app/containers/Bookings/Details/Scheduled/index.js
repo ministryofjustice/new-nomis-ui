@@ -24,20 +24,20 @@ import './index.scss';
 export const Event = ({ startTime, endTime, type, shortComment }) =>
   (<div className="row add-gutter-margin-bottom">
 
-    <div className="col-xl-5 col-lg-3 col-md-6 col-xs-6">
+    <div className="col-xl-5 col-lg-5 col-md-6 col-xs-6 no-right-gutter">
       <span className="whereabouts-startTime">
         {moment(startTime).format('HH:mm')}
       </span>
 
       {endTime &&
         <span>
-          <span className="separator">-</span>
+          <span>-</span>
           <span className="whereabouts-endTime"> {moment(endTime).format('HH:mm')} </span>
         </span>
       }
     </div>
 
-    <div className="col-xl-7 col-lg-9 col-md-6 col-xs-6">
+    <div className="col-xl-7 col-lg-7 col-md-6 col-xs-6 no-left-gutter no-right-gutter">
 
       <span>
         <b> {type} </b>
@@ -119,22 +119,22 @@ class ScheduledEvents extends Component {
       </div>
 
       <div className="row hidden-lg-down">
-        <div className="col-lg-2"></div>
-        <div className="col-lg-3">
+        <div className="col-lg-1"></div>
+        <div className="col-lg-3 add-gutter-margin-left">
           <h1 className="heading-medium">Morning (AM)</h1>
         </div>
         <div className="col-lg-3">
           <h1 className="heading-medium">Afternoon (PM)</h1>
         </div>
         <div className="col-lg-3">
-          <h1 className="heading-medium">Evening Duty (ED)</h1>
+          <h1 className="heading-medium">Evening (ED)</h1>
         </div>
       </div>
       {scheduledEvents.map((entry) =>
 
         (<div className="row appointment-row" key={uuid()}>
           <div className="appointments">
-            <div className="col-lg-2 no-left-gutter">
+            <div className="col-lg-1 no-left-gutter add-gutter-margin-right">
               <DayAndDate
                 className="whereabouts-day-header"
                 value={entry.get('date')}
