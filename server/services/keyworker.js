@@ -55,7 +55,26 @@ const offendersWithCSRA = async (req, res, offenders = []) => {
       crsaLevel,
     }
   });
-}
+};
+
+const offendersLastKWSession = async (req, res, offenders = []) => {
+  const ids = offenders.map(offender => offender.offenderNo);
+  const caseNotes = await elite2Api.caseNoteUsageList(req, res, ids) || [];
+
+  return offenders.map(offender => {
+    const kwCaseNoteDates = caseNotes
+      .filter(caseNote => caseNote.offenderNo === offender.offenderNo);
+
+    let lastKeyWorkerSessionDate = null;
+    if (kwCaseNoteDates.length > 0) {
+      lastKeyWorkerSessionDate = kwCaseNoteDates.reduce((m, v, i) => (v.latestCaseNote > m.latestCaseNote) && i ? v : m).latestCaseNote;
+    }
+    return {
+      ...offender,
+      lastKeyWorkerSessionDate,
+    }
+  });
+};
 
 const getIfKeyWorkerIsEnabled = async (req, res) => {
   if (config.apis.keyworker.url) {
@@ -69,14 +88,16 @@ const getIfKeyWorkerIsEnabled = async (req, res) => {
     }
   }
   return {};
-}
+};
+
 const myAllocationsViewModel = async (req, res) => {
   const { staffId, activeCaseLoadId, capacity } = await getIfKeyWorkerIsEnabled(req, res);
 
   const allocations =
-    await offendersWithCSRA(req, res,
-      await offendersWithConditionalReleaseDate(req, res,
-        await getAssignedOffenders(req, res, staffId, activeCaseLoadId)));
+    await offendersLastKWSession(req, res,
+      await offendersWithCSRA(req, res,
+        await offendersWithConditionalReleaseDate(req, res,
+          await getAssignedOffenders(req, res, staffId, activeCaseLoadId))));
 
   return {
     allocations,
