@@ -276,10 +276,56 @@ export const NextOfKin = ({ nextOfKin }) => (
   </div>
 );
 
+export const Visits = ({ lastVisit, nextVisit }) => (<div>
+    <h3 className="heading-medium">
+      Visits
+    </h3>
+
+    { lastVisit.size > 0 && (
+      <LastVisit
+        date={lastVisit.get('date')}
+        type={lastVisit.get('type')}
+        status={lastVisit.get('status')}
+        leadVisitor={lastVisit.get('leadVisitor')}
+        cancellationReason={lastVisit.get('cancellationReason')}
+      />
+    )}
+    { lastVisit.size === 0 && <div className="row border-bottom-line">
+      <div className="col-lg-6 col-xs-6">
+        <label>Last visit date</label>
+      </div>
+
+      <div className="col-lg-6 col-xs-6">
+        <b> No visit history </b>
+      </div>
+    </div>}
+
+    <div className="top-border add-gutter-margin-top">
+      { nextVisit.size > 0 && (
+        <NextVisit
+          date={nextVisit.get('date')}
+          type={nextVisit.get('type')}
+          leadVisitor={nextVisit.get('leadVisitor')}
+        />
+      )}
+      { nextVisit.size === 0 && <div className="row border-bottom-line">
+        <div className="col-lg-6 col-xs-6">
+          <label>Next visit date</label>
+        </div>
+
+        <div className="col-lg-6 col-xs-6">
+          <b> No upcoming visits </b>
+        </div>
+      </div>}
+    </div>
+
+  </div>)
+
+
 export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason }) => (<div>
   <div className="row border-bottom-line">
     <div className="col-lg-6 col-xs-6">
-      <label>Last visit date</label>
+      <label>The last visit date</label>
     </div>
 
     <div className="col-lg-6 col-xs-6">
@@ -289,7 +335,7 @@ export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason 
 
   <div className="row border-bottom-line">
     <div className="col-lg-6 col-xs-6">
-      <label>Type of visit</label>
+      <label className="shift-right">Type of visit</label>
     </div>
 
     <div className="col-lg-6 col-xs-6">
@@ -299,7 +345,7 @@ export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason 
 
   <div className="row border-bottom-line">
     <div className="col-lg-6 col-xs-6">
-      <label>Lead visitor</label>
+      <label className="shift-right">Lead visitor</label>
     </div>
 
     <div className="col-lg-6 col-xs-6">
@@ -307,9 +353,9 @@ export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason 
     </div>
   </div>
 
-  <div className="row border-bottom-line">
+  <div className={`row ${cancellationReason ? 'border-bottom-line' : 'add-gutter-margin-top'}`}>
     <div className="col-lg-6 col-xs-6">
-      <label>Visit status</label>
+      <label className="shift-right">Visit status</label>
     </div>
 
     <div className="col-lg-6 col-xs-6">
@@ -317,15 +363,48 @@ export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason 
     </div>
   </div>
 
-  {cancellationReason && <div className="row border-bottom-line">
+  {cancellationReason && <div className="row">
     <div className="col-lg-6 col-xs-6">
-      <label>Reason</label>
+      <label className="shift-right">Reason </label>
     </div>
 
     <div className="col-lg-6 col-xs-6">
       <b> {cancellationReason} </b>
     </div>
   </div> }
+
+</div>)
+
+export const NextVisit = ({ date, type, leadVisitor }) => (<div>
+  <div className="row border-bottom-line">
+    <div className="col-lg-6 col-xs-6">
+      <label>The next visit date</label>
+    </div>
+
+    <div className="col-lg-6 col-xs-6">
+      <b><FormattedDate value={date} /> </b>
+    </div>
+  </div>
+
+  <div className="row border-bottom-line">
+    <div className="col-lg-6 col-xs-6">
+      <label className="shift-right">Type of visit</label>
+    </div>
+
+    <div className="col-lg-6 col-xs-6">
+      <b> <DisplayValue value={type} /> </b>
+    </div>
+  </div>
+
+  <div className="row border-bottom-line">
+    <div className="col-lg-6 col-xs-6">
+      <label className="shift-right">Lead visitor</label>
+    </div>
+
+    <div className="col-lg-6 col-xs-6">
+      <b> <DisplayValue value={leadVisitor} /> </b>
+    </div>
+  </div>
 
 </div>)
 
@@ -367,10 +446,11 @@ class QuickLook extends Component {
     const { viewModel, offenderDetails, offenderNo } = this.props;
     const adjudications = viewModel.get('adjudications');
     const lastVisit = viewModel.get('lastVisit');
+    const nextVisit = viewModel.get('nextVisit');
+
     const activities = viewModel.get('activities');
     const balance = viewModel.get('balance');
     const assignedStaffMembers = viewModel.get('assignedStaffMembers');
-    const shouldShowVisits = lastVisit.size > 0;
 
     return (
       <div className="quick-look">
@@ -421,30 +501,7 @@ class QuickLook extends Component {
           </div>
 
           <div className="col-md-6 col-xs-12">
-
-            <h3 className="heading-medium">
-              Last visit
-            </h3>
-
-            { shouldShowVisits && (
-              <LastVisit
-                date={lastVisit.get('date')}
-                type={lastVisit.get('type')}
-                status={lastVisit.get('status')}
-                leadVisitor={lastVisit.get('leadVisitor')}
-                cancellationReason={lastVisit.get('cancellationReason')}
-              />
-            )}
-            { !shouldShowVisits && <div className="row border-bottom-line">
-              <div className="col-lg-6 col-xs-6">
-                <label>Last visit date</label>
-              </div>
-
-              <div className="col-lg-6 col-xs-6">
-                <b> No visit history </b>
-              </div>
-            </div>}
-
+            <Visits nextVisit={nextVisit} lastVisit={lastVisit} />
           </div>
         </div>
 
