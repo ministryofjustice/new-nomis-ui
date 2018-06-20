@@ -325,7 +325,7 @@ export const Visits = ({ lastVisit, nextVisit }) => (<div>
 export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason }) => (<div>
   <div className="row border-bottom-line">
     <div className="col-lg-6 col-xs-6">
-      <label>The last visit date</label>
+      <label>Last visit date</label>
     </div>
 
     <div className="col-lg-6 col-xs-6">
@@ -378,7 +378,7 @@ export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason 
 export const NextVisit = ({ date, type, leadVisitor }) => (<div>
   <div className="row border-bottom-line">
     <div className="col-lg-6 col-xs-6">
-      <label>The next visit date</label>
+      <label>Next visit date</label>
     </div>
 
     <div className="col-lg-6 col-xs-6">
