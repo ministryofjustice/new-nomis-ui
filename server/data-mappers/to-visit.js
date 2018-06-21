@@ -1,4 +1,4 @@
-const moment = require('moment-timezone');
+const moment = require('../moment');
 const isoDateTimeFormat = require('../constants').isoDateTimeFormat;
 
 const visitStatusCodes = {
@@ -23,7 +23,7 @@ const toVisit = (visit) => {
 };
 
 const toLastVisit = (visit) => {
-  const now = moment().tz('Europe/London').format(isoDateTimeFormat);
+  const now = moment().format(isoDateTimeFormat);
 
   const isCancelledVisit = visit.eventStatus === visitStatusCodes.cancelled ||
     visit.eventOutcome === visitStatusCodes.cancelledOutcome;
