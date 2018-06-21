@@ -1,4 +1,4 @@
-const moment = require('../moment');
+const moment = require('../ZoneAwareMoment');
 const isoDateTimeFormat = require('../constants').isoDateTimeFormat;
 
 const visitStatusCodes = {
