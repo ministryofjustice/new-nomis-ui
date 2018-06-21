@@ -6,8 +6,8 @@ const momentWithDateAndFormat = (date, format) => config.app.production ?
   momentTimeZone(date, format).tz('Europe/London') :
   _moment(date, format);
 
-const zoneAwareMoment = () => config.app.production ?
+const moment = () => config.app.production ?
   momentTimeZone().tz('Europe/London') :
   _moment();
 
-module.exports = (date, format) => date ? momentWithDateAndFormat(date,format) : zoneAwareMoment();
+module.exports = (date, format) => date ? momentWithDateAndFormat(date,format) : moment();
