@@ -1,5 +1,5 @@
 const elite2Api = require('../api/elite2Api');
-const moment = require('moment');
+const moment = require('../ZoneAwareMoment');
 
 const RiskAssessment = require('../model/risk-assessment');
 const keyDatesMapper = require('../data-mappers/keydates');
