@@ -5,6 +5,7 @@ const elite2ApiFallThrough = require('./app').sessionHandler;
 const retry = require('./api/retry');
 
 const elite2Api = require('./api/elite2Api');
+const oauthApi = require('./api/oauthApi');
 const session = require('./session');
 const bookingService = require('./services/booking');
 const eventsService = require('./services/events');
@@ -36,32 +37,26 @@ const loginIndex = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const loginData = `username=${req.body.username.toString().toUpperCase()}&password=${req.body.password}&grant_type=password`; 
-  retry.httpRequest({
-    method: 'post',
-    url: url.resolve(baseUrl, 'oauth/token'),
-    headers: {
-      authorization: `Basic ${retry.encodeClientCredentials()}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    data: loginData,
-    timeout: 2000,
-  }).then((response) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  try {
+    await oauthApi.authenticate(username, password);
+    session.setHmppsCookie(res);
     req.session.isAuthenticated = true;
-    session.setHmppsCookie(res, response.data);
     res.redirect('/');
-  }).catch(error => {
+  } catch (error) {
     const code = retry.errorStatusCode(error);
     res.status(code);
-    logger.error(error); 
+    logger.error(error);
     if (code < 500) {
-      logger.warn('Login failed, invalid password', { user: String(req.body.username) });
+      logger.warn('Login failed, invalid password', { user: String(username) });
       res.render('pages/login', { authError: true, apiUp: true, mailTo });
     } else {
       logger.error(error);
       res.render('pages/login', { authError: false, apiUp: false, mailTo });
     }
-  });
+  }
 };
 
 const terms = async (req, res) => {
@@ -96,8 +91,8 @@ const fetchImage = ({ targetEndpoint, req, res }) => {
       url: targetEndpoint,
       responseType: 'stream',
       headers: {},
-      reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },
-      onTokenRefresh: session.updateHmppsCookie(res),
+      host: req.headers.host,
+      onTokenRefresh: () => session.setHmppsCookie(res),
     }).then(response => {
       res.type('image/png');
       response.data.pipe(res);
@@ -116,7 +111,7 @@ const getImage = asyncMiddleware(async (req, res) => {
   });
 });
 
-const keyDates = asyncMiddleware(async (req,res) => {
+const keyDates = asyncMiddleware(async (req, res) => {
   if (!req.params.offenderNo) {
     res.status(400);
     res.end();
@@ -149,7 +144,7 @@ const quickLook = asyncMiddleware(async (req, res) => {
   res.json(data);
 });
 
-const eventsForThisWeek = asyncMiddleware(async (req,res) => {
+const eventsForThisWeek = asyncMiddleware(async (req, res) => {
   if (!req.params.offenderNo) {
     res.status(400);
     res.end();
@@ -160,7 +155,7 @@ const eventsForThisWeek = asyncMiddleware(async (req,res) => {
   res.json(data);
 });
 
-const eventsForNextWeek = asyncMiddleware(async (req,res) => {
+const eventsForNextWeek = asyncMiddleware(async (req, res) => {
   if (!req.params.offenderNo) {
     res.status(400);
     res.end();
@@ -171,7 +166,7 @@ const eventsForNextWeek = asyncMiddleware(async (req,res) => {
   res.json(data);
 });
 
-const loadAppointmentViewModel = asyncMiddleware(async (req,res) => {
+const loadAppointmentViewModel = asyncMiddleware(async (req, res) => {
   const agencyId = req.params.agencyId;
 
   if (!agencyId) {

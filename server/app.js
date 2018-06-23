@@ -12,8 +12,8 @@ const sessionHandler = (req, res) => {
     url: destination,
     headers: getPagingHeaders(req),
     data: req.body,
-    reqHeaders: { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host },
-    onTokenRefresh: session.updateHmppsCookie(res),
+    host: req.headers.host,
+    onTokenRefresh: () => session.setHmppsCookie(res),
   }).then(response => {
     copyHeadersOverToRes(response.headers, res);
 

@@ -114,7 +114,6 @@ app.use((req, res, next) => {
 });
 
 app.use(session.hmppsSessionMiddleWare);
-app.use(session.extendHmppsCookieMiddleWare);
 
 app.use('/heart-beat', (req,res) => {
   res.status(200);

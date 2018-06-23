@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 const request = require('supertest');
 
 const { loginIndex, login } = require('../../server/controller');
-const retry = require('../../server/api/retry');
+const oauthApi = require('../../server/api/oauthApi');
 
 chai.use(sinonChai);
 
@@ -33,39 +33,26 @@ describe('POST /signin', () => {
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
-    sandbox.stub(retry,'getApiHealth');
-    sandbox.stub(retry,'httpRequest');
+    sandbox.stub(oauthApi, 'authenticate');
   });
 
   afterEach(() => sandbox.restore());
 
   describe('Successful signin', () => {
-    it('redirects to "/" path', () => {
-      retry.getApiHealth.resolves({
-        data: {
-          status: 'UP',
-        },
-      });
-      retry.httpRequest.resolves({
-        data: {
-          access_token: 'abc.def.egs',
-          refresh_token: 'der.ffg.eew',
-        },
-      });
-
-      return request(app)
+    it('redirects to "/" path', () =>
+       request(app)
         .post('/login')
         .send('username=officer&password=password')
         .expect(302)
         .expect((res) => {
           expect(res.headers.location).to.eql('/');
-        });
-    });
+        })
+    );
   });
 
   describe('Unsuccessful signin - API up', () => {
     it('redirects to "/login" path', () => {
-      retry.httpRequest.rejects({ response: { status: 401 } });
+      oauthApi.authenticate.rejects({ response: { status: 401 } });
 
       return request(app)
         .post('/login')
@@ -80,7 +67,7 @@ describe('POST /signin', () => {
 
   describe('Unsuccessful signin - API down', () => {
     it('redirects to "/login" path', () => {
-      retry.httpRequest.rejects({ response: { status: 503 } });
+      oauthApi.authenticate.rejects({ response: { status: 503 } });
 
       return request(app)
         .post('/login')

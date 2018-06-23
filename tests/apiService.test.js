@@ -5,6 +5,8 @@ const { expect } = chai;
 
 const sinonChai = require('sinon-chai');
 const apiService = require('../server/api/retry');
+const oauthApi = require('../server/api/oauthApi');
+
 
 chai.use(sinonChai);
 
@@ -13,8 +15,8 @@ describe('apiService', () => {
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
-    sandbox.stub(apiService,'httpRequest');
-    sandbox.stub(apiService, 'refreshTokenRequest');
+    sandbox.stub(apiService, 'httpRequest');
+    sandbox.stub(oauthApi, 'refresh');
     sandbox.stub(apiService, 'httpRequestRetry');
   });
 
@@ -60,13 +62,6 @@ describe('apiService', () => {
       },
     });
 
-    apiService.refreshTokenRequest.resolves({
-      data: {
-        access_token: newToken,
-        refresh_token: newRefreshToken,
-      },
-    });
-
     apiService.httpRequestRetry.resolves({ data: 'success' });
 
     const options = {
@@ -92,7 +87,7 @@ describe('apiService', () => {
 
     result.then(response => {
       expect(response.data).to.equal('success');
-      expect(apiService.refreshTokenRequest).to.be.calledWith({ headers: { }, reqHeaders: { host: 'localhost', jwt: { access_token, refresh_token } }, token: refresh_token });
+      expect(oauthApi.refresh).to.be.called;
       expect(options.onTokenRefresh).to.be.calledWith(jwt);
     });
   })
