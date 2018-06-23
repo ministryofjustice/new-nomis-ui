@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 require('dotenv').config();
 const config = require('../server/config');
 const oauthApi = require('../server/api/oauthApi');

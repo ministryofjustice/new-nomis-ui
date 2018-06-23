@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 require('dotenv').config();
 const config = require('../server/config');
 const tokenStore = require('../server/tokenStore');

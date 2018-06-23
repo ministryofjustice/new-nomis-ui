@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 require('dotenv').config();
 const config = require('../server/config');
 const oauthApi = require('../server/api/oauthApi');
@@ -33,7 +34,7 @@ const check = () => getAgency()
 
 const program = () => {
   let p = authenticate();
-  for (let i = 0; i < 24; i++) {
+  for (let i = 0; i < 24; i += 1) {
     p = p.then(check)
   }
   return p;
