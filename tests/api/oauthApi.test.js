@@ -7,7 +7,7 @@ chai.use(sinonChai);
 const proxyquire = require('proxyquire').noPreserveCache();
 const MockAdapter = require('axios-mock-adapter');
 const querystring = require('querystring');
-const tokenStore = require('../../server/tokenStore');
+const scopedStore = require('../../server/scopedStore');
 
 const clientId = 'clientId';
 const url = 'http://localhost';
@@ -55,11 +55,11 @@ describe('oathApi tests', () => {
       return config;
     });
 
-    tokenStore.run(() => {
+    scopedStore.run(() => {
       oauthApi.authenticate('name', 'password')
         .then(() => {
-          expect(tokenStore.getAccessToken()).to.equal('accessToken');
-          expect(tokenStore.getRefreshToken()).to.equal('refreshToken');
+          expect(scopedStore.getAccessToken()).to.equal('accessToken');
+          expect(scopedStore.getRefreshToken()).to.equal('refreshToken');
         })
         .then(() => {
           expect(requestConfig.baseURL).to.equal(url);
@@ -93,12 +93,12 @@ describe('oathApi tests', () => {
       return config;
     });
 
-    tokenStore.run(() => {
-      tokenStore.storeTokens('accessToken', 'refreshToken');
+    scopedStore.run(() => {
+      scopedStore.storeTokens('accessToken', 'refreshToken');
       oauthApi.refresh()
         .then(() => {
-          expect(tokenStore.getAccessToken()).to.equal('newAccessToken');
-          expect(tokenStore.getRefreshToken()).to.equal('newRefreshToken');
+          expect(scopedStore.getAccessToken()).to.equal('newAccessToken');
+          expect(scopedStore.getRefreshToken()).to.equal('newRefreshToken');
         })
         .then(() => {
           expect(requestConfig.baseURL).to.equal(url);
@@ -124,8 +124,8 @@ describe('oathApi tests', () => {
     const mock = new MockAdapter(oauthApi.oauthAxios);
     mock.onPost('oauth/token').reply(200, {});
 
-    tokenStore.run(() => {
-      tokenStore.storeTokens('accessToken', 'refreshToken');
+    scopedStore.run(() => {
+      scopedStore.storeTokens('accessToken', 'refreshToken');
       oauthApi.authenticate('name', 'password')
         .then(() => {
           // noinspection BadExpressionStatementJS
@@ -148,8 +148,8 @@ describe('oathApi tests', () => {
     const mock = new MockAdapter(oauthApi.oauthAxios);
     mock.onPost('oauth/token').reply(200, {});
 
-    tokenStore.run(() => {
-      tokenStore.storeTokens('accessToken', 'refreshToken');
+    scopedStore.run(() => {
+      scopedStore.storeTokens('accessToken', 'refreshToken');
       oauthApi.authenticate('name', 'password')
         .then(() => {
           // noinspection BadExpressionStatementJS

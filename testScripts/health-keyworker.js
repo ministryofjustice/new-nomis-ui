@@ -1,18 +1,18 @@
 /* eslint-disable no-console */
 require('dotenv').config();
 const config = require('../server/config');
-const tokenStore = require('../server/tokenStore');
+const scopedStore = require('../server/scopedStore');
 const clientFactory = require('../server/api/oauthEnabledClient');
 
-const eliteClient = clientFactory({
+const keyworkerApiClient = clientFactory({
   baseUrl: config.apis.keyworker.url,
   timeout: 10000,
   useGateway: false,
 });
 
-tokenStore.run(() => {
+scopedStore.run(() => {
   console.log('get(health)');
-  eliteClient.get('health')
+  keyworkerApiClient.get('health')
     .then(result => {
       console.info(result.data);
     })

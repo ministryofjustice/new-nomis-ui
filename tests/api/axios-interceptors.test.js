@@ -1,7 +1,7 @@
 const proxyquire = require('proxyquire').noPreserveCache();
 const expect = require('chai').expect;
 
-const tokenStore = require('../../server/tokenStore');
+const scopedStore = require('../../server/scopedStore');
 
 const interceptors = proxyquire('../../server/api/axios-interceptors', {
   '../jwt-token': {
@@ -32,8 +32,8 @@ describe('Axios request interceptor tests', () => {
   });
 
   it('The authorization interceptor should set the authorization header from the token store', () => {
-    tokenStore.run(() => {
-      tokenStore.storeTokens('access', 'refresh');
+    scopedStore.run(() => {
+      scopedStore.storeTokens('access', 'refresh');
       const result = interceptors.authorizationInterceptor({});
       expect(result).to.deep.equal(
         {

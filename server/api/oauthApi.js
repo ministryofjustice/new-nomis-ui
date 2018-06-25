@@ -2,7 +2,7 @@ const axios = require('axios');
 const querystring = require('querystring');
 const apiConfig = require('../config').apis.elite2;
 const useApiAuthGateway = require('../config').app.useApiAuthGateway;
-const tokenStore = require('../tokenStore');
+const scopedStore = require('../scopedStore');
 const axiosInterceptors = require('./axios-interceptors');
 
 const apiClientCredentials = new Buffer(`${querystring.escape(apiConfig.clientId)}:${querystring.escape(apiConfig.clientSecret)}`).toString('base64');
@@ -32,11 +32,10 @@ const makeRequest = (data) => oauthAxios.post(
       // Not convinced that the header 'access-control-allow-origin': reqHeaders.host is needed or even makes sense here.
     },
   })
-  .then(response => tokenStore.storeTokens(response.data.access_token, response.data.refresh_token));
+  .then(response => scopedStore.storeTokens(response.data.access_token, response.data.refresh_token));
 
 /**
- * Perform OAuth authentication, storing the returned tokens in the tokeStore continuation-local-storage
- * context. See tokenStore.run.
+ * Perform OAuth authentication, storing the returned tokens in the scopedStore. See scopedStore.run.
  * @param username
  * @param password
  * @returns a Promise that is fulfilled when authentication has succeeded and the OAuth tokens have been stored. A
@@ -46,12 +45,11 @@ const authenticate = (username, password) =>
   makeRequest(`username=${username.toUpperCase()}&password=${password}&grant_type=password`);
 
 /**
- * Perform OAuth token refresh, storing the returned tokens in the tokenStore continuation-local-storage
- * context. See tokenStore.run.
+ * Perform OAuth token refresh, storing the returned tokens in the scopedStore. See scopedStore.run.
  * @returns A Promise that resolves when token refresh has succeeded and the OAuth tokens have been stored.
  */
 const refresh = () =>
-  makeRequest(`refresh_token=${tokenStore.getRefreshToken()}&grant_type=refresh_token`);
+  makeRequest(`refresh_token=${scopedStore.getRefreshToken()}&grant_type=refresh_token`);
 
 const oauth = {
   authenticate,

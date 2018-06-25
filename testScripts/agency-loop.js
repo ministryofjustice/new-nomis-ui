@@ -2,7 +2,7 @@
 require('dotenv').config();
 const config = require('../server/config');
 const oauthApi = require('../server/api/oauthApi');
-const tokenStore = require('../server/tokenStore');
+const scopedStore = require('../server/scopedStore');
 const clientFactory = require('../server/api/oauthEnabledClient');
 
 const eliteClient = clientFactory({
@@ -27,8 +27,8 @@ const check = () => getAgency()
     const agencies = result.data;
     console.log(new Date());
     console.log(agencies[0].description);
-    console.log(`access_token:  ${tokenStore.getAccessToken()}`);
-    console.log(`refresh_token: ${tokenStore.getRefreshToken()}`)
+    console.log(`access_token:  ${scopedStore.getAccessToken()}`);
+    console.log(`refresh_token: ${scopedStore.getRefreshToken()}`)
   })
   .then(() => delay(10000));
 
@@ -40,7 +40,7 @@ const program = () => {
   return p;
 };
 
-tokenStore.run(() => {
+scopedStore.run(() => {
   program()
     .then(() => console.log('done'))
     .catch(e => console.log(e));

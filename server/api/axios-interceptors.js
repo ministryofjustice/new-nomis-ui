@@ -1,5 +1,5 @@
 const generateToken = require('../jwt-token').generateToken;
-const tokenStore = require('../tokenStore');
+const scopedStore = require('../scopedStore');
 
 const ELITE_AUTH_HEADER = 'elite-authorization';
 
@@ -19,15 +19,15 @@ const gatewayInterceptor = config => {
 };
 
 /**
- * Set the authorization header using an OAuth token from the tokenStore.
+ * Set the authorization header using an OAuth token from the scopedStore.
  * @param config
  * @returns modified Axios request configuration.
  */
 const authorizationInterceptor = config => {
-  const accessToken = tokenStore.getAccessToken();
+  const accessToken = scopedStore.getAccessToken();
   if (accessToken) {
     config.headers = config.headers || {};
-    config.headers.authorization = `Bearer ${tokenStore.getAccessToken()}`;
+    config.headers.authorization = `Bearer ${scopedStore.getAccessToken()}`;
   }
   return config;
 };
