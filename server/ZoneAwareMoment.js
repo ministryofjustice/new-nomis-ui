@@ -1,13 +1,7 @@
-const _moment = require('moment');
 const momentTimeZone = require('moment-timezone');
-const config = require('../server/config');
 
-const momentWithDateAndFormat = (date, format) => config.app.production ?
-  momentTimeZone(date, format).tz('Europe/London') :
-  _moment(date, format);
+const momentWithDateAndFormat = (date, format) => momentTimeZone(date, format).tz('Europe/London');
 
-const moment = () => config.app.production ?
-  momentTimeZone().tz('Europe/London') :
-  _moment();
+const moment = () => momentTimeZone().tz('Europe/London');
 
 module.exports = (date, format) => date ? momentWithDateAndFormat(date,format) : moment();
