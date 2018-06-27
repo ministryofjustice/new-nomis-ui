@@ -1,4 +1,4 @@
-const moment = require('moment');
+const moment = require('../ZoneAwareMoment');
 const isoDateTimeFormat = require('../constants').isoDateTimeFormat;
 
 const visitStatusCodes = {
@@ -24,6 +24,7 @@ const toVisit = (visit) => {
 
 const toLastVisit = (visit) => {
   const now = moment().format(isoDateTimeFormat);
+
   const isCancelledVisit = visit.eventStatus === visitStatusCodes.cancelled ||
     visit.eventOutcome === visitStatusCodes.cancelledOutcome;
 
