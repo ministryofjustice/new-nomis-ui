@@ -105,7 +105,7 @@ jobs:
               CI_MESSAGE=$(git log --format=%B -n 1 $GIT_REF)
               git commit -m "Deployment of build $BUILD_NUMBER" -m "$CI_MESSAGE" -m "From gitref $GIT_REF"
               git push --force origin HEAD:deploy-to-dev
-              git tag release_${BUILD_NUMBER}
+              git tag ${BUILD_NUMBER}
               git push --tags
 
   build_docker:
@@ -123,7 +123,7 @@ jobs:
              GIT_REF=$(egrep gitRef build-info.json  | awk -F"\"" '{print $4}')
              GIT_DATE=$(egrep gitDate build-info.json  | awk -F"\"" '{print $4}')
              if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
-               BUILD_VERSION=ELITE2_WEB_${VERSION}
+               BUILD_VERSION=NEW_NOMIS_UI_${VERSION}
              else
                BUILD_VERSION=${VERSION}.${CIRCLE_BRANCH}
              fi
@@ -164,7 +164,7 @@ jobs:
           command: |
             if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
               VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
-              yarn run plant-beanstalk ELITE2_WEB_${VERSION}
+              yarn run plant-beanstalk NEW_NOMIS_UI_${VERSION}
               ~/.local/bin/eb deploy --process --verbose
             fi
 
