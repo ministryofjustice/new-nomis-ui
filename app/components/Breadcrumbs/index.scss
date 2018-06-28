@@ -1,5 +1,4 @@
 
-
 .bread-crumbs {
 
   .link-wrapper {
@@ -15,4 +14,16 @@
       margin-right: 4px;
     }
   }
+}
+
+a.crumb {
+  color: #005EA5;
+}
+
+a.crumb:visited {
+  color: #4C2C92;
+}
+
+a.crumb:hover {
+  color: #2B8CC4;
 }
