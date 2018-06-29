@@ -1,5 +1,6 @@
 const axios = require('axios');
-const interceptors = require('./axios-interceptors');
+const contextProperties = require('../contextProperties');
+
 
 /**
  * Build a client for the supplied configuration. The client wraps axios get and post, while ensuring that
@@ -16,12 +17,15 @@ const factory = ({ baseUrl, timeout }) => {
     timeout,
   });
 
-  // Apply interceptors in the opposite order to that in which they are to be run.
-  // We want the authorization interceptor to run first, so apply that one last!
+  const addAuthorizationHeader = (context, config) => {
+    const accessToken = contextProperties.getAccessToken(context);
+    if (accessToken) {
+      config.headers = config.headers || {};
+      config.headers.authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+  };
 
-  axiosInstance.interceptors.request.use(
-    interceptors.authorizationInterceptor,
-    interceptors.passThroughErrorInterceptor);
 
   /**
    * An Axios GET request with Oauth token
@@ -32,11 +36,13 @@ const factory = ({ baseUrl, timeout }) => {
    */
   const get = (context, url) =>
     axiosInstance(
-      {
-        method: 'get',
-        url,
+      addAuthorizationHeader(
         context,
-      });
+        {
+          method: 'get',
+          url,
+        }),
+    );
 
   /**
    * An Axios POST with Oauth token refresh and retry behaviour
@@ -45,17 +51,20 @@ const factory = ({ baseUrl, timeout }) => {
    * @param body
    * @returns A Promise which resolves to the Axios result object, or the Axios error object if it is rejected
    */
-  const post = (context, url, body) => axiosInstance(
-    {
-      method: 'post',
-      url,
-      data: body,
-      context,
-    });
+  const post = (context, url, body) =>
+    axiosInstance(
+      addAuthorizationHeader(
+        context,
+        {
+          method: 'post',
+          url,
+          data: body,
+        }));
 
   return {
     get,
     post,
+    axiosInstance, // exposed for testing...
   }
 };
 

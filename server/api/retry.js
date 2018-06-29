@@ -38,16 +38,8 @@ const callApi = ({ method, url, responseType, data }) =>
     }
   );
 
-function httpRequest(options, disableGatewayMode) {
-  // if (!disableGatewayMode && config.app.useApiAuthGateway) {
-  //   options.headers = options.headers || {};
-  //   const apiToken = options.headers.authorization;
-  //   if (apiToken) {
-  //     options.headers['elite-authorization'] = apiToken; // eslint-disable-line no-param-reassign
-  //   }
-  //   options.headers.authorization = `Bearer ${gatewayToken.generateToken()}`; // eslint-disable-line no-param-reassign
-  // }
-  return axios(options);
+function httpRequest(options) {
+   return axios(options);
 }
 
 const getApiHealth = () => httpRequest({

@@ -75,8 +75,8 @@ const configureRoutes = ({ app, eliteApi, oauthApi, hmppsCookieOperations, token
    * @param next
    */
   const loginMiddleware = (req, res, next) => {
-    const cookieValue = hmppsCookieOperations.getCookieValue(req);
-    if (cookieValue) {  // implies authenticated
+    hmppsCookieOperations.extractCookieValues(req, res.locals);
+    if (contextProperties.hasTokens(res.locals)) {  // implies authenticated
       res.redirect('/');
       return;
     }

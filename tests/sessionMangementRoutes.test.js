@@ -88,6 +88,14 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
       .expect('location', '/login')
   );
 
+  it('get "/login" when not authenticated returns login page', () =>
+    agent
+      .get('/login')
+      .expect(200)
+      .expect('content-type', /text\/html/)
+      .expect(/Login/)
+  );
+
   it('successful login redirects to "/" setting hmpps cookie', () =>
     agent
       .post('/login')
@@ -97,6 +105,13 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
       .expect(hasCookies(['testCookie']))
   );
 
+  it('get "/login" when  authenticated redirects to "/"', () =>
+    agent
+      .get('/login')
+      .expect(302)
+      .expect('location', '/')
+  );
+
   it('/ with cookie serves content', () =>
     agent
       .get('/')
@@ -104,14 +119,13 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
       .expect('static')
   );
 
-  it('/logout clears the cookie', (done) => {
+  it('/logout clears the cookie', () =>
     agent
       .get('/logout')
       .expect(302)
       .expect('location', '/login')
       .expect(hasCookies(['testCookie']))
-      .end(done);
-  });
+  );
 
   it('After logout "/" should redirect to "/login"', () =>
     agent
@@ -133,7 +147,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
       });
   });
 
-  it('Unsuccessful signin - API donw', () => {
+  it('Unsuccessful signin - API down', () => {
     oauthApi.authenticate = rejectedAuthenticate(503);
 
     return agent

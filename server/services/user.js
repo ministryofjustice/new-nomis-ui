@@ -1,30 +1,31 @@
-const elite2Api = require('../api/elite2Api');
+const userServiceFactory = elite2Api => {
+  const me = async (context) => {
+    const details = await elite2Api.getMyInformation(context);
 
-const me = async (req, res) => {
-  const details = await elite2Api.getMyInformation(req, res);
+    const staffId = details.staffId;
+    const agencyId = details.activeCaseLoadId;
 
-  req.params.staffId = details.staffId;
-  req.params.agencyId = details.activeCaseLoadId;
+    const calls = [
+      elite2Api.getUserAccessRoles(context),
+      elite2Api.getStaffRoles(context, staffId, agencyId),
+    ];
 
-  const calls = [
-    elite2Api.getUserAccessRoles(req, res), 
-    elite2Api.getStaffRoles(req, res),
-  ];
+    const [
+      accessRoles,
+      staffRoles,
+    ] = await Promise.all(calls);
 
-  const [
-    accessRoles,
-    staffRoles,
-  ] = await Promise.all(calls);
+    return {
+      ...details,
+      accessRoles: accessRoles || [],
+      staffRoles: staffRoles || [],
+    }
+  };
 
   return {
-    ...details,
-    accessRoles: accessRoles || [],
-    staffRoles: staffRoles || [],
-  }
-}
-
-const service = {
-  me,
-}
-
-module.exports = service;
+    me,
+  };
+};
+module.exports = {
+  userServiceFactory,
+};

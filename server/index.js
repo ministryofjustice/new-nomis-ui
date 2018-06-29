@@ -16,16 +16,18 @@ const setup = require('./middlewares/frontend-middleware');
 const { logger } = require('./services/logger');
 const apiProxy = require('./apiproxy');
 const application = require('./app');
-const controller = require('./controller');
-// const session = require('./session');
 const config = require('./config');
 
 const sessionManagementRoutes = require('./sessionManagementRoutes');
 const clientFactory = require('./api/oauthEnabledClient');
 const eliteApiFactory = require('./api/eliteApi').eliteApiFactory;
+const keyworkerApiFactory = require('./api/keyworkerApi').keyworkerApiFactory;
 const oauthApiFactory = require('./api/oauthApi');
 const tokeRefresherFactory = require('./tokenRefresher').factory;
 const cookieOperationsFactory = require('./hmppsCookie').cookieOperationsFactory;
+const controllerFactory = require('./controller').controllerFactory;
+const userServiceFactory = require('./services/user').userServiceFactory;
+
 
 
 const sixtyDaysInSeconds = 5184000;
@@ -106,14 +108,18 @@ app.use('/info', apiProxy);
 app.use('/docs', apiProxy);
 app.use('/api/swagger.json', apiProxy);
 
-app.get('/terms', controller.terms);
-
 const eliteClient = clientFactory({
   baseUrl: config.apis.elite2.url,
   timeout: 10000,
-  useGateway: config.app.useApiAuthGateway,
 });
+
+const keyworkerClient = clientFactory({
+  baseUrl: config.apis.keyworker.url,
+  timeout: 10000,
+});
+
 const eliteApi = eliteApiFactory(eliteClient);
+const keyworkerApi = keyworkerApiFactory(keyworkerClient);
 const oauthApi = oauthApiFactory(config.apis.elite2);
 const tokenRefresher = tokeRefresherFactory(oauthApi.refresh);
 
@@ -125,6 +131,11 @@ const hmppsCookieOperations = cookieOperationsFactory(
     secure: config.app.production,
   },
 );
+
+const userService = userServiceFactory(eliteApi);
+
+const controller = controllerFactory({ elite2Api: eliteApi, keyworkerApi, userService });
+app.get('/terms', controller.terms);
 
 sessionManagementRoutes.configureRoutes({
   app,
@@ -142,21 +153,21 @@ app.use('/heart-beat', (req,res) => {
 // Don't cache dynamic resources (except images which override this)
 app.use(helmet.noCache());
 
-// app.use('/app/keydates/:offenderNo', controller.keyDates);
-// app.use('/app/bookings/details/:offenderNo', controller.bookingDetails);
-// app.use('/app/bookings/quicklook/:offenderNo', controller.quickLook);
-// app.use('/app/bookings/scheduled/events/forThisWeek/:offenderNo', controller.eventsForThisWeek);
-// app.use('/app/bookings/scheduled/events/forNextWeek/:offenderNo', controller.eventsForNextWeek);
-// app.use('/app/bookings/loadAppointmentViewModel/:agencyId', controller.loadAppointmentViewModel);
-// app.use('/app/bookings/addAppointment/:offenderNo', controller.addAppointment);
-// app.use('/app/bookings/:offenderNo/alerts', controller.alerts);
-// app.get('/app/bookings/:offenderNo/caseNotes', controller.caseNotes);
-// app.post('/app/bookings/:offenderNo/caseNotes', controller.addCaseNote);
-// app.put('/app/bookings/:offenderNo/caseNotes/:caseNoteId', controller.caseNote);
-// app.get('/app/bookings/:offenderNo/caseNotes/:caseNoteId', controller.caseNote);
-// app.get('/app/images/:imageId/data', controller.getImage);
-// app.get('/app/users/me/bookingAssignments', controller.myAssignments);
-// app.get('/app/users/me', controller.user);
+app.use('/app/keydates/:offenderNo', controller.keyDates);
+app.use('/app/bookings/details/:offenderNo', controller.bookingDetails);
+app.use('/app/bookings/quicklook/:offenderNo', controller.quickLook);
+app.use('/app/bookings/scheduled/events/forThisWeek/:offenderNo', controller.eventsForThisWeek);
+app.use('/app/bookings/scheduled/events/forNextWeek/:offenderNo', controller.eventsForNextWeek);
+app.use('/app/bookings/loadAppointmentViewModel/:agencyId', controller.loadAppointmentViewModel);
+app.use('/app/bookings/addAppointment/:offenderNo', controller.addAppointment);
+app.use('/app/bookings/:offenderNo/alerts', controller.alerts);
+app.get('/app/bookings/:offenderNo/caseNotes', controller.caseNotes);
+app.post('/app/bookings/:offenderNo/caseNotes', controller.addCaseNote);
+app.put('/app/bookings/:offenderNo/caseNotes/:caseNoteId', controller.caseNote);
+app.get('/app/bookings/:offenderNo/caseNotes/:caseNoteId', controller.caseNote);
+app.get('/app/images/:imageId/data', controller.getImage);
+app.get('/app/users/me/bookingAssignments', controller.myAssignments);
+app.get('/app/users/me', controller.user);
 
 // app.use('/app', application.sessionHandler);
 

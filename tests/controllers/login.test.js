@@ -46,7 +46,7 @@ describe('POST /signin', () => {
     isUp: nullFunction,
   };
 
-  sessionManagementRoutes.configureRoutes({ app, eliteApi, oauthApi, hmppsCookieOperations, mailTo: 'test@site.com'});
+  sessionManagementRoutes.configureRoutes({ app, eliteApi, oauthApi, hmppsCookieOperations, mailTo: 'test@site.com' });
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
