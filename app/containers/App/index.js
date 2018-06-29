@@ -23,7 +23,7 @@ import {
   setMailTo,
 } from '../../globalReducers/app';
 
-class App extends Component {
+export class App extends Component {
   constructor(props) {
     super(props);
     this.resizeWindow = this.resizeWindow.bind(this);
@@ -59,6 +59,14 @@ class App extends Component {
   render() {
     const { mobileMenuOpen, shouldShowSpinner, shouldShowTerms, hideTermsAndConditions, showTermsAndConditions } = this.props;
 
+    if (mobileMenuOpen) {
+      return (<div className="app-content">
+        <Helmet title={ProductGlobals.serviceName} />
+        <Header />
+        <MobileMenu showTerms={() => showTermsAndConditions()} />
+      </div>);
+    }
+
     return (
       <div className="app-content">
         <Notifications />
@@ -66,7 +74,6 @@ class App extends Component {
         <Helmet title={ProductGlobals.serviceName} />
         <Header />
 
-        {mobileMenuOpen && <MobileMenu showTerms={() => showTermsAndConditions()} />}
         {!shouldShowTerms && <FeedbackLink /> }
 
         <nav className="nav-container">
