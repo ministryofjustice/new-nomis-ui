@@ -1,9 +1,6 @@
 const { logger } = require('./services/logger');
 const clientVersionValidator = require('./middlewares/validate-client-version');
 
-// const cookieMiddlewareFactory = require('./hmppsCookieMiddleware').factory;
-const tokeRefresherFactory = require('./tokenRefresher').factory;
-
 const contextProperties = require('./contextProperties');
 const buildNumber = require('./application-version');
 
@@ -30,12 +27,11 @@ const errorStatusCode = (error) => {
  * @param app an Express instance.
  * @param eliteApi a configured eliteApi instance.
  * @param oauthApi (authenticate, refresh)
- * @param hmppsCookieOperations (setCookie, getCookieValue, clearCookie)
+ * @param hmppsCookieOperations (setCookie, extractCookieValues, clearCookie)
+ * @param tokenRefresher a function which uses the 'context' object to perform an OAuth token refresh (returns a promise).
  * @param mailTo The email address displayed at the bottom of the login page.
  */
-const configureRoutes = (app, eliteApi, oauthApi, hmppsCookieOperations, mailTo) => {
-  const refreshTokens = tokeRefresherFactory(oauthApi.refresh);
-
+const configureRoutes = ({ app, eliteApi, oauthApi, hmppsCookieOperations, tokenRefresher, mailTo }) => {
   const loginIndex = async (req, res) => {
     const isApiUp = await eliteApi.isUp();
     logger.info(`loginIndex - health check called and the isaAppUp = ${isApiUp}`);
@@ -87,10 +83,10 @@ const configureRoutes = (app, eliteApi, oauthApi, hmppsCookieOperations, mailTo)
     next();
   };
 
-  const hmppsCookieMiddleware = (req, res, next) => {
+  const hmppsCookieMiddleware = async (req, res, next) => {
     hmppsCookieOperations.extractCookieValues(req, res.locals);
     if (contextProperties.hasTokens(res.locals)) {
-      refreshTokens(res.locals);
+      await tokenRefresher(res.locals);
       hmppsCookieOperations.setCookie(res, res.locals);
     }
 
@@ -110,7 +106,7 @@ const configureRoutes = (app, eliteApi, oauthApi, hmppsCookieOperations, mailTo)
       next();
       return;
     }
-    const isXHRRequest = req.xhr || req.headers.accept.indexOf('json') > -1;
+    const isXHRRequest = req.xhr || (req.headers.accept && req.headers.accept.indexOf('json') > -1);
 
     if (isXHRRequest) {
       res.status(401);

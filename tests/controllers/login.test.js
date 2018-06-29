@@ -8,8 +8,8 @@ const session = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const request = require('supertest');
 
-const { loginIndex, login } = require('../../server/controller');
-const oauthApi = require('../../server/api/oauthApi');
+const sessionManagementRoutes = require('../../server/sessionManagementRoutes');
+const hmppsCookie = require('../../server/hmppsCookie');
 
 chai.use(sinonChai);
 
@@ -28,8 +28,25 @@ describe('POST /signin', () => {
     saveUninitialized: true,
   }));
 
-  app.get('/login', loginIndex);
-  app.post('/login', login);
+  const hmppsCookieOperations = hmppsCookie.cookieOperationsFactory({
+    name: 'testCookie',
+    cookieLifetimeInMinutes: 1,
+    domain: '127.0.0.1',
+    secure: false,
+  });
+
+  const nullFunction = () => {};
+
+  const oauthApi = {
+    authenticate: nullFunction,
+    refresh: nullFunction,
+  };
+
+  const eliteApi = {
+    isUp: nullFunction,
+  };
+
+  sessionManagementRoutes.configureRoutes({ app, eliteApi, oauthApi, hmppsCookieOperations, mailTo: 'test@site.com'});
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();

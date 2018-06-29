@@ -24,6 +24,7 @@ const sessionManagementRoutes = require('./sessionManagementRoutes');
 const clientFactory = require('./api/oauthEnabledClient');
 const eliteApiFactory = require('./api/eliteApi').eliteApiFactory;
 const oauthApiFactory = require('./api/oauthApi');
+const tokeRefresherFactory = require('./tokenRefresher').factory;
 const cookieOperationsFactory = require('./hmppsCookie').cookieOperationsFactory;
 
 
@@ -114,7 +115,9 @@ const eliteClient = clientFactory({
 });
 const eliteApi = eliteApiFactory(eliteClient);
 const oauthApi = oauthApiFactory(config.apis.elite2);
-const cookieOperations = cookieOperationsFactory(
+const tokenRefresher = tokeRefresherFactory(oauthApi.refresh);
+
+const hmppsCookieOperations = cookieOperationsFactory(
   {
     name: config.hmppsCookie.name,
     domain: config.hmppsCookie.domain,
@@ -123,7 +126,13 @@ const cookieOperations = cookieOperationsFactory(
   },
 );
 
-sessionManagementRoutes.configureRoutes(app, eliteApi, oauthApi, cookieOperations, config.app.mailTo);
+sessionManagementRoutes.configureRoutes({
+  app,
+  eliteApi,
+  oauthApi,
+  hmppsCookieOperations,
+  tokenRefresher,
+  mailTo: config.app.mailTo });
 
 app.use('/heart-beat', (req,res) => {
   res.status(200);

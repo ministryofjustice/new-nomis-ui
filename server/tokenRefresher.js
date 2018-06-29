@@ -23,7 +23,8 @@ const tokenExpiresBefore = (encodedToken, timeSinceTheEpochInSeconds) => {
  * Return a function that checks and refreshes the OAuth tokens if the access token is approaching expiry or has expired.
  *
  * @param refreshFunction A function with a signature like api/oauthApi.refresh (Takes a context, returns a Promise).
- * @returns {Function}
+ * @returns A Function which takes a 'context' object holding JWT auth and refresh tokens.  Returns a Promise which settles when
+ * the check and refresh are complete.
  */
 const factory = (refreshFunction) =>
   /**
