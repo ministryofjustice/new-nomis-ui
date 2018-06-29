@@ -1,45 +1,22 @@
 const chai = require('chai');
 const expect = chai.expect;
-const sinon = require('sinon');
-const sinonChai = require('sinon-chai');
-chai.use(sinonChai);
 
-const proxyquire = require('proxyquire').noPreserveCache();
 const MockAdapter = require('axios-mock-adapter');
 const querystring = require('querystring');
-const scopedStore = require('../../server/scopedStore');
+const contextProperties = require('../../server/contextProperties');
+const oauthApiFactory = require('../../server/api/oauthApi');
 
 const clientId = 'clientId';
 const url = 'http://localhost';
 const clientSecret = 'clientSecret';
 
-const configStub = {
-  app: {
-    useApiAuthGateway: false,
-  },
-  apis: {
-    elite2: {
-      url,
-      clientId,
-      clientSecret,
-    },
-  },
-};
-
-const enableGatewayStub = Object.assign({}, configStub, {
-  app: {
-    useApiAuthGateway: true,
-  },
-});
-
-
 describe('oathApi tests', () => {
   it('Should send a valid auth request and save tokens', (done) => {
-    const oauthApi = proxyquire('../../server/api/oauthApi', { '../config': configStub });
+    const oauthApi = oauthApiFactory({ url, clientId, clientSecret });
 
     const mock = new MockAdapter(oauthApi.oauthAxios);
 
-    mock.onPost('oauth/token').reply(200, {
+    mock.onAny('oauth/token').reply(200, {
       access_token: 'accessToken',
       token_type: 'bearer',
       refresh_token: 'refreshToken',
@@ -49,35 +26,39 @@ describe('oathApi tests', () => {
       jti: 'bf5e8f62-1d2a-4126-96e2-a4ae91997ba6',
     });
 
+    // Some hackery to catch the configuration used by axios to make the authentication / refresh request.
     let requestConfig;
     oauthApi.oauthAxios.interceptors.request.use(config => {
       requestConfig = config;
       return config;
     });
 
-    scopedStore.run(() => {
-      oauthApi.authenticate('name', 'password')
-        .then(() => {
-          expect(scopedStore.getAccessToken()).to.equal('accessToken');
-          expect(scopedStore.getRefreshToken()).to.equal('refreshToken');
-        })
-        .then(() => {
-          expect(requestConfig.baseURL).to.equal(url);
-          expect(requestConfig.url).to.equal('/oauth/token');
-          expect(requestConfig.headers.authorization).to.equal(`Basic ${encodeClientCredentials()}`);
-          expect(requestConfig.data).to.equal('username=NAME&password=password&grant_type=password');
-          expect(requestConfig.headers['Content-Type']).to.equal('application/x-www-form-urlencoded');
-        })
-        .then(done, done)
-    });
+    const context = {};
+
+    // When I call authenticate I expect the new access and refresh tokens to be added to the context object...
+    oauthApi.authenticate(context, 'name', 'password')
+      .then(() => {
+        expect(contextProperties.getAccessToken(context)).to.equal('accessToken');
+        expect(contextProperties.getRefreshToken(context)).to.equal('refreshToken');
+      })
+      .then(() => {
+        // Confirm the outgoing request configuration.
+        expect(requestConfig.method).to.equal('post');
+        expect(requestConfig.baseURL).to.equal(url);
+        expect(requestConfig.url).to.equal('/oauth/token');
+        expect(requestConfig.headers.authorization).to.equal(`Basic ${encodeClientCredentials()}`);
+        expect(requestConfig.data).to.equal('username=NAME&password=password&grant_type=password');
+        expect(requestConfig.headers['Content-Type']).to.equal('application/x-www-form-urlencoded');
+      })
+      .then(done, done)
   });
 
   it('Should send a valid refresh request and store tokens', (done) => {
-    const oauthApi = proxyquire('../../server/api/oauthApi', { '../config': configStub });
+    const oauthApi = oauthApiFactory({ url, clientId, clientSecret });
 
     const mock = new MockAdapter(oauthApi.oauthAxios);
 
-    mock.onPost('oauth/token').reply(200, {
+    mock.onAny('oauth/token').reply(200, {
       access_token: 'newAccessToken',
       token_type: 'bearer',
       refresh_token: 'newRefreshToken',
@@ -93,72 +74,24 @@ describe('oathApi tests', () => {
       return config;
     });
 
-    scopedStore.run(() => {
-      scopedStore.storeTokens('accessToken', 'refreshToken');
-      oauthApi.refresh()
-        .then(() => {
-          expect(scopedStore.getAccessToken()).to.equal('newAccessToken');
-          expect(scopedStore.getRefreshToken()).to.equal('newRefreshToken');
-        })
-        .then(() => {
-          expect(requestConfig.baseURL).to.equal(url);
-          expect(requestConfig.url).to.equal('/oauth/token');
-          expect(requestConfig.headers.authorization).to.equal(`Basic ${encodeClientCredentials()}`);
-          expect(requestConfig.data).to.equal('refresh_token=refreshToken&grant_type=refresh_token');
-          expect(requestConfig.headers['Content-Type']).to.equal('application/x-www-form-urlencoded');
-        })
-        .then(done, done)
-    });
+    const obj = {};
+    contextProperties.setTokens(obj, 'accessToken', 'refreshToken');
+
+    oauthApi.refresh(obj)
+      .then(() => {
+        expect(contextProperties.getAccessToken(obj)).to.equal('newAccessToken');
+        expect(contextProperties.getRefreshToken(obj)).to.equal('newRefreshToken');
+      })
+      .then(() => {
+        expect(requestConfig.method).to.equal('post');
+        expect(requestConfig.baseURL).to.equal(url);
+        expect(requestConfig.url).to.equal('/oauth/token');
+        expect(requestConfig.headers.authorization).to.equal(`Basic ${encodeClientCredentials()}`);
+        expect(requestConfig.data).to.equal('refresh_token=refreshToken&grant_type=refresh_token');
+        expect(requestConfig.headers['Content-Type']).to.equal('application/x-www-form-urlencoded');
+      })
+      .then(done, done)
   });
-
-  it('Should invoke the gateway interceptor when enabled', (done) => {
-    const interceptorSpy = sinon.spy(config => config);
-
-    const oauthApi = proxyquire(
-      '../../server/api/oauthApi',
-      {
-        '../config': enableGatewayStub,
-        './axios-interceptors': { gatewayInterceptor: interceptorSpy },
-      });
-
-    const mock = new MockAdapter(oauthApi.oauthAxios);
-    mock.onPost('oauth/token').reply(200, {});
-
-    scopedStore.run(() => {
-      scopedStore.storeTokens('accessToken', 'refreshToken');
-      oauthApi.authenticate('name', 'password')
-        .then(() => {
-          // noinspection BadExpressionStatementJS
-          expect(interceptorSpy).to.have.been.called;
-        })
-        .then(done, done)
-    });
-  });
-
-  it('Should not invoke the gateway interceptor when disabled', (done) => {
-    const interceptorSpy = sinon.spy(config => config);
-
-    const oauthApi = proxyquire(
-      '../../server/api/oauthApi',
-      {
-        '../config': configStub,
-        './axios-interceptors': { gatewayInterceptor: interceptorSpy },
-      });
-
-    const mock = new MockAdapter(oauthApi.oauthAxios);
-    mock.onPost('oauth/token').reply(200, {});
-
-    scopedStore.run(() => {
-      scopedStore.storeTokens('accessToken', 'refreshToken');
-      oauthApi.authenticate('name', 'password')
-        .then(() => {
-          // noinspection BadExpressionStatementJS
-          expect(interceptorSpy).not.to.have.been.called;
-        })
-        .then(done, done)
-    });
-  });
-
 
   function encodeClientCredentials() {
     return new Buffer(`${querystring.escape(clientId)}:${querystring.escape(clientSecret)}`).toString('base64')

@@ -5,7 +5,6 @@ const elite2ApiFallThrough = require('./app').sessionHandler;
 const retry = require('./api/retry');
 
 const elite2Api = require('./api/elite2Api');
-const oauthApi = require('./api/oauthApi');
 const session = require('./session');
 const bookingService = require('./services/booking');
 const eventsService = require('./services/events');
@@ -30,43 +29,8 @@ const asyncMiddleware = fn =>
       });
   };
 
-const loginIndex = async (req, res) => {
-  const isApiUp = await retry.getApiHealth();
-  logger.info(`loginIndex - health check called and the isaAppUp = ${isApiUp}`);
-  res.render('pages/login', { authError: false, apiUp: isApiUp, mailTo });
-};
-
-const login = async (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-
-  try {
-    await oauthApi.authenticate(username, password);
-    session.setHmppsCookie(res);
-    req.session.isAuthenticated = true;
-    res.redirect('/');
-  } catch (error) {
-    const code = retry.errorStatusCode(error);
-    res.status(code);
-    logger.error(error);
-    if (code < 500) {
-      logger.warn('Login failed, invalid password', { user: String(username) });
-      res.render('pages/login', { authError: true, apiUp: true, mailTo });
-    } else {
-      logger.error(error);
-      res.render('pages/login', { authError: false, apiUp: false, mailTo });
-    }
-  }
-};
-
 const terms = async (req, res) => {
   res.render('pages/terms', { mailTo });
-};
-
-const logout = (req, res) => {
-  session.deleteHmppsCookie(res);
-  req.session = null;
-  res.redirect('/login');
 };
 
 function enableCaching(res) {
@@ -259,10 +223,7 @@ const user = asyncMiddleware(async (req, res) => {
 
 module.exports = {
   keyDates,
-  login,
-  loginIndex,
   terms,
-  logout,
   bookingDetails,
   quickLook,
   eventsForNextWeek,

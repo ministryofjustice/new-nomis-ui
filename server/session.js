@@ -1,5 +1,5 @@
 const config = require('./config');
-const tokenStore = require('./tokenStore');
+const contextProperties = require('./contextProperties');
 
 const sessionExpiryMinutes = config.hmppsCookie.expiryMinutes * 60 * 1000;
 
@@ -36,21 +36,18 @@ const hmppsSessionMiddleWare = (req, res, next) => {
 
   req.session.isAuthenticated = true;
 
-  tokenStore.run(() => {
-    const cookieData = decodeCookieValue(cookieValue);
-    tokenStore.storeTokens(cookieData.access_token, cookieData.refresh_token);
-    if (cookieData.nowInMinutes !== getNowInMinutes()) {
-      setHmppsCookie(res);
-    }
-    next();
-  })
+  const cookieData = decodeCookieValue(cookieValue);
+  if (cookieData.nowInMinutes !== getNowInMinutes()) {
+    setHmppsCookie(res);
+  }
+  next();
 };
 
 const loginMiddleware = (req, res, next) => {
-  if (req.url.includes('logout')) {
-    next();
-    return;
-  }
+  // if (req.url.includes('logout')) {
+  //   next();
+  //   return;
+  // }
 
   if (isAuthenticated(req)) {
     res.redirect('/');
@@ -76,13 +73,14 @@ const endSession = (req, res) => {
 
 const setHmppsCookie = (res) => {
   const cookieValue = encodeToBase64(JSON.stringify(
-    { access_token: tokenStore.getAccessToken(),
-      refresh_token: tokenStore.getRefreshToken(),
+    {
+      access_token: contextProperties.getAccessToken(res.locals),
+      refresh_token: contextProperties.getRefreshToken(res.locals),
       nowInMinutes: getNowInMinutes(),
     }));
 
   const cookieConfig = Object.assign(
-    {} ,
+    {},
     staticCookieConfig,
     {
       expires: new Date(Date.now() + sessionExpiryMinutes),

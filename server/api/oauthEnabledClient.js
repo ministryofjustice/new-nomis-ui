@@ -1,76 +1,56 @@
 const axios = require('axios');
-const oauthApi = require('./oauthApi');
 const interceptors = require('./axios-interceptors');
-const { logger } = require('../services/logger');
 
 /**
  * Build a client for the supplied configuration. The client wraps axios get and post, while ensuring that
- * the remote calls carry valid oauth and gateway headers.  If the oauth token exipres the client attempts
- * to refresh the token before retrying the request.
+ * the remote calls carry valid oauth and gateway headers.
  *
  * @param baseUrl The base url to be used with the client's get and post
  * @param timeout The timeout to apply to get and post.
  * @param useGateway
  * @returns {{get: (function(*=): *), post: (function(*=, *=): *)}}
  */
-const factory = ({ baseUrl, timeout, useGateway }) => {
+const factory = ({ baseUrl, timeout }) => {
   const axiosInstance = axios.create({
     baseURL: baseUrl,
     timeout,
   });
 
   // Apply interceptors in the opposite order to that in which they are to be run.
-  // We want the authorization interceptor to run first, to apply that one last!
-
-  if (useGateway) {
-    axiosInstance.interceptors.request.use(
-      interceptors.gatewayInterceptor,
-      interceptors.passThroughErrorInterceptor);
-  }
+  // We want the authorization interceptor to run first, so apply that one last!
 
   axiosInstance.interceptors.request.use(
     interceptors.authorizationInterceptor,
     interceptors.passThroughErrorInterceptor);
 
-  const throwUnlessUnauthorized = (error) => {
-    if (!(error.response && error.response.status === 401)) {
-      logger.error(error);
-      throw error;
-    }
-  };
-
   /**
-   * An Axios GET request with Oauth token refresh and retry behaviour
+   * An Axios GET request with Oauth token
    *
-   * @param uri
-   * @returns A Promise which resolves to the Axios result object,
+   * @param context A request scoped 'context' carrying an authToken property
+   * @param url if url is relative then baseURL will be prepended. If the url is absolute the baseURL is ignored.
+   * @returns A Promise which settles to the Axios result object if the promise is resolved, otherwise to the 'error' object.
    */
-  const get = (uri) => axiosInstance
-      .get(uri)
-      .catch(error => {
-        throwUnlessUnauthorized(error);
-        logger.info(`Unauthorized GET ${uri}. Trying an OAuth refresh`);
-
-        return oauthApi
-          .refresh()
-          .then(() => axiosInstance.get(uri))
+  const get = (context, url) =>
+    axiosInstance(
+      {
+        method: 'get',
+        url,
+        context,
       });
 
   /**
    * An Axios POST with Oauth token refresh and retry behaviour
-   * @param uri
+   * @param context an object carrying an authToken property
+   * @param url if url is relative then the baseURL will be prepended. If the url is absolute then baseURL is ignored.
    * @param body
    * @returns A Promise which resolves to the Axios result object, or the Axios error object if it is rejected
    */
-  const post = (uri, body) => axiosInstance
-    .post(uri, body)
-    .catch(error => {
-      throwUnlessUnauthorized(error);
-      logger.info(`Unauthorized POST ${uri}. Trying an OAuth refresh`);
-
-      return oauthApi
-        .refresh()
-        .then(() => axiosInstance.post(uri, body))
+  const post = (context, url, body) => axiosInstance(
+    {
+      method: 'post',
+      url,
+      data: body,
+      context,
     });
 
   return {

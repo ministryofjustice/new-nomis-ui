@@ -12,16 +12,20 @@ const helmet = require('helmet');
 const path = require('path');
 
 const setup = require('./middlewares/frontend-middleware');
-const app = express();
 
 const { logger } = require('./services/logger');
 const apiProxy = require('./apiproxy');
 const application = require('./app');
 const controller = require('./controller');
-const session = require('./session');
+// const session = require('./session');
 const config = require('./config');
-const clientVersionValidator = require('./middlewares/validate-client-version');
-const buildNumber = require('./application-version');
+
+const sessionManagementRoutes = require('./sessionManagementRoutes');
+const clientFactory = require('./api/oauthEnabledClient');
+const eliteApiFactory = require('./api/eliteApi').eliteApiFactory;
+const oauthApiFactory = require('./api/oauthApi');
+const cookieOperationsFactory = require('./hmppsCookie').cookieOperationsFactory;
+
 
 const sixtyDaysInSeconds = 5184000;
 const sessionExpiryMinutes = config.session.expiryMinutes * 60 * 1000;
@@ -33,6 +37,8 @@ const sessionConfig = {
   expires: new Date(Date.now() + sessionExpiryMinutes),
   maxAge: sessionExpiryMinutes, // 1 hour
 };
+
+const app = express();
 
 app.set('trust proxy', 1); // trust first proxy
 
@@ -99,21 +105,25 @@ app.use('/info', apiProxy);
 app.use('/docs', apiProxy);
 app.use('/api/swagger.json', apiProxy);
 
-app.get('/login', session.loginMiddleware, controller.loginIndex);
-app.post('/login', controller.login);
-app.get('/logout', controller.logout);
 app.get('/terms', controller.terms);
 
-app.use(clientVersionValidator);
-
-// Update values in the cookie so that the set-cookie will be sent.
-app.use((req, res, next) => {
-  // Keep track of when a server update occurs. Changes rarely.
-  req.session.applicationVersion = buildNumber;
-  next();
+const eliteClient = clientFactory({
+  baseUrl: config.apis.elite2.url,
+  timeout: 10000,
+  useGateway: config.app.useApiAuthGateway,
 });
+const eliteApi = eliteApiFactory(eliteClient);
+const oauthApi = oauthApiFactory(config.apis.elite2);
+const cookieOperations = cookieOperationsFactory(
+  {
+    name: config.hmppsCookie.name,
+    domain: config.hmppsCookie.domain,
+    cookieLifetimeInMinutes: config.hmppsCookie.expiryMinutes,
+    secure: config.app.production,
+  },
+);
 
-app.use(session.hmppsSessionMiddleWare);
+sessionManagementRoutes.configureRoutes(app, eliteApi, oauthApi, cookieOperations, config.app.mailTo);
 
 app.use('/heart-beat', (req,res) => {
   res.status(200);
@@ -123,23 +133,23 @@ app.use('/heart-beat', (req,res) => {
 // Don't cache dynamic resources (except images which override this)
 app.use(helmet.noCache());
 
-app.use('/app/keydates/:offenderNo', controller.keyDates);
-app.use('/app/bookings/details/:offenderNo', controller.bookingDetails);
-app.use('/app/bookings/quicklook/:offenderNo', controller.quickLook);
-app.use('/app/bookings/scheduled/events/forThisWeek/:offenderNo', controller.eventsForThisWeek);
-app.use('/app/bookings/scheduled/events/forNextWeek/:offenderNo', controller.eventsForNextWeek);
-app.use('/app/bookings/loadAppointmentViewModel/:agencyId', controller.loadAppointmentViewModel);
-app.use('/app/bookings/addAppointment/:offenderNo', controller.addAppointment);
-app.use('/app/bookings/:offenderNo/alerts', controller.alerts);
-app.get('/app/bookings/:offenderNo/caseNotes', controller.caseNotes);
-app.post('/app/bookings/:offenderNo/caseNotes', controller.addCaseNote);
-app.put('/app/bookings/:offenderNo/caseNotes/:caseNoteId', controller.caseNote);
-app.get('/app/bookings/:offenderNo/caseNotes/:caseNoteId', controller.caseNote);
-app.get('/app/images/:imageId/data', controller.getImage);
-app.get('/app/users/me/bookingAssignments', controller.myAssignments);
-app.get('/app/users/me', controller.user);
+// app.use('/app/keydates/:offenderNo', controller.keyDates);
+// app.use('/app/bookings/details/:offenderNo', controller.bookingDetails);
+// app.use('/app/bookings/quicklook/:offenderNo', controller.quickLook);
+// app.use('/app/bookings/scheduled/events/forThisWeek/:offenderNo', controller.eventsForThisWeek);
+// app.use('/app/bookings/scheduled/events/forNextWeek/:offenderNo', controller.eventsForNextWeek);
+// app.use('/app/bookings/loadAppointmentViewModel/:agencyId', controller.loadAppointmentViewModel);
+// app.use('/app/bookings/addAppointment/:offenderNo', controller.addAppointment);
+// app.use('/app/bookings/:offenderNo/alerts', controller.alerts);
+// app.get('/app/bookings/:offenderNo/caseNotes', controller.caseNotes);
+// app.post('/app/bookings/:offenderNo/caseNotes', controller.addCaseNote);
+// app.put('/app/bookings/:offenderNo/caseNotes/:caseNoteId', controller.caseNote);
+// app.get('/app/bookings/:offenderNo/caseNotes/:caseNoteId', controller.caseNote);
+// app.get('/app/images/:imageId/data', controller.getImage);
+// app.get('/app/users/me/bookingAssignments', controller.myAssignments);
+// app.get('/app/users/me', controller.user);
 
-app.use('/app', application.sessionHandler);
+// app.use('/app', application.sessionHandler);
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
