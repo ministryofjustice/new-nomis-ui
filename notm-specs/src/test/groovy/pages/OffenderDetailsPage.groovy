@@ -16,11 +16,13 @@ class OffenderDetailsPage extends Page {
     offenderNameHeading { $('h1').text() }
     addCaseNoteLink { $('a.button-link', 0) }
     addAppointmentLink { $('a.button-link', 1) }
+    spinner(required: false) { $('div.spinner-component')}
   }
 
   def gotoAddCaseNotes() {
-    // TODO displayed is not enough
-    sleep(200)
+    // Wait for the spinner to kick in .. then for it to finish.
+    waitFor { spinner.displayed }
+    waitFor { !spinner.displayed }
     addCaseNoteLink.click()
   }
 }
