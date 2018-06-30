@@ -14,7 +14,9 @@ const defaults = require('lodash/defaultsDeep');
 const pkg = require(path.join(process.cwd(), 'package.json'));
 const config = require('../config');
 const dllConfig = defaults(pkg.dllPlugin, config.dllPlugin.defaults);
-const outputPath = path.join(process.cwd(), dllConfig.path);
+// On windows, dllConfig.path is a full path
+const isWin = /^win/.test(process.platform);
+const outputPath = isWin ? dllConfig.path : path.join(process.cwd(), dllConfig.path);
 const dllManifestPath = path.join(outputPath, 'package.json');
 
 /**
