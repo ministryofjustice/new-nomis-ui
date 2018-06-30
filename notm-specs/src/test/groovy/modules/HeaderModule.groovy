@@ -1,19 +1,19 @@
-
 package modules
 
 import geb.Module
 
 class HeaderModule extends Module {
 
-    static content = {
-        dropDown   { $('.header-content .clickable') }
-        dropDownMobile  { $('div#nav-icon span', 0) }
-        logoutLink { $('a', text: 'Log out' ) }
-        myAllocationsMenuLink(required: false) { $('.my-allocations-menu-link') }
-        dropDownMenu { dropDown.displayed == true ? dropDown : dropDownMobile }
-    }
-
-
+  static content = {
+    dropDown { $('.header-content .clickable') }
+    dropDownMobile { $('div#nav-icon') }
+    // span at index 0 is not displayed
+    dropDownMobileContents { $('div#nav-icon span', 1) }
+    logoutLink { $('a', text: 'Log out') }
+    myAllocationsMenuLink(required: false) { $('.my-allocations-menu-link') }
+    dropDownMenu { dropDown.displayed ? dropDown : dropDownMobile }
+    dropDownMenuContents { dropDown.displayed ? dropDown : dropDownMobileContents }
+  }
 
   def logout() {
     dropDownMenu.click()
