@@ -9,6 +9,8 @@ class OffenderDetailsPage extends Page {
     title == 'Prison-NOMIS'
     addCaseNoteLink.displayed
     addAppointmentLink.displayed
+    !offenderNameHeading.empty
+    !spinner.displayed
   }
 
   static content = {
@@ -20,9 +22,6 @@ class OffenderDetailsPage extends Page {
   }
 
   def gotoAddCaseNotes() {
-    // Wait for the spinner to kick in .. then for it to finish.
-    waitFor { spinner.displayed }
-    waitFor { !spinner.displayed }
     addCaseNoteLink.click()
   }
 }
