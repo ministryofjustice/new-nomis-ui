@@ -11,11 +11,13 @@ const appInsights = require('applicationinsights');
 const helmet = require('helmet');
 const path = require('path');
 
+const clientVersionValidator = require('./middlewares/validate-client-version');
+const buildNumber = require('./application-version');
+
 const setup = require('./middlewares/frontend-middleware');
 
 const { logger } = require('./services/logger');
 const apiProxy = require('./apiproxy');
-const application = require('./app');
 const config = require('./config');
 
 const sessionManagementRoutes = require('./sessionManagementRoutes');
@@ -27,8 +29,11 @@ const tokeRefresherFactory = require('./tokenRefresher').factory;
 const cookieOperationsFactory = require('./hmppsCookie').cookieOperationsFactory;
 const controllerFactory = require('./controller').controllerFactory;
 const userServiceFactory = require('./services/user').userServiceFactory;
+const bookingServiceFactory = require('./services/booking').bookingServiceFactory;
+const eventsServiceFactory = require('./services/events').eventsServiceFactory;
+const keyworkerServiceFactory = require('./services/keyworker').keyworkerServiceFactory;
 
-
+const requestForwarding = require('./request-forwarding');
 
 const sixtyDaysInSeconds = 5184000;
 const sessionExpiryMinutes = config.session.expiryMinutes * 60 * 1000;
@@ -113,15 +118,44 @@ const eliteClient = clientFactory({
   timeout: 10000,
 });
 
-const keyworkerClient = clientFactory({
-  baseUrl: config.apis.keyworker.url,
-  timeout: 10000,
+const eliteApi = eliteApiFactory(eliteClient);
+
+/**
+ * There is a convention of using the absence of config.apis.keyworker.url
+ * to control the behaviour in bookingService and keyworkerService.
+ *
+ * This information is now conveyed to those services by supplying a null keyworkerApi instance.
+ *
+ * @returns A configured instance of keyworkerApi or null if config.apis.keyworker.url is absent
+ */
+const createKeyworkerApi = () => {
+  if (!config.apis.keyworker.url) return null;
+
+  const keyworkerClient = clientFactory({
+    baseUrl: config.apis.keyworker.url,
+    timeout: 10000,
+  });
+  return keyworkerApiFactory(keyworkerClient);
+};
+
+const keyworkerApi = createKeyworkerApi();
+const oauthApi = oauthApiFactory(config.apis.elite2);
+const tokenRefresher = tokeRefresherFactory(oauthApi.refresh, config.app.tokenRefreshThresholdSeconds);
+
+const userService = userServiceFactory(eliteApi);
+const bookingService = bookingServiceFactory(eliteApi, keyworkerApi);
+const eventsService = eventsServiceFactory(eliteApi);
+const keyworkerService = keyworkerServiceFactory(eliteApi, keyworkerApi);
+
+const controller = controllerFactory({
+  elite2Api: eliteApi,
+  userService,
+  bookingService,
+  eventsService,
+  keyworkerService,
 });
 
-const eliteApi = eliteApiFactory(eliteClient);
-const keyworkerApi = keyworkerApiFactory(keyworkerClient);
-const oauthApi = oauthApiFactory(config.apis.elite2);
-const tokenRefresher = tokeRefresherFactory(oauthApi.refresh);
+app.get('/terms', controller.terms);
 
 const hmppsCookieOperations = cookieOperationsFactory(
   {
@@ -132,11 +166,14 @@ const hmppsCookieOperations = cookieOperationsFactory(
   },
 );
 
-const userService = userServiceFactory(eliteApi);
+app.use(clientVersionValidator);
+app.use((req, res, next) => {
+  // Keep track of when a server update occurs. Changes rarely.
+  req.session.applicationVersion = buildNumber;
+  next();
+});
 
-const controller = controllerFactory({ elite2Api: eliteApi, keyworkerApi, userService });
-app.get('/terms', controller.terms);
-
+/* login, logout, hmppsCookie management, token refresh etc */
 sessionManagementRoutes.configureRoutes({
   app,
   eliteApi,
@@ -144,11 +181,6 @@ sessionManagementRoutes.configureRoutes({
   hmppsCookieOperations,
   tokenRefresher,
   mailTo: config.app.mailTo });
-
-app.use('/heart-beat', (req,res) => {
-  res.status(200);
-  res.end();
-});
 
 // Don't cache dynamic resources (except images which override this)
 app.use(helmet.noCache());
@@ -169,7 +201,11 @@ app.get('/app/images/:imageId/data', controller.getImage);
 app.get('/app/users/me/bookingAssignments', controller.myAssignments);
 app.get('/app/users/me', controller.user);
 
-// app.use('/app', application.sessionHandler);
+// Extract pagination header information from requests and set on the 'context'
+app.use('/app', requestForwarding.extractRequestPaginationMiddleware);
+
+// Forward requests to the eliteApi get/post functions.
+app.use('/app', requestForwarding.forwardingHandlerFactory(eliteApi));
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {

@@ -1,6 +1,19 @@
 const axios = require('axios');
+const { logger } = require('../services/logger');
+
 const contextProperties = require('../contextProperties');
 
+const resultLogger = (result) => {
+  logger.debug(`${result.config.method} ${result.config.url} ${result.status} ${result.statusText}`);
+  return result;
+};
+
+const errorLogger = (error) => {
+  const status = error.response ? error.response.status : '-';
+  const responseData = error.response ? error.response.data : '-';
+  logger.debug(`Error. ${error.config.method} ${error.config.url} ${status} ${error.message} ${responseData}`);
+  throw error;
+};
 
 /**
  * Build a client for the supplied configuration. The client wraps axios get and post, while ensuring that
@@ -26,6 +39,19 @@ const factory = ({ baseUrl, timeout }) => {
     return config;
   };
 
+  /**
+   * Don't like this, but the pagination information is being passed around in headers. If that information were
+   * conveyed in request parameters or as part of the body of a request then this problem wouldn't be necessary.
+   * @param context
+   * @param config
+   * @returns {*}
+   */
+  const addPaginationHeaders = (context, config) => {
+    const paginationHeaders = contextProperties.getRequestPagination(context);
+    config.headers = config.headers || {};
+    Object.assign(config.headers, paginationHeaders);
+    return config;
+  };
 
   /**
    * An Axios GET request with Oauth token
@@ -36,13 +62,18 @@ const factory = ({ baseUrl, timeout }) => {
    */
   const get = (context, url) =>
     axiosInstance(
-      addAuthorizationHeader(
-        context,
-        {
-          method: 'get',
-          url,
-        }),
-    );
+      addPaginationHeaders(context,
+        addAuthorizationHeader(
+          context,
+          {
+            method: 'get',
+            url,
+          },
+        ),
+      ),
+    )
+      .then(resultLogger)
+      .catch(errorLogger);
 
   /**
    * An Axios POST with Oauth token refresh and retry behaviour
@@ -53,17 +84,53 @@ const factory = ({ baseUrl, timeout }) => {
    */
   const post = (context, url, body) =>
     axiosInstance(
+      addPaginationHeaders(context,
+        addAuthorizationHeader(
+          context,
+          {
+            method: 'post',
+            url,
+            data: body,
+          },
+        ),
+      ),
+    )
+      .then(resultLogger)
+      .catch(errorLogger);
+
+  const put = (context, url, body) =>
+    axiosInstance(
+      addPaginationHeaders(context,
+        addAuthorizationHeader(
+          context,
+          {
+            method: 'put',
+            url,
+            data: body,
+          },
+        ),
+      ),
+    )
+      .then(resultLogger)
+      .catch(errorLogger);
+
+  const getStream = (context, url) =>
+    axiosInstance(
       addAuthorizationHeader(
         context,
         {
-          method: 'post',
+          method: 'get',
           url,
-          data: body,
-        }));
+          responseType: 'stream',
+        },
+      ),
+    ).catch(errorLogger);
 
   return {
     get,
+    getStream,
     post,
+    put,
     axiosInstance, // exposed for testing...
   }
 };

@@ -1,4 +1,3 @@
-const elite2Api = require('../api/elite2Api');
 const moment = require('../ZoneAwareMoment');
 
 const RiskAssessment = require('../model/risk-assessment');
@@ -9,139 +8,149 @@ const toVisit = require('../data-mappers/to-visit').toVisit;
 const toLastVisit = require('../data-mappers/to-visit').toLastVisit;
 const toActivityViewModel = require('../data-mappers/to-activity-viewmodel');
 
-const getKeyDatesVieModel = async (req, res) => {
-  const { bookingId } = await elite2Api.getDetailsLight(req, res);
-  req.bookingId = bookingId;
+const bookingServiceFactory = (eliteApi, keyworkerApi) => {
+  const getKeyDatesVieModel = async (context, offenderNo) => {
+    const { bookingId } = await eliteApi.getDetailsLight(context, offenderNo);
 
-  const [sentenceData, iepSummary, categoryAssessment] = await Promise.all([
-    elite2Api.getSentenceData(req, res),
-    elite2Api.getIepSummary(req, res),
-    elite2Api.getCategoryAssessment(req, res),
-  ]);
+    const [sentenceData, iepSummary, categoryAssessment] = await Promise.all([
+      eliteApi.getSentenceData(context, bookingId),
+      eliteApi.getIepSummary(context, bookingId),
+      eliteApi.getCategoryAssessment(context, bookingId),
+    ]);
 
-  const sentence = keyDatesMapper.sentence(sentenceData);
-  const other = keyDatesMapper.otherDates(sentenceData);
+    const sentence = keyDatesMapper.sentence(sentenceData);
+    const other = keyDatesMapper.otherDates(sentenceData);
+
+    return {
+      iepLevel: iepSummary.iepLevel,
+      daysSinceReview: iepSummary.daysSinceReview,
+      sentence,
+      other,
+      reCategorisationDate: categoryAssessment && categoryAssessment.nextReviewDate,
+    };
+  };
+
+  const getKeyworker = async (context, offenderNo) => {
+    if (keyworkerApi) {
+      const me = await eliteApi.getMyInformation(context);
+
+      return keyworkerApi.getKeyworkerByCaseloadAndOffenderNo(context, me.activeCaseLoadId, offenderNo);
+    }
+    return eliteApi.getKeyworker(context, offenderNo);
+  };
+
+  const getBookingDetailsViewModel = async (context, offenderNo) => {
+    const details = await eliteApi.getDetails(context, offenderNo);
+    const { bookingId } = details;
+
+    const iepLevel = (await eliteApi.getIepSummary(context, bookingId)).iepLevel;
+
+    const csraAssessment = details.assessments
+      .map(assessment => RiskAssessment(assessment))
+      .filter((assessment) => assessment.isCRSA() && assessment.isActive())[0];
+
+    const keyworker = await getKeyworker(context, offenderNo);
+
+    return {
+      ...details,
+      iepLevel,
+      keyworker,
+      csra: csraAssessment && csraAssessment.riskLevel(),
+    };
+  };
+
+  const getQuickLookViewModel = async (context, offenderNo) => {
+    const threeMonthsInThePast = moment().subtract(3, 'months').format(isoDateFormat);
+    const today = moment().format(isoDateFormat);
+
+    const { bookingId } = await eliteApi.getDetailsLight(context, offenderNo);
+
+    const apiCalls = [
+      eliteApi.getBalances(context, bookingId),
+      eliteApi.getMainOffence(context, bookingId),
+      eliteApi.getSentenceData(context, bookingId),
+      eliteApi.getEventsForToday(context, bookingId),
+      eliteApi.getPositiveCaseNotes({ context, bookingId, fromDate: threeMonthsInThePast, toDate: today }),
+      eliteApi.getNegativeCaseNotes({ context, bookingId, fromDate: threeMonthsInThePast, toDate: today }),
+      eliteApi.getContacts(context, bookingId),
+      eliteApi.getAdjudications({ context, bookingId, fromDate: threeMonthsInThePast }),
+      eliteApi.getLastVisit(context, bookingId),
+      eliteApi.getNextVisit(context, bookingId),
+      eliteApi.getRelationships(context, bookingId),
+    ];
+
+    const [
+      balance,
+      offenceData,
+      sentenceData,
+      activityData,
+      positiveCaseNotes,
+      negativeCaseNotes,
+      contacts,
+      adjudications,
+      lastVisit,
+      nextVisit,
+      relationships,
+    ] = await Promise.all(apiCalls);
+
+    const activities = toActivityViewModel(activityData);
+    const hasAnyActivity =
+      activities.morningActivities.length > 0 ||
+      activities.afternoonActivities.length > 0 ||
+      activities.eveningDuties.length > 0;
+
+    const offenceDetails = offenceData && offenceData.map(offenceDetail => ({
+      type: offenceDetail.offenceDescription,
+    }));
+
+    const getFirstRelationshipByType = (relationshipType, data) => {
+      const results = data.filter(rel => rel.relationship === relationshipType);
+      return results.length >= 1 ? {
+        firstName: results[0].firstName,
+        lastName: results[0].lastName,
+      } : null;
+    };
+
+    return {
+      lastVisit: lastVisit && toLastVisit(lastVisit),
+      nextVisit: nextVisit && toVisit(nextVisit),
+      assignedStaffMembers: {
+        communityOffenderManager: relationships && getFirstRelationshipByType('COM', relationships),
+      },
+      balance: balance && {
+        spends: balance.spends,
+        cash: balance.cash,
+        savings: balance.savings,
+        currency: balance.currency,
+      },
+      activities: hasAnyActivity ? activities : null,
+      positiveCaseNotes: (positiveCaseNotes && positiveCaseNotes.count) || 0,
+      negativeCaseNotes: (negativeCaseNotes && negativeCaseNotes.count) || 0,
+      offences: (offenceDetails && offenceDetails.length > 0) ? offenceDetails : null,
+      releaseDate: sentenceData ? sentenceData.releaseDate : null,
+      tariffDate: sentenceData ? sentenceData.tariffDate : null,
+      indeterminateReleaseDate: Boolean(sentenceData && sentenceData.tariffDate && !sentenceData.releaseDate),
+      adjudications: {
+        proven: (adjudications && adjudications.adjudicationCount) || 0,
+        awards: (adjudications && adjudications.awards && adjudications.awards.map(award => toAward(award))) || [],
+      },
+      nextOfKin: (contacts && contacts.nextOfKin && contacts.nextOfKin.map(contact => ({
+        firstName: contact.firstName,
+        lastName: contact.lastName,
+        middleName: contact.middleName,
+        relationship: contact.relationshipDescription,
+        contactTypeDescription: contact.contactTypeDescription,
+      }))) || [],
+    };
+  };
 
   return {
-    iepLevel: iepSummary.iepLevel,
-    daysSinceReview: iepSummary.daysSinceReview,
-    sentence,
-    other,
-    reCategorisationDate: categoryAssessment && categoryAssessment.nextReviewDate,
+    getQuickLookViewModel,
+    getKeyDatesVieModel,
+    getBookingDetailsViewModel,
   };
 };
 
-const getBookingDetailsViewModel = async (req, res) => {
-  const details = await elite2Api.getDetails(req, res);
-  const { bookingId } = details;
-  req.bookingId = bookingId;
-
-  const iepLevel = (await elite2Api.getIepSummary(req, res)).iepLevel;
-
-  const csraAssessment = details.assessments
-    .map(assessment => RiskAssessment(assessment))
-    .filter((assessment) => assessment.isCRSA() && assessment.isActive())[0];
-
-  const keyworker = await elite2Api.getKeyworker(req, res);
-
-  return {
-    ...details,
-    iepLevel,
-    keyworker,
-    csra: csraAssessment && csraAssessment.riskLevel(),
-  };
+module.exports = {
+  bookingServiceFactory,
 };
-
-const getQuickLookViewModel = async (req, res) => {
-  const threeMonthsInThePast = moment().subtract(3, 'months').format(isoDateFormat);
-  const today = moment().format(isoDateFormat);
-
-  const { bookingId } = await elite2Api.getDetailsLight(req, res);
-  req.bookingId = bookingId;
-
-  const apiCalls = [
-    elite2Api.getBalances(req, res),
-    elite2Api.getMainOffence(req, res),
-    elite2Api.getSentenceData(req, res),
-    elite2Api.getEventsForToday(req, res),
-    elite2Api.getPositiveCaseNotes({ req, res, fromDate: threeMonthsInThePast,toDate: today }),
-    elite2Api.getNegativeCaseNotes({ req, res, fromDate: threeMonthsInThePast,toDate: today }),
-    elite2Api.getContacts(req, res),
-    elite2Api.getAdjudications({ req, res, fromDate: threeMonthsInThePast }),
-    elite2Api.getLastVisit(req, res),
-    elite2Api.getNextVisit({ req, res, fromDate: today }),
-    elite2Api.getRelationships(req, res),
-  ];
-
-  const [
-    balance,
-    offenceData,
-    sentenceData,
-    activityData,
-    positiveCaseNotes,
-    negativeCaseNotes,
-    contacts,
-    adjudications,
-    lastVisit,
-    nextVisit,
-    relationships,
-  ] = await Promise.all(apiCalls);
-
-  const activities = toActivityViewModel(activityData);
-  const hasAnyActivity =
-    activities.morningActivities.length > 0 ||
-    activities.afternoonActivities.length > 0 ||
-    activities.eveningDuties.length > 0;
-
-  const offenceDetails = offenceData && offenceData.map(offenceDetail => ({
-    type: offenceDetail.offenceDescription,
-  }));
-
-  const getFirstRelationshipByType = (relationshipType, data) => {
-    const results = data.filter(rel => rel.relationship === relationshipType);
-    return results.length >= 1 ? {
-      firstName: results[0].firstName,
-      lastName: results[0].lastName,
-    } : null;
-  };
-
-  return {
-    lastVisit: lastVisit && toLastVisit(lastVisit),
-    nextVisit: nextVisit && toVisit(nextVisit),
-    assignedStaffMembers: {
-      communityOffenderManager: relationships && getFirstRelationshipByType('COM',relationships),
-    },
-    balance: balance && {
-      spends: balance.spends,
-      cash: balance.cash,
-      savings: balance.savings,
-      currency: balance.currency,
-    },
-    activities: hasAnyActivity ? activities : null,
-    positiveCaseNotes: (positiveCaseNotes && positiveCaseNotes.count) || 0,
-    negativeCaseNotes: (negativeCaseNotes && negativeCaseNotes.count) || 0,
-    offences: (offenceDetails && offenceDetails.length > 0) ? offenceDetails : null,
-    releaseDate: sentenceData ? sentenceData.releaseDate : null,
-    tariffDate: sentenceData ? sentenceData.tariffDate : null,
-    indeterminateReleaseDate: Boolean(sentenceData && sentenceData.tariffDate && !sentenceData.releaseDate),
-    adjudications: {
-      proven: (adjudications && adjudications.adjudicationCount) || 0,
-      awards: (adjudications && adjudications.awards && adjudications.awards.map(award => toAward(award))) || [],
-    },
-    nextOfKin: (contacts && contacts.nextOfKin && contacts.nextOfKin.map(contact => ({
-      firstName: contact.firstName,
-      lastName: contact.lastName,
-      middleName: contact.middleName,
-      relationship: contact.relationshipDescription,
-      contactTypeDescription: contact.contactTypeDescription,
-    }))) || [],
-  };
-};
-
-const service = {
-  getQuickLookViewModel,
-  getKeyDatesVieModel,
-  getBookingDetailsViewModel,
-};
-
-module.exports = service;

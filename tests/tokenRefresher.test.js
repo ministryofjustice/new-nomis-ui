@@ -23,14 +23,14 @@ describe('JWT access token refresh', () => {
 
   it('Will refresh the context tokens if they have less than \'secondsToExpiry\' to live', (done) => {
     // Build a refreshTokens function, passing in a stub for the oauth refresh function.
-    const refreshTokens = tokenRefresher.factory(stubOauthRefresh);
+    const refreshTokens = tokenRefresher.factory(stubOauthRefresh, 60);
 
     const context = {};
     contextProperties.setTokens(context, ACCESS_TOKEN, 'XXX');
 
     const nowInSeconds = EXIPIRY_TIME - 59;
 
-    refreshTokens(context, 60, nowInSeconds)
+    refreshTokens(context, nowInSeconds)
       .then(() => {
         expect(contextProperties.getAccessToken(context)).to.be.equal('accessRefreshed');
         expect(contextProperties.getRefreshToken(context)).to.be.equal('refreshRefreshed');
@@ -39,14 +39,14 @@ describe('JWT access token refresh', () => {
   });
 
   it('Will not refresh the context tokens if they have at least \'secondsToExpiry\' to live', (done) => {
-    const refreshTokens = tokenRefresher.factory(stubOauthRefresh);
+    const refreshTokens = tokenRefresher.factory(stubOauthRefresh, 60);
 
     const context = {};
     contextProperties.setTokens(context, ACCESS_TOKEN, 'XXX');
 
     const nowInSeconds = EXIPIRY_TIME - 60;
 
-    refreshTokens(context, 60, nowInSeconds)
+    refreshTokens(context, nowInSeconds)
       .then(() => {
         // Original tokens because they have not been refreshed.
         expect(contextProperties.getAccessToken(context)).to.be.equal(ACCESS_TOKEN);

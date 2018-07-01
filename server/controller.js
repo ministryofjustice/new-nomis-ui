@@ -1,37 +1,40 @@
 const url = require('url');
 const path = require('path');
 const config = require('./config');
-const elite2ApiFallThrough = require('./app').sessionHandler;
-const retry = require('./api/retry');
-
-const session = require('./session');
-const bookingService = require('./services/booking');
-const eventsService = require('./services/events');
-const keyworkerService = require('./services/keyworker');
 
 const { logger } = require('./services/logger');
 const moment = require('moment');
+const errorStatusCode = require('./error-status-code');
 
-const baseUrl = config.apis.elite2.url;
 const mailTo = config.app.mailTo;
 
+/*
+ * This isn't really middleware. Its a wrapper for many of the async function calls in this file.
+ */
 const asyncMiddleware = fn =>
   (req, res, next) => {
     Promise.resolve(fn(req, res, next))
       .catch(error => {
         logger.error(error);
-        res.status(retry.errorStatusCode(error));
+        res.status(errorStatusCode(error));
         res.end();
 
-        throw error;
+        // Throwing error here results in 'unhandled promise rejections'.
+        // Node doesn't like that: [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated
+        //
+        // throw error;
+        // The node documentation says to do this:
+        next(error);
       });
   };
 
 const controllerFactory = (
   {
     elite2Api,
-    keyworkerApi,
     userService,
+    bookingService,
+    eventsService,
+    keyworkerService,
   }) => {
   const terms = async (req, res) => {
     res.render('pages/terms', { mailTo });
@@ -54,88 +57,89 @@ const controllerFactory = (
     if (!req.params.imageId || req.params.imageId === 'placeholder') {
       res.sendFile(placeHolder);
     } else {
-      retry.callApi({
-        method: 'get',
-        url: targetEndpoint,
-        responseType: 'stream',
-        headers: {},
-        host: req.headers.host,
-        onTokenRefresh: () => session.setHmppsCookie(res),
-      }).then(response => {
-        res.type('image/png');
-        response.data.pipe(res);
-      }).catch(error => {
-        logger.error(error);
-        res.sendFile(placeHolder);
-      });
+      elite2Api
+        .getStream(res.locals, targetEndpoint)
+        .then(data => {
+          res.type('image/png');
+          data.pipe(res);
+        })
+        .catch(error => {
+          logger.error(error);
+          res.sendFile(placeHolder);
+        });
     }
   };
 
   const getImage = asyncMiddleware(async (req, res) => {
     fetchImage({
-      targetEndpoint: url.resolve(baseUrl, `api/images/${req.params.imageId}/data`),
+      targetEndpoint: `api/images/${req.params.imageId}/data`,
       req,
       res,
     });
   });
 
   const keyDates = asyncMiddleware(async (req, res) => {
-    if (!req.params.offenderNo) {
+    const { offenderNo } = req.params;
+    if (!offenderNo) {
       res.status(400);
       res.end();
       return;
     }
 
-    const data = await bookingService.getKeyDatesVieModel(req, res);
+    const data = await bookingService.getKeyDatesVieModel(res.locals, offenderNo);
     res.json(data);
   });
 
   const bookingDetails = asyncMiddleware(async (req, res) => {
-    if (!req.params.offenderNo) {
+    const { offenderNo } = req.params;
+    if (!offenderNo) {
       res.status(400);
       res.end();
       return;
     }
 
-    const data = await bookingService.getBookingDetailsViewModel(req, res);
+    const data = await bookingService.getBookingDetailsViewModel(res.locals, offenderNo);
     res.json(data);
   });
 
   const quickLook = asyncMiddleware(async (req, res) => {
-    if (!req.params.offenderNo) {
+    const { offenderNo } = req.params;
+    if (!offenderNo) {
       res.status(400);
       res.end();
       return;
     }
 
-    const data = await bookingService.getQuickLookViewModel(req, res);
+    const data = await bookingService.getQuickLookViewModel(res.locals, offenderNo);
     res.json(data);
   });
 
   const eventsForThisWeek = asyncMiddleware(async (req, res) => {
-    if (!req.params.offenderNo) {
+    const { offenderNo } = req.params;
+    if (!offenderNo) {
       res.status(400);
       res.end();
       return;
     }
 
-    const data = await eventsService.getScheduledEventsForThisWeek(req, res);
+    const data = await eventsService.getScheduledEventsForThisWeek(res.locals, offenderNo);
     res.json(data);
   });
 
   const eventsForNextWeek = asyncMiddleware(async (req, res) => {
-    if (!req.params.offenderNo) {
+    const { offenderNo } = req.params;
+    if (!offenderNo) {
       res.status(400);
       res.end();
       return;
     }
 
-    const data = await eventsService.getScheduledEventsForNextWeek(req, res);
+    const data = await eventsService.getScheduledEventsForNextWeek(res.locals, offenderNo);
     res.json(data);
   });
 
   const loadAppointmentViewModel = asyncMiddleware(async (req, res) => {
-    const agencyId = req.params.agencyId;
+    const { agencyId } = req.params;
 
     if (!agencyId) {
       res.status(400);
@@ -143,39 +147,48 @@ const controllerFactory = (
       return;
     }
 
-    const viewModel = await eventsService.getAppointmentViewModel(req, res);
+    const viewModel = await eventsService.getAppointmentViewModel(res.locals, agencyId);
     res.json(viewModel);
   });
 
   const addAppointment = asyncMiddleware(async (req, res) => {
-    if (!req.params.offenderNo) {
+    const { offenderNo } = req.params;
+    if (!offenderNo) {
       res.status(400);
       res.end();
       return;
     }
 
-    const { bookingId } = await elite2Api.getDetailsLight(res.locals, req.params.offenderNo);
-    req.url = `/bookings/${bookingId}/appointments`;
+    const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo);
 
-    elite2ApiFallThrough(req, res);
+    const data = await elite2Api.post(res.locals, `/api/bookings/${bookingId}/appointments`, req.body);
+    res.json(data);
+
+    // req.url = `/bookings/${bookingId}/appointments`;
+    // elite2ApiFallThrough(req, res);
   });
 
   const alerts = asyncMiddleware(async (req, res) => {
-    if (!req.params.offenderNo) {
+    const { offenderNo } = req.params;
+    if (!offenderNo) {
       res.status(400);
       res.end();
       return;
     }
 
-    const { bookingId } = await elite2Api.getDetailsLight(res.locals, req.params.offenderNo);
-    req.bookingId = bookingId;
-    req.url = `/bookings/${bookingId}/alerts`;
+    const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo);
 
-    elite2ApiFallThrough(req, res);
+    const data = await elite2Api.get(res.locals, `/api/bookings/${bookingId}/alerts`);
+    res.json(data);
+
+    // req.bookingId = bookingId;
+    // req.url = `/bookings/${bookingId}/alerts`;
+    // elite2ApiFallThrough(req, res);
   });
 
   const caseNotes = asyncMiddleware(async (req, res) => {
-    if (!req.params.offenderNo) {
+    const { offenderNo } = req.params;
+    if (!offenderNo) {
       res.status(400);
       res.end();
       return;
@@ -183,40 +196,52 @@ const controllerFactory = (
 
     const queryString = url.parse(req.url).query;
 
-    const { bookingId } = await elite2Api.getDetailsLight(res.locals, req.params.offenderNo);
-    req.url = `/bookings/${bookingId}/caseNotes?${queryString}`;
+    const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo);
 
-    elite2ApiFallThrough(req, res);
+    const data = await elite2Api.get(res.locals, `/api/bookings/${bookingId}/caseNotes?${queryString}`);
+    res.json(data);
+
+    // req.url = `/bookings/${bookingId}/caseNotes?${queryString}`;
+    // elite2ApiFallThrough(req, res);
   });
 
   const addCaseNote = asyncMiddleware(async (req, res) => {
-    if (!req.params.offenderNo) {
+    const { offenderNo } = req.params;
+    if (!offenderNo) {
       res.status(400);
       res.end();
       return;
     }
 
-    const { bookingId } = await elite2Api.getDetailsLight(res.locals, req.params.offenderNo);
-    req.url = `/bookings/${bookingId}/caseNotes`;
-    elite2ApiFallThrough(req, res);
+    const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo);
+
+    const data = await elite2Api.post(res.locals, `/api/bookings/${bookingId}/caseNotes`, req.body);
+    res.json(data);
+
+    // req.url = `/bookings/${bookingId}/caseNotes`;
+    // elite2ApiFallThrough(req, res);
   });
 
   const caseNote = asyncMiddleware(async (req, res) => {
-    if (!req.params.offenderNo || !req.params.caseNoteId) {
+    const { offenderNo, caseNoteId } = req.params;
+
+    if (!offenderNo || !caseNoteId) {
       res.status(400);
       res.end();
       return;
     }
 
-    const { caseNoteId } = req.params;
-    const { bookingId } = await elite2Api.getDetailsLight(res.locals, req.params.offenderNo);
-    req.url = `/bookings/${bookingId}/caseNotes/${caseNoteId}`;
+    const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo);
 
-    elite2ApiFallThrough(req, res);
+    const data = await elite2Api.get(res.locals, `/api/bookings/${bookingId}/caseNotes/${caseNoteId}`);
+    res.json(data);
+
+    // req.url = `/bookings/${bookingId}/caseNotes/${caseNoteId}`;
+    // elite2ApiFallThrough(req, res);
   });
 
   const myAssignments = asyncMiddleware(async (req, res) => {
-    const result = await keyworkerService.myAllocationsViewModel(req, res);
+    const result = await keyworkerService.myAllocationsViewModel(res.locals);
     res.json(result);
   });
 

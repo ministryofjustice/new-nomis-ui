@@ -2,13 +2,16 @@ const sinon = require('sinon');
 const chai = require('chai'),
   expect = chai.expect;
 const sinonChai = require('sinon-chai');
+chai.use(sinonChai);
+
 const moment = require('moment');
 
 const isoDateFormat = require('./../server/constants').isoDateFormat;
-const elite2Api = require('../server/api/elite2Api');
-const eventsService = require('../server/services/events');
+const eliteApiFactory = require('../server/api/eliteApi').eliteApiFactory;
+const eventsServiceFactory = require('../server/services/events').eventsServiceFactory;
 
-chai.use(sinonChai);
+const eliteApi = eliteApiFactory(null);
+const eventsService = eventsServiceFactory(eliteApi);
 
 describe('Events service', () => {
   let sandbox;
@@ -18,13 +21,13 @@ describe('Events service', () => {
 
   beforeEach(() => {
     sandbox = sinon.createSandbox();
-    sandbox.stub(elite2Api, 'getEventsForThisWeek');
-    sandbox.stub(elite2Api, 'getEventsForNextWeek');
-    sandbox.stub(elite2Api, 'getAppointmentTypes');
-    sandbox.stub(elite2Api, 'getLocationsForAppointments');
-    sandbox.stub(elite2Api, 'getDetailsLight');
+    sandbox.stub(eliteApi, 'getEventsForThisWeek');
+    sandbox.stub(eliteApi, 'getEventsForNextWeek');
+    sandbox.stub(eliteApi, 'getAppointmentTypes');
+    sandbox.stub(eliteApi, 'getLocationsForAppointments');
+    sandbox.stub(eliteApi, 'getDetailsLight');
 
-    elite2Api.getDetailsLight.returns({
+    eliteApi.getDetailsLight.returns({
       bookingId: 1,
     });
   });
@@ -35,7 +38,7 @@ describe('Events service', () => {
 
 
   it('should call getScheduledEventsForThisWeek and return data with a slot for each day, for 7 days starting from today', async () => {
-    elite2Api.getEventsForThisWeek.returns(null);
+    eliteApi.getEventsForThisWeek.returns(null);
 
     const startDate = moment();
     const data = await eventsService.getScheduledEventsForThisWeek(req);
@@ -52,7 +55,7 @@ describe('Events service', () => {
   });
 
   it('should call getScheduledEventsForNextWeek and return data with a slot for each day, for 7 days starting from next week', async () => {
-    elite2Api.getEventsForThisWeek.returns(null);
+    eliteApi.getEventsForThisWeek.returns(null);
 
     const startDate = moment().add('days', 7);
     const data = await eventsService.getScheduledEventsForNextWeek(req);
@@ -72,7 +75,7 @@ describe('Events service', () => {
     const today = moment();
     const threeDaysInTheFuture = moment().add(3,'days');
 
-    elite2Api.getEventsForThisWeek.returns([
+    eliteApi.getEventsForThisWeek.returns([
       {
         eventSourceeDesc: 'Workshop morning',
         startTime: '2017-12-12T09:00:00',
@@ -125,7 +128,7 @@ describe('Events service', () => {
 
   it('should use eventSourceDesc to indicate the type for activities only', async () => {
     const today = moment().format('YYYY-MM-DD');
-    elite2Api.getEventsForThisWeek.returns([
+    eliteApi.getEventsForThisWeek.returns([
       {
         eventSubType: 'PA',
         eventSubTypeDesc: 'Prison Activity',
@@ -143,7 +146,7 @@ describe('Events service', () => {
 
   it('should use the eventSubTypeDesc when eventSourceDesc is missing', async () => {
     const today = moment().format('YYYY-MM-DD');
-    elite2Api.getEventsForThisWeek.returns([
+    eliteApi.getEventsForThisWeek.returns([
       {
         eventSubTypeDesc: 'Prison Activity',
         startTime: '2017-12-12T09:00:00',
@@ -161,7 +164,7 @@ describe('Events service', () => {
   it('should format the event with the following subTypeDesc - sourceTypeDesc ', async () => {
     const today = moment().format('YYYY-MM-DD');
 
-    elite2Api.getEventsForThisWeek.returns([
+    eliteApi.getEventsForThisWeek.returns([
       {
         eventType: 'NOT_PA',
         eventSubTypeDesc: 'appointment',
@@ -182,7 +185,7 @@ describe('Events service', () => {
   it('should show use eventSourceDesc for an activities type', async () => {
     const today = moment().format('YYYY-MM-DD');
 
-    elite2Api.getEventsForThisWeek.returns([
+    eliteApi.getEventsForThisWeek.returns([
       {
         eventType: 'NOT_PA',
         eventSubTypeDesc: 'appointment',
@@ -203,7 +206,7 @@ describe('Events service', () => {
   it('should order events by start time then by end time', async () => {
     const today = moment().format('YYYY-MM-DD');
 
-    elite2Api.getEventsForThisWeek.returns([
+    eliteApi.getEventsForThisWeek.returns([
       {
         eventType: 'NOT_PA',
         eventSubTypeDesc: 'appointment',
@@ -246,7 +249,7 @@ describe('Events service', () => {
   });
 
   it('should call getAppointmentsViewModel', async () => {
-    elite2Api.getLocationsForAppointments.returns([
+    eliteApi.getLocationsForAppointments.returns([
       {
         locationId: -26,
         description: 'LEI-CARP',
@@ -256,7 +259,7 @@ describe('Events service', () => {
       },
     ]);
 
-    elite2Api.getAppointmentTypes.returns([
+    eliteApi.getAppointmentTypes.returns([
       {
         code: 'CABA',
         description: 'Bail',
@@ -267,8 +270,8 @@ describe('Events service', () => {
     expect(data.locations.length).to.equal(1);
     expect(data.appointmentTypes.length).to.equal(1);
 
-    expect(elite2Api.getLocationsForAppointments).to.be.called;
-    expect(elite2Api.getAppointmentTypes).to.be.called;
+    expect(eliteApi.getLocationsForAppointments).to.be.called;
+    expect(eliteApi.getAppointmentTypes).to.be.called;
 
     expect(data.locations[0].locationId).to.equal(-26);
     expect(data.locations[0].description).to.equal('LEI-CARP');
@@ -278,7 +281,7 @@ describe('Events service', () => {
   });
 
   it('should use userDescription where possible and description as a fallback', async () => {
-    elite2Api.getLocationsForAppointments.returns([
+    eliteApi.getLocationsForAppointments.returns([
       {
         locationId: -26,
         description: 'LEI-CARP',
@@ -303,7 +306,7 @@ describe('Events service', () => {
   });
 
   it('should sort locations alphabetically', async () => {
-    elite2Api.getLocationsForAppointments.returns([
+    eliteApi.getLocationsForAppointments.returns([
       {
         locationId: -26,
         description: 'Yrk',

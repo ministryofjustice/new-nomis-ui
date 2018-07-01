@@ -26,9 +26,36 @@ const getRefreshToken = (context) => {
   return context.refreshToken;
 };
 
+const copy = (names, src) =>
+  names.reduce(
+    (acc, value) => {
+      if (src[value]) acc[value] = src[value];
+      return acc;
+    },
+    {}
+  );
+
+const setRequestPagination = (context, headers) => {
+  const headerNames = ['page-offset','page-limit','sort-fields','sort-order'];
+  context.requestHeaders = copy(headerNames, headers || {});
+};
+
+const getRequestPagination = (context) => context.requestHeaders || {};
+
+const setResponsePagination = (context, headers) => {
+  const headerNames = ['page-offset', 'page-limit', 'sort-fields', 'sort-order', 'total-records'];
+  context.responseHeaders = copy(headerNames, headers || {});
+};
+
+const getResponsePagination = (context) => context.responseHeaders || {};
+
 module.exports = {
   setTokens,
   hasTokens,
   getAccessToken,
   getRefreshToken,
+  setRequestPagination,
+  getRequestPagination,
+  setResponsePagination,
+  getResponsePagination,
 };

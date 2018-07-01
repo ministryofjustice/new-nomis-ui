@@ -1,5 +1,6 @@
 const axios = require('axios');
 const querystring = require('querystring');
+const { logger } = require('../services/logger');
 const contextProperties = require('../contextProperties');
 
 /**
@@ -28,7 +29,17 @@ const oauthApiFactory = (apiConfig) => {
     },
     context,
   })
-    .then(response => contextProperties.setTokens(context, response.data.access_token, response.data.refresh_token));
+    .then(response => {
+      logger.debug(`${response.config.method} ${response.config.url} ${response.status} ${response.statusText}`);
+      return response;
+    })
+    .then(response => contextProperties.setTokens(context, response.data.access_token, response.data.refresh_token))
+    .catch(error => {
+      const status = error.response ? error.response.status : '-';
+      const responseData = error.response ? error.response.data : '-';
+      logger.debug(`Error. ${error.config.method} ${error.config.url} ${status} ${error.message} ${responseData}`);
+      throw error;
+    });
 
   /**
    * Perform OAuth authentication, storing the returned tokens in the supplied context.

@@ -3,62 +3,60 @@ const chai = require('chai'),
   expect = chai.expect;
 const sinonChai = require('sinon-chai');
 
-const elite2Api = require('../server/api/elite2Api');
-const bookingService = require('../server/services/booking');
+const eliteApiFactory = require('../server/api/eliteApi').eliteApiFactory;
+const keyworkerApiFactory = require('../server/api/keyworkerApi').keyworkerApiFactory;
+const bookingServiceFactory = require('../server/services/booking').bookingServiceFactory;
+
+const eliteApi = eliteApiFactory(null);
+const keyworkerApi = keyworkerApiFactory(null);
+const bookingService = bookingServiceFactory(eliteApi, keyworkerApi);
 
 chai.use(sinonChai);
 
 describe('Booking Service Booking details', () => {
+  const offenderNo = 'A12345';
   let sandbox;
-  const req = {
-    bookingId: 1,
-    params: {
-      offenderNo: 'A12345',
-    },
-    headers: {
-      host: '',
-    },
-  };
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
-    sandbox.stub(elite2Api, 'getDetails');
-    sandbox.stub(elite2Api, 'getIepSummary');
-    sandbox.stub(elite2Api, 'getDetailsLight');
-    sandbox.stub(elite2Api, 'getKeyworker');
+    sandbox.stub(eliteApi, 'getDetails');
+    sandbox.stub(eliteApi, 'getIepSummary');
+    sandbox.stub(eliteApi, 'getDetailsLight');
+    sandbox.stub(eliteApi, 'getKeyworker');
+    sandbox.stub(eliteApi, 'getMyInformation');
+    sandbox.stub(keyworkerApi, 'getKeyworkerByCaseloadAndOffenderNo');
 
-    elite2Api.getDetailsLight.returns({
+    eliteApi.getDetailsLight.returns({
       bookingId: 1,
     });
-    elite2Api.getDetails.returns({
+    eliteApi.getDetails.returns({
       assessments: [{
         classification: 'basic',
         cellSharingAlertFlag: true,
       },
       ],
     });
-    elite2Api.getIepSummary.returns({ iepLevel: null });
-    elite2Api.getKeyworker.returns({
-      firstName: 'John',
-    })
+    eliteApi.getIepSummary.returns({ iepLevel: null });
+    eliteApi.getMyInformation.returns({ activeCaseloadId: 'LEI' });
+    keyworkerApi.getKeyworkerByCaseloadAndOffenderNo.returns({ firstName: 'John' });
   });
 
   afterEach(() => sandbox.restore());
 
   it('should call getDetails', async () => {
-    await bookingService.getBookingDetailsViewModel(req);
-    expect(elite2Api.getDetails).to.be.called;
+    await bookingService.getBookingDetailsViewModel({}, offenderNo);
+    expect(eliteApi.getDetails).to.be.called;
   });
 
   it('should call getIepSummary', async () => {
-    const data = await bookingService.getBookingDetailsViewModel(req);
-    expect(elite2Api.getIepSummary).to.be.called;
+    const data = await bookingService.getBookingDetailsViewModel({}, offenderNo);
+    expect(eliteApi.getIepSummary).to.be.called;
     expect(data.csra).to.equal('basic');
   });
 
   it('it should call getKeyworker', async () => {
-    const data = await bookingService.getBookingDetailsViewModel(req);
-    expect(elite2Api.getKeyworker).to.be.called;
+    const data = await bookingService.getBookingDetailsViewModel({}, offenderNo);
+    expect(keyworkerApi.getKeyworkerByCaseloadAndOffenderNo).to.be.called;
     expect(data.keyworker.firstName).to.equal('John');
   });
 });

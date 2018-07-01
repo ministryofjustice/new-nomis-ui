@@ -39,7 +39,7 @@ const callApi = ({ method, url, responseType, data }) =>
   );
 
 function httpRequest(options) {
-   return axios(options);
+  return axios(options);
 }
 
 const getApiHealth = () => httpRequest({

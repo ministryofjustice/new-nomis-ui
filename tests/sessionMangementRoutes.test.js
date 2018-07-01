@@ -1,32 +1,29 @@
 const request = require('supertest');
 const express = require('express');
 const bodyParser = require('body-parser');
-const session = require('cookie-session');
 const cookieParser = require('cookie-parser');
-
 const setCookie = require('set-cookie-parser');
-const expect = require('chai').expect;
+const chai = require('chai');
+const expect = chai.expect;
+const sinon = require('sinon');
+const sinonChai = require('sinon-chai');
+chai.use(sinonChai);
 
 const sessionManagementRoutes = require('../server/sessionManagementRoutes');
 const hmppsCookie = require('../server/hmppsCookie');
 const contextProperties = require('../server/contextProperties');
 
 const hmppsCookieName = 'testCookie';
-const accessToken = 'aaa';
-const refreshToken = 'bbb';
+
+const accessToken = 'AT';
+const refreshToken = 'RT';
 
 describe('Test the routes and middleware installed by sessionManagementRoutes', () => {
   const app = express();
 
   app.set('view engine', 'ejs');
   app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(cookieParser('keyboard cat'));
-  app.use(session({
-    name: 'foo-bar',
-    secret: 'test',
-    resave: false,
-    saveUninitialized: true,
-  }));
+  app.use(cookieParser());
 
   const hmppsCookieOperations = hmppsCookie.cookieOperationsFactory({
     name: hmppsCookieName,
@@ -35,31 +32,27 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
     secure: false,
   });
 
-  const nullFunction = () => {};
-
-  const tokenSettingAuthenticate = (context, username, password) => new Promise((resolve) => {
+  const setTokensOnContext = (context) => new Promise((resolve) => {
     contextProperties.setTokens(context, accessToken, refreshToken);
     resolve();
   });
 
-  const rejectedAuthenticate = rejectStatus =>
-    () =>
-      Promise.reject({ response: { status: rejectStatus } });
+  const rejectWithStatus = rejectStatus => () => Promise.reject({ response: { status: rejectStatus } });
 
   const oauthApi = {
-    authenticate: tokenSettingAuthenticate,
-    refresh: nullFunction,
+    authenticate: setTokensOnContext,
+    refresh: () => Promise.resolve(),
   };
 
   const eliteApi = {
-    isUp: nullFunction,
+    isUp: () => Promise.resolve(true),
   };
 
   /**
    * A Token refresher that does nothing.
    * @returns {Promise<void>}
    */
-  const tokenRefresher = () => Promise.resolve();
+  const tokenRefresher = sinon.stub();
 
   sessionManagementRoutes.configureRoutes({
     app,
@@ -67,90 +60,127 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
     oauthApi,
     hmppsCookieOperations,
     tokenRefresher,
-    mailTo: 'test@site.com' });
+    mailTo: 'test@site.com',
+  });
 
   // some content to send for '/'
   app.get('/', (req, res) => {
     res.send('static');
   });
 
-  app.use((err, req, res, next) => {
-    next();
-  });
-
-  // Maintain agent state (cookies).
+  // Create an agent.  The agent handles and sends cookies. (It has state). The order of test below is important
+  // because the outcome of each test depends upon the successful completion of the previous tests.
   const agent = request.agent(app);
 
-  it('/ redirects to /login', () =>
+  it('GET "/" with no cooke (not authenticated) redirects to /login', (done) => {
+    tokenRefresher.resolves();
+
     agent
       .get('/')
       .expect(302)
       .expect('location', '/login')
-  );
+      .end(done)
+  });
 
-  it('get "/login" when not authenticated returns login page', () =>
+  it('GET "/login" when not authenticated returns login page', (done) => {
     agent
       .get('/login')
       .expect(200)
       .expect('content-type', /text\/html/)
       .expect(/Login/)
-  );
+      .end(done)
+  });
 
-  it('successful login redirects to "/" setting hmpps cookie', () =>
+  it('successful login redirects to "/" setting hmpps cookie', (done) => {
     agent
       .post('/login')
       .send('username=test&password=testPassowrd')
       .expect(302)
       .expect('location', '/')
       .expect(hasCookies(['testCookie']))
-  );
+      .end(done)
+  });
 
-  it('get "/login" when  authenticated redirects to "/"', () =>
+  it('GET "/login" when  authenticated redirects to "/"', (done) => {
     agent
       .get('/login')
       .expect(302)
       .expect('location', '/')
-  );
+      .end(done)
+  });
 
-  it('/ with cookie serves content', () =>
+  it('GET "/" with cookie serves content', (done) => {
     agent
       .get('/')
       .expect(200)
       .expect('static')
-  );
+      .expect(hasCookies(['testCookie']))
+      .end(done)
+  });
 
-  it('/logout clears the cookie', () =>
+  it('GET "/heart-beat"', (done) => {
+    agent
+      .get('/heart-beat')
+      .expect(200)
+      .expect(hasCookies(['testCookie']))
+      .expect(() => {
+        expect(tokenRefresher).to.be.called
+      })
+      .end(done)
+  });
+
+  it('GET "/heart-beat" when refresh fails', (done) => {
+    tokenRefresher.rejects();
+    agent
+      .get('/heart-beat')
+      .expect(500)
+      .expect(() => {
+        expect(tokenRefresher).to.be.called
+      })
+      .end(done)
+  });
+
+
+  it('GET "/logout" clears the cookie', (done) => {
+    tokenRefresher.resolves();
+
     agent
       .get('/logout')
       .expect(302)
       .expect('location', '/login')
+      // The server sends a set cookie header to clear the cookie.
+      // ThenNext test shows that the cookie was cleared because of the redirect to '/'
       .expect(hasCookies(['testCookie']))
-  );
+      .end(done)
+  });
 
-  it('After logout "/" should redirect to "/login"', () =>
+  it('After logout get "/" should redirect to "/login"', (done) => {
     agent
       .get('/')
       .expect(302)
       .expect('location', '/login')
-  );
+      .expect(hasCookies([]))
+      .end(done)
+  });
 
-  it('Unsuccessful signin - API up', () => {
-    oauthApi.authenticate = rejectedAuthenticate(401);
+  it('Unsuccessful signin - API up', (done) => {
+    oauthApi.authenticate = rejectWithStatus(401);
 
-    return agent
+    agent
       .post('/login')
       .send('username=test&password=testPassowrd')
       .expect(401)
       .expect(res => {
         expect(res.error.path).to.equal('/login');
         expect(res.text).to.include('The username or password you have entered is invalid.');
-      });
+      })
+      .end(done)
   });
 
-  it('Unsuccessful signin - API down', () => {
-    oauthApi.authenticate = rejectedAuthenticate(503);
+  it('Unsuccessful signin - API down', (done) => {
+    oauthApi.authenticate = rejectWithStatus(503);
 
-    return agent
+    agent
       .post('/login')
       .send('username=test&password=testPassowrd')
       .expect(503)
@@ -158,11 +188,11 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
         expect(res.error.path).to.equal('/login');
         expect(res.text).to.include('Service unavailable. Please try again later.');
       })
+      .end(done)
   });
 });
 
 const hasCookies = expectedNames => res => {
   const cookieNames = setCookie.parse(res).map(cookie => cookie.name);
-  expectedNames.forEach(name => expect(cookieNames).to.include(name));
-  expect(cookieNames).to.have.lengthOf(expectedNames.length);
+  expect(cookieNames).to.have.members(expectedNames);
 };

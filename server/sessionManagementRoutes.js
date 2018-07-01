@@ -1,25 +1,7 @@
 const { logger } = require('./services/logger');
-const clientVersionValidator = require('./middlewares/validate-client-version');
+const errorStatusCode = require('./error-status-code');
 
 const contextProperties = require('./contextProperties');
-const buildNumber = require('./application-version');
-
-/**
- * This will be shared between the modules which handle errors which arise from failing api requests and
- * @param error
- * @returns {*}
- */
-const errorStatusCode = (error) => {
-  if (error && error.response) {
-    return error.response.status;
-  }
-
-  if (error && error.code === 'ECONNREFUSED') {
-    return 503;
-  }
-
-  return 500;
-};
 
 /**
  * Add session management related routes to an express 'app'.
@@ -84,13 +66,16 @@ const configureRoutes = ({ app, eliteApi, oauthApi, hmppsCookieOperations, token
   };
 
   const hmppsCookieMiddleware = async (req, res, next) => {
-    hmppsCookieOperations.extractCookieValues(req, res.locals);
-    if (contextProperties.hasTokens(res.locals)) {
-      await tokenRefresher(res.locals);
-      hmppsCookieOperations.setCookie(res, res.locals);
+    try {
+      hmppsCookieOperations.extractCookieValues(req, res.locals);
+      if (contextProperties.hasTokens(res.locals)) {
+        await tokenRefresher(res.locals);
+        hmppsCookieOperations.setCookie(res, res.locals);
+      }
+      next();
+    } catch (error) {
+      next(error);
     }
-
-    next();
   };
 
   /**
@@ -109,27 +94,27 @@ const configureRoutes = ({ app, eliteApi, oauthApi, hmppsCookieOperations, token
     const isXHRRequest = req.xhr || (req.headers.accept && req.headers.accept.indexOf('json') > -1);
 
     if (isXHRRequest) {
-      res.status(401);
-      res.end();
+      res.sendStatus(401);
       return;
     }
 
     res.redirect('/login');
   };
 
+
   app.get('/login', loginMiddleware, loginIndex);
   app.post('/login', login);
   app.get('/logout', logout);
-  app.use(clientVersionValidator);
-
-  app.use((req, res, next) => {
-    // Keep track of when a server update occurs. Changes rarely.
-    req.session.applicationVersion = buildNumber;
-    next();
-  });
 
   app.use(hmppsCookieMiddleware);
   app.use(requireLoginMiddleware);
+
+  /**
+   * An end-point that does nothing.
+   * Clients can periodically 'ping' this end-point to refresh the cookie 'session' and JWT token.
+   * Must be installed after the middleware so that OAuth token refresh happens.
+   */
+  app.use('/heart-beat', (req, res) => { res.sendStatus(200); });
 };
 
 module.exports = { configureRoutes };
