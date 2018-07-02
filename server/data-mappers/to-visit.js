@@ -24,10 +24,10 @@ const toVisit = (visit) => {
 };
 
 const calculateStatus = (visit) => {
-  const bst = 'Europe/London';
-  const now = momentTimeZone.tz(bst);
-  const startTime = momentTimeZone.tz(visit.startTime, isoDateTimeFormat, bst);
-  const endTime = momentTimeZone.tz(visit.endTime, isoDateTimeFormat, bst);
+  const zone = 'Europe/London';
+  const now = momentTimeZone.tz(zone);
+  const startTime = momentTimeZone.tz(visit.startTime, isoDateTimeFormat, zone);
+  const endTime = momentTimeZone.tz(visit.endTime, isoDateTimeFormat, zone);
 
   if (visit.eventStatus === visitStatusCodes.scheduled && now.isAfter(startTime) && now.isBefore(endTime)) {
     return 'Ongoing';
