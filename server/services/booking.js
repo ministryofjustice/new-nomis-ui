@@ -58,6 +58,8 @@ const getQuickLookViewModel = async (req, res) => {
   const { bookingId } = await elite2Api.getDetailsLight(req, res);
   req.bookingId = bookingId;
 
+  const ids = [req.params.offenderNo];
+
   const apiCalls = [
     elite2Api.getBalances(req, res),
     elite2Api.getMainOffence(req, res),
@@ -70,6 +72,7 @@ const getQuickLookViewModel = async (req, res) => {
     elite2Api.getLastVisit(req, res),
     elite2Api.getNextVisit({ req, res, fromDate: today }),
     elite2Api.getRelationships(req, res),
+    elite2Api.caseNoteUsageList(req, res, ids),
   ];
 
   const [
@@ -84,6 +87,7 @@ const getQuickLookViewModel = async (req, res) => {
     lastVisit,
     nextVisit,
     relationships,
+    kwCaseNoteDates,
   ] = await Promise.all(apiCalls);
 
   const activities = toActivityViewModel(activityData);
@@ -104,6 +108,11 @@ const getQuickLookViewModel = async (req, res) => {
     } : null;
   };
 
+  let lastKWSessionDate = null;
+  if (kwCaseNoteDates.length > 0) {
+    lastKWSessionDate = kwCaseNoteDates.reduce((m, v, i) => (v.latestCaseNote > m.latestCaseNote) && i ? v : m).latestCaseNote;
+  }
+
   return {
     lastVisit: lastVisit && toLastVisit(lastVisit),
     nextVisit: nextVisit && toVisit(nextVisit),
@@ -122,6 +131,7 @@ const getQuickLookViewModel = async (req, res) => {
     offences: (offenceDetails && offenceDetails.length > 0) ? offenceDetails : null,
     releaseDate: sentenceData ? sentenceData.releaseDate : null,
     tariffDate: sentenceData ? sentenceData.tariffDate : null,
+    lastKeyWorkerSessionDate: lastKWSessionDate,
     indeterminateReleaseDate: Boolean(sentenceData && sentenceData.tariffDate && !sentenceData.releaseDate),
     adjudications: {
       proven: (adjudications && adjudications.adjudicationCount) || 0,
