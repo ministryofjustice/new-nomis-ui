@@ -4,15 +4,11 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const cookieSession = require('cookie-session');
 const bunyanMiddleware = require('bunyan-middleware');
 const hsts = require('hsts');
 const appInsights = require('applicationinsights');
 const helmet = require('helmet');
 const path = require('path');
-
-const clientVersionValidator = require('./middlewares/validate-client-version');
-const buildNumber = require('./application-version');
 
 const setup = require('./middlewares/frontend-middleware');
 
@@ -36,15 +32,6 @@ const keyworkerServiceFactory = require('./services/keyworker').keyworkerService
 const requestForwarding = require('./request-forwarding');
 
 const sixtyDaysInSeconds = 5184000;
-const sessionExpiryMinutes = config.session.expiryMinutes * 60 * 1000;
-
-const sessionConfig = {
-  name: config.session.name,
-  secret: config.session.secret,
-  sameSite: true,
-  expires: new Date(Date.now() + sessionExpiryMinutes),
-  maxAge: sessionExpiryMinutes, // 1 hour
-};
 
 const app = express();
 
@@ -65,10 +52,6 @@ if (config.app.production && config.analytics.appInsightsKey) {
     .start();
 }
 
-if (config.app.production) {
-  sessionConfig.secure = true // serve secure cookies
-}
-
 app.use(helmet());
 app.use(hsts({
   maxAge: sixtyDaysInSeconds,
@@ -82,16 +65,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(cookieParser());
-app.use(cookieSession(sessionConfig));
 
 app.use(express.static(path.join(__dirname, '../public')));
-
-// Update a value in the cookie so that the set-cookie will be sent.
-// Only changes every minute so that it's not sent with every request.
-app.use((req, res, next) => {
-  req.session.nowInMinutes = Math.floor(Date.now() / 60e3);
-  next();
-});
 
 app.use('/config', (req,res) => {
   const url = config.app.feedbackUrl;
@@ -165,13 +140,6 @@ const hmppsCookieOperations = cookieOperationsFactory(
     secure: config.app.production,
   },
 );
-
-app.use(clientVersionValidator);
-app.use((req, res, next) => {
-  // Keep track of when a server update occurs. Changes rarely.
-  req.session.applicationVersion = buildNumber;
-  next();
-});
 
 /* login, logout, hmppsCookie management, token refresh etc */
 sessionManagementRoutes.configureRoutes({

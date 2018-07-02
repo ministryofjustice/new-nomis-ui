@@ -23,13 +23,16 @@ class Elite2Api extends WireMockRule {
   }
 
   void stubValidOAuthTokenRequest(UserAccount user, Boolean delayOAuthResponse = false) {
+
+    final accessToken = JwtFactory.token()
+
     final response = aResponse()
       .withStatus(200)
       .withHeader('Content-Type', 'application/json;charset=UTF-8')
       .withBody(JsonOutput.toJson([
-      access_token : 'RW_TOKEN',
+      access_token : accessToken,
       token_type   : 'bearer',
-      refresh_token: 'refreshToken',
+      refresh_token: JwtFactory.token(),
       expires_in   : 599,
       scope        : 'read write',
       internalUser : true
@@ -41,7 +44,7 @@ class Elite2Api extends WireMockRule {
 
     this.stubFor(
       post('/oauth/token')
-        .withHeader('authorization', equalTo('Basic ZWxpdGUyYXBpY2xpZW50OmNsaWVudHNlY3JldA=='))
+        .withHeader('authorization', equalTo('Basic ZWxpdGUyYXBpY2xpZW50OndjWFlBYlBLeGtqNnlGQWU2czdoRXJxdWU5cmVSZXZXN2JtbWZGZ2I2RXFvVjJYcHdjN1Y4RlA5VnNBcktnTGc='))
         .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
         .withRequestBody(equalTo("username=${user.username}&password=password&grant_type=password"))
         .willReturn(response))
@@ -50,7 +53,7 @@ class Elite2Api extends WireMockRule {
   void stubInvalidOAuthTokenRequest(UserAccount user, boolean badPassword = false) {
     this.stubFor(
       post('/oauth/token')
-        .withHeader('authorization', equalTo('Basic ZWxpdGUyYXBpY2xpZW50OmNsaWVudHNlY3JldA=='))
+        .withHeader('authorization', equalTo('Basic ZWxpdGUyYXBpY2xpZW50OndjWFlBYlBLeGtqNnlGQWU2czdoRXJxdWU5cmVSZXZXN2JtbWZGZ2I2RXFvVjJYcHdjN1Y4RlA5VnNBcktnTGc='))
         .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
         .withRequestBody(matching("username=${user.username}&password=.*&grant_type=password"))
         .willReturn(
@@ -104,7 +107,7 @@ class Elite2Api extends WireMockRule {
   void stubUsersMe(UserAccount user) {
     this.stubFor(
       get('/api/users/me')
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
@@ -122,7 +125,7 @@ class Elite2Api extends WireMockRule {
 
     this.stubFor(
       get('/api/users/me/locations')
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
@@ -143,7 +146,7 @@ class Elite2Api extends WireMockRule {
   void stubUserRoles() {
     this.stubFor(
       get('/api/users/me/roles')
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
@@ -159,7 +162,7 @@ class Elite2Api extends WireMockRule {
   void stubCaseLoads() {
     this.stubFor(
       get('/api/users/me/caseLoads')
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
@@ -183,7 +186,7 @@ class Elite2Api extends WireMockRule {
 
     this.stubFor(
       get("/api/staff/${user.staffMember.id}/${user.staffMember.assginedCaseload.id}/roles")
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
@@ -199,7 +202,7 @@ class Elite2Api extends WireMockRule {
     def body = "[${json}]"
     this.stubFor(
       get("/api/staff/${user.staffMember.id}/${user.staffMember.assginedCaseload.id}/roles")
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
@@ -209,7 +212,7 @@ class Elite2Api extends WireMockRule {
   void stubOffenderSearch(String details, ArrayList<Offender> offenders) {
     this.stubFor(
       get("/api/locations/description/LEI/inmates?keywords=${details}")
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
@@ -222,7 +225,7 @@ class Elite2Api extends WireMockRule {
   void stubImage() {
     this.stubFor(
       get(urlMatching("/api/images/.+/data"))
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(404)))
   }
@@ -230,7 +233,7 @@ class Elite2Api extends WireMockRule {
   void stubIEP() {
     this.stubFor(
       get(urlMatching("/api/bookings/.+/iepSummary"))
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withBody('''
@@ -247,7 +250,7 @@ class Elite2Api extends WireMockRule {
   void stubKeyworkerOld() {
     this.stubFor(
       get("/api/bookings/offenderNo/A1234AJ/key-worker")
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withBody('''
@@ -329,7 +332,7 @@ class Elite2Api extends WireMockRule {
 
     this.stubFor(
       get("/api/bookings/offenderNo/A1234AJ?fullInfo=${fullInfo}")
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
@@ -339,7 +342,7 @@ class Elite2Api extends WireMockRule {
   void stubAliases() {
     this.stubFor(
       get(urlMatching("/api/bookings/.+/aliases"))
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
@@ -349,7 +352,7 @@ class Elite2Api extends WireMockRule {
   void stubCaseNoteTypes() {
     this.stubFor(
       get("/api/reference-domains/caseNoteTypes")
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
@@ -407,7 +410,7 @@ class Elite2Api extends WireMockRule {
 }"""
     this.stubFor(
       post(urlMatching("/api/bookings/.+/caseNotes"))
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .withRequestBody(equalToJson(data, true, true))
         .willReturn(aResponse()
         .withStatus(201)
@@ -434,7 +437,7 @@ class Elite2Api extends WireMockRule {
   void stubGetCaseNote() {
     this.stubFor(
       get(urlMatching("/api/bookings/.+/caseNotes"))
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
@@ -476,7 +479,7 @@ class Elite2Api extends WireMockRule {
   void stubMeCaseNoteTypes() {
     this.stubFor(
       get("/api/users/me/caseNoteTypes")
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
@@ -527,7 +530,7 @@ class Elite2Api extends WireMockRule {
   void stubStaffDetails(id) {
     this.stubFor(
       get("/api/users/staff/${id}")
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
@@ -543,7 +546,7 @@ class Elite2Api extends WireMockRule {
 
     this.stubFor(
       get("/key-worker/${staffId}/offender/${offenderNo}")
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
@@ -556,7 +559,7 @@ class Elite2Api extends WireMockRule {
 
     this.stubFor(
       get("/api/bookings?iepLevel=true&${queryString}")
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
@@ -568,7 +571,7 @@ class Elite2Api extends WireMockRule {
 
     this.stubFor(
       get("/api/offender-assessments/CSR?${queryString}")
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
@@ -580,7 +583,7 @@ class Elite2Api extends WireMockRule {
 
     this.stubFor(
       get("/api/case-notes/usage?${queryString}")
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
@@ -593,7 +596,7 @@ class Elite2Api extends WireMockRule {
 
     this.stubFor(
       get("/api/offender-sentences/?${queryString}")
-        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
+//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')

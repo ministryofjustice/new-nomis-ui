@@ -19,7 +19,7 @@ const asyncMiddleware = fn =>
         res.status(errorStatusCode(error));
         res.end();
 
-        // Throwing error here results in 'unhandled promise rejections'.
+        // Throwing 'error' here results in 'unhandled promise rejections'.
         // Node doesn't like that: [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated
         //
         // throw error;
@@ -163,9 +163,6 @@ const controllerFactory = (
 
     const data = await elite2Api.post(res.locals, `/api/bookings/${bookingId}/appointments`, req.body);
     res.json(data);
-
-    // req.url = `/bookings/${bookingId}/appointments`;
-    // elite2ApiFallThrough(req, res);
   });
 
   const alerts = asyncMiddleware(async (req, res) => {
@@ -180,10 +177,6 @@ const controllerFactory = (
 
     const data = await elite2Api.get(res.locals, `/api/bookings/${bookingId}/alerts`);
     res.json(data);
-
-    // req.bookingId = bookingId;
-    // req.url = `/bookings/${bookingId}/alerts`;
-    // elite2ApiFallThrough(req, res);
   });
 
   const caseNotes = asyncMiddleware(async (req, res) => {
@@ -200,9 +193,6 @@ const controllerFactory = (
 
     const data = await elite2Api.get(res.locals, `/api/bookings/${bookingId}/caseNotes?${queryString}`);
     res.json(data);
-
-    // req.url = `/bookings/${bookingId}/caseNotes?${queryString}`;
-    // elite2ApiFallThrough(req, res);
   });
 
   const addCaseNote = asyncMiddleware(async (req, res) => {
@@ -217,9 +207,6 @@ const controllerFactory = (
 
     const data = await elite2Api.post(res.locals, `/api/bookings/${bookingId}/caseNotes`, req.body);
     res.json(data);
-
-    // req.url = `/bookings/${bookingId}/caseNotes`;
-    // elite2ApiFallThrough(req, res);
   });
 
   const caseNote = asyncMiddleware(async (req, res) => {
@@ -235,9 +222,6 @@ const controllerFactory = (
 
     const data = await elite2Api.get(res.locals, `/api/bookings/${bookingId}/caseNotes/${caseNoteId}`);
     res.json(data);
-
-    // req.url = `/bookings/${bookingId}/caseNotes/${caseNoteId}`;
-    // elite2ApiFallThrough(req, res);
   });
 
   const myAssignments = asyncMiddleware(async (req, res) => {

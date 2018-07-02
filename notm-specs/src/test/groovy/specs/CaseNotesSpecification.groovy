@@ -2,6 +2,7 @@ package specs
 import geb.spock.GebReportingSpec
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
+import mockapis.KeyworkerApi
 import model.Offender
 import org.junit.Rule
 import pages.AddCaseNotePage
@@ -18,6 +19,9 @@ class CaseNotesSpecification extends GebReportingSpec {
 
   @Rule
   Elite2Api elite2api = new Elite2Api()
+
+  @Rule
+  KeyworkerApi keyworkerApi = new KeyworkerApi()
 
   def "Create a new case note"() {
     elite2api.stubHealthCheck()
@@ -42,6 +46,7 @@ class CaseNotesSpecification extends GebReportingSpec {
     elite2api.stubKeyworkerOld()
     elite2api.stubAliases()
     elite2api.stubStaffDetails(-2)
+    keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
 
 

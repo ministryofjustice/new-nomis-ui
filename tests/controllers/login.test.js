@@ -4,7 +4,6 @@ const chai = require('chai'),
 const sinonChai = require('sinon-chai');
 const express = require('express');
 const bodyParser = require('body-parser');
-const session = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const request = require('supertest');
 
@@ -21,12 +20,6 @@ describe('POST /signin', () => {
   app.set('view engine', 'ejs');
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser('keyboard cat'));
-  app.use(session({
-    name: 'foo-bar',
-    secret: 'test',
-    resave: false,
-    saveUninitialized: true,
-  }));
 
   const hmppsCookieOperations = hmppsCookie.cookieOperationsFactory({
     name: 'testCookie',
