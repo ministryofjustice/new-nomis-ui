@@ -236,6 +236,18 @@ export const Adjudications = ({ awards, proven }) => (
   </div>
 );
 
+export const KeyWorkerSessionDate = ({ lastKeyWorkerSessionDate }) => (
+  <div className="row border-bottom-line">
+    <div className="col-lg-6 col-xs-6">
+      <label>Last Key worker activity</label>
+    </div>
+
+    <div className="col-lg-6 col-xs-6">
+      <b> {lastKeyWorkerSessionDate ? <FormattedDate value={lastKeyWorkerSessionDate} /> : '--'} </b>
+    </div>
+  </div>
+);
+
 export const NextOfKin = ({ nextOfKin }) => (
   <div>
     { nextOfKin.size === 0 && <div>
@@ -528,6 +540,16 @@ class QuickLook extends Component {
                 </h3>
 
                 <NextOfKin nextOfKin={viewModel.get('nextOfKin')} />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-xs-12">
+                <h3 className="heading-medium">
+                  Key worker activity
+                </h3>
+
+                <KeyWorkerSessionDate lastKeyWorkerSessionDate={viewModel.get('lastKeyWorkerSessionDate')} />
               </div>
             </div>
 
