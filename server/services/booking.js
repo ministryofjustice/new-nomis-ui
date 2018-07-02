@@ -58,8 +58,7 @@ const getQuickLookViewModel = async (req, res) => {
   const { bookingId } = await elite2Api.getDetailsLight(req, res);
   req.bookingId = bookingId;
 
-  const offenders = [{ offenderNo: req.params.offenderNo }];
-  const ids = offenders.map(offender => offender.offenderNo);
+  const ids = [req.params.offenderNo];
 
   const apiCalls = [
     elite2Api.getBalances(req, res),
