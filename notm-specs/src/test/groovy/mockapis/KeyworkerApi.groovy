@@ -16,7 +16,6 @@ class KeyworkerApi extends WireMockRule {
   void stubMigrationStatus(String prisonId,boolean migrated) {
       this.stubFor(
         get("/key-worker/prison/${prisonId}")
-//          .withHeader('authorization', equalTo('bearer RW_TOKEN'))
           .willReturn(aResponse()
             .withStatus(200)
             .withHeader('Content-Type', 'application/json')
@@ -28,7 +27,6 @@ class KeyworkerApi extends WireMockRule {
   void stubGetKeyworkerDetails(Integer staffId, String prisonId, StaffMember keyWorker) {
     this.stubFor(
       get("/key-worker/${staffId}/prison/${prisonId}")
-//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
           .withStatus(200)
           .withHeader('Content-Type', 'application/json')
@@ -38,7 +36,6 @@ class KeyworkerApi extends WireMockRule {
   void stubGetAssignedOffenders(Integer staffId, String prisonId, ArrayList<Offender> offenders) {
     this.stubFor(
       get("/key-worker/${staffId}/prison/${prisonId}/offenders")
-//        .withHeader('authorization', equalTo('bearer RW_TOKEN'))
         .willReturn(aResponse()
           .withStatus(200)
           .withHeader('Content-Type', 'application/json')
