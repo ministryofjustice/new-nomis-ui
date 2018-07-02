@@ -14,6 +14,9 @@ describe('Booking Service Quick look', () => {
   let sandbox;
   const req = {
     bookingId: 1,
+    params: {
+      offenderNo: 'X112XX',
+    },
   };
 
   beforeEach(() => {
@@ -30,6 +33,7 @@ describe('Booking Service Quick look', () => {
     sandbox.stub(elite2Api, 'getRelationships');
     sandbox.stub(elite2Api, 'getDetailsLight');
     sandbox.stub(elite2Api, 'getNextVisit');
+    sandbox.stub(elite2Api, 'caseNoteUsageList');
 
     elite2Api.getBalances.returns(null);
     elite2Api.getMainOffence.returns(null);
@@ -47,6 +51,7 @@ describe('Booking Service Quick look', () => {
     elite2Api.getDetailsLight.returns({
       bookingId: 1,
     });
+    elite2Api.caseNoteUsageList.returns([]);
   });
 
   afterEach(() => sandbox.restore());
@@ -593,5 +598,28 @@ describe('Booking Service Quick look', () => {
 
     expect(data.assignedStaffMembers.communityOffenderManager.firstName).to.equal('Dom3');
     expect(data.assignedStaffMembers.communityOffenderManager.lastName).to.equal('Bull');
+  });
+
+  it('should call case note usage', async () => {
+    elite2Api.caseNoteUsageList.returns([
+      {
+        staffId: 234423,
+        caseNoteType: 'KA',
+        caseNoteSubType: 'KS',
+        numCaseNotes: 4,
+        latestCaseNote: '2018-07-02T15:03:47.337Z',
+      },
+      {
+        staffId: 234423,
+        caseNoteType: 'KA',
+        caseNoteSubType: 'KE',
+        numCaseNotes: 4,
+        latestCaseNote: '2018-07-01T12:00:00.000Z',
+      },
+    ]);
+
+    const data = await bookingService.getQuickLookViewModel(req);
+
+    expect(data.lastKeyWorkerSessionDate).equal('2018-07-02T15:03:47.337Z');
   });
 });
