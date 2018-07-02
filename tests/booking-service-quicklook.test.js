@@ -3,6 +3,7 @@ const chai = require('chai'),
   expect = chai.expect;
 const sinonChai = require('sinon-chai');
 const moment = require('moment');
+const momentTimeZone = require('moment-timezone');
 const isoDateFormat = require('./../server/constants').isoDateFormat;
 const isoDateTimeFormat = require('./../server/constants').isoDateTimeFormat;
 const elite2Api = require('../server/api/elite2Api');
@@ -474,8 +475,9 @@ describe('Booking Service Quick look', () => {
   });
 
   it('should show a visit as ongoing when its currently in progress', async () => {
-    const fiveMinutesAgo = moment().subtract(5, 'minutes');
-    const fiveMinutesTime = moment().add(5,'minutes');
+    const zone = 'Europe/London';
+    const fiveMinutesAgo = momentTimeZone.tz(zone).subtract(5, 'minutes');
+    const fiveMinutesTime = momentTimeZone.tz(zone).add(5,'minutes');
 
     elite2Api.getLastVisit.returns({
       eventStatus: 'SCH',
