@@ -35,11 +35,11 @@ describe('POST /signin', () => {
     refresh: nullFunction,
   };
 
-  const eliteApi = {
+  const healthApi = {
     isUp: nullFunction,
   };
 
-  sessionManagementRoutes.configureRoutes({ app, eliteApi, oauthApi, hmppsCookieOperations, mailTo: 'test@site.com' });
+  sessionManagementRoutes.configureRoutes({ app, healthApi, oauthApi, hmppsCookieOperations, mailTo: 'test@site.com' });
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();

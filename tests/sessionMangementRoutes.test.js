@@ -44,7 +44,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
     refresh: () => Promise.resolve(),
   };
 
-  const eliteApi = {
+  const healthApi = {
     isUp: () => Promise.resolve(true),
   };
 
@@ -56,7 +56,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
 
   sessionManagementRoutes.configureRoutes({
     app,
-    eliteApi,
+    healthApi,
     oauthApi,
     hmppsCookieOperations,
     tokenRefresher,
@@ -131,6 +131,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
 
   it('GET "/heart-beat" when refresh fails', (done) => {
     tokenRefresher.rejects();
+
     agent
       .get('/heart-beat')
       .expect(500)
@@ -149,7 +150,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
       .expect(302)
       .expect('location', '/login')
       // The server sends a set cookie header to clear the cookie.
-      // ThenNext test shows that the cookie was cleared because of the redirect to '/'
+      // The next test shows that the cookie was cleared because of the redirect to '/'
       .expect(hasCookies(['testCookie']))
       .end(done)
   });

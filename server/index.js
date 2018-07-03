@@ -18,6 +18,7 @@ const config = require('./config');
 
 const sessionManagementRoutes = require('./sessionManagementRoutes');
 const clientFactory = require('./api/oauthEnabledClient');
+const healthApiFactory = require('./api/healthApi').healthApiFactory;
 const eliteApiFactory = require('./api/eliteApi').eliteApiFactory;
 const keyworkerApiFactory = require('./api/keyworkerApi').keyworkerApiFactory;
 const oauthApiFactory = require('./api/oauthApi');
@@ -88,13 +89,19 @@ app.use('/info', apiProxy);
 app.use('/docs', apiProxy);
 app.use('/api/swagger.json', apiProxy);
 
+const healthApi = healthApiFactory(
+  clientFactory({
+    baseUrl: config.apis.elite2.url,
+    timeout: 2000,
+    useGateway: config.app.useApiAuthGateway,
+  }));
+
 const eliteApi = eliteApiFactory(
   clientFactory({
     baseUrl: config.apis.elite2.url,
     timeout: 10000,
     useGateway: config.app.useApiAuthGateway,
   }));
-
 
 const keyworkerApi = keyworkerApiFactory(
   clientFactory({
@@ -133,7 +140,7 @@ const hmppsCookieOperations = cookieOperationsFactory(
 /* login, logout, hmppsCookie management, token refresh etc */
 sessionManagementRoutes.configureRoutes({
   app,
-  eliteApi,
+  healthApi,
   oauthApi,
   hmppsCookieOperations,
   tokenRefresher,

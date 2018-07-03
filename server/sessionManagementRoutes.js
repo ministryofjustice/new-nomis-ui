@@ -7,15 +7,15 @@ const contextProperties = require('./contextProperties');
  * Add session management related routes to an express 'app'.
  * These handle login, logout, and middleware to handle the JWT token cookie. (hmppsCookie).
  * @param app an Express instance.
- * @param eliteApi a configured eliteApi instance.
+ * @param healthApi a configured healthApi instance.
  * @param oauthApi (authenticate, refresh)
  * @param hmppsCookieOperations (setCookie, extractCookieValues, clearCookie)
  * @param tokenRefresher a function which uses the 'context' object to perform an OAuth token refresh (returns a promise).
  * @param mailTo The email address displayed at the bottom of the login page.
  */
-const configureRoutes = ({ app, eliteApi, oauthApi, hmppsCookieOperations, tokenRefresher, mailTo }) => {
+const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, tokenRefresher, mailTo }) => {
   const loginIndex = async (req, res) => {
-    const isApiUp = await eliteApi.isUp();
+    const isApiUp = await healthApi.isUp();
     logger.info(`loginIndex - health check called and the isaAppUp = ${isApiUp}`);
     res.render('pages/login', { authError: false, apiUp: isApiUp, mailTo });
   };
