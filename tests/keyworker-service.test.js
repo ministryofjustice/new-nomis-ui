@@ -2,6 +2,7 @@ const sinon = require('sinon');
 const chai = require('chai'),
   expect = chai.expect;
 const sinonChai = require('sinon-chai');
+chai.use(sinonChai);
 
 const eliteApiFactory = require('../server/api/eliteApi').eliteApiFactory;
 const keyworkerApiFactory = require('../server/api/keyworkerApi').keyworkerApiFactory;
@@ -9,12 +10,7 @@ const keyworkerServiceFactory = require('../server/services/keyworker').keyworke
 
 const eliteApi = eliteApiFactory(null);
 const keyworkerApi = keyworkerApiFactory(null);
-// const service = keyworkerServiceFactory(eliteApi, keyworkerApi);
-// const config = require('../server/config');
-
-chai.use(sinonChai);
-
-const buildService = (useKeyworkerApi) => keyworkerServiceFactory(eliteApi, useKeyworkerApi ? keyworkerApi : null);
+const service = keyworkerServiceFactory(eliteApi, keyworkerApi);
 
 const context = {};
 
@@ -34,12 +30,6 @@ describe('Key worker service', () => {
     sandbox.stub(keyworkerApi, 'getPrisonMigrationStatus');
     sandbox.stub(keyworkerApi, 'getAssignedOffenders');
 
-    // config.apis = {
-    //   keyworker: {
-    //     url: 'http://keyworker.io',
-    //   },
-    // };
-
     eliteApi.getMyInformation.returns({
       activeCaseLoadId: 'LEI',
       staffId: 1,
@@ -49,8 +39,6 @@ describe('Key worker service', () => {
   afterEach(() => sandbox.restore());
 
   it('should attempt to check the migration status if the keyworker url has been set', async () => {
-    const service = buildService(true);
-
     keyworkerApi.getPrisonMigrationStatus.returns({
       migrated: true,
     });
@@ -62,8 +50,6 @@ describe('Key worker service', () => {
   });
 
   it('should request assigned offender numbers from the keyworker server, then request the offender details from the elite2Api', async () => {
-    const service = buildService(true);
-
     keyworkerApi.getPrisonMigrationStatus.returns({ migrated: true });
     keyworkerApi.getAssignedOffenders.returns([{ offenderNo: 'A1' }, { offenderNo: 'A2' }]);
 
@@ -74,8 +60,6 @@ describe('Key worker service', () => {
   });
 
   it('should fall back to the elite2Api when the keyworker data has not been migrated', async () => {
-    const service = buildService(true);
-
     keyworkerApi.getPrisonMigrationStatus.returns({
       migrated: false,
     });
@@ -85,21 +69,7 @@ describe('Key worker service', () => {
     expect(eliteApi.getAssignedOffenders).to.have.been.called;
   });
 
-  it('should fall back to the elite2Api when the keyworker url has not been configured', async () => {
-    const service = buildService(false);
-
-    // config.apis = {
-    //   keyworker: { },
-    // };
-
-    await service.getAssignedOffenders(context);
-
-    expect(eliteApi.getAssignedOffenders).to.have.been.called;
-  });
-  
   it('should not attempt to request offender details from elite2Api when there is no offenders assigned', async () => {
-    const service = buildService(true);
-
     keyworkerApi.getPrisonMigrationStatus.returns({
       migrated: true,
     });
@@ -114,8 +84,6 @@ describe('Key worker service', () => {
   });
 
   it('should call getKeyworkerByStaffIdAndPrisonId with the correct staffId and agencyId', async () => {
-    const service = buildService(true);
-
     keyworkerApi.getPrisonMigrationStatus.returns({
       migrated: true,
     });
@@ -124,8 +92,6 @@ describe('Key worker service', () => {
   });
 
   it('should call offender-assessments with the correct code and offender numbers', async () => {
-    const service = buildService(true);
-
     const offenders = [{ offenderNo: 'A1' }, { offenderNo: 'A2' }];
     keyworkerApi.getPrisonMigrationStatus.returns({ migrated: true });
     keyworkerApi.getAssignedOffenders.returns(offenders);
@@ -139,8 +105,6 @@ describe('Key worker service', () => {
   });
 
   it('should call offender-sentence with the correct offender numbers',async () => {
-    const service = buildService(true);
-
     const offenders = [{ offenderNo: 'A1' }, { offenderNo: 'A2' }];
     keyworkerApi.getPrisonMigrationStatus.returns({ migrated: true });
     keyworkerApi.getAssignedOffenders.returns(offenders);
@@ -154,8 +118,6 @@ describe('Key worker service', () => {
   });
 
   it('should produce a view model that contains a key workers capacity and allocations merged with assessment and sentence information', async () => {
-    const service = buildService(true);
-
     const offenders = [{ offenderNo: 'A1' }, { offenderNo: 'A2' }];
     const sentenceDates = [{ offenderNo: 'A1',sentenceDetail: { conditionalReleaseDate: '20/10/2020' } }, { offenderNo: 'A2',sentenceDetail: { conditionalReleaseDate: '21/10/2020' } }];
     const assessments = [{ offenderNo: 'A1',classification: 'High' }, { offenderNo: 'A2',classification: 'Low' }];

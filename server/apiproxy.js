@@ -2,8 +2,8 @@ const proxy = require('http-proxy-middleware');
 const fs = require('fs');
 const modifyResponse = require('node-http-proxy-json');
 
-// const tokenGeneration = require('./jwt-token');
-// const { logger } = require('./services/logger');
+const tokenGeneration = require('./jwt-token');
+const { logger } = require('./services/logger');
 const config = require('./config');
 
 
@@ -67,16 +67,16 @@ const onProxyRequest = (proxyReq, req) => {
     proxyReq.setHeader('elite-authorization', authHeader);
   }
 
-  // if (config.app.useApiAuthGateway) {
-  //   // Add Api Gateway JWT header token
-  //   try {
-  //     const jwToken = tokenGeneration.generateToken();
-  //     proxyReq.setHeader('authorization', `Bearer ${jwToken}`);
-  //   } catch (error) {
-  //     logger.error(error);
-  //     proxyReq.setHeader('authorization', 'JUNK');
-  //   }
-  // }
+  if (config.app.useApiAuthGateway) {
+    // Add Api Gateway JWT header token
+    try {
+      const jwToken = tokenGeneration.generateToken();
+      proxyReq.setHeader('authorization', `Bearer ${jwToken}`);
+    } catch (error) {
+      logger.error(error);
+      proxyReq.setHeader('authorization', 'JUNK');
+    }
+  }
 };
 
 // proxy middleware options

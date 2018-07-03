@@ -93,7 +93,6 @@
     "node-http-proxy-json": "^0.1.4",
     "poll-endpoint-for": "^0.0.3",
     "prop-types": "^15.5.8",
-    "proxyquire": "^2.0.1",
     "querystring": "^0.2.0",
     "rc-time-picker": "^2.4.1",
     "react": "^15.5.4",

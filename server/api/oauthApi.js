@@ -1,43 +1,45 @@
 const axios = require('axios');
 const querystring = require('querystring');
 const { logger } = require('../services/logger');
+const addGatewayHeader = require('./axios-config-decorators').addGatewayHeader;
 const contextProperties = require('../contextProperties');
 
 /**
  * Return an oauthApi built using the supplied configuration.
- * @param apiConfig An object wiht properties 'url', 'clientId' and 'clientSecret'. This aligns with the properties
- * on config.apis.elite2Api (see ../config.js).
+ * @param clientId
+ * @param clientSecret
+ * @param url
+ * @param useGateway
+ * @returns a configured oauthApi instance
  */
-const oauthApiFactory = (apiConfig) => {
-  const apiClientCredentials = new Buffer(`${querystring.escape(apiConfig.clientId)}:${querystring.escape(apiConfig.clientSecret)}`).toString('base64');
+const oauthApiFactory = ({ clientId, clientSecret, url, useGateway = false }) => {
+  const apiClientCredentials = new Buffer(`${querystring.escape(clientId)}:${querystring.escape(clientSecret)}`).toString('base64');
 
   const oauthAxios = axios.create({
+    baseURL: url,
+    url: 'oauth/token',
     method: 'post',
-    baseURL: apiConfig.url,
     timeout: 2000,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
   });
 
-  const makeRequest = (context, data) => oauthAxios({
-    url: 'oauth/token',
-    data,
-    headers: {
-      authorization: `Basic ${apiClientCredentials}`,
-      // Not convinced that the header 'access-control-allow-origin': reqHeaders.host is needed or even makes sense here.
-    },
-    context,
-  })
+  const addheaders = useGateway ? config => addGatewayHeader(config) : config => config;
+
+  // Not convinced that the header 'access-control-allow-origin': reqHeaders.host is needed or even makes sense here.
+  const makeRequest = (context, data, msg) => oauthAxios(
+    addheaders({
+      data,
+      headers: { authorization: `Basic ${apiClientCredentials}` },
+    }))
     .then(response => {
-      logger.debug(`${response.config.method} ${response.config.url} ${response.status} ${response.statusText}`);
-      return response;
+      contextProperties.setTokens(context, response.data.access_token, response.data.refresh_token);
+      logger.debug(`${msg} ${response.config.method} ${response.config.url} ${response.status} ${response.statusText}`);
     })
-    .then(response => contextProperties.setTokens(context, response.data.access_token, response.data.refresh_token))
     .catch(error => {
       const status = error.response ? error.response.status : '-';
-      const responseData = error.response ? error.response.data : '-';
-      logger.debug(`Error. ${error.config.method} ${error.config.url} ${status} ${error.message} ${responseData}`);
+      logger.warn(`${msg} ${error.config.method} ${error.config.url} ${status} ${error.message}`);
       throw error;
     });
 
@@ -50,14 +52,14 @@ const oauthApiFactory = (apiConfig) => {
    * fulfilled promise has no result, but a rejected promise contains an axios response
    */
   const authenticate = (context, username, password) =>
-    makeRequest(context, `username=${username.toUpperCase()}&password=${password}&grant_type=password`);
+    makeRequest(context, `username=${username.toUpperCase()}&password=${password}&grant_type=password`, 'authenticate:');
 
   /**
    * Perform OAuth token refresh, storing the returned tokens in the supplied context. See scopedStore.run.
    * @returns A Promise that resolves when token refresh has succeeded and the OAuth tokens have been stored.
    */
   const refresh = (context) =>
-    makeRequest(context, `refresh_token=${contextProperties.getRefreshToken(context)}&grant_type=refresh_token`);
+    makeRequest(context, `refresh_token=${contextProperties.getRefreshToken(context)}&grant_type=refresh_token`, 'refresh:');
 
   return {
     authenticate,

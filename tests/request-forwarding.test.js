@@ -127,8 +127,4 @@ describe('Test request forwarding', () => {
         .expect('total-records', '100')
     );
   });
-
-  describe('error handling', () => {
-    // TODO:
-  })
 });

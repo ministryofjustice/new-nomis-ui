@@ -14,7 +14,7 @@ const { logger } = require('./services/logger');
 const tokenExpiresBefore = (encodedToken, timeSinceTheEpochInSeconds) => {
   const token = jwtDecode(encodedToken);
   if (token.exp < timeSinceTheEpochInSeconds) {
-    logger.debug(`Token expiring: user_name '${token.user_name}', exp ${token.exp} >= ${timeSinceTheEpochInSeconds}`);
+    logger.info(`Token expiring: user_name '${token.user_name}', exp ${token.exp} >= ${timeSinceTheEpochInSeconds}`);
   } else {
     logger.debug(`Token OK: user_name '${token.user_name}', exp ${token.exp} < ${timeSinceTheEpochInSeconds}`);
   }

@@ -1,17 +1,15 @@
 const keyworkerServiceFactory = (eliteApi, keyworkerApi) => {
   const getAssignedOffenders = async (context, staffId, agencyId) => {
-    if (keyworkerApi) {
-      const status = await keyworkerApi.getPrisonMigrationStatus(context, agencyId);
-      if (status.migrated) {
-        const offenders = await keyworkerApi.getAssignedOffenders(context, staffId, agencyId);
+    const status = await keyworkerApi.getPrisonMigrationStatus(context, agencyId);
 
-        if (offenders && offenders.length > 0) {
-          const offenderNumbers = offenders.map(o => o.offenderNo);
-          return eliteApi.getSummaryForOffenders(context, offenderNumbers);
-        }
+    if (status.migrated) {
+      const offenders = await keyworkerApi.getAssignedOffenders(context, staffId, agencyId);
 
-        return [];
+      if (offenders && offenders.length > 0) {
+        const offenderNumbers = offenders.map(o => o.offenderNo);
+        return eliteApi.getSummaryForOffenders(context, offenderNumbers);
       }
+      return [];
     }
 
     return eliteApi.getAssignedOffenders(context);
@@ -74,17 +72,14 @@ const keyworkerServiceFactory = (eliteApi, keyworkerApi) => {
   };
 
   const getIfKeyWorkerIsEnabled = async (context) => {
-    if (keyworkerApi) {
-      const { staffId, activeCaseLoadId } = await eliteApi.getMyInformation(context);
-      const keyworker = await keyworkerApi.getKeyworkerByStaffIdAndPrisonId(context, staffId, activeCaseLoadId);
+    const { staffId, activeCaseLoadId } = await eliteApi.getMyInformation(context);
+    const keyworker = await keyworkerApi.getKeyworkerByStaffIdAndPrisonId(context, staffId, activeCaseLoadId);
 
-      return {
-        staffId,
-        activeCaseLoadId,
-        capacity: keyworker && keyworker.capacity,
-      }
+    return {
+      staffId,
+      activeCaseLoadId,
+      capacity: keyworker && keyworker.capacity,
     }
-    return {};
   };
 
   const myAllocationsViewModel = async (context) => {

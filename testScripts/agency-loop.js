@@ -6,7 +6,7 @@ const oauthApiFactory = require('../server/api/oauthApi');
 const clientFactory = require('../server/api/oauthEnabledClient');
 const tokenRefresherFactory = require('../server/tokenRefresher').factory;
 
-const oauthApi = oauthApiFactory(config.apis.elite2);
+const oauthApi = oauthApiFactory({ ...config.apis.elite2, useGateway: config.app.useApiAuthGateway });
 
 const eliteClient = clientFactory({
   baseUrl: config.apis.elite2.url,
@@ -14,25 +14,22 @@ const eliteClient = clientFactory({
   useGateway: config.app.useApiAuthGateway,
 });
 
-const refreshTokens = tokenRefresherFactory(oauthApi.refresh);
+const refreshTokens = tokenRefresherFactory(oauthApi.refresh, 45);
 
 const context = {};
 
-const authenticate = async () => {
-  // const username = process.argv[2] || 'PBELL_GEN';
-  // const password = process.argv[3] || 'password123456';
+const authenticate = () => {
+  const username = process.argv[2] || 'PBELL_GEN';
+  const password = process.argv[3] || 'password123456';
 
-  const username = process.argv[2] || 'ITAG_USER';
-  const password = process.argv[3] || 'password';
-
-  await oauthApi.authenticate(context, username, password);
+  return oauthApi.authenticate(context, username, password);
 };
 
 const getAgency = () => eliteClient.get(context, '/api/agencies');
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-const check = () => refreshTokens(context, 45)
+const check = () => refreshTokens(context)
     .then(getAgency)
     .then(result => {
       const agencies = result.data;

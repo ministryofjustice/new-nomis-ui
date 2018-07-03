@@ -68,7 +68,7 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.use('/config', (req,res) => {
+app.use('/config', (req, res) => {
   const url = config.app.feedbackUrl;
   const omicUrl = config.apis.keyworker.ui_url;
   const mailTo = config.app.mailTo;
@@ -88,33 +88,22 @@ app.use('/info', apiProxy);
 app.use('/docs', apiProxy);
 app.use('/api/swagger.json', apiProxy);
 
-const eliteClient = clientFactory({
-  baseUrl: config.apis.elite2.url,
-  timeout: 10000,
-});
+const eliteApi = eliteApiFactory(
+  clientFactory({
+    baseUrl: config.apis.elite2.url,
+    timeout: 10000,
+    useGateway: config.app.useApiAuthGateway,
+  }));
 
-const eliteApi = eliteApiFactory(eliteClient);
 
-/**
- * There is a convention of using the absence of config.apis.keyworker.url
- * to control the behaviour in bookingService and keyworkerService.
- *
- * This information is now conveyed to those services by supplying a null keyworkerApi instance.
- *
- * @returns A configured instance of keyworkerApi or null if config.apis.keyworker.url is absent
- */
-const createKeyworkerApi = () => {
-  if (!config.apis.keyworker.url) return null;
-
-  const keyworkerClient = clientFactory({
+const keyworkerApi = keyworkerApiFactory(
+  clientFactory({
     baseUrl: config.apis.keyworker.url,
     timeout: 10000,
-  });
-  return keyworkerApiFactory(keyworkerClient);
-};
+    useGateway: config.app.useApiAuthGateway,
+  }));
 
-const keyworkerApi = createKeyworkerApi();
-const oauthApi = oauthApiFactory(config.apis.elite2);
+const oauthApi = oauthApiFactory({ ...config.apis.elite2, useGateway: config.app.useApiAuthGateway });
 const tokenRefresher = tokeRefresherFactory(oauthApi.refresh, config.app.tokenRefreshThresholdSeconds);
 
 const userService = userServiceFactory(eliteApi);
@@ -148,7 +137,8 @@ sessionManagementRoutes.configureRoutes({
   oauthApi,
   hmppsCookieOperations,
   tokenRefresher,
-  mailTo: config.app.mailTo });
+  mailTo: config.app.mailTo,
+});
 
 // Don't cache dynamic resources (except images which override this)
 app.use(helmet.noCache());

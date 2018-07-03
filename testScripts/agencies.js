@@ -12,15 +12,12 @@ const eliteClient = clientFactory({
 });
 
 
-// const username = process.argv[2] || 'PBELL_GEN';
-// const password = process.argv[3] || 'password123456';
-
-const username = process.argv[2] || 'ITAG_USER';
-const password = process.argv[3] || 'password';
+const username = process.argv[2] || 'PBELL_GEN';
+const password = process.argv[3] || 'password123456';
 
 const context = {};
 
-const oauthApi = oauthApiFactory(config.apis.elite2);
+const oauthApi = oauthApiFactory({ ...config.apis.elite2, useGateway: config.app.useApiAuthGateway });
 
 oauthApi.authenticate(context, username, password)
   .then(() => {

@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { logger } = require('../services/logger');
 
-const contextProperties = require('../contextProperties');
+const { addAuthorizationHeader, addGatewayHeader, addPaginationHeaders } = require('./axios-config-decorators');
 
 const resultLogger = (result) => {
   logger.debug(`${result.config.method} ${result.config.url} ${result.status} ${result.statusText}`);
@@ -21,55 +21,35 @@ const errorLogger = (error) => {
  *
  * @param baseUrl The base url to be used with the client's get and post
  * @param timeout The timeout to apply to get and post.
- * @param useGateway
+ * @param useGateway Add gateway header data to each request if true.
  * @returns {{get: (function(*=): *), post: (function(*=, *=): *)}}
  */
-const factory = ({ baseUrl, timeout }) => {
+const factory = ({ baseUrl, timeout, useGateway = false }) => {
   const axiosInstance = axios.create({
     baseURL: baseUrl,
     timeout,
   });
 
-  const addAuthorizationHeader = (context, config) => {
-    const accessToken = contextProperties.getAccessToken(context);
-    if (accessToken) {
-      config.headers = config.headers || {};
-      config.headers.authorization = `Bearer ${accessToken}`;
-    }
-    return config;
-  };
 
-  /**
-   * Don't like this, but the pagination information is being passed around in headers. If that information were
-   * conveyed in request parameters or as part of the body of a request then this problem wouldn't be necessary.
-   * @param context
-   * @param config
-   * @returns {*}
-   */
-  const addPaginationHeaders = (context, config) => {
-    const paginationHeaders = contextProperties.getRequestPagination(context);
-    config.headers = config.headers || {};
-    Object.assign(config.headers, paginationHeaders);
-    return config;
-  };
+  const addHeaders = useGateway ?
+    (context, config) => addPaginationHeaders(context, addGatewayHeader(addAuthorizationHeader(context, config))) :
+    (context, config) => addPaginationHeaders(context, addAuthorizationHeader(context, config));
 
   /**
    * An Axios GET request with Oauth token
    *
-   * @param context A request scoped 'context' carrying an authToken property
+   * @param context A request scoped context. Holds OAuth tokens and pagination information for the request
    * @param url if url is relative then baseURL will be prepended. If the url is absolute the baseURL is ignored.
    * @returns A Promise which settles to the Axios result object if the promise is resolved, otherwise to the 'error' object.
    */
   const get = (context, url) =>
     axiosInstance(
-      addPaginationHeaders(context,
-        addAuthorizationHeader(
-          context,
-          {
-            method: 'get',
-            url,
-          },
-        ),
+      addHeaders(
+        context,
+        {
+          method: 'get',
+          url,
+        },
       ),
     )
       .then(resultLogger)
@@ -77,22 +57,20 @@ const factory = ({ baseUrl, timeout }) => {
 
   /**
    * An Axios POST with Oauth token refresh and retry behaviour
-   * @param context an object carrying an authToken property
+   * @param context A request scoped context. Holds OAuth tokens and pagination information for the request
    * @param url if url is relative then the baseURL will be prepended. If the url is absolute then baseURL is ignored.
    * @param body
    * @returns A Promise which resolves to the Axios result object, or the Axios error object if it is rejected
    */
   const post = (context, url, body) =>
     axiosInstance(
-      addPaginationHeaders(context,
-        addAuthorizationHeader(
-          context,
-          {
-            method: 'post',
-            url,
-            data: body,
-          },
-        ),
+      addHeaders(
+        context,
+        {
+          method: 'post',
+          url,
+          data: body,
+        },
       ),
     )
       .then(resultLogger)
@@ -100,15 +78,13 @@ const factory = ({ baseUrl, timeout }) => {
 
   const put = (context, url, body) =>
     axiosInstance(
-      addPaginationHeaders(context,
-        addAuthorizationHeader(
-          context,
-          {
-            method: 'put',
-            url,
-            data: body,
-          },
-        ),
+      addHeaders(
+        context,
+        {
+          method: 'put',
+          url,
+          data: body,
+        },
       ),
     )
       .then(resultLogger)
@@ -116,7 +92,7 @@ const factory = ({ baseUrl, timeout }) => {
 
   const getStream = (context, url) =>
     axiosInstance(
-      addAuthorizationHeader(
+      addHeaders(
         context,
         {
           method: 'get',
@@ -124,7 +100,8 @@ const factory = ({ baseUrl, timeout }) => {
           responseType: 'stream',
         },
       ),
-    ).catch(errorLogger);
+    )
+      .catch(errorLogger);
 
   return {
     get,
