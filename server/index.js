@@ -92,7 +92,7 @@ app.use('/api/swagger.json', apiProxy);
 const healthApi = healthApiFactory(
   clientFactory({
     baseUrl: config.apis.elite2.url,
-    timeout: 2000,
+    timeout: 10000,
     useGateway: config.app.useApiAuthGateway,
   }));
 
