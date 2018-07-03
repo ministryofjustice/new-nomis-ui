@@ -6,53 +6,55 @@ const moment = require('moment');
 const momentTimeZone = require('moment-timezone');
 const isoDateFormat = require('./../server/constants').isoDateFormat;
 const isoDateTimeFormat = require('./../server/constants').isoDateTimeFormat;
-const elite2Api = require('../server/api/elite2Api');
-const bookingService = require('../server/services/booking');
+
+const eliteApiFactory = require('../server/api/eliteApi').eliteApiFactory;
+const keyworkerApiFactory = require('../server/api/keyworkerApi').keyworkerApiFactory;
+const bookingServiceFactory = require('../server/services/booking').bookingServiceFactory;
+
+const eliteApi = eliteApiFactory(null);
+const keyworkerApi = keyworkerApiFactory(null);
+const bookingService = bookingServiceFactory(eliteApi, keyworkerApi);
 
 chai.use(sinonChai);
 
 describe('Booking Service Quick look', () => {
+  const OFFENDER_NO = 'AA0000AE';
+
   let sandbox;
-  const req = {
-    bookingId: 1,
-    params: {
-      offenderNo: 'X112XX',
-    },
-  };
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
-    sandbox.stub(elite2Api, 'getBalances');
-    sandbox.stub(elite2Api, 'getMainOffence');
-    sandbox.stub(elite2Api, 'getEventsForToday');
-    sandbox.stub(elite2Api, 'getPositiveCaseNotes');
-    sandbox.stub(elite2Api, 'getNegativeCaseNotes');
-    sandbox.stub(elite2Api, 'getSentenceData');
-    sandbox.stub(elite2Api, 'getContacts');
-    sandbox.stub(elite2Api, 'getAdjudications');
-    sandbox.stub(elite2Api, 'getLastVisit');
-    sandbox.stub(elite2Api, 'getRelationships');
-    sandbox.stub(elite2Api, 'getDetailsLight');
-    sandbox.stub(elite2Api, 'getNextVisit');
-    sandbox.stub(elite2Api, 'caseNoteUsageList');
+    sandbox.stub(eliteApi, 'getBalances');
+    sandbox.stub(eliteApi, 'getMainOffence');
+    sandbox.stub(eliteApi, 'getEventsForToday');
+    sandbox.stub(eliteApi, 'getPositiveCaseNotes');
+    sandbox.stub(eliteApi, 'getNegativeCaseNotes');
+    sandbox.stub(eliteApi, 'getSentenceData');
+    sandbox.stub(eliteApi, 'getContacts');
+    sandbox.stub(eliteApi, 'getAdjudications');
+    sandbox.stub(eliteApi, 'getLastVisit');
+    sandbox.stub(eliteApi, 'getRelationships');
+    sandbox.stub(eliteApi, 'getDetailsLight');
+    sandbox.stub(eliteApi, 'getNextVisit');
+    sandbox.stub(eliteApi, 'caseNoteUsageList');
 
-    elite2Api.getBalances.returns(null);
-    elite2Api.getMainOffence.returns(null);
-    elite2Api.getEventsForToday.returns([]);
-    elite2Api.getPositiveCaseNotes.returns(null);
-    elite2Api.getNegativeCaseNotes.returns(null);
-    elite2Api.getSentenceData.returns(null);
-    elite2Api.getContacts.returns(null);
-    elite2Api.getLastVisit.returns(null);
-    elite2Api.getRelationships.returns(null);
-    elite2Api.getNextVisit.returns(null);
-    elite2Api.getAdjudications.returns({
+    eliteApi.getBalances.returns(null);
+    eliteApi.getMainOffence.returns(null);
+    eliteApi.getEventsForToday.returns([]);
+    eliteApi.getPositiveCaseNotes.returns(null);
+    eliteApi.getNegativeCaseNotes.returns(null);
+    eliteApi.getSentenceData.returns(null);
+    eliteApi.getContacts.returns(null);
+    eliteApi.getLastVisit.returns(null);
+    eliteApi.getRelationships.returns(null);
+    eliteApi.getNextVisit.returns(null);
+    eliteApi.getAdjudications.returns({
       awards: [],
     });
-    elite2Api.getDetailsLight.returns({
+    eliteApi.getDetailsLight.returns({
       bookingId: 1,
     });
-    elite2Api.caseNoteUsageList.returns([]);
+    eliteApi.caseNoteUsageList.returns([]);
   });
 
   afterEach(() => sandbox.restore());
@@ -65,11 +67,11 @@ describe('Booking Service Quick look', () => {
       currency: 'GBP',
     };
 
-    elite2Api.getBalances.returns(balance);
+    eliteApi.getBalances.returns(balance);
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
-    expect(elite2Api.getBalances).to.be.called;
+    expect(eliteApi.getBalances).to.be.called;
 
     expect(data.balance.spends).to.equal(10);
     expect(data.balance.cash).to.equal(20);
@@ -78,22 +80,22 @@ describe('Booking Service Quick look', () => {
   });
 
   it('should call getMainOffence', async () => {
-    elite2Api.getMainOffence.returns([
+    eliteApi.getMainOffence.returns([
       {
         bookingId: 1,
         offenceDescription: 'basic',
       },
     ]);
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
-    expect(elite2Api.getMainOffence).to.be.called;
+    expect(eliteApi.getMainOffence).to.be.called;
 
     expect(data.offences[0].type).to.equal('basic');
   });
 
   it('should call getEventsForToday', async () => {
-    elite2Api.getEventsForToday.returns([
+    eliteApi.getEventsForToday.returns([
       {
         eventSubType: 'PA',
         eventSourceDesc: 'workshop 1',
@@ -114,9 +116,9 @@ describe('Booking Service Quick look', () => {
       },
     ]);
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
-    expect(elite2Api.getEventsForToday).to.be.called;
+    expect(eliteApi.getEventsForToday).to.be.called;
 
     expect(data.activities.morningActivities.length).to.equal(1);
     expect(data.activities.afternoonActivities.length).to.equal(1);
@@ -134,35 +136,35 @@ describe('Booking Service Quick look', () => {
     expect(data.activities.eveningDuties[0].endTime).to.equal('2017-01-01T17:41:10.572');
   });
 
-  it('should call getPositiveCaseNotes',async () => {
-    elite2Api.getPositiveCaseNotes.returns({
+  it('should call getPositiveCaseNotes', async () => {
+    eliteApi.getPositiveCaseNotes.returns({
       count: 1,
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
-    expect(elite2Api.getPositiveCaseNotes).to.be.called;
+    expect(eliteApi.getPositiveCaseNotes).to.be.called;
 
     expect(data.positiveCaseNotes).to.equal(1);
   });
 
-  it('should call getNegativeCaseNotes',async () => {
-    elite2Api.getNegativeCaseNotes.returns({
+  it('should call getNegativeCaseNotes', async () => {
+    eliteApi.getNegativeCaseNotes.returns({
       count: 1,
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
-    expect(elite2Api.getNegativeCaseNotes).to.be.called;
+    expect(eliteApi.getNegativeCaseNotes).to.be.called;
 
     expect(data.negativeCaseNotes).to.equal(1);
   });
 
   it('should call getPositiveCaseNotes with iso format and fromDate three months in the past', async () => {
-    await bookingService.getQuickLookViewModel(req);
-    const { fromDate, toDate } = elite2Api.getPositiveCaseNotes.getCall(0).args[0];
+    await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
+    const { fromDate, toDate } = eliteApi.getPositiveCaseNotes.getCall(0).args[0];
 
-    const threeMonthsInThePast = moment().subtract(3,'months').format(isoDateFormat);
+    const threeMonthsInThePast = moment().subtract(3, 'months').format(isoDateFormat);
     const today = moment().format(isoDateFormat);
 
     expect(fromDate).to.equal(threeMonthsInThePast);
@@ -170,10 +172,10 @@ describe('Booking Service Quick look', () => {
   });
 
   it('should call getNegativeCaseNotes with iso format and fromDate three months in the past', async () => {
-    await bookingService.getQuickLookViewModel(req);
-    const { fromDate, toDate } = elite2Api.getNegativeCaseNotes.getCall(0).args[0];
+    await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
+    const { fromDate, toDate } = eliteApi.getNegativeCaseNotes.getCall(0).args[0];
 
-    const threeMonthsInThePast = moment().subtract(3,'months').format(isoDateFormat);
+    const threeMonthsInThePast = moment().subtract(3, 'months').format(isoDateFormat);
     const today = moment().format(isoDateFormat);
 
     expect(fromDate).to.equal(threeMonthsInThePast);
@@ -181,16 +183,16 @@ describe('Booking Service Quick look', () => {
   });
 
   it('should call getAdjudications with fromDate three months in the past and be in iso formatted', async () => {
-    await bookingService.getQuickLookViewModel(req);
+    await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
-    const threeMonthsInThePast = moment().subtract(3,'months').format(isoDateFormat);
-    const { fromDate } = elite2Api.getAdjudications.getCall(0).args[0];
+    const threeMonthsInThePast = moment().subtract(3, 'months').format(isoDateFormat);
+    const { fromDate } = eliteApi.getAdjudications.getCall(0).args[0];
 
     expect(fromDate).to.equal(threeMonthsInThePast);
   });
 
   it('should call return an empty awards array and a proven count of zero when no data is returned', async () => {
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
     expect(data.adjudications.proven).to.equal(0);
     expect(data.adjudications.awards.length).to.equal(0);
@@ -198,7 +200,7 @@ describe('Booking Service Quick look', () => {
 
 
   it('should call getAdjudications and populate the response with proven adjudication count', async () => {
-    elite2Api.getAdjudications.returns({
+    eliteApi.getAdjudications.returns({
       adjudicationCount: 2,
       awards: [
         {},
@@ -206,13 +208,13 @@ describe('Booking Service Quick look', () => {
       ],
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
     expect(data.adjudications.proven).to.equal(2);
   });
 
   it('should call getAdjudications and populate the response with awards formatted with duration and description', async () => {
-    elite2Api.getAdjudications.returns({
+    eliteApi.getAdjudications.returns({
       awards: [
         {
           months: 10,
@@ -237,7 +239,7 @@ describe('Booking Service Quick look', () => {
       ],
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
     const { awards } = data.adjudications;
 
@@ -259,7 +261,7 @@ describe('Booking Service Quick look', () => {
   });
 
   it('should append the award description with a properly formatted level, like 50% stoppage of earnings', async () => {
-    elite2Api.getAdjudications.returns({
+    eliteApi.getAdjudications.returns({
       awards: [
         {
           days: 1,
@@ -292,7 +294,7 @@ describe('Booking Service Quick look', () => {
       ],
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
     const { awards } = data.adjudications;
 
     expect(awards[0].sanctionCodeDescription).to.equal('Stoppage of Earnings (50%)');
@@ -302,7 +304,7 @@ describe('Booking Service Quick look', () => {
   });
 
   it('should display months and days', async () => {
-    elite2Api.getAdjudications.returns({
+    eliteApi.getAdjudications.returns({
       awards: [
         {
           months: 10,
@@ -315,7 +317,7 @@ describe('Booking Service Quick look', () => {
       ],
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
     const { awards } = data.adjudications;
 
     expect(awards[0].durationText).to.equal('10 months and 2 days');
@@ -324,7 +326,7 @@ describe('Booking Service Quick look', () => {
 
 
   it('should call getContacts', async () => {
-    elite2Api.getContacts.returns({
+    eliteApi.getContacts.returns({
       nextOfKin: [
         {
           lastName: 'BALOG',
@@ -339,9 +341,9 @@ describe('Booking Service Quick look', () => {
       ],
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
-    expect(elite2Api.getContacts).to.be.called;
+    expect(eliteApi.getContacts).to.be.called;
 
     expect(data.nextOfKin.length).to.equal(1);
     expect(data.nextOfKin[0].firstName).to.equal('EVA');
@@ -353,63 +355,63 @@ describe('Booking Service Quick look', () => {
 
 
   it('should return an empty array when no contacts details are returned', async () => {
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
-    expect(elite2Api.getContacts).to.be.called;
+    expect(eliteApi.getContacts).to.be.called;
     expect(data.nextOfKin.length).to.equal(0);
   });
 
   it('should return true for indeterminateReleaseDate when there is a tariff date but no release date', async () => {
-    elite2Api.getSentenceData.returns({
+    eliteApi.getSentenceData.returns({
       tariffDate: '2017-01-01',
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
-    expect(elite2Api.getSentenceData).to.be.called;
+    expect(eliteApi.getSentenceData).to.be.called;
     expect(data.tariffDate).to.equal('2017-01-01');
     expect(data.indeterminateReleaseDate).to.be.true;
   });
 
   it('should return false for indeterminateReleaseDate when there is a release date and there is a tariff date', async () => {
-    elite2Api.getSentenceData.returns({
+    eliteApi.getSentenceData.returns({
       releaseDate: '2016-12-12',
       tariffDate: '2017-01-01',
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
-    expect(elite2Api.getSentenceData).to.be.called;
+    expect(eliteApi.getSentenceData).to.be.called;
     expect(data.releaseDate).to.equal('2016-12-12');
     expect(data.tariffDate).to.equal('2017-01-01');
     expect(data.indeterminateReleaseDate).to.be.false;
   });
 
   it('should return false for indeterminateReleaseDate when there is a release date but there is no tariff date', async () => {
-    elite2Api.getSentenceData.returns({
+    eliteApi.getSentenceData.returns({
       releaseDate: '2016-12-12',
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
-    expect(elite2Api.getSentenceData).to.be.called;
+    expect(eliteApi.getSentenceData).to.be.called;
     expect(data.releaseDate).to.equal('2016-12-12');
     expect(data.indeterminateReleaseDate).to.be.false;
   });
 
   it('should return false for indeterminateReleaseDate when there is neither a release date or a tariff date', async () => {
-    elite2Api.getSentenceData.returns({
+    eliteApi.getSentenceData.returns({
       additionalDaysAwarded: 4,
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
-    expect(elite2Api.getSentenceData).to.be.called;
+    expect(eliteApi.getSentenceData).to.be.called;
     expect(data.indeterminateReleaseDate).to.be.false;
   });
 
   it('should only show attended, cancelled and ongoing', async () => {
-    elite2Api.getLastVisit.returns({
+    eliteApi.getLastVisit.returns({
       eventStatusDescription: 'Expired',
       eventStatus: 'EXP',
       visitTypeDescription: 'Social Contact',
@@ -420,12 +422,12 @@ describe('Booking Service Quick look', () => {
       cancelReasonDescription: 'All visits canceled',
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
     expect(data.lastVisit).to.equal(null);
   });
 
   it('should only show an attended visit', async () => {
-    elite2Api.getLastVisit.returns({
+    eliteApi.getLastVisit.returns({
       eventStatus: 'SCH',
       eventOutcome: 'ATT',
       eventOutcomeDescription: 'Attended',
@@ -436,12 +438,12 @@ describe('Booking Service Quick look', () => {
       endTime: '2017-12-22T12:00:00',
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
     expect(data.lastVisit.status).to.equal('Attended');
   });
 
   it('should only show cancelled visit (status CANC)', async () => {
-    elite2Api.getLastVisit.returns({
+    eliteApi.getLastVisit.returns({
       eventStatus: 'CANC',
       eventStatusDescription: 'Cancelled',
       visitTypeDescription: 'Social Contact',
@@ -451,12 +453,12 @@ describe('Booking Service Quick look', () => {
       endTime: '2017-12-22T12:00:00',
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
     expect(data.lastVisit.status).to.equal('Cancelled');
   });
 
   it('should ensure that event status "CANC" (Cancel) overrides the outcome status', async () => {
-    elite2Api.getLastVisit.returns({
+    eliteApi.getLastVisit.returns({
       eventStatus: 'CANC',
       eventStatusDescription: 'Cancelled',
       cancelReasonDescription: 'some reason',
@@ -469,7 +471,7 @@ describe('Booking Service Quick look', () => {
       endTime: '2017-12-22T12:00:00',
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
     expect(data.lastVisit.status).to.equal('Cancelled');
     expect(data.lastVisit.cancellationReason).to.equal('some reason');
   });
@@ -479,7 +481,7 @@ describe('Booking Service Quick look', () => {
     const fiveMinutesAgo = momentTimeZone.tz(zone).subtract(5, 'minutes');
     const fiveMinutesTime = momentTimeZone.tz(zone).add(5,'minutes');
 
-    elite2Api.getLastVisit.returns({
+    eliteApi.getLastVisit.returns({
       eventStatus: 'SCH',
       eventStatusDescription: 'Scheduled (Approved)',
       visitType: 'OFFI',
@@ -494,13 +496,13 @@ describe('Booking Service Quick look', () => {
       endTime: fiveMinutesTime.format(isoDateTimeFormat).toString(),
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
     expect(data.lastVisit.status).to.equal('Ongoing');
   });
 
   it('should show an attended visit even though its currently expired', async () => {
-    elite2Api.getLastVisit.returns({
+    eliteApi.getLastVisit.returns({
       eventStatus: 'EXP',
       eventStatusDescription: 'Expired',
       visitType: 'SCON',
@@ -515,12 +517,12 @@ describe('Booking Service Quick look', () => {
       eventOutcomeDescription: 'Attended',
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
     expect(data.lastVisit.status).to.equal('Attended');
   });
 
   it('should show lead visitor name in title case with relationship description after in parentheses', async () => {
-    elite2Api.getLastVisit.returns({
+    eliteApi.getLastVisit.returns({
       eventStatus: 'EXP',
       eventStatusDescription: 'Expired',
       visitType: 'SCON',
@@ -535,12 +537,12 @@ describe('Booking Service Quick look', () => {
       eventOutcomeDescription: 'Attended',
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
     expect(data.lastVisit.leadVisitor).to.equal('John Smith (Father)');
   });
 
   it('should not show any text after lead visitor name if no relationship description in API response', async () => {
-    elite2Api.getLastVisit.returns({
+    eliteApi.getLastVisit.returns({
       eventStatus: 'EXP',
       eventStatusDescription: 'Expired',
       visitType: 'SCON',
@@ -553,12 +555,12 @@ describe('Booking Service Quick look', () => {
       eventOutcomeDescription: 'Attended',
     });
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
     expect(data.lastVisit.leadVisitor).to.equal('John Smith');
   });
 
   it('should call getRelationships', async () => {
-    elite2Api.getRelationships.returns([
+    eliteApi.getRelationships.returns([
       {
         lastName: 'Bull',
         firstName: 'Dom3',
@@ -596,14 +598,14 @@ describe('Booking Service Quick look', () => {
         personId: 13318,
       }]);
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
     expect(data.assignedStaffMembers.communityOffenderManager.firstName).to.equal('Dom3');
     expect(data.assignedStaffMembers.communityOffenderManager.lastName).to.equal('Bull');
   });
 
   it('should call case note usage', async () => {
-    elite2Api.caseNoteUsageList.returns([
+    eliteApi.caseNoteUsageList.returns([
       {
         staffId: 234423,
         caseNoteType: 'KA',
@@ -620,7 +622,7 @@ describe('Booking Service Quick look', () => {
       },
     ]);
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
     expect(data.lastKeyWorkerSessionDate).equal('2018-07-02T15:03:47.337Z');
   });

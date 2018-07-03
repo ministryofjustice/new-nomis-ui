@@ -4,7 +4,6 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const cookieSession = require('cookie-session');
 const bunyanMiddleware = require('bunyan-middleware');
 const hsts = require('hsts');
 const appInsights = require('applicationinsights');
@@ -12,27 +11,30 @@ const helmet = require('helmet');
 const path = require('path');
 
 const setup = require('./middlewares/frontend-middleware');
-const app = express();
 
 const { logger } = require('./services/logger');
 const apiProxy = require('./apiproxy');
-const application = require('./app');
-const controller = require('./controller');
-const session = require('./session');
 const config = require('./config');
-const clientVersionValidator = require('./middlewares/validate-client-version');
-const buildNumber = require('./application-version');
+
+const sessionManagementRoutes = require('./sessionManagementRoutes');
+const clientFactory = require('./api/oauthEnabledClient');
+const healthApiFactory = require('./api/healthApi').healthApiFactory;
+const eliteApiFactory = require('./api/eliteApi').eliteApiFactory;
+const keyworkerApiFactory = require('./api/keyworkerApi').keyworkerApiFactory;
+const oauthApiFactory = require('./api/oauthApi');
+const tokeRefresherFactory = require('./tokenRefresher').factory;
+const cookieOperationsFactory = require('./hmppsCookie').cookieOperationsFactory;
+const controllerFactory = require('./controller').controllerFactory;
+const userServiceFactory = require('./services/user').userServiceFactory;
+const bookingServiceFactory = require('./services/booking').bookingServiceFactory;
+const eventsServiceFactory = require('./services/events').eventsServiceFactory;
+const keyworkerServiceFactory = require('./services/keyworker').keyworkerServiceFactory;
+
+const requestForwarding = require('./request-forwarding');
 
 const sixtyDaysInSeconds = 5184000;
-const sessionExpiryMinutes = config.session.expiryMinutes * 60 * 1000;
 
-const sessionConfig = {
-  name: config.session.name,
-  secret: config.session.secret,
-  sameSite: true,
-  expires: new Date(Date.now() + sessionExpiryMinutes),
-  maxAge: sessionExpiryMinutes, // 1 hour
-};
+const app = express();
 
 app.set('trust proxy', 1); // trust first proxy
 
@@ -51,10 +53,6 @@ if (config.app.production && config.analytics.appInsightsKey) {
     .start();
 }
 
-if (config.app.production) {
-  sessionConfig.secure = true // serve secure cookies
-}
-
 app.use(helmet());
 app.use(hsts({
   maxAge: sixtyDaysInSeconds,
@@ -68,18 +66,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(cookieParser());
-app.use(cookieSession(sessionConfig));
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Update a value in the cookie so that the set-cookie will be sent.
-// Only changes every minute so that it's not sent with every request.
-app.use((req, res, next) => {
-  req.session.nowInMinutes = Math.floor(Date.now() / 60e3);
-  next();
-});
-
-app.use('/config', (req,res) => {
+app.use('/config', (req, res) => {
   const url = config.app.feedbackUrl;
   const omicUrl = config.apis.keyworker.ui_url;
   const mailTo = config.app.mailTo;
@@ -99,26 +89,62 @@ app.use('/info', apiProxy);
 app.use('/docs', apiProxy);
 app.use('/api/swagger.json', apiProxy);
 
-app.get('/login', session.loginMiddleware, controller.loginIndex);
-app.post('/login', controller.login);
-app.get('/logout', controller.logout);
-app.get('/terms', controller.terms);
+const healthApi = healthApiFactory(
+  clientFactory({
+    baseUrl: config.apis.elite2.url,
+    timeout: 10000,
+    useGateway: config.app.useApiAuthGateway,
+  }));
 
-app.use(clientVersionValidator);
+const eliteApi = eliteApiFactory(
+  clientFactory({
+    baseUrl: config.apis.elite2.url,
+    timeout: 10000,
+    useGateway: config.app.useApiAuthGateway,
+  }));
 
-// Update values in the cookie so that the set-cookie will be sent.
-app.use((req, res, next) => {
-  // Keep track of when a server update occurs. Changes rarely.
-  req.session.applicationVersion = buildNumber;
-  next();
+const keyworkerApi = keyworkerApiFactory(
+  clientFactory({
+    baseUrl: config.apis.keyworker.url,
+    timeout: 10000,
+    useGateway: config.app.useApiAuthGateway,
+  }));
+
+const oauthApi = oauthApiFactory({ ...config.apis.elite2, useGateway: config.app.useApiAuthGateway });
+const tokenRefresher = tokeRefresherFactory(oauthApi.refresh, config.app.tokenRefreshThresholdSeconds);
+
+const userService = userServiceFactory(eliteApi);
+const bookingService = bookingServiceFactory(eliteApi, keyworkerApi);
+const eventsService = eventsServiceFactory(eliteApi);
+const keyworkerService = keyworkerServiceFactory(eliteApi, keyworkerApi);
+
+const controller = controllerFactory({
+  elite2Api: eliteApi,
+  userService,
+  bookingService,
+  eventsService,
+  keyworkerService,
 });
 
-app.use(session.hmppsSessionMiddleWare);
-app.use(session.extendHmppsCookieMiddleWare);
+app.get('/terms', controller.terms);
 
-app.use('/heart-beat', (req,res) => {
-  res.status(200);
-  res.end();
+const hmppsCookieOperations = cookieOperationsFactory(
+  {
+    name: config.hmppsCookie.name,
+    domain: config.hmppsCookie.domain,
+    cookieLifetimeInMinutes: config.hmppsCookie.expiryMinutes,
+    secure: config.app.production,
+  },
+);
+
+/* login, logout, hmppsCookie management, token refresh etc */
+sessionManagementRoutes.configureRoutes({
+  app,
+  healthApi,
+  oauthApi,
+  hmppsCookieOperations,
+  tokenRefresher,
+  mailTo: config.app.mailTo,
 });
 
 // Don't cache dynamic resources (except images which override this)
@@ -140,7 +166,11 @@ app.get('/app/images/:imageId/data', controller.getImage);
 app.get('/app/users/me/bookingAssignments', controller.myAssignments);
 app.get('/app/users/me', controller.user);
 
-app.use('/app', application.sessionHandler);
+// Extract pagination header information from requests and set on the 'context'
+app.use('/app', requestForwarding.extractRequestPaginationMiddleware);
+
+// Forward requests to the eliteApi get/post functions.
+app.use('/app', requestForwarding.forwardingHandlerFactory(eliteApi));
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {

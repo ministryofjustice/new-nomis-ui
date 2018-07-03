@@ -3,37 +3,35 @@ const chai = require('chai'),
   expect = chai.expect;
 const sinonChai = require('sinon-chai');
 
-const elite2Api = require('../server/api/elite2Api');
-const userService = require('../server/services/user');
+const eliteApiFactory = require('../server/api/eliteApi').eliteApiFactory;
+const userServiceFactory = require('../server/services/user').userServiceFactory;
 
 chai.use(sinonChai);
 
-const createParams = (params) => ({
-  params: {
-    ...params,
-  },
-});
-
-describe('User service',() => {
+describe('User service', () => {
   let sandbox;
 
-  const details = { 
+  const details = {
     staffId: -2,
     username: 'ITAG_USER',
     firstName: 'API',
     lastName: 'User',
-    activeCaseLoadId: 'LEI', 
+    activeCaseLoadId: 'LEI',
   };
 
   const accessRoles = [
-    { roleId: -201,roleCode: 'OMIC_ADMIN',roleName: 'Omic Admin',caseloadId: 'NWEB' },
-    { roleId: -100,roleCode: 'LICENCE_CA',roleName: 'Case Admin',caseloadId: 'NWEB' },
+    { roleId: -201, roleCode: 'OMIC_ADMIN', roleName: 'Omic Admin', caseloadId: 'NWEB' },
+    { roleId: -100, roleCode: 'LICENCE_CA', roleName: 'Case Admin', caseloadId: 'NWEB' },
   ];
 
   const staffRoles = [
     { role: 'KW', roleDescription: 'Key Worker' },
   ];
-  
+
+  // The api will be stubbed so there's no need to provide a real client for it to use.
+  const elite2Api = eliteApiFactory({});
+  const userService = userServiceFactory(elite2Api);
+
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
     sandbox.stub(elite2Api, 'getMyInformation');
@@ -44,18 +42,20 @@ describe('User service',() => {
     elite2Api.getUserAccessRoles.returns(accessRoles);
     elite2Api.getStaffRoles.returns(staffRoles);
   });
-  
+
   afterEach(() => sandbox.restore());
 
   it('should call getMyInformation and then call getUserRoles and getStaffRoles with the correct staffId', async () => {
-    await userService.me({ params: {} });
+    const context = { hello: 'Hello!' };
+    await userService.me(context);
 
-    expect(elite2Api.getUserAccessRoles).calledWith(createParams({ staffId: -2, agencyId: 'LEI' }));
-    expect(elite2Api.getStaffRoles).calledWith(createParams({ staffId: -2, agencyId: 'LEI' }));
+    expect(elite2Api.getMyInformation).calledWith(context);
+    expect(elite2Api.getUserAccessRoles).calledWith(context);
+    expect(elite2Api.getStaffRoles).calledWith(context, -2, 'LEI');
   });
 
   it('should combine user info, access roles and staff roles into one view model', async () => {
-    const viewModel = await userService.me({ params: {} });
+    const viewModel = await userService.me({});
 
     expect(viewModel).to.deep.equal({
       ...details,

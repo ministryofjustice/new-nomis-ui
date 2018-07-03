@@ -5,6 +5,7 @@ const logger = new Logger({
   streams: [
     {
       level: 'info',
+      // level: 'debug',
       stream: process.stdout,
     },
   ],
