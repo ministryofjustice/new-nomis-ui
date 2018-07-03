@@ -622,7 +622,7 @@ describe('Booking Service Quick look', () => {
       },
     ]);
 
-    const data = await bookingService.getQuickLookViewModel(req);
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
     expect(data.lastKeyWorkerSessionDate).equal('2018-07-02T15:03:47.337Z');
   });

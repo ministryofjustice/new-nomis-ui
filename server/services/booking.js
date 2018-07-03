@@ -1,4 +1,3 @@
-const elite2Api = require('../api/elite2Api');
 const moment = require('moment');
 
 const RiskAssessment = require('../model/risk-assessment');
@@ -74,7 +73,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
       eliteApi.getLastVisit(context, bookingId),
       eliteApi.getNextVisit(context, bookingId),
       eliteApi.getRelationships(context, bookingId),
-      eliteApi.caseNoteUsageList(req, res, ids),
+      eliteApi.caseNoteUsageList(context, [offenderNo]),
 
     ];
 
@@ -111,44 +110,44 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
       } : null;
     };
 
-  let lastKWSessionDate = null;
-  if (kwCaseNoteDates.length > 0) {
-    lastKWSessionDate = kwCaseNoteDates.reduce((m, v, i) => (v.latestCaseNote > m.latestCaseNote) && i ? v : m).latestCaseNote;
-  }
+    let lastKWSessionDate = null;
+    if (kwCaseNoteDates.length > 0) {
+      lastKWSessionDate = kwCaseNoteDates.reduce((m, v, i) => (v.latestCaseNote > m.latestCaseNote) && i ? v : m).latestCaseNote;
+    }
 
-  return {
-    lastVisit: lastVisit && toLastVisit(lastVisit),
-    nextVisit: nextVisit && toVisit(nextVisit),
-    assignedStaffMembers: {
-      communityOffenderManager: relationships && getFirstRelationshipByType('COM',relationships),
-    },
-    balance: balance && {
-      spends: balance.spends,
-      cash: balance.cash,
-      savings: balance.savings,
-      currency: balance.currency,
-    },
-    activities: hasAnyActivity ? activities : null,
-    positiveCaseNotes: (positiveCaseNotes && positiveCaseNotes.count) || 0,
-    negativeCaseNotes: (negativeCaseNotes && negativeCaseNotes.count) || 0,
-    offences: (offenceDetails && offenceDetails.length > 0) ? offenceDetails : null,
-    releaseDate: sentenceData ? sentenceData.releaseDate : null,
-    tariffDate: sentenceData ? sentenceData.tariffDate : null,
-    lastKeyWorkerSessionDate: lastKWSessionDate,
-    indeterminateReleaseDate: Boolean(sentenceData && sentenceData.tariffDate && !sentenceData.releaseDate),
-    adjudications: {
-      proven: (adjudications && adjudications.adjudicationCount) || 0,
-      awards: (adjudications && adjudications.awards && adjudications.awards.map(award => toAward(award))) || [],
-    },
-    nextOfKin: (contacts && contacts.nextOfKin && contacts.nextOfKin.map(contact => ({
-      firstName: contact.firstName,
-      lastName: contact.lastName,
-      middleName: contact.middleName,
-      relationship: contact.relationshipDescription,
-      contactTypeDescription: contact.contactTypeDescription,
-    }))) || [],
+    return {
+      lastVisit: lastVisit && toLastVisit(lastVisit),
+      nextVisit: nextVisit && toVisit(nextVisit),
+      assignedStaffMembers: {
+        communityOffenderManager: relationships && getFirstRelationshipByType('COM', relationships),
+      },
+      balance: balance && {
+        spends: balance.spends,
+        cash: balance.cash,
+        savings: balance.savings,
+        currency: balance.currency,
+      },
+      activities: hasAnyActivity ? activities : null,
+      positiveCaseNotes: (positiveCaseNotes && positiveCaseNotes.count) || 0,
+      negativeCaseNotes: (negativeCaseNotes && negativeCaseNotes.count) || 0,
+      offences: (offenceDetails && offenceDetails.length > 0) ? offenceDetails : null,
+      releaseDate: sentenceData ? sentenceData.releaseDate : null,
+      tariffDate: sentenceData ? sentenceData.tariffDate : null,
+      lastKeyWorkerSessionDate: lastKWSessionDate,
+      indeterminateReleaseDate: Boolean(sentenceData && sentenceData.tariffDate && !sentenceData.releaseDate),
+      adjudications: {
+        proven: (adjudications && adjudications.adjudicationCount) || 0,
+        awards: (adjudications && adjudications.awards && adjudications.awards.map(award => toAward(award))) || [],
+      },
+      nextOfKin: (contacts && contacts.nextOfKin && contacts.nextOfKin.map(contact => ({
+        firstName: contact.firstName,
+        lastName: contact.lastName,
+        middleName: contact.middleName,
+        relationship: contact.relationshipDescription,
+        contactTypeDescription: contact.contactTypeDescription,
+      }))) || [],
+    };
   };
-};
 
   return {
     getQuickLookViewModel,
