@@ -31,11 +31,9 @@ class AddCaseNotePage extends Page {
 
     form.typeValue = "Chaplaincy"
 
-    def subTypeValue = "Faith Specific Action"
+    waitFor { form.find('option', value: 'FAITH').displayed }
 
-    Thread.sleep(300)
-
-    form.subTypeValue = subTypeValue
+    form.subTypeValue = "Faith Specific Action"
 
     datePicker.click()
     days[0].click() // select 1st of this month for now

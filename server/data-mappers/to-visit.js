@@ -1,4 +1,5 @@
-const moment = require('../ZoneAwareMoment');
+const momentTimeZone = require('moment-timezone');
+
 const isoDateTimeFormat = require('../constants').isoDateTimeFormat;
 
 const visitStatusCodes = {
@@ -22,15 +23,20 @@ const toVisit = (visit) => {
   };
 };
 
-const toLastVisit = (visit) => {
-  const now = moment().format(isoDateTimeFormat);
+const calculateStatus = (visit) => {
+  const zone = 'Europe/London';
+  const now = momentTimeZone.tz(zone);
+  const startTime = momentTimeZone.tz(visit.startTime, isoDateTimeFormat, zone);
+  const endTime = momentTimeZone.tz(visit.endTime, isoDateTimeFormat, zone);
 
-  const isCancelledVisit = visit.eventStatus === visitStatusCodes.cancelled ||
-    visit.eventOutcome === visitStatusCodes.cancelledOutcome;
-
-  let status = visit.eventStatus === visitStatusCodes.cancelled
+  if (visit.eventStatus === visitStatusCodes.scheduled && now.isAfter(startTime) && now.isBefore(endTime)) {
+    return 'Ongoing';
+  }
+  return visit.eventStatus === visitStatusCodes.cancelled
     ? visit.eventStatusDescription : visit.eventOutcomeDescription;
+};
 
+const toLastVisit = (visit) => {
   if (visit.eventStatus !== visitStatusCodes.cancelled &&
     visit.eventOutcome !== visitStatusCodes.attended &&
     visit.eventOutcome !== visitStatusCodes.scheduled &&
@@ -38,10 +44,10 @@ const toLastVisit = (visit) => {
     return null;
   }
 
-  if (visit.eventStatus === visitStatusCodes.scheduled
-    && moment(visit.startTime,isoDateTimeFormat).isBefore(now) && moment(visit.endTime,isoDateTimeFormat).isAfter(now)) {
-    status = 'Ongoing';
-  }
+  const status = calculateStatus(visit);
+
+  const isCancelledVisit = visit.eventStatus === visitStatusCodes.cancelled ||
+    visit.eventOutcome === visitStatusCodes.cancelledOutcome;
 
   return {
     ...toVisit(visit),
@@ -54,4 +60,4 @@ const toLastVisit = (visit) => {
 module.exports = {
   toLastVisit,
   toVisit,
-}
+};

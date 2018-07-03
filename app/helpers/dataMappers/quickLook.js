@@ -14,6 +14,7 @@ export const Model = Map({
     eveningDuties: List([]),
   }),
   nextOfKin: List([]),
+  lastKeyWorkerSessionDate: null,
   balance: Map({
     cash: 0,
     spends: 0,

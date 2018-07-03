@@ -2,7 +2,8 @@ const sinon = require('sinon');
 const chai = require('chai'),
   expect = chai.expect;
 const sinonChai = require('sinon-chai');
-const moment = require('../server/ZoneAwareMoment');
+const moment = require('moment');
+const momentTimeZone = require('moment-timezone');
 const isoDateFormat = require('./../server/constants').isoDateFormat;
 const isoDateTimeFormat = require('./../server/constants').isoDateTimeFormat;
 
@@ -35,6 +36,7 @@ describe('Booking Service Quick look', () => {
     sandbox.stub(eliteApi, 'getRelationships');
     sandbox.stub(eliteApi, 'getDetailsLight');
     sandbox.stub(eliteApi, 'getNextVisit');
+    sandbox.stub(eliteApi, 'caseNoteUsageList');
 
     eliteApi.getBalances.returns(null);
     eliteApi.getMainOffence.returns(null);
@@ -52,6 +54,7 @@ describe('Booking Service Quick look', () => {
     eliteApi.getDetailsLight.returns({
       bookingId: 1,
     });
+    eliteApi.caseNoteUsageList.returns([]);
   });
 
   afterEach(() => sandbox.restore());
@@ -474,8 +477,9 @@ describe('Booking Service Quick look', () => {
   });
 
   it('should show a visit as ongoing when its currently in progress', async () => {
-    const fiveMinutesAgo = moment().subtract(5, 'minutes');
-    const fiveMinutesTime = moment().add(5, 'minutes');
+    const zone = 'Europe/London';
+    const fiveMinutesAgo = momentTimeZone.tz(zone).subtract(5, 'minutes');
+    const fiveMinutesTime = momentTimeZone.tz(zone).add(5,'minutes');
 
     eliteApi.getLastVisit.returns({
       eventStatus: 'SCH',
@@ -598,5 +602,28 @@ describe('Booking Service Quick look', () => {
 
     expect(data.assignedStaffMembers.communityOffenderManager.firstName).to.equal('Dom3');
     expect(data.assignedStaffMembers.communityOffenderManager.lastName).to.equal('Bull');
+  });
+
+  it('should call case note usage', async () => {
+    eliteApi.caseNoteUsageList.returns([
+      {
+        staffId: 234423,
+        caseNoteType: 'KA',
+        caseNoteSubType: 'KS',
+        numCaseNotes: 4,
+        latestCaseNote: '2018-07-02T15:03:47.337Z',
+      },
+      {
+        staffId: 234423,
+        caseNoteType: 'KA',
+        caseNoteSubType: 'KE',
+        numCaseNotes: 4,
+        latestCaseNote: '2018-07-01T12:00:00.000Z',
+      },
+    ]);
+
+    const data = await bookingService.getQuickLookViewModel(req);
+
+    expect(data.lastKeyWorkerSessionDate).equal('2018-07-02T15:03:47.337Z');
   });
 });

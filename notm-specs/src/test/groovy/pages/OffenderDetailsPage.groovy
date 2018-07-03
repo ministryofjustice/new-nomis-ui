@@ -9,6 +9,8 @@ class OffenderDetailsPage extends Page {
     title == 'Prison-NOMIS'
     addCaseNoteLink.displayed
     addAppointmentLink.displayed
+    !offenderNameHeading.empty
+    !spinner.displayed
   }
 
   static content = {
@@ -16,11 +18,10 @@ class OffenderDetailsPage extends Page {
     offenderNameHeading { $('h1').text() }
     addCaseNoteLink { $('a.button-link', 0) }
     addAppointmentLink { $('a.button-link', 1) }
+    spinner(required: false) { $('div.spinner-component')}
   }
 
   def gotoAddCaseNotes() {
-    // TODO displayed is not enough
-    sleep(200)
     addCaseNoteLink.click()
   }
 }
