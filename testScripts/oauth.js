@@ -2,26 +2,26 @@
 require('dotenv').config();
 const config = require('../server/config');
 const oauthApiFactory = require('../server/api/oauthApi');
-const { logger } = require('../server/services/logger');
-const contextProperties = require('../server/contextProperties');
+const common = require('./common');
 
-const username = process.argv[2] || 'PBELL_GEN';
-const password = process.argv[3] || 'password123456';
+const oauthApi = oauthApiFactory({...config.apis.elite2, useGateway: config.app.useApiAuthGateway});
+
+const credentials = common.usage();
 
 const context = {};
 
-const oauthApi = oauthApiFactory({ ...config.apis.elite2, useGateway: config.app.useApiAuthGateway });
-
 oauthApi
-  .authenticate(context, username, password)
+  .authenticate(context, credentials.username, credentials.password)
   .then(() => {
-    logger.info(`authenticate(${username}, *****). access token: ${contextProperties.getAccessToken(context)} refresh token: ${contextProperties.getRefreshToken(context)}`);
+    console.info(`authenticate(${credentials.username}, *****)`);
+    common.printTokens(context);
   })
   .then(() => oauthApi.refresh(context))
   .then(() => {
-    logger.info(`refresh()                   access token: ${contextProperties.getAccessToken(context)} refresh token: ${contextProperties.getRefreshToken(context)}`);
+    console.info('refresh()');
+    common.printTokens();
   })
   .catch(error => {
-    logger.error(`Caught error: Status ${error.response.status}`)
+    console.error(`Caught error: Status ${error.response.status}`)
   });
 
