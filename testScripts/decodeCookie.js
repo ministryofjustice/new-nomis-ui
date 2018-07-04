@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /**
  * Decode an hmpps cookie value on stdin
  *
