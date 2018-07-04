@@ -4,10 +4,9 @@ import { FormattedDate, FormattedTime } from 'components/intl';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v4';
 
-import { properCaseName } from 'utils/stringUtils';
+import { properCaseName, toFullName } from 'utils/stringUtils';
 import DisplayValue from 'components/FormComponents/DisplayValue';
 import { Link } from 'react-router';
-import { toFullName } from 'utils/stringUtils';
 import EliteOfficerName from 'containers/EliteContainers/OfficerName';
 
 import { Model as quickLookModel } from 'helpers/dataMappers/quickLook';

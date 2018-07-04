@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { toFullName } from 'utils/stringUtils';
+import { toFullName, properCase } from 'utils/stringUtils';
 import { Link } from 'react-router';
-import { properCase } from 'utils/stringUtils';
 import { connect } from 'react-redux';
 import qs from 'querystring';
 import { DETAILS_TABS } from 'containers/Bookings/constants';

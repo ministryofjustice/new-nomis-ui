@@ -125,5 +125,50 @@
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
+
+  .inline-header {
+    display: inline-block;
+  }
+
+  %statusStyle {
+    border: 3px solid green;
+    padding: .3em 1em .2em 1em;
+    font-size: 16px;
+    text-align: center;
+    display: inline-block;
+    min-width: 7em;
+  }
+
+  .acctStatus {
+    @extend %statusStyle;
+    color: #F47738;
+    border-color: #F47738;
+    margin-left: 15px;
+  }
+
+  .assaultStatus {
+    @extend %statusStyle;
+    color: #4C2C92;
+    border-color: #4C2C92;
+    margin-left: 5px;
+  }
+
+  .disabilityStatus {
+    @extend %statusStyle;
+    color: #2B88C8;
+    border-color: #2B88C8;
+    margin-left: 5px;
+  }
+
+  .arsonistStatus {
+    @extend %statusStyle;
+    color: #DF3034;
+    border-color: #DF3034;
+    margin-left: 5px;
+  }
+
+  .flag-icons {
+    margin-bottom: 4px;
+  }
 }
 
