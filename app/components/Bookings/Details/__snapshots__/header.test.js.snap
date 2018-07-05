@@ -12,7 +12,7 @@ ShallowWrapper {
     className="middle-section"
   >
     <div
-      className="col-xs-4 col-sm-3"
+      className="col-xs-4 col-sm-3 visible-large"
     >
       <div
         className="row"
@@ -47,6 +47,44 @@ ShallowWrapper {
       >
         <div
           className="col"
+        >
+          <label>
+            Category
+          </label>
+          <strong>
+            D
+          </strong>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-xs-12 visible-small"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-xs-4 d-inline-block"
+        >
+          <label>
+            IEP
+          </label>
+          <strong>
+            Standard
+          </strong>
+        </div>
+        <div
+          className="col-xs-4 d-inline-block"
+        >
+          <label>
+            CSRA
+          </label>
+          <strong>
+            Medium
+          </strong>
+        </div>
+        <div
+          className="col-xs-4 d-inline-block"
         >
           <label>
             Category
@@ -140,7 +178,7 @@ ShallowWrapper {
       </div>
     </div>
     <div
-      className="col-xs-6 col-sm-3"
+      className="col-xs-12 col-sm-3"
     >
       <div>
         <Link
@@ -171,7 +209,7 @@ ShallowWrapper {
       className="middle-section"
     >
       <div
-        className="col-xs-4 col-sm-3"
+        className="col-xs-4 col-sm-3 visible-large"
       >
         <div
           className="row"
@@ -206,6 +244,44 @@ ShallowWrapper {
         >
           <div
             className="col"
+          >
+            <label>
+              Category
+            </label>
+            <strong>
+              D
+            </strong>
+          </div>
+        </div>
+      </div>
+      <div
+        className="col-xs-12 visible-small"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className="col-xs-4 d-inline-block"
+          >
+            <label>
+              IEP
+            </label>
+            <strong>
+              Standard
+            </strong>
+          </div>
+          <div
+            className="col-xs-4 d-inline-block"
+          >
+            <label>
+              CSRA
+            </label>
+            <strong>
+              Medium
+            </strong>
+          </div>
+          <div
+            className="col-xs-4 d-inline-block"
           >
             <label>
               Category
@@ -299,7 +375,7 @@ ShallowWrapper {
         </div>
       </div>
       <div
-        className="col-xs-6 col-sm-3"
+        className="col-xs-12 col-sm-3"
       >
         <div>
           <Link
@@ -440,7 +516,7 @@ ShallowWrapper {
           className="middle-section"
         >
           <div
-            className="col-xs-4 col-sm-3"
+            className="col-xs-4 col-sm-3 visible-large"
           >
             <div
               className="row"
@@ -475,6 +551,44 @@ ShallowWrapper {
             >
               <div
                 className="col"
+              >
+                <label>
+                  Category
+                </label>
+                <strong>
+                  D
+                </strong>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-xs-12 visible-small"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-xs-4 d-inline-block"
+              >
+                <label>
+                  IEP
+                </label>
+                <strong>
+                  Standard
+                </strong>
+              </div>
+              <div
+                className="col-xs-4 d-inline-block"
+              >
+                <label>
+                  CSRA
+                </label>
+                <strong>
+                  Medium
+                </strong>
+              </div>
+              <div
+                className="col-xs-4 d-inline-block"
               >
                 <label>
                   Category
@@ -568,7 +682,7 @@ ShallowWrapper {
             </div>
           </div>
           <div
-            className="col-xs-6 col-sm-3"
+            className="col-xs-12 col-sm-3"
           >
             <div>
               <Link
@@ -599,7 +713,7 @@ ShallowWrapper {
           className="middle-section"
         >
           <div
-            className="col-xs-4 col-sm-3"
+            className="col-xs-4 col-sm-3 visible-large"
           >
             <div
               className="row"
@@ -634,6 +748,44 @@ ShallowWrapper {
             >
               <div
                 className="col"
+              >
+                <label>
+                  Category
+                </label>
+                <strong>
+                  D
+                </strong>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-xs-12 visible-small"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-xs-4 d-inline-block"
+              >
+                <label>
+                  IEP
+                </label>
+                <strong>
+                  Standard
+                </strong>
+              </div>
+              <div
+                className="col-xs-4 d-inline-block"
+              >
+                <label>
+                  CSRA
+                </label>
+                <strong>
+                  Medium
+                </strong>
+              </div>
+              <div
+                className="col-xs-4 d-inline-block"
               >
                 <label>
                   Category
@@ -727,7 +879,7 @@ ShallowWrapper {
             </div>
           </div>
           <div
-            className="col-xs-6 col-sm-3"
+            className="col-xs-12 col-sm-3"
           >
             <div>
               <Link
@@ -819,7 +971,7 @@ ShallowWrapper {
     className="middle-section"
   >
     <div
-      className="col-xs-4 col-sm-3"
+      className="col-xs-4 col-sm-3 visible-large"
     >
       <div
         className="row"
@@ -854,6 +1006,44 @@ ShallowWrapper {
       >
         <div
           className="col"
+        >
+          <label>
+            Category
+          </label>
+          <strong>
+            D
+          </strong>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-xs-12 visible-small"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-xs-4 d-inline-block"
+        >
+          <label>
+            IEP
+          </label>
+          <strong>
+            Standard
+          </strong>
+        </div>
+        <div
+          className="col-xs-4 d-inline-block"
+        >
+          <label>
+            CSRA
+          </label>
+          <strong>
+            Medium
+          </strong>
+        </div>
+        <div
+          className="col-xs-4 d-inline-block"
         >
           <label>
             Category
@@ -947,7 +1137,7 @@ ShallowWrapper {
       </div>
     </div>
     <div
-      className="col-xs-6 col-sm-3"
+      className="col-xs-12 col-sm-3"
     >
       <div>
         <Link
@@ -978,7 +1168,7 @@ ShallowWrapper {
       className="middle-section"
     >
       <div
-        className="col-xs-4 col-sm-3"
+        className="col-xs-4 col-sm-3 visible-large"
       >
         <div
           className="row"
@@ -1013,6 +1203,44 @@ ShallowWrapper {
         >
           <div
             className="col"
+          >
+            <label>
+              Category
+            </label>
+            <strong>
+              D
+            </strong>
+          </div>
+        </div>
+      </div>
+      <div
+        className="col-xs-12 visible-small"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className="col-xs-4 d-inline-block"
+          >
+            <label>
+              IEP
+            </label>
+            <strong>
+              Standard
+            </strong>
+          </div>
+          <div
+            className="col-xs-4 d-inline-block"
+          >
+            <label>
+              CSRA
+            </label>
+            <strong>
+              Medium
+            </strong>
+          </div>
+          <div
+            className="col-xs-4 d-inline-block"
           >
             <label>
               Category
@@ -1106,7 +1334,7 @@ ShallowWrapper {
         </div>
       </div>
       <div
-        className="col-xs-6 col-sm-3"
+        className="col-xs-12 col-sm-3"
       >
         <div>
           <Link
@@ -1247,7 +1475,7 @@ ShallowWrapper {
           className="middle-section"
         >
           <div
-            className="col-xs-4 col-sm-3"
+            className="col-xs-4 col-sm-3 visible-large"
           >
             <div
               className="row"
@@ -1282,6 +1510,44 @@ ShallowWrapper {
             >
               <div
                 className="col"
+              >
+                <label>
+                  Category
+                </label>
+                <strong>
+                  D
+                </strong>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-xs-12 visible-small"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-xs-4 d-inline-block"
+              >
+                <label>
+                  IEP
+                </label>
+                <strong>
+                  Standard
+                </strong>
+              </div>
+              <div
+                className="col-xs-4 d-inline-block"
+              >
+                <label>
+                  CSRA
+                </label>
+                <strong>
+                  Medium
+                </strong>
+              </div>
+              <div
+                className="col-xs-4 d-inline-block"
               >
                 <label>
                   Category
@@ -1375,7 +1641,7 @@ ShallowWrapper {
             </div>
           </div>
           <div
-            className="col-xs-6 col-sm-3"
+            className="col-xs-12 col-sm-3"
           >
             <div>
               <Link
@@ -1406,7 +1672,7 @@ ShallowWrapper {
           className="middle-section"
         >
           <div
-            className="col-xs-4 col-sm-3"
+            className="col-xs-4 col-sm-3 visible-large"
           >
             <div
               className="row"
@@ -1441,6 +1707,44 @@ ShallowWrapper {
             >
               <div
                 className="col"
+              >
+                <label>
+                  Category
+                </label>
+                <strong>
+                  D
+                </strong>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-xs-12 visible-small"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-xs-4 d-inline-block"
+              >
+                <label>
+                  IEP
+                </label>
+                <strong>
+                  Standard
+                </strong>
+              </div>
+              <div
+                className="col-xs-4 d-inline-block"
+              >
+                <label>
+                  CSRA
+                </label>
+                <strong>
+                  Medium
+                </strong>
+              </div>
+              <div
+                className="col-xs-4 d-inline-block"
               >
                 <label>
                   Category
@@ -1534,7 +1838,7 @@ ShallowWrapper {
             </div>
           </div>
           <div
-            className="col-xs-6 col-sm-3"
+            className="col-xs-12 col-sm-3"
           >
             <div>
               <Link
@@ -1626,6 +1930,47 @@ ShallowWrapper {
     className="header-details"
   >
     <div
+      className="row visible-small"
+    >
+      <div
+        className="col-sm-12"
+      >
+        <span
+          className="acct-status"
+        >
+          ACCT OPEN
+        </span>
+        <span
+          className="assault-status"
+        >
+          STAFF ASSAULTER
+        </span>
+        <span
+          className="arsonist-status"
+        >
+          <img
+            alt=""
+            className="flag-arsonist-icon"
+            height="16"
+            src="/img/Arsonist_icon.png"
+            width="13"
+          />
+           ARSONIST
+        </span>
+        <span
+          className="disability-status"
+        >
+          <img
+            alt=""
+            height="21"
+            src="/img/Disability_icon.png"
+            width="19"
+          />
+           DISABILITY
+        </span>
+      </div>
+    </div>
+    <div
       className="row"
     >
       <div
@@ -1654,40 +1999,43 @@ ShallowWrapper {
             >
               Last, First
             </h1>
-            <span
-              className="acct-status"
+            <div
+              className="inline-header-large"
             >
-              ACCT OPEN
-            </span>
-            <span
-              className="assault-status"
-            >
-              STAFF ASSAULTER
-            </span>
-            <span
-              className="arsonist-status"
-            >
-              <img
-                alt=""
-                className="flag-icons"
-                height="16"
-                src="/img/Arsonist_icon.png"
-                width="13"
-              />
-               ARSONIST
-            </span>
-            <span
-              className="disability-status"
-            >
-              <img
-                alt=""
-                className="flag-icons"
-                height="21"
-                src="/img/Disability_icon.png"
-                width="19"
-              />
-               DISABILITY
-            </span>
+              <span
+                className="acct-status"
+              >
+                ACCT OPEN
+              </span>
+              <span
+                className="assault-status"
+              >
+                STAFF ASSAULTER
+              </span>
+              <span
+                className="arsonist-status"
+              >
+                <img
+                  alt=""
+                  className="flag-arsonist-icon"
+                  height="16"
+                  src="/img/Arsonist_icon.png"
+                  width="13"
+                />
+                 ARSONIST
+              </span>
+              <span
+                className="disability-status"
+              >
+                <img
+                  alt=""
+                  height="21"
+                  src="/img/Disability_icon.png"
+                  width="19"
+                />
+                 DISABILITY
+              </span>
+            </div>
           </div>
         </div>
         <div
@@ -1773,53 +2121,53 @@ ShallowWrapper {
           </div>
         </div>
       </div>
+    </div>
+    <div
+      className="row"
+    >
       <div
-        className="row"
+        className="visible-small"
       >
-        <div
-          className="visible-small"
-        >
-          <MiddleSection
-            inmateData={
-              Immutable.Map {
-                "lastName": "Last",
-                "subscribe": [Function],
-                "facialImageId": -11,
-                "iepLevel": "Standard",
-                "alerts": Array [
-                  Immutable.Map {
-                    "alertCode": "HA",
-                  },
-                  Immutable.Map {
-                    "alertCode": "SA",
-                  },
-                  Immutable.Map {
-                    "alertCode": "XA",
-                  },
-                  Immutable.Map {
-                    "alertCode": "PEEP",
-                  },
-                ],
-                "activeAlertCount": 9,
-                "dispatch": [Function],
-                "offenderNo": "A1234RT",
-                "assignedLivingUnit": Immutable.Map {
-                  "description": "H-1-001",
-                  "agencyName": "HLI",
+        <MiddleSection
+          inmateData={
+            Immutable.Map {
+              "lastName": "Last",
+              "subscribe": [Function],
+              "facialImageId": -11,
+              "iepLevel": "Standard",
+              "alerts": Array [
+                Immutable.Map {
+                  "alertCode": "HA",
                 },
-                "firstName": "First",
-                "getState": [Function],
-                "keyworker": Immutable.Map {
-                  "staffId": -6,
+                Immutable.Map {
+                  "alertCode": "SA",
                 },
-                "category": "Cat D",
-                "inactiveAlertCount": 8,
-                "csra": "Medium",
-              }
+                Immutable.Map {
+                  "alertCode": "XA",
+                },
+                Immutable.Map {
+                  "alertCode": "PEEP",
+                },
+              ],
+              "activeAlertCount": 9,
+              "dispatch": [Function],
+              "offenderNo": "A1234RT",
+              "assignedLivingUnit": Immutable.Map {
+                "description": "H-1-001",
+                "agencyName": "HLI",
+              },
+              "firstName": "First",
+              "getState": [Function],
+              "keyworker": Immutable.Map {
+                "staffId": -6,
+              },
+              "category": "Cat D",
+              "inactiveAlertCount": 8,
+              "csra": "Medium",
             }
-            offenderNo="A1234RT"
-          />
-        </div>
+          }
+          offenderNo="A1234RT"
+        />
       </div>
     </div>
   </div>,
@@ -1827,6 +2175,47 @@ ShallowWrapper {
     <div
       className="header-details"
     >
+      <div
+        className="row visible-small"
+      >
+        <div
+          className="col-sm-12"
+        >
+          <span
+            className="acct-status"
+          >
+            ACCT OPEN
+          </span>
+          <span
+            className="assault-status"
+          >
+            STAFF ASSAULTER
+          </span>
+          <span
+            className="arsonist-status"
+          >
+            <img
+              alt=""
+              className="flag-arsonist-icon"
+              height="16"
+              src="/img/Arsonist_icon.png"
+              width="13"
+            />
+             ARSONIST
+          </span>
+          <span
+            className="disability-status"
+          >
+            <img
+              alt=""
+              height="21"
+              src="/img/Disability_icon.png"
+              width="19"
+            />
+             DISABILITY
+          </span>
+        </div>
+      </div>
       <div
         className="row"
       >
@@ -1856,40 +2245,43 @@ ShallowWrapper {
               >
                 Last, First
               </h1>
-              <span
-                className="acct-status"
+              <div
+                className="inline-header-large"
               >
-                ACCT OPEN
-              </span>
-              <span
-                className="assault-status"
-              >
-                STAFF ASSAULTER
-              </span>
-              <span
-                className="arsonist-status"
-              >
-                <img
-                  alt=""
-                  className="flag-icons"
-                  height="16"
-                  src="/img/Arsonist_icon.png"
-                  width="13"
-                />
-                 ARSONIST
-              </span>
-              <span
-                className="disability-status"
-              >
-                <img
-                  alt=""
-                  className="flag-icons"
-                  height="21"
-                  src="/img/Disability_icon.png"
-                  width="19"
-                />
-                 DISABILITY
-              </span>
+                <span
+                  className="acct-status"
+                >
+                  ACCT OPEN
+                </span>
+                <span
+                  className="assault-status"
+                >
+                  STAFF ASSAULTER
+                </span>
+                <span
+                  className="arsonist-status"
+                >
+                  <img
+                    alt=""
+                    className="flag-arsonist-icon"
+                    height="16"
+                    src="/img/Arsonist_icon.png"
+                    width="13"
+                  />
+                   ARSONIST
+                </span>
+                <span
+                  className="disability-status"
+                >
+                  <img
+                    alt=""
+                    height="21"
+                    src="/img/Disability_icon.png"
+                    width="19"
+                  />
+                   DISABILITY
+                </span>
+              </div>
             </div>
           </div>
           <div
@@ -1975,53 +2367,53 @@ ShallowWrapper {
             </div>
           </div>
         </div>
+      </div>
+      <div
+        className="row"
+      >
         <div
-          className="row"
+          className="visible-small"
         >
-          <div
-            className="visible-small"
-          >
-            <MiddleSection
-              inmateData={
-                Immutable.Map {
-                  "lastName": "Last",
-                  "subscribe": [Function],
-                  "facialImageId": -11,
-                  "iepLevel": "Standard",
-                  "alerts": Array [
-                    Immutable.Map {
-                      "alertCode": "HA",
-                    },
-                    Immutable.Map {
-                      "alertCode": "SA",
-                    },
-                    Immutable.Map {
-                      "alertCode": "XA",
-                    },
-                    Immutable.Map {
-                      "alertCode": "PEEP",
-                    },
-                  ],
-                  "activeAlertCount": 9,
-                  "dispatch": [Function],
-                  "offenderNo": "A1234RT",
-                  "assignedLivingUnit": Immutable.Map {
-                    "description": "H-1-001",
-                    "agencyName": "HLI",
+          <MiddleSection
+            inmateData={
+              Immutable.Map {
+                "lastName": "Last",
+                "subscribe": [Function],
+                "facialImageId": -11,
+                "iepLevel": "Standard",
+                "alerts": Array [
+                  Immutable.Map {
+                    "alertCode": "HA",
                   },
-                  "firstName": "First",
-                  "getState": [Function],
-                  "keyworker": Immutable.Map {
-                    "staffId": -6,
+                  Immutable.Map {
+                    "alertCode": "SA",
                   },
-                  "category": "Cat D",
-                  "inactiveAlertCount": 8,
-                  "csra": "Medium",
-                }
+                  Immutable.Map {
+                    "alertCode": "XA",
+                  },
+                  Immutable.Map {
+                    "alertCode": "PEEP",
+                  },
+                ],
+                "activeAlertCount": 9,
+                "dispatch": [Function],
+                "offenderNo": "A1234RT",
+                "assignedLivingUnit": Immutable.Map {
+                  "description": "H-1-001",
+                  "agencyName": "HLI",
+                },
+                "firstName": "First",
+                "getState": [Function],
+                "keyworker": Immutable.Map {
+                  "staffId": -6,
+                },
+                "category": "Cat D",
+                "inactiveAlertCount": 8,
+                "csra": "Medium",
               }
-              offenderNo="A1234RT"
-            />
-          </div>
+            }
+            offenderNo="A1234RT"
+          />
         </div>
       </div>
     </div>,
@@ -2142,207 +2534,46 @@ ShallowWrapper {
           className="header-details"
         >
           <div
-            className="row"
+            className="row visible-small"
           >
             <div
-              className="col-md-2 col-xs-3 no-left-gutter no-right-gutter"
+              className="col-sm-12"
             >
-              <div
-                className="photo clickable"
-                onClick={[Function]}
+              <span
+                className="acct-status"
               >
-                <EliteImage
-                  src="/app/images/-11/data"
+                ACCT OPEN
+              </span>
+              <span
+                className="assault-status"
+              >
+                STAFF ASSAULTER
+              </span>
+              <span
+                className="arsonist-status"
+              >
+                <img
+                  alt=""
+                  className="flag-arsonist-icon"
+                  height="16"
+                  src="/img/Arsonist_icon.png"
+                  width="13"
                 />
-              </div>
-            </div>
-            <div
-              className="col-xs-9 col-sm-9 col-md-10 col-lg-10 no-left-gutter no-right-gutter add-gutter-bottom-mobile"
-            >
-              <div
-                className="row"
+                 ARSONIST
+              </span>
+              <span
+                className="disability-status"
               >
-                <div
-                  className="col-md-12"
-                >
-                  <h1
-                    className="heading-medium inline-header"
-                  >
-                    Last, First
-                  </h1>
-                  <span
-                    className="acct-status"
-                  >
-                    ACCT OPEN
-                  </span>
-                  <span
-                    className="assault-status"
-                  >
-                    STAFF ASSAULTER
-                  </span>
-                  <span
-                    className="arsonist-status"
-                  >
-                    <img
-                      alt=""
-                      className="flag-icons"
-                      height="16"
-                      src="/img/Arsonist_icon.png"
-                      width="13"
-                    />
-                     ARSONIST
-                  </span>
-                  <span
-                    className="disability-status"
-                  >
-                    <img
-                      alt=""
-                      className="flag-icons"
-                      height="21"
-                      src="/img/Disability_icon.png"
-                      width="19"
-                    />
-                     DISABILITY
-                  </span>
-                </div>
-              </div>
-              <div
-                className="row"
-              >
-                <div
-                  className="col-md-3 col-sm-3 col-xs-12"
-                >
-                  <div
-                    className="row"
-                  >
-                    <div
-                      className="col"
-                    >
-                      <label>
-                        Prison number
-                      </label>
-                      <strong>
-                        A1234RT
-                      </strong>
-                    </div>
-                  </div>
-                  <div
-                    className="row"
-                  >
-                    <div
-                      className="col"
-                    >
-                      <label>
-                        Key worker
-                      </label>
-                      <strong>
-                        <Connect(EliteOfficerName)
-                          staffId={-6}
-                        />
-                      </strong>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="visible-large"
-                >
-                  <MiddleSection
-                    inmateData={
-                      Immutable.Map {
-                        "lastName": "Last",
-                        "subscribe": [Function],
-                        "facialImageId": -11,
-                        "iepLevel": "Standard",
-                        "alerts": Array [
-                          Immutable.Map {
-                            "alertCode": "HA",
-                          },
-                          Immutable.Map {
-                            "alertCode": "SA",
-                          },
-                          Immutable.Map {
-                            "alertCode": "XA",
-                          },
-                          Immutable.Map {
-                            "alertCode": "PEEP",
-                          },
-                        ],
-                        "activeAlertCount": 9,
-                        "dispatch": [Function],
-                        "offenderNo": "A1234RT",
-                        "assignedLivingUnit": Immutable.Map {
-                          "description": "H-1-001",
-                          "agencyName": "HLI",
-                        },
-                        "firstName": "First",
-                        "getState": [Function],
-                        "keyworker": Immutable.Map {
-                          "staffId": -6,
-                        },
-                        "category": "Cat D",
-                        "inactiveAlertCount": 8,
-                        "csra": "Medium",
-                      }
-                    }
-                    offenderNo="A1234RT"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              className="row"
-            >
-              <div
-                className="visible-small"
-              >
-                <MiddleSection
-                  inmateData={
-                    Immutable.Map {
-                      "lastName": "Last",
-                      "subscribe": [Function],
-                      "facialImageId": -11,
-                      "iepLevel": "Standard",
-                      "alerts": Array [
-                        Immutable.Map {
-                          "alertCode": "HA",
-                        },
-                        Immutable.Map {
-                          "alertCode": "SA",
-                        },
-                        Immutable.Map {
-                          "alertCode": "XA",
-                        },
-                        Immutable.Map {
-                          "alertCode": "PEEP",
-                        },
-                      ],
-                      "activeAlertCount": 9,
-                      "dispatch": [Function],
-                      "offenderNo": "A1234RT",
-                      "assignedLivingUnit": Immutable.Map {
-                        "description": "H-1-001",
-                        "agencyName": "HLI",
-                      },
-                      "firstName": "First",
-                      "getState": [Function],
-                      "keyworker": Immutable.Map {
-                        "staffId": -6,
-                      },
-                      "category": "Cat D",
-                      "inactiveAlertCount": 8,
-                      "csra": "Medium",
-                    }
-                  }
-                  offenderNo="A1234RT"
+                <img
+                  alt=""
+                  height="21"
+                  src="/img/Disability_icon.png"
+                  width="19"
                 />
-              </div>
+                 DISABILITY
+              </span>
             </div>
           </div>
-        </div>,
-        "_debugID": 2,
-        "_renderedOutput": <div
-          className="header-details"
-        >
           <div
             className="row"
           >
@@ -2372,40 +2603,43 @@ ShallowWrapper {
                   >
                     Last, First
                   </h1>
-                  <span
-                    className="acct-status"
+                  <div
+                    className="inline-header-large"
                   >
-                    ACCT OPEN
-                  </span>
-                  <span
-                    className="assault-status"
-                  >
-                    STAFF ASSAULTER
-                  </span>
-                  <span
-                    className="arsonist-status"
-                  >
-                    <img
-                      alt=""
-                      className="flag-icons"
-                      height="16"
-                      src="/img/Arsonist_icon.png"
-                      width="13"
-                    />
-                     ARSONIST
-                  </span>
-                  <span
-                    className="disability-status"
-                  >
-                    <img
-                      alt=""
-                      className="flag-icons"
-                      height="21"
-                      src="/img/Disability_icon.png"
-                      width="19"
-                    />
-                     DISABILITY
-                  </span>
+                    <span
+                      className="acct-status"
+                    >
+                      ACCT OPEN
+                    </span>
+                    <span
+                      className="assault-status"
+                    >
+                      STAFF ASSAULTER
+                    </span>
+                    <span
+                      className="arsonist-status"
+                    >
+                      <img
+                        alt=""
+                        className="flag-arsonist-icon"
+                        height="16"
+                        src="/img/Arsonist_icon.png"
+                        width="13"
+                      />
+                       ARSONIST
+                    </span>
+                    <span
+                      className="disability-status"
+                    >
+                      <img
+                        alt=""
+                        height="21"
+                        src="/img/Disability_icon.png"
+                        width="19"
+                      />
+                       DISABILITY
+                    </span>
+                  </div>
                 </div>
               </div>
               <div
@@ -2491,53 +2725,299 @@ ShallowWrapper {
                 </div>
               </div>
             </div>
+          </div>
+          <div
+            className="row"
+          >
             <div
-              className="row"
+              className="visible-small"
+            >
+              <MiddleSection
+                inmateData={
+                  Immutable.Map {
+                    "lastName": "Last",
+                    "subscribe": [Function],
+                    "facialImageId": -11,
+                    "iepLevel": "Standard",
+                    "alerts": Array [
+                      Immutable.Map {
+                        "alertCode": "HA",
+                      },
+                      Immutable.Map {
+                        "alertCode": "SA",
+                      },
+                      Immutable.Map {
+                        "alertCode": "XA",
+                      },
+                      Immutable.Map {
+                        "alertCode": "PEEP",
+                      },
+                    ],
+                    "activeAlertCount": 9,
+                    "dispatch": [Function],
+                    "offenderNo": "A1234RT",
+                    "assignedLivingUnit": Immutable.Map {
+                      "description": "H-1-001",
+                      "agencyName": "HLI",
+                    },
+                    "firstName": "First",
+                    "getState": [Function],
+                    "keyworker": Immutable.Map {
+                      "staffId": -6,
+                    },
+                    "category": "Cat D",
+                    "inactiveAlertCount": 8,
+                    "csra": "Medium",
+                  }
+                }
+                offenderNo="A1234RT"
+              />
+            </div>
+          </div>
+        </div>,
+        "_debugID": 2,
+        "_renderedOutput": <div
+          className="header-details"
+        >
+          <div
+            className="row visible-small"
+          >
+            <div
+              className="col-sm-12"
+            >
+              <span
+                className="acct-status"
+              >
+                ACCT OPEN
+              </span>
+              <span
+                className="assault-status"
+              >
+                STAFF ASSAULTER
+              </span>
+              <span
+                className="arsonist-status"
+              >
+                <img
+                  alt=""
+                  className="flag-arsonist-icon"
+                  height="16"
+                  src="/img/Arsonist_icon.png"
+                  width="13"
+                />
+                 ARSONIST
+              </span>
+              <span
+                className="disability-status"
+              >
+                <img
+                  alt=""
+                  height="21"
+                  src="/img/Disability_icon.png"
+                  width="19"
+                />
+                 DISABILITY
+              </span>
+            </div>
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col-md-2 col-xs-3 no-left-gutter no-right-gutter"
             >
               <div
-                className="visible-small"
+                className="photo clickable"
+                onClick={[Function]}
               >
-                <MiddleSection
-                  inmateData={
-                    Immutable.Map {
-                      "lastName": "Last",
-                      "subscribe": [Function],
-                      "facialImageId": -11,
-                      "iepLevel": "Standard",
-                      "alerts": Array [
-                        Immutable.Map {
-                          "alertCode": "HA",
-                        },
-                        Immutable.Map {
-                          "alertCode": "SA",
-                        },
-                        Immutable.Map {
-                          "alertCode": "XA",
-                        },
-                        Immutable.Map {
-                          "alertCode": "PEEP",
-                        },
-                      ],
-                      "activeAlertCount": 9,
-                      "dispatch": [Function],
-                      "offenderNo": "A1234RT",
-                      "assignedLivingUnit": Immutable.Map {
-                        "description": "H-1-001",
-                        "agencyName": "HLI",
-                      },
-                      "firstName": "First",
-                      "getState": [Function],
-                      "keyworker": Immutable.Map {
-                        "staffId": -6,
-                      },
-                      "category": "Cat D",
-                      "inactiveAlertCount": 8,
-                      "csra": "Medium",
-                    }
-                  }
-                  offenderNo="A1234RT"
+                <EliteImage
+                  src="/app/images/-11/data"
                 />
               </div>
+            </div>
+            <div
+              className="col-xs-9 col-sm-9 col-md-10 col-lg-10 no-left-gutter no-right-gutter add-gutter-bottom-mobile"
+            >
+              <div
+                className="row"
+              >
+                <div
+                  className="col-md-12"
+                >
+                  <h1
+                    className="heading-medium inline-header"
+                  >
+                    Last, First
+                  </h1>
+                  <div
+                    className="inline-header-large"
+                  >
+                    <span
+                      className="acct-status"
+                    >
+                      ACCT OPEN
+                    </span>
+                    <span
+                      className="assault-status"
+                    >
+                      STAFF ASSAULTER
+                    </span>
+                    <span
+                      className="arsonist-status"
+                    >
+                      <img
+                        alt=""
+                        className="flag-arsonist-icon"
+                        height="16"
+                        src="/img/Arsonist_icon.png"
+                        width="13"
+                      />
+                       ARSONIST
+                    </span>
+                    <span
+                      className="disability-status"
+                    >
+                      <img
+                        alt=""
+                        height="21"
+                        src="/img/Disability_icon.png"
+                        width="19"
+                      />
+                       DISABILITY
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="row"
+              >
+                <div
+                  className="col-md-3 col-sm-3 col-xs-12"
+                >
+                  <div
+                    className="row"
+                  >
+                    <div
+                      className="col"
+                    >
+                      <label>
+                        Prison number
+                      </label>
+                      <strong>
+                        A1234RT
+                      </strong>
+                    </div>
+                  </div>
+                  <div
+                    className="row"
+                  >
+                    <div
+                      className="col"
+                    >
+                      <label>
+                        Key worker
+                      </label>
+                      <strong>
+                        <Connect(EliteOfficerName)
+                          staffId={-6}
+                        />
+                      </strong>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="visible-large"
+                >
+                  <MiddleSection
+                    inmateData={
+                      Immutable.Map {
+                        "lastName": "Last",
+                        "subscribe": [Function],
+                        "facialImageId": -11,
+                        "iepLevel": "Standard",
+                        "alerts": Array [
+                          Immutable.Map {
+                            "alertCode": "HA",
+                          },
+                          Immutable.Map {
+                            "alertCode": "SA",
+                          },
+                          Immutable.Map {
+                            "alertCode": "XA",
+                          },
+                          Immutable.Map {
+                            "alertCode": "PEEP",
+                          },
+                        ],
+                        "activeAlertCount": 9,
+                        "dispatch": [Function],
+                        "offenderNo": "A1234RT",
+                        "assignedLivingUnit": Immutable.Map {
+                          "description": "H-1-001",
+                          "agencyName": "HLI",
+                        },
+                        "firstName": "First",
+                        "getState": [Function],
+                        "keyworker": Immutable.Map {
+                          "staffId": -6,
+                        },
+                        "category": "Cat D",
+                        "inactiveAlertCount": 8,
+                        "csra": "Medium",
+                      }
+                    }
+                    offenderNo="A1234RT"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="visible-small"
+            >
+              <MiddleSection
+                inmateData={
+                  Immutable.Map {
+                    "lastName": "Last",
+                    "subscribe": [Function],
+                    "facialImageId": -11,
+                    "iepLevel": "Standard",
+                    "alerts": Array [
+                      Immutable.Map {
+                        "alertCode": "HA",
+                      },
+                      Immutable.Map {
+                        "alertCode": "SA",
+                      },
+                      Immutable.Map {
+                        "alertCode": "XA",
+                      },
+                      Immutable.Map {
+                        "alertCode": "PEEP",
+                      },
+                    ],
+                    "activeAlertCount": 9,
+                    "dispatch": [Function],
+                    "offenderNo": "A1234RT",
+                    "assignedLivingUnit": Immutable.Map {
+                      "description": "H-1-001",
+                      "agencyName": "HLI",
+                    },
+                    "firstName": "First",
+                    "getState": [Function],
+                    "keyworker": Immutable.Map {
+                      "staffId": -6,
+                    },
+                    "category": "Cat D",
+                    "inactiveAlertCount": 8,
+                    "csra": "Medium",
+                  }
+                }
+                offenderNo="A1234RT"
+              />
             </div>
           </div>
         </div>,

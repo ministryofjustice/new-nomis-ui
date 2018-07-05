@@ -41,7 +41,7 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
   }
   return (
     <div className="middle-section">
-      <div className="col-xs-4 col-sm-3">
+      <div className="col-xs-4 col-sm-3 visible-large">
         <div className="row">
           <div className="col">
             <label>IEP</label>
@@ -63,11 +63,28 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
           </div>
         </div>}
       </div>
+      <div className="col-xs-12 visible-small">
+        <div className="row">
+          <div className="col-xs-4 d-inline-block">
+            <label>IEP</label>
+            <strong>{inmateData.get('iepLevel') || '--'}</strong>
+          </div>
+
+          <div className="col-xs-4 d-inline-block">
+            <label>CSRA</label>
+            <strong>{inmateData.get('csra') || '--'}</strong>
+          </div>
+
+          {cat && <div className="col-xs-4 d-inline-block">
+            <label>Category</label>
+            <strong>{cat}</strong>
+          </div>}
+        </div>
+      </div>
 
       <div className="visible-large">
         <div className="col-xs-6 col-sm-3">
           <div className="row">
-
             <div className="col">
               <label>Alerts</label>
               <Alerts activeAlertCount={inmateData.get('activeAlertCount')} inactiveAlertCount={inmateData.get('inactiveAlertCount')} />
@@ -90,7 +107,6 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
               <Alerts activeAlertCount={inmateData.get('activeAlertCount')} inactiveAlertCount={inmateData.get('inactiveAlertCount')} />
             </div>
           </div>
-
         </div>
 
         <div className="col-xs-4">
@@ -101,7 +117,7 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
           </div>
         </div>
       </div>
-      <div className="col-xs-6 col-sm-3">
+      <div className="col-xs-12 col-sm-3">
         <div>
           <Link className="button-link" to={`/offenders/${offenderNo}/addCaseNote`}>Add case note</Link>
         </div>
@@ -114,12 +130,12 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
 
 function Header({ inmateData, onImageClick, offenderNo }) {
   const nameString = toFullName({ firstName: inmateData.get('firstName'), lastName: inmateData.get('lastName') });
+
   const alerts = inmateData.get('alerts');
   let acct = false;
   let assaulter = false;
   let disability = false;
   let arsonist = false;
-
   alerts && alerts.forEach(a => {
     switch (a.get('alertCode')) {
       case 'HA': acct = true; break;
@@ -130,69 +146,71 @@ function Header({ inmateData, onImageClick, offenderNo }) {
     }
   });
 
-  const nameAndFlags = (<div className="row">
-    <div className="col-md-12">
-      <h1 className="heading-medium inline-header">
-        {nameString}
-      </h1>
-      {acct && <span className="acct-status">ACCT OPEN</span>}
-      {assaulter && <span className="assault-status">STAFF ASSAULTER</span>}
-      {arsonist && <span className="arsonist-status"><img src="/img/Arsonist_icon.png" className="flag-icons" alt="" width="13" height="16" /> ARSONIST</span>}
-      {disability && <span className="disability-status"><img src="/img/Disability_icon.png" className="flag-icons" alt="" width="19" height="21" /> DISABILITY</span>}
-    </div>
+  const flags = (className) => (<div className={className}>
+    {acct && <span className="acct-status">ACCT OPEN</span>}
+    {assaulter && <span className="assault-status">STAFF ASSAULTER</span>}
+    {arsonist && <span className="arsonist-status"><img src="/img/Arsonist_icon.png" className="flag-arsonist-icon" alt="" width="13" height="16" /> ARSONIST</span>}
+    {disability && <span className="disability-status"><img src="/img/Disability_icon.png" alt="" width="19" height="21" /> DISABILITY</span>}
   </div>);
 
   return (
     <div className="header-details">
 
+      <div className="row visible-small">
+        {flags('col-sm-12')}
+      </div>
       <div className="row">
 
-          <div className="col-md-2 col-xs-3 no-left-gutter no-right-gutter">
-              <div className="photo clickable" onClick={() => onImageClick(offenderImageUrl(inmateData.get('facialImageId')))}>
-                <EliteImage src={offenderImageUrl(inmateData.get('facialImageId'))} />
-              </div>
+        <div className="col-md-2 col-xs-3 no-left-gutter no-right-gutter">
+          <div className="photo clickable" onClick={() => onImageClick(offenderImageUrl(inmateData.get('facialImageId')))}>
+            <EliteImage src={offenderImageUrl(inmateData.get('facialImageId'))} />
+          </div>
+        </div>
+
+        <div className="col-xs-9 col-sm-9 col-md-10 col-lg-10 no-left-gutter no-right-gutter add-gutter-bottom-mobile">
+
+          <div className="row">
+            <div className="col-md-12">
+              <h1 className="heading-medium inline-header">
+                {nameString}
+              </h1>
+              {flags('inline-header-large')}
+            </div>
           </div>
 
-          <div className="col-xs-9 col-sm-9 col-md-10 col-lg-10 no-left-gutter no-right-gutter add-gutter-bottom-mobile">
+          <div className="row">
 
-            {nameAndFlags}
-
-            <div className="row">
-
-              <div className="col-md-3 col-sm-3 col-xs-12">
-                  <div className="row">
-                    <div className="col">
-                      <label>Prison number</label>
-                      <strong>{inmateData.get('offenderNo')}</strong>
-                    </div>
-                  </div>
-
-                  <div className="row">
-                    <div className="col">
-                      <label>Key worker</label>
-                      <strong>{inmateData.get('keyworker') && <EliteOfficerName staffId={inmateData.getIn(['keyworker','staffId'])} /> }</strong>
-                    </div>
-                  </div>
+            <div className="col-md-3 col-sm-3 col-xs-12">
+              <div className="row">
+                <div className="col">
+                  <label>Prison number</label>
+                  <strong>{inmateData.get('offenderNo')}</strong>
+                </div>
               </div>
 
-              <div className="visible-large">
-                  <MiddleSection inmateData={inmateData} offenderNo={offenderNo} />
+              <div className="row">
+                <div className="col">
+                  <label>Key worker</label>
+                  <strong>{inmateData.get('keyworker') && <EliteOfficerName staffId={inmateData.getIn(['keyworker', 'staffId'])} />}</strong>
+                </div>
               </div>
+            </div>
 
-           </div>
-
-          </div>
-
-        <div className="row">
-
-          <div className="visible-small">
+            <div className="visible-large">
               <MiddleSection inmateData={inmateData} offenderNo={offenderNo} />
+            </div>
+
           </div>
 
         </div>
       </div>
 
-     </div>
+      <div className="row">
+        <div className="visible-small">
+          <MiddleSection inmateData={inmateData} offenderNo={offenderNo} />
+        </div>
+      </div>
+    </div>
   );
 }
 
