@@ -130,38 +130,38 @@
     display: inline-block;
   }
 
-  %statusStyle {
+  %status-style {
     border: 3px solid green;
-    padding: .3em 1em .2em 1em;
+    padding: .3em 1em .2em;
     font-size: 16px;
     text-align: center;
     display: inline-block;
     min-width: 7em;
   }
 
-  .acctStatus {
-    @extend %statusStyle;
+  .acct-status {
+    @extend %status-style;
     color: #F47738;
     border-color: #F47738;
     margin-left: 15px;
   }
 
-  .assaultStatus {
-    @extend %statusStyle;
+  .assault-status {
+    @extend %status-style;
     color: #4C2C92;
     border-color: #4C2C92;
     margin-left: 5px;
   }
 
-  .disabilityStatus {
-    @extend %statusStyle;
+  .disability-status {
+    @extend %status-style;
     color: #2B88C8;
     border-color: #2B88C8;
     margin-left: 5px;
   }
 
-  .arsonistStatus {
-    @extend %statusStyle;
+  .arsonist-status {
+    @extend %status-style;
     color: #DF3034;
     border-color: #DF3034;
     margin-left: 5px;

@@ -135,10 +135,10 @@ function Header({ inmateData, onImageClick, offenderNo }) {
       <h1 className="heading-medium inline-header">
         {nameString}
       </h1>
-      {acct && <span className="acctStatus">ACCT OPEN</span>}
-      {assaulter && <span className="assaultStatus">STAFF ASSAULTER</span>}
-      {arsonist && <span className="arsonistStatus"><img src="/img/Arsonist_icon.png" className="flag-icons" alt="" width="13" height="16" /> ARSONIST</span>}
-      {disability && <span className="disabilityStatus"><img src="/img/Disability_icon.png" className="flag-icons" alt="" width="19" height="21" /> DISABILITY</span>}
+      {acct && <span className="acct-status">ACCT OPEN</span>}
+      {assaulter && <span className="assault-status">STAFF ASSAULTER</span>}
+      {arsonist && <span className="arsonist-status"><img src="/img/Arsonist_icon.png" className="flag-icons" alt="" width="13" height="16" /> ARSONIST</span>}
+      {disability && <span className="disability-status"><img src="/img/Disability_icon.png" className="flag-icons" alt="" width="19" height="21" /> DISABILITY</span>}
     </div>
   </div>);
 

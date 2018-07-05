@@ -1655,17 +1655,17 @@ ShallowWrapper {
               Last, First
             </h1>
             <span
-              className="acctStatus"
+              className="acct-status"
             >
               ACCT OPEN
             </span>
             <span
-              className="assaultStatus"
+              className="assault-status"
             >
               STAFF ASSAULTER
             </span>
             <span
-              className="arsonistStatus"
+              className="arsonist-status"
             >
               <img
                 alt=""
@@ -1677,7 +1677,7 @@ ShallowWrapper {
                ARSONIST
             </span>
             <span
-              className="disabilityStatus"
+              className="disability-status"
             >
               <img
                 alt=""
@@ -1857,17 +1857,17 @@ ShallowWrapper {
                 Last, First
               </h1>
               <span
-                className="acctStatus"
+                className="acct-status"
               >
                 ACCT OPEN
               </span>
               <span
-                className="assaultStatus"
+                className="assault-status"
               >
                 STAFF ASSAULTER
               </span>
               <span
-                className="arsonistStatus"
+                className="arsonist-status"
               >
                 <img
                   alt=""
@@ -1879,7 +1879,7 @@ ShallowWrapper {
                  ARSONIST
               </span>
               <span
-                className="disabilityStatus"
+                className="disability-status"
               >
                 <img
                   alt=""
@@ -2171,17 +2171,17 @@ ShallowWrapper {
                     Last, First
                   </h1>
                   <span
-                    className="acctStatus"
+                    className="acct-status"
                   >
                     ACCT OPEN
                   </span>
                   <span
-                    className="assaultStatus"
+                    className="assault-status"
                   >
                     STAFF ASSAULTER
                   </span>
                   <span
-                    className="arsonistStatus"
+                    className="arsonist-status"
                   >
                     <img
                       alt=""
@@ -2193,7 +2193,7 @@ ShallowWrapper {
                      ARSONIST
                   </span>
                   <span
-                    className="disabilityStatus"
+                    className="disability-status"
                   >
                     <img
                       alt=""
@@ -2373,17 +2373,17 @@ ShallowWrapper {
                     Last, First
                   </h1>
                   <span
-                    className="acctStatus"
+                    className="acct-status"
                   >
                     ACCT OPEN
                   </span>
                   <span
-                    className="assaultStatus"
+                    className="assault-status"
                   >
                     STAFF ASSAULTER
                   </span>
                   <span
-                    className="arsonistStatus"
+                    className="arsonist-status"
                   >
                     <img
                       alt=""
@@ -2395,7 +2395,7 @@ ShallowWrapper {
                      ARSONIST
                   </span>
                   <span
-                    className="disabilityStatus"
+                    className="disability-status"
                   >
                     <img
                       alt=""
