@@ -45,6 +45,10 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
       .map(assessment => RiskAssessment(assessment))
       .filter((assessment) => assessment.isCRSA() && assessment.isActive())[0];
 
+    const category = details.assessments
+    .map(assessment => RiskAssessment(assessment))
+    .filter((assessment) => assessment.isCategory() && assessment.isActive())[0];
+
     const keyworker = await getKeyworker(context, offenderNo);
 
     return {
@@ -52,6 +56,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
       iepLevel,
       keyworker,
       csra: csraAssessment && csraAssessment.riskLevel(),
+      category: category && category.riskLevel(),
     };
   };
 

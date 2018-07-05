@@ -24,6 +24,14 @@
         }
       }
     }
+
+    .inline-header-large {
+      display: none !important;
+    }
+
+    .acct-status {
+      margin-left: 5px !important;
+    }
   }
 
 
@@ -125,5 +133,57 @@
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
+
+  .inline-header {
+    display: inline-block;
+  }
+
+  %status-style {
+    border: 2px solid green;
+    padding: .5em 0.8em 0;
+    margin-left: 5px;
+    font-size: 14px;
+    text-align: center;
+    line-height: 1;
+    display: inline-block;
+    min-width: 7em;
+    height: 29px;
+  }
+
+  .acct-status {
+    @extend %status-style;
+    color: #F47738;
+    border-color: #F47738;
+    margin-left: 15px;
+  }
+
+  .assault-status {
+    @extend %status-style;
+    color: #4C2C92;
+    border-color: #4C2C92;
+  }
+
+  .disability-status {
+    @extend %status-style;
+    padding-top: 0.3em;
+    color: #2B88C8;
+    border-color: #2B88C8;
+  }
+
+  .arsonist-status {
+    @extend %status-style;
+    padding-top: 0.3em;
+    color: #DF3034;
+    border-color: #DF3034;
+  }
+
+  .flag-arsonist-icon {
+    margin-bottom: 4px;
+  }
 }
 
+@media (min-width: 481px) {
+  .inline-header-large {
+    display: inline-block;
+  }
+}

@@ -6,10 +6,12 @@ describe('RiskAssessmentModel',() => {
     const assessment = new RiskAssessment({
       cellSharingAlertFlag: true,
       classification: 'Basic',
+      assessmentCode: 'CATEGORY',
     });
 
     expect(assessment.isActive()).toBe(true);
     expect(assessment.isCRSA()).toBe(true);
+    expect(assessment.isCategory()).toBe(true);
     expect(assessment.riskLevel()).toBe('Basic');
   });
 })
