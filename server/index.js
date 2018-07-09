@@ -107,7 +107,6 @@ const keyworkerApi = keyworkerApiFactory(
   clientFactory({
     baseUrl: config.apis.keyworker.url,
     timeout: 10000,
-    useGateway: config.app.useApiAuthGateway,
   }));
 
 const oauthApi = oauthApiFactory({ ...config.apis.elite2, useGateway: config.app.useApiAuthGateway });
@@ -160,7 +159,7 @@ app.use('/app/bookings/addAppointment/:offenderNo', controller.addAppointment);
 app.use('/app/bookings/:offenderNo/alerts', controller.alerts);
 app.get('/app/bookings/:offenderNo/caseNotes', controller.caseNotes);
 app.post('/app/bookings/:offenderNo/caseNotes', controller.addCaseNote);
-app.put('/app/bookings/:offenderNo/caseNotes/:caseNoteId', controller.caseNote);
+app.put('/app/bookings/:offenderNo/caseNotes/:caseNoteId', controller.amendCaseNote);
 app.get('/app/bookings/:offenderNo/caseNotes/:caseNoteId', controller.caseNote);
 app.get('/app/images/:imageId/data', controller.getImage);
 app.get('/app/users/me/bookingAssignments', controller.myAssignments);

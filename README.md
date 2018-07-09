@@ -95,6 +95,46 @@ This will run a local api and web application and point to the Nomis QA database
 You can change this to point to another DB 
 by changing the `SPRING_DATASOURCE_URL` in the `docker-compose.yml` file
 
+## Useful Scripts
+There are some node scripts in the testScripts folder which may be generally useful.  Like the express
+server these scripts take configuration values from the config.js and .env files. So they will automatically
+work against the elite/keyworker end-points that you have configured for the express server.
+
+These scripts are:
+
+### oauth.js
+given a username/password authenticates against the oauth end-point and prints out the contents of the access_token and
+refresh_token. Usage:
+
+`node testScripts/oauth.js <username> <password>`
+
+### health-elite.js and health-keyworker.js
+Pings the health endpoints for the elite / keyworker apis and prints the response. Usage
+
+`node testScripts/health-elite.js`
+
+`node testScripts/health-keyworker.js`
+
+### agencies.js
+Authenticates, GETs the elite `/api/agencies` end-point and prints the result. Usage:
+
+`node testScripts/agencies <username> <password>`
+
+### agency-loop.js
+Authenticates, then repeatedly GETs the elite `/api/agencies` end-point (with a delay). Uses the server's
+ `tokenRefresher.js` to refresh tokens as they approach their expiry time. Prints progress.
+Useful for checking the server's token expiry / refresh logic. Usage:
+
+`node testScript/agency-loop.js <username> <password>`
+
+### decodeCookie.js
+Decodes the HMPPS cookie value from stdin and prints the result. Usage:
+
+1) Copy the cookie value to the clip-board (from the Browser developer tools output perhaps)
+2) `pbpaste | node testScript/decodeCookie`
+
+
+
  
 
  

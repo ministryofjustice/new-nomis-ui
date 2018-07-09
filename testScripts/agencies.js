@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 require('dotenv').config();
 const config = require('../server/config');
-const contextProperties = require('../server/contextProperties');
 const oauthApiFactory = require('../server/api/oauthApi');
 const clientFactory = require('../server/api/oauthEnabledClient');
+const common = require('./common');
 
 const eliteClient = clientFactory({
   baseUrl: config.apis.elite2.url,
@@ -11,19 +11,16 @@ const eliteClient = clientFactory({
   useGateway: config.app.useApiAuthGateway,
 });
 
+const oauthApi = oauthApiFactory({ ...config.apis.elite2, useGateway: config.app.useApiAuthGateway });
 
-const username = process.argv[2] || 'PBELL_GEN';
-const password = process.argv[3] || 'password123456';
+const credentials = common.usage();
 
 const context = {};
 
-const oauthApi = oauthApiFactory({ ...config.apis.elite2, useGateway: config.app.useApiAuthGateway });
-
-oauthApi.authenticate(context, username, password)
+oauthApi.authenticate(context, credentials.username, credentials.password)
   .then(() => {
-    console.info(`authenticate(${username}, *****) => `);
-    console.info(`access token: ${contextProperties.getAccessToken(context)}`);
-    console.info(`refresh token: ${contextProperties.getRefreshToken(context)}`);
+    console.info(`authenticate(${credentials.username}, *****) => `);
+    common.printTokens(context);
   })
   .then(() => {
     console.log('get(api/agencies/)');

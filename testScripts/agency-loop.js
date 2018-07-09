@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 require('dotenv').config();
 const config = require('../server/config');
-const contextProperties = require('../server/contextProperties');
 const oauthApiFactory = require('../server/api/oauthApi');
 const clientFactory = require('../server/api/oauthEnabledClient');
 const tokenRefresherFactory = require('../server/tokenRefresher').factory;
+const common = require('./common');
 
 const oauthApi = oauthApiFactory({ ...config.apis.elite2, useGateway: config.app.useApiAuthGateway });
 
@@ -16,14 +16,11 @@ const eliteClient = clientFactory({
 
 const refreshTokens = tokenRefresherFactory(oauthApi.refresh, 45);
 
+const credentials = common.usage();
+
 const context = {};
 
-const authenticate = () => {
-  const username = process.argv[2] || 'PBELL_GEN';
-  const password = process.argv[3] || 'password123456';
-
-  return oauthApi.authenticate(context, username, password);
-};
+const authenticate = () => oauthApi.authenticate(context, credentials.username, credentials.password);
 
 const getAgency = () => eliteClient.get(context, '/api/agencies');
 
@@ -35,8 +32,7 @@ const check = () => refreshTokens(context)
       const agencies = result.data;
       console.log(new Date());
       console.log(agencies[0].description);
-      console.log(`access_token:  ${contextProperties.getAccessToken(context)}`);
-      console.log(`refresh_token: ${contextProperties.getRefreshToken(context)}`)
+      common.printTokens(context)
     })
     .then(() => delay(10000));
 

@@ -224,6 +224,21 @@ const controllerFactory = (
     res.json(data);
   });
 
+  const amendCaseNote = asyncMiddleware(async (req, res) => {
+    const { offenderNo, caseNoteId } = req.params;
+
+    if (!offenderNo || !caseNoteId) {
+      res.status(400);
+      res.end();
+      return;
+    }
+
+    const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo);
+
+    const data = await elite2Api.put(res.locals, `/api/bookings/${bookingId}/caseNotes/${caseNoteId}`, req.body);
+    res.json(data);
+  });
+
   const myAssignments = asyncMiddleware(async (req, res) => {
     const result = await keyworkerService.myAllocationsViewModel(res.locals);
     res.json(result);
@@ -246,6 +261,7 @@ const controllerFactory = (
     alerts,
     caseNotes,
     addCaseNote,
+    amendCaseNote,
     caseNote,
     getImage,
     myAssignments,
