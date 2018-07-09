@@ -1,12 +1,12 @@
 {
-  "name": "elite2-web",
-  "version": "1.0.14",
-  "description": "Elite 2 Web",
+  "name": "new-nomis-ui",
+  "version": "0.0.1",
+  "description": "New Nomis UI",
   "engines": {
     "npm": ">=3",
-    "node": ">=8.4.0"
+    "node": ">=8.10.0"
   },
-  "author": "Syscon",
+  "author": "Syscon / HMPPS",
   "license": "UNLICENSED",
   "scripts": {
     "analyze:clean": "rimraf stats.json",
