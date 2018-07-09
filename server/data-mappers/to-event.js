@@ -1,3 +1,4 @@
+const nomisCodes = require('./nomis-codes');
 
 module.exports = (entry) => {
   const comment = getComment(entry);
@@ -7,6 +8,8 @@ module.exports = (entry) => {
     shortComment: comment && comment.length > 40 ? `${comment.substring(0, 40)}...` : comment,
     startTime: entry.startTime,
     endTime: entry.endTime,
+    cancelled: entry.eventStatus === nomisCodes.statusCodes.cancelled,
+    eventStatus: entry.eventStatus,
   }
 };
 

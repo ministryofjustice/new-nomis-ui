@@ -2,6 +2,7 @@ const moment = require('moment');
 const utils = require('../utils');
 const isoDateFormat = require('./../constants').isoDateFormat;
 const toActivityViewModel = require('../data-mappers/to-activity-viewmodel');
+const nomisCodes = require('../data-mappers/nomis-codes');
 
 const eventsServiceFactory = (eliteApi) => {
   const getAppointmentViewModel = async (context, agencyId) => {
@@ -42,14 +43,13 @@ const eventsServiceFactory = (eliteApi) => {
   const buildScheduledEvents = (data, calendarView) => {
     const groupedByDate = utils.groupBy('eventDate', data);
 
-
     return calendarView.map(view => {
       const events = Object.keys(groupedByDate)
         .filter(key => moment(key).format(isoDateFormat) === view.date.format(isoDateFormat))
         .map(date => groupedByDate[date])
         .reduce((result, current) => result.concat(current), [])
         .sort(byStartTimeThenByEndTime)
-        .filter(event => event.eventStatus === 'SCH');
+        .filter(event => event.eventType === nomisCodes.eventTypes.visit || event.eventStatus === nomisCodes.statusCodes.scheduled);
 
       const activities = toActivityViewModel(events);
 

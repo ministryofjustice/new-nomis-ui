@@ -1,13 +1,8 @@
 const momentTimeZone = require('moment-timezone');
 
 const isoDateTimeFormat = require('../constants').isoDateTimeFormat;
-
-const visitStatusCodes = {
-  cancelled: 'CANC',
-  cancelledOutcome: 'CAN',
-  attended: 'ATT',
-  scheduled: 'SCH',
-};
+const nomisCodes = require('./nomis-codes');
+const visitStatusCodes = nomisCodes.statusCodes;
 
 const toVisit = (visit) => {
   const nameParts = visit.leadVisitor && visit.leadVisitor.split(' ');

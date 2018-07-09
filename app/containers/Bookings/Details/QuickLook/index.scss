@@ -1,5 +1,10 @@
 .quick-look {
 
+  .cancelled {
+    color: $cancelled;
+    @include bold-19()
+  }
+
   overflow: hidden;
   @include add-gutter-margin-bottom();
 

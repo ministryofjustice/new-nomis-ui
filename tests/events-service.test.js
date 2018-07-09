@@ -9,6 +9,7 @@ const moment = require('moment');
 const isoDateFormat = require('./../server/constants').isoDateFormat;
 const eliteApiFactory = require('../server/api/eliteApi').eliteApiFactory;
 const eventsServiceFactory = require('../server/services/events').eventsServiceFactory;
+const nomisCodes = require('../server/data-mappers/nomis-codes');
 
 const eliteApi = eliteApiFactory(null);
 const eventsService = eventsServiceFactory(eliteApi);
@@ -80,14 +81,14 @@ describe('Events service', () => {
         eventSourceeDesc: 'Workshop morning',
         startTime: '2017-12-12T09:00:00',
         endTime: '2017-12-12T10:00:00',
-        eventStatus: 'SCH',
+        eventStatus: nomisCodes.statusCodes.scheduled,
         eventDate: today,
       },
       {
         eventSourceeDesc: 'Workshop afternoon',
         startTime: '2017-12-12T13:00:00',
         endTime: '2017-12-12T14:00:00',
-        eventStatus: 'SCH',
+        eventStatus: nomisCodes.statusCodes.scheduled,
         eventDate: today,
       },
 
@@ -95,21 +96,21 @@ describe('Events service', () => {
         eventSourceeDesc: 'Workshop morning',
         startTime: '2017-12-12T09:00:00',
         endTime: '2017-12-12T10:00:00',
-        eventStatus: 'SCH',
+        eventStatus: nomisCodes.statusCodes.scheduled,
         eventDate: threeDaysInTheFuture,
       },
       {
         eventSourceeDesc: 'Workshop afternoon',
         startTime: '2017-12-12T13:00:00',
         endTime: '2017-12-12T14:00:00',
-        eventStatus: 'SCH',
+        eventStatus: nomisCodes.statusCodes.scheduled,
         eventDate: threeDaysInTheFuture,
       },
       {
         eventSourceeDesc: 'Workshop ed',
         startTime: '2017-12-12T17:00:00',
         endTime: '2017-12-1218:00:00',
-        eventStatus: 'SCH',
+        eventStatus: nomisCodes.statusCodes.scheduled,
         eventDate: threeDaysInTheFuture,
       },
     ]);
@@ -135,7 +136,7 @@ describe('Events service', () => {
         eventSourceDesc: 'Wing cleaner',
         startTime: '2017-12-12T09:00:00',
         endTime: '2017-12-12T10:00:00',
-        eventStatus: 'SCH',
+        eventStatus: nomisCodes.statusCodes.scheduled,
         eventDate: today,
       },
     ]);
@@ -151,7 +152,7 @@ describe('Events service', () => {
         eventSubTypeDesc: 'Prison Activity',
         startTime: '2017-12-12T09:00:00',
         endTime: '2017-12-12T10:00:00',
-        eventStatus: 'SCH',
+        eventStatus: nomisCodes.statusCodes.scheduled,
         eventDate: today,
       },
     ]);
@@ -171,7 +172,7 @@ describe('Events service', () => {
         eventSourceDesc: 'health check up',
         startTime: '2017-12-12T09:00:00',
         endTime: '2017-12-12T10:00:00',
-        eventStatus: 'SCH',
+        eventStatus: nomisCodes.statusCodes.scheduled,
         eventDate: today,
       },
     ]);
@@ -192,7 +193,7 @@ describe('Events service', () => {
         eventSourceDesc: 'health check up',
         startTime: '2017-12-12T09:00:00',
         endTime: '2017-12-12T10:00:00',
-        eventStatus: 'SCH',
+        eventStatus: nomisCodes.statusCodes.scheduled,
         eventDate: today,
       },
     ]);
@@ -213,7 +214,7 @@ describe('Events service', () => {
         eventSourceDesc: 'health check up',
         startTime: '2017-12-12T09:00:00',
         endTime: '2017-12-12T11:30:00',
-        eventStatus: 'SCH',
+        eventStatus: nomisCodes.statusCodes.scheduled,
         eventDate: today,
       },
       {
@@ -222,7 +223,7 @@ describe('Events service', () => {
         eventSourceDesc: 'health check up',
         startTime: '2017-12-12T09:00:00',
         endTime: null,
-        eventStatus: 'SCH',
+        eventStatus: nomisCodes.statusCodes.scheduled,
         eventDate: today,
       },
       {
@@ -231,7 +232,7 @@ describe('Events service', () => {
         eventSourceDesc: 'health check up',
         startTime: '2017-12-12T09:00:00',
         endTime: '2017-12-12T10:00:00',
-        eventStatus: 'SCH',
+        eventStatus: nomisCodes.statusCodes.scheduled,
         eventDate: today,
       },
     ]);
@@ -329,4 +330,79 @@ describe('Events service', () => {
     expect(data.locations[0].description).to.equal('Leeds');
     expect(data.locations[1].description).to.equal('Yrk');
   });
+
+  it('show only scheduled appointments and activity', async () => {
+    const today = moment();
+
+    eliteApi.getEventsForThisWeek.returns([
+      {
+        eventSubTypeDesc: 'activity 1',
+        startTime: '2017-12-12T09:00:00',
+        endTime: '2017-12-12T10:00:00',
+        eventStatus: nomisCodes.statusCodes.scheduled,
+        eventDate: today,
+        eventType: nomisCodes.eventTypes.activity,
+      },
+      {
+        eventSubTypeDesc: 'activity 2',
+        startTime: '2017-12-12T13:00:00',
+        endTime: '2017-12-12T14:00:00',
+        eventStatus: nomisCodes.statusCodes.cancelled,
+        eventDate: today,
+        eventType: nomisCodes.eventTypes.activity,
+      },
+      {
+        eventSubTypeDesc: 'appointment 1',
+        startTime: '2017-12-12T09:00:00',
+        endTime: '2017-12-12T10:00:00',
+        eventStatus: nomisCodes.statusCodes.scheduled,
+        eventDate: today,
+        eventType: nomisCodes.eventTypes.appointment,
+      },
+      {
+        eventSubTypeDesc: 'appointment 2',
+        startTime: '2017-12-12T13:00:00',
+        endTime: '2017-12-12T14:00:00',
+        eventStatus: nomisCodes.statusCodes.cancelled,
+        eventDate: today,
+        eventType: nomisCodes.eventTypes.appointment,
+      },
+    ]);
+
+    const data = await eventsService.getScheduledEventsForThisWeek(req);
+
+    expect(data[0].morningActivities.length).to.equal(2);
+    expect(data[0].morningActivities[0].type).to.equal('activity 1');
+    expect(data[0].morningActivities[1].type).to.equal('appointment 1');
+  });
+
+  it('should show scheduled and cancelled visits', async () => {
+    const today = moment();
+
+    eliteApi.getEventsForThisWeek.returns([
+      {
+        eventSubTypeDesc: 'visit 1',
+        startTime: '2017-12-12T09:00:00',
+        endTime: '2017-12-12T10:00:00',
+        eventStatus: nomisCodes.statusCodes.scheduled,
+        eventDate: today,
+        eventType: nomisCodes.eventTypes.visit,
+      },
+      {
+        eventSubTypeDesc: 'visit 2',
+        startTime: '2017-12-12T09:00:00',
+        endTime: '2017-12-12T10:00:00',
+        eventStatus: nomisCodes.statusCodes.cancelled,
+        eventDate: today,
+        eventType: nomisCodes.eventTypes.visit,
+      },
+
+    ]);
+
+    const data = await eventsService.getScheduledEventsForThisWeek(req);
+
+    expect(data[0].morningActivities.length).to.equal(2);
+    expect(data[0].morningActivities[0].type).to.equal('visit 1');
+    expect(data[0].morningActivities[1].type).to.equal('visit 2');
+  })
 });
