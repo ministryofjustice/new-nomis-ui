@@ -148,6 +148,11 @@ export const Activities = ({ activities, period }) => (
               <span>
                 {activity.get('shortComment')}
               </span>
+
+              {activity.get('cancelled') &&
+                <span className="cancelled">{' '} (cancelled)
+                </span>
+              }
             </div>
 
             <div className="row add-padding-bottom">

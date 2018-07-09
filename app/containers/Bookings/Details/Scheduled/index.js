@@ -21,7 +21,7 @@ import { properCase } from 'utils/stringUtils';
 
 import './index.scss';
 
-export const Event = ({ startTime, endTime, type, shortComment }) =>
+export const Event = ({ startTime, endTime, type, shortComment, cancelled }) =>
   (<div className="row add-gutter-margin-bottom">
 
     <div className="col-xl-5 col-lg-5 col-md-6 col-xs-6 no-right-gutter">
@@ -47,6 +47,8 @@ export const Event = ({ startTime, endTime, type, shortComment }) =>
       <span>
         {shortComment}
       </span>
+
+      {cancelled && <span className="cancelled">{' '} (cancelled)</span>}
 
     </div>
   </div>)
@@ -161,6 +163,7 @@ class ScheduledEvents extends Component {
                     endTime={morning.get('endTime')}
                     type={morning.get('type')}
                     shortComment={morning.get('shortComment')}
+                    cancelled={morning.get('cancelled')}
                   />
                 </div>))}
               </div>
@@ -181,6 +184,7 @@ class ScheduledEvents extends Component {
                     endTime={afternoon.get('endTime')}
                     type={afternoon.get('type')}
                     shortComment={afternoon.get('shortComment')}
+                    cancelled={afternoon.get('cancelled')}
                   />
                 </div>))}
               </div>
@@ -201,6 +205,7 @@ class ScheduledEvents extends Component {
                     endTime={afternoon.get('endTime')}
                     type={afternoon.get('type')}
                     shortComment={afternoon.get('shortComment')}
+                    cancelled={afternoon.get('cancelled')}
                   />
                 </div>))}
               </div>

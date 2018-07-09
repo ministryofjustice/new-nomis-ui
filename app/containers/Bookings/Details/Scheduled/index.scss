@@ -7,6 +7,11 @@
     margin-bottom: .5em;
   }
 
+  .cancelled {
+    color: $cancelled;
+    @include bold-19()
+  }
+
   @include media-breakpoint-up(lg) {
     .col-lg-3 {
       width: 30% !important;
