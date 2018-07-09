@@ -107,7 +107,6 @@ const keyworkerApi = keyworkerApiFactory(
   clientFactory({
     baseUrl: config.apis.keyworker.url,
     timeout: 10000,
-    useGateway: config.app.useApiAuthGateway,
   }));
 
 const oauthApi = oauthApiFactory({ ...config.apis.elite2, useGateway: config.app.useApiAuthGateway });
