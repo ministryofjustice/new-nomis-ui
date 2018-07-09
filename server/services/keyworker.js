@@ -53,6 +53,9 @@ const keyworkerServiceFactory = (eliteApi, keyworkerApi) => {
   };
 
   const offendersLastKWSession = async (context, offenders = []) => {
+    if (offenders.length === 0) {
+      return [];
+    }
     const offenderNumbers = offenders.map(offender => offender.offenderNo);
     const caseNotes = await eliteApi.caseNoteUsageList(context, offenderNumbers) || [];
 
