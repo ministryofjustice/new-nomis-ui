@@ -94,7 +94,8 @@ const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, toke
     const isXHRRequest = req.xhr || (req.headers.accept && req.headers.accept.indexOf('json') > -1);
 
     if (isXHRRequest) {
-      res.sendStatus(401);
+      res.status(401);
+      res.json({ reason: 'session-expired' });
       return;
     }
 

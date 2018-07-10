@@ -174,8 +174,10 @@ const controllerFactory = (
     }
 
     const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo);
-
     const data = await elite2Api.get(res.locals, `/api/bookings/${bookingId}/alerts`);
+
+    res.set(res.locals.responseHeaders);
+
     res.json(data);
   });
 
@@ -192,6 +194,9 @@ const controllerFactory = (
     const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo);
 
     const data = await elite2Api.get(res.locals, `/api/bookings/${bookingId}/caseNotes?${queryString}`);
+
+    res.set(res.locals.responseHeaders);
+
     res.json(data);
   });
 
