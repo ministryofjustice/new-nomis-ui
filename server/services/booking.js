@@ -31,8 +31,12 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
   };
 
   const getKeyworker = async (context, offenderNo) => {
-    const me = await eliteApi.getMyInformation(context);
-    return keyworkerApi.getKeyworkerByCaseloadAndOffenderNo(context, me.activeCaseLoadId, offenderNo);
+    try {
+      const me = await eliteApi.getMyInformation(context);
+      return keyworkerApi.getKeyworkerByCaseloadAndOffenderNo(context, me.activeCaseLoadId, offenderNo);
+    } catch (error) {
+      return {}
+    }
   };
 
   const getBookingDetailsViewModel = async (context, offenderNo) => {
