@@ -149,6 +149,9 @@ sessionManagementRoutes.configureRoutes({
 // Don't cache dynamic resources (except images which override this)
 app.use(helmet.noCache());
 
+// Extract pagination header information from requests and set on the 'context'
+app.use('/app', requestForwarding.extractRequestPaginationMiddleware);
+
 app.use('/app/keydates/:offenderNo', controller.keyDates);
 app.use('/app/bookings/details/:offenderNo', controller.bookingDetails);
 app.use('/app/bookings/quicklook/:offenderNo', controller.quickLook);
@@ -164,9 +167,6 @@ app.get('/app/bookings/:offenderNo/caseNotes/:caseNoteId', controller.caseNote);
 app.get('/app/images/:imageId/data', controller.getImage);
 app.get('/app/users/me/bookingAssignments', controller.myAssignments);
 app.get('/app/users/me', controller.user);
-
-// Extract pagination header information from requests and set on the 'context'
-app.use('/app', requestForwarding.extractRequestPaginationMiddleware);
 
 // Forward requests to the eliteApi get/post functions.
 app.use('/app', requestForwarding.forwardingHandlerFactory(eliteApi));

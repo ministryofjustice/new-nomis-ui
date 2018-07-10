@@ -197,4 +197,28 @@ describe('Time picker', () => {
 
     expect(input.onChange).toHaveBeenCalledWith(today.format(DATE_TIME_FORMAT_SPEC))
   });
+
+  it('should reset the date when a new one has been passed in', async () => {
+    const setTime = (date, hours, minutes, seconds) => {
+      date.hours(hours);
+      date.minutes(minutes);
+      date.seconds(seconds);
+
+      return date;
+    };
+    const yesterday = moment().subtract(1, 'day');
+    const meta = { touched: true };
+    const input = {
+      onChange: jest.fn(),
+      value: setTime(yesterday, 3, 0, 0).format(DATE_TIME_FORMAT_SPEC),
+    };
+
+    const picker = shallow(<TimePicker meta={meta} input={input} date={yesterday} />);
+
+    const today = moment();
+
+    picker.setProps({ input, meta, date: today });
+
+    expect(input.onChange.mock.calls[0][0]).toBe(setTime(today, 3, 0 , 0).format(DATE_TIME_FORMAT_SPEC));
+  });
 });
