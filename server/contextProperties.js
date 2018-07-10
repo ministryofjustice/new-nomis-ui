@@ -29,7 +29,11 @@ const getRefreshToken = (context) => {
 const copy = (names, src) =>
   names.reduce(
     (acc, value) => {
-      if (src[value]) acc[value] = src[value];
+      const key = Object.keys(src)
+        .filter(k => k.toLowerCase() === value.toLowerCase())[0];
+
+      if (src[key]) acc[key && key.toLowerCase()] = src[key];
+
       return acc;
     },
     {}
