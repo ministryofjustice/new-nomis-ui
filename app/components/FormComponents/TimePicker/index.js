@@ -43,6 +43,22 @@ class TimePicker extends Component {
     this.setInputValue = this.setInputValue.bind(this);
   }
 
+  componentWillReceiveProps(newProps) {
+    if (!this.props.input.value) {
+      return;
+    }
+
+    const selectedDate = moment(this.props.input.value,DATE_TIME_FORMAT_SPEC);
+    const newDate = moment(newProps.date, DATE_TIME_FORMAT_SPEC);
+
+    if (selectedDate.format(DATE_ONLY_FORMAT_SPEC) !== newDate.format(DATE_ONLY_FORMAT_SPEC)) {
+      newDate.hour(selectedDate.hours());
+      newDate.minutes(selectedDate.minutes());
+      newDate.seconds(0);
+      this.props.input.onChange(newDate.format(DATE_TIME_FORMAT_SPEC));
+    }
+  }
+
   onHoursChange(event) {
     if (event && event.target) {
       this.setInputValue({
