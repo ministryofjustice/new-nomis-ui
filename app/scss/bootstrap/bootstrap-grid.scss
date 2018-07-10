@@ -211,11 +211,13 @@
     display: none !important;
   }
 }
-.app-content {
+
+/* Avoid IE11 flex bugs .app-content {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-}
+}*/
+
 .nav-container {
   width: 100%;
   display: flex;
