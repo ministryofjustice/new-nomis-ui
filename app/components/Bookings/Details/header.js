@@ -134,12 +134,12 @@ function Header({ inmateData, onImageClick, offenderNo }) {
   const alerts = inmateData.get('alerts');
   let acct = false;
   let assaulter = false;
-  let disability = false;
   let arsonist = false;
+  let disability = false;
   alerts && alerts.forEach(a => {
     switch (a.get('alertCode')) {
       case 'HA': acct = true; break;
-      case 'SA': assaulter = true; break;
+      case 'XSA': assaulter = true; break;
       case 'XA': arsonist = true; break;
       case 'PEEP': disability = true; break;
       default:
@@ -150,14 +150,14 @@ function Header({ inmateData, onImageClick, offenderNo }) {
     {acct && <span className="acct-status">ACCT OPEN</span>}
     {assaulter && <span className="assault-status">STAFF ASSAULTER</span>}
     {arsonist && <span className="arsonist-status"><img src="/img/Arsonist_icon.png" className="flag-arsonist-icon" alt="" width="13" height="16" /> ARSONIST</span>}
-    {disability && <span className="disability-status"><img src="/img/Disability_icon.png" alt="" width="19" height="21" /> DISABILITY</span>}
+    {disability && <span className="disability-status"><img src="/img/Disability_icon.png" className="disability-adjust" alt="" width="19" height="21" /> PEEP</span>}
   </div>);
 
   return (
     <div className="header-details">
 
       <div className="row visible-small">
-        {flags('col-sm-12')}
+        {flags('col-sm-12 no-padding-left')}
       </div>
       <div className="row">
 
@@ -174,7 +174,7 @@ function Header({ inmateData, onImageClick, offenderNo }) {
               <h1 className="heading-medium inline-header">
                 {nameString}
               </h1>
-              {flags('inline-header-large')}
+              {flags('inline-header-large align-alerts')}
             </div>
           </div>
 
