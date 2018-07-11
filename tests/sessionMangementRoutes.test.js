@@ -38,6 +38,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
   });
 
   const rejectWithStatus = rejectStatus => () => Promise.reject({ response: { status: rejectStatus } });
+  const rejectWithAuthenticationError = errorText => () => Promise.reject({ response: { data: { error_description: errorText }, status: 401 } });
 
   const oauthApi = {
     authenticate: setTokensOnContext,
@@ -174,6 +175,34 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
       .expect(res => {
         expect(res.error.path).to.equal('/login');
         expect(res.text).to.include('The username or password you have entered is invalid.');
+      })
+      .end(done)
+  });
+
+  it('Unsuccessful signin - API up, locked account', (done) => {
+    oauthApi.authenticate = rejectWithAuthenticationError('ORA-28000');
+
+    agent
+      .post('/login')
+      .send('username=test&password=testPassowrd')
+      .expect(401)
+      .expect(res => {
+        expect(res.error.path).to.equal('/login');
+        expect(res.text).to.include('Your user account is locked.');
+      })
+      .end(done)
+  });
+
+  it('Unsuccessful signin - API up, expired account', (done) => {
+    oauthApi.authenticate = rejectWithAuthenticationError('ORA-28001');
+
+    agent
+      .post('/login')
+      .send('username=test&password=testPassowrd')
+      .expect(401)
+      .expect(res => {
+        expect(res.error.path).to.equal('/login');
+        expect(res.text).to.include('Your password has expired.');
       })
       .end(done)
   });

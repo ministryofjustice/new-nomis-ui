@@ -35,14 +35,29 @@ const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, toke
       res.status(code);
       logger.error(error);
       if (code < 500) {
-        logger.warn('Login failed, invalid password', { user: String(username) });
-        res.render('pages/login', { authError: true, apiUp: true, mailTo });
+        logger.warn('Login failed for', { user: String(username) });
+        res.render('pages/login', { authError: true, authErrorText: getAuthErrorDescription(error), apiUp: true, mailTo });
       } else {
         logger.error(error);
         res.render('pages/login', { authError: false, apiUp: false, mailTo });
       }
     }
   };
+
+  function getAuthErrorDescription(error) {
+    logger.info(`login error description = ${error.response && error.response.data && error.response.data.error_description}`);
+    let type = 'The username or password you have entered is invalid.';
+    if (error.response && error.response.data && error.response.data.error_description) {
+      if (error.response.data.error_description.includes('ORA-28000')) {
+        type = 'Your user account is locked.';
+      } else if (error.response.data.error_description.includes('does not have access to caseload NWEB')) {
+        type = 'You are not enabled for this service, please contact admin and request access.';
+      } else if (error.response.data.error_description.includes('ORA-28001')) {
+        type = 'Your password has expired.';
+      }
+    }
+    return type;
+  }
 
   const logout = (req, res) => {
     hmppsCookieOperations.clearCookie(res);
