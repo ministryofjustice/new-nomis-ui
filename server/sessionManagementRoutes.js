@@ -44,7 +44,7 @@ const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, toke
     }
   };
 
-  function getAuthErrorDescription (error) {
+  function getAuthErrorDescription(error) {
     logger.info(`login error description = ${error.response && error.response.data && error.response.data.error_description}`);
     let type = 'The username or password you have entered is invalid.';
     if (error.response && error.response.data && error.response.data.error_description) {
