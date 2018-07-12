@@ -136,13 +136,15 @@ function Header({ inmateData, onImageClick, offenderNo }) {
   let assaulter = false;
   let arsonist = false;
   let disability = false;
-  alerts && alerts.forEach(a => {
-    switch (a.get('alertCode')) {
-      case 'HA': acct = true; break;
-      case 'XSA': assaulter = true; break;
-      case 'XA': arsonist = true; break;
-      case 'PEEP': disability = true; break;
-      default:
+  alerts && alerts.forEach(alert => {
+    if (!alert.get('expired')) {
+      switch (alert.get('alertCode')) {
+        case 'HA': acct = true; break;
+        case 'XSA': assaulter = true; break;
+        case 'XA': arsonist = true; break;
+        case 'PEEP': disability = true; break;
+        default:
+      }
     }
   });
 
