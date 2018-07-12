@@ -448,7 +448,7 @@ ShallowWrapper {
         }
         offenderNo="A1234RE"
       />,
-      "_debugID": 5,
+      "_debugID": 7,
       "_hostContainerInfo": null,
       "_hostParent": null,
       "_instance": StatelessComponent {
@@ -505,7 +505,7 @@ ShallowWrapper {
           "validateCallback": [Function],
         },
       },
-      "_mountOrder": 3,
+      "_mountOrder": 4,
       "_pendingCallbacks": null,
       "_pendingElement": null,
       "_pendingForceUpdate": false,
@@ -708,7 +708,7 @@ ShallowWrapper {
             </div>
           </div>
         </div>,
-        "_debugID": 6,
+        "_debugID": 8,
         "_renderedOutput": <div
           className="middle-section"
         >
@@ -1407,7 +1407,7 @@ ShallowWrapper {
         }
         offenderNo="A1234RN"
       />,
-      "_debugID": 9,
+      "_debugID": 11,
       "_hostContainerInfo": null,
       "_hostParent": null,
       "_instance": StatelessComponent {
@@ -1464,7 +1464,7 @@ ShallowWrapper {
           "validateCallback": [Function],
         },
       },
-      "_mountOrder": 5,
+      "_mountOrder": 6,
       "_pendingCallbacks": null,
       "_pendingElement": null,
       "_pendingForceUpdate": false,
@@ -1667,7 +1667,7 @@ ShallowWrapper {
             </div>
           </div>
         </div>,
-        "_debugID": 10,
+        "_debugID": 12,
         "_renderedOutput": <div
           className="middle-section"
         >
