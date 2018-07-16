@@ -216,6 +216,14 @@
   min-height: 100vh;
   flex-direction: column;
 }
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  /* This is seen by IE ONLY */
+  .app-content {
+    display: block; /* Disable flex */
+  }
+}
+
 .nav-container {
   width: 100%;
   display: flex;

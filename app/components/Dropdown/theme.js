@@ -38,6 +38,7 @@ export const DropdownMenu = styled.div`
   box-sizing: border-box;
   position: absolute;
   top: 100%;
+  left: 0;
   width: 100%;
   z-index: 1000;
 `;

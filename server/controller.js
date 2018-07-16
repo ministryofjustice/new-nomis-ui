@@ -57,10 +57,9 @@ const controllerFactory = (
     if (!req.params.imageId || req.params.imageId === 'placeholder') {
       res.sendFile(placeHolder);
     } else {
-      elite2Api
-        .getStream(res.locals, targetEndpoint)
+      elite2Api.getStream(res.locals, targetEndpoint)
         .then(data => {
-          res.type('image/png');
+          res.type('image/jpeg');
           data.pipe(res);
         })
         .catch(error => {

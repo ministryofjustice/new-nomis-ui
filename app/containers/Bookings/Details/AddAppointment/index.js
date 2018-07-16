@@ -194,7 +194,7 @@ export function mapDispatchToProps(dispatch, props) {
 
 const mapStateToProps = (immutableState, props) => {
   const languageState = immutableState.get('language');
-  const locale = navigator.languages[0] || navigator.language || navigator.browserLanguage || languageState.get('locale');
+  const locale = (navigator.languages && navigator.languages[0]) || navigator.language || navigator.browserLanguage || languageState.get('locale');
 
   const offenderNo = props.params.offenderNo;
   const offenderDetails = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.params.offenderNo, 'Data']) || offenderDetailsModel;

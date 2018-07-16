@@ -9,6 +9,10 @@
     display: none;
   }
 
+  .no-padding-left {
+    padding-left: 0;
+  }
+
   @media(max-width: 480px) {
 
     .visible-large {
@@ -27,10 +31,6 @@
 
     .inline-header-large {
       display: none !important;
-    }
-
-    .acct-status {
-      margin-left: 5px !important;
     }
   }
 
@@ -136,13 +136,17 @@
 
   .inline-header {
     display: inline-block;
+    margin-right: 10px !important;
   }
 
   %status-style {
-    border: 2px solid green;
+    border: 3px solid;
     padding: .5em 0.8em 0;
-    margin-left: 5px;
+    margin-left: 0;
+    margin-right: 5px;
+    margin-bottom: 5px;
     font-size: 14px;
+    font-weight: bold;
     text-align: center;
     line-height: 1;
     display: inline-block;
@@ -154,7 +158,6 @@
     @extend %status-style;
     color: #F47738;
     border-color: #F47738;
-    margin-left: 15px;
   }
 
   .assault-status {
@@ -170,6 +173,12 @@
     border-color: #2B88C8;
   }
 
+  .disability-adjust {
+    position: relative;
+    left: -7px;
+    top: -2px;
+  }
+
   .arsonist-status {
     @extend %status-style;
     padding-top: 0.3em;
@@ -178,12 +187,16 @@
   }
 
   .flag-arsonist-icon {
-    margin-bottom: 4px;
+    margin-bottom: 5px;
   }
 }
 
 @media (min-width: 481px) {
   .inline-header-large {
     display: inline-block;
+  }
+
+  .align-alerts {
+    vertical-align: 8px;
   }
 }

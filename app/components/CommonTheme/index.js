@@ -5,11 +5,12 @@ export const MobileOnly = styled.div`
   ${media.desktop`display: none;`}
 `;
 
+// IE11 does not recognise display 'initial'
 export const DesktopOnly = styled.div`
   display: none;
   
   ${media.desktop`
-    display: initial;
+    display: block;
     height: 100%;
   `}
 `;
