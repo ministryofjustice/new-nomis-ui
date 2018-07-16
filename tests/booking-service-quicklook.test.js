@@ -101,18 +101,21 @@ describe('Booking Service Quick look', () => {
         eventSourceDesc: 'workshop 1',
         startTime: '2017-01-01T10:41:10.572',
         endTime: '2017-01-01T10:41:10.572',
+        eventStatus: 'SCH',
       },
       {
         eventSubType: 'PA',
         eventSourceDesc: 'workshop 2',
         startTime: '2017-01-01T12:41:10.572',
         endTime: '2017-01-01T15:41:10.572',
+        eventStatus: 'SCH',
       },
       {
         eventSubType: 'PA',
         eventSourceDesc: 'workshop 3',
         startTime: '2017-01-01T17:41:10.572',
         endTime: '2017-01-01T17:41:10.572',
+        eventStatus: 'SCH',
       },
     ]);
 

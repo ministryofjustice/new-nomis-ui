@@ -1,5 +1,6 @@
 const moment = require('moment');
 const toEvent = require('./to-event');
+const nomisCodes = require('./nomis-codes');
 
 const filterMorning = (array) => array.filter(a => moment(a.startTime).get('hour') < 12);
 const filterAfternoon = (array) => array.filter(a => moment(a.startTime).get('hour') > 11 && moment(a.startTime).get('hour') < 17);
@@ -18,7 +19,10 @@ const byStartTimeThenByEndTime = (a,b) => {
   return 0;
 };
 
-module.exports = (activityData) => {
+module.exports = (events) => {
+  const activityData = events.filter(event => event.eventType === nomisCodes.eventTypes.visit ||
+    event.eventStatus === nomisCodes.statusCodes.scheduled);
+
   const morningActivity = filterMorning(activityData);
   const afternoonActivity = filterAfternoon(activityData);
   const eveningDuties = filterEveningDuties(activityData);
