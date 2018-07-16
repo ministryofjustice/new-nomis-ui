@@ -23,7 +23,7 @@ function AlertList({ alerts }) {
   }
 
   return (
-    <AlertHolder>
+    <AlertHolder className="offender-alerts">
       {alerts.map((alert) => (
         <AlertItem key={uuid()} expired={alert.get('expired')}>
           <AlertTypeWrapper expired={alert.get('expired')}>
