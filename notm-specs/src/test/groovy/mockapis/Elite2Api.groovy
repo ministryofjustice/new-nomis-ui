@@ -2,6 +2,7 @@ package mockapis
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import groovy.json.JsonOutput
+import model.CaseNote
 import model.Offender
 
 import java.util.stream.Collectors
@@ -15,6 +16,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.matching
 import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson
 
 import model.UserAccount
+import model.Alert
 
 class Elite2Api extends WireMockRule {
 
@@ -253,7 +255,7 @@ class Elite2Api extends WireMockRule {
 ''')))
   }
 
-  void stubOffenderDetails(boolean fullInfo) {
+    void stubOffenderDetails(boolean fullInfo) {
     def simpleFields = """
     "bookingId": -10,
     "bookingNo": "A00120",
@@ -580,6 +582,88 @@ class Elite2Api extends WireMockRule {
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
         .withBody(JsonOutput.toJson(offenders))))
+  }
+
+  def stubBookingAlerts(Integer bookingId) {
+
+    this.stubFor(
+      get("/api/bookings/${bookingId}/alerts")
+        .withHeader('page-offset',equalTo('0'))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withHeader('total-records', '20')
+        .withHeader('page-limit', '10')
+        .withHeader('page-offset', '0')
+        .withBody(JsonOutput.toJson(buildAlerts(0, 10)))))
+
+    this.stubFor(
+      get("/api/bookings/${bookingId}/alerts")
+        .withHeader('page-offset',equalTo('10'))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withHeader('total-records', '20')
+        .withHeader('page-limit', '10')
+        .withHeader('page-offset', '0')
+        .withBody(JsonOutput.toJson(buildAlerts(10, 20)))))
+  }
+
+  def stubBookingCaseNotes(Integer bookingId) {
+    this.stubFor(
+      get("/api/bookings/${bookingId}/caseNotes")
+        .withHeader('page-offset',equalTo('0'))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withHeader('total-records', '20')
+        .withHeader('page-limit', '10')
+        .withHeader('page-offset', '0')
+        .withBody(JsonOutput.toJson(buildCaseNotes(0, 10)))))
+
+    this.stubFor(
+      get("/api/bookings/${bookingId}/caseNotes")
+        .withHeader('page-offset',equalTo('10'))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withHeader('total-records', '20')
+        .withHeader('page-limit', '10')
+        .withHeader('page-offset', '0')
+        .withBody(JsonOutput.toJson(buildCaseNotes(10, 20)))))
+  }
+
+  def buildCaseNotes(Integer pageOffset, Integer pageLimit) {
+    List<CaseNote> notes = []
+
+    for(Integer index = pageOffset; index != pageLimit;index++) {
+      CaseNote note = new CaseNote()
+
+      note.subTypeDescription = "caseNotesubTypeDescription${index}"
+      note.typeDescription = "caseNotetypeDescription${index}"
+      note.authorName = "CaseNoteauthorName${index}"
+      note.originalNoteText = "CaseNoteOriginalNoteText${index}"
+
+      notes.push(note)
+    }
+
+    return notes;
+  }
+
+  def buildAlerts(Integer pageOffset, Integer pageLimit) {
+    List<Alert> alerts = []
+
+    for(Integer index = pageOffset; index != pageLimit;index++) {
+      Alert alert = new Alert()
+      alert.alertId = index
+      alert.alertCode = "alertCode${index}"
+      alert.alertCodeDescription = "alertCodeDescription${index}"
+      alert.alertType = "alertType${index}"
+
+      alerts.push(alert)
+    }
+
+    return alerts;
   }
 
 

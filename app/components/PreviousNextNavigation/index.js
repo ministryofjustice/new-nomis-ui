@@ -23,7 +23,7 @@ function PreviousNextNavigation({ pagination, totalRecords, pageAction }) {
 
 
 const GetPrevNavigationRegion = ({ pN, pageAction, totalPages }) =>
-  (<PrevNavigatorRegion show onClick={() => { pageAction(pN - 1); }}>
+  (<PrevNavigatorRegion id="previous-page" role="button" show onClick={() => { pageAction(pN - 1); }}>
     <NavigatorContent>
       Previous
       <VisuallyHiddenSpan>page</VisuallyHiddenSpan>
@@ -32,7 +32,7 @@ const GetPrevNavigationRegion = ({ pN, pageAction, totalPages }) =>
   </PrevNavigatorRegion>);
 
 const GetNextNavigationRegion = ({ pN, pageAction, totalPages }) =>
-  (<NextNavigatorRegion show onClick={() => { pageAction(pN + 1); }}>
+  (<NextNavigatorRegion id="next-page"role="button" show onClick={() => { pageAction(pN + 1); }}>
     <NavigatorContent>
       Next
       <VisuallyHiddenSpan>page</VisuallyHiddenSpan>
