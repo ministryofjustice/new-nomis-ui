@@ -26,7 +26,7 @@ const CaseNotes = (props) => {
         <div>
           <NoSearchResultsReturnedMessage resultCount={caseNotes.size} />
         </div>
-        <div className="add-gutter-top">
+        <div className="add-gutter-top case-notes">
           {caseNotes.map((caseNote) => (<CaseNoteListItem
             key={caseNote.get('caseNoteId')}
             action={() => setCaseNoteView(caseNote.get('caseNoteId'))}
