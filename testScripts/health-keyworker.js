@@ -6,7 +6,6 @@ const clientFactory = require('../server/api/oauthEnabledClient');
 const keyworkerApiClient = clientFactory({
   baseUrl: config.apis.keyworker.url,
   timeout: 10000,
-  useGateway: false,
 });
 
 console.log('get(health)');

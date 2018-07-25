@@ -1,7 +1,6 @@
 const axios = require('axios');
 const querystring = require('querystring');
 const { logger } = require('../services/logger');
-const addGatewayHeader = require('./axios-config-decorators').addGatewayHeader;
 const contextProperties = require('../contextProperties');
 
 /**
@@ -9,10 +8,9 @@ const contextProperties = require('../contextProperties');
  * @param clientId
  * @param clientSecret
  * @param url
- * @param useGateway
  * @returns a configured oauthApi instance
  */
-const oauthApiFactory = ({ clientId, clientSecret, url, useGateway = false }) => {
+const oauthApiFactory = ({ clientId, clientSecret, url }) => {
   const apiClientCredentials = new Buffer(`${querystring.escape(clientId)}:${querystring.escape(clientSecret)}`).toString('base64');
 
   const oauthAxios = axios.create({
@@ -25,7 +23,7 @@ const oauthApiFactory = ({ clientId, clientSecret, url, useGateway = false }) =>
     },
   });
 
-  const addheaders = useGateway ? config => addGatewayHeader(config) : config => config;
+  const addheaders = config => config;
 
   // Not convinced that the header 'access-control-allow-origin': reqHeaders.host is needed or even makes sense here.
   const makeRequest = (context, data, msg) => oauthAxios(

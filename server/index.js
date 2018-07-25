@@ -85,22 +85,17 @@ app.use('/config', (req, res) => {
 });
 
 app.use('/health', apiProxy);
-app.use('/info', apiProxy);
-app.use('/docs', apiProxy);
-app.use('/api/swagger.json', apiProxy);
 
 const healthApi = healthApiFactory(
   clientFactory({
     baseUrl: config.apis.elite2.url,
     timeout: 10000,
-    useGateway: config.app.useApiAuthGateway,
   }));
 
 const eliteApi = eliteApiFactory(
   clientFactory({
     baseUrl: config.apis.elite2.url,
     timeout: 10000,
-    useGateway: config.app.useApiAuthGateway,
   }));
 
 const keyworkerApi = keyworkerApiFactory(
@@ -109,7 +104,7 @@ const keyworkerApi = keyworkerApiFactory(
     timeout: 10000,
   }));
 
-const oauthApi = oauthApiFactory({ ...config.apis.elite2, useGateway: config.app.useApiAuthGateway });
+const oauthApi = oauthApiFactory({ ...config.apis.elite2 });
 const tokenRefresher = tokeRefresherFactory(oauthApi.refresh, config.app.tokenRefreshThresholdSeconds);
 
 const userService = userServiceFactory(eliteApi);

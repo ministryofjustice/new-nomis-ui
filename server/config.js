@@ -7,9 +7,6 @@ module.exports = {
     production: process.env.NODE_ENV === 'production',
     feedbackUrl: process.env.FEEDBACK_URL,
     mailTo: process.env.MAIL_TO || 'feedback@digital.justice.gov.uk',
-    useApiAuthGateway: process.env.USE_API_GATEWAY_AUTH === 'yes',
-    apiGatewayKey: process.env.API_GATEWAY_PRIVATE_KEY || '',
-    nomsToken: process.env.NOMS_TOKEN,
     tokenRefreshThresholdSeconds: process.env.TOKEN_REFRESH_THRESHOLD_SECONDS || 60,
   },
   analytics: {

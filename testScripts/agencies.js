@@ -8,10 +8,9 @@ const common = require('./common');
 const eliteClient = clientFactory({
   baseUrl: config.apis.elite2.url,
   timeout: 10000,
-  useGateway: config.app.useApiAuthGateway,
 });
 
-const oauthApi = oauthApiFactory({ ...config.apis.elite2, useGateway: config.app.useApiAuthGateway });
+const oauthApi = oauthApiFactory({ ...config.apis.elite2 });
 
 const credentials = common.usage();
 
