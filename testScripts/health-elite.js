@@ -6,7 +6,6 @@ const clientFactory = require('../server/api/oauthEnabledClient');
 const eliteApiClient = clientFactory({
   baseUrl: config.apis.elite2.url,
   timeout: 10000,
-  useGateway: config.app.useApiAuthGateway,
 });
 
 console.log('get(health)');

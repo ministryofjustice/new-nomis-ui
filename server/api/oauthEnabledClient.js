@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { logger } = require('../services/logger');
 
-const { addAuthorizationHeader, addGatewayHeader, addPaginationHeaders } = require('./axios-config-decorators');
+const { addAuthorizationHeader, addPaginationHeaders } = require('./axios-config-decorators');
 
 const resultLogger = (result) => {
   logger.debug(`${result.config.method} ${result.config.url} ${result.status} ${result.statusText}`);
@@ -21,19 +21,16 @@ const errorLogger = (error) => {
  *
  * @param baseUrl The base url to be used with the client's get and post
  * @param timeout The timeout to apply to get and post.
- * @param useGateway Add gateway header data to each request if true.
  * @returns {{get: (function(*=): *), post: (function(*=, *=): *)}}
  */
-const factory = ({ baseUrl, timeout, useGateway = false }) => {
+const factory = ({ baseUrl, timeout }) => {
   const axiosInstance = axios.create({
     baseURL: baseUrl,
     timeout,
   });
 
 
-  const addHeaders = useGateway ?
-    (context, config) => addPaginationHeaders(context, addGatewayHeader(addAuthorizationHeader(context, config))) :
-    (context, config) => addPaginationHeaders(context, addAuthorizationHeader(context, config));
+  const addHeaders = (context, config) => addPaginationHeaders(context, addAuthorizationHeader(context, config));
 
   /**
    * An Axios GET request with Oauth token

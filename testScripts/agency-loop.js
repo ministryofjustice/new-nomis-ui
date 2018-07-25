@@ -6,12 +6,11 @@ const clientFactory = require('../server/api/oauthEnabledClient');
 const tokenRefresherFactory = require('../server/tokenRefresher').factory;
 const common = require('./common');
 
-const oauthApi = oauthApiFactory({ ...config.apis.elite2, useGateway: config.app.useApiAuthGateway });
+const oauthApi = oauthApiFactory({ ...config.apis.elite2 });
 
 const eliteClient = clientFactory({
   baseUrl: config.apis.elite2.url,
   timeout: 10000,
-  useGateway: config.app.useApiAuthGateway,
 });
 
 const refreshTokens = tokenRefresherFactory(oauthApi.refresh, 45);
