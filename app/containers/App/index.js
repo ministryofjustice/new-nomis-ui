@@ -5,16 +5,15 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { setDeviceFormat } from 'globalReducers/app';
 import { retrieveUserMe } from 'containers/Authentication/actions';
-import { selectMobileMenuOpen, selectShouldShowSpinner, selectShouldShowTerms } from 'selectors/app';
+import { selectShouldShowSpinner, selectShouldShowTerms } from 'selectors/app';
 import Header from 'containers/Header';
 import Breadcrumbs from 'containers/Breadcrumbs';
-import MobileMenu from 'containers/MobileMenu';
 import Footer from 'containers/Footer';
 import ProductGlobals from 'product-globals';
 import Notifications from 'react-notify-toast';
 import Spinner from 'components/Spinner';
 import Terms from 'containers/Footer/terms-and-conditions';
-import { hideTerms, showTerms } from 'globalReducers/app';
+import { hideTerms } from 'globalReducers/app';
 import FeedbackLink from 'containers/FeedbackLink';
 import axios from 'axios/index';
 import {
@@ -57,15 +56,7 @@ export class App extends Component {
   }
 
   render() {
-    const { mobileMenuOpen, shouldShowSpinner, shouldShowTerms, hideTermsAndConditions, showTermsAndConditions } = this.props;
-
-    if (mobileMenuOpen) {
-      return (<div className="app-content">
-        <Helmet title={ProductGlobals.serviceName} />
-        <Header />
-        <MobileMenu showTerms={() => showTermsAndConditions()} />
-      </div>);
-    }
+    const { shouldShowSpinner, shouldShowTerms, hideTermsAndConditions } = this.props;
 
     return (
       <div className="app-content">
@@ -101,7 +92,6 @@ export class App extends Component {
 App.propTypes = {
   children: PropTypes.node,
   setDeviceFormat: PropTypes.func,
-  mobileMenuOpen: PropTypes.bool.isRequired,
   router: PropTypes.object.isRequired,
 };
 
@@ -109,11 +99,9 @@ App.defaultProps = {
   children: [],
   setDeviceFormat: () => {},
   retrieveUserMe: () => {},
-  mobileMenuOpen: false,
 };
 
 const mapStateToProps = createStructuredSelector({
-  mobileMenuOpen: selectMobileMenuOpen(),
   shouldShowSpinner: selectShouldShowSpinner(),
   shouldShowTerms: selectShouldShowTerms(),
 });
@@ -122,7 +110,6 @@ const mapDispatchToProps = (dispatch) => ({
   retrieveUserMe: () => dispatch(retrieveUserMe()),
   setDeviceFormat: (format) => dispatch(setDeviceFormat(format)),
   hideTermsAndConditions: () => dispatch(hideTerms()),
-  showTermsAndConditions: () => dispatch(showTerms()),
   setFeedbackUrl: (url) => dispatch(setFeedbackUrl(url)),
   setMailTo: (mailTo) => dispatch(setMailTo(mailTo)),
   setOmicUrl: (url) => dispatch(setOmicUrl(url)),

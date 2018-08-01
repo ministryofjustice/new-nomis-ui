@@ -10,10 +10,4 @@ describe('App container', () => {
     expect(app.find('Connect(MobileMenu)').exists()).toBe(false);
     expect(app.find('div.main-content').exists()).toBe(true);
   });
-
-  it('should show menu full screen on mobile', () => {
-    const app = shallow(<App router={{}} mobileMenuOpen />);// mobileMenuOpen
-    expect(app.find('Connect(MobileMenu)').text()).toEqual('<Connect(MobileMenu) />');
-    expect(app.find('div.main-content').exists()).toBe(false);
-  });
 });

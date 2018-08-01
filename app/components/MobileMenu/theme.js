@@ -9,7 +9,12 @@ export const MobileMenuContainer = styled.div`
   
   &::-webkit-scrollbar {
     width: 0px;
-  }
+  };
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
 `;
 
 export const MobileMenuHeader = styled.div`

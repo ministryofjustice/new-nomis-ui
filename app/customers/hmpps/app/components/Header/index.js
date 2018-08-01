@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Dropdown from 'components/Dropdown';
 import MenuToggle from 'components/MenuToggle';
+import MobileMenu from 'containers/MobileMenu';
 import ProductGlobals from 'product-globals';
 
 import { Link } from 'react-router';
@@ -41,7 +42,7 @@ class Header extends Component {
   }
 
   render() {
-    const { user, mobileMenuOpen, switchCaseLoad } = this.props;
+    const { user, mobileMenuOpen, switchCaseLoad, showTermsAndConditions } = this.props;
     return (
       <PageHeader>
         <div className="header-content">
@@ -70,6 +71,7 @@ class Header extends Component {
             </MobileOnly>
           </RightContent>
         </div>
+        {mobileMenuOpen && <MobileMenu showTerms={showTermsAndConditions} />}
       </PageHeader>
     );
   }
@@ -80,6 +82,7 @@ Header.propTypes = {
   mobileMenuOpen: PropTypes.bool,
   setMobileMenuOpen: PropTypes.func,
   switchCaseLoad: PropTypes.func.isRequired,
+  showTermsAndConditions: PropTypes.func.isRequired,
 };
 
 Header.contextTypes = {

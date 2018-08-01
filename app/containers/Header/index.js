@@ -6,17 +6,19 @@ import { createStructuredSelector } from 'reselect';
 
 import HeaderComponent from 'header';
 
-import { setMobileMenuOpen } from 'globalReducers/app';
+import { setMobileMenuOpen, showTerms } from 'globalReducers/app';
 import { selectMobileMenuOpen } from 'selectors/app';
 import { switchCaseLoad } from '../EliteApiLoader/actions';
 import { selectUserHeaderInfo } from './selectors';
 
-const HeaderContainer = ({ headerUser, mobileMenuOpen, switchCaseLoad: switchCL,setMobileMenuOpen: setMobileOpen }) => (
+
+const HeaderContainer = ({ headerUser, mobileMenuOpen, switchCaseLoad: switchCL,setMobileMenuOpen: setMobileOpen, showTermsAndConditions }) => (
     <HeaderComponent
       switchCaseLoad={switchCL}
       user={headerUser}
       mobileMenuOpen={mobileMenuOpen}
       setMobileMenuOpen={setMobileOpen}
+      showTermsAndConditions={showTermsAndConditions}
     />
   );
  
@@ -46,6 +48,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = {
   setMobileMenuOpen,
   switchCaseLoad,
+  showTermsAndConditions: showTerms,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer);
