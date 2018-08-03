@@ -14,7 +14,6 @@ export const MobileMenuContainer = styled.div`
   top: 60px;
   left: 0;
   width: 100%;
-  z-index: 1000;
 `;
 
 export const MobileMenuHeader = styled.div`
