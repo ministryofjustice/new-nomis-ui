@@ -1,6 +1,5 @@
 const moment = require('moment');
 
-const RiskAssessment = require('../model/risk-assessment');
 const keyDatesMapper = require('../data-mappers/keydates');
 const isoDateFormat = require('./../constants').isoDateFormat;
 const toAward = require('../data-mappers/to-award');
@@ -45,22 +44,14 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
 
     const iepLevel = (await eliteApi.getIepSummary(context, bookingId)).iepLevel;
 
-    const csraAssessment = details.assessments
-      .map(assessment => RiskAssessment(assessment))
-      .filter((assessment) => assessment.isCRSA() && assessment.isActive())[0];
-
-    const category = details.assessments
-    .map(assessment => RiskAssessment(assessment))
-    .filter((assessment) => assessment.isCategory() && assessment.isActive())[0];
-
     const keyworker = await getKeyworker(context, offenderNo);
 
     return {
       ...details,
       iepLevel,
       keyworker,
-      csra: csraAssessment && csraAssessment.riskLevel(),
-      category: category && category.riskLevel(),
+      csra: details.csra,
+      category: details.category,
     };
   };
 
