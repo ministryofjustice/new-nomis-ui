@@ -30,11 +30,8 @@ describe('Booking Service Booking details', () => {
       bookingId: 1,
     });
     eliteApi.getDetails.returns({
-      assessments: [{
-        classification: 'basic',
-        cellSharingAlertFlag: true,
-      },
-      ],
+      csra: 'Standard',
+      category: 'Cat B',
     });
     eliteApi.getIepSummary.returns({ iepLevel: null });
     eliteApi.getMyInformation.returns({ activeCaseloadId: 'LEI' });
@@ -44,14 +41,15 @@ describe('Booking Service Booking details', () => {
   afterEach(() => sandbox.restore());
 
   it('should call getDetails', async () => {
-    await bookingService.getBookingDetailsViewModel({}, offenderNo);
+    const data = await bookingService.getBookingDetailsViewModel({}, offenderNo);
     expect(eliteApi.getDetails).to.be.called;
+    expect(data.csra).to.equal('Standard');
+    expect(data.category).to.equal('Cat B');
   });
 
   it('should call getIepSummary', async () => {
-    const data = await bookingService.getBookingDetailsViewModel({}, offenderNo);
+    await bookingService.getBookingDetailsViewModel({}, offenderNo);
     expect(eliteApi.getIepSummary).to.be.called;
-    expect(data.csra).to.equal('basic');
   });
 
   it('it should call getKeyworker', async () => {

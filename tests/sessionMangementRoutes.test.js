@@ -69,6 +69,20 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
     res.send('static');
   });
 
+  const callback = done => function (err) {
+    if (err) {
+      if (done.fail) {
+        // jest
+        done.fail(err);
+      } else {
+        // mocha
+        done(err);
+      }
+    } else {
+      done();
+    }
+  };
+
   // Create an agent.  The agent handles and sends cookies. (It has state). The order of test below is important
   // because the outcome of each test depends upon the successful completion of the previous tests.
   const agent = request.agent(app);
@@ -80,7 +94,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
       .get('/')
       .expect(302)
       .expect('location', '/login')
-      .end(done)
+      .end(callback(done))
   });
 
   it('GET "/login" when not authenticated returns login page', (done) => {
@@ -89,7 +103,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
       .expect(200)
       .expect('content-type', /text\/html/)
       .expect(/Login/)
-      .end(done)
+      .end(callback(done))
   });
 
   it('successful login redirects to "/" setting hmpps cookie', (done) => {
@@ -99,7 +113,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
       .expect(302)
       .expect('location', '/')
       .expect(hasCookies(['testCookie']))
-      .end(done)
+      .end(callback(done))
   });
 
   it('GET "/login" when  authenticated redirects to "/"', (done) => {
@@ -107,7 +121,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
       .get('/login')
       .expect(302)
       .expect('location', '/')
-      .end(done)
+      .end(callback(done))
   });
 
   it('GET "/" with cookie serves content', (done) => {
@@ -116,7 +130,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
       .expect(200)
       .expect('static')
       .expect(hasCookies(['testCookie']))
-      .end(done)
+      .end(callback(done))
   });
 
   it('GET "/heart-beat"', (done) => {
@@ -127,7 +141,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
       .expect(() => {
         expect(tokenRefresher).to.be.called
       })
-      .end(done)
+      .end(callback(done))
   });
 
   it('GET "/heart-beat" when refresh fails', (done) => {
@@ -139,7 +153,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
       .expect(() => {
         expect(tokenRefresher).to.be.called
       })
-      .end(done)
+      .end(callback(done))
   });
 
 
@@ -153,7 +167,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
       // The server sends a set cookie header to clear the cookie.
       // The next test shows that the cookie was cleared because of the redirect to '/'
       .expect(hasCookies(['testCookie']))
-      .end(done)
+      .end(callback(done))
   });
 
   it('After logout get "/" should redirect to "/login"', (done) => {
@@ -162,7 +176,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
       .expect(302)
       .expect('location', '/login')
       .expect(hasCookies([]))
-      .end(done)
+      .end(callback(done))
   });
 
   it('Unsuccessful signin - API up', (done) => {
@@ -176,7 +190,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
         expect(res.error.path).to.equal('/login');
         expect(res.text).to.include('The username or password you have entered is invalid.');
       })
-      .end(done)
+      .end(callback(done))
   });
 
   it('Unsuccessful signin - API up, locked account', (done) => {
@@ -190,7 +204,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
         expect(res.error.path).to.equal('/login');
         expect(res.text).to.include('Your user account is locked.');
       })
-      .end(done)
+      .end(callback(done))
   });
 
   it('Unsuccessful signin - API up, expired account', (done) => {
@@ -204,7 +218,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
         expect(res.error.path).to.equal('/login');
         expect(res.text).to.include('Your password has expired.');
       })
-      .end(done)
+      .end(callback(done))
   });
 
   it('Unsuccessful signin - API down', (done) => {
@@ -218,7 +232,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
         expect(res.error.path).to.equal('/login');
         expect(res.text).to.include('Service unavailable. Please try again later.');
       })
-      .end(done)
+      .end(callback(done))
   });
 });
 
