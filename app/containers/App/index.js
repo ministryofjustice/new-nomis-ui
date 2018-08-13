@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { setDeviceFormat } from 'globalReducers/app';
 import { retrieveUserMe } from 'containers/Authentication/actions';
-import { selectShouldShowSpinner, selectShouldShowTerms } from 'selectors/app';
+import { selectShouldShowSpinner, selectShouldShowTerms, selectMobileMenuOpen } from 'selectors/app';
 import Header from 'containers/Header';
 import Breadcrumbs from 'containers/Breadcrumbs';
 import Footer from 'containers/Footer';
@@ -56,7 +56,7 @@ export class App extends Component {
   }
 
   render() {
-    const { shouldShowSpinner, shouldShowTerms, hideTermsAndConditions } = this.props;
+    const { shouldShowSpinner, shouldShowTerms, hideTermsAndConditions, mobileMenuOpen } = this.props;
 
     return (
       <div className="app-content">
@@ -73,7 +73,7 @@ export class App extends Component {
           </div>
         </nav>
 
-        <main className="container">
+        <main className="container" style={{ display: mobileMenuOpen ? 'none' : 'block' }}>
           {shouldShowSpinner && <Spinner /> }
           {!shouldShowTerms &&
           <div className="main-content">
@@ -104,6 +104,7 @@ App.defaultProps = {
 const mapStateToProps = createStructuredSelector({
   shouldShowSpinner: selectShouldShowSpinner(),
   shouldShowTerms: selectShouldShowTerms(),
+  mobileMenuOpen: selectMobileMenuOpen(),
 });
 
 const mapDispatchToProps = (dispatch) => ({
