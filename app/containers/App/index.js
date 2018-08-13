@@ -73,7 +73,7 @@ export class App extends Component {
           </div>
         </nav>
 
-        <main className="container" style={{ display: mobileMenuOpen ? 'none' : 'block' }}>
+        <main className="container" style={mobileMenuOpen ? { display: 'none' } : {}}>
           {shouldShowSpinner && <Spinner /> }
           {!shouldShowTerms &&
           <div className="main-content">
