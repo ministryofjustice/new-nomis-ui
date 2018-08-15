@@ -172,14 +172,11 @@ setup(app, {
   publicPath: '/',
 });
 
-// get the intended host and port number, use localhost and port 3000 if not provided
-const host = config.app.host; // Let http.Server use its default IPv6/4 host
 const port = config.app.port;
-
 // Start your app.
-app.listen(port, host, (err) => {
+app.listen(port, (err) => {
   if (err) {
     return logger.error(err);
   }
-  logger.info(`Application started on port: ${port}, ${host}`);
+  logger.info(`Application started on port: ${port}`);
 });

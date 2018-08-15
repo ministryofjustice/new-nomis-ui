@@ -2,7 +2,6 @@ const argv = require('minimist')(process.argv.slice(2));
 
 module.exports = {
   app: {
-    host: argv.host || process.env.HOST || 'localhost',
     port: argv.port || process.env.PORT || 3000,
     production: process.env.NODE_ENV === 'production',
     feedbackUrl: process.env.FEEDBACK_URL,
