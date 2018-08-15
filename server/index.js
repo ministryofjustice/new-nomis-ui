@@ -95,13 +95,13 @@ const healthApi = healthApiFactory(
 const eliteApi = eliteApiFactory(
   clientFactory({
     baseUrl: config.apis.elite2.url,
-    timeout: 10000,
+    timeout: config.apis.elite2.timeoutSeconds * 1000,
   }));
 
 const keyworkerApi = keyworkerApiFactory(
   clientFactory({
     baseUrl: config.apis.keyworker.url,
-    timeout: 10000,
+    timeout: config.apis.keyworker.timeoutSeconds * 1000,
   }));
 
 const oauthApi = oauthApiFactory({ ...config.apis.elite2 });

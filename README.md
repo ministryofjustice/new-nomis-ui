@@ -21,7 +21,6 @@ file e.g.
 
 ```properties
 PORT=3000
-USE_API_GATEWAY_AUTH=no
 API_ENDPOINT_URL=http://localhost:8080/api
 ```
 
@@ -50,7 +49,6 @@ or with in `docker-compose.yml`  Examples are shown below:-
 
       - PORT=3000
       - API_ENDPOINT_URL=http://elite2-api:8080/api/
-      - USE_API_GATEWAY_AUTH=no
 
       
 ## CI Build
