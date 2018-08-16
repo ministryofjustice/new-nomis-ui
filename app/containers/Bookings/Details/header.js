@@ -5,17 +5,19 @@ import { connect } from 'react-redux';
 
 import BookingsDetailsHeader from 'components/Bookings/Details/header';
 
-import { showLargePhoto } from '../actions';
+import { showLargePhoto, viewDetails } from '../actions';
+import { DETAILS_TABS } from '../constants';
 
 class Header extends Component { 
   render() {
-    const { headerDetails, showPhoto, offenderNo } = this.props;
-
+    const { headerDetails, showPhoto, offenderNo, showAlertTabForOffenderNo } = this.props;
+    const showAlertTab = () => showAlertTabForOffenderNo(offenderNo);
     return (
       <BookingsDetailsHeader
         offenderNo={offenderNo}
         inmateData={headerDetails}
         onImageClick={showPhoto}
+        onAlertFlagClick={showAlertTab}
       />
     );
   }
@@ -43,11 +45,13 @@ Header.defaultProps = {
     keyworker: null,
   }),
   showPhoto: () => {},
+  showAlertTabForOffenderNo: () => {},
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
     showPhoto: (imageId) => dispatch(showLargePhoto(imageId)),
+    showAlertTabForOffenderNo: (offenderNo) => dispatch(viewDetails(offenderNo, DETAILS_TABS.ALERTS)),
   };
 }
 
