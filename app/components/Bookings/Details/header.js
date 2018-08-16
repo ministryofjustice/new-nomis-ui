@@ -128,7 +128,7 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
     </div>);
 };
 
-function Header({ inmateData, onImageClick, offenderNo }) {
+function Header({ inmateData, onImageClick, offenderNo, onAlertFlagClick }) {
   const nameString = toFullName({ firstName: inmateData.get('firstName'), lastName: inmateData.get('lastName') });
 
   const alerts = inmateData.get('alerts');
@@ -148,11 +148,13 @@ function Header({ inmateData, onImageClick, offenderNo }) {
     }
   });
 
+  const AlertFlag = ({ className, children }) => (<span className={className} onClick={onAlertFlagClick}>{children}</span>);
+
   const flags = (className) => (<div className={className}>
-    {acct && <span className="acct-status">ACCT OPEN</span>}
-    {assaulter && <span className="assault-status">STAFF ASSAULTER</span>}
-    {arsonist && <span className="arsonist-status"><img src="/img/Arsonist_icon.png" className="flag-arsonist-icon" alt="" width="13" height="16" /> ARSONIST</span>}
-    {disability && <span className="disability-status"><img src="/img/Disability_icon.png" className="disability-adjust" alt="" width="19" height="21" /> PEEP</span>}
+    {acct && <AlertFlag className="acct-status" >ACCT OPEN</AlertFlag>}
+    {assaulter && <AlertFlag className="assault-status">STAFF ASSAULTER</AlertFlag>}
+    {arsonist && <AlertFlag className="arsonist-status"><img src="/img/Arsonist_icon.png" className="flag-arsonist-icon" alt="" width="13" height="16" /> ARSONIST</AlertFlag>}
+    {disability && <AlertFlag className="disability-status"><img src="/img/Disability_icon.png" className="disability-adjust" alt="" width="19" height="21" /> PEEP</AlertFlag>}
   </div>);
 
   return (

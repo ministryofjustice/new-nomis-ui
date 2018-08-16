@@ -1935,17 +1935,17 @@ ShallowWrapper {
       <div
         className="col-sm-12 no-padding-left"
       >
-        <span
+        <AlertFlag
           className="acct-status"
         >
           ACCT OPEN
-        </span>
-        <span
+        </AlertFlag>
+        <AlertFlag
           className="assault-status"
         >
           STAFF ASSAULTER
-        </span>
-        <span
+        </AlertFlag>
+        <AlertFlag
           className="arsonist-status"
         >
           <img
@@ -1956,8 +1956,8 @@ ShallowWrapper {
             width="13"
           />
            ARSONIST
-        </span>
-        <span
+        </AlertFlag>
+        <AlertFlag
           className="disability-status"
         >
           <img
@@ -1968,7 +1968,7 @@ ShallowWrapper {
             width="19"
           />
            PEEP
-        </span>
+        </AlertFlag>
       </div>
     </div>
     <div
@@ -2003,17 +2003,17 @@ ShallowWrapper {
             <div
               className="inline-header-large align-alerts"
             >
-              <span
+              <AlertFlag
                 className="acct-status"
               >
                 ACCT OPEN
-              </span>
-              <span
+              </AlertFlag>
+              <AlertFlag
                 className="assault-status"
               >
                 STAFF ASSAULTER
-              </span>
-              <span
+              </AlertFlag>
+              <AlertFlag
                 className="arsonist-status"
               >
                 <img
@@ -2024,8 +2024,8 @@ ShallowWrapper {
                   width="13"
                 />
                  ARSONIST
-              </span>
-              <span
+              </AlertFlag>
+              <AlertFlag
                 className="disability-status"
               >
                 <img
@@ -2036,7 +2036,7 @@ ShallowWrapper {
                   width="19"
                 />
                  PEEP
-              </span>
+              </AlertFlag>
             </div>
           </div>
         </div>
@@ -2183,17 +2183,17 @@ ShallowWrapper {
         <div
           className="col-sm-12 no-padding-left"
         >
-          <span
+          <AlertFlag
             className="acct-status"
           >
             ACCT OPEN
-          </span>
-          <span
+          </AlertFlag>
+          <AlertFlag
             className="assault-status"
           >
             STAFF ASSAULTER
-          </span>
-          <span
+          </AlertFlag>
+          <AlertFlag
             className="arsonist-status"
           >
             <img
@@ -2204,8 +2204,8 @@ ShallowWrapper {
               width="13"
             />
              ARSONIST
-          </span>
-          <span
+          </AlertFlag>
+          <AlertFlag
             className="disability-status"
           >
             <img
@@ -2216,7 +2216,7 @@ ShallowWrapper {
               width="19"
             />
              PEEP
-          </span>
+          </AlertFlag>
         </div>
       </div>
       <div
@@ -2251,17 +2251,17 @@ ShallowWrapper {
               <div
                 className="inline-header-large align-alerts"
               >
-                <span
+                <AlertFlag
                   className="acct-status"
                 >
                   ACCT OPEN
-                </span>
-                <span
+                </AlertFlag>
+                <AlertFlag
                   className="assault-status"
                 >
                   STAFF ASSAULTER
-                </span>
-                <span
+                </AlertFlag>
+                <AlertFlag
                   className="arsonist-status"
                 >
                   <img
@@ -2272,8 +2272,8 @@ ShallowWrapper {
                     width="13"
                   />
                    ARSONIST
-                </span>
-                <span
+                </AlertFlag>
+                <AlertFlag
                   className="disability-status"
                 >
                   <img
@@ -2284,7 +2284,7 @@ ShallowWrapper {
                     width="19"
                   />
                    PEEP
-                </span>
+                </AlertFlag>
               </div>
             </div>
           </div>
@@ -2467,6 +2467,7 @@ ShallowWrapper {
           }
         }
         offenderNo="A1234RT"
+        onAlertFlagClick={[Function]}
         onImageClick={[Function]}
       />,
       "_debugID": 1,
@@ -2512,6 +2513,7 @@ ShallowWrapper {
             "csra": "Medium",
           },
           "offenderNo": "A1234RT",
+          "onAlertFlagClick": [Function],
           "onImageClick": [Function],
         },
         "refs": Object {},
@@ -2543,17 +2545,17 @@ ShallowWrapper {
             <div
               className="col-sm-12 no-padding-left"
             >
-              <span
+              <AlertFlag
                 className="acct-status"
               >
                 ACCT OPEN
-              </span>
-              <span
+              </AlertFlag>
+              <AlertFlag
                 className="assault-status"
               >
                 STAFF ASSAULTER
-              </span>
-              <span
+              </AlertFlag>
+              <AlertFlag
                 className="arsonist-status"
               >
                 <img
@@ -2564,8 +2566,8 @@ ShallowWrapper {
                   width="13"
                 />
                  ARSONIST
-              </span>
-              <span
+              </AlertFlag>
+              <AlertFlag
                 className="disability-status"
               >
                 <img
@@ -2576,7 +2578,7 @@ ShallowWrapper {
                   width="19"
                 />
                  PEEP
-              </span>
+              </AlertFlag>
             </div>
           </div>
           <div
@@ -2611,17 +2613,17 @@ ShallowWrapper {
                   <div
                     className="inline-header-large align-alerts"
                   >
-                    <span
+                    <AlertFlag
                       className="acct-status"
                     >
                       ACCT OPEN
-                    </span>
-                    <span
+                    </AlertFlag>
+                    <AlertFlag
                       className="assault-status"
                     >
                       STAFF ASSAULTER
-                    </span>
-                    <span
+                    </AlertFlag>
+                    <AlertFlag
                       className="arsonist-status"
                     >
                       <img
@@ -2632,8 +2634,8 @@ ShallowWrapper {
                         width="13"
                       />
                        ARSONIST
-                    </span>
-                    <span
+                    </AlertFlag>
+                    <AlertFlag
                       className="disability-status"
                     >
                       <img
@@ -2644,7 +2646,7 @@ ShallowWrapper {
                         width="19"
                       />
                        PEEP
-                    </span>
+                    </AlertFlag>
                   </div>
                 </div>
               </div>
@@ -2791,17 +2793,17 @@ ShallowWrapper {
             <div
               className="col-sm-12 no-padding-left"
             >
-              <span
+              <AlertFlag
                 className="acct-status"
               >
                 ACCT OPEN
-              </span>
-              <span
+              </AlertFlag>
+              <AlertFlag
                 className="assault-status"
               >
                 STAFF ASSAULTER
-              </span>
-              <span
+              </AlertFlag>
+              <AlertFlag
                 className="arsonist-status"
               >
                 <img
@@ -2812,8 +2814,8 @@ ShallowWrapper {
                   width="13"
                 />
                  ARSONIST
-              </span>
-              <span
+              </AlertFlag>
+              <AlertFlag
                 className="disability-status"
               >
                 <img
@@ -2824,7 +2826,7 @@ ShallowWrapper {
                   width="19"
                 />
                  PEEP
-              </span>
+              </AlertFlag>
             </div>
           </div>
           <div
@@ -2859,17 +2861,17 @@ ShallowWrapper {
                   <div
                     className="inline-header-large align-alerts"
                   >
-                    <span
+                    <AlertFlag
                       className="acct-status"
                     >
                       ACCT OPEN
-                    </span>
-                    <span
+                    </AlertFlag>
+                    <AlertFlag
                       className="assault-status"
                     >
                       STAFF ASSAULTER
-                    </span>
-                    <span
+                    </AlertFlag>
+                    <AlertFlag
                       className="arsonist-status"
                     >
                       <img
@@ -2880,8 +2882,8 @@ ShallowWrapper {
                         width="13"
                       />
                        ARSONIST
-                    </span>
-                    <span
+                    </AlertFlag>
+                    <AlertFlag
                       className="disability-status"
                     >
                       <img
@@ -2892,7 +2894,7 @@ ShallowWrapper {
                         width="19"
                       />
                        PEEP
-                    </span>
+                    </AlertFlag>
                   </div>
                 </div>
               </div>
@@ -3079,6 +3081,7 @@ ShallowWrapper {
       }
     }
     offenderNo="A1234RT"
+    onAlertFlagClick={[Function]}
     onImageClick={[Function]}
   />,
 }
