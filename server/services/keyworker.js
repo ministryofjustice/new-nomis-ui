@@ -34,24 +34,6 @@ const keyworkerServiceFactory = (eliteApi, keyworkerApi) => {
     });
   };
 
-  const offendersWithCSRA = async (context, offenders = []) => {
-    const offenderNumbers = offenders.map(offender => offender.offenderNo);
-    const assessments = await eliteApi.getOffendersAssessments(context, 'CSR', offenderNumbers) || [];
-
-    return offenders.map(offender => {
-      const offenderAssessments = assessments
-        .filter(assessment => assessment.offenderNo === offender.offenderNo && !!assessment.classification);
-
-      const assessment = offenderAssessments.length && offenderAssessments[0];
-      const crsaLevel = (assessment && assessment.classification) || null;
-
-      return {
-        ...offender,
-        crsaLevel,
-      }
-    });
-  };
-
   const offendersLastKWSession = async (context, offenders = []) => {
     if (offenders.length === 0) {
       return [];
@@ -90,9 +72,9 @@ const keyworkerServiceFactory = (eliteApi, keyworkerApi) => {
 
     const allocations =
       await offendersLastKWSession(context,
-        await offendersWithCSRA(context,
+       // CSRA NOT NOW displayed: await offendersWithCSRA(context,
           await offendersWithConditionalReleaseDate(context,
-            await getAssignedOffenders(context, staffId, activeCaseLoadId))));
+            await getAssignedOffenders(context, staffId, activeCaseLoadId)));
 
     return {
       allocations,
