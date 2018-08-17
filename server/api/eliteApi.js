@@ -53,7 +53,6 @@ const eliteApiFactory = (client) => {
   const getMyInformation = (context) => get(context, 'api/users/me');
   const getNegativeCaseNotes = ({ context, bookingId, fromDate, toDate }) => get(context, `api/bookings/${bookingId}/caseNotes/NEG/IEP_WARN/count?fromDate=${fromDate}&toDate=${toDate}`);
   const getNextVisit = (context, bookingId) => get(context, `api/bookings/${bookingId}/visits/next`);
-  const getOffendersAssessments = (context, code, offenderNumbers) => get(context, `api/offender-assessments/${code}?${toQueryParameters(offenderNumbers)}`);
   const getOffendersSentenceDates = (context, offenderNumbers) => get(context, `api/offender-sentences/?${toQueryParameters(offenderNumbers)}`);
   const getPositiveCaseNotes = ({ context, bookingId, fromDate, toDate }) => get(context, `api/bookings/${bookingId}/caseNotes/POS/IEP_ENC/count?fromDate=${fromDate}&toDate=${toDate}`);
   const getRelationships = (context, bookingId) => get(context, `api/bookings/${bookingId}/relationships`);
@@ -86,7 +85,6 @@ const eliteApiFactory = (client) => {
     getMyInformation,
     getNegativeCaseNotes,
     getNextVisit,
-    getOffendersAssessments,
     getOffendersSentenceDates,
     getPositiveCaseNotes,
     getRelationships,

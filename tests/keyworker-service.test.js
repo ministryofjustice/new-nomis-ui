@@ -23,7 +23,6 @@ describe('Key worker service', () => {
     sandbox.stub(eliteApi, 'getSummaryForOffenders');
     sandbox.stub(eliteApi, 'getAssignedOffenders');
     sandbox.stub(eliteApi, 'getOffendersSentenceDates');
-    sandbox.stub(eliteApi, 'getOffendersAssessments');
     sandbox.stub(eliteApi, 'caseNoteUsageList');
 
     sandbox.stub(keyworkerApi, 'getKeyworkerByStaffIdAndPrisonId');
@@ -91,25 +90,11 @@ describe('Key worker service', () => {
     expect(keyworkerApi.getKeyworkerByStaffIdAndPrisonId).to.be.calledWith(context, 1, 'LEI');
   });
 
-  it('should call offender-assessments with the correct code and offender numbers', async () => {
-    const offenders = [{ offenderNo: 'A1' }, { offenderNo: 'A2' }];
-    keyworkerApi.getPrisonMigrationStatus.returns({ migrated: true });
-    keyworkerApi.getAssignedOffenders.returns(offenders);
-    eliteApi.getSummaryForOffenders.returns(offenders);
-    eliteApi.getOffendersSentenceDates.returns(offenders);
-    eliteApi.caseNoteUsageList.returns(offenders);
-
-    await service.myAllocationsViewModel(context);
-
-    expect(eliteApi.getOffendersAssessments).to.be.calledWith(context,'CSR', ['A1','A2']);
-  });
-
   it('should call offender-sentence with the correct offender numbers',async () => {
     const offenders = [{ offenderNo: 'A1' }, { offenderNo: 'A2' }];
     keyworkerApi.getPrisonMigrationStatus.returns({ migrated: true });
     keyworkerApi.getAssignedOffenders.returns(offenders);
     eliteApi.getSummaryForOffenders.returns(offenders);
-    eliteApi.getOffendersAssessments.returns(offenders);
     eliteApi.caseNoteUsageList.returns(offenders);
 
     await service.myAllocationsViewModel(context);
@@ -120,7 +105,6 @@ describe('Key worker service', () => {
   it('should produce a view model that contains a key workers capacity and allocations merged with assessment and sentence information', async () => {
     const offenders = [{ offenderNo: 'A1' }, { offenderNo: 'A2' }];
     const sentenceDates = [{ offenderNo: 'A1',sentenceDetail: { conditionalReleaseDate: '20/10/2020' } }, { offenderNo: 'A2',sentenceDetail: { conditionalReleaseDate: '21/10/2020' } }];
-    const assessments = [{ offenderNo: 'A1',classification: 'High' }, { offenderNo: 'A2',classification: 'Low' }];
     const kwDates = [{ offenderNo: 'A1',latestCaseNote: '04/06/2018' }, { offenderNo: 'A2',latestCaseNote: '01/06/2018' }];
 
     keyworkerApi.getPrisonMigrationStatus.returns({ migrated: true });
@@ -131,14 +115,13 @@ describe('Key worker service', () => {
     eliteApi.getSummaryForOffenders.returns(offenders);
 
     eliteApi.getOffendersSentenceDates.returns(sentenceDates);
-    eliteApi.getOffendersAssessments.returns(assessments);
     eliteApi.caseNoteUsageList.returns(kwDates);
 
     const expected = {
       capacity: 15,
       allocations: [
-        { offenderNo: 'A1',conditionalReleaseDate: '20/10/2020',crsaLevel: 'High', lastKeyWorkerSessionDate: '04/06/2018' },
-        { offenderNo: 'A2',conditionalReleaseDate: '21/10/2020',crsaLevel: 'Low', lastKeyWorkerSessionDate: '01/06/2018' },
+        { offenderNo: 'A1',conditionalReleaseDate: '20/10/2020', lastKeyWorkerSessionDate: '04/06/2018' },
+        { offenderNo: 'A2',conditionalReleaseDate: '21/10/2020', lastKeyWorkerSessionDate: '01/06/2018' },
       ],
     };
 
