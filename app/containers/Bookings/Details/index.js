@@ -41,7 +41,7 @@ const parseActiveTab = (needle) => {
     return needle;
   }
 
-  return DETAILS_TABS.OFFENDER_DETAILS;
+  return DETAILS_TABS.QUICK_LOOK;
 };
 
 class Details extends Component {

@@ -32,7 +32,7 @@ export const buildBreadcrumb = ({ route, lastSearchResultQuery, offender, contex
 
   const homeCrumb = { name: 'Home', route: '/' };
   const assignments = { route: '/myKeyWorkerAllocations', name: 'My key worker allocations' };
-  const bookingDetailsEntry = { name: nameString || offenderNo, route: `/offenders/${offenderNo}/personal` };
+  const bookingDetailsEntry = { name: nameString || offenderNo, route: `/offenders/${offenderNo}/quick-look` };
 
   let searchContext = null;
 

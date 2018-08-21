@@ -20,8 +20,9 @@ const isSearchResultRoute = (route) => route === '/results';
 
 const detailsState = fromJS({
   id: 0,
-  activeTabId: DETAILS_TABS.OFFENDER_DETAILS,
+  activeTabId: DETAILS_TABS.QUICK_LOOK,
   tabs: [{ tabId: DETAILS_TABS.OFFENDER_DETAILS, title: 'Offender Details' },
+    { tabId: DETAILS_TABS.QUICK_LOOK, title: 'Quick look' },
     { tabId: DETAILS_TABS.PHYSICAL_ATTR, title: 'Physical Attributes' },
     { tabId: DETAILS_TABS.ALERTS, title: 'Alerts' },
     { tabId: DETAILS_TABS.CASE_NOTES, title: 'Case Notes' }],
