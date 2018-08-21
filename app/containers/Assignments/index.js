@@ -141,7 +141,7 @@ Assignments.propTypes = {
 
 export function mapDispatchToProps(dispatch, props) {
   return {
-    viewDetails: (offenderNo) => dispatch(vD(offenderNo, DETAILS_TABS.OFFENDER_DETAILS)),
+    viewDetails: (offenderNo) => dispatch(vD(offenderNo, DETAILS_TABS.QUICK_LOOK)),
     setPage: (pagination) => dispatch(setAssignmentsPagination({ ...props.location.query, ...pagination })),
     setResultsView: (view) => dispatch(setAssignmentsView(view)),
     setContext: (context) => dispatch(setSearchContext(context)),

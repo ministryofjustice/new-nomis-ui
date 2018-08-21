@@ -17,7 +17,7 @@ const ArrowDown = ({ sortOrderChange }) => <span className="clickable" onClick={
 const onViewDetails = (event, row) => {
   event.preventDefault();
 
-  browserHistory.push(`/offenders/${row.get('offenderNo')}/${DETAILS_TABS.OFFENDER_DETAILS}`)
+  browserHistory.push(`/offenders/${row.get('offenderNo')}/${DETAILS_TABS.QUICK_LOOK}`)
 };
 
 const Table = ({ results, sortOrder, sortOrderChange }) => (

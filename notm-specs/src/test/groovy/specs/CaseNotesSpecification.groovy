@@ -1,4 +1,6 @@
 package specs
+
+import com.google.common.collect.Lists
 import geb.spock.GebReportingSpec
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
@@ -52,6 +54,21 @@ class CaseNotesSpecification extends GebReportingSpec {
 
     searchFor "d s"
     at SearchResultsPage
+    /* required for default Quick look tab */
+    elite2api.stubOffenderDetails(false)
+    elite2api.stubGetCaseNote()
+    elite2api.stubBalances()
+    elite2api.stubVisitsNext()
+    elite2api.stubEvents()
+    elite2api.stubSentenceDetail()
+    elite2api.stubMainOffence()
+    elite2api.stubContacts()
+    elite2api.stubVisitLast()
+    elite2api.stubRelationships()
+    elite2api.stubCaseNoteUsage(Lists.asList(model.Offender.SMITH()))
+    elite2api.stubCaseNotesNegIepWarnCount()
+    elite2api.stubCaseNotesPosIepEncCount()
+    elite2api.stubAdjudications()
     selectOffender(1)
     at OffenderDetailsPage
 

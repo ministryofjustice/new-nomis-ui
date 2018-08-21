@@ -143,7 +143,7 @@ export function* onAddAppointment(action) {
       offenderNo,
     });
 
-    yield put(push(`/offenders/${offenderNo}/${DETAILS_TABS.OFFENDER_DETAILS}`));
+    yield put(push(`/offenders/${offenderNo}/${DETAILS_TABS.QUICK_LOOK}`));
 
     yield notify.show('Appointment has been created successfully.', 'success');
   } catch (err) {

@@ -178,7 +178,7 @@ class AddAppointment extends Component {
 export function mapDispatchToProps(dispatch, props) {
   return {
     viewDetails: (offenderNo) => dispatch(viewDetails(offenderNo, DETAILS_TABS.ADD_APPOINTMENT)),
-    goBackToBookingDetails: (offenderNo) => dispatch(viewDetails(offenderNo, DETAILS_TABS.OFFENDER_DETAILS)),
+    goBackToBookingDetails: (offenderNo) => dispatch(viewDetails(offenderNo, DETAILS_TABS.QUICK_LOOK)),
     loadViewModel: (agencyId) => dispatch(loadAppointmentViewModel(agencyId)),
     onSubmit: createFormAction((formData) => (
       {
