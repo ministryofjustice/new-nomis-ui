@@ -6,7 +6,7 @@ const clientFactory = require('../server/api/oauthEnabledClient');
 const tokenRefresherFactory = require('../server/tokenRefresher').factory;
 const common = require('./common');
 
-const oauthApi = oauthApiFactory({ ...config.apis.elite2 });
+const oauthApi = oauthApiFactory({ ...config.apis.oauth2 });
 
 const eliteClient = clientFactory({
   baseUrl: config.apis.elite2.url,

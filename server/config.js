@@ -13,11 +13,15 @@ module.exports = {
     appInsightsKey: process.env.APPINSIGHTS_INSTRUMENTATIONKEY || 'secret',
   },
   apis: {
-    elite2: {
-      url: process.env.API_ENDPOINT_URL || 'http://localhost:8080',
+    oauth2: {
+      url: process.env.OAUTH_ENDPOINT_URL || process.env.API_ENDPOINT_URL || 'http://localhost:8080',
       timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 10,
       clientId: process.env.API_CLIENT_ID || 'elite2apiclient',
       clientSecret: process.env.API_CLIENT_SECRET || 'clientsecret',
+    },
+    elite2: {
+      url: process.env.API_ENDPOINT_URL || 'http://localhost:8080',
+      timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 10,
     },
     keyworker: {
       url: process.env.KEYWORKER_API_URL || 'http://localhost:8081',
