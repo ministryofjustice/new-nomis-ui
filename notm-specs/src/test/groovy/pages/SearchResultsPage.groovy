@@ -17,7 +17,7 @@ class SearchResultsPage extends Page {
   static content = {
     errors { module(ErrorsModule) }
     headingText { $('h1').text() }
-    images { $('div.row img') }
+    images { $('div.photo img') }
   }
 
   def selectOffender(index) {

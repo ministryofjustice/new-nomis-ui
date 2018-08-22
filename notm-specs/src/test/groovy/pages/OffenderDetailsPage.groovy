@@ -15,7 +15,7 @@ class OffenderDetailsPage extends Page {
 
   static content = {
     errors { module(ErrorsModule) }
-    offenderNameHeading { $('h1').text() }
+    offenderNameHeading { $('h1.heading-medium').text() }
     addCaseNoteLink { $('a.button-link', 0) }
     addAppointmentLink { $('a.button-link', 1) }
     spinner(required: false) { $('div.spinner-component')}
