@@ -6,47 +6,47 @@ import { createStructuredSelector } from 'reselect';
 
 import HeaderComponent from 'header';
 
-import { setMobileMenuOpen, showTerms } from 'globalReducers/app';
+import { setMenuOpen, showTerms } from 'globalReducers/app';
 import { selectMobileMenuOpen } from 'selectors/app';
 import { switchCaseLoad } from '../EliteApiLoader/actions';
 import { selectUserHeaderInfo } from './selectors';
 
 
-const HeaderContainer = ({ headerUser, mobileMenuOpen, switchCaseLoad: switchCL,setMobileMenuOpen: setMobileOpen, showTermsAndConditions }) => (
+const HeaderContainer = ({ headerUser, menuOpen, switchCaseLoad: switchCL,setMenuOpen: openMenu, showTermsAndConditions }) => (
     <HeaderComponent
       switchCaseLoad={switchCL}
       user={headerUser}
-      mobileMenuOpen={mobileMenuOpen}
-      setMobileMenuOpen={setMobileOpen}
+      menuOpen={menuOpen}
+      setMenuOpen={openMenu}
       showTermsAndConditions={showTermsAndConditions}
     />
   );
- 
+
 
 HeaderContainer.contextTypes = {
   intl: intlShape.isRequired,
 };
 
 HeaderContainer.propTypes = {
-  mobileMenuOpen: PropTypes.bool,
-  setMobileMenuOpen: PropTypes.func,
+  menuOpen: PropTypes.bool.isRequired,
+  setMenuOpen: PropTypes.func,
   switchCaseLoad: PropTypes.func.isRequired,
   headerUser: PropTypes.object,
 };
 
 HeaderContainer.defaultProps = {
-  mobileMenuOpen: false,
-  setMobileMenuOpen: () => {},
+  menuOpen: false,
+  setMenuOpen: () => {},
   headerUser: undefined,
 };
 
 const mapStateToProps = createStructuredSelector({
-  mobileMenuOpen: selectMobileMenuOpen(),
+  menuOpen: selectMobileMenuOpen(),
   headerUser: selectUserHeaderInfo(),
 });
 
 const mapDispatchToProps = {
-  setMobileMenuOpen,
+  setMenuOpen,
   switchCaseLoad,
   showTermsAndConditions: showTerms,
 };

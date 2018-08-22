@@ -10,4 +10,17 @@ describe('App container', () => {
     expect(app.find('Connect(MobileMenu)').exists()).toBe(false);
     expect(app.find('div.main-content').exists()).toBe(true);
   });
+
+  it('should close tbe menu when the background is clicked', () => {
+    const setMenuOpen = jest.fn();
+
+    const app = shallow(<App setMenuOpen={setMenuOpen} router={{ location: {} }} params={{ offenderNo: {} }} />);
+    const event = {
+      preventDefault: () => {},
+    };
+
+    app.instance().onBackgroundClick(event);
+
+    expect(setMenuOpen).toHaveBeenCalledWith(false);
+  })
 });

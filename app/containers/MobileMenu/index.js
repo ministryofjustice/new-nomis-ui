@@ -5,7 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import MobileMenuComponent from 'components/MobileMenu';
 import ModalData from 'containers/Footer/modal-data';
 
-import { setMobileMenuOpen, setModalData } from 'globalReducers/app';
+import { setMenuOpen, setModalData } from 'globalReducers/app';
 import { selectUserHeaderInfo } from '../Header/selectors';
 import { switchCaseLoad } from '../EliteApiLoader/actions';
 
@@ -14,7 +14,7 @@ const MobileMenu = (props) => {
     user, 
     switchCaseLoad: switchLoad, 
     setModalData: modelData,
-    setMobileMenuOpen: mobileMenuOpen, 
+    setMenuOpen: menuOpen,
     showTerms: terms,
   } = props;
 
@@ -28,14 +28,14 @@ const MobileMenu = (props) => {
       modalData={ModalData}
       setModalData={modelData}
       user={user}
-      setMobileMenuOpen={mobileMenuOpen}
+      setMenuOpen={menuOpen}
       showTerms={terms}
     />
   );
 }
 
 MobileMenu.propTypes = {
-  setMobileMenuOpen: PropTypes.func.isRequired,
+  setMenuOpen: PropTypes.func.isRequired,
   setModalData: PropTypes.func.isRequired,
   switchCaseLoad: PropTypes.func.isRequired,
 };
@@ -45,7 +45,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-  setMobileMenuOpen,
+  setMenuOpen,
   setModalData,
   switchCaseLoad,
 }

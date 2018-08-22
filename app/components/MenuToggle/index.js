@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import './toggle.scss';
 
-function MenuToggle({ toggleState, onToggle }) {
+function MenuToggle({ menuOpen, toggleMenu }) {
   return (
-      <div id="nav-icon" onClick={onToggle} className={toggleState ? 'open' : ''}>
+      <div id="nav-icon" onClick={toggleMenu} className={menuOpen ? 'open' : ''}>
         <span></span>
         <span></span>
         <span></span>
@@ -15,8 +15,8 @@ function MenuToggle({ toggleState, onToggle }) {
 }
 
 MenuToggle.propTypes = {
-  toggleState: PropTypes.bool,
-  onToggle: PropTypes.func,
+  menuOpen: PropTypes.bool.isRequired,
+  toggleMenu: PropTypes.func.isRequired,
 };
 
 MenuToggle.defaultProps = {

@@ -26,23 +26,12 @@ import {
 
 class Header extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.openMenu = this.openMenu.bind(this);
-    this.closeMenu = this.closeMenu.bind(this);
-  }
-
-  openMenu() {
-    this.props.setMobileMenuOpen(true);
-  }
-
-  closeMenu() {
-    this.props.setMobileMenuOpen(false);
+  toggleMenu() {
+    this.props.setMenuOpen(!this.props.menuOpen);
   }
 
   render() {
-    const { user, mobileMenuOpen, switchCaseLoad, showTermsAndConditions } = this.props;
+    const { user, menuOpen, switchCaseLoad, showTermsAndConditions } = this.props;
     return (
       <PageHeader>
         <div className="header-content">
@@ -60,18 +49,20 @@ class Header extends Component {
           </LeftContent>
           <RightContent>
             <DesktopOnly>
-              {user && <Dropdown switchCaseLoad={switchCaseLoad} user={user} /> }
+              {user && <Dropdown menuOpen={menuOpen} switchCaseLoad={switchCaseLoad} user={user} toggleMenu={() => this.toggleMenu()} /> }
             </DesktopOnly>
             <MobileOnly>
               { user &&
                 <ToggleWrapper>
-                  <MenuToggle toggleState={mobileMenuOpen} onToggle={mobileMenuOpen ? this.closeMenu : this.openMenu} />
+                  <MenuToggle menuOpen={menuOpen} toggleMenu={() => this.toggleMenu()} />
                 </ToggleWrapper>
               }
             </MobileOnly>
           </RightContent>
         </div>
-        {mobileMenuOpen && <MobileMenu showTerms={showTermsAndConditions} />}
+        <MobileOnly>
+          {menuOpen && <MobileMenu showTerms={showTermsAndConditions} />}
+        </MobileOnly>
       </PageHeader>
     );
   }
@@ -79,8 +70,8 @@ class Header extends Component {
 
 Header.propTypes = {
   user: PropTypes.object,
-  mobileMenuOpen: PropTypes.bool,
-  setMobileMenuOpen: PropTypes.func,
+  menuOpen: PropTypes.bool.isRequired,
+  setMenuOpen: PropTypes.func.isRequired,
   switchCaseLoad: PropTypes.func.isRequired,
   showTermsAndConditions: PropTypes.func.isRequired,
 };

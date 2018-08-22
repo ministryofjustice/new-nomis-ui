@@ -40,7 +40,6 @@ class KeyWorkerRoleBasedAccessSpecification extends GebReportingSpec {
 
     when: 'I am logged in and on the home page and the menu is expanded'
     header.dropDownMenu.click()
-    waitFor { header.myAllocationsMenuLink.displayed }
 
     then: 'I should see the my key worker allocations link in the drop down menu'
     assert header.myAllocationsMenuLink.present

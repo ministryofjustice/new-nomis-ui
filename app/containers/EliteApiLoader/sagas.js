@@ -5,7 +5,7 @@ import { selectApi } from 'containers/ConfigLoader/selectors';
 import { loadLocations } from 'containers/Bookings/actions';
 
 import {
-  setMobileMenuOpen,
+  setMenuOpen,
   showSpinner,
   hideSpinner,
 } from 'globalReducers/app';
@@ -202,7 +202,7 @@ export function* userSwitchCaseLoadsSaga(action) {
   const { caseLoadId } = action.payload;
 
   try {
-    yield put(setMobileMenuOpen(false));
+    yield put(setMenuOpen(false));
     yield put(showSpinner());
     yield call(users.switchCaseLoads, apiServer, caseLoadId);
     yield put(retrieveUserMe());

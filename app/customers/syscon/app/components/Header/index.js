@@ -1,10 +1,11 @@
 import React from 'react';
 import Dropdown from 'components/Dropdown';
 import MenuToggle from 'components/MenuToggle';
+import MobileMenu from 'containers/MobileMenu';
 
 import './index.scss';
 
-export default ({ user, switchCaseLoad, mobileMenuOpen, setMobileMenuOpen }) => (
+export default ({ user, switchCaseLoad, menuOpen, setMenuOpen }) => (
     <div className="banner">
 
       <div className="header-content">
@@ -33,18 +34,29 @@ export default ({ user, switchCaseLoad, mobileMenuOpen, setMobileMenuOpen }) => 
 
 
           <div className="desktop-menu">
-            {user && <Dropdown switchCaseLoad={switchCaseLoad} user={user} /> }
+            {user &&
+              <Dropdown
+                switchCaseLoad={switchCaseLoad}
+                user={user}
+                menuOpen={menuOpen}
+                toggleMenu={() => setMenuOpen(!menuOpen)}
+              />
+            }
           </div>
 
           <div className="mobile-menu">
             {user &&
               <MenuToggle
-                toggleState={mobileMenuOpen}
-                onToggle={mobileMenuOpen ? () => setMobileMenuOpen(false) : () => setMobileMenuOpen(true)}
+                menuOpen={menuOpen}
+                toggleMenu={() => setMenuOpen(!menuOpen)}
               />
             }
-
           </div>
+
+        <div className="mobile-only">
+          {menuOpen && <MobileMenu />}
+        </div>
+
       </div>
 
   </div>)

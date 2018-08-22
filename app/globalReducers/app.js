@@ -66,7 +66,7 @@ export const setDeviceFormat = (format) => ({
   payload: format,
 });
 
-export const setMobileMenuOpen = (bool) => ({
+export const setMenuOpen = (bool) => ({
   type: SET_MOBILE_MENU_OPEN,
   payload: bool,
 });
