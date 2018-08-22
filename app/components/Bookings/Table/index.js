@@ -33,7 +33,7 @@ const Table = ({ results, sortOrder, sortOrderChange }) => (
       </div>
 
       <div className="col-xs-2 col-md-2">
-        <b className="visible-md-inline-block visible-lg-inline-block"> Prisoner&nbsp;</b><b>No. </b>
+        <b className="visible-md-inline-block visible-lg-inline-block"> Prison</b> <b>No. </b>
       </div>
 
       <div className="visible-md visible-lg col-md-2">
