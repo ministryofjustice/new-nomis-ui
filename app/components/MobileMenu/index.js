@@ -15,9 +15,9 @@ import {
 
 import forwardBack from '../../assets/forward-arrow.svg';
 
-function MobileMenu({ user, setMobileMenuOpen, showTerms, switchCaseLoad }) {
+function MobileMenu({ user, setMenuOpen, showTerms, switchCaseLoad }) {
   const removeMobileMenu = () => {
-    setMobileMenuOpen(false);
+    setMenuOpen(false);
   };
 
   return (
@@ -45,7 +45,7 @@ function MobileMenu({ user, setMobileMenuOpen, showTerms, switchCaseLoad }) {
       </MobileMenuOption>
       <MobileMenuAdditionalOption
         onClick={() => {
-          setMobileMenuOpen(false);
+          setMenuOpen(false);
           showTerms();
         }}
       >Terms and conditions</MobileMenuAdditionalOption>
@@ -56,7 +56,7 @@ function MobileMenu({ user, setMobileMenuOpen, showTerms, switchCaseLoad }) {
 
 MobileMenu.propTypes = {
   user: PropTypes.object,
-  setMobileMenuOpen: PropTypes.func.isRequired,
+  setMenuOpen: PropTypes.func.isRequired,
   switchCaseLoad: PropTypes.func.isRequired,
 };
 
