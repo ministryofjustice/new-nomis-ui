@@ -11,8 +11,8 @@ import { DETAILS_TABS } from 'containers/Bookings/constants';
 
 import './index.scss';
 
-const ArrowUp = ({ sortOrderChange }) => <span className="clickable" onClick={sortOrderChange}> &#9650; </span>;
-const ArrowDown = ({ sortOrderChange }) => <span className="clickable" onClick={sortOrderChange}> &#9660; </span>;
+const ArrowUp = ({ sortOrderChange }) => <span className="clickable" onClick={sortOrderChange}> <img src="/img/Triangle_asc.png" height="8" width="15" /> </span>;
+const ArrowDown = ({ sortOrderChange }) => <span className="clickable" onClick={sortOrderChange}> <img src="/img/Triangle_desc.png" height="8" width="15" /> </span>;
 
 const onViewDetails = (event, row) => {
   event.preventDefault();
@@ -33,7 +33,7 @@ const Table = ({ results, sortOrder, sortOrderChange }) => (
       </div>
 
       <div className="col-xs-2 col-md-2">
-        <b> ID </b>
+        <b className="visible-md-inline-block visible-lg-inline-block"> Prison</b> <b>No. </b>
       </div>
 
       <div className="visible-md visible-lg col-md-2">
