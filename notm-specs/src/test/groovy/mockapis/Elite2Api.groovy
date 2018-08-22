@@ -18,6 +18,8 @@ import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson
 import model.UserAccount
 import model.Alert
 
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching
+
 class Elite2Api extends WireMockRule {
 
   Elite2Api() {
@@ -631,6 +633,165 @@ class Elite2Api extends WireMockRule {
         .withHeader('page-limit', '10')
         .withHeader('page-offset', '0')
         .withBody(JsonOutput.toJson(buildCaseNotes(10, 20)))))
+  }
+
+  void stubBalances() {
+    this.stubFor(
+      get(urlMatching("/api/bookings/.+/balances"))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody("""{
+    "spends": 475.61,
+    "cash": 10,
+    "savings": 10,
+    "currency": "GBP"
+}""")))
+  }
+
+  void stubVisits() {
+    this.stubFor(
+      get(urlMatching("/api/bookings/.+/visits"))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody("""[]""")))
+  }
+
+  void stubAdjudications() {
+    this.stubFor(
+      get(urlPathMatching("/api/bookings/.+/adjudications"))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody("""[]""")))
+  }
+
+  void stubVisitsNext() {
+    this.stubFor(
+      get(urlMatching("/api/bookings/.+/visits/next"))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody("""{}""")))
+  }
+
+  void stubVisitLast() {
+    this.stubFor(
+      get(urlMatching("/api/bookings/.+/visits/last"))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody("""{}""")))
+  }
+
+  void stubEvents() {
+    this.stubFor(
+      get(urlMatching("/api/bookings/.+/events/today"))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody("""[]""")))
+  }
+
+  void stubRelationships() {
+    this.stubFor(
+      get(urlMatching("/api/bookings/.+/relationships"))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody("""[]""")))
+  }
+
+  void stubSentenceDetail() {
+    this.stubFor(
+      get(urlMatching("/api/bookings/.+/sentenceDetail"))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody("""{
+    "bookingId": -10,
+    "sentenceStartDate": "2015-08-10",
+    "additionalDaysAwarded": 42,
+    "sentenceExpiryDate": "2018-11-27",
+    "conditionalReleaseDate": "2017-05-24",
+    "nonDtoReleaseDate": "2017-05-24",
+    "nonDtoReleaseDateType": "CRD",
+    "licenceExpiryDate": "2018-12-22",
+    "homeDetentionCurfewEligibilityDate": "2016-12-16",
+    "confirmedReleaseDate": "2017-04-07",
+    "releaseDate": "2017-04-07"
+}""")))
+  }
+
+  void stubMainOffence() {
+    this.stubFor(
+      get(urlMatching("/api/bookings/.+/mainOffence"))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody("""[
+    {
+        "bookingId": -10,
+        "offenceDescription": "Attempt burglary dwelling with intent to steal"
+    }
+]""")))
+  }
+
+  void stubContacts() {
+    this.stubFor(
+      get(urlMatching("/api/bookings/.+/contacts"))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody("""{
+    "nextOfKin": [
+        {
+            "lastName": "SASHONDA",
+            "firstName": "DIYDONOPHER",
+            "contactType": "S",
+            "contactTypeDescription": "Social/ Family",
+            "relationship": "GIF",
+            "relationshipDescription": "Girlfriend",
+            "emergencyContact": true,
+            "nextOfKin": true,
+            "relationshipId": 6083448,
+            "personId": 324003
+        }
+    ]
+}""")))
+  }
+
+  void stubCaseNotesNegIepWarnCount() {
+    this.stubFor(
+      get(urlPathMatching("/api/bookings/.+/caseNotes/NEG/IEP_WARN/count"))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody("""{
+    "bookingId": -10,
+    "type": "NEG",
+    "subType": "IEP_WARN",
+    "count": 1,
+    "fromDate": "2018-05-21",
+    "toDate": "2018-08-21"
+}""")))
+  }
+
+  void stubCaseNotesPosIepEncCount() {
+    this.stubFor(
+      get(urlPathMatching("/api/bookings/.+/caseNotes/POS/IEP_ENC/count"))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody("""{
+    "bookingId": -10,
+    "type": "POS",
+    "subType": "IEP_WARN",
+    "count": 1,
+    "fromDate": "2018-05-21",
+    "toDate": "2018-08-21"
+}""")))
   }
 
   def buildCaseNotes(Integer pageOffset, Integer pageLimit) {

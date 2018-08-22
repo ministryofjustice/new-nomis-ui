@@ -104,7 +104,7 @@ const keyworkerApi = keyworkerApiFactory(
     timeout: config.apis.keyworker.timeoutSeconds * 1000,
   }));
 
-const oauthApi = oauthApiFactory({ ...config.apis.elite2 });
+const oauthApi = oauthApiFactory({ ...config.apis.oauth2 });
 const tokenRefresher = tokeRefresherFactory(oauthApi.refresh, config.app.tokenRefreshThresholdSeconds);
 
 const userService = userServiceFactory(eliteApi);

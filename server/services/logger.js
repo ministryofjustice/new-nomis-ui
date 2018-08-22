@@ -4,8 +4,8 @@ const logger = new Logger({
   name: 'notm:server',
   streams: [
     {
-      level: 'info',
-      // level: 'debug',
+      // level: 'info',
+      level: 'debug',
       stream: process.stdout,
     },
   ],

@@ -129,7 +129,7 @@ SearchResults.defaultProps = {
 
 export function mapDispatchToProps(dispatch, props) {
   return {
-    viewDetails: (offenderNo) => dispatch(vD(offenderNo, DETAILS_TABS.OFFENDER_DETAILS)),
+    viewDetails: (offenderNo) => dispatch(vD(offenderNo, DETAILS_TABS.QUICK_LOOK)),
     setPage: (pagination) => dispatch(sP({ ...props.location.query, ...pagination })),
     setResultsView: (pagination) => dispatch(setResultsView(pagination)),
     loadLocations: () => dispatch(loadLocations()),

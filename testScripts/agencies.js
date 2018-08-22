@@ -10,7 +10,7 @@ const eliteClient = clientFactory({
   timeout: 10000,
 });
 
-const oauthApi = oauthApiFactory({ ...config.apis.elite2 });
+const oauthApi = oauthApiFactory({ ...config.apis.oauth2 });
 
 const credentials = common.usage();
 
