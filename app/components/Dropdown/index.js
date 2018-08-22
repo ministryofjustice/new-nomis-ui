@@ -12,44 +12,28 @@ import { MenuWrapper,
 
 class Dropdown extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: false,
-    };
-
-    this.closeMenu = this.closeMenu.bind(this);
-    this.toggleMenu = this.toggleMenu.bind(this);
-  }
-
-  closeMenu() {
-    this.setState({ isOpen: false });
-  }
-  toggleMenu() {
-    this.setState({ isOpen: !this.state.isOpen });
-  }
   render() {
-    const { user, switchCaseLoad } = this.props;
+    const { user, switchCaseLoad, menuOpen, toggleMenu } = this.props;
   
     const caseLoadDesc = user.activeCaseLoad && user.activeCaseLoad.description ? user.activeCaseLoad.description : user.activeCaseLoadId;
 
     return (
       <MenuWrapper innerRef={(wrapper) => { this.wrapper = wrapper; }} onMouseDown={this.handleMouseDown} onTouchStart={this.handleMouseDown}>
-        <InfoWrapper className="clickable" onClick={() => this.toggleMenu()}>
+        <InfoWrapper className="clickable" onClick={() => toggleMenu()}>
           <UserName>{toFullName(user)}
           </UserName>
           <CaseLoad>{caseLoadDesc}</CaseLoad>
         </InfoWrapper>
         <DropdownMenu>
-          { this.state.isOpen &&
+          { menuOpen &&
           <div>
             {user.isKeyWorker && 
-            <DropdownMenuLink className="my-allocations-menu-link" key={'My Assignments'} to={'/myKeyWorkerAllocations'} onClick={() => this.toggleMenu()}>
+            <DropdownMenuLink className="my-allocations-menu-link" key={'My Assignments'} to={'/myKeyWorkerAllocations'} onClick={() => toggleMenu()}>
               My key worker allocations
             </DropdownMenuLink>}
 
             {user.caseLoadOptions.map((option) =>
-              <DropdownMenuOption key={option.caseLoadId} onClick={() => { this.closeMenu(); switchCaseLoad(option.caseLoadId); }}>
+              <DropdownMenuOption key={option.caseLoadId} onClick={() => { switchCaseLoad(option.caseLoadId); toggleMenu(); }}>
                 {option.description}
               </DropdownMenuOption>)
             }
@@ -68,6 +52,8 @@ class Dropdown extends Component {
 Dropdown.propTypes = {
   user: PropTypes.object,
   switchCaseLoad: PropTypes.func.isRequired,
+  menuOpen: PropTypes.bool.isRequired,
+  toggleMenu: PropTypes.func.isRequired,
 };
 
 Dropdown.defaultProps = {

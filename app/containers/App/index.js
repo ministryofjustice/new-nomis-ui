@@ -13,13 +13,14 @@ import ProductGlobals from 'product-globals';
 import Notifications from 'react-notify-toast';
 import Spinner from 'components/Spinner';
 import Terms from 'containers/Footer/terms-and-conditions';
-import { hideTerms } from 'globalReducers/app';
 import FeedbackLink from 'containers/FeedbackLink';
 import axios from 'axios/index';
 import {
   setFeedbackUrl,
   setOmicUrl,
   setMailTo,
+  setMenuOpen,
+  hideTerms,
 } from '../../globalReducers/app';
 
 export class App extends Component {
@@ -39,6 +40,10 @@ export class App extends Component {
     this.requestOmicAndFeedbackUrl();
   }
 
+  onBackgroundClick() {
+    this.props.setMenuOpen(false);
+  }
+
   requestOmicAndFeedbackUrl() {
     axios.get('/config').then(response => {
       this.props.setOmicUrl(response.data.omicUrl);
@@ -56,7 +61,7 @@ export class App extends Component {
   }
 
   render() {
-    const { shouldShowSpinner, shouldShowTerms, hideTermsAndConditions, mobileMenuOpen } = this.props;
+    const { shouldShowSpinner, shouldShowTerms, hideTermsAndConditions, menuOpen } = this.props;
 
     return (
       <div className="app-content">
@@ -69,11 +74,15 @@ export class App extends Component {
 
         <nav className="nav-container">
           <div className="nav-content">
-            {!shouldShowTerms && <Breadcrumbs route={this.props.router.location.pathname} offenderNo={this.props.params.offenderNo} /> }
+            {!shouldShowTerms &&
+                <Breadcrumbs
+                  route={this.props.router.location.pathname}
+                  offenderNo={this.props.params.offenderNo}
+                /> }
           </div>
         </nav>
 
-        <main className="container" style={mobileMenuOpen ? { display: 'none' } : {}}>
+        <main className={`container ${menuOpen ? 'desktop-only' : ''}`} onClick={() => this.onBackgroundClick()} >
           {shouldShowSpinner && <Spinner /> }
           {!shouldShowTerms &&
           <div className="main-content">
@@ -83,7 +92,9 @@ export class App extends Component {
 
         </main>
 
-        <Footer />
+        <div onClick={() => this.onBackgroundClick()}>
+          <Footer />
+        </div>
       </div>
     );
   }
@@ -93,27 +104,30 @@ App.propTypes = {
   children: PropTypes.node,
   setDeviceFormat: PropTypes.func,
   router: PropTypes.object.isRequired,
+  setMenuOpen: PropTypes.func.isRequired,
 };
 
 App.defaultProps = {
   children: [],
   setDeviceFormat: () => {},
   retrieveUserMe: () => {},
+  setMenuOpen: () => {},
 };
 
 const mapStateToProps = createStructuredSelector({
   shouldShowSpinner: selectShouldShowSpinner(),
   shouldShowTerms: selectShouldShowTerms(),
-  mobileMenuOpen: selectMobileMenuOpen(),
+  menuOpen: selectMobileMenuOpen(),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   retrieveUserMe: () => dispatch(retrieveUserMe()),
   setDeviceFormat: (format) => dispatch(setDeviceFormat(format)),
-  hideTermsAndConditions: () => dispatch(hideTerms()),
   setFeedbackUrl: (url) => dispatch(setFeedbackUrl(url)),
   setMailTo: (mailTo) => dispatch(setMailTo(mailTo)),
   setOmicUrl: (url) => dispatch(setOmicUrl(url)),
+  hideTermsAndConditions: () => dispatch(hideTerms()),
+  setMenuOpen: (flag) => dispatch(setMenuOpen(flag)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

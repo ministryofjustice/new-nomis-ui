@@ -179,7 +179,7 @@
 
 .hidden-sm-down {
   @include media-breakpoint-down(sm) {
-    display: none;
+    display: none !important;
   }
 }
 

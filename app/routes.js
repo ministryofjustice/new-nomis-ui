@@ -5,7 +5,7 @@
 
 import { getAsyncInjectors } from 'utils/asyncInjectors';
 import { logOut } from 'containers/Authentication/actions'; //eslint-disable-line
-import { setMobileMenuOpen } from 'globalReducers/app';
+import { setMenuOpen } from 'globalReducers/app';
 import { analyticsServiceBuilder } from 'utils/analyticsService';
 
 const analyticsService = analyticsServiceBuilder();
@@ -20,7 +20,7 @@ const loadModule = (cb) => (componentModule) => {
 
 const checkAndCloseMobileMenu = (store) => {
   if (store.getState().get('app').get('mobileMenuOpen')) {
-    store.dispatch(setMobileMenuOpen(false));
+    store.dispatch(setMenuOpen(false));
   }
 }
 
