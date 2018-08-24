@@ -245,6 +245,12 @@
   }
 }
 
+@include media-breakpoint-down(md) {
+  .desktop-only {
+    display: none !important;
+  }
+}
+
 @mixin link-font-size() {
   font-size: 16px;
 
