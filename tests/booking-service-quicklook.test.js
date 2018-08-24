@@ -616,13 +616,6 @@ describe('Booking Service Quick look', () => {
         numCaseNotes: 4,
         latestCaseNote: '2018-07-02T15:03:47.337Z',
       },
-      {
-        staffId: 234423,
-        caseNoteType: 'KA',
-        caseNoteSubType: 'KE',
-        numCaseNotes: 4,
-        latestCaseNote: '2018-07-01T12:00:00.000Z',
-      },
     ]);
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
