@@ -15,6 +15,7 @@ import Spinner from 'components/Spinner';
 import Terms from 'containers/Footer/terms-and-conditions';
 import FeedbackLink from 'containers/FeedbackLink';
 import axios from 'axios/index';
+
 import {
   setFeedbackUrl,
   setOmicUrl,
