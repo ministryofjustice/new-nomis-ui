@@ -32,7 +32,7 @@ const eliteApiFactory = (client) => {
       () => true,
       () => false);
 
-  const caseNoteUsageList = (context, offenderNumbers) => get(context, `api/case-notes/usage?type=KA&numMonths=6&${toQueryParameters(offenderNumbers)}`);
+  const caseNoteUsageList = (context, offenderNumbers) => get(context, `api/case-notes/usage?type=KA&subType=KS&numMonths=6&${toQueryParameters(offenderNumbers)}`);
   const getAdjudications = ({ context, bookingId, fromDate }) => get(context, `api/bookings/${bookingId}/adjudications?fromDate=${fromDate}`);
   const getAppointmentTypes = (context) => get(context, 'api/reference-domains/scheduleReasons?eventType=APP');
   const getAssignedOffenders = (context) => get(context, 'api/users/me/bookingAssignments');
