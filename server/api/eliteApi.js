@@ -8,6 +8,13 @@ const eliteApiFactory = (client) => {
     return response.data;
   };
 
+  const map404ToNull = error => {
+    if (!error.response) throw error;
+    if (!error.response.status) throw error;
+    if (error.response.status !== 404) throw error; // Not Found
+    return null;
+  };
+
   const get = (context, url) =>
     client
       .get(context, url)
@@ -38,7 +45,7 @@ const eliteApiFactory = (client) => {
   const getAssignedOffenders = (context) => get(context, 'api/users/me/bookingAssignments');
   const getAssessments = (context, bookingId) => get(context, `api/bookings/${bookingId}/assessments`);
   const getBalances = (context, bookingId) => get(context, `api/bookings/${bookingId}/balances`);
-  const getCategoryAssessment = (context, bookingId) => get(context, `api/bookings/${bookingId}/assessment/CATEGORY`);
+  const getCategoryAssessment = (context, bookingId) => get(context, `api/bookings/${bookingId}/assessment/CATEGORY`).catch(map404ToNull);
   const getContacts = (context, bookingId) => get(context, `api/bookings/${bookingId}/contacts`);
   const getDetails = (context, offenderNo) => get(context, `api/bookings/offenderNo/${offenderNo}?fullInfo=true`);
   const getDetailsLight = (context, offenderNo) => get(context, `api/bookings/offenderNo/${offenderNo}?fullInfo=false`);
