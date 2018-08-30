@@ -1,4 +1,3 @@
-
 import qs from 'querystring';
 
 export const properCase = (word) => ((typeof word === 'string') && (word.length >= 1)) ? word[0].toUpperCase() + word.toLowerCase().slice(1) : word;
@@ -16,6 +15,7 @@ export const splitCamelCase = (string) => string && string.length > 1 && string.
 export const buildSearchQueryString = (query) => qs.stringify({
   locationPrefix: query.locationPrefix,
   keywords: query.keywords || '',
+  alerts: query.alerts || [],
   perPage: query.perPage || 10,
   pageNumber: query.pageNumber || 0,
   sortOrder: query.sortOrder || 'ASC',

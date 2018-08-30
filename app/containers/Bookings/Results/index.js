@@ -37,17 +37,17 @@ class SearchResults extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!Map(prevProps.location.query).equals(Map(this.props.location.query))) {
+    if (JSON.stringify(prevProps.location.query) !== JSON.stringify(this.props.location.query)) {
       this.loadSearch();
     }
   }
 
   loadSearch() {
-    const { locationPrefix, keywords, perPage, pageNumber, sortOrder } = this.props.location.query;
+    const { locationPrefix, keywords, alerts, perPage, pageNumber, sortOrder } = this.props.location.query;
     const pagination = (perPage && pageNumber) ? { perPage, pageNumber } : this.props.pagination;
 
     if (locationPrefix) {
-      this.props.getSearchResults({ locationPrefix, keywords, pagination, sortOrder });
+      this.props.getSearchResults({ locationPrefix, keywords, alerts, pagination, sortOrder });
     }
   }
 

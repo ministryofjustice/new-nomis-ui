@@ -138,58 +138,58 @@
     display: inline-block;
     margin-right: 10px !important;
   }
+}
 
-  %status-style {
-    border: 3px solid;
-    padding: .5em 0.8em 0;
-    margin-left: 0;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-    line-height: 1;
-    display: inline-block;
-    min-width: 7em;
-    height: 29px;
-    cursor: pointer;
-  }
+%status-style {
+  border: 3px solid;
+  padding: .5em 0.8em 0;
+  margin-left: 0;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  display: inline-block;
+  min-width: 7em;
+  height: 29px;
+  cursor: pointer;
+}
 
-  .acct-status {
-    @extend %status-style;
-    color: #F47738;
-    border-color: #F47738;
-  }
+.acct-status {
+  @extend %status-style;
+  color: #F47738;
+  border-color: #F47738;
+}
 
-  .assault-status {
-    @extend %status-style;
-    color: #4C2C92;
-    border-color: #4C2C92;
-  }
+.assault-status {
+  @extend %status-style;
+  color: #4C2C92;
+  border-color: #4C2C92;
+}
 
-  .disability-status {
-    @extend %status-style;
-    padding-top: 0.3em;
-    color: #2B88C8;
-    border-color: #2B88C8;
-  }
+.disability-status {
+  @extend %status-style;
+  padding-top: 0.3em;
+  color: #2B88C8;
+  border-color: #2B88C8;
+}
 
-  .disability-adjust {
-    position: relative;
-    left: -7px;
-    top: -2px;
-  }
+.disability-adjust {
+  position: relative;
+  left: -7px;
+  top: -2px;
+}
 
-  .arsonist-status {
-    @extend %status-style;
-    padding-top: 0.3em;
-    color: #DF3034;
-    border-color: #DF3034;
-  }
+.arsonist-status {
+  @extend %status-style;
+  padding-top: 0.3em;
+  color: #DF3034;
+  border-color: #DF3034;
+}
 
-  .flag-arsonist-icon {
-    margin-bottom: 5px;
-  }
+.flag-arsonist-icon {
+  margin-bottom: 5px;
 }
 
 @media (min-width: 481px) {

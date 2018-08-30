@@ -17,8 +17,8 @@ class SearchAgainForm extends Component {
   }
 
   render() {
-    const { error, locations, submitting, locationPrefix, keywords } = this.props;
-
+    const { error, locations, submitting, locationPrefix, keywords, alerts } = this.props;
+    const isTicked = code => alerts && alerts.length && alerts.indexOf(code) >= 0;
     return (
       <form className="search-again" onSubmit={event => this.handleSubmit(event)}>
         {error ?
@@ -81,6 +81,35 @@ class SearchAgainForm extends Component {
             </div>
 
           </div>
+
+          <details className="govuk-details add-gutter-padding-top">
+            <summary className="govuk-details__summary">
+              <span className="govuk-details__summary-text">More filters</span>
+            </summary>
+            <div className="govuk-details__text add-gutter-margin-left">
+              <div className="row col-md-11 no-left-gutter add-gutter-margin-bottom"><b>Flags</b></div>
+              <div className="row">
+                <div className="col-xs-11 col-sm-4 col-md-3 multiple-choice in-rows">
+                  <input id="HA" type="checkbox" name="alerts" value="HA" defaultChecked={isTicked('HA')} />
+                  <label className="add-checkbox-label-margin-left" htmlFor="HA">ACCT open</label>
+                </div>
+                <div className="col-xs-11 col-sm-4 col-md-3 multiple-choice in-rows">
+                  <input id="PEEP" type="checkbox" name="alerts" value="PEEP" defaultChecked={isTicked('PEEP')} />
+                  <label className="add-checkbox-label-margin-left" htmlFor="PEEP">PEEP (disability)</label>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-xs-11 col-sm-4 col-md-3 multiple-choice in-rows">
+                  <input id="XSA" type="checkbox" name="alerts" value="XSA" defaultChecked={isTicked('XSA')} />
+                  <label className="add-checkbox-label-margin-left" htmlFor="XSA">Staff assaulter</label>
+                </div>
+                <div className="col-xs-11 col-sm-4 col-md-3 multiple-choice in-rows">
+                  <input id="XA" type="checkbox" name="alerts" value="XA" defaultChecked={isTicked('XA')} />
+                  <label className="add-checkbox-label-margin-left" htmlFor="XA">Arsonist</label>
+                </div>
+              </div>
+            </div>
+          </details>
         </div>
       </form>
     );
@@ -100,6 +129,7 @@ function mapStateToProps(state, props) {
   return {
     keywords: props.query.keywords || '',
     locationPrefix: props.query.locationPrefix || (props.locations.length && props.locations[0].locationPrefix),
+    alerts: props.query.alerts || [],
     error: state.getIn(['home','searchError']),
   }
 }

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import moment from 'moment';
 import { DATE_ONLY_FORMAT_SPEC } from 'containers/App/constants';
+import qs from 'querystring';
 
 export const login = (username, password, baseUrl) => axios({
   baseURL: baseUrl,
@@ -238,15 +239,19 @@ export const loadMyLocations = (baseUrl) => axios({
 })
   .then((response) => response.data);
 
-
 export const searchOffenders = ({ baseUrl, query,
   sort = { order: 'ASC' },
   pagination = { offset: 0, limit: 1000 } }) =>
   axios({
     baseURL: `${baseUrl}`,
-    url: query.keywords ?
-      `locations/description/${query.locationPrefix}/inmates?keywords=${query.keywords}` :
-      `locations/description/${query.locationPrefix}/inmates`,
+    url: `locations/description/${query.locationPrefix}/inmates`,
+    params: {
+      keywords: query.keywords,
+      alerts: query.alerts,
+    },
+    paramsSerializer(params) {
+      return qs.stringify(params.alerts ? params : { keywords: params.keywords });
+    },
     headers: {
       'Page-Offset': pagination.offset,
       'Page-Limit': pagination.limit,
