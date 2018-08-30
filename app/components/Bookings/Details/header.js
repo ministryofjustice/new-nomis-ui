@@ -8,6 +8,7 @@ import { toFullName } from 'utils/stringUtils';
 import { offenderImageUrl } from 'containers/Bookings/constants';
 
 import './header.scss';
+import AlertFlags from '../AlertFlags';
 
 const Alerts = ({ activeAlertCount, inactiveAlertCount }) => <div className="alerts">
   <span className="active-alert">
@@ -131,37 +132,13 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
 function Header({ inmateData, onImageClick, offenderNo, onAlertFlagClick }) {
   const nameString = toFullName({ firstName: inmateData.get('firstName'), lastName: inmateData.get('lastName') });
 
-  const alerts = inmateData.get('alerts');
-  let acct = false;
-  let assaulter = false;
-  let arsonist = false;
-  let disability = false;
-  alerts && alerts.forEach(alert => {
-    if (!alert.get('expired')) {
-      switch (alert.get('alertCode')) {
-        case 'HA': acct = true; break;
-        case 'XSA': assaulter = true; break;
-        case 'XA': arsonist = true; break;
-        case 'PEEP': disability = true; break;
-        default:
-      }
-    }
-  });
-
-  const AlertFlag = ({ className, children }) => (<span className={className} onClick={onAlertFlagClick}>{children}</span>);
-
-  const flags = (className) => (<div className={className}>
-    {acct && <AlertFlag className="acct-status" >ACCT OPEN</AlertFlag>}
-    {assaulter && <AlertFlag className="assault-status">STAFF ASSAULTER</AlertFlag>}
-    {arsonist && <AlertFlag className="arsonist-status"><img src="/img/Arsonist_icon.png" className="flag-arsonist-icon" alt="" width="13" height="16" /> ARSONIST</AlertFlag>}
-    {disability && <AlertFlag className="disability-status"><img src="/img/Disability_icon.png" className="disability-adjust" alt="" width="19" height="21" /> PEEP</AlertFlag>}
-  </div>);
+  const alertFlags = (className) => AlertFlags(inmateData.get('alerts'), className, onAlertFlagClick);
 
   return (
     <div className="header-details">
 
       <div className="row visible-small">
-        {flags('col-sm-12 no-padding-left')}
+        {alertFlags('col-sm-12 no-padding-left')}
       </div>
       <div className="row">
 
@@ -178,7 +155,7 @@ function Header({ inmateData, onImageClick, offenderNo, onAlertFlagClick }) {
               <h1 className="heading-medium inline-header">
                 {nameString}
               </h1>
-              {flags('inline-header-large align-alerts')}
+              {alertFlags('inline-header-large align-alerts')}
             </div>
           </div>
 
