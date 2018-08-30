@@ -58,12 +58,12 @@ If you wish to view the CI build you’ll need an account – get one [here](htt
 and link to your repos.
 
 Upon merging into master the system will build a production version and check this into the `deploy_to_mock` branch where upon
-Azure will trigger a build and deploy into the dev environment at [notm-dev.azurewebsites.net](http://notm-dev.azurewebsites.net)
+Azure will trigger a build and deploy into the dev environment at [notm-dev.hmpps.dsd.io](https://notm-dev.hmpps.dsd.io)
 
 ### Building the docker images
-CI will also build a docker image and push to our [Syscon Docker Hub](https://hub.docker.com/u/sysconjusticesystems/). 
+CI will also build a docker image and push to our [Docker Hub](https://hub.docker.com/u/ministryofjustice/). 
  You will also need a [docker hub account](https://hub.docker.com/?next=https%3A%2F%2Fhub.docker.com%2F),  \
- once you get one let us know your details and we will add your details to the Syscon account.
+ 
  
 
 ## Running the application using docker and docker compose.
