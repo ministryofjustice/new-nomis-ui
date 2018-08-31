@@ -82,7 +82,7 @@ class SearchAgainForm extends Component {
 
           </div>
 
-          <details className="govuk-details add-gutter-padding-top">
+          <details className="govuk-details add-gutter-padding-top visible-md visible-lg">
             <summary className="govuk-details__summary">
               <span className="govuk-details__summary-text">More filters</span>
             </summary>
