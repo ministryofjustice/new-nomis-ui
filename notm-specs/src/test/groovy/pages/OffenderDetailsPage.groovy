@@ -7,8 +7,8 @@ class OffenderDetailsPage extends Page {
 
   static at = {
     title == 'Prison-NOMIS'
-    addCaseNoteLink.displayed
-    addAppointmentLink.displayed
+    addCaseNoteLink.displayed || addCaseNoteLinkMobile.displayed
+    addAppointmentLink.displayed || addAppointmentLinkMobile.displayed
     !offenderNameHeading.empty
     !spinner.displayed
   }
@@ -18,10 +18,16 @@ class OffenderDetailsPage extends Page {
     offenderNameHeading { $('h1.heading-medium').text() }
     addCaseNoteLink { $('a.button-link', 0) }
     addAppointmentLink { $('a.button-link', 1) }
+    addCaseNoteLinkMobile { $('a.button-link', 2) }
+    addAppointmentLinkMobile { $('a.button-link', 3) }
     spinner(required: false) { $('div.spinner-component')}
   }
 
   def gotoAddCaseNotes() {
-    addCaseNoteLink.click()
+    if (addCaseNoteLink.displayed) {
+      addCaseNoteLink.click()
+    } else {
+      addCaseNoteLinkMobile.click()
+    }
   }
 }

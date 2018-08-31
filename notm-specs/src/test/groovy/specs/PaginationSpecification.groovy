@@ -42,14 +42,21 @@ class PaginationSpecification extends GebReportingSpec {
     fixture.loginAs(ITAG_USER)
     go "/offenders/${offenderNo}/alerts"
 
-    when: "I can see the first 10 alerts"
+    when: "I can see the first 10 alerts and click on the next page link"
     at AlertsPage
     assert checkAlerts(0, 10)
-
-    then: "I click on the next page link and see the next set of alerts"
+    // Scroll to bottom to avoid link being hidden behind the mobile fixed icons
+    scrollToBottom()
     nextPageLink.click()
+
+    then: "I can see the next set of alerts"
     assert checkAlerts(10, 20)
+
+    when: "I click on the previous page link"
+    scrollToBottom()
     previousPageLink.click()
+
+    then: "I can see the previous set of alerts"
     assert checkAlerts(0, 10)
   }
 
@@ -72,16 +79,25 @@ class PaginationSpecification extends GebReportingSpec {
     fixture.loginAs(ITAG_USER)
     go "/offenders/${offenderNo}/case-notes"
 
-    when: 'I can see the first ten case notes'
+    when: 'I can see the first ten case notes and click on the next page link'
     at CaseNotesPage
     assert checkCaseNotes(0, 10)
-
-    then: 'I click on the next page link and see the next set of case notes'
+    scrollToBottom()
     nextPageLink.click()
-    assert checkCaseNotes(10, 20)
-    previousPageLink.click()
-    assert checkCaseNotes(0, 10)
 
+    then: 'I can see the next set of case notes'
+    assert checkCaseNotes(10, 20)
+
+    when: 'I click on the previous page link'
+    scrollToBottom()
+    previousPageLink.click()
+
+    then: 'I can see the previous set of alerts'
+    assert checkCaseNotes(0, 10)
+  }
+
+  def scrollToBottom() {
+    js.exec("window.scrollTo(0, document.body.scrollHeight)")
   }
 
   def checkCaseNotes(Integer start, Integer end) {

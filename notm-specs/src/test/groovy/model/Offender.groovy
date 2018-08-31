@@ -15,6 +15,7 @@ class Offender {
   String assignedLivingUnitDesc
   Integer facialImageId
   String iepLevel
+  List<String> alertsDetails
 
   private Offender(
     Integer bookingId,
@@ -29,7 +30,8 @@ class Offender {
     Integer assignedLivingUnitId,
     String assignedLivingUnitDesc,
     Integer facialImageId,
-    String iepLevel) {
+    String iepLevel,
+    List<String> alertsDetails = null) {
 
     this.bookingId = bookingId
     this.bookingNo = bookingNo
@@ -44,6 +46,7 @@ class Offender {
     this.assignedLivingUnitDesc = assignedLivingUnitDesc
     this.facialImageId = facialImageId
     this.iepLevel = iepLevel
+    this.alertsDetails = alertsDetails
   }
 
   static def BOB() {
@@ -51,7 +54,7 @@ class Offender {
   }
 
   static def SMITH() {
-    return new Offender(-10,'A00120','A1234AJ','DANIEL','JOSEPH','SMITH','1958-01-01',60, 'LEI',-8,'A-1-6', -10, 'Standard')
+    return new Offender(-10,'A00120','A1234AJ','DANIEL','JOSEPH','SMITH','1958-01-01',60, 'LEI',-8,'A-1-6', -10, 'Standard', ['XA','PEEP'])
   }
 
   static def SMELLEY() {
