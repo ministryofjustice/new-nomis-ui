@@ -18,9 +18,21 @@ class SearchResultsPage extends Page {
     errors { module(ErrorsModule) }
     headingText { $('h1').text() }
     images { $('div.photo img') }
+    moreFiltersLink { $('span.govuk-details__summary-text') }
+    checkboxes(required: false) { $('input', name: 'alerts') }
+    rows { $('div.booking-table div.row') }
+    searchAgainButtons {$('button.button')}
   }
 
   def selectOffender(index) {
     images[index].click()
+  }
+
+  def selectVisibleButton() {
+    // One is desktop, other mobile
+    if (searchAgainButtons[0].displayed) {
+      return searchAgainButtons[0]
+    }
+    return searchAgainButtons[1]
   }
 }
