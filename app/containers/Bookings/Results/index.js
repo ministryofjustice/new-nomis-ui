@@ -24,8 +24,8 @@ import {
 
 import { NEW_SEARCH, DETAILS_TABS } from '../constants';
 
-const ResultsViewBuilder = ({ viewName, results, onViewDetails, sortOrderChange, sortOrder }) => viewName === 'List' ?
-  <BookingTable results={results} viewDetails={onViewDetails} sortOrderChange={sortOrderChange} sortOrder={sortOrder} /> :
+const ResultsViewBuilder = ({ viewName, results, onViewDetails, sortOrderChange, sortOrder, showAlertTabForOffenderNo }) => viewName === 'List' ?
+  <BookingTable results={results} viewDetails={onViewDetails} sortOrderChange={sortOrderChange} sortOrder={sortOrder} onAlertFlagClick={showAlertTabForOffenderNo} /> :
   <BookingGrid results={results} viewDetails={onViewDetails} sortOrderChange={sortOrderChange} sortOrder={sortOrder} />;
 
 class SearchResults extends Component {
@@ -62,6 +62,7 @@ class SearchResults extends Component {
       setPage,
       resultsView,
       shouldShowSpinner,
+      showAlertTabForOffenderNo,
     } = this.props;
 
     const { perPage: pP, pageNumber: pN } = pagination;
@@ -95,6 +96,7 @@ class SearchResults extends Component {
                 onViewDetails={viewDetails}
                 sortOrderChange={() => this.props.toggleSortOrder(sortOrder)}
                 sortOrder={sortOrder}
+                showAlertTabForOffenderNo={showAlertTabForOffenderNo}
               />
           }
         </div>
@@ -135,6 +137,7 @@ export function mapDispatchToProps(dispatch, props) {
     loadLocations: () => dispatch(loadLocations()),
     toggleSortOrder: (currentDirection) => dispatch(toggleSort(currentDirection, props.location.query)),
     getSearchResults: (query) => dispatch({ type: NEW_SEARCH, payload: { query } }),
+    showAlertTabForOffenderNo: (offenderNo) => dispatch(vD(offenderNo, DETAILS_TABS.ALERTS)),
   };
 }
 

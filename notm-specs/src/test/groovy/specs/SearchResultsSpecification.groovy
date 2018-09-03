@@ -6,8 +6,10 @@ import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import model.Offender
 import org.junit.Rule
+import pages.AlertsPage
 import pages.HomePage
 import pages.LoginPage
+import pages.OffenderDetailsPage
 import pages.SearchResultsPage
 
 import static model.UserAccount.ITAG_USER
@@ -17,8 +19,10 @@ class SearchResultsSpecification extends GebReportingSpec {
 
   @Rule
   Elite2Api elite2api = new Elite2Api()
+  @Rule
+  KeyworkerApi keyworkerApi = new KeyworkerApi()
 
-  def "Display search results"() {
+  def 'Display search results and alerts'() {
     elite2api.stubHealthCheck()
 
     given: 'I am logged in'
@@ -34,11 +38,11 @@ class SearchResultsSpecification extends GebReportingSpec {
     offenders.push(model.Offender.BOB())
     offenders.push(model.Offender.SMITH())
 
-    elite2api.stubOffenderSearch("aname", offenders)
+    elite2api.stubOffenderSearch('aname', offenders)
     elite2api.stubImage()
     elite2api.stubIEP()
 
-    searchFor "aname"
+    searchFor 'aname'
 
     then: 'The correct offenders are listed'
     at SearchResultsPage
@@ -47,24 +51,40 @@ class SearchResultsSpecification extends GebReportingSpec {
     rows[3].text() == 'Smith, Daniel\n' + 'A1234AJ\n' + 'A-1-6' ||
       rows[3].text() == 'Smith, Daniel\n' + 'A1234AJ\n' + 'A-1-6\n' + 'Standard\n' + '60\n' + 'ARSONIST PEEP'
 
-    when: "Alert filters are selected"
+    when: 'Alert filters are selected'
     if (!rows[3].text().contains('ARSONIST PEEP')) {
-      // Alert filter test only applicable to desktop mode
+      // Alert tests only applicable to desktop mode
       return;
     }
     moreFiltersLink.click()
     checkboxes[0].click() // acct
     checkboxes[3].click() // arsonist
-    elite2api.stubOffenderSearch("aname",
+    elite2api.stubOffenderSearch('aname',
       [model.Offender.SMITH(), model.Offender.BOB(), model.Offender.SMELLEY()],
-      "&alerts=HA&alerts=XA")
+      '&alerts=HA&alerts=XA')
     selectVisibleButton().click()
 
-    then: "Filters are applied"
+    then: 'Filters are applied'
     rows.size() == 4
     // new results match stub with alert filters
-    rows[1].find("div.add-margin-top", 0).text() == 'Smith, Daniel'
-    rows[2].find("div.add-margin-top", 0).text() == 'Bob, Darius'
-    rows[3].find("div.add-margin-top", 0).text() == 'Smelley, Daniel'
+    rows[1].find('div.add-margin-top', 0).text() == 'Smith, Daniel'
+    rows[2].find('div.add-margin-top', 0).text() == 'Bob, Darius'
+    rows[3].find('div.add-margin-top', 0).text() == 'Smelley, Daniel'
+
+    when: 'Alert is clicked'
+    elite2api.stubOffenderDetails(true)
+    elite2api.stubOffenderDetails(false)
+    keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
+    elite2api.stubBookingAlerts(-10)
+    elite2api.stubAliases()
+    elite2api.stubStaffDetails(-2)
+
+    rows[1].find('.arsonist-status').click()
+
+    then: 'The offender details alert tab is shown'
+    at OffenderDetailsPage
+    at AlertsPage
+    alerts.text().contains('alertType0')
+    alerts.text().contains('alertType1')
   }
 }
