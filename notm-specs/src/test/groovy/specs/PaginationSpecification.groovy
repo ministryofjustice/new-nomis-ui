@@ -101,16 +101,18 @@ class PaginationSpecification extends GebReportingSpec {
   }
 
   def checkCaseNotes(Integer start, Integer end) {
-    for(Integer index =start; index != end;index++) {
-      if( caseNotes[0].text().indexOf("CaseNoteOriginalNoteText${index}") == -1)
+    waitFor { caseNotes[0].text().contains("CaseNoteOriginalNoteText${start}") }
+    for (Integer index = start; index != end; index++) {
+      if (caseNotes[0].text().indexOf("CaseNoteOriginalNoteText${index}") == -1)
         return false
     }
     return true
   }
 
   def checkAlerts(Integer start, Integer end) {
-    for(Integer index =start; index != end;index++) {
-      if( alerts[0].text().indexOf("alertType${index}") == -1)
+    waitFor { alerts[0].text().contains("alertType${start}") }
+    for (Integer index = start; index != end; index++) {
+      if (alerts[0].text().indexOf("alertType${index}") == -1)
         return false
     }
     return true
