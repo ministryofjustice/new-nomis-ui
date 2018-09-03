@@ -21,7 +21,7 @@ const onViewDetails = (event, row) => {
   browserHistory.push(`/offenders/${row.get('offenderNo')}/${DETAILS_TABS.QUICK_LOOK}`)
 };
 
-const Table = ({ results, sortOrder, sortOrderChange }) => (
+const Table = ({ results, sortOrder, sortOrderChange, onAlertFlagClick }) => (
   <div className="booking-table">
     <div className="row">
 
@@ -81,7 +81,7 @@ const Table = ({ results, sortOrder, sortOrderChange }) => (
             <span>{row.get('age')}</span>
           </div>
           <div className="visible-md visible-lg col-md-3 add-flags-margin-top no-left-gutter no-right-gutter">
-            {AlertFlags(row.get('alertsDetails'), 'inline-header-large align-alerts')}
+            {AlertFlags(row.get('alertsDetails'), 'inline-header-large align-alerts', () => onAlertFlagClick(row.get('offenderNo')))}
           </div>
         </div>
     )}
