@@ -11,6 +11,7 @@ const SET_TERMS_VISIBILITY = 'globalReducer/app/SET_TERMS_VISIBILITY';
 const SET_FEEDBACK_URL = 'globalReducer/app/SET_FEEDBACK_URL';
 const SET_MAIL_TO = 'globalReducer/app/SET_MAIL_TO';
 const SET_OMIC_URL = 'app/Authentication/HomePage/SET_OMIC_URL';
+const SET_WHEREABOUTS_URL = 'app/Authentication/HomePage/SET_WHEREABOUTS_URL';
 
 // Initial State
 const initialState = fromJS({
@@ -55,6 +56,8 @@ export default function appReducer(state = initialState, action) {
       return state.set('mailTo', action.payload);
     case SET_OMIC_URL:
       return state.set('omicUrl', action.url);
+    case SET_WHEREABOUTS_URL:
+      return state.set('whereaboutsUrl', action.url);
     default:
       return state;
   }
@@ -118,5 +121,10 @@ export const setMailTo = (mailTo) => ({
 
 export const setOmicUrl = (url) => ({
   type: SET_OMIC_URL,
+  url,
+});
+
+export const setWhereaboutsUrl = (url) => ({
+  type: SET_WHEREABOUTS_URL,
   url,
 });

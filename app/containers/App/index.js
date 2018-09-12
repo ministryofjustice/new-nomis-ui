@@ -19,6 +19,7 @@ import axios from 'axios/index';
 import {
   setFeedbackUrl,
   setOmicUrl,
+  setWhereaboutsUrl,
   setMailTo,
   setMenuOpen,
   hideTerms,
@@ -48,6 +49,7 @@ export class App extends Component {
   requestOmicAndFeedbackUrl() {
     axios.get('/config').then(response => {
       this.props.setOmicUrl(response.data.omicUrl);
+      this.props.setWhereaboutsUrl(response.data.whereaboutsUrl);
       this.props.setFeedbackUrl(response.data.url);
       this.props.setMailTo(response.data.mailTo);
     });
@@ -127,6 +129,7 @@ const mapDispatchToProps = (dispatch) => ({
   setFeedbackUrl: (url) => dispatch(setFeedbackUrl(url)),
   setMailTo: (mailTo) => dispatch(setMailTo(mailTo)),
   setOmicUrl: (url) => dispatch(setOmicUrl(url)),
+  setWhereaboutsUrl: (url) => dispatch(setWhereaboutsUrl(url)),
   hideTermsAndConditions: () => dispatch(hideTerms()),
   setMenuOpen: (flag) => dispatch(setMenuOpen(flag)),
 });

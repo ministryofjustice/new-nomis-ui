@@ -67,6 +67,7 @@ const eliteApiFactory = (client) => {
   const getSentenceData = (context, bookingId) => get(context, `api/bookings/${bookingId}/sentenceDetail`);
   const getSummaryForOffenders = (context, offenderNumbers) => get(context, `api/bookings?iepLevel=true&${toQueryParameters(offenderNumbers)}`);
   const getUserAccessRoles = (context) => get(context, 'api/users/me/roles');
+  const getWhereaboutsConfig = (context, agencyId) => get(context, `api/agencies/${agencyId}/locations/whereabouts`);
 
   return {
     caseNoteUsageList,
@@ -99,6 +100,7 @@ const eliteApiFactory = (client) => {
     getStaffRoles,
     getSummaryForOffenders,
     getUserAccessRoles,
+    getWhereaboutsConfig,
     isUp,
     post,
     put,

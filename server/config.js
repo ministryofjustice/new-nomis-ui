@@ -28,6 +28,9 @@ module.exports = {
       timeoutSeconds: process.env.KEYWORKER_API_TIMEOUT_SECONDS || 10,
       ui_url: process.env.OMIC_UI_URL,
     },
+    whereabouts: {
+      ui_url: process.env.WHEREABOUTS_UI_URL,
+    },
   },
   hmppsCookie: {
     name: process.env.HMPPS_COOKIE_NAME || 'hmpps-session-dev',
