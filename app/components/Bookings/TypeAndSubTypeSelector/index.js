@@ -47,7 +47,7 @@ class TypeAndSubTypeSelector extends PureComponent {
           onChange={this.onTypeChange}
         />
         <Field
-          title="Sub-Type"
+          title="Sub-type"
           component={SelectWithLabel}
           name="subTypeValue"
           options={constrainedSubTypes}

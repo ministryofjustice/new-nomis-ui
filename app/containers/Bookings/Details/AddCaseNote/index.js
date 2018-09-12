@@ -16,6 +16,7 @@ import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector';
 import { selectUsersTypesAndSubTypes } from 'containers/EliteApiLoader/selectors';
 import { loadCaseNoteTypesAndSubTypes } from 'containers/Bookings/actions';
 import SessionHeartbeatHandler from 'utils/sessionHeartbeatHandler';
+import { FormattedDate, FormattedTime } from 'components/intl';
 
 import { DETAILS_TABS, ADD_NEW_CASENOTE } from '../../constants';
 import { viewDetails,extendActiveSession } from '../../actions';
@@ -24,8 +25,15 @@ import './index.scss';
 
 const selector = formValueSelector('addCaseNote');
 
+
 class AddCaseNoteForm extends Component {
 
+  constructor() {
+    super();
+    this.state = {
+      editDateTime: false,
+    }
+  }
   componentDidMount() {
     this.props.loadCaseNoteTypes();
   }
@@ -45,6 +53,7 @@ class AddCaseNoteForm extends Component {
     } = this.props;
 
     const sessionHandler = new SessionHeartbeatHandler(extendSession);
+    const today = moment();
 
     return (
     <div className="add-case-note">
@@ -71,31 +80,57 @@ class AddCaseNoteForm extends Component {
           </div>
         </div>
 
-
         <div className="row">
-          <div className="col-sm-3 col-md-2 col-xs-6 no-left-gutter event-date">
-            <Field
-              name="eventDate"
-              title="Select date"
-              component={DatePicker}
-              locale={locale}
-              format={momentToLocalizedDate(locale)}
-              parse={localizedDateToMoment(locale)}
-              defaultValue={eventDate || moment()}
-              shouldShowDay={(date) => date.isBefore(moment())}
-            />
-          </div>
-          <div className="col-sm-3 col-md-2 col-xs-6 no-left-gutter">
-            <Field
-              name="startTime"
-              title="Time"
-              component={TimePicker}
-              date={eventDate || moment()}
-              now={moment()}
-              pastTimeOnly
-            />
-          </div>
+          <strong > Occurrence date time </strong>
         </div>
+
+        {!this.state.editDateTime && <div className="row">
+            <div className="col-sm-3 col-md-3 col-xs-6 no-left-gutter add-gutter-bottom">
+              <span>
+                <FormattedDate value={today} />
+              </span>
+              <span>&nbsp;-&nbsp;</span>
+              <span>
+                <FormattedTime value={today} />
+              </span>
+              <span>
+                 <button
+                   name="change-date-time"
+                   className="link" onClick={() => this.setState({
+                     editDateTime: !this.editDateTime,
+                   })}
+                 >Change</button>
+              </span>
+            </div>
+        </div>}
+
+        {this.state.editDateTime && (
+            <div className="row">
+              <div className="col-sm-3 col-md-2 col-xs-6 no-left-gutter event-date">
+                <Field
+                  name="eventDate"
+                  title="Select date"
+                  component={DatePicker}
+                  locale={locale}
+                  format={momentToLocalizedDate(locale)}
+                  parse={localizedDateToMoment(locale)}
+                  defaultValue={eventDate || today}
+                  shouldShowDay={(date) => date.isBefore(moment())}
+                />
+              </div>
+              <div className="col-sm-3 col-md-2 col-xs-6 no-left-gutter">
+                <Field
+                  name="startTime"
+                  title="Time"
+                  component={TimePicker}
+                  date={eventDate || today}
+                  now={today}
+                  pastTimeOnly
+                  initialiseToNow
+                />
+              </div>
+            </div>
+        )}
 
         <div className="row">
           <div className="col-md-3 no-left-gutter">
@@ -194,7 +229,7 @@ const asForm = reduxForm({
   form: 'addCaseNote',
   validate,
   initialValues: Map({
-    typeAndSubType: Map({ eventDate: moment(), typeValue: '', subTypeValue: '', text: '' }),
+    typeAndSubType: Map({ typeValue: '', subTypeValue: '', text: '' }),
   }),
 })(AddCaseNoteForm);
 

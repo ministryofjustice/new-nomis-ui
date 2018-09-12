@@ -5,6 +5,13 @@ import { DATE_TIME_FORMAT_SPEC } from 'containers/App/constants';
 
 import TimePicker from '../index';
 
+const setTime = (date, hours, minutes, seconds) => {
+  date.hours(hours);
+  date.minutes(minutes);
+  date.seconds(seconds);
+
+  return date.format(DATE_TIME_FORMAT_SPEC);
+};
 
 describe('Time picker', () => {
   it('should disable the component until a date has been passed in', () => {
@@ -53,7 +60,8 @@ describe('Time picker', () => {
       onChange: jest.fn(),
     };
 
-    const picker = shallow(<TimePicker date={'10/10/2017'} now={'2017-10-10T20:40:00'} meta={meta} input={input} futureTimeOnly />);
+    const now = moment('2017-10-10T20:40:00');
+    const picker = shallow(<TimePicker date={'10/10/2017'} now={now} meta={meta} input={input} futureTimeOnly />);
     const hours = picker.find('.select-hours').props().children.map(item => item.key);
     const minutes = picker.find('.select-minutes').props().children.map(item => item.key);
 
@@ -72,7 +80,8 @@ describe('Time picker', () => {
       onChange: jest.fn(),
     };
 
-    const picker = shallow(<TimePicker date={'10/10/2017'} now={'2017-10-10T03:15:00'} meta={meta} input={input} pastTimeOnly />);
+    const now = moment('2017-10-10T03:15:00');
+    const picker = shallow(<TimePicker date={'10/10/2017'} now={now} meta={meta} input={input} pastTimeOnly />);
     const hours = picker.find('.select-hours').props().children.map(item => item.key);
     const minutes = picker.find('.select-minutes').props().children.map(item => item.key);
 
@@ -91,7 +100,9 @@ describe('Time picker', () => {
       onChange: jest.fn(),
     };
 
-    const picker = shallow(<TimePicker date={'09/10/2017'} now={'2017-10-10T03:15:00'} meta={meta} input={input} futureTimeOnly />);
+
+    const now = moment('2017-10-10T03:15:00Z');
+    const picker = shallow(<TimePicker date={'09/10/2017'} now={now} meta={meta} input={input} futureTimeOnly />);
     const hours = picker.find('.select-hours').props().children.map(item => item.key);
     const minutes = picker.find('.select-minutes').props().children.map(item => item.key);
 
@@ -105,7 +116,8 @@ describe('Time picker', () => {
       onChange: jest.fn(),
     };
 
-    const picker = shallow(<TimePicker date={'10/10/2017'} now={'2017-10-10T20:45:00'} meta={meta} input={input} futureTimeOnly />);
+    const now = moment('2017-10-10T20:45:00');
+    const picker = shallow(<TimePicker date={'10/10/2017'} now={now} meta={meta} input={input} futureTimeOnly />);
     const instance = picker.instance();
 
     instance.onHoursChange({ target: {
@@ -126,7 +138,8 @@ describe('Time picker', () => {
       onChange: jest.fn(),
     };
 
-    const picker = shallow(<TimePicker date={'10/10/2017'} now={'2017-10-10T03:30:00'} meta={meta} input={input} pastTimeOnly />);
+    const now = moment('2017-10-10T03:30:00');
+    const picker = shallow(<TimePicker date={'10/10/2017'} now={now} meta={meta} input={input} pastTimeOnly />);
     const instance = picker.instance();
 
     instance.onHoursChange({ target: {
@@ -199,18 +212,11 @@ describe('Time picker', () => {
   });
 
   it('should reset the date when a new one has been passed in', async () => {
-    const setTime = (date, hours, minutes, seconds) => {
-      date.hours(hours);
-      date.minutes(minutes);
-      date.seconds(seconds);
-
-      return date;
-    };
     const yesterday = moment().subtract(1, 'day');
     const meta = { touched: true };
     const input = {
       onChange: jest.fn(),
-      value: setTime(yesterday, 3, 0, 0).format(DATE_TIME_FORMAT_SPEC),
+      value: setTime(yesterday, 3, 0, 0),
     };
 
     const picker = shallow(<TimePicker meta={meta} input={input} date={yesterday} />);
@@ -219,6 +225,34 @@ describe('Time picker', () => {
 
     picker.setProps({ input, meta, date: today });
 
-    expect(input.onChange.mock.calls[0][0]).toBe(setTime(today, 3, 0 , 0).format(DATE_TIME_FORMAT_SPEC));
+    expect(input.onChange.mock.calls[0][0]).toBe(setTime(today, 3, 0 , 0));
+  });
+
+  it('should default to the current hour and the nearest minute when defaultToNow is set to true', () => {
+    const today = moment();
+    const meta = { touched: true };
+    const input = {
+      onChange: jest.fn(),
+    };
+
+    const now = moment();
+    now.hours(11);
+    now.minutes(11);
+
+    const picker = shallow(<TimePicker
+      meta={meta}
+      input={input}
+      date={today}
+      now={now}
+      initialiseToNow
+      pastTimeOnly
+    />);
+
+    picker.instance().componentDidMount();
+
+    expect(input.onChange).toHaveBeenCalledWith(setTime(now, 11, 10, 0));
+
+    expect(picker.find('.select-hours').node.props.value).toBe('11');
+    expect(picker.find('.select-minutes').node.props.value).toBe('10');
   });
 });
