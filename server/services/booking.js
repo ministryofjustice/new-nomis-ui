@@ -32,7 +32,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
   const getKeyworker = async (context, offenderNo) => {
     try {
       const me = await eliteApi.getMyInformation(context);
-      return keyworkerApi.getKeyworkerByCaseloadAndOffenderNo(context, me.activeCaseLoadId, offenderNo);
+      return await keyworkerApi.getKeyworkerByCaseloadAndOffenderNo(context, me.activeCaseLoadId, offenderNo);
     } catch (error) {
       return {}
     }

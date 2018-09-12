@@ -6,7 +6,7 @@ describe('TypeAndSubTypeSelector', () => {
   const types = [{ label: 'parent1', value: 'p1' }];
   const subTypes = [{ label: 'child1', value: 'c1', parent: 'p1' }];
   const TypeSelectorNode = (renderedComponent) => renderedComponent.find('[title="Type"]');
-  const SubTypeSelectorNode = (renderedComponent) => renderedComponent.find('[title="Sub-Type"]');
+  const SubTypeSelectorNode = (renderedComponent) => renderedComponent.find('[title="Sub-type"]');
 
   it('should not populate subTypeValues when no parent type has been selected', () => {
     const renderedComponent = shallow(
