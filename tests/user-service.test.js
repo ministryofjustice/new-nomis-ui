@@ -37,10 +37,12 @@ describe('User service', () => {
     sandbox.stub(elite2Api, 'getMyInformation');
     sandbox.stub(elite2Api, 'getUserAccessRoles');
     sandbox.stub(elite2Api, 'getStaffRoles');
+    sandbox.stub(elite2Api, 'getWhereaboutsConfig');
 
     elite2Api.getMyInformation.returns(details);
     elite2Api.getUserAccessRoles.returns(accessRoles);
     elite2Api.getStaffRoles.returns(staffRoles);
+    elite2Api.getWhereaboutsConfig.returns({ enabled: true });
   });
 
   afterEach(() => sandbox.restore());
@@ -61,6 +63,7 @@ describe('User service', () => {
       ...details,
       accessRoles,
       staffRoles,
+      isWhereabouts: true,
     });
   })
 });

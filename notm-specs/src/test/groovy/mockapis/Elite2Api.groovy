@@ -91,12 +91,13 @@ class Elite2Api extends WireMockRule {
         .withBody()))
   }
 
-  void stubGetMyDetails(UserAccount user) {
+  void stubGetMyDetails(UserAccount user, boolean whereaboutsAvailable = false) {
     stubUsersMe(user)
     stubLocations()
     stubUserRoles()
     stubStaffRoles(user)
     stubCaseLoads()
+    stubWhereabouts(whereaboutsAvailable)
   }
 
   void stubGetMyDetailsForKeyWorker(UserAccount user) {
@@ -106,6 +107,7 @@ class Elite2Api extends WireMockRule {
     stubStaffRolesForKeyWorker(user)
     stubUserRoles()
     stubCaseLoads()
+    stubWhereabouts(false)
   }
 
   void stubUsersMe(UserAccount user) {
@@ -180,6 +182,15 @@ class Elite2Api extends WireMockRule {
          "caseloadFunction": "X-LEI"
      }
      ]''')))
+  }
+
+  void stubWhereabouts(boolean whereaboutsAvailable) {
+    this.stubFor(
+      get('/api/agencies/LEI/locations/whereabouts')
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody(JsonOutput.toJson([ enabled: whereaboutsAvailable ]))))
   }
 
   void stubStaffRoles(UserAccount user) {

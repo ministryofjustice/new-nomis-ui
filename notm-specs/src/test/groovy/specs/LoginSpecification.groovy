@@ -52,8 +52,25 @@ class LoginSpecification extends GebReportingSpec {
         when: "I login using valid credentials"
         loginAs ITAG_USER, 'password'
 
-        then: 'My credentials are accepted and I am shown the Key worker management page'
+        then: 'My credentials are accepted and I am shown the home page'
         at HomePage
+    }
+
+    def "Log in successfully with whereabouts available at current caseload prison"() {
+        elite2api.stubHealthCheck()
+
+        given: 'I am on the Login page'
+        to LoginPage
+
+        elite2api.stubValidOAuthTokenRequest(ITAG_USER)
+        elite2api.stubGetMyDetails(ITAG_USER, true)
+
+        when: "I login using valid credentials"
+        loginAs ITAG_USER, 'password'
+
+        then: 'My credentials are accepted and the home page includes the whereabouts icon'
+        at HomePage
+        externalLinks[1].text().contains('Manage prisoner whereabouts')
     }
 
     def "Unknown user is rejected"() {

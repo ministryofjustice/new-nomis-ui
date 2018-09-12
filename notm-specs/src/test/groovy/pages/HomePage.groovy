@@ -22,6 +22,7 @@ class HomePage extends Page {
     searchButtonMobile { $('.mobile-button', type: 'submit') }
     locations { $('select option') }
     myKeyWorkerAllocationsLink(required: false) { $('.my-allocations-link') }
+    externalLinks(required: false) { $('.link-container a.clickable') }
   }
 
   void searchFor(String offenderInfo) {
