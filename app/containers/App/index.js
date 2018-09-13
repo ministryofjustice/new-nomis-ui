@@ -19,6 +19,7 @@ import axios from 'axios/index';
 import {
   setFeedbackUrl,
   setOmicUrl,
+  setWhereaboutsUrl,
   setMailTo,
   setMenuOpen,
   hideTerms,
@@ -28,26 +29,27 @@ export class App extends Component {
   constructor(props) {
     super(props);
     this.resizeWindow = this.resizeWindow.bind(this);
-    this.requestOmicAndFeedbackUrl = this.requestOmicAndFeedbackUrl.bind(this);
+    this.requestExternalUrls = this.requestExternalUrls.bind(this);
     window.addEventListener('resize', this.resizeWindow, true);
   }
 
   componentWillMount() {
+    this.requestExternalUrls();
     this.resizeWindow();
   }
 
   componentDidMount() {
     this.props.retrieveUserMe();
-    this.requestOmicAndFeedbackUrl();
   }
 
   onBackgroundClick() {
     this.props.setMenuOpen(false);
   }
 
-  requestOmicAndFeedbackUrl() {
+  requestExternalUrls() {
     axios.get('/config').then(response => {
       this.props.setOmicUrl(response.data.omicUrl);
+      this.props.setWhereaboutsUrl(response.data.whereaboutsUrl);
       this.props.setFeedbackUrl(response.data.url);
       this.props.setMailTo(response.data.mailTo);
     });
@@ -127,6 +129,7 @@ const mapDispatchToProps = (dispatch) => ({
   setFeedbackUrl: (url) => dispatch(setFeedbackUrl(url)),
   setMailTo: (mailTo) => dispatch(setMailTo(mailTo)),
   setOmicUrl: (url) => dispatch(setOmicUrl(url)),
+  setWhereaboutsUrl: (url) => dispatch(setWhereaboutsUrl(url)),
   hideTermsAndConditions: () => dispatch(hideTerms()),
   setMenuOpen: (flag) => dispatch(setMenuOpen(flag)),
 });

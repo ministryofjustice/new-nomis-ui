@@ -23,25 +23,38 @@ export const MyAllocationsLink = () => (
     </div>
   </div>);
 
-const ActionLinks = ({ isKeyWorkerAdmin, isKeyWorker, omicUrl }) => {
-  if (!isKeyWorker && !isKeyWorkerAdmin) {
+export const WhereaboutsLink = ({ whereaboutsUrl }) => (
+  <div className="link-box">
+    <img src="/img/ICON_ManagePrisonerWhereabouts.png" className="add-gutter-margin-right" />
+
+    <div className="heading-medium">
+      <a href={whereaboutsUrl} className="link clickable">
+        Manage prisoner whereabouts
+      </a>
+    </div>
+  </div>);
+
+const ActionLinks = ({ isKeyWorkerAdmin, isKeyWorker, isWhereabouts, omicUrl, whereaboutsUrl }) => {
+  if (!isKeyWorker && !isKeyWorkerAdmin && !isWhereabouts) {
     return <div></div>
   }
 
   return (<div className="action-links">
 
     <h1 className="heading-medium"> Other Tasks </h1>
+    <div>
 
-    <div className="row">
-
-      {isKeyWorkerAdmin && omicUrl && <div className="col-sm-4 no-left-gutter add-gutter-bottom">
+      {isKeyWorkerAdmin && omicUrl && <div className="link-container">
         <KeyWorkerAdminLink omicUrl={omicUrl} />
       </div>}
 
-      {isKeyWorker && <div className="col-sm-4 no-left-gutter">
+      {isKeyWorker && <div className="link-container">
         <MyAllocationsLink />
       </div>}
 
+      {isWhereabouts && whereaboutsUrl && <div className="link-container">
+        <WhereaboutsLink whereaboutsUrl={whereaboutsUrl} />
+      </div>}
     </div>
   </div>)
 }

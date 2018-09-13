@@ -72,14 +72,16 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use('/config', (req, res) => {
   const url = config.app.feedbackUrl;
   const omicUrl = config.apis.keyworker.ui_url;
+  const whereaboutsUrl = config.apis.whereabouts.ui_url;
   const mailTo = config.app.mailTo;
-  if (!url && !omicUrl && !mailTo) {
+  if (!url && !omicUrl && !whereaboutsUrl && !mailTo) {
     res.end();
     return;
   }
   res.json({
     url,
     omicUrl,
+    whereaboutsUrl,
     mailTo,
   });
 });

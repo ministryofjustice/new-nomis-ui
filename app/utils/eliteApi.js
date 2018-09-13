@@ -158,27 +158,37 @@ export const users = {
     method: 'get',
     url: '/users/me',
   }).then((response) => response.data),
+
   caseLoads: (baseUrl) => axios({
     baseURL: baseUrl,
     method: 'get',
     url: '/users/me/caseLoads',
   }).then((response) => response.data),
+
   switchCaseLoads: (baseUrl, caseLoadId) => axios({
     baseURL: baseUrl,
     method: 'put',
     url: '/users/me/activeCaseLoad',
     data: { caseLoadId },
   }).then((response) => response.data),
+
   staff: (baseUrl, id) => axios({
     baseURL: baseUrl,
     method: 'get',
     url: `/users/staff/${id}`,
   }).then((response) => response.data),
+
   caseNoteTypes: (baseUrl) => axios({
     baseURL: baseUrl,
     method: 'get',
     url: '/users/me/caseNoteTypes',
   }).then((response) => CaseNoteTypeMapper(response.data)),
+
+  whereaboutsEnabled: (baseUrl, agencyId) => axios({
+    baseURL: baseUrl,
+    method: 'get',
+    url: `/agencies/${agencyId}/locations/whereabouts`,
+  }).then(response => CaseNoteTypeMapper(response.data)),
 };
 
 export const loadSomeCaseNoteTypes = (baseUrl, offset) => axios({

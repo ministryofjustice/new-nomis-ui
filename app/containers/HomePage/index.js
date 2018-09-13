@@ -21,7 +21,7 @@ class HomePage extends Component {
   }
 
   render() {
-    const { user, locations, omicUrl } = this.props;
+    const { user, locations, omicUrl, whereaboutsUrl } = this.props;
     if (!user) {
       return <div></div>
     }
@@ -34,7 +34,9 @@ class HomePage extends Component {
           className="no-left-gutter"
           isKeyWorkerAdmin={user.isKeyWorkerAdmin}
           isKeyWorker={user.isKeyWorker}
+          isWhereabouts={user.isWhereabouts}
           omicUrl={omicUrl}
+          whereaboutsUrl={whereaboutsUrl}
         />
 
       </div>
@@ -63,11 +65,13 @@ const mapStateToProps = (state) => {
   const user = state.getIn(['authentication','user']);
   const locations = state.getIn(['home', 'locations']).toJS();
   const omicUrl = state.getIn(['app', 'omicUrl']);
+  const whereaboutsUrl = state.getIn(['app', 'whereaboutsUrl']);
 
   return {
     user,
     locations,
     omicUrl,
+    whereaboutsUrl,
   }
 };
 

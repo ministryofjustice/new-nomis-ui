@@ -26,7 +26,10 @@ module.exports = {
     keyworker: {
       url: process.env.KEYWORKER_API_URL || 'http://localhost:8081',
       timeoutSeconds: process.env.KEYWORKER_API_TIMEOUT_SECONDS || 10,
-      ui_url: process.env.OMIC_UI_URL,
+      ui_url: process.env.OMIC_UI_URL || 'http://localhost:3001',
+    },
+    whereabouts: {
+      ui_url: process.env.WHEREABOUTS_UI_URL || 'http://localhost:3001',
     },
   },
   hmppsCookie: {
