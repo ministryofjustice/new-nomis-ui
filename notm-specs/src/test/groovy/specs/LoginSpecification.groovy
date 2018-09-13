@@ -56,7 +56,7 @@ class LoginSpecification extends GebReportingSpec {
         at HomePage
     }
 
-    def "Log in successfully with whereabouts available at current caseload prison"() {
+    def "Log in successfully with external links available at current caseload prison"() {
         elite2api.stubHealthCheck()
 
         given: 'I am on the Login page'
@@ -70,6 +70,7 @@ class LoginSpecification extends GebReportingSpec {
 
         then: 'My credentials are accepted and the home page includes the whereabouts icon'
         at HomePage
+        externalLinks[0].text().contains('Manage key workers')
         externalLinks[1].text().contains('Manage prisoner whereabouts')
     }
 

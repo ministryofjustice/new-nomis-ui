@@ -29,24 +29,24 @@ export class App extends Component {
   constructor(props) {
     super(props);
     this.resizeWindow = this.resizeWindow.bind(this);
-    this.requestOmicAndFeedbackUrl = this.requestOmicAndFeedbackUrl.bind(this);
+    this.requestExternalUrls = this.requestExternalUrls.bind(this);
     window.addEventListener('resize', this.resizeWindow, true);
   }
 
   componentWillMount() {
+    this.requestExternalUrls();
     this.resizeWindow();
   }
 
   componentDidMount() {
     this.props.retrieveUserMe();
-    this.requestOmicAndFeedbackUrl();
   }
 
   onBackgroundClick() {
     this.props.setMenuOpen(false);
   }
 
-  requestOmicAndFeedbackUrl() {
+  requestExternalUrls() {
     axios.get('/config').then(response => {
       this.props.setOmicUrl(response.data.omicUrl);
       this.props.setWhereaboutsUrl(response.data.whereaboutsUrl);
