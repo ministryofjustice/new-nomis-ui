@@ -7,6 +7,7 @@ import mockapis.Elite2Api
 import model.TestFixture
 import pages.HomePage
 import pages.LoginPage
+import spock.lang.Ignore
 
 import static model.UserAccount.ITAG_USER
 import static model.UserAccount.NOT_KNOWN
@@ -56,6 +57,7 @@ class LoginSpecification extends GebReportingSpec {
         at HomePage
     }
 
+    @Ignore
     def "Log in successfully with external links available at current caseload prison"() {
         elite2api.stubHealthCheck()
 

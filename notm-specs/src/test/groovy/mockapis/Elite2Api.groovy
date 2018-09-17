@@ -220,7 +220,7 @@ class Elite2Api extends WireMockRule {
 
   void stubOffenderSearch(String details, ArrayList<Offender> offenders, String alertsParams = '') {
     this.stubFor(
-      get("/api/locations/description/LEI/inmates?keywords=${details}${alertsParams}")
+      get("/api/locations/description/LEI/inmates?keywords=${details}${alertsParams}&returnIep=true&returnAlerts=true")
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')

@@ -258,9 +258,11 @@ export const searchOffenders = ({ baseUrl, query,
     params: {
       keywords: query.keywords,
       alerts: query.alerts,
+      returnIep: 'true',
+      returnAlerts: 'true',
     },
     paramsSerializer(params) {
-      return qs.stringify(params.alerts ? params : { keywords: params.keywords });
+      return qs.stringify(params.alerts ? params : { keywords: params.keywords, returnIep: 'true', returnAlerts: 'true' });
     },
     headers: {
       'Page-Offset': pagination.offset,
