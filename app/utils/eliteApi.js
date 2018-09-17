@@ -256,6 +256,8 @@ export const searchOffenders = ({ baseUrl, query,
     baseURL: `${baseUrl}`,
     url: `locations/description/${query.locationPrefix}/inmates`,
     params: {
+      returnAlerts: true,
+      returnIep: true,
       keywords: query.keywords,
       alerts: query.alerts,
     },
