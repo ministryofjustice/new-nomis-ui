@@ -12,7 +12,7 @@
     @include bold-19()
   }
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     .col-lg-3 {
       width: 30% !important;
       margin-right: 0 !important;
@@ -25,10 +25,7 @@
     }
   }
 
-
-
   @include media-breakpoint-up(xl) {
-
     .filters {
       border-bottom: solid 1px;
       @include add-gutter-margin-bottom();
