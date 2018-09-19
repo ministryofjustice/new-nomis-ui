@@ -120,6 +120,8 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
       nextVisit: nextVisit && toVisit(nextVisit),
       assignedStaffMembers: {
         communityOffenderManager: relationships && getFirstRelationshipByType('COM', relationships),
+        offenderSupervisor: relationships && getFirstRelationshipByType('OFS', relationships),
+        caseAdministrator: relationships && getFirstRelationshipByType('CA', relationships),
       },
       balance: balance && {
         spends: balance.spends,

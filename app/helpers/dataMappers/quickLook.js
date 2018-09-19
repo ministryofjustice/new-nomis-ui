@@ -23,6 +23,8 @@ export const Model = Map({
   }),
   assignedStaffMembers: Map({
     communityOffenderManager: Map({}),
+    offenderSupervisor: Map({}),
+    caseAdministrator: Map({}),
   }),
 });
 

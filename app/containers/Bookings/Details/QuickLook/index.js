@@ -424,32 +424,17 @@ export const NextVisit = ({ date, type, leadVisitor }) => (<div>
 
 </div>)
 
-const AssignedStaffMembers = ({ communityOffenderManager ,keyWorkerId }) =>
-  (<div>
-
-    <div className="row border-bottom-line">
-      <div className="col-lg-6 col-xs-6">
-        <label>Key worker</label>
-      </div>
-
-      <div className="col-lg-6 col-xs-6">
-        <b> { (keyWorkerId && <EliteOfficerName staffId={keyWorkerId} />) || 'Not assigned'} </b>
-      </div>
+const StaffMember = ({ staffRole, staffName }) => (
+  <div className="row border-bottom-line">
+    <div className="col-lg-6 col-xs-6">
+      <label>{staffRole}</label>
     </div>
 
-    <div className="row border-bottom-line">
-      <div className="col-lg-6 col-xs-6">
-        <label>Community Offender Manager</label>
-      </div>
-
-      <div className="col-lg-6 col-xs-6">
-        <b> { toFullName({
-          firstName: communityOffenderManager.get('firstName'),
-          lastName: communityOffenderManager.get('lastName') }) || 'Not assigned'} </b>
-      </div>
+    <div className="col-lg-6 col-xs-6">
+      <b>{staffName || 'Not assigned'}</b>
     </div>
-
-  </div>)
+  </div>
+)
 
 class QuickLook extends Component {
   componentDidMount() {
@@ -463,10 +448,14 @@ class QuickLook extends Component {
     const adjudications = viewModel.get('adjudications');
     const lastVisit = viewModel.get('lastVisit');
     const nextVisit = viewModel.get('nextVisit');
-
     const activities = viewModel.get('activities');
     const balance = viewModel.get('balance');
     const assignedStaffMembers = viewModel.get('assignedStaffMembers');
+     
+    const offenderSupervisor = assignedStaffMembers.get('offenderSupervisor')
+    const communityOffenderManager = assignedStaffMembers.get('communityOffenderManager')
+    const caseAdministrator = assignedStaffMembers.get('caseAdministrator')
+    const keyWorkerId = offenderDetails.getIn(['keyworker','staffId'])
 
     return (
       <div className="quick-look">
@@ -530,9 +519,30 @@ class QuickLook extends Component {
                   Assigned staff members
                 </h3>
 
-                <AssignedStaffMembers
-                  communityOffenderManager={assignedStaffMembers.get('communityOffenderManager')}
-                  keyWorkerId={offenderDetails.getIn(['keyworker','staffId'])}
+                <StaffMember
+                  staffRole="Key Worker"
+                  staffName={keyWorkerId && <EliteOfficerName staffId={keyWorkerId} />}
+                />
+                <StaffMember
+                  staffRole="Community Offender Manager"
+                  staffName={toFullName({
+                    firstName: communityOffenderManager.get('firstName'),
+                    lastName: communityOffenderManager.get('lastName'),
+                  })}
+                />
+                <StaffMember
+                  staffRole="Offender Supervisor"
+                  staffName={toFullName({
+                    firstName: offenderSupervisor.get('firstName'),
+                    lastName: offenderSupervisor.get('lastName'),
+                  })}
+                />
+                <StaffMember
+                  staffRole="Case Administrator"
+                  staffName={toFullName({
+                    firstName: caseAdministrator.get('firstName'),
+                    lastName: caseAdministrator.get('lastName'),
+                  })}
                 />
               </div>
             </div>
