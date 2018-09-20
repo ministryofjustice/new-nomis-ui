@@ -8,6 +8,7 @@ import { properCaseName, toFullName } from 'utils/stringUtils';
 import DisplayValue from 'components/FormComponents/DisplayValue';
 import { Link } from 'react-router';
 import EliteOfficerName from 'containers/EliteContainers/OfficerName';
+import ValueWithLabel from 'components/ValueWithLabel'
 
 import { Model as quickLookModel } from 'helpers/dataMappers/quickLook';
 import { Model as offenderProfileModel } from 'helpers/dataMappers/offenderDetails';
@@ -424,32 +425,46 @@ export const NextVisit = ({ date, type, leadVisitor }) => (<div>
 
 </div>)
 
-const AssignedStaffMembers = ({ communityOffenderManager ,keyWorkerId }) =>
-  (<div>
+const AssignedStaffMembers = ({ keyWorkerId, communityOffenderManager, offenderSupervisor, caseAdministrator }) => (
+  <div>
+    {!keyWorkerId &&
+      communityOffenderManager.size === 0 &&
+      offenderSupervisor.size === 0 &&
+      caseAdministrator.size === 0 &&
+      <p>No assigned staff members</p>
+    }
 
-    <div className="row border-bottom-line">
-      <div className="col-lg-6 col-xs-6">
-        <label>Key worker</label>
-      </div>
-
-      <div className="col-lg-6 col-xs-6">
-        <b> { (keyWorkerId && <EliteOfficerName staffId={keyWorkerId} />) || 'Not assigned'} </b>
-      </div>
-    </div>
-
-    <div className="row border-bottom-line">
-      <div className="col-lg-6 col-xs-6">
-        <label>Community Offender Manager</label>
-      </div>
-
-      <div className="col-lg-6 col-xs-6">
-        <b> { toFullName({
+    {keyWorkerId &&
+      <ValueWithLabel label="Key Worker">
+        <EliteOfficerName staffId={keyWorkerId} />
+      </ValueWithLabel>
+    }
+    {communityOffenderManager.size > 0 &&
+      <ValueWithLabel label="Community Offender Manager">
+        {toFullName({
           firstName: communityOffenderManager.get('firstName'),
-          lastName: communityOffenderManager.get('lastName') }) || 'Not assigned'} </b>
-      </div>
-    </div>
-
-  </div>)
+          lastName: communityOffenderManager.get('lastName'),
+        })}
+      </ValueWithLabel>
+    }
+    {offenderSupervisor.size > 0 &&
+      <ValueWithLabel label="Offender Supervisor">
+        {toFullName({
+          firstName: offenderSupervisor.get('firstName'),
+          lastName: offenderSupervisor.get('lastName'),
+        })}
+      </ValueWithLabel>
+    }
+    {caseAdministrator.size > 0 &&
+      <ValueWithLabel label="Case Administrator">
+        {toFullName({
+          firstName: caseAdministrator.get('firstName'),
+          lastName: caseAdministrator.get('lastName'),
+        })}
+      </ValueWithLabel>
+    }
+  </div>
+)
 
 class QuickLook extends Component {
   componentDidMount() {
@@ -463,7 +478,6 @@ class QuickLook extends Component {
     const adjudications = viewModel.get('adjudications');
     const lastVisit = viewModel.get('lastVisit');
     const nextVisit = viewModel.get('nextVisit');
-
     const activities = viewModel.get('activities');
     const balance = viewModel.get('balance');
     const assignedStaffMembers = viewModel.get('assignedStaffMembers');
@@ -523,7 +537,6 @@ class QuickLook extends Component {
 
         <div className="row">
           <div className="col-md-6 col-xs-12">
-
             <div className="row">
               <div className="col-xs-12">
                 <h3 className="heading-medium">
@@ -531,8 +544,10 @@ class QuickLook extends Component {
                 </h3>
 
                 <AssignedStaffMembers
+                  keyWorkerId={offenderDetails.getIn(['keyworker', 'staffId'])}
                   communityOffenderManager={assignedStaffMembers.get('communityOffenderManager')}
-                  keyWorkerId={offenderDetails.getIn(['keyworker','staffId'])}
+                  offenderSupervisor={assignedStaffMembers.get('offenderSupervisor')}
+                  caseAdministrator={assignedStaffMembers.get('caseAdministrator')}
                 />
               </div>
             </div>
