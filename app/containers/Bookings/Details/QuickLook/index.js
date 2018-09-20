@@ -425,46 +425,52 @@ export const NextVisit = ({ date, type, leadVisitor }) => (<div>
 
 </div>)
 
-const AssignedStaffMembers = ({ keyWorkerId, communityOffenderManager, offenderSupervisor, caseAdministrator }) => (
-  <div>
-    {!keyWorkerId &&
-      communityOffenderManager.size === 0 &&
-      offenderSupervisor.size === 0 &&
-      caseAdministrator.size === 0 &&
-      <p>No assigned staff members</p>
-    }
+export const AssignedStaffMembers = ({ keyWorkerId, communityOffenderManager, offenderSupervisor, caseAdministrator }) => {
+  const hasCommunityOffenderManager = communityOffenderManager && communityOffenderManager.size > 0
+  const hasOffenderSupervisor = offenderSupervisor && offenderSupervisor.size > 0
+  const hasCaseAdministrator = caseAdministrator && caseAdministrator.size > 0
 
-    {keyWorkerId &&
-      <ValueWithLabel label="Key Worker">
-        <EliteOfficerName staffId={keyWorkerId} />
-      </ValueWithLabel>
-    }
-    {communityOffenderManager.size > 0 &&
-      <ValueWithLabel label="Community Offender Manager">
-        {toFullName({
-          firstName: communityOffenderManager.get('firstName'),
-          lastName: communityOffenderManager.get('lastName'),
-        })}
-      </ValueWithLabel>
-    }
-    {offenderSupervisor.size > 0 &&
-      <ValueWithLabel label="Offender Supervisor">
-        {toFullName({
-          firstName: offenderSupervisor.get('firstName'),
-          lastName: offenderSupervisor.get('lastName'),
-        })}
-      </ValueWithLabel>
-    }
-    {caseAdministrator.size > 0 &&
-      <ValueWithLabel label="Case Administrator">
-        {toFullName({
-          firstName: caseAdministrator.get('firstName'),
-          lastName: caseAdministrator.get('lastName'),
-        })}
-      </ValueWithLabel>
-    }
-  </div>
-)
+  return (
+    <div>
+      {!keyWorkerId &&
+        !hasCommunityOffenderManager &&
+        !hasOffenderSupervisor &&
+        !hasCaseAdministrator &&
+        <p>No assigned staff members</p>
+      }
+
+      {keyWorkerId &&
+        <ValueWithLabel label="Key Worker">
+          <EliteOfficerName staffId={keyWorkerId} />
+        </ValueWithLabel>
+      }
+      {hasCommunityOffenderManager &&
+        <ValueWithLabel label="Community Offender Manager">
+          {toFullName({
+            firstName: communityOffenderManager.get('firstName'),
+            lastName: communityOffenderManager.get('lastName'),
+          })}
+        </ValueWithLabel>
+      }
+      {hasOffenderSupervisor &&
+        <ValueWithLabel label="Offender Supervisor">
+          {toFullName({
+            firstName: offenderSupervisor.get('firstName'),
+            lastName: offenderSupervisor.get('lastName'),
+          })}
+        </ValueWithLabel>
+      }
+      {hasCaseAdministrator &&
+        <ValueWithLabel label="Case Administrator">
+          {toFullName({
+            firstName: caseAdministrator.get('firstName'),
+            lastName: caseAdministrator.get('lastName'),
+          })}
+        </ValueWithLabel>
+      }
+    </div>
+  )
+}
 
 class QuickLook extends Component {
   componentDidMount() {
