@@ -8,6 +8,7 @@ import { properCaseName, toFullName } from 'utils/stringUtils';
 import DisplayValue from 'components/FormComponents/DisplayValue';
 import { Link } from 'react-router';
 import EliteOfficerName from 'containers/EliteContainers/OfficerName';
+import ValueWithLabel from 'components/ValueWithLabel'
 
 import { Model as quickLookModel } from 'helpers/dataMappers/quickLook';
 import { Model as offenderProfileModel } from 'helpers/dataMappers/offenderDetails';
@@ -424,15 +425,44 @@ export const NextVisit = ({ date, type, leadVisitor }) => (<div>
 
 </div>)
 
-const StaffMember = ({ staffRole, staffName }) => (
-  <div className="row border-bottom-line">
-    <div className="col-lg-6 col-xs-6">
-      <label>{staffRole}</label>
-    </div>
+const AssignedStaffMembers = ({ keyWorkerId, communityOffenderManager, offenderSupervisor, caseAdministrator }) => (
+  <div>
+    {!keyWorkerId &&
+      communityOffenderManager.size === 0 &&
+      offenderSupervisor.size === 0 &&
+      caseAdministrator.size === 0 &&
+      <p>No assigned staff members</p>
+    }
 
-    <div className="col-lg-6 col-xs-6">
-      <b>{staffName}</b>
-    </div>
+    {keyWorkerId &&
+      <ValueWithLabel label="Key Worker">
+        <EliteOfficerName staffId={keyWorkerId} />
+      </ValueWithLabel>
+    }
+    {communityOffenderManager.size > 0 &&
+      <ValueWithLabel label="Community Offender Manager">
+        {toFullName({
+          firstName: communityOffenderManager.get('firstName'),
+          lastName: communityOffenderManager.get('lastName'),
+        })}
+      </ValueWithLabel>
+    }
+    {offenderSupervisor.size > 0 &&
+      <ValueWithLabel label="Offender Supervisor">
+        {toFullName({
+          firstName: offenderSupervisor.get('firstName'),
+          lastName: offenderSupervisor.get('lastName'),
+        })}
+      </ValueWithLabel>
+    }
+    {caseAdministrator.size > 0 &&
+      <ValueWithLabel label="Case Administrator">
+        {toFullName({
+          firstName: caseAdministrator.get('firstName'),
+          lastName: caseAdministrator.get('lastName'),
+        })}
+      </ValueWithLabel>
+    }
   </div>
 )
 
@@ -451,11 +481,6 @@ class QuickLook extends Component {
     const activities = viewModel.get('activities');
     const balance = viewModel.get('balance');
     const assignedStaffMembers = viewModel.get('assignedStaffMembers');
-     
-    const offenderSupervisor = assignedStaffMembers.get('offenderSupervisor')
-    const communityOffenderManager = assignedStaffMembers.get('communityOffenderManager')
-    const caseAdministrator = assignedStaffMembers.get('caseAdministrator')
-    const keyWorkerId = offenderDetails.getIn(['keyworker','staffId'])
 
     return (
       <div className="quick-look">
@@ -512,45 +537,18 @@ class QuickLook extends Component {
 
         <div className="row">
           <div className="col-md-6 col-xs-12">
-
             <div className="row">
               <div className="col-xs-12">
                 <h3 className="heading-medium">
                   Assigned staff members
                 </h3>
 
-                {keyWorkerId &&
-                  <StaffMember
-                    staffRole="Key Worker"
-                    staffName={<EliteOfficerName staffId={keyWorkerId} />}
-                  />
-                }
-                {communityOffenderManager.size > 0 &&
-                  <StaffMember
-                    staffRole="Community Offender Manager"
-                    staffName={toFullName({
-                      firstName: communityOffenderManager.get('firstName'),
-                      lastName: communityOffenderManager.get('lastName'),
-                    })}
-                  />
-                }
-                {offenderSupervisor.size > 0 &&
-                  <StaffMember
-                    staffRole="Offender Supervisor"
-                    staffName={toFullName({
-                      firstName: offenderSupervisor.get('firstName'),
-                      lastName: offenderSupervisor.get('lastName'),
-                    })}
-                  />
-                }
-                {caseAdministrator.size > 0 &&
-                  <StaffMember
-                    staffRole="Case Administrator"
-                    staffName={toFullName({
-                      firstName: caseAdministrator.get('firstName'),
-                      lastName: caseAdministrator.get('lastName'),
-                    })}
-                  />}
+                <AssignedStaffMembers
+                  keyWorkerId={offenderDetails.getIn(['keyworker', 'staffId'])}
+                  communityOffenderManager={assignedStaffMembers.get('communityOffenderManager')}
+                  offenderSupervisor={assignedStaffMembers.get('offenderSupervisor')}
+                  caseAdministrator={assignedStaffMembers.get('caseAdministrator')}
+                />
               </div>
             </div>
 
