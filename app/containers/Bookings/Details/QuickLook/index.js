@@ -431,7 +431,7 @@ const StaffMember = ({ staffRole, staffName }) => (
     </div>
 
     <div className="col-lg-6 col-xs-6">
-      <b>{staffName || 'Not assigned'}</b>
+      <b>{staffName}</b>
     </div>
   </div>
 )
@@ -519,31 +519,38 @@ class QuickLook extends Component {
                   Assigned staff members
                 </h3>
 
-                <StaffMember
-                  staffRole="Key Worker"
-                  staffName={keyWorkerId && <EliteOfficerName staffId={keyWorkerId} />}
-                />
-                <StaffMember
-                  staffRole="Community Offender Manager"
-                  staffName={toFullName({
-                    firstName: communityOffenderManager.get('firstName'),
-                    lastName: communityOffenderManager.get('lastName'),
-                  })}
-                />
-                <StaffMember
-                  staffRole="Offender Supervisor"
-                  staffName={toFullName({
-                    firstName: offenderSupervisor.get('firstName'),
-                    lastName: offenderSupervisor.get('lastName'),
-                  })}
-                />
-                <StaffMember
-                  staffRole="Case Administrator"
-                  staffName={toFullName({
-                    firstName: caseAdministrator.get('firstName'),
-                    lastName: caseAdministrator.get('lastName'),
-                  })}
-                />
+                {keyWorkerId &&
+                  <StaffMember
+                    staffRole="Key Worker"
+                    staffName={<EliteOfficerName staffId={keyWorkerId} />}
+                  />
+                }
+                {communityOffenderManager.size > 0 &&
+                  <StaffMember
+                    staffRole="Community Offender Manager"
+                    staffName={toFullName({
+                      firstName: communityOffenderManager.get('firstName'),
+                      lastName: communityOffenderManager.get('lastName'),
+                    })}
+                  />
+                }
+                {offenderSupervisor.size > 0 &&
+                  <StaffMember
+                    staffRole="Offender Supervisor"
+                    staffName={toFullName({
+                      firstName: offenderSupervisor.get('firstName'),
+                      lastName: offenderSupervisor.get('lastName'),
+                    })}
+                  />
+                }
+                {caseAdministrator.size > 0 &&
+                  <StaffMember
+                    staffRole="Case Administrator"
+                    staffName={toFullName({
+                      firstName: caseAdministrator.get('firstName'),
+                      lastName: caseAdministrator.get('lastName'),
+                    })}
+                  />}
               </div>
             </div>
 
