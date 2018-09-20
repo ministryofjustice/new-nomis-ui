@@ -24,7 +24,10 @@ ValueWithLabel.defaultProps = {
 
 ValueWithLabel.propTypes = {
   label: PropTypes.string.isRequired,
-  children: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]),
   indent: PropTypes.bool,
 }
 
