@@ -30,6 +30,7 @@ describe('<AssignedStaffMembers />', () => {
       ${'communityOffenderManager'} | ${staffDetails}  | ${'Community Offender Manager'}
       ${'offenderSupervisor'}       | ${staffDetails}  | ${'Offender Supervisor'}
       ${'caseAdministrator'}        | ${staffDetails}  | ${'Case Administrator'}
+      ${'drugWorker'}               | ${staffDetails}  | ${'Drug Worker'}
     `.it('should render a $staffRole label and value', ({ propName, propValue, staffRole }) => {
       wrapper.setProps({ [propName]: propValue });
       expect(wrapper.find('ValueWithLabel').prop('label')).toEqual(staffRole);
