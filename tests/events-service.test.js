@@ -58,7 +58,7 @@ describe('Events service', () => {
   it('should call getScheduledEventsForNextWeek and return data with a slot for each day, for 7 days starting from next week', async () => {
     eliteApi.getEventsForThisWeek.returns(null);
 
-    const startDate = moment().add('days', 7);
+    const startDate = moment().add(7, 'days');
     const data = await eventsService.getScheduledEventsForNextWeek(req);
 
     expect(data.length).to.equal(7);
