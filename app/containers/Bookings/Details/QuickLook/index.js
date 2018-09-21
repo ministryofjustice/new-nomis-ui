@@ -425,10 +425,17 @@ export const NextVisit = ({ date, type, leadVisitor }) => (<div>
 
 </div>)
 
-export const AssignedStaffMembers = ({ keyWorkerId, communityOffenderManager, offenderSupervisor, caseAdministrator }) => {
-  const hasCommunityOffenderManager = communityOffenderManager && communityOffenderManager.size > 0
-  const hasOffenderSupervisor = offenderSupervisor && offenderSupervisor.size > 0
-  const hasCaseAdministrator = caseAdministrator && caseAdministrator.size > 0
+export const AssignedStaffMembers = ({
+  keyWorkerId,
+  communityOffenderManager,
+  offenderSupervisor,
+  caseAdministrator,
+  drugWorker,
+}) => {
+  const hasCommunityOffenderManager = communityOffenderManager && communityOffenderManager.size > 0;
+  const hasOffenderSupervisor = offenderSupervisor && offenderSupervisor.size > 0;
+  const hasCaseAdministrator = caseAdministrator && caseAdministrator.size > 0;
+  const hasDrugWorker = drugWorker && drugWorker.size > 0;
 
   return (
     <div>
@@ -436,41 +443,48 @@ export const AssignedStaffMembers = ({ keyWorkerId, communityOffenderManager, of
         !hasCommunityOffenderManager &&
         !hasOffenderSupervisor &&
         !hasCaseAdministrator &&
-        <p>No assigned staff members</p>
-      }
+        !hasDrugWorker && <p>No assigned staff members</p>}
 
-      {keyWorkerId &&
+      {keyWorkerId && (
         <ValueWithLabel label="Key Worker">
           <EliteOfficerName staffId={keyWorkerId} />
         </ValueWithLabel>
-      }
-      {hasCommunityOffenderManager &&
+      )}
+      {hasCommunityOffenderManager && (
         <ValueWithLabel label="Community Offender Manager">
           {toFullName({
             firstName: communityOffenderManager.get('firstName'),
             lastName: communityOffenderManager.get('lastName'),
           })}
         </ValueWithLabel>
-      }
-      {hasOffenderSupervisor &&
+      )}
+      {hasOffenderSupervisor && (
         <ValueWithLabel label="Offender Supervisor">
           {toFullName({
             firstName: offenderSupervisor.get('firstName'),
             lastName: offenderSupervisor.get('lastName'),
           })}
         </ValueWithLabel>
-      }
-      {hasCaseAdministrator &&
+      )}
+      {hasCaseAdministrator && (
         <ValueWithLabel label="Case Administrator">
           {toFullName({
             firstName: caseAdministrator.get('firstName'),
             lastName: caseAdministrator.get('lastName'),
           })}
         </ValueWithLabel>
-      }
+      )}
+      {hasDrugWorker && (
+        <ValueWithLabel label="Drug Worker">
+          {toFullName({
+            firstName: drugWorker.get('firstName'),
+            lastName: drugWorker.get('lastName'),
+          })}
+        </ValueWithLabel>
+      )}
     </div>
-  )
-}
+  );
+};
 
 class QuickLook extends Component {
   componentDidMount() {
@@ -554,6 +568,7 @@ class QuickLook extends Component {
                   communityOffenderManager={assignedStaffMembers.get('communityOffenderManager')}
                   offenderSupervisor={assignedStaffMembers.get('offenderSupervisor')}
                   caseAdministrator={assignedStaffMembers.get('caseAdministrator')}
+                  drugWorker={assignedStaffMembers.get('drugWorker')}
                 />
               </div>
             </div>

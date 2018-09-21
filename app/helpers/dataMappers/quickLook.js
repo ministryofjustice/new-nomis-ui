@@ -25,6 +25,7 @@ export const Model = Map({
     communityOffenderManager: Map({}),
     offenderSupervisor: Map({}),
     caseAdministrator: Map({}),
+    drugWorker: Map({}),
   }),
 });
 
