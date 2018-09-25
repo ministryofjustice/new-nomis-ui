@@ -2,6 +2,7 @@ package specs
 
 import geb.spock.GebReportingSpec
 import groovy.util.logging.Slf4j
+import mockapis.OauthApi
 import model.Offender
 import org.junit.Rule
 import mockapis.Elite2Api
@@ -21,6 +22,8 @@ class MyAllocationsSpecification extends GebReportingSpec {
   @Rule
   KeyworkerApi keyworkerApi = new KeyworkerApi()
 
+  @Rule
+  OauthApi oauthApi = new OauthApi()
 
   def "should display the correct allocations once on the page"() {
 
@@ -33,6 +36,7 @@ class MyAllocationsSpecification extends GebReportingSpec {
     offenders.push(model.Offender.BOB())
 
     elite2api.stubHealthCheck()
+    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
     elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
     elite2api.getOffenderSummaryDetails(offenders)
     elite2api.stubImage()

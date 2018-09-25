@@ -2,6 +2,7 @@ package specs
 
 import geb.spock.GebReportingSpec
 import groovy.util.logging.Slf4j
+import mockapis.OauthApi
 import org.junit.Rule
 import mockapis.Elite2Api
 import model.TestFixture
@@ -18,7 +19,10 @@ class LoginSpecification extends GebReportingSpec {
     @Rule
     Elite2Api elite2api = new Elite2Api()
 
-    TestFixture fixture = new TestFixture(browser, elite2api)
+    @Rule
+    OauthApi oauthApi = new OauthApi()
+
+    TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
 
     def setup(){
       elite2api.stubHealthCheck()
@@ -47,7 +51,7 @@ class LoginSpecification extends GebReportingSpec {
         given: 'I am on the Login page'
         to LoginPage
 
-        elite2api.stubValidOAuthTokenRequest(ITAG_USER)
+        oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
         elite2api.stubGetMyDetails(ITAG_USER)
 
         when: "I login using valid credentials"
@@ -63,7 +67,7 @@ class LoginSpecification extends GebReportingSpec {
         given: 'I am on the Login page'
         to LoginPage
 
-        elite2api.stubValidOAuthTokenRequest(ITAG_USER)
+        oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
         elite2api.stubGetMyDetails(ITAG_USER, true)
 
         when: "I login using valid credentials"
@@ -78,7 +82,7 @@ class LoginSpecification extends GebReportingSpec {
     def "Unknown user is rejected"() {
 
         given: 'I am on the Login page'
-        elite2api.stubInvalidOAuthTokenRequest(NOT_KNOWN)
+        oauthApi.stubInvalidOAuthTokenRequest(NOT_KNOWN)
         to LoginPage
 
         when: 'I login using an unknown username'
@@ -94,7 +98,7 @@ class LoginSpecification extends GebReportingSpec {
     def "Unknown password is rejected"() {
 
         given: 'I am on the Login page'
-        elite2api.stubInvalidOAuthTokenRequest(ITAG_USER, true)
+        oauthApi.stubInvalidOAuthTokenRequest(ITAG_USER, true)
         to LoginPage
 
         when: 'I login using an unknown username'

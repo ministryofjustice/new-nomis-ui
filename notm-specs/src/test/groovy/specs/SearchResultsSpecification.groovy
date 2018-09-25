@@ -4,6 +4,7 @@ import geb.spock.GebReportingSpec
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
+import mockapis.OauthApi
 import model.Offender
 import org.junit.Rule
 import pages.AlertsPage
@@ -21,13 +22,15 @@ class SearchResultsSpecification extends GebReportingSpec {
   Elite2Api elite2api = new Elite2Api()
   @Rule
   KeyworkerApi keyworkerApi = new KeyworkerApi()
+  @Rule
+  OauthApi oauthApi = new OauthApi()
 
   def 'Display search results and alerts'() {
     elite2api.stubHealthCheck()
 
     given: 'I am logged in'
     to LoginPage
-    elite2api.stubValidOAuthTokenRequest(ITAG_USER)
+    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
     elite2api.stubGetMyDetails(ITAG_USER)
     loginAs ITAG_USER, 'password'
     at HomePage

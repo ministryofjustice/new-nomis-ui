@@ -5,6 +5,7 @@ import geb.spock.GebReportingSpec
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
+import mockapis.OauthApi
 import model.Offender
 import org.junit.Rule
 import pages.AddCaseNotePage
@@ -25,13 +26,16 @@ class CaseNotesSpecification extends GebReportingSpec {
   @Rule
   KeyworkerApi keyworkerApi = new KeyworkerApi()
 
+  @Rule
+  OauthApi oauthApi = new OauthApi()
+
   def "Create a new case note"() {
     elite2api.stubHealthCheck()
 
 
     given: 'I am logged in and have selected an offender'
     to LoginPage
-    elite2api.stubValidOAuthTokenRequest(ITAG_USER)
+    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
     elite2api.stubGetMyDetails(ITAG_USER)
     loginAs ITAG_USER, 'password'
     at HomePage

@@ -2,6 +2,7 @@ package specs
 
 import geb.spock.GebReportingSpec
 import groovy.util.logging.Slf4j
+import mockapis.OauthApi
 import org.junit.Rule
 import pages.LoginPage
 import pages.HomePage
@@ -14,8 +15,12 @@ class KeyWorkerRoleBasedAccessSpecification extends GebReportingSpec {
   @Rule
   Elite2Api elite2api = new Elite2Api()
 
+  @Rule
+  OauthApi oauthApi = new OauthApi()
+
   def "should see the my key worker allocations link when the user is a key worker"() {
     elite2api.stubHealthCheck()
+    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
 
     given:
     to LoginPage
@@ -31,6 +36,7 @@ class KeyWorkerRoleBasedAccessSpecification extends GebReportingSpec {
 
   def "should see the my key worker allocations link in the menu when the current user is a key worker"() {
     elite2api.stubHealthCheck()
+    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
 
     given:
     to LoginPage
@@ -51,7 +57,7 @@ class KeyWorkerRoleBasedAccessSpecification extends GebReportingSpec {
 
     given:
     to LoginPage
-    elite2api.stubValidOAuthTokenRequest(ITAG_USER)
+    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
     elite2api.stubGetMyDetails(ITAG_USER)
     loginAs ITAG_USER, 'password'
     at HomePage
@@ -67,7 +73,7 @@ class KeyWorkerRoleBasedAccessSpecification extends GebReportingSpec {
 
     given:
     to LoginPage
-    elite2api.stubValidOAuthTokenRequest(ITAG_USER)
+    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
     elite2api.stubGetMyDetails(ITAG_USER)
     loginAs ITAG_USER, 'password'
     at HomePage
@@ -85,7 +91,7 @@ class KeyWorkerRoleBasedAccessSpecification extends GebReportingSpec {
 
     given:
     to LoginPage
-    elite2api.stubValidOAuthTokenRequest(ITAG_USER)
+    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
     elite2api.stubGetMyDetails(ITAG_USER)
     loginAs ITAG_USER, 'password'
     at HomePage
