@@ -4,6 +4,7 @@ import geb.spock.GebReportingSpec
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
+import mockapis.OauthApi
 import model.TestFixture
 import org.junit.Rule
 import pages.AlertsPage
@@ -20,13 +21,17 @@ class PaginationSpecification extends GebReportingSpec {
   @Rule
   KeyworkerApi keyworkerApi = new KeyworkerApi()
 
-  TestFixture fixture = new TestFixture(browser, elite2api)
+  @Rule
+  OauthApi oauthApi = new OauthApi()
+
+  TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
   def offenderNo = "A1234AJ"
   def bookingId = -10
   def agencyId = "${ITAG_USER.staffMember.assginedCaseload}"
 
   def "should be able to page through the alerts"() {
     elite2api.stubHealthCheck()
+    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
     elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
     elite2api.stubImage()
     elite2api.stubBookingAlerts(bookingId)
@@ -62,6 +67,7 @@ class PaginationSpecification extends GebReportingSpec {
 
   def "should be able to page through the case notes"() {
     elite2api.stubHealthCheck()
+    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
     elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
     elite2api.stubImage()
     elite2api.stubBookingCaseNotes(bookingId)
