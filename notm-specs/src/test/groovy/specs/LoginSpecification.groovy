@@ -20,9 +20,11 @@ class LoginSpecification extends GebReportingSpec {
 
     TestFixture fixture = new TestFixture(browser, elite2api)
 
-    def "The login page is present"() {
-
+    def setup(){
       elite2api.stubHealthCheck()
+    }
+
+    def "The login page is present"() {
 
       when: 'I go to the login page'
         to LoginPage
@@ -32,7 +34,6 @@ class LoginSpecification extends GebReportingSpec {
     }
 
    def "Default URI redirects to Login page"() {
-        elite2api.stubHealthCheck()
 
         when: "I go to the website URL using an empty path"
         go '/'
@@ -42,7 +43,6 @@ class LoginSpecification extends GebReportingSpec {
    }
 
    def "Log in with valid credentials"() {
-        elite2api.stubHealthCheck()
 
         given: 'I am on the Login page'
         to LoginPage
@@ -59,7 +59,6 @@ class LoginSpecification extends GebReportingSpec {
 
     @Ignore
     def "Log in successfully with external links available at current caseload prison"() {
-        elite2api.stubHealthCheck()
 
         given: 'I am on the Login page'
         to LoginPage
@@ -77,7 +76,6 @@ class LoginSpecification extends GebReportingSpec {
     }
 
     def "Unknown user is rejected"() {
-        elite2api.stubHealthCheck()
 
         given: 'I am on the Login page'
         elite2api.stubInvalidOAuthTokenRequest(NOT_KNOWN)
@@ -94,7 +92,6 @@ class LoginSpecification extends GebReportingSpec {
     }
 
     def "Unknown password is rejected"() {
-        elite2api.stubHealthCheck()
 
         given: 'I am on the Login page'
         elite2api.stubInvalidOAuthTokenRequest(ITAG_USER, true)
@@ -111,7 +108,6 @@ class LoginSpecification extends GebReportingSpec {
     }
 
     def "Log out"() {
-        elite2api.stubHealthCheck()
 
         given: "I have logged in"
         fixture.loginAs(ITAG_USER)

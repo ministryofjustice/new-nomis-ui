@@ -12,6 +12,7 @@ const SET_FEEDBACK_URL = 'globalReducer/app/SET_FEEDBACK_URL';
 const SET_MAIL_TO = 'globalReducer/app/SET_MAIL_TO';
 const SET_OMIC_URL = 'app/Authentication/HomePage/SET_OMIC_URL';
 const SET_WHEREABOUTS_URL = 'app/Authentication/HomePage/SET_WHEREABOUTS_URL';
+const SET_ESTABLISHMENT_ROLLCALL_URL = 'app/Authentication/HomePage/SET_ESTABLISHMENT_ROLLCALL_URL';
 
 // Initial State
 const initialState = fromJS({
@@ -58,6 +59,8 @@ export default function appReducer(state = initialState, action) {
       return state.set('omicUrl', action.url);
     case SET_WHEREABOUTS_URL:
       return state.set('whereaboutsUrl', action.url);
+    case SET_ESTABLISHMENT_ROLLCALL_URL:
+      return state.set('establishmentRollcheckUrl', action.url);
     default:
       return state;
   }
@@ -126,5 +129,10 @@ export const setOmicUrl = (url) => ({
 
 export const setWhereaboutsUrl = (url) => ({
   type: SET_WHEREABOUTS_URL,
+  url,
+});
+
+export const setEstablishmentRollcheckUrl = (url) => ({
+  type: SET_ESTABLISHMENT_ROLLCALL_URL,
   url,
 });

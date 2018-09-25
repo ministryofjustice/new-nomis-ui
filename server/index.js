@@ -73,6 +73,7 @@ app.use('/config', (req, res) => {
   const url = config.app.feedbackUrl;
   const omicUrl = config.apis.keyworker.ui_url;
   const whereaboutsUrl = config.apis.whereabouts.ui_url;
+  const establishmentRollcheckUrl = config.apis.whereabouts.ui_rollcheck_url;
   const mailTo = config.app.mailTo;
   if (!url && !omicUrl && !whereaboutsUrl && !mailTo) {
     res.end();
@@ -82,6 +83,7 @@ app.use('/config', (req, res) => {
     url,
     omicUrl,
     whereaboutsUrl,
+    establishmentRollcheckUrl,
     mailTo,
   });
 });
