@@ -10,8 +10,8 @@ ext {
       // Mobile emulation is broken by Chrome - specifically, mapping touch events to mouse events.
       // This seems to depend on the exact version of Chrome & Chrome Webdriver, but isn't reliable.
       // See https://bugs.chromium.org/p/chromedriver/issues/detail?id=2144&desc=2
-      // Disabling mobile testing until this is fixed.
-//      'chromeMobile',
+      // Disabling mobile testing until this is fixed - unless it works for your version of Chrome...
+      'chromeMobile',
       //'chromeHeadless'
     ]
 
