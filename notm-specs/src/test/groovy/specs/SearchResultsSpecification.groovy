@@ -36,10 +36,10 @@ class SearchResultsSpecification extends GebReportingSpec {
     at HomePage
 
     when: 'I search for offenders'
-    ArrayList<Offender> offenders = new ArrayList<Offender>()
-    offenders.push(model.Offender.SMELLEY())
-    offenders.push(model.Offender.BOB())
-    offenders.push(model.Offender.SMITH())
+    ArrayList<Offender> offenders = [
+      Offender.SMELLEY(),
+      Offender.BOB(),
+      Offender.SMITH()]
 
     elite2api.stubOffenderSearch('aname', offenders)
     elite2api.stubImage()
@@ -62,8 +62,13 @@ class SearchResultsSpecification extends GebReportingSpec {
     moreFiltersLink.click()
     checkboxes[0].click() // acct
     checkboxes[3].click() // arsonist
-    elite2api.stubOffenderSearch('aname',
-      [model.Offender.SMITH(), model.Offender.BOB(), model.Offender.SMELLEY()],
+    elite2api.stubOffenderSearch(
+      'aname',
+      [
+        Offender.SMITH(),
+        Offender.BOB(),
+        Offender.SMELLEY()
+      ],
       '&alerts=HA&alerts=XA')
     selectVisibleButton().click()
 

@@ -20,6 +20,7 @@ import {
   setFeedbackUrl,
   setOmicUrl,
   setWhereaboutsUrl,
+  setEstablishmentRollcheckUrl,
   setMailTo,
   setMenuOpen,
   hideTerms,
@@ -50,6 +51,7 @@ export class App extends Component {
     axios.get('/config').then(response => {
       this.props.setOmicUrl(response.data.omicUrl);
       this.props.setWhereaboutsUrl(response.data.whereaboutsUrl);
+      this.props.setEstablishmentRollcheckUrl(response.data.establishmentRollcheckUrl);
       this.props.setFeedbackUrl(response.data.url);
       this.props.setMailTo(response.data.mailTo);
     });
@@ -130,6 +132,7 @@ const mapDispatchToProps = (dispatch) => ({
   setMailTo: (mailTo) => dispatch(setMailTo(mailTo)),
   setOmicUrl: (url) => dispatch(setOmicUrl(url)),
   setWhereaboutsUrl: (url) => dispatch(setWhereaboutsUrl(url)),
+  setEstablishmentRollcheckUrl: (url) => dispatch(setEstablishmentRollcheckUrl(url)),
   hideTermsAndConditions: () => dispatch(hideTerms()),
   setMenuOpen: (flag) => dispatch(setMenuOpen(flag)),
 });

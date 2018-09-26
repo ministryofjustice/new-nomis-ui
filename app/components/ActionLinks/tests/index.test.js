@@ -2,7 +2,7 @@ import React from 'react';
 
 import { shallow } from 'enzyme';
 
-import ActionLinks, { KeyWorkerAdminLink, MyAllocationsLink } from '../index.js';
+import ActionLinks, { KeyWorkerAdminLink, MyAllocationsLink, EstablishmentRollCheckLink } from '../index.js';
 
 describe('Actions component', () => {
   it('should only show the my allocations link when the user is a key worker', () => {
@@ -21,5 +21,10 @@ describe('Actions component', () => {
     const wrapper = shallow(<ActionLinks />);
 
     expect(wrapper.find('div').children().length).toBe(0);
-  })
+  });
+
+  it('should show roll check link when the establishmentRollcheckUrl is configured', () => {
+    const wrapper = shallow(<ActionLinks establishmentRollcheckUrl="http://test" />);
+    expect(wrapper.contains(<EstablishmentRollCheckLink establishmentRollCheckUrl="http://test" />)).toBe(true)
+  });
 });

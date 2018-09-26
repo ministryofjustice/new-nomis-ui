@@ -21,7 +21,7 @@ class HomePage extends Component {
   }
 
   render() {
-    const { user, locations, omicUrl, whereaboutsUrl } = this.props;
+    const { user, locations, omicUrl, whereaboutsUrl, establishmentRollcheckUrl } = this.props;
     if (!user) {
       return <div></div>
     }
@@ -37,6 +37,7 @@ class HomePage extends Component {
           isWhereabouts={user.isWhereabouts}
           omicUrl={omicUrl}
           whereaboutsUrl={whereaboutsUrl}
+          establishmentRollcheckUrl={establishmentRollcheckUrl}
         />
 
       </div>
@@ -66,12 +67,14 @@ const mapStateToProps = (state) => {
   const locations = state.getIn(['home', 'locations']).toJS();
   const omicUrl = state.getIn(['app', 'omicUrl']);
   const whereaboutsUrl = state.getIn(['app', 'whereaboutsUrl']);
+  const establishmentRollcheckUrl = state.getIn(['app', 'establishmentRollcheckUrl']);
 
   return {
     user,
     locations,
     omicUrl,
     whereaboutsUrl,
+    establishmentRollcheckUrl,
   }
 };
 

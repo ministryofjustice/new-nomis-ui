@@ -34,8 +34,17 @@ export const WhereaboutsLink = ({ whereaboutsUrl }) => (
     </div>
   </div>);
 
-const ActionLinks = ({ isKeyWorkerAdmin, isKeyWorker, isWhereabouts, omicUrl, whereaboutsUrl }) => {
-  if (!isKeyWorker && !isKeyWorkerAdmin && !isWhereabouts) {
+export const EstablishmentRollCheckLink = ({ establishmentRollCheckUrl }) => (
+  <div className="link-box">
+    <img src="/img/EstablishmentRoll_icon.png" className="add-gutter-margin-right" />
+
+    <div className="heading-medium">
+      <a href={establishmentRollCheckUrl} className="link clickable">Establishment roll check</a>
+    </div>
+  </div>);
+
+const ActionLinks = ({ isKeyWorkerAdmin, isKeyWorker, isWhereabouts, omicUrl, whereaboutsUrl, establishmentRollcheckUrl }) => {
+  if (!isKeyWorker && !isKeyWorkerAdmin && !isWhereabouts && !establishmentRollcheckUrl) {
     return <div></div>
   }
 
@@ -55,9 +64,13 @@ const ActionLinks = ({ isKeyWorkerAdmin, isKeyWorker, isWhereabouts, omicUrl, wh
       {isWhereabouts && whereaboutsUrl && <div className="link-container">
         <WhereaboutsLink whereaboutsUrl={whereaboutsUrl} />
       </div>}
+
+      { establishmentRollcheckUrl && <div className="link-container">
+        <EstablishmentRollCheckLink establishmentRollCheckUrl={establishmentRollcheckUrl} />
+      </div>}
     </div>
   </div>)
-}
+};
 
 
 export default ActionLinks;

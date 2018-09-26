@@ -30,6 +30,7 @@ module.exports = {
     },
     whereabouts: {
       ui_url: process.env.WHEREABOUTS_UI_URL,
+      ui_rollcheck_url: process.env.ESTABLISHMENT_ROLLCHECK_URL,
     },
   },
   hmppsCookie: {
