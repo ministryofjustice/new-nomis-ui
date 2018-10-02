@@ -38,8 +38,9 @@ function MobileMenu({ user, setMenuOpen, showTerms, switchCaseLoad }) {
         return newObj;
       })}
       <MobileMenuOption
+        id={'mobile-logout'}
         key={'logout'}
-        href={'/logout'} data-id={'dropdown-option'}
+        href={'/auth/logout'} data-id={'dropdown-option'}
       >
         Log out<ForwardArrow svg={forwardBack} />
       </MobileMenuOption>
