@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "New Nomis UI",
   "engines": {
-    "npm": ">=3"
+    "npm": ">=3",
+    "node": ">=8.10.0"
   },
   "author": "Syscon / HMPPS",
   "license": "UNLICENSED",
