@@ -1,0 +1,87 @@
+
+.desktop-alerts-filter-form {
+
+  margin-bottom: 2em;
+  margin-top: 1.875em;
+
+  .button {
+    width: 100%;
+  }
+
+  .reset-filters {
+    padding-top: 0.5em;
+  }
+
+  .rdtPicker {
+    width: 322px;
+  }
+
+  .form-control{
+    width:100%;
+    height: 36px !important;
+  }
+
+  .date-range-label {
+    font-weight: bold;
+  }
+
+  .margin30 {
+    margin-top: 30px;
+  }
+
+  .date-picker-component {
+    display: inline-block;
+    margin-left: 10px;
+    width: 45%;
+  }
+
+  .date-picker-component:first-child {
+    margin-left: 0;
+  }
+}
+
+.mobile-alerts-filter-form {
+  @mixin small-inline-stack {
+    width: 100%;
+    display: block;
+    margin-left: 0;
+  }
+
+  margin-bottom: 2em;
+    margin-top: 1.875em;
+
+  .button {
+    width: 100%;
+  }
+
+  .reset-filters {
+    display: block;
+  }
+
+  .rdtPicker {
+    width: 100%;
+  }
+
+  .rdtOpen .rdtPicker {
+      position: static;
+  }
+
+  .form-control {
+    width:100%;
+    height: 36px !important;
+  }
+
+  .date-range-label {
+    font-weight: bold;
+  }
+
+  .date-picker-component {
+      @include small-inline-stack();
+  }
+
+  .date-picker-component:first-child {
+    margin-left: 0;
+  }
+}
+
+

@@ -9,6 +9,8 @@ import { List } from 'immutable';
 import { connect } from 'react-redux';
 
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
+import DesktopAlertsFilterForm from 'components/Bookings/Details/AlertList/desktopAlertsFilterForm';
+import MobileAlertsFilterForm from 'components/Bookings/Details/AlertList/mobileAlertsFilterForm';
 import AlertList from 'components/Bookings/Details/AlertList';
 
 import { loadBookingAlerts } from 'containers/EliteApiLoader/actions';
@@ -33,11 +35,18 @@ class Alerts extends Component {
     const { alerts, totalResults, pagination, offenderNo, setPagination, deviceFormat } = this.props;
     return (
       <div>
+        {deviceFormat === 'desktop' ?
+          (<DesktopAlertsFilterForm alertTypes={[]} />)
+          :
+          (<MobileAlertsFilterForm alertTypes={[]} />)
+        }
         <AlertList alerts={alerts} deviceFormat={deviceFormat} />
 
         <PreviousNextNavigation
-          pagination={pagination} totalRecords={totalResults} pageAction={(id) => {
-            setPagination(offenderNo, { perPage: pagination.perPage, pageNumber: id }, id)
+          pagination={pagination}
+          totalRecords={totalResults}
+          pageAction={(id) => {
+            setPagination(offenderNo, { perPage: pagination.perPage, pageNumber: id }, id);
             if (window) window.scrollTo(0,0);
           }}
         />
@@ -77,6 +86,6 @@ const mapStateToProps = (immutableState, props) => {
     totalResults,
     deviceFormat,
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Alerts);

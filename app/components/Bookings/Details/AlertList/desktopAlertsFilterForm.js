@@ -1,0 +1,95 @@
+import React from 'react';
+import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from 'components/FormComponents/DatePicker';
+import SelectWithLabel from 'components/FormComponents/SelectWithLabel';
+import { connect } from 'react-redux';
+import { reduxForm, Field } from 'redux-form/immutable';
+
+import moment from 'moment';
+
+import './desktopAlertsFilterForm.scss';
+
+
+const DesktopAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, locale, submitting, error }) => (
+  <form className="desktop-alerts-filter-form" onSubmit={() => undefined} >
+
+    <div className="row">
+      <div className="col-md-3 no-left-gutter">
+        <h3 className="bold-medium no-left-gutter">
+          Filters
+        </h3>
+      </div>
+      <div className="col-md-9 no-left-gutter">
+        <label className="form-label date-range-label">
+          Date range
+        </label>
+      </div>
+    </div>
+
+    <div className="row add-gutter-margin-top no-left-gutter">
+
+      <div className="col-md-3 no-left-gutter">
+        <Field
+          title="Type of alert"
+          component={SelectWithLabel}
+          name="typeValue"
+          options={alertTypes}
+          onChange={this.onTypeChange}
+        />
+      </div>
+
+      <div className="col-md-4 no-left-gutter no-right-gutter">
+
+        {dateRangeNotValid &&
+        <div className="error-message">
+          Start date must be equal to or before the end date
+        </div>
+        }
+
+        <Field
+          name="startDate"
+          showError={dateRangeNotValid}
+          component={DatePicker}
+          locale={locale}
+          format={momentToLocalizedDate(locale)}
+          parse={localizedDateToMoment(locale)}
+          title="From"
+          shouldShowDay={(date) => date && date.isBefore(moment())}
+        />
+
+        <Field
+          name="endDate"
+          showError={dateRangeNotValid}
+          component={DatePicker}
+          format={momentToLocalizedDate(locale)}
+          parse={localizedDateToMoment(locale)}
+          locale={locale}
+          title="To"
+          shouldShowDay={(date) => date && date.isBefore(moment())}
+        />
+      </div>
+
+      <div className="col-md-2 no-left-gutter no-right-gutter">
+        <div className="margin30">
+          <button type="submit" className="button" disabled={dateRangeNotValid || (submitting || error)}>
+            Apply filters
+          </button>
+        </div>
+      </div>
+      <div className="col-md-2">
+        <div className="margin30">
+          <button type="button" className="link clickable reset-filters" onClick={resetFilters}>
+            Reset filters
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+);
+
+
+const mapDispatchToProps = () => ({});
+const mapStateToProps = () => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  form: 'alertsFilter',
+})(DesktopAlertsFilterForm));
