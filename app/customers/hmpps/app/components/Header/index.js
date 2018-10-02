@@ -42,7 +42,7 @@ export default (props) => {
 
     <MobileOnly>
       <PageHeader>
-        <div className="header-content">
+        <div className="header-content clickable">
           <LeftContent>
             <Link to="/">
               <Logo>

@@ -28,7 +28,9 @@ class KeyWorkerRoleBasedAccessSpecification extends GebReportingSpec {
     loginAs ITAG_USER, 'password'
     at HomePage
 
+
     when: 'I am logged in and on the home page'
+    header.dropDownMenu.click()
 
     then: 'I should see the my key worker allocations link'
     assert myKeyWorkerAllocationsLink.present
@@ -102,6 +104,5 @@ class KeyWorkerRoleBasedAccessSpecification extends GebReportingSpec {
     then: 'I should have been redirected to the home page'
     at HomePage
   }
-
 
 }
