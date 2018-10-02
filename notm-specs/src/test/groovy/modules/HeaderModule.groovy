@@ -5,7 +5,7 @@ import geb.Module
 class HeaderModule extends Module {
 
   static content = {
-    dropDown   { $('.info-wrapper') }
+    dropDown { $('.header-content .clickable') }
     dropDownMobile { $('div#nav-icon') }
     dropDownMobileContents { $('div#nav-icon span', 1) }
     logoutLink { $('a', text: 'Log out') }
