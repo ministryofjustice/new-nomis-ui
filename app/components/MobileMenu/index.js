@@ -21,7 +21,7 @@ function MobileMenu({ user, setMenuOpen, showTerms, switchCaseLoad }) {
   };
 
   return (
-    <MobileMenuContainer>
+    <MobileMenuContainer className="info-wrapper">
       <MobileMenuHeader>
         <UserName>{toFullName(user)}</UserName>
         <CaseLoad>{user.activeCaseLoad && user.activeCaseLoad.description ? user.activeCaseLoad.description : user.activeCaseLoadId}</CaseLoad>
