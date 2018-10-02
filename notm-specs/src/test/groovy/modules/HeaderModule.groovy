@@ -10,7 +10,7 @@ class HeaderModule extends Module {
     // span at index 0 is not displayed
     dropDownMobileContents { $('div#nav-icon span', 1) }
     logoutLink { $('a', text: 'Log out') }
-    myAllocationsMenuLink(required: false) { $('.my-allocations-menu-link') }
+    myAllocationsMenuLink(required: false) { $('.dropdown-menu-option', text: 'My key worker allocations')}
     dropDownMenu { dropDown.displayed ? dropDown : dropDownMobile }
     dropDownMenuContents { dropDown.displayed ? dropDown : dropDownMobileContents }
   }

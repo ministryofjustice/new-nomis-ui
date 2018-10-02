@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "description": "New Nomis UI",
   "engines": {
-    "npm": ">=3",
-    "node": ">=8.10.0"
+    "npm": ">=3"
   },
   "author": "Syscon / HMPPS",
   "license": "UNLICENSED",
@@ -91,7 +90,7 @@
     "minimist": "1.2.0",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.20",
-    "new-nomis-shared-components": "^1.3.0",
+    "new-nomis-shared-components": "^1.4.0",
     "node-http-proxy-json": "^0.1.4",
     "poll-endpoint-for": "^0.0.3",
     "prop-types": "^15.5.8",
