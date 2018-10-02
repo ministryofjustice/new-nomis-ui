@@ -5,9 +5,8 @@ import geb.Module
 class HeaderModule extends Module {
 
   static content = {
-    dropDown { $('.header-content .clickable') }
+    dropDown   { $('.info-wrapper') }
     dropDownMobile { $('div#nav-icon') }
-    // span at index 0 is not displayed
     dropDownMobileContents { $('div#nav-icon span', 1) }
     logoutLink { $('a', text: 'Log out') }
     myAllocationsMenuLink(required: false) { $('.dropdown-menu-option', text: 'My key worker allocations')}
