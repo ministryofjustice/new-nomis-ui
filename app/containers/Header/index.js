@@ -2,14 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { intlShape } from 'react-intl';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 
 import HeaderComponent from 'header';
-
 import { setMenuOpen, showTerms } from 'globalReducers/app';
-import { selectMobileMenuOpen } from 'selectors/app';
 import { switchCaseLoad } from '../EliteApiLoader/actions';
-import { selectUserHeaderInfo } from './selectors';
 
 
 const HeaderContainer = ({ headerUser, menuOpen, switchCaseLoad: switchCL,setMenuOpen: openMenu, showTermsAndConditions }) => (
@@ -40,10 +36,17 @@ HeaderContainer.defaultProps = {
   headerUser: undefined,
 };
 
-const mapStateToProps = createStructuredSelector({
-  menuOpen: selectMobileMenuOpen(),
-  headerUser: selectUserHeaderInfo(),
-});
+const mapStateToProps = state => {
+  const caseLoadOptions = state.getIn(['eliteApiLoader', 'User', 'CaseLoads', 'Data']);
+
+  return ({
+    menuOpen: state.getIn(['app', 'mobileMenuOpen']),
+    headerUser: {
+      ...state.getIn(['authentication', 'user']),
+      caseLoadOptions: caseLoadOptions && caseLoadOptions.toJS(),
+    },
+  });
+};
 
 const mapDispatchToProps = {
   setMenuOpen,
