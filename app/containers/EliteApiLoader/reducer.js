@@ -10,6 +10,7 @@ import {
   OFFICERS,
   USER,
   ALLCASENOTETYPESUBTYPEDATA,
+  ALL_ALERT_TYPES_DATA,
   APPOINTMENT,
 } from './constants';
 import { CASE_NOTE } from '../Bookings/constants';
@@ -31,8 +32,7 @@ export const initialState = fromJS({
     ids: {},
     SelectList: List([{ value: 'Loading Locations...' }]),
   },
-  AlertTypes: {
-  },
+  AlertTypes: List(),
   CaseNoteTypes: {
   },
   CaseNoteTypesSelect: { Types: Set([]), TypeList: List([]) },
@@ -200,6 +200,16 @@ function EliteApiReducer(state = initialState, action) {
       return state
         .set('AllCaseNoteFilters', Map({ Types, SubTypes }))
         .set('CaseNoteTypes', Map({ Types: TypeMap, SubTypes: SubTypeMap }));
+    }
+
+    case ALL_ALERT_TYPES_DATA: {
+      const alertTypes = action.payload
+        .filter(alert => alert.activeFlag === 'Y')
+        .map(({ code, description }) => ({
+          code,
+          description,
+        }));
+      return state.set('AlertTypes', fromJS(alertTypes));
     }
 
     case APPOINTMENT.SET_VIEW_MODEL: {

@@ -86,6 +86,7 @@ class SearchResultsSpecification extends GebReportingSpec {
     elite2api.stubBookingAlerts(-10)
     elite2api.stubAliases()
     elite2api.stubStaffDetails(-2)
+    elite2api.stubAlertTypes()
 
     rows[1].find('.arsonist-status').click()
 

@@ -9,8 +9,7 @@ import { List } from 'immutable';
 import { connect } from 'react-redux';
 
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
-import DesktopAlertsFilterForm from 'components/Bookings/Details/AlertList/desktopAlertsFilterForm';
-import MobileAlertsFilterForm from 'components/Bookings/Details/AlertList/mobileAlertsFilterForm';
+import AlertsFilterForm from 'containers/Bookings/Details/Alerts/alertsFilterForm';
 import AlertList from 'components/Bookings/Details/AlertList';
 
 import { loadBookingAlerts } from 'containers/EliteApiLoader/actions';
@@ -33,13 +32,11 @@ class Alerts extends Component {
 
   render() {
     const { alerts, totalResults, pagination, offenderNo, setPagination, deviceFormat } = this.props;
+    const handleSubmit = () => null;
+
     return (
       <div>
-        {deviceFormat === 'desktop' ?
-          (<DesktopAlertsFilterForm alertTypes={[]} />)
-          :
-          (<MobileAlertsFilterForm alertTypes={[]} />)
-        }
+        <AlertsFilterForm handleSubmit={handleSubmit} deviceFormat={deviceFormat} />
         <AlertList alerts={alerts} deviceFormat={deviceFormat} />
 
         <PreviousNextNavigation

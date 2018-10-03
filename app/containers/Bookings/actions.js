@@ -1,5 +1,5 @@
 
-import { LOAD_CASE_NOTE_TYPES_SUBTYPES } from 'containers/EliteApiLoader/constants';
+import { LOAD_CASE_NOTE_TYPES_SUBTYPES, LOAD_ALERT_TYPES } from 'containers/EliteApiLoader/constants';
 
 import {
   VIEW_DETAILS,
@@ -140,6 +140,12 @@ export function loadScheduledEventsForNextWeek(offenderNo) {
 export function loadCaseNoteTypesAndSubTypes() {
   return {
     type: LOAD_CASE_NOTE_TYPES_SUBTYPES,
+  }
+}
+
+export function loadAlertTypes() {
+  return {
+    type: LOAD_ALERT_TYPES,
   }
 }
 

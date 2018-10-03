@@ -200,18 +200,29 @@ export const loadSomeCaseNoteTypes = (baseUrl, offset) => axios({
   method: 'get',
   url: 'reference-domains/caseNoteTypes' });
 
+export const loadAllAlertTypes = (baseUrl) => axios({
+  baseURL: baseUrl,
+  headers: {
+    'Page-Offset': 0,
+    'Page-Limit': 1000, // There are never more than 1000 alert types. 10's at most.
+  },
+  method: 'get',
+  url: 'reference-domains/alertTypes',
+}).then(response => response.data);
+
 export const getAll = (func, itemName, args) => {
-  const newFunc = (baseUrl, offset = { offset: 0, limit: 1000 }) => func(baseUrl, offset, args).then((response) => {
-    const items = response.data;
-    const newOffset = response.headers['page-offset'] + response.headers['page-limit'];
-    const newLimit = response.headers['total-records'] - newOffset;
-    if (newLimit > 0) {
-      return newFunc(baseUrl, { offset: newOffset, limit: newLimit }, args)
-        .then((newItems) => items.concat(newItems)
-        );
-    }
-    return items;
-  });
+  const newFunc = (baseUrl, offset = { offset: 0, limit: 1000 }) => func(baseUrl, offset, args)
+    .then((response) => {
+      const items = response.data;
+      const newOffset = response.headers['page-offset'] + response.headers['page-limit'];
+      const newLimit = response.headers['total-records'] - newOffset;
+      if (newLimit > 0) {
+        return newFunc(baseUrl, { offset: newOffset, limit: newLimit }, args)
+          .then((newItems) => items.concat(newItems)
+          );
+      }
+      return items;
+    });
   return newFunc;
 };
 

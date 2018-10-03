@@ -1,16 +1,15 @@
 import React from 'react';
 import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from 'components/FormComponents/DatePicker';
 import SelectWithLabel from 'components/FormComponents/SelectWithLabel';
-import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form/immutable';
+import { Field } from 'redux-form/immutable';
 
 import moment from 'moment';
 
 import './desktopAlertsFilterForm.scss';
 
 
-const DesktopAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, locale, submitting, error }) => (
-  <form className="desktop-alerts-filter-form" onSubmit={() => undefined} >
+const DesktopAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, locale, submitting, error, handleSubmit }) => (
+  <form className="desktop-alerts-filter-form" onSubmit={handleSubmit} >
 
     <div className="row">
       <div className="col-md-3 no-left-gutter">
@@ -33,7 +32,6 @@ const DesktopAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, 
           component={SelectWithLabel}
           name="typeValue"
           options={alertTypes}
-          onChange={this.onTypeChange}
         />
       </div>
 
@@ -70,7 +68,7 @@ const DesktopAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, 
 
       <div className="col-md-2 no-left-gutter no-right-gutter">
         <div className="margin30">
-          <button type="submit" className="button" disabled={dateRangeNotValid || (submitting || error)}>
+          <button type="submit" className="button" disabled={dateRangeNotValid || submitting || error}>
             Apply filters
           </button>
         </div>
@@ -86,10 +84,4 @@ const DesktopAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, 
   </form>
 );
 
-
-const mapDispatchToProps = () => ({});
-const mapStateToProps = () => ({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-  form: 'alertsFilter',
-})(DesktopAlertsFilterForm));
+export default DesktopAlertsFilterForm;

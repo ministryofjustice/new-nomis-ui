@@ -30,6 +30,7 @@ class PaginationSpecification extends GebReportingSpec {
   def agencyId = "${ITAG_USER.staffMember.assginedCaseload}"
 
   def "should be able to page through the alerts"() {
+    elite2api.stubAlertTypes()
     elite2api.stubHealthCheck()
     oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
     elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)

@@ -1,18 +1,17 @@
 import React from 'react';
 import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from 'components/FormComponents/DatePicker';
 import SelectWithLabel from 'components/FormComponents/SelectWithLabel';
-import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form/immutable';
+import { Field } from 'redux-form/immutable';
 
 import moment from 'moment';
 
 import './mobileAlertsFilterForm.scss';
 
 
-const MobileAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, locale, submitting, error }) => (
+const MobileAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, locale, submitting, error, handleSubmit }) => (
   <details className="govuk-details add-gutter-padding-top">
     <summary className="govuk-details__summary"><span className="govuk-details__summary-text">Show filters</span></summary>
-    <form className="mobile-alerts-filter-form" onSubmit={() => undefined} >
+    <form className="mobile-alerts-filter-form" onSubmit={handleSubmit} >
 
       <div className="row">
         <div className="col no-left-gutter">
@@ -28,7 +27,6 @@ const MobileAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, l
             component={SelectWithLabel}
             name="typeValue"
             options={alertTypes}
-            onChange={this.onTypeChange}
           />
         </div>
       </div>
@@ -88,10 +86,4 @@ const MobileAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, l
   </details>
 );
 
-
-const mapDispatchToProps = () => ({});
-const mapStateToProps = () => ({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-  form: 'alertsFilter',
-})(MobileAlertsFilterForm));
+export default MobileAlertsFilterForm;

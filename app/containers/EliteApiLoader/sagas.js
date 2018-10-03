@@ -17,6 +17,7 @@ import {
   bookingCaseNotes,
   users,
   loadAllCaseNoteFilterItems,
+  loadAllAlertTypes,
   loadAppointmentViewModel,
 } from 'utils/eliteApi';
 
@@ -31,11 +32,13 @@ import {
 
 import {
   BOOKINGS,
+  LOAD_ALERT_TYPES,
   LOAD_CASE_NOTE_TYPES_SUBTYPES,
   OFFICERS,
   CASENOTETYPES,
   USER,
   ALLCASENOTETYPESUBTYPEDATA,
+  ALL_ALERT_TYPES_DATA,
 } from './constants';
 
 export function* loadAppointmentsViewModalWatcher() {
@@ -147,6 +150,16 @@ export function* officerLoadSaga(action) {
   }
 }
 
+export function* loadALertTypesWatcher() {
+  yield takeLatest(LOAD_ALERT_TYPES, loadAlertTypes)
+}
+
+export function* loadAlertTypes() {
+  const apiServer = yield select(selectApi());
+  const alertTypes = yield call(loadAllAlertTypes, apiServer);
+  yield put({ type: ALL_ALERT_TYPES_DATA, payload: alertTypes });
+}
+
 
 export function* loadCaseNoteTypesSubTypesWatcher() {
   yield takeLatest(LOAD_CASE_NOTE_TYPES_SUBTYPES, loadCaseNoteTypesSubTypes);
@@ -222,6 +235,7 @@ export function* userSwitchCaseLoadsSaga(action) {
 
 export default [
   loadCaseNoteTypesSubTypesWatcher,
+  loadALertTypesWatcher,
   officerLoadWatch,
   bookingDetailsWatcher,
   bookingCaseNotesWatch,
