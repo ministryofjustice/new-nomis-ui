@@ -21,14 +21,14 @@ function MobileMenu({ user, setMenuOpen, showTerms, switchCaseLoad }) {
   };
 
   return (
-    <MobileMenuContainer>
+    <MobileMenuContainer className="info-wrapper">
       <MobileMenuHeader>
         <UserName>{toFullName(user)}</UserName>
         <CaseLoad>{user.activeCaseLoad && user.activeCaseLoad.description ? user.activeCaseLoad.description : user.activeCaseLoadId}</CaseLoad>
       </MobileMenuHeader>
       <MobileMenuOption to={'/'} onClick={removeMobileMenu}>Search<ForwardArrow svg={forwardBack} /></MobileMenuOption>
 
-       {user && user.isKeyWorker && <MobileMenuOption className="my-allocations-menu-link" to={'/myKeyWorkerAllocations'} onClick={removeMobileMenu}>
+       {user && user.isKeyWorker && <MobileMenuOption className="dropdown-menu-option" to={'/myKeyWorkerAllocations'} onClick={removeMobileMenu}>
         My key worker allocations
         <ForwardArrow svg={forwardBack} />
       </MobileMenuOption> }
@@ -38,8 +38,9 @@ function MobileMenu({ user, setMenuOpen, showTerms, switchCaseLoad }) {
         return newObj;
       })}
       <MobileMenuOption
+        id={'mobile-logout'}
         key={'logout'}
-        href={'/logout'} data-id={'dropdown-option'}
+        href={'/auth/logout'} data-id={'dropdown-option'}
       >
         Log out<ForwardArrow svg={forwardBack} />
       </MobileMenuOption>

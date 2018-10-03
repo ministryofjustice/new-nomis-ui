@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { Header } from 'new-nomis-shared-components';
+import {
+  DesktopOnly,
+  MobileOnly,
+} from 'components/CommonTheme';
 
-import Dropdown from 'components/Dropdown';
 import MenuToggle from 'components/MenuToggle';
 import MobileMenu from 'containers/MobileMenu';
 import ProductGlobals from 'product-globals';
 
 import { Link } from 'react-router';
-
-import {
-DesktopOnly,
-MobileOnly,
-} from 'components/CommonTheme';
 
 import {
   PageHeader,
@@ -24,38 +22,45 @@ import {
   UnstyledLink,
 } from './header.theme';
 
-class Header extends Component {
+export default (props) => {
+  const { user, menuOpen,showTermsAndConditions, setMenuOpen } = props;
 
-  toggleMenu() {
-    this.props.setMenuOpen(!this.props.menuOpen);
+  const extraLinks = [];
+
+  if (user && user.isKeyWorker) {
+    extraLinks.push({
+      text: 'My key worker allocations',
+      url: '/myKeyWorkerAllocations',
+    });
   }
 
-  render() {
-    const { user, menuOpen, switchCaseLoad, showTermsAndConditions } = this.props;
-    return (
-      <PageHeader>
-        <div className="header-content">
-          <LeftContent>
-          <Link to="/">
-            <Logo>
-              <img src="/img/Crest@2x.png" alt="" width="42" height="35" />
-            </Logo>
-          </Link>
+  return (<div>
 
-          <UnstyledLink to="/">
-            <LogoText>HMPPS</LogoText>
-            <Title>{ProductGlobals.serviceName}</Title>
-          </UnstyledLink>
+    <DesktopOnly>
+      <Header homeLink={'/'} title={'Prison-NOMIS'} logoText={'HMPPS'} {...props} extraLinks={extraLinks} />
+    </DesktopOnly>
+
+    <MobileOnly>
+      <PageHeader>
+        <div className="header-content clickable">
+          <LeftContent>
+            <Link to="/">
+              <Logo>
+                <img src="/img/Crest@2x.png" alt="" width="42" height="35" />
+              </Logo>
+            </Link>
+
+            <UnstyledLink to="/">
+              <LogoText>HMPPS</LogoText>
+              <Title>{ProductGlobals.serviceName}</Title>
+            </UnstyledLink>
           </LeftContent>
           <RightContent>
-            <DesktopOnly>
-              {user && <Dropdown menuOpen={menuOpen} switchCaseLoad={switchCaseLoad} user={user} toggleMenu={() => this.toggleMenu()} /> }
-            </DesktopOnly>
             <MobileOnly>
               { user &&
-                <ToggleWrapper>
-                  <MenuToggle menuOpen={menuOpen} toggleMenu={() => this.toggleMenu()} />
-                </ToggleWrapper>
+              <ToggleWrapper>
+                <MenuToggle menuOpen={menuOpen} toggleMenu={() => setMenuOpen(!menuOpen)} />
+              </ToggleWrapper>
               }
             </MobileOnly>
           </RightContent>
@@ -64,30 +69,6 @@ class Header extends Component {
           {menuOpen && <MobileMenu showTerms={showTermsAndConditions} />}
         </MobileOnly>
       </PageHeader>
-    );
-  }
+    </MobileOnly>
+  </div>)
 }
-
-Header.propTypes = {
-  user: PropTypes.object,
-  menuOpen: PropTypes.bool.isRequired,
-  setMenuOpen: PropTypes.func.isRequired,
-  switchCaseLoad: PropTypes.func.isRequired,
-  showTermsAndConditions: PropTypes.func.isRequired,
-};
-
-Header.contextTypes = {
-  router: PropTypes.object.isRequired,
-};
-
-Header.defaultProps = {
-  user: undefined,
-  options: {
-    assignments: 12,
-    facilities: ['Sheffield', 'Cloverfield'],
-  },
-  mobileMenuOpen: false,
-  setMobileMenuOpen: () => {},
-};
-
-export default Header;

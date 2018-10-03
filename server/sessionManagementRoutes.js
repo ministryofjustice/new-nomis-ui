@@ -120,7 +120,7 @@ const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, toke
 
   app.get('/login', loginMiddleware, loginIndex);
   app.post('/login', login);
-  app.get('/logout', logout);
+  app.get('/auth/logout', logout);
 
   app.use(hmppsCookieMiddleware);
   app.use(requireLoginMiddleware);
