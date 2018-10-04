@@ -17,6 +17,11 @@ import './index.scss'
 const FormatValue = ({ start, end }) => ((start && <span> { (start && end && `${start} ${end}`) || `${start}`} </span>) || <span>{'--'}</span>);
 const Alias = ({ lastName, firstName }) => <span> {toFullName({ lastName, firstName })} </span>
 
+const getProfileInformation = (offenderDetails, code) => {
+  const result = offenderDetails.get('profileInformation').find(item => item.get('type') === code);
+  return result && result.get('resultValue');
+}
+
 const OffenderDetails = ({ offenderDetails, showPhoto }) => {
   const marksGroupedIntoPairs = groupByPairs(offenderDetails.get('physicalMarks').toJS());
   const characteristicsGroupedIntoPairs = groupByPairs(offenderDetails.get('physicalCharacteristics').toJS());
@@ -73,7 +78,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
             </div>
 
             <div className="col-md-6 col-xs-6">
-              <strong> <DisplayValue value={physicalAttributes.get('ethnicity')} /> </strong>
+              <strong> <DisplayValue value={`${physicalAttributes.get('ethnicity')} (${physicalAttributes.get('raceCode')})`} /> </strong>
             </div>
 
           </div>
@@ -84,11 +89,30 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
             </div>
             <div className="col-lg-6 col-xs-6">
               <strong>
-                <DisplayValue value={offenderDetails.get('religion')} />
+                <DisplayValue value={getProfileInformation(offenderDetails, 'RELF')} />
               </strong>
             </div>
           </div>
-
+          <div className="row border-bottom-line">
+            <div className="col-lg-6 col-xs-6">
+              <label>Nationality</label>
+            </div>
+            <div className="col-lg-6 col-xs-6">
+              <strong>
+                <DisplayValue value={getProfileInformation(offenderDetails,'NAT')} />
+              </strong>
+            </div>
+          </div>
+          <div className="row border-bottom-line">
+            <div className="col-lg-6 col-xs-6">
+              <label>Spoken language</label>
+            </div>
+            <div className="col-lg-6 col-xs-6">
+              <strong>
+                <DisplayValue value={offenderDetails.get('language')} />
+              </strong>
+            </div>
+          </div>
         </div>
 
         <div className="col-md-6">

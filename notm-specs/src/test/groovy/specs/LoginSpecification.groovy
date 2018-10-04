@@ -61,7 +61,6 @@ class LoginSpecification extends GebReportingSpec {
         at HomePage
     }
 
-    @Ignore
     def "Log in successfully with external links available at current caseload prison"() {
 
         given: 'I am on the Login page'
