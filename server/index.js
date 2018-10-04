@@ -53,6 +53,10 @@ if (config.app.production && config.analytics.appInsightsKey) {
     .start();
 }
 
+if (!config.app.production) {
+  config.setTestDefaults();
+}
+
 app.use(helmet());
 app.use(hsts({
   maxAge: sixtyDaysInSeconds,
