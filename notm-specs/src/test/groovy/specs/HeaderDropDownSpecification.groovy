@@ -1,6 +1,5 @@
 package specs
 
-
 import geb.spock.GebReportingSpec
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
@@ -9,7 +8,6 @@ import mockapis.OauthApi
 import model.TestFixture
 import org.junit.Rule
 import pages.HomePage
-import modules.HeaderModule
 
 import static model.UserAccount.ITAG_USER
 
@@ -41,8 +39,11 @@ class HeaderDropDownSpecification extends GebReportingSpec {
     at HomePage
 
     then: "I should see my case load description"
-    header.usernameDesktop == "User, Api"
-    header.caseloadDesktop == "Leeds"
+
+    if(header.isDesktop()) {
+      header.usernameDesktop == "User, Api"
+      header.caseloadDesktop == "Leeds"
+    }
   }
 
 }

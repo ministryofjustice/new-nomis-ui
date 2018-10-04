@@ -5,8 +5,9 @@ import geb.Module
 class HeaderModule extends Module {
 
   static content = {
-    usernameDesktop  { $('.info-wrapper .user-name').text() }
-    caseloadDesktop   { $('.info-wrapper .case-load').text() }
+    isDesktop (required: false) { return $('#nav-icon').displayed == false}
+    usernameDesktop (required: false)  { $('.info-wrapper .user-name').text() }
+    caseloadDesktop (required: false)   { $('.info-wrapper .case-load').text() }
     caseloadLEI  (required: false) { $('#menu-option-LEI') }
 
     dropDown { $('.header-content .clickable') }
