@@ -10,7 +10,7 @@ class HomePage extends Page {
 
   static at = {
     title == 'Prison-NOMIS'
-    headingText == 'Hello Api'
+    headingText == 'Welcome back'
     searchButtonDesktop.text() == 'Search' || searchButtonMobile.text() == 'Search'
   }
 
