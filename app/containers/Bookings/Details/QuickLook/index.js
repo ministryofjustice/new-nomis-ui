@@ -212,7 +212,7 @@ export const Adjudications = ({ awards, proven }) => (
 
       <div className="col-lg-6 col-xs-6">
         <b>
-          <b> {proven} </b>
+          <b> {proven || 0} </b>
         </b>
       </div>
     </div>
