@@ -44,7 +44,7 @@ const mapStateToProps = state => {
     menuOpen: state.getIn(['app', 'mobileMenuOpen']),
     user: {
       ...user,
-      caseLoadOptions: caseLoadOptions || [],
+      caseLoadOptions: (caseLoadOptions && caseLoadOptions.toJS()) || [],
     },
   });
 };
