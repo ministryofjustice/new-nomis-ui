@@ -2,20 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { intlShape } from 'react-intl';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 
 import HeaderComponent from 'header';
-
 import { setMenuOpen, showTerms } from 'globalReducers/app';
-import { selectMobileMenuOpen } from 'selectors/app';
 import { switchCaseLoad } from '../EliteApiLoader/actions';
-import { selectUserHeaderInfo } from './selectors';
 
 
-const HeaderContainer = ({ headerUser, menuOpen, switchCaseLoad: switchCL,setMenuOpen: openMenu, showTermsAndConditions }) => (
+const HeaderContainer = ({ user, menuOpen, switchCaseLoad: switchCL,setMenuOpen: openMenu, showTermsAndConditions }) => (
     <HeaderComponent
       switchCaseLoad={switchCL}
-      user={headerUser}
+      user={user}
       menuOpen={menuOpen}
       setMenuOpen={openMenu}
       showTermsAndConditions={showTermsAndConditions}
@@ -31,19 +27,27 @@ HeaderContainer.propTypes = {
   menuOpen: PropTypes.bool.isRequired,
   setMenuOpen: PropTypes.func,
   switchCaseLoad: PropTypes.func.isRequired,
-  headerUser: PropTypes.object,
+  user: PropTypes.object,
 };
 
 HeaderContainer.defaultProps = {
   menuOpen: false,
   setMenuOpen: () => {},
-  headerUser: undefined,
+  user: undefined,
 };
 
-const mapStateToProps = createStructuredSelector({
-  menuOpen: selectMobileMenuOpen(),
-  headerUser: selectUserHeaderInfo(),
-});
+const mapStateToProps = state => {
+  const caseLoadOptions = state.getIn(['eliteApiLoader', 'User', 'CaseLoads', 'Data']);
+  const user = state.getIn(['authentication', 'user']);
+
+  return ({
+    menuOpen: state.getIn(['app', 'mobileMenuOpen']),
+    user: {
+      ...user,
+      caseLoadOptions: caseLoadOptions || [],
+    },
+  });
+};
 
 const mapDispatchToProps = {
   setMenuOpen,
