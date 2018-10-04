@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { LOAD_ASSIGNMENTS } from 'containers/Assignments/constants';
-import Name from 'components/Name';
 import ActionLinks from 'components/ActionLinks';
 import SearchForm from './SearchForm';
 
@@ -27,7 +26,7 @@ class HomePage extends Component {
     }
 
     return (<div>
-      <h1 className="heading-xlarge">Hello <Name firstName={user.firstName} /></h1>
+      <h1 className="heading-xlarge">Welcome back</h1>
       <SearchForm locations={locations} />
       <div>
         <ActionLinks
