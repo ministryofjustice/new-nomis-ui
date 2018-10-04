@@ -8,10 +8,10 @@ import { setMenuOpen, showTerms } from 'globalReducers/app';
 import { switchCaseLoad } from '../EliteApiLoader/actions';
 
 
-const HeaderContainer = ({ headerUser, menuOpen, switchCaseLoad: switchCL,setMenuOpen: openMenu, showTermsAndConditions }) => (
+const HeaderContainer = ({ user, menuOpen, switchCaseLoad: switchCL,setMenuOpen: openMenu, showTermsAndConditions }) => (
     <HeaderComponent
       switchCaseLoad={switchCL}
-      user={headerUser}
+      user={user}
       menuOpen={menuOpen}
       setMenuOpen={openMenu}
       showTermsAndConditions={showTermsAndConditions}
@@ -27,23 +27,24 @@ HeaderContainer.propTypes = {
   menuOpen: PropTypes.bool.isRequired,
   setMenuOpen: PropTypes.func,
   switchCaseLoad: PropTypes.func.isRequired,
-  headerUser: PropTypes.object,
+  user: PropTypes.object,
 };
 
 HeaderContainer.defaultProps = {
   menuOpen: false,
   setMenuOpen: () => {},
-  headerUser: undefined,
+  user: undefined,
 };
 
 const mapStateToProps = state => {
   const caseLoadOptions = state.getIn(['eliteApiLoader', 'User', 'CaseLoads', 'Data']);
+  const user = state.getIn(['authentication', 'user']);
 
   return ({
     menuOpen: state.getIn(['app', 'mobileMenuOpen']),
-    headerUser: {
-      ...state.getIn(['authentication', 'user']),
-      caseLoadOptions: caseLoadOptions && caseLoadOptions.toJS(),
+    user: {
+      ...user,
+      caseLoadOptions: caseLoadOptions || [],
     },
   });
 };
