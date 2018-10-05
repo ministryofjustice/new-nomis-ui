@@ -28,14 +28,19 @@ export const bookingAliases = (baseUrl, offenderNo) => axios({
   url: `/bookings/${offenderNo}/aliases` })
   .then((response) => response.data);
 
-export const bookingAlerts = (baseUrl, offenderNo, pagination) => axios({
+export const bookingAlerts = (baseUrl, offenderNo, pagination, filter) => axios({
   baseURL: baseUrl,
   method: 'get',
   headers: {
     'Page-Offset': pagination.perPage * pagination.pageNumber,
     'Page-Limit': pagination.perPage,
   },
-  url: `/bookings/${offenderNo}/alerts` })
+  url: `/bookings/${offenderNo}/alerts`,
+  params: {
+    from: filter.fromDate,
+    to: filter.toDate,
+    alertType: filter.alertType,
+  } })
   .then((response) => ({
     alerts: response.data,
     totalRecords: parseInt(response.headers['total-records']),

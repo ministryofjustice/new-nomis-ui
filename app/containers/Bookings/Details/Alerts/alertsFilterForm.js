@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
 
-import DesktopAlertsFilterForm from 'components/Bookings/Details/AlertList/desktopAlertsFilterForm';
-import MobileAlertsFilterForm from 'components/Bookings/Details/AlertList/mobileAlertsFilterForm';
-import { loadAlertTypes } from 'containers/Bookings/actions';
-
-import { selectLocale } from 'containers/LanguageProvider/selectors';
-import { selectAlertTypes } from 'containers/Bookings/Details/Alerts/selectors';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form/lib/immutable';
 import PropTypes from 'prop-types';
 
+import DesktopAlertsFilterForm from 'components/Bookings/Details/AlertList/desktopAlertsFilterForm';
+import MobileAlertsFilterForm from 'components/Bookings/Details/AlertList/mobileAlertsFilterForm';
+import { loadAlertTypes } from 'containers/Bookings/actions';
+// import { DATE_ONLY_FORMAT_SPEC } from 'containers/App/constants';
+
+import { selectLocale } from 'containers/LanguageProvider/selectors';
+import { selectAlertTypes } from 'containers/Bookings/Details/Alerts/selectors';
+
+
 class AlertsFilterForm extends Component {
+
   componentDidMount() {
     const { dispatchLoadAlertTypes } = this.props;
     dispatchLoadAlertTypes();
   }
 
   render() {
-    const { deviceFormat, alertTypes, handleSubmit, locale } = this.props;
+    const { alertTypes, deviceFormat, handleSubmit, locale } = this.props;
 
     return deviceFormat === 'desktop' ?
       (<DesktopAlertsFilterForm alertTypes={alertTypes} handleSubmit={handleSubmit} locale={locale} />)
@@ -37,8 +41,19 @@ AlertsFilterForm.defaultProps = {
 };
 
 
-const mapDispatchToProps = (dispatch) => ({
+const convertFormValues = (filterValues) => {
+  const momentToDateString = (moment) => moment ? moment.format('YYYY-MM-DD') : '';
+
+  const fromDate = momentToDateString(filterValues.get('fromDate'));
+  const toDate = momentToDateString(filterValues.get('toDate'));
+  const alertType = filterValues.get('alertType');
+
+  return { fromDate, toDate, alertType }
+};
+
+const mapDispatchToProps = (dispatch, props) => ({
   dispatchLoadAlertTypes: () => dispatch(loadAlertTypes()),
+  onSubmit: (formData) => props.setFilter(convertFormValues(formData)),
 });
 
 const mapStateToProps = () => createStructuredSelector({

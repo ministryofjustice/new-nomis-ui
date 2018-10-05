@@ -25,7 +25,7 @@ const MobileAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, l
           <Field
             title="Type of alert"
             component={SelectWithLabel}
-            name="typeValue"
+            name="alertType"
             options={alertTypes}
           />
         </div>
@@ -44,7 +44,7 @@ const MobileAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, l
           </label>
 
           <Field
-            name="startDate"
+            name="fromDate"
             showError={dateRangeNotValid}
             component={DatePicker}
             locale={locale}
@@ -55,7 +55,7 @@ const MobileAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, l
           />
 
           <Field
-            name="endDate"
+            name="toDate"
             showError={dateRangeNotValid}
             component={DatePicker}
             format={momentToLocalizedDate(locale)}

@@ -3,7 +3,6 @@ const selectAlertTypes = () => (state) => state.getIn(['eliteApiLoader', 'AlertT
   label: `${description} (${code})`,
 }));
 
-
 export {
   selectAlertTypes,
 };
