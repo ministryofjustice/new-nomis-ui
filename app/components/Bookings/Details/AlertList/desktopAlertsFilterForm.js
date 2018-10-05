@@ -8,7 +8,7 @@ import moment from 'moment';
 import './desktopAlertsFilterForm.scss';
 
 
-const DesktopAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, locale, submitting, error, handleSubmit }) => (
+const DesktopAlertsFilterForm = ({ alertTypes, resetFilters, locale, submitting, error, handleSubmit }) => (
   <form className="desktop-alerts-filter-form" onSubmit={handleSubmit} >
 
     <div className="row">
@@ -37,15 +37,15 @@ const DesktopAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, 
 
       <div className="col-md-4 no-left-gutter no-right-gutter">
 
-        {dateRangeNotValid &&
+        {error &&
         <div className="error-message">
-          Start date must be equal to or before the end date
+          &apos;From&apos; date must be equal to or before the &apos;To&apos; date
         </div>
         }
 
         <Field
           name="fromDate"
-          showError={dateRangeNotValid}
+          showError={error}
           component={DatePicker}
           locale={locale}
           format={momentToLocalizedDate(locale)}
@@ -56,7 +56,7 @@ const DesktopAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, 
 
         <Field
           name="toDate"
-          showError={dateRangeNotValid}
+          showError={error}
           component={DatePicker}
           format={momentToLocalizedDate(locale)}
           parse={localizedDateToMoment(locale)}
@@ -68,7 +68,7 @@ const DesktopAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, 
 
       <div className="col-md-2 no-left-gutter no-right-gutter">
         <div className="margin30">
-          <button type="submit" className="button" disabled={dateRangeNotValid || submitting || error}>
+          <button type="submit" className="button" disabled={submitting || error}>
             Apply filters
           </button>
         </div>

@@ -8,7 +8,7 @@ import moment from 'moment';
 import './mobileAlertsFilterForm.scss';
 
 
-const MobileAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, locale, submitting, error, handleSubmit }) => (
+const MobileAlertsFilterForm = ({ alertTypes, resetFilters, locale, submitting, error, handleSubmit }) => (
   <details className="govuk-details add-gutter-padding-top">
     <summary className="govuk-details__summary"><span className="govuk-details__summary-text">Show filters</span></summary>
     <form className="mobile-alerts-filter-form" onSubmit={handleSubmit} >
@@ -33,7 +33,7 @@ const MobileAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, l
       <div className="row">
         <div className="col-sm-12 no-left-gutter no-right-gutter">
 
-          {dateRangeNotValid &&
+          {error &&
           <div className="error-message">
             Start date must be equal to or before the end date
           </div>
@@ -45,7 +45,7 @@ const MobileAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, l
 
           <Field
             name="fromDate"
-            showError={dateRangeNotValid}
+            showError={error}
             component={DatePicker}
             locale={locale}
             format={momentToLocalizedDate(locale)}
@@ -56,7 +56,7 @@ const MobileAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, l
 
           <Field
             name="toDate"
-            showError={dateRangeNotValid}
+            showError={error}
             component={DatePicker}
             format={momentToLocalizedDate(locale)}
             parse={localizedDateToMoment(locale)}
@@ -76,7 +76,7 @@ const MobileAlertsFilterForm = ({ alertTypes, dateRangeNotValid, resetFilters, l
 
         <div className="col-sm-12 no-left-gutter no-right-gutter">
           <div>
-            <button type="submit" className="button" disabled={dateRangeNotValid || (submitting || error)}>
+            <button type="submit" className="button" disabled={submitting || error}>
               Apply filters
             </button>
           </div>

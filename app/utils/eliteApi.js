@@ -1,9 +1,9 @@
 import axios from 'axios';
 import moment from 'moment';
-import { DATE_ONLY_FORMAT_SPEC, ISO8601_DATE_FORMAT } from 'containers/App/constants';
+import { DATE_ONLY_FORMAT_SPEC, ISO_8601_DATE_FORMAT } from 'containers/App/constants';
 import qs from 'querystring';
 
-const momentTo8601DateString = m => m ? m.format(ISO8601_DATE_FORMAT) : '';
+const momentTo8601DateString = m => m ? m.format(ISO_8601_DATE_FORMAT) : '';
 const momentFromDateOnlyFormatString = s => s ? moment(s, DATE_ONLY_FORMAT_SPEC) : null;
 const dateOnlyFormatTo8601 = s => momentTo8601DateString(momentFromDateOnlyFormatString(s));
 

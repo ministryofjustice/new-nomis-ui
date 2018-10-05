@@ -20,12 +20,12 @@ class AlertsFilterForm extends Component {
   }
 
   render() {
-    const { alertTypes, deviceFormat, handleSubmit, locale } = this.props;
+    const { alertTypes, deviceFormat, handleSubmit, locale, error } = this.props;
 
     return deviceFormat === 'desktop' ?
-      (<DesktopAlertsFilterForm alertTypes={alertTypes} handleSubmit={handleSubmit} locale={locale} />)
+      (<DesktopAlertsFilterForm alertTypes={alertTypes} handleSubmit={handleSubmit} locale={locale} error={error} />)
       :
-      (<MobileAlertsFilterForm alertTypes={alertTypes} handleSubmit={handleSubmit} locale={locale} />);
+      (<MobileAlertsFilterForm alertTypes={alertTypes} handleSubmit={handleSubmit} locale={locale} error={error} />);
   }
 }
 
@@ -45,9 +45,17 @@ const convertFormValues = (filterValues) => ({
   alertType: filterValues.get('alertType'),
 });
 
+export const validate = (form) => {
+  const startDate = form.get('fromDate');
+  const endDate = form.get('toDate');
+  const invalidDateRange = endDate && startDate && endDate.isBefore(startDate,'day');
+  return invalidDateRange ? { _error: true } : {};
+};
+
 const mapDispatchToProps = (dispatch, props) => ({
   dispatchLoadAlertTypes: () => dispatch(loadAlertTypes()),
   onSubmit: (formData) => props.setFilter(convertFormValues(formData)),
+  validate,
 });
 
 const mapStateToProps = () => createStructuredSelector({
