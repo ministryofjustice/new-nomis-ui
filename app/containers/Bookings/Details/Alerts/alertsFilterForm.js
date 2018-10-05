@@ -20,12 +20,12 @@ class AlertsFilterForm extends Component {
   }
 
   render() {
-    const { alertTypes, deviceFormat, handleSubmit, locale, error } = this.props;
+    const { alertTypes, deviceFormat, handleSubmit, locale, error, reset } = this.props;
 
     return deviceFormat === 'desktop' ?
-      (<DesktopAlertsFilterForm alertTypes={alertTypes} handleSubmit={handleSubmit} locale={locale} error={error} />)
+      (<DesktopAlertsFilterForm alertTypes={alertTypes} handleSubmit={handleSubmit} locale={locale} error={error} reset={reset} />)
       :
-      (<MobileAlertsFilterForm alertTypes={alertTypes} handleSubmit={handleSubmit} locale={locale} error={error} />);
+      (<MobileAlertsFilterForm alertTypes={alertTypes} handleSubmit={handleSubmit} locale={locale} error={error} reset={reset} />);
   }
 }
 

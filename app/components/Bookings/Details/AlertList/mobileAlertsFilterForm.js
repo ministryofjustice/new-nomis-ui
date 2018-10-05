@@ -8,7 +8,7 @@ import moment from 'moment';
 import './mobileAlertsFilterForm.scss';
 
 
-const MobileAlertsFilterForm = ({ alertTypes, resetFilters, locale, submitting, error, handleSubmit }) => (
+const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleSubmit, reset }) => (
   <details className="govuk-details add-gutter-padding-top">
     <summary className="govuk-details__summary"><span className="govuk-details__summary-text">Show filters</span></summary>
     <form className="mobile-alerts-filter-form" onSubmit={handleSubmit} >
@@ -68,7 +68,7 @@ const MobileAlertsFilterForm = ({ alertTypes, resetFilters, locale, submitting, 
 
         <div className="row reset-filters">
           <div className="col no-gutters pull-right">
-            <button type="button" className="link clickable add-gutter-bottom" onClick={resetFilters}>
+            <button type="button" className="link clickable add-gutter-bottom" onClick={reset}>
               Reset filters
             </button>
           </div>

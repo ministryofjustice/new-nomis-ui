@@ -8,7 +8,7 @@ import moment from 'moment';
 import './desktopAlertsFilterForm.scss';
 
 
-const DesktopAlertsFilterForm = ({ alertTypes, resetFilters, locale, submitting, error, handleSubmit }) => (
+const DesktopAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleSubmit, reset }) => (
   <form className="desktop-alerts-filter-form" onSubmit={handleSubmit} >
 
     <div className="row">
@@ -75,7 +75,7 @@ const DesktopAlertsFilterForm = ({ alertTypes, resetFilters, locale, submitting,
       </div>
       <div className="col-md-2">
         <div className="margin30">
-          <button type="button" className="link clickable reset-filters" onClick={resetFilters}>
+          <button type="button" className="link clickable reset-filters" onClick={reset}>
             Reset filters
           </button>
         </div>
