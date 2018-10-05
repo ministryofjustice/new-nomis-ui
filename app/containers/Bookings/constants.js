@@ -71,14 +71,6 @@ export const CASE_NOTE_FILTER = {
   ERROR: 'app/bookings/details/setCaseNotesQuery/ERROR',
 };
 
-export const ALERTS_FILTER = {
-  BASE: 'app/bookings/details/alertsFilter',
-  LOADING: 'app/bookings/details/alertsFilter/LOADING',
-  SUCCESS: 'app/bookings/details/alertsFilter/SUCCESS',
-  ERROR: 'app/bookings/details/alertsFilter/ERROR',
-};
-
-
 export const AMEND_CASENOTE = {
   BASE: 'app/bookings/details/amendCaseNote',
   LOADING: 'app/bookings/details/amendCaseNote/LOADING',

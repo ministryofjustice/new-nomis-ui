@@ -48,7 +48,6 @@ import {
   ADD_NEW_CASENOTE,
   AMEND_CASENOTE,
   CASE_NOTE_FILTER,
-  // ALERTS_FILTER,
   SET_LARGE_PHOTO_VISIBILITY,
   SHOW_LARGE_PHOTO_BOOKING_DETAILS,
   HIDE_LARGE_PHOTO_BOOKING_DETAILS,
@@ -407,26 +406,6 @@ export function* searchResultViewWatcher() {
 export function* updateSearchResultView(action) {
   yield put({ type: SET_RESULTS_VIEW, payload: action.payload });
 }
-
-// export function* setAlertsFilterWatcher() {
-//   yield takeLatest(ALERTS_FILTER.BASE, setAlertsFilterSaga)
-// }
-//
-// export function* setAlertsFilterSaga(action) {
-//   const { filter, offenderNo } = action.payload;
-//   try {
-//     yield put({
-//       type: ALERTS_FILTER.SUCCESS,
-//       payload: filter,
-//     });
-//     yield put(push(`offenders/${offenderNo}/${DETAILS_TABS.ALERTS}`)) *****
-//   } catch (err) {
-//     yield put({
-//       type: CASE_NOTE_FILTER.ERROR,
-//       payload: new SubmissionError({ _error: err.message }),
-//     })
-//   }
-// }
 
 export function* setCaseNoteFilterWatcher() {
   yield takeLatest(CASE_NOTE_FILTER.BASE, setCaseNoteFilterSaga);
