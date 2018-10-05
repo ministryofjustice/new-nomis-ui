@@ -4,17 +4,18 @@ import { intlShape } from 'react-intl';
 import { connect } from 'react-redux';
 
 import HeaderComponent from 'header';
-import { setMenuOpen, showTerms } from 'globalReducers/app';
+import { setMenuOpen, showTerms, navigateTo } from 'globalReducers/app';
 import { switchCaseLoad } from '../EliteApiLoader/actions';
 
 
-const HeaderContainer = ({ user, menuOpen, switchCaseLoad: switchCL,setMenuOpen: openMenu, showTermsAndConditions }) => (
+const HeaderContainer = ({ user, menuOpen, switchCaseLoad: switchCL,setMenuOpen: openMenu, showTermsAndConditions, navigateTo: toRoute }) => (
     <HeaderComponent
       switchCaseLoad={switchCL}
       user={user}
       menuOpen={menuOpen}
       setMenuOpen={openMenu}
       showTermsAndConditions={showTermsAndConditions}
+      navigateTo={toRoute}
     />
   );
 
@@ -52,6 +53,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   setMenuOpen,
   switchCaseLoad,
+  navigateTo,
   showTermsAndConditions: showTerms,
 };
 

@@ -7,6 +7,7 @@ import org.junit.Rule
 import pages.LoginPage
 import pages.HomePage
 import mockapis.Elite2Api
+import pages.MyAllocationsPage
 
 import static model.UserAccount.ITAG_USER
 

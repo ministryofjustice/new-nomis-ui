@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable';
+import { push } from 'react-router-redux';
 
 // Actions
 const SET_DEVICE_FORMAT = 'globalReducer/app/SET_DEVICE_FORMAT';
@@ -136,3 +137,5 @@ export const setEstablishmentRollcheckUrl = (url) => ({
   type: SET_ESTABLISHMENT_ROLLCALL_URL,
   url,
 });
+
+export const navigateTo = (url) => push(url);
