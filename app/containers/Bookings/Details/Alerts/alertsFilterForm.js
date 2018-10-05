@@ -8,11 +8,9 @@ import PropTypes from 'prop-types';
 import DesktopAlertsFilterForm from 'components/Bookings/Details/AlertList/desktopAlertsFilterForm';
 import MobileAlertsFilterForm from 'components/Bookings/Details/AlertList/mobileAlertsFilterForm';
 import { loadAlertTypes } from 'containers/Bookings/actions';
-// import { DATE_ONLY_FORMAT_SPEC } from 'containers/App/constants';
 
 import { selectLocale } from 'containers/LanguageProvider/selectors';
 import { selectAlertTypes } from 'containers/Bookings/Details/Alerts/selectors';
-
 
 class AlertsFilterForm extends Component {
 
@@ -33,6 +31,7 @@ class AlertsFilterForm extends Component {
 
 AlertsFilterForm.propTypes = {
   locale: PropTypes.string,
+  deviceFormat: PropTypes.string.isRequired,
   dispatchLoadAlertTypes: PropTypes.func.isRequired,
 };
 
@@ -40,16 +39,11 @@ AlertsFilterForm.defaultProps = {
   locale: 'en',
 };
 
-
-const convertFormValues = (filterValues) => {
-  const momentToDateString = (moment) => moment ? moment.format('YYYY-MM-DD') : '';
-
-  const fromDate = momentToDateString(filterValues.get('fromDate'));
-  const toDate = momentToDateString(filterValues.get('toDate'));
-  const alertType = filterValues.get('alertType');
-
-  return { fromDate, toDate, alertType }
-};
+const convertFormValues = (filterValues) => ({
+  fromDate: filterValues.get('fromDate'),
+  toDate: filterValues.get('toDate'),
+  alertType: filterValues.get('alertType'),
+});
 
 const mapDispatchToProps = (dispatch, props) => ({
   dispatchLoadAlertTypes: () => dispatch(loadAlertTypes()),

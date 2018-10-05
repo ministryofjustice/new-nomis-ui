@@ -40,48 +40,4 @@
   }
 }
 
-.mobile-alerts-filter-form {
-  @mixin small-inline-stack {
-    width: 100%;
-    display: block;
-    margin-left: 0;
-  }
-
-  margin-bottom: 2em;
-    margin-top: 1.875em;
-
-  .button {
-    width: 100%;
-  }
-
-  .reset-filters {
-    display: block;
-  }
-
-  .rdtPicker {
-    width: 100%;
-  }
-
-  .rdtOpen .rdtPicker {
-      position: static;
-  }
-
-  .form-control {
-    width:100%;
-    height: 36px !important;
-  }
-
-  .date-range-label {
-    font-weight: bold;
-  }
-
-  .date-picker-component {
-      @include small-inline-stack();
-  }
-
-  .date-picker-component:first-child {
-    margin-left: 0;
-  }
-}
-
 

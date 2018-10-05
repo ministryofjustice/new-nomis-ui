@@ -1,7 +1,11 @@
 import axios from 'axios';
 import moment from 'moment';
-import { DATE_ONLY_FORMAT_SPEC } from 'containers/App/constants';
+import { DATE_ONLY_FORMAT_SPEC, ISO8601_DATE_FORMAT } from 'containers/App/constants';
 import qs from 'querystring';
+
+const momentTo8601DateString = m => m ? m.format(ISO8601_DATE_FORMAT) : '';
+const momentFromDateOnlyFormatString = s => s ? moment(s, DATE_ONLY_FORMAT_SPEC) : null;
+const dateOnlyFormatTo8601 = s => momentTo8601DateString(momentFromDateOnlyFormatString(s));
 
 export const login = (username, password, baseUrl) => axios({
   baseURL: baseUrl,
@@ -28,24 +32,32 @@ export const bookingAliases = (baseUrl, offenderNo) => axios({
   url: `/bookings/${offenderNo}/aliases` })
   .then((response) => response.data);
 
-export const bookingAlerts = (baseUrl, offenderNo, pagination, filter) => axios({
-  baseURL: baseUrl,
-  method: 'get',
-  headers: {
-    'Page-Offset': pagination.perPage * pagination.pageNumber,
-    'Page-Limit': pagination.perPage,
-  },
-  url: `/bookings/${offenderNo}/alerts`,
-  params: {
-    from: filter.fromDate,
-    to: filter.toDate,
-    alertType: filter.alertType,
-  } })
-  .then((response) => ({
-    alerts: response.data,
-    totalRecords: parseInt(response.headers['total-records']),
+/*
+ * filter is { alertType: string, fromDate: moment, toDate: moment }
+ * All filter property values are optional.
+ */
+export const bookingAlerts = (baseUrl, offenderNo, pagination, filter) => {
+  const { alertType, fromDate, toDate } = filter;
+  return axios({
+    baseURL: baseUrl,
+    method: 'get',
+    headers: {
+      'Page-Offset': pagination.perPage * pagination.pageNumber,
+      'Page-Limit': pagination.perPage,
+    },
+    url: `/bookings/${offenderNo}/alerts`,
+    params: {
+      from: momentTo8601DateString(fromDate),
+      to: momentTo8601DateString(toDate),
+      alertType,
+    },
   })
+    .then((response) => ({
+      alerts: response.data,
+      totalRecords: parseInt(response.headers['total-records']),
+    })
   );
+};
 
 const casenoteQueryStringGen = (caseNoteOptions) => {
   const { source, startDate, endDate } = caseNoteOptions;
@@ -81,14 +93,15 @@ const casenoteQueryStringGen = (caseNoteOptions) => {
     queryArray.push(`subType:in:'${subType.join('\'|\'')}'`);
   }
 
-  const iso8601Format = 'YYYY-MM-DD';
   const dateFilters = [];
   if (startDate) {
-    const dateFrom = moment(startDate, DATE_ONLY_FORMAT_SPEC).format(iso8601Format);
+    const dateFrom = dateOnlyFormatTo8601(startDate);
+    // const dateFrom = moment(startDate, DATE_ONLY_FORMAT_SPEC).format(ISO8601_DATE_FORMAT);
     dateFilters.push(`&from=${dateFrom}`);
   }
   if (endDate) {
-    const dateTo = moment(endDate, DATE_ONLY_FORMAT_SPEC).format(iso8601Format);
+    const dateTo = dateOnlyFormatTo8601(endDate);
+    // const dateTo = moment(endDate, DATE_ONLY_FORMAT_SPEC).format(ISO8601_DATE_FORMAT);
     dateFilters.push(`&to=${dateTo}`);
   }
   const query = queryArray.length > 0 ? `&query=${queryArray.join(',and:')}` : '';
@@ -339,4 +352,4 @@ export const extendSessionRequest = () => axios({
   method: 'GET',
   url: '/heart-beat',
   withCredentials: true,
-})
+});

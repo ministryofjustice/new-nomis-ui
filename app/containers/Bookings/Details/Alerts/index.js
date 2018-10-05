@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { push } from 'react-router-redux';
-import { Map } from 'immutable';
-import { List } from 'immutable';
-
-import { connect } from 'react-redux';
+import { Map, List } from 'immutable';
 
 import qs from 'querystring';
+import moment from 'moment';
 
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
 import AlertsFilterForm from 'containers/Bookings/Details/Alerts/alertsFilterForm';
 import AlertList from 'components/Bookings/Details/AlertList';
 
+import { DATE_ONLY_FORMAT_SPEC } from 'containers/App/constants';
 import { loadBookingAlerts } from 'containers/EliteApiLoader/actions';
 
 import { Model as alertsModel } from 'helpers/dataMappers/alerts';
@@ -65,25 +65,34 @@ Alerts.propTypes = {
   deviceFormat: PropTypes.string.isRequired,
 };
 
-const paginationDefault = { perPage: 10, pageNumber: 0 };
-
-const buildUrl = (offenderNo, queryParams) => `/offenders/${offenderNo}/alerts?${qs.stringify({ ...paginationDefault, ...queryParams })}`;
+const buildUrl = (offenderNo, queryParams) => `/offenders/${offenderNo}/alerts?${qs.stringify({ perPage: 10, pageNumber: 0, ...queryParams })}`;
+const adaptFilterValues = ({ fromDate, toDate, alertType }) => {
+  const momentToDateString = (m) => m ? m.format(DATE_ONLY_FORMAT_SPEC) : '';
+  return {
+    fromDate: momentToDateString(fromDate),
+    toDate: momentToDateString(toDate),
+    alertType,
+  }
+};
 
 export function mapDispatchToProps(dispatch, props) {
   return {
     loadAlerts: (id, pagination, filter) => dispatch(loadBookingAlerts(id, pagination, filter)),
     setPagination: (offenderNo, pagination) => dispatch(push(buildUrl(offenderNo, { ...props.location.query, ...pagination }))),
-    setFilter: (offenderNo, filter) => dispatch(push(buildUrl(offenderNo, filter))),
+    // filter is {alertType: string, fromDate: moment, toDate: moment }
+    setFilter: (offenderNo, filter) => dispatch(push(buildUrl(offenderNo, adaptFilterValues(filter)))),
   };
 }
 
 const mapStateToProps = (immutableState, props) => {
+  const momentFromDateString = (dateString) => dateString ? moment(dateString, DATE_ONLY_FORMAT_SPEC) : '';
   const alerts = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Alerts']) || alertsModel;
   const alertItems = alerts.get('items') || List([]);
   const totalResults = alerts.getIn(['MetaData','TotalRecords']);
   const deviceFormat = immutableState.getIn(['app','deviceFormat']);
-  const filter = { fromDate: props.location.query.fromDate, toDate: props.location.query.toDate, alertType: props.location.query.alertType };
-  const pagination = { perPage: props.location.query.perPage || 10, pageNumber: props.location.query.pageNumber || 0 };
+  const { fromDate, toDate, alertType, perPage, pageNumber } = props.location.query;
+  const filter = { fromDate: momentFromDateString(fromDate), toDate: momentFromDateString(toDate), alertType };
+  const pagination = { perPage: perPage || 10, pageNumber: pageNumber || 0 };
 
   return {
     filter,
