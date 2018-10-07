@@ -31,13 +31,14 @@ class Alerts extends Component {
   }
 
   render() {
-    const { alerts, totalResults, pagination, offenderNo, setPagination, setFilter, deviceFormat } = this.props;
+    const { alerts, totalResults, pagination, offenderNo, setPagination, setFilter, deviceFormat, filter } = this.props;
 
     return (
       <div>
         <AlertsFilterForm
           deviceFormat={deviceFormat}
           setFilter={(filterValues) => setFilter(offenderNo, filterValues)}
+          initialFilterValues={filter}
         />
 
         <AlertList alerts={alerts} deviceFormat={deviceFormat} />
