@@ -373,8 +373,8 @@ export function* viewDetails(action) {
   const { Type } = yield call(bookingDetailsElite, action);
   if (Type !== 'ERROR') {
     const previousPath = yield select(state => state.getIn(['route', 'locationBeforeTransitions', 'pathname']));
-
-    const nextPath = `/offenders/${action.payload.offenderNo}/${action.payload.activeTabId}/${action.payload.itemId || ''}`;
+    const itemPart = action.payload.itemId ? `/${action.payload.itemId}` : '';
+    const nextPath = `/offenders/${action.payload.offenderNo}/${action.payload.activeTabId}${itemPart}`;
 
     if (previousPath !== nextPath && window.location.pathname !== nextPath) {
       yield put(push(nextPath));
