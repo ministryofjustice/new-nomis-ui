@@ -39,7 +39,7 @@ class PaginationSpecification extends GebReportingSpec {
     elite2api.stubOffenderDetails(true)
     elite2api.stubOffenderDetails(false)
 
-    keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo(agencyId,offenderNo)
+    keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo(agencyId, offenderNo)
 
     elite2api.stubIEP()
     elite2api.stubAliases()
@@ -50,20 +50,20 @@ class PaginationSpecification extends GebReportingSpec {
 
     when: "I can see the first 10 alerts and click on the next page link"
     at AlertsPage
-    assert checkAlerts(0, 10)
+    assertAlerts(0, 9)
     // Scroll to bottom to avoid link being hidden behind the mobile fixed icons
     scrollToBottom()
     nextPageLink.click()
 
     then: "I can see the next set of alerts"
-    assert checkAlerts(10, 20)
+    assertAlerts(10, 19)
 
     when: "I click on the previous page link"
     scrollToBottom()
     previousPageLink.click()
 
     then: "I can see the previous set of alerts"
-    assert checkAlerts(0, 10)
+    assertAlerts(0, 9)
   }
 
   def "should be able to page through the case notes"() {
@@ -75,7 +75,7 @@ class PaginationSpecification extends GebReportingSpec {
     elite2api.stubOffenderDetails(true)
     elite2api.stubOffenderDetails(false)
 
-    keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo(agencyId,offenderNo)
+    keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo(agencyId, offenderNo)
 
     elite2api.stubIEP()
     elite2api.stubAliases()
@@ -116,12 +116,10 @@ class PaginationSpecification extends GebReportingSpec {
     return true
   }
 
-  def checkAlerts(Integer start, Integer end) {
-    waitFor { alerts[0].text().contains("alertType${start}") }
-    for (Integer index = start; index != end; index++) {
-      if (alerts[0].text().indexOf("alertType${index}") == -1)
-        return false
-    }
-    return true
+  def assertAlerts(int start, int end) {
+
+    waitFor { alerts[0].text().contains("alertType") }
+    int index = 0;
+    (start..end).each{ assert alerts[index++].text().indexOf("alertType${it}") != -1 }
   }
 }

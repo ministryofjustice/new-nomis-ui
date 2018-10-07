@@ -786,19 +786,14 @@ class Elite2Api extends WireMockRule {
   }
 
   def buildAlerts(Integer pageOffset, Integer pageLimit) {
-    List<Alert> alerts = []
-
-    for (Integer index = pageOffset; index != pageLimit; index++) {
+    (pageOffset..<pageLimit).collect{ index ->
       Alert alert = new Alert()
       alert.alertId = index
       alert.alertCode = "alertCode${index}"
       alert.alertCodeDescription = "alertCodeDescription${index}"
       alert.alertType = "alertType${index}"
-
-      alerts.push(alert)
+      alert
     }
-
-    return alerts;
   }
 
 

@@ -157,7 +157,7 @@ function AlertList({ alerts, deviceFormat }) {
   const desktop = deviceFormat === 'desktop';
 
   return (
-    <div>
+    <div className="alert-tables">
       <ActiveAlertItems alerts={activeAlerts} desktop={desktop} />
       <InactiveAlertItems alerts={expiredAlerts} desktop={desktop} />
     </div>
