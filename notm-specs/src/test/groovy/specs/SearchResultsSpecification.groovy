@@ -12,6 +12,7 @@ import pages.HomePage
 import pages.LoginPage
 import pages.OffenderDetailsPage
 import pages.SearchResultsPage
+import spock.lang.IgnoreIf
 
 import static model.UserAccount.ITAG_USER
 
@@ -25,6 +26,7 @@ class SearchResultsSpecification extends GebReportingSpec {
   @Rule
   OauthApi oauthApi = new OauthApi()
 
+  @IgnoreIf({System.properties['geb.env'] == 'chromeMobile'})
   def 'Display search results and alerts'() {
     elite2api.stubHealthCheck()
 

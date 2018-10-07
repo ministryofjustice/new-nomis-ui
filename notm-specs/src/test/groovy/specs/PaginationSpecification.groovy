@@ -9,6 +9,7 @@ import model.TestFixture
 import org.junit.Rule
 import pages.AlertsPage
 import pages.CaseNotesPage
+import spock.lang.IgnoreIf
 
 import static model.UserAccount.ITAG_USER
 
@@ -29,6 +30,7 @@ class PaginationSpecification extends GebReportingSpec {
   def bookingId = -10
   def agencyId = "${ITAG_USER.staffMember.assginedCaseload}"
 
+  @IgnoreIf({System.properties['geb.env'] == 'chromeMobile'})
   def "should be able to page through the alerts"() {
     elite2api.stubAlertTypes()
     elite2api.stubHealthCheck()
