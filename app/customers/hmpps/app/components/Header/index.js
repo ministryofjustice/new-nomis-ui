@@ -23,14 +23,14 @@ import {
 } from './header.theme';
 
 export default (props) => {
-  const { user, menuOpen,showTermsAndConditions, setMenuOpen } = props;
+  const { user, menuOpen,showTermsAndConditions, setMenuOpen, navigateTo } = props;
 
   const extraLinks = [];
 
   if (user && user.isKeyWorker) {
     extraLinks.push({
       text: 'My key worker allocations',
-      url: '/myKeyWorkerAllocations',
+      onClick: () => navigateTo('/myKeyWorkerAllocations'),
     });
   }
 
