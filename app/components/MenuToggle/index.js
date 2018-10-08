@@ -20,8 +20,8 @@ MenuToggle.propTypes = {
 };
 
 MenuToggle.defaultProps = {
-  toggleState: false,
-  onToggle: () => {},
+  menuOpen: false,
+  toggleMenu: () => {},
 };
 
 export default MenuToggle;

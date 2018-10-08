@@ -73,8 +73,8 @@ describe('Events service', () => {
 
 
   it('should place events into the correct weekly calender slot', async () => {
-    const today = moment();
-    const threeDaysInTheFuture = moment().add(3,'days');
+    const today = moment().format(isoDateFormat);
+    const threeDaysInTheFuture = moment().add(3,'days').format(isoDateFormat);
 
     eliteApi.getEventsForThisWeek.returns([
       {
@@ -117,11 +117,11 @@ describe('Events service', () => {
 
     const data = await eventsService.getScheduledEventsForThisWeek(req);
 
-    expect(data[0].date.format(isoDateFormat)).to.equal(today.format(isoDateFormat));
+    expect(data[0].date.format(isoDateFormat)).to.equal(today);
     expect(data[0].morningActivities.length).to.equal(1);
     expect(data[0].morningActivities.length).to.equal(1);
 
-    expect(data[3].date.format(isoDateFormat)).to.equal(threeDaysInTheFuture.format(isoDateFormat));
+    expect(data[3].date.format(isoDateFormat)).to.equal(threeDaysInTheFuture);
     expect(data[3].afternoonActivities.length).to.equal(1);
     expect(data[3].afternoonActivities.length).to.equal(1);
     expect(data[3].eveningDuties.length).to.equal(1);
@@ -332,7 +332,7 @@ describe('Events service', () => {
   });
 
   it('show only scheduled appointments and activity', async () => {
-    const today = moment();
+    const today = moment().format(isoDateFormat);
 
     eliteApi.getEventsForThisWeek.returns([
       {
@@ -377,7 +377,7 @@ describe('Events service', () => {
   });
 
   it('should show scheduled and cancelled visits', async () => {
-    const today = moment();
+    const today = moment().format(isoDateFormat);
 
     eliteApi.getEventsForThisWeek.returns([
       {

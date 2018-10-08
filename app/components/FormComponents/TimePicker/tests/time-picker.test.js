@@ -61,7 +61,7 @@ describe('Time picker', () => {
     };
 
     const now = moment('2017-10-10T20:40:00');
-    const picker = shallow(<TimePicker date={'10/10/2017'} now={now} meta={meta} input={input} futureTimeOnly />);
+    const picker = shallow(<TimePicker date={'2017-10-10'} now={now} meta={meta} input={input} futureTimeOnly />);
     const hours = picker.find('.select-hours').props().children.map(item => item.key);
     const minutes = picker.find('.select-minutes').props().children.map(item => item.key);
 
@@ -81,7 +81,7 @@ describe('Time picker', () => {
     };
 
     const now = moment('2017-10-10T03:15:00');
-    const picker = shallow(<TimePicker date={'10/10/2017'} now={now} meta={meta} input={input} pastTimeOnly />);
+    const picker = shallow(<TimePicker date={'2017-10-10'} now={now} meta={meta} input={input} pastTimeOnly />);
     const hours = picker.find('.select-hours').props().children.map(item => item.key);
     const minutes = picker.find('.select-minutes').props().children.map(item => item.key);
 
@@ -102,7 +102,7 @@ describe('Time picker', () => {
 
 
     const now = moment('2017-10-10T03:15:00Z');
-    const picker = shallow(<TimePicker date={'09/10/2017'} now={now} meta={meta} input={input} futureTimeOnly />);
+    const picker = shallow(<TimePicker date={'2017-09-10'} now={now} meta={meta} input={input} futureTimeOnly />);
     const hours = picker.find('.select-hours').props().children.map(item => item.key);
     const minutes = picker.find('.select-minutes').props().children.map(item => item.key);
 
@@ -117,7 +117,7 @@ describe('Time picker', () => {
     };
 
     const now = moment('2017-10-10T20:45:00');
-    const picker = shallow(<TimePicker date={'10/10/2017'} now={now} meta={meta} input={input} futureTimeOnly />);
+    const picker = shallow(<TimePicker date={'2017-10-10'} now={now} meta={meta} input={input} futureTimeOnly />);
     const instance = picker.instance();
 
     instance.onHoursChange({ target: {
@@ -139,7 +139,7 @@ describe('Time picker', () => {
     };
 
     const now = moment('2017-10-10T03:30:00');
-    const picker = shallow(<TimePicker date={'10/10/2017'} now={now} meta={meta} input={input} pastTimeOnly />);
+    const picker = shallow(<TimePicker date={'2017-10-10'} now={now} meta={meta} input={input} pastTimeOnly />);
     const instance = picker.instance();
 
     instance.onHoursChange({ target: {
