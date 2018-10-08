@@ -161,7 +161,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
     tokenRefresher.resolves();
 
     agent
-      .get('/logout')
+      .get('/auth/logout')
       .expect(302)
       .expect('location', '/login')
       // The server sends a set cookie header to clear the cookie.

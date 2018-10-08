@@ -90,7 +90,7 @@ class Elite2Api extends WireMockRule {
         locationType       : "LEI",
         description        : "Leeds",
         locationUsage      : "LEIx",
-        agencyId           : "LEIy",
+        agencyId           : "LEI",
         parentLocationId   : 0,
         currentOccupancy   : 1,
         locationPrefix     : "LEI",
@@ -110,7 +110,7 @@ class Elite2Api extends WireMockRule {
             "roleCode": "OMIC_ADMIN",
             "roleName": "Omic admin",
             "parentRoleCode": "code",
-            "caseloadId": "1"
+            "caseloadId": "LEI"
           }]''')))
   }
 
@@ -122,8 +122,8 @@ class Elite2Api extends WireMockRule {
         .withHeader('Content-Type', 'application/json')
         .withBody('''[
      {                                              
-         "caseLoadId": 1,
-         "description": "LEI",
+         "caseLoadId": "LEI",
+         "description": "Leeds",
          "type": "LEI",
          "caseloadFunction": "LEI"
      },

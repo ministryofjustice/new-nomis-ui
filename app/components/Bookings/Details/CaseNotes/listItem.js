@@ -19,25 +19,19 @@ const Wrapper = styled.div`
     padding: 0 !important;
     margin: 0 !important;
   }
-
-  .row{
-     display:block;
-     margin-bottom: 1.5em;
-  }
  `;
 
 const Row = styled.div`
-  border-bottom: #F2F2F2 solid 1px;
-  margin-bottom: 1em;
-
-  padding: 15px;
-
-  @media(max-width: 992px) {
-     padding-left: 0;
-  }
+  border-bottom: 1px solid #bfc1c3;
+  padding: 15px 0;
+  cursor: pointer;
 
   &:hover{
     background: #f8f8f8;
+  }
+
+  @media(min-width: 992px) {
+     padding: 30px 15px;
   }
 `;
 

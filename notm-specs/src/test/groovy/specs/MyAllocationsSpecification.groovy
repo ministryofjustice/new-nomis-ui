@@ -25,28 +25,12 @@ class MyAllocationsSpecification extends GebReportingSpec {
   @Rule
   OauthApi oauthApi = new OauthApi()
 
-  def "should display the correct allocations once on the page"() {
-
-    def agencyId = "${ITAG_USER.staffMember.assginedCaseload}"
-    def staffId = ITAG_USER.staffMember.id
-    def keyWorker = ITAG_USER.staffMember
-
+  def "should display allocations correctly when coming from the home page link"() {
     List<Offender> offenders = new ArrayList<Offender>()
     offenders.push(model.Offender.SMITH())
     offenders.push(model.Offender.BOB())
 
-    elite2api.stubHealthCheck()
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-    elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
-    elite2api.getOffenderSummaryDetails(offenders)
-    elite2api.stubImage()
-    elite2api.stubCaseNoteUsage(offenders)
-    elite2api.stubSentenceDates(offenders)
-    elite2api.stubCSRAssessments(offenders)
-
-    keyworkerApi.stubGetKeyworkerDetails(staffId,agencyId,keyWorker)
-    keyworkerApi.stubMigrationStatus(agencyId, true)
-    keyworkerApi.stubGetAssignedOffenders(staffId,agencyId,offenders)
+    setUpKeyWorkerAllocationsWith(offenders)
 
     given:
     to LoginPage
@@ -60,6 +44,50 @@ class MyAllocationsSpecification extends GebReportingSpec {
     at MyAllocationsPage
 
     assert matchOffenders(offenders)
+  }
+
+  def "should display allocations correctly when coming from the menu link"() {
+    List<Offender> offenders = new ArrayList<Offender>()
+    offenders.push(model.Offender.SMITH())
+    offenders.push(model.Offender.BOB())
+
+    setUpKeyWorkerAllocationsWith(offenders)
+
+    given:
+    to LoginPage
+    loginAs ITAG_USER, 'password'
+    at HomePage
+
+    when: 'I am logged and the menu is expended'
+    header.dropDownMenu.click()
+    waitFor { header.dropDownMenuContents.displayed }
+
+    then: 'I click on the allocations link'
+    header.myAllocationsMenuLink[0].click()
+
+    then: 'I should be on the my allocations page'
+    at MyAllocationsPage
+
+    assert matchOffenders(offenders)
+  }
+
+  def setUpKeyWorkerAllocationsWith(offenders) {
+    def agencyId = "${ITAG_USER.staffMember.assginedCaseload}"
+    def staffId = ITAG_USER.staffMember.id
+    def keyWorker = ITAG_USER.staffMember
+
+    elite2api.stubHealthCheck()
+    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
+    elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
+    elite2api.getOffenderSummaryDetails(offenders)
+    elite2api.stubImage()
+    elite2api.stubCaseNoteUsage(offenders)
+    elite2api.stubSentenceDates(offenders)
+    elite2api.stubCSRAssessments(offenders)
+
+    keyworkerApi.stubGetKeyworkerDetails(staffId,agencyId,keyWorker)
+    keyworkerApi.stubMigrationStatus(agencyId, true)
+    keyworkerApi.stubGetAssignedOffenders(staffId,agencyId,offenders)
   }
 
 }
