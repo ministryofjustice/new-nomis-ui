@@ -71,7 +71,6 @@ export const CASE_NOTE_FILTER = {
   ERROR: 'app/bookings/details/setCaseNotesQuery/ERROR',
 };
 
-
 export const AMEND_CASENOTE = {
   BASE: 'app/bookings/details/amendCaseNote',
   LOADING: 'app/bookings/details/amendCaseNote/LOADING',

@@ -12,6 +12,7 @@ import pages.HomePage
 import pages.LoginPage
 import pages.OffenderDetailsPage
 import pages.SearchResultsPage
+import spock.lang.IgnoreIf
 
 import static model.UserAccount.ITAG_USER
 
@@ -25,6 +26,7 @@ class SearchResultsSpecification extends GebReportingSpec {
   @Rule
   OauthApi oauthApi = new OauthApi()
 
+  @IgnoreIf({System.properties['geb.env'] == 'chromeMobile'})
   def 'Display search results and alerts'() {
     elite2api.stubHealthCheck()
 
@@ -86,13 +88,14 @@ class SearchResultsSpecification extends GebReportingSpec {
     elite2api.stubBookingAlerts(-10)
     elite2api.stubAliases()
     elite2api.stubStaffDetails(-2)
+    elite2api.stubAlertTypes()
 
     rows[1].find('.arsonist-status').click()
 
     then: 'The offender details alert tab is shown'
     at OffenderDetailsPage
     at AlertsPage
-    alerts.text().contains('alertType0')
-    alerts.text().contains('alertType1')
+    alerts[0].text().contains('alertType0')
+    alerts[1].text().contains('alertType1')
   }
 }

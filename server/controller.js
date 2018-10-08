@@ -165,15 +165,31 @@ const controllerFactory = (
   });
 
   const alerts = asyncMiddleware(async (req, res) => {
+    const alertTypeValid = alertType => alertType ? /^[A-Z]{1,4}$/.test(alertType) : true;
+    const dateValid = date => date ? /^\d{4}-\d{2}-\d{2}$/.test(date) : true;
+    const offenderNoValid = offenderNo => offenderNo ? /^[A-Z0-9]+$/.test(offenderNo) : true;
+    const alertTypeQuery = alertType => alertType ? `alertType:in:'${alertType}'` : '';
+    const fromQuery = fromDate => fromDate ? `dateCreated:gteq:DATE'${fromDate}'` : '';
+    const toQuery = toDate => toDate ? `dateCreated:lteq:DATE'${toDate}'` : '';
+
     const { offenderNo } = req.params;
-    if (!offenderNo) {
+    const { from, to, alertType } = req.query;
+
+    if (!alertTypeValid(alertType) || !dateValid(from) || !dateValid(to) || !offenderNoValid(offenderNo)) {
       res.status(400);
       res.end();
       return;
     }
 
     const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo);
-    const data = await elite2Api.get(res.locals, `/api/bookings/${bookingId}/alerts`);
+
+    const queryParts = [fromQuery(from), toQuery(to), alertTypeQuery(alertType)]
+      .filter(value => value)
+      .join(',and:');
+
+    const query = queryParts ? `?query=${queryParts}` : '';
+
+    const data = await elite2Api.get(res.locals, `/api/bookings/${bookingId}/alerts${query}`);
 
     res.set(res.locals.responseHeaders);
 

@@ -29,6 +29,8 @@ export const USER = {
 
 export const LOAD_CASE_NOTE_TYPES_SUBTYPES = 'app/eliteApiLoader/loadCaseNotesTypesAndSubTypes';
 
+export const LOAD_ALERT_TYPES = 'app/eliteApiLoader/loadAlertTypes';
+
 // Bookings
 
 // Bookings/Search
@@ -101,6 +103,7 @@ export const APPOINTMENT = {
   ADD: 'app/bookings/details/addAppointment',
   SUCCESS: 'app/bookings/details/addAppointment/SUCCESS',
   ERROR: 'app/bookings/details/addAppointment/ERROR',
-}
+};
 
-export const ALLCASENOTETYPESUBTYPEDATA = 'sup daaaaawwwwwg';
+export const ALLCASENOTETYPESUBTYPEDATA = 'allCaseNoteTypeSubTypeData';
+export const ALL_ALERT_TYPES_DATA = 'allAlertTypesData';
