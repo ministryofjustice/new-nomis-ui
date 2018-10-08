@@ -1,13 +1,17 @@
 
 .desktop-alerts-filter-form {
 
-  margin-top: 1.875em;
-  margin-bottom: 2em;
+  margin-top: 0.5em;
+  margin-bottom: 1.2em;
   padding: 15px;
   background-color: #F2F2F2;
 
   .button {
     width: 100%;
+  }
+
+  .form-group {
+    margin-bottom: 10px;
   }
 
   .reset-filters {
