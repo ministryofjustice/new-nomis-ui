@@ -6,7 +6,6 @@ import { List } from 'immutable';
 import { FormattedDate } from 'components/intl';
 import colours from 'theme/colours';
 
-
 const Table = styled.table`
   table-layout: fixed;
   width: 100%;
