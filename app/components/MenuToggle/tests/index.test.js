@@ -12,7 +12,7 @@ describe('MenuToggle', () => {
     expect(elem.className).toBe('');
   });
 
-  it('should initialise with correct className when toggleState set true', () => {
+  it('should initialise with correct className when menuOpen set true', () => {
     const wrapped = mount(<MenuToggle menuOpen />);
     const elem = wrapped.find('#nav-icon').node;
 

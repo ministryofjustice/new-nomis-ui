@@ -122,7 +122,7 @@ class AddAppointment extends Component {
               locale={locale}
               format={momentToLocalizedDate(locale)}
               parse={localizedDateToMoment(locale)}
-              shouldShowDay={(date) => date.isAfter(moment().subtract('days',1))}
+              shouldShowDay={(date) => date.isAfter(moment().subtract(1, 'day'))}
 
             />
           </div>
