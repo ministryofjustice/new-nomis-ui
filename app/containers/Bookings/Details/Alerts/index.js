@@ -1,43 +1,53 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { push } from 'react-router-redux';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 
-import { List } from 'immutable';
-
-import { connect } from 'react-redux';
+import qs from 'querystring';
+import moment from 'moment';
 
 import PreviousNextNavigation from 'components/PreviousNextNavigation';
+import AlertsFilterForm from 'containers/Bookings/Details/Alerts/alertsFilterForm';
 import AlertList from 'components/Bookings/Details/AlertList';
 
+import { DATE_ONLY_FORMAT_SPEC } from 'containers/App/constants';
 import { loadBookingAlerts } from 'containers/EliteApiLoader/actions';
-import { buildPaginationQueryString } from 'utils/stringUtils';
 
 import { Model as alertsModel } from 'helpers/dataMappers/alerts';
 
 class Alerts extends Component {
   componentDidMount() {
-    const { loadAlerts, offenderNo, pagination } = this.props;
+    const { loadAlerts, offenderNo, pagination, filter } = this.props;
 
-    loadAlerts(offenderNo, pagination);
+    loadAlerts(offenderNo, pagination, filter);
   }
 
   componentDidUpdate(prevProps) {
-    if (!Map(prevProps.pagination).equals(Map(this.props.pagination))) {
-      this.props.loadAlerts(this.props.offenderNo, this.props.pagination);
+    if (!Map({ ...prevProps.pagination, ...prevProps.filter }).equals(Map({ ...this.props.pagination, ...this.props.filter }))) {
+      this.props.loadAlerts(this.props.offenderNo, this.props.pagination, this.props.filter);
     }
   }
 
   render() {
-    const { alerts, totalResults, pagination, offenderNo, setPagination, deviceFormat } = this.props;
+    const { alerts, totalResults, pagination, offenderNo, setPagination, setFilter, deviceFormat, filter } = this.props;
+
     return (
       <div>
+        <AlertsFilterForm
+          deviceFormat={deviceFormat}
+          setFilter={(filterValues) => setFilter(offenderNo, filterValues)}
+          initialFilterValues={filter}
+        />
+
         <AlertList alerts={alerts} deviceFormat={deviceFormat} />
 
         <PreviousNextNavigation
-          pagination={pagination} totalRecords={totalResults} pageAction={(id) => {
-            setPagination(offenderNo, { perPage: pagination.perPage, pageNumber: id }, id)
+          pagination={pagination}
+          totalRecords={totalResults}
+          pageAction={(pageNumber) => {
+            setPagination(offenderNo, { perPage: pagination.perPage, pageNumber }, pageNumber);
             if (window) window.scrollTo(0,0);
           }}
         />
@@ -50,33 +60,49 @@ Alerts.propTypes = {
   loadAlerts: PropTypes.func.isRequired,
   setPagination: PropTypes.func.isRequired,
   offenderNo: PropTypes.string.isRequired,
+  filter: PropTypes.object.isRequired,
   pagination: PropTypes.object.isRequired,
   alerts: ImmutablePropTypes.list.isRequired,
   deviceFormat: PropTypes.string.isRequired,
 };
 
-
-export function mapDispatchToProps(dispatch) {
+const buildUrl = (offenderNo, queryParams) => `/offenders/${offenderNo}/alerts?${qs.stringify({ perPage: 10, pageNumber: 0, ...queryParams })}`;
+const adaptFilterValues = ({ fromDate, toDate, alertType }) => {
+  const momentToDateString = (m) => m ? m.format(DATE_ONLY_FORMAT_SPEC) : '';
   return {
-    loadAlerts: (id, pagination) => dispatch(loadBookingAlerts(id, pagination)),
-    setPagination: (id, pagination) => dispatch(push(`/offenders/${id}/alerts?${buildPaginationQueryString(pagination)}`)),
+    fromDate: momentToDateString(fromDate),
+    toDate: momentToDateString(toDate),
+    alertType,
+  }
+};
+
+export function mapDispatchToProps(dispatch, props) {
+  return {
+    loadAlerts: (id, pagination, filter) => dispatch(loadBookingAlerts(id, pagination, filter)),
+    setPagination: (offenderNo, pagination) => dispatch(push(buildUrl(offenderNo, { ...props.location.query, ...pagination }))),
+    // filter is {alertType: string, fromDate: moment, toDate: moment }
+    setFilter: (offenderNo, filter) => dispatch(push(buildUrl(offenderNo, adaptFilterValues(filter)))),
   };
 }
 
 const mapStateToProps = (immutableState, props) => {
+  const momentFromDateString = (dateString) => dateString ? moment(dateString, DATE_ONLY_FORMAT_SPEC) : '';
   const alerts = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Alerts']) || alertsModel;
   const alertItems = alerts.get('items') || List([]);
   const totalResults = alerts.getIn(['MetaData','TotalRecords']);
   const deviceFormat = immutableState.getIn(['app','deviceFormat']);
-  const pagination = { perPage: props.location.query.perPage || 10, pageNumber: props.location.query.pageNumber || 0 };
+  const { fromDate, toDate, alertType, perPage, pageNumber } = props.location.query;
+  const filter = { fromDate: momentFromDateString(fromDate), toDate: momentFromDateString(toDate), alertType };
+  const pagination = { perPage: perPage || 10, pageNumber: pageNumber || 0 };
 
   return {
+    filter,
     pagination,
     offenderNo: props.offenderNo,
     alerts: alertItems,
     totalResults,
     deviceFormat,
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Alerts);

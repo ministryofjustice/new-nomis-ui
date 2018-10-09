@@ -14,6 +14,7 @@ import pages.LoginPage
 import pages.OffenderCaseNotesPage
 import pages.OffenderDetailsPage
 import pages.SearchResultsPage
+import spock.lang.IgnoreIf
 
 import static model.UserAccount.ITAG_USER
 
@@ -29,6 +30,7 @@ class CaseNotesSpecification extends GebReportingSpec {
   @Rule
   OauthApi oauthApi = new OauthApi()
 
+  @IgnoreIf({System.properties['geb.env'] == 'chromeMobile'})
   def "Create a new case note"() {
     elite2api.stubHealthCheck()
 

@@ -27,7 +27,7 @@ environments {
       new ChromeDriver(
         new ChromeDriverService.Builder()
           .withVerbose(true)
-          .withLogFile(new File('chromedriver.log'))
+          .withLogFile(new File('build/chromedriver.log'))
           .build(),
         new ChromeOptions()
           .setExperimentalOption(

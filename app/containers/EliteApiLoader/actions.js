@@ -21,10 +21,10 @@ export function loadBookingDetails(offenderNo) {
   };
 }
 
-export function loadBookingAlerts(offenderNo, pagination) {
+export function loadBookingAlerts(offenderNo, pagination, filter) {
   return {
     type: BOOKINGS.ALERTS.BASE,
-    payload: { offenderNo, pagination },
+    payload: { offenderNo, pagination, filter },
   };
 }
 

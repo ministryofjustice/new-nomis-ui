@@ -76,14 +76,14 @@ export function* bookingAlertsWatcher() {
 }
 
 export function* bookingAlertsSaga(action) {
-  const { offenderNo, pagination } = action.payload;
+  const { offenderNo, pagination, filter } = action.payload;
 
   const apiServer = yield select(selectApi());
 
   yield put(showSpinner());
 
   try {
-    const data = yield call(bookingAlerts, apiServer, offenderNo, pagination);
+    const data = yield call(bookingAlerts, apiServer, offenderNo, pagination, filter);
 
     yield put({ type: BOOKINGS.ALERTS.SUCCESS, payload: { offenderNo, results: data.alerts, meta: { totalRecords: data.totalRecords } } });
     yield put(hideSpinner());
@@ -373,8 +373,8 @@ export function* viewDetails(action) {
   const { Type } = yield call(bookingDetailsElite, action);
   if (Type !== 'ERROR') {
     const previousPath = yield select(state => state.getIn(['route', 'locationBeforeTransitions', 'pathname']));
-
-    const nextPath = `/offenders/${action.payload.offenderNo}/${action.payload.activeTabId}/${action.payload.itemId || ''}`;
+    const itemPart = action.payload.itemId ? `/${action.payload.itemId}` : '';
+    const nextPath = `/offenders/${action.payload.offenderNo}/${action.payload.activeTabId}${itemPart}`;
 
     if (previousPath !== nextPath && window.location.pathname !== nextPath) {
       yield put(push(nextPath));
