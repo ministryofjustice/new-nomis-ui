@@ -204,7 +204,7 @@ const NegativeAndPositiveCaseNoteCount = ({ negativeCaseNotes,positiveCaseNotes 
 );
 
 export const Adjudications = ({ adjudications }) => {
-  const awards = adjudications.get('awards').filter(a => !a.get('status').startsWith('SUSP') && !(a.get('status') === 'QUASHED'));
+  const awards = adjudications.get('awards').filter(a => a.get('status') && !a.get('status').startsWith('SUSP') && !(a.get('status') === 'QUASHED'));
   const proven = adjudications.get('proven');
   return (
     <div>
