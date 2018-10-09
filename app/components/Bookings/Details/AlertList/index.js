@@ -33,7 +33,7 @@ const TrBanded = styled.tr`
 `;
 
 const Td = styled.td`
-  overflow-x: hidden;
+  overflow: hidden;
   border: none;
   font-size: 16px;
   padding: 25px 15px 25px 0;
@@ -41,7 +41,7 @@ const Td = styled.td`
 
 const TdAlertType = styled(Td)`
   font-weight: bold;
-  color: ${(props) => props.active ? colours.bookings.details.alerts.warningTextColour : 'black'};
+  color: ${(props) => props.active ? colours.bookings.details.alerts.warningTextColour : '#6F777B'};
 `;
 
 const TdAlert = styled(Td)`
@@ -57,7 +57,7 @@ const P = styled.p`
 `;
 
 const PMobile = styled(P)`
-overflow-x: hidden;
+overflow: hidden;
   font-size: 14px;
   line-height: 1.4;
 `;
@@ -147,17 +147,17 @@ const MobileAlertItems = ({ alerts, active }) => (
     { active ? <MobileHeading className="bold-medium">Active alerts</MobileHeading> : <MobileHeading className="bold-medium">Inactive alerts</MobileHeading> }
 
     {alerts.map(alert => (
-      <MobileAlertRecord>
-        <MobileRow className="row" key={`${alert.get('alertId')}A`}>
+      <MobileAlertRecord key={alert.get('alertId')}>
+        <MobileRow className="row" >
           <MobileColumn className="col-xs-6">
             <PAlertType active={active}>{formatAlertType(alert)}</PAlertType>
             <PAlert active={active}>{formatAlert(alert)}</PAlert>
           </MobileColumn>
           <MobileColumn className="col-xs-6">
-            <PMobile>{alert.get('comment')}</PMobile>
+            <PMobile>{alert.get('comment') ? alert.get('comment') : '―'}</PMobile>
           </MobileColumn>
         </MobileRow>
-        <MobileRow className="row" key={`${alert.get('alertId')}B`}>
+        <MobileRow className="row">
           <MobileColumn className="col-xs-6">
             <PMobile><FormattedDate value={alert.get('dateCreated')} /></PMobile>
             {!active && <PMobile><FormattedDate value={alert.get('dateExpires')} /></PMobile>}
