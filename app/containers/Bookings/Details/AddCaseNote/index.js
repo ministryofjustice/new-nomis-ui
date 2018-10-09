@@ -87,11 +87,11 @@ class AddCaseNoteForm extends Component {
         {!this.state.editDateTime && <div className="row">
             <div className="col-sm-3 col-md-3 col-xs-6 no-left-gutter add-gutter-bottom">
               <span>
-                <FormattedDate value={today} />
+                <FormattedDate value={today.format()} />
               </span>
               <span>&nbsp;-&nbsp;</span>
               <span>
-                <FormattedTime value={today} />
+                <FormattedTime value={today.format()} />
               </span>
               <span>
                  <button
