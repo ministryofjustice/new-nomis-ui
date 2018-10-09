@@ -1,12 +1,13 @@
 
-module.exports = (award) => ({
+module.exports = award => ({
   sanctionCodeDescription: descriptionWithLimit(award),
   comment: award.comment,
   effectiveDate: award.effectiveDate,
+  status: award.status,
   durationText: durationText(award),
 });
 
-const descriptionWithLimit = (award) => {
+const descriptionWithLimit = award => {
   switch (award.sanctionCode) {
     case 'STOP_PCT': {
       return `${award.sanctionCodeDescription.replace('(%)','').trim()} (${award.limit}%)`;
@@ -20,7 +21,7 @@ const descriptionWithLimit = (award) => {
   }
 };
 
-const durationText = (award) => {
+const durationText = award => {
   if (award.months && award.days) {
     return `${award.months} ${pluraliseMonth(award.months)} and ${award.days} ${pluraliseDay(award.days)}`
   }
