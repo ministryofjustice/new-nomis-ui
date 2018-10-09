@@ -17,14 +17,14 @@ const DesktopAlertsFilterForm = ({ alertTypes, locale, submitting, error, handle
           Filters
         </h3>
       </div>
-      <div className="col-md-9 no-left-gutter">
+      <div className="col-md-9 no-left-gutter add-gutter-margin-top">
         <label className="form-label date-range-label">
           Date range
         </label>
       </div>
     </div>
 
-    <div className="row add-gutter-margin-top no-left-gutter">
+    <div className="row no-left-gutter">
 
       <div className="col-md-3 no-left-gutter">
         <Field
