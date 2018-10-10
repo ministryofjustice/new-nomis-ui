@@ -203,43 +203,44 @@ const NegativeAndPositiveCaseNoteCount = ({ negativeCaseNotes,positiveCaseNotes 
   </div>
 );
 
-export const Adjudications = ({ awards, proven }) => (
-  <div>
-    <div className="row border-bottom-line">
-      <div className="col-lg-6 col-xs-6">
-        <label>Proven adjudications</label>
-      </div>
+export const Adjudications = ({ adjudications }) => {
+  const awards = adjudications.get('awards');
+  const proven = adjudications.get('proven');
+  return (
+    <div>
+      <div className="row border-bottom-line">
+        <div className="col-lg-6 col-xs-6">
+          <label>Proven adjudications</label>
+        </div>
 
-      <div className="col-lg-6 col-xs-6">
-        <b>
+        <div className="col-lg-6 col-xs-6">
           <b> {proven || 0} </b>
-        </b>
+        </div>
       </div>
+
+      {(awards.size === 0) && <div className="add-gutter-margin-top">
+        <div className="col-lg-6 col-xs-6">
+          <label>Active adjudications</label>
+        </div>
+
+        <div className="col-lg-6 col-xs-6">
+          <b> No active awards </b>
+        </div>
+      </div>}
+
+      {awards.map((award, index) => (<div key={uuid()} className="row add-gutter-margin-top">
+        <div className="col-lg-6 col-xs-6">
+          {index === 0 && <label>Active awards</label>}
+        </div>
+        <div className="col-lg-6 col-xs-6">
+          <b> {award.get('durationText')} {award.get('sanctionCodeDescription')} </b>
+          <div> {award.get('comment')} </div>
+          <div> {award.get('effectiveDate') && <FormattedDate value={award.get('effectiveDate')} />} </div>
+        </div>
+      </div>))}
     </div>
-
-    {(awards.size === 0) && <div className="add-gutter-margin-top">
-      <div className="col-lg-6 col-xs-6">
-        <label>Active adjudications</label>
-      </div>
-
-      <div className="col-lg-6 col-xs-6">
-        <b> No active awards </b>
-      </div>
-    </div> }
-
-    {awards.map((award, index) => (<div key={uuid()} className="row add-gutter-margin-top">
-      <div className="col-lg-6 col-xs-6">
-        {index === 0 && <label>Active awards</label> }
-      </div>
-
-      <div className="col-lg-6 col-xs-6">
-        <b> {award.get('durationText')} {award.get('sanctionCodeDescription')} </b>
-        <div> {award.get('comment')} </div>
-        <div> {award.get('effectiveDate') && <FormattedDate value={award.get('effectiveDate')} /> } </div>
-      </div>
-    </div>))}
-  </div>
-);
+  );
+}
 
 export const KeyWorkerSessionDate = ({ lastKeyWorkerSessionDate }) => (
   <div className="row border-bottom-line">
@@ -543,10 +544,7 @@ class QuickLook extends Component {
                 negativeCaseNotes={viewModel.get('negativeCaseNotes')}
                 positiveCaseNotes={viewModel.get('positiveCaseNotes')}
               />
-              <Adjudications
-                awards={adjudications.get('awards')}
-                proven={adjudications.get('proven')}
-              />
+              <Adjudications adjudications={adjudications} />
             </div>
           </div>
 

@@ -638,7 +638,31 @@ class Elite2Api extends WireMockRule {
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
-        .withBody("""[]""")))
+        .withBody(JsonOutput.toJson(
+        [
+          bookingId: -1,
+          adjudicationCount: 3,
+          awards:
+          [
+            [
+              status: 'IMMEDIATE',
+              days: 2,
+              sanctionCodeDescription: 'Immediate',
+              comment: 'A comment',
+              sanctionCode: 'STOP_PCT',
+              effectiveDate: '2018-10-03',
+              limit: 50
+            ],
+            [
+              status: 'SUSPENDED',
+              sanctionCodeDescription: 'Stoppage of Earnings (amount)',
+              comment: 'Not shown',
+              sanctionCode: 'STOP_EARN',
+              limit: 30
+            ]
+          ]
+        ]
+      ))))
   }
 
   void stubVisitsNext() {
