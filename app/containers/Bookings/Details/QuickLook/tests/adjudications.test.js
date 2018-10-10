@@ -20,16 +20,17 @@ describe('Adjudications component', () => {
             effectiveDate: '19/10/2018',
             comment: 'a comment',
             sanctionCodeDescription: 'code description' }),
-          Map({ status: 'SUSPENDED',
-            comment: 'Not shown' }),
-          Map({ status: 'QUASHED',
-            comment: 'Not shown' }),
+          Map({ status: 'AS_AWARDED',
+            comment: 'comment 2' }),
+          Map({ status: 'PROSPECTIVE',
+            comment: 'comment 3' }),
         ]) })}
     />);
     expect(component.debug().indexOf('value="19/10/2018"') >= 0).toBe(true);
     expect(component.contains(<div> a comment </div>)).toBe(true);
+    expect(component.contains(<div> comment 2 </div>)).toBe(true);
+    expect(component.contains(<div> comment 3 </div>)).toBe(true);
     expect(component.find('b').at(0).text()).toEqual(' 1 ');
     expect(component.find('b').at(1).text()).toEqual(' code description ');
-    expect(component.debug().indexOf('Not shown') >= 0).toBe(false);
   });
 });
