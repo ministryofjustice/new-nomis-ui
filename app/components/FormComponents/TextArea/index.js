@@ -4,9 +4,17 @@ import PropTypes from 'prop-types';
 const renderTextArea = ({ input, title, meta: { touched, error }, placeholder }) => (
   <div className={!(touched && error) ? 'form-group' : 'form-group form-group-error'}>
     <label className="form-label">{title}</label>
-    { (error && touched) ? <div className="error-message" error={touched && error}>{error}</div> : null}
-    <textarea className={!(touched && error) ? 'form-control' : 'form-control form-control-error'} {...input} autoComplete="off" placeholder={placeholder} cols="30" rows="10" />
-  </div>);
+    {error && touched && <div className="error-message">{error}</div>}
+    <textarea
+      className={!(touched && error) ? 'form-control' : 'form-control form-control-error'}
+      {...input}
+      autoComplete="off"
+      placeholder={placeholder}
+      cols="30"
+      rows="10"
+    />
+  </div>
+);
 
 renderTextArea.propTypes = {
   input: PropTypes.object.isRequired,
