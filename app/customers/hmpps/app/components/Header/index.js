@@ -4,13 +4,10 @@ import {
   DesktopOnly,
   MobileOnly,
 } from 'components/CommonTheme';
-
 import MenuToggle from 'components/MenuToggle';
 import MobileMenu from 'containers/MobileMenu';
 import ProductGlobals from 'product-globals';
-
-import { Link } from 'react-router';
-
+import { Link, browserHistory } from 'react-router';
 import {
   PageHeader,
   LeftContent,
@@ -37,7 +34,14 @@ export default (props) => {
   return (<div>
 
     <DesktopOnly>
-      <Header homeLink={'/'} title={'Prison-NOMIS'} logoText={'HMPPS'} {...props} extraLinks={extraLinks} />
+      <Header
+        homeLink={'/'}
+        title={'Prison-NOMIS'}
+        logoText={'HMPPS'}
+        extraLinks={extraLinks}
+        history={browserHistory}
+        {...props}
+      />
     </DesktopOnly>
 
     <MobileOnly>
