@@ -7,6 +7,7 @@ const inject = function (id) {
       return /text\/html/.test(res.get('Content-Type'));
     },
     intercept(body, send) {
+      if (!id) return;
       const $document = cheerio.load(body);
       const script = `<input type="hidden" id="google-analytics-id" value="${id}" />`;
       $document('body').append(script);
