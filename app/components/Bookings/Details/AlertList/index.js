@@ -27,10 +27,8 @@ const ThThird = styled(Th)`
 `;
 
 const TrBody = styled.tr`
-  color: ${(props) => props.active ? 'black' : '#6F777B'};  
-  &:nth-of-type(even) {
-    background: #F6F6F6;
-   }
+  color: ${(props) => props.active ? 'black' : '#6F777B'}; 
+  border-bottom: solid 1px #BFC1C3; 
 `;
 
 const Td = styled.td`
@@ -69,9 +67,7 @@ const MobileAlertRecord = styled.div`
   color: ${(props) => props.active ? 'black' : '#6F777B'};
   padding: 11px 0 1px 0;
   font-size: 14pt;
-  &:nth-of-type(even) {
-    background: #F6F6F6;
-  }
+  border-bottom: solid 1px #BFC1C3; 
 `;
 
 const MobileHeading = styled.h3`

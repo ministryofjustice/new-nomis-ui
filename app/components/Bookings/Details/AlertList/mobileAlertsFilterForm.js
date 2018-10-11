@@ -40,7 +40,7 @@ const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleS
           }
 
           <label className="form-label date-range-label add-gutter-margin-bottom add-gutter-margin-top">
-            Date range
+            Added date
           </label>
 
           <Field
