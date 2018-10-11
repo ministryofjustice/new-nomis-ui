@@ -69,7 +69,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
       eliteApi.getPositiveCaseNotes({ context, bookingId, fromDate: threeMonthsInThePast, toDate: today }),
       eliteApi.getNegativeCaseNotes({ context, bookingId, fromDate: threeMonthsInThePast, toDate: today }),
       eliteApi.getContacts(context, bookingId),
-      eliteApi.getAdjudications({ context, bookingId, fromDate: threeMonthsInThePast }),
+      eliteApi.getAdjudications(context, bookingId),
       eliteApi.getLastVisit(context, bookingId),
       eliteApi.getNextVisit(context, bookingId),
       eliteApi.getRelationships(context, bookingId),
@@ -115,6 +115,11 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
       lastKWSessionDate = kwCaseNoteDates.reduce((m, v, i) => (v.latestCaseNote > m.latestCaseNote) && i ? v : m).latestCaseNote;
     }
 
+    function awardFilter(a) {
+      const status = a.status;
+      return status && !status.startsWith('SUSP') && status !== 'QUASHED';
+    }
+
     return {
       lastVisit: lastVisit && toLastVisit(lastVisit),
       nextVisit: nextVisit && toVisit(nextVisit),
@@ -140,7 +145,10 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
       indeterminateReleaseDate: Boolean(sentenceData && sentenceData.tariffDate && !sentenceData.releaseDate),
       adjudications: {
         proven: (adjudications && adjudications.adjudicationCount) || 0,
-        awards: (adjudications && adjudications.awards && adjudications.awards.map(award => toAward(award))) || [],
+        awards: (adjudications && adjudications.awards
+          && adjudications.awards
+            .filter(awardFilter)
+            .map(award => toAward(award))) || [],
       },
       nextOfKin: (contacts && contacts.nextOfKin && contacts.nextOfKin.map(contact => ({
         firstName: contact.firstName,

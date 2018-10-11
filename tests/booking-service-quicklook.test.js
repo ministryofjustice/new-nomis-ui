@@ -185,22 +185,12 @@ describe('Booking Service Quick look', () => {
     expect(toDate).to.equal(today);
   });
 
-  it('should call getAdjudications with fromDate three months in the past and be in iso formatted', async () => {
-    await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
-
-    const threeMonthsInThePast = moment().subtract(3, 'months').format(isoDateFormat);
-    const { fromDate } = eliteApi.getAdjudications.getCall(0).args[0];
-
-    expect(fromDate).to.equal(threeMonthsInThePast);
-  });
-
   it('should call return an empty awards array and a proven count of zero when no data is returned', async () => {
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
     expect(data.adjudications.proven).to.equal(0);
     expect(data.adjudications.awards.length).to.equal(0);
   });
-
 
   it('should call getAdjudications and populate the response with proven adjudication count', async () => {
     eliteApi.getAdjudications.returns({
@@ -216,28 +206,40 @@ describe('Booking Service Quick look', () => {
     expect(data.adjudications.proven).to.equal(2);
   });
 
-  it('should call getAdjudications and populate the response with awards formatted with duration and description', async () => {
+  it('should call getAdjudications and populate the response with filtered awards formatted with duration and description', async () => {
     eliteApi.getAdjudications.returns({
       awards: [
         {
+          status: 'IMMEDIATE',
           months: 10,
           sanctionCodeDescription: 'comment 1',
           comment: 'c1',
         },
         {
+          status: 'AS_AWARDED',
           days: 20,
           sanctionCodeDescription: 'comment 2',
           comment: 'c2',
         },
         {
+          status: 'IMMEDIATE',
           months: 1,
           sanctionCodeDescription: 'comment 3',
           comment: 'c3',
         },
         {
+          status: 'IMMEDIATE',
           days: 1,
           sanctionCodeDescription: 'comment 4',
           comment: 'c4',
+        },
+        {
+          status: 'SUSP_STATUS',
+          comment: 'NOT SHOWN',
+        },
+        {
+          status: 'QUASHED',
+          comment: 'NOT SHOWN',
         },
       ],
     });
@@ -245,6 +247,8 @@ describe('Booking Service Quick look', () => {
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO);
 
     const { awards } = data.adjudications;
+
+    expect(awards.length).to.equal(4);
 
     expect(awards[0].durationText).to.equal('10 months');
     expect(awards[0].sanctionCodeDescription).to.equal('comment 1');
@@ -267,6 +271,7 @@ describe('Booking Service Quick look', () => {
     eliteApi.getAdjudications.returns({
       awards: [
         {
+          status: 'IMMEDIATE',
           days: 1,
           sanctionCodeDescription: 'Stoppage of Earnings (%)',
           comment: 'c1',
@@ -274,6 +279,7 @@ describe('Booking Service Quick look', () => {
           limit: 50,
         },
         {
+          status: 'IMMEDIATE',
           days: 1,
           sanctionCodeDescription: 'Stoppage of Earnings (amount)',
           comment: 'c2',
@@ -281,6 +287,7 @@ describe('Booking Service Quick look', () => {
           limit: 50,
         },
         {
+          status: 'IMMEDIATE',
           days: 1,
           sanctionCodeDescription: 'Stoppage of Earnings',
           comment: 'c3',
@@ -288,6 +295,7 @@ describe('Booking Service Quick look', () => {
           limit: 50,
         },
         {
+          status: 'IMMEDIATE',
           days: 1,
           sanctionCodeDescription: 'Stoppage of Earnings',
           comment: 'c4',
@@ -310,10 +318,12 @@ describe('Booking Service Quick look', () => {
     eliteApi.getAdjudications.returns({
       awards: [
         {
+          status: 'IMMEDIATE',
           months: 10,
           days: 2,
         },
         {
+          status: 'IMMEDIATE',
           months: 1,
           days: 1,
         },

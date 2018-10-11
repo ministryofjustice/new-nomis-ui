@@ -26,14 +26,16 @@ const ThThird = styled(Th)`
   width: 33.333%;
 `;
 
-const TrBanded = styled.tr`
+const TrBody = styled.tr`
+  color: ${(props) => props.active ? 'black' : '#6F777B'};  
   &:nth-of-type(even) {
     background: #F6F6F6;
    }
 `;
 
 const Td = styled.td`
-  overflow-x: hidden;
+  vertical-align: top;
+  overflow: hidden;
   border: none;
   font-size: 16px;
   padding: 25px 15px 25px 0;
@@ -41,11 +43,7 @@ const Td = styled.td`
 
 const TdAlertType = styled(Td)`
   font-weight: bold;
-  color: ${(props) => props.active ? colours.bookings.details.alerts.warningTextColour : 'black'};
-`;
-
-const TdAlert = styled(Td)`
-  color: ${(props) => props.active ? 'black' : '#6F777B'};
+  ${(props) => props.active && `color: ${colours.bookings.details.alerts.warningTextColour}`};
 `;
 
 const TdNotes = styled(Td)`
@@ -57,7 +55,7 @@ const P = styled.p`
 `;
 
 const PMobile = styled(P)`
-overflow-x: hidden;
+overflow: hidden;
   font-size: 14px;
   line-height: 1.4;
 `;
@@ -67,11 +65,8 @@ const PAlertType = styled(PMobile)`
   color: ${(props) => props.active ? colours.bookings.details.alerts.warningTextColour : '#6F777B'};
 `;
 
-const PAlert = styled(PMobile)`
-  color: ${(props) => props.active ? 'black' : '#6F777B'};
-`;
-
 const MobileAlertRecord = styled.div`
+  color: ${(props) => props.active ? 'black' : '#6F777B'};
   padding: 11px 0 1px 0;
   font-size: 14pt;
   &:nth-of-type(even) {
@@ -101,7 +96,7 @@ const formatName = (alert, firstNameKey, lastNameKey) => {
   const firstName = alert.get(firstNameKey);
   const lastName = alert.get(lastNameKey);
   if (firstName) {
-    return lastName ? `${titleCase(firstName)}, ${titleCase(lastName)}` : titleCase(firstName);
+    return lastName ? `${titleCase(lastName)}, ${titleCase(firstName)}` : titleCase(firstName);
   }
   return lastName ? titleCase(lastName) : null;
 };
@@ -124,9 +119,9 @@ const DesktopAlertItems = ({ alerts, active }) => (
     </thead>
     <tbody>
     {alerts.map(alert => (
-      <TrBanded key={alert.get('alertId')}>
+      <TrBody active={active} key={alert.get('alertId')}>
         <TdAlertType active={active}>{formatAlertType(alert)}</TdAlertType>
-        <TdAlert active={active}>{formatAlert(alert)}</TdAlert>
+        <Td>{formatAlert(alert)}</Td>
         <TdNotes>{alert.get('comment') ? alert.get('comment') : '―'}</TdNotes>
         <Td>
           <P><FormattedDate value={alert.get('dateCreated')} /></P>
@@ -136,7 +131,7 @@ const DesktopAlertItems = ({ alerts, active }) => (
           <P>{ formatName(alert, 'addedByFirstName', 'addedByLastName') }</P>
           { !active && <P>{formatName(alert, 'expiredByFirstName', 'expiredByLastName')}</P> }
         </Td>
-      </TrBanded>
+      </TrBody>
     ))}
     </tbody>
   </Table>
@@ -147,17 +142,17 @@ const MobileAlertItems = ({ alerts, active }) => (
     { active ? <MobileHeading className="bold-medium">Active alerts</MobileHeading> : <MobileHeading className="bold-medium">Inactive alerts</MobileHeading> }
 
     {alerts.map(alert => (
-      <MobileAlertRecord>
-        <MobileRow className="row" key={`${alert.get('alertId')}A`}>
+      <MobileAlertRecord active={active} key={alert.get('alertId')}>
+        <MobileRow className="row" >
           <MobileColumn className="col-xs-6">
             <PAlertType active={active}>{formatAlertType(alert)}</PAlertType>
-            <PAlert active={active}>{formatAlert(alert)}</PAlert>
+            <PMobile active={active}>{formatAlert(alert)}</PMobile>
           </MobileColumn>
           <MobileColumn className="col-xs-6">
-            <PMobile>{alert.get('comment')}</PMobile>
+            <PMobile>{alert.get('comment') ? alert.get('comment') : '―'}</PMobile>
           </MobileColumn>
         </MobileRow>
-        <MobileRow className="row" key={`${alert.get('alertId')}B`}>
+        <MobileRow className="row">
           <MobileColumn className="col-xs-6">
             <PMobile><FormattedDate value={alert.get('dateCreated')} /></PMobile>
             {!active && <PMobile><FormattedDate value={alert.get('dateExpires')} /></PMobile>}
