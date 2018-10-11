@@ -42,7 +42,7 @@ const FilterForm = ({ handleSubmit, submitting, error, caseNoteFilters, locale, 
         </div>
         <div className="col-sm-12 col-md-6 no-left-gutter">
           <label className="form-label date-range-label hidden-md-down">
-            Occurence date
+            Occurrence date
           </label>
           <button type="button" className="pull-right link reset-filters-large clickable" onClick={resetFields}>
             Clear filters
@@ -65,7 +65,7 @@ const FilterForm = ({ handleSubmit, submitting, error, caseNoteFilters, locale, 
           }
 
           <label className="form-label date-range-label hidden add-gutter-margin-bottom add-gutter-margin-top">
-            Occurence date
+            Occurrence date
           </label>
 
           <div className="stack-dates">
