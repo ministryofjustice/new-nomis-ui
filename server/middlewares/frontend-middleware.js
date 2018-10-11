@@ -3,7 +3,9 @@ const express = require('express');
 const path = require('path');
 const compression = require('compression');
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
+const { googleTagManagerInjector } = require('../google-tag-manager-injector');
 const googleAnalyticsInjector = require('../google-analytics').inject;
+
 const config = require('../config');
 
 // Dev middleware
@@ -33,7 +35,6 @@ const addDevMiddlewares = (app, options, webpackConfig) => {
       res.sendFile(path.join(process.cwd(), pkg.dllPlugin.path, filename));
     });
   }
-
   app.get('*', (req, res) => {
     fs.readFile(path.join(compiler.outputPath, 'index.html'), (err, file) => {
       if (err) {
@@ -54,7 +55,11 @@ const addProdMiddlewares = (app, options) => {
   // smaller (applies also to assets). You can read more about that technique
   // and other good practices on official Express.js docs http://mxs.is/googmy
   app.use(compression());
-  app.use(googleAnalyticsInjector(config.analytics.google_analytics_id));
+  if (config.analytics.googleTagManagerId) {
+    app.use(googleTagManagerInjector(config.analytics.googleTagManagerId));
+  } else {
+    app.use(googleAnalyticsInjector(config.analytics.google_analytics_id));
+  }
   app.use(publicPath, express.static(outputPath));
 
   app.get('*', (req, res) => {

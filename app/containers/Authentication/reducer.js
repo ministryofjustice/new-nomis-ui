@@ -35,6 +35,8 @@ function authenticationReducer(state = initialState, action) {
     case USER_ME: {
       const { user } = action.payload;
 
+      window.currentCaseLoadId = user.activeCaseLoadId;
+
       const isKeyWorkerAdmin = Boolean(user.accessRoles && user.accessRoles
         .filter(r => (r.roleCode === 'OMIC_ADMIN'))
         .length > 0);
