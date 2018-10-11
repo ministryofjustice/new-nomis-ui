@@ -22,6 +22,7 @@ const app = {
 const analytics = {
   google_analytics_id: process.env.GOOGLE_ANALYTICS_ID || 'UA-106741063-1',
   appInsightsKey: process.env.APPINSIGHTS_INSTRUMENTATIONKEY || 'secret',
+  googleTagManagerId: process.env.GOOGLE_TAG_MANAGER_ID,
 };
 
 const hmppsCookie = {
