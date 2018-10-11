@@ -29,6 +29,6 @@ const googleTagManagerInjector = function (id) {
 };
 
 module.exports = {
-    googleTagManagerInjector,
+  googleTagManagerInjector,
 };
 
