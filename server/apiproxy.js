@@ -49,6 +49,7 @@ const onProxyResponse = (proxyRes, req, res) => {
   // If health check request, check and translate response content-type
   if (req.path === HEALTH_CHECK_PATH) {
     proxyRes.headers['content-type'] = 'application/json;charset=UTF-8'; // eslint-disable-line no-param-reassign
+    proxyRes.statusCode = 200;
 
     delete proxyRes.headers['content-length']; // eslint-disable-line no-param-reassign
 
