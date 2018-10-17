@@ -14,6 +14,7 @@ function getAppInfo() {
     name: packageData.name,
     version: buildVersion,
     description: packageData.description,
+    status: 'UP',
   };
 }
 
