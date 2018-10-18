@@ -25,7 +25,8 @@ class ResultsViewToggle extends Component {
   }
 
   setToggle(e) {
-    this.props.setResultsView(e.currentTarget.dataset.name);
+    const { setResultsView } = this.props;
+    setResultsView(e.currentTarget.dataset.name);
   }
 
   formatSVG() {

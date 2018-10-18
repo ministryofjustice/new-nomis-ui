@@ -100,14 +100,16 @@ class DateTimePicker extends PureComponent {
   }
 
   toggleEdit(e) {
+    const { edit } = this.state;
     e.preventDefault();
     this.setState({
-      edit: !this.state.edit,
+      edit: !edit,
     });
   }
 
   outputResult(value) {
-    if (this.props && this.props.input && this.props.input.onChange) { this.props.input.onChange(value); }
+    const { input } = this.props;
+    if (input && input.onChange) { input.onChange(value); }
   }
 
   render() {

@@ -66,7 +66,7 @@ class ScheduledEvents extends Component {
   }
 
   render() {
-    const scheduledEvents = this.props.scheduledEvents;
+    const { scheduledEvents } = this.props;
 
     if (!scheduledEvents && !scheduledEvents) {
       return null;
@@ -76,10 +76,11 @@ class ScheduledEvents extends Component {
       loadThisWeeksScheduledEvents,
       loadNextWeeksScheduledEvents,
       offenderNo,
-      currentFilter } = this.props;
+      currentFilter,
+      offenderDetails: { firstName, lastName }
+    } = this.props;
 
     const { thisWeek, nextWeek } = currentFilter.toJS();
-    const { firstName, lastName } = this.props.offenderDetails;
 
     return (<div className="whereabouts">
 

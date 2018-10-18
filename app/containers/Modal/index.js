@@ -11,11 +11,11 @@ import { selectModalOpen, selectModalData, selectDeviceFormat } from 'selectors/
 
 class ModalContainer extends Component {
   render() {
-    const { modalOpen, modalData, deviceFormat } = this.props;
+    const { modalOpen, modalData, deviceFormat, setModalOpen } = this.props;
 
     const modalForRender = deviceFormat === 'desktop' ?
-      <Modal modalData={modalData} setModalOpen={this.props.setModalOpen} /> :
-      <ModalMobile modalData={modalData} setModalOpen={this.props.setModalOpen} />;
+      <Modal modalData={modalData} setModalOpen={setModalOpen} /> :
+      <ModalMobile modalData={modalData} setModalOpen={setModalOpen} />;
 
     return modalOpen ? modalForRender : null;
   }

@@ -15,12 +15,12 @@ import { selectAlertTypes } from 'containers/Bookings/Details/Alerts/selectors';
 class AlertsFilterForm extends Component {
 
   componentDidMount() {
-    const { dispatchLoadAlertTypes, initialFilterValues } = this.props;
+    const { dispatchLoadAlertTypes, initialFilterValues, change } = this.props;
     dispatchLoadAlertTypes();
     const { alertType, fromDate, toDate } = initialFilterValues;
-    this.props.change('alertType', alertType);
-    this.props.change('fromDate', fromDate);
-    this.props.change('toDate', toDate);
+    change('alertType', alertType);
+    change('fromDate', fromDate);
+    change('toDate', toDate);
   }
 
   render() {

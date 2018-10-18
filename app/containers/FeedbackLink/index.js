@@ -33,10 +33,11 @@ class FeedbackLinkContainer extends React.Component {
   }
 
   render() {
+    const { user, feedbackUrl } = this.props;
     return (<FeedbackLink
       openWindow={this.openWindow}
-      user={this.props.user}
-      feedbackUrl={this.props.feedbackUrl}
+      user={user}
+      feedbackUrl={feedbackUrl}
     />)
   }
 }

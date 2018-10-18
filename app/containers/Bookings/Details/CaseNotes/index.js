@@ -27,14 +27,16 @@ class CaseNotes extends Component {
   }
 
   componentWillReceiveProps(props) {
-    if (this.props && this.props.caseNotes !== props.caseNotes) {
+    const { caseNotes } = this.props;
+    if (this.props && caseNotes !== props.caseNotes) {
       window.scrollTo(0,0);
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (!Map(prevProps.query).equals(Map(this.props.query))) {
-      this.props.loadCaseNotes(this.props.offenderNo, this.props.query);
+    const { query, loadCaseNotes, offenderNo } = this.props
+    if (!Map(prevProps.query).equals(Map(query))) {
+      loadCaseNotes(offenderNo, query);
     }
   }
 

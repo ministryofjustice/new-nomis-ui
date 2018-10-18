@@ -31,23 +31,26 @@ const ResultsViewBuilder = ({ viewName, results, onViewDetails, sortOrderChange,
 class SearchResults extends Component {
 
   componentDidMount() {
+    const { loadLocations } = this.props;
     this.refs.focuspoint.scrollIntoView();
-    this.props.loadLocations();
+    loadLocations();
     this.loadSearch();
   }
 
   componentDidUpdate(prevProps) {
-    if (JSON.stringify(prevProps.location.query) !== JSON.stringify(this.props.location.query)) {
+    const { location } = this.props;
+    if (JSON.stringify(prevProps.location.query) !== JSON.stringify(location.query)) {
       this.loadSearch();
     }
   }
 
   loadSearch() {
-    const { locationPrefix, keywords, alerts, perPage, pageNumber, sortOrder } = this.props.location.query;
-    const pagination = (perPage && pageNumber) ? { perPage, pageNumber } : this.props.pagination;
+    const { getSearchResults, location, pagination } = this.props;
+    const { locationPrefix, keywords, alerts, perPage, pageNumber, sortOrder } = location.query;
+    const paginationParam = (perPage && pageNumber) ? { perPage, pageNumber } : pagination;
 
     if (locationPrefix) {
-      this.props.getSearchResults({ locationPrefix, keywords, alerts, pagination, sortOrder });
+      getSearchResults({ locationPrefix, keywords, alerts, pagination: paginationParam, sortOrder });
     }
   }
 
@@ -58,15 +61,15 @@ class SearchResults extends Component {
       viewDetails,
       results,
       totalResults,
-      pagination,
+      pagination: { perPage: pP, pageNumber: pN },
       setPage,
       resultsView,
       shouldShowSpinner,
       showAlertTabForOffenderNo,
+      location: { query },
+      setResultsView,
+      toggleSortOrder
     } = this.props;
-
-    const { perPage: pP, pageNumber: pN } = pagination;
-    const { query } = this.props.location;
 
     return (
       <div className="booking-search">
@@ -79,7 +82,7 @@ class SearchResults extends Component {
         <div className="row toggle-and-count-view">
           {totalResults > 0 ?
             <div>
-              <ResultsViewToggle resultsView={resultsView} setResultsView={this.props.setResultsView} />
+              <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />
               <div>{Math.min((pP * pN) + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults} results</div>
             </div>
             : null}
@@ -94,7 +97,7 @@ class SearchResults extends Component {
                 viewName={resultsView}
                 results={results}
                 onViewDetails={viewDetails}
-                sortOrderChange={() => this.props.toggleSortOrder(sortOrder)}
+                sortOrderChange={() => toggleSortOrder(sortOrder)}
                 sortOrder={sortOrder}
                 showAlertTabForOffenderNo={showAlertTabForOffenderNo}
               />

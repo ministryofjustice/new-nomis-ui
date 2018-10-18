@@ -16,7 +16,8 @@ export class DatePicker extends Component {
   }
 
   handleChange(date) {
-    this.props.input.onChange(moment(date).format(DEFAULT_MOMENT_DATE_FORMAT_SPEC));
+    const { input } = this.props;
+    input.onChange(moment(date).format(DEFAULT_MOMENT_DATE_FORMAT_SPEC));
   }
 
   renderInput(props) {
@@ -28,7 +29,7 @@ export class DatePicker extends Component {
   }
 
   render() {
-    const { title,shouldShowDay,locale, showError, input, meta: { touched, error } } = this.props;
+    const { title, defaultValue, shouldShowDay,locale, showError, input, meta: { touched, error } } = this.props;
 
     return (
       <div className="date-picker-component">
@@ -51,7 +52,7 @@ export class DatePicker extends Component {
             closeOnSelect
             strictParsing
             renderInput={this.renderInput}
-            defaultValue={this.props.defaultValue}
+            defaultValue={defaultValue}
             value={input.value}
           />
 

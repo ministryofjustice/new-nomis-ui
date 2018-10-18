@@ -92,13 +92,13 @@ const ResultsView = ({ results, viewDetails }) => <div className="offender-table
 
 class Assignments extends Component {
   componentDidMount() {
-    const { user } = this.props;
+    const { user, setContext, loadAssignments, redirectToHome } = this.props;
 
     if (user && user.isKeyWorker) {
-      this.props.setContext('assignments');
-      this.props.loadAssignments();
+      setContext('assignments');
+      loadAssignments();
     } else {
-      this.props.redirectToHome();
+      redirectToHome();
     }
   }
 

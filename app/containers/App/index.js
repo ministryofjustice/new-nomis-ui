@@ -40,33 +40,43 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    this.props.retrieveUserMe();
+    const { retrieveUserMe } = this.props;
+    retrieveUserMe();
   }
 
   onBackgroundClick() {
-    this.props.setMenuOpen(false);
+    const { setMenuOpen } = this.props;
+    setMenuOpen(false);
   }
 
   requestExternalUrls() {
+    const {
+      setOmicUrl,
+      setWhereaboutsUrl,
+      setEstablishmentRollcheckUrl,
+      setFeedbackUrl,
+      setMailTo
+    } = this.props;
     axios.get('/config').then(response => {
-      this.props.setOmicUrl(response.data.omicUrl);
-      this.props.setWhereaboutsUrl(response.data.whereaboutsUrl);
-      this.props.setEstablishmentRollcheckUrl(response.data.establishmentRollcheckUrl);
-      this.props.setFeedbackUrl(response.data.url);
-      this.props.setMailTo(response.data.mailTo);
+      setOmicUrl(response.data.omicUrl);
+      setWhereaboutsUrl(response.data.whereaboutsUrl);
+      setEstablishmentRollcheckUrl(response.data.establishmentRollcheckUrl);
+      setFeedbackUrl(response.data.url);
+      setMailTo(response.data.mailTo);
     });
   }
 
   resizeWindow() {
+    const { setDeviceFormat } = this.props;
     if (window.innerWidth > 1024) {
-      this.props.setDeviceFormat('desktop');
+      setDeviceFormat('desktop');
     } else {
-      this.props.setDeviceFormat('mobile');
+      setDeviceFormat('mobile');
     }
   }
 
   render() {
-    const { shouldShowSpinner, shouldShowTerms, hideTermsAndConditions, menuOpen } = this.props;
+    const { shouldShowSpinner, shouldShowTerms, hideTermsAndConditions, menuOpen, router, params, children } = this.props;
 
     return (
       <div className="app-content">
@@ -81,8 +91,8 @@ export class App extends Component {
           <div className="nav-content">
             {!shouldShowTerms &&
                 <Breadcrumbs
-                  route={this.props.router.location.pathname}
-                  offenderNo={this.props.params.offenderNo}
+                  route={router.location.pathname}
+                  offenderNo={params.offenderNo}
                 /> }
           </div>
         </nav>
@@ -91,7 +101,7 @@ export class App extends Component {
           {shouldShowSpinner && <Spinner /> }
           {!shouldShowTerms &&
           <div className="main-content">
-            {React.Children.toArray(this.props.children)}
+            {React.Children.toArray(children)}
           </div>}
           {shouldShowTerms && <Terms close={() => hideTermsAndConditions()} />}
 

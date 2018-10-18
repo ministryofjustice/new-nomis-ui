@@ -19,7 +19,8 @@ class EliteOfficerName extends PureComponent { // eslint-disable-line react/pref
   }
 
   componentDidMount() {
-    this.props.loadOfficer();
+    const { loadOfficer } = this.props;
+    loadOfficer();
   }
 
   render() {

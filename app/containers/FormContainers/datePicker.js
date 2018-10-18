@@ -44,7 +44,8 @@ class renderDatePicker extends React.Component {
   }
 
   handleChange(date) {
-    this.props.input.onChange(moment(date).format(DEFAULT_MOMENT_DATE_FORMAT_SPEC));
+    const { input } = this.props;
+    input.onChange(moment(date).format(DEFAULT_MOMENT_DATE_FORMAT_SPEC));
   }
 
   render() {

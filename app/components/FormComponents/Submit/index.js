@@ -20,8 +20,9 @@ export default class Submit extends PureComponent {
   }
 
   render() {
+    const { value } = this.props;
     return (
-      <SubmitStyle type="submit" value={this.props.value} />
+      <SubmitStyle type="submit" value={value} />
     );
   }
 

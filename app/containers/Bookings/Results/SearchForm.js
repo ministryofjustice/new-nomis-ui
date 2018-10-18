@@ -11,9 +11,10 @@ import './SearchForm.scss';
 
 class SearchAgainForm extends Component {
   handleSubmit(event) {
+    const { onSubmit } = this.props;
     event.preventDefault();
     const formData = serialize(event.target, { hash: true });
-    this.props.onSubmit(formData);
+    onSubmit(formData);
   }
 
   render() {

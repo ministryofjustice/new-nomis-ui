@@ -15,8 +15,9 @@ class Input extends Component { // eslint-disable-line react/prefer-stateless-fu
 
 class FormGroup extends Component {  // eslint-disable-line react/prefer-stateless-function
   render() {
+    const { children } = this.props;
     return (<div className="form-group">
-      {this.props.children}
+      {children}
     </div>);
   }
 }

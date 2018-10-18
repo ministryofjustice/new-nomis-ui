@@ -26,10 +26,10 @@ import './index.scss';
 
 class AddAppointment extends Component {
   componentDidMount() {
-    const { loadViewModel, offendersAgencyId, offenderNo } = this.props;
+    const { loadViewModel, offendersAgencyId, offenderNo, viewDetails } = this.props;
 
     if (!offendersAgencyId) {
-      this.props.viewDetails(offenderNo);
+      viewDetails(offenderNo);
     } else {
       loadViewModel(offendersAgencyId);
     }
@@ -50,7 +50,7 @@ class AddAppointment extends Component {
       return <div></div>;
     }
 
-    if (this.props && this.props.error) {
+    if (error) {
       window.scrollTo(0,0);
     }
 

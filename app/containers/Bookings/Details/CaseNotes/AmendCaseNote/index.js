@@ -17,7 +17,7 @@ import './index.scss';
 const AmendCaseNote = (props) => {
   const { handleSubmit, error, submitting, goBackToBookingDetails, offenderNo, extendSession } = props;
 
-  if (this.props && this.props.error) {
+  if (error) {
     window.scrollTo(0,0);
   }
 

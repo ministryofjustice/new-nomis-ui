@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Image } from './theme';
 
-const EliteImage = (props) => (
+const EliteImage = ({ src }) => (
   <Image
-    src={props.src}
+    src={src}
   />
 )
 

@@ -16,7 +16,8 @@ import './homepage.scss';
 class HomePage extends Component {
 
   componentDidMount() {
-    this.props.loadLocations();
+    const { loadLocations } = this.props;
+    loadLocations();
   }
 
   render() {

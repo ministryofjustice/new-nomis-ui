@@ -19,8 +19,9 @@ export class LocaleToggle extends Component {
   };
 
   render() {
+    const { locale, onLocaleToggle } = this.props;
     return (
-      <Toggle value={this.props.locale} messages={translations} values={appLocales} onToggle={this.props.onLocaleToggle} />
+      <Toggle value={locale} messages={translations} values={appLocales} onToggle={onLocaleToggle} />
     );
   }
 }

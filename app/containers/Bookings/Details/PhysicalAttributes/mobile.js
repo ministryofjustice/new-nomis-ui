@@ -13,7 +13,7 @@ import { showLargePhoto } from '../../actions';
 
 class PhysicalAttributes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { physicalAttributes, physicalMarks } = this.props;
+    const { physicalAttributes, physicalMarks, setModalOpen, showVisualMarkingsPhoto } = this.props;
     const CharacteristicsTable = {
       title: 'Characteristics',
       columnWidths: [5, 8],
@@ -29,9 +29,9 @@ class PhysicalAttributes extends PureComponent { // eslint-disable-line react/pr
           rows: mark,
         }}
         modalGridArray={physicalMarks.modalGridArray}
-        setModalOpen={this.props.setModalOpen}
-        setModalData={this.props.setModalData}
-        onImageClick={this.props.showVisualMarkingsPhoto}
+        setModalOpen={setModalOpen}
+        setModalData={setModalData}
+        onImageClick={showVisualMarkingsPhoto}
       />)
     );
 
@@ -39,9 +39,9 @@ class PhysicalAttributes extends PureComponent { // eslint-disable-line react/pr
       <DataGrid
         gridData={CharacteristicsTable}
         modalGridArray={physicalAttributes.modalGridArray}
-        setModalOpen={this.props.setModalOpen}
-        setModalData={this.props.setModalData}
-        onImageClick={this.props.showVisualMarkingsPhoto}
+        setModalOpen={setModalOpen}
+        setModalData={setModalData}
+        onImageClick={showVisualMarkingsPhoto}
       />
       {marksArray}
     </div>);

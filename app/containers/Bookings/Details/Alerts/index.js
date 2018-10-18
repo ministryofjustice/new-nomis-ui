@@ -25,8 +25,9 @@ class Alerts extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!Map({ ...prevProps.pagination, ...prevProps.filter }).equals(Map({ ...this.props.pagination, ...this.props.filter }))) {
-      this.props.loadAlerts(this.props.offenderNo, this.props.pagination, this.props.filter);
+    const { loadAlerts, offenderNo, pagination, filter } = this.props;
+    if (!Map({ ...prevProps.pagination, ...prevProps.filter }).equals(Map({ ...pagination, ...filter }))) {
+      loadAlerts(offenderNo, pagination, filter);
     }
   }
 

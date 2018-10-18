@@ -35,7 +35,8 @@ class AddCaseNoteForm extends Component {
     }
   }
   componentDidMount() {
-    this.props.loadCaseNoteTypes();
+    const { loadCaseNoteTypes } = this.props;
+    loadCaseNoteTypes();
   }
 
   render() {
@@ -54,6 +55,7 @@ class AddCaseNoteForm extends Component {
 
     const sessionHandler = new SessionHeartbeatHandler(extendSession);
     const today = moment();
+    const { editDateTime } = this.state;
 
     return (
     <div className="add-case-note">
@@ -84,7 +86,7 @@ class AddCaseNoteForm extends Component {
           <strong > Occurrence date time </strong>
         </div>
 
-        {!this.state.editDateTime && <div className="row">
+        {!editDateTime && <div className="row">
             <div className="col-sm-3 col-md-3 col-xs-6 no-left-gutter add-gutter-bottom">
               <span>
                 <FormattedDate value={today.format()} />
@@ -104,7 +106,7 @@ class AddCaseNoteForm extends Component {
             </div>
         </div>}
 
-        {this.state.editDateTime && (
+        {editDateTime && (
             <div className="row">
               <div className="col-sm-3 col-md-2 col-xs-6 no-left-gutter event-date">
                 <Field

@@ -12,9 +12,10 @@ import './searchForm.scss';
 class SearchForm extends Component {
 
   handleSubmit(event) {
+    const { onSubmit } = this.props;
     event.preventDefault();
     const formData = serialize(event.target, { hash: true });
-    this.props.onSubmit(formData);
+    onSubmit(formData);
   }
   render() {
     const { locations, defaultLocationPrefix, error } = this.props;

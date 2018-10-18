@@ -46,10 +46,10 @@ const parseActiveTab = (needle) => {
 
 class Details extends Component {
   componentDidMount() {
-    const { activeTab, offenderNo, itemId } = this.props.params;
+    const { viewDetails, params: { activeTab, offenderNo, itemId } } = this.props;
     const tab = parseActiveTab(activeTab);
 
-    this.props.viewDetails(offenderNo, tab, itemId);
+    viewDetails(offenderNo, tab, itemId);
   }
 
   render() {
@@ -60,6 +60,7 @@ class Details extends Component {
       hidePhoto,
       params,
       location,
+      viewDetails
     } = this.props;
 
     const activeTabId = parseActiveTab(params.activeTab);
@@ -93,14 +94,14 @@ class Details extends Component {
           <TabNav
             tabData={tabData.map((tab) => Object.assign(tab, { action: () => {
               analyticsService.pageView(`offender details - ${tab.title}`);
-              this.props.viewDetails(offenderNo, tab.tabId, itemId);
+              viewDetails(offenderNo, tab.tabId, itemId);
             } }))}
             activeTabId={activeTabId}
           /> :
           <TabNavMobile
             tabData={tabData.map((tab) => Object.assign(tab, { action: () => {
               analyticsService.pageView(`offender details - ${tab.title}`);
-              this.props.viewDetails(offenderNo, tab.tabId, itemId);
+              viewDetails(offenderNo, tab.tabId, itemId);
             } }))}
             activeTabId={activeTabId}
           />}

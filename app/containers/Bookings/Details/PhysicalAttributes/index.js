@@ -11,7 +11,7 @@ import { selectPhysicalAttributes, selectPhysicalMarks } from '../../selectors';
 
 class PhysicalAttributes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { physicalAttributes, physicalMarks } = this.props;
+    const { physicalAttributes, physicalMarks, setModalOpen,setModalData } = this.props;
     const CharacteristicsTable = {
       title: 'Characteristics',
       columnWidths: [3, 4],
@@ -27,8 +27,8 @@ class PhysicalAttributes extends PureComponent { // eslint-disable-line react/pr
           rows: mark,
         }}
         modalGridArray={physicalMarks.modalGridArray}
-        setModalOpen={this.props.setModalOpen}
-        setModalData={this.props.setModalData}
+        setModalOpen={setModalOpen}
+        setModalData={setModalData}
       />)
     );
 
@@ -36,8 +36,8 @@ class PhysicalAttributes extends PureComponent { // eslint-disable-line react/pr
       <DataGrid
         gridData={CharacteristicsTable}
         modalGridArray={physicalAttributes.modalGridArray}
-        setModalOpen={this.props.setModalOpen}
-        setModalData={this.props.setModalData}
+        setModalOpen={setModalOpen}
+        setModalData={setModalData}
       />
       {marksArray}
     </div>);
