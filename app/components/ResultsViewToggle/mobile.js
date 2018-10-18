@@ -86,7 +86,7 @@ class ResultsViewToggleMobile extends Component {
 }
 
 ResultsViewToggleMobile.propTypes = {
-  resultsView: PropTypes.string.isRequired,
+  resultsView: PropTypes.string,
   setResultsView: PropTypes.func.isRequired,
 };
 

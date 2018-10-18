@@ -112,7 +112,8 @@ class Details extends Component {
 }
 
 Details.propTypes = {
-  deviceFormat: PropTypes.string.isRequired,
+  deviceFormat: PropTypes.string,
+  activeTabId: PropTypes.string,
 };
 
 Details.defaultProps = {

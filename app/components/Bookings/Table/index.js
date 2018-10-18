@@ -94,7 +94,7 @@ Table.defaultProps = {
 
 Table.propTypes = {
   results: ImmutablePropTypes.list.isRequired,
-  sortOrderChange: PropTypes.func.isRequired,
+  sortOrderChange: PropTypes.func,
   sortOrder: PropTypes.string.isRequired,
 };
 

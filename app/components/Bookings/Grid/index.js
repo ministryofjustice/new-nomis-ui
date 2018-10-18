@@ -66,7 +66,7 @@ Grid.defaultProps = {
 Grid.propTypes = {
   results: ImmutablePropTypes.list.isRequired,
   viewDetails: PropTypes.func.isRequired,
-  sortOrderChange: PropTypes.func.isRequired,
+  sortOrderChange: PropTypes.func,
   sortOrder: PropTypes.string.isRequired,
 
 };

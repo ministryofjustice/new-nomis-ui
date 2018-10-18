@@ -24,7 +24,7 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  headerDetails: ImmutablePropTypes.map.isRequired,
+  headerDetails: ImmutablePropTypes.map,
 };
 
 Header.defaultProps = {

@@ -25,7 +25,7 @@ HeaderContainer.contextTypes = {
 };
 
 HeaderContainer.propTypes = {
-  menuOpen: PropTypes.bool.isRequired,
+  menuOpen: PropTypes.bool,
   setMenuOpen: PropTypes.func,
   switchCaseLoad: PropTypes.func.isRequired,
   user: PropTypes.object,

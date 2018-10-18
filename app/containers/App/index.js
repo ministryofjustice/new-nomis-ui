@@ -119,7 +119,7 @@ App.propTypes = {
   children: PropTypes.node,
   setDeviceFormat: PropTypes.func,
   router: PropTypes.object.isRequired,
-  setMenuOpen: PropTypes.func.isRequired,
+  setMenuOpen: PropTypes.func,
 };
 
 App.defaultProps = {

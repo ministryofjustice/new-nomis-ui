@@ -15,8 +15,8 @@ function MenuToggle({ menuOpen, toggleMenu }) {
 }
 
 MenuToggle.propTypes = {
-  menuOpen: PropTypes.bool.isRequired,
-  toggleMenu: PropTypes.func.isRequired,
+  menuOpen: PropTypes.bool,
+  toggleMenu: PropTypes.func,
 };
 
 MenuToggle.defaultProps = {

@@ -114,7 +114,7 @@ class SearchResults extends Component {
 }
 
 SearchResults.propTypes = {
-  results: ImmutablePropTypes.list.isRequired,
+  results: ImmutablePropTypes.list,
   viewDetails: PropTypes.func.isRequired,
   totalResults: PropTypes.number,
   pagination: PropTypes.object.isRequired,
