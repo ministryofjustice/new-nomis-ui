@@ -2,7 +2,7 @@ import React from 'react';
 import { Map } from 'immutable';
 import { shallow } from 'enzyme';
 
-import Header from './header.js';
+import Header from './header';
 
 const allAlerts = [Map({ alertCode: 'HA' }),Map({ alertCode: 'XSA' }),Map({ alertCode: 'XA' }),Map({ alertCode: 'PEEP' })];
 const irrelevantAlerts = [Map({ alertCode: 'HA', expired: true }),Map({ alertCode: 'XSA', expired: true }),Map({ alertCode: 'XR' }),Map({ alertCode: 'TAH' })];

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { shallow } from 'enzyme';
 
-import ActionLinks, { KeyWorkerAdminLink, MyAllocationsLink, EstablishmentRollCheckLink } from '../index.js';
+import ActionLinks, { KeyWorkerAdminLink, MyAllocationsLink, EstablishmentRollCheckLink } from '../index';
 
 describe('Actions component', () => {
   it('should only show the my allocations link when the user is a key worker', () => {
