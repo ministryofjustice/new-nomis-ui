@@ -60,7 +60,7 @@ class Details extends Component {
       hidePhoto,
       params,
       location,
-      viewDetails
+      viewDetails,
     } = this.props;
 
     const activeTabId = parseActiveTab(params.activeTab);
@@ -113,12 +113,10 @@ class Details extends Component {
 
 Details.propTypes = {
   deviceFormat: PropTypes.string,
-  activeTabId: PropTypes.string,
 };
 
 Details.defaultProps = {
   deviceFormat: '',
-  activeTabId: '',
 };
 
 export function mapDispatchToProps(dispatch) {

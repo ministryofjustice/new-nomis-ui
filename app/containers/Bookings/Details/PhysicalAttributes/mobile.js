@@ -11,7 +11,7 @@ import { selectPhysicalAttributes, selectPhysicalMarks } from '../../selectors';
 
 import { showLargePhoto } from '../../actions';
 
-class PhysicalAttributes extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+class PhysicalAttributes extends PureComponent {
   render() {
     const { physicalAttributes, physicalMarks, setModalOpen, showVisualMarkingsPhoto } = this.props;
     const CharacteristicsTable = {
@@ -52,7 +52,6 @@ PhysicalAttributes.propTypes = {
   physicalAttributes: PropTypes.object.isRequired,
   physicalMarks: PropTypes.object.isRequired,
   setModalOpen: PropTypes.func.isRequired,
-  setModalData: PropTypes.func.isRequired,
 };
 
 export function mapDispatchToProps(dispatch) {
