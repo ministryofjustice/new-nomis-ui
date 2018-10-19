@@ -76,7 +76,6 @@
     "import/extensions": 0,
     "lines-between-class-members": 0,
     "no-template-curly-in-string": 0,
-    "no-var": 0,
     "react/style-prop-object": 0,
     "import/no-webpack-loader-syntax": 0,
     "jsx-a11y/interactive-supports-focus": 0,
