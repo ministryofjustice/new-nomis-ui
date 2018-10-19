@@ -37,6 +37,6 @@ export default ({ close }) => {
         Prison-NOMIS could result in disciplinary proceedings and / or criminal prosecution.
       </p>
     </div>
-    <button className="button" onClick={close}>OK, continue</button>
+    <button className="button" onClick={close} type="button">OK, continue</button>
   </div>)
 }

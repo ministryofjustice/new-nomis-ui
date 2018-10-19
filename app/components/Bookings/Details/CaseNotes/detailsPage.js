@@ -117,7 +117,7 @@ const CaseNoteDetails = (props) => {
           {amendmentList}
 
           {sameCreator(props) && <div className="add-gutter-top add-gutter-bottom">
-            <button className="button-cancel" onClick={() => addAmendment(offenderNo, caseNoteId)}>Make amendment</button>
+            <button type="button" className="button-cancel" onClick={() => addAmendment(offenderNo, caseNoteId)}>Make amendment</button>
           </div>}
         </div>
 

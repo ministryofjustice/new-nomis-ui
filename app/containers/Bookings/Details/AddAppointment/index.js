@@ -163,6 +163,7 @@ class AddAppointment extends Component {
           <div className="col-md-4 no-left-gutter">
             <button className="button add-gutter-margin-right" type="submit" disabled={submitting}> Add appointment </button>
             <button
+              type="button"
               className="button button-cancel" onClick={(e) => {
                 e.preventDefault();
                 goBackToBookingDetails(offenderNo);

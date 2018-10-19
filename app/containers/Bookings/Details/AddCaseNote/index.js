@@ -97,6 +97,7 @@ class AddCaseNoteForm extends Component {
               </span>
               <span>
                  <button
+                  type="button"
                    name="change-date-time"
                    className="link" onClick={() => this.setState({
                      editDateTime: !this.editDateTime,
@@ -142,7 +143,7 @@ class AddCaseNoteForm extends Component {
             </button>
 
             <button
-              className="button button-cancel" type="reset" onClick={(e) => {
+              className="button button-cancel" type="button" onClick={(e) => {
                 e.preventDefault();
                 goBackToBookingDetails(offenderNo);
               }}
