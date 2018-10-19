@@ -98,8 +98,7 @@ class ScheduledEvents extends Component {
                 value="Yes"
                 onClick={() => loadThisWeeksScheduledEvents(offenderNo)}
                 onChange={(event) => event.preventDefault()}
-              >
-              </input>
+              />
               <label>This week</label>
             </div>
           </div>
@@ -113,8 +112,7 @@ class ScheduledEvents extends Component {
               value="Yes"
               onClick={() => loadNextWeeksScheduledEvents(offenderNo)}
               onChange={(event) => event.preventDefault()}
-            >
-            </input>
+            />
             <label>Next week</label>
           </div>
         </div>
