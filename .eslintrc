@@ -81,7 +81,6 @@
     "jsx-a11y/interactive-supports-focus": 0,
     "react/no-unused-state": 0,
     "react/self-closing-comp": 0,
-    "react/no-multi-comp": 0,
     "react/default-props-match-prop-types": 0,
     "import/prefer-default-export": 0,
     "radix": 0,
