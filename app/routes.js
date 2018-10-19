@@ -49,10 +49,10 @@ export default function createRoutes(store) {
       onEnter: onEnter({ routeName: 'homepage' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/HomePage/reducers'),
-          System.import('containers/Bookings/reducers'),
-          System.import('containers/Bookings/sagas'),
-          System.import('containers/HomePage'),
+          import('containers/HomePage/reducers'),
+          import('containers/Bookings/reducers'),
+          import('containers/Bookings/sagas'),
+          import('containers/HomePage'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -73,9 +73,9 @@ export default function createRoutes(store) {
       onEnter: onEnter({ routeName: 'addCaseNote' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Bookings/reducers'),
-          System.import('containers/Bookings/sagas'),
-          System.import('containers/Bookings/Details/AddCaseNote'),
+          import('containers/Bookings/reducers'),
+          import('containers/Bookings/sagas'),
+          import('containers/Bookings/Details/AddCaseNote'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -95,9 +95,9 @@ export default function createRoutes(store) {
       onEnter: onEnter({ routeName: 'my key worker allocations' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Bookings/reducers'),
-          System.import('containers/Bookings/sagas'),
-          System.import('containers/Assignments'),
+          import('containers/Bookings/reducers'),
+          import('containers/Bookings/sagas'),
+          import('containers/Assignments'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -117,9 +117,9 @@ export default function createRoutes(store) {
       onEnter: onEnter({ routeName: 'search results' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Bookings/reducers'),
-          System.import('containers/Bookings/sagas'),
-          System.import('containers/Bookings/Results'),
+          import('containers/Bookings/reducers'),
+          import('containers/Bookings/sagas'),
+          import('containers/Bookings/Results'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -139,9 +139,9 @@ export default function createRoutes(store) {
       onEnter: onEnter({ routeName: 'scheduled 7 day view' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Bookings/reducers'),
-          System.import('containers/Bookings/sagas'),
-          System.import('containers/Bookings/Details/Scheduled'),
+          import('containers/Bookings/reducers'),
+          import('containers/Bookings/sagas'),
+          import('containers/Bookings/Details/Scheduled'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -161,9 +161,9 @@ export default function createRoutes(store) {
       onEnter: onEnter({ routeName: 'Add appointment' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Bookings/reducers'),
-          System.import('containers/Bookings/sagas'),
-          System.import('containers/Bookings/Details/AddAppointment'),
+          import('containers/Bookings/reducers'),
+          import('containers/Bookings/sagas'),
+          import('containers/Bookings/Details/AddAppointment'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -183,9 +183,9 @@ export default function createRoutes(store) {
       onEnter: onEnter({ routeName: 'amendCaseNote' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Bookings/Details/CaseNotes/AmendCaseNote'),
-          System.import('containers/Bookings/sagas'),
-          System.import('containers/EliteApiLoader/reducer'),
+          import('containers/Bookings/Details/CaseNotes/AmendCaseNote'),
+          import('containers/Bookings/sagas'),
+          import('containers/EliteApiLoader/reducer'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -205,9 +205,9 @@ export default function createRoutes(store) {
       onEnter: onEnter({ routeName: 'offender details' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Bookings/reducers'),
-          System.import('containers/Bookings/sagas'),
-          System.import('containers/Bookings/Details'),
+          import('containers/Bookings/reducers'),
+          import('containers/Bookings/sagas'),
+          import('containers/Bookings/Details'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -227,9 +227,9 @@ export default function createRoutes(store) {
       onEnter: onEnter({ routeName: 'search results' }),
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Bookings/reducers'),
-          System.import('containers/Bookings/sagas'),
-          System.import('containers/Bookings/Details'),
+          import('containers/Bookings/reducers'),
+          import('containers/Bookings/sagas'),
+          import('containers/Bookings/Details'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -249,7 +249,7 @@ export default function createRoutes(store) {
       name: 'notfound',
       onEnter: onEnter({ routeName: 'notfound' }),
       getComponent(nextState, cb) {
-        System.import('containers/NotFoundPage')
+        import('containers/NotFoundPage')
           .then(loadModule(cb))
           .catch(errorLoading);
       },

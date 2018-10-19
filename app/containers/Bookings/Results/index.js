@@ -61,6 +61,7 @@ class SearchResults extends Component {
       viewDetails,
       results,
       totalResults,
+      pagination,
       pagination: { perPage: pP, pageNumber: pN },
       setPage,
       resultsView,
