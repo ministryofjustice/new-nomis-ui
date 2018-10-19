@@ -23,7 +23,7 @@ class HomePage extends Component {
   render() {
     const { user, locations, omicUrl, whereaboutsUrl, establishmentRollcheckUrl } = this.props;
     if (!user) {
-      return <div></div>
+      return <div />
     }
 
     return (<div>

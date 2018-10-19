@@ -45,7 +45,7 @@ export const EstablishmentRollCheckLink = ({ establishmentRollCheckUrl }) => (
 
 const ActionLinks = ({ isKeyWorkerAdmin, isKeyWorker, isWhereabouts, omicUrl, whereaboutsUrl, establishmentRollcheckUrl }) => {
   if (!isKeyWorker && !isKeyWorkerAdmin && !isWhereabouts && !establishmentRollcheckUrl) {
-    return <div></div>
+    return <div />
   }
 
   return (<div className="action-links">

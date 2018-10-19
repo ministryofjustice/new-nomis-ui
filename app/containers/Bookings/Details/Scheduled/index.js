@@ -120,7 +120,7 @@ class ScheduledEvents extends Component {
       </div>
 
       <div className="row hidden-lg-down">
-        <div className="col-lg-1"></div>
+        <div className="col-lg-1" />
         <div className="col-lg-3 add-gutter-margin-left">
           <h1 className="heading-medium">Morning (AM)</h1>
         </div>

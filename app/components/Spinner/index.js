@@ -34,8 +34,7 @@ class Spinner extends Component {
         <h2 className="heading-large">
           Loading
         </h2>
-         <div ref="spinner">
-         </div>
+         <div ref="spinner" />
       </div>
     </div>)
   }

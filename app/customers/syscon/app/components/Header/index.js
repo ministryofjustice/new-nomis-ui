@@ -13,7 +13,7 @@ export default ({ user, switchCaseLoad, menuOpen, setMenuOpen }) => (
            <div className="brand-header">
 
              <span className="section" to="/">
-               <img src="/img/Syscon_logo.svg"></img>
+               <img src="/img/Syscon_logo.svg" />
              </span>
 
              <span className="section">
@@ -22,7 +22,7 @@ export default ({ user, switchCaseLoad, menuOpen, setMenuOpen }) => (
                </h1>
              </span>
              <span className="section desktop-only">
-               <span className="divider"></span>
+               <span className="divider" />
              </span>
 
              <span className="section desktop-only">

@@ -126,13 +126,13 @@ function CaseNoteListItem(props) {
             <span className="col-md-12">
               <FormattedDate value={creationDateTime} />
             </span>
-            <Separator className="hidden-md hidden-lg hidden-lx"> </Separator>
+            <Separator className="hidden-md hidden-lg hidden-lx" />
             <span className="col-md-12">
               <FormattedTime value={creationDateTime} />
             </span>
           </Bold>
 
-          <Separator className="hidden-md hidden-lg hidden-xl"> </Separator>
+          <Separator className="hidden-md hidden-lg hidden-xl" />
           <span className="col-md-12">{authorName}</span>
         </Block>
 

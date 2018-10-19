@@ -6,10 +6,10 @@ import './toggle.scss';
 function MenuToggle({ menuOpen, toggleMenu }) {
   return (
       <div id="nav-icon" onClick={toggleMenu} className={menuOpen ? 'open' : ''}>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+        <span />
+        <span />
+        <span />
+        <span />
       </div>
   );
 }

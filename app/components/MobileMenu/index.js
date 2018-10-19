@@ -50,7 +50,7 @@ function MobileMenu({ user, setMenuOpen, showTerms, switchCaseLoad }) {
           showTerms();
         }}
       >Terms and conditions</MobileMenuAdditionalOption>
-      <MobileMenuSignature></MobileMenuSignature>
+      <MobileMenuSignature />
     </MobileMenuContainer>
   );
 }

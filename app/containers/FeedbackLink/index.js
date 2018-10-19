@@ -17,7 +17,7 @@ export const FeedbackLink = ({ user, feedbackUrl, openWindow }) => (user && feed
             > feedback </a> will to help us improve this service. </span>
         </div>
       </div>
-    </div>) || <div></div>
+    </div>) || <div />
 
 class FeedbackLinkContainer extends React.Component {
 

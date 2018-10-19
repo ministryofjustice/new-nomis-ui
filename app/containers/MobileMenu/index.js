@@ -19,7 +19,7 @@ const MobileMenu = (props) => {
   } = props;
 
   if (!user) {
-    return <div></div>
+    return <div />
   }
 
   return (

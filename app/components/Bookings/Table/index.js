@@ -25,8 +25,7 @@ const Table = ({ results, sortOrder, sortOrderChange, onAlertFlagClick }) => (
   <div className="booking-table">
     <div className="row">
 
-      <div className="col-xs-3 col-md-1 remove-left-padding">
-      </div>
+      <div className="col-xs-3 col-md-1 remove-left-padding" />
 
       <div className="col-xs-3 col-md-3">
         <b> Name </b> {sortOrderChange &&

@@ -136,8 +136,7 @@ export const Activities = ({ activities, period }) => (
         {activities.map((activity,index) =>
           (<div className={`row border-bottom-line ${index === 0 && 'no-top-gutter'}`} key={uuid()}>
 
-            <div className="col-lg-6 col-xs-6">
-            </div>
+            <div className="col-lg-6 col-xs-6" />
 
             <div className="col-lg-6 col-xs-6">
               <span>
@@ -156,7 +155,7 @@ export const Activities = ({ activities, period }) => (
             </div>
 
             <div className="row add-padding-bottom">
-              <div className="col-lg-6 col-xs-6"></div>
+              <div className="col-lg-6 col-xs-6" />
               <div className="col-lg-6 col-xs-6">
                 {activity.get('startTime') && <FormattedTime value={activity.get('startTime')} />}
                 {activity.get('endTime') &&
