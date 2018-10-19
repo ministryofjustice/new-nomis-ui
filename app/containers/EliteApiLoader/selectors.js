@@ -201,7 +201,7 @@ const selectUserCaseLoads = () => createSelector(
   selectUser(),
   (userState) => {
     const CaseLoadState = userState.getIn(['CaseLoads', 'Data']);
-    return CaseLoadState ? CaseLoadState : List([]);
+    return CaseLoadState || List([]);
   }
 );
 

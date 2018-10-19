@@ -20,7 +20,7 @@ const selectCaseNotesPaginationItem = () => createSelector(
   (caseNotes, pagination) => {
     const thisPageOfCaseNotes = caseNotes ? caseNotes.getIn(['Paginations', paginationHash(pagination)]) : undefined;
     // Setting some defaults in this selector... maybe this is bad form.
-    return thisPageOfCaseNotes ? thisPageOfCaseNotes : fromJS({ Status: { Type: 'Not Even Loading' }, items: [] });
+    return thisPageOfCaseNotes || fromJS({ Status: { Type: 'Not Even Loading' }, items: [] });
   }
 );
 

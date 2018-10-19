@@ -122,7 +122,7 @@ export function* officerLoadSaga(action) {
   }
 
   // First check to see if this officer already been loaded (either by staffId or username).
-  const officerKey = (staffId) ? staffId : username;
+  const officerKey = staffId || username;
   const currentStatus = yield select(selectOfficerStatus(), { officerKey });
 
   if (currentStatus.Type === 'SUCCESS' || currentStatus.Type === 'LOADING') {

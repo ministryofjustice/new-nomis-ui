@@ -54,7 +54,7 @@ const onProxyResponse = (proxyRes, req, res) => {
 
     delete proxyRes.headers['content-length']; // eslint-disable-line no-param-reassign
 
-    modifyResponse(res, proxyRes.headers['content-encoding'], (body) => healthCheckResponse(body ? body : 'DOWN'));
+    modifyResponse(res, proxyRes.headers['content-encoding'], (body) => healthCheckResponse(body || 'DOWN'));
   }
 };
 
