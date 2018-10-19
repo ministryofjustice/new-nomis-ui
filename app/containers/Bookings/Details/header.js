@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { Map } from 'immutable';
 import { connect } from 'react-redux';
@@ -25,6 +26,8 @@ class Header extends Component {
 
 Header.propTypes = {
   headerDetails: ImmutablePropTypes.map,
+  showPhoto: PropTypes.func,
+  showAlertTabForOffenderNo: PropTypes.func,
 };
 
 Header.defaultProps = {

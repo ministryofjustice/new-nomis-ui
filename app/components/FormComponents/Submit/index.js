@@ -5,18 +5,11 @@ import { SubmitStyle } from './submit.theme';
 export default class Submit extends PureComponent {
 
   static propTypes = {
-    value: PropTypes.string,
-    // large: PropTypes.bool,
-    // blue: PropTypes.bool,
-    // center: PropTypes.bool,
-    // className: PropTypes.string,
+    value: PropTypes.string
   }
 
   static defaultProps = {
-    value: 'Submit',
-    large: false,
-    blue: false,
-    center: false,
+    value: 'Submit'
   }
 
   render() {

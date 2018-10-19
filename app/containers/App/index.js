@@ -120,6 +120,7 @@ App.propTypes = {
   setDeviceFormat: PropTypes.func,
   router: PropTypes.object.isRequired,
   setMenuOpen: PropTypes.func,
+  retrieveUserMe: PropTypes.func
 };
 
 App.defaultProps = {

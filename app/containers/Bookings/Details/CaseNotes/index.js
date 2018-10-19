@@ -80,10 +80,10 @@ CaseNotes.propTypes = {
   offenderNo: PropTypes.string.isRequired,
   query: PropTypes.object.isRequired,
   loadCaseNotes: PropTypes.func.isRequired,
+  totalResults: PropTypes.number,
 };
 
 CaseNotes.defaultProps = {
-  caseNotesStatus: {},
   totalResults: 0,
 };
 

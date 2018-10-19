@@ -59,6 +59,10 @@ MobileMenu.propTypes = {
   user: PropTypes.object,
   setMenuOpen: PropTypes.func.isRequired,
   switchCaseLoad: PropTypes.func.isRequired,
+  options: PropTypes.shape({
+    assignments: PropTypes.number,
+    facilities: PropTypes.array
+  })
 };
 
 MobileMenu.defaultProps = {

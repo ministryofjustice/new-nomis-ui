@@ -126,7 +126,6 @@ FilterForm.propTypes = {
 FilterForm.defaultProps = {
   locale: 'en',
   error: '',
-  isMobile: false,
 };
 
 export const validate = (form) => {
