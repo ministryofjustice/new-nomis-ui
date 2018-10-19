@@ -54,7 +54,7 @@ export const bookingAlerts = (baseUrl, offenderNo, pagination, filter) => {
   })
     .then((response) => ({
       alerts: response.data,
-      totalRecords: parseInt(response.headers['total-records']),
+      totalRecords: parseInt(response.headers['total-records'], 10),
     })
   );
 };
@@ -122,7 +122,7 @@ export const bookingCaseNotes = (baseUrl, { offenderNo, query }) => {
     url: `/bookings/${offenderNo}/caseNotes${queryParams}` })
     .then((response) => ({
       data: response.data,
-      totalRecords: parseInt(response.headers['total-records']),
+      totalRecords: parseInt(response.headers['total-records'], 10),
     }));
 };
 
@@ -302,7 +302,7 @@ export const searchOffenders = ({ baseUrl, query,
     withCredentials: true,
   }).then((response) => ({
     bookings: response.data,
-    totalRecords: parseInt(response.headers['total-records']),
+    totalRecords: parseInt(response.headers['total-records'], 10),
   }));
 
 export const loadKeyDates = (offenderNo) => axios({

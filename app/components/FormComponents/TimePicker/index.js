@@ -26,7 +26,7 @@ const constructMinutes = ({ selectedHour, dateTime, futureTimeOnly, enableFilter
     return minutes;
   }
 
-  if (dateTime.hour() === parseInt(selectedHour)) {
+  if (dateTime.hour() === parseInt(selectedHour, 10)) {
     const filter = futureTimeOnly ? (unit => unit >= dateTime.minute()) : (unit => unit <= dateTime.minute());
     return ['--', ...minutes.filter(filter)];
   }
@@ -99,8 +99,8 @@ class TimePicker extends Component {
     if (data.hours && data.hours !== '--' && data.minutes !== '--') {
       const selectedDate = (date && moment(date, DATE_ONLY_FORMAT_SPEC)) || moment();
 
-      selectedDate.hours(parseInt(data.hours));
-      selectedDate.minutes(parseInt(data.minutes || 0));
+      selectedDate.hours(parseInt(data.hours, 10));
+      selectedDate.minutes(parseInt(data.minutes || 0, 10));
       selectedDate.seconds(0);
 
       input.onChange(selectedDate.format(DATE_TIME_FORMAT_SPEC));

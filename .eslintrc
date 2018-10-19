@@ -77,7 +77,6 @@
     "react/self-closing-comp": 0,
     "react/default-props-match-prop-types": 0,
     "import/prefer-default-export": 0,
-    "radix": 0,
     "one-var": 0,
     "import/no-dynamic-require": 0,
     "react/void-dom-elements-no-children": 0,
