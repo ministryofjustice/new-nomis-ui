@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { Map } from 'immutable';
@@ -9,10 +9,9 @@ import BookingsDetailsHeader from 'components/Bookings/Details/header';
 import { showLargePhoto, viewDetails } from '../actions';
 import { DETAILS_TABS } from '../constants';
 
-class Header extends Component { 
-  render() {
-    const { headerDetails, showPhoto, offenderNo, showAlertTabForOffenderNo } = this.props;
+const Header = ({ headerDetails, showPhoto, offenderNo, showAlertTabForOffenderNo }) => {
     const showAlertTab = () => showAlertTabForOffenderNo(offenderNo);
+
     return (
       <BookingsDetailsHeader
         offenderNo={offenderNo}
@@ -21,8 +20,7 @@ class Header extends Component {
         onAlertFlagClick={showAlertTab}
       />
     );
-  }
-}
+};
 
 Header.propTypes = {
   headerDetails: ImmutablePropTypes.map,
