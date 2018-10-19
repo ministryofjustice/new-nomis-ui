@@ -1,6 +1,6 @@
 const sinon = require('sinon');
-const chai = require('chai'),
-  expect = chai.expect;
+const chai = require('chai');
+const expect = chai.expect;
 const sinonChai = require('sinon-chai');
 
 const eliteApiFactory = require('../server/api/eliteApi').eliteApiFactory;
