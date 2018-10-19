@@ -25,7 +25,6 @@ import './index.scss';
 
 const selector = formValueSelector('addCaseNote');
 
-
 class AddCaseNoteForm extends Component {
 
   constructor() {
@@ -34,8 +33,10 @@ class AddCaseNoteForm extends Component {
       editDateTime: false,
     }
   }
+
   componentDidMount() {
     const { loadCaseNoteTypes } = this.props;
+
     loadCaseNoteTypes();
   }
 

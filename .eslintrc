@@ -58,7 +58,6 @@
     "no-unneeded-ternary": 0,
     "no-await-in-loop": 0,
     "no-continue": 0,
-    "lines-between-class-members": 0,
     "react/style-prop-object": 0,
     "import/no-webpack-loader-syntax": 0,
     "jsx-a11y/interactive-supports-focus": 0,

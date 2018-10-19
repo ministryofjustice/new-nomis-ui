@@ -17,6 +17,7 @@ class SearchForm extends Component {
     const formData = serialize(event.target, { hash: true });
     onSubmit(formData);
   }
+
   render() {
     const { locations, defaultLocationPrefix, error } = this.props;
 

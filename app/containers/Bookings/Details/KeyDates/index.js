@@ -81,6 +81,7 @@ class KeyDates extends Component {
 
     loadContent(offenderNo);
   }
+
   render() {
     const { keyDates, error } = this.props;
 
