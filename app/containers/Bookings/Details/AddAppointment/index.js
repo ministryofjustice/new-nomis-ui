@@ -197,7 +197,7 @@ const mapStateToProps = (immutableState, props) => {
   const languageState = immutableState.get('language');
   const locale = (navigator.languages && navigator.languages[0]) || navigator.language || navigator.browserLanguage || languageState.get('locale');
 
-  const offenderNo = props.params.offenderNo;
+  const { offenderNo } = props.params;
   const offenderDetails = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.params.offenderNo, 'Data']) || offenderDetailsModel;
   const offendersAgencyId = offenderDetails.getIn(['assignedLivingUnit','agencyId']);
   const offenderName = toFullName({

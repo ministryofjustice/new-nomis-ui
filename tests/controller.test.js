@@ -1,4 +1,4 @@
-const controllerFactory = require('../server/controller').controllerFactory;
+const { controllerFactory } = require('../server/controller');
 const supertest = require('supertest');
 const express = require('express');
 

@@ -157,7 +157,7 @@ export function* addCasenoteWatcher() {
 
 export function* addCasenoteSaga(action) {
   const { typeAndSubType: { type, subType }, caseNoteText: text, startTime } = action.payload.query;
-  const offenderNo = action.payload.offenderNo;
+  const { offenderNo } = action.payload;
   const apiServer = yield select(selectApi());
 
   try {

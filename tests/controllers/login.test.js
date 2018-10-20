@@ -1,7 +1,7 @@
 const sinon = require('sinon');
 const chai = require('chai');
 
-const expect = chai.expect;
+const { expect } = chai;
 const sinonChai = require('sinon-chai');
 const express = require('express');
 const bodyParser = require('body-parser');

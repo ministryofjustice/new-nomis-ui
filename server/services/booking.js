@@ -1,10 +1,10 @@
 const moment = require('moment');
 
 const keyDatesMapper = require('../data-mappers/keydates');
-const isoDateFormat = require('./../constants').isoDateFormat;
+const { isoDateFormat } = require('./../constants');
 const toAward = require('../data-mappers/to-award');
-const toVisit = require('../data-mappers/to-visit').toVisit;
-const toLastVisit = require('../data-mappers/to-visit').toLastVisit;
+const { toVisit } = require('../data-mappers/to-visit');
+const { toLastVisit } = require('../data-mappers/to-visit');
 const toActivityViewModel = require('../data-mappers/to-activity-viewmodel');
 
 const bookingServiceFactory = (eliteApi, keyworkerApi) => {
@@ -42,7 +42,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
     const details = await eliteApi.getDetails(context, offenderNo);
     const { bookingId } = details;
 
-    const iepLevel = (await eliteApi.getIepSummary(context, bookingId)).iepLevel;
+    const { iepLevel } = (await eliteApi.getIepSummary(context, bookingId));
 
     const keyworker = await getKeyworker(context, offenderNo);
 
@@ -116,7 +116,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
     }
 
     function awardFilter(a) {
-      const status = a.status;
+      const { status } = a;
       return status && !status.startsWith('SUSP') && status !== 'QUASHED';
     }
 

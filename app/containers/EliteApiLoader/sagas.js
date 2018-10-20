@@ -74,7 +74,7 @@ export function* bookingDetailsSaga(action) {
 
     if (notLoaded) {
       const data = yield call(bookingDetails, apiServer, offenderNo);
-      const bookingId = data.bookingId;
+      const { bookingId } = data;
       const aliases = yield call(bookingAliases, apiServer, bookingId);
 
       yield put({ type: BOOKINGS.DETAILS.SUCCESS, payload: { ...data, aliases } });

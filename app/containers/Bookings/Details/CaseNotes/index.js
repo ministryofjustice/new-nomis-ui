@@ -97,7 +97,7 @@ export function mapDispatchToProps(dispatch, props) {
 }
 
 const mapStateToProps = (immutableState, props) => {
-  const offenderNo = props.offenderNo;
+  const { offenderNo } = props;
   const caseNotes = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', offenderNo, 'CaseNotes']) || caseNoteModel;
   const results = caseNotes.get('results');
   const totalResults = caseNotes.getIn(['meta', 'totalRecords']);

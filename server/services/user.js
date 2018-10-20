@@ -25,7 +25,7 @@ const userServiceFactory = elite2Api => {
       await setFirstLoginCaseLoad(context, details);
     }
 
-    const staffId = details.staffId;
+    const { staffId } = details;
     const agencyId = details.activeCaseLoadId;
 
     const [staffRoles, whereaboutsConfig] = await Promise.all([

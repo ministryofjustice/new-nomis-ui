@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+const { expect } = require('chai');
 const contextProperties = require('../server/contextProperties');
 const tokenRefresher = require('../server/tokenRefresher');
 

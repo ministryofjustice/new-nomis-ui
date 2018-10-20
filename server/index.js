@@ -18,17 +18,17 @@ const config = require('./config');
 
 const sessionManagementRoutes = require('./sessionManagementRoutes');
 const clientFactory = require('./api/oauthEnabledClient');
-const healthApiFactory = require('./api/healthApi').healthApiFactory;
-const eliteApiFactory = require('./api/eliteApi').eliteApiFactory;
-const keyworkerApiFactory = require('./api/keyworkerApi').keyworkerApiFactory;
+const { healthApiFactory } = require('./api/healthApi');
+const { eliteApiFactory } = require('./api/eliteApi');
+const { keyworkerApiFactory } = require('./api/keyworkerApi');
 const oauthApiFactory = require('./api/oauthApi');
 const tokeRefresherFactory = require('./tokenRefresher').factory;
-const cookieOperationsFactory = require('./hmppsCookie').cookieOperationsFactory;
-const controllerFactory = require('./controller').controllerFactory;
-const userServiceFactory = require('./services/user').userServiceFactory;
-const bookingServiceFactory = require('./services/booking').bookingServiceFactory;
-const eventsServiceFactory = require('./services/events').eventsServiceFactory;
-const keyworkerServiceFactory = require('./services/keyworker').keyworkerServiceFactory;
+const { cookieOperationsFactory } = require('./hmppsCookie');
+const { controllerFactory } = require('./controller');
+const { userServiceFactory } = require('./services/user');
+const { bookingServiceFactory } = require('./services/booking');
+const { eventsServiceFactory } = require('./services/events');
+const { keyworkerServiceFactory } = require('./services/keyworker');
 
 const requestForwarding = require('./request-forwarding');
 
@@ -78,7 +78,7 @@ app.use('/config', (req, res) => {
   const omicUrl = config.apis.keyworker.ui_url;
   const whereaboutsUrl = config.apis.whereabouts.ui_url;
   const establishmentRollcheckUrl = config.apis.whereabouts.ui_rollcheck_url;
-  const mailTo = config.app.mailTo;
+  const { mailTo } = config.app;
   if (!url && !omicUrl && !whereaboutsUrl && !mailTo) {
     res.end();
     return;
@@ -180,7 +180,7 @@ setup(app, {
   publicPath: '/',
 });
 
-const port = config.app.port;
+const { port } = config.app;
 // Start your app.
 app.listen(port, (err) => {
   if (err) {

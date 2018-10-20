@@ -1,11 +1,11 @@
 const sinon = require('sinon');
 const chai = require('chai');
 
-const expect = chai.expect;
+const { expect } = chai;
 const sinonChai = require('sinon-chai');
 
-const eliteApiFactory = require('../server/api/eliteApi').eliteApiFactory;
-const userServiceFactory = require('../server/services/user').userServiceFactory;
+const { eliteApiFactory } = require('../server/api/eliteApi');
+const { userServiceFactory } = require('../server/services/user');
 
 chai.use(sinonChai);
 

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import colours from 'theme/colours';
 // import desktop from 'theme/desktop';
 
-const desktopTabNav = colours.bookings.details.desktopTabNav;
+const { desktopTabNav } = colours.bookings.details;
 
 export const TabWrapper = styled.div`
   width: 100%;

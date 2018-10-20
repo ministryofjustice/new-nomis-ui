@@ -1,6 +1,6 @@
 const moment = require('moment');
 const utils = require('../utils');
-const isoDateFormat = require('./../constants').isoDateFormat;
+const { isoDateFormat } = require('./../constants');
 const toActivityViewModel = require('../data-mappers/to-activity-viewmodel');
 const nomisCodes = require('../data-mappers/nomis-codes');
 

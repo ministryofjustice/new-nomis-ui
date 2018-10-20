@@ -1,16 +1,16 @@
 const sinon = require('sinon');
 const chai = require('chai');
 
-const expect = chai.expect;
+const { expect } = chai;
 const sinonChai = require('sinon-chai');
 const moment = require('moment');
 const momentTimeZone = require('moment-timezone');
-const isoDateFormat = require('./../server/constants').isoDateFormat;
-const isoDateTimeFormat = require('./../server/constants').isoDateTimeFormat;
+const { isoDateFormat } = require('./../server/constants');
+const { isoDateTimeFormat } = require('./../server/constants');
 
-const eliteApiFactory = require('../server/api/eliteApi').eliteApiFactory;
-const keyworkerApiFactory = require('../server/api/keyworkerApi').keyworkerApiFactory;
-const bookingServiceFactory = require('../server/services/booking').bookingServiceFactory;
+const { eliteApiFactory } = require('../server/api/eliteApi');
+const { keyworkerApiFactory } = require('../server/api/keyworkerApi');
+const { bookingServiceFactory } = require('../server/services/booking');
 
 const eliteApi = eliteApiFactory(null);
 const keyworkerApi = keyworkerApiFactory(null);

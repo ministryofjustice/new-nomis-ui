@@ -2,7 +2,7 @@ const request = require('supertest');
 const express = require('express');
 const setCookie = require('set-cookie-parser');
 const cookieParser = require('cookie-parser');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 const hmppsCookie = require('../server/hmppsCookie');
 const contextProperties = require('../server/contextProperties');
@@ -80,7 +80,7 @@ describe('Tests for managing the hmpps cookie.  This controls session lifetime a
           // noinspection BadExpressionStatementJS
           expect(cookie.httpOnly).to.be.true;
 
-          const expires = cookie.expires;
+          const { expires } = cookie;
           // noinspection BadExpressionStatementJS
           expect(expires).to.exist;
 
@@ -118,7 +118,7 @@ describe('Tests for managing the hmpps cookie.  This controls session lifetime a
           // noinspection BadExpressionStatementJS
           expect(cookie.httpOnly).to.be.true;
 
-          const expires = cookie.expires;
+          const { expires } = cookie;
 
           // noinspection BadExpressionStatementJS
           expect(expires).to.exist;

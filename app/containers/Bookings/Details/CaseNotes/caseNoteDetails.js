@@ -59,7 +59,7 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = (immutableState, props) => {
-  const offenderNo = props.offenderNo;
+  const { offenderNo } = props;
   const caseNoteDetails = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', offenderNo, 'CaseNoteDetails']);
   const error = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', offenderNo, 'CaseNoteDetails','error']);
 

@@ -6,7 +6,7 @@ const { logger } = require('./services/logger');
 const moment = require('moment');
 const errorStatusCode = require('./error-status-code');
 
-const mailTo = config.app.mailTo;
+const { mailTo } = config.app;
 
 /*
  * This isn't really middleware. Its a wrapper for many of the async function calls in this file.

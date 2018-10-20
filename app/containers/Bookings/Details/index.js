@@ -64,8 +64,7 @@ class Details extends Component {
     } = this.props;
 
     const activeTabId = parseActiveTab(params.activeTab);
-    const offenderNo = params.offenderNo;
-    const itemId = params.itemId;
+    const { offenderNo, itemId } = params;
     const ActiveTab = tabData.filter(tab => tab.tabId === activeTabId)[0];
     const TabComponentDesktop = ActiveTab.component;
     const TabComponentMobile = ActiveTab.componentMobile;

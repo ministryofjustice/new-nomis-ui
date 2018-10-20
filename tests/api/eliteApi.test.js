@@ -1,7 +1,7 @@
 const { expect, assert } = require('chai');
 const MockAdapter = require('axios-mock-adapter');
 const clientFactory = require('../../server/api/oauthEnabledClient');
-const eliteApiFactory = require('../../server/api/eliteApi').eliteApiFactory;
+const { eliteApiFactory } = require('../../server/api/eliteApi');
 const contextProperties = require('../../server/contextProperties');
 
 describe('eliteApi tests', () => {

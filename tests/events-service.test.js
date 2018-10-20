@@ -1,16 +1,16 @@
 const sinon = require('sinon');
 const chai = require('chai');
 
-const expect = chai.expect;
+const { expect } = chai;
 const sinonChai = require('sinon-chai');
 
 chai.use(sinonChai);
 
 const moment = require('moment');
 
-const isoDateFormat = require('./../server/constants').isoDateFormat;
-const eliteApiFactory = require('../server/api/eliteApi').eliteApiFactory;
-const eventsServiceFactory = require('../server/services/events').eventsServiceFactory;
+const { isoDateFormat } = require('./../server/constants');
+const { eliteApiFactory } = require('../server/api/eliteApi');
+const { eventsServiceFactory } = require('../server/services/events');
 const nomisCodes = require('../server/data-mappers/nomis-codes');
 
 const eliteApi = eliteApiFactory(null);

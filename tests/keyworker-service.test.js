@@ -1,14 +1,14 @@
 const sinon = require('sinon');
 const chai = require('chai');
 
-const expect = chai.expect;
+const { expect } = chai;
 const sinonChai = require('sinon-chai');
 
 chai.use(sinonChai);
 
-const eliteApiFactory = require('../server/api/eliteApi').eliteApiFactory;
-const keyworkerApiFactory = require('../server/api/keyworkerApi').keyworkerApiFactory;
-const keyworkerServiceFactory = require('../server/services/keyworker').keyworkerServiceFactory;
+const { eliteApiFactory } = require('../server/api/eliteApi');
+const { keyworkerApiFactory } = require('../server/api/keyworkerApi');
+const { keyworkerServiceFactory } = require('../server/services/keyworker');
 
 const eliteApi = eliteApiFactory(null);
 const keyworkerApi = keyworkerApiFactory(null);

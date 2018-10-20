@@ -2,14 +2,14 @@ const supertest = require('supertest');
 const express = require('express');
 const chai = require('chai');
 
-const expect = chai.expect;
+const { expect } = chai;
 chai.use(require('sinon-chai'));
 const sinon = require('sinon');
 const bodyParser = require('body-parser');
 
 const contextProperties = require('../server/contextProperties');
 const requestForwarding = require('../server/request-forwarding');
-const eliteApiFactory = require('../server/api/eliteApi').eliteApiFactory;
+const { eliteApiFactory } = require('../server/api/eliteApi');
 
 
 describe('Test request forwarding', () => {

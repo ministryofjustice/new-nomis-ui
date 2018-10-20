@@ -1,7 +1,7 @@
 require('sinon');
 const chai = require('chai');
 
-const expect = chai.expect;
+const { expect } = chai;
 
 const mapper = require('../server/data-mappers/keydates').sentence;
 
