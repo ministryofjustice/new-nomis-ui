@@ -2,6 +2,7 @@
 const express = require('express');
 const path = require('path');
 const compression = require('compression');
+
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
 const { googleTagManagerInjector } = require('../google-tag-manager-injector');
 const googleAnalyticsInjector = require('../google-analytics').inject;

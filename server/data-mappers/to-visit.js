@@ -2,6 +2,7 @@ const momentTimeZone = require('moment-timezone');
 
 const isoDateTimeFormat = require('../constants').isoDateTimeFormat;
 const nomisCodes = require('./nomis-codes');
+
 const visitStatusCodes = nomisCodes.statusCodes;
 
 const toVisit = (visit) => {

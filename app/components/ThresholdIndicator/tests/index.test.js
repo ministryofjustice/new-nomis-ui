@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
 import ThresholdIndicator from '../index';
+
 describe('ThresholdIndicator component', () => {
   it('should not colour code the indicator when no maximum limit has been set', () => {
     const wrapper = shallow(<ThresholdIndicator />);

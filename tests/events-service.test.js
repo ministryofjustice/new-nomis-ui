@@ -1,7 +1,9 @@
 const sinon = require('sinon');
 const chai = require('chai');
+
 const expect = chai.expect;
 const sinonChai = require('sinon-chai');
+
 chai.use(sinonChai);
 
 const moment = require('moment');
