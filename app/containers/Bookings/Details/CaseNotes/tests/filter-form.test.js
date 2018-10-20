@@ -11,6 +11,6 @@ describe('Filter form validation', () => {
 
     const errors = validate(values);
 
-    expect(errors._error.dateRangeValid).toBe(false);
+    expect(errors.error.dateRangeValid).toBe(false);
   });
 });

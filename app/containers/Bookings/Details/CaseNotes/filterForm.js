@@ -135,7 +135,7 @@ export const validate = (form) => {
   const endDate = form.get('endDate');
 
   if (endDate && startDate && endDate.isBefore(startDate,'day')) {
-    errors._error = {
+    errors.error = {
       dateRangeValid: false,
     };
   }
