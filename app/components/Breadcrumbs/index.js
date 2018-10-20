@@ -90,7 +90,7 @@ function Breadcrumbs({ route, lastSearchResultQuery, offenderDetails, context, o
   const breadcrumbArray = buildBreadcrumb({ route , lastSearchResultQuery, offender: offenderDetails , context, offenderNo });
 
   return (
-    <div className="bread-crumbs col-xs-12 no-left-gutter" data-name={'Breadcrumbs'}>
+    <div className="bread-crumbs col-xs-12 no-left-gutter" data-name="Breadcrumbs">
       {breadcrumbArray.map((breadcrumb, i) => i !== breadcrumbArray.length - 1 ?
         <span className="link-wrapper" key={breadcrumb.name}>
           <Link to={breadcrumb.route} key={breadcrumb.name} className="crumb" >{breadcrumb.name}</Link>

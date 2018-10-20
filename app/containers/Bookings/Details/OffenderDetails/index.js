@@ -14,7 +14,7 @@ import { showLargePhoto } from '../../actions';
 
 import './index.scss'
 
-const FormatValue = ({ start, end }) => ((start && <span> { (start && end && `${start} ${end}`) || `${start}`} </span>) || <span>{'--'}</span>);
+const FormatValue = ({ start, end }) => ((start && <span> { (start && end && `${start} ${end}`) || `${start}`} </span>) || <span>--</span>);
 const Alias = ({ lastName, firstName }) => <span> {toFullName({ lastName, firstName })} </span>
 
 const getProfileInformation = (offenderDetails, code) => {

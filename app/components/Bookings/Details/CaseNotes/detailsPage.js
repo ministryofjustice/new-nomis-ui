@@ -72,7 +72,7 @@ const CaseNoteDetails = (props) => {
   const amendmentList = amendments.map((am) =>
     (<AmendmentBlock
       key={am.creationDateTime}
-      data-name={'AmendmentBlock'}
+      data-name="AmendmentBlock"
       dateTime={am.creationDateTime}
       authorName={am.authorName}
       text={am.additionalNoteText}

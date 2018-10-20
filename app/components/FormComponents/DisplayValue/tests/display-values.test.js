@@ -10,7 +10,7 @@ describe('DisplayValue component', () => {
   });
 
   it('should display the value when defined', () => {
-    const displayValue = shallow(<DisplayValue value={'hello, world'} />);
+    const displayValue = shallow(<DisplayValue value="hello, world" />);
 
     displayValue.contains('<span>hello, world</span>');
   });

@@ -26,21 +26,21 @@ function MobileMenu({ user, setMenuOpen, showTerms, switchCaseLoad }) {
         <UserName>{toFullName(user)}</UserName>
         <CaseLoad>{user.activeCaseLoad && user.activeCaseLoad.description ? user.activeCaseLoad.description : user.activeCaseLoadId}</CaseLoad>
       </MobileMenuHeader>
-      <MobileMenuOption to={'/'} onClick={removeMobileMenu}>Search<ForwardArrow svg={forwardBack} /></MobileMenuOption>
+      <MobileMenuOption to="/" onClick={removeMobileMenu}>Search<ForwardArrow svg={forwardBack} /></MobileMenuOption>
 
-       {user && user.isKeyWorker && <MobileMenuOption className="dropdown-menu-option" to={'/myKeyWorkerAllocations'} onClick={removeMobileMenu}>
+       {user && user.isKeyWorker && <MobileMenuOption className="dropdown-menu-option" to="/myKeyWorkerAllocations" onClick={removeMobileMenu}>
         My key worker allocations
         <ForwardArrow svg={forwardBack} />
       </MobileMenuOption> }
 
       {user.caseLoadOptions.map((option) => {
-        const newObj = <MobileMenuOption key={option.caseLoadId} onClick={() => { switchCaseLoad(option.caseLoadId); }} data-id={'dropdown-option'}>{option.description}<ForwardArrow svg={forwardBack} /></MobileMenuOption>;
+        const newObj = <MobileMenuOption key={option.caseLoadId} onClick={() => { switchCaseLoad(option.caseLoadId); }} data-id="dropdown-option">{option.description}<ForwardArrow svg={forwardBack} /></MobileMenuOption>;
         return newObj;
       })}
       <MobileMenuOption
-        id={'mobile-logout'}
-        key={'logout'}
-        href={'/auth/logout'} data-id={'dropdown-option'}
+        id="mobile-logout"
+        key="logout"
+        href="/auth/logout" data-id="dropdown-option"
       >
         Log out<ForwardArrow svg={forwardBack} />
       </MobileMenuOption>

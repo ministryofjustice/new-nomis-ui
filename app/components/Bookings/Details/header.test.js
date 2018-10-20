@@ -30,26 +30,26 @@ const inmate = (alerts) => Map({
 
 describe('Header component', () => {
   it('should render correctly', () => {
-    const wrapper = shallow(<Header inmateData={inmate(allAlerts)} onImageClick={jest.fn()} offenderNo={'A1234RT'} onAlertFlagClick={jest.fn()} />);
+    const wrapper = shallow(<Header inmateData={inmate(allAlerts)} onImageClick={jest.fn()} offenderNo="A1234RT" onAlertFlagClick={jest.fn()} />);
 
     expect(wrapper.find('div.align-alerts AlertFlag')).toHaveLength(4);
     expect(wrapper).toMatchSnapshot();
   });
 
   it('should ignore irrelevant alert flags', () => {
-    const wrapper = shallow(<Header inmateData={inmate(irrelevantAlerts)} onImageClick={jest.fn()} offenderNo={'A1234RE'} onAlertFlagClick={jest.fn()} />);
+    const wrapper = shallow(<Header inmateData={inmate(irrelevantAlerts)} onImageClick={jest.fn()} offenderNo="A1234RE" onAlertFlagClick={jest.fn()} />);
 
     expect(wrapper.find('div.align-alerts AlertFlag')).toHaveLength(0);
   });
 
   it('should render MiddleSection correctly large', () => {
-    const wrapper = shallow(<Header inmateData={inmate(allAlerts)} onImageClick={jest.fn()} offenderNo={'A1234RE'} onAlertFlagClick={jest.fn()} />);
+    const wrapper = shallow(<Header inmateData={inmate(allAlerts)} onImageClick={jest.fn()} offenderNo="A1234RE" onAlertFlagClick={jest.fn()} />);
 
     expect(wrapper.find('div.visible-large > MiddleSection').shallow()).toMatchSnapshot();
   });
 
   it('should render MiddleSection correctly small', () => {
-    const wrapper = shallow(<Header inmateData={inmate(allAlerts)} onImageClick={jest.fn()} offenderNo={'A1234RN'} onAlertFlagClick={jest.fn()} />);
+    const wrapper = shallow(<Header inmateData={inmate(allAlerts)} onImageClick={jest.fn()} offenderNo="A1234RN" onAlertFlagClick={jest.fn()} />);
 
     expect(wrapper.find('div.visible-small > MiddleSection').shallow()).toMatchSnapshot();
   });

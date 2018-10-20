@@ -141,7 +141,7 @@ export const Activities = ({ activities, period }) => (
             <div className="col-lg-6 col-xs-6">
               <span>
                 <b> {activity.get('type')} </b>
-                {activity.get('shortComment') && <b>{' - '}</b>}
+                {activity.get('shortComment') && <b> - </b>}
               </span>
 
               <span>
@@ -149,8 +149,7 @@ export const Activities = ({ activities, period }) => (
               </span>
 
               {activity.get('cancelled') &&
-                <span className="cancelled">{' '} (cancelled)
-                </span>
+                <span className="cancelled"> (cancelled)</span>
               }
             </div>
 
@@ -595,9 +594,9 @@ class QuickLook extends Component {
             <h3 className="heading-medium">
               Schedule for today
             </h3>
-            <Activities activities={activities.get('morningActivities')} period={'Morning (AM)'} />
-            <Activities activities={activities.get('afternoonActivities')} period={'Afternoon (PM)'} />
-            <Activities activities={activities.get('eveningDuties')} period={'Evening (ED)'} />
+            <Activities activities={activities.get('morningActivities')} period="Morning (AM)" />
+            <Activities activities={activities.get('afternoonActivities')} period="Afternoon (PM)" />
+            <Activities activities={activities.get('eveningDuties')} period="Evening (ED)" />
 
             <Link className="link" to={`/offenders/${offenderNo}/schedule`}> Seven day schedule</Link>
           </div>

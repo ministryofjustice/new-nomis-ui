@@ -45,7 +45,7 @@ describe('Feedback link', () => {
       subscribe: jest.fn(),
     };
 
-    const component = mount(<FeedbackLinkContainer store={store} user={'user'} feedbackUrl={'url'} />);
+    const component = mount(<FeedbackLinkContainer store={store} user="user" feedbackUrl="url" />);
     const properties = component.find(FeedbackLink).props();
 
     expect(typeof properties.user).toBe('string');

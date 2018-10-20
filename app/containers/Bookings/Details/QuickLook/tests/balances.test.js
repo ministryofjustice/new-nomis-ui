@@ -10,7 +10,7 @@ describe('Balance component', () => {
         spends={0}
         cash={0}
         savings={0}
-        currency={'gbp'}
+        currency="gbp"
       />
     );
 
@@ -19,7 +19,7 @@ describe('Balance component', () => {
         id="spends"
         value={0}
         style="currency"
-        currency={'gbp'}
+        currency="gbp"
       />)).toBe(true);
 
     expect(balances.contains(
@@ -27,7 +27,7 @@ describe('Balance component', () => {
         id="cash"
         value={0}
         style="currency"
-        currency={'gbp'}
+        currency="gbp"
       />)).toBe(true);
 
     expect(balances.contains(
@@ -35,7 +35,7 @@ describe('Balance component', () => {
         id="savings"
         value={0}
         style="currency"
-        currency={'gbp'}
+        currency="gbp"
       />)).toBe(true);
   });
 });

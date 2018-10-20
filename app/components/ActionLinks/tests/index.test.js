@@ -12,9 +12,9 @@ describe('Actions component', () => {
   });
 
   it('should only show the key worker admin link when the user is a key worker admin', () => {
-    const wrapper = shallow(<ActionLinks isKeyWorkerAdmin omicUrl={'.'} />);
+    const wrapper = shallow(<ActionLinks isKeyWorkerAdmin omicUrl="." />);
 
-    expect(wrapper.contains(<KeyWorkerAdminLink omicUrl={'.'} />)).toBe(true);
+    expect(wrapper.contains(<KeyWorkerAdminLink omicUrl="." />)).toBe(true);
   });
 
   it('should not show anything when the user does not have any applicable roles', () => {

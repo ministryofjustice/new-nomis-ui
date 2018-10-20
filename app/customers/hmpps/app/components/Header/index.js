@@ -35,9 +35,9 @@ export default (props) => {
 
     <DesktopOnly>
       <Header
-        homeLink={'/'}
-        title={'Prison-NOMIS'}
-        logoText={'HMPPS'}
+        homeLink='/'
+        title='Prison-NOMIS'
+        logoText='HMPPS'
         extraLinks={extraLinks}
         history={browserHistory}
         {...props}

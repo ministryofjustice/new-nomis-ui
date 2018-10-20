@@ -22,7 +22,7 @@ export const DateTimeBlock = ({ dateTime }) => <div>
 export const DateTimeBlock2 = ({ dateTime }) => (
       <div>
         <span><FormattedDate2 value={dateTime} /></span>
-        <span>{' - '}</span>
+        <span> - </span>
         <span><FormattedTime2 value={dateTime} /></span>
       </div>
   );

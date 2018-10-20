@@ -41,7 +41,7 @@ export const Event = ({ startTime, endTime, type, shortComment, cancelled }) =>
 
       <span>
         <b> {type} </b>
-        {shortComment && <b>{' - '}</b>}
+        {shortComment && <b> - </b>}
       </span>
 
       <span>

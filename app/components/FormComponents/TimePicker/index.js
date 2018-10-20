@@ -163,7 +163,7 @@ class TimePicker extends Component {
           'form-control form-control-error add-gutter-margin-right'}
         name="hours"
         onChange={this.onHoursChange}
-        defaultValue={'--'}
+        defaultValue="--"
         value={hours}
       >
         {constructedHours.map(hour => (
@@ -180,7 +180,7 @@ class TimePicker extends Component {
           'form-control form-control-error'}
         name="minutes"
         onChange={this.onMinutesChange}
-        defaultValue={'--'}
+        defaultValue="--"
         value={minutes}
       >
         {constructedMinutes.map(minute => (

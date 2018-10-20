@@ -19,7 +19,7 @@ function TabMenuMobile({ tabData, activeTabId }) {
 
   return (
     <div>
-      <TabWrapper data-name={'TabNavMobile'}>
+      <TabWrapper data-name="TabNavMobile">
         {tabData.map((tab, i) => <TabMenuItem
           key={tab.tabId}
           active={tab.tabId === activeTabId}

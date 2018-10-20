@@ -73,10 +73,10 @@ class ResultsViewToggleMobile extends Component {
     return (
       <ToggleContainer>
         <ToggleComponent>
-          <ToggleButton data-name={'List'} onClick={this.setToggle} style={listStyle}>
+          <ToggleButton data-name="List" onClick={this.setToggle} style={listStyle}>
             <ToggleButtonContent>List<IconSVG svg={listIcon} /></ToggleButtonContent>
           </ToggleButton>
-          <ToggleButton data-name={'Grid'} onClick={this.setToggle} style={gridStyle}>
+          <ToggleButton data-name="Grid" onClick={this.setToggle} style={gridStyle}>
             <ToggleButtonContent>Grid<IconSVG svg={gridIcon} /></ToggleButtonContent>
           </ToggleButton>
         </ToggleComponent>
