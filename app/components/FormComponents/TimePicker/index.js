@@ -115,8 +115,8 @@ class TimePicker extends Component {
     const minutes = constructMinutes({
       selectedHour: now.hour(),
       dateTime: now,
-      futureTimeOnly: futureTimeOnly,
-      pastTimeOnly: pastTimeOnly,
+      futureTimeOnly,
+      pastTimeOnly,
       enableFilters: this.shouldEnableFilters() });
 
     return minutes[minutes.length - 1];
