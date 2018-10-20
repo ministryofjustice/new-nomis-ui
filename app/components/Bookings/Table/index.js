@@ -12,8 +12,8 @@ import { DETAILS_TABS } from 'containers/Bookings/constants';
 import './index.scss';
 import AlertFlags from '../AlertFlags';
 
-const ArrowUp = ({ sortOrderChange }) => <span className="clickable" onClick={sortOrderChange}> <img src="/img/Triangle_asc.png" height="8" width="15" /> </span>;
-const ArrowDown = ({ sortOrderChange }) => <span className="clickable" onClick={sortOrderChange}> <img src="/img/Triangle_desc.png" height="8" width="15" /> </span>;
+const ArrowUp = ({ sortOrderChange }) => <span className="clickable" onClick={sortOrderChange}> <img src="/img/Triangle_asc.png" height="8" width="15" alt="Up arrow" /> </span>;
+const ArrowDown = ({ sortOrderChange }) => <span className="clickable" onClick={sortOrderChange}> <img src="/img/Triangle_desc.png" height="8" width="15" alt="Down arrow" /> </span>;
 
 const onViewDetails = (event, row) => {
   event.preventDefault();

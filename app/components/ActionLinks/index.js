@@ -5,7 +5,7 @@ import './index.scss';
 
 export const KeyWorkerAdminLink = ({ omicUrl }) => (
 <div className="link-box">
-  <img src="/img/manage-key-workers2x.png" className="add-gutter-margin-right" />
+  <img src="/img/manage-key-workers2x.png" className="add-gutter-margin-right" alt="Manage keyworkers icon"  />
 
   <div className="heading-medium">
     <a href={omicUrl} className="link clickable">
@@ -16,7 +16,7 @@ export const KeyWorkerAdminLink = ({ omicUrl }) => (
 
 export const MyAllocationsLink = () => (
   <div className="link-box">
-    <img src="/img/ICON_MyKeyWorkerAssignments@2x.png" className="add-gutter-margin-right" />
+    <img src="/img/ICON_MyKeyWorkerAssignments@2x.png" className="add-gutter-margin-right" alt="Keyworker allocation icon" />
 
     <div className="heading-medium">
       <Link className="link my-allocations-link" to="/myKeyWorkerAllocations">My key worker allocations</Link>
@@ -25,7 +25,7 @@ export const MyAllocationsLink = () => (
 
 export const WhereaboutsLink = ({ whereaboutsUrl }) => (
   <div className="link-box">
-    <img src="/img/ICON_ManagePrisonerWhereabouts.png" className="add-gutter-margin-right" />
+    <img src="/img/ICON_ManagePrisonerWhereabouts.png" className="add-gutter-margin-right" alt="Whereabouts icon" />
 
     <div className="heading-medium">
       <a href={whereaboutsUrl} className="link clickable">

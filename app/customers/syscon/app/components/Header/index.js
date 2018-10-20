@@ -13,7 +13,7 @@ export default ({ user, switchCaseLoad, menuOpen, setMenuOpen }) => (
            <div className="brand-header">
 
              <span className="section" to="/">
-               <img src="/img/Syscon_logo.svg" />
+               <img src="/img/Syscon_logo.svg" alt="Syscon logo" />
              </span>
 
              <span className="section">
