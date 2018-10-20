@@ -90,11 +90,12 @@ class DateTimePicker extends PureComponent {
   }
 
   onDateTimeChange(momentDate) {
-    this.setState({ ...this.state,
+    this.setState(prevState => ({
+      ...prevState,
       date: momentDate.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC),
       time: momentDate.format(DEFAULT_MOMENT_TIME_FORMAT_SPEC),
       momentSnapShot: momentDate,
-    });
+    }));
 
     this.outputResult(momentDate.format(DATE_TIME_FORMAT_SPEC));
   }

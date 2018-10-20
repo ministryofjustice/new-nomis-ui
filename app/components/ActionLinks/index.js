@@ -36,7 +36,7 @@ export const WhereaboutsLink = ({ whereaboutsUrl }) => (
 
 export const EstablishmentRollCheckLink = ({ establishmentRollCheckUrl }) => (
   <div className="link-box">
-    <img src="/img/EstablishmentRoll_icon.png" className="add-gutter-margin-right" />
+    <img src="/img/EstablishmentRoll_icon.png" className="add-gutter-margin-right" alt="Establishment roll icon" />
 
     <div className="heading-medium">
       <a href={establishmentRollCheckUrl} className="link clickable">Establishment roll check</a>
