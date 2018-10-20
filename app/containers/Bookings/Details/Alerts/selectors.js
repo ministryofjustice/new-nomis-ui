@@ -3,11 +3,8 @@ const selectAlertTypes = () => (state) => state.getIn(['eliteApiLoader', 'AlertT
   .sort((a, b) => {
     const x = a.description.toUpperCase();
     const y = b.description.toUpperCase();
-    if (x > y) {
-      return 1;
-    } else if (x < y) {
-      return -1;
-    }
+    if (x > y) return 1;
+    if (x < y) return -1;
     return 0;
   })
   .map(({ code, description }) => ({
