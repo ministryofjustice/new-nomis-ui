@@ -6,7 +6,7 @@ import SelectWithLabel from 'components/FormComponents/SelectWithLabel';
 class TypeAndSubTypeSelector extends PureComponent {
   constructor(props) {
     super(props);
-
+    this.state = { resetSubType: false }
     this.onTypeChange = this.onTypeChange.bind(this);
     this.onSubTypeChange = this.onSubTypeChange.bind(this);
   }
@@ -32,7 +32,7 @@ class TypeAndSubTypeSelector extends PureComponent {
 
   render() {
     const { types, subTypes, selectedType } = this.props;
-    const { resetSubType } = this.state || false;
+    const { resetSubType } = this.state;
 
     const constrainedSubTypes =
       (subTypes || []).filter((st) => st.parent === selectedType);

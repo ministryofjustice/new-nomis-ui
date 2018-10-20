@@ -47,7 +47,6 @@
     "react/style-prop-object": 0,
     "import/no-webpack-loader-syntax": 0,
     "jsx-a11y/interactive-supports-focus": 0,
-    "react/no-unused-state": 0,
     "import/prefer-default-export": 0,
     "import/no-dynamic-require": 0
   },
