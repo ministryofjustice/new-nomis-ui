@@ -57,7 +57,7 @@ const ResultsView = ({ results, viewDetails }) => <div className="offender-table
         <EliteImage src={offenderImageUrl(row.get('facialImageId'))} />
       </div>
 
-       <div role="link" className="link clickable inline-block" onClick={() => viewDetails(row.get('offenderNo'))} >
+       <div className="link clickable inline-block" onClick={() => viewDetails(row.get('offenderNo'))} >
           <span>
              <Name lastName={row.get('lastName')} firstName={row.get('firstName')} />
           </span>

@@ -62,7 +62,7 @@ const Table = ({ results, sortOrder, sortOrderChange, onAlertFlagClick }) => (
           </div>
           <div className="col-xs-3 col-md-3 add-margin-top">
             <span>
-              <div role="link" className="bold link" onClick={(e) => onViewDetails(e, row)}>
+              <div className="bold link" onClick={(e) => onViewDetails(e, row)}>
                 <Name lastName={row.get('lastName')} firstName={row.get('firstName')} />
               </div>
             </span>
