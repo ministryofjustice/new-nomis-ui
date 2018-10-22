@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 const { expect, assert } = require('chai');
 const MockAdapter = require('axios-mock-adapter');
 const clientFactory = require('../../server/api/oauthEnabledClient');

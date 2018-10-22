@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 const { expect } = require('chai');
 const contextProperties = require('../server/contextProperties');
 

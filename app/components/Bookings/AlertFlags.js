@@ -24,15 +24,17 @@ const alertFlags = (alerts, divClassName, onAlertFlagClick) => {
     }
   }
 
-  alerts && alerts.forEach(alert => {
-    if (alert.get) {
-      if (!alert.get('expired')) {
-        selectFlag(alert.get('alertCode'));
+  if (alerts) {
+    alerts.forEach(alert => {
+      if (alert.get) {
+        if (!alert.get('expired')) {
+          selectFlag(alert.get('alertCode'));
+        }
+      } else {
+        selectFlag(alert);
       }
-    } else {
-      selectFlag(alert);
-    }
-  });
+    });
+  }
 
   const AlertFlag = ({ className, children }) => (<span className={className} onClick={onAlertFlagClick}>{children}</span>);
 

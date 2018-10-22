@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 const request = require('supertest');
 const express = require('express');
 const setCookie = require('set-cookie-parser');

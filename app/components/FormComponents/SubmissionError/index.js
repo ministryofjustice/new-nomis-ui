@@ -3,15 +3,15 @@ import PropTypes from "prop-types";
 
 export const InputError = () => <div />;
 
-const Input = props => {
-      <div>
+const Input = props => (
+  <div>
     <input className="form-control" {...props} />
-  </div>;
-};
+  </div>
+);
 
-const FormGroup = ({ children }) => {
-  <div className="form-group">{children}</div>;
-};
+const FormGroup = ({ children }) => (
+  <div className="form-group">{children}</div>
+);
 
 const renderInput = ({ input, title, type, meta: { touched, error } }) => (
   <FormGroup error={touched && error}>
