@@ -40,11 +40,11 @@ const apis = {
   },
   elite2: {
     url: process.env.API_ENDPOINT_URL || 'http://localhost:8080',
-    timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 10,
+    timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 30,
   },
   keyworker: {
     url: process.env.KEYWORKER_API_URL || 'http://localhost:8081',
-    timeoutSeconds: process.env.KEYWORKER_API_TIMEOUT_SECONDS || 10,
+    timeoutSeconds: process.env.KEYWORKER_API_TIMEOUT_SECONDS || 30,
     ui_url: process.env.OMIC_UI_URL,
   },
   whereabouts: {
