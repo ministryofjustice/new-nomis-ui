@@ -4,13 +4,10 @@ import { SubmissionError } from 'redux-form/immutable';
 import { selectApi } from 'containers/ConfigLoader/selectors';
 import { bookingDetailsSaga as bookingDetailsElite } from 'containers/EliteApiLoader/sagas';
 import { loadBookingCaseNotes, resetCaseNotes } from 'containers/EliteApiLoader/actions';
-import { BOOKINGS } from 'containers/EliteApiLoader/constants';
+import { BOOKINGS, APPOINTMENT } from 'containers/EliteApiLoader/constants';
 import { notify } from 'react-notify-toast';
-import { showSpinner, hideSpinner } from 'globalReducers/app';
+import { showSpinner, hideSpinner, setSearchContext } from 'globalReducers/app';
 import { buildSearchQueryString, buildCaseNotQueryString } from 'utils/stringUtils';
-
-import { setSearchContext } from 'globalReducers/app';
-
 
 import {
   addCaseNote,
@@ -25,10 +22,6 @@ import {
   bookingAlerts,
   extendSessionRequest,
 } from 'utils/eliteApi';
-
-import {
-  APPOINTMENT,
-} from 'containers/EliteApiLoader/constants';
 
 import {
   selectSearchResultsPagination,

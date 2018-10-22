@@ -4,10 +4,9 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 
 import EliteImage from 'containers/EliteContainers/Image';
-import { offenderImageUrl } from 'containers/Bookings/constants';
+import { offenderImageUrl, DETAILS_TABS } from 'containers/Bookings/constants';
 
 import Name from 'components/Name';
-import { DETAILS_TABS } from 'containers/Bookings/constants';
 
 import './index.scss';
 import AlertFlags from '../AlertFlags';

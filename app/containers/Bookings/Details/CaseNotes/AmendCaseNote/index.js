@@ -7,8 +7,7 @@ import SessionHeartbeatHandler from 'utils/sessionHeartbeatHandler';
 
 import { TextArea } from 'components/FormComponents';
 
-import { AMEND_CASENOTE } from '../../../constants';
-import { DETAILS_TABS } from '../../../constants';
+import { AMEND_CASENOTE, DETAILS_TABS } from '../../../constants';
 import { extendActiveSession, viewDetails } from '../../../actions';
 
 
