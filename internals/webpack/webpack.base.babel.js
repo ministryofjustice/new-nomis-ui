@@ -2,80 +2,88 @@
  * COMMON WEBPACK CONFIGURATION
  */
 
-const path = require('path');
-const webpack = require('webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const cssnano = require('cssnano');
+const path = require('path')
+const webpack = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const cssnano = require('cssnano')
 
-const customerCodeResolver = require('../customerCodeResolver');
+const customerCodeResolver = require('../customerCodeResolver')
 
-const webPackConfig = (options) => ({
+const webPackConfig = options => ({
   entry: options.entry,
-  output: Object.assign({ // Compile into js/build.js
-    path: path.resolve(process.cwd(), 'build'),
-    publicPath: '/',
-  }, options.output), // Merge with env dependent settings
+  output: Object.assign(
+    {
+      // Compile into js/build.js
+      path: path.resolve(process.cwd(), 'build'),
+      publicPath: '/',
+    },
+    options.output
+  ), // Merge with env dependent settings
   module: {
-    loaders: [{
-      test: /\.js$/, // Transform all .js files required somewhere with Babel
-      loader: 'babel-loader',
-      exclude: /node_modules/,
-      query: options.babelQuery,
-    },
-
-    {
-      test: /\.css$/,
-      loaders: ['style-loader', 'css-loader'],
-    },
-    {
-      test: /\.scss/,
-      loader: ExtractTextPlugin.extract({
-        use: [{
-          loader: 'css-loader',
-        },
-        {
-          loader: 'sass-loader',
-          options: {
-            includePaths: [
-              'app/scss/govuk_frontend_toolkit/stylesheets'],
-          },
-        },
-        {
-          loader: options.themeLoader.loader,
-          options: options.themeLoader.options,
-        },
-        ],
-        fallback: 'style-loader',
-      }),
-
-    },
-
-    {
-      test: /\.svg$/,
-      loader: 'svg-inline-loader',
-    }, {
-      test: /\.(eot|ttf|woff|woff2)$/,
-      loader: 'file-loader',
-    }, {
-      test: /\.(jpg|png|gif)$/,
-      loaders: [
-        'file-loader',
-      ],
-    }, {
-      test: /\.html$/,
-      loader: 'html-loader',
-    }, {
-      test: /\.json$/,
-      loader: 'json-loader',
-    }, {
-      test: /\.(mp4|webm)$/,
-      loader: 'url-loader',
-      query: {
-        limit: 10000,
+    loaders: [
+      {
+        test: /\.js$/, // Transform all .js files required somewhere with Babel
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: options.babelQuery,
       },
-    }],
+
+      {
+        test: /\.css$/,
+        loaders: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.scss/,
+        loader: ExtractTextPlugin.extract({
+          use: [
+            {
+              loader: 'css-loader',
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                includePaths: ['app/scss/govuk_frontend_toolkit/stylesheets'],
+              },
+            },
+            {
+              loader: options.themeLoader.loader,
+              options: options.themeLoader.options,
+            },
+          ],
+          fallback: 'style-loader',
+        }),
+      },
+
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader',
+      },
+      {
+        test: /\.(eot|ttf|woff|woff2)$/,
+        loader: 'file-loader',
+      },
+      {
+        test: /\.(jpg|png|gif)$/,
+        loaders: ['file-loader'],
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader',
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
+      },
+      {
+        test: /\.(mp4|webm)$/,
+        loader: 'url-loader',
+        query: {
+          limit: 10000,
+        },
+      },
+    ],
   },
   plugins: options.plugins.concat([
     new ExtractTextPlugin({ filename: 'styles.css', allChunks: true }),
@@ -107,25 +115,20 @@ const webPackConfig = (options) => ({
     new webpack.NamedModulesPlugin(),
   ]),
   resolve: {
-    alias: Object.assign({},{
-      moment: 'moment/moment.js',
-    },options.componentSubstitutes),
+    alias: Object.assign(
+      {},
+      {
+        moment: 'moment/moment.js',
+      },
+      options.componentSubstitutes
+    ),
     modules: ['node_modules', 'app'],
-    extensions: [
-      '.js',
-      '.jsx',
-      '.react.js',
-    ],
-    mainFields: [
-      'browser',
-      'jsnext:main',
-      'main',
-    ],
+    extensions: ['.js', '.jsx', '.react.js'],
+    mainFields: ['browser', 'jsnext:main', 'main'],
   },
   devtool: options.devtool,
   target: 'web', // Make web variables accessible to webpack, e.g. window
   performance: options.performance || {},
-});
+})
 
-
-module.exports = (options) => customerCodeResolver({ webPackConfig,options });
+module.exports = options => customerCodeResolver({ webPackConfig, options })

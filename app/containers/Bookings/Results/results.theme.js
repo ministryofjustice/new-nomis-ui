@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import colours from 'theme/colours';
-import B from 'components/Button';
-import { Link } from 'react-router';
+import styled from 'styled-components'
+import colours from 'theme/colours'
+import B from 'components/Button'
+import { Link } from 'react-router'
 
-import { responsiveCols, fixedCols } from 'components/CommonTheme/responsiveColumns';
+import { responsiveCols, fixedCols } from 'components/CommonTheme/responsiveColumns'
 
 export const SearchQueryView = styled.div`
   height: 100px;
@@ -11,7 +11,7 @@ export const SearchQueryView = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-`;
+`
 
 export const SearchQueryItem = styled.div`
   margin: 15px;
@@ -26,103 +26,93 @@ export const SearchQueryItem = styled.div`
     color: ${colours.filterBlocks.text.current}
     font-size: 26px;
   }
-`;
+`
 
 export const Button = styled(B)`
   width: 138px;
   height: 60px;
   padding: 0px;
   margin: 20px;
-`;
+`
 
 export const BookingList = styled.div`
-  ${''/* display: grid;
+  ${'' /* display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-gap: 30px;
-  grid-auto-rows: minmax(100px, auto); */}
-
-`;
+  grid-auto-rows: minmax(100px, auto); */};
+`
 
 export const BookingGrid = styled.div`
-  ${''/* display: grid;
+  ${'' /* display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-gap: 30px;
-  grid-auto-rows: minmax(100px, auto); */}
-  flex-wrap: wrap;
+  grid-auto-rows: minmax(100px, auto); */} flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+`
+
+export const ListDetailItem = styled.div`
   display: flex;
   flex-direction: row;
 
-`;
+  border-top: ${colours.bookings.searchResults.borderColour} solid 1px;
 
-export const ListDetailItem = styled.div`
-     display:flex;
-     flex-direction:row;
-     
-     border-top: ${colours.bookings.searchResults.borderColour} solid 1px;
+  &:last-of-type {
+    border-bottom: ${colours.bookings.searchResults.borderColour} solid 1px;
+  }
 
-     &:last-of-type {
-       border-bottom: ${colours.bookings.searchResults.borderColour} solid 1px;
-     }
-     
-     .personAttributes{
-     
-       display: flex;
-       flex-direction: column;        
-                 
-       div{                            
-          width: 100%;
-          margin: auto;
-       }
-       
-       @media(min-width: 700px){
-              
-          width: 100%;          
-          display: flex;  
-          flex-direction: row;
-                        
-          div:first-of-type{
-            width: 30%;
-          }
-          
-          div{            
-            width: auto;
-            flex-grow: 2;
-          }
-       }
-     }
+  .personAttributes {
+    display: flex;
+    flex-direction: column;
 
-`;
+    div {
+      width: 100%;
+      margin: auto;
+    }
 
+    @media (min-width: 700px) {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+
+      div:first-of-type {
+        width: 30%;
+      }
+
+      div {
+        width: auto;
+        flex-grow: 2;
+      }
+    }
+  }
+`
 
 export const ListDetailImage = styled.div`
   width: ${fixedCols(1)};
   width: 70px;
   height: 90px;
+`
 
-`;
-
-export const GroupedDetails = styled.div`   
-    @media (max-width: 360px){
-      display:flex;
-      flex-direction:column;
-      div {
-        width: 100%;
-      }       
+export const GroupedDetails = styled.div`
+  @media (max-width: 360px) {
+    display: flex;
+    flex-direction: column;
+    div {
+      width: 100%;
     }
-`;
+  }
+`
 
 export const Name = styled.div`
   font-weight: bold;
-`;
+`
 
-export const ID = styled.div`
-  
-`;
+export const ID = styled.div``
 
 export const Location = styled.div`
   width: ${responsiveCols(2)};
   text-align: right;
-`;
+`
 
 export const GridDetailItem = styled(Link)`
   position: relative;
@@ -135,7 +125,6 @@ export const GridDetailItem = styled(Link)`
   float: left;
   margin-right: 17px;
   margin-bottom: 17px;
-
 
   display: inline-flex;
   width: 220px;
@@ -180,11 +169,9 @@ export const GridDetailItem = styled(Link)`
       margin-left: 20px;
     }
   }
-`;
+`
 
 export const GridDetailImage = styled.div`
-
-
   width: 100%;
   height: 70%;
 
@@ -193,11 +180,9 @@ export const GridDetailImage = styled.div`
   @media (max-width: 767px) {
     height: 55.5vw;
   }
-
-`;
+`
 
 export const GridDetailInfo = styled.div`
-
   width: 100%;
   min-height: 30%;
   padding-top: 17px;
@@ -208,8 +193,7 @@ export const GridDetailInfo = styled.div`
   @media (max-width: 767px) {
     padding: 3vw 2vw;
   }
-
-`;
+`
 
 export const GridName = styled.div`
   font-weight: bold;
@@ -224,7 +208,7 @@ export const GridName = styled.div`
   @media (max-width: 767px) {
     font-size: 3.5vw;
   }
-`;
+`
 
 export const GridID = styled.div`
   flex-grow: 1;
@@ -240,7 +224,7 @@ export const GridID = styled.div`
   @media (max-width: 767px) {
     font-size: 3vw;
   }
-`;
+`
 
 export const GridLocation = styled.div`
   flex-grow: 1;
@@ -256,4 +240,4 @@ export const GridLocation = styled.div`
   @media (max-width: 767px) {
     font-size: 3vw;
   }
-`;
+`

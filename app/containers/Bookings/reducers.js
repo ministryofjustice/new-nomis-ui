@@ -1,7 +1,7 @@
-import { fromJS } from 'immutable';
-import { transform as quickLookTransformer } from 'helpers/dataMappers/quickLook';
-import { transform as keyDatesTransformer } from 'helpers/dataMappers/keydates';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { fromJS } from 'immutable'
+import { transform as quickLookTransformer } from 'helpers/dataMappers/quickLook'
+import { transform as keyDatesTransformer } from 'helpers/dataMappers/keydates'
+import { LOCATION_CHANGE } from 'react-router-redux'
 
 import {
   SEARCH_SUCCESS,
@@ -13,19 +13,21 @@ import {
   DETAILS_ERROR,
   SET_QUICK_LOOK,
   SET_SCHEDULED_EVENTS,
-} from './constants';
+} from './constants'
 
-const objectIsNotEmpty = (obj) => Object.keys(obj).length !== 0;
-const isSearchResultRoute = (route) => route === '/results';
+const objectIsNotEmpty = obj => Object.keys(obj).length !== 0
+const isSearchResultRoute = route => route === '/results'
 
 const detailsState = fromJS({
   id: 0,
   activeTabId: DETAILS_TABS.QUICK_LOOK,
-  tabs: [{ tabId: DETAILS_TABS.OFFENDER_DETAILS, title: 'Offender Details' },
+  tabs: [
+    { tabId: DETAILS_TABS.OFFENDER_DETAILS, title: 'Offender Details' },
     { tabId: DETAILS_TABS.QUICK_LOOK, title: 'Quick look' },
     { tabId: DETAILS_TABS.PHYSICAL_ATTR, title: 'Physical Attributes' },
     { tabId: DETAILS_TABS.ALERTS, title: 'Alerts' },
-    { tabId: DETAILS_TABS.CASE_NOTES, title: 'Case Notes' }],
+    { tabId: DETAILS_TABS.CASE_NOTES, title: 'Case Notes' },
+  ],
   shouldShowLargePhoto: false,
   imageId: 0,
   locations: [],
@@ -44,7 +46,7 @@ const detailsState = fromJS({
     nextWeek: false,
   },
   lastSearchResultQuery: null,
-});
+})
 
 export const initialState = fromJS({
   error: null,
@@ -53,8 +55,7 @@ export const initialState = fromJS({
   pagination: { perPage: 10, pageNumber: 0 },
   details: detailsState,
   resultsView: 'List', // List or Grid
-});
-
+})
 
 function searchReducer(state = initialState, action) {
   switch (action.type) {
@@ -64,53 +65,57 @@ function searchReducer(state = initialState, action) {
         .set('query', fromJS(action.payload.searchQuery))
         .set('results', fromJS(action.payload.searchResults))
         .set('totalResults', fromJS(action.payload.meta.totalRecords))
-        .set('sortOrder', fromJS(action.payload.meta.sortOrder));
+        .set('sortOrder', fromJS(action.payload.meta.sortOrder))
     }
-    
+
     case LOCATION_CHANGE:
-      return state.set('lastSearchResultQuery',
-          isSearchResultRoute(action.payload.pathname) &&
-          objectIsNotEmpty(action.payload.query) ? action.payload.query : state.get('lastSearchResultQuery'));
+      return state.set(
+        'lastSearchResultQuery',
+        isSearchResultRoute(action.payload.pathname) && objectIsNotEmpty(action.payload.query)
+          ? action.payload.query
+          : state.get('lastSearchResultQuery')
+      )
 
     case SET_RESULTS_VIEW: {
-      return state.set('resultsView', fromJS(action.payload));
+      return state.set('resultsView', fromJS(action.payload))
     }
 
     case SET_LARGE_PHOTO_VISIBILITY: {
       return state
         .setIn(['details', 'shouldShowLargePhoto'], fromJS(action.payload.shouldShowLargePhoto))
-        .setIn(['details', 'imageId'], fromJS(action.payload.imageId));
+        .setIn(['details', 'imageId'], fromJS(action.payload.imageId))
     }
 
     case SET_LOCATIONS: {
-      return state.setIn(['details', 'locations'], fromJS(action.payload.locations || []));
+      return state.setIn(['details', 'locations'], fromJS(action.payload.locations || []))
     }
 
     case SET_KEYDATES: {
-      return state.setIn(['details','keyDatesViewModel'], keyDatesTransformer(fromJS(action.payload)));
+      return state.setIn(['details', 'keyDatesViewModel'], keyDatesTransformer(fromJS(action.payload)))
     }
 
     case SET_QUICK_LOOK: {
-      return state.setIn(['details','quickLookViewModel'], quickLookTransformer(fromJS(action.payload)));
+      return state.setIn(['details', 'quickLookViewModel'], quickLookTransformer(fromJS(action.payload)))
     }
 
     case SET_SCHEDULED_EVENTS: {
-      return state
-        .setIn(['details','scheduledEvents'],fromJS(action.payload.data))
-        .setIn(['details', 'currentFilter'], fromJS({
+      return state.setIn(['details', 'scheduledEvents'], fromJS(action.payload.data)).setIn(
+        ['details', 'currentFilter'],
+        fromJS({
           thisWeek: !action.payload.nextWeek,
           nextWeek: action.payload.nextWeek,
-        }));
+        })
+      )
     }
 
     case DETAILS_ERROR: {
-      return state.setIn(['details','error'], fromJS(action.payload.error));
+      return state.setIn(['details', 'error'], fromJS(action.payload.error))
     }
 
     default: {
-      return state;
+      return state
     }
   }
 }
 
-export default searchReducer;
+export default searchReducer

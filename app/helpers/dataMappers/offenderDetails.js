@@ -1,4 +1,4 @@
-import { Map, List } from 'immutable';
+import { Map, List } from 'immutable'
 
 export const Model = Map({
   bookingId: 0,
@@ -42,13 +42,13 @@ export const Model = Map({
   iepLevel: '',
   csra: '',
   aliases: List([]),
-});
+})
 
 export function transform(data) {
   return Model.mergeDeepWith((prev, next) => {
     if (!next) {
-      return prev;
+      return prev
     }
-    return next;
-  }, data);
+    return next
+  }, data)
 }

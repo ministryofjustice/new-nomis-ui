@@ -1,45 +1,37 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import serialize from 'form-serialize';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import serialize from 'form-serialize'
 
-import { buildSearchQueryString } from 'utils/stringUtils';
+import { buildSearchQueryString } from 'utils/stringUtils'
 
-import './SearchForm.scss';
+import './SearchForm.scss'
 
 class SearchAgainForm extends Component {
   handleSubmit(event) {
-    const { onSubmit } = this.props;
-    event.preventDefault();
-    const formData = serialize(event.target, { hash: true });
-    onSubmit(formData);
+    const { onSubmit } = this.props
+    event.preventDefault()
+    const formData = serialize(event.target, { hash: true })
+    onSubmit(formData)
   }
 
   render() {
-    const { error, locations, submitting, locationPrefix, keywords, alerts } = this.props;
-    const isTicked = code => alerts && alerts.length && alerts.indexOf(code) >= 0;
+    const { error, locations, submitting, locationPrefix, keywords, alerts } = this.props
+    const isTicked = code => alerts && alerts.length && alerts.indexOf(code) >= 0
     return (
       <form className="search-again" onSubmit={event => this.handleSubmit(event)}>
-        {error ?
+        {error ? (
           <div className="error-summary">
-            <h2 className="heading-medium error-summary-heading">
-              Search Error
-            </h2>
-            <div className="error-message">
-              {error}
-            </div>
+            <h2 className="heading-medium error-summary-heading">Search Error</h2>
+            <div className="error-message">{error}</div>
           </div>
-          : null}
+        ) : null}
 
         <div className="filter-box">
-
           <div className="row col-md-4">
-
-            <label className="form-label visible-md visible-lg">
-              Enter prisoner Name or ID
-            </label>
+            <label className="form-label visible-md visible-lg">Enter prisoner Name or ID</label>
 
             <input
               name="keywords"
@@ -50,24 +42,21 @@ class SearchAgainForm extends Component {
               className="form-control"
               defaultValue={keywords}
             />
-
           </div>
 
           <div className="row col-md-4">
-            <label className="form-label visible-md visible-lg">
-              Select location
-            </label>
+            <label className="form-label visible-md visible-lg">Select location</label>
             <select className="form-control" name="locationPrefix" defaultValue={locationPrefix}>
-              {locations.map((location) =>
-                <option key={location.get('locationPrefix')} value={location.get('locationPrefix')}>{location.get('description')}</option>
-              )}
+              {locations.map(location => (
+                <option key={location.get('locationPrefix')} value={location.get('locationPrefix')}>
+                  {location.get('description')}
+                </option>
+              ))}
             </select>
           </div>
 
           <div className="row col-md-3">
-            <label className="form-label visible-md visible-lg">
-                &nbsp;
-            </label>
+            <label className="form-label visible-md visible-lg">&nbsp;</label>
 
             <div className="visible-md visible-lg">
               <button className="button" type="submit" disabled={submitting}>
@@ -80,7 +69,6 @@ class SearchAgainForm extends Component {
                 Search again
               </button>
             </div>
-
           </div>
 
           <details className="govuk-details add-gutter-padding-top visible-md visible-lg">
@@ -88,57 +76,70 @@ class SearchAgainForm extends Component {
               <span className="govuk-details__summary-text">More filters</span>
             </summary>
             <div className="govuk-details__text add-gutter-margin-left">
-              <div className="row col-md-11 no-left-gutter add-gutter-margin-bottom"><b>Flags</b></div>
+              <div className="row col-md-11 no-left-gutter add-gutter-margin-bottom">
+                <b>Flags</b>
+              </div>
               <div className="row">
                 <div className="col-xs-11 col-sm-4 col-md-3 multiple-choice in-rows">
                   <input id="HA" type="checkbox" name="alerts" value="HA" defaultChecked={isTicked('HA')} />
-                  <label className="add-checkbox-label-margin-left" htmlFor="HA">ACCT open</label>
+                  <label className="add-checkbox-label-margin-left" htmlFor="HA">
+                    ACCT open
+                  </label>
                 </div>
                 <div className="col-xs-11 col-sm-4 col-md-3 multiple-choice in-rows">
                   <input id="PEEP" type="checkbox" name="alerts" value="PEEP" defaultChecked={isTicked('PEEP')} />
-                  <label className="add-checkbox-label-margin-left" htmlFor="PEEP">PEEP (disability)</label>
+                  <label className="add-checkbox-label-margin-left" htmlFor="PEEP">
+                    PEEP (disability)
+                  </label>
                 </div>
               </div>
               <div className="row">
                 <div className="col-xs-11 col-sm-4 col-md-3 multiple-choice in-rows">
                   <input id="XSA" type="checkbox" name="alerts" value="XSA" defaultChecked={isTicked('XSA')} />
-                  <label className="add-checkbox-label-margin-left" htmlFor="XSA">Staff assaulter</label>
+                  <label className="add-checkbox-label-margin-left" htmlFor="XSA">
+                    Staff assaulter
+                  </label>
                 </div>
                 <div className="col-xs-11 col-sm-4 col-md-3 multiple-choice in-rows">
                   <input id="XA" type="checkbox" name="alerts" value="XA" defaultChecked={isTicked('XA')} />
-                  <label className="add-checkbox-label-margin-left" htmlFor="XA">Arsonist</label>
+                  <label className="add-checkbox-label-margin-left" htmlFor="XA">
+                    Arsonist
+                  </label>
                 </div>
               </div>
             </div>
           </details>
         </div>
       </form>
-    );
+    )
   }
 }
 
 SearchAgainForm.propTypes = {
   error: PropTypes.string,
   locations: ImmutablePropTypes.list.isRequired,
-};
+}
 
 SearchAgainForm.defaultProps = {
   error: '',
-};
+}
 
 function mapStateToProps(state, props) {
   return {
     keywords: props.query.keywords || '',
     locationPrefix: props.query.locationPrefix || (props.locations.length && props.locations[0].locationPrefix),
     alerts: props.query.alerts || [],
-    error: state.getIn(['home','searchError']),
+    error: state.getIn(['home', 'searchError']),
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmit: (formData) => dispatch(push(`/results?${buildSearchQueryString(formData)}`)) ,
+    onSubmit: formData => dispatch(push(`/results?${buildSearchQueryString(formData)}`)),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchAgainForm)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchAgainForm)

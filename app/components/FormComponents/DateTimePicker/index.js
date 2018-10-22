@@ -1,45 +1,44 @@
-import React, { PureComponent } from 'react';
-import styled from 'styled-components';
-import Datetime from 'react-datetime';
-import moment from 'moment';
-import 'react-datetime/css/react-datetime.css';
+import React, { PureComponent } from 'react'
+import styled from 'styled-components'
+import Datetime from 'react-datetime'
+import moment from 'moment'
+import 'react-datetime/css/react-datetime.css'
 import {
   DEFAULT_MOMENT_DATE_FORMAT_SPEC,
   DEFAULT_MOMENT_TIME_FORMAT_SPEC,
   DATE_TIME_FORMAT_SPEC,
-} from 'containers/App/constants';
+} from 'containers/App/constants'
 
+const DateTimeElement = styled(Datetime)`
+  .rdtCounters {
+    margin-right: 0.5em !important;
+  }
 
-const DateTimeElement = styled(Datetime) `  
-   .rdtCounters{
-     margin-right: .5em !important;
-   }
-   
-   .rdtCount{
-     height:28% !important;
-     margin-right: .2em !important;
-   }
-   .rdtCounterSeparator{
-      margin-right: .2em !important;
-   }
-   .rdtPicker{
-     width:100% !important;
-   }   
-   .rdtBtn{
-     font-size: 2rem !important;
-   }
-`;
+  .rdtCount {
+    height: 28% !important;
+    margin-right: 0.2em !important;
+  }
+  .rdtCounterSeparator {
+    margin-right: 0.2em !important;
+  }
+  .rdtPicker {
+    width: 100% !important;
+  }
+  .rdtBtn {
+    font-size: 2rem !important;
+  }
+`
 
 const DateTimeCancelButton = styled.button`
-   margin-top: 1em;
-`;
+  margin-top: 1em;
+`
 
 const DateTimeAndLink = styled.span`
-   span{
-     font-weight: bold;
-     margin-right:1em;
-   }
-`;
+  span {
+    font-weight: bold;
+    margin-right: 1em;
+  }
+`
 
 export const DateTimePickerDisplay = ({ locale, onDateTimeChange, toggleEdit, isValidDate }) => (
   <div>
@@ -52,41 +51,43 @@ export const DateTimePickerDisplay = ({ locale, onDateTimeChange, toggleEdit, is
       defaultValue={moment()}
     />
     <DateTimeCancelButton className="cancel-button" onClick={toggleEdit}>
-    Finish editing
-  </DateTimeCancelButton>
-
-  </div>);
+      Finish editing
+    </DateTimeCancelButton>
+  </div>
+)
 
 export const ReadOnlyDateTimeView = ({ dateTimeText, toggleEdit }) => (
   <div>
     <DateTimeAndLink>
       <span className="date-time-text">{dateTimeText}</span>
-      <a href="#" onClick={toggleEdit}>Edit</a>
+      <a href="#" onClick={toggleEdit}>
+        Edit
+      </a>
     </DateTimeAndLink>
-  </div>);
+  </div>
+)
 
 class DateTimePicker extends PureComponent {
-
   constructor() {
-    super();
+    super()
 
-    this.toggleEdit = this.toggleEdit.bind(this);
-    this.onDateTimeChange = this.onDateTimeChange.bind(this);
-    this.outputResult = this.outputResult.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this)
+    this.onDateTimeChange = this.onDateTimeChange.bind(this)
+    this.outputResult = this.outputResult.bind(this)
 
-    const momentSnapShot = moment();
+    const momentSnapShot = moment()
 
     this.state = {
       edit: false,
       date: momentSnapShot.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC),
       time: momentSnapShot.format(DEFAULT_MOMENT_TIME_FORMAT_SPEC),
       momentSnapShot,
-    };
+    }
   }
 
   componentDidMount() {
-    const { momentSnapShot } = this.state;
-    this.outputResult(momentSnapShot.format(DATE_TIME_FORMAT_SPEC));
+    const { momentSnapShot } = this.state
+    this.outputResult(momentSnapShot.format(DATE_TIME_FORMAT_SPEC))
   }
 
   onDateTimeChange(momentDate) {
@@ -95,54 +96,55 @@ class DateTimePicker extends PureComponent {
       date: momentDate.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC),
       time: momentDate.format(DEFAULT_MOMENT_TIME_FORMAT_SPEC),
       momentSnapShot: momentDate,
-    }));
+    }))
 
-    this.outputResult(momentDate.format(DATE_TIME_FORMAT_SPEC));
+    this.outputResult(momentDate.format(DATE_TIME_FORMAT_SPEC))
   }
 
   toggleEdit(e) {
-    const { edit } = this.state;
-    e.preventDefault();
+    const { edit } = this.state
+    e.preventDefault()
     this.setState({
       edit: !edit,
-    });
+    })
   }
 
   outputResult(value) {
-    const { input } = this.props;
-    if (input && input.onChange) { input.onChange(value); }
+    const { input } = this.props
+    if (input && input.onChange) {
+      input.onChange(value)
+    }
   }
 
   render() {
-    const { locale, title, meta: { touched, error }, shouldShowDay } = this.props;
-    const { edit, date, time } = this.state;
-    const dateTimeText = date ? `${date}  -  ${time}` : '';
+    const {
+      locale,
+      title,
+      meta: { touched, error },
+      shouldShowDay,
+    } = this.props
+    const { edit, date, time } = this.state
+    const dateTimeText = date ? `${date}  -  ${time}` : ''
 
     return (
       <div className={!(touched && error) ? 'form-group' : 'form-group form-group-error'}>
+        <label className="form-label">{title}</label>
 
-        <label className="form-label">
-          {title}
-        </label>
+        <div className="error-message">{touched && (error && <span>{error}</span>)}</div>
 
-        <div className="error-message">
-          {touched && ((error && <span>{error}</span>))}
-        </div>
-
-        {edit ?
+        {edit ? (
           <DateTimePickerDisplay
             toggleEdit={this.toggleEdit}
             locale={locale}
             onDateTimeChange={this.onDateTimeChange}
             isValidDate={shouldShowDay}
-
-          /> :
+          />
+        ) : (
           <ReadOnlyDateTimeView toggleEdit={this.toggleEdit} dateTimeText={dateTimeText} />
-        }
-
+        )}
       </div>
-    );
+    )
   }
 }
 
-export default DateTimePicker;
+export default DateTimePicker

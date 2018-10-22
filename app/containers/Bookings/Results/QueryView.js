@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Button, { ButtonRow } from 'components/Button';
-import { InputLabel } from 'components/FormComponents/Input/input.theme';
-import { QueryWrapper, QueryItemHolder, QueryValue } from './query.theme';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Button, { ButtonRow } from 'components/Button'
+import { InputLabel } from 'components/FormComponents/Input/input.theme'
+import { QueryWrapper, QueryItemHolder, QueryValue } from './query.theme'
 
-const QueryView = (props) => {
-  const { initialValues, onSubmit } = props;
-  const firstName = initialValues.firstName ? initialValues.firstName : '';
-  const lastName = initialValues.lastName ? initialValues.lastName : '';
-  const offenderNo = initialValues.offenderNo ? initialValues.offenderNo : null;
+const QueryView = props => {
+  const { initialValues, onSubmit } = props
+  const firstName = initialValues.firstName ? initialValues.firstName : ''
+  const lastName = initialValues.lastName ? initialValues.lastName : ''
+  const offenderNo = initialValues.offenderNo ? initialValues.offenderNo : null
 
   return (
     <QueryWrapper>
@@ -25,15 +25,17 @@ const QueryView = (props) => {
         <QueryValue>{offenderNo}</QueryValue>
       </QueryItemHolder>
       <ButtonRow>
-        <Button type="submit" buttonstyle="link" onClick={onSubmit} >Modify</Button>
+        <Button type="submit" buttonstyle="link" onClick={onSubmit}>
+          Modify
+        </Button>
       </ButtonRow>
     </QueryWrapper>
-  );
-};
+  )
+}
 
 QueryView.propTypes = {
   initialValues: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
-};
+}
 
-export default QueryView;
+export default QueryView

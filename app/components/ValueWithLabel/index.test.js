@@ -1,9 +1,9 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import ValueWithLabel from '.';
+import React from 'react'
+import { shallow } from 'enzyme'
+import ValueWithLabel from '.'
 
 describe('<ValueWithLabel />', () => {
-  const labelText = 'Label Text';
+  const labelText = 'Label Text'
   const wrapper = shallow(<ValueWithLabel label={labelText} />)
 
   it('should render without error', () => {
@@ -19,7 +19,7 @@ describe('<ValueWithLabel />', () => {
   })
 
   it('should render the correct value text when a value is provided', () => {
-    const valueText = 'Value Text';
+    const valueText = 'Value Text'
     wrapper.setProps({ children: valueText })
     expect(wrapper.find('.value-with-label__value').text()).toEqual(valueText)
   })

@@ -1,3 +1,3 @@
-import { Map } from 'immutable';
+import { Map } from 'immutable'
 
-export const Model = Map({});
+export const Model = Map({})

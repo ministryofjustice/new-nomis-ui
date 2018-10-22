@@ -1,12 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import {
-  TabWrapper,
-  TabMenuItem,
-  TextHolder,
-  TabWrapperContentPadding,
-} from './tabMenuMobile.theme';
+import { TabWrapper, TabMenuItem, TextHolder, TabWrapperContentPadding } from './tabMenuMobile.theme'
 
 function TabMenuMobile({ tabData, activeTabId }) {
   const imgArray = [
@@ -15,29 +10,30 @@ function TabMenuMobile({ tabData, activeTabId }) {
     '/img/Alerts_icon.svg',
     '/img/CaseNotes_icon.svg',
     '/img/KeyDates_icon.svg',
-  ];
+  ]
 
   return (
     <div>
       <TabWrapper data-name="TabNavMobile">
-        {tabData.map((tab, i) => <TabMenuItem
-          key={tab.tabId}
-          active={tab.tabId === activeTabId}
-          onClick={tab.tabId === activeTabId ? null : tab.action}
-          bgImg={imgArray[i]}
-        >
-          <TextHolder>{tab.mobileTitle}</TextHolder>
-        </TabMenuItem>)}
+        {tabData.map((tab, i) => (
+          <TabMenuItem
+            key={tab.tabId}
+            active={tab.tabId === activeTabId}
+            onClick={tab.tabId === activeTabId ? null : tab.action}
+            bgImg={imgArray[i]}
+          >
+            <TextHolder>{tab.mobileTitle}</TextHolder>
+          </TabMenuItem>
+        ))}
       </TabWrapper>
       <TabWrapperContentPadding />
     </div>
-  );
+  )
 }
 
 TabMenuMobile.propTypes = {
   tabData: PropTypes.array.isRequired,
   activeTabId: PropTypes.string.isRequired,
-};
+}
 
-
-export default TabMenuMobile;
+export default TabMenuMobile

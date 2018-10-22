@@ -3,7 +3,7 @@
  *
  * This contains all the text for the HomePage component.
  */
-import { defineMessages } from 'react-intl';
+import { defineMessages } from 'react-intl'
 
 export default defineMessages({
   title: {
@@ -22,4 +22,4 @@ export default defineMessages({
     id: 'app.components.Login.subsubtitle',
     defaultMessage: 'Submit',
   },
-});
+})

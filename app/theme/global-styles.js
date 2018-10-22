@@ -1,4 +1,4 @@
-import { injectGlobal } from 'styled-components';
+import { injectGlobal } from 'styled-components'
 /* eslint no-unused-expressions: 0 */
 // This can't be easily tested so we ignore it in package.json.jest (maybe int he future we could check the dom for <style> via JSDOM)
 injectGlobal`
@@ -29,4 +29,4 @@ injectGlobal`
   }
 
 
-`;
+`

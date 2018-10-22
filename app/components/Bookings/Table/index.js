@@ -1,34 +1,48 @@
-import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import React from 'react';
-import { browserHistory } from 'react-router';
+import PropTypes from 'prop-types'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import React from 'react'
+import { browserHistory } from 'react-router'
 
-import EliteImage from 'containers/EliteContainers/Image';
-import { offenderImageUrl, DETAILS_TABS } from 'containers/Bookings/constants';
+import EliteImage from 'containers/EliteContainers/Image'
+import { offenderImageUrl, DETAILS_TABS } from 'containers/Bookings/constants'
 
-import Name from 'components/Name';
+import Name from 'components/Name'
 
-import './index.scss';
-import AlertFlags from '../AlertFlags';
+import './index.scss'
+import AlertFlags from '../AlertFlags'
 
-const ArrowUp = ({ sortOrderChange }) => <span className="clickable" onClick={sortOrderChange}> <img src="/img/Triangle_asc.png" height="8" width="15" alt="Up arrow" /> </span>;
-const ArrowDown = ({ sortOrderChange }) => <span className="clickable" onClick={sortOrderChange}> <img src="/img/Triangle_desc.png" height="8" width="15" alt="Down arrow" /> </span>;
+const ArrowUp = ({ sortOrderChange }) => (
+  <span className="clickable" onClick={sortOrderChange}>
+    {' '}
+    <img src="/img/Triangle_asc.png" height="8" width="15" alt="Up arrow" />{' '}
+  </span>
+)
+const ArrowDown = ({ sortOrderChange }) => (
+  <span className="clickable" onClick={sortOrderChange}>
+    {' '}
+    <img src="/img/Triangle_desc.png" height="8" width="15" alt="Down arrow" />{' '}
+  </span>
+)
 
 const onViewDetails = (event, row) => {
-  event.preventDefault();
+  event.preventDefault()
 
   browserHistory.push(`/offenders/${row.get('offenderNo')}/${DETAILS_TABS.QUICK_LOOK}`)
-};
+}
 
 const Table = ({ results, sortOrder, sortOrderChange, onAlertFlagClick }) => (
   <div className="booking-table">
     <div className="row">
-
       <div className="col-xs-3 col-md-1 remove-left-padding" />
 
       <div className="col-xs-3 col-md-3">
-        <b> Name </b> {sortOrderChange &&
-      (sortOrder === 'ASC' ? <ArrowUp sortOrderChange={sortOrderChange} /> : <ArrowDown sortOrderChange={sortOrderChange} />)}
+        <b> Name </b>{' '}
+        {sortOrderChange &&
+          (sortOrder === 'ASC' ? (
+            <ArrowUp sortOrderChange={sortOrderChange} />
+          ) : (
+            <ArrowDown sortOrderChange={sortOrderChange} />
+          ))}
       </div>
 
       <div className="col-xs-3 col-md-1 no-left-gutter no-right-gutter">
@@ -52,39 +66,41 @@ const Table = ({ results, sortOrder, sortOrderChange, onAlertFlagClick }) => (
       </div>
     </div>
 
-      {(results).map((row) =>
-        <div className="row" key={`booking_table_${row.get('offenderNo')}`}>
-          <div className="col-xs-3 col-md-1 remove-left-padding">
-            <div className="photo clickable" onClick={(e) => onViewDetails(e, row)}>
-              <EliteImage src={offenderImageUrl(row.get('facialImageId'))} />
-            </div>
-          </div>
-          <div className="col-xs-3 col-md-3 add-margin-top">
-            <span>
-              <div className="bold link" onClick={(e) => onViewDetails(e, row)}>
-                <Name lastName={row.get('lastName')} firstName={row.get('firstName')} />
-              </div>
-            </span>
-          </div>
-          <div className="col-xs-3 col-md-1 add-margin-top no-left-gutter no-right-gutter">
-            <span>{row.get('offenderNo')}</span>
-          </div>
-          <div className="col-xs-3 col-md-1 add-margin-top no-left-gutter">
-            <span>{row.get('assignedLivingUnitDesc')}</span>
-          </div>
-          <div className="visible-md visible-lg col-md-1 add-margin-top no-left-gutter no-right-gutter">
-            <span>{row.get('iepLevel')}</span>
-          </div>
-          <div className="visible-md visible-lg col-md-1 add-margin-top">
-            <span>{row.get('age')}</span>
-          </div>
-          <div className="visible-md visible-lg col-md-3 add-flags-margin-top no-left-gutter no-right-gutter">
-            {AlertFlags(row.get('alertsDetails'), 'inline-header-large align-alerts', () => onAlertFlagClick(row.get('offenderNo')))}
+    {results.map(row => (
+      <div className="row" key={`booking_table_${row.get('offenderNo')}`}>
+        <div className="col-xs-3 col-md-1 remove-left-padding">
+          <div className="photo clickable" onClick={e => onViewDetails(e, row)}>
+            <EliteImage src={offenderImageUrl(row.get('facialImageId'))} />
           </div>
         </div>
-    )}
-    </div>
-);
+        <div className="col-xs-3 col-md-3 add-margin-top">
+          <span>
+            <div className="bold link" onClick={e => onViewDetails(e, row)}>
+              <Name lastName={row.get('lastName')} firstName={row.get('firstName')} />
+            </div>
+          </span>
+        </div>
+        <div className="col-xs-3 col-md-1 add-margin-top no-left-gutter no-right-gutter">
+          <span>{row.get('offenderNo')}</span>
+        </div>
+        <div className="col-xs-3 col-md-1 add-margin-top no-left-gutter">
+          <span>{row.get('assignedLivingUnitDesc')}</span>
+        </div>
+        <div className="visible-md visible-lg col-md-1 add-margin-top no-left-gutter no-right-gutter">
+          <span>{row.get('iepLevel')}</span>
+        </div>
+        <div className="visible-md visible-lg col-md-1 add-margin-top">
+          <span>{row.get('age')}</span>
+        </div>
+        <div className="visible-md visible-lg col-md-3 add-flags-margin-top no-left-gutter no-right-gutter">
+          {AlertFlags(row.get('alertsDetails'), 'inline-header-large align-alerts', () =>
+            onAlertFlagClick(row.get('offenderNo'))
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+)
 
 Table.defaultProps = {
   sortOrderChange: () => {},
@@ -94,6 +110,6 @@ Table.propTypes = {
   results: ImmutablePropTypes.list.isRequired,
   sortOrderChange: PropTypes.func,
   sortOrder: PropTypes.string.isRequired,
-};
+}
 
-export default Table;
+export default Table

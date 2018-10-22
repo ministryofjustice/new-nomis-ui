@@ -1,5 +1,4 @@
-
-import { LOAD_CASE_NOTE_TYPES_SUBTYPES, LOAD_ALERT_TYPES } from 'containers/EliteApiLoader/constants';
+import { LOAD_CASE_NOTE_TYPES_SUBTYPES, LOAD_ALERT_TYPES } from 'containers/EliteApiLoader/constants'
 
 import {
   VIEW_DETAILS,
@@ -16,28 +15,27 @@ import {
   LOAD_SCHEDULED_EVENTS,
   NEW_SEARCH,
   EXTEND_SESSION,
-} from './constants';
-
+} from './constants'
 
 export function loadLocations(offset) {
   return {
     type: LOAD_LOCATIONS,
     payload: offset,
-  };
+  }
 }
 
 export function showLargePhoto(imageId) {
   return {
     type: SHOW_LARGE_PHOTO_BOOKING_DETAILS,
     payload: { imageId },
-  };
+  }
 }
 
 export function hideLargePhoto(imageId) {
   return {
     type: HIDE_LARGE_PHOTO_BOOKING_DETAILS,
     payload: { imageId },
-  };
+  }
 }
 
 export function viewDetails(offenderNo, activeTabId, itemId) {
@@ -45,50 +43,49 @@ export function viewDetails(offenderNo, activeTabId, itemId) {
     meta: { debounce: 'simple' },
     type: VIEW_DETAILS,
     payload: { offenderNo, activeTabId, itemId },
-  };
+  }
 }
 
 export function setPagination(pagination) {
   return {
     type: UPDATE_PAGINATION,
     payload: pagination,
-  };
+  }
 }
 export function toggleSort(currentDirection, pagination) {
-  const sortOrder = currentDirection === 'ASC' ? 'DESC' : 'ASC';
+  const sortOrder = currentDirection === 'ASC' ? 'DESC' : 'ASC'
   return {
     type: UPDATE_PAGINATION,
     payload: { ...pagination, sortOrder },
-  };
+  }
 }
-
 
 export function addNewCaseNote({ offenderNo, type, subType, occurrenceDateTime }) {
   return {
     meta: { debounce: 'simple' },
     type: ADD_NEW_CASENOTE.BASE,
     payload: { offenderNo, type, subType, occurrenceDateTime },
-  };
+  }
 }
 
 export function setResultsView(view) {
   return {
     type: UPDATE_RESULTS_VIEW,
     payload: view,
-  };
+  }
 }
 
 export function setCaseNotesListView() {
   return {
     type: VIEW_CASENOTE_LIST,
-  };
+  }
 }
 
 export function toggleSortOrder(sortOrder) {
   return {
     type: TOGGLE_SORT_ORDER,
     payload: sortOrder,
-  };
+  }
 }
 
 export function loadKeyDates(offenderNo) {
@@ -115,7 +112,7 @@ export function resetCaseNoteFilterFormField(field) {
       field,
     },
     payload: null,
-  };
+  }
 }
 
 export function loadScheduledEventsForThisWeek(offenderNo) {

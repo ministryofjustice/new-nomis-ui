@@ -1,25 +1,24 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-class Input extends Component { // eslint-disable-line react/prefer-stateless-function
-  render() {
-    return (
-      <div>
-        <input className="form-control" {...this.props} />
-      </div>
-    );
-  }
-}
+const Input = props => (
+  <div>
+    <input className="form-control" {...props} />
+  </div>
+)
 
 const renderField = ({ input, title, type, placeholder, meta: { touched, error } }) => (
   <div className={!(touched && error) ? 'form-group' : 'form-group form-group-error'}>
     <label className="form-label">{title}</label>
-    <div className="error-message">
-      {touched && ((error && <span>{error}</span>))}
-    </div>
-    <Input className={!(touched && error) ? 'form-control' : 'form-control form-control-error'} {...input} type={type} placeholder={placeholder} />
+    <div className="error-message">{touched && (error && <span>{error}</span>)}</div>
+    <Input
+      className={!(touched && error) ? 'form-control' : 'form-control form-control-error'}
+      {...input}
+      type={type}
+      placeholder={placeholder}
+    />
   </div>
-);
+)
 
 renderField.propTypes = {
   input: PropTypes.object.isRequired,
@@ -27,11 +26,11 @@ renderField.propTypes = {
   type: PropTypes.string.isRequired,
   meta: PropTypes.object.isRequired,
   placeholder: PropTypes.string,
-};
+}
 
 renderField.defaultProps = {
   title: '',
   placeholder: '',
-};
+}
 
-export default renderField;
+export default renderField

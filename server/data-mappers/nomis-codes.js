@@ -1,10 +1,8 @@
-
-
 module.exports = {
   statusCodes: {
     cancelled: 'CANC',
     cancelledOutcome: 'CAN',
-    attended: 'ATT',  
+    attended: 'ATT',
     scheduled: 'SCH',
   },
   eventTypes: {
@@ -12,4 +10,4 @@ module.exports = {
     activity: 'PA',
     appointment: 'APP',
   },
-};
+}

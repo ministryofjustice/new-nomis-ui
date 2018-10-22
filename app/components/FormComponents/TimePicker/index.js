@@ -1,78 +1,75 @@
-import React, { Component } from 'react';
-import moment from 'moment';
+import React, { Component } from 'react'
+import moment from 'moment'
 
-import {
-  DATE_TIME_FORMAT_SPEC,
-  DATE_ONLY_FORMAT_SPEC,
-} from 'containers/App/constants';
+import { DATE_TIME_FORMAT_SPEC, DATE_ONLY_FORMAT_SPEC } from 'containers/App/constants'
 
-const formatNumbersUpTo = (total) => [...Array(total).keys()].map(i => {
-  if (i < 10) return `0${i}`;
-  return i;
-});
+const formatNumbersUpTo = total =>
+  [...Array(total).keys()].map(i => {
+    if (i < 10) return `0${i}`
+    return i
+  })
 
-const constructHours = ({ dateTime ,futureTimeOnly, enableFilters }) => {
-  const hours = ['--', ...formatNumbersUpTo(24)];
+const constructHours = ({ dateTime, futureTimeOnly, enableFilters }) => {
+  const hours = ['--', ...formatNumbersUpTo(24)]
   if (!enableFilters) {
-    return hours;
+    return hours
   }
-  const filter = futureTimeOnly ? (unit => unit >= dateTime.hour()) : (unit => unit <= dateTime.hour());
-  return ['--', ...hours.filter(filter)];
-};
+  const filter = futureTimeOnly ? unit => unit >= dateTime.hour() : unit => unit <= dateTime.hour()
+  return ['--', ...hours.filter(filter)]
+}
 
 const constructMinutes = ({ selectedHour, dateTime, futureTimeOnly, enableFilters }) => {
-  const minutes = ['--', '00','05','10','15','20','25','30','35','40','45','50','55'];
+  const minutes = ['--', '00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55']
   if (!enableFilters) {
-    return minutes;
+    return minutes
   }
 
   if (dateTime.hour() === parseInt(selectedHour, 10)) {
-    const filter = futureTimeOnly ? (unit => unit >= dateTime.minute()) : (unit => unit <= dateTime.minute());
-    return ['--', ...minutes.filter(filter)];
+    const filter = futureTimeOnly ? unit => unit >= dateTime.minute() : unit => unit <= dateTime.minute()
+    return ['--', ...minutes.filter(filter)]
   }
 
-  return minutes;
-};
-
+  return minutes
+}
 
 class TimePicker extends Component {
   constructor() {
-    super();
-    this.onHoursChange = this.onHoursChange.bind(this);
-    this.onMinutesChange = this.onMinutesChange.bind(this);
-    this.setInputValue = this.setInputValue.bind(this);
-    this.shouldEnableFilters = this.shouldEnableFilters.bind(this);
-    this.getNearestMinute = this.getNearestMinute.bind(this);
+    super()
+    this.onHoursChange = this.onHoursChange.bind(this)
+    this.onMinutesChange = this.onMinutesChange.bind(this)
+    this.setInputValue = this.setInputValue.bind(this)
+    this.shouldEnableFilters = this.shouldEnableFilters.bind(this)
+    this.getNearestMinute = this.getNearestMinute.bind(this)
 
-    this.state = {};
+    this.state = {}
   }
 
   componentDidMount() {
-    const { initialiseToNow, now} = this.props;
+    const { initialiseToNow, now } = this.props
     if (initialiseToNow) {
       const time = {
         hours: now.hours().toString(),
         minutes: this.getNearestMinute().toString(),
-      };
+      }
 
-      this.setInputValue(time);
+      this.setInputValue(time)
     }
   }
 
   componentWillReceiveProps(newProps) {
-    const { input } = this.props;
+    const { input } = this.props
     if (!input.value) {
-      return;
+      return
     }
 
-    const selectedDate = moment(input.value,DATE_TIME_FORMAT_SPEC);
-    const newDate = moment(newProps.date, DATE_TIME_FORMAT_SPEC);
+    const selectedDate = moment(input.value, DATE_TIME_FORMAT_SPEC)
+    const newDate = moment(newProps.date, DATE_TIME_FORMAT_SPEC)
 
     if (selectedDate.format(DATE_ONLY_FORMAT_SPEC) !== newDate.format(DATE_ONLY_FORMAT_SPEC)) {
-      newDate.hour(selectedDate.hours());
-      newDate.minutes(selectedDate.minutes());
-      newDate.seconds(0);
-      input.onChange(newDate.format(DATE_TIME_FORMAT_SPEC));
+      newDate.hour(selectedDate.hours())
+      newDate.minutes(selectedDate.minutes())
+      newDate.seconds(0)
+      input.onChange(newDate.format(DATE_TIME_FORMAT_SPEC))
     }
   }
 
@@ -81,7 +78,7 @@ class TimePicker extends Component {
       this.setInputValue({
         ...this.state,
         hours: event.target.value,
-      });
+      })
     }
   }
 
@@ -90,107 +87,113 @@ class TimePicker extends Component {
       this.setInputValue({
         ...this.state,
         minutes: event.target.value,
-      });
+      })
     }
   }
 
   setInputValue(data) {
-    const { date, input } = this.props;
+    const { date, input } = this.props
     if (data.hours && data.hours !== '--' && data.minutes !== '--') {
-      const selectedDate = (date && moment(date, DATE_ONLY_FORMAT_SPEC)) || moment();
+      const selectedDate = (date && moment(date, DATE_ONLY_FORMAT_SPEC)) || moment()
 
-      selectedDate.hours(parseInt(data.hours, 10));
-      selectedDate.minutes(parseInt(data.minutes || 0, 10));
-      selectedDate.seconds(0);
+      selectedDate.hours(parseInt(data.hours, 10))
+      selectedDate.minutes(parseInt(data.minutes || 0, 10))
+      selectedDate.seconds(0)
 
-      input.onChange(selectedDate.format(DATE_TIME_FORMAT_SPEC));
+      input.onChange(selectedDate.format(DATE_TIME_FORMAT_SPEC))
     } else {
-      input.onChange('');
+      input.onChange('')
     }
-    this.setState(data);
+    this.setState(data)
   }
 
   getNearestMinute() {
-    const { now, futureTimeOnly, pastTimeOnly } = this.props;
+    const { now, futureTimeOnly, pastTimeOnly } = this.props
     const minutes = constructMinutes({
       selectedHour: now.hour(),
       dateTime: now,
       futureTimeOnly,
       pastTimeOnly,
-      enableFilters: this.shouldEnableFilters() });
+      enableFilters: this.shouldEnableFilters(),
+    })
 
-    return minutes[minutes.length - 1];
+    return minutes[minutes.length - 1]
   }
 
   shouldEnableFilters() {
-    const { date, now, futureTimeOnly, pastTimeOnly } = this.props;
-    if (!date || !now) { return false; }
+    const { date, now, futureTimeOnly, pastTimeOnly } = this.props
+    if (!date || !now) {
+      return false
+    }
 
-    const isToday = now.isSame(date, 'day');
-    return (isToday && (futureTimeOnly || pastTimeOnly));
+    const isToday = now.isSame(date, 'day')
+    return isToday && (futureTimeOnly || pastTimeOnly)
   }
 
   render() {
-    const { title,meta: { touched, error }, now, date, futureTimeOnly, pastTimeOnly } = this.props;
-    const { hours, minutes } = this.state;
+    const {
+      title,
+      meta: { touched, error },
+      now,
+      date,
+      futureTimeOnly,
+      pastTimeOnly,
+    } = this.props
+    const { hours, minutes } = this.state
 
-    const dateTime = moment(now, DATE_TIME_FORMAT_SPEC);
-    const dateOnly = moment(date, DATE_ONLY_FORMAT_SPEC);
-    const enableFilters = this.shouldEnableFilters();
-    const selectedHour = this.state && hours;
+    const dateTime = moment(now, DATE_TIME_FORMAT_SPEC)
+    const dateOnly = moment(date, DATE_ONLY_FORMAT_SPEC)
+    const enableFilters = this.shouldEnableFilters()
+    const selectedHour = this.state && hours
 
-    const constructedHours = constructHours({ dateTime, dateOnly, futureTimeOnly, pastTimeOnly,enableFilters });
-    const constructedMinutes = constructMinutes({ selectedHour ,dateTime,dateOnly,futureTimeOnly, pastTimeOnly, enableFilters });
+    const constructedHours = constructHours({ dateTime, dateOnly, futureTimeOnly, pastTimeOnly, enableFilters })
+    const constructedMinutes = constructMinutes({
+      selectedHour,
+      dateTime,
+      dateOnly,
+      futureTimeOnly,
+      pastTimeOnly,
+      enableFilters,
+    })
 
-    return (<div
-      className={!(touched && error) ?
-      'time-picker form-group' :
-      'time-picker form-group form-group-error'}
-    >
+    return (
+      <div className={!(touched && error) ? 'time-picker form-group' : 'time-picker form-group form-group-error'}>
+        <label className="form-label">{title}</label>
 
-      <label className="form-label">
-        {title}
-      </label>
+        <div className="error-message">{touched && (error && <span>{error}</span>)}</div>
 
-      <div className="error-message">
-        {touched && ((error && <span>{error}</span>))}
+        <select
+          disabled={!date}
+          className={
+            !(touched && error)
+              ? 'form-control add-gutter-margin-right select-hours'
+              : 'form-control form-control-error add-gutter-margin-right'
+          }
+          name="hours"
+          onChange={this.onHoursChange}
+          defaultValue="--"
+          value={hours}
+        >
+          {constructedHours.map(hour => (
+            <option key={hour}>{hour}</option>
+          ))}
+        </select>
+
+        <select
+          disabled={!date}
+          className={!(touched && error) ? 'form-control select-minutes' : 'form-control form-control-error'}
+          name="minutes"
+          onChange={this.onMinutesChange}
+          defaultValue="--"
+          value={minutes}
+        >
+          {constructedMinutes.map(minute => (
+            <option key={minute}>{minute}</option>
+          ))}
+        </select>
       </div>
-
-      <select
-        disabled={!date}
-        className={!(touched && error) ?
-          'form-control add-gutter-margin-right select-hours' :
-          'form-control form-control-error add-gutter-margin-right'}
-        name="hours"
-        onChange={this.onHoursChange}
-        defaultValue="--"
-        value={hours}
-      >
-        {constructedHours.map(hour => (
-          <option key={hour}>
-            {hour}
-          </option>
-        ))}
-      </select>
-
-      <select
-        disabled={!date}
-        className={!(touched && error) ?
-          'form-control select-minutes' :
-          'form-control form-control-error'}
-        name="minutes"
-        onChange={this.onMinutesChange}
-        defaultValue="--"
-        value={minutes}
-      >
-        {constructedMinutes.map(minute => (
-          <option key={minute}>
-            {minute}
-          </option>
-        ))}
-      </select>
-    </div>)
+    )
   }
 }
 
-export default TimePicker;
+export default TimePicker

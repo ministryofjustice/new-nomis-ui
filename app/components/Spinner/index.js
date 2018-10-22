@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import { Spinner as SpinnerPlugin } from 'spin.js';
+import React, { Component } from 'react'
+import { Spinner as SpinnerPlugin } from 'spin.js'
 
-import './index.scss';
+import './index.scss'
 
 class Spinner extends Component {
-
   componentDidMount() {
     const options = {
       lines: 13, // The number of lines to draw
@@ -24,20 +23,20 @@ class Spinner extends Component {
       zIndex: 2e9, // The z-index (defaults to 2000000000)
       className: 'spinner', // The CSS class to assign to the spinner
       position: 'relative',
-    };
-    new SpinnerPlugin(options).spin(this.refs.spinner);
+    }
+    new SpinnerPlugin(options).spin(this.refs.spinner)
   }
 
   render() {
-    return (<div className="spinner-component" onClick={(e) => e.preventDefault()}>
-      <div className="spinner-box">
-        <h2 className="heading-large">
-          Loading
-        </h2>
-         <div ref="spinner" />
+    return (
+      <div className="spinner-component" onClick={e => e.preventDefault()}>
+        <div className="spinner-box">
+          <h2 className="heading-large">Loading</h2>
+          <div ref="spinner" />
+        </div>
       </div>
-    </div>)
+    )
   }
 }
 
-export default Spinner;
+export default Spinner

@@ -1,4 +1,4 @@
-import { Map, List } from 'immutable';
+import { Map, List } from 'immutable'
 
 export const Model = Map({
   details: {
@@ -22,4 +22,4 @@ export const Model = Map({
   }),
   resultsView: 'List',
   loading: false,
-});
+})

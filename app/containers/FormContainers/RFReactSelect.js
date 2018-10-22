@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import 'react-select/dist/react-select.css';
+import PropTypes from 'prop-types'
+import React from 'react'
+import 'react-select/dist/react-select.css'
 
-import { StyledSelect } from './RFReactSelect.theme';
+import { StyledSelect } from './RFReactSelect.theme'
 
 RFReactSelect.defaultProps = {
   multi: false,
   className: '',
-};
+}
 
 RFReactSelect.propTypes = {
   input: PropTypes.shape({
@@ -20,11 +20,11 @@ RFReactSelect.propTypes = {
   options: PropTypes.array.isRequired,
   multi: PropTypes.bool,
   className: PropTypes.string,
-};
+}
 
 export default function RFReactSelect({ input, options, multi, className }) {
-  const { name, value, onBlur, onChange, onFocus } = input;
-  const transformedValue = transformValue(value, options, multi);
+  const { name, value, onBlur, onChange, onFocus } = input
+  const transformedValue = transformValue(value, options, multi)
   return (
     <StyledSelect
       valueKey="value"
@@ -32,15 +32,12 @@ export default function RFReactSelect({ input, options, multi, className }) {
       value={transformedValue}
       multi={multi}
       options={options}
-      onChange={multi
-        ? multiChangeHandler(onChange)
-        : singleChangeHandler(onChange)
-      }
+      onChange={multi ? multiChangeHandler(onChange) : singleChangeHandler(onChange)}
       onBlur={() => onBlur(value)}
       onFocus={onFocus}
       className={className}
     />
-  );
+  )
 }
 
 /**
@@ -48,8 +45,8 @@ export default function RFReactSelect({ input, options, multi, className }) {
  */
 function singleChangeHandler(func) {
   return function handleSingleChange(value) {
-    func(value ? value.value : '');
-  };
+    func(value ? value.value : '')
+  }
 }
 
 /**
@@ -57,8 +54,8 @@ function singleChangeHandler(func) {
  */
 function multiChangeHandler(func) {
   return function handleMultiHandler(values) {
-    func(values.map((value) => value.value));
-  };
+    func(values.map(value => value.value))
+  }
 }
 
 /**
@@ -69,11 +66,11 @@ function multiChangeHandler(func) {
  * wants the array of values in the form [{ value: "grape", label: "Grape" }]
  */
 function transformValue(value, options, multi) {
-  if (multi && typeof value === 'string') return [];
+  if (multi && typeof value === 'string') return []
 
-  const filteredOptions = options.filter((option) => multi
-      ? value.indexOf(option.value) !== -1
-      : option.value === value);
+  const filteredOptions = options.filter(
+    option => (multi ? value.indexOf(option.value) !== -1 : option.value === value)
+  )
 
-  return multi ? filteredOptions : filteredOptions[0];
+  return multi ? filteredOptions : filteredOptions[0]
 }

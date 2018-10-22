@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import colours from 'theme/colours';
-import Select from 'react-select';
+import styled from 'styled-components'
+import colours from 'theme/colours'
+import Select from 'react-select'
 
 // import { RFReactSelect } from './RFReactSelect.theme';
 
@@ -97,4 +97,4 @@ export const StyledSelect = styled(Select)`
   }
 
 
-`;
+`

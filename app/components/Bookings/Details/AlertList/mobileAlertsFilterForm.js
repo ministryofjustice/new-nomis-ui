@@ -1,18 +1,18 @@
-import React from 'react';
-import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from 'components/FormComponents/DatePicker';
-import SelectWithLabel from 'components/FormComponents/SelectWithLabel';
-import { Field } from 'redux-form/immutable';
+import React from 'react'
+import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from 'components/FormComponents/DatePicker'
+import SelectWithLabel from 'components/FormComponents/SelectWithLabel'
+import { Field } from 'redux-form/immutable'
 
-import moment from 'moment';
+import moment from 'moment'
 
-import './mobileAlertsFilterForm.scss';
-
+import './mobileAlertsFilterForm.scss'
 
 const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleSubmit, reset }) => (
   <details className="govuk-details add-gutter-padding-top">
-    <summary className="govuk-details__summary"><span className="govuk-details__summary-text">Show filters</span></summary>
-    <form className="mobile-alerts-filter-form" onSubmit={handleSubmit} >
-
+    <summary className="govuk-details__summary">
+      <span className="govuk-details__summary-text">Show filters</span>
+    </summary>
+    <form className="mobile-alerts-filter-form" onSubmit={handleSubmit}>
       <div className="row">
         <div className="col no-left-gutter">
           <h3 className="bold-medium no-left-gutter">Filters</h3>
@@ -20,24 +20,13 @@ const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleS
       </div>
 
       <div className="row add-gutter-margin-top no-left-gutter">
-
         <div className="col-sm-12 no-left-gutter no-right-gutter">
-          <Field
-            title="Type of alert"
-            component={SelectWithLabel}
-            name="alertType"
-            options={alertTypes}
-          />
+          <Field title="Type of alert" component={SelectWithLabel} name="alertType" options={alertTypes} />
         </div>
       </div>
       <div className="row">
         <div className="col-sm-12 no-left-gutter no-right-gutter">
-
-          {error &&
-          <div className="error-message">
-            Start date must be equal to or before the end date
-          </div>
-          }
+          {error && <div className="error-message">Start date must be equal to or before the end date</div>}
 
           <label className="form-label date-range-label add-gutter-margin-bottom add-gutter-margin-top">
             Added date
@@ -51,7 +40,7 @@ const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleS
             format={momentToLocalizedDate(locale)}
             parse={localizedDateToMoment(locale)}
             title="From"
-            shouldShowDay={(date) => date && date.isBefore(moment())}
+            shouldShowDay={date => date && date.isBefore(moment())}
           />
 
           <Field
@@ -62,7 +51,7 @@ const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleS
             parse={localizedDateToMoment(locale)}
             locale={locale}
             title="To"
-            shouldShowDay={(date) => date && date.isBefore(moment())}
+            shouldShowDay={date => date && date.isBefore(moment())}
           />
         </div>
 
@@ -84,6 +73,6 @@ const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleS
       </div>
     </form>
   </details>
-);
+)
 
-export default MobileAlertsFilterForm;
+export default MobileAlertsFilterForm

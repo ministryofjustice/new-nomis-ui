@@ -1,27 +1,35 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React from 'react'
+import { Link } from 'react-router'
 
-import './index.scss';
+import './index.scss'
 
 export const KeyWorkerAdminLink = ({ omicUrl }) => (
-<div className="link-box">
-  <img src="/img/manage-key-workers2x.png" className="add-gutter-margin-right" alt="Manage keyworkers icon"  />
+  <div className="link-box">
+    <img src="/img/manage-key-workers2x.png" className="add-gutter-margin-right" alt="Manage keyworkers icon" />
 
-  <div className="heading-medium">
-    <a href={omicUrl} className="link clickable">
-      Manage key workers
-    </a>
+    <div className="heading-medium">
+      <a href={omicUrl} className="link clickable">
+        Manage key workers
+      </a>
+    </div>
   </div>
-</div>);
+)
 
 export const MyAllocationsLink = () => (
   <div className="link-box">
-    <img src="/img/ICON_MyKeyWorkerAssignments@2x.png" className="add-gutter-margin-right" alt="Keyworker allocation icon" />
+    <img
+      src="/img/ICON_MyKeyWorkerAssignments@2x.png"
+      className="add-gutter-margin-right"
+      alt="Keyworker allocation icon"
+    />
 
     <div className="heading-medium">
-      <Link className="link my-allocations-link" to="/myKeyWorkerAllocations">My key worker allocations</Link>
+      <Link className="link my-allocations-link" to="/myKeyWorkerAllocations">
+        My key worker allocations
+      </Link>
     </div>
-  </div>);
+  </div>
+)
 
 export const WhereaboutsLink = ({ whereaboutsUrl }) => (
   <div className="link-box">
@@ -32,45 +40,65 @@ export const WhereaboutsLink = ({ whereaboutsUrl }) => (
         Manage prisoner whereabouts
       </a>
     </div>
-  </div>);
+  </div>
+)
 
 export const EstablishmentRollCheckLink = ({ establishmentRollCheckUrl }) => (
   <div className="link-box">
     <img src="/img/EstablishmentRoll_icon.png" className="add-gutter-margin-right" alt="Establishment roll icon" />
 
     <div className="heading-medium">
-      <a href={establishmentRollCheckUrl} className="link clickable">Establishment roll check</a>
+      <a href={establishmentRollCheckUrl} className="link clickable">
+        Establishment roll check
+      </a>
     </div>
-  </div>);
+  </div>
+)
 
-const ActionLinks = ({ isKeyWorkerAdmin, isKeyWorker, isWhereabouts, omicUrl, whereaboutsUrl, establishmentRollcheckUrl }) => {
+const ActionLinks = ({
+  isKeyWorkerAdmin,
+  isKeyWorker,
+  isWhereabouts,
+  omicUrl,
+  whereaboutsUrl,
+  establishmentRollcheckUrl,
+}) => {
   if (!isKeyWorker && !isKeyWorkerAdmin && !isWhereabouts && !establishmentRollcheckUrl) {
     return <div />
   }
 
-  return (<div className="action-links">
+  return (
+    <div className="action-links">
+      <h1 className="heading-medium"> Other Tasks </h1>
+      <div>
+        {isKeyWorkerAdmin &&
+          omicUrl && (
+            <div className="link-container">
+              <KeyWorkerAdminLink omicUrl={omicUrl} />
+            </div>
+          )}
 
-    <h1 className="heading-medium"> Other Tasks </h1>
-    <div>
+        {isKeyWorker && (
+          <div className="link-container">
+            <MyAllocationsLink />
+          </div>
+        )}
 
-      {isKeyWorkerAdmin && omicUrl && <div className="link-container">
-        <KeyWorkerAdminLink omicUrl={omicUrl} />
-      </div>}
+        {isWhereabouts &&
+          whereaboutsUrl && (
+            <div className="link-container">
+              <WhereaboutsLink whereaboutsUrl={whereaboutsUrl} />
+            </div>
+          )}
 
-      {isKeyWorker && <div className="link-container">
-        <MyAllocationsLink />
-      </div>}
-
-      {isWhereabouts && whereaboutsUrl && <div className="link-container">
-        <WhereaboutsLink whereaboutsUrl={whereaboutsUrl} />
-      </div>}
-
-      { establishmentRollcheckUrl && <div className="link-container">
-        <EstablishmentRollCheckLink establishmentRollCheckUrl={establishmentRollcheckUrl} />
-      </div>}
+        {establishmentRollcheckUrl && (
+          <div className="link-container">
+            <EstablishmentRollCheckLink establishmentRollCheckUrl={establishmentRollcheckUrl} />
+          </div>
+        )}
+      </div>
     </div>
-  </div>)
-};
+  )
+}
 
-
-export default ActionLinks;
+export default ActionLinks

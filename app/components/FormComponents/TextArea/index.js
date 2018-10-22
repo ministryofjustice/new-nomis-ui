@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 const renderTextArea = ({ input, title, meta: { touched, error }, placeholder }) => (
   <div className={!(touched && error) ? 'form-group' : 'form-group form-group-error'}>
@@ -14,18 +14,18 @@ const renderTextArea = ({ input, title, meta: { touched, error }, placeholder })
       rows="10"
     />
   </div>
-);
+)
 
 renderTextArea.propTypes = {
   input: PropTypes.object.isRequired,
   title: PropTypes.string,
   meta: PropTypes.object.isRequired,
   placeholder: PropTypes.string,
-};
+}
 
 renderTextArea.defaultProps = {
   title: '',
   placeholder: '',
-};
+}
 
-export default renderTextArea;
+export default renderTextArea
