@@ -1,9 +1,8 @@
 const url = require('url');
 const path = require('path');
-const config = require('./config');
-
-const { logger } = require('./services/logger');
 const moment = require('moment');
+const config = require('./config');
+const { logger } = require('./services/logger');
 const errorStatusCode = require('./error-status-code');
 
 const { mailTo } = config.app;

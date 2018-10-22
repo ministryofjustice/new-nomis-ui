@@ -7,8 +7,8 @@ const fs = require('fs');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
-const logger = require('../../server/logger');
 const cheerio = require('cheerio');
+const logger = require('../../server/logger');
 
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
 const { dllPlugin } = pkg;

@@ -1,6 +1,6 @@
-const { controllerFactory } = require('../server/controller');
 const supertest = require('supertest');
 const express = require('express');
+const { controllerFactory } = require('../server/controller');
 
 describe('controller tests', () => {
   describe('alerts', () => {
