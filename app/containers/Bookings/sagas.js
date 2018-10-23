@@ -56,7 +56,7 @@ import {
 import { getCaseNote } from '../../utils/eliteApi'
 
 export function* extendActiveSessionWatcher() {
-  yield takeLatest(EXTEND_SESSION, function*() {
+  yield takeLatest(EXTEND_SESSION, function* extendSession() {
     yield call(extendSessionRequest)
   })
 }

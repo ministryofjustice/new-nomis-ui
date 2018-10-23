@@ -75,7 +75,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
   })
 
   const callback = done =>
-    function(err) {
+    function checkDone(err) {
       if (err) {
         if (done.fail) {
           // jest
