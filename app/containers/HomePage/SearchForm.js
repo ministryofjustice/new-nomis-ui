@@ -17,7 +17,7 @@ class SearchForm extends Component {
     this.props.onSubmit(formData);
   }
   render() {
-    const { locations, defaultLocationPrefix, error } = this.props;
+    const { locations, defaultLocationPrefix, error, canGlobalSearch } = this.props;
 
     return (
       <form className="search-form" onSubmit={event => this.handleSubmit(event)}>
@@ -43,17 +43,25 @@ class SearchForm extends Component {
           <input name="keywords" type="text" title="Enter " placeholder="Last Name, First Name or ID" autoComplete="off" className="form-control search-input" />
           <button type="submit" className="button button-start desktop-button"> Search</button>
 
-          <div>
-            <label className="form-label">
-              Select location
-            </label>
-            <select className="form-control" name="locationPrefix" defaultValue={defaultLocationPrefix}>
-              {locations.map((location) =>
-                <option key={location.locationPrefix} value={location.locationPrefix}>
-                  {location.description}
-                </option>
-              )}
-            </select>
+          <div className="location-with-global-search-checkbox">
+            <div>
+              <label className="form-label">
+                Select location
+              </label>
+              <select className="form-control" name="locationPrefix" defaultValue={defaultLocationPrefix}>
+                {locations.map((location) =>
+                  <option key={location.locationPrefix} value={location.locationPrefix}>
+                    {location.description}
+                  </option>
+                )}
+              </select>
+             </div>
+
+            {canGlobalSearch && <span>
+                <input type="checkbox" className="global-search" />
+                <label htmlFor="global-search"> Global search </label>
+             </span>}
+
           </div>
 
           <button type="submit" className="button mobile-button"> Search </button>
@@ -72,9 +80,12 @@ SearchForm.defaultProps = {
 };
 
 function mapStateToProps(state) {
+  const user = state.getIn(['authentication', 'user']);
+
   return {
     defaultLocationPrefix: '',
     error: state.getIn(['home','searchError']),
+    canGlobalSearch: user && user.canGlobalSearch,
   }
 }
 

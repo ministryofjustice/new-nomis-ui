@@ -35,6 +35,7 @@ function authenticationReducer(state = initialState, action) {
     case USER_ME: {
       const { user } = action.payload;
 
+      // Global variable for google tag manager
       window.currentCaseLoadId = user.activeCaseLoadId;
 
       const isKeyWorkerAdmin = Boolean(user.accessRoles && user.accessRoles
@@ -45,10 +46,15 @@ function authenticationReducer(state = initialState, action) {
         .filter(r => r.role === 'KW')
         .length > 0);
 
+      const canGlobalSearch = Boolean(user.accessRoles && user.accessRoles
+        .filter(r => r.roleCode === 'GLOBAL_SEARCH')
+        .length > 0);
+
       return state
         .set('user', {
           isKeyWorkerAdmin,
           isKeyWorker,
+          canGlobalSearch,
           ...action.payload.user,
         })
     }

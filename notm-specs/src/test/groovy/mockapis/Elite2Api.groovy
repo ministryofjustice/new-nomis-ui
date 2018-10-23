@@ -2,6 +2,7 @@ package mockapis
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import groovy.json.JsonOutput
+import mockapis.response.AccessRoles
 import model.CaseNote
 import model.Offender
 
@@ -99,19 +100,13 @@ class Elite2Api extends WireMockRule {
       ]) + ']')))
   }
 
-  void stubUserRoles() {
+  void stubUserRoles(def roles = [AccessRoles.globalSearch]) {
     this.stubFor(
       get('/api/users/me/roles')
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
-        .withBody('''[{
-            "roleId": 0,
-            "roleCode": "OMIC_ADMIN",
-            "roleName": "Omic admin",
-            "parentRoleCode": "code",
-            "caseloadId": "LEI"
-          }]''')))
+        .withBody(JsonOutput.toJson([AccessRoles.globalSearch]))))
   }
 
   void stubCaseLoads() {
@@ -157,17 +152,13 @@ class Elite2Api extends WireMockRule {
 
   void stubStaffRolesForKeyWorker(UserAccount user) {
 
-    def json = JsonOutput.toJson([
-      role           : 'KW',
-      roleDescription: 'Key Worker'
-    ])
-    def body = "[${json}]"
+    def json = JsonOutput.toJson([AccessRoles.keyworker])
     this.stubFor(
       get("/api/staff/${user.staffMember.id}/${user.staffMember.assginedCaseload.id}/roles")
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
-        .withBody(body)))
+        .withBody(json)))
   }
 
   void stubOffenderSearch(String details, ArrayList<Offender> offenders, String alertsParams = '') {
