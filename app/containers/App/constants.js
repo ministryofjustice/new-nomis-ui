@@ -9,9 +9,9 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const DEFAULT_LOCALE = 'en';
-export const DEFAULT_MOMENT_DATE_FORMAT_SPEC = 'L';
-export const DEFAULT_MOMENT_TIME_FORMAT_SPEC = 'LT';
-export const DATE_TIME_FORMAT_SPEC = 'YYYY-MM-DDTHH:mm:ss';
-export const DATE_ONLY_FORMAT_SPEC = 'DD/MM/YYYY';
-export const ISO_8601_DATE_FORMAT = 'YYYY-MM-DD';
+export const DEFAULT_LOCALE = 'en'
+export const DEFAULT_MOMENT_DATE_FORMAT_SPEC = 'L'
+export const DEFAULT_MOMENT_TIME_FORMAT_SPEC = 'LT'
+export const DATE_TIME_FORMAT_SPEC = 'YYYY-MM-DDTHH:mm:ss'
+export const DATE_ONLY_FORMAT_SPEC = 'DD/MM/YYYY'
+export const ISO_8601_DATE_FORMAT = 'YYYY-MM-DD'

@@ -1,26 +1,25 @@
-import React from 'react';
+import React from 'react'
 
-import './index.scss';
+import './index.scss'
 
 export default ({ maximum, value }) => {
-  let level;
-  
+  let level
+
   if (maximum) {
     if (!value) {
-      level = 'none';
+      level = 'none'
     } else if (value < maximum) {
-      level = 'low';
+      level = 'low'
     } else if (value === maximum) {
-      level = 'medium';
+      level = 'medium'
     } else if (value > maximum) {
-      level = 'high';
+      level = 'high'
     }
   }
 
   return (
-      <span className="threshold-indicator">
-          <span className={level}> {value} </span>
-      </span>
+    <span className="threshold-indicator">
+      <span className={level}> {value} </span>
+    </span>
   )
 }
-

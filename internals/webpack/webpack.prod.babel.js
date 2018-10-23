@@ -1,19 +1,15 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = require('./webpack.base.babel')({
-
-  entry: [
-    path.join(process.cwd(), 'app/app.js'),
-  ],
+  entry: [path.join(process.cwd(), 'app/app.js')],
 
   output: {
     filename: 'client.js',
   },
 
   plugins: [
-
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
     }),
@@ -34,10 +30,9 @@ module.exports = require('./webpack.base.babel')({
       },
       inject: true,
     }),
-
   ],
 
   performance: {
-    assetFilter: (assetFilename) => !(/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename)),
+    assetFilter: assetFilename => !/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename),
   },
-});
+})

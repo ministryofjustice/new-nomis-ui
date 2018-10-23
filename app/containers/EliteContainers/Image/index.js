@@ -1,11 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import { Image } from './theme';
+import { Image } from './theme'
 
-const EliteImage = (props) => (
-  <Image
-    src={props.src}
-  />
-)
+const EliteImage = ({ src }) => <Image src={src} />
 
-export default EliteImage;
+export default EliteImage

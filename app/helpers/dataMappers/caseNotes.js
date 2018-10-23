@@ -1,4 +1,4 @@
-import { List, Map } from 'immutable';
+import { List, Map } from 'immutable'
 
 export const Model = Map({
   results: List([]),
@@ -21,15 +21,13 @@ export const Model = Map({
       type: List([]),
     }),
   }),
-
-});
-
+})
 
 export function transform(data) {
   return Model.mergeDeepWith((prev, next) => {
     if (!next) {
-      return prev;
+      return prev
     }
-    return next;
-  }, data);
+    return next
+  }, data)
 }

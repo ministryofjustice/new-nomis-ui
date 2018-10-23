@@ -1,44 +1,51 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createSelector, createStructuredSelector } from 'reselect';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { createSelector, createStructuredSelector } from 'reselect'
 
+import { showTerms } from 'globalReducers/app'
 
-import { showTerms } from 'globalReducers/app';
+import './footer.scss'
 
-import './footer.scss';
-
-const Footer = ({ showTermsAndConditions, mailTo }) =>
-      <footer className="FooterContainer">
-        <div className="footer-content">
-          <div className="FooterLinksContainer">
-            <div className="FooterLink"><a onClick={showTermsAndConditions}>Terms and conditions</a></div>
-            <div className="FooterLink"><a href={`mailto:${mailTo}`} >Contact us:&nbsp;&nbsp;{mailTo}</a></div>
-          </div>
-          <div className="FooterSignature" />
+const Footer = ({ showTermsAndConditions, mailTo }) => (
+  <footer className="FooterContainer">
+    <div className="footer-content">
+      <div className="FooterLinksContainer">
+        <div className="FooterLink">
+          <a onClick={showTermsAndConditions}>Terms and conditions</a>
         </div>
-      </footer>;
+        <div className="FooterLink">
+          <a href={`mailto:${mailTo}`}>
+            Contact us:&nbsp;&nbsp;
+            {mailTo}
+          </a>
+        </div>
+      </div>
+      <div className="FooterSignature" />
+    </div>
+  </footer>
+)
 
 Footer.propTypes = {
   showTermsAndConditions: PropTypes.func.isRequired,
   mailTo: PropTypes.string,
-};
+}
 
 Footer.defaultProps = {
   mailTo: '',
-};
+}
 
-const selectMailTo = () => createSelector(
-  state => state.get('app'),
-  appState => appState.get('mailTo')
-);
+const selectMailTo = () => createSelector(state => state.get('app'), appState => appState.get('mailTo'))
 
 const mapStateToProps = createStructuredSelector({
   mailTo: selectMailTo(),
-});
+})
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   showTermsAndConditions: () => dispatch(showTerms()),
-});
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(Footer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Footer)

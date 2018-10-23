@@ -21,9 +21,9 @@ export const baseColours = {
   grey4D: '#4D4D4D',
   grey33: '#333333',
   black: '#0b0c0c',
-};
+}
 
-const bc = baseColours;
+const bc = baseColours
 
 export default {
   // Theme Colours
@@ -163,4 +163,4 @@ export default {
   alertCodes: {
     textColour: bc.govukRed,
   },
-};
+}

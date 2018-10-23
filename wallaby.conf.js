@@ -1,17 +1,9 @@
-process.env.BABEL_ENV = 'test';
+process.env.BABEL_ENV = 'test'
 
-module.exports = (wallaby) => ({
-  files: [
-    'app/**/*.js',
-    'app/**/*.json',
-    'package.json',
-    '!app/**/*.test.js',
-    'app/**/tests/**/*.snap',
-  ],
+module.exports = wallaby => ({
+  files: ['app/**/*.js', 'app/**/*.json', 'package.json', '!app/**/*.test.js', 'app/**/tests/**/*.snap'],
 
-  tests: [
-    'app/**/*.test.js',
-  ],
+  tests: ['app/**/*.test.js'],
 
   env: {
     type: 'node',
@@ -25,8 +17,7 @@ module.exports = (wallaby) => ({
   },
 
   setup() {
-    const jestConfig = require('./package.json').jest; // eslint-disable-line global-require
-    wallaby.testFramework.configure(jestConfig);
+    const jestConfig = require('./package.json').jest // eslint-disable-line global-require
+    wallaby.testFramework.configure(jestConfig)
   },
-
-});
+})

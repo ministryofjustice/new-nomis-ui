@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import colours from 'theme/colours';
+import styled from 'styled-components'
+import colours from 'theme/colours'
 
 export const SubmitStyle = styled.input`
   display: block;
@@ -8,4 +8,4 @@ export const SubmitStyle = styled.input`
   padding: 5px 10px;
   border-radius: 5px;
   margin: 5px 0;
-`;
+`

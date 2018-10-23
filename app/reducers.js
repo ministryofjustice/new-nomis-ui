@@ -3,18 +3,17 @@
  * If we were to do this in store.js, reducers wouldn't be hot reloadable.
  */
 
-import { combineReducers } from 'redux-immutable';
-import { fromJS } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { combineReducers } from 'redux-immutable'
+import { fromJS } from 'immutable'
+import { LOCATION_CHANGE } from 'react-router-redux'
 
-
-import { reducer as formReducer } from 'redux-form/immutable';
-import appReducer from 'globalReducers/app';
-import languageProviderReducer from 'containers/LanguageProvider/reducer';
-import authenticationReducer from 'containers/Authentication/reducer';
-import configReducer from 'containers/ConfigLoader/reducer';
-import eliteApiLoaderReducer from 'containers/EliteApiLoader/reducer';
-import assignmentsReducer from 'containers/Assignments/reducer';
+import { reducer as formReducer } from 'redux-form/immutable'
+import appReducer from 'globalReducers/app'
+import languageProviderReducer from 'containers/LanguageProvider/reducer'
+import authenticationReducer from 'containers/Authentication/reducer'
+import configReducer from 'containers/ConfigLoader/reducer'
+import eliteApiLoaderReducer from 'containers/EliteApiLoader/reducer'
+import assignmentsReducer from 'containers/Assignments/reducer'
 
 /*
  * routeReducer
@@ -27,8 +26,7 @@ import assignmentsReducer from 'containers/Assignments/reducer';
 // Initial routing state
 const routeInitialState = fromJS({
   locationBeforeTransitions: null,
-});
-
+})
 
 function routeReducer(state = routeInitialState, action) {
   switch (action.type) {
@@ -36,9 +34,9 @@ function routeReducer(state = routeInitialState, action) {
     case LOCATION_CHANGE:
       return state.merge({
         locationBeforeTransitions: action.payload,
-      });
+      })
     default:
-      return state;
+      return state
   }
 }
 
@@ -56,5 +54,5 @@ export default function createReducer(asyncReducers) {
     eliteApiLoader: eliteApiLoaderReducer,
     assignments: assignmentsReducer,
     ...asyncReducers,
-  });
+  })
 }

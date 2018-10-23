@@ -1,4 +1,3 @@
-
 // User Data
 export const USER = {
   CASELOADS: {
@@ -25,11 +24,11 @@ export const USER = {
     SUCCESS: 'app/eliteApiLoader/user/role/success',
     ERROR: 'app/eliteApiLoader/user/role/error',
   },
-};
+}
 
-export const LOAD_CASE_NOTE_TYPES_SUBTYPES = 'app/eliteApiLoader/loadCaseNotesTypesAndSubTypes';
+export const LOAD_CASE_NOTE_TYPES_SUBTYPES = 'app/eliteApiLoader/loadCaseNotesTypesAndSubTypes'
 
-export const LOAD_ALERT_TYPES = 'app/eliteApiLoader/loadAlertTypes';
+export const LOAD_ALERT_TYPES = 'app/eliteApiLoader/loadAlertTypes'
 
 // Bookings
 
@@ -62,7 +61,7 @@ export const BOOKINGS = {
     SET_PAGINATION: 'app/eliteApiLoader/bookings/CASENOTES/set-pagination',
     VIEW_DETAILS: 'app/eliteApiLoader/bookings/CASENOTES/view-details',
   },
-};
+}
 
 // Add new Casenote
 export const ELITE_ADD_CASENOTE = {
@@ -70,7 +69,7 @@ export const ELITE_ADD_CASENOTE = {
   LOADING: 'app/eliteApiLoader/ADD_CASENOTE/loading',
   SUCCESS: 'app/eliteApiLoader/ADD_CASENOTE/success',
   ERROR: 'app/eliteApiLoader/ADD_CASENOTE/error',
-};
+}
 
 // Users/Officer Data
 export const OFFICERS = {
@@ -78,7 +77,7 @@ export const OFFICERS = {
   LOADING: 'app/eliteApiLoader/OFFICERS/loading',
   SUCCESS: 'app/eliteApiLoader/OFFICERS/success',
   ERROR: 'app/eliteApiLoader/OFFICERS/error',
-};
+}
 
 // Locations
 export const LOCATIONS = {
@@ -86,7 +85,7 @@ export const LOCATIONS = {
   LOADING: 'app/eliteApiLoader/LOCATIONS/loading',
   SUCCESS: 'app/eliteApiLoader/LOCATIONS/success',
   ERROR: 'app/eliteApiLoader/LOCATIONS/error',
-};
+}
 // CaseNoteTypes
 export const CASENOTETYPES = {
   BASE: 'app/eliteApiLoader/CASENOTETYPES',
@@ -95,7 +94,7 @@ export const CASENOTETYPES = {
     SUCCESS: 'app/eliteApiLoader/CASENOTETYPES/success',
     ERROR: 'app/eliteApiLoader/CASENOTETYPES/error',
   },
-};
+}
 
 export const APPOINTMENT = {
   LOAD_VIEW_MODAL: 'app/bookings/details/loadViewModel',
@@ -103,7 +102,7 @@ export const APPOINTMENT = {
   ADD: 'app/bookings/details/addAppointment',
   SUCCESS: 'app/bookings/details/addAppointment/SUCCESS',
   ERROR: 'app/bookings/details/addAppointment/ERROR',
-};
+}
 
-export const ALLCASENOTETYPESUBTYPEDATA = 'allCaseNoteTypeSubTypeData';
-export const ALL_ALERT_TYPES_DATA = 'allAlertTypesData';
+export const ALLCASENOTETYPESUBTYPEDATA = 'allCaseNoteTypeSubTypeData'
+export const ALL_ALERT_TYPES_DATA = 'allAlertTypesData'

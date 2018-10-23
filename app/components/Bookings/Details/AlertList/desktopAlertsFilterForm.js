@@ -1,47 +1,32 @@
-import React from 'react';
-import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from 'components/FormComponents/DatePicker';
-import SelectWithLabel from 'components/FormComponents/SelectWithLabel';
-import { Field } from 'redux-form/immutable';
+import React from 'react'
+import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from 'components/FormComponents/DatePicker'
+import SelectWithLabel from 'components/FormComponents/SelectWithLabel'
+import { Field } from 'redux-form/immutable'
 
-import moment from 'moment';
+import moment from 'moment'
 
-import './desktopAlertsFilterForm.scss';
-
+import './desktopAlertsFilterForm.scss'
 
 const DesktopAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleSubmit, reset }) => (
-  <form className="desktop-alerts-filter-form" onSubmit={handleSubmit} >
-
+  <form className="desktop-alerts-filter-form" onSubmit={handleSubmit}>
     <div className="row">
       <div className="col-md-3 no-left-gutter">
-        <h3 className="bold-medium no-left-gutter">
-          Filters
-        </h3>
+        <h3 className="bold-medium no-left-gutter">Filters</h3>
       </div>
       <div className="col-md-9 no-left-gutter add-gutter-margin-top">
-        <label className="form-label date-range-label">
-          Added date
-        </label>
+        <label className="form-label date-range-label">Added date</label>
       </div>
     </div>
 
     <div className="row no-left-gutter">
-
       <div className="col-md-3 no-left-gutter">
-        <Field
-          title="Type of alert"
-          component={SelectWithLabel}
-          name="alertType"
-          options={alertTypes}
-        />
+        <Field title="Type of alert" component={SelectWithLabel} name="alertType" options={alertTypes} />
       </div>
 
       <div className="col-md-4 no-left-gutter no-right-gutter">
-
-        {error &&
-        <div className="error-message">
-          &apos;From&apos; date must be equal to or before the &apos;To&apos; date
-        </div>
-        }
+        {error && (
+          <div className="error-message">&apos;From&apos; date must be equal to or before the &apos;To&apos; date</div>
+        )}
 
         <Field
           name="fromDate"
@@ -51,7 +36,7 @@ const DesktopAlertsFilterForm = ({ alertTypes, locale, submitting, error, handle
           format={momentToLocalizedDate(locale)}
           parse={localizedDateToMoment(locale)}
           title="From"
-          shouldShowDay={(date) => date && date.isBefore(moment())}
+          shouldShowDay={date => date && date.isBefore(moment())}
         />
 
         <Field
@@ -62,7 +47,7 @@ const DesktopAlertsFilterForm = ({ alertTypes, locale, submitting, error, handle
           parse={localizedDateToMoment(locale)}
           locale={locale}
           title="To"
-          shouldShowDay={(date) => date && date.isBefore(moment())}
+          shouldShowDay={date => date && date.isBefore(moment())}
         />
       </div>
 
@@ -82,6 +67,6 @@ const DesktopAlertsFilterForm = ({ alertTypes, locale, submitting, error, handle
       </div>
     </div>
   </form>
-);
+)
 
-export default DesktopAlertsFilterForm;
+export default DesktopAlertsFilterForm

@@ -1,4 +1,4 @@
-const Logger = require('bunyan');
+const Logger = require('bunyan')
 
 const logger = new Logger({
   name: 'notm:server',
@@ -13,9 +13,8 @@ const logger = new Logger({
     req: Logger.stdSerializers.req,
     err: Logger.stdSerializers.err,
   },
-});
-
+})
 
 module.exports = {
   logger,
-};
+}

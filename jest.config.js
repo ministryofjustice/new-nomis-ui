@@ -16,20 +16,14 @@ module.exports = {
       lines: 98,
     },
   },
-  moduleDirectories: [
-    'node_modules',
-    'app',
-  ],
+  moduleDirectories: ['node_modules', 'app'],
   moduleNameMapper: {
     '.*\\.(css|less|styl|scss|sass)$': '<rootDir>/internals/mocks/cssModule.js',
-    '.*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/internals/mocks/image.js',
+    '.*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
+      '<rootDir>/internals/mocks/image.js',
     '^header$': '<rootDir>/app/customers/hmpps/app/components/Header/index.js',
     '^product-globals$': '<rootDir>/app/customers/hmpps/app/product-globals.js',
   },
   setupTestFrameworkScriptFile: '<rootDir>/internals/testing/test-bundler.js',
-  roots: [
-    'tests',
-    'app',
-    'server',
-  ],
-};
+  roots: ['tests', 'app', 'server'],
+}

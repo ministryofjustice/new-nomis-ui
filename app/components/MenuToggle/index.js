@@ -1,27 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import './toggle.scss';
+import './toggle.scss'
 
 function MenuToggle({ menuOpen, toggleMenu }) {
   return (
-      <div id="nav-icon" onClick={toggleMenu} className={menuOpen ? 'open' : ''}>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-  );
+    <div id="nav-icon" onClick={toggleMenu} className={menuOpen ? 'open' : ''}>
+      <span />
+      <span />
+      <span />
+      <span />
+    </div>
+  )
 }
 
 MenuToggle.propTypes = {
-  menuOpen: PropTypes.bool.isRequired,
-  toggleMenu: PropTypes.func.isRequired,
-};
+  menuOpen: PropTypes.bool,
+  toggleMenu: PropTypes.func,
+}
 
 MenuToggle.defaultProps = {
   menuOpen: false,
   toggleMenu: () => {},
-};
+}
 
-export default MenuToggle;
+export default MenuToggle

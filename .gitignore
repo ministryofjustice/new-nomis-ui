@@ -49,3 +49,4 @@ test-report.html
 .gradle
 
 scss-report.txt
+notm-specs/out/

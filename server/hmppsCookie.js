@@ -7,19 +7,20 @@
  *
  */
 
-const contextProperties = require('./contextProperties');
+const contextProperties = require('./contextProperties')
 
-const encodeToBase64 = (string) => Buffer.from(string).toString('base64');
-const decodedFromBase64 = (string) => Buffer.from(string, 'base64').toString('ascii');
+const encodeToBase64 = string => Buffer.from(string).toString('base64')
+const decodedFromBase64 = string => Buffer.from(string, 'base64').toString('ascii')
 
 const encodeCookieValue = (accessToken, refreshToken) =>
-  encodeToBase64(JSON.stringify(
-    {
+  encodeToBase64(
+    JSON.stringify({
       access_token: accessToken,
       refresh_token: refreshToken,
-    }));
+    })
+  )
 
-const decodeCookieValue = (cookieValue) => cookieValue ? JSON.parse(decodedFromBase64(cookieValue)) : null;
+const decodeCookieValue = cookieValue => (cookieValue ? JSON.parse(decodedFromBase64(cookieValue)) : null)
 
 /**
  * Configure and return the cookie operations.
@@ -36,46 +37,42 @@ const cookieOperationsFactory = ({ name, cookieLifetimeInMinutes, domain, secure
     path: '/',
     httpOnly: true,
     secure,
-  };
+  }
 
-  const cookieLifetimeInSeconds = cookieLifetimeInMinutes * 60;
-  const cookieLifetimeInMilliseconds = cookieLifetimeInSeconds * 1000;
+  const cookieLifetimeInSeconds = cookieLifetimeInMinutes * 60
+  const cookieLifetimeInMilliseconds = cookieLifetimeInSeconds * 1000
 
-  const cookieConfiguration = () => Object.assign(
-    {},
-    staticCookieConfiguration,
-    {
+  const cookieConfiguration = () =>
+    Object.assign({}, staticCookieConfiguration, {
       expires: new Date(Date.now() + cookieLifetimeInMilliseconds),
       maxAge: cookieLifetimeInMilliseconds,
-    });
-
+    })
 
   const setCookie = (res, context) =>
     res.cookie(
       name,
-      encodeCookieValue(
-        contextProperties.getAccessToken(context),
-        contextProperties.getRefreshToken(context)),
-      cookieConfiguration());
+      encodeCookieValue(contextProperties.getAccessToken(context), contextProperties.getRefreshToken(context)),
+      cookieConfiguration()
+    )
 
   const extractCookieValues = (req, context) => {
-    const tokens = decodeCookieValue(req.cookies[name]);
+    const tokens = decodeCookieValue(req.cookies[name])
     if (tokens) {
-      contextProperties.setTokens(context, tokens.access_token, tokens.refresh_token);
+      contextProperties.setTokens(context, tokens.access_token, tokens.refresh_token)
     }
-  };
+  }
 
-  const clearCookie = (res) => res.clearCookie(name, staticCookieConfiguration);
+  const clearCookie = res => res.clearCookie(name, staticCookieConfiguration)
 
   return {
     setCookie,
     extractCookieValues,
     clearCookie,
   }
-};
+}
 
 module.exports = {
   encodeCookieValue,
   decodeCookieValue,
   cookieOperationsFactory,
-};
+}

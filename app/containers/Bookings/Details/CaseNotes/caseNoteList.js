@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import PreviousNextNavigation from 'components/PreviousNextNavigation';
-import CaseNoteListItem from 'components/Bookings/Details/CaseNotes/listItem';
-import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMessage';
+import PreviousNextNavigation from 'components/PreviousNextNavigation'
+import CaseNoteListItem from 'components/Bookings/Details/CaseNotes/listItem'
+import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMessage'
 
-import CaseNoteFilterForm from './filterForm';
+import CaseNoteFilterForm from './filterForm'
 
-const CaseNotes = (props) => {
+const CaseNotes = props => {
   const {
     setCaseNoteView,
     caseNotes,
@@ -17,7 +17,7 @@ const CaseNotes = (props) => {
     caseNotesQuery,
     setPagination,
     location,
-  } = props;
+  } = props
 
   return (
     <div>
@@ -27,21 +27,23 @@ const CaseNotes = (props) => {
           <NoSearchResultsReturnedMessage resultCount={caseNotes.size} />
         </div>
         <div className="add-gutter-top case-notes">
-          {caseNotes.map((caseNote) => (<CaseNoteListItem
-            key={caseNote.get('caseNoteId')}
-            action={() => setCaseNoteView(caseNote.get('caseNoteId'))}
-            caseNote={caseNote}
-          />))}
+          {caseNotes.map(caseNote => (
+            <CaseNoteListItem
+              key={caseNote.get('caseNoteId')}
+              action={() => setCaseNoteView(caseNote.get('caseNoteId'))}
+              caseNote={caseNote}
+            />
+          ))}
         </div>
         <PreviousNextNavigation
           pagination={pagination}
           totalRecords={totalResults}
-          pageAction={(id) => setPagination(offenderNo, { perPage: pagination.perPage, pageNumber: id }, caseNotesQuery)}
+          pageAction={id => setPagination(offenderNo, { perPage: pagination.perPage, pageNumber: id }, caseNotesQuery)}
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
 CaseNotes.propTypes = {
   offenderNo: PropTypes.string.isRequired,
@@ -51,10 +53,10 @@ CaseNotes.propTypes = {
   setPagination: PropTypes.func.isRequired,
   totalResults: PropTypes.number,
   setCaseNoteView: PropTypes.func.isRequired,
-};
+}
 
 CaseNotes.defaultProps = {
   totalResults: 0,
-};
+}
 
-export default CaseNotes;
+export default CaseNotes
