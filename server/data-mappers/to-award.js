@@ -1,10 +1,16 @@
-module.exports = award => ({
-  sanctionCodeDescription: descriptionWithLimit(award),
-  comment: award.comment,
-  effectiveDate: award.effectiveDate,
-  status: award.status,
-  durationText: durationText(award),
-})
+const pluraliseDay = days => (days > 1 ? 'days' : 'day')
+const pluraliseMonth = months => (months > 1 ? 'months' : 'month')
+
+const durationText = award => {
+  if (award.months && award.days) {
+    return `${award.months} ${pluraliseMonth(award.months)} and ${award.days} ${pluraliseDay(award.days)}`
+  }
+
+  return (
+    (award.months && `${award.months} ${pluraliseMonth(award.months)}`) ||
+    (award.days && `${award.days} ${pluraliseDay(award.days)}`)
+  )
+}
 
 const descriptionWithLimit = award => {
   switch (award.sanctionCode) {
@@ -21,16 +27,10 @@ const descriptionWithLimit = award => {
   }
 }
 
-const durationText = award => {
-  if (award.months && award.days) {
-    return `${award.months} ${pluraliseMonth(award.months)} and ${award.days} ${pluraliseDay(award.days)}`
-  }
-
-  return (
-    (award.months && `${award.months} ${pluraliseMonth(award.months)}`) ||
-    (award.days && `${award.days} ${pluraliseDay(award.days)}`)
-  )
-}
-
-const pluraliseDay = days => (days > 1 ? 'days' : 'day')
-const pluraliseMonth = months => (months > 1 ? 'months' : 'month')
+module.exports = award => ({
+  sanctionCodeDescription: descriptionWithLimit(award),
+  comment: award.comment,
+  effectiveDate: award.effectiveDate,
+  status: award.status,
+  durationText: durationText(award),
+})

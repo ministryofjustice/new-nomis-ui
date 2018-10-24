@@ -1,5 +1,7 @@
 const nomisCodes = require('./nomis-codes')
 
+const getComment = entry => (entry.eventSubType === 'PA' ? null : entry.eventSourceDesc)
+
 module.exports = entry => {
   const comment = getComment(entry)
   return {
@@ -12,5 +14,3 @@ module.exports = entry => {
     eventStatus: entry.eventStatus,
   }
 }
-
-const getComment = entry => (entry.eventSubType === 'PA' ? null : entry.eventSourceDesc)

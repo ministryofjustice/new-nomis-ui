@@ -28,43 +28,6 @@ const eventsServiceFactory = eliteApi => {
     }
   }
 
-  const getScheduledEventsForThisWeek = async (context, offenderNo) => {
-    const { bookingId } = await eliteApi.getDetailsLight(context, offenderNo)
-
-    const data = (await eliteApi.getEventsForThisWeek(context, bookingId)) || []
-    return buildScheduledEvents(data, buildCalendarViewFor([0, 1, 2, 3, 4, 5, 6]))
-  }
-
-  const getScheduledEventsForNextWeek = async (context, offenderNo) => {
-    const { bookingId } = await eliteApi.getDetailsLight(context, offenderNo)
-
-    const data = (await eliteApi.getEventsForNextWeek(context, bookingId)) || []
-    return buildScheduledEvents(data, buildCalendarViewFor([7, 8, 9, 10, 11, 12, 13]))
-  }
-
-  const buildScheduledEvents = (data, calendarView) => {
-    const groupedByDate = utils.groupBy('eventDate', data)
-
-    return calendarView.map(view => {
-      const events = Object.keys(groupedByDate)
-        .filter(key => moment(key).format(isoDateFormat) === view.date.format(isoDateFormat))
-        .map(date => groupedByDate[date])
-        .reduce((result, current) => result.concat(current), [])
-        .sort(byStartTimeThenByEndTime)
-        .filter(
-          event =>
-            event.eventType === nomisCodes.eventTypes.visit || event.eventStatus === nomisCodes.statusCodes.scheduled
-        )
-
-      const activities = toActivityViewModel(events)
-
-      return {
-        date: view.date,
-        ...activities,
-      }
-    })
-  }
-
   const buildCalendarViewFor = days =>
     days.map(day => moment().add(day, 'days')).reduce((result, current) => {
       result.push({
@@ -93,6 +56,43 @@ const eventsServiceFactory = eliteApi => {
     }
 
     return 0
+  }
+
+  const buildScheduledEvents = (data, calendarView) => {
+    const groupedByDate = utils.groupBy('eventDate', data)
+
+    return calendarView.map(view => {
+      const events = Object.keys(groupedByDate)
+        .filter(key => moment(key).format(isoDateFormat) === view.date.format(isoDateFormat))
+        .map(date => groupedByDate[date])
+        .reduce((result, current) => result.concat(current), [])
+        .sort(byStartTimeThenByEndTime)
+        .filter(
+          event =>
+            event.eventType === nomisCodes.eventTypes.visit || event.eventStatus === nomisCodes.statusCodes.scheduled
+        )
+
+      const activities = toActivityViewModel(events)
+
+      return {
+        date: view.date,
+        ...activities,
+      }
+    })
+  }
+
+  const getScheduledEventsForThisWeek = async (context, offenderNo) => {
+    const { bookingId } = await eliteApi.getDetailsLight(context, offenderNo)
+
+    const data = (await eliteApi.getEventsForThisWeek(context, bookingId)) || []
+    return buildScheduledEvents(data, buildCalendarViewFor([0, 1, 2, 3, 4, 5, 6]))
+  }
+
+  const getScheduledEventsForNextWeek = async (context, offenderNo) => {
+    const { bookingId } = await eliteApi.getDetailsLight(context, offenderNo)
+
+    const data = (await eliteApi.getEventsForNextWeek(context, bookingId)) || []
+    return buildScheduledEvents(data, buildCalendarViewFor([7, 8, 9, 10, 11, 12, 13]))
   }
 
   return {

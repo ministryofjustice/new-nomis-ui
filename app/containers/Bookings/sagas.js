@@ -60,9 +60,6 @@ export function* extendActiveSessionWatcher() {
     yield call(extendSessionRequest)
   })
 }
-export function* bookingAlertsWatcher() {
-  yield takeLatest(BOOKINGS.ALERTS.BASE, bookingAlertsSaga)
-}
 
 export function* bookingAlertsSaga(action) {
   const { offenderNo, pagination, filter } = action.payload
@@ -87,39 +84,8 @@ export function* bookingAlertsSaga(action) {
   }
 }
 
-export function* addAppointmentWatcher() {
-  yield takeLatest(APPOINTMENT.ADD, onAddAppointment)
-}
-
-export function* loadScheduledEventsWatcher() {
-  yield takeLatest(LOAD_SCHEDULED_EVENTS, onLoadScheduledEvents)
-}
-
-export function* loadKeyDatesWatcher() {
-  yield takeLatest(LOAD_KEY_DATES, onLoadKeyDates)
-}
-
-export function* newSearchWatcher() {
-  yield takeLatest(NEW_SEARCH, newSearch)
-}
-export function* loadLocationsWatcher() {
-  yield takeLatest(LOAD_LOCATIONS, setLocations)
-}
-
-export function* showPhotoWatcher() {
-  yield takeLatest(SHOW_LARGE_PHOTO_BOOKING_DETAILS, showPhoto)
-}
-
-export function* hidePhotoWatcher() {
-  yield takeLatest(HIDE_LARGE_PHOTO_BOOKING_DETAILS, hidePhoto)
-}
-
-export function* toggleSortOrderWatcher() {
-  yield takeLatest(TOGGLE_SORT_ORDER, toggleSort)
-}
-
-export function* loadQuickLookWatcher() {
-  yield takeLatest(LOAD_QUICK_LOOK, onLoadQuickLook)
+export function* bookingAlertsWatcher() {
+  yield takeLatest(BOOKINGS.ALERTS.BASE, bookingAlertsSaga)
 }
 
 export function* onAddAppointment(action) {
@@ -146,8 +112,8 @@ export function* onAddAppointment(action) {
   }
 }
 
-export function* addCasenoteWatcher() {
-  yield takeLatest(ADD_NEW_CASENOTE.BASE, addCasenoteSaga)
+export function* addAppointmentWatcher() {
+  yield takeLatest(APPOINTMENT.ADD, onAddAppointment)
 }
 
 export function* addCasenoteSaga(action) {
@@ -173,6 +139,10 @@ export function* addCasenoteSaga(action) {
   } catch (e) {
     yield put({ type: ADD_NEW_CASENOTE.ERROR, payload: new SubmissionError(e.message) })
   }
+}
+
+export function* addCasenoteWatcher() {
+  yield takeLatest(ADD_NEW_CASENOTE.BASE, addCasenoteSaga)
 }
 
 export function* onLoadQuickLook(action) {
@@ -205,6 +175,10 @@ export function* onLoadKeyDates(action) {
   }
 }
 
+export function* loadKeyDatesWatcher() {
+  yield takeLatest(LOAD_KEY_DATES, onLoadKeyDates)
+}
+
 export function* onLoadScheduledEvents(action) {
   try {
     yield put(showSpinner())
@@ -225,6 +199,10 @@ export function* onLoadScheduledEvents(action) {
   }
 }
 
+export function* loadScheduledEventsWatcher() {
+  yield takeLatest(LOAD_SCHEDULED_EVENTS, onLoadScheduledEvents)
+}
+
 export function* setLocations(action) {
   const apiServer = yield select(selectApi())
   const locations = yield call(loadMyLocations, apiServer, action)
@@ -237,6 +215,10 @@ export function* setLocations(action) {
   })
 }
 
+export function* loadLocationsWatcher() {
+  yield takeLatest(LOAD_LOCATIONS, setLocations)
+}
+
 export function* showPhoto(action) {
   yield put({
     type: SET_LARGE_PHOTO_VISIBILITY,
@@ -247,6 +229,14 @@ export function* showPhoto(action) {
   })
 }
 
+export function* showPhotoWatcher() {
+  yield takeLatest(SHOW_LARGE_PHOTO_BOOKING_DETAILS, showPhoto)
+}
+
+export function* loadQuickLookWatcher() {
+  yield takeLatest(LOAD_QUICK_LOOK, onLoadQuickLook)
+}
+
 export function* hidePhoto(action) {
   yield put({
     type: SET_LARGE_PHOTO_VISIBILITY,
@@ -255,6 +245,10 @@ export function* hidePhoto(action) {
       imageId: (action.payload || { imageId: null }).imageId,
     },
   })
+}
+
+export function* hidePhotoWatcher() {
+  yield takeLatest(HIDE_LARGE_PHOTO_BOOKING_DETAILS, hidePhoto)
 }
 
 export function* toggleSort(action) {
@@ -288,6 +282,10 @@ export function* toggleSort(action) {
   })
 
   yield put(hideSpinner())
+}
+
+export function* toggleSortOrderWatcher() {
+  yield takeLatest(TOGGLE_SORT_ORDER, toggleSort)
 }
 
 export function* newSearch(action) {
@@ -341,8 +339,8 @@ export function* newSearch(action) {
   }
 }
 
-export function* amendCaseNoteWatcher() {
-  yield takeLatest(AMEND_CASENOTE.BASE, onAmendCaseNote)
+export function* newSearchWatcher() {
+  yield takeLatest(NEW_SEARCH, newSearch)
 }
 
 export function* onAmendCaseNote(action) {
@@ -363,8 +361,8 @@ export function* onAmendCaseNote(action) {
   }
 }
 
-export function* detailsWatcher() {
-  yield takeLatest(VIEW_DETAILS, viewDetails)
+export function* amendCaseNoteWatcher() {
+  yield takeLatest(AMEND_CASENOTE.BASE, onAmendCaseNote)
 }
 
 export function* viewDetails(action) {
@@ -384,8 +382,8 @@ export function* viewDetails(action) {
   yield put(hideSpinner())
 }
 
-export function* searchResultPaginationWatcher() {
-  yield takeLatest(UPDATE_PAGINATION, updateSearchResultPagination)
+export function* detailsWatcher() {
+  yield takeLatest(VIEW_DETAILS, viewDetails)
 }
 
 export function* updateSearchResultPagination(action) {
@@ -401,16 +399,16 @@ export function* updateSearchResultPagination(action) {
   )
 }
 
-export function* searchResultViewWatcher() {
-  yield takeLatest(UPDATE_RESULTS_VIEW, updateSearchResultView)
+export function* searchResultPaginationWatcher() {
+  yield takeLatest(UPDATE_PAGINATION, updateSearchResultPagination)
 }
 
 export function* updateSearchResultView(action) {
   yield put({ type: SET_RESULTS_VIEW, payload: action.payload })
 }
 
-export function* setCaseNoteFilterWatcher() {
-  yield takeLatest(CASE_NOTE_FILTER.BASE, setCaseNoteFilterSaga)
+export function* searchResultViewWatcher() {
+  yield takeLatest(UPDATE_RESULTS_VIEW, updateSearchResultView)
 }
 
 export function* setCaseNoteFilterSaga(action) {
@@ -430,8 +428,8 @@ export function* setCaseNoteFilterSaga(action) {
   }
 }
 
-export function* loadCaseNoteWatcher() {
-  yield takeLatest(CASE_NOTE.LOAD, loadCaseNote)
+export function* setCaseNoteFilterWatcher() {
+  yield takeLatest(CASE_NOTE_FILTER.BASE, setCaseNoteFilterSaga)
 }
 
 export function* loadCaseNote(action) {
@@ -469,6 +467,10 @@ export function* loadCaseNote(action) {
     })
     yield put(hideSpinner())
   }
+}
+
+export function* loadCaseNoteWatcher() {
+  yield takeLatest(CASE_NOTE.LOAD, loadCaseNote)
 }
 
 export default [
