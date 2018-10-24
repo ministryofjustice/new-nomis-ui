@@ -100,13 +100,13 @@ class Elite2Api extends WireMockRule {
       ]) + ']')))
   }
 
-  void stubUserRoles(def roles = [AccessRoles.globalSearch]) {
+  void stubUserRoles(def roles = [AccessRoles.omicAdmin, AccessRoles.globalSearch]) {
     this.stubFor(
       get('/api/users/me/roles')
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
-        .withBody(JsonOutput.toJson([AccessRoles.globalSearch]))))
+        .withBody(JsonOutput.toJson(roles))))
   }
 
   void stubCaseLoads() {

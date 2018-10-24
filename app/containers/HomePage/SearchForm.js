@@ -13,11 +13,18 @@ class SearchForm extends Component {
     const { onSubmit } = this.props
     event.preventDefault()
     const formData = serialize(event.target, { hash: true })
-    onSubmit(formData)
+    onSubmit(formData, this.state && this.state.globalSearch)
+  }
+
+  handleGlobalSearchCheckBoxChange(currentValue) {
+    this.setState({
+      globalSearch: !currentValue,
+    })
   }
 
   render() {
     const { locations, defaultLocationPrefix, error, canGlobalSearch } = this.props
+    const { globalSearch } = this.state || {}
 
     return (
       <form className="search-form" onSubmit={event => this.handleSubmit(event)}>
@@ -36,7 +43,7 @@ class SearchForm extends Component {
           <input
             name="keywords"
             type="text"
-            title="Enter "
+            title="Enter"
             placeholder="Last Name, First Name or ID"
             autoComplete="off"
             className="form-control search-input"
@@ -48,26 +55,39 @@ class SearchForm extends Component {
 
           <div className="location-with-global-search-checkbox">
             <div>
-              <label className="form-label">
-                Select location
-              </label>
-              <select className="form-control" name="locationPrefix" defaultValue={defaultLocationPrefix}>
-                {locations.map((location) =>
+              <label className="form-label">Select location</label>
+              <select
+                disabled={globalSearch}
+                className="form-control locationPrefix"
+                name="locationPrefix"
+                defaultValue={defaultLocationPrefix}
+              >
+                {locations.map(location => (
                   <option key={location.locationPrefix} value={location.locationPrefix}>
                     {location.description}
                   </option>
-                )}
+                ))}
               </select>
-             </div>
+            </div>
 
-            {canGlobalSearch && <span>
-                <input type="checkbox" className="global-search" />
+            {canGlobalSearch && (
+              <div className="multiple-choice">
+                <input
+                  name="global-search"
+                  type="checkbox"
+                  className="global-search"
+                  value={globalSearch}
+                  onChange={() => this.handleGlobalSearchCheckBoxChange(globalSearch)}
+                />
                 <label htmlFor="global-search"> Global search </label>
-             </span>}
-
+              </div>
+            )}
           </div>
 
-          <button type="submit" className="button mobile-button"> Search </button>
+          <button type="submit" className="button mobile-button">
+            {' '}
+            Search{' '}
+          </button>
 
           <button type="submit" className="button mobile-button">
             {' '}
@@ -88,7 +108,7 @@ SearchForm.defaultProps = {
 }
 
 function mapStateToProps(state) {
-  const user = state.getIn(['authentication', 'user']);
+  const user = state.getIn(['authentication', 'user'])
 
   return {
     defaultLocationPrefix: '',
@@ -97,9 +117,12 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, props) {
   return {
-    onSubmit: formData => dispatch(push(`/results?${buildSearchQueryString(formData)}`)),
+    onSubmit: (formData, globalSearch) =>
+      globalSearch
+        ? dispatch(push(`${props.globalSearchUrl}?${buildSearchQueryString(formData)}`))
+        : dispatch(push(`/results?${buildSearchQueryString(formData)}`)),
   }
 }
 

@@ -35,9 +35,14 @@ function authenticationReducer(state = initialState, action) {
 
       const isKeyWorker = Boolean(user.staffRoles && user.staffRoles.filter(r => r.role === 'KW').length > 0)
 
+      const canGlobalSearch = Boolean(
+        user.accessRoles && user.accessRoles.filter(r => r.roleCode === 'GLOBAL_SEARCH').length > 0
+      )
+
       return state.set('user', {
         isKeyWorkerAdmin,
         isKeyWorker,
+        canGlobalSearch,
         ...action.payload.user,
       })
     }

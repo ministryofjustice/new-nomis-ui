@@ -7,7 +7,14 @@
       width: 100% !important;
     }
 
-    .global-search {
+    .form-control:disabled {
+      color: grey;
+    }
+
+    .multiple-choice {
+      @include media-breakpoint-down(xs) {
+        display: none;
+      }
       margin-top: 32px;
       margin-left: 15px;
     }
