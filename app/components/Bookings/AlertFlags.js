@@ -1,4 +1,5 @@
 import React from 'react'
+import { linkOnClick } from '../../helpers'
 
 const alertFlags = (alerts, divClassName, onAlertFlagClick) => {
   let acct = false
@@ -37,7 +38,7 @@ const alertFlags = (alerts, divClassName, onAlertFlagClick) => {
   }
 
   const AlertFlag = ({ className, children }) => (
-    <span className={className} onClick={onAlertFlagClick}>
+    <span className={className} {...linkOnClick(onAlertFlagClick)}>
       {children}
     </span>
   )
