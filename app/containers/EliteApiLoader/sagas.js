@@ -32,10 +32,6 @@ import {
   ALL_ALERT_TYPES_DATA,
 } from './constants'
 
-export function* loadAppointmentsViewModalWatcher() {
-  yield takeEvery(APPOINTMENT.LOAD_VIEW_MODAL, loadAppointmentsViewModel)
-}
-
 export function* loadAppointmentsViewModel(action) {
   try {
     yield put(showSpinner())
@@ -50,8 +46,8 @@ export function* loadAppointmentsViewModel(action) {
   }
 }
 
-export function* bookingDetailsWatcher() {
-  yield takeEvery(BOOKINGS.DETAILS.BASE, bookingDetailsSaga)
+export function* loadAppointmentsViewModalWatcher() {
+  yield takeEvery(APPOINTMENT.LOAD_VIEW_MODAL, loadAppointmentsViewModel)
 }
 
 export function* bookingDetailsSaga(action) {
@@ -80,8 +76,8 @@ export function* bookingDetailsSaga(action) {
   }
 }
 
-export function* bookingCaseNotesWatch() {
-  yield takeEvery(BOOKINGS.CASENOTES.BASE, bookingCaseNotesSaga)
+export function* bookingDetailsWatcher() {
+  yield takeEvery(BOOKINGS.DETAILS.BASE, bookingDetailsSaga)
 }
 
 export function* bookingCaseNotesSaga(action) {
@@ -106,8 +102,8 @@ export function* bookingCaseNotesSaga(action) {
   }
 }
 
-export function* officerLoadWatch() {
-  yield takeEvery(OFFICERS.BASE, officerLoadSaga)
+export function* bookingCaseNotesWatch() {
+  yield takeEvery(BOOKINGS.CASENOTES.BASE, bookingCaseNotesSaga)
 }
 
 export function* officerLoadSaga(action) {
@@ -147,8 +143,8 @@ export function* officerLoadSaga(action) {
   }
 }
 
-export function* loadALertTypesWatcher() {
-  yield takeLatest(LOAD_ALERT_TYPES, loadAlertTypes)
+export function* officerLoadWatch() {
+  yield takeEvery(OFFICERS.BASE, officerLoadSaga)
 }
 
 export function* loadAlertTypes() {
@@ -157,15 +153,8 @@ export function* loadAlertTypes() {
   yield put({ type: ALL_ALERT_TYPES_DATA, payload: alertTypes })
 }
 
-export function* loadCaseNoteTypesSubTypesWatcher() {
-  yield takeLatest(LOAD_CASE_NOTE_TYPES_SUBTYPES, loadCaseNoteTypesSubTypes)
-}
-
-export function* loadCaseNoteTypesSubTypes() {
-  const apiServer = yield select(selectApi())
-
-  yield call(preloadAllCaseNoteTypesSubTypes, apiServer)
-  yield call(preloadUserCaseNoteTypes, apiServer)
+export function* loadALertTypesWatcher() {
+  yield takeLatest(LOAD_ALERT_TYPES, loadAlertTypes)
 }
 
 export function* preloadAllCaseNoteTypesSubTypes(apiServer) {
@@ -186,8 +175,15 @@ export function* preloadUserCaseNoteTypes(apiServer) {
   }
 }
 
-export function* userCaseLoadsWatcher() {
-  yield takeLatest(USER.CASELOADS.BASE, userCaseLoadsSaga)
+export function* loadCaseNoteTypesSubTypes() {
+  const apiServer = yield select(selectApi())
+
+  yield call(preloadAllCaseNoteTypesSubTypes, apiServer)
+  yield call(preloadUserCaseNoteTypes, apiServer)
+}
+
+export function* loadCaseNoteTypesSubTypesWatcher() {
+  yield takeLatest(LOAD_CASE_NOTE_TYPES_SUBTYPES, loadCaseNoteTypesSubTypes)
 }
 
 export function* userCaseLoadsSaga() {
@@ -202,8 +198,8 @@ export function* userCaseLoadsSaga() {
   return null
 }
 
-export function* userSwitchCaseLoadsWatcher() {
-  yield takeLatest(USER.SWITCHCASELOAD.BASE, userSwitchCaseLoadsSaga)
+export function* userCaseLoadsWatcher() {
+  yield takeLatest(USER.CASELOADS.BASE, userCaseLoadsSaga)
 }
 
 export function* userSwitchCaseLoadsSaga(action) {
@@ -226,6 +222,10 @@ export function* userSwitchCaseLoadsSaga(action) {
     yield put(hideSpinner())
   }
   return null
+}
+
+export function* userSwitchCaseLoadsWatcher() {
+  yield takeLatest(USER.SWITCHCASELOAD.BASE, userSwitchCaseLoadsSaga)
 }
 
 export default [

@@ -2,13 +2,15 @@ import { List } from 'immutable'
 import { createSelector } from 'reselect'
 import { queryHash, paginationHash, idsFromPagination } from './helpers'
 
+const selectEliteApi = () => state => state.get('eliteApiLoader')
+
+const selectUser = () => createSelector(selectEliteApi(), eliteApiState => eliteApiState.get('User'))
+
 const selectUsersTypesAndSubTypes = () =>
   createSelector(selectEliteApi(), selectUser(), (api, user) => ({
     types: user.get('CaseNoteTypes'),
     subTypes: user.get('CaseNoteSubTypes'),
   }))
-
-const selectEliteApi = () => state => state.get('eliteApiLoader')
 
 const calcBookingResultStatus = (eliteApiState, { query, pagination, sortOrder }) => {
   const searchQueryStatus = eliteApiState.getIn([
@@ -147,8 +149,6 @@ const selectCaseNoteTypeDetails = () =>
     const subTypeObj = caseNoteSource.getIn([type, 'SubType', subType, 'Data'])
     return { type: typeObj, subType: subTypeObj }
   })
-
-const selectUser = () => createSelector(selectEliteApi(), eliteApiState => eliteApiState.get('User'))
 
 const selectUserCaseLoads = () =>
   createSelector(selectUser(), userState => {

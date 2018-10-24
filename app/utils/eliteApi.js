@@ -183,6 +183,17 @@ export const amendCaseNote = (baseUrl, offenderNo, caseNoteId, amendmentText) =>
       throw error
     })
 
+const flatten = list => list.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), [])
+
+export const CaseNoteTypeMapper = res => {
+  const allTypes = res.map(t => ({ code: t.code, description: t.description }))
+  const subTypes = res.map(type =>
+    type.subCodes.map(sc => ({ code: sc.code, description: sc.description, parentCode: type.code }))
+  )
+
+  return { types: allTypes, subTypes: flatten(subTypes) }
+}
+
 export const users = {
   me: baseUrl =>
     axios({
@@ -274,17 +285,6 @@ export const loadAllCaseNoteFilterItems = baseUrl => {
     return { types: allTypes, subTypes }
   })
 }
-
-export const CaseNoteTypeMapper = res => {
-  const allTypes = res.map(t => ({ code: t.code, description: t.description }))
-  const subTypes = res.map(type =>
-    type.subCodes.map(sc => ({ code: sc.code, description: sc.description, parentCode: type.code }))
-  )
-
-  return { types: allTypes, subTypes: flatten(subTypes) }
-}
-
-const flatten = list => list.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), [])
 
 export const officerDetails = (baseUrl, staffId, username) =>
   axios({

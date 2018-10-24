@@ -23,6 +23,14 @@ const getProfileInformation = (offenderDetails, code) => {
   return result && result.get('resultValue')
 }
 
+const groupByPairs = dataset =>
+  dataset.reduce((result, value, index, array) => {
+    if (index % 2 === 0) {
+      result.push(array.slice(index, index + 2))
+    }
+    return result
+  }, [])
+
 const OffenderDetails = ({ offenderDetails, showPhoto }) => {
   const marksGroupedIntoPairs = groupByPairs(offenderDetails.get('physicalMarks').toJS())
   const characteristicsGroupedIntoPairs = groupByPairs(offenderDetails.get('physicalCharacteristics').toJS())
@@ -301,14 +309,6 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
     </div>
   )
 }
-
-const groupByPairs = dataset =>
-  dataset.reduce((result, value, index, array) => {
-    if (index % 2 === 0) {
-      result.push(array.slice(index, index + 2))
-    }
-    return result
-  }, [])
 
 export function mapDispatchToProps(dispatch) {
   return {

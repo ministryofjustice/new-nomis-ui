@@ -41,8 +41,6 @@ const selectResultsView = () => createSelector(selectSearch(), searchState => se
 
 const selectBookingDetailsId = () => createSelector(selectSearch(), searchState => searchState.getIn(['details', 'id']))
 
-const selectOffenderAgencyId = () => createSelector(selectHeaderDetail(), state => state.assignedLivingUnit.agencyId)
-
 const selectBookingDetail = () =>
   createSelector(selectEliteBookingDetails(), selectBookingDetailsId(), (bookingDetails, id) => {
     const dets = bookingDetails.get(id)
@@ -57,6 +55,8 @@ const selectName = () =>
 
 const selectHeaderDetail = () =>
   createSelector(selectBookingDetail(), bookingDetails => bookingDetails && bookingDetails.get('Data').toJS())
+
+const selectOffenderAgencyId = () => createSelector(selectHeaderDetail(), state => state.assignedLivingUnit.agencyId)
 
 const selectPhysicalAttributes = () =>
   createSelector(selectBookingDetail(), bookingDetails => {

@@ -6,10 +6,6 @@ import { showSpinner, hideSpinner } from 'globalReducers/app'
 
 import { USER_ME, RETRIEVE_USER_ME } from './constants'
 
-export function* userMeWatcher() {
-  yield takeLatest(RETRIEVE_USER_ME, updateUserDetails)
-}
-
 export function* updateUserDetails() {
   try {
     yield put(showSpinner())
@@ -24,6 +20,10 @@ export function* updateUserDetails() {
   } catch (err) {
     yield put(hideSpinner())
   }
+}
+
+export function* userMeWatcher() {
+  yield takeLatest(RETRIEVE_USER_ME, updateUserDetails)
 }
 
 export default [userMeWatcher]
