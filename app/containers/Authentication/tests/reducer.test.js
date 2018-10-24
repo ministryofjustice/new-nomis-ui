@@ -36,7 +36,7 @@ describe('Authentication reducer', () => {
   it('should return state with a user as a custodial manager', () => {
     const user = {
       ...userData,
-      accessRoles: [{ roleCode: 'CUSTODIAL_MANAGER', roleDescription: 'Custodial Manager' }],
+      accessRoles: [{ roleCode: 'KEYWORKER_MONITOR', roleDescription: 'Keyworker Monitor' }],
     }
     const state = authenticationReducer(Map({}), userMe({ user }))
     const userState = state.get('user')

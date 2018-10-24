@@ -31,7 +31,7 @@ function authenticationReducer(state = initialState, action) {
 
       const isKeyWorkerAdmin = Boolean(
         user.accessRoles &&
-          user.accessRoles.filter(r => r.roleCode === 'OMIC_ADMIN' || r.roleCode === 'CUSTODIAL_MANAGER').length > 0
+          user.accessRoles.filter(r => r.roleCode === 'OMIC_ADMIN' || r.roleCode === 'KEYWORKER_MONITOR').length > 0
       )
 
       const isKeyWorker = Boolean(user.staffRoles && user.staffRoles.filter(r => r.role === 'KW').length > 0)
