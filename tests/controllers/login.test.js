@@ -1,92 +1,91 @@
-const sinon = require('sinon');
-const chai = require('chai'),
-  expect = chai.expect;
-const sinonChai = require('sinon-chai');
-const express = require('express');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const request = require('supertest');
+const sinon = require('sinon')
+const chai = require('chai')
 
-const sessionManagementRoutes = require('../../server/sessionManagementRoutes');
-const hmppsCookie = require('../../server/hmppsCookie');
+const { expect } = chai
+const sinonChai = require('sinon-chai')
+const express = require('express')
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+const request = require('supertest')
 
-chai.use(sinonChai);
+const sessionManagementRoutes = require('../../server/sessionManagementRoutes')
+const hmppsCookie = require('../../server/hmppsCookie')
 
+chai.use(sinonChai)
 
 describe('POST /signin', () => {
-  let sandbox;
-  const app = express();
+  let sandbox
+  const app = express()
 
-  app.set('view engine', 'ejs');
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(cookieParser('keyboard cat'));
+  app.set('view engine', 'ejs')
+  app.use(bodyParser.urlencoded({ extended: false }))
+  app.use(cookieParser('keyboard cat'))
 
   const hmppsCookieOperations = hmppsCookie.cookieOperationsFactory({
     name: 'testCookie',
     cookieLifetimeInMinutes: 1,
     domain: '127.0.0.1',
     secure: false,
-  });
+  })
 
-  const nullFunction = () => {};
+  const nullFunction = () => {}
 
   const oauthApi = {
     authenticate: nullFunction,
     refresh: nullFunction,
-  };
+  }
 
   const healthApi = {
     isUp: nullFunction,
-  };
+  }
 
-  sessionManagementRoutes.configureRoutes({ app, healthApi, oauthApi, hmppsCookieOperations, mailTo: 'test@site.com' });
+  sessionManagementRoutes.configureRoutes({ app, healthApi, oauthApi, hmppsCookieOperations, mailTo: 'test@site.com' })
 
   beforeEach(() => {
-    sandbox = sinon.sandbox.create();
-    sandbox.stub(oauthApi, 'authenticate');
-  });
+    sandbox = sinon.sandbox.create()
+    sandbox.stub(oauthApi, 'authenticate')
+  })
 
-  afterEach(() => sandbox.restore());
+  afterEach(() => sandbox.restore())
 
   describe('Successful signin', () => {
     it('redirects to "/" path', () =>
-       request(app)
+      request(app)
         .post('/login')
         .send('username=officer&password=password')
         .expect(302)
-        .expect((res) => {
-          expect(res.headers.location).to.eql('/');
-        })
-    );
-  });
+        .expect(res => {
+          expect(res.headers.location).to.eql('/')
+        }))
+  })
 
   describe('Unsuccessful signin - API up', () => {
     it('redirects to "/login" path', () => {
-      oauthApi.authenticate.rejects({ response: { status: 401 } });
+      oauthApi.authenticate.rejects({ response: { status: 401 } })
 
       return request(app)
         .post('/login')
         .send('username=officer&password=password')
         .expect(401)
-        .expect((res) => {
-          expect(res.error.path).to.equal('/login');
-          expect(res.text).to.include('The username or password you have entered is invalid.');
-        });
-    });
-  });
+        .expect(res => {
+          expect(res.error.path).to.equal('/login')
+          expect(res.text).to.include('The username or password you have entered is invalid.')
+        })
+    })
+  })
 
   describe('Unsuccessful signin - API down', () => {
     it('redirects to "/login" path', () => {
-      oauthApi.authenticate.rejects({ response: { status: 503 } });
+      oauthApi.authenticate.rejects({ response: { status: 503 } })
 
       return request(app)
         .post('/login')
         .send('username=officer&password=password')
         .expect(503)
-        .expect((res) => {
-          expect(res.error.path).to.equal('/login');
-          expect(res.text).to.include('Service unavailable. Please try again later.');
-        });
-    });
-  });
-});
+        .expect(res => {
+          expect(res.error.path).to.equal('/login')
+          expect(res.text).to.include('Service unavailable. Please try again later.')
+        })
+    })
+  })
+})

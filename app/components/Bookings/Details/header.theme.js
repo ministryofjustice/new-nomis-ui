@@ -1,19 +1,19 @@
-import styled from 'styled-components';
-import colours from 'theme/colours';
-import { StyledLink } from 'components/Button/button.theme';
-import { responsiveCols } from 'components/CommonTheme/responsiveColumns';
-import { media } from 'utils/style-utils';
+import styled from 'styled-components'
+import colours from 'theme/colours'
+import { StyledLink } from 'components/Button/button.theme'
+import { responsiveCols } from 'components/CommonTheme/responsiveColumns'
+import { media } from 'utils/style-utils'
 
 export const Location = styled.div`
   width: ${responsiveCols(2)};
   text-align: right;
-`;
+`
 
 export const Help = styled.div`
   background: red;
   width: 300px;
   height: 300px;
-`;
+`
 
 export const HeaderWrapper = styled.div`
   display: flex;
@@ -23,30 +23,30 @@ export const HeaderWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1em;
-  
+
   ${media.desktop`
     margin-bottom: 2em;
-  `}
-`;
+  `};
+`
 
 export const NameIdKeyWorker = styled.div`
   width: ${responsiveCols(4)};
-`;
+`
 
 export const InmateName = styled.div`
   font-size: 18px;
   padding-bottom: 15px;
-`;
+`
 
 export const InformationBlock = styled.div`
   font-size: 14px;
   padding-top: 0px;
   line-height: 1.3;
-`;
+`
 
 export const AlertsLocation = styled.div`
   width: ${responsiveCols(3)};
-`;
+`
 
 export const ALBLock = styled.div`
   background: ${colours.bookings.details.alertLocationBackground};
@@ -64,40 +64,40 @@ export const ALBLock = styled.div`
   div:last-child {
     font-size: 21px;
   }
-`;
+`
 
 export const AlertBlock = styled.div`
-  font-size:10px;
-`;
+  font-size: 10px;
+`
 
 export const AlertCodes = styled.div`
   color: ${colours.alertCodes.textColour};
   font-weight: bold;
   display: inline-block;
-`;
+`
 
 export const AddCaseNoteButton = styled.div`
   width: 100%;
   padding: 30px 25px 0;
   text-align: center;
-`;
+`
 
 export const AddCaseNoteButtonComponent = styled(StyledLink)`
   width: 100%;
   font-size: 16px;
   display: inline-block;
-  
+
   ${media.desktop`
     display: inline;
-  `}
-`;
+  `};
+`
 
 export const ContentWrapper = styled.div`
   display: flex;
   width: 100%;
   padding: 10px;
   background: ${colours.bookings.details.mobileHeader.background};
-`;
+`
 
 export const FaceImage = styled.div`
   flex: unset;
@@ -106,7 +106,7 @@ export const FaceImage = styled.div`
   cursor: pointer;
   width: 86px;
   height: 108px;
-`;
+`
 
 export const InformationWrapper = styled.div`
   flex: 1;
@@ -119,4 +119,4 @@ export const InformationWrapper = styled.div`
   officername {
     display: inline-block;
   }
-`;
+`

@@ -1,7 +1,7 @@
-const nomisCodes = require('./nomis-codes');
+const nomisCodes = require('./nomis-codes')
 
-module.exports = (entry) => {
-  const comment = getComment(entry);
+module.exports = entry => {
+  const comment = getComment(entry)
   return {
     type: (entry.eventSubType === 'PA' && entry.eventSourceDesc) || entry.eventSubTypeDesc,
     comment,
@@ -11,6 +11,6 @@ module.exports = (entry) => {
     cancelled: entry.eventStatus === nomisCodes.statusCodes.cancelled,
     eventStatus: entry.eventStatus,
   }
-};
+}
 
-const getComment = (entry) => entry.eventSubType === 'PA' ? null : entry.eventSourceDesc;
+const getComment = entry => (entry.eventSubType === 'PA' ? null : entry.eventSourceDesc)

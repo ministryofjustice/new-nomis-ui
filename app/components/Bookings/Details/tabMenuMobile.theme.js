@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import colours from 'theme/colours';
+import styled from 'styled-components'
+import colours from 'theme/colours'
 
-const mobileTabNav = colours.bookings.details.mobileTabNav.buttonBackground;
+const mobileTabNav = colours.bookings.details.mobileTabNav.buttonBackground
 
 export const TabWrapper = styled.div`
   display: flex;
@@ -11,16 +11,16 @@ export const TabWrapper = styled.div`
   left: 0;
   width: 100%;
   z-index: 800;
-  
+
   div {
     padding: 25px 0px 2px;
   }
-`;
+`
 
 export const TabWrapperContentPadding = styled.div`
   width: 100%;
   display: flex;
-`;
+`
 
 export const TabMenuItem = styled.div`
   width: 25%;
@@ -38,14 +38,13 @@ export const TabMenuItem = styled.div`
     border-right: 2px;
   }
 
-  cursor: ${({ active }) => active ? 'normal' : 'pointer'};
+  cursor: ${({ active }) => (active ? 'normal' : 'pointer')};
   background-image: url('${({ bgImg }) => bgImg}');
-  background-color: ${({ active }) => active ? mobileTabNav : colours.baseFont};
+  background-color: ${({ active }) => (active ? mobileTabNav : colours.baseFont)};
   background-repeat: no-repeat;
   background-position: 50% 28%;  
-`;
-
+`
 
 export const TextHolder = styled.div`
   font-size: 14px;
-`;
+`

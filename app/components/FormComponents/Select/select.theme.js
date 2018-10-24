@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import colors from 'theme/colours';
+import styled from 'styled-components'
+import colors from 'theme/colours'
 
 export const SelectStyle = styled.select`
   background: white;
@@ -10,7 +10,7 @@ export const SelectStyle = styled.select`
   appearance: none;
   border-radius: 0;
   height: 50px;
-`;
+`
 
 // .Large
 //   padding 12px 18px

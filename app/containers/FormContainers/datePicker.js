@@ -1,20 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import DP from 'react-datepicker';
-import moment from 'moment';
-import 'react-datepicker/dist/react-datepicker.css';
-import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants';
-import styled from 'styled-components';
+import React from 'react'
+import PropTypes from 'prop-types'
+import DP from 'react-datepicker'
+import moment from 'moment'
+import 'react-datepicker/dist/react-datepicker.css'
+import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants'
+import styled from 'styled-components'
 
 const DatePicker = styled(DP)`
-   height: 36px !important;   
-`;
+  height: 36px !important;
+`
 
 // stolen from https://github.com/Hacker0x01/react-datepicker/issues/543
 
-const asMoment = (t) => t ? moment(t, DEFAULT_MOMENT_DATE_FORMAT_SPEC) : null;
+const asMoment = t => (t ? moment(t, DEFAULT_MOMENT_DATE_FORMAT_SPEC) : null)
 
-const className = (showError) => showError ? 'form-control form-control-error' : 'form-control';
+const className = showError => (showError ? 'form-control form-control-error' : 'form-control')
 
 class renderDatePicker extends React.Component {
   static propTypes = {
@@ -39,12 +39,13 @@ class renderDatePicker extends React.Component {
   }
 
   constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange(date) {
-    this.props.input.onChange(moment(date).format(DEFAULT_MOMENT_DATE_FORMAT_SPEC));
+    const { input } = this.props
+    input.onChange(moment(date).format(DEFAULT_MOMENT_DATE_FORMAT_SPEC))
   }
 
   render() {
@@ -55,9 +56,9 @@ class renderDatePicker extends React.Component {
       meta: { touched, error },
       title,
       showError,
-    } = this.props;
+    } = this.props
 
-    moment.locale(locale);
+    moment.locale(locale)
 
     return (
       <div className="date-picker">
@@ -72,8 +73,8 @@ class renderDatePicker extends React.Component {
           className={className(showError || (touched && error))}
         />
       </div>
-    );
+    )
   }
 }
 
-export default renderDatePicker;
+export default renderDatePicker

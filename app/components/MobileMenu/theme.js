@@ -1,34 +1,34 @@
-import styled from 'styled-components';
-import colours from 'theme/colours';
-import InlineSVG from 'react-svg-inline';
-import { Link } from 'react-router';
+import styled from 'styled-components'
+import colours from 'theme/colours'
+import InlineSVG from 'react-svg-inline'
+import { Link } from 'react-router'
 
 export const MobileMenuContainer = styled.div`
   background: ${colours.userMenu.bg};
   overflow: scroll;
-  
+
   &::-webkit-scrollbar {
     width: 0px;
-  };
+  }
   position: absolute;
   top: 60px;
   left: 0;
   width: 100%;
-`;
+`
 
 export const MobileMenuHeader = styled.div`
   color: ${colours.userMenu.text};
   border-bottom: 1px solid lightblue;
   padding: 20px 30px;
-`;
+`
 
 export const UserName = styled.strong`
   font-size: 26px;
-`;
+`
 
 export const CaseLoad = styled.div`
   font-size: 20px;
-`;
+`
 
 export const NotificationNumber = styled.div`
   height: 56px;
@@ -40,7 +40,7 @@ export const NotificationNumber = styled.div`
   background-color: ${colours.userMenu.notification};
   color: ${colours.baseFont};
   font-size: 16px;
-`;
+`
 
 export const NotificationNumberAssignments = styled(NotificationNumber)`
   position: relative;
@@ -49,7 +49,7 @@ export const NotificationNumberAssignments = styled(NotificationNumber)`
   display: inline;
   padding: 7px 8px 4px 7px;
   font-weight: bold;
-`;
+`
 
 export const MobileMenuOption = styled(Link)`
   position: relative;
@@ -61,11 +61,11 @@ export const MobileMenuOption = styled(Link)`
   font-size: 18px;
   border-bottom: 1px solid lightblue;
   text-decoration: none;
-  
-  &:hover{
+
+  &:hover {
     background: ${colours.userMenu.hover};
   }
-`;
+`
 
 export const MobileMenuAdditionalOption = styled(Link)`
   box-sizing: border-box;
@@ -75,11 +75,11 @@ export const MobileMenuAdditionalOption = styled(Link)`
   color: ${colours.userMenu.text};
   font-size: 18px;
   text-decoration: none;
-  
-  &:hover{
+
+  &:hover {
     background: ${colours.userMenu.hover};
   }
-`;
+`
 
 export const MobileMenuSignature = styled.div`
   box-sizing: border-box;
@@ -91,7 +91,7 @@ export const MobileMenuSignature = styled.div`
   font-size: 14px;
   text-decoration: none;
   text-align: center;
-`;
+`
 
 export const ForwardArrow = styled(InlineSVG)`
   position: absolute;
@@ -101,11 +101,11 @@ export const ForwardArrow = styled(InlineSVG)`
   padding: 22px 50px;
   width: 20px;
   height: 30px;
-  
+
   svg {
     display: block;
     width: 10px;
     height: 26px;
     fill: inherit;
   }
-`;
+`

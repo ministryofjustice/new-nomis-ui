@@ -1,38 +1,40 @@
-const sinon = require('sinon');
-const chai = require('chai'),
-  expect = chai.expect;
-const sinonChai = require('sinon-chai');
+/* eslint-disable no-unused-expressions */
+const sinon = require('sinon')
+const chai = require('chai')
 
-const eliteApiFactory = require('../server/api/eliteApi').eliteApiFactory;
-const keyworkerApiFactory = require('../server/api/keyworkerApi').keyworkerApiFactory;
-const bookingServiceFactory = require('../server/services/booking').bookingServiceFactory;
+const { expect } = chai
+const sinonChai = require('sinon-chai')
 
-const eliteApi = eliteApiFactory(null);
-const keyworkerApi = keyworkerApiFactory(null);
-const bookingService = bookingServiceFactory(eliteApi, keyworkerApi);
+const { eliteApiFactory } = require('../server/api/eliteApi')
+const { keyworkerApiFactory } = require('../server/api/keyworkerApi')
+const { bookingServiceFactory } = require('../server/services/booking')
 
-chai.use(sinonChai);
+const eliteApi = eliteApiFactory(null)
+const keyworkerApi = keyworkerApiFactory(null)
+const bookingService = bookingServiceFactory(eliteApi, keyworkerApi)
+
+chai.use(sinonChai)
 
 describe('Booking Service Booking details', () => {
-  let sandbox;
+  let sandbox
 
   beforeEach(() => {
-    sandbox = sinon.sandbox.create();
-    sandbox.stub(eliteApi, 'getCategoryAssessment');
-    sandbox.stub(eliteApi, 'getSentenceData');
-    sandbox.stub(eliteApi, 'getIepSummary');
-    sandbox.stub(eliteApi, 'getDetailsLight');
+    sandbox = sinon.sandbox.create()
+    sandbox.stub(eliteApi, 'getCategoryAssessment')
+    sandbox.stub(eliteApi, 'getSentenceData')
+    sandbox.stub(eliteApi, 'getIepSummary')
+    sandbox.stub(eliteApi, 'getDetailsLight')
 
     eliteApi.getDetailsLight.returns({
       bookingId: 1,
-    });
-  });
+    })
+  })
 
-  afterEach(() => sandbox.restore());
+  afterEach(() => sandbox.restore())
 
   it('should call getCategoryAssessment', async () => {
-    eliteApi.getSentenceData.returns({});
-    eliteApi.getIepSummary.returns({});
+    eliteApi.getSentenceData.returns({})
+    eliteApi.getIepSummary.returns({})
 
     eliteApi.getCategoryAssessment.returns({
       classification: 'stuff',
@@ -41,12 +43,12 @@ describe('Booking Service Booking details', () => {
       cellSharingAlertFlag: false,
       assessmentDate: '2017-12-05',
       nextReviewDate: '2017-12-05',
-    });
+    })
 
-    const data = await bookingService.getKeyDatesVieModel({}, 'A12345');
+    const data = await bookingService.getKeyDatesVieModel({}, 'A12345')
 
-    expect(eliteApi.getCategoryAssessment).to.be.called;
+    expect(eliteApi.getCategoryAssessment).to.be.called
 
-    expect(data.reCategorisationDate).to.equal('2017-12-05');
-  });
-});
+    expect(data.reCategorisationDate).to.equal('2017-12-05')
+  })
+})

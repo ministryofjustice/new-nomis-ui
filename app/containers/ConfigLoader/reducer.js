@@ -1,14 +1,14 @@
-import { fromJS } from 'immutable';
+import { fromJS } from 'immutable'
 
 // Default to my version...
 const initialState = fromJS({
   data: {
     apiServer: '/app/',
   },
-});
+})
 
 function authenticationReducer(state = initialState) {
-  return state;
+  return state
 }
 
-export default authenticationReducer;
+export default authenticationReducer

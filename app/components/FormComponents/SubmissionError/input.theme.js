@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import fonts from 'theme/fonts';
-import colours from 'theme/colours';
+import styled from 'styled-components'
+import fonts from 'theme/fonts'
+import colours from 'theme/colours'
 
-const Base = (props) => `
+const Base = props => `
   box-sizing: border-box;
   font-size: 19px;
   font-weight: 400;
@@ -17,21 +17,19 @@ const Base = (props) => `
     outline-offset: 0;
   }
   ${fonts.misc}
-`;
+`
 
 export const InputGroup = styled.div`
   position: relative;
 
-  ${
-    ({ error }) => error ? `
+  ${({ error }) =>
+    error
+      ? `
       box-sizing: border-box;
       border-left: ${colours.forms.errorColour} solid 5px;
       padding-left: 10px;
-      margin-left: -15px;` : ''
-  }
-
-
-  &:not(:first-of-type) {
+      margin-left: -15px;`
+      : ''} &:not(:first-of-type) {
     margin-top: 20px;
   }
   &:not(:last-of-type) {
@@ -41,28 +39,27 @@ export const InputGroup = styled.div`
   &:last-of-type {
     margin-bottom: 37px;
   }
-`;
+`
 
 export const InputError = styled.div`
-  height: ${({ error }) => error ? '22px' : 0}
+  height: ${({ error }) => (error ? '22px' : 0)}
   ${fonts.misc}
   color: ${colours.forms.errorColour};
   transition: height 0.5s;
-`;
+`
 
 export const InputLabel = styled.label`
   font-size: 19px;
   line-height: 1.31579;
   font-weight: 400;
   display: block;
-  ${fonts.misc}
-  margin-bottom: 5px;
-`;
+  ${fonts.misc} margin-bottom: 5px;
+`
 
 export const Input = styled.input`
-  ${Base}
-`;
+  ${Base};
+`
 
 export const TextArea = styled.textarea`
-  ${Base}
-`;
+  ${Base};
+`

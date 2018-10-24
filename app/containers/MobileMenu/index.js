@@ -1,25 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import MobileMenuComponent from 'components/MobileMenu';
-import ModalData from 'containers/Footer/modal-data';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { createStructuredSelector } from 'reselect'
+import MobileMenuComponent from 'components/MobileMenu'
+import ModalData from 'containers/Footer/modal-data'
 
-import { setMenuOpen, setModalData } from 'globalReducers/app';
-import { selectUserHeaderInfo } from '../Header/selectors';
-import { switchCaseLoad } from '../EliteApiLoader/actions';
+import { setMenuOpen, setModalData } from 'globalReducers/app'
+import { selectUserHeaderInfo } from '../Header/selectors'
+import { switchCaseLoad } from '../EliteApiLoader/actions'
 
-const MobileMenu = (props) => {
-  const { 
-    user, 
-    switchCaseLoad: switchLoad, 
-    setModalData: modelData,
-    setMenuOpen: menuOpen,
-    showTerms: terms,
-  } = props;
+const MobileMenu = props => {
+  const { user, switchCaseLoad: switchLoad, setModalData: modelData, setMenuOpen: menuOpen, showTerms: terms } = props
 
   if (!user) {
-    return <div></div>
+    return <div />
   }
 
   return (
@@ -31,18 +25,18 @@ const MobileMenu = (props) => {
       setMenuOpen={menuOpen}
       showTerms={terms}
     />
-  );
+  )
 }
 
 MobileMenu.propTypes = {
   setMenuOpen: PropTypes.func.isRequired,
   setModalData: PropTypes.func.isRequired,
   switchCaseLoad: PropTypes.func.isRequired,
-};
+}
 
 const mapStateToProps = createStructuredSelector({
   user: selectUserHeaderInfo(),
-});
+})
 
 const mapDispatchToProps = {
   setMenuOpen,
@@ -50,4 +44,7 @@ const mapDispatchToProps = {
   switchCaseLoad,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MobileMenu);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MobileMenu)

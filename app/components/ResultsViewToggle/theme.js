@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import InlineSVG from 'react-svg-inline';
+import styled from 'styled-components'
+import InlineSVG from 'react-svg-inline'
 // import colors from 'theme/colors';
 
 export const IconSVG = styled(InlineSVG)`
@@ -14,7 +14,7 @@ export const IconSVG = styled(InlineSVG)`
     width: 100%;
     fill: inherit;
   }
-`;
+`
 
 export const ToggleButton = styled.div`
   width: 91px;
@@ -25,18 +25,15 @@ export const ToggleButton = styled.div`
   &:last-child {
     border-left: 1px solid grey;
   }
-`;
+`
 
 export const ToggleComponent = styled.div`
-
   position: absolute;
   right: 0;
-
-`;
+`
 
 export const ToggleContainer = styled.div`
-
   position: relative;
   width: 100%;
   height: 30px;
-`;
+`

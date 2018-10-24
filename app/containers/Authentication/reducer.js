@@ -10,70 +10,51 @@
  *   Complete proper authentication! use redux saga for log in messages...
  */
 
-import { fromJS } from 'immutable';
+import { fromJS } from 'immutable'
 
+import { USER } from 'containers/EliteApiLoader/constants'
 
-import {
-  USER,
-} from 'containers/EliteApiLoader/constants';
-
-import {
-  CHANGE_USERNAME_INPUT,
-  CHANGE_PASSWORD_INPUT,
-  USER_ME,
-} from './constants';
-
+import { CHANGE_USERNAME_INPUT, CHANGE_PASSWORD_INPUT, USER_ME } from './constants'
 
 export const initialState = fromJS({
   user: null,
   usernameInput: '',
   passwordInput: '',
-});
+})
 
 function authenticationReducer(state = initialState, action) {
   switch (action.type) {
     case USER_ME: {
-      const { user } = action.payload;
+      const { user } = action.payload
 
-      // Global variable for google tag manager
-      window.currentCaseLoadId = user.activeCaseLoadId;
+      window.currentCaseLoadId = user.activeCaseLoadId
 
-      const isKeyWorkerAdmin = Boolean(user.accessRoles && user.accessRoles
-        .filter(r => (r.roleCode === 'OMIC_ADMIN'))
-        .length > 0);
+      const isKeyWorkerAdmin = Boolean(
+        user.accessRoles && user.accessRoles.filter(r => r.roleCode === 'OMIC_ADMIN').length > 0
+      )
 
-      const isKeyWorker = Boolean(user.staffRoles && user.staffRoles
-        .filter(r => r.role === 'KW')
-        .length > 0);
+      const isKeyWorker = Boolean(user.staffRoles && user.staffRoles.filter(r => r.role === 'KW').length > 0)
 
-      const canGlobalSearch = Boolean(user.accessRoles && user.accessRoles
-        .filter(r => r.roleCode === 'GLOBAL_SEARCH')
-        .length > 0);
-
-      return state
-        .set('user', {
-          isKeyWorkerAdmin,
-          isKeyWorker,
-          canGlobalSearch,
-          ...action.payload.user,
-        })
+      return state.set('user', {
+        isKeyWorkerAdmin,
+        isKeyWorker,
+        ...action.payload.user,
+      })
     }
 
     case CHANGE_USERNAME_INPUT: {
-      return state
-        .set('usernameInput', action.username);
+      return state.set('usernameInput', action.username)
     }
     case CHANGE_PASSWORD_INPUT: {
-      return state
-        .set('passwordInput', action.password);
+      return state.set('passwordInput', action.password)
     }
     case USER.SWITCHCASELOAD.SUCCESS: {
-      return state.update('user', (userState) => ({ ...userState, activeCaseLoadId: action.payload }));
+      return state.update('user', userState => ({ ...userState, activeCaseLoadId: action.payload }))
     }
     default: {
-      return state;
+      return state
     }
   }
 }
 
-export default authenticationReducer;
+export default authenticationReducer

@@ -1,25 +1,27 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { createStructuredSelector } from 'reselect'
 
-import Modal from 'components/Modal';
-import ModalMobile from 'components/Modal/mobile';
+import Modal from 'components/Modal'
+import ModalMobile from 'components/Modal/mobile'
 
-import { setModalOpen } from 'globalReducers/app';
-import { selectModalOpen, selectModalData, selectDeviceFormat } from 'selectors/app';
+import { setModalOpen } from 'globalReducers/app'
+import { selectModalOpen, selectModalData, selectDeviceFormat } from 'selectors/app'
 
 class ModalContainer extends Component {
   render() {
-    const { modalOpen, modalData, deviceFormat } = this.props;
+    const { modalOpen, modalData, deviceFormat, setModalOpen } = this.props
 
-    const modalForRender = deviceFormat === 'desktop' ?
-      <Modal modalData={modalData} setModalOpen={this.props.setModalOpen} /> :
-      <ModalMobile modalData={modalData} setModalOpen={this.props.setModalOpen} />;
+    const modalForRender =
+      deviceFormat === 'desktop' ? (
+        <Modal modalData={modalData} setModalOpen={setModalOpen} />
+      ) : (
+        <ModalMobile modalData={modalData} setModalOpen={setModalOpen} />
+      )
 
-    return modalOpen ? modalForRender : null;
+    return modalOpen ? modalForRender : null
   }
-
 }
 
 ModalContainer.propTypes = {
@@ -27,19 +29,21 @@ ModalContainer.propTypes = {
   modalData: PropTypes.object.isRequired,
   deviceFormat: PropTypes.string.isRequired,
   setModalOpen: PropTypes.func.isRequired,
-};
+}
 
-ModalContainer.defaultProps = {
-};
+ModalContainer.defaultProps = {}
 
 const mapStateToProps = createStructuredSelector({
   modalOpen: selectModalOpen(),
   modalData: selectModalData(),
   deviceFormat: selectDeviceFormat(),
-});
+})
 
 const mapDispatchToProps = {
   setModalOpen,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ModalContainer)

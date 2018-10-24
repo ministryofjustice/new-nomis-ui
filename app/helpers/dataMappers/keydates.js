@@ -1,4 +1,4 @@
-import { Map, List } from 'immutable';
+import { Map, List } from 'immutable'
 
 export const Model = Map({
   iepLevel: '',
@@ -17,13 +17,13 @@ export const Model = Map({
     dates: List([]),
   }),
   reCategorisationDate: '',
-});
+})
 
 export function transform(data) {
   return Model.mergeDeepWith((prev, next) => {
     if (!next) {
-      return prev;
+      return prev
     }
-    return next;
-  }, data);
+    return next
+  }, data)
 }

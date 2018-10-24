@@ -1,17 +1,17 @@
-import styled from 'styled-components';
-import colours from 'theme/colours';
+import styled from 'styled-components'
+import colours from 'theme/colours'
 
 export const QueryForm = styled.form`
   position: relative;
   padding: 15px;
   background: ${colours.filterBlocks.background};
-`;
+`
 
 export const QueryWrapper = styled.div`
   position: relative;
   padding: 15px;
   background: ${colours.filterBlocks.background};
-`;
+`
 
 export const QueryItemHolder = styled.div`
   width: 25%;
@@ -25,12 +25,12 @@ export const QueryItemHolder = styled.div`
   }
 
   label {
-    color: #4D4D4D;
+    color: #4d4d4d;
     font-size: 16px;
   }
 
   querylabel {
-    color: #4D4D4D;
+    color: #4d4d4d;
     font-size: 16px;
   }
 
@@ -46,14 +46,14 @@ export const QueryItemHolder = styled.div`
   .Select-placeholder {
     margin-top: -7px;
   }
-`;
+`
 
 export const QueryValue = styled.div`
   position: relative;
   padding-top: 3px;
   font-size: 26px;
   background: ${colours.filterBlocks.background};
-`;
+`
 
 export const QueryValueScroll = styled(QueryValue)`
   position: relative;
@@ -62,4 +62,4 @@ export const QueryValueScroll = styled(QueryValue)`
   background: ${colours.filterBlocks.background};
   height: 38px;
   overflow-y: scroll;
-`;
+`

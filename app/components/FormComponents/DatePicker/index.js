@@ -1,22 +1,21 @@
-import React, { Component } from 'react';
-import Datetime from 'react-datetime';
-import moment from 'moment';
-import 'react-datetime/css/react-datetime.css';
-import {
-  DEFAULT_MOMENT_DATE_FORMAT_SPEC,
-} from 'containers/App/constants';
+import React, { Component } from 'react'
+import Datetime from 'react-datetime'
+import moment from 'moment'
+import 'react-datetime/css/react-datetime.css'
+import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants'
 
-import './index.scss';
+import './index.scss'
 
 export class DatePicker extends Component {
   constructor() {
-    super();
-    this.handleChange = this.handleChange.bind(this);
-    this.renderInput = this.renderInput.bind(this);
+    super()
+    this.handleChange = this.handleChange.bind(this)
+    this.renderInput = this.renderInput.bind(this)
   }
 
   handleChange(date) {
-    this.props.input.onChange(moment(date).format(DEFAULT_MOMENT_DATE_FORMAT_SPEC));
+    const { input } = this.props
+    input.onChange(moment(date).format(DEFAULT_MOMENT_DATE_FORMAT_SPEC))
   }
 
   renderInput(props) {
@@ -24,23 +23,26 @@ export class DatePicker extends Component {
       <div>
         <input {...props} readOnly />
       </div>
-    );
+    )
   }
 
   render() {
-    const { title,shouldShowDay,locale, showError, input, meta: { touched, error } } = this.props;
+    const {
+      title,
+      defaultValue,
+      shouldShowDay,
+      locale,
+      showError,
+      input,
+      meta: { touched, error },
+    } = this.props
 
     return (
       <div className="date-picker-component">
         <div className={((showError || (touched && error)) && 'form-group form-group-error') || 'form-group'}>
+          <label className="form-label">{title}</label>
 
-          <label className="form-label">
-            {title}
-          </label>
-
-          <div className="error-message">
-            {touched && error && <span>{error}</span>}
-          </div>
+          <div className="error-message">{touched && error && <span>{error}</span>}</div>
 
           <Datetime
             className={(showError || (touched && error)) && 'form-control-error'}
@@ -51,14 +53,16 @@ export class DatePicker extends Component {
             closeOnSelect
             strictParsing
             renderInput={this.renderInput}
-            defaultValue={this.props.defaultValue}
+            defaultValue={defaultValue}
             value={input.value}
           />
-
         </div>
-      </div>)
+      </div>
+    )
   }
 }
 
-export const momentToLocalizedDate = locale => theMoment => theMoment ? theMoment.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC, locale) : theMoment;
-export const localizedDateToMoment = locale => localizedDateString => localizedDateString ? moment(localizedDateString, DEFAULT_MOMENT_DATE_FORMAT_SPEC, locale) : localizedDateString;
+export const momentToLocalizedDate = locale => theMoment =>
+  theMoment ? theMoment.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC, locale) : theMoment
+export const localizedDateToMoment = locale => localizedDateString =>
+  localizedDateString ? moment(localizedDateString, DEFAULT_MOMENT_DATE_FORMAT_SPEC, locale) : localizedDateString
