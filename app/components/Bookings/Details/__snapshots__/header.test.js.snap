@@ -1980,6 +1980,9 @@ ShallowWrapper {
         <div
           className="photo clickable"
           onClick={[Function]}
+          onKeyDown={[Function]}
+          role="link"
+          tabIndex={0}
         >
           <EliteImage
             src="/app/images/-11/data"
@@ -2228,6 +2231,9 @@ ShallowWrapper {
           <div
             className="photo clickable"
             onClick={[Function]}
+            onKeyDown={[Function]}
+            role="link"
+            tabIndex={0}
           >
             <EliteImage
               src="/app/images/-11/data"
@@ -2590,6 +2596,9 @@ ShallowWrapper {
               <div
                 className="photo clickable"
                 onClick={[Function]}
+                onKeyDown={[Function]}
+                role="link"
+                tabIndex={0}
               >
                 <EliteImage
                   src="/app/images/-11/data"
@@ -2838,6 +2847,9 @@ ShallowWrapper {
               <div
                 className="photo clickable"
                 onClick={[Function]}
+                onKeyDown={[Function]}
+                role="link"
+                tabIndex={0}
               >
                 <EliteImage
                   src="/app/images/-11/data"

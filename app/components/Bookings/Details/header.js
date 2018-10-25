@@ -6,6 +6,7 @@ import { Link } from 'react-router'
 
 import { toFullName } from 'utils/stringUtils'
 import { offenderImageUrl } from 'containers/Bookings/constants'
+import { linkOnClick } from '../../../helpers'
 
 import './header.scss'
 import AlertFlags from '../AlertFlags'
@@ -158,7 +159,7 @@ function Header({ inmateData, onImageClick, offenderNo, onAlertFlagClick }) {
         <div className="col-md-2 col-xs-3 no-left-gutter no-right-gutter">
           <div
             className="photo clickable"
-            onClick={() => onImageClick(offenderImageUrl(inmateData.get('facialImageId')))}
+            {...linkOnClick(() => onImageClick(offenderImageUrl(inmateData.get('facialImageId'))))}
           >
             <EliteImage src={offenderImageUrl(inmateData.get('facialImageId'))} />
           </div>

@@ -10,15 +10,16 @@ import Name from 'components/Name'
 
 import './index.scss'
 import AlertFlags from '../AlertFlags'
+import { linkOnClick } from '../../../helpers'
 
 const ArrowUp = ({ sortOrderChange }) => (
-  <span className="clickable" onClick={sortOrderChange}>
+  <span className="clickable" {...linkOnClick(sortOrderChange)}>
     {' '}
     <img src="/img/Triangle_asc.png" height="8" width="15" alt="Up arrow" />{' '}
   </span>
 )
 const ArrowDown = ({ sortOrderChange }) => (
-  <span className="clickable" onClick={sortOrderChange}>
+  <span className="clickable" {...linkOnClick(sortOrderChange)}>
     {' '}
     <img src="/img/Triangle_desc.png" height="8" width="15" alt="Down arrow" />{' '}
   </span>
@@ -69,13 +70,13 @@ const Table = ({ results, sortOrder, sortOrderChange, onAlertFlagClick }) => (
     {results.map(row => (
       <div className="row" key={`booking_table_${row.get('offenderNo')}`}>
         <div className="col-xs-3 col-md-1 remove-left-padding">
-          <div className="photo clickable" onClick={e => onViewDetails(e, row)}>
+          <div className="photo clickable" {...linkOnClick(e => onViewDetails(e, row))}>
             <EliteImage src={offenderImageUrl(row.get('facialImageId'))} />
           </div>
         </div>
         <div className="col-xs-3 col-md-3 add-margin-top">
           <span>
-            <div className="bold link" onClick={e => onViewDetails(e, row)}>
+            <div className="bold link" {...linkOnClick(e => onViewDetails(e, row))}>
               <Name lastName={row.get('lastName')} firstName={row.get('firstName')} />
             </div>
           </span>

@@ -2,16 +2,13 @@ import React from 'react'
 import uuid from 'uuid/v4'
 import { connect } from 'react-redux'
 import { FormattedDate } from 'components/intl'
-
 import EliteImage from 'containers/EliteContainers/Image/index'
 import { offenderImageUrl } from 'containers/Bookings/constants'
-
 import DisplayValue from 'components/FormComponents/DisplayValue'
 import { toFullName } from 'utils/stringUtils'
 import { Model as offenderDetailsModel } from 'helpers/dataMappers/offenderDetails'
-
 import { showLargePhoto } from '../../actions'
-
+import { linkOnClick } from '../../../../helpers'
 import './index.scss'
 
 const FormatValue = ({ start, end }) =>
@@ -296,7 +293,10 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
                   </div>
 
                   <div className="col-md-6 col-xs-6">
-                    <div className="photo clickable" onClick={() => showPhoto(offenderImageUrl(mark.imageId))}>
+                    <div
+                      className="photo clickable offenderDetails"
+                      {...linkOnClick(() => showPhoto(offenderImageUrl(mark.imageId)))}
+                    >
                       {(mark.imageId && <EliteImage src={offenderImageUrl(mark.imageId)} />) || '--'}
                     </div>
                   </div>
