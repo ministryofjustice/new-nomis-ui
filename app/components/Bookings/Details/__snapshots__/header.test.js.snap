@@ -20,9 +20,9 @@ ShallowWrapper {
         <div
           className="col"
         >
-          <label>
+          <span>
             IEP
-          </label>
+          </span>
           <strong>
             Standard
           </strong>
@@ -34,9 +34,9 @@ ShallowWrapper {
         <div
           className="col"
         >
-          <label>
+          <span>
             CSRA
-          </label>
+          </span>
           <strong>
             Medium
           </strong>
@@ -48,9 +48,9 @@ ShallowWrapper {
         <div
           className="col"
         >
-          <label>
+          <span>
             Category
-          </label>
+          </span>
           <strong>
             D
           </strong>
@@ -66,9 +66,9 @@ ShallowWrapper {
         <div
           className="col-xs-4 d-inline-block"
         >
-          <label>
+          <span>
             IEP
-          </label>
+          </span>
           <strong>
             Standard
           </strong>
@@ -76,9 +76,9 @@ ShallowWrapper {
         <div
           className="col-xs-4 d-inline-block"
         >
-          <label>
+          <span>
             CSRA
-          </label>
+          </span>
           <strong>
             Medium
           </strong>
@@ -86,9 +86,9 @@ ShallowWrapper {
         <div
           className="col-xs-4 d-inline-block"
         >
-          <label>
+          <span>
             Category
-          </label>
+          </span>
           <strong>
             D
           </strong>
@@ -107,9 +107,9 @@ ShallowWrapper {
           <div
             className="col"
           >
-            <label>
+            <span>
               Alerts
-            </label>
+            </span>
             <Alerts
               activeAlertCount={9}
               inactiveAlertCount={8}
@@ -146,9 +146,9 @@ ShallowWrapper {
           <div
             className="col"
           >
-            <label>
+            <span>
               Alerts
-            </label>
+            </span>
             <Alerts
               activeAlertCount={9}
               inactiveAlertCount={8}
@@ -217,9 +217,9 @@ ShallowWrapper {
           <div
             className="col"
           >
-            <label>
+            <span>
               IEP
-            </label>
+            </span>
             <strong>
               Standard
             </strong>
@@ -231,9 +231,9 @@ ShallowWrapper {
           <div
             className="col"
           >
-            <label>
+            <span>
               CSRA
-            </label>
+            </span>
             <strong>
               Medium
             </strong>
@@ -245,9 +245,9 @@ ShallowWrapper {
           <div
             className="col"
           >
-            <label>
+            <span>
               Category
-            </label>
+            </span>
             <strong>
               D
             </strong>
@@ -263,9 +263,9 @@ ShallowWrapper {
           <div
             className="col-xs-4 d-inline-block"
           >
-            <label>
+            <span>
               IEP
-            </label>
+            </span>
             <strong>
               Standard
             </strong>
@@ -273,9 +273,9 @@ ShallowWrapper {
           <div
             className="col-xs-4 d-inline-block"
           >
-            <label>
+            <span>
               CSRA
-            </label>
+            </span>
             <strong>
               Medium
             </strong>
@@ -283,9 +283,9 @@ ShallowWrapper {
           <div
             className="col-xs-4 d-inline-block"
           >
-            <label>
+            <span>
               Category
-            </label>
+            </span>
             <strong>
               D
             </strong>
@@ -304,9 +304,9 @@ ShallowWrapper {
             <div
               className="col"
             >
-              <label>
+              <span>
                 Alerts
-              </label>
+              </span>
               <Alerts
                 activeAlertCount={9}
                 inactiveAlertCount={8}
@@ -343,9 +343,9 @@ ShallowWrapper {
             <div
               className="col"
             >
-              <label>
+              <span>
                 Alerts
-              </label>
+              </span>
               <Alerts
                 activeAlertCount={9}
                 inactiveAlertCount={8}
@@ -524,9 +524,9 @@ ShallowWrapper {
               <div
                 className="col"
               >
-                <label>
+                <span>
                   IEP
-                </label>
+                </span>
                 <strong>
                   Standard
                 </strong>
@@ -538,9 +538,9 @@ ShallowWrapper {
               <div
                 className="col"
               >
-                <label>
+                <span>
                   CSRA
-                </label>
+                </span>
                 <strong>
                   Medium
                 </strong>
@@ -552,9 +552,9 @@ ShallowWrapper {
               <div
                 className="col"
               >
-                <label>
+                <span>
                   Category
-                </label>
+                </span>
                 <strong>
                   D
                 </strong>
@@ -570,9 +570,9 @@ ShallowWrapper {
               <div
                 className="col-xs-4 d-inline-block"
               >
-                <label>
+                <span>
                   IEP
-                </label>
+                </span>
                 <strong>
                   Standard
                 </strong>
@@ -580,9 +580,9 @@ ShallowWrapper {
               <div
                 className="col-xs-4 d-inline-block"
               >
-                <label>
+                <span>
                   CSRA
-                </label>
+                </span>
                 <strong>
                   Medium
                 </strong>
@@ -590,9 +590,9 @@ ShallowWrapper {
               <div
                 className="col-xs-4 d-inline-block"
               >
-                <label>
+                <span>
                   Category
-                </label>
+                </span>
                 <strong>
                   D
                 </strong>
@@ -611,9 +611,9 @@ ShallowWrapper {
                 <div
                   className="col"
                 >
-                  <label>
+                  <span>
                     Alerts
-                  </label>
+                  </span>
                   <Alerts
                     activeAlertCount={9}
                     inactiveAlertCount={8}
@@ -650,9 +650,9 @@ ShallowWrapper {
                 <div
                   className="col"
                 >
-                  <label>
+                  <span>
                     Alerts
-                  </label>
+                  </span>
                   <Alerts
                     activeAlertCount={9}
                     inactiveAlertCount={8}
@@ -721,9 +721,9 @@ ShallowWrapper {
               <div
                 className="col"
               >
-                <label>
+                <span>
                   IEP
-                </label>
+                </span>
                 <strong>
                   Standard
                 </strong>
@@ -735,9 +735,9 @@ ShallowWrapper {
               <div
                 className="col"
               >
-                <label>
+                <span>
                   CSRA
-                </label>
+                </span>
                 <strong>
                   Medium
                 </strong>
@@ -749,9 +749,9 @@ ShallowWrapper {
               <div
                 className="col"
               >
-                <label>
+                <span>
                   Category
-                </label>
+                </span>
                 <strong>
                   D
                 </strong>
@@ -767,9 +767,9 @@ ShallowWrapper {
               <div
                 className="col-xs-4 d-inline-block"
               >
-                <label>
+                <span>
                   IEP
-                </label>
+                </span>
                 <strong>
                   Standard
                 </strong>
@@ -777,9 +777,9 @@ ShallowWrapper {
               <div
                 className="col-xs-4 d-inline-block"
               >
-                <label>
+                <span>
                   CSRA
-                </label>
+                </span>
                 <strong>
                   Medium
                 </strong>
@@ -787,9 +787,9 @@ ShallowWrapper {
               <div
                 className="col-xs-4 d-inline-block"
               >
-                <label>
+                <span>
                   Category
-                </label>
+                </span>
                 <strong>
                   D
                 </strong>
@@ -808,9 +808,9 @@ ShallowWrapper {
                 <div
                   className="col"
                 >
-                  <label>
+                  <span>
                     Alerts
-                  </label>
+                  </span>
                   <Alerts
                     activeAlertCount={9}
                     inactiveAlertCount={8}
@@ -847,9 +847,9 @@ ShallowWrapper {
                 <div
                   className="col"
                 >
-                  <label>
+                  <span>
                     Alerts
-                  </label>
+                  </span>
                   <Alerts
                     activeAlertCount={9}
                     inactiveAlertCount={8}
@@ -979,9 +979,9 @@ ShallowWrapper {
         <div
           className="col"
         >
-          <label>
+          <span>
             IEP
-          </label>
+          </span>
           <strong>
             Standard
           </strong>
@@ -993,9 +993,9 @@ ShallowWrapper {
         <div
           className="col"
         >
-          <label>
+          <span>
             CSRA
-          </label>
+          </span>
           <strong>
             Medium
           </strong>
@@ -1007,9 +1007,9 @@ ShallowWrapper {
         <div
           className="col"
         >
-          <label>
+          <span>
             Category
-          </label>
+          </span>
           <strong>
             D
           </strong>
@@ -1025,9 +1025,9 @@ ShallowWrapper {
         <div
           className="col-xs-4 d-inline-block"
         >
-          <label>
+          <span>
             IEP
-          </label>
+          </span>
           <strong>
             Standard
           </strong>
@@ -1035,9 +1035,9 @@ ShallowWrapper {
         <div
           className="col-xs-4 d-inline-block"
         >
-          <label>
+          <span>
             CSRA
-          </label>
+          </span>
           <strong>
             Medium
           </strong>
@@ -1045,9 +1045,9 @@ ShallowWrapper {
         <div
           className="col-xs-4 d-inline-block"
         >
-          <label>
+          <span>
             Category
-          </label>
+          </span>
           <strong>
             D
           </strong>
@@ -1066,9 +1066,9 @@ ShallowWrapper {
           <div
             className="col"
           >
-            <label>
+            <span>
               Alerts
-            </label>
+            </span>
             <Alerts
               activeAlertCount={9}
               inactiveAlertCount={8}
@@ -1105,9 +1105,9 @@ ShallowWrapper {
           <div
             className="col"
           >
-            <label>
+            <span>
               Alerts
-            </label>
+            </span>
             <Alerts
               activeAlertCount={9}
               inactiveAlertCount={8}
@@ -1176,9 +1176,9 @@ ShallowWrapper {
           <div
             className="col"
           >
-            <label>
+            <span>
               IEP
-            </label>
+            </span>
             <strong>
               Standard
             </strong>
@@ -1190,9 +1190,9 @@ ShallowWrapper {
           <div
             className="col"
           >
-            <label>
+            <span>
               CSRA
-            </label>
+            </span>
             <strong>
               Medium
             </strong>
@@ -1204,9 +1204,9 @@ ShallowWrapper {
           <div
             className="col"
           >
-            <label>
+            <span>
               Category
-            </label>
+            </span>
             <strong>
               D
             </strong>
@@ -1222,9 +1222,9 @@ ShallowWrapper {
           <div
             className="col-xs-4 d-inline-block"
           >
-            <label>
+            <span>
               IEP
-            </label>
+            </span>
             <strong>
               Standard
             </strong>
@@ -1232,9 +1232,9 @@ ShallowWrapper {
           <div
             className="col-xs-4 d-inline-block"
           >
-            <label>
+            <span>
               CSRA
-            </label>
+            </span>
             <strong>
               Medium
             </strong>
@@ -1242,9 +1242,9 @@ ShallowWrapper {
           <div
             className="col-xs-4 d-inline-block"
           >
-            <label>
+            <span>
               Category
-            </label>
+            </span>
             <strong>
               D
             </strong>
@@ -1263,9 +1263,9 @@ ShallowWrapper {
             <div
               className="col"
             >
-              <label>
+              <span>
                 Alerts
-              </label>
+              </span>
               <Alerts
                 activeAlertCount={9}
                 inactiveAlertCount={8}
@@ -1302,9 +1302,9 @@ ShallowWrapper {
             <div
               className="col"
             >
-              <label>
+              <span>
                 Alerts
-              </label>
+              </span>
               <Alerts
                 activeAlertCount={9}
                 inactiveAlertCount={8}
@@ -1483,9 +1483,9 @@ ShallowWrapper {
               <div
                 className="col"
               >
-                <label>
+                <span>
                   IEP
-                </label>
+                </span>
                 <strong>
                   Standard
                 </strong>
@@ -1497,9 +1497,9 @@ ShallowWrapper {
               <div
                 className="col"
               >
-                <label>
+                <span>
                   CSRA
-                </label>
+                </span>
                 <strong>
                   Medium
                 </strong>
@@ -1511,9 +1511,9 @@ ShallowWrapper {
               <div
                 className="col"
               >
-                <label>
+                <span>
                   Category
-                </label>
+                </span>
                 <strong>
                   D
                 </strong>
@@ -1529,9 +1529,9 @@ ShallowWrapper {
               <div
                 className="col-xs-4 d-inline-block"
               >
-                <label>
+                <span>
                   IEP
-                </label>
+                </span>
                 <strong>
                   Standard
                 </strong>
@@ -1539,9 +1539,9 @@ ShallowWrapper {
               <div
                 className="col-xs-4 d-inline-block"
               >
-                <label>
+                <span>
                   CSRA
-                </label>
+                </span>
                 <strong>
                   Medium
                 </strong>
@@ -1549,9 +1549,9 @@ ShallowWrapper {
               <div
                 className="col-xs-4 d-inline-block"
               >
-                <label>
+                <span>
                   Category
-                </label>
+                </span>
                 <strong>
                   D
                 </strong>
@@ -1570,9 +1570,9 @@ ShallowWrapper {
                 <div
                   className="col"
                 >
-                  <label>
+                  <span>
                     Alerts
-                  </label>
+                  </span>
                   <Alerts
                     activeAlertCount={9}
                     inactiveAlertCount={8}
@@ -1609,9 +1609,9 @@ ShallowWrapper {
                 <div
                   className="col"
                 >
-                  <label>
+                  <span>
                     Alerts
-                  </label>
+                  </span>
                   <Alerts
                     activeAlertCount={9}
                     inactiveAlertCount={8}
@@ -1680,9 +1680,9 @@ ShallowWrapper {
               <div
                 className="col"
               >
-                <label>
+                <span>
                   IEP
-                </label>
+                </span>
                 <strong>
                   Standard
                 </strong>
@@ -1694,9 +1694,9 @@ ShallowWrapper {
               <div
                 className="col"
               >
-                <label>
+                <span>
                   CSRA
-                </label>
+                </span>
                 <strong>
                   Medium
                 </strong>
@@ -1708,9 +1708,9 @@ ShallowWrapper {
               <div
                 className="col"
               >
-                <label>
+                <span>
                   Category
-                </label>
+                </span>
                 <strong>
                   D
                 </strong>
@@ -1726,9 +1726,9 @@ ShallowWrapper {
               <div
                 className="col-xs-4 d-inline-block"
               >
-                <label>
+                <span>
                   IEP
-                </label>
+                </span>
                 <strong>
                   Standard
                 </strong>
@@ -1736,9 +1736,9 @@ ShallowWrapper {
               <div
                 className="col-xs-4 d-inline-block"
               >
-                <label>
+                <span>
                   CSRA
-                </label>
+                </span>
                 <strong>
                   Medium
                 </strong>
@@ -1746,9 +1746,9 @@ ShallowWrapper {
               <div
                 className="col-xs-4 d-inline-block"
               >
-                <label>
+                <span>
                   Category
-                </label>
+                </span>
                 <strong>
                   D
                 </strong>
@@ -1767,9 +1767,9 @@ ShallowWrapper {
                 <div
                   className="col"
                 >
-                  <label>
+                  <span>
                     Alerts
-                  </label>
+                  </span>
                   <Alerts
                     activeAlertCount={9}
                     inactiveAlertCount={8}
@@ -1806,9 +1806,9 @@ ShallowWrapper {
                 <div
                   className="col"
                 >
-                  <label>
+                  <span>
                     Alerts
-                  </label>
+                  </span>
                   <Alerts
                     activeAlertCount={9}
                     inactiveAlertCount={8}
@@ -1980,6 +1980,9 @@ ShallowWrapper {
         <div
           className="photo clickable"
           onClick={[Function]}
+          onKeyDown={[Function]}
+          role="link"
+          tabIndex={0}
         >
           <EliteImage
             src="/app/images/-11/data"
@@ -2052,9 +2055,9 @@ ShallowWrapper {
               <div
                 className="col"
               >
-                <label>
+                <span>
                   Prison number
-                </label>
+                </span>
                 <strong>
                   A1234RT
                 </strong>
@@ -2066,9 +2069,9 @@ ShallowWrapper {
               <div
                 className="col"
               >
-                <label>
+                <span>
                   Key worker
-                </label>
+                </span>
                 <strong>
                   <Connect(EliteOfficerName)
                     staffId={-6}
@@ -2228,6 +2231,9 @@ ShallowWrapper {
           <div
             className="photo clickable"
             onClick={[Function]}
+            onKeyDown={[Function]}
+            role="link"
+            tabIndex={0}
           >
             <EliteImage
               src="/app/images/-11/data"
@@ -2300,9 +2306,9 @@ ShallowWrapper {
                 <div
                   className="col"
                 >
-                  <label>
+                  <span>
                     Prison number
-                  </label>
+                  </span>
                   <strong>
                     A1234RT
                   </strong>
@@ -2314,9 +2320,9 @@ ShallowWrapper {
                 <div
                   className="col"
                 >
-                  <label>
+                  <span>
                     Key worker
-                  </label>
+                  </span>
                   <strong>
                     <Connect(EliteOfficerName)
                       staffId={-6}
@@ -2590,6 +2596,9 @@ ShallowWrapper {
               <div
                 className="photo clickable"
                 onClick={[Function]}
+                onKeyDown={[Function]}
+                role="link"
+                tabIndex={0}
               >
                 <EliteImage
                   src="/app/images/-11/data"
@@ -2662,9 +2671,9 @@ ShallowWrapper {
                     <div
                       className="col"
                     >
-                      <label>
+                      <span>
                         Prison number
-                      </label>
+                      </span>
                       <strong>
                         A1234RT
                       </strong>
@@ -2676,9 +2685,9 @@ ShallowWrapper {
                     <div
                       className="col"
                     >
-                      <label>
+                      <span>
                         Key worker
-                      </label>
+                      </span>
                       <strong>
                         <Connect(EliteOfficerName)
                           staffId={-6}
@@ -2838,6 +2847,9 @@ ShallowWrapper {
               <div
                 className="photo clickable"
                 onClick={[Function]}
+                onKeyDown={[Function]}
+                role="link"
+                tabIndex={0}
               >
                 <EliteImage
                   src="/app/images/-11/data"
@@ -2910,9 +2922,9 @@ ShallowWrapper {
                     <div
                       className="col"
                     >
-                      <label>
+                      <span>
                         Prison number
-                      </label>
+                      </span>
                       <strong>
                         A1234RT
                       </strong>
@@ -2924,9 +2936,9 @@ ShallowWrapper {
                     <div
                       className="col"
                     >
-                      <label>
+                      <span>
                         Key worker
-                      </label>
+                      </span>
                       <strong>
                         <Connect(EliteOfficerName)
                           staffId={-6}

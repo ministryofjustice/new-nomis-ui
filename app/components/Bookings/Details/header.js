@@ -6,6 +6,7 @@ import { Link } from 'react-router'
 
 import { toFullName } from 'utils/stringUtils'
 import { offenderImageUrl } from 'containers/Bookings/constants'
+import { linkOnClick } from '../../../helpers'
 
 import './header.scss'
 import AlertFlags from '../AlertFlags'
@@ -25,7 +26,7 @@ const Alerts = ({ activeAlertCount, inactiveAlertCount }) => (
 
 const Location = ({ assignedLivingUnit }) => (
   <div>
-    <label>Location</label>
+    <span>Location</span>
 
     <div>
       <strong>{assignedLivingUnit && assignedLivingUnit.get('description')}</strong>
@@ -47,14 +48,14 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
       <div className="col-xs-4 col-sm-3 visible-large">
         <div className="row">
           <div className="col">
-            <label>IEP</label>
+            <span>IEP</span>
             <strong>{inmateData.get('iepLevel') || '--'}</strong>
           </div>
         </div>
 
         <div className="row">
           <div className="col">
-            <label>CSRA</label>
+            <span>CSRA</span>
             <strong>{inmateData.get('csra') || '--'}</strong>
           </div>
         </div>
@@ -62,7 +63,7 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
         {cat && (
           <div className="row">
             <div className="col">
-              <label>Category</label>
+              <span>Category</span>
               <strong>{cat}</strong>
             </div>
           </div>
@@ -71,18 +72,18 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
       <div className="col-xs-12 visible-small">
         <div className="row">
           <div className="col-xs-4 d-inline-block">
-            <label>IEP</label>
+            <span>IEP</span>
             <strong>{inmateData.get('iepLevel') || '--'}</strong>
           </div>
 
           <div className="col-xs-4 d-inline-block">
-            <label>CSRA</label>
+            <span>CSRA</span>
             <strong>{inmateData.get('csra') || '--'}</strong>
           </div>
 
           {cat && (
             <div className="col-xs-4 d-inline-block">
-              <label>Category</label>
+              <span>Category</span>
               <strong>{cat}</strong>
             </div>
           )}
@@ -93,7 +94,7 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
         <div className="col-xs-6 col-sm-3">
           <div className="row">
             <div className="col">
-              <label>Alerts</label>
+              <span>Alerts</span>
               <Alerts
                 activeAlertCount={inmateData.get('activeAlertCount')}
                 inactiveAlertCount={inmateData.get('inactiveAlertCount')}
@@ -113,7 +114,7 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
         <div className="col-xs-4">
           <div className="row">
             <div className="col">
-              <label>Alerts</label>
+              <span>Alerts</span>
               <Alerts
                 activeAlertCount={inmateData.get('activeAlertCount')}
                 inactiveAlertCount={inmateData.get('inactiveAlertCount')}
@@ -158,7 +159,7 @@ function Header({ inmateData, onImageClick, offenderNo, onAlertFlagClick }) {
         <div className="col-md-2 col-xs-3 no-left-gutter no-right-gutter">
           <div
             className="photo clickable"
-            onClick={() => onImageClick(offenderImageUrl(inmateData.get('facialImageId')))}
+            {...linkOnClick(() => onImageClick(offenderImageUrl(inmateData.get('facialImageId'))))}
           >
             <EliteImage src={offenderImageUrl(inmateData.get('facialImageId'))} />
           </div>
@@ -176,14 +177,14 @@ function Header({ inmateData, onImageClick, offenderNo, onAlertFlagClick }) {
             <div className="col-md-3 col-sm-3 col-xs-12">
               <div className="row">
                 <div className="col">
-                  <label>Prison number</label>
+                  <span>Prison number</span>
                   <strong>{inmateData.get('offenderNo')}</strong>
                 </div>
               </div>
 
               <div className="row">
                 <div className="col">
-                  <label>Key worker</label>
+                  <span>Key worker</span>
                   <strong>
                     {inmateData.get('keyworker') && (
                       <EliteOfficerName staffId={inmateData.getIn(['keyworker', 'staffId'])} />

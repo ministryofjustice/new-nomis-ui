@@ -3,6 +3,8 @@ import qs from 'querystring'
 export const properCase = word =>
   typeof word === 'string' && word.length >= 1 ? word[0].toUpperCase() + word.toLowerCase().slice(1) : word
 
+export const isBlank = str => !str || /^\s*$/.test(str)
+
 export const properCaseName = name =>
   isBlank(name)
     ? ''
@@ -10,8 +12,6 @@ export const properCaseName = name =>
         .split('-')
         .map(properCase)
         .join('-')
-
-export const isBlank = str => !str || /^\s*$/.test(str)
 
 export const toFullName = ({ firstName, lastName, name }) =>
   !isBlank(name)

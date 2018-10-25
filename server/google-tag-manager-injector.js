@@ -1,8 +1,8 @@
 const cheerio = require('cheerio')
 const interceptor = require('express-interceptor')
 
-const googleTagManagerInjector = function(id) {
-  return interceptor((req, res) => ({
+const googleTagManagerInjector = id =>
+  interceptor((req, res) => ({
     isInterceptable() {
       return /text\/html/.test(res.get('Content-Type'))
     },
@@ -24,7 +24,6 @@ const googleTagManagerInjector = function(id) {
       send($document.html())
     },
   }))
-}
 
 module.exports = {
   googleTagManagerInjector,

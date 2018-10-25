@@ -41,7 +41,7 @@
     @include add-gutter-margin-bottom();
     margin-left: 0;
 
-    b, label {
+    b, span {
       word-wrap: break-word;
     }
   }

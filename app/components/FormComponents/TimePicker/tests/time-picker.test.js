@@ -16,7 +16,7 @@ const setTime = (date, hours, minutes, seconds) => {
 describe('Time picker', () => {
   it('should disable the component until a date has been passed in', () => {
     const meta = { touched: false }
-    const picker = shallow(<TimePicker meta={meta} />)
+    const picker = shallow(<TimePicker meta={meta} title="test" now={moment()} input={{ name: 'picker' }} />)
     const selectHours = picker.find('.select-hours').props()
     const selectMinutes = picker.find('.select-minutes').props()
 
@@ -26,7 +26,9 @@ describe('Time picker', () => {
 
   it('should not disable the component when a date has been passed in', () => {
     const meta = { touched: false }
-    const picker = shallow(<TimePicker date="2017-10-10" meta={meta} />)
+    const picker = shallow(
+      <TimePicker date={moment('2017-10-10')} meta={meta} title="test" now={moment()} input={{ name: 'picker' }} />
+    )
     const selectHours = picker.find('.select-hours').props()
     const selectMinutes = picker.find('.select-minutes').props()
 
@@ -38,9 +40,12 @@ describe('Time picker', () => {
     const meta = { touched: true }
     const input = {
       onChange: jest.fn(),
+      name: 'timePicker',
     }
 
-    const picker = shallow(<TimePicker date="10/10/2017" meta={meta} input={input} />)
+    const picker = shallow(
+      <TimePicker date={moment('2017-10-10')} meta={meta} title="test" now={moment()} input={input} />
+    )
     const instance = picker.instance()
 
     instance.onHoursChange({
@@ -62,10 +67,13 @@ describe('Time picker', () => {
     const meta = { touched: true }
     const input = {
       onChange: jest.fn(),
+      name: 'timePicker',
     }
 
     const now = moment('2017-10-10T20:40:00')
-    const picker = shallow(<TimePicker date="2017-10-10" now={now} meta={meta} input={input} futureTimeOnly />)
+    const picker = shallow(
+      <TimePicker date={moment('2017-10-10')} now={now} meta={meta} title="test" input={input} futureTimeOnly />
+    )
     const hours = picker
       .find('.select-hours')
       .props()
@@ -88,10 +96,13 @@ describe('Time picker', () => {
     const meta = { touched: true }
     const input = {
       onChange: jest.fn(),
+      name: 'timePicker',
     }
 
     const now = moment('2017-10-10T03:15:00')
-    const picker = shallow(<TimePicker date="2017-10-10" now={now} meta={meta} input={input} pastTimeOnly />)
+    const picker = shallow(
+      <TimePicker date={moment('2017-10-10')} now={now} meta={meta} input={input} pastTimeOnly title="someTitle" />
+    )
     const hours = picker
       .find('.select-hours')
       .props()
@@ -114,10 +125,13 @@ describe('Time picker', () => {
     const meta = { touched: true }
     const input = {
       onChange: jest.fn(),
+      name: 'timePicker',
     }
 
     const now = moment('2017-10-10T03:15:00Z')
-    const picker = shallow(<TimePicker date="2017-09-10" now={now} meta={meta} input={input} futureTimeOnly />)
+    const picker = shallow(
+      <TimePicker date={moment('2017-09-10')} now={now} meta={meta} input={input} futureTimeOnly title="title" />
+    )
     const hours = picker
       .find('.select-hours')
       .props()
@@ -135,10 +149,13 @@ describe('Time picker', () => {
     const meta = { touched: true }
     const input = {
       onChange: jest.fn(),
+      name: 'timePicker',
     }
 
     const now = moment('2017-10-10T20:45:00')
-    const picker = shallow(<TimePicker date="2017-10-10" now={now} meta={meta} input={input} futureTimeOnly />)
+    const picker = shallow(
+      <TimePicker date={moment('2017-10-10')} now={now} meta={meta} input={input} futureTimeOnly title="title" />
+    )
     const instance = picker.instance()
 
     instance.onHoursChange({
@@ -162,10 +179,13 @@ describe('Time picker', () => {
     const meta = { touched: true }
     const input = {
       onChange: jest.fn(),
+      name: 'timePicker',
     }
 
     const now = moment('2017-10-10T03:30:00')
-    const picker = shallow(<TimePicker date="2017-10-10" now={now} meta={meta} input={input} pastTimeOnly />)
+    const picker = shallow(
+      <TimePicker date={moment('2017-10-10')} now={now} meta={meta} input={input} pastTimeOnly title="title" />
+    )
     const instance = picker.instance()
 
     instance.onHoursChange({
@@ -203,9 +223,12 @@ describe('Time picker', () => {
     const meta = { touched: true }
     const input = {
       onChange: jest.fn(),
+      name: 'timePicker',
     }
 
-    const picker = shallow(<TimePicker date="10/10/2017" meta={meta} input={input} />)
+    const picker = shallow(
+      <TimePicker date={moment('2017-10-10')} meta={meta} input={input} title="test" now={moment()} />
+    )
     const instance = picker.instance()
 
     instance.onHoursChange({
@@ -227,9 +250,10 @@ describe('Time picker', () => {
     const meta = { touched: true }
     const input = {
       onChange: jest.fn(),
+      name: 'timePicker',
     }
 
-    const picker = shallow(<TimePicker meta={meta} input={input} />)
+    const picker = shallow(<TimePicker meta={meta} input={input} title="test" now={moment()} />)
     const instance = picker.instance()
 
     instance.onHoursChange({
@@ -258,9 +282,10 @@ describe('Time picker', () => {
     const input = {
       onChange: jest.fn(),
       value: setTime(yesterday, 3, 0, 0),
+      name: 'timePicker',
     }
 
-    const picker = shallow(<TimePicker meta={meta} input={input} date={yesterday} />)
+    const picker = shallow(<TimePicker meta={meta} input={input} date={yesterday} title="test" now={moment()} />)
 
     const today = moment()
 
@@ -274,13 +299,16 @@ describe('Time picker', () => {
     const meta = { touched: true }
     const input = {
       onChange: jest.fn(),
+      name: 'timePicker',
     }
 
     const now = moment()
     now.hours(11)
     now.minutes(11)
 
-    const picker = shallow(<TimePicker meta={meta} input={input} date={today} now={now} initialiseToNow pastTimeOnly />)
+    const picker = shallow(
+      <TimePicker meta={meta} input={input} date={today} now={now} initialiseToNow pastTimeOnly title="title" />
+    )
 
     picker.instance().componentDidMount()
 

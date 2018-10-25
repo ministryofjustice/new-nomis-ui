@@ -29,6 +29,10 @@ const checkAndCloseMobileMenu = store => {
   }
 }
 
+const OnRouteVisit = routeName => {
+  analyticsService.pageView(routeName)
+}
+
 function onEnterMethodGenerator(store) {
   return (options = { routeName: 'unknown' }) => () => {
     OnRouteVisit(options.routeName)
@@ -36,10 +40,6 @@ function onEnterMethodGenerator(store) {
     // Any route navigation must close mobile menu if it is open.
     checkAndCloseMobileMenu(store)
   }
-}
-
-const OnRouteVisit = routeName => {
-  analyticsService.pageView(routeName)
 }
 
 export default function createRoutes(store) {

@@ -2,16 +2,13 @@ import React from 'react'
 import uuid from 'uuid/v4'
 import { connect } from 'react-redux'
 import { FormattedDate } from 'components/intl'
-
 import EliteImage from 'containers/EliteContainers/Image/index'
 import { offenderImageUrl } from 'containers/Bookings/constants'
-
 import DisplayValue from 'components/FormComponents/DisplayValue'
 import { toFullName } from 'utils/stringUtils'
 import { Model as offenderDetailsModel } from 'helpers/dataMappers/offenderDetails'
-
 import { showLargePhoto } from '../../actions'
-
+import { linkOnClick } from '../../../../helpers'
 import './index.scss'
 
 const FormatValue = ({ start, end }) =>
@@ -22,6 +19,14 @@ const getProfileInformation = (offenderDetails, code) => {
   const result = offenderDetails.get('profileInformation').find(item => item.get('type') === code)
   return result && result.get('resultValue')
 }
+
+const groupByPairs = dataset =>
+  dataset.reduce((result, value, index, array) => {
+    if (index % 2 === 0) {
+      result.push(array.slice(index, index + 2))
+    }
+    return result
+  }, [])
 
 const OffenderDetails = ({ offenderDetails, showPhoto }) => {
   const marksGroupedIntoPairs = groupByPairs(offenderDetails.get('physicalMarks').toJS())
@@ -38,7 +43,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
 
           <div className="row border-bottom-line">
             <div className="col-md-6 col-xs-6">
-              <label>Date of birth</label>
+              <span>Date of birth</span>
             </div>
 
             <div className="col-md-6 col-xs-6">
@@ -53,7 +58,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
 
           <div className="row border-bottom-line">
             <div className="col-md-6 col-xs-6">
-              <label>Age</label>
+              <span>Age</span>
             </div>
 
             <div className="col-md-6 col-xs-6">
@@ -66,7 +71,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
 
           <div className="row border-bottom-line">
             <div className="col-md-6 col-xs-6">
-              <label>Gender</label>
+              <span>Gender</span>
             </div>
 
             <div className="col-md-6 col-xs-6">
@@ -79,7 +84,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
 
           <div className="row border-bottom-line">
             <div className="col-md-6 col-xs-6">
-              <label>Ethnicity</label>
+              <span>Ethnicity</span>
             </div>
 
             <div className="col-md-6 col-xs-6">
@@ -94,7 +99,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
 
           <div className="row border-bottom-line">
             <div className="col-lg-6 col-xs-6">
-              <label>Religion</label>
+              <span>Religion</span>
             </div>
             <div className="col-lg-6 col-xs-6">
               <strong>
@@ -104,7 +109,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
           </div>
           <div className="row border-bottom-line">
             <div className="col-lg-6 col-xs-6">
-              <label>Nationality</label>
+              <span>Nationality</span>
             </div>
             <div className="col-lg-6 col-xs-6">
               <strong>
@@ -114,7 +119,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
           </div>
           <div className="row border-bottom-line">
             <div className="col-lg-6 col-xs-6">
-              <label>Spoken language</label>
+              <span>Spoken language</span>
             </div>
             <div className="col-lg-6 col-xs-6">
               <strong>
@@ -152,7 +157,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
       <div className="desktop">
         <div className="row border-bottom-line">
           <div className="col-md-3 col-xs-6">
-            <label>Height</label>
+            <span>Height</span>
           </div>
 
           <div className="col-md-3 col-xs-6">
@@ -162,7 +167,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
           </div>
 
           <div className="col-md-3 col-xs-6">
-            <label>Weight</label>
+            <span>Weight</span>
           </div>
 
           <div className="col-md-3 col-xs-6">
@@ -176,7 +181,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
       <div className="mobile">
         <div className="row border-bottom-line">
           <div className="col-md-3 col-xs-6">
-            <label>Height</label>
+            <span>Height</span>
           </div>
 
           <div className="col-md-3 col-xs-6">
@@ -188,7 +193,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
 
         <div className="row border-bottom-line">
           <div className="col-md-3 col-xs-6">
-            <label>Weight</label>
+            <span>Weight</span>
           </div>
 
           <div className="col-md-3 col-xs-6">
@@ -205,7 +210,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
             {pair.map(info => (
               <div key={uuid()}>
                 <div className="col-md-3 col-xs-6">
-                  <label>{info.characteristic}</label>
+                  <span>{info.characteristic}</span>
                 </div>
 
                 <div className="col-md-3 col-xs-6">
@@ -225,7 +230,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
             {pair.map(info => (
               <div key={uuid()}>
                 <div className="row border-bottom-line col-md-3 col-xs-6">
-                  <label>{info.characteristic}</label>
+                  <span>{info.characteristic}</span>
                 </div>
 
                 <div className="row border-bottom-line col-md-3 col-xs-6">
@@ -253,7 +258,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
             <div className="col-md-6" key={uuid()}>
               <div className="row border-bottom-line">
                 <div className="col-md-6 col-xs-6">
-                  <label>Type</label>
+                  <span>Type</span>
                 </div>
 
                 <div className="col-md-6 col-xs-6">
@@ -263,7 +268,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
 
               <div className="row border-bottom-line">
                 <div className="col-md-6 col-xs-6">
-                  <label>Body part</label>
+                  <span>Body part</span>
                 </div>
 
                 <div className="col-md-6 col-xs-6">
@@ -273,7 +278,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
 
               <div className="row border-bottom-line">
                 <div className="col-md-6 col-xs-6">
-                  <label>Comment</label>
+                  <span>Comment</span>
                 </div>
 
                 <div className="col-md-6 col-xs-6">
@@ -284,11 +289,14 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
               {mark.imageId && (
                 <div className="row">
                   <div className="col-md-6 col-xs-6">
-                    <label>Visual</label>
+                    <span>Visual</span>
                   </div>
 
                   <div className="col-md-6 col-xs-6">
-                    <div className="photo clickable" onClick={() => showPhoto(offenderImageUrl(mark.imageId))}>
+                    <div
+                      className="photo clickable offenderDetails"
+                      {...linkOnClick(() => showPhoto(offenderImageUrl(mark.imageId)))}
+                    >
                       {(mark.imageId && <EliteImage src={offenderImageUrl(mark.imageId)} />) || '--'}
                     </div>
                   </div>
@@ -301,14 +309,6 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
     </div>
   )
 }
-
-const groupByPairs = dataset =>
-  dataset.reduce((result, value, index, array) => {
-    if (index % 2 === 0) {
-      result.push(array.slice(index, index + 2))
-    }
-    return result
-  }, [])
 
 export function mapDispatchToProps(dispatch) {
   return {

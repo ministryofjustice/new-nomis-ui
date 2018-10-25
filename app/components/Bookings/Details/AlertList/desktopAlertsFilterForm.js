@@ -14,7 +14,7 @@ const DesktopAlertsFilterForm = ({ alertTypes, locale, submitting, error, handle
         <h3 className="bold-medium no-left-gutter">Filters</h3>
       </div>
       <div className="col-md-9 no-left-gutter add-gutter-margin-top">
-        <label className="form-label date-range-label">Added date</label>
+        <span className="form-label date-range-label">Added date</span>
       </div>
     </div>
 
