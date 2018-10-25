@@ -14,7 +14,7 @@ class CaseNotes extends Component {
     this.tryLoadCaseNote({ ...this.props })
   }
 
-  tryLoadCaseNote({ offenderNo, caseNoteId, getCaseNote }) {
+  tryLoadCaseNote = ({ offenderNo, caseNoteId, getCaseNote }) => {
     getCaseNote(offenderNo, caseNoteId)
   }
 
