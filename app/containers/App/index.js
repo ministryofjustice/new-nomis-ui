@@ -94,13 +94,13 @@ export class App extends Component {
             {!shouldShowTerms && <Breadcrumbs route={router.location.pathname} offenderNo={params.offenderNo} />}
           </div>
         </nav>
-
+        {/* eslint-disable-next-line */}
         <main className={`container ${menuOpen ? 'desktop-only' : ''}`} onClick={() => this.onBackgroundClick()}>
           {shouldShowSpinner && <Spinner />}
           {!shouldShowTerms && <div className="main-content">{React.Children.toArray(children)}</div>}
           {shouldShowTerms && <Terms close={() => hideTermsAndConditions()} />}
         </main>
-
+        {/* eslint-disable-next-line */}
         <div onClick={() => this.onBackgroundClick()}>
           <Footer />
         </div>

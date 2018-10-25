@@ -11,7 +11,7 @@ import { Model as UserModel } from 'helpers/dataMappers/user'
 import ThresholdIndicator from 'components/ThresholdIndicator'
 import { FormattedDate } from 'components/intl'
 import { setAssignmentsPagination, setAssignmentsView, loadAssignments } from './actions'
-
+import { linkOnClick } from '../../helpers'
 import './index.scss'
 
 const ResultsView = ({ results, viewDetails }) => (
@@ -54,13 +54,16 @@ const ResultsView = ({ results, viewDetails }) => (
       >
         <div className="col-sm-3 col-xs-8 no-left-gutter">
           <div
-            className="photo clickable inline-block add-gutter-margin-right"
-            onClick={() => viewDetails(row.get('offenderNo'))}
+            className="photo clickable assignments1 inline-block add-gutter-margin-right"
+            {...linkOnClick(() => viewDetails(row.get('offenderNo')))}
           >
             <EliteImage src={offenderImageUrl(row.get('facialImageId'))} />
           </div>
 
-          <div className="link clickable inline-block" onClick={() => viewDetails(row.get('offenderNo'))}>
+          <div
+            className="link clickable assignments2 inline-block"
+            {...linkOnClick(() => viewDetails(row.get('offenderNo')))}
+          >
             <span>
               <Name lastName={row.get('lastName')} firstName={row.get('firstName')} />
             </span>

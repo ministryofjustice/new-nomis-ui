@@ -8,6 +8,7 @@ import { offenderImageUrl } from 'containers/Bookings/constants'
 import Name from 'components/Name'
 
 import './index.scss'
+import { linkOnClick } from '../../../helpers'
 
 const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
   <div className="booking-grid">
@@ -33,7 +34,7 @@ const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
       {results.map(row => (
         <div className="grid-item" key={`booking_grid_${row.get('offenderNo')}`}>
           <div className="person-block">
-            <div className="grid-photo" onClick={() => viewDetails(row.get('offenderNo'))}>
+            <div className="grid-photo" {...linkOnClick(() => viewDetails(row.get('offenderNo')))}>
               <EliteImage src={offenderImageUrl(row.get('facialImageId'))} />
             </div>
 

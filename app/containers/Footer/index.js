@@ -2,9 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { createSelector, createStructuredSelector } from 'reselect'
-
 import { showTerms } from 'globalReducers/app'
-
+import { linkOnClick } from '../../helpers'
 import './footer.scss'
 
 const Footer = ({ showTermsAndConditions, mailTo }) => (
@@ -12,7 +11,7 @@ const Footer = ({ showTermsAndConditions, mailTo }) => (
     <div className="footer-content">
       <div className="FooterLinksContainer">
         <div className="FooterLink">
-          <a onClick={showTermsAndConditions}>Terms and conditions</a>
+          <a {...linkOnClick(showTermsAndConditions)}>Terms and conditions</a>
         </div>
         <div className="FooterLink">
           <a href={`mailto:${mailTo}`}>
