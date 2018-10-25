@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import moment from 'moment'
+import PropTypes from 'prop-types'
 
 import { DATE_TIME_FORMAT_SPEC, DATE_ONLY_FORMAT_SPEC } from 'containers/App/constants'
 
@@ -138,6 +139,7 @@ class TimePicker extends Component {
       date,
       futureTimeOnly,
       pastTimeOnly,
+      input: { name },
     } = this.props
     const { hours, minutes } = this.state
 
@@ -158,7 +160,9 @@ class TimePicker extends Component {
 
     return (
       <div className={!(touched && error) ? 'time-picker form-group' : 'time-picker form-group form-group-error'}>
-        <label className="form-label">{title}</label>
+        <label htmlFor={name} className="form-label">
+          {title}
+        </label>
 
         <div className="error-message">{touched && (error && <span>{error}</span>)}</div>
 
@@ -170,6 +174,7 @@ class TimePicker extends Component {
               : 'form-control form-control-error add-gutter-margin-right'
           }
           name="hours"
+          id={name}
           onChange={this.onHoursChange}
           defaultValue="--"
           value={hours}
@@ -194,6 +199,24 @@ class TimePicker extends Component {
       </div>
     )
   }
+}
+
+TimePicker.propTypes = {
+  title: PropTypes.string.isRequired,
+  date: PropTypes.instanceOf(moment),
+  now: PropTypes.instanceOf(moment).isRequired,
+  initialiseToNow: PropTypes.bool,
+  pastTimeOnly: PropTypes.bool,
+  futureTimeOnly: PropTypes.bool,
+  input: PropTypes.shape({ name: PropTypes.string.isRequired, value: PropTypes.string }).isRequired,
+  meta: PropTypes.shape({ touched: PropTypes.bool, error: PropTypes.string }).isRequired,
+}
+
+TimePicker.defaultProps = {
+  date: null,
+  initialiseToNow: false,
+  pastTimeOnly: false,
+  futureTimeOnly: false,
 }
 
 export default TimePicker

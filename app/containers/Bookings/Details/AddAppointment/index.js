@@ -80,7 +80,7 @@ class AddAppointment extends Component {
 
           <div className="row">
             <div className="col-md-2 no-left-gutter">
-              <label>Name</label>
+              <span>Name</span>
             </div>
           </div>
 

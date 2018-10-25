@@ -5,6 +5,7 @@ import 'react-datetime/css/react-datetime.css'
 import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants'
 
 import './index.scss'
+import PropTypes from 'prop-types'
 
 export class DatePicker extends Component {
   handleChange = date => {
@@ -25,14 +26,16 @@ export class DatePicker extends Component {
       shouldShowDay,
       locale,
       showError,
-      input,
+      input: { name, value },
       meta: { touched, error },
     } = this.props
 
     return (
       <div className="date-picker-component">
         <div className={((showError || (touched && error)) && 'form-group form-group-error') || 'form-group'}>
-          <label className="form-label">{title}</label>
+          <label htmlFor={name} className="form-label">
+            {title}
+          </label>
 
           <div className="error-message">{touched && error && <span>{error}</span>}</div>
 
@@ -46,13 +49,24 @@ export class DatePicker extends Component {
             strictParsing
             renderInput={this.renderInput}
             defaultValue={defaultValue}
-            value={input.value}
+            value={value}
+            inputProps={{ id: name }}
           />
         </div>
       </div>
     )
   }
 }
+
+DatePicker.propTypes = {
+  title: PropTypes.string.isRequired,
+  locale: PropTypes.string.isRequired,
+  shouldShowDay: PropTypes.func.isRequired,
+  input: PropTypes.shape({ name: PropTypes.string.isRequired, value: PropTypes.string }).isRequired,
+  meta: PropTypes.shape({ touched: PropTypes.bool, error: PropTypes.string }).isRequired,
+}
+
+DatePicker.defaultProps = {}
 
 export const momentToLocalizedDate = locale => theMoment =>
   theMoment ? theMoment.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC, locale) : theMoment

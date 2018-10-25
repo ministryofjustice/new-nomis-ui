@@ -25,13 +25,13 @@
       }
 
       .information {
-        label {
+        span {
           width: 15em;
           display: inline-block;
         }
 
         @include media-breakpoint-down(sm) {
-           label{
+           span {
              width: 12em;
              padding: 0;
              margin: 0;

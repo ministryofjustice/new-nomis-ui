@@ -7,11 +7,17 @@ const renderField = ({ resetValue, options, input, title, meta: { touched, error
 
   return (
     <div className={!(touched && error) ? 'form-group' : 'form-group form-group-error'}>
-      <label className="form-label">{title}</label>
+      <label htmlFor={input.name} className="form-label">
+        {title}
+      </label>
 
       <div className="error-message">{touched && (error && <span>{error}</span>)}</div>
 
-      <select className={!(touched && error) ? 'form-control' : 'form-control form-control-error'} {...input}>
+      <select
+        id={input.name}
+        className={!(touched && error) ? 'form-control' : 'form-control form-control-error'}
+        {...input}
+      >
         <option value="" disabled hidden>
           Select
         </option>

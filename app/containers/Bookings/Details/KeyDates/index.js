@@ -12,7 +12,7 @@ import './index.scss'
 
 const KeyDatePair = ({ title, text, date }) => (
   <div className="information">
-    {(text || date) && <label>{title}</label>}
+    {(text || date) && <span>{title}</span>}
     <span>
       {text && <b>{text}</b>}
       {date && (
@@ -71,7 +71,7 @@ const SentenceView = ({
               ))}
 
           <div className="information">
-            <label>Re-categorisation date</label>
+            <span>Re-categorisation date</span>
 
             <b>
               {!reCategorisationDate && '--'}
@@ -108,12 +108,12 @@ class KeyDates extends Component {
           <div className="section">
             <div className="information-group">
               <div className="information">
-                <label>IEP Level</label>
+                <span>IEP Level</span>
                 <b>{keyDates.get('iepLevel')}</b>
               </div>
 
               <div className="information">
-                <label>Days since review</label>
+                <span>Days since review</span>
                 <b>{keyDates.get('daysSinceReview')}</b>
               </div>
             </div>

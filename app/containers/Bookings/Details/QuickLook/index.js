@@ -21,7 +21,7 @@ export const Balances = ({ spends, cash, savings, currency }) => (
   <div>
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
-        <label>Spends</label>
+        <span>Spends</span>
       </div>
 
       <div className="col-lg-6 col-xs-6">
@@ -33,7 +33,7 @@ export const Balances = ({ spends, cash, savings, currency }) => (
 
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
-        <label>Private</label>
+        <span>Private</span>
       </div>
 
       <div className="col-lg-6 col-xs-6">
@@ -45,7 +45,7 @@ export const Balances = ({ spends, cash, savings, currency }) => (
 
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
-        <label>Savings</label>
+        <span>Savings</span>
       </div>
 
       <div className="col-lg-6 col-xs-6">
@@ -64,7 +64,7 @@ export const OffenceDetails = ({ offences, releaseDate, indeterminateReleaseDate
     {offences.map(offence => (
       <div className="row border-bottom-line" key={uuid()}>
         <div className="col-lg-6 col-xs-6">
-          <label>Main Offence/Offences</label>
+          <span>Main Offence/Offences</span>
         </div>
 
         <div className="col-lg-6 col-xs-6">
@@ -76,7 +76,7 @@ export const OffenceDetails = ({ offences, releaseDate, indeterminateReleaseDate
     {(releaseDate || indeterminateReleaseDate) && (
       <div className="row border-bottom-line">
         <div className="col-lg-6 col-xs-6">
-          <label>Release date</label>
+          <span>Release date</span>
         </div>
 
         <div className="col-lg-6 col-xs-6">
@@ -97,13 +97,13 @@ export const Activities = ({ activities, period }) => (
   <div>
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
-        <label>{period}</label>
+        <span>{period}</span>
       </div>
 
       {activities.size === 0 && (
         <div>
           <div className="col-lg-6 col-xs-6">
-            <label>{"Today's"} schedule is empty</label>
+            <span>{"Today's"} schedule is empty</span>
           </div>
         </div>
       )}
@@ -144,7 +144,7 @@ const NegativeAndPositiveCaseNoteCount = ({ negativeCaseNotes, positiveCaseNotes
   <div>
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
-        <label>IEP Warnings </label>
+        <span>IEP Warnings </span>
       </div>
 
       <div className="col-lg-6 col-xs-6">
@@ -156,7 +156,7 @@ const NegativeAndPositiveCaseNoteCount = ({ negativeCaseNotes, positiveCaseNotes
 
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
-        <label>IEP Encouragement</label>
+        <span>IEP Encouragement</span>
       </div>
 
       <div className="col-lg-6 col-xs-6">
@@ -175,7 +175,7 @@ export const Adjudications = ({ adjudications }) => {
     <div>
       <div className="row border-bottom-line">
         <div className="col-lg-6 col-xs-6">
-          <label>Proven adjudications</label>
+          <span>Proven adjudications</span>
         </div>
 
         <div className="col-lg-6 col-xs-6">
@@ -186,7 +186,7 @@ export const Adjudications = ({ adjudications }) => {
       {awards.size === 0 && (
         <div className="add-gutter-margin-top">
           <div className="col-lg-6 col-xs-6">
-            <label>Active adjudications</label>
+            <span>Active adjudications</span>
           </div>
 
           <div className="col-lg-6 col-xs-6">
@@ -197,7 +197,7 @@ export const Adjudications = ({ adjudications }) => {
 
       {awards.map((award, index) => (
         <div key={uuid()} className="row add-gutter-margin-top">
-          <div className="col-lg-6 col-xs-6">{index === 0 && <label>Active awards</label>}</div>
+          <div className="col-lg-6 col-xs-6">{index === 0 && <span>Active awards</span>}</div>
           <div className="col-lg-6 col-xs-6">
             <b>
               {' '}
@@ -215,7 +215,7 @@ export const Adjudications = ({ adjudications }) => {
 export const KeyWorkerSessionDate = ({ lastKeyWorkerSessionDate }) => (
   <div className="row border-bottom-line">
     <div className="col-lg-6 col-xs-6">
-      <label>Last Key worker activity</label>
+      <span>Last Key worker activity</span>
     </div>
 
     <div className="col-lg-6 col-xs-6">
@@ -230,7 +230,7 @@ export const NextOfKin = ({ nextOfKin }) => (
       <div>
         <div className="row border-bottom-line">
           <div className="col-lg-6 col-xs-6">
-            <label>Next of kin</label>
+            <span>Next of kin</span>
           </div>
 
           <div className="col-lg-6 col-xs-6">
@@ -243,7 +243,7 @@ export const NextOfKin = ({ nextOfKin }) => (
     {nextOfKin.map((kin, index) => (
       <div key={uuid()}>
         <div className="row border-bottom-line">
-          <div className="col-lg-6 col-xs-6">{index === 0 && <label>Next of kin</label>}</div>
+          <div className="col-lg-6 col-xs-6">{index === 0 && <span>Next of kin</span>}</div>
 
           <div className="col-lg-6 col-xs-6">
             <div>
@@ -281,7 +281,7 @@ export const Visits = ({ lastVisit, nextVisit }) => (
     {lastVisit.size === 0 && (
       <div className="row">
         <div className="col-lg-6 col-xs-6">
-          <label>Last visit date</label>
+          <span>Last visit date</span>
         </div>
 
         <div className="col-lg-6 col-xs-6">
@@ -301,7 +301,7 @@ export const Visits = ({ lastVisit, nextVisit }) => (
       {nextVisit.size === 0 && (
         <div className="row border-bottom-line">
           <div className="col-lg-6 col-xs-6">
-            <label>Next visit date</label>
+            <span>Next visit date</span>
           </div>
 
           <div className="col-lg-6 col-xs-6">
@@ -317,7 +317,7 @@ export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason 
   <div>
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
-        <label>Last visit date</label>
+        <span>Last visit date</span>
       </div>
 
       <div className="col-lg-6 col-xs-6">
@@ -329,7 +329,7 @@ export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason 
 
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
-        <label className="shift-right">Type of visit</label>
+        <span className="shift-right">Type of visit</span>
       </div>
 
       <div className="col-lg-6 col-xs-6">
@@ -342,7 +342,7 @@ export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason 
 
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
-        <label className="shift-right">Lead visitor</label>
+        <span className="shift-right">Lead visitor</span>
       </div>
 
       <div className="col-lg-6 col-xs-6">
@@ -355,7 +355,7 @@ export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason 
 
     <div className={`row ${cancellationReason ? 'border-bottom-line' : 'add-gutter-margin-top'}`}>
       <div className="col-lg-6 col-xs-6">
-        <label className="shift-right">Visit status</label>
+        <span className="shift-right">Visit status</span>
       </div>
 
       <div className="col-lg-6 col-xs-6">
@@ -369,7 +369,7 @@ export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason 
     {cancellationReason && (
       <div className="row">
         <div className="col-lg-6 col-xs-6">
-          <label className="shift-right">Reason </label>
+          <span className="shift-right">Reason </span>
         </div>
 
         <div className="col-lg-6 col-xs-6">
@@ -384,7 +384,7 @@ export const NextVisit = ({ date, type, leadVisitor }) => (
   <div>
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
-        <label>Next visit date</label>
+        <span>Next visit date</span>
       </div>
 
       <div className="col-lg-6 col-xs-6">
@@ -396,7 +396,7 @@ export const NextVisit = ({ date, type, leadVisitor }) => (
 
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
-        <label className="shift-right">Type of visit</label>
+        <span className="shift-right">Type of visit</span>
       </div>
 
       <div className="col-lg-6 col-xs-6">
@@ -409,7 +409,7 @@ export const NextVisit = ({ date, type, leadVisitor }) => (
 
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
-        <label className="shift-right">Lead visitor</label>
+        <span className="shift-right">Lead visitor</span>
       </div>
 
       <div className="col-lg-6 col-xs-6">

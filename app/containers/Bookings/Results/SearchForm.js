@@ -31,10 +31,13 @@ class SearchAgainForm extends Component {
 
         <div className="filter-box">
           <div className="row col-md-4">
-            <label className="form-label visible-md visible-lg">Enter prisoner Name or ID</label>
+            <label htmlFor="keywords" className="form-label visible-md visible-lg">
+              Enter prisoner Name or ID
+            </label>
 
             <input
               name="keywords"
+              id="keywords"
               type="text"
               title="Last Name, First Name or ID"
               placeholder="Last Name, First Name or ID"
@@ -45,8 +48,10 @@ class SearchAgainForm extends Component {
           </div>
 
           <div className="row col-md-4">
-            <label className="form-label visible-md visible-lg">Select location</label>
-            <select className="form-control" name="locationPrefix" defaultValue={locationPrefix}>
+            <label htmlFor="location" className="form-label visible-md visible-lg">
+              Select location
+            </label>
+            <select className="form-control" name="locationPrefix" id="location" defaultValue={locationPrefix}>
               {locations.map(location => (
                 <option key={location.get('locationPrefix')} value={location.get('locationPrefix')}>
                   {location.get('description')}
@@ -56,7 +61,7 @@ class SearchAgainForm extends Component {
           </div>
 
           <div className="row col-md-3">
-            <label className="form-label visible-md visible-lg">&nbsp;</label>
+            <span className="form-label visible-md visible-lg">&nbsp;</span>
 
             <div className="visible-md visible-lg">
               <button className="button" type="submit" disabled={submitting}>
