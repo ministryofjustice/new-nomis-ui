@@ -48,7 +48,9 @@ class SearchForm extends Component {
         <div className="box">
           <h1 className="heading-large">Search for a prisoner</h1>
 
-          <label className="form-label">Enter a prisoner name or number</label>
+          <label htmlFor="keywords" className="form-label">
+            Enter a prisoner name or number
+          </label>
 
           <input
             name="keywords"
@@ -65,7 +67,9 @@ class SearchForm extends Component {
 
           <div className="location-with-global-search-checkbox">
             <div>
-              <label className="form-label">Select location</label>
+              <label htmlFor="location" className="form-label">
+                Select location
+              </label>
               <select
                 disabled={doGlobalSearch}
                 className="form-control locationPrefix"
