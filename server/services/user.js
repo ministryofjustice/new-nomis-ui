@@ -34,7 +34,7 @@ const userServiceFactory = elite2Api => {
     ])
     return {
       ...details,
-      accessRoles: [{ roleCode: 'GLOBAL_SEARCH' }, ...accessRoles] || [],
+      accessRoles: accessRoles || [],
       staffRoles: staffRoles || [],
       isWhereabouts: whereaboutsConfig && whereaboutsConfig.enabled,
     }
