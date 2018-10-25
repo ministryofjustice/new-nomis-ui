@@ -43,7 +43,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
 
           <div className="row border-bottom-line">
             <div className="col-md-6 col-xs-6">
-              <label>Date of birth</label>
+              <span>Date of birth</span>
             </div>
 
             <div className="col-md-6 col-xs-6">
@@ -58,7 +58,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
 
           <div className="row border-bottom-line">
             <div className="col-md-6 col-xs-6">
-              <label>Age</label>
+              <span>Age</span>
             </div>
 
             <div className="col-md-6 col-xs-6">
@@ -71,7 +71,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
 
           <div className="row border-bottom-line">
             <div className="col-md-6 col-xs-6">
-              <label>Gender</label>
+              <span>Gender</span>
             </div>
 
             <div className="col-md-6 col-xs-6">
@@ -84,7 +84,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
 
           <div className="row border-bottom-line">
             <div className="col-md-6 col-xs-6">
-              <label>Ethnicity</label>
+              <span>Ethnicity</span>
             </div>
 
             <div className="col-md-6 col-xs-6">
@@ -99,7 +99,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
 
           <div className="row border-bottom-line">
             <div className="col-lg-6 col-xs-6">
-              <label>Religion</label>
+              <span>Religion</span>
             </div>
             <div className="col-lg-6 col-xs-6">
               <strong>
@@ -109,7 +109,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
           </div>
           <div className="row border-bottom-line">
             <div className="col-lg-6 col-xs-6">
-              <label>Nationality</label>
+              <span>Nationality</span>
             </div>
             <div className="col-lg-6 col-xs-6">
               <strong>
@@ -119,7 +119,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
           </div>
           <div className="row border-bottom-line">
             <div className="col-lg-6 col-xs-6">
-              <label>Spoken language</label>
+              <span>Spoken language</span>
             </div>
             <div className="col-lg-6 col-xs-6">
               <strong>
@@ -157,7 +157,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
       <div className="desktop">
         <div className="row border-bottom-line">
           <div className="col-md-3 col-xs-6">
-            <label>Height</label>
+            <span>Height</span>
           </div>
 
           <div className="col-md-3 col-xs-6">
@@ -167,7 +167,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
           </div>
 
           <div className="col-md-3 col-xs-6">
-            <label>Weight</label>
+            <span>Weight</span>
           </div>
 
           <div className="col-md-3 col-xs-6">
@@ -181,7 +181,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
       <div className="mobile">
         <div className="row border-bottom-line">
           <div className="col-md-3 col-xs-6">
-            <label>Height</label>
+            <span>Height</span>
           </div>
 
           <div className="col-md-3 col-xs-6">
@@ -193,7 +193,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
 
         <div className="row border-bottom-line">
           <div className="col-md-3 col-xs-6">
-            <label>Weight</label>
+            <span>Weight</span>
           </div>
 
           <div className="col-md-3 col-xs-6">
@@ -210,7 +210,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
             {pair.map(info => (
               <div key={uuid()}>
                 <div className="col-md-3 col-xs-6">
-                  <label>{info.characteristic}</label>
+                  <span>{info.characteristic}</span>
                 </div>
 
                 <div className="col-md-3 col-xs-6">
@@ -230,7 +230,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
             {pair.map(info => (
               <div key={uuid()}>
                 <div className="row border-bottom-line col-md-3 col-xs-6">
-                  <label>{info.characteristic}</label>
+                  <span>{info.characteristic}</span>
                 </div>
 
                 <div className="row border-bottom-line col-md-3 col-xs-6">
@@ -258,7 +258,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
             <div className="col-md-6" key={uuid()}>
               <div className="row border-bottom-line">
                 <div className="col-md-6 col-xs-6">
-                  <label>Type</label>
+                  <span>Type</span>
                 </div>
 
                 <div className="col-md-6 col-xs-6">
@@ -268,7 +268,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
 
               <div className="row border-bottom-line">
                 <div className="col-md-6 col-xs-6">
-                  <label>Body part</label>
+                  <span>Body part</span>
                 </div>
 
                 <div className="col-md-6 col-xs-6">
@@ -278,7 +278,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
 
               <div className="row border-bottom-line">
                 <div className="col-md-6 col-xs-6">
-                  <label>Comment</label>
+                  <span>Comment</span>
                 </div>
 
                 <div className="col-md-6 col-xs-6">
@@ -289,7 +289,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
               {mark.imageId && (
                 <div className="row">
                   <div className="col-md-6 col-xs-6">
-                    <label>Visual</label>
+                    <span>Visual</span>
                   </div>
 
                   <div className="col-md-6 col-xs-6">

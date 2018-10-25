@@ -28,9 +28,7 @@ const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleS
         <div className="col-sm-12 no-left-gutter no-right-gutter">
           {error && <div className="error-message">Start date must be equal to or before the end date</div>}
 
-          <label className="form-label date-range-label add-gutter-margin-bottom add-gutter-margin-top">
-            Added date
-          </label>
+          <span className="form-label date-range-label add-gutter-margin-bottom add-gutter-margin-top">Added date</span>
 
           <Field
             name="fromDate"

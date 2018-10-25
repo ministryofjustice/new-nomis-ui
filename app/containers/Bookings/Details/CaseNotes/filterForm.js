@@ -41,7 +41,7 @@ const FilterForm = ({
           <h3 className="bold-medium no-left-gutter">Filters</h3>
         </div>
         <div className="col-sm-12 col-md-6 no-left-gutter">
-          <label className="form-label date-range-label hidden-md-down">Occurrence date</label>
+          <span className="form-label date-range-label hidden-md-down">Occurrence date</span>
           <button type="button" className="pull-right link reset-filters-large clickable" onClick={resetFields}>
             Clear filters
           </button>
@@ -61,9 +61,9 @@ const FilterForm = ({
         <div className="col-sm-12 col-md-4 no-left-gutter no-right-gutter">
           {dateRangeNotValid && <div className="error-message">Start date must be equal to or before the end date</div>}
 
-          <label className="form-label date-range-label hidden add-gutter-margin-bottom add-gutter-margin-top">
+          <span className="form-label date-range-label hidden add-gutter-margin-bottom add-gutter-margin-top">
             Occurrence date
-          </label>
+          </span>
 
           <div className="stack-dates">
             <Field

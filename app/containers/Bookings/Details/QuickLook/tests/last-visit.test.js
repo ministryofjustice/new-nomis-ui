@@ -57,7 +57,7 @@ describe('Visits', () => {
     expect(component.contains(<DisplayValue value="Ongoing" />)).toBe(true)
     expect(component.contains(<DisplayValue value="John Smith (Brother)" />)).toBe(true)
     expect(component.contains(<FormattedDate value="2018-01-25" />)).toBe(true)
-    expect(component.contains(<label>Reason</label>)).toBe(false)
+    expect(component.contains(<span>Reason</span>)).toBe(false)
   })
 
   it('should display missing lead visitor correctly for last visit', () => {

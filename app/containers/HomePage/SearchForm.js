@@ -31,10 +31,13 @@ class SearchForm extends Component {
         <div className="box">
           <h1 className="heading-large">Search for a prisoner</h1>
 
-          <label className="form-label">Enter a prisoner name or number</label>
+          <label htmlFor="keywords" className="form-label">
+            Enter a prisoner name or number
+          </label>
 
           <input
             name="keywords"
+            id="keywords"
             type="text"
             title="Enter "
             placeholder="Last Name, First Name or ID"
@@ -47,8 +50,10 @@ class SearchForm extends Component {
           </button>
 
           <div>
-            <label className="form-label">Select location</label>
-            <select className="form-control" name="locationPrefix" defaultValue={defaultLocationPrefix}>
+            <label htmlFor="location" className="form-label">
+              Select location
+            </label>
+            <select className="form-control" name="locationPrefix" id="location" defaultValue={defaultLocationPrefix}>
               {locations.map(location => (
                 <option key={location.locationPrefix} value={location.locationPrefix}>
                   {location.description}
