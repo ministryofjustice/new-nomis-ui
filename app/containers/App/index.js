@@ -16,15 +16,7 @@ import Terms from 'containers/Footer/terms-and-conditions'
 import FeedbackLink from 'containers/FeedbackLink'
 import axios from 'axios/index'
 
-import {
-  setFeedbackUrl,
-  setOmicUrl,
-  setWhereaboutsUrl,
-  setEstablishmentRollcheckUrl,
-  setMailTo,
-  setMenuOpen,
-  hideTerms,
-} from '../../globalReducers/app'
+import { setMenuOpen, hideTerms, setAppConfig } from '../../globalReducers/app'
 
 export class App extends Component {
   constructor(props) {
@@ -50,13 +42,9 @@ export class App extends Component {
   }
 
   requestExternalUrls() {
-    const { setOmicUrl, setWhereaboutsUrl, setEstablishmentRollcheckUrl, setFeedbackUrl, setMailTo } = this.props
+    const { setAppConfig } = this.props
     axios.get('/config').then(response => {
-      setOmicUrl(response.data.omicUrl)
-      setWhereaboutsUrl(response.data.whereaboutsUrl)
-      setEstablishmentRollcheckUrl(response.data.establishmentRollcheckUrl)
-      setFeedbackUrl(response.data.url)
-      setMailTo(response.data.mailTo)
+      setAppConfig(response.data)
     })
   }
 
@@ -133,13 +121,9 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
   retrieveUserMe: () => dispatch(retrieveUserMe()),
   setDeviceFormat: format => dispatch(setDeviceFormat(format)),
-  setFeedbackUrl: url => dispatch(setFeedbackUrl(url)),
-  setMailTo: mailTo => dispatch(setMailTo(mailTo)),
-  setOmicUrl: url => dispatch(setOmicUrl(url)),
-  setWhereaboutsUrl: url => dispatch(setWhereaboutsUrl(url)),
-  setEstablishmentRollcheckUrl: url => dispatch(setEstablishmentRollcheckUrl(url)),
   hideTermsAndConditions: () => dispatch(hideTerms()),
   setMenuOpen: flag => dispatch(setMenuOpen(flag)),
+  setAppConfig: config => dispatch(setAppConfig(config)),
 })
 
 export default connect(

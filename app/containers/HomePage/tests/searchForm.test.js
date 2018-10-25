@@ -56,11 +56,16 @@ describe('Search Form', () => {
   })
 
   it('should redirect to the global search site with the entered search criteria', () => {
-    const globalSearchUrl = 'http://globalsearch'
+    global.window.location.assign = jest.fn()
+
+    const globalSearchUrl = 'http://globalsearch.com'
 
     const store = {
       getState: () =>
         Map({
+          app: Map({
+            globalSearchUrl,
+          }),
           authentication: Map({
             user: {
               canGlobalSearch: true,
@@ -71,7 +76,7 @@ describe('Search Form', () => {
       subscribe: () => {},
     }
 
-    const wrapper = mount(<SearchForm store={store} globalSearchUrl={globalSearchUrl} locations={[]} />)
+    const wrapper = mount(<SearchForm store={store} locations={[]} />)
     const checkBox = wrapper.find('.global-search').first()
     const searchInput = wrapper.find('.search-input').first()
     const form = wrapper.find('.search-form').first()
@@ -82,9 +87,9 @@ describe('Search Form', () => {
 
     form.simulate('submit')
 
-    const expectedUrl = `${globalSearchUrl}?locationPrefix=&keywords=balog%2C%20irog&perPage=10&pageNumber=0&sortOrder=ASC`
+    const expectedUrl = `${globalSearchUrl}?keywords=balog%2C%20irog`
 
-    expect(store.dispatch.mock.calls[0][0].payload.args[0]).toBe(expectedUrl)
+    expect(global.window.location.assign).toHaveBeenCalledWith(expectedUrl)
   })
 
   it('should redirect to the search results page', () => {

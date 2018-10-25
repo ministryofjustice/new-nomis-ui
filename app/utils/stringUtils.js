@@ -49,3 +49,5 @@ export const buildPaginationQueryString = query =>
     perPage: query.perPage || 10,
     pageNumber: query.pageNumber || 0,
   })
+
+export const buildQueryString = parameters => qs.stringify(parameters)

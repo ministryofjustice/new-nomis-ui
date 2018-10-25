@@ -1,16 +1,5 @@
 const argv = require('minimist')(process.argv.slice(2))
 
-const setTestDefaults = () => {
-  // Setup different default values when running locally or integration tests
-  // .env file still overrides.
-  if (!process.env.WHEREABOUTS_UI_URL) {
-    apis.whereabouts.ui_url = 'http://localhost:3002'
-  }
-  if (!process.env.OMIC_UI_URL) {
-    apis.keyworker.ui_url = 'http://localhost:3001'
-  }
-}
-
 const app = {
   port: argv.port || process.env.PORT || 3000,
   production: process.env.NODE_ENV === 'production',
@@ -45,11 +34,10 @@ const apis = {
   keyworker: {
     url: process.env.KEYWORKER_API_URL || 'http://localhost:8081',
     timeoutSeconds: process.env.KEYWORKER_API_TIMEOUT_SECONDS || 30,
-    ui_url: process.env.OMIC_UI_URL,
+    ui_url: process.env.OMIC_UI_URL || 'http://localhost:3001',
   },
-  whereabouts: {
-    ui_url: process.env.WHEREABOUTS_UI_URL,
-    ui_rollcheck_url: process.env.ESTABLISHMENT_ROLLCHECK_URL,
+  prisonStaffHub: {
+    ui_url: process.env.PRISON_STAFF_HUB_UI_URL || 'http://localhost:3002',
   },
 }
 
@@ -58,5 +46,4 @@ module.exports = {
   analytics,
   hmppsCookie,
   apis,
-  setTestDefaults,
 }

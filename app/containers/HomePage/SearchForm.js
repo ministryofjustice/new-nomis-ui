@@ -4,27 +4,37 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import serialize from 'form-serialize'
 
-import { buildSearchQueryString } from 'utils/stringUtils'
+import { buildSearchQueryString, buildQueryString } from 'utils/stringUtils'
 
 import './searchForm.scss'
 
 class SearchForm extends Component {
+  constructor() {
+    super()
+    this.state = {
+      doGlobalSearch: false,
+    }
+  }
+
   handleSubmit(event) {
-    const { onSubmit } = this.props
     event.preventDefault()
+
+    const { onSubmit, globalSearchUrl, canGlobalSearch } = this.props
+    const { doGlobalSearch } = this.state
     const formData = serialize(event.target, { hash: true })
-    onSubmit(formData, this.state && this.state.globalSearch)
+
+    onSubmit(formData, canGlobalSearch && this.state && doGlobalSearch && globalSearchUrl)
   }
 
   handleGlobalSearchCheckBoxChange(currentValue) {
     this.setState({
-      globalSearch: !currentValue,
+      doGlobalSearch: !currentValue,
     })
   }
 
   render() {
     const { locations, defaultLocationPrefix, error, canGlobalSearch } = this.props
-    const { globalSearch } = this.state || {}
+    const { doGlobalSearch } = this.state
 
     return (
       <form className="search-form" onSubmit={event => this.handleSubmit(event)}>
@@ -57,7 +67,7 @@ class SearchForm extends Component {
             <div>
               <label className="form-label">Select location</label>
               <select
-                disabled={globalSearch}
+                disabled={doGlobalSearch}
                 className="form-control locationPrefix"
                 name="locationPrefix"
                 defaultValue={defaultLocationPrefix}
@@ -76,8 +86,8 @@ class SearchForm extends Component {
                   name="global-search"
                   type="checkbox"
                   className="global-search"
-                  value={globalSearch}
-                  onChange={() => this.handleGlobalSearchCheckBoxChange(globalSearch)}
+                  value={doGlobalSearch}
+                  onChange={() => this.handleGlobalSearchCheckBoxChange(doGlobalSearch)}
                 />
                 <label htmlFor="global-search"> Global search </label>
               </div>
@@ -114,15 +124,21 @@ function mapStateToProps(state) {
     defaultLocationPrefix: '',
     error: state.getIn(['home', 'searchError']),
     canGlobalSearch: user && user.canGlobalSearch,
+    globalSearchUrl: state.getIn(['app', 'globalSearchUrl']),
   }
 }
 
-function mapDispatchToProps(dispatch, props) {
+function mapDispatchToProps(dispatch) {
   return {
-    onSubmit: (formData, globalSearch) =>
-      globalSearch
-        ? dispatch(push(`${props.globalSearchUrl}?${buildSearchQueryString(formData)}`))
-        : dispatch(push(`/results?${buildSearchQueryString(formData)}`)),
+    onSubmit(formData, globalSearchUrl) {
+      if (globalSearchUrl)
+        window.location.assign(
+          `${globalSearchUrl}?${buildQueryString({
+            keywords: formData.keywords,
+          })}`
+        )
+      else return dispatch(push(`/results?${buildSearchQueryString(formData)}`))
+    },
   }
 }
 
