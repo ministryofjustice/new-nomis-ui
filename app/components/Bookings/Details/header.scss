@@ -42,17 +42,13 @@
     text-align: center;
   }
 
-  label {
+  .col span {
+    font-size: 24px;
     display: block;
   }
 
   h1 {
     word-wrap: break-word;
-  }
-
-  label {
-    font-size: 24px;
-    display: block;
   }
 
   b {
@@ -63,7 +59,7 @@
     h1 {
       font-size: 24px !important;
     }
-    label {
+    .col span {
       font-size: 16px !important;
     }
     b {

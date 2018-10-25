@@ -85,11 +85,12 @@ class ScheduledEvents extends Component {
                   checked={thisWeek && 'checked'}
                   type="radio"
                   name="radio-inline-group"
+                  id="thisWeek"
                   value="Yes"
                   onClick={() => loadThisWeeksScheduledEvents(offenderNo)}
                   onChange={event => event.preventDefault()}
                 />
-                <label>This week</label>
+                <label htmlFor="thisWeek">This week</label>
               </div>
             </div>
           </div>
@@ -99,11 +100,12 @@ class ScheduledEvents extends Component {
                 checked={nextWeek && 'checked'}
                 type="radio"
                 name="radio-inline-group"
+                id="nextWeek"
                 value="Yes"
                 onClick={() => loadNextWeeksScheduledEvents(offenderNo)}
                 onChange={event => event.preventDefault()}
               />
-              <label>Next week</label>
+              <label htmlFor="nextWeek">Next week</label>
             </div>
           </div>
         </div>
