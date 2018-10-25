@@ -33,7 +33,16 @@ describe('Authentication reducer', () => {
 
     expect(userState.isKeyWorkerAdmin).toBe(true)
   })
+  it('should return state with a user as a custodial manager', () => {
+    const user = {
+      ...userData,
+      accessRoles: [{ roleCode: 'KEYWORKER_MONITOR', roleDescription: 'Keyworker Monitor' }],
+    }
+    const state = authenticationReducer(Map({}), userMe({ user }))
+    const userState = state.get('user')
 
+    expect(userState.isKeyWorkerAdmin).toBe(true)
+  })
   it('should handle situations where accessRoles and staffRoles are undefined', () => {
     const user = {
       ...userData,
