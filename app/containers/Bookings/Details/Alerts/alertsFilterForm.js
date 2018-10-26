@@ -10,7 +10,7 @@ import MobileAlertsFilterForm from 'components/Bookings/Details/AlertList/mobile
 import { loadAlertTypes } from 'containers/Bookings/actions'
 
 import { selectLocale } from 'containers/LanguageProvider/selectors'
-import { selectAlertTypes } from 'containers/Bookings/Details/Alerts/selectors'
+import selectAlertTypes from 'containers/Bookings/Details/Alerts/selectors'
 
 class AlertsFilterForm extends Component {
   componentDidMount() {
