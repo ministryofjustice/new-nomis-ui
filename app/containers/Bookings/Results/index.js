@@ -45,9 +45,9 @@ const ResultsViewBuilder = ({
 
 class SearchResults extends Component {
   componentDidMount() {
-    const { loadLocations } = this.props
+    const { boundLoadLocations } = this.props
     this.refs.focuspoint.scrollIntoView()
-    loadLocations()
+    boundLoadLocations()
     this.loadSearch()
   }
 
@@ -82,7 +82,7 @@ class SearchResults extends Component {
       shouldShowSpinner,
       showAlertTabForOffenderNo,
       location: { query },
-      setResultsView,
+      setResultsViewDispatch,
       toggleSortOrder,
     } = this.props
 
@@ -96,7 +96,7 @@ class SearchResults extends Component {
         <div className="row toggle-and-count-view">
           {totalResults > 0 ? (
             <div>
-              <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsView} />
+              <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsViewDispatch} />
               <div>
                 {Math.min(pP * pN + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults}{' '}
                 results
@@ -141,7 +141,7 @@ SearchResults.propTypes = {
   pagination: PropTypes.object.isRequired,
   setPage: PropTypes.func.isRequired,
   resultsView: PropTypes.string,
-  setResultsView: PropTypes.func,
+  setResultsViewDispatch: PropTypes.func.isRequired,
   locations: ImmutablePropTypes.list,
 }
 
@@ -149,7 +149,6 @@ SearchResults.defaultProps = {
   results: List([]),
   totalResults: 0,
   resultsView: 'List',
-  setResultsView: () => {},
   locations: List([]),
 }
 
@@ -157,8 +156,8 @@ export function mapDispatchToProps(dispatch, props) {
   return {
     viewDetails: offenderNo => dispatch(vD(offenderNo, DETAILS_TABS.QUICK_LOOK)),
     setPage: pagination => dispatch(sP({ ...props.location.query, ...pagination })),
-    setResultsView: pagination => dispatch(setResultsView(pagination)),
-    loadLocations: () => dispatch(loadLocations()),
+    setResultsViewDispatch: pagination => dispatch(setResultsView(pagination)),
+    boundLoadLocations: () => dispatch(loadLocations()),
     toggleSortOrder: currentDirection => dispatch(toggleSort(currentDirection, props.location.query)),
     getSearchResults: query => dispatch({ type: NEW_SEARCH, payload: { query } }),
     showAlertTabForOffenderNo: offenderNo => dispatch(vD(offenderNo, DETAILS_TABS.ALERTS)),

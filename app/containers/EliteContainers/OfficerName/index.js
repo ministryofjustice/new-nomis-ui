@@ -15,12 +15,12 @@ class EliteOfficerName extends PureComponent {
 
   static propTypes = {
     name: PropTypes.object.isRequired,
-    loadOfficer: PropTypes.func.isRequired,
+    boundLoadOfficer: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
-    const { loadOfficer } = this.props
-    loadOfficer()
+    const { boundLoadOfficer } = this.props
+    boundLoadOfficer()
   }
 
   render() {
@@ -35,7 +35,7 @@ class EliteOfficerName extends PureComponent {
 
 export function mapDispatchToProps(dispatch, props) {
   return {
-    loadOfficer: () => {
+    boundLoadOfficer: () => {
       dispatch(loadOfficer(props.staffId, props.username))
     },
   }

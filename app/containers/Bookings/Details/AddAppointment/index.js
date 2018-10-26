@@ -29,10 +29,10 @@ import './index.scss'
 
 class AddAppointment extends Component {
   componentDidMount() {
-    const { loadViewModel, offendersAgencyId, offenderNo, viewDetails } = this.props
+    const { loadViewModel, offendersAgencyId, offenderNo, boundViewDetails } = this.props
 
     if (!offendersAgencyId) {
-      viewDetails(offenderNo)
+      boundViewDetails(offenderNo)
     } else {
       loadViewModel(offendersAgencyId)
     }
@@ -201,7 +201,7 @@ class AddAppointment extends Component {
 
 export function mapDispatchToProps(dispatch, props) {
   return {
-    viewDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.ADD_APPOINTMENT)),
+    boundViewDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.ADD_APPOINTMENT)),
     goBackToBookingDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.QUICK_LOOK)),
     loadViewModel: agencyId => dispatch(loadAppointmentViewModel(agencyId)),
     onSubmit: createFormAction(

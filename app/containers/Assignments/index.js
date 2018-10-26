@@ -96,11 +96,11 @@ const ResultsView = ({ results, viewDetails }) => (
 
 class Assignments extends Component {
   componentDidMount() {
-    const { user, setContext, loadAssignments, redirectToHome } = this.props
+    const { user, setContext, boundLoadAssignments, redirectToHome } = this.props
 
     if (user && user.isKeyWorker) {
       setContext('assignments')
-      loadAssignments()
+      boundLoadAssignments()
     } else {
       redirectToHome()
     }
@@ -141,7 +141,7 @@ export function mapDispatchToProps(dispatch, props) {
     setPage: pagination => dispatch(setAssignmentsPagination({ ...props.location.query, ...pagination })),
     setResultsView: view => dispatch(setAssignmentsView(view)),
     setContext: context => dispatch(setSearchContext(context)),
-    loadAssignments: () => dispatch(loadAssignments()),
+    boundLoadAssignments: () => dispatch(loadAssignments()),
     redirectToHome: () => dispatch(push('/')),
   }
 }

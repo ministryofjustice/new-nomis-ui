@@ -8,24 +8,16 @@ import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from '../../../containers/App/constan
 import './index.scss'
 
 export class DatePicker extends Component {
-  constructor() {
-    super()
-    this.handleChange = this.handleChange.bind(this)
-    this.renderInput = this.renderInput.bind(this)
-  }
-
-  handleChange(date) {
+  handleChange = date => {
     const { input } = this.props
     input.onChange(moment(date).format(DEFAULT_MOMENT_DATE_FORMAT_SPEC))
   }
 
-  renderInput(props) {
-    return (
-      <div>
-        <input {...props} readOnly />
-      </div>
-    )
-  }
+  renderInput = props => (
+    <div>
+      <input {...props} readOnly />
+    </div>
+  )
 
   render() {
     const {

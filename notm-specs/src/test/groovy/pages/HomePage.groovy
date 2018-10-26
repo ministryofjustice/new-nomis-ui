@@ -23,6 +23,7 @@ class HomePage extends Page {
     locations { $('select option') }
     myKeyWorkerAllocationsLink(required: false) { $('.my-allocations-link') }
     externalLinks(required: false) { $('.link-container a.clickable') }
+    globalSearchCheckBox(required: false) { $('.global-search') }
   }
 
   void searchFor(String offenderInfo) {
