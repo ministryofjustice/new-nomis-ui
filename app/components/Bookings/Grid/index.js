@@ -10,7 +10,7 @@ import Name from 'components/Name'
 import './index.scss'
 import { linkOnClick } from '../../../helpers'
 
-const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
+const Grid = ({ results, viewDetails }) => (
   <div className="booking-grid">
     <div className="grid">
       {results.map(row => (
@@ -36,15 +36,9 @@ const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
   </div>
 )
 
-Grid.defaultProps = {
-  sortOrderChange: () => {},
-}
-
 Grid.propTypes = {
   results: ImmutablePropTypes.list.isRequired,
   viewDetails: PropTypes.func.isRequired,
-  sortOrderChange: PropTypes.func,
-  sortOrder: PropTypes.string.isRequired,
 }
 
 export default Grid

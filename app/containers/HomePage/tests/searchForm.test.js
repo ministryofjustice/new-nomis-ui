@@ -87,7 +87,7 @@ describe('Search Form', () => {
 
     form.simulate('submit')
 
-    const expectedUrl = `${globalSearchUrl}?keywords=balog%2C%20irog`
+    const expectedUrl = `${globalSearchUrl}?searchText=balog%2C%20irog`
 
     expect(global.window.location.assign).toHaveBeenCalledWith(expectedUrl)
   })

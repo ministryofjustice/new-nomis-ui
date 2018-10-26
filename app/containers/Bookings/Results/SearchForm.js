@@ -25,7 +25,6 @@ class SearchAgainForm extends Component {
     }
 
     const setSummary = event => {
-      console.log(event.target)
       if (event.target.parentElement.open || event.target.parentElement.parentElement.open) {
         event.target.innerHTML = 'Show filters'
         clearFlags()
