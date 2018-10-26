@@ -18,6 +18,22 @@ class SearchAgainForm extends Component {
   }
 
   render() {
+    const clearFlags = () => {
+      document.getElementsByName('alerts').forEach(input => {
+        input.checked = false
+      })
+    }
+
+    const setSummary = event => {
+      if (event.target.parentElement.open || event.target.parentElement.parentElement.open) {
+        event.target.innerHTML = 'Show filters'
+        clearFlags()
+      } else {
+        event.target.innerHTML = 'Hide filters'
+      }
+      return true
+    }
+
     const { error, locations, submitting, locationPrefix, keywords, alerts } = this.props
     const isTicked = code => alerts && alerts.length && alerts.indexOf(code) >= 0
     return (
@@ -77,21 +93,21 @@ class SearchAgainForm extends Component {
           </div>
 
           <details className="govuk-details add-gutter-padding-top visible-md visible-lg">
-            <summary className="govuk-details__summary">
-              <span className="govuk-details__summary-text">More filters</span>
+            <summary className="govuk-details__summary" onClick={event => setSummary(event)} onKeyDown={() => {}}>
+              <span className="govuk-details__summary-text">Show filters</span>
             </summary>
             <div className="govuk-details__text add-gutter-margin-left">
               <div className="row col-md-11 no-left-gutter add-gutter-margin-bottom">
                 <b>Flags</b>
               </div>
               <div className="row">
-                <div className="col-xs-11 col-sm-4 col-md-3 multiple-choice in-rows">
+                <div className="col-md-3 multiple-choice in-rows">
                   <input id="HA" type="checkbox" name="alerts" value="HA" defaultChecked={isTicked('HA')} />
                   <label className="add-checkbox-label-margin-left" htmlFor="HA">
                     ACCT open
                   </label>
                 </div>
-                <div className="col-xs-11 col-sm-4 col-md-3 multiple-choice in-rows">
+                <div className="col-md-3 multiple-choice in-rows">
                   <input id="PEEP" type="checkbox" name="alerts" value="PEEP" defaultChecked={isTicked('PEEP')} />
                   <label className="add-checkbox-label-margin-left" htmlFor="PEEP">
                     PEEP (disability)
@@ -99,7 +115,7 @@ class SearchAgainForm extends Component {
                 </div>
               </div>
               <div className="row">
-                <div className="col-xs-11 col-sm-4 col-md-3 multiple-choice in-rows">
+                <div className="col-md-3 multiple-choice in-rows">
                   <input id="XSA" type="checkbox" name="alerts" value="XSA" defaultChecked={isTicked('XSA')} />
                   <label className="add-checkbox-label-margin-left" htmlFor="XSA">
                     Staff assaulter
@@ -112,6 +128,11 @@ class SearchAgainForm extends Component {
                   </label>
                 </div>
               </div>
+              <div className="row col-md-11 no-left-gutter add-gutter-margin-top">
+                <a href="#" onClick={clearFlags}>
+                  Clear filters
+                </a>
+              </div>
             </div>
           </details>
         </div>
@@ -121,7 +142,7 @@ class SearchAgainForm extends Component {
 }
 
 SearchAgainForm.propTypes = {
-  error: PropTypes.string,
+  error: PropTypes.string, // isOneOf ([object, string ?
   locations: ImmutablePropTypes.list.isRequired,
 }
 
@@ -130,6 +151,8 @@ SearchAgainForm.defaultProps = {
 }
 
 function mapStateToProps(state, props) {
+  // console.log('SDAR Searchform.mapStateToProps:')
+  // console.log(state.toJS())
   return {
     keywords: props.query.keywords || '',
     locationPrefix: props.query.locationPrefix || (props.locations.length && props.locations[0].locationPrefix),

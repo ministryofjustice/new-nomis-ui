@@ -14,7 +14,7 @@ import AlertList from '../../../../components/Bookings/Details/AlertList'
 
 import { DATE_ONLY_FORMAT_SPEC } from '../../../App/constants'
 import { loadBookingAlerts } from '../../../EliteApiLoader/actions'
-import { Model as alertsModel } from '../../../../helpers/dataMappers/alerts'
+import alertsModel from '../../../../helpers/dataMappers/alerts'
 
 class Alerts extends Component {
   componentDidMount() {

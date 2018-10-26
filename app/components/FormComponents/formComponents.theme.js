@@ -3,7 +3,7 @@ import fonts from '../../theme/fonts'
 import colours from '../../theme/colours'
 import { media } from '../../utils/style-utils'
 
-export const SubmissionError = styled.div`
+export default styled.div`
   border: 4px solid ${colours.forms.errorColour};
   padding: 15px 10px;
   padding: ${({ error }) => (error ? '15' : '0')}px;

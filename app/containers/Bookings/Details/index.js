@@ -8,7 +8,7 @@ import TabNavMobile from '../../../components/Bookings/Details/tabMenuMobile'
 import { selectDeviceFormat, selectSearchContext } from '../../../selectors/app'
 import EliteImage from '../../EliteContainers/Image'
 
-import { analyticsServiceBuilder } from '../../../utils/analyticsService'
+import analyticsServiceBuilder from '../../../utils/analyticsService'
 import OffenderDetails from './OffenderDetails'
 import CaseNotes from './CaseNotes'
 import Alerts from './Alerts'

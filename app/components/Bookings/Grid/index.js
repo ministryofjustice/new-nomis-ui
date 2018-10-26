@@ -10,26 +10,8 @@ import Name from '../../Name'
 import './index.scss'
 import { linkOnClick } from '../../../helpers'
 
-const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
+const Grid = ({ results, viewDetails }) => (
   <div className="booking-grid">
-    {sortOrderChange && (
-      <div className="no-left-gutter sort-by-select visible-md visible-lg">
-        <span className="col-xs-1">Sort by:</span>
-        <select
-          className="form-control"
-          value={sortOrder}
-          onChange={e => {
-            sortOrderChange(e.target.value)
-          }}
-        >
-          <option value="ASC">Names A to Z </option>
-          <option value="DESC">Names Z to A </option>
-        </select>
-      </div>
-    )}
-
-    {sortOrderChange && <div className="separator" />}
-
     <div className="grid">
       {results.map(row => (
         <div className="grid-item" key={`booking_grid_${row.get('offenderNo')}`}>
@@ -54,15 +36,9 @@ const Grid = ({ results, viewDetails, sortOrderChange, sortOrder }) => (
   </div>
 )
 
-Grid.defaultProps = {
-  sortOrderChange: () => {},
-}
-
 Grid.propTypes = {
   results: ImmutablePropTypes.list.isRequired,
   viewDetails: PropTypes.func.isRequired,
-  sortOrderChange: PropTypes.func,
-  sortOrder: PropTypes.string.isRequired,
 }
 
 export default Grid

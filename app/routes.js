@@ -5,7 +5,7 @@
 
 import { getAsyncInjectors } from './utils/asyncInjectors'
 import { setMenuOpen } from './globalReducers/app'
-import { analyticsServiceBuilder } from './utils/analyticsService'
+import analyticsServiceBuilder from './utils/analyticsService'
 
 const analyticsService = analyticsServiceBuilder()
 

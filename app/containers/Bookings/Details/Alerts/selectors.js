@@ -1,4 +1,4 @@
-const selectAlertTypes = () => state =>
+export default () => state =>
   state
     .getIn(['eliteApiLoader', 'AlertTypes'])
     .toJS()
@@ -13,5 +13,3 @@ const selectAlertTypes = () => state =>
       value: code,
       label: `${description} (${code})`,
     }))
-
-export { selectAlertTypes }

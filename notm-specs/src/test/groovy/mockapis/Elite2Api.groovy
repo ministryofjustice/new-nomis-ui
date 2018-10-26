@@ -13,7 +13,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import static com.github.tomakehurst.wiremock.client.WireMock.get
 import static com.github.tomakehurst.wiremock.client.WireMock.post
 import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching
-import static com.github.tomakehurst.wiremock.client.WireMock.matching
 import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson
 
 import model.UserAccount
@@ -161,15 +160,19 @@ class Elite2Api extends WireMockRule {
         .withBody(json)))
   }
 
-  void stubOffenderSearch(String details, ArrayList<Offender> offenders, String alertsParams = '') {
+  void stubOffenderSearch(String details, ArrayList<Offender> offenders, String alertsParams, String sortFields = 'lastName,firstName', String sortOrder = 'ASC') {
     this.stubFor(
       get("/api/locations/description/LEI/inmates?keywords=${details}${alertsParams}&returnIep=true&returnAlerts=true")
+        .withHeader('Page-Limit', equalTo('10'))
+        .withHeader('Page-Offset', equalTo('0'))
+        .withHeader('Sort-Fields', equalTo(sortFields))
+        .withHeader('Sort-Order', equalTo(sortOrder))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
-        .withHeader('Page-Limit', '200')
+        .withHeader('Page-Limit', '10')
         .withHeader('Page-Offset', '0')
-        .withHeader('Total-Records', '3')
+        .withHeader('Total-Records', String.valueOf(offenders.size()))
         .withBody(JsonOutput.toJson(offenders))))
   }
 

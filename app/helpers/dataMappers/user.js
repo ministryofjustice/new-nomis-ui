@@ -1,6 +1,6 @@
 import { Map } from 'immutable'
 
-export const Model = Map({
+export default Map({
   staffId: null,
   username: '',
   firstName: '',

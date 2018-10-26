@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { SubmitStyle } from './submit.theme'
+import SubmitStyle from './submit.theme'
 
 export default class Submit extends PureComponent {
   static propTypes = {

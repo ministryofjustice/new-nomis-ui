@@ -47,7 +47,7 @@ class CaseNotesSpecification extends GebReportingSpec {
     offenders.push(model.Offender.SMITH())
     offenders.push(model.Offender.BOB())
 
-    elite2api.stubOffenderSearch("d%20s", offenders)
+    elite2api.stubOffenderSearch("d%20s", offenders, '')
     elite2api.stubOffenderDetails(true)
     elite2api.stubImage()
     elite2api.stubIEP()

@@ -13,6 +13,7 @@ import pages.LoginPage
 import pages.OffenderDetailsPage
 import pages.SearchResultsPage
 import spock.lang.IgnoreIf
+import spock.lang.Requires
 
 import static model.UserAccount.ITAG_USER
 
@@ -43,7 +44,7 @@ class SearchResultsSpecification extends GebReportingSpec {
       Offender.BOB(),
       Offender.SMITH()]
 
-    elite2api.stubOffenderSearch('aname', offenders)
+    elite2api.stubOffenderSearch('aname', offenders, '')
     elite2api.stubImage()
     elite2api.stubIEP()
 
@@ -51,6 +52,8 @@ class SearchResultsSpecification extends GebReportingSpec {
 
     then: 'The correct offenders are listed'
     at SearchResultsPage
+    images.size() == 3
+    images[2].displayed
     rows[1].text().contains('Smelley, Daniel\nA1234AL\nA-1-8')
     rows[2].text().contains('Bob, Darius\n' + 'A1234AK\n' + 'A-1-7')
     rows[3].text() == 'Smith, Daniel\n' + 'A1234AJ\n' + 'A-1-6' ||
@@ -70,7 +73,7 @@ class SearchResultsSpecification extends GebReportingSpec {
         Offender.SMITH(),
         Offender.BOB(),
         Offender.SMELLEY()
-      ],
+      ] as ArrayList<Offender>,
       '&alerts=HA&alerts=XA')
     selectVisibleButton().click()
 
@@ -97,5 +100,67 @@ class SearchResultsSpecification extends GebReportingSpec {
     at AlertsPage
     alerts[0].text().contains('alertType0')
     alerts[1].text().contains('alertType1')
+  }
+
+  @IgnoreIf({ System.properties['geb.env'] == 'chromeMobile' })
+  def 'Search results ordering for desktop'() {
+    elite2api.stubHealthCheck()
+
+    given: 'I have searched for offenders'
+    to LoginPage
+    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
+    elite2api.stubGetMyDetails(ITAG_USER)
+    loginAs ITAG_USER, 'password'
+    at HomePage
+
+    ArrayList<Offender> offenders2 = [Offender.SMELLEY(), Offender.SMITH()]
+    elite2api.stubOffenderSearch('aname', offenders2, '')
+    elite2api.stubImage()
+    elite2api.stubIEP()
+    searchFor 'aname'
+
+    at SearchResultsPage
+    rows.size() == 3
+
+    when: 'I select ordering by age'
+    ArrayList<Offender> offenders1 = [Offender.SMITH()]
+    elite2api.stubOffenderSearch('aname', offenders1, '', 'dateOfBirth', 'ASC')
+    sortingSelect.click()
+    waitFor { dateOfBirthOption.displayed }
+    dateOfBirthOption.click()
+
+    then: 'The correct sort field is passed to the api'
+    // The stub has matched the correct header sort params
+    waitFor { rows.size() == 2 }
+  }
+
+  @Requires({ System.properties['geb.env'] == 'chromeMobile' })
+  def 'Search results ordering for mobile'() {
+    elite2api.stubHealthCheck()
+
+    given: 'I have searched for offenders'
+    to LoginPage
+    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
+    elite2api.stubGetMyDetails(ITAG_USER)
+    loginAs ITAG_USER, 'password'
+    at HomePage
+
+    ArrayList<Offender> offenders2 = [Offender.SMELLEY(), Offender.SMITH()]
+    elite2api.stubOffenderSearch('aname', offenders2, '')
+    elite2api.stubImage()
+    elite2api.stubIEP()
+    searchFor 'aname'
+
+    at SearchResultsPage
+    rows.size() == 3
+
+    when: 'I toggle ordering'
+    ArrayList<Offender> offenders1 = [Offender.SMITH()]
+    elite2api.stubOffenderSearch('aname', offenders1, '', 'lastName,firstName', 'DESC')
+    sortingToggleArrow.click()
+
+    then: 'The correct sort field is passed to the api'
+    waitFor { rows.size() == 2 }
+    rows[1].find('div.add-margin-top', 0).text() == 'Smith, Daniel'
   }
 }

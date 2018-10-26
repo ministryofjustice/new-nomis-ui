@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import colours from '../../../theme/colours'
 
-export const SubmitStyle = styled.input`
+export default styled.input`
   display: block;
   background: white;
   color: ${colours.baseFont};

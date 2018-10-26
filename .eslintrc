@@ -39,7 +39,6 @@
     "prefer-promise-reject-errors": 0,
     "react/style-prop-object": 0,
     "import/no-webpack-loader-syntax": 0,
-    "import/prefer-default-export": 0,
     "import/no-dynamic-require": 0
   },
   "plugins": ["prettier"]

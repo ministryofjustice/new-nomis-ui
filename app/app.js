@@ -27,7 +27,7 @@ import { useScroll } from 'react-router-scroll'
 import App from './containers/App'
 
 // Import selector for `syncHistoryWithStore`
-import { makeSelectLocationState } from './containers/App/selectors'
+import makeSelectLocationState from './containers/App/selectors'
 
 // Import Language Provider
 // eslint-disable-next-line import/no-named-as-default
@@ -51,7 +51,7 @@ import createRoutes from './routes'
 // Optionally, this could be changed to leverage a created history
 // e.g. `const browserHistory = useRouterHistory(createBrowserHistory)();`
 const initialState = {}
-export const store = configureStore(initialState, browserHistory)
+const store = configureStore(initialState, browserHistory)
 
 registerSessionTimeoutHandler(store)
 updateApplicationWatcher()
