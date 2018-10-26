@@ -133,7 +133,7 @@ function mapDispatchToProps(dispatch) {
       if (globalSearchUrl)
         window.location.assign(
           `${globalSearchUrl}?${buildQueryString({
-            keywords: formData.keywords,
+            searchText: formData.searchText,
           })}`
         )
       else return dispatch(push(`/results?${buildSearchQueryString(formData)}`))
