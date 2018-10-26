@@ -9,11 +9,8 @@ const SET_MODAL_DATA = 'globalReducer/app/SET_MODAL_DATA'
 const SET_SEARCH_CONTEXT = 'globalReducer/app/SET_SEARCH_CONTEXT'
 const SET_SPINNER_VISIBILITY = 'globalReducer/app/SET_SPINNER_VISIBILITY'
 const SET_TERMS_VISIBILITY = 'globalReducer/app/SET_TERMS_VISIBILITY'
-const SET_FEEDBACK_URL = 'globalReducer/app/SET_FEEDBACK_URL'
-const SET_MAIL_TO = 'globalReducer/app/SET_MAIL_TO'
-const SET_OMIC_URL = 'app/Authentication/HomePage/SET_OMIC_URL'
-const SET_WHEREABOUTS_URL = 'app/Authentication/HomePage/SET_WHEREABOUTS_URL'
-const SET_ESTABLISHMENT_ROLLCALL_URL = 'app/Authentication/HomePage/SET_ESTABLISHMENT_ROLLCALL_URL'
+
+const SET_APP_CONFIG = '/globalReducer/app/SET_CONFIG'
 
 // Initial State
 const initialState = fromJS({
@@ -47,16 +44,21 @@ export default function appReducer(state = initialState, action) {
       return state.set('shouldShowSpinner', action.payload)
     case SET_TERMS_VISIBILITY:
       return state.set('shouldShowTerms', action.payload)
-    case SET_FEEDBACK_URL:
-      return state.set('feedbackUrl', action.payload)
-    case SET_MAIL_TO:
-      return state.set('mailTo', action.payload)
-    case SET_OMIC_URL:
-      return state.set('omicUrl', action.url)
-    case SET_WHEREABOUTS_URL:
-      return state.set('whereaboutsUrl', action.url)
-    case SET_ESTABLISHMENT_ROLLCALL_URL:
-      return state.set('establishmentRollcheckUrl', action.url)
+    // case SET_FEEDBACK_URL:
+    //   return state.set('feedbackUrl', action.payload)
+    // case SET_MAIL_TO:
+    //   return state.set('mailTo', action.payload)
+    // case SET_OMIC_URL:
+    //   return state.set('omicUrl', action.url)
+    // case SET_WHEREABOUTS_URL:
+    //   return state.set('whereaboutsUrl', action.url)
+    // case SET_ESTABLISHMENT_ROLLCALL_URL:
+    //   return state.set('establishmentRollcheckUrl', action.url)
+    case SET_APP_CONFIG:
+      Object.keys(action.payload).forEach(name => {
+        state = state.set(name, action.payload[name])
+      })
+      return state
     default:
       return state
   }
@@ -66,6 +68,11 @@ export default function appReducer(state = initialState, action) {
 export const setDeviceFormat = format => ({
   type: SET_DEVICE_FORMAT,
   payload: format,
+})
+
+export const setAppConfig = config => ({
+  type: SET_APP_CONFIG,
+  payload: config,
 })
 
 export const setMenuOpen = bool => ({
@@ -106,31 +113,6 @@ export const showTerms = () => ({
 export const hideTerms = () => ({
   type: SET_TERMS_VISIBILITY,
   payload: false,
-})
-
-export const setFeedbackUrl = payload => ({
-  type: SET_FEEDBACK_URL,
-  payload,
-})
-
-export const setMailTo = mailTo => ({
-  type: SET_MAIL_TO,
-  payload: mailTo,
-})
-
-export const setOmicUrl = url => ({
-  type: SET_OMIC_URL,
-  url,
-})
-
-export const setWhereaboutsUrl = url => ({
-  type: SET_WHEREABOUTS_URL,
-  url,
-})
-
-export const setEstablishmentRollcheckUrl = url => ({
-  type: SET_ESTABLISHMENT_ROLLCALL_URL,
-  url,
 })
 
 export const navigateTo = url => push(url)
