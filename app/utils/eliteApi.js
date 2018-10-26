@@ -301,7 +301,12 @@ export const loadMyLocations = baseUrl =>
     withCredentials: true,
   }).then(response => response.data)
 
-export const searchOffenders = ({ baseUrl, query, sort = { order: 'ASC' }, pagination = { offset: 0, limit: 1000 } }) =>
+export const searchOffenders = ({
+  baseUrl,
+  query,
+  sort = { fields: ['lastName', 'firstName'], order: 'ASC' },
+  pagination = { offset: 0, limit: 1000 },
+}) =>
   axios({
     baseURL: `${baseUrl}`,
     url: `locations/description/${query.locationPrefix}/inmates`,
@@ -319,7 +324,7 @@ export const searchOffenders = ({ baseUrl, query, sort = { order: 'ASC' }, pagin
     headers: {
       'Page-Offset': pagination.offset,
       'Page-Limit': pagination.limit,
-      'Sort-Fields': ['lastName', 'firstName'],
+      'Sort-Fields': sort.fields,
       'Sort-Order': sort.order,
     },
     withCredentials: true,
