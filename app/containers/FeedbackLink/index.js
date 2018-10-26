@@ -31,12 +31,7 @@ export const FeedbackLink = ({ user, feedbackUrl, openWindow }) =>
     )) || <div />
 
 class FeedbackLinkContainer extends React.Component {
-  constructor() {
-    super()
-    this.openWindow = this.openWindow.bind(this)
-  }
-
-  openWindow(url) {
+  openWindow = url => {
     if (window) {
       window.open(url)
     }
