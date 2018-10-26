@@ -14,7 +14,7 @@ describe('App container', () => {
   it('should close tbe menu when the background is clicked', () => {
     const setMenuOpen = jest.fn()
 
-    const app = shallow(<App setMenuOpen={setMenuOpen} router={{ location: {} }} params={{ offenderNo: {} }} />)
+    const app = shallow(<App boundSetMenuOpen={setMenuOpen} router={{ location: {} }} params={{ offenderNo: {} }} />)
     const event = {
       preventDefault: () => {},
     }

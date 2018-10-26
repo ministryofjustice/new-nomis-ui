@@ -13,7 +13,7 @@ import { showLargePhoto } from '../../actions'
 
 class PhysicalAttributes extends PureComponent {
   render() {
-    const { physicalAttributes, physicalMarks, setModalOpen, showVisualMarkingsPhoto } = this.props
+    const { physicalAttributes, physicalMarks, boundSetModalOpen, showVisualMarkingsPhoto } = this.props
     const CharacteristicsTable = {
       title: 'Characteristics',
       columnWidths: [5, 8],
@@ -29,7 +29,7 @@ class PhysicalAttributes extends PureComponent {
           rows: mark,
         }}
         modalGridArray={physicalMarks.modalGridArray}
-        setModalOpen={setModalOpen}
+        setModalOpen={boundSetModalOpen}
         setModalData={setModalData}
         onImageClick={showVisualMarkingsPhoto}
       />
@@ -53,12 +53,12 @@ class PhysicalAttributes extends PureComponent {
 PhysicalAttributes.propTypes = {
   physicalAttributes: PropTypes.object.isRequired,
   physicalMarks: PropTypes.object.isRequired,
-  setModalOpen: PropTypes.func.isRequired,
+  boundSetModalOpen: PropTypes.func.isRequired,
 }
 
 export function mapDispatchToProps(dispatch) {
   return {
-    setModalOpen: bool => dispatch(setModalOpen(bool)),
+    boundSetModalOpen: bool => dispatch(setModalOpen(bool)),
     setModalData: bool => dispatch(setModalData(bool)),
     showVisualMarkingsPhoto: imageId => dispatch(showLargePhoto(imageId)),
   }
