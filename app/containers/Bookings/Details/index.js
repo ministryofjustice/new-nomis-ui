@@ -69,16 +69,24 @@ const parseActiveTab = needle => {
 class Details extends Component {
   componentDidMount() {
     const {
-      viewDetails,
+      boundViewDetails,
       params: { activeTab, offenderNo, itemId },
     } = this.props
     const tab = parseActiveTab(activeTab)
 
-    viewDetails(offenderNo, tab, itemId)
+    boundViewDetails(offenderNo, tab, itemId)
   }
 
   render() {
-    const { deviceFormat, imageSrcUrl, shouldShowLargePhoto, hidePhoto, params, location, viewDetails } = this.props
+    const {
+      deviceFormat,
+      imageSrcUrl,
+      shouldShowLargePhoto,
+      hidePhoto,
+      params,
+      location,
+      boundViewDetails,
+    } = this.props
 
     const activeTabId = parseActiveTab(params.activeTab)
     const { offenderNo, itemId } = params
@@ -112,7 +120,7 @@ class Details extends Component {
               Object.assign(tab, {
                 action: () => {
                   analyticsService.pageView(`offender details - ${tab.title}`)
-                  viewDetails(offenderNo, tab.tabId, itemId)
+                  boundViewDetails(offenderNo, tab.tabId, itemId)
                 },
               })
             )}
@@ -124,7 +132,7 @@ class Details extends Component {
               Object.assign(tab, {
                 action: () => {
                   analyticsService.pageView(`offender details - ${tab.title}`)
-                  viewDetails(offenderNo, tab.tabId, itemId)
+                  boundViewDetails(offenderNo, tab.tabId, itemId)
                 },
               })
             )}
@@ -147,7 +155,7 @@ Details.defaultProps = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    viewDetails: (offenderNo, activeTabId, itemId) => dispatch(viewDetails(offenderNo, activeTabId, itemId)),
+    boundViewDetails: (offenderNo, activeTabId, itemId) => dispatch(viewDetails(offenderNo, activeTabId, itemId)),
     hidePhoto: imageSrcUrl => dispatch(hideLargePhoto(imageSrcUrl)),
   }
 }

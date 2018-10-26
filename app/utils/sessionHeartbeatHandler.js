@@ -5,18 +5,12 @@ class SessionHeartbeatHandler {
     this.lastUpdate = null
     this.keepAlive = keepAlive
     this.minutes = minutes
-    this.onUpdate = this.onUpdate.bind(this)
-    this.now = this.now.bind(this)
   }
 
-  now() {
-    return moment()
-  }
+  now = () => moment()
 
-  onUpdate() {
-    if (!this.lastUpdate) {
-      this.lastUpdate = this.now()
-    }
+  onUpdate = () => {
+    if (!this.lastUpdate) this.lastUpdate = this.now()
 
     const now = this.now()
     const difference = moment.duration(now.diff(this.lastUpdate))
