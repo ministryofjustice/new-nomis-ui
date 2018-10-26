@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import 'react-select/dist/react-select.css'
 
-import { StyledSelect } from './RFReactSelect.theme'
+import StyledSelect from './RFReactSelect.theme'
 
 /**
  * onChange from Redux Form Field has to be called explicity.

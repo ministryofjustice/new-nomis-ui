@@ -1,6 +1,6 @@
 import { Map, List } from 'immutable'
 
-export const Model = Map({
+export default Map({
   details: {
     locations: List([]),
   },

@@ -8,7 +8,7 @@ import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMe
 import { List, Map } from 'immutable'
 import { connect } from 'react-redux'
 import ResultsViewToggle from 'components/ResultsViewToggle'
-import { Model as searchModel } from 'helpers/dataMappers/search'
+import searchModel from 'helpers/dataMappers/search'
 
 import SearchAgainForm from './SearchForm'
 
