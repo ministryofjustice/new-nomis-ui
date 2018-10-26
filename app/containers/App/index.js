@@ -32,28 +32,28 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    const { retrieveUserMe } = this.props
-    retrieveUserMe()
+    const { boundRetrieveUserMe } = this.props
+    boundRetrieveUserMe()
   }
 
   onBackgroundClick() {
-    const { setMenuOpen } = this.props
-    setMenuOpen(false)
+    const { boundSetMenuOpen } = this.props
+    boundSetMenuOpen(false)
   }
 
   requestExternalUrls() {
-    const { setAppConfig } = this.props
+    const { boundSetAppConfig } = this.props
     axios.get('/config').then(response => {
-      setAppConfig(response.data)
+      boundSetAppConfig(response.data)
     })
   }
 
   resizeWindow() {
-    const { setDeviceFormat } = this.props
+    const { boundSetDeviceFormat } = this.props
     if (window.innerWidth > 1024) {
-      setDeviceFormat('desktop')
+      boundSetDeviceFormat('desktop')
     } else {
-      setDeviceFormat('mobile')
+      boundSetDeviceFormat('mobile')
     }
   }
 
@@ -99,17 +99,17 @@ export class App extends Component {
 
 App.propTypes = {
   children: PropTypes.node,
-  setDeviceFormat: PropTypes.func,
+  boundSetDeviceFormat: PropTypes.func,
   router: PropTypes.object.isRequired,
-  setMenuOpen: PropTypes.func,
-  retrieveUserMe: PropTypes.func,
+  boundSetMenuOpen: PropTypes.func,
+  boundRetrieveUserMe: PropTypes.func,
 }
 
 App.defaultProps = {
   children: [],
-  setDeviceFormat: () => {},
-  retrieveUserMe: () => {},
-  setMenuOpen: () => {},
+  boundSetDeviceFormat: () => {},
+  boundRetrieveUserMe: () => {},
+  boundSetMenuOpen: () => {},
 }
 
 const mapStateToProps = createStructuredSelector({
@@ -119,11 +119,11 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = dispatch => ({
-  retrieveUserMe: () => dispatch(retrieveUserMe()),
-  setDeviceFormat: format => dispatch(setDeviceFormat(format)),
+  boundRetrieveUserMe: () => dispatch(retrieveUserMe()),
+  boundSetDeviceFormat: format => dispatch(setDeviceFormat(format)),
   hideTermsAndConditions: () => dispatch(hideTerms()),
-  setMenuOpen: flag => dispatch(setMenuOpen(flag)),
-  setAppConfig: config => dispatch(setAppConfig(config)),
+  boundSetMenuOpen: flag => dispatch(setMenuOpen(flag)),
+  boundSetAppConfig: config => dispatch(setAppConfig(config)),
 })
 
 export default connect(
