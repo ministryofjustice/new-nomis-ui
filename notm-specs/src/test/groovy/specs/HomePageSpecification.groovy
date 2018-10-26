@@ -37,23 +37,4 @@ class HomePageSpecification extends GebReportingSpec {
     then: 'I should see the global search checkbox'
     globalSearchCheckBox.present == true
   }
-
-  //@IgnoreIf({System.properties['geb.env'] == 'chromeHeadless'})
-  //@IgnoreIf({System.properties['geb.env'] == 'chrome'})
-//  def "should not see the global search checkbox in mobile mode"() {
-//
-//    def a = System.properties
-//    println("***************")
-//    println(a)
-//
-//    given: "the user is logged in and has the global search access role"
-//    elite2api.stubHealthCheck()
-//    fixture.loginAs(UserAccount.ITAG_USER)
-//
-//    when: 'I am on the homepage'
-//    at HomePage
-//
-//    then: 'I should not see the global search checkbox'
-//    globalSearchCheckBox.present == false
-//  }
 }

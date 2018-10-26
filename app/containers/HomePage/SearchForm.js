@@ -66,7 +66,7 @@ class SearchForm extends Component {
           </button>
 
           <div className="location-with-global-search-checkbox">
-            <div>
+            <div className="location-select">
               <label htmlFor="location" className="form-label">
                 Select location
               </label>
@@ -82,26 +82,21 @@ class SearchForm extends Component {
                   </option>
                 ))}
               </select>
+
+              {canGlobalSearch && (
+                <div className="multiple-choice">
+                  <input
+                    name="global-search"
+                    type="checkbox"
+                    className="global-search"
+                    value={doGlobalSearch}
+                    onChange={() => this.handleGlobalSearchCheckBoxChange(doGlobalSearch)}
+                  />
+                  <label htmlFor="global-search"> Global search </label>
+                </div>
+              )}
             </div>
-
-            {canGlobalSearch && (
-              <div className="multiple-choice">
-                <input
-                  name="global-search"
-                  type="checkbox"
-                  className="global-search"
-                  value={doGlobalSearch}
-                  onChange={() => this.handleGlobalSearchCheckBoxChange(doGlobalSearch)}
-                />
-                <label htmlFor="global-search"> Global search </label>
-              </div>
-            )}
           </div>
-
-          <button type="submit" className="button mobile-button">
-            {' '}
-            Search{' '}
-          </button>
 
           <button type="submit" className="button mobile-button">
             {' '}
