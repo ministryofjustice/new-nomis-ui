@@ -13,13 +13,13 @@ import AlertFlags from '../AlertFlags'
 import { linkOnClick } from '../../../helpers'
 
 const ArrowUp = ({ sortOrderChange }) => (
-  <span className="clickable" {...linkOnClick(sortOrderChange)}>
+  <span className="clickable visible-xs-inline visible-sm-inline" {...linkOnClick(sortOrderChange)}>
     {' '}
     <img src="/img/Triangle_asc.png" height="8" width="15" alt="Up arrow" />{' '}
   </span>
 )
 const ArrowDown = ({ sortOrderChange }) => (
-  <span className="clickable" {...linkOnClick(sortOrderChange)}>
+  <span className="clickable visible-xs-inline visible-sm-inline" {...linkOnClick(sortOrderChange)}>
     {' '}
     <img src="/img/Triangle_desc.png" height="8" width="15" alt="Down arrow" />{' '}
   </span>
