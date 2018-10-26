@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
-import MobileMenuComponent from 'components/MobileMenu'
-import ModalData from 'containers/Footer/modal-data'
+import MobileMenuComponent from '../../components/MobileMenu'
+import ModalData from '../Footer/modal-data'
 
-import { setMenuOpen, setModalData } from 'globalReducers/app'
+import { setMenuOpen, setModalData } from '../../globalReducers/app'
 import selectUserHeaderInfo from '../Header/selectors'
 import { switchCaseLoad } from '../EliteApiLoader/actions'
 

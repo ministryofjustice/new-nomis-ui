@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import fonts from 'theme/fonts'
-import colours from 'theme/colours'
+import fonts from '../../../theme/fonts'
+import colours from '../../../theme/colours'
 
 export const Base = props => `
   box-sizing: border-box;

@@ -5,7 +5,7 @@ import { push } from 'react-router-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import serialize from 'form-serialize'
 
-import { buildSearchQueryString } from 'utils/stringUtils'
+import { buildSearchQueryString } from '../../../utils/stringUtils'
 
 import './SearchForm.scss'
 

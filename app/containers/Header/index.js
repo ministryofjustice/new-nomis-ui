@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import { intlShape } from 'react-intl'
 import { connect } from 'react-redux'
 
+// eslint-disable-next-line import/no-unresolved
 import HeaderComponent from 'header'
-import { setMenuOpen, showTerms, navigateTo } from 'globalReducers/app'
+import { setMenuOpen, showTerms, navigateTo } from '../../globalReducers/app'
 import { switchCaseLoad } from '../EliteApiLoader/actions'
 
 const HeaderContainer = ({

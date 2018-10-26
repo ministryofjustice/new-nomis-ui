@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { intlShape } from 'react-intl'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
-import { toFullName } from 'utils/stringUtils'
-import { loadOfficer } from 'containers/EliteApiLoader/actions'
+import { toFullName } from '../../../utils/stringUtils'
+import { loadOfficer } from '../../EliteApiLoader/actions'
 import selectOfficerName from './selectors'
 
 class EliteOfficerName extends PureComponent {

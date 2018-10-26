@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { LOAD_ASSIGNMENTS } from 'containers/Assignments/constants'
-import ActionLinks from 'components/ActionLinks'
+import { LOAD_ASSIGNMENTS } from '../Assignments/constants'
+import ActionLinks from '../../components/ActionLinks'
 import SearchForm from './SearchForm'
 
 import { loadLocations } from '../Bookings/actions'

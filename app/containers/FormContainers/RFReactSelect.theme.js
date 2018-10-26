@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import colours from 'theme/colours'
 import Select from 'react-select'
+import colours from '../../theme/colours'
 
 // import { RFReactSelect } from './RFReactSelect.theme';
 

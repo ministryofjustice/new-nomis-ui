@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import RfSelect from 'containers/FormContainers/RFReactSelect'
+import RfSelect from '../../../containers/FormContainers/RFReactSelect'
 
 import { InputGroup, InputLabel, InputError } from '../Input/input.theme'
 

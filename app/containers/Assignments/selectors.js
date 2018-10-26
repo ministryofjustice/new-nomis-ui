@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
-import { selectEliteApi } from 'containers/EliteApiLoader/selectors'
-import { paginationHash, idsFromPagination } from 'containers/EliteApiLoader/helpers'
+import { selectEliteApi } from '../EliteApiLoader/selectors'
+import { paginationHash, idsFromPagination } from '../EliteApiLoader/helpers'
 
 const selectAssignments = () => state => state.get('assignments')
 

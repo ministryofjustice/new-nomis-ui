@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { FormattedDate } from 'components/intl'
 import { connect } from 'react-redux'
 import uuid from 'uuid/v4'
 import { Map } from 'immutable'
+import { FormattedDate } from '../../../../components/intl'
 
-import { Model as keyDatesModel } from 'helpers/dataMappers/keydates'
+import { Model as keyDatesModel } from '../../../../helpers/dataMappers/keydates'
 
 import { loadKeyDates } from '../../actions'
 

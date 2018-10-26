@@ -8,13 +8,13 @@ import { Map, List } from 'immutable'
 import qs from 'querystring'
 import moment from 'moment'
 
-import PreviousNextNavigation from 'components/PreviousNextNavigation'
-import AlertsFilterForm from 'containers/Bookings/Details/Alerts/alertsFilterForm'
-import AlertList from 'components/Bookings/Details/AlertList'
+import PreviousNextNavigation from '../../../../components/PreviousNextNavigation'
+import AlertsFilterForm from './alertsFilterForm'
+import AlertList from '../../../../components/Bookings/Details/AlertList'
 
-import { DATE_ONLY_FORMAT_SPEC } from 'containers/App/constants'
-import { loadBookingAlerts } from 'containers/EliteApiLoader/actions'
-import alertsModel from 'helpers/dataMappers/alerts'
+import { DATE_ONLY_FORMAT_SPEC } from '../../../App/constants'
+import { loadBookingAlerts } from '../../../EliteApiLoader/actions'
+import alertsModel from '../../../../helpers/dataMappers/alerts'
 
 class Alerts extends Component {
   componentDidMount() {

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import React from 'react'
 import { Header } from 'new-nomis-shared-components'
 import { DesktopOnly, MobileOnly } from 'components/CommonTheme'

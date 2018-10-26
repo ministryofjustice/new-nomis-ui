@@ -3,9 +3,9 @@ import { reduxForm, Field } from 'redux-form/immutable'
 import { connect } from 'react-redux'
 import { createFormAction } from 'redux-form-saga'
 import { Map } from 'immutable'
-import SessionHeartbeatHandler from 'utils/sessionHeartbeatHandler'
+import SessionHeartbeatHandler from '../../../../../utils/sessionHeartbeatHandler'
 
-import { TextArea } from 'components/FormComponents'
+import { TextArea } from '../../../../../components/FormComponents'
 
 import { AMEND_CASENOTE, DETAILS_TABS } from '../../../constants'
 import { extendActiveSession, viewDetails } from '../../../actions'

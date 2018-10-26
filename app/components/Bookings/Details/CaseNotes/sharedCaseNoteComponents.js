@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedDate, FormattedTime } from 'react-intl'
-import { FormattedDate as FormattedDate2, FormattedTime as FormattedTime2 } from 'components/intl'
+import { FormattedDate as FormattedDate2, FormattedTime as FormattedTime2 } from '../../../intl'
 
 import { TypeDescription } from './listItem.theme'
 

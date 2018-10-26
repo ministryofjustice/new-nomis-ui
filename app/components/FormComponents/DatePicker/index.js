@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import Datetime from 'react-datetime'
 import moment from 'moment'
 import 'react-datetime/css/react-datetime.css'
-import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from 'containers/App/constants'
-
-import './index.scss'
 import PropTypes from 'prop-types'
+
+import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from '../../../containers/App/constants'
+import './index.scss'
 
 export class DatePicker extends Component {
   handleChange = date => {

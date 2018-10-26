@@ -5,9 +5,11 @@
  * code.
  */
 // Load the favicon, the manifest.json file and the .htaccess file
-/* eslint-disable import/no-unresolved, import/extensions */
+// eslint-disable-next-line import/no-unresolved
 import '!file-loader?name=[name].[ext]!./favicon.ico'
+// eslint-disable-next-line import/no-unresolved
 import '!file-loader?name=[name].[ext]!./manifest.json'
+// eslint-disable-next-line import/no-unresolved
 import 'file-loader?name=[name].[ext]!./.htaccess'
 
 // Needed for redux-saga es6 generator support
@@ -21,19 +23,19 @@ import { applyRouterMiddleware, Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { useScroll } from 'react-router-scroll'
 
-import App from 'containers/App'
+// eslint-disable-next-line import/no-named-as-default
+import App from './containers/App'
 
 // Import selector for `syncHistoryWithStore`
-import makeSelectLocationState from 'containers/App/selectors'
+import makeSelectLocationState from './containers/App/selectors'
 
 // Import Language Provider
-import LanguageProvider from 'containers/LanguageProvider'
+// eslint-disable-next-line import/no-named-as-default
+import LanguageProvider from './containers/LanguageProvider'
 
 // Import reset css
 import 'sanitize.css/sanitize.css'
 import './app.scss'
-
-/* eslint-enable import/no-unresolved, import/extensions */
 
 import configureStore from './store'
 

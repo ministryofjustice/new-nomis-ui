@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import moment from 'moment'
-import { DATE_TIME_FORMAT_SPEC } from 'containers/App/constants'
+import { DATE_TIME_FORMAT_SPEC } from '../../../../containers/App/constants'
 
 import TimePicker from '../index'
 

@@ -1,12 +1,12 @@
 import { createSelector } from 'reselect'
+import { fromJS } from 'immutable'
 import {
   selectBookingDetail,
   selectCaseNotesPagination,
   selectCaseNotesQuery,
   selectCaseNotesDetailId,
-} from 'containers/Bookings/selectors'
-import { paginationHash, queryHash } from 'containers/EliteApiLoader/helpers'
-import { fromJS } from 'immutable'
+} from '../../selectors'
+import { paginationHash, queryHash } from '../../../EliteApiLoader/helpers'
 
 const selectCaseNotesObject = () => createSelector(selectBookingDetail(), details => details.get('CaseNotes'))
 

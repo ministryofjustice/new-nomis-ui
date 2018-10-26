@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 
-import CaseNoteDetailsBlock from 'components/Bookings/Details/CaseNotes/detailsPage'
+import CaseNoteDetailsBlock from '../../../../components/Bookings/Details/CaseNotes/detailsPage'
 
 import { setCaseNotesListView } from '../../actions'
 

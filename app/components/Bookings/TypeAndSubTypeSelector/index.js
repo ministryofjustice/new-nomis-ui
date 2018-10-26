@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Field } from 'redux-form/immutable'
-import SelectWithLabel from 'components/FormComponents/SelectWithLabel'
+import SelectWithLabel from '../../FormComponents/SelectWithLabel'
 
 class TypeAndSubTypeSelector extends PureComponent {
   constructor(props) {

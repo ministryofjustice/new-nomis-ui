@@ -3,20 +3,21 @@ import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
-import { setDeviceFormat } from 'globalReducers/app'
-import { retrieveUserMe } from 'containers/Authentication/actions'
-import { selectShouldShowSpinner, selectShouldShowTerms, selectMobileMenuOpen } from 'selectors/app'
-import Header from 'containers/Header'
-import Breadcrumbs from 'containers/Breadcrumbs'
-import Footer from 'containers/Footer'
+// eslint-disable-next-line import/no-unresolved
 import ProductGlobals from 'product-globals'
 import Notifications from 'react-notify-toast'
-import Spinner from 'components/Spinner'
-import Terms from 'containers/Footer/terms-and-conditions'
-import FeedbackLink from 'containers/FeedbackLink'
 import axios from 'axios/index'
+import { retrieveUserMe } from '../Authentication/actions'
+import { selectShouldShowSpinner, selectShouldShowTerms, selectMobileMenuOpen } from '../../selectors/app'
+import Header from '../Header'
+import Breadcrumbs from '../Breadcrumbs'
+import Footer from '../Footer'
+import Spinner from '../../components/Spinner'
+import Terms from '../Footer/terms-and-conditions'
+// eslint-disable-next-line import/no-named-as-default
+import FeedbackLink from '../FeedbackLink'
 
-import { setMenuOpen, hideTerms, setAppConfig } from '../../globalReducers/app'
+import { setAppConfig, setDeviceFormat, setMenuOpen, hideTerms } from '../../globalReducers/app'
 
 export class App extends Component {
   constructor(props) {

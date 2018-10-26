@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import InlineSVG from 'react-svg-inline'
-// import colors from 'theme/colors';
+// import colors from '../../theme/colors';
 
 export const IconSVG = styled(InlineSVG)`
   display: block;

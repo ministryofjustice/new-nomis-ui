@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import allColours from 'theme/colours'
-import { responsiveCols } from 'components/CommonTheme/responsiveColumns'
+import allColours from '../../../../theme/colours'
+import { responsiveCols } from '../../../CommonTheme/responsiveColumns'
 
 const colours = allColours.bookings.details.caseNotes.list
 

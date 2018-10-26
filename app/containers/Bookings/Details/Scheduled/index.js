@@ -1,21 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { FormattedDate } from 'components/intl'
 import moment from 'moment'
 import { List } from 'immutable'
 import uuid from 'uuid/v4'
+import { FormattedDate } from '../../../../components/intl'
 
-import { Model as offenderDetailsModel } from 'helpers/dataMappers/offenderDetails'
+import { Model as offenderDetailsModel } from '../../../../helpers/dataMappers/offenderDetails'
 
-import {
-  loadScheduledEventsForThisWeek,
-  loadScheduledEventsForNextWeek,
-  viewDetails,
-} from 'containers/Bookings/actions'
+import { loadScheduledEventsForThisWeek, loadScheduledEventsForNextWeek, viewDetails } from '../../actions'
 
-import { DETAILS_TABS } from 'containers/Bookings/constants'
+import { DETAILS_TABS } from '../../constants'
 
-import { properCase } from 'utils/stringUtils'
+import { properCase } from '../../../../utils/stringUtils'
 
 import './index.scss'
 

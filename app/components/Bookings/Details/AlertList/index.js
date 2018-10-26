@@ -3,8 +3,8 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import styled from 'styled-components'
 import { List } from 'immutable'
 
-import { FormattedDate } from 'components/intl'
-import colours from 'theme/colours'
+import { FormattedDate } from '../../../intl'
+import colours from '../../../../theme/colours'
 
 const Table = styled.table`
   table-layout: fixed;

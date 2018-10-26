@@ -4,19 +4,23 @@ import { connect } from 'react-redux'
 import { Map, List } from 'immutable'
 import { createFormAction } from 'redux-form-saga'
 import moment from 'moment'
-import { toFullName } from 'utils/stringUtils'
+import { toFullName } from '../../../../utils/stringUtils'
 
-import Select from 'components/FormComponents/SelectWithLabel'
-import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from 'components/FormComponents/DatePicker'
-import TimePicker from 'components/FormComponents/TimePicker'
-import { TextArea } from 'components/FormComponents'
+import Select from '../../../../components/FormComponents/SelectWithLabel'
+import {
+  DatePicker,
+  momentToLocalizedDate,
+  localizedDateToMoment,
+} from '../../../../components/FormComponents/DatePicker'
+import TimePicker from '../../../../components/FormComponents/TimePicker'
+import { TextArea } from '../../../../components/FormComponents'
 
-import { DATE_TIME_FORMAT_SPEC } from 'containers/App/constants'
+import { DATE_TIME_FORMAT_SPEC } from '../../../App/constants'
 
-import { loadAppointmentViewModel } from 'containers/EliteApiLoader/actions'
-import { APPOINTMENT } from 'containers/EliteApiLoader/constants'
+import { loadAppointmentViewModel } from '../../../EliteApiLoader/actions'
+import { APPOINTMENT } from '../../../EliteApiLoader/constants'
 
-import { Model as offenderDetailsModel } from 'helpers/dataMappers/offenderDetails'
+import { Model as offenderDetailsModel } from '../../../../helpers/dataMappers/offenderDetails'
 
 import { DETAILS_TABS } from '../../constants'
 import { viewDetails } from '../../actions'

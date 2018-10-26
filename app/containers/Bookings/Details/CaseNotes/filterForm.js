@@ -1,14 +1,18 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from 'components/FormComponents/DatePicker'
 import moment from 'moment'
 import { connect } from 'react-redux'
 import { reduxForm, Field, formValueSelector } from 'redux-form/immutable'
 import { createFormAction } from 'redux-form-saga'
 import { createStructuredSelector } from 'reselect'
-import { selectLocale } from 'containers/LanguageProvider/selectors'
-import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector'
-import { DATE_ONLY_FORMAT_SPEC } from 'containers/App/constants'
+import {
+  DatePicker,
+  momentToLocalizedDate,
+  localizedDateToMoment,
+} from '../../../../components/FormComponents/DatePicker'
+import { selectLocale } from '../../../LanguageProvider/selectors'
+import TypeAndSubTypeSelector from '../../../../components/Bookings/TypeAndSubTypeSelector'
+import { DATE_ONLY_FORMAT_SPEC } from '../../../App/constants'
 
 import './filterForm.scss'
 

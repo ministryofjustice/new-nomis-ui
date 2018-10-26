@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import fonts from 'theme/fonts'
-import colours from 'theme/colours'
-import { media } from 'utils/style-utils'
+import fonts from '../../theme/fonts'
+import colours from '../../theme/colours'
+import { media } from '../../utils/style-utils'
 
 export default styled.div`
   border: 4px solid ${colours.forms.errorColour};

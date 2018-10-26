@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import EliteImage from 'containers/EliteContainers/Image'
-import EliteOfficerName from 'containers/EliteContainers/OfficerName'
 import { Link } from 'react-router'
+import EliteImage from '../../../containers/EliteContainers/Image'
+import EliteOfficerName from '../../../containers/EliteContainers/OfficerName'
 
-import { toFullName } from 'utils/stringUtils'
-import { offenderImageUrl } from 'containers/Bookings/constants'
+import { toFullName } from '../../../utils/stringUtils'
+import { offenderImageUrl } from '../../../containers/Bookings/constants'
 import { linkOnClick } from '../../../helpers'
 
 import './header.scss'

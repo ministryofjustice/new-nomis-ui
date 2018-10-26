@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { baseColours } from 'theme/colours'
+import { baseColours } from '../../theme/colours'
 
 export const Outer = styled.div`
   background: ${props => props.background || baseColours.govukWhite};

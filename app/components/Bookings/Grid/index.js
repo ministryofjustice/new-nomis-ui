@@ -2,10 +2,10 @@ import PropTypes from 'prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import React from 'react'
 
-import EliteImage from 'containers/EliteContainers/Image'
-import { offenderImageUrl } from 'containers/Bookings/constants'
+import EliteImage from '../../../containers/EliteContainers/Image'
+import { offenderImageUrl } from '../../../containers/Bookings/constants'
 
-import Name from 'components/Name'
+import Name from '../../Name'
 
 import './index.scss'
 import { linkOnClick } from '../../../helpers'

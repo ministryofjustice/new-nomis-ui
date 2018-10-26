@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { toFullName } from 'utils/stringUtils'
+import { toFullName } from '../../utils/stringUtils'
 
 import {
   MobileMenuContainer,

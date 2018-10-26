@@ -1,17 +1,18 @@
 import { takeLatest, put, select, call } from 'redux-saga/effects'
 import { push } from 'react-router-redux'
 import { SubmissionError } from 'redux-form/immutable'
-import { selectApi } from 'containers/ConfigLoader/selectors'
-import { bookingDetailsSaga as bookingDetailsElite } from 'containers/EliteApiLoader/sagas'
-import { loadBookingCaseNotes, resetCaseNotes } from 'containers/EliteApiLoader/actions'
-import { BOOKINGS, APPOINTMENT } from 'containers/EliteApiLoader/constants'
 import { notify } from 'react-notify-toast'
-import { showSpinner, hideSpinner, setSearchContext } from 'globalReducers/app'
-import { buildSearchQueryString, buildCaseNotQueryString } from 'utils/stringUtils'
+import { selectApi } from '../ConfigLoader/selectors'
+import { bookingDetailsSaga as bookingDetailsElite } from '../EliteApiLoader/sagas'
+import { loadBookingCaseNotes, resetCaseNotes } from '../EliteApiLoader/actions'
+import { BOOKINGS, APPOINTMENT } from '../EliteApiLoader/constants'
+import { showSpinner, hideSpinner, setSearchContext } from '../../globalReducers/app'
+import { buildSearchQueryString, buildCaseNotQueryString } from '../../utils/stringUtils'
 
 import {
   addCaseNote,
   amendCaseNote,
+  getCaseNote,
   loadMyLocations,
   searchOffenders,
   loadKeyDates,
@@ -21,7 +22,7 @@ import {
   addAppointment,
   bookingAlerts,
   extendSessionRequest,
-} from 'utils/eliteApi'
+} from '../../utils/eliteApi'
 
 import {
   DETAILS_TABS,
@@ -50,7 +51,6 @@ import {
   CASE_NOTE,
   EXTEND_SESSION,
 } from './constants'
-import { getCaseNote } from '../../utils/eliteApi'
 
 export function* extendActiveSessionWatcher() {
   yield takeLatest(EXTEND_SESSION, function* extendSession() {

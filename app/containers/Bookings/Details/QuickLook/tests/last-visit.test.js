@@ -1,8 +1,8 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { Map } from 'immutable'
-import DisplayValue from 'components/FormComponents/DisplayValue'
-import { FormattedDate } from 'components/intl'
+import DisplayValue from '../../../../../components/FormComponents/DisplayValue'
+import { FormattedDate } from '../../../../../components/intl'
 import { LastVisit, NextVisit, Visits } from '../index'
 
 describe('Visits', () => {

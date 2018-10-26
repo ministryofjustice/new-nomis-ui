@@ -3,10 +3,10 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import React from 'react'
 import { browserHistory } from 'react-router'
 
-import EliteImage from 'containers/EliteContainers/Image'
-import { offenderImageUrl, DETAILS_TABS } from 'containers/Bookings/constants'
+import EliteImage from '../../../containers/EliteContainers/Image'
+import { offenderImageUrl, DETAILS_TABS } from '../../../containers/Bookings/constants'
 
-import Name from 'components/Name'
+import Name from '../../Name'
 
 import './index.scss'
 import AlertFlags from '../AlertFlags'

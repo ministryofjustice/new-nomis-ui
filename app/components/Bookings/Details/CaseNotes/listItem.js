@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import uuid from 'uuid/v4'
-import { FormattedDate, FormattedTime } from 'components/intl'
+import { FormattedDate, FormattedTime } from '../../../intl'
 
 import { PreStyle } from './listItem.theme'
 

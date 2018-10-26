@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import serialize from 'form-serialize'
 
-import { buildSearchQueryString, buildQueryString } from 'utils/stringUtils'
+import { buildSearchQueryString, buildQueryString } from '../../utils/stringUtils'
 
 import './searchForm.scss'
 
@@ -136,7 +136,7 @@ function mapDispatchToProps(dispatch) {
             searchText: formData.keywords,
           })}`
         )
-      else return dispatch(push(`/results?${buildSearchQueryString(formData)}`))
+      else dispatch(push(`/results?${buildSearchQueryString(formData)}`))
     },
   }
 }

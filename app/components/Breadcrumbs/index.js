@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { toFullName, properCase } from 'utils/stringUtils'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import qs from 'querystring'
-import { DETAILS_TABS } from 'containers/Bookings/constants'
+import { toFullName, properCase } from '../../utils/stringUtils'
+import { DETAILS_TABS } from '../../containers/Bookings/constants'
 
-import { Model as offenderDetailsModel } from 'helpers/dataMappers/offenderDetails'
+import { Model as offenderDetailsModel } from '../../helpers/dataMappers/offenderDetails'
 
 import './index.scss'
 

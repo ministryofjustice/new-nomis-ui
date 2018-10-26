@@ -1,9 +1,8 @@
 import React from 'react'
-import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from 'components/FormComponents/DatePicker'
-import SelectWithLabel from 'components/FormComponents/SelectWithLabel'
 import { Field } from 'redux-form/immutable'
-
 import moment from 'moment'
+import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from '../../../FormComponents/DatePicker'
+import SelectWithLabel from '../../../FormComponents/SelectWithLabel'
 
 import './mobileAlertsFilterForm.scss'
 
