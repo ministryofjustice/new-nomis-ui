@@ -9,6 +9,7 @@ const hsts = require('hsts')
 const appInsights = require('applicationinsights')
 const helmet = require('helmet')
 const path = require('path')
+const url = require('url')
 
 const setup = require('./middlewares/frontend-middleware')
 
@@ -84,9 +85,9 @@ app.use('/config', (req, res) => {
   res.json({
     feedbackUrl,
     omicUrl,
-    whereaboutsUrl: `${prisonStaffHubUrl}/whereaboutssearch`,
-    establishmentRollcheckUrl: `${prisonStaffHubUrl}/establishmentroll`,
-    globalSearchUrl: `${prisonStaffHubUrl}/globalsearch`,
+    whereaboutsUrl: url.resolve(prisonStaffHubUrl, 'whereaboutssearch'),
+    establishmentRollcheckUrl: url.resolve(prisonStaffHubUrl, 'establishmentroll'),
+    globalSearchUrl: url.resolve(prisonStaffHubUrl, 'globalsearch'),
     mailTo,
   })
 })
