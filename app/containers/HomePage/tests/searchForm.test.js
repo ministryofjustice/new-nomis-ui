@@ -114,7 +114,7 @@ describe('Search Form', () => {
 
     form.simulate('submit')
 
-    const expectedUrl = `/results?locationPrefix=&keywords=balog%2C%20irog&perPage=10&pageNumber=0&sortOrder=ASC`
+    const expectedUrl = `/results?locationPrefix=&keywords=balog%2C%20irog&perPage=10&pageNumber=0&sortFields=lastName&sortFields=firstName&sortOrder=ASC`
 
     expect(store.dispatch.mock.calls[0][0].payload.args[0]).toBe(expectedUrl)
   })

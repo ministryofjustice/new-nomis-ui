@@ -43,7 +43,6 @@ import {
   LOAD_LOCATIONS,
   SET_LOCATIONS,
   NEW_SEARCH,
-  TOGGLE_SORT_ORDER,
   LOAD_KEY_DATES,
   SET_KEYDATES,
   LOAD_QUICK_LOOK,
@@ -251,43 +250,6 @@ export function* hidePhotoWatcher() {
   yield takeLatest(HIDE_LARGE_PHOTO_BOOKING_DETAILS, hidePhoto)
 }
 
-export function* toggleSort(action) {
-  const baseUrl = yield select(selectApi())
-  const previousSortOrder = yield select(selectSearchResultsSortOrder())
-  const pagination = yield select(selectSearchResultsPagination())
-  const query = yield select(selectSearchQuery())
-
-  const sortOrder = action.payload || (previousSortOrder === 'ASC' ? 'DESC' : 'ASC')
-
-  yield put(showSpinner())
-  const result = yield call(searchOffenders, {
-    baseUrl,
-    query,
-    pagination: {
-      limit: pagination.perPage,
-      offset: pagination.perPage * pagination.pageNumber,
-    },
-    sort: {
-      order: sortOrder,
-    },
-  })
-
-  yield put({
-    type: SEARCH_SUCCESS,
-    payload: {
-      searchResults: result.bookings,
-      searchQuery: query,
-      meta: { totalRecords: result.totalRecords, sortOrder },
-    },
-  })
-
-  yield put(hideSpinner())
-}
-
-export function* toggleSortOrderWatcher() {
-  yield takeLatest(TOGGLE_SORT_ORDER, toggleSort)
-}
-
 export function* newSearch(action) {
   try {
     const { query } = action.payload
@@ -306,6 +268,7 @@ export function* newSearch(action) {
       },
       sort: {
         order: query.sortOrder,
+        fields: query.sortFields,
       },
     })
 
@@ -335,6 +298,7 @@ export function* newSearch(action) {
     yield put(hideSpinner())
   } catch (err) {
     yield put(hideSpinner())
+    console.log(`SDAR yield error: ${err}`)
     yield put({ type: SEARCH_ERROR, payload: { error: err.message } })
   }
 }
@@ -484,7 +448,6 @@ export default [
   hidePhotoWatcher,
   loadLocationsWatcher,
   newSearchWatcher,
-  toggleSortOrderWatcher,
   loadKeyDatesWatcher,
   loadQuickLookWatcher,
   loadScheduledEventsWatcher,

@@ -31,6 +31,7 @@ export const buildSearchQueryString = query =>
     alerts: query.alerts || [],
     perPage: query.perPage || 10,
     pageNumber: query.pageNumber || 0,
+    sortFields: query.sortFields || ['lastName', 'firstName'],
     sortOrder: query.sortOrder || 'ASC',
   })
 

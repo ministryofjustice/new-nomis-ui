@@ -9,7 +9,6 @@ import {
   SHOW_LARGE_PHOTO_BOOKING_DETAILS,
   HIDE_LARGE_PHOTO_BOOKING_DETAILS,
   LOAD_LOCATIONS,
-  TOGGLE_SORT_ORDER,
   LOAD_KEY_DATES,
   LOAD_QUICK_LOOK,
   LOAD_SCHEDULED_EVENTS,
@@ -53,10 +52,22 @@ export function setPagination(pagination) {
   }
 }
 export function toggleSort(currentDirection, pagination) {
+  console.log(`SDAR toggleSort ${currentDirection}`)
   const sortOrder = currentDirection === 'ASC' ? 'DESC' : 'ASC'
+  const sortFields = 'lastName,firstName'
   return {
     type: UPDATE_PAGINATION,
-    payload: { ...pagination, sortOrder },
+    payload: { ...pagination, sortFields, sortOrder },
+  }
+}
+
+export function changeSort(value, pagination) {
+  const arr = value.split(':')
+  const sortFields = arr[0].split(',')
+  const sortOrder = arr[1]
+  return {
+    type: UPDATE_PAGINATION,
+    payload: { ...pagination, sortFields, sortOrder },
   }
 }
 
@@ -78,13 +89,6 @@ export function setResultsView(view) {
 export function setCaseNotesListView() {
   return {
     type: VIEW_CASENOTE_LIST,
-  }
-}
-
-export function toggleSortOrder(sortOrder) {
-  return {
-    type: TOGGLE_SORT_ORDER,
-    payload: sortOrder,
   }
 }
 
@@ -158,6 +162,7 @@ export function bookingSearch(formData) {
           pageNumber: 0,
         },
         sortOrder: 'ASC',
+        sortFields: ['lastName', 'firstName'],
       },
     },
   }

@@ -23,7 +23,7 @@ class AddCaseNotePage extends Page {
     hours { $('select', name: 'hours') } // options 00, 01, 02 etc
     minutes { $('select', name: 'minutes') } // options 00, 05, 10 etc
     saveButton { $('button', type: 'submit') }
-    changeDateTine { $('button', name: 'change-date-time') }
+    changeDateTime { $('button', name: 'change-date-time') }
   }
 
   def createNewCaseNote(text) {
@@ -36,7 +36,7 @@ class AddCaseNotePage extends Page {
 
     form.subTypeValue = "Faith Specific Action"
 
-    changeDateTine.click()
+    changeDateTime.click()
 
     datePicker.click()
     days[0].click() // select 1st of this month for now

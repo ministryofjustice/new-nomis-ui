@@ -7,6 +7,14 @@
   .toggle-and-count-view {
     margin-bottom: 0;
   }
+
+  select {
+    height: 2em;
+  }
+
+  .form-control {
+    width: 95% !important;
+  }
 }
 
 .mobile-only {
@@ -18,10 +26,6 @@
     .heading-xlarge {
       margin-bottom: 20px !important;
       margin-top: 0 !important;
-    }
-
-    .toggle-and-count-view {
-      margin-bottom: 1em;
     }
   }
 

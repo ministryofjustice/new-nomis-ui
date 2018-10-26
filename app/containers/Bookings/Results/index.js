@@ -14,7 +14,14 @@ import SearchAgainForm from './SearchForm'
 
 import './index.scss'
 
-import { viewDetails as vD, setPagination as sP, toggleSort, setResultsView, loadLocations } from '../actions'
+import {
+  viewDetails as vD,
+  setPagination as sP,
+  toggleSort,
+  setResultsView,
+  loadLocations,
+  changeSort,
+} from '../actions'
 
 import { NEW_SEARCH, DETAILS_TABS } from '../constants'
 
@@ -60,17 +67,18 @@ class SearchResults extends Component {
 
   loadSearch() {
     const { getSearchResults, location, pagination } = this.props
-    const { locationPrefix, keywords, alerts, perPage, pageNumber, sortOrder } = location.query
+    const { locationPrefix, keywords, alerts, perPage, pageNumber, sortOrder, sortFields } = location.query
     const paginationParam = perPage && pageNumber ? { perPage, pageNumber } : pagination
 
     if (locationPrefix) {
-      getSearchResults({ locationPrefix, keywords, alerts, pagination: paginationParam, sortOrder })
+      getSearchResults({ locationPrefix, keywords, alerts, pagination: paginationParam, sortFields, sortOrder })
     }
   }
 
   render() {
     const {
       locations,
+      sortFields,
       sortOrder,
       viewDetails,
       results,
@@ -84,7 +92,30 @@ class SearchResults extends Component {
       location: { query },
       setResultsViewDispatch,
       toggleSortOrder,
+      changeSortDispatch,
     } = this.props
+
+    const SortDropdown = ({ viewName }) => (
+      <div className="col-md-4 visible-md visible-lg add-gutter-margin-top">
+        <label className="form-label" htmlFor="sorting">
+          <b>Order results by</b>
+        </label>
+        <select
+          id="sorting"
+          className="form-control"
+          name="sorting"
+          onChange={event => changeSortDispatch(event.target.value)}
+          defaultValue={sortFields && `${sortFields.join ? sortFields.join(',') : sortFields}:${sortOrder}`}
+        >
+          <option value="lastName,firstName:ASC">Surname, First name A-Z</option>
+          <option value="lastName,firstName:DESC">Surname, First name Z-A</option>
+          <option value="assignedLivingUnitDesc:ASC">Location (cell number 1 to X)</option>
+          <option value="assignedLivingUnitDesc:DESC">Location (cell number X to 1)</option>
+          {viewName === 'List' && <option value="dateOfBirth:DESC">Age (youngest to oldest)</option>}
+          {viewName === 'List' && <option value="dateOfBirth:ASC">Age (oldest to youngest)</option>}
+        </select>
+      </div>
+    )
 
     return (
       <div className="booking-search">
@@ -96,13 +127,17 @@ class SearchResults extends Component {
         <div className="row toggle-and-count-view">
           {totalResults > 0 ? (
             <div>
-              <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsViewDispatch} />
-              <div>
+              <div className="col-xs-6 col-sm-4 col-md-3">
                 {Math.min(pP * pN + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults}{' '}
                 results
               </div>
+              <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsViewDispatch} />
             </div>
           ) : null}
+        </div>
+
+        <div className="row">
+          <SortDropdown viewName={resultsView} />
         </div>
 
         <div className="row">
@@ -159,6 +194,7 @@ export function mapDispatchToProps(dispatch, props) {
     setResultsViewDispatch: pagination => dispatch(setResultsView(pagination)),
     boundLoadLocations: () => dispatch(loadLocations()),
     toggleSortOrder: currentDirection => dispatch(toggleSort(currentDirection, props.location.query)),
+    changeSortDispatch: value => dispatch(changeSort(value, props.location.query)),
     getSearchResults: query => dispatch({ type: NEW_SEARCH, payload: { query } }),
     showAlertTabForOffenderNo: offenderNo => dispatch(vD(offenderNo, DETAILS_TABS.ALERTS)),
   }
@@ -166,7 +202,7 @@ export function mapDispatchToProps(dispatch, props) {
 
 const mapStateToProps = (state, props) => {
   const results = state.getIn(['search', 'results']) || searchModel.get('results')
-  const { perPage, pageNumber, sortOrder } = props.location.query
+  const { perPage, pageNumber, sortFields, sortOrder } = props.location.query
   const totalResults = state.getIn(['search', 'totalResults']) || searchModel.get('totalResults')
   const resultsView = state.getIn(['search', 'resultsView']) || searchModel.get('resultsView')
   const locations = state.getIn(['search', 'details', 'locations']) || searchModel.getIn(['details', 'location'])
@@ -184,6 +220,7 @@ const mapStateToProps = (state, props) => {
     pagination: pagination.toJS(),
     resultsView,
     locations,
+    sortFields,
     sortOrder,
     shouldShowSpinner,
   }
