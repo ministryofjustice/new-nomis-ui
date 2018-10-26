@@ -9,6 +9,7 @@ const hsts = require('hsts')
 const appInsights = require('applicationinsights')
 const helmet = require('helmet')
 const path = require('path')
+const url = require('url')
 
 const setup = require('./middlewares/frontend-middleware')
 
@@ -54,10 +55,6 @@ if (config.app.production && config.analytics.appInsightsKey) {
     .start()
 }
 
-if (!config.app.production) {
-  config.setTestDefaults()
-}
-
 app.use(helmet())
 app.use(
   hsts({
@@ -77,20 +74,20 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, '../public')))
 
 app.use('/config', (req, res) => {
-  const url = config.app.feedbackUrl
+  const { feedbackUrl, mailTo } = config.app
   const omicUrl = config.apis.keyworker.ui_url
-  const whereaboutsUrl = config.apis.whereabouts.ui_url
-  const establishmentRollcheckUrl = config.apis.whereabouts.ui_rollcheck_url
-  const { mailTo } = config.app
-  if (!url && !omicUrl && !whereaboutsUrl && !mailTo) {
+  const prisonStaffHubUrl = config.apis.prisonStaffHub.ui_url
+
+  if (!feedbackUrl && !omicUrl && !prisonStaffHubUrl && !mailTo) {
     res.end()
     return
   }
   res.json({
-    url,
+    feedbackUrl,
     omicUrl,
-    whereaboutsUrl,
-    establishmentRollcheckUrl,
+    whereaboutsUrl: url.resolve(prisonStaffHubUrl, 'whereaboutssearch'),
+    establishmentRollcheckUrl: url.resolve(prisonStaffHubUrl, 'establishmentroll'),
+    globalSearchUrl: url.resolve(prisonStaffHubUrl, 'globalsearch'),
     mailTo,
   })
 })

@@ -4,20 +4,37 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import serialize from 'form-serialize'
 
-import { buildSearchQueryString } from 'utils/stringUtils'
+import { buildSearchQueryString, buildQueryString } from 'utils/stringUtils'
 
 import './searchForm.scss'
 
 class SearchForm extends Component {
+  constructor() {
+    super()
+    this.state = {
+      doGlobalSearch: false,
+    }
+  }
+
   handleSubmit(event) {
-    const { onSubmit } = this.props
     event.preventDefault()
+
+    const { onSubmit, globalSearchUrl, canGlobalSearch } = this.props
+    const { doGlobalSearch } = this.state
     const formData = serialize(event.target, { hash: true })
-    onSubmit(formData)
+
+    onSubmit(formData, canGlobalSearch && this.state && doGlobalSearch && globalSearchUrl)
+  }
+
+  handleGlobalSearchCheckBoxChange(currentValue) {
+    this.setState({
+      doGlobalSearch: !currentValue,
+    })
   }
 
   render() {
-    const { locations, defaultLocationPrefix, error } = this.props
+    const { locations, defaultLocationPrefix, error, canGlobalSearch } = this.props
+    const { doGlobalSearch } = this.state
 
     return (
       <form className="search-form" onSubmit={event => this.handleSubmit(event)}>
@@ -37,9 +54,8 @@ class SearchForm extends Component {
 
           <input
             name="keywords"
-            id="keywords"
             type="text"
-            title="Enter "
+            title="Enter"
             placeholder="Last Name, First Name or ID"
             autoComplete="off"
             className="form-control search-input"
@@ -49,17 +65,37 @@ class SearchForm extends Component {
             Search
           </button>
 
-          <div>
-            <label htmlFor="location" className="form-label">
-              Select location
-            </label>
-            <select className="form-control" name="locationPrefix" id="location" defaultValue={defaultLocationPrefix}>
-              {locations.map(location => (
-                <option key={location.locationPrefix} value={location.locationPrefix}>
-                  {location.description}
-                </option>
-              ))}
-            </select>
+          <div className="location-with-global-search-checkbox">
+            <div className="location-select">
+              <label htmlFor="location" className="form-label">
+                Select location
+              </label>
+              <select
+                disabled={doGlobalSearch}
+                className="form-control locationPrefix"
+                name="locationPrefix"
+                defaultValue={defaultLocationPrefix}
+              >
+                {locations.map(location => (
+                  <option key={location.locationPrefix} value={location.locationPrefix}>
+                    {location.description}
+                  </option>
+                ))}
+              </select>
+
+              {canGlobalSearch && (
+                <div className="multiple-choice">
+                  <input
+                    name="global-search"
+                    type="checkbox"
+                    className="global-search"
+                    value={doGlobalSearch}
+                    onChange={() => this.handleGlobalSearchCheckBoxChange(doGlobalSearch)}
+                  />
+                  <label htmlFor="global-search"> Global search </label>
+                </div>
+              )}
+            </div>
           </div>
 
           <button type="submit" className="button mobile-button">
@@ -81,15 +117,27 @@ SearchForm.defaultProps = {
 }
 
 function mapStateToProps(state) {
+  const user = state.getIn(['authentication', 'user'])
+
   return {
     defaultLocationPrefix: '',
     error: state.getIn(['home', 'searchError']),
+    canGlobalSearch: user && user.canGlobalSearch,
+    globalSearchUrl: state.getIn(['app', 'globalSearchUrl']),
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmit: formData => dispatch(push(`/results?${buildSearchQueryString(formData)}`)),
+    onSubmit(formData, globalSearchUrl) {
+      if (globalSearchUrl)
+        window.location.assign(
+          `${globalSearchUrl}?${buildQueryString({
+            keywords: formData.keywords,
+          })}`
+        )
+      else return dispatch(push(`/results?${buildSearchQueryString(formData)}`))
+    },
   }
 }
 

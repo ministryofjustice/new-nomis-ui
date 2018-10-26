@@ -55,4 +55,15 @@ describe('Authentication reducer', () => {
     expect(userState.isKeyWorkerAdmin).toBe(false)
     expect(userState.isKeyWorker).toBe(false)
   })
+
+  it('should return a user with global search access', () => {
+    const user = {
+      ...userData,
+      accessRoles: [{ roleCode: 'GLOBAL_SEARCH', roleDescription: 'Global search' }],
+    }
+    const state = authenticationReducer(Map({}), userMe({ user }))
+    const userState = state.get('user')
+
+    expect(userState.canGlobalSearch).toBe(true)
+  })
 })

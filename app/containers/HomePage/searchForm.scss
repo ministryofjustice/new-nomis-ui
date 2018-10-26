@@ -1,4 +1,22 @@
-.search-form{
+.search-form {
+
+  .location-with-global-search-checkbox {
+
+    .form-control:disabled {
+      color: grey;
+    }
+
+    .multiple-choice {
+
+      float: none;
+      display: inline-flex;
+
+      @include media-breakpoint-down(xs) {
+        display: none;
+      }
+      margin-left: 15px;
+    }
+  }
 
   .error-summary{
     width: 75% !important;
@@ -16,7 +34,7 @@
     margin-top: -1em;
 
     .heading-large{
-      margin-top:0em !important;
+      margin-top: 0em !important;
       margin-bottom: 1em !important;
     }
 
