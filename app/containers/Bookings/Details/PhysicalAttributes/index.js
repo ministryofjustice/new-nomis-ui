@@ -12,7 +12,7 @@ import { selectPhysicalAttributes, selectPhysicalMarks } from '../../selectors'
 class PhysicalAttributes extends PureComponent {
   // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { physicalAttributes, physicalMarks, setModalOpen, setModalData } = this.props
+    const { physicalAttributes, physicalMarks, boundSetModalOpen, boundSetModalData } = this.props
     const CharacteristicsTable = {
       title: 'Characteristics',
       columnWidths: [3, 4],
@@ -28,8 +28,8 @@ class PhysicalAttributes extends PureComponent {
           rows: mark,
         }}
         modalGridArray={physicalMarks.modalGridArray}
-        setModalOpen={setModalOpen}
-        setModalData={setModalData}
+        setModalOpen={boundSetModalOpen}
+        setModalData={boundSetModalData}
       />
     ))
 
@@ -38,7 +38,7 @@ class PhysicalAttributes extends PureComponent {
         <DataGrid
           gridData={CharacteristicsTable}
           modalGridArray={physicalAttributes.modalGridArray}
-          setModalOpen={setModalOpen}
+          setModalOpen={boundSetModalOpen}
           setModalData={setModalData}
         />
         {marksArray}
@@ -50,14 +50,14 @@ class PhysicalAttributes extends PureComponent {
 PhysicalAttributes.propTypes = {
   physicalAttributes: PropTypes.object.isRequired,
   physicalMarks: PropTypes.object.isRequired,
-  setModalOpen: PropTypes.func.isRequired,
-  setModalData: PropTypes.func.isRequired,
+  boundSetModalOpen: PropTypes.func.isRequired,
+  boundSetModalData: PropTypes.func.isRequired,
 }
 
 export function mapDispatchToProps(dispatch) {
   return {
-    setModalOpen: bool => dispatch(setModalOpen(bool)),
-    setModalData: bool => dispatch(setModalData(bool)),
+    boundSetModalOpen: bool => dispatch(setModalOpen(bool)),
+    boundSetModalData: bool => dispatch(setModalData(bool)),
   }
 }
 

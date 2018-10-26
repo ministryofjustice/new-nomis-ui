@@ -12,8 +12,8 @@ import './homepage.scss'
 
 class HomePage extends Component {
   componentDidMount() {
-    const { loadLocations } = this.props
-    loadLocations()
+    const { boundLoadLocations } = this.props
+    boundLoadLocations()
   }
 
   render() {
@@ -42,19 +42,15 @@ class HomePage extends Component {
   }
 }
 
-HomePage.defaultProps = {
-  loadLocations: () => {},
-}
-
 HomePage.propTypes = {
-  loadLocations: PropTypes.func,
+  boundLoadLocations: PropTypes.func.isRequired,
   locations: PropTypes.array.isRequired,
 }
 
 export function mapDispatchToProps(dispatch) {
   return {
     test: () => dispatch({ type: LOAD_ASSIGNMENTS, payload: {} }),
-    loadLocations: () => dispatch(loadLocations()),
+    boundLoadLocations: () => dispatch(loadLocations()),
   }
 }
 

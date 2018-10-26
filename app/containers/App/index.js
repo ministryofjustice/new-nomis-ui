@@ -40,32 +40,38 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    const { retrieveUserMe } = this.props
-    retrieveUserMe()
+    const { boundRetrieveUserMe } = this.props
+    boundRetrieveUserMe()
   }
 
   onBackgroundClick() {
-    const { setMenuOpen } = this.props
-    setMenuOpen(false)
+    const { boundSetMenuOpen } = this.props
+    boundSetMenuOpen(false)
   }
 
   requestExternalUrls() {
-    const { setOmicUrl, setWhereaboutsUrl, setEstablishmentRollcheckUrl, setFeedbackUrl, setMailTo } = this.props
+    const {
+      boundSetOmicUrl,
+      boundSetWhereaboutsUrl,
+      boundSetEstablishmentRollcheckUrl,
+      boundSetFeedbackUrl,
+      boundSetMailTo,
+    } = this.props
     axios.get('/config').then(response => {
-      setOmicUrl(response.data.omicUrl)
-      setWhereaboutsUrl(response.data.whereaboutsUrl)
-      setEstablishmentRollcheckUrl(response.data.establishmentRollcheckUrl)
-      setFeedbackUrl(response.data.url)
-      setMailTo(response.data.mailTo)
+      boundSetOmicUrl(response.data.omicUrl)
+      boundSetWhereaboutsUrl(response.data.whereaboutsUrl)
+      boundSetEstablishmentRollcheckUrl(response.data.establishmentRollcheckUrl)
+      boundSetFeedbackUrl(response.data.url)
+      boundSetMailTo(response.data.mailTo)
     })
   }
 
   resizeWindow() {
-    const { setDeviceFormat } = this.props
+    const { boundSetDeviceFormat } = this.props
     if (window.innerWidth > 1024) {
-      setDeviceFormat('desktop')
+      boundSetDeviceFormat('desktop')
     } else {
-      setDeviceFormat('mobile')
+      boundSetDeviceFormat('mobile')
     }
   }
 
@@ -111,17 +117,17 @@ export class App extends Component {
 
 App.propTypes = {
   children: PropTypes.node,
-  setDeviceFormat: PropTypes.func,
+  boundSetDeviceFormat: PropTypes.func,
   router: PropTypes.object.isRequired,
-  setMenuOpen: PropTypes.func,
-  retrieveUserMe: PropTypes.func,
+  boundSetMenuOpen: PropTypes.func,
+  boundRetrieveUserMe: PropTypes.func,
 }
 
 App.defaultProps = {
   children: [],
-  setDeviceFormat: () => {},
-  retrieveUserMe: () => {},
-  setMenuOpen: () => {},
+  boundSetDeviceFormat: () => {},
+  boundRetrieveUserMe: () => {},
+  boundSetMenuOpen: () => {},
 }
 
 const mapStateToProps = createStructuredSelector({
@@ -131,15 +137,15 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = dispatch => ({
-  retrieveUserMe: () => dispatch(retrieveUserMe()),
-  setDeviceFormat: format => dispatch(setDeviceFormat(format)),
-  setFeedbackUrl: url => dispatch(setFeedbackUrl(url)),
-  setMailTo: mailTo => dispatch(setMailTo(mailTo)),
-  setOmicUrl: url => dispatch(setOmicUrl(url)),
-  setWhereaboutsUrl: url => dispatch(setWhereaboutsUrl(url)),
-  setEstablishmentRollcheckUrl: url => dispatch(setEstablishmentRollcheckUrl(url)),
+  boundRetrieveUserMe: () => dispatch(retrieveUserMe()),
+  boundSetDeviceFormat: format => dispatch(setDeviceFormat(format)),
+  boundSetFeedbackUrl: url => dispatch(setFeedbackUrl(url)),
+  boundSetMailTo: mailTo => dispatch(setMailTo(mailTo)),
+  boundSetOmicUrl: url => dispatch(setOmicUrl(url)),
+  boundSetWhereaboutsUrl: url => dispatch(setWhereaboutsUrl(url)),
+  boundSetEstablishmentRollcheckUrl: url => dispatch(setEstablishmentRollcheckUrl(url)),
   hideTermsAndConditions: () => dispatch(hideTerms()),
-  setMenuOpen: flag => dispatch(setMenuOpen(flag)),
+  boundSetMenuOpen: flag => dispatch(setMenuOpen(flag)),
 })
 
 export default connect(
