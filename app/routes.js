@@ -6,7 +6,7 @@
 import { getAsyncInjectors } from 'utils/asyncInjectors'
 import { logOut } from 'containers/Authentication/actions' //eslint-disable-line
 import { setMenuOpen } from 'globalReducers/app'
-import { analyticsServiceBuilder } from 'utils/analyticsService'
+import analyticsServiceBuilder from 'utils/analyticsService'
 
 const analyticsService = analyticsServiceBuilder()
 

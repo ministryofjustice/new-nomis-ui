@@ -1,6 +1,6 @@
 import ReactGA from 'react-ga'
 
-export const analyticsServiceBuilder = () => {
+export default () => {
   let initialized = false
 
   const initialize = () => {

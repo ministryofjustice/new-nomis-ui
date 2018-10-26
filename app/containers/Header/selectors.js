@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect'
 
-import { selectUser } from '../Authentication/selectors'
+import selectUser from '../Authentication/selectors'
 import { selectUserCaseLoads, selectUserRoles } from '../EliteApiLoader/selectors'
 import { selectAssignmentsTotal } from '../Assignments/selectors'
 
-const selectUserHeaderInfo = () =>
+export default () =>
   createSelector(
     selectUser(),
     selectUserCaseLoads(),
@@ -27,5 +27,3 @@ const selectUserHeaderInfo = () =>
       return undefined
     }
   )
-
-export { selectUserHeaderInfo }

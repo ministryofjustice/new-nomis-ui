@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import { toFullName } from 'utils/stringUtils'
 import { loadOfficer } from 'containers/EliteApiLoader/actions'
-import { selectOfficerName } from './selectors'
+import selectOfficerName from './selectors'
 
 class EliteOfficerName extends PureComponent {
   // eslint-disable-line react/prefer-stateless-function

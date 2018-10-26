@@ -7,7 +7,7 @@ const selectOfficerKey = () => (_, props) => (props.staffId === undefined ? prop
 
 // const defaultImg = 'https://c1.staticflickr.com/6/5337/8940995208_5da979c52f.jpg';
 
-const selectOfficerName = () =>
+export default () =>
   createSelector(selectOfficerState(), selectOfficerKey(), (officerState, staffId) => {
     try {
       const officerData = officerState.get('Data')
@@ -18,5 +18,3 @@ const selectOfficerName = () =>
       return { staffId }
     }
   })
-
-export { selectOfficerName }

@@ -7,7 +7,7 @@ import { createSelector } from 'reselect'
 import Toggle from 'components/Toggle'
 import translations from './translations'
 import { appLocales } from '../../translations/i18n'
-import { changeLocale } from '../LanguageProvider/actions'
+import changeLocale from '../LanguageProvider/actions'
 import { selectLocale } from '../LanguageProvider/selectors'
 
 // eslint-disable-next-line react/prefer-stateless-function

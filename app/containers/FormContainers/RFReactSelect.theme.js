@@ -4,7 +4,7 @@ import Select from 'react-select'
 
 // import { RFReactSelect } from './RFReactSelect.theme';
 
-export const StyledSelect = styled(Select)`
+export default styled(Select)`
   &.is-focused {
     /*outline: 2px solid ${colours.forms.textInput.focusBorder};
     outline-offset: 0;*/

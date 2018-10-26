@@ -4,7 +4,7 @@ const selectLocations = () => state => state.getIn(['eliteApiLoader', 'Locations
 
 const selectLocationId = () => (_, props) => props.locationId
 
-const selectLocation = () =>
+export default () =>
   createSelector(selectLocations(), selectLocationId(), (locations, id) => {
     const loc = locations[`${id}`]
     if (!loc) {
@@ -12,5 +12,3 @@ const selectLocation = () =>
     }
     return loc
   })
-
-export { selectLocation }

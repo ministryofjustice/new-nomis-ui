@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Image } from './theme'
+import Image from './theme'
 
 const EliteImage = ({ src }) => <Image src={src} />
 

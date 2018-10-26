@@ -6,7 +6,7 @@ import MobileMenuComponent from 'components/MobileMenu'
 import ModalData from 'containers/Footer/modal-data'
 
 import { setMenuOpen, setModalData } from 'globalReducers/app'
-import { selectUserHeaderInfo } from '../Header/selectors'
+import selectUserHeaderInfo from '../Header/selectors'
 import { switchCaseLoad } from '../EliteApiLoader/actions'
 
 const MobileMenu = props => {

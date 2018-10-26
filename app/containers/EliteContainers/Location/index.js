@@ -4,7 +4,7 @@ import { intlShape } from 'react-intl'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 
-import { selectLocation } from './selectors'
+import selectLocation from './selectors'
 
 class EliteLocation extends PureComponent {
   // eslint-disable-line react/prefer-stateless-function
