@@ -52,7 +52,6 @@ export function setPagination(pagination) {
   }
 }
 export function toggleSort(currentDirection, pagination) {
-  console.log(`SDAR toggleSort ${currentDirection}`)
   const sortOrder = currentDirection === 'ASC' ? 'DESC' : 'ASC'
   const sortFields = 'lastName,firstName'
   return {

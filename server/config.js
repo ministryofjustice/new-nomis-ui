@@ -41,17 +41,6 @@ const apis = {
   },
 }
 
-const setTestDefaults = () => {
-  // Setup different default values when running locally or integration tests
-  // .env file still overrides.
-  if (!process.env.WHEREABOUTS_UI_URL) {
-    apis.whereabouts.ui_url = 'http://localhost:3002'
-  }
-  if (!process.env.OMIC_UI_URL) {
-    apis.keyworker.ui_url = 'http://localhost:3001'
-  }
-}
-
 module.exports = {
   app,
   analytics,

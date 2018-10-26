@@ -23,8 +23,6 @@ import {
   extendSessionRequest,
 } from 'utils/eliteApi'
 
-import { selectSearchResultsPagination, selectSearchResultsSortOrder, selectSearchQuery } from './selectors'
-
 import {
   DETAILS_TABS,
   SEARCH_SUCCESS,
@@ -298,7 +296,6 @@ export function* newSearch(action) {
     yield put(hideSpinner())
   } catch (err) {
     yield put(hideSpinner())
-    console.log(`SDAR yield error: ${err}`)
     yield put({ type: SEARCH_ERROR, payload: { error: err.message } })
   }
 }
