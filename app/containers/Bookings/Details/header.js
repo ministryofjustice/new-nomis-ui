@@ -4,7 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Map } from 'immutable'
 import { connect } from 'react-redux'
 
-import BookingsDetailsHeader from 'components/Bookings/Details/header'
+import BookingsDetailsHeader from '../../../components/Bookings/Details/header'
 
 import { showLargePhoto, viewDetails } from '../actions'
 import { DETAILS_TABS } from '../constants'

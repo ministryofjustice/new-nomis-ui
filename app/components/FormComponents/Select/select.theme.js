@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import colors from 'theme/colours'
+import colors from '../../../theme/colours'
 
 export const SelectStyle = styled.select`
   background: white;

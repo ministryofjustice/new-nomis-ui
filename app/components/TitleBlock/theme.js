@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import colours from 'theme/colours'
-import { media } from 'utils/style-utils'
+import colours from '../../theme/colours'
+import { media } from '../../utils/style-utils'
 
 export const Wrapper = styled.div`
   color: ${colours.baseFont};

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import moment from 'moment'
-import { DATE_ONLY_FORMAT_SPEC, ISO_8601_DATE_FORMAT } from 'containers/App/constants'
 import qs from 'querystring'
+import { DATE_ONLY_FORMAT_SPEC, ISO_8601_DATE_FORMAT } from '../containers/App/constants'
 
 const momentTo8601DateString = m => (m ? m.format(ISO_8601_DATE_FORMAT) : '')
 const momentFromDateOnlyFormatString = s => (s ? moment(s, DATE_ONLY_FORMAT_SPEC) : null)

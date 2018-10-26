@@ -1,10 +1,10 @@
 import { takeLatest, put, select, call } from 'redux-saga/effects'
 import { push } from 'react-router-redux'
 
-import { selectApi } from 'containers/ConfigLoader/selectors'
-import { buildPaginationQueryString } from 'utils/stringUtils'
-import { officerAssignments } from 'utils/eliteApi'
-import { showSpinner, hideSpinner } from 'globalReducers/app'
+import { selectApi } from '../ConfigLoader/selectors'
+import { buildPaginationQueryString } from '../../utils/stringUtils'
+import { officerAssignments } from '../../utils/eliteApi'
+import { showSpinner, hideSpinner } from '../../globalReducers/app'
 
 import {
   SET_ASSIGNMENTS,

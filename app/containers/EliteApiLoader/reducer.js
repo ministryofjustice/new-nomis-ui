@@ -1,7 +1,7 @@
 import { fromJS, Map, Set, List } from 'immutable'
 
-import { transform as transformOffenderDetails } from 'helpers/dataMappers/offenderDetails'
-import { Model as caseNoteModel, transform as caseNotesTransformer } from 'helpers/dataMappers/caseNotes'
+import { transform as transformOffenderDetails } from '../../helpers/dataMappers/offenderDetails'
+import { Model as caseNoteModel, transform as caseNotesTransformer } from '../../helpers/dataMappers/caseNotes'
 
 import {
   BOOKINGS,

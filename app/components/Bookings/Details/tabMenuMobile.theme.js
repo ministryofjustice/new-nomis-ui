@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import colours from 'theme/colours'
+import colours from '../../../theme/colours'
 
 const mobileTabNav = colours.bookings.details.mobileTabNav.buttonBackground
 

@@ -1,7 +1,7 @@
 import { fromJS } from 'immutable'
-import { transform as quickLookTransformer } from 'helpers/dataMappers/quickLook'
-import { transform as keyDatesTransformer } from 'helpers/dataMappers/keydates'
 import { LOCATION_CHANGE } from 'react-router-redux'
+import { transform as quickLookTransformer } from '../../helpers/dataMappers/quickLook'
+import { transform as keyDatesTransformer } from '../../helpers/dataMappers/keydates'
 
 import {
   SEARCH_SUCCESS,

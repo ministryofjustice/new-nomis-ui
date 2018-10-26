@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import { FormattedDate, FormattedTime } from 'components/intl'
+import { FormattedDate, FormattedTime } from '../../../intl'
 
-import { DETAILS_TABS } from 'containers/Bookings/constants'
+import { DETAILS_TABS } from '../../../../containers/Bookings/constants'
 
 import { DateTimeBlock2 } from './sharedCaseNoteComponents'
 

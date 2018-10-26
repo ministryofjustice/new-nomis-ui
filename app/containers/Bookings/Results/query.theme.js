@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import colours from 'theme/colours'
+import colours from '../../../theme/colours'
 
 export const QueryForm = styled.form`
   position: relative;

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 
-import { DATE_TIME_FORMAT_SPEC, DATE_ONLY_FORMAT_SPEC } from 'containers/App/constants'
+import { DATE_TIME_FORMAT_SPEC, DATE_ONLY_FORMAT_SPEC } from '../../../containers/App/constants'
 
 const formatNumbersUpTo = total =>
   [...Array(total).keys()].map(i => {

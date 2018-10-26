@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import colours from 'theme/colours'
 import InlineSVG from 'react-svg-inline'
 import { Link } from 'react-router'
+import colours from '../../theme/colours'
 
 export const MobileMenuContainer = styled.div`
   background: ${colours.userMenu.bg};

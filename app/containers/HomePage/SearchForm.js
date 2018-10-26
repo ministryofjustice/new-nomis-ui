@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import serialize from 'form-serialize'
 
-import { buildSearchQueryString } from 'utils/stringUtils'
+import { buildSearchQueryString } from '../../utils/stringUtils'
 
 import './searchForm.scss'
 

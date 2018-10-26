@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import PreviousNextNavigation from 'components/PreviousNextNavigation'
-import CaseNoteListItem from 'components/Bookings/Details/CaseNotes/listItem'
-import NoSearchResultsReturnedMessage from 'components/NoSearchResultsReturnedMessage'
+import PreviousNextNavigation from '../../../../components/PreviousNextNavigation'
+import CaseNoteListItem from '../../../../components/Bookings/Details/CaseNotes/listItem'
+import NoSearchResultsReturnedMessage from '../../../../components/NoSearchResultsReturnedMessage'
 
 import CaseNoteFilterForm from './filterForm'
 

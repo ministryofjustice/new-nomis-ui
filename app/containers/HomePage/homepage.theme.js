@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import colours from 'theme/colours'
+import colours from '../../theme/colours'
 
 export const Heading = styled.h1`
   color: ${colours.baseFont};

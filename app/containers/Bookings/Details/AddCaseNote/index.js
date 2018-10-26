@@ -6,20 +6,23 @@ import { createStructuredSelector } from 'reselect'
 import { createFormAction } from 'redux-form-saga'
 import { connect } from 'react-redux'
 import { Map } from 'immutable'
-import { selectLocale } from 'containers/LanguageProvider/selectors'
-import { SubmissionError, TextArea } from 'components/FormComponents'
+import { selectLocale } from '../../../LanguageProvider/selectors'
+import { SubmissionError, TextArea } from '../../../../components/FormComponents'
 
-import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from 'components/FormComponents/DatePicker'
-import TimePicker from 'components/FormComponents/TimePicker'
+import {
+  DatePicker,
+  momentToLocalizedDate,
+  localizedDateToMoment,
+} from '../../../../components/FormComponents/DatePicker'
+import TimePicker from '../../../../components/FormComponents/TimePicker'
 
-import TypeAndSubTypeSelector from 'components/Bookings/TypeAndSubTypeSelector'
-import { selectUsersTypesAndSubTypes } from 'containers/EliteApiLoader/selectors'
-import { loadCaseNoteTypesAndSubTypes } from 'containers/Bookings/actions'
-import SessionHeartbeatHandler from 'utils/sessionHeartbeatHandler'
-import { FormattedDate, FormattedTime } from 'components/intl'
+import TypeAndSubTypeSelector from '../../../../components/Bookings/TypeAndSubTypeSelector'
+import { selectUsersTypesAndSubTypes } from '../../../EliteApiLoader/selectors'
+import SessionHeartbeatHandler from '../../../../utils/sessionHeartbeatHandler'
+import { FormattedDate, FormattedTime } from '../../../../components/intl'
 
 import { DETAILS_TABS, ADD_NEW_CASENOTE } from '../../constants'
-import { viewDetails, extendActiveSession } from '../../actions'
+import { viewDetails, extendActiveSession, loadCaseNoteTypesAndSubTypes } from '../../actions'
 
 import './index.scss'
 

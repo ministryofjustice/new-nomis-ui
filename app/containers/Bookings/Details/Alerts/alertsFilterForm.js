@@ -5,12 +5,12 @@ import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form/lib/immutable'
 import PropTypes from 'prop-types'
 
-import DesktopAlertsFilterForm from 'components/Bookings/Details/AlertList/desktopAlertsFilterForm'
-import MobileAlertsFilterForm from 'components/Bookings/Details/AlertList/mobileAlertsFilterForm'
-import { loadAlertTypes } from 'containers/Bookings/actions'
+import DesktopAlertsFilterForm from '../../../../components/Bookings/Details/AlertList/desktopAlertsFilterForm'
+import MobileAlertsFilterForm from '../../../../components/Bookings/Details/AlertList/mobileAlertsFilterForm'
+import { loadAlertTypes } from '../../actions'
 
-import { selectLocale } from 'containers/LanguageProvider/selectors'
-import { selectAlertTypes } from 'containers/Bookings/Details/Alerts/selectors'
+import { selectLocale } from '../../../LanguageProvider/selectors'
+import { selectAlertTypes } from './selectors'
 
 class AlertsFilterForm extends Component {
   componentDidMount() {

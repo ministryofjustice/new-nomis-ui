@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import colours from 'theme/colours'
-// import desktop from 'theme/desktop';
+import colours from '../../../theme/colours'
+// import desktop from '../../../theme/desktop';
 
 const { desktopTabNav } = colours.bookings.details
 

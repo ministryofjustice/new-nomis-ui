@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { createSelector, createStructuredSelector } from 'reselect'
-import { showTerms } from 'globalReducers/app'
+import { showTerms } from '../../globalReducers/app'
 import { linkOnClick } from '../../helpers'
 import './footer.scss'
 

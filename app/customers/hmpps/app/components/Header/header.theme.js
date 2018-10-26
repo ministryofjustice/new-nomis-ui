@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import styled from 'styled-components'
 import colours from 'theme/colours'
 import fonts from 'theme/fonts'

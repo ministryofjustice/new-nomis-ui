@@ -1,8 +1,8 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects'
-import { users } from 'utils/eliteApi'
-import { selectApi } from 'containers/ConfigLoader/selectors'
-import { USER } from 'containers/EliteApiLoader/constants'
-import { showSpinner, hideSpinner } from 'globalReducers/app'
+import { users } from '../../utils/eliteApi'
+import { selectApi } from '../ConfigLoader/selectors'
+import { USER } from '../EliteApiLoader/constants'
+import { showSpinner, hideSpinner } from '../../globalReducers/app'
 
 import { USER_ME, RETRIEVE_USER_ME } from './constants'
 

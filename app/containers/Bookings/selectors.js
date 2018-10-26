@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect'
-import { toFullName } from 'utils/stringUtils'
+import { toFullName } from '../../utils/stringUtils'
 
-import { selectBookingDetails as selectEliteBookingDetails } from 'containers/EliteApiLoader/selectors'
+import { selectBookingDetails as selectEliteBookingDetails } from '../EliteApiLoader/selectors'
 
-import { intlSelector } from 'containers/LanguageProvider/selectors'
+import { intlSelector } from '../LanguageProvider/selectors'
 
 const selectSearch = () => state => state.get('search')
 

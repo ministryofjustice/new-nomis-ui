@@ -3,10 +3,9 @@
 // See http://blog.mxstbr.com/2016/01/react-apps-with-pages for more information
 // about the code splitting business
 
-import { getAsyncInjectors } from 'utils/asyncInjectors'
-import { logOut } from 'containers/Authentication/actions' //eslint-disable-line
-import { setMenuOpen } from 'globalReducers/app'
-import { analyticsServiceBuilder } from 'utils/analyticsService'
+import { getAsyncInjectors } from './utils/asyncInjectors'
+import { setMenuOpen } from './globalReducers/app'
+import { analyticsServiceBuilder } from './utils/analyticsService'
 
 const analyticsService = analyticsServiceBuilder()
 

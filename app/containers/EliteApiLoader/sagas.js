@@ -1,10 +1,10 @@
 import { put, select, call, takeLatest, takeEvery } from 'redux-saga/effects'
 import { push } from 'react-router-redux'
-import { retrieveUserMe } from 'containers/Authentication/actions'
-import { selectApi } from 'containers/ConfigLoader/selectors'
-import { loadLocations } from 'containers/Bookings/actions'
+import { retrieveUserMe } from '../Authentication/actions'
+import { selectApi } from '../ConfigLoader/selectors'
+import { loadLocations } from '../Bookings/actions'
 
-import { setMenuOpen, showSpinner, hideSpinner } from 'globalReducers/app'
+import { setMenuOpen, showSpinner, hideSpinner } from '../../globalReducers/app'
 
 import {
   officerDetails,
@@ -15,13 +15,12 @@ import {
   loadAllCaseNoteFilterItems,
   loadAllAlertTypes,
   loadAppointmentViewModel,
-} from 'utils/eliteApi'
-
-import { APPOINTMENT } from 'containers/EliteApiLoader/constants'
+} from '../../utils/eliteApi'
 
 import { selectOfficerStatus } from './selectors'
 
 import {
+  APPOINTMENT,
   BOOKINGS,
   LOAD_ALERT_TYPES,
   LOAD_CASE_NOTE_TYPES_SUBTYPES,

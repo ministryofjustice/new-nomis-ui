@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
 import { FormattedNumber } from 'react-intl'
-import { FormattedDate, FormattedTime } from 'components/intl'
 import { connect } from 'react-redux'
 import uuid from 'uuid/v4'
-
-import { properCaseName, toFullName } from 'utils/stringUtils'
-import DisplayValue from 'components/FormComponents/DisplayValue'
 import { Link } from 'react-router'
-import EliteOfficerName from 'containers/EliteContainers/OfficerName'
-import ValueWithLabel from 'components/ValueWithLabel'
+import { FormattedDate, FormattedTime } from '../../../../components/intl'
 
-import { Model as quickLookModel } from 'helpers/dataMappers/quickLook'
-import { Model as offenderProfileModel } from 'helpers/dataMappers/offenderDetails'
+import { properCaseName, toFullName } from '../../../../utils/stringUtils'
+import DisplayValue from '../../../../components/FormComponents/DisplayValue'
+import EliteOfficerName from '../../../EliteContainers/OfficerName'
+import ValueWithLabel from '../../../../components/ValueWithLabel'
 
-import { loadQuickLook } from 'containers/Bookings/actions'
+import { Model as quickLookModel } from '../../../../helpers/dataMappers/quickLook'
+import { Model as offenderProfileModel } from '../../../../helpers/dataMappers/offenderDetails'
+
+import { loadQuickLook } from '../../actions'
 
 import './index.scss'
 

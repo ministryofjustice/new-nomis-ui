@@ -12,7 +12,7 @@
 
 import { fromJS } from 'immutable'
 
-import { USER } from 'containers/EliteApiLoader/constants'
+import { USER } from '../EliteApiLoader/constants'
 
 import { CHANGE_USERNAME_INPUT, CHANGE_PASSWORD_INPUT, USER_ME } from './constants'
 

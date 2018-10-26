@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import colours from 'theme/colours'
+import colours from '../../theme/colours'
 
-import listIcon from 'assets/list-icon.svg'
-import gridIcon from 'assets/grid-icon.svg'
+import listIcon from '../../assets/list-icon.svg'
+import gridIcon from '../../assets/grid-icon.svg'
 
 import { IconSVG, ToggleButton, ToggleButtonContent, ToggleComponent, ToggleContainer } from './mobile.theme'
 

@@ -5,10 +5,10 @@
  *
  */
 import { addLocaleData } from 'react-intl'
-import { DEFAULT_LOCALE } from 'containers/App/constants' // eslint-disable-line
 
 import enLocaleData from 'react-intl/locale-data/en'
 import frLocaleData from 'react-intl/locale-data/fr'
+import { DEFAULT_LOCALE } from '../containers/App/constants'
 
 import enTranslationMessages from './en'
 import frTranslationMessages from './fr'

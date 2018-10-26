@@ -1,4 +1,4 @@
-import colours from 'theme/colours'
+import colours from './colours'
 
 export default {
   misc: `

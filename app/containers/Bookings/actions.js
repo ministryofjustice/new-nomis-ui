@@ -1,4 +1,4 @@
-import { LOAD_CASE_NOTE_TYPES_SUBTYPES, LOAD_ALERT_TYPES } from 'containers/EliteApiLoader/constants'
+import { LOAD_CASE_NOTE_TYPES_SUBTYPES, LOAD_ALERT_TYPES } from '../EliteApiLoader/constants'
 
 import {
   VIEW_DETAILS,
