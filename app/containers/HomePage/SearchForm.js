@@ -136,7 +136,7 @@ function mapDispatchToProps(dispatch) {
             keywords: formData.keywords,
           })}`
         )
-      else return dispatch(push(`/results?${buildSearchQueryString(formData)}`))
+      else dispatch(push(`/results?${buildSearchQueryString(formData)}`))
     },
   }
 }

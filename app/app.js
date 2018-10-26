@@ -23,12 +23,14 @@ import { applyRouterMiddleware, Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { useScroll } from 'react-router-scroll'
 
+// eslint-disable-next-line import/no-named-as-default
 import App from './containers/App'
 
 // Import selector for `syncHistoryWithStore`
 import { makeSelectLocationState } from './containers/App/selectors'
 
 // Import Language Provider
+// eslint-disable-next-line import/no-named-as-default
 import LanguageProvider from './containers/LanguageProvider'
 
 // Import reset css
