@@ -14,7 +14,6 @@ import Breadcrumbs from '../Breadcrumbs'
 import Footer from '../Footer'
 import Spinner from '../../components/Spinner'
 import Terms from '../Footer/terms-and-conditions'
-import FeedbackLink from '../FeedbackLink'
 
 import { setAppConfig, setDeviceFormat, setMenuOpen, hideTerms } from '../../globalReducers/app'
 
@@ -74,8 +73,6 @@ export class App extends Component {
 
         <Helmet title={ProductGlobals.serviceName} />
         <Header />
-
-        {!shouldShowTerms && <FeedbackLink />}
 
         <nav className="nav-container">
           <div className="nav-content">
