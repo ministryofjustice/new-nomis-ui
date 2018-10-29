@@ -44,18 +44,9 @@ export default function appReducer(state = initialState, action) {
       return state.set('shouldShowSpinner', action.payload)
     case SET_TERMS_VISIBILITY:
       return state.set('shouldShowTerms', action.payload)
-    // case SET_FEEDBACK_URL:
-    //   return state.set('feedbackUrl', action.payload)
-    // case SET_MAIL_TO:
-    //   return state.set('mailTo', action.payload)
-    // case SET_OMIC_URL:
-    //   return state.set('omicUrl', action.url)
-    // case SET_WHEREABOUTS_URL:
-    //   return state.set('whereaboutsUrl', action.url)
-    // case SET_ESTABLISHMENT_ROLLCALL_URL:
-    //   return state.set('establishmentRollcheckUrl', action.url)
     case SET_APP_CONFIG:
       Object.keys(action.payload).forEach(name => {
+        // eslint-disable-next-line
         state = state.set(name, action.payload[name])
       })
       return state
