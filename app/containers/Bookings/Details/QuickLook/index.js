@@ -1,3 +1,4 @@
+/* eslint-disable react/style-prop-object */
 import React, { Component } from 'react'
 import { FormattedNumber } from 'react-intl'
 import { connect } from 'react-redux'

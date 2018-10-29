@@ -5,12 +5,11 @@
  * code.
  */
 // Load the favicon, the manifest.json file and the .htaccess file
-// eslint-disable-next-line import/no-unresolved
+/* eslint-disable */
 import '!file-loader?name=[name].[ext]!./favicon.ico'
-// eslint-disable-next-line import/no-unresolved
 import '!file-loader?name=[name].[ext]!./manifest.json'
-// eslint-disable-next-line import/no-unresolved
 import 'file-loader?name=[name].[ext]!./.htaccess'
+/* eslint-enable */
 
 // Needed for redux-saga es6 generator support
 import 'babel-polyfill'
@@ -23,14 +22,12 @@ import { applyRouterMiddleware, Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { useScroll } from 'react-router-scroll'
 
-// eslint-disable-next-line import/no-named-as-default
 import App from './containers/App'
 
 // Import selector for `syncHistoryWithStore`
 import makeSelectLocationState from './containers/App/selectors'
 
 // Import Language Provider
-// eslint-disable-next-line import/no-named-as-default
 import LanguageProvider from './containers/LanguageProvider'
 
 // Import reset css

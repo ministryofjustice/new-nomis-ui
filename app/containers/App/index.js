@@ -14,7 +14,6 @@ import Breadcrumbs from '../Breadcrumbs'
 import Footer from '../Footer'
 import Spinner from '../../components/Spinner'
 import Terms from '../Footer/terms-and-conditions'
-// eslint-disable-next-line import/no-named-as-default
 import FeedbackLink from '../FeedbackLink'
 
 import { setAppConfig, setDeviceFormat, setMenuOpen, hideTerms } from '../../globalReducers/app'
