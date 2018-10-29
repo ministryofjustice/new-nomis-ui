@@ -35,7 +35,6 @@
     "react/prop-types": 0,
     "no-param-reassign": 0,
     "import/no-named-as-default": 0, // disable as we use connected components
-    "no-buffer-constructor": 0,
     "react/no-string-refs": 0,
     "prefer-promise-reject-errors": 0,
     "import/no-dynamic-require": 0
