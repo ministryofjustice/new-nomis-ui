@@ -27,9 +27,11 @@ class SearchAgainForm extends Component {
     const setSummary = event => {
       if (event.target.parentElement.open || event.target.parentElement.parentElement.open) {
         event.target.innerHTML = 'Show filters'
+        event.target.parentElement.setAttribute('aria-checked', false)
         clearFlags()
       } else {
         event.target.innerHTML = 'Hide filters'
+        event.target.parentElement.setAttribute('aria-checked', true)
       }
       return true
     }
@@ -93,7 +95,14 @@ class SearchAgainForm extends Component {
           </div>
 
           <details className="govuk-details add-gutter-padding-top visible-md visible-lg">
-            <summary className="govuk-details__summary" onClick={event => setSummary(event)} onKeyDown={() => {}}>
+            <summary
+              className="govuk-details__summary"
+              onClick={event => setSummary(event)}
+              onKeyDown={() => {}}
+              tabIndex="0"
+              role="switch"
+              aria-checked={false}
+            >
               <span className="govuk-details__summary-text">Show filters</span>
             </summary>
             <div className="govuk-details__text add-gutter-margin-left">
