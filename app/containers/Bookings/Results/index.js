@@ -53,7 +53,7 @@ const ResultsViewBuilder = ({
 class SearchResults extends Component {
   componentDidMount() {
     const { boundLoadLocations } = this.props
-    this.refs.focuspoint.scrollIntoView()
+    this.focusPoint.scrollIntoView()
     boundLoadLocations()
     this.loadSearch()
   }
@@ -117,9 +117,13 @@ class SearchResults extends Component {
       </div>
     )
 
+    const focusPoint = el => {
+      this.focusPoint = el
+    }
+
     return (
       <div className="booking-search">
-        <div className="row" ref="focuspoint">
+        <div className="row" ref={focusPoint}>
           <h1 className="heading-xlarge add-gutter-top"> Search results </h1>
           <SearchAgainForm locations={locations} query={query} />
         </div>

@@ -108,9 +108,9 @@ function Breadcrumbs({ route, lastSearchResultQuery, offenderDetails, context, o
               <span>{'>'}</span>
             </span>
           ) : (
-            <Link className="font-xsmall" key={breadcrumb.name}>
+            <span className="font-xsmall" key={breadcrumb.name}>
               {breadcrumb.name}
-            </Link>
+            </span>
           )
       )}
     </div>

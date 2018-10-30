@@ -1,16 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { FormattedDate, FormattedTime } from '../../../intl'
-
 import { DETAILS_TABS } from '../../../../containers/Bookings/constants'
-
 import { DateTimeBlock2 } from './sharedCaseNoteComponents'
-
+import { linkOnClick } from '../../../../helpers'
 import { PreStyle } from './listItem.theme'
-
 import './details-page.scss'
 
 const AmendmentBlock = ({ dateTime, authorName, text }) => (
@@ -71,10 +67,9 @@ const CaseNoteDetails = props => {
     <div className="case-note-details">
       <div className="row add-gutter-top">
         <div className="col-lg-2 add-gutter-bottom">
-          <Link className="link clickable" onClick={() => backToCaseNotes(offenderNo)}>
-            {' '}
-            {'<'} Back to list{' '}
-          </Link>
+          <a className="link clickable" {...linkOnClick(() => backToCaseNotes(offenderNo))}>
+            &lt; Back to list
+          </a>
         </div>
 
         <div className="col-lg-7">

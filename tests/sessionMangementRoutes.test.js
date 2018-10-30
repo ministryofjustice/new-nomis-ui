@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-expressions */
+/* eslint-disable no-unused-expressions, prefer-promise-reject-errors */
 const request = require('supertest')
 const express = require('express')
 const bodyParser = require('body-parser')
