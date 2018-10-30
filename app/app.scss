@@ -1,5 +1,9 @@
 .clickable{
   cursor: pointer;
+  
+   &:focus {
+    outline: 3px solid #ffbf47;
+   }
 }
 
 .button-start{

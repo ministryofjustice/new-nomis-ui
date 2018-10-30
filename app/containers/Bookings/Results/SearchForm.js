@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import serialize from 'form-serialize'
-
 import { buildSearchQueryString } from '../../../utils/stringUtils'
+import { linkOnClick } from '../../../helpers'
 
 import './SearchForm.scss'
 
@@ -138,7 +138,7 @@ class SearchAgainForm extends Component {
                 </div>
               </div>
               <div className="row col-md-11 no-left-gutter add-gutter-margin-top">
-                <a href="#" onClick={clearFlags}>
+                <a className="link clickable" {...linkOnClick(clearFlags)}>
                   Clear filters
                 </a>
               </div>
