@@ -26,7 +26,7 @@ const Alerts = ({ activeAlertCount, inactiveAlertCount }) => (
 
 const Location = ({ assignedLivingUnit }) => (
   <div>
-    <span>Location</span>
+    <span className="label">Location</span>
 
     <div>
       <strong>{assignedLivingUnit && assignedLivingUnit.get('description')}</strong>
@@ -48,14 +48,14 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
       <div className="col-xs-4 col-sm-3 visible-large">
         <div className="row">
           <div className="col">
-            <span>IEP</span>
+            <span className="label">IEP</span>
             <strong>{inmateData.get('iepLevel') || '--'}</strong>
           </div>
         </div>
 
         <div className="row">
           <div className="col">
-            <span>CSRA</span>
+            <span className="label">CSRA</span>
             <strong>{inmateData.get('csra') || '--'}</strong>
           </div>
         </div>
@@ -63,7 +63,7 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
         {cat && (
           <div className="row">
             <div className="col">
-              <span>Category</span>
+              <span className="label">Category</span>
               <strong>{cat}</strong>
             </div>
           </div>
@@ -72,18 +72,18 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
       <div className="col-xs-12 visible-small">
         <div className="row">
           <div className="col-xs-4 d-inline-block">
-            <span>IEP</span>
+            <span className="label">IEP</span>
             <strong>{inmateData.get('iepLevel') || '--'}</strong>
           </div>
 
           <div className="col-xs-4 d-inline-block">
-            <span>CSRA</span>
+            <span className="label">CSRA</span>
             <strong>{inmateData.get('csra') || '--'}</strong>
           </div>
 
           {cat && (
             <div className="col-xs-4 d-inline-block">
-              <span>Category</span>
+              <span className="label">Category</span>
               <strong>{cat}</strong>
             </div>
           )}
@@ -94,7 +94,7 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
         <div className="col-xs-6 col-sm-3">
           <div className="row">
             <div className="col">
-              <span>Alerts</span>
+              <span className="label">Alerts</span>
               <Alerts
                 activeAlertCount={inmateData.get('activeAlertCount')}
                 inactiveAlertCount={inmateData.get('inactiveAlertCount')}
@@ -114,7 +114,7 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
         <div className="col-xs-4">
           <div className="row">
             <div className="col">
-              <span>Alerts</span>
+              <span className="label">Alerts</span>
               <Alerts
                 activeAlertCount={inmateData.get('activeAlertCount')}
                 inactiveAlertCount={inmateData.get('inactiveAlertCount')}
@@ -177,14 +177,14 @@ function Header({ inmateData, onImageClick, offenderNo, onAlertFlagClick }) {
             <div className="col-md-3 col-sm-3 col-xs-12">
               <div className="row">
                 <div className="col">
-                  <span>Prison number</span>
+                  <span className="label">Prison number</span>
                   <strong>{inmateData.get('offenderNo')}</strong>
                 </div>
               </div>
 
               <div className="row">
                 <div className="col">
-                  <span>Key worker</span>
+                  <span className="label">Key worker</span>
                   <strong>
                     {inmateData.get('keyworker') && (
                       <EliteOfficerName staffId={inmateData.getIn(['keyworker', 'staffId'])} />
