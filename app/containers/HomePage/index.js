@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { LOAD_ASSIGNMENTS } from '../Assignments/constants'
 import ActionLinks from '../../components/ActionLinks'
 import SearchForm from './SearchForm'
 
@@ -17,7 +16,7 @@ class HomePage extends Component {
   }
 
   render() {
-    const { user, locations, omicUrl, whereaboutsUrl, establishmentRollcheckUrl } = this.props
+    const { user, omicUrl, whereaboutsUrl, establishmentRollcheckUrl } = this.props
     if (!user) {
       return <div />
     }
@@ -25,10 +24,9 @@ class HomePage extends Component {
     return (
       <div>
         <h1 className="heading-xlarge">Welcome back</h1>
-        <SearchForm locations={locations} />
+        <SearchForm />
         <div>
           <ActionLinks
-            className="no-left-gutter"
             isKeyWorkerAdmin={user.isKeyWorkerAdmin}
             isKeyWorker={user.isKeyWorker}
             isWhereabouts={user.isWhereabouts}
@@ -43,32 +41,37 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {
+  // mapStateToProps
+  user: PropTypes.shape({
+    isKeyWorkerAdmin: PropTypes.bool.isRequired,
+    isKeyWorker: PropTypes.bool.isRequired,
+    isWhereabouts: PropTypes.bool.isRequired,
+  }),
+  omicUrl: PropTypes.string,
+  whereaboutsUrl: PropTypes.string,
+  establishmentRollcheckUrl: PropTypes.string,
+
+  // mapDispatchToProps
   boundLoadLocations: PropTypes.func.isRequired,
-  locations: PropTypes.array.isRequired,
 }
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    test: () => dispatch({ type: LOAD_ASSIGNMENTS, payload: {} }),
-    boundLoadLocations: () => dispatch(loadLocations()),
-  }
+HomePage.defaultProps = {
+  user: {},
+  omicUrl: null,
+  whereaboutsUrl: null,
+  establishmentRollcheckUrl: null,
 }
 
-const mapStateToProps = state => {
-  const user = state.getIn(['authentication', 'user'])
-  const locations = state.getIn(['home', 'locations']).toJS()
-  const omicUrl = state.getIn(['app', 'omicUrl'])
-  const whereaboutsUrl = state.getIn(['app', 'whereaboutsUrl'])
-  const establishmentRollcheckUrl = state.getIn(['app', 'establishmentRollcheckUrl'])
+const mapDispatchToProps = dispatch => ({
+  boundLoadLocations: () => dispatch(loadLocations()),
+})
 
-  return {
-    user,
-    locations,
-    omicUrl,
-    whereaboutsUrl,
-    establishmentRollcheckUrl,
-  }
-}
+const mapStateToProps = state => ({
+  user: state.getIn(['authentication', 'user']),
+  omicUrl: state.getIn(['app', 'omicUrl']),
+  whereaboutsUrl: state.getIn(['app', 'whereaboutsUrl']),
+  establishmentRollcheckUrl: state.getIn(['app', 'establishmentRollcheckUrl']),
+})
 
 export default connect(
   mapStateToProps,

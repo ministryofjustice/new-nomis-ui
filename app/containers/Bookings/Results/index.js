@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { List, Map } from 'immutable'
 import { connect } from 'react-redux'
@@ -49,6 +50,15 @@ const ResultsViewBuilder = ({
       sortOrder={sortOrder}
     />
   )
+
+ResultsViewBuilder.propTypes = {
+  viewName: PropTypes.string.isRequired,
+  results: ImmutablePropTypes.list.isRequired,
+  onViewDetails: PropTypes.func.isRequired,
+  sortOrderChange: PropTypes.func.isRequired,
+  sortOrder: PropTypes.string.isRequired,
+  showAlertTabForOffenderNo: PropTypes.func.isRequired,
+}
 
 class SearchResults extends Component {
   componentDidMount() {
@@ -174,14 +184,30 @@ class SearchResults extends Component {
 }
 
 SearchResults.propTypes = {
+  // mapStateToProps
+  sortFields: PropTypes.arrayOf(PropTypes.string).isRequired,
+  sortOrder: PropTypes.string.isRequired,
+  shouldShowSpinner: PropTypes.bool.isRequired,
+
   results: ImmutablePropTypes.list,
-  viewDetails: PropTypes.func.isRequired,
   totalResults: PropTypes.number,
-  pagination: PropTypes.object.isRequired,
-  setPage: PropTypes.func.isRequired,
+  pagination: PropTypes.shape({ pageNumber: PropTypes.number.isRequired, perPage: PropTypes.number.isRequired })
+    .isRequired,
   resultsView: PropTypes.string,
-  setResultsViewDispatch: PropTypes.func.isRequired,
   locations: ImmutablePropTypes.list,
+
+  // mapDispatchToProps
+  viewDetails: PropTypes.func.isRequired,
+  setPage: PropTypes.func.isRequired,
+  setResultsViewDispatch: PropTypes.func.isRequired,
+  boundLoadLocations: PropTypes.func.isRequired,
+  toggleSortOrder: PropTypes.func.isRequired,
+  changeSortDispatch: PropTypes.func.isRequired,
+  getSearchResults: PropTypes.func.isRequired,
+  showAlertTabForOffenderNo: PropTypes.func.isRequired,
+
+  // special
+  location: ReactRouterPropTypes.location.isRequired,
 }
 
 SearchResults.defaultProps = {
@@ -191,18 +217,16 @@ SearchResults.defaultProps = {
   locations: List([]),
 }
 
-export function mapDispatchToProps(dispatch, props) {
-  return {
-    viewDetails: offenderNo => dispatch(vD(offenderNo, DETAILS_TABS.QUICK_LOOK)),
-    setPage: pagination => dispatch(sP({ ...props.location.query, ...pagination })),
-    setResultsViewDispatch: pagination => dispatch(setResultsView(pagination)),
-    boundLoadLocations: () => dispatch(loadLocations()),
-    toggleSortOrder: currentDirection => dispatch(toggleSort(currentDirection, props.location.query)),
-    changeSortDispatch: value => dispatch(changeSort(value, props.location.query)),
-    getSearchResults: query => dispatch({ type: NEW_SEARCH, payload: { query } }),
-    showAlertTabForOffenderNo: offenderNo => dispatch(vD(offenderNo, DETAILS_TABS.ALERTS)),
-  }
-}
+const mapDispatchToProps = (dispatch, props) => ({
+  viewDetails: offenderNo => dispatch(vD(offenderNo, DETAILS_TABS.QUICK_LOOK)),
+  setPage: pagination => dispatch(sP({ ...props.location.query, ...pagination })),
+  setResultsViewDispatch: pagination => dispatch(setResultsView(pagination)),
+  boundLoadLocations: () => dispatch(loadLocations()),
+  toggleSortOrder: currentDirection => dispatch(toggleSort(currentDirection, props.location.query)),
+  changeSortDispatch: value => dispatch(changeSort(value, props.location.query)),
+  getSearchResults: query => dispatch({ type: NEW_SEARCH, payload: { query } }),
+  showAlertTabForOffenderNo: offenderNo => dispatch(vD(offenderNo, DETAILS_TABS.ALERTS)),
+})
 
 const mapStateToProps = (state, props) => {
   const results = state.getIn(['search', 'results']) || searchModel.get('results')
@@ -212,11 +236,10 @@ const mapStateToProps = (state, props) => {
   const locations = state.getIn(['search', 'details', 'locations']) || searchModel.getIn(['details', 'location'])
   const shouldShowSpinner = state.getIn(['app', 'shouldShowSpinner'])
 
-  let pagination = state.getIn(['search', 'pagination'])
-
-  if (perPage && pageNumber) {
-    pagination = Map({ perPage: Number(perPage), pageNumber: Number(pageNumber) })
-  }
+  const pagination =
+    perPage && pageNumber
+      ? Map({ perPage: Number(perPage), pageNumber: Number(pageNumber) })
+      : state.getIn(['search', 'pagination'])
 
   return {
     results,

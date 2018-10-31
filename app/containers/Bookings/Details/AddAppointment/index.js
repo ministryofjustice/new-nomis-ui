@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { reduxForm, Field, formValueSelector } from 'redux-form/immutable'
 import { connect } from 'react-redux'
 import { Map, List } from 'immutable'
@@ -199,23 +200,32 @@ class AddAppointment extends Component {
   }
 }
 
-export function mapDispatchToProps(dispatch, props) {
-  return {
-    boundViewDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.ADD_APPOINTMENT)),
-    goBackToBookingDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.QUICK_LOOK)),
-    loadViewModel: agencyId => dispatch(loadAppointmentViewModel(agencyId)),
-    onSubmit: createFormAction(
-      formData => ({
-        type: APPOINTMENT.ADD,
-        payload: {
-          ...formData.toJS(),
-          offenderNo: props.params.offenderNo,
-        },
-      }),
-      [APPOINTMENT.SUCCESS, APPOINTMENT.ERROR]
-    ),
-  }
+AddAppointment.propTypes = {
+  // mapStateToProps
+  offendersAgencyId: PropTypes.string.isRequired,
+  offenderNo: PropTypes.string.isRequired,
+
+  // mapDispatchToProps
+  boundViewDetails: PropTypes.func.isRequired,
+  goBackToBookingDetails: PropTypes.func.isRequired,
+  loadViewModel: PropTypes.func.isRequired,
 }
+
+const mapDispatchToProps = (dispatch, props) => ({
+  boundViewDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.ADD_APPOINTMENT)),
+  goBackToBookingDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.QUICK_LOOK)),
+  loadViewModel: agencyId => dispatch(loadAppointmentViewModel(agencyId)),
+  onSubmit: createFormAction(
+    formData => ({
+      type: APPOINTMENT.ADD,
+      payload: {
+        ...formData.toJS(),
+        offenderNo: props.params.offenderNo,
+      },
+    }),
+    [APPOINTMENT.SUCCESS, APPOINTMENT.ERROR]
+  ),
+})
 
 const mapStateToProps = (immutableState, props) => {
   const languageState = immutableState.get('language')

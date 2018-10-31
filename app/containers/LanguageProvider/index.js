@@ -27,7 +27,7 @@ export class LanguageProvider extends React.PureComponent {
 
 LanguageProvider.propTypes = {
   locale: PropTypes.string.isRequired,
-  messages: PropTypes.object.isRequired,
+  messages: PropTypes.shape({ en: PropTypes.shape({}).isRequired, 'en-GB': PropTypes.shape({}).isRequired }).isRequired,
   children: PropTypes.element.isRequired,
 }
 

@@ -1,5 +1,8 @@
 /* eslint-disable react/style-prop-object */
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import { List } from 'immutable'
 import { FormattedNumber } from 'react-intl'
 import { connect } from 'react-redux'
 import uuid from 'uuid/v4'
@@ -58,6 +61,13 @@ export const Balances = ({ spends, cash, savings, currency }) => (
   </div>
 )
 
+Balances.propTypes = {
+  spends: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  cash: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  savings: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  currency: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+}
+
 export const OffenceDetails = ({ offences, releaseDate, indeterminateReleaseDate }) => (
   <div>
     {!offences.size && <div> No offence details are available at this time </div>}
@@ -93,6 +103,18 @@ export const OffenceDetails = ({ offences, releaseDate, indeterminateReleaseDate
     )}
   </div>
 )
+
+OffenceDetails.propTypes = {
+  offences: ImmutablePropTypes.list,
+  releaseDate: PropTypes.string,
+  indeterminateReleaseDate: PropTypes.bool,
+}
+
+OffenceDetails.defaultProps = {
+  offences: List([]),
+  releaseDate: null,
+  indeterminateReleaseDate: false,
+}
 
 export const Activities = ({ activities, period }) => (
   <div>
@@ -141,6 +163,11 @@ export const Activities = ({ activities, period }) => (
   </div>
 )
 
+Activities.propTypes = {
+  activities: ImmutablePropTypes.list.isRequired,
+  period: PropTypes.string.isRequired,
+}
+
 const NegativeAndPositiveCaseNoteCount = ({ negativeCaseNotes, positiveCaseNotes }) => (
   <div>
     <div className="row border-bottom-line">
@@ -168,6 +195,16 @@ const NegativeAndPositiveCaseNoteCount = ({ negativeCaseNotes, positiveCaseNotes
     </div>
   </div>
 )
+
+NegativeAndPositiveCaseNoteCount.propTypes = {
+  negativeCaseNotes: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  positiveCaseNotes: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+}
+
+NegativeAndPositiveCaseNoteCount.defaultProps = {
+  negativeCaseNotes: '',
+  positiveCaseNotes: '',
+}
 
 export const Adjudications = ({ adjudications }) => {
   const awards = adjudications.get('awards')
@@ -213,6 +250,10 @@ export const Adjudications = ({ adjudications }) => {
   )
 }
 
+Adjudications.propTypes = {
+  adjudications: ImmutablePropTypes.map.isRequired,
+}
+
 export const KeyWorkerSessionDate = ({ lastKeyWorkerSessionDate }) => (
   <div className="row border-bottom-line">
     <div className="col-lg-6 col-xs-6">
@@ -224,6 +265,14 @@ export const KeyWorkerSessionDate = ({ lastKeyWorkerSessionDate }) => (
     </div>
   </div>
 )
+
+KeyWorkerSessionDate.propTypes = {
+  lastKeyWorkerSessionDate: PropTypes.string,
+}
+
+KeyWorkerSessionDate.defaultProps = {
+  lastKeyWorkerSessionDate: null,
+}
 
 export const NextOfKin = ({ nextOfKin }) => (
   <div>
@@ -265,6 +314,10 @@ export const NextOfKin = ({ nextOfKin }) => (
     ))}
   </div>
 )
+
+NextOfKin.propTypes = {
+  nextOfKin: ImmutablePropTypes.list.isRequired,
+}
 
 export const Visits = ({ lastVisit, nextVisit }) => (
   <div>
@@ -313,6 +366,11 @@ export const Visits = ({ lastVisit, nextVisit }) => (
     </div>
   </div>
 )
+
+Visits.propTypes = {
+  lastVisit: ImmutablePropTypes.map.isRequired,
+  nextVisit: ImmutablePropTypes.map.isRequired,
+}
 
 export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason }) => (
   <div>
@@ -381,6 +439,18 @@ export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason 
   </div>
 )
 
+LastVisit.propTypes = {
+  date: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+  leadVisitor: PropTypes.string,
+  cancellationReason: PropTypes.string.isRequired,
+}
+
+LastVisit.defaultProps = {
+  leadVisitor: '',
+}
+
 export const NextVisit = ({ date, type, leadVisitor }) => (
   <div>
     <div className="row border-bottom-line">
@@ -422,6 +492,16 @@ export const NextVisit = ({ date, type, leadVisitor }) => (
     </div>
   </div>
 )
+
+NextVisit.propTypes = {
+  date: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  leadVisitor: PropTypes.string,
+}
+
+NextVisit.defaultProps = {
+  leadVisitor: '',
+}
 
 export const AssignedStaffMembers = ({
   keyWorkerId,
@@ -482,6 +562,18 @@ export const AssignedStaffMembers = ({
       )}
     </div>
   )
+}
+
+AssignedStaffMembers.propTypes = {
+  keyWorkerId: PropTypes.string,
+  communityOffenderManager: ImmutablePropTypes.map.isRequired,
+  offenderSupervisor: ImmutablePropTypes.map.isRequired,
+  caseAdministrator: ImmutablePropTypes.map.isRequired,
+  drugWorker: ImmutablePropTypes.map.isRequired,
+}
+
+AssignedStaffMembers.defaultProps = {
+  keyWorkerId: null,
 }
 
 class QuickLook extends Component {
@@ -590,11 +682,16 @@ class QuickLook extends Component {
   }
 }
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    loadViewModel: offenderNo => dispatch(loadQuickLook(offenderNo)),
-  }
+QuickLook.propTypes = {
+  offenderNo: PropTypes.string.isRequired,
+  loadViewModel: PropTypes.func.isRequired,
+  viewModel: ImmutablePropTypes.map.isRequired,
+  offenderDetails: ImmutablePropTypes.map.isRequired,
 }
+
+const mapDispatchToProps = dispatch => ({
+  loadViewModel: offenderNo => dispatch(loadQuickLook(offenderNo)),
+})
 
 const mapStateToProps = (immutableState, props) => {
   const data =

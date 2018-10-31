@@ -1,17 +1,25 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import { Map } from 'immutable'
+import { Map, List } from 'immutable'
 import SearchForm from '../SearchForm'
 
 describe('Search Form', () => {
   it('should hide the global search checkbox when the user does not have global search', () => {
     const store = {
-      getState: () => Map({}),
+      getState: () =>
+        Map({
+          app: Map({
+            globalSearchUrl: 'http://somewhere/',
+          }),
+          home: Map({
+            locations: List([]),
+          }),
+        }),
       dispatch: () => {},
       subscribe: () => {},
     }
 
-    const wrapper = mount(<SearchForm store={store} locations={[]} />)
+    const wrapper = mount(<SearchForm store={store} />)
     expect(wrapper.find('.global-search').length).toBe(0)
   })
 
@@ -19,16 +27,22 @@ describe('Search Form', () => {
     const store = {
       getState: () =>
         Map({
+          app: Map({
+            globalSearchUrl: 'http://somewhere/',
+          }),
           authentication: Map({
             user: {
               canGlobalSearch: true,
             },
           }),
+          home: Map({
+            locations: List([]),
+          }),
         }),
       dispatch: () => {},
       subscribe: () => {},
     }
-    const wrapper = mount(<SearchForm store={store} locations={[]} />)
+    const wrapper = mount(<SearchForm store={store} />)
     expect(wrapper.find('.global-search').length).toBe(1)
   })
 
@@ -36,17 +50,23 @@ describe('Search Form', () => {
     const store = {
       getState: () =>
         Map({
+          app: Map({
+            globalSearchUrl: 'http://somewhere/',
+          }),
           authentication: Map({
             user: {
               canGlobalSearch: true,
             },
+          }),
+          home: Map({
+            locations: List([]),
           }),
         }),
       dispatch: () => {},
       subscribe: () => {},
     }
 
-    const wrapper = mount(<SearchForm store={store} locations={[]} />)
+    const wrapper = mount(<SearchForm store={store} />)
     const checkBox = wrapper.find('.global-search').first()
     const dropDown = wrapper.find('.locationPrefix')
 
@@ -71,12 +91,15 @@ describe('Search Form', () => {
               canGlobalSearch: true,
             },
           }),
+          home: Map({
+            locations: List([]),
+          }),
         }),
       dispatch: jest.fn(),
       subscribe: () => {},
     }
 
-    const wrapper = mount(<SearchForm store={store} locations={[]} />)
+    const wrapper = mount(<SearchForm store={store} />)
     const checkBox = wrapper.find('.global-search').first()
     const searchInput = wrapper.find('.search-input').first()
     const form = wrapper.find('.search-form').first()
@@ -96,22 +119,27 @@ describe('Search Form', () => {
     const store = {
       getState: () =>
         Map({
+          app: Map({
+            globalSearchUrl: 'http://somewhere/',
+          }),
           authentication: Map({
             user: {
               canGlobalSearch: true,
             },
+          }),
+          home: Map({
+            locations: List([]),
           }),
         }),
       dispatch: jest.fn(),
       subscribe: () => {},
     }
 
-    const wrapper = mount(<SearchForm store={store} locations={[]} />)
+    const wrapper = mount(<SearchForm store={store} />)
     const searchInput = wrapper.find('.search-input').first()
-    const form = wrapper.find('.search-form').first()
-
     searchInput.node.value = 'balog, irog'
 
+    const form = wrapper.find('.search-form').first()
     form.simulate('submit')
 
     const expectedUrl = `/results?locationPrefix=&keywords=balog%2C%20irog&perPage=10&pageNumber=0&sortFields=lastName&sortFields=firstName&sortOrder=ASC`
