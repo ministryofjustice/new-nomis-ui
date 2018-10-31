@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 
 import './index.scss'
@@ -14,6 +15,10 @@ export const KeyWorkerAdminLink = ({ omicUrl }) => (
     </div>
   </div>
 )
+
+KeyWorkerAdminLink.propTypes = {
+  omicUrl: PropTypes.string.isRequired,
+}
 
 export const MyAllocationsLink = () => (
   <div className="link-box">
@@ -43,6 +48,10 @@ export const WhereaboutsLink = ({ whereaboutsUrl }) => (
   </div>
 )
 
+WhereaboutsLink.propTypes = {
+  whereaboutsUrl: PropTypes.string.isRequired,
+}
+
 export const EstablishmentRollCheckLink = ({ establishmentRollCheckUrl }) => (
   <div className="link-box">
     <img src="/img/EstablishmentRoll_icon.png" className="add-gutter-margin-right" alt="Establishment roll icon" />
@@ -54,6 +63,10 @@ export const EstablishmentRollCheckLink = ({ establishmentRollCheckUrl }) => (
     </div>
   </div>
 )
+
+EstablishmentRollCheckLink.propTypes = {
+  establishmentRollCheckUrl: PropTypes.string.isRequired,
+}
 
 const ActionLinks = ({
   isKeyWorkerAdmin,
@@ -99,6 +112,15 @@ const ActionLinks = ({
       </div>
     </div>
   )
+}
+
+ActionLinks.propTypes = {
+  isKeyWorkerAdmin: PropTypes.bool.isRequired,
+  isKeyWorker: PropTypes.bool.isRequired,
+  isWhereabouts: PropTypes.bool.isRequired,
+  omicUrl: PropTypes.string.isRequired,
+  whereaboutsUrl: PropTypes.string.isRequired,
+  establishmentRollcheckUrl: PropTypes.string.isRequired,
 }
 
 export default ActionLinks

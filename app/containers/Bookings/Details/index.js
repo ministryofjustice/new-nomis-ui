@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 
@@ -146,20 +147,33 @@ class Details extends Component {
 }
 
 Details.propTypes = {
+  // mapStateToProps
   deviceFormat: PropTypes.string,
+  params: PropTypes.shape({
+    activeTab: PropTypes.string.isRequired,
+    offenderNo: PropTypes.string.isRequired,
+    itemId: PropTypes.string,
+  }).isRequired,
+  imageSrcUrl: PropTypes.number.isRequired,
+  shouldShowLargePhoto: PropTypes.bool.isRequired,
+
+  // mapDispatchToProps
+  boundViewDetails: PropTypes.func.isRequired,
+  hidePhoto: PropTypes.func.isRequired,
+
+  // special
+  location: ReactRouterPropTypes.location.isRequired,
 }
 
 Details.defaultProps = {
   deviceFormat: '',
 }
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    boundViewDetails: (offenderNo, activeTabId, itemId) => dispatch(viewDetails(offenderNo, activeTabId, itemId)),
-    hidePhoto: imageSrcUrl => dispatch(hideLargePhoto(imageSrcUrl)),
-  }
-}
-// selectShouldShowCarouselForMobile
+const mapDispatchToProps = dispatch => ({
+  boundViewDetails: (offenderNo, activeTabId, itemId) => dispatch(viewDetails(offenderNo, activeTabId, itemId)),
+  hidePhoto: imageSrcUrl => dispatch(hideLargePhoto(imageSrcUrl)),
+})
+
 const mapStateToProps = createStructuredSelector({
   deviceFormat: selectDeviceFormat(),
   activeTabId: (state, props) => props.params.activeTab,

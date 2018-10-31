@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Link } from 'react-router'
 import EliteImage from '../../../containers/EliteContainers/Image'
 import EliteOfficerName from '../../../containers/EliteContainers/OfficerName'
@@ -24,6 +25,11 @@ const Alerts = ({ activeAlertCount, inactiveAlertCount }) => (
   </div>
 )
 
+Alerts.propTypes = {
+  activeAlertCount: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.string.isRequired]).isRequired,
+  inactiveAlertCount: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.string.isRequired]).isRequired,
+}
+
 const Location = ({ assignedLivingUnit }) => (
   <div>
     <span className="label">Location</span>
@@ -37,6 +43,10 @@ const Location = ({ assignedLivingUnit }) => (
     </div>
   </div>
 )
+
+Location.propTypes = {
+  assignedLivingUnit: ImmutablePropTypes.map.isRequired,
+}
 
 const MiddleSection = ({ inmateData, offenderNo }) => {
   let cat = inmateData.get('category')
@@ -147,7 +157,12 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
   )
 }
 
-function Header({ inmateData, onImageClick, offenderNo, onAlertFlagClick }) {
+MiddleSection.propTypes = {
+  offenderNo: PropTypes.string.isRequired,
+  inmateData: ImmutablePropTypes.map.isRequired,
+}
+
+const Header = ({ inmateData, onImageClick, offenderNo, onAlertFlagClick }) => {
   const nameString = toFullName({ firstName: inmateData.get('firstName'), lastName: inmateData.get('lastName') })
 
   const alertFlags = className => AlertFlags(inmateData.get('alerts'), className, onAlertFlagClick)
@@ -211,9 +226,10 @@ function Header({ inmateData, onImageClick, offenderNo, onAlertFlagClick }) {
 }
 
 Header.propTypes = {
-  inmateData: PropTypes.object.isRequired,
-  onImageClick: PropTypes.func.isRequired,
+  inmateData: ImmutablePropTypes.map.isRequired,
   offenderNo: PropTypes.string.isRequired,
+  onImageClick: PropTypes.func.isRequired,
+  onAlertFlagClick: PropTypes.func.isRequired,
 }
 
 export default Header

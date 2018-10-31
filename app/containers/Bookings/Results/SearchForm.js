@@ -159,22 +159,16 @@ SearchAgainForm.defaultProps = {
   error: '',
 }
 
-function mapStateToProps(state, props) {
-  // console.log('SDAR Searchform.mapStateToProps:')
-  // console.log(state.toJS())
-  return {
-    keywords: props.query.keywords || '',
-    locationPrefix: props.query.locationPrefix || (props.locations.length && props.locations[0].locationPrefix),
-    alerts: props.query.alerts || [],
-    error: state.getIn(['home', 'searchError']),
-  }
-}
+const mapStateToProps = (state, props) => ({
+  keywords: props.query.keywords || '',
+  locationPrefix: props.query.locationPrefix || (props.locations.length && props.locations[0].locationPrefix),
+  alerts: props.query.alerts || [],
+  error: state.getIn(['home', 'searchError']),
+})
 
-function mapDispatchToProps(dispatch) {
-  return {
-    onSubmit: formData => dispatch(push(`/results?${buildSearchQueryString(formData)}`)),
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  onSubmit: formData => dispatch(push(`/results?${buildSearchQueryString(formData)}`)),
+})
 
 export default connect(
   mapStateToProps,

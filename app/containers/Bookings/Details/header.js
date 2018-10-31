@@ -25,7 +25,8 @@ const Header = ({ headerDetails, showPhoto, offenderNo, showAlertTabForOffenderN
 Header.propTypes = {
   headerDetails: ImmutablePropTypes.map,
   showPhoto: PropTypes.func,
-  showAlertTabForOffenderNo: PropTypes.func,
+  showAlertTabForOffenderNo: PropTypes.func.isRequired,
+  offenderNo: PropTypes.string.isRequired,
 }
 
 Header.defaultProps = {
@@ -46,23 +47,16 @@ Header.defaultProps = {
     keyworker: null,
   }),
   showPhoto: () => {},
-  showAlertTabForOffenderNo: () => {},
 }
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    showPhoto: imageId => dispatch(showLargePhoto(imageId)),
-    showAlertTabForOffenderNo: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.ALERTS)),
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  showPhoto: imageId => dispatch(showLargePhoto(imageId)),
+  showAlertTabForOffenderNo: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.ALERTS)),
+})
 
-const mapStateToProps = (immutableState, props) => {
-  const headerDetails = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data'])
-
-  return {
-    headerDetails,
-  }
-}
+const mapStateToProps = (immutableState, props) => ({
+  headerDetails: immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']),
+})
 
 // Wrap the component to inject dispatch and state into it
 export default connect(

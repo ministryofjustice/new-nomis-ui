@@ -108,38 +108,47 @@ class SearchForm extends Component {
   }
 }
 SearchForm.propTypes = {
-  locations: PropTypes.array.isRequired,
+  defaultLocationPrefix: PropTypes.string,
+
+  // mapStateToProps
+  locations: PropTypes.arrayOf(
+    PropTypes.shape({ locationPrefix: PropTypes.string.isRequired, description: PropTypes.string.isRequired })
+  ).isRequired,
   error: PropTypes.string,
+  canGlobalSearch: PropTypes.bool.isRequired,
+  globalSearchUrl: PropTypes.string.isRequired,
+
+  // mapDispatchToProps
+  onSubmit: PropTypes.func.isRequired,
 }
 
 SearchForm.defaultProps = {
   error: '',
+  defaultLocationPrefix: '',
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   const user = state.getIn(['authentication', 'user'])
 
   return {
-    defaultLocationPrefix: '',
+    locations: state.getIn(['home', 'locations']).toJS(),
     error: state.getIn(['home', 'searchError']),
-    canGlobalSearch: user && user.canGlobalSearch,
+    canGlobalSearch: (user && user.canGlobalSearch) || false,
     globalSearchUrl: state.getIn(['app', 'globalSearchUrl']),
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    onSubmit(formData, globalSearchUrl) {
-      if (globalSearchUrl)
-        window.location.assign(
-          `${globalSearchUrl}?${buildQueryString({
-            searchText: formData.keywords,
-          })}`
-        )
-      else dispatch(push(`/results?${buildSearchQueryString(formData)}`))
-    },
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  onSubmit: (formData, globalSearchUrl) => {
+    if (globalSearchUrl)
+      window.location.assign(
+        `${globalSearchUrl}?${buildQueryString({
+          searchText: formData.keywords,
+        })}`
+      )
+    else dispatch(push(`/results?${buildSearchQueryString(formData)}`))
+  },
+})
 
 export default connect(
   mapStateToProps,

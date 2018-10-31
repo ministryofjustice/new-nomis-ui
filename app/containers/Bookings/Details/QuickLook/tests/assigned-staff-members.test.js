@@ -1,12 +1,20 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import each from 'jest-each'
+import { Map } from 'immutable'
 import { AssignedStaffMembers } from '../index'
 
 describe('<AssignedStaffMembers />', () => {
   let wrapper
   beforeEach(() => {
-    wrapper = shallow(<AssignedStaffMembers />)
+    wrapper = shallow(
+      <AssignedStaffMembers
+        caseAdministrator={Map({})}
+        communityOffenderManager={Map({})}
+        drugWorker={Map({})}
+        offenderSupervisor={Map({})}
+      />
+    )
   })
 
   describe('when there are no staff members', () => {
@@ -17,7 +25,7 @@ describe('<AssignedStaffMembers />', () => {
 
   describe('when there are staff members', () => {
     it('should render a Key Worker label and value', () => {
-      const staffId = 12345
+      const staffId = '12345'
       wrapper.setProps({ keyWorkerId: staffId })
       expect(wrapper.find('ValueWithLabel').prop('label')).toEqual('Key Worker')
       expect(wrapper.find('Connect(EliteOfficerName)').prop('staffId')).toEqual(staffId)

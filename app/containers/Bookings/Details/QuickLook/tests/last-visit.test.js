@@ -49,7 +49,7 @@ describe('Visits', () => {
         type="Social Contact"
         status="Ongoing"
         leadVisitor="John Smith (Brother)"
-        cancellationReason={null}
+        cancellationReason=""
       />
     )
 
@@ -62,13 +62,7 @@ describe('Visits', () => {
 
   it('should display missing lead visitor correctly for last visit', () => {
     const component = shallow(
-      <LastVisit
-        date="2018-01-25"
-        type="Social Contact"
-        status="Attended"
-        leadVisitor={null}
-        cancellationReason={null}
-      />
+      <LastVisit date="2018-01-25" type="Social Contact" status="Attended" leadVisitor={null} cancellationReason="" />
     )
 
     expect(component.contains(<DisplayValue value="Social Contact" />)).toBe(true)
@@ -79,7 +73,9 @@ describe('Visits', () => {
   })
 
   it('should display missing lead visitor correctly for next visit', () => {
-    const component = shallow(<LastVisit date="2018-01-25" type="Social Contact" leadVisitor={null} />)
+    const component = shallow(
+      <LastVisit date="2018-01-25" type="Social Contact" leadVisitor={null} cancellationReason="" status="" />
+    )
 
     expect(component.contains(<DisplayValue value="Social Contact" />)).toBe(true)
     expect(component.contains(<DisplayValue value={null} />)).toBe(true)

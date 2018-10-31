@@ -54,7 +54,7 @@ const toLastVisit = visit => {
   return {
     ...toVisit(visit),
     status,
-    cancellationReason: isCancelledVisit && visit.cancelReasonDescription,
+    cancellationReason: (isCancelledVisit && visit.cancelReasonDescription) || '',
   }
 }
 
