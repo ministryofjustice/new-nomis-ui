@@ -1,19 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { injectIntl } from 'react-intl'
+import { injectIntl, intlShape } from 'react-intl'
 import moment from 'moment'
 
-export const FormattedDate = injectIntl(({ value, intl }) => {
+const InternalFormattedDate = ({ value, intl }) => {
   const m = moment(value)
   m.locale(intl.locale)
   return <span>{m.format('L')}</span>
-})
+}
 
-export const FormattedTime = injectIntl(({ value, intl }) => {
+InternalFormattedDate.propTypes = {
+  value: PropTypes.string.isRequired,
+  intl: intlShape.isRequired,
+}
+
+export const FormattedDate = injectIntl(InternalFormattedDate)
+
+const InternalFormattedTime = ({ value, intl }) => {
   const m = moment(value)
   m.locale(intl.locale)
   return <span>{m.format('LT')}</span>
-})
+}
+
+InternalFormattedTime.propTypes = {
+  value: PropTypes.string.isRequired,
+  intl: intlShape.isRequired,
+}
+
+export const FormattedTime = injectIntl(InternalFormattedTime)
 
 FormattedDate.propTypes = {
   value: PropTypes.string.isRequired,

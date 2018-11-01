@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { Map } from 'immutable'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
@@ -76,27 +78,36 @@ class CaseNotes extends Component {
 }
 
 CaseNotes.propTypes = {
+  // mapStateToProps
   offenderNo: PropTypes.string.isRequired,
-  query: PropTypes.object.isRequired,
-  loadCaseNotes: PropTypes.func.isRequired,
+  caseNotes: ImmutablePropTypes.list.isRequired,
+  query: PropTypes.shape({ pageNumber: PropTypes.number.isRequired, perPage: PropTypes.number.isRequired }).isRequired,
   totalResults: PropTypes.number,
+  caseNoteId: PropTypes.string.isRequired,
+
+  // mapDispatchToProps
+  loadCaseNotes: PropTypes.func.isRequired,
+  setPagination: PropTypes.func.isRequired,
+  setCaseNoteView: PropTypes.func.isRequired,
+  loadTypesSubTypes: PropTypes.func.isRequired,
+
+  // special
+  location: ReactRouterPropTypes.location.isRequired,
 }
 
 CaseNotes.defaultProps = {
   totalResults: 0,
 }
 
-export function mapDispatchToProps(dispatch, props) {
-  return {
-    loadCaseNotes: (id, query) => dispatch(loadBookingCaseNotes(id, query)),
-    setPagination: (id, pagination) =>
-      dispatch(
-        push(`/offenders/${id}/case-notes?${buildCaseNotQueryString({ ...props.location.query, ...pagination })}`)
-      ),
-    setCaseNoteView: id => dispatch(push(`/offenders/${props.offenderNo}/${DETAILS_TABS.CASE_NOTES}/${id}`)),
-    loadTypesSubTypes: () => dispatch(loadCaseNoteTypesAndSubTypes()),
-  }
-}
+const mapDispatchToProps = (dispatch, props) => ({
+  loadCaseNotes: (id, query) => dispatch(loadBookingCaseNotes(id, query)),
+  setPagination: (id, pagination) =>
+    dispatch(
+      push(`/offenders/${id}/case-notes?${buildCaseNotQueryString({ ...props.location.query, ...pagination })}`)
+    ),
+  setCaseNoteView: id => dispatch(push(`/offenders/${props.offenderNo}/${DETAILS_TABS.CASE_NOTES}/${id}`)),
+  loadTypesSubTypes: () => dispatch(loadCaseNoteTypesAndSubTypes()),
+})
 
 const mapStateToProps = (immutableState, props) => {
   const { offenderNo } = props

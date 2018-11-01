@@ -5,7 +5,9 @@ import { Event } from '../index'
 
 describe('Event component', () => {
   it('should format the startTime and endTime into a time only format', () => {
-    const component = shallow(<Event startTime="2017-12-12T08:00" endTime="2017-12-12T22:00" />)
+    const component = shallow(
+      <Event startTime="2017-12-12T08:00" endTime="2017-12-12T22:00" cancelled="no" shortComment="" type="" />
+    )
     const startTime = component.find('.whereabouts-startTime').node
     const endTime = component.find('.whereabouts-endTime').node
 
@@ -14,7 +16,7 @@ describe('Event component', () => {
   })
 
   it('should handle the scenario where no endTime supplied', () => {
-    const component = shallow(<Event startTime="2017-12-12T08:00" endTime={null} />)
+    const component = shallow(<Event startTime="2017-12-12T08:00" endTime="" cancelled="" shortComment="" type="" />)
     const endTime = component.find('.whereabouts-endTime').node
 
     expect(endTime).toBe(undefined)

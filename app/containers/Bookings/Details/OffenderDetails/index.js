@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import uuid from 'uuid/v4'
 import { connect } from 'react-redux'
 import { FormattedDate } from '../../../../components/intl'
@@ -13,7 +15,12 @@ import './index.scss'
 
 const FormatValue = ({ start, end }) =>
   (start && <span> {(start && end && `${start} ${end}`) || `${start}`} </span>) || <span>--</span>
+
 const Alias = ({ lastName, firstName }) => <span> {toFullName({ lastName, firstName })} </span>
+Alias.propTypes = {
+  lastName: PropTypes.string.isRequired,
+  firstName: PropTypes.string.isRequired,
+}
 
 const getProfileInformation = (offenderDetails, code) => {
   const result = offenderDetails.get('profileInformation').find(item => item.get('type') === code)
@@ -310,11 +317,14 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
   )
 }
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    showPhoto: imageSrcUrl => dispatch(showLargePhoto(imageSrcUrl)),
-  }
+OffenderDetails.propTypes = {
+  offenderDetails: ImmutablePropTypes.map.isRequired,
+  showPhoto: PropTypes.bool.isRequired,
 }
+
+const mapDispatchToProps = dispatch => ({
+  showPhoto: imageSrcUrl => dispatch(showLargePhoto(imageSrcUrl)),
+})
 
 const mapStateToProps = (immutableState, props) => {
   const offenderDetails =

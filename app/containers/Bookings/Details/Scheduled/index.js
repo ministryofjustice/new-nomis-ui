@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { List } from 'immutable'
@@ -41,9 +43,21 @@ export const Event = ({ startTime, endTime, type, shortComment, cancelled }) => 
   </div>
 )
 
+Event.propTypes = {
+  startTime: PropTypes.string.isRequired,
+  endTime: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  shortComment: PropTypes.string.isRequired,
+  cancelled: PropTypes.string.isRequired,
+}
+
 export const DayAndDate = ({ value }) => (
   <h1 className="heading-medium whereabouts-day-header">{moment(value).format('dddd')}</h1>
 )
+
+DayAndDate.propTypes = {
+  value: PropTypes.string.isRequired,
+}
 
 class ScheduledEvents extends Component {
   componentDidMount() {
@@ -203,13 +217,28 @@ class ScheduledEvents extends Component {
     )
   }
 }
-export function mapDispatchToProps(dispatch) {
-  return {
-    loadThisWeeksScheduledEvents: offenderNo => dispatch(loadScheduledEventsForThisWeek(offenderNo)),
-    loadNextWeeksScheduledEvents: offenderNo => dispatch(loadScheduledEventsForNextWeek(offenderNo)),
-    loadBookingDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.SCHEDULED)),
-  }
+
+ScheduledEvents.propTypes = {
+  // mapStateToProps
+  offenderNo: PropTypes.string.isRequired,
+  scheduledEvents: ImmutablePropTypes.list.isRequired,
+  offenderDetails: ImmutablePropTypes.map.isRequired,
+  offenderName: PropTypes.shape({
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+  }).isRequired,
+  currentFilter: ImmutablePropTypes.map.isRequired,
+
+  // mapDispatchToProps
+  loadThisWeeksScheduledEvents: PropTypes.func.isRequired,
+  loadNextWeeksScheduledEvents: PropTypes.func.isRequired,
+  loadBookingDetails: PropTypes.func.isRequired,
 }
+const mapDispatchToProps = dispatch => ({
+  loadThisWeeksScheduledEvents: offenderNo => dispatch(loadScheduledEventsForThisWeek(offenderNo)),
+  loadNextWeeksScheduledEvents: offenderNo => dispatch(loadScheduledEventsForNextWeek(offenderNo)),
+  loadBookingDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.SCHEDULED)),
+})
 
 const mapStateToProps = (immutableState, props) => {
   const { offenderNo } = props.params
