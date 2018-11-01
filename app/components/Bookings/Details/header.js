@@ -10,7 +10,7 @@ import { offenderImageUrl } from '../../../containers/Bookings/constants'
 import { linkOnClick } from '../../../helpers'
 
 import './header.scss'
-import AlertFlags from '../AlertFlags'
+import flags from '../AlertFlags'
 
 const Alerts = ({ activeAlertCount, inactiveAlertCount }) => (
   <div className="alerts">
@@ -49,10 +49,9 @@ Location.propTypes = {
 }
 
 const MiddleSection = ({ inmateData, offenderNo }) => {
-  let cat = inmateData.get('category')
-  if (cat && cat.startsWith('Cat ')) {
-    cat = cat.substr(4)
-  }
+  const cat = inmateData.get('categoryCode')
+  const category =
+    cat === 'A' ? flags.AssessmentFlags(inmateData.get('categoryCode'), 'aclass') : <strong>{cat}</strong>
   return (
     <div className="middle-section">
       <div className="col-xs-4 col-sm-3 visible-large">
@@ -74,7 +73,7 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
           <div className="row">
             <div className="col">
               <span className="label">Category</span>
-              <strong>{cat}</strong>
+              {category}
             </div>
           </div>
         )}
@@ -94,7 +93,7 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
           {cat && (
             <div className="col-xs-4 d-inline-block">
               <span className="label">Category</span>
-              <strong>{cat}</strong>
+              {category}
             </div>
           )}
         </div>
@@ -165,7 +164,7 @@ MiddleSection.propTypes = {
 const Header = ({ inmateData, onImageClick, offenderNo, onAlertFlagClick }) => {
   const nameString = toFullName({ firstName: inmateData.get('firstName'), lastName: inmateData.get('lastName') })
 
-  const alertFlags = className => AlertFlags(inmateData.get('alerts'), className, onAlertFlagClick)
+  const alertFlags = className => flags.AlertFlags(inmateData.get('alerts'), className, onAlertFlagClick)
 
   return (
     <div className="header-details">
