@@ -1,10 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Field } from 'redux-form/immutable'
 import moment from 'moment'
 import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from '../../../FormComponents/DatePicker'
 import SelectWithLabel from '../../../FormComponents/SelectWithLabel'
 
 import './mobileAlertsFilterForm.scss'
+import { alertTypesType } from '../../../../containers/Bookings/Details/Alerts/selectors'
 
 const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleSubmit, reset }) => (
   <details className="govuk-details add-gutter-padding-top">
@@ -71,5 +73,19 @@ const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleS
     </form>
   </details>
 )
+
+MobileAlertsFilterForm.propTypes = {
+  alertTypes: alertTypesType.isRequired,
+  locale: PropTypes.string.isRequired,
+  submitting: PropTypes.bool,
+  error: PropTypes.string,
+  handleSubmit: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
+}
+
+MobileAlertsFilterForm.defaultProps = {
+  error: '',
+  submitting: false,
+}
 
 export default MobileAlertsFilterForm

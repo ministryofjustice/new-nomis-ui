@@ -15,6 +15,7 @@ import AlertList from '../../../../components/Bookings/Details/AlertList'
 import { DATE_ONLY_FORMAT_SPEC } from '../../../App/constants'
 import { loadBookingAlerts } from '../../../EliteApiLoader/actions'
 import alertsModel from '../../../../helpers/dataMappers/alerts'
+import { alertTypesFilterType } from './selectors'
 
 class Alerts extends Component {
   componentDidMount() {
@@ -57,13 +58,16 @@ class Alerts extends Component {
 }
 
 Alerts.propTypes = {
-  loadAlerts: PropTypes.func.isRequired,
-  setPagination: PropTypes.func.isRequired,
   offenderNo: PropTypes.string.isRequired,
-  filter: PropTypes.object.isRequired,
+  filter: alertTypesFilterType.isRequired,
   pagination: PropTypes.object.isRequired,
   alerts: ImmutablePropTypes.list.isRequired,
   deviceFormat: PropTypes.string.isRequired,
+
+  // mapDispatchToProps
+  loadAlerts: PropTypes.func.isRequired,
+  setPagination: PropTypes.func.isRequired,
+  setFilter: PropTypes.func.isRequired,
 }
 
 const buildUrl = (offenderNo, queryParams) =>
@@ -77,15 +81,13 @@ const adaptFilterValues = ({ fromDate, toDate, alertType }) => {
   }
 }
 
-export function mapDispatchToProps(dispatch, props) {
-  return {
-    loadAlerts: (id, pagination, filter) => dispatch(loadBookingAlerts(id, pagination, filter)),
-    setPagination: (offenderNo, pagination) =>
-      dispatch(push(buildUrl(offenderNo, { ...props.location.query, ...pagination }))),
-    // filter is {alertType: string, fromDate: moment, toDate: moment }
-    setFilter: (offenderNo, filter) => dispatch(push(buildUrl(offenderNo, adaptFilterValues(filter)))),
-  }
-}
+const mapDispatchToProps = (dispatch, props) => ({
+  loadAlerts: (id, pagination, filter) => dispatch(loadBookingAlerts(id, pagination, filter)),
+  setPagination: (offenderNo, pagination) =>
+    dispatch(push(buildUrl(offenderNo, { ...props.location.query, ...pagination }))),
+  // filter is {alertType: string, fromDate: moment, toDate: moment }
+  setFilter: (offenderNo, filter) => dispatch(push(buildUrl(offenderNo, adaptFilterValues(filter)))),
+})
 
 const mapStateToProps = (immutableState, props) => {
   const momentFromDateString = dateString => (dateString ? moment(dateString, DATE_ONLY_FORMAT_SPEC) : '')
@@ -94,7 +96,7 @@ const mapStateToProps = (immutableState, props) => {
   const alertItems = alerts.get('items') || List([])
   const totalResults = alerts.getIn(['MetaData', 'TotalRecords'])
   const deviceFormat = immutableState.getIn(['app', 'deviceFormat'])
-  const { fromDate, toDate, alertType, perPage, pageNumber } = props.location.query
+  const { fromDate, toDate, alertType = '', perPage, pageNumber } = props.location.query
   const filter = { fromDate: momentFromDateString(fromDate), toDate: momentFromDateString(toDate), alertType }
   const pagination = { perPage: perPage || 10, pageNumber: pageNumber || 0 }
 

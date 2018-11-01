@@ -18,12 +18,21 @@ const ArrowUp = ({ sortOrderChange }) => (
     <img src="/img/Triangle_asc.png" height="8" width="15" alt="Up arrow" />{' '}
   </span>
 )
+
+ArrowUp.propTypes = {
+  sortOrderChange: PropTypes.func.isRequired,
+}
+
 const ArrowDown = ({ sortOrderChange }) => (
   <span className="clickable visible-xs-inline visible-sm-inline" {...linkOnClick(sortOrderChange)}>
     {' '}
     <img src="/img/Triangle_desc.png" height="8" width="15" alt="Down arrow" />{' '}
   </span>
 )
+
+ArrowDown.propTypes = {
+  sortOrderChange: PropTypes.func.isRequired,
+}
 
 const onViewDetails = (event, row) => {
   event.preventDefault()
@@ -103,13 +112,9 @@ const Table = ({ results, sortOrder, sortOrderChange, onAlertFlagClick }) => (
   </div>
 )
 
-Table.defaultProps = {
-  sortOrderChange: () => {},
-}
-
 Table.propTypes = {
   results: ImmutablePropTypes.list.isRequired,
-  sortOrderChange: PropTypes.func,
+  sortOrderChange: PropTypes.func.isRequired,
   sortOrder: PropTypes.string.isRequired,
 }
 

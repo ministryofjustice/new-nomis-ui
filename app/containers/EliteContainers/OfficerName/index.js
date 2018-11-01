@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { intlShape } from 'react-intl'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import { toFullName } from '../../../utils/stringUtils'
@@ -8,16 +7,6 @@ import { loadOfficer } from '../../EliteApiLoader/actions'
 import selectOfficerName from './selectors'
 
 class EliteOfficerName extends PureComponent {
-  // eslint-disable-line react/prefer-stateless-function
-  static contextTypes = {
-    intl: intlShape.isRequired,
-  }
-
-  static propTypes = {
-    name: PropTypes.object.isRequired,
-    boundLoadOfficer: PropTypes.func.isRequired,
-  }
-
   componentDidMount() {
     const { boundLoadOfficer } = this.props
     boundLoadOfficer()
@@ -33,13 +22,17 @@ class EliteOfficerName extends PureComponent {
   }
 }
 
-export function mapDispatchToProps(dispatch, props) {
-  return {
-    boundLoadOfficer: () => {
-      dispatch(loadOfficer(props.staffId, props.username))
-    },
-  }
+EliteOfficerName.propTypes = {
+  name: PropTypes.shape({ firstName: PropTypes.string, lastName: PropTypes.string, staffId: PropTypes.number })
+    .isRequired,
+  boundLoadOfficer: PropTypes.func.isRequired,
 }
+
+const mapDispatchToProps = (dispatch, props) => ({
+  boundLoadOfficer: () => {
+    dispatch(loadOfficer(props.staffId, props.username))
+  },
+})
 
 const mapStateToProps = createStructuredSelector({
   name: selectOfficerName(),

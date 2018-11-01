@@ -1,10 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Field } from 'redux-form/immutable'
 import moment from 'moment'
 import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from '../../../FormComponents/DatePicker'
 import SelectWithLabel from '../../../FormComponents/SelectWithLabel'
 
 import './desktopAlertsFilterForm.scss'
+import { alertTypesType } from '../../../../containers/Bookings/Details/Alerts/selectors'
 
 const DesktopAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleSubmit, reset }) => (
   <form className="desktop-alerts-filter-form" onSubmit={handleSubmit}>
@@ -67,5 +69,19 @@ const DesktopAlertsFilterForm = ({ alertTypes, locale, submitting, error, handle
     </div>
   </form>
 )
+
+DesktopAlertsFilterForm.propTypes = {
+  alertTypes: alertTypesType.isRequired,
+  locale: PropTypes.string.isRequired,
+  submitting: PropTypes.bool,
+  error: PropTypes.string,
+  handleSubmit: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
+}
+
+DesktopAlertsFilterForm.defaultProps = {
+  error: '',
+  submitting: false,
+}
 
 export default DesktopAlertsFilterForm

@@ -23,6 +23,10 @@ class EliteLocation extends PureComponent {
   }
 }
 
+EliteLocation.propTypes = {
+  location: PropTypes.shape({}).isRequired,
+}
+
 const mapStateToProps = createStructuredSelector({
   location: selectLocation(),
 })

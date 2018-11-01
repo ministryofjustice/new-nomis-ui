@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import styled from 'styled-components'
 import uuid from 'uuid/v4'
 import { FormattedDate, FormattedTime } from '../../../intl'
@@ -57,7 +58,7 @@ const RightPadding = styled.span`
   margin-right: 3px;
 `
 
-function AmendmentBlock({ amendment }) {
+const AmendmentBlock = ({ amendment }) => {
   const shouldShowTime = Boolean(amendment.creationDateTime && amendment.creationDateTime)
 
   return (
@@ -91,12 +92,14 @@ function AmendmentBlock({ amendment }) {
 }
 
 AmendmentBlock.propTypes = {
-  amendment: PropTypes.object.isRequired,
+  amendment: PropTypes.shape({
+    authorName: PropTypes.string.isRequired,
+    creationDateTime: PropTypes.string.isRequired,
+    additionalNoteText: PropTypes.string.isRequired,
+  }).isRequired,
 }
 
-function CaseNoteListItem(props) {
-  const { action, caseNote } = props
-
+const CaseNoteListItem = ({ action, caseNote }) => {
   if (!caseNote) {
     return <div>Loading..</div>
   }
@@ -161,7 +164,7 @@ function CaseNoteListItem(props) {
 }
 
 CaseNoteListItem.propTypes = {
-  caseNote: PropTypes.object.isRequired,
+  caseNote: ImmutablePropTypes.map.isRequired,
   action: PropTypes.func.isRequired,
 }
 

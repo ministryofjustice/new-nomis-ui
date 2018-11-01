@@ -1,6 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-export default ({ close }) => {
+const TermsAndConditions = ({ close }) => {
   if (window) window.scrollTo(0, 0)
   return (
     <div className="add-gutter-margin-top">
@@ -38,3 +39,9 @@ export default ({ close }) => {
     </div>
   )
 }
+
+TermsAndConditions.propTypes = {
+  close: PropTypes.func.isRequired,
+}
+
+export default TermsAndConditions

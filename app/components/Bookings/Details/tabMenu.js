@@ -3,24 +3,28 @@ import PropTypes from 'prop-types'
 
 import { TabWrapper, TabMenuItem } from './tabMenu.theme'
 
-function TabMenu({ tabData, activeTabId }) {
-  return (
-    <TabWrapper>
-      {tabData.map(tab => (
-        <TabMenuItem
-          key={tab.tabId}
-          active={tab.tabId === activeTabId}
-          onClick={tab.tabId === activeTabId ? null : tab.action}
-        >
-          {tab.title}
-        </TabMenuItem>
-      ))}
-    </TabWrapper>
-  )
-}
+const TabMenu = ({ tabData, activeTabId }) => (
+  <TabWrapper>
+    {tabData.map(tab => (
+      <TabMenuItem
+        key={tab.tabId}
+        active={tab.tabId === activeTabId}
+        onClick={tab.tabId === activeTabId ? null : tab.action}
+      >
+        {tab.title}
+      </TabMenuItem>
+    ))}
+  </TabWrapper>
+)
 
 TabMenu.propTypes = {
-  tabData: PropTypes.array.isRequired,
+  tabData: PropTypes.arrayOf(
+    PropTypes.shape({
+      action: PropTypes.func.isRequired,
+      tabId: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+    })
+  ).isRequired,
   activeTabId: PropTypes.string.isRequired,
 }
 

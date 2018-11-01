@@ -17,6 +17,10 @@ export const DateTimeBlock = ({ dateTime }) => (
   </div>
 )
 
+DateTimeBlock.propTypes = {
+  dateTime: PropTypes.string.isRequired,
+}
+
 export const DateTimeBlock2 = ({ dateTime }) => (
   <div>
     <span>
@@ -28,10 +32,6 @@ export const DateTimeBlock2 = ({ dateTime }) => (
     </span>
   </div>
 )
-
-DateTimeBlock.propTypes = {
-  dateTime: PropTypes.string.isRequired,
-}
 
 DateTimeBlock2.propTypes = {
   dateTime: PropTypes.string.isRequired,
@@ -47,5 +47,8 @@ export const TypeDescriptionBlock = ({ typeDetails }) => {
 }
 
 TypeDescriptionBlock.propTypes = {
-  typeDetails: PropTypes.object.isRequired,
+  typeDetails: PropTypes.shape({
+    typeDescription: PropTypes.string.isRequired,
+    subTypeDescription: PropTypes.string.isRequired,
+  }).isRequired,
 }

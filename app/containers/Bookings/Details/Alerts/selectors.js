@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 export default () => state =>
   state
     .getIn(['eliteApiLoader', 'AlertTypes'])
@@ -13,3 +15,13 @@ export default () => state =>
       value: code,
       label: `${description} (${code})`,
     }))
+
+export const alertTypesType = PropTypes.arrayOf(
+  PropTypes.shape({ label: PropTypes.string.isRequired, value: PropTypes.string.isRequired })
+)
+
+export const alertTypesFilterType = PropTypes.shape({
+  alertType: PropTypes.string.isRequired,
+  fromDate: PropTypes.string.isRequired,
+  toDate: PropTypes.string.isRequired,
+})
