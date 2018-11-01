@@ -9,7 +9,7 @@ import { offenderImageUrl, DETAILS_TABS } from '../../../containers/Bookings/con
 import Name from '../../Name'
 
 import './index.scss'
-import AlertFlags from '../AlertFlags'
+import flags from '../AlertFlags'
 import { linkOnClick } from '../../../helpers'
 
 const ArrowUp = ({ sortOrderChange }) => (
@@ -94,9 +94,10 @@ const Table = ({ results, sortOrder, sortOrderChange, onAlertFlagClick }) => (
           <span>{row.get('age')}</span>
         </div>
         <div className="visible-md visible-lg col-md-3 add-flags-margin-top no-left-gutter no-right-gutter">
-          {AlertFlags(row.get('alertsDetails'), 'inline-header-large align-alerts', () =>
+          {flags.AlertFlags(row.get('alertsDetails'), 'inline-header-large align-alerts', () =>
             onAlertFlagClick(row.get('offenderNo'))
           )}
+          {flags.AssessmentFlags(row.get('categoryCode'), 'inline-header-large align-alerts')}
         </div>
       </div>
     ))}

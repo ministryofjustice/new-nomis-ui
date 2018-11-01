@@ -2,11 +2,9 @@
 // ==========================================================================
 
 details {
-  /*display: block;*/
   clear: both;
 
   summary {
-    /*display: inline-block;*/
     color: $govuk-blue;
     cursor: pointer;
     position: relative;
@@ -31,5 +29,4 @@ details {
     margin-right: .35em;
     font-style: normal;
   }
-
 }
