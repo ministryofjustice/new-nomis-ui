@@ -565,7 +565,7 @@ export const AssignedStaffMembers = ({
 }
 
 AssignedStaffMembers.propTypes = {
-  keyWorkerId: PropTypes.string,
+  keyWorkerId: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.string.isRequired]),
   communityOffenderManager: ImmutablePropTypes.map.isRequired,
   offenderSupervisor: ImmutablePropTypes.map.isRequired,
   caseAdministrator: ImmutablePropTypes.map.isRequired,

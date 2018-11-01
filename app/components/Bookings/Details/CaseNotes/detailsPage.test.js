@@ -24,7 +24,7 @@ describe('Case Note Details', () => {
           backToCaseNotes={jest.fn()}
           addAmendment={jest.fn()}
           caseNoteId={300}
-          offenderNo={400}
+          offenderNo="400"
           caseNote={Map({
             text: 'my text',
             typeDescription: 'type desc',
@@ -55,7 +55,7 @@ describe('Case Note Details', () => {
           backToCaseNotes={jest.fn()}
           addAmendment={jest.fn()}
           caseNoteId={300}
-          offenderNo={400}
+          offenderNo="400"
           caseNote={Map({
             text: 'my text',
             typeDescription: 'type desc',

@@ -319,7 +319,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
 
 OffenderDetails.propTypes = {
   offenderDetails: ImmutablePropTypes.map.isRequired,
-  showPhoto: PropTypes.bool.isRequired,
+  showPhoto: PropTypes.func.isRequired,
 }
 
 const mapDispatchToProps = dispatch => ({

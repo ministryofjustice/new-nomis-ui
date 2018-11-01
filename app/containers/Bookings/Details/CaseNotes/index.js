@@ -44,7 +44,7 @@ class CaseNotes extends Component {
   render() {
     const {
       offenderNo,
-      caseNoteId,
+      itemId: caseNoteId,
       setCaseNoteView,
       caseNotes,
       totalResults,
@@ -83,7 +83,7 @@ CaseNotes.propTypes = {
   caseNotes: ImmutablePropTypes.list.isRequired,
   query: PropTypes.shape({ pageNumber: PropTypes.number.isRequired, perPage: PropTypes.number.isRequired }).isRequired,
   totalResults: PropTypes.number,
-  caseNoteId: PropTypes.string.isRequired,
+  itemId: PropTypes.string,
 
   // mapDispatchToProps
   loadCaseNotes: PropTypes.func.isRequired,
@@ -97,10 +97,12 @@ CaseNotes.propTypes = {
 
 CaseNotes.defaultProps = {
   totalResults: 0,
+  itemId: null,
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
   loadCaseNotes: (id, query) => dispatch(loadBookingCaseNotes(id, query)),
+
   setPagination: (id, pagination) =>
     dispatch(
       push(`/offenders/${id}/case-notes?${buildCaseNotQueryString({ ...props.location.query, ...pagination })}`)
@@ -115,17 +117,17 @@ const mapStateToProps = (immutableState, props) => {
     immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', offenderNo, 'CaseNotes']) || caseNoteModel
   const results = caseNotes.get('results')
   const totalResults = caseNotes.getIn(['meta', 'totalRecords'])
+
   const query = {
-    perPage: props.location.query.perPage || 10,
-    pageNumber: props.location.query.pageNumber || 0,
     ...props.location.query,
+    perPage: parseInt(props.location.query.perPage, 10) || 10,
+    pageNumber: parseInt(props.location.query.pageNumber, 10) || 0,
   }
 
   const deviceFormat = immutableState.getIn(['app', 'deviceFormat'])
 
   return {
     caseNotes: results,
-    caseNoteId: props.itemId,
     offenderNo,
     deviceFormat,
     totalResults,

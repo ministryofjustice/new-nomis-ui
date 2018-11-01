@@ -45,7 +45,7 @@ class CaseNotes extends Component {
 CaseNotes.propTypes = {
   offenderNo: PropTypes.string.isRequired,
   caseNoteId: PropTypes.string.isRequired,
-  caseNoteDetails: ImmutablePropTypes.map.isRequired,
+  caseNoteDetails: ImmutablePropTypes.map,
   error: PropTypes.string,
   viewList: PropTypes.func.isRequired,
   getCaseNote: PropTypes.func.isRequired,
@@ -53,6 +53,7 @@ CaseNotes.propTypes = {
 
 CaseNotes.defaultProps = {
   error: '',
+  caseNoteDetails: null,
 }
 
 const mapDispatchToProps = dispatch => ({

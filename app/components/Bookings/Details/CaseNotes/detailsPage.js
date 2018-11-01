@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { FormattedDate, FormattedTime } from '../../../intl'
@@ -25,7 +26,13 @@ const AmendmentBlock = ({ dateTime, authorName, text }) => (
   </div>
 )
 
-const sameCreator = ({ currentStaffId, caseNote }) => {
+AmendmentBlock.propTypes = {
+  dateTime: PropTypes.string.isRequired,
+  authorName: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+}
+
+const sameCreator = (currentStaffId, caseNote) => {
   if (!caseNote) {
     return true
   }
@@ -36,9 +43,7 @@ const sameCreator = ({ currentStaffId, caseNote }) => {
   return caseNoteStaffId === currentStaffId
 }
 
-const CaseNoteDetails = props => {
-  const { caseNote, backToCaseNotes, addAmendment, caseNoteId, offenderNo } = props
-
+const CaseNoteDetails = ({ caseNote, backToCaseNotes, addAmendment, caseNoteId, offenderNo, currentStaffId }) => {
   if (!caseNote) {
     return <div>Loading..</div>
   }
@@ -98,7 +103,7 @@ const CaseNoteDetails = props => {
 
           {amendmentList}
 
-          {sameCreator(props) && (
+          {sameCreator(currentStaffId, caseNote) && (
             <div className="add-gutter-top add-gutter-bottom">
               <button type="button" className="button-cancel" onClick={() => addAmendment(offenderNo, caseNoteId)}>
                 Make amendment
@@ -112,26 +117,30 @@ const CaseNoteDetails = props => {
 }
 
 CaseNoteDetails.propTypes = {
-  caseNote: PropTypes.object.isRequired,
+  offenderNo: PropTypes.string.isRequired,
+  caseNote: ImmutablePropTypes.map.isRequired,
+  currentStaffId: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.string.isRequired]),
+  backToCaseNotes: PropTypes.func.isRequired,
+  addAmendment: PropTypes.func.isRequired,
 }
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    backToCaseNotes: offenderNo => dispatch(push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}`)),
-    addAmendment: (offenderNo, caseNoteId) =>
-      dispatch(push(`/offenders/${offenderNo}/case-notes/${caseNoteId}/amendCaseNote`)),
-  }
+CaseNoteDetails.defaultProps = {
+  currentStaffId: null,
 }
 
-function getCurrentStaffId(state) {
+const mapDispatchToProps = dispatch => ({
+  backToCaseNotes: offenderNo => dispatch(push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}`)),
+  addAmendment: (offenderNo, caseNoteId) =>
+    dispatch(push(`/offenders/${offenderNo}/case-notes/${caseNoteId}/amendCaseNote`)),
+})
+
+const getCurrentStaffId = state => {
   const auth = state.get('authentication')
   const user = auth && auth.get('user')
-  return user && user.staffId
+  return (user && user.staffId) || null
 }
 
 const mapStateToProps = (state, props) => ({
-  offenderNo: props.offenderNo,
-  caseNoteId: props.caseNoteId,
   currentStaffId: getCurrentStaffId(state),
 })
 
