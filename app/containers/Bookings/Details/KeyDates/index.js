@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
 import uuid from 'uuid/v4'
 import { Map } from 'immutable'
@@ -23,6 +25,17 @@ const KeyDatePair = ({ title, text, date }) => (
     </span>
   </div>
 )
+
+KeyDatePair.propTypes = {
+  title: PropTypes.string.isRequired,
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  date: PropTypes.string,
+}
+
+KeyDatePair.defaultProps = {
+  text: '',
+  date: '',
+}
 
 const ErrorMessage = () => (
   <div>
@@ -84,6 +97,15 @@ const SentenceView = ({
   )
 }
 
+SentenceView.propTypes = {
+  additionalDaysAwarded: PropTypes.number.isRequired,
+  dtoReleaseDates: ImmutablePropTypes.list.isRequired,
+  nonDtoReleaseDate: ImmutablePropTypes.map.isRequired,
+  sentenceExpiryDates: ImmutablePropTypes.list.isRequired,
+  other: ImmutablePropTypes.map.isRequired,
+  reCategorisationDate: PropTypes.string.isRequired,
+}
+
 class KeyDates extends Component {
   componentDidMount() {
     const { offenderNo, loadContent } = this.props
@@ -133,11 +155,16 @@ class KeyDates extends Component {
   }
 }
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    loadContent: id => dispatch(loadKeyDates(id)),
-  }
+KeyDates.propTypes = {
+  keyDates: ImmutablePropTypes.map.isRequired,
+  error: ImmutablePropTypes.map.isRequired,
+  offenderNo: PropTypes.string.isRequired,
+  loadContent: PropTypes.func.isRequired,
 }
+
+const mapDispatchToProps = dispatch => ({
+  loadContent: id => dispatch(loadKeyDates(id)),
+})
 
 const mapStateToProps = (immutableState, props) => {
   const keyDates = immutableState.getIn(['search', 'details', 'keyDatesViewModel']) || keyDatesModel

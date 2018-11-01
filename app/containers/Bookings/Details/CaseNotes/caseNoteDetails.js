@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
 
 import CaseNoteDetailsBlock from '../../../../components/Bookings/Details/CaseNotes/detailsPage'
@@ -11,10 +11,7 @@ import { loadCaseNote } from '../../../EliteApiLoader/actions'
 
 class CaseNotes extends Component {
   componentDidMount() {
-    this.tryLoadCaseNote({ ...this.props })
-  }
-
-  tryLoadCaseNote = ({ offenderNo, caseNoteId, getCaseNote }) => {
+    const { offenderNo, caseNoteId, getCaseNote } = this.props
     getCaseNote(offenderNo, caseNoteId)
   }
 
@@ -46,15 +43,23 @@ class CaseNotes extends Component {
 }
 
 CaseNotes.propTypes = {
+  offenderNo: PropTypes.string.isRequired,
+  caseNoteId: PropTypes.string.isRequired,
+  caseNoteDetails: ImmutablePropTypes.map,
+  error: PropTypes.string,
   viewList: PropTypes.func.isRequired,
+  getCaseNote: PropTypes.func.isRequired,
 }
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    viewList: () => dispatch(setCaseNotesListView()),
-    getCaseNote: (offenderNo, caseNoteId) => dispatch(loadCaseNote(offenderNo, caseNoteId)),
-  }
+CaseNotes.defaultProps = {
+  error: '',
+  caseNoteDetails: null,
 }
+
+const mapDispatchToProps = dispatch => ({
+  viewList: () => dispatch(setCaseNotesListView()),
+  getCaseNote: (offenderNo, caseNoteId) => dispatch(loadCaseNote(offenderNo, caseNoteId)),
+})
 
 const mapStateToProps = (immutableState, props) => {
   const { offenderNo } = props
