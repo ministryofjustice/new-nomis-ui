@@ -2090,10 +2090,10 @@ ShallowWrapper {
         >
           <img
             alt=""
-            className="flag-arsonist-icon"
-            height="16"
+            className="arsonist-adjust"
+            height="14"
             src="/img/Arsonist_icon.png"
-            width="13"
+            width="11"
           />
            ARSONIST
         </span>
@@ -2107,9 +2107,9 @@ ShallowWrapper {
           <img
             alt=""
             className="disability-adjust"
-            height="21"
+            height="15"
             src="/img/Disability_icon.png"
-            width="19"
+            width="14"
           />
            PEEP
         </span>
@@ -2177,10 +2177,10 @@ ShallowWrapper {
               >
                 <img
                   alt=""
-                  className="flag-arsonist-icon"
-                  height="16"
+                  className="arsonist-adjust"
+                  height="14"
                   src="/img/Arsonist_icon.png"
-                  width="13"
+                  width="11"
                 />
                  ARSONIST
               </span>
@@ -2194,9 +2194,9 @@ ShallowWrapper {
                 <img
                   alt=""
                   className="disability-adjust"
-                  height="21"
+                  height="15"
                   src="/img/Disability_icon.png"
-                  width="19"
+                  width="14"
                 />
                  PEEP
               </span>
@@ -2377,10 +2377,10 @@ ShallowWrapper {
           >
             <img
               alt=""
-              className="flag-arsonist-icon"
-              height="16"
+              className="arsonist-adjust"
+              height="14"
               src="/img/Arsonist_icon.png"
-              width="13"
+              width="11"
             />
              ARSONIST
           </span>
@@ -2394,9 +2394,9 @@ ShallowWrapper {
             <img
               alt=""
               className="disability-adjust"
-              height="21"
+              height="15"
               src="/img/Disability_icon.png"
-              width="19"
+              width="14"
             />
              PEEP
           </span>
@@ -2464,10 +2464,10 @@ ShallowWrapper {
                 >
                   <img
                     alt=""
-                    className="flag-arsonist-icon"
-                    height="16"
+                    className="arsonist-adjust"
+                    height="14"
                     src="/img/Arsonist_icon.png"
-                    width="13"
+                    width="11"
                   />
                    ARSONIST
                 </span>
@@ -2481,9 +2481,9 @@ ShallowWrapper {
                   <img
                     alt=""
                     className="disability-adjust"
-                    height="21"
+                    height="15"
                     src="/img/Disability_icon.png"
-                    width="19"
+                    width="14"
                   />
                    PEEP
                 </span>
@@ -2778,10 +2778,10 @@ ShallowWrapper {
               >
                 <img
                   alt=""
-                  className="flag-arsonist-icon"
-                  height="16"
+                  className="arsonist-adjust"
+                  height="14"
                   src="/img/Arsonist_icon.png"
-                  width="13"
+                  width="11"
                 />
                  ARSONIST
               </span>
@@ -2795,9 +2795,9 @@ ShallowWrapper {
                 <img
                   alt=""
                   className="disability-adjust"
-                  height="21"
+                  height="15"
                   src="/img/Disability_icon.png"
-                  width="19"
+                  width="14"
                 />
                  PEEP
               </span>
@@ -2865,10 +2865,10 @@ ShallowWrapper {
                     >
                       <img
                         alt=""
-                        className="flag-arsonist-icon"
-                        height="16"
+                        className="arsonist-adjust"
+                        height="14"
                         src="/img/Arsonist_icon.png"
-                        width="13"
+                        width="11"
                       />
                        ARSONIST
                     </span>
@@ -2882,9 +2882,9 @@ ShallowWrapper {
                       <img
                         alt=""
                         className="disability-adjust"
-                        height="21"
+                        height="15"
                         src="/img/Disability_icon.png"
-                        width="19"
+                        width="14"
                       />
                        PEEP
                     </span>
@@ -3065,10 +3065,10 @@ ShallowWrapper {
               >
                 <img
                   alt=""
-                  className="flag-arsonist-icon"
-                  height="16"
+                  className="arsonist-adjust"
+                  height="14"
                   src="/img/Arsonist_icon.png"
-                  width="13"
+                  width="11"
                 />
                  ARSONIST
               </span>
@@ -3082,9 +3082,9 @@ ShallowWrapper {
                 <img
                   alt=""
                   className="disability-adjust"
-                  height="21"
+                  height="15"
                   src="/img/Disability_icon.png"
-                  width="19"
+                  width="14"
                 />
                  PEEP
               </span>
@@ -3152,10 +3152,10 @@ ShallowWrapper {
                     >
                       <img
                         alt=""
-                        className="flag-arsonist-icon"
-                        height="16"
+                        className="arsonist-adjust"
+                        height="14"
                         src="/img/Arsonist_icon.png"
-                        width="13"
+                        width="11"
                       />
                        ARSONIST
                     </span>
@@ -3169,9 +3169,9 @@ ShallowWrapper {
                       <img
                         alt=""
                         className="disability-adjust"
-                        height="21"
+                        height="15"
                         src="/img/Disability_icon.png"
-                        width="19"
+                        width="14"
                       />
                        PEEP
                     </span>

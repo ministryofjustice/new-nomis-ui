@@ -30,12 +30,12 @@ const AlertFlags = (alerts, divClassName, onAlertFlagClick) => {
       )}
       {isShown('XA') && (
         <span className="arsonist-status" {...linkOnClick(onAlertFlagClick)}>
-          <img src="/img/Arsonist_icon.png" className="flag-arsonist-icon" alt="" width="13" height="16" /> ARSONIST
+          <img src="/img/Arsonist_icon.png" className="arsonist-adjust" alt="" width="11" height="14" /> ARSONIST
         </span>
       )}
       {isShown('PEEP') && (
         <span className="disability-status" {...linkOnClick(onAlertFlagClick)}>
-          <img src="/img/Disability_icon.png" className="disability-adjust" alt="" width="19" height="21" /> PEEP
+          <img src="/img/Disability_icon.png" className="disability-adjust" alt="" width="14" height="15" /> PEEP
         </span>
       )}
       {isShown('XEL') && (
