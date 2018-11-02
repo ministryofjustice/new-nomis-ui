@@ -14,6 +14,7 @@ import { buildCaseNotQueryString } from '../../../../utils/stringUtils'
 
 import CaseNoteList from './caseNoteList'
 import CaseNoteDetails from './caseNoteDetails'
+import caseNoteQueryType from './types'
 
 class CaseNotes extends Component {
   componentDidMount() {
@@ -81,7 +82,7 @@ CaseNotes.propTypes = {
   // mapStateToProps
   offenderNo: PropTypes.string.isRequired,
   caseNotes: ImmutablePropTypes.list.isRequired,
-  query: PropTypes.shape({ pageNumber: PropTypes.number.isRequired, perPage: PropTypes.number.isRequired }).isRequired,
+  query: caseNoteQueryType.isRequired,
   totalResults: PropTypes.number,
   itemId: PropTypes.string,
 

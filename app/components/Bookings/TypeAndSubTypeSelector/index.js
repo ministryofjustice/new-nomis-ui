@@ -3,6 +3,10 @@ import { Field } from 'redux-form/immutable'
 import PropTypes from 'prop-types'
 import SelectWithLabel from '../../FormComponents/SelectWithLabel'
 
+export const typeSelectorType = PropTypes.arrayOf(
+  PropTypes.shape({ label: PropTypes.string.isRequired, value: PropTypes.string.isRequired }).isRequired
+)
+
 class TypeAndSubTypeSelector extends PureComponent {
   constructor(props) {
     super(props)
@@ -53,12 +57,8 @@ class TypeAndSubTypeSelector extends PureComponent {
 }
 
 TypeAndSubTypeSelector.propTypes = {
-  types: PropTypes.arrayOf(
-    PropTypes.shape({ label: PropTypes.string.isRequired, value: PropTypes.string.isRequired }).isRequired
-  ).isRequired,
-  subTypes: PropTypes.arrayOf(
-    PropTypes.shape({ label: PropTypes.string.isRequired, value: PropTypes.string.isRequired }).isRequired
-  ).isRequired,
+  types: typeSelectorType.isRequired,
+  subTypes: typeSelectorType.isRequired,
   selectedSubType: PropTypes.string,
   selectedType: PropTypes.string,
 }
