@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { intlShape } from 'react-intl'
 import { connect } from 'react-redux'
 
 // eslint-disable-next-line import/no-unresolved
@@ -26,15 +25,13 @@ const HeaderContainer = ({
   />
 )
 
-HeaderContainer.contextTypes = {
-  intl: intlShape.isRequired,
-}
-
 HeaderContainer.propTypes = {
+  showTermsAndConditions: PropTypes.func.isRequired,
+  navigateTo: PropTypes.func.isRequired,
   menuOpen: PropTypes.bool,
   setMenuOpen: PropTypes.func,
   switchCaseLoad: PropTypes.func.isRequired,
-  user: PropTypes.object,
+  user: PropTypes.shape({ isKeyWorker: PropTypes.bool }),
 }
 
 HeaderContainer.defaultProps = {

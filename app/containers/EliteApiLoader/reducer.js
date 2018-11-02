@@ -15,34 +15,34 @@ import {
 } from './constants'
 import { CASE_NOTE } from '../Bookings/constants'
 
-export const initialState = fromJS({
-  Bookings: {
-    Search: {},
-    Summaries: {},
-    Details: {},
-  },
-  Images: {},
-  Locations: {
+export const initialState = Map({
+  Bookings: Map({
+    Search: Map(),
+    Summaries: Map(),
+    Details: Map(),
+  }),
+  Images: Map(),
+  Locations: fromJS({
     Status: { Type: 'NOT SET' },
     MetaData: {
       TotalRecords: 0,
     },
     ids: {},
-    SelectList: List([{ value: 'Loading Locations...' }]),
-  },
+    SelectList: [{ value: 'Loading Locations...' }],
+  }),
   AlertTypes: List(),
-  CaseNoteTypes: {},
-  CaseNoteTypesSelect: { Types: Set([]), TypeList: List([]) },
-  AllCaseNoteFilters: {
+  CaseNoteTypes: Map(),
+  CaseNoteTypesSelect: Map({ Types: Set([]), TypeList: List([]) }),
+  AllCaseNoteFilters: Map({
     Types: [],
     SubTypes: [],
-  },
-  Officers: {},
-  User: {
-    CaseLoads: List([]),
-    CaseNoteTypes: List([]),
-    CaseNoteSubTypes: List([]),
-  },
+  }),
+  Officers: Map(),
+  User: Map({
+    CaseLoads: List(),
+    CaseNoteTypes: [],
+    CaseNoteSubTypes: [],
+  }),
 })
 
 function EliteApiReducer(state = initialState, action) {

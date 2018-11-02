@@ -183,6 +183,10 @@ AddCaseNoteForm.propTypes = {
   submitting: PropTypes.bool.isRequired,
   error: PropTypes.string,
   locale: PropTypes.string,
+
+  goBackToBookingDetails: PropTypes.func.isRequired,
+  loadCaseNoteTypes: PropTypes.func.isRequired,
+  extendSession: PropTypes.func.isRequired,
 }
 
 AddCaseNoteForm.defaultProps = {
@@ -190,29 +194,27 @@ AddCaseNoteForm.defaultProps = {
   error: '',
 }
 
-export function mapDispatchToProps(dispatch, props) {
-  return {
-    goBackToBookingDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.CASE_NOTES)),
-    loadCaseNoteTypes: () => dispatch(loadCaseNoteTypesAndSubTypes()),
-    extendSession: () => dispatch(extendActiveSession()),
-    onSubmit: createFormAction(
-      formData => ({
-        type: ADD_NEW_CASENOTE.BASE,
-        payload: {
-          offenderNo: props.params.offenderNo,
-          query: {
-            ...formData.toJS(),
-            typeAndSubType: {
-              type: formData.toJS().typeValue,
-              subType: formData.toJS().subTypeValue,
-            },
+const mapDispatchToProps = (dispatch, props) => ({
+  goBackToBookingDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.CASE_NOTES)),
+  loadCaseNoteTypes: () => dispatch(loadCaseNoteTypesAndSubTypes()),
+  extendSession: () => dispatch(extendActiveSession()),
+  onSubmit: createFormAction(
+    formData => ({
+      type: ADD_NEW_CASENOTE.BASE,
+      payload: {
+        offenderNo: props.params.offenderNo,
+        query: {
+          ...formData.toJS(),
+          typeAndSubType: {
+            type: formData.toJS().typeValue,
+            subType: formData.toJS().subTypeValue,
           },
         },
-      }),
-      [ADD_NEW_CASENOTE.SUCCESS, ADD_NEW_CASENOTE.ERROR]
-    ),
-  }
-}
+      },
+    }),
+    [ADD_NEW_CASENOTE.SUCCESS, ADD_NEW_CASENOTE.ERROR]
+  ),
+})
 
 const mapStateToProps = createStructuredSelector({
   caseNoteTypes: selectUsersTypesAndSubTypes(),

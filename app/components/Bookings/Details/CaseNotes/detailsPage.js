@@ -140,7 +140,7 @@ const getCurrentStaffId = state => {
   return (user && user.staffId) || null
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   currentStaffId: getCurrentStaffId(state),
 })
 

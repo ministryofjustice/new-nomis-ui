@@ -10,7 +10,7 @@ import MobileAlertsFilterForm from '../../../../components/Bookings/Details/Aler
 import { loadAlertTypes } from '../../actions'
 
 import { selectLocale } from '../../../LanguageProvider/selectors'
-import selectAlertTypes from './selectors'
+import selectAlertTypes, { alertTypesType, alertTypesFilterType } from './selectors'
 
 class AlertsFilterForm extends Component {
   componentDidMount() {
@@ -46,13 +46,21 @@ class AlertsFilterForm extends Component {
 }
 
 AlertsFilterForm.propTypes = {
+  initialFilterValues: alertTypesFilterType.isRequired,
+  alertTypes: alertTypesType.isRequired,
   locale: PropTypes.string,
+  error: PropTypes.string,
+  handleSubmit: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
+
   deviceFormat: PropTypes.string.isRequired,
   dispatchLoadAlertTypes: PropTypes.func.isRequired,
+  change: PropTypes.func.isRequired,
 }
 
 AlertsFilterForm.defaultProps = {
   locale: 'en',
+  error: '',
 }
 
 const convertFormValues = filterValues => ({

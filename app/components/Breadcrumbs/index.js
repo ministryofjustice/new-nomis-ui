@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import qs from 'querystring'
@@ -87,7 +88,7 @@ export const buildBreadcrumb = ({ route, lastSearchResultQuery, offender, contex
   return [homeCrumb, ...routes]
 }
 
-function Breadcrumbs({ route, lastSearchResultQuery, offenderDetails, context, offenderNo }) {
+const Breadcrumbs = ({ route, lastSearchResultQuery, offenderDetails, context, offenderNo }) => {
   const breadcrumbArray = buildBreadcrumb({
     route,
     lastSearchResultQuery,
@@ -120,16 +121,21 @@ function Breadcrumbs({ route, lastSearchResultQuery, offenderDetails, context, o
 Breadcrumbs.propTypes = {
   context: PropTypes.string.isRequired,
   route: PropTypes.string.isRequired,
+  lastSearchResultQuery: PropTypes.shape({}),
+  offenderNo: PropTypes.string,
+
+  // mapStateToProps
+  offenderDetails: ImmutablePropTypes.map.isRequired,
 }
 
-const mapStateToProps = (immutableState, props) => {
-  const offenderDetails =
-    immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']) || offenderDetailsModel
-
-  return {
-    offenderDetails,
-    offenderNo: props.offenderNo,
-  }
+Breadcrumbs.defaultProps = {
+  lastSearchResultQuery: null,
+  offenderNo: '',
 }
+
+const mapStateToProps = (immutableState, props) => ({
+  offenderDetails:
+    immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']) || offenderDetailsModel,
+})
 
 export default connect(mapStateToProps)(Breadcrumbs)

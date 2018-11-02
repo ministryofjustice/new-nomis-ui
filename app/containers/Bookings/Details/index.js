@@ -154,8 +154,8 @@ Details.propTypes = {
     offenderNo: PropTypes.string.isRequired,
     itemId: PropTypes.string,
   }).isRequired,
-  imageSrcUrl: PropTypes.number.isRequired,
-  shouldShowLargePhoto: PropTypes.bool.isRequired,
+  imageSrcUrl: PropTypes.number,
+  shouldShowLargePhoto: PropTypes.bool,
 
   // mapDispatchToProps
   boundViewDetails: PropTypes.func.isRequired,
@@ -167,6 +167,8 @@ Details.propTypes = {
 
 Details.defaultProps = {
   deviceFormat: '',
+  shouldShowLargePhoto: false,
+  imageSrcUrl: null,
 }
 
 const mapDispatchToProps = dispatch => ({

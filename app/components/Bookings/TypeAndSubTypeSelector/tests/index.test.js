@@ -14,9 +14,8 @@ describe('TypeAndSubTypeSelector', () => {
     const typeSelectorProps = TypeSelectorNode(renderedComponent).node.props
     const subTypeSelectorProps = SubTypeSelectorNode(renderedComponent).node.props
 
-    expect(typeSelectorProps.options.length).toBe(1)
-    expect(typeSelectorProps.options[0]).toEqual(types[0])
-    expect(subTypeSelectorProps.options.length).toBe(0)
+    expect(typeSelectorProps.options).toEqual(types)
+    expect(subTypeSelectorProps.options).toEqual([])
   })
 
   it('should populate subTypeValue options with related types once a parent type has been selected', () => {
@@ -26,8 +25,7 @@ describe('TypeAndSubTypeSelector', () => {
 
     const subTypeSelectorProps = SubTypeSelectorNode(renderedComponent).node.props
 
-    expect(subTypeSelectorProps.options.length).toBe(1)
-    expect(subTypeSelectorProps.options[0]).toEqual(subTypes[0])
+    expect(subTypeSelectorProps.options).toEqual(subTypes)
   })
 
   it('should reset the subType by default', () => {

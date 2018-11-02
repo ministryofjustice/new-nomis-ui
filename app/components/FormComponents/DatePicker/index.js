@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 
 import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from '../../../containers/App/constants'
 import './index.scss'
+import { inputType, metaType } from '../types'
 
 export class DatePicker extends Component {
   handleChange = date => {
@@ -62,8 +63,8 @@ DatePicker.propTypes = {
   title: PropTypes.string.isRequired,
   locale: PropTypes.string.isRequired,
   shouldShowDay: PropTypes.func.isRequired,
-  input: PropTypes.shape({ name: PropTypes.string.isRequired, value: PropTypes.string }).isRequired,
-  meta: PropTypes.shape({ touched: PropTypes.bool, error: PropTypes.string }).isRequired,
+  input: inputType.isRequired,
+  meta: metaType.isRequired,
 }
 
 DatePicker.defaultProps = {}

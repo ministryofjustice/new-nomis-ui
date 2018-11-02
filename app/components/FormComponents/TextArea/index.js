@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { inputType, metaType } from '../types'
 
-const renderTextArea = ({ input, title, meta: { touched, error }, placeholder }) => (
+const TextArea = ({ input, title, meta: { touched, error }, placeholder }) => (
   <div className={!(touched && error) ? 'form-group' : 'form-group form-group-error'}>
     <label htmlFor={input.name} className="form-label">
       {title}
@@ -19,16 +20,16 @@ const renderTextArea = ({ input, title, meta: { touched, error }, placeholder })
   </div>
 )
 
-renderTextArea.propTypes = {
-  input: PropTypes.shape({ name: PropTypes.string.isRequired, value: PropTypes.string }).isRequired,
+TextArea.propTypes = {
+  input: inputType.isRequired,
   title: PropTypes.string,
-  meta: PropTypes.shape({ touched: PropTypes.bool, error: PropTypes.string }).isRequired,
+  meta: metaType.isRequired,
   placeholder: PropTypes.string,
 }
 
-renderTextArea.defaultProps = {
+TextArea.defaultProps = {
   title: '',
   placeholder: '',
 }
 
-export default renderTextArea
+export default TextArea

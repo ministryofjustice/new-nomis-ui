@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Field } from 'redux-form/immutable'
+import PropTypes from 'prop-types'
 import SelectWithLabel from '../../FormComponents/SelectWithLabel'
 
 class TypeAndSubTypeSelector extends PureComponent {
@@ -49,6 +50,22 @@ class TypeAndSubTypeSelector extends PureComponent {
       </span>
     )
   }
+}
+
+TypeAndSubTypeSelector.propTypes = {
+  types: PropTypes.arrayOf(
+    PropTypes.shape({ label: PropTypes.string.isRequired, value: PropTypes.string.isRequired }).isRequired
+  ).isRequired,
+  subTypes: PropTypes.arrayOf(
+    PropTypes.shape({ label: PropTypes.string.isRequired, value: PropTypes.string.isRequired }).isRequired
+  ).isRequired,
+  selectedSubType: PropTypes.string,
+  selectedType: PropTypes.string,
+}
+
+TypeAndSubTypeSelector.defaultProps = {
+  selectedType: null,
+  selectedSubType: null,
 }
 
 export default TypeAndSubTypeSelector

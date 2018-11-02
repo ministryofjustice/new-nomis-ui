@@ -1,3 +1,14 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-export default ({ value }) => <span> {value || '--'} </span>
+const DisplayValue = ({ value }) => <span> {value || '--'} </span>
+
+DisplayValue.propTypes = {
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+}
+
+DisplayValue.defaultProps = {
+  value: null,
+}
+
+export default DisplayValue

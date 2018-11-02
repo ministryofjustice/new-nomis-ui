@@ -222,8 +222,7 @@ ScheduledEvents.propTypes = {
   // mapStateToProps
   offenderNo: PropTypes.string.isRequired,
   scheduledEvents: ImmutablePropTypes.list.isRequired,
-  offenderDetails: ImmutablePropTypes.map.isRequired,
-  offenderName: PropTypes.shape({
+  offenderDetails: PropTypes.shape({
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
   }).isRequired,
@@ -234,6 +233,7 @@ ScheduledEvents.propTypes = {
   loadNextWeeksScheduledEvents: PropTypes.func.isRequired,
   loadBookingDetails: PropTypes.func.isRequired,
 }
+
 const mapDispatchToProps = dispatch => ({
   loadThisWeeksScheduledEvents: offenderNo => dispatch(loadScheduledEventsForThisWeek(offenderNo)),
   loadNextWeeksScheduledEvents: offenderNo => dispatch(loadScheduledEventsForNextWeek(offenderNo)),

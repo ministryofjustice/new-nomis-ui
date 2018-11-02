@@ -1,18 +1,15 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import SubmitStyle from './submit.theme'
 
-export default class Submit extends PureComponent {
-  static propTypes = {
-    value: PropTypes.string,
-  }
+const Submit = ({ value }) => <SubmitStyle type="submit" value={value} />
 
-  static defaultProps = {
-    value: 'Submit',
-  }
-
-  render() {
-    const { value } = this.props
-    return <SubmitStyle type="submit" value={value} />
-  }
+Submit.propTypes = {
+  value: PropTypes.string,
 }
+
+Submit.defaultProps = {
+  value: 'Submit',
+}
+
+export default Submit

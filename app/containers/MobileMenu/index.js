@@ -9,9 +9,13 @@ import { setMenuOpen, setModalData } from '../../globalReducers/app'
 import selectUserHeaderInfo from '../Header/selectors'
 import { switchCaseLoad } from '../EliteApiLoader/actions'
 
-const MobileMenu = props => {
-  const { user, switchCaseLoad: switchLoad, setModalData: modelData, setMenuOpen: menuOpen, showTerms: terms } = props
-
+const MobileMenu = ({
+  user,
+  switchCaseLoad: switchLoad,
+  setModalData: modelData,
+  setMenuOpen: menuOpen,
+  showTerms: terms,
+}) => {
   if (!user) {
     return <div />
   }
@@ -29,9 +33,15 @@ const MobileMenu = props => {
 }
 
 MobileMenu.propTypes = {
+  user: PropTypes.shape({}),
+  showTerms: PropTypes.func.isRequired,
   setMenuOpen: PropTypes.func.isRequired,
   setModalData: PropTypes.func.isRequired,
   switchCaseLoad: PropTypes.func.isRequired,
+}
+
+MobileMenu.defaultProps = {
+  user: undefined,
 }
 
 const mapStateToProps = createStructuredSelector({

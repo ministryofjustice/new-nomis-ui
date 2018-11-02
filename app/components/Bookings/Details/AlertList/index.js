@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import styled from 'styled-components'
 import { List } from 'immutable'
@@ -143,6 +144,11 @@ const DesktopAlertItems = ({ alerts, active }) => (
   </Table>
 )
 
+DesktopAlertItems.propTypes = {
+  alerts: ImmutablePropTypes.list.isRequired,
+  active: PropTypes.bool.isRequired,
+}
+
 const MobileAlertItems = ({ alerts, active }) => (
   <div>
     {active ? (
@@ -183,6 +189,11 @@ const MobileAlertItems = ({ alerts, active }) => (
   </div>
 )
 
+MobileAlertItems.propTypes = {
+  alerts: ImmutablePropTypes.list.isRequired,
+  active: PropTypes.bool.isRequired,
+}
+
 const ActiveAlertItems = ({ alerts, desktop }) => {
   if (alerts.size < 1) return false
   return (
@@ -190,12 +201,30 @@ const ActiveAlertItems = ({ alerts, desktop }) => {
   )
 }
 
-const InactiveAlertItems = ({ alerts, desktop }) => {
-  if (alerts.size < 1) return false
-  return <div>{desktop ? <DesktopAlertItems alerts={alerts} /> : <MobileAlertItems alerts={alerts} />}</div>
+ActiveAlertItems.propTypes = {
+  alerts: ImmutablePropTypes.list.isRequired,
+  desktop: PropTypes.bool.isRequired,
 }
 
-function AlertList({ alerts, deviceFormat }) {
+const InactiveAlertItems = ({ alerts, desktop }) => {
+  if (alerts.size < 1) return false
+  return (
+    <div>
+      {desktop ? (
+        <DesktopAlertItems alerts={alerts} active={false} />
+      ) : (
+        <MobileAlertItems alerts={alerts} active={false} />
+      )}
+    </div>
+  )
+}
+
+InactiveAlertItems.propTypes = {
+  alerts: ImmutablePropTypes.list.isRequired,
+  desktop: PropTypes.bool.isRequired,
+}
+
+const AlertList = ({ alerts, deviceFormat }) => {
   if (alerts.size < 1) {
     return <h1 className="bold-medium">There are no alerts for this offender.</h1>
   }
@@ -216,6 +245,7 @@ function AlertList({ alerts, deviceFormat }) {
 
 AlertList.propTypes = {
   alerts: ImmutablePropTypes.list,
+  deviceFormat: PropTypes.string.isRequired,
 }
 
 AlertList.defaultProps = {

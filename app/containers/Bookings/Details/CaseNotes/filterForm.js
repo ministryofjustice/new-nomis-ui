@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types'
 import React from 'react'
+import PropTypes from 'prop-types'
 import moment from 'moment'
 import { connect } from 'react-redux'
 import { reduxForm, Field, formValueSelector } from 'redux-form/immutable'
@@ -119,12 +119,25 @@ FilterForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   error: PropTypes.string,
-  caseNoteFilters: PropTypes.object.isRequired,
+  caseNoteFilters: PropTypes.shape({
+    types: PropTypes.arrayOf(
+      PropTypes.shape({ label: PropTypes.string.isRequired, value: PropTypes.string.isRequired }).isRequired
+    ),
+    subTypes: PropTypes.arrayOf(
+      PropTypes.shape({ label: PropTypes.string.isRequired, value: PropTypes.string.isRequired }).isRequired
+    ),
+  }).isRequired,
+  resetFields: PropTypes.func.isRequired,
+
+  typeValue: PropTypes.string,
+  subTypeValue: PropTypes.string,
 }
 
 FilterForm.defaultProps = {
   locale: 'en',
   error: '',
+  typeValue: '',
+  subTypeValue: '',
 }
 
 export const validate = form => {
@@ -142,41 +155,39 @@ export const validate = form => {
   return errors
 }
 
-export function mapDispatchToProps(dispatch, props) {
-  return {
-    resetFields: () => {
-      dispatch(resetCaseNoteFilterFormField('typeValue'))
-      dispatch(resetCaseNoteFilterFormField('subTypeValue'))
-      dispatch(resetCaseNoteFilterFormField('startDate'))
-      dispatch(resetCaseNoteFilterFormField('endDate'))
-    },
-    validate,
-    onSubmit: createFormAction(
-      formData => {
-        const startDateMoment = formData.get('startDate')
-        const startDate = startDateMoment ? startDateMoment.format(DATE_ONLY_FORMAT_SPEC) : ''
-        const endDateMoment = formData.get('endDate')
-        const endDate = endDateMoment ? endDateMoment.format(DATE_ONLY_FORMAT_SPEC) : ''
+const mapDispatchToProps = (dispatch, props) => ({
+  resetFields: () => {
+    dispatch(resetCaseNoteFilterFormField('typeValue'))
+    dispatch(resetCaseNoteFilterFormField('subTypeValue'))
+    dispatch(resetCaseNoteFilterFormField('startDate'))
+    dispatch(resetCaseNoteFilterFormField('endDate'))
+  },
+  validate,
+  onSubmit: createFormAction(
+    formData => {
+      const startDateMoment = formData.get('startDate')
+      const startDate = startDateMoment ? startDateMoment.format(DATE_ONLY_FORMAT_SPEC) : ''
+      const endDateMoment = formData.get('endDate')
+      const endDate = endDateMoment ? endDateMoment.format(DATE_ONLY_FORMAT_SPEC) : ''
 
-        return {
-          type: CASE_NOTE_FILTER.BASE,
-          payload: {
-            offenderNo: props.offenderNo,
-            query: {
-              perPage: 10,
-              pageNumber: 0,
-              startDate,
-              endDate,
-              type: formData.get('typeValue'),
-              subType: formData.get('subTypeValue'),
-            },
+      return {
+        type: CASE_NOTE_FILTER.BASE,
+        payload: {
+          offenderNo: props.offenderNo,
+          query: {
+            perPage: 10,
+            pageNumber: 0,
+            startDate,
+            endDate,
+            type: formData.get('typeValue'),
+            subType: formData.get('subTypeValue'),
           },
-        }
-      },
-      [CASE_NOTE_FILTER.SUCCESS, CASE_NOTE_FILTER.ERROR]
-    ),
-  }
-}
+        },
+      }
+    },
+    [CASE_NOTE_FILTER.SUCCESS, CASE_NOTE_FILTER.ERROR]
+  ),
+})
 
 const mapStateToProps = createStructuredSelector({
   initialValues: (state, props) => ({

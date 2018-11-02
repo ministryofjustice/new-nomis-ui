@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form/immutable'
 import { connect } from 'react-redux'
 import { createFormAction } from 'redux-form-saga'
@@ -12,9 +13,7 @@ import { extendActiveSession, viewDetails } from '../../../actions'
 
 import './index.scss'
 
-const AmendCaseNote = props => {
-  const { handleSubmit, error, submitting, goBackToBookingDetails, offenderNo, extendSession } = props
-
+const AmendCaseNote = ({ handleSubmit, error, submitting, goBackToBookingDetails, offenderNo, extendSession }) => {
   if (error) {
     window.scrollTo(0, 0)
   }
@@ -73,24 +72,37 @@ const AmendCaseNote = props => {
   )
 }
 
-export function mapDispatchToProps(dispatch, props) {
-  return {
-    goBackToBookingDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.CASE_NOTES)),
-    extendSession: () => dispatch(extendActiveSession()),
-    onSubmit: createFormAction(
-      formData => ({
-        type: AMEND_CASENOTE.BASE,
-        payload: {
-          ...formData.toJS(),
-          offenderNo: props.params.offenderNo,
-          caseNoteId: props.params.caseNoteId,
-          itemId: props.params.caseNoteId,
-        },
-      }),
-      [AMEND_CASENOTE.SUCCESS, AMEND_CASENOTE.ERROR]
-    ),
-  }
+AmendCaseNote.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  error: PropTypes.string,
+  submitting: PropTypes.bool.isRequired,
+  offenderNo: PropTypes.string.isRequired,
+
+  // mapDispatchToProps
+  goBackToBookingDetails: PropTypes.func.isRequired,
+  extendSession: PropTypes.func.isRequired,
 }
+
+AmendCaseNote.defaultProps = {
+  error: '',
+}
+
+const mapDispatchToProps = (dispatch, props) => ({
+  goBackToBookingDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.CASE_NOTES)),
+  extendSession: () => dispatch(extendActiveSession()),
+  onSubmit: createFormAction(
+    formData => ({
+      type: AMEND_CASENOTE.BASE,
+      payload: {
+        ...formData.toJS(),
+        offenderNo: props.params.offenderNo,
+        caseNoteId: props.params.caseNoteId,
+        itemId: props.params.caseNoteId,
+      },
+    }),
+    [AMEND_CASENOTE.SUCCESS, AMEND_CASENOTE.ERROR]
+  ),
+})
 
 const mapStateToProps = (state, props) => ({
   offenderNo: props.params.offenderNo,

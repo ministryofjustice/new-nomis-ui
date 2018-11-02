@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { TabWrapper, TabMenuItem, TextHolder, TabWrapperContentPadding } from './tabMenuMobile.theme'
 
-function TabMenuMobile({ tabData, activeTabId }) {
+const TabMenuMobile = ({ tabData, activeTabId }) => {
   const imgArray = [
     '/img/personal_icon.svg',
     '/img/QuickLook_icon.svg',
@@ -32,7 +32,13 @@ function TabMenuMobile({ tabData, activeTabId }) {
 }
 
 TabMenuMobile.propTypes = {
-  tabData: PropTypes.array.isRequired,
+  tabData: PropTypes.arrayOf(
+    PropTypes.shape({
+      action: PropTypes.func.isRequired,
+      tabId: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+    })
+  ).isRequired,
   activeTabId: PropTypes.string.isRequired,
 }
 

@@ -15,7 +15,7 @@ import {
 
 import forwardBack from '../../assets/forward-arrow.svg'
 
-function MobileMenu({ user, setMenuOpen, showTerms, switchCaseLoad }) {
+const MobileMenu = ({ user, setMenuOpen, showTerms, switchCaseLoad }) => {
   const removeMobileMenu = () => {
     setMenuOpen(false)
   }
@@ -76,13 +76,14 @@ function MobileMenu({ user, setMenuOpen, showTerms, switchCaseLoad }) {
 }
 
 MobileMenu.propTypes = {
-  user: PropTypes.object,
+  user: PropTypes.shape({}),
   setMenuOpen: PropTypes.func.isRequired,
   switchCaseLoad: PropTypes.func.isRequired,
   options: PropTypes.shape({
     assignments: PropTypes.number,
-    facilities: PropTypes.array,
+    facilities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }),
+  showTerms: PropTypes.func.isRequired,
 }
 
 MobileMenu.defaultProps = {
