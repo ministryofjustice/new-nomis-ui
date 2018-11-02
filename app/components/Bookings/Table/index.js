@@ -117,6 +117,7 @@ Table.propTypes = {
   results: ImmutablePropTypes.list.isRequired,
   sortOrderChange: PropTypes.func.isRequired,
   sortOrder: PropTypes.string.isRequired,
+  onAlertFlagClick: PropTypes.func.isRequired,
 }
 
 export default Table
