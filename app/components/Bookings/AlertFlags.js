@@ -1,64 +1,65 @@
 import React from 'react'
 import { linkOnClick } from '../../helpers'
 
-const alertFlags = (alerts, divClassName, onAlertFlagClick) => {
-  let acct = false
-  let assaulter = false
-  let arsonist = false
-  let disability = false
-
-  function selectFlag(alert) {
-    switch (alert) {
-      case 'HA':
-        acct = true
-        break
-      case 'XSA':
-        assaulter = true
-        break
-      case 'XA':
-        arsonist = true
-        break
-      case 'PEEP':
-        disability = true
-        break
-      default:
+const AlertFlags = (alerts, divClassName, onAlertFlagClick) => {
+  function isShown(code) {
+    if (alerts) {
+      return alerts.some(alert => {
+        if (alert.get) {
+          if (!alert.get('expired')) {
+            if (alert.get('alertCode') === code) return true
+          }
+        } else if (alert === code) return true
+        return false
+      })
     }
+    return false
   }
-
-  if (alerts) {
-    alerts.forEach(alert => {
-      if (alert.get) {
-        if (!alert.get('expired')) {
-          selectFlag(alert.get('alertCode'))
-        }
-      } else {
-        selectFlag(alert)
-      }
-    })
-  }
-
-  const AlertFlag = ({ className, children }) => (
-    <span className={className} {...linkOnClick(onAlertFlagClick)}>
-      {children}
-    </span>
-  )
 
   return (
     <div className={divClassName}>
-      {acct && <AlertFlag className="acct-status">ACCT OPEN</AlertFlag>}
-      {assaulter && <AlertFlag className="assault-status">STAFF ASSAULTER</AlertFlag>}
-      {arsonist && (
-        <AlertFlag className="arsonist-status">
-          <img src="/img/Arsonist_icon.png" className="flag-arsonist-icon" alt="" width="13" height="16" /> ARSONIST
-        </AlertFlag>
+      {isShown('HA') && (
+        <span className="acct-status" {...linkOnClick(onAlertFlagClick)}>
+          ACCT OPEN
+        </span>
       )}
-      {disability && (
-        <AlertFlag className="disability-status">
-          <img src="/img/Disability_icon.png" className="disability-adjust" alt="" width="19" height="21" /> PEEP
-        </AlertFlag>
+      {isShown('XSA') && (
+        <span className="assault-status" {...linkOnClick(onAlertFlagClick)}>
+          STAFF ASSAULTER
+        </span>
+      )}
+      {isShown('XA') && (
+        <span className="arsonist-status" {...linkOnClick(onAlertFlagClick)}>
+          <img src="/img/Arsonist_icon.png" className="arsonist-adjust" alt="" width="11" height="14" /> ARSONIST
+        </span>
+      )}
+      {isShown('PEEP') && (
+        <span className="disability-status" {...linkOnClick(onAlertFlagClick)}>
+          <img src="/img/Disability_icon.png" className="disability-adjust" alt="" width="14" height="15" /> PEEP
+        </span>
+      )}
+      {isShown('XEL') && (
+        <span className="elist-status" {...linkOnClick(onAlertFlagClick)}>
+          E-LIST
+        </span>
+      )}
+      {isShown('XRF') && (
+        <span className="risk-females-status" {...linkOnClick(onAlertFlagClick)}>
+          RISK TO FEMALES
+        </span>
+      )}
+      {isShown('XTACT') && (
+        <span className="tact-status" {...linkOnClick(onAlertFlagClick)}>
+          TACT
+        </span>
       )}
     </div>
   )
 }
 
-export default alertFlags
+const AssessmentFlags = (category, divClassName) => (
+  <div className={divClassName}>{category === 'A' && <span className="cata-status">CAT A</span>}</div>
+)
+
+const flags = { AlertFlags, AssessmentFlags }
+export default flags
