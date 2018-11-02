@@ -136,9 +136,10 @@
   }
 }
 
+/* stylelint-disable property-no-vendor-prefix */
 %status-style {
   border: 3px solid;
-  padding: .5em 0.8em 0;
+  padding: .4em 0.8em 0;
   margin-left: 0;
   margin-right: 5px;
   margin-bottom: 5px;
@@ -150,6 +151,15 @@
   min-width: 7em;
   height: 29px;
   cursor: pointer;
+
+  // disable text selection in the alert flags.
+  // From https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
 .acct-status {
@@ -166,26 +176,30 @@
 
 .disability-status {
   @extend %status-style;
-  padding-top: 0.3em;
+  padding-top: 0.32em;
   color: #2B88C8;
   border-color: #2B88C8;
 }
 
 .disability-adjust {
+  margin-bottom: 2px;
   position: relative;
-  left: -7px;
-  top: -2px;
+  left: 0;
+  top: -1px;
 }
 
 .arsonist-status {
   @extend %status-style;
-  padding-top: 0.3em;
+  padding-top: 0.18em;
   color: #DF3034;
   border-color: #DF3034;
 }
 
-.flag-arsonist-icon {
-  margin-bottom: 5px;
+.arsonist-adjust {
+  margin-bottom: 7px;
+  position: relative;
+  left: 0;
+  top: 2px;
 }
 
 .elist-status {
