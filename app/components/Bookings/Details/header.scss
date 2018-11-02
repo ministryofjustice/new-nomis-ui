@@ -136,6 +136,7 @@
   }
 }
 
+/* stylelint-disable property-no-vendor-prefix */
 %status-style {
   border: 3px solid;
   padding: .4em 0.8em 0;
@@ -151,7 +152,8 @@
   height: 29px;
   cursor: pointer;
 
-  // disable select, from https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting
+  // disable text selection in the alert flags.
+  // From https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
   -khtml-user-select: none; /* Konqueror HTML */
