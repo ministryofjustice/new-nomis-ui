@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { viewDetails as vD } from '../Bookings/actions'
@@ -10,7 +11,7 @@ import { setSearchContext } from '../../globalReducers/app'
 import UserModel from '../../helpers/dataMappers/user'
 import ThresholdIndicator from '../../components/ThresholdIndicator'
 import { FormattedDate } from '../../components/intl'
-import { setAssignmentsPagination, setAssignmentsView, loadAssignments } from './actions'
+import { loadAssignments } from './actions'
 import { linkOnClick } from '../../helpers'
 import './index.scss'
 
@@ -94,6 +95,11 @@ const ResultsView = ({ results, viewDetails }) => (
   </div>
 )
 
+ResultsView.propTypes = {
+  results: ImmutablePropTypes.map.isRequired,
+  viewDetails: PropTypes.func.isRequired,
+}
+
 class Assignments extends Component {
   componentDidMount() {
     const { user, setContext, boundLoadAssignments, redirectToHome } = this.props
@@ -132,19 +138,19 @@ class Assignments extends Component {
 }
 
 Assignments.propTypes = {
+  // mapDispatchToProps
+  viewDetails: PropTypes.func.isRequired,
   setContext: PropTypes.func.isRequired,
+  boundLoadAssignments: PropTypes.func.isRequired,
+  redirectToHome: PropTypes.func.isRequired,
 }
 
-export function mapDispatchToProps(dispatch, props) {
-  return {
-    viewDetails: offenderNo => dispatch(vD(offenderNo, DETAILS_TABS.QUICK_LOOK)),
-    setPage: pagination => dispatch(setAssignmentsPagination({ ...props.location.query, ...pagination })),
-    setResultsView: view => dispatch(setAssignmentsView(view)),
-    setContext: context => dispatch(setSearchContext(context)),
-    boundLoadAssignments: () => dispatch(loadAssignments()),
-    redirectToHome: () => dispatch(push('/')),
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  viewDetails: offenderNo => dispatch(vD(offenderNo, DETAILS_TABS.QUICK_LOOK)),
+  setContext: context => dispatch(setSearchContext(context)),
+  boundLoadAssignments: () => dispatch(loadAssignments()),
+  redirectToHome: () => dispatch(push('/')),
+})
 
 const mapStateToProps = immutableState => {
   const assignments = immutableState.getIn(['assignments'])

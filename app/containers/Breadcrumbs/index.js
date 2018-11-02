@@ -22,14 +22,20 @@ class Breadcrumbs extends Component {
 }
 
 Breadcrumbs.propTypes = {
-  user: PropTypes.object,
   route: PropTypes.string.isRequired,
+  offenderNo: PropTypes.string,
+
+  // mapStateToProps
+  user: PropTypes.shape({}),
   searchContext: PropTypes.string,
+  lastSearchResultQuery: PropTypes.shape({}),
 }
 
 Breadcrumbs.defaultProps = {
   user: undefined,
   searchContext: '',
+  lastSearchResultQuery: null,
+  offenderNo: '',
 }
 
 const mapStateToProps = state => ({
