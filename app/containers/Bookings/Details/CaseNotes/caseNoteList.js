@@ -1,11 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ReactRouterPropTypes from 'react-router-prop-types'
 
-import PreviousNextNavigation from '../../../../components/PreviousNextNavigation'
+import PreviousNextNavigation, { paginationType } from '../../../../components/PreviousNextNavigation'
 import CaseNoteListItem from '../../../../components/Bookings/Details/CaseNotes/listItem'
 import NoSearchResultsReturnedMessage from '../../../../components/NoSearchResultsReturnedMessage'
 
 import CaseNoteFilterForm from './filterForm'
+import caseNoteQueryType from './types'
 
 const CaseNotes = props => {
   const {
@@ -47,12 +50,15 @@ const CaseNotes = props => {
 
 CaseNotes.propTypes = {
   offenderNo: PropTypes.string.isRequired,
-  caseNotes: PropTypes.object.isRequired,
-  pagination: PropTypes.object.isRequired,
-  caseNotesQuery: PropTypes.object.isRequired,
+  caseNotes: ImmutablePropTypes.list.isRequired,
+  pagination: paginationType.isRequired,
+  caseNotesQuery: caseNoteQueryType.isRequired,
   setPagination: PropTypes.func.isRequired,
   totalResults: PropTypes.number,
   setCaseNoteView: PropTypes.func.isRequired,
+
+  // special
+  location: ReactRouterPropTypes.location.isRequired,
 }
 
 CaseNotes.defaultProps = {

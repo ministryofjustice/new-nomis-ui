@@ -4,7 +4,7 @@ import ReactRouterPropTypes from 'react-router-prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { List, Map } from 'immutable'
 import { connect } from 'react-redux'
-import PreviousNextNavigation from '../../../components/PreviousNextNavigation'
+import PreviousNextNavigation, { paginationType } from '../../../components/PreviousNextNavigation'
 import BookingTable from '../../../components/Bookings/Table'
 import BookingGrid from '../../../components/Bookings/Grid'
 import NoSearchResultsReturnedMessage from '../../../components/NoSearchResultsReturnedMessage'
@@ -191,8 +191,7 @@ SearchResults.propTypes = {
 
   results: ImmutablePropTypes.list,
   totalResults: PropTypes.number,
-  pagination: PropTypes.shape({ pageNumber: PropTypes.number.isRequired, perPage: PropTypes.number.isRequired })
-    .isRequired,
+  pagination: paginationType.isRequired,
   resultsView: PropTypes.string,
   locations: ImmutablePropTypes.list,
 
