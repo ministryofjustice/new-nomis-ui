@@ -162,7 +162,7 @@ class Elite2Api extends WireMockRule {
 
   void stubOffenderSearch(String details, ArrayList<Offender> offenders, String alertsParams, String sortFields = 'lastName,firstName', String sortOrder = 'ASC') {
     this.stubFor(
-      get("/api/locations/description/LEI/inmates?keywords=${details}${alertsParams}&returnIep=true&returnAlerts=true")
+      get("/api/locations/description/LEI/inmates?keywords=${details}${alertsParams}&returnIep=true&returnAlerts=true&returnCategory=true")
         .withHeader('Page-Limit', equalTo('10'))
         .withHeader('Page-Offset', equalTo('0'))
         .withHeader('Sort-Fields', equalTo(sortFields))
@@ -233,6 +233,7 @@ class Elite2Api extends WireMockRule {
     "alertsCodes": [],
     "activeAlertCount": 0,
     "inactiveAlertCount": 1,
+    "categoryCode": "A",
     "assignedLivingUnit": {
         "agencyId": "LEI",
         "locationId": -8,

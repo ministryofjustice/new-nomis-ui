@@ -60,13 +60,10 @@ class SearchResultsSpecification extends GebReportingSpec {
       rows[3].text() == 'Smith, Daniel\n' + 'A1234AJ\n' + 'A-1-6\n' + 'Standard\n' + '60\n' + 'ARSONIST PEEP'
 
     when: 'Alert filters are selected'
-    if (!rows[3].text().contains('ARSONIST PEEP')) {
-      // Alert tests only applicable to desktop mode
-      return;
-    }
     moreFiltersLink.click()
     checkboxes[0].click() // acct
-    checkboxes[3].click() // arsonist
+    checkboxes[4].click() // arsonist
+    checkboxes[5].click() // TACT
     elite2api.stubOffenderSearch(
       'aname',
       [
@@ -74,7 +71,7 @@ class SearchResultsSpecification extends GebReportingSpec {
         Offender.BOB(),
         Offender.SMELLEY()
       ] as ArrayList<Offender>,
-      '&alerts=HA&alerts=XA')
+      '&alerts=HA&alerts=XA&alerts=XTACT')
     selectVisibleButton().click()
 
     then: 'Filters are applied'

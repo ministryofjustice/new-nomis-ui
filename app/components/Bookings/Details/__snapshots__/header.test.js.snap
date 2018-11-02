@@ -446,6 +446,7 @@ ShallowWrapper {
             "lastName": "Last",
             "subscribe": [Function],
             "facialImageId": -11,
+            "categoryCode": "D",
             "iepLevel": "Standard",
             "alerts": Array [
               Immutable.Map {
@@ -473,7 +474,6 @@ ShallowWrapper {
             "keyworker": Immutable.Map {
               "staffId": -6,
             },
-            "category": "Cat D",
             "inactiveAlertCount": 8,
             "csra": "Medium",
           }
@@ -491,6 +491,7 @@ ShallowWrapper {
             "lastName": "Last",
             "subscribe": [Function],
             "facialImageId": -11,
+            "categoryCode": "D",
             "iepLevel": "Standard",
             "alerts": Array [
               Immutable.Map {
@@ -518,7 +519,6 @@ ShallowWrapper {
             "keyworker": Immutable.Map {
               "staffId": -6,
             },
-            "category": "Cat D",
             "inactiveAlertCount": 8,
             "csra": "Medium",
           },
@@ -986,6 +986,7 @@ ShallowWrapper {
         "lastName": "Last",
         "subscribe": [Function],
         "facialImageId": -11,
+        "categoryCode": "D",
         "iepLevel": "Standard",
         "alerts": Array [
           Immutable.Map {
@@ -1013,7 +1014,6 @@ ShallowWrapper {
         "keyworker": Immutable.Map {
           "staffId": -6,
         },
-        "category": "Cat D",
         "inactiveAlertCount": 8,
         "csra": "Medium",
       }
@@ -1469,6 +1469,7 @@ ShallowWrapper {
             "lastName": "Last",
             "subscribe": [Function],
             "facialImageId": -11,
+            "categoryCode": "D",
             "iepLevel": "Standard",
             "alerts": Array [
               Immutable.Map {
@@ -1496,7 +1497,6 @@ ShallowWrapper {
             "keyworker": Immutable.Map {
               "staffId": -6,
             },
-            "category": "Cat D",
             "inactiveAlertCount": 8,
             "csra": "Medium",
           }
@@ -1514,6 +1514,7 @@ ShallowWrapper {
             "lastName": "Last",
             "subscribe": [Function],
             "facialImageId": -11,
+            "categoryCode": "D",
             "iepLevel": "Standard",
             "alerts": Array [
               Immutable.Map {
@@ -1541,7 +1542,6 @@ ShallowWrapper {
             "keyworker": Immutable.Map {
               "staffId": -6,
             },
-            "category": "Cat D",
             "inactiveAlertCount": 8,
             "csra": "Medium",
           },
@@ -2009,6 +2009,7 @@ ShallowWrapper {
         "lastName": "Last",
         "subscribe": [Function],
         "facialImageId": -11,
+        "categoryCode": "D",
         "iepLevel": "Standard",
         "alerts": Array [
           Immutable.Map {
@@ -2036,7 +2037,6 @@ ShallowWrapper {
         "keyworker": Immutable.Map {
           "staffId": -6,
         },
-        "category": "Cat D",
         "inactiveAlertCount": 8,
         "csra": "Medium",
       }
@@ -2063,18 +2063,30 @@ ShallowWrapper {
       <div
         className="col-sm-12 no-padding-left"
       >
-        <AlertFlag
+        <span
           className="acct-status"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="link"
+          tabIndex={0}
         >
           ACCT OPEN
-        </AlertFlag>
-        <AlertFlag
+        </span>
+        <span
           className="assault-status"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="link"
+          tabIndex={0}
         >
           STAFF ASSAULTER
-        </AlertFlag>
-        <AlertFlag
+        </span>
+        <span
           className="arsonist-status"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="link"
+          tabIndex={0}
         >
           <img
             alt=""
@@ -2084,9 +2096,13 @@ ShallowWrapper {
             width="13"
           />
            ARSONIST
-        </AlertFlag>
-        <AlertFlag
+        </span>
+        <span
           className="disability-status"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="link"
+          tabIndex={0}
         >
           <img
             alt=""
@@ -2096,7 +2112,7 @@ ShallowWrapper {
             width="19"
           />
            PEEP
-        </AlertFlag>
+        </span>
       </div>
     </div>
     <div
@@ -2134,18 +2150,30 @@ ShallowWrapper {
             <div
               className="inline-header-large align-alerts"
             >
-              <AlertFlag
+              <span
                 className="acct-status"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="link"
+                tabIndex={0}
               >
                 ACCT OPEN
-              </AlertFlag>
-              <AlertFlag
+              </span>
+              <span
                 className="assault-status"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="link"
+                tabIndex={0}
               >
                 STAFF ASSAULTER
-              </AlertFlag>
-              <AlertFlag
+              </span>
+              <span
                 className="arsonist-status"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="link"
+                tabIndex={0}
               >
                 <img
                   alt=""
@@ -2155,9 +2183,13 @@ ShallowWrapper {
                   width="13"
                 />
                  ARSONIST
-              </AlertFlag>
-              <AlertFlag
+              </span>
+              <span
                 className="disability-status"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="link"
+                tabIndex={0}
               >
                 <img
                   alt=""
@@ -2167,7 +2199,7 @@ ShallowWrapper {
                   width="19"
                 />
                  PEEP
-              </AlertFlag>
+              </span>
             </div>
           </div>
         </div>
@@ -2221,6 +2253,7 @@ ShallowWrapper {
                   "lastName": "Last",
                   "subscribe": [Function],
                   "facialImageId": -11,
+                  "categoryCode": "D",
                   "iepLevel": "Standard",
                   "alerts": Array [
                     Immutable.Map {
@@ -2248,7 +2281,6 @@ ShallowWrapper {
                   "keyworker": Immutable.Map {
                     "staffId": -6,
                   },
-                  "category": "Cat D",
                   "inactiveAlertCount": 8,
                   "csra": "Medium",
                 }
@@ -2271,6 +2303,7 @@ ShallowWrapper {
               "lastName": "Last",
               "subscribe": [Function],
               "facialImageId": -11,
+              "categoryCode": "D",
               "iepLevel": "Standard",
               "alerts": Array [
                 Immutable.Map {
@@ -2298,7 +2331,6 @@ ShallowWrapper {
               "keyworker": Immutable.Map {
                 "staffId": -6,
               },
-              "category": "Cat D",
               "inactiveAlertCount": 8,
               "csra": "Medium",
             }
@@ -2318,18 +2350,30 @@ ShallowWrapper {
         <div
           className="col-sm-12 no-padding-left"
         >
-          <AlertFlag
+          <span
             className="acct-status"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="link"
+            tabIndex={0}
           >
             ACCT OPEN
-          </AlertFlag>
-          <AlertFlag
+          </span>
+          <span
             className="assault-status"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="link"
+            tabIndex={0}
           >
             STAFF ASSAULTER
-          </AlertFlag>
-          <AlertFlag
+          </span>
+          <span
             className="arsonist-status"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="link"
+            tabIndex={0}
           >
             <img
               alt=""
@@ -2339,9 +2383,13 @@ ShallowWrapper {
               width="13"
             />
              ARSONIST
-          </AlertFlag>
-          <AlertFlag
+          </span>
+          <span
             className="disability-status"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="link"
+            tabIndex={0}
           >
             <img
               alt=""
@@ -2351,7 +2399,7 @@ ShallowWrapper {
               width="19"
             />
              PEEP
-          </AlertFlag>
+          </span>
         </div>
       </div>
       <div
@@ -2389,18 +2437,30 @@ ShallowWrapper {
               <div
                 className="inline-header-large align-alerts"
               >
-                <AlertFlag
+                <span
                   className="acct-status"
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="link"
+                  tabIndex={0}
                 >
                   ACCT OPEN
-                </AlertFlag>
-                <AlertFlag
+                </span>
+                <span
                   className="assault-status"
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="link"
+                  tabIndex={0}
                 >
                   STAFF ASSAULTER
-                </AlertFlag>
-                <AlertFlag
+                </span>
+                <span
                   className="arsonist-status"
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="link"
+                  tabIndex={0}
                 >
                   <img
                     alt=""
@@ -2410,9 +2470,13 @@ ShallowWrapper {
                     width="13"
                   />
                    ARSONIST
-                </AlertFlag>
-                <AlertFlag
+                </span>
+                <span
                   className="disability-status"
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="link"
+                  tabIndex={0}
                 >
                   <img
                     alt=""
@@ -2422,7 +2486,7 @@ ShallowWrapper {
                     width="19"
                   />
                    PEEP
-                </AlertFlag>
+                </span>
               </div>
             </div>
           </div>
@@ -2476,6 +2540,7 @@ ShallowWrapper {
                     "lastName": "Last",
                     "subscribe": [Function],
                     "facialImageId": -11,
+                    "categoryCode": "D",
                     "iepLevel": "Standard",
                     "alerts": Array [
                       Immutable.Map {
@@ -2503,7 +2568,6 @@ ShallowWrapper {
                     "keyworker": Immutable.Map {
                       "staffId": -6,
                     },
-                    "category": "Cat D",
                     "inactiveAlertCount": 8,
                     "csra": "Medium",
                   }
@@ -2526,6 +2590,7 @@ ShallowWrapper {
                 "lastName": "Last",
                 "subscribe": [Function],
                 "facialImageId": -11,
+                "categoryCode": "D",
                 "iepLevel": "Standard",
                 "alerts": Array [
                   Immutable.Map {
@@ -2553,7 +2618,6 @@ ShallowWrapper {
                 "keyworker": Immutable.Map {
                   "staffId": -6,
                 },
-                "category": "Cat D",
                 "inactiveAlertCount": 8,
                 "csra": "Medium",
               }
@@ -2576,6 +2640,7 @@ ShallowWrapper {
             "lastName": "Last",
             "subscribe": [Function],
             "facialImageId": -11,
+            "categoryCode": "D",
             "iepLevel": "Standard",
             "alerts": Array [
               Immutable.Map {
@@ -2603,7 +2668,6 @@ ShallowWrapper {
             "keyworker": Immutable.Map {
               "staffId": -6,
             },
-            "category": "Cat D",
             "inactiveAlertCount": 8,
             "csra": "Medium",
           }
@@ -2623,6 +2687,7 @@ ShallowWrapper {
             "lastName": "Last",
             "subscribe": [Function],
             "facialImageId": -11,
+            "categoryCode": "D",
             "iepLevel": "Standard",
             "alerts": Array [
               Immutable.Map {
@@ -2650,7 +2715,6 @@ ShallowWrapper {
             "keyworker": Immutable.Map {
               "staffId": -6,
             },
-            "category": "Cat D",
             "inactiveAlertCount": 8,
             "csra": "Medium",
           },
@@ -2687,18 +2751,30 @@ ShallowWrapper {
             <div
               className="col-sm-12 no-padding-left"
             >
-              <AlertFlag
+              <span
                 className="acct-status"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="link"
+                tabIndex={0}
               >
                 ACCT OPEN
-              </AlertFlag>
-              <AlertFlag
+              </span>
+              <span
                 className="assault-status"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="link"
+                tabIndex={0}
               >
                 STAFF ASSAULTER
-              </AlertFlag>
-              <AlertFlag
+              </span>
+              <span
                 className="arsonist-status"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="link"
+                tabIndex={0}
               >
                 <img
                   alt=""
@@ -2708,9 +2784,13 @@ ShallowWrapper {
                   width="13"
                 />
                  ARSONIST
-              </AlertFlag>
-              <AlertFlag
+              </span>
+              <span
                 className="disability-status"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="link"
+                tabIndex={0}
               >
                 <img
                   alt=""
@@ -2720,7 +2800,7 @@ ShallowWrapper {
                   width="19"
                 />
                  PEEP
-              </AlertFlag>
+              </span>
             </div>
           </div>
           <div
@@ -2758,18 +2838,30 @@ ShallowWrapper {
                   <div
                     className="inline-header-large align-alerts"
                   >
-                    <AlertFlag
+                    <span
                       className="acct-status"
+                      onClick={[Function]}
+                      onKeyDown={[Function]}
+                      role="link"
+                      tabIndex={0}
                     >
                       ACCT OPEN
-                    </AlertFlag>
-                    <AlertFlag
+                    </span>
+                    <span
                       className="assault-status"
+                      onClick={[Function]}
+                      onKeyDown={[Function]}
+                      role="link"
+                      tabIndex={0}
                     >
                       STAFF ASSAULTER
-                    </AlertFlag>
-                    <AlertFlag
+                    </span>
+                    <span
                       className="arsonist-status"
+                      onClick={[Function]}
+                      onKeyDown={[Function]}
+                      role="link"
+                      tabIndex={0}
                     >
                       <img
                         alt=""
@@ -2779,9 +2871,13 @@ ShallowWrapper {
                         width="13"
                       />
                        ARSONIST
-                    </AlertFlag>
-                    <AlertFlag
+                    </span>
+                    <span
                       className="disability-status"
+                      onClick={[Function]}
+                      onKeyDown={[Function]}
+                      role="link"
+                      tabIndex={0}
                     >
                       <img
                         alt=""
@@ -2791,7 +2887,7 @@ ShallowWrapper {
                         width="19"
                       />
                        PEEP
-                    </AlertFlag>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -2845,6 +2941,7 @@ ShallowWrapper {
                         "lastName": "Last",
                         "subscribe": [Function],
                         "facialImageId": -11,
+                        "categoryCode": "D",
                         "iepLevel": "Standard",
                         "alerts": Array [
                           Immutable.Map {
@@ -2872,7 +2969,6 @@ ShallowWrapper {
                         "keyworker": Immutable.Map {
                           "staffId": -6,
                         },
-                        "category": "Cat D",
                         "inactiveAlertCount": 8,
                         "csra": "Medium",
                       }
@@ -2895,6 +2991,7 @@ ShallowWrapper {
                     "lastName": "Last",
                     "subscribe": [Function],
                     "facialImageId": -11,
+                    "categoryCode": "D",
                     "iepLevel": "Standard",
                     "alerts": Array [
                       Immutable.Map {
@@ -2922,7 +3019,6 @@ ShallowWrapper {
                     "keyworker": Immutable.Map {
                       "staffId": -6,
                     },
-                    "category": "Cat D",
                     "inactiveAlertCount": 8,
                     "csra": "Medium",
                   }
@@ -2942,18 +3038,30 @@ ShallowWrapper {
             <div
               className="col-sm-12 no-padding-left"
             >
-              <AlertFlag
+              <span
                 className="acct-status"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="link"
+                tabIndex={0}
               >
                 ACCT OPEN
-              </AlertFlag>
-              <AlertFlag
+              </span>
+              <span
                 className="assault-status"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="link"
+                tabIndex={0}
               >
                 STAFF ASSAULTER
-              </AlertFlag>
-              <AlertFlag
+              </span>
+              <span
                 className="arsonist-status"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="link"
+                tabIndex={0}
               >
                 <img
                   alt=""
@@ -2963,9 +3071,13 @@ ShallowWrapper {
                   width="13"
                 />
                  ARSONIST
-              </AlertFlag>
-              <AlertFlag
+              </span>
+              <span
                 className="disability-status"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="link"
+                tabIndex={0}
               >
                 <img
                   alt=""
@@ -2975,7 +3087,7 @@ ShallowWrapper {
                   width="19"
                 />
                  PEEP
-              </AlertFlag>
+              </span>
             </div>
           </div>
           <div
@@ -3013,18 +3125,30 @@ ShallowWrapper {
                   <div
                     className="inline-header-large align-alerts"
                   >
-                    <AlertFlag
+                    <span
                       className="acct-status"
+                      onClick={[Function]}
+                      onKeyDown={[Function]}
+                      role="link"
+                      tabIndex={0}
                     >
                       ACCT OPEN
-                    </AlertFlag>
-                    <AlertFlag
+                    </span>
+                    <span
                       className="assault-status"
+                      onClick={[Function]}
+                      onKeyDown={[Function]}
+                      role="link"
+                      tabIndex={0}
                     >
                       STAFF ASSAULTER
-                    </AlertFlag>
-                    <AlertFlag
+                    </span>
+                    <span
                       className="arsonist-status"
+                      onClick={[Function]}
+                      onKeyDown={[Function]}
+                      role="link"
+                      tabIndex={0}
                     >
                       <img
                         alt=""
@@ -3034,9 +3158,13 @@ ShallowWrapper {
                         width="13"
                       />
                        ARSONIST
-                    </AlertFlag>
-                    <AlertFlag
+                    </span>
+                    <span
                       className="disability-status"
+                      onClick={[Function]}
+                      onKeyDown={[Function]}
+                      role="link"
+                      tabIndex={0}
                     >
                       <img
                         alt=""
@@ -3046,7 +3174,7 @@ ShallowWrapper {
                         width="19"
                       />
                        PEEP
-                    </AlertFlag>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -3100,6 +3228,7 @@ ShallowWrapper {
                         "lastName": "Last",
                         "subscribe": [Function],
                         "facialImageId": -11,
+                        "categoryCode": "D",
                         "iepLevel": "Standard",
                         "alerts": Array [
                           Immutable.Map {
@@ -3127,7 +3256,6 @@ ShallowWrapper {
                         "keyworker": Immutable.Map {
                           "staffId": -6,
                         },
-                        "category": "Cat D",
                         "inactiveAlertCount": 8,
                         "csra": "Medium",
                       }
@@ -3150,6 +3278,7 @@ ShallowWrapper {
                     "lastName": "Last",
                     "subscribe": [Function],
                     "facialImageId": -11,
+                    "categoryCode": "D",
                     "iepLevel": "Standard",
                     "alerts": Array [
                       Immutable.Map {
@@ -3177,7 +3306,6 @@ ShallowWrapper {
                     "keyworker": Immutable.Map {
                       "staffId": -6,
                     },
-                    "category": "Cat D",
                     "inactiveAlertCount": 8,
                     "csra": "Medium",
                   }
@@ -3204,6 +3332,7 @@ ShallowWrapper {
         "lastName": "Last",
         "subscribe": [Function],
         "facialImageId": -11,
+        "categoryCode": "D",
         "iepLevel": "Standard",
         "alerts": Array [
           Immutable.Map {
@@ -3231,7 +3360,6 @@ ShallowWrapper {
         "keyworker": Immutable.Map {
           "staffId": -6,
         },
-        "category": "Cat D",
         "inactiveAlertCount": 8,
         "csra": "Medium",
       }
