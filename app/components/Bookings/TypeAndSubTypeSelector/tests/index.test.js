@@ -9,9 +9,7 @@ describe('TypeAndSubTypeSelector', () => {
   const SubTypeSelectorNode = renderedComponent => renderedComponent.find('[title="Sub-type"]')
 
   it('should not populate subTypeValues when no parent type has been selected', () => {
-    const renderedComponent = shallow(
-      <TypeAndSubTypeSelector types={types} subTypes={subTypes} selectedType="" selectedSubType="" />
-    )
+    const renderedComponent = shallow(<TypeAndSubTypeSelector types={types} subTypes={subTypes} />)
 
     const typeSelectorProps = TypeSelectorNode(renderedComponent).node.props
     const subTypeSelectorProps = SubTypeSelectorNode(renderedComponent).node.props
@@ -22,7 +20,7 @@ describe('TypeAndSubTypeSelector', () => {
 
   it('should populate subTypeValue options with related types once a parent type has been selected', () => {
     const renderedComponent = shallow(
-      <TypeAndSubTypeSelector selectedType={types[0].value} types={types} subTypes={subTypes} selectedSubType="" />
+      <TypeAndSubTypeSelector selectedType={types[0].value} types={types} subTypes={subTypes} />
     )
 
     const subTypeSelectorProps = SubTypeSelectorNode(renderedComponent).node.props
@@ -32,7 +30,7 @@ describe('TypeAndSubTypeSelector', () => {
 
   it('should reset the subType by default', () => {
     const renderedComponent = shallow(
-      <TypeAndSubTypeSelector selectedType={types[0].value} types={types} subTypes={subTypes} selectedSubType="" />
+      <TypeAndSubTypeSelector selectedType={types[0].value} types={types} subTypes={subTypes} />
     )
 
     renderedComponent.instance().componentDidMount()
@@ -42,7 +40,7 @@ describe('TypeAndSubTypeSelector', () => {
 
   it('should not reset subType once a subType has been selected', () => {
     const renderedComponent = shallow(
-      <TypeAndSubTypeSelector selectedType={types[0].value} types={types} subTypes={subTypes} selectedSubType="" />
+      <TypeAndSubTypeSelector selectedType={types[0].value} types={types} subTypes={subTypes} />
     )
 
     const instance = renderedComponent.instance()
@@ -54,7 +52,7 @@ describe('TypeAndSubTypeSelector', () => {
 
   it('should reset subType once a type has been selected', () => {
     const renderedComponent = shallow(
-      <TypeAndSubTypeSelector selectedType={types[0].value} types={types} subTypes={subTypes} selectedSubType="" />
+      <TypeAndSubTypeSelector selectedType={types[0].value} types={types} subTypes={subTypes} />
     )
 
     const instance = renderedComponent.instance()

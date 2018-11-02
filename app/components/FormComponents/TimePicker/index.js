@@ -3,6 +3,7 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 
 import { DATE_TIME_FORMAT_SPEC, DATE_ONLY_FORMAT_SPEC } from '../../../containers/App/constants'
+import { inputType, metaType } from '../types'
 
 const formatNumbersUpTo = total =>
   [...Array(total).keys()].map(i => {
@@ -208,8 +209,8 @@ TimePicker.propTypes = {
   initialiseToNow: PropTypes.bool,
   pastTimeOnly: PropTypes.bool,
   futureTimeOnly: PropTypes.bool,
-  input: PropTypes.shape({ name: PropTypes.string.isRequired, value: PropTypes.string }).isRequired,
-  meta: PropTypes.shape({ touched: PropTypes.bool, error: PropTypes.string }).isRequired,
+  input: inputType.isRequired,
+  meta: metaType.isRequired,
 }
 
 TimePicker.defaultProps = {

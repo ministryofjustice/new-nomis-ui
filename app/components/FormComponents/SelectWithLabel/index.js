@@ -1,6 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { inputType, metaType } from '../types'
 
-const renderField = ({ resetValue, options, input, title, meta: { touched, error } }) => {
+const SelectWithLabel = ({ resetValue, options, input, title, meta: { touched, error } }) => {
   if (resetValue === true) {
     setTimeout(() => input.onChange(null), 100)
   }
@@ -32,4 +34,21 @@ const renderField = ({ resetValue, options, input, title, meta: { touched, error
   )
 }
 
-export default renderField
+SelectWithLabel.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.number.isRequired]),
+    }).isRequired
+  ).isRequired,
+  resetValue: PropTypes.bool,
+  input: inputType.isRequired,
+  meta: metaType.isRequired,
+  title: PropTypes.string.isRequired,
+}
+
+SelectWithLabel.defaultProps = {
+  resetValue: false,
+}
+
+export default SelectWithLabel

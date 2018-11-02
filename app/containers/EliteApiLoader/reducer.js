@@ -40,8 +40,8 @@ export const initialState = Map({
   Officers: Map(),
   User: Map({
     CaseLoads: List(),
-    CaseNoteTypes: List(),
-    CaseNoteSubTypes: List(),
+    CaseNoteTypes: [],
+    CaseNoteSubTypes: [],
   }),
 })
 

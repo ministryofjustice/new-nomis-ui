@@ -73,7 +73,7 @@ const AmendCaseNote = ({ handleSubmit, error, submitting, goBackToBookingDetails
 }
 
 AmendCaseNote.propTypes = {
-  handleSubmit: PropTypes.string.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
   error: PropTypes.string,
   submitting: PropTypes.bool.isRequired,
   offenderNo: PropTypes.string.isRequired,

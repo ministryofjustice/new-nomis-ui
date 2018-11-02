@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { inputType, metaType } from '../types'
 
 export const InputError = () => <div />
 
@@ -11,7 +12,11 @@ const Input = props => (
 
 const FormGroup = ({ children }) => <div className="form-group">{children}</div>
 
-const renderInput = ({ input, title, type, meta: { touched, error } }) => (
+FormGroup.propTypes = {
+  children: PropTypes.element.isRequired,
+}
+
+const SubmissionError = ({ input, title, type, meta: { touched, error } }) => (
   <FormGroup error={touched && error}>
     <label>{title}</label>
     <InputError error={touched && error}>{error}</InputError>
@@ -19,16 +24,15 @@ const renderInput = ({ input, title, type, meta: { touched, error } }) => (
   </FormGroup>
 )
 
-renderInput.propTypes = {
-  input: PropTypes.object.isRequired,
+SubmissionError.propTypes = {
+  input: inputType.isRequired,
   title: PropTypes.string,
   type: PropTypes.string.isRequired,
-  meta: PropTypes.object.isRequired,
-  // error: PropTypes.string.isRequired,
+  meta: metaType.isRequired,
 }
 
-renderInput.defaultProps = {
+SubmissionError.defaultProps = {
   title: '',
 }
 
-export default renderInput
+export default SubmissionError
