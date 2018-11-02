@@ -95,18 +95,25 @@ export class App extends Component {
 }
 
 App.propTypes = {
+  // mapStateToProps
+  shouldShowSpinner: PropTypes.bool.isRequired,
+  shouldShowTerms: PropTypes.bool.isRequired,
+  menuOpen: PropTypes.bool.isRequired,
   children: PropTypes.node,
-  boundSetDeviceFormat: PropTypes.func,
-  router: PropTypes.object.isRequired,
-  boundSetMenuOpen: PropTypes.func,
-  boundRetrieveUserMe: PropTypes.func,
+  router: PropTypes.shape({}).isRequired,
+  params: PropTypes.shape({ offenderNo: PropTypes.string }),
+
+  // mapDispatchToProps
+  boundRetrieveUserMe: PropTypes.func.isRequired,
+  boundSetDeviceFormat: PropTypes.func.isRequired,
+  hideTermsAndConditions: PropTypes.func.isRequired,
+  boundSetMenuOpen: PropTypes.func.isRequired,
+  boundSetAppConfig: PropTypes.func.isRequired,
 }
 
 App.defaultProps = {
   children: [],
-  boundSetDeviceFormat: () => {},
-  boundRetrieveUserMe: () => {},
-  boundSetMenuOpen: () => {},
+  params: {},
 }
 
 const mapStateToProps = createStructuredSelector({

@@ -1,8 +1,9 @@
 import React from 'react'
 
 import './index.scss'
+import PropTypes from 'prop-types'
 
-export default ({ maximum, value }) => {
+const ThresholdIndicator = ({ maximum, value }) => {
   let level
 
   if (maximum) {
@@ -23,3 +24,15 @@ export default ({ maximum, value }) => {
     </span>
   )
 }
+
+ThresholdIndicator.propTypes = {
+  maximum: PropTypes.number,
+  value: PropTypes.number,
+}
+
+ThresholdIndicator.defaultProps = {
+  maximum: 0,
+  value: 0,
+}
+
+export default ThresholdIndicator

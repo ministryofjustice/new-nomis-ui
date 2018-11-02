@@ -1,10 +1,10 @@
-import { fromJS, Map } from 'immutable'
+import { fromJS, Map, List } from 'immutable'
 
 import { SET_ASSIGNMENTS, SET_ASSIGNMENTS_VIEW, SET_ASSIGNMENTS_ERROR } from './constants'
 
 export const initialState = Map({
   capacity: 0,
-  allocations: [],
+  allocations: List(),
   error: '',
 })
 

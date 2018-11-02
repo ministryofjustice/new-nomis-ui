@@ -14,6 +14,7 @@ import { FormattedDate } from '../../components/intl'
 import { loadAssignments } from './actions'
 import { linkOnClick } from '../../helpers'
 import './index.scss'
+import userType from '../types'
 
 const ResultsView = ({ results, viewDetails }) => (
   <div className="offender-table">
@@ -96,7 +97,7 @@ const ResultsView = ({ results, viewDetails }) => (
 )
 
 ResultsView.propTypes = {
-  results: ImmutablePropTypes.map.isRequired,
+  results: ImmutablePropTypes.list.isRequired,
   viewDetails: PropTypes.func.isRequired,
 }
 
@@ -138,11 +139,21 @@ class Assignments extends Component {
 }
 
 Assignments.propTypes = {
+  totalResults: PropTypes.number.isRequired,
+  error: PropTypes.string,
+  capacity: PropTypes.number.isRequired,
+  results: ImmutablePropTypes.listOf(ImmutablePropTypes.map).isRequired,
+  user: userType.isRequired,
+
   // mapDispatchToProps
   viewDetails: PropTypes.func.isRequired,
   setContext: PropTypes.func.isRequired,
   boundLoadAssignments: PropTypes.func.isRequired,
   redirectToHome: PropTypes.func.isRequired,
+}
+
+Assignments.defaultProps = {
+  error: '',
 }
 
 const mapDispatchToProps = dispatch => ({

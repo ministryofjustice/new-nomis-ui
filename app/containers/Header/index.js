@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import HeaderComponent from 'header'
 import { setMenuOpen, showTerms, navigateTo } from '../../globalReducers/app'
 import { switchCaseLoad } from '../EliteApiLoader/actions'
+import userType from '../types'
 
 const HeaderContainer = ({
   user,
@@ -31,7 +32,7 @@ HeaderContainer.propTypes = {
   menuOpen: PropTypes.bool,
   setMenuOpen: PropTypes.func,
   switchCaseLoad: PropTypes.func.isRequired,
-  user: PropTypes.shape({ isKeyWorker: PropTypes.bool }),
+  user: userType,
 }
 
 HeaderContainer.defaultProps = {

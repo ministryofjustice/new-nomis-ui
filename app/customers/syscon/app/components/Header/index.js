@@ -3,10 +3,11 @@ import React from 'react'
 import Dropdown from 'components/Dropdown'
 import MenuToggle from 'components/MenuToggle'
 import MobileMenu from 'containers/MobileMenu'
+import PropTypes from 'prop-types'
 
 import './index.scss'
 
-export default ({ user, switchCaseLoad, menuOpen, setMenuOpen }) => (
+const Header = ({ user, switchCaseLoad, menuOpen, setMenuOpen }) => (
   <div className="banner">
     <div className="header-content">
       <div className="brand-header">
@@ -45,3 +46,12 @@ export default ({ user, switchCaseLoad, menuOpen, setMenuOpen }) => (
     </div>
   </div>
 )
+
+Header.propTypes = {
+  user: PropTypes.shape({}).isRequired,
+  switchCaseLoad: PropTypes.string.isRequired,
+  menuOpen: PropTypes.string.isRequired,
+  setMenuOpen: PropTypes.func.isRequired,
+}
+
+export default Header

@@ -1,5 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Header } from 'new-nomis-shared-components'
 import { DesktopOnly, MobileOnly } from 'components/CommonTheme'
 import MenuToggle from 'components/MenuToggle'
@@ -17,9 +18,7 @@ import {
   UnstyledLink,
 } from './header.theme'
 
-export default props => {
-  const { user, menuOpen, showTermsAndConditions, setMenuOpen, navigateTo } = props
-
+const HmppsHeader = ({ user, menuOpen, showTermsAndConditions, setMenuOpen, navigateTo, switchCaseLoad }) => {
   const extraLinks = []
 
   if (user && user.isKeyWorker) {
@@ -38,7 +37,11 @@ export default props => {
           logoText="HMPPS"
           extraLinks={extraLinks}
           history={browserHistory}
-          {...props}
+          switchCaseLoad={switchCaseLoad}
+          user={user}
+          menuOpen={menuOpen}
+          setMenuOpen={setMenuOpen}
+          showTermsAndConditions={showTermsAndConditions}
         />
       </DesktopOnly>
 
@@ -73,3 +76,18 @@ export default props => {
     </div>
   )
 }
+
+HmppsHeader.propTypes = {
+  user: PropTypes.shape({}),
+  menuOpen: PropTypes.bool.isRequired,
+  showTermsAndConditions: PropTypes.func.isRequired,
+  setMenuOpen: PropTypes.func.isRequired,
+  navigateTo: PropTypes.func.isRequired,
+  switchCaseLoad: PropTypes.func.isRequired,
+}
+
+HmppsHeader.defaultProps = {
+  user: undefined,
+}
+
+export default HmppsHeader
