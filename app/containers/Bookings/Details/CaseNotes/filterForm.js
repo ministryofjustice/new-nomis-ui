@@ -11,7 +11,7 @@ import {
   localizedDateToMoment,
 } from '../../../../components/FormComponents/DatePicker'
 import { selectLocale } from '../../../LanguageProvider/selectors'
-import TypeAndSubTypeSelector from '../../../../components/Bookings/TypeAndSubTypeSelector'
+import TypeAndSubTypeSelector, { typeSelectorType } from '../../../../components/Bookings/TypeAndSubTypeSelector'
 import { DATE_ONLY_FORMAT_SPEC } from '../../../App/constants'
 
 import './filterForm.scss'
@@ -120,12 +120,8 @@ FilterForm.propTypes = {
   submitting: PropTypes.bool.isRequired,
   error: PropTypes.string,
   caseNoteFilters: PropTypes.shape({
-    types: PropTypes.arrayOf(
-      PropTypes.shape({ label: PropTypes.string.isRequired, value: PropTypes.string.isRequired }).isRequired
-    ),
-    subTypes: PropTypes.arrayOf(
-      PropTypes.shape({ label: PropTypes.string.isRequired, value: PropTypes.string.isRequired }).isRequired
-    ),
+    types: typeSelectorType,
+    subTypes: typeSelectorType,
   }).isRequired,
   resetFields: PropTypes.func.isRequired,
 

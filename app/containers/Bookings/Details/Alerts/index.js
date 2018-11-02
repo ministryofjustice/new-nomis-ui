@@ -8,7 +8,7 @@ import { Map, List } from 'immutable'
 import qs from 'querystring'
 import moment from 'moment'
 
-import PreviousNextNavigation from '../../../../components/PreviousNextNavigation'
+import PreviousNextNavigation, { paginationType } from '../../../../components/PreviousNextNavigation'
 import AlertsFilterForm from './alertsFilterForm'
 import AlertList from '../../../../components/Bookings/Details/AlertList'
 
@@ -58,9 +58,10 @@ class Alerts extends Component {
 }
 
 Alerts.propTypes = {
+  totalResults: PropTypes.number,
   offenderNo: PropTypes.string.isRequired,
   filter: alertTypesFilterType.isRequired,
-  pagination: PropTypes.object.isRequired,
+  pagination: paginationType.isRequired,
   alerts: ImmutablePropTypes.list.isRequired,
   deviceFormat: PropTypes.string.isRequired,
 
@@ -68,6 +69,10 @@ Alerts.propTypes = {
   loadAlerts: PropTypes.func.isRequired,
   setPagination: PropTypes.func.isRequired,
   setFilter: PropTypes.func.isRequired,
+}
+
+Alerts.defaultProps = {
+  totalResults: 0,
 }
 
 const buildUrl = (offenderNo, queryParams) =>

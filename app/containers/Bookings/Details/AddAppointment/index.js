@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { reduxForm, Field, formValueSelector } from 'redux-form/immutable'
 import { connect } from 'react-redux'
-import { Map, List } from 'immutable'
+import { Map } from 'immutable'
 import { createFormAction } from 'redux-form-saga'
 import moment from 'moment'
+
 import { toFullName } from '../../../../utils/stringUtils'
 
 import Select from '../../../../components/FormComponents/SelectWithLabel'
@@ -201,14 +202,34 @@ class AddAppointment extends Component {
 }
 
 AddAppointment.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
+
   // mapStateToProps
   offendersAgencyId: PropTypes.string.isRequired,
   offenderNo: PropTypes.string.isRequired,
+  offenderName: PropTypes.string.isRequired,
+  eventDate: PropTypes.instanceOf(moment),
+  error: PropTypes.string,
+  locale: PropTypes.string.isRequired,
+  viewModel: PropTypes.shape({
+    appointmentTypes: PropTypes.arrayOf(
+      PropTypes.shape({ description: PropTypes.string.isRequired, code: PropTypes.string.isRequired })
+    ).isRequired,
+    locations: PropTypes.arrayOf(
+      PropTypes.shape({ description: PropTypes.string.isRequired, locationId: PropTypes.number.isRequired })
+    ).isRequired,
+  }).isRequired,
 
   // mapDispatchToProps
   boundViewDetails: PropTypes.func.isRequired,
   goBackToBookingDetails: PropTypes.func.isRequired,
   loadViewModel: PropTypes.func.isRequired,
+}
+
+AddAppointment.defaultProps = {
+  error: '',
+  eventDate: null,
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
@@ -249,8 +270,8 @@ const mapStateToProps = (immutableState, props) => {
   const viewModel = (
     immutableState.getIn(['eliteApiLoader', 'AppointmentTypesAndLocations']) ||
     Map({
-      appointmentTypes: List([]),
-      locations: List([]),
+      appointmentTypes: [],
+      locations: [],
     })
   ).toJS()
 
