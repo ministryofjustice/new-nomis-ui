@@ -16,7 +16,7 @@ import {
 } from '../../../../components/FormComponents/DatePicker'
 import TimePicker from '../../../../components/FormComponents/TimePicker'
 
-import TypeAndSubTypeSelector from '../../../../components/Bookings/TypeAndSubTypeSelector'
+import TypeAndSubTypeSelector, { typeSelectorType } from '../../../../components/Bookings/TypeAndSubTypeSelector'
 import { selectUsersTypesAndSubTypes } from '../../../EliteApiLoader/selectors'
 import SessionHeartbeatHandler from '../../../../utils/sessionHeartbeatHandler'
 import { FormattedDate, FormattedTime } from '../../../../components/intl'
@@ -178,11 +178,17 @@ class AddCaseNoteForm extends Component {
 }
 
 AddCaseNoteForm.propTypes = {
-  caseNoteTypes: PropTypes.object.isRequired,
+  caseNoteTypes: PropTypes.shape({
+    types: typeSelectorType.isRequired,
+    subTypes: typeSelectorType.isRequired,
+  }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   error: PropTypes.string,
   locale: PropTypes.string,
+  typeValue: PropTypes.string,
+  eventDate: PropTypes.string,
+  params: PropTypes.shape({ offenderNo: PropTypes.string.isRequired }).isRequired,
 
   goBackToBookingDetails: PropTypes.func.isRequired,
   loadCaseNoteTypes: PropTypes.func.isRequired,
@@ -192,6 +198,8 @@ AddCaseNoteForm.propTypes = {
 AddCaseNoteForm.defaultProps = {
   locale: 'en',
   error: '',
+  typeValue: '',
+  eventDate: '',
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
