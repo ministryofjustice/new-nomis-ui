@@ -315,10 +315,13 @@ export const searchOffenders = ({
       alerts: query.alerts,
       returnIep: 'true',
       returnAlerts: 'true',
+      returnCategory: 'true',
     },
     paramsSerializer(params) {
       return qs.stringify(
-        params.alerts ? params : { keywords: params.keywords, returnIep: 'true', returnAlerts: 'true' }
+        params.alerts
+          ? params
+          : { keywords: params.keywords, returnIep: 'true', returnAlerts: 'true', returnCategory: 'true' }
       )
     },
     headers: {

@@ -30,7 +30,7 @@ const inmate = alerts =>
     inactiveAlertCount: 8,
     iepLevel: 'Standard',
     csra: 'Medium',
-    category: 'Cat D',
+    categoryCode: 'D',
     getState: jest.fn(() =>
       Map({
         authentication: Map({ user: { staffId: 45 } }),
@@ -52,7 +52,7 @@ describe('Header component', () => {
       />
     )
 
-    expect(wrapper.find('div.align-alerts AlertFlag')).toHaveLength(4)
+    expect(wrapper.find('div.align-alerts span')).toHaveLength(4)
     expect(wrapper).toMatchSnapshot()
   })
 
