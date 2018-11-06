@@ -177,7 +177,7 @@ export const amendCaseNote = (baseUrl, offenderNo, caseNoteId, amendmentText) =>
     .then(response => response.data)
     .catch(error => {
       if (error.response.status === 403) {
-        error.message = 'You are not authorised to amend this case note.'
+        throw new Error('You are not authorised to amend this case note.')
       }
 
       throw error

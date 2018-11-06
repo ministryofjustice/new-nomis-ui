@@ -1,3 +1,5 @@
+/* eslint no-param-reassign: 2 */
+
 const proxy = require('http-proxy-middleware')
 const fs = require('fs')
 const modifyResponse = require('node-http-proxy-json')
