@@ -10,11 +10,11 @@ import { linkOnClick } from '../../../helpers'
 import './SearchForm.scss'
 
 class SearchAgainForm extends Component {
-  componentWillMount() {
-    const { alerts } = this.props
+  constructor(props) {
+    super(props)
     this.state = {
       showFilters: false,
-      alerts: alerts || [],
+      alerts: props.alerts || [],
     }
   }
 
