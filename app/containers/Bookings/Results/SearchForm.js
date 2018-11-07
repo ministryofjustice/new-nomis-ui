@@ -9,12 +9,14 @@ import { linkOnClick } from '../../../helpers'
 
 import './SearchForm.scss'
 
+const asArray = data => (data && (data.length ? data : [data])) || []
+
 class SearchAgainForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
       showFilters: false,
-      alerts: props.alerts,
+      checkedAlerts: asArray(props.query.alerts),
     }
   }
 
@@ -30,39 +32,45 @@ class SearchAgainForm extends Component {
       const { showFilters } = this.state
       this.setState({
         showFilters,
-        alerts: [],
+        checkedAlerts: [],
       })
     }
 
     const toggleDetails = event => {
       event.preventDefault()
-      const { showFilters, alerts } = this.state
+      const { showFilters, checkedAlerts } = this.state
       this.setState({
         showFilters: !showFilters,
-        alerts: showFilters ? [] : alerts,
+        checkedAlerts: showFilters ? [] : checkedAlerts,
       })
     }
 
     const toggleCheckBox = event => {
-      const { alerts, showFilters } = this.state
+      const { checkedAlerts, showFilters } = this.state
       const code = event.target.value
 
-      const exists = alerts.find(alert => alert === code)
+      const exists = checkedAlerts.find(alert => alert === code)
       if (exists) {
         this.setState({
           showFilters,
-          alerts: [...alerts.filter(alert => alert !== code)],
+          checkedAlerts: [...checkedAlerts.filter(alert => alert !== code)],
         })
       } else {
         this.setState({
           showFilters,
-          alerts: [...alerts, code],
+          checkedAlerts: [...checkedAlerts, code],
         })
       }
     }
 
-    const { error, locations, submitting, locationPrefix, keywords } = this.props
-    const { showFilters, alerts: checkedAlerts } = this.state
+    const {
+      query: { locationPrefix, keywords },
+      error,
+      locations,
+      submitting,
+    } = this.props
+
+    const { showFilters, checkedAlerts } = this.state
     const isTicked = code => checkedAlerts.indexOf(code) >= 0
 
     const AlertCheckbox = ({ code, colClasses, content, onChange }) => {
@@ -220,7 +228,7 @@ SearchAgainForm.propTypes = {
   query: PropTypes.shape({
     locationPrefix: PropTypes.string,
     keywords: PropTypes.string,
-    alerts: PropTypes.arrayOf(PropTypes.string),
+    checkedAlerts: PropTypes.string,
   }),
 }
 
@@ -229,14 +237,11 @@ SearchAgainForm.defaultProps = {
   query: {
     locationPrefix: '',
     keywords: '',
-    alerts: [],
+    checkedAlerts: '',
   },
 }
 
-const mapStateToProps = (state, props) => ({
-  keywords: props.query.keywords || '',
-  locationPrefix: props.query.locationPrefix || (props.locations.length && props.locations[0].locationPrefix),
-  alerts: props.query.alerts || [],
+const mapStateToProps = state => ({
   error: state.getIn(['home', 'searchError']),
 })
 
