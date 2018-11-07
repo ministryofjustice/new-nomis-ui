@@ -14,7 +14,7 @@ class SearchAgainForm extends Component {
     super(props)
     this.state = {
       showFilters: false,
-      alerts: props.alerts || [],
+      alerts: props.alerts,
     }
   }
 
@@ -217,10 +217,20 @@ class SearchAgainForm extends Component {
 SearchAgainForm.propTypes = {
   error: PropTypes.string, // isOneOf ([object, string ?
   locations: ImmutablePropTypes.list.isRequired,
+  query: PropTypes.shape({
+    locationPrefix: PropTypes.string,
+    keywords: PropTypes.string,
+    alerts: PropTypes.arrayOf(PropTypes.string),
+  }),
 }
 
 SearchAgainForm.defaultProps = {
   error: '',
+  query: {
+    locationPrefix: '',
+    keywords: '',
+    alerts: [],
+  },
 }
 
 const mapStateToProps = (state, props) => ({
