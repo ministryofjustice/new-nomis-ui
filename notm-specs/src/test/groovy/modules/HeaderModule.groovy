@@ -10,7 +10,7 @@ class HeaderModule extends Module {
     caseloadDesktop (required: false)   { $('.info-wrapper .case-load').text() }
     caseloadLEI  (required: false) { $('#menu-option-LEI') }
 
-    dropDown { $('.header-content .clickable') }
+    dropDown { $('.info-wrapper') }
     dropDownMobile { $('div#nav-icon') }
     dropDownMobileContents { $('div#nav-icon span', 1) }
     logoutLink { $('a', text: 'Log out') }

@@ -26,6 +26,9 @@ repositories {
   mavenCentral()
 }
 
+project.sourceCompatibility = 8
+project.targetCompatibility = 8
+
 dependencies {
   testCompile('org.spockframework:spock-core:1.1-groovy-2.4') {
     exclude group: "org.codehaus.groovy"
