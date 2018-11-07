@@ -1,14 +1,11 @@
 const groupBy = (property, array) =>
   array.reduce((result, current) => {
-    const date = current[property]
-    if (!result[date]) {
-      result[date] = []
+    const items = result[current[property]] || []
+    return {
+      ...result,
+      [current[property]]: [...items, current],
     }
-
-    result[date].push(current)
-
-    return result
-  }, [])
+  }, {})
 
 const extractProperties = (properties, data) =>
   properties.filter(p => data[p]).reduce(

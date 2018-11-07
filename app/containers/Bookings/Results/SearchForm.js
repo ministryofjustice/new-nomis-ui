@@ -10,6 +10,16 @@ import { linkOnClick } from '../../../helpers'
 import './SearchForm.scss'
 
 class SearchAgainForm extends Component {
+  constructor(props) {
+    const asArray = data => (data && Array.isArray(data) ? data : [data])
+
+    super(props)
+    this.state = {
+      showFilters: false,
+      checkedAlerts: asArray(props.query.alerts),
+    }
+  }
+
   handleSubmit(event) {
     const { onSubmit } = this.props
     event.preventDefault()
@@ -19,31 +29,62 @@ class SearchAgainForm extends Component {
 
   render() {
     const clearFlags = () => {
-      document.getElementsByName('alerts').forEach(input => {
-        input.checked = false
+      const { showFilters } = this.state
+      this.setState({
+        showFilters,
+        checkedAlerts: [],
       })
     }
 
-    const setSummary = event => {
-      if (event.target.parentElement.open || event.target.parentElement.parentElement.open) {
-        event.target.innerHTML = 'Show filters'
-        event.target.parentElement.setAttribute('aria-checked', false)
-        clearFlags()
-      } else {
-        event.target.innerHTML = 'Hide filters'
-        event.target.parentElement.setAttribute('aria-checked', true)
-      }
-      return true
+    const toggleDetails = event => {
+      event.preventDefault()
+      const { showFilters, checkedAlerts } = this.state
+      this.setState({
+        showFilters: !showFilters,
+        checkedAlerts: showFilters ? [] : checkedAlerts,
+      })
     }
 
-    const { error, locations, submitting, locationPrefix, keywords, alerts } = this.props
-    const isTicked = code => alerts && alerts.length && alerts.indexOf(code) >= 0
+    const toggleCheckBox = event => {
+      const { checkedAlerts, showFilters } = this.state
+      const code = event.target.value
 
-    const AlertCheckbox = ({ code, colClasses, content }) => {
+      const exists = checkedAlerts.find(alert => alert === code)
+      if (exists) {
+        this.setState({
+          showFilters,
+          checkedAlerts: [...checkedAlerts.filter(alert => alert !== code)],
+        })
+      } else {
+        this.setState({
+          showFilters,
+          checkedAlerts: [...checkedAlerts, code],
+        })
+      }
+    }
+
+    const {
+      query: { locationPrefix, keywords },
+      error,
+      locations,
+      submitting,
+    } = this.props
+
+    const { showFilters, checkedAlerts } = this.state
+    const isTicked = code => checkedAlerts.indexOf(code) >= 0
+
+    const AlertCheckbox = ({ code, colClasses, content, onChange }) => {
       const classes = `${colClasses} multiple-choice in-rows`
       return (
         <div className={classes}>
-          <input id={code} type="checkbox" name="alerts" value={code} defaultChecked={isTicked(code)} />
+          <input
+            id={code}
+            type="checkbox"
+            name="alerts"
+            value={code}
+            defaultChecked={isTicked(code)}
+            onChange={onChange}
+          />
           <label className="add-checkbox-label-margin-left" htmlFor={code}>
             {content}
           </label>
@@ -107,31 +148,66 @@ class SearchAgainForm extends Component {
             </div>
           </div>
 
-          <details className="govuk-details add-gutter-padding-top visible-md visible-lg">
+          <details className="govuk-details add-gutter-padding-top visible-md visible-lg" open={showFilters}>
             <summary
               className="govuk-details__summary"
-              onClick={event => setSummary(event)}
+              onClick={event => toggleDetails(event)}
               onKeyDown={() => {}}
               tabIndex="0"
               role="switch"
               aria-checked={false}
             >
-              <span className="govuk-details__summary-text">Show filters</span>
+              <span className="govuk-details__summary-text">{showFilters ? 'Show filters' : 'Hide filters'}</span>
             </summary>
             <div className="govuk-details__text add-gutter-margin-left">
               <div className="row col-md-11 no-left-gutter add-gutter-margin-bottom">
                 <b>Flags</b>
               </div>
               <div className="row">
-                <AlertCheckbox code="HA" colClasses="col-md-3" content="ACCT open" />
-                <AlertCheckbox code="PEEP" colClasses="col-md-3" content="PEEP (disability)" />
-                <AlertCheckbox code="XEL" colClasses="col-md-3" content="E-List" />
+                <AlertCheckbox
+                  code="HA"
+                  colClasses="col-md-3"
+                  content="ACCT open"
+                  onChange={event => toggleCheckBox(event)}
+                />
+                <AlertCheckbox
+                  code="PEEP"
+                  colClasses="col-md-3"
+                  content="PEEP (disability)"
+                  onChange={event => toggleCheckBox(event)}
+                />
+                <AlertCheckbox
+                  code="XEL"
+                  colClasses="col-md-3"
+                  content="E-List"
+                  onChange={event => toggleCheckBox(event)}
+                />
               </div>
               <div className="row">
-                <AlertCheckbox code="XSA" colClasses="col-md-3" content="Staff assaulter" />
-                <AlertCheckbox code="XA" colClasses="col-md-3" content="Arsonist" />
-                <AlertCheckbox code="XTACT" colClasses="col-md-3" content="TACT" />
-                <AlertCheckbox code="XRF" colClasses="col-md-3" content="Risk to females" />
+                <AlertCheckbox
+                  code="XSA"
+                  colClasses="col-md-3"
+                  content="Staff assaulter"
+                  onChange={event => toggleCheckBox(event)}
+                />
+                <AlertCheckbox
+                  code="XA"
+                  colClasses="col-md-3"
+                  content="Arsonist"
+                  onChange={event => toggleCheckBox(event)}
+                />
+                <AlertCheckbox
+                  code="XTACT"
+                  colClasses="col-md-3"
+                  content="TACT"
+                  onChange={event => toggleCheckBox(event)}
+                />
+                <AlertCheckbox
+                  code="XRF"
+                  colClasses="col-md-3"
+                  content="Risk to females"
+                  onChange={event => toggleCheckBox(event)}
+                />
               </div>
               <div className="row col-md-11 no-left-gutter add-gutter-margin-top">
                 <a className="link clickable" {...linkOnClick(clearFlags)}>
@@ -149,16 +225,23 @@ class SearchAgainForm extends Component {
 SearchAgainForm.propTypes = {
   error: PropTypes.string, // isOneOf ([object, string ?
   locations: ImmutablePropTypes.list.isRequired,
+  query: PropTypes.shape({
+    locationPrefix: PropTypes.string,
+    keywords: PropTypes.string,
+    alerts: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+  }),
 }
 
 SearchAgainForm.defaultProps = {
   error: '',
+  query: {
+    locationPrefix: '',
+    keywords: '',
+    alerts: [],
+  },
 }
 
-const mapStateToProps = (state, props) => ({
-  keywords: props.query.keywords || '',
-  locationPrefix: props.query.locationPrefix || (props.locations.length && props.locations[0].locationPrefix),
-  alerts: props.query.alerts || [],
+const mapStateToProps = state => ({
   error: state.getIn(['home', 'searchError']),
 })
 
