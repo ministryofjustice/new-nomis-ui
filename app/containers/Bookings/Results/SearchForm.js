@@ -9,10 +9,10 @@ import { linkOnClick } from '../../../helpers'
 
 import './SearchForm.scss'
 
-const asArray = data => (data && (data.length ? data : [data])) || []
-
 class SearchAgainForm extends Component {
   constructor(props) {
+    const asArray = data => (data && Array.isArray(data) ? data : [data])
+
     super(props)
     this.state = {
       showFilters: false,
@@ -228,7 +228,7 @@ SearchAgainForm.propTypes = {
   query: PropTypes.shape({
     locationPrefix: PropTypes.string,
     keywords: PropTypes.string,
-    checkedAlerts: PropTypes.string,
+    alerts: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   }),
 }
 
@@ -237,7 +237,7 @@ SearchAgainForm.defaultProps = {
   query: {
     locationPrefix: '',
     keywords: '',
-    checkedAlerts: '',
+    alerts: [],
   },
 }
 
