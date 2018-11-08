@@ -59,7 +59,6 @@ const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, toke
           mailTo,
         })
       } else {
-        logger.error(error)
         res.render('pages/login', { authError: false, apiUp: false, mailTo })
       }
     }
