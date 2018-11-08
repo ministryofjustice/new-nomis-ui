@@ -8,7 +8,7 @@ module.exports = ({ webPackConfig, options }) => {
       resources: [
         `app/customers/${process.env.CLIENT}/index.scss`,
         'app/scss/govuk-elements-sass/public/sass/_govuk-elements.scss',
-        'app/scss/govuk_frontend/details.scss',
+        'app/scss/govuk_frontend/all.scss',
         'app/scss/bootstrap/bootstrap-mixins.scss',
         'app/scss/bootstrap/bootstrap-grid.scss',
       ],

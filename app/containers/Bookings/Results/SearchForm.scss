@@ -1,9 +1,19 @@
 .search-again {
   .filter-box {
+    margin-bottom: 20px;
     background: lighten($panel-colour, 6%);
-    margin-bottom: 1em;
-    min-height: 20px;
-    padding: 19px;
+    padding: 15px 0 0;
+  }
+
+  details {
+    margin: 15px 0;
+  }
+
+  .clear-filters:focus {
+    outline: 4px solid $focus-colour;
+    outline-offset: -1px;
+    color: black !important;
+    background: $focus-colour;
   }
 
   select {
@@ -34,12 +44,6 @@ div.in-rows {
 .multiple-choice [type=checkbox]+label::before {
   background: white !important;
 }
-
-/* stylelint-disable selector-class-pattern */
-summary.govuk-details__summary {
-  padding-left: 15px;
-}
-/* stylelint-enable */
 
 .add-checkbox-label-margin-left {
   margin-left: 20px;
