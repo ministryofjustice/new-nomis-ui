@@ -29,10 +29,11 @@
       .row {
         margin-top: 1em;
       }
-    }
-
-    .form-control {
-      width: 100% !important;
+      
+      .form-control {
+        margin-bottom: 15px;
+        width: 100% !important;
+      }
     }
   }
 }
@@ -41,7 +42,7 @@ div.in-rows {
   clear: none;
 }
 
-.multiple-choice [type=checkbox]+label::before {
+.multiple-choice [type='checkbox'] + label::before {
   background: white !important;
 }
 
