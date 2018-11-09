@@ -56,10 +56,20 @@ const AlertFlags = (alerts, divClassName, onAlertFlagClick) => {
     </div>
   )
 }
-
 const AssessmentFlags = (category, divClassName) => (
-  <div className={divClassName}>{category === 'A' && <span className="cata-status">CAT A</span>}</div>
+  <div className={divClassName}>
+    {(category === 'A' || category === 'E') && <span className="cata-status">CAT&nbsp;A</span>}
+    {category === 'H' && <span className="cata-high-status">CAT&nbsp;A&nbsp;High</span>}
+    {category === 'P' && <span className="cata-prov-status">CAT&nbsp;A&nbsp;Prov</span>}
+  </div>
 )
 
-const flags = { AlertFlags, AssessmentFlags }
+const AssessmentFlagsOrLetter = (category, divClassName) => {
+  if (!['A', 'E', 'H', 'P'].includes(category)) {
+    return <strong>{category}</strong>
+  }
+  return AssessmentFlags(category, divClassName)
+}
+
+const flags = { AlertFlags, AssessmentFlags, AssessmentFlagsOrLetter }
 export default flags
