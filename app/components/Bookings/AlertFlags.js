@@ -40,7 +40,7 @@ const AlertFlags = (alerts, divClassName, onAlertFlagClick) => {
       )}
       {isShown('XEL') && (
         <span className="elist-status" {...linkOnClick(onAlertFlagClick)}>
-          E-LIST
+          E&#x2011;LIST
         </span>
       )}
       {isShown('XRF') && (
