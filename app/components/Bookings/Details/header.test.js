@@ -17,7 +17,7 @@ const irrelevantAlerts = [
   Map({ alertCode: 'TAH' }),
 ]
 
-const inmate = alerts =>
+const inmate = (alerts, categoryCode) =>
   Map({
     offenderNo: 'A1234RT',
     firstName: 'First',
@@ -30,7 +30,7 @@ const inmate = alerts =>
     inactiveAlertCount: 8,
     iepLevel: 'Standard',
     csra: 'Medium',
-    categoryCode: 'D',
+    categoryCode,
     getState: jest.fn(() =>
       Map({
         authentication: Map({ user: { staffId: 45 } }),
@@ -45,7 +45,7 @@ describe('Header component', () => {
   it('should render correctly', () => {
     const wrapper = shallow(
       <Header
-        inmateData={inmate(allAlerts)}
+        inmateData={inmate(allAlerts, 'D')}
         onImageClick={jest.fn()}
         offenderNo="A1234RT"
         onAlertFlagClick={jest.fn()}
@@ -59,7 +59,7 @@ describe('Header component', () => {
   it('should ignore irrelevant alert flags', () => {
     const wrapper = shallow(
       <Header
-        inmateData={inmate(irrelevantAlerts)}
+        inmateData={inmate(irrelevantAlerts, 'D')}
         onImageClick={jest.fn()}
         offenderNo="A1234RE"
         onAlertFlagClick={jest.fn()}
@@ -72,7 +72,7 @@ describe('Header component', () => {
   it('should render MiddleSection correctly large', () => {
     const wrapper = shallow(
       <Header
-        inmateData={inmate(allAlerts)}
+        inmateData={inmate(allAlerts, 'D')}
         onImageClick={jest.fn()}
         offenderNo="A1234RE"
         onAlertFlagClick={jest.fn()}
@@ -85,7 +85,7 @@ describe('Header component', () => {
   it('should render MiddleSection correctly small', () => {
     const wrapper = shallow(
       <Header
-        inmateData={inmate(allAlerts)}
+        inmateData={inmate(allAlerts, 'D')}
         onImageClick={jest.fn()}
         offenderNo="A1234RN"
         onAlertFlagClick={jest.fn()}
@@ -93,5 +93,45 @@ describe('Header component', () => {
     )
 
     expect(wrapper.find('div.visible-small > MiddleSection').shallow()).toMatchSnapshot()
+  })
+
+  it('should render cat A correctly', () => {
+    const wrapper = shallow(
+      <Header
+        inmateData={inmate(irrelevantAlerts, 'A')}
+        onImageClick={jest.fn()}
+        offenderNo="A1234RN"
+        onAlertFlagClick={jest.fn()}
+      />
+    )
+    const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
+    expect(middleSection.find('span.cata-status').text()).toEqual('CAT A')
+  })
+
+  it('should render cat A High correctly', () => {
+    const wrapper = shallow(
+      <Header
+        inmateData={inmate(irrelevantAlerts, 'H')}
+        onImageClick={jest.fn()}
+        offenderNo="A1234RN"
+        onAlertFlagClick={jest.fn()}
+      />
+    )
+    const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
+    const actual = middleSection.find('span.cata-high-status').text()
+    expect(actual).toEqual('CAT A\u00a0High') // non-breaking space!
+  })
+
+  it('should render cat A Prov correctly', () => {
+    const wrapper = shallow(
+      <Header
+        inmateData={inmate(irrelevantAlerts, 'P')}
+        onImageClick={jest.fn()}
+        offenderNo="A1234RN"
+        onAlertFlagClick={jest.fn()}
+      />
+    )
+    const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
+    expect(middleSection.find('span.cata-prov-status').text()).toEqual('CAT A\u00a0Prov')
   })
 })
