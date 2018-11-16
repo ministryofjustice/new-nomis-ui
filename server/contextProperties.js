@@ -57,8 +57,8 @@ const setResponsePagination = (context, headers) => {
 const getResponsePagination = context => context.responseHeaders || {}
 
 module.exports = {
-  hasTokens,
   setTokens,
+  hasTokens,
   getAccessToken,
   getRefreshToken,
   setRequestPagination,
