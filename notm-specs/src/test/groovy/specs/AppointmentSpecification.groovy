@@ -8,18 +8,13 @@ import mockapis.KeyworkerApi
 import mockapis.OauthApi
 import model.Offender
 import org.junit.Rule
-import pages.AddCaseNotePage
-import pages.HomePage
-import pages.LoginPage
-import pages.OffenderCaseNotesPage
-import pages.OffenderDetailsPage
-import pages.SearchResultsPage
+import pages.*
 import spock.lang.IgnoreIf
 
 import static model.UserAccount.ITAG_USER
 
 @Slf4j
-class CaseNotesSpecification extends GebReportingSpec {
+class AppointmentSpecification extends GebReportingSpec {
 
   @Rule
   Elite2Api elite2api = new Elite2Api()
@@ -30,9 +25,8 @@ class CaseNotesSpecification extends GebReportingSpec {
   @Rule
   OauthApi oauthApi = new OauthApi()
 
-  def "Create a new case note"() {
+  def "Create a new appointment"() {
     elite2api.stubHealthCheck()
-
 
     given: 'I am logged in and have selected an offender'
     to LoginPage
@@ -46,7 +40,7 @@ class CaseNotesSpecification extends GebReportingSpec {
     offenders.push(model.Offender.SMITH())
     offenders.push(model.Offender.BOB())
 
-    elite2api.stubOffenderSearch("d%20s", offenders, '')
+    elite2api.stubOffenderSearch("apperson", offenders, '')
     elite2api.stubOffenderDetails(true)
     elite2api.stubImage()
     elite2api.stubIEP()
@@ -57,11 +51,11 @@ class CaseNotesSpecification extends GebReportingSpec {
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
 
 
-    searchFor "d s"
+    searchFor "apperson"
     at SearchResultsPage
     /* required for default Quick look tab */
     elite2api.stubOffenderDetails(false)
-    elite2api.stubGetCaseNote()
+    //elite2api.stubGetCaseNote()
     elite2api.stubBalances()
     elite2api.stubVisitsNext()
     elite2api.stubEvents()
@@ -77,27 +71,22 @@ class CaseNotesSpecification extends GebReportingSpec {
     selectOffender(1)
     at OffenderDetailsPage
 
-    when: 'I create a new case note'
-    elite2api.stubCaseNoteTypes()
-    elite2api.stubMeCaseNoteTypes()
+    when: 'I go to new appointment page'
     elite2api.stubOffenderDetails(false)
-    elite2api.stubSaveCaseNote()
-    elite2api.stubGetCaseNote()
-    gotoAddCaseNotes()
-    at AddCaseNotePage
-    createNewCaseNote("some text")
+    elite2api.stubAppointmentTypes()
+    elite2api.stubAppointments()
+    gotoAddAppointment()
+    at AddAppointmentPage
 
-    then: 'The new case note is displayed'
-    at OffenderCaseNotesPage
-    // TODO check the green notification toast
-    //message == "Case note has been created successfully"
-    // Check case note display; derives from wiremock response
-    caseNoteDetails*.text()[0].contains("User, Api")
-    caseNoteDetails*.text()[0].contains("Chaplaincy | Faith Specific Action")
-    caseNoteDetails*.text()[0].contains("Case note body text")
-    caseNoteDetails*.text()[1].contains("User, Api")
-    caseNoteDetails*.text()[1].contains("Communication | Communication OUT")
-    caseNoteDetails*.text()[1].contains("Test outward communication one.")
+    then: 'offender number is displayed'
+    nameHeading.text() == 'Smith, Daniel (A1234AJ)'
 
+    when: 'I create the new appointment'
+    elite2api.stubSaveAppointment()
+    createNewAppointment("some details")
+
+    then: 'The new appointment is created and the user is returned to the details page'
+    at OffenderDetailsPage
+    //messageBar.text() == 'Appointment has been created successfully'
   }
 }

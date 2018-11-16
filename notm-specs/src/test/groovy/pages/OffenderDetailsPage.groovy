@@ -21,6 +21,7 @@ class OffenderDetailsPage extends Page {
     addCaseNoteLinkMobile { $('a.button-link', 2) }
     addAppointmentLinkMobile { $('a.button-link', 3) }
     spinner(required: false) { $('div.spinner-component')}
+    // TODO: toast messageBar(required: false) { $('div #messageBar')}
   }
 
   def gotoAddCaseNotes() {
@@ -28,6 +29,14 @@ class OffenderDetailsPage extends Page {
       addCaseNoteLink.click()
     } else {
       addCaseNoteLinkMobile.click()
+    }
+  }
+
+  def gotoAddAppointment() {
+    if (addAppointmentLink.displayed) {
+      addAppointmentLink.click()
+    } else {
+      addAppointmentLinkMobile.click()
     }
   }
 }
