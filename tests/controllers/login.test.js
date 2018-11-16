@@ -5,11 +5,10 @@ const { expect } = chai
 const sinonChai = require('sinon-chai')
 const express = require('express')
 const bodyParser = require('body-parser')
-const cookieParser = require('cookie-parser')
+const cookieSession = require('cookie-session')
 const request = require('supertest')
 
 const sessionManagementRoutes = require('../../server/sessionManagementRoutes')
-const hmppsCookie = require('../../server/hmppsCookie')
 
 chai.use(sinonChai)
 
@@ -19,14 +18,14 @@ describe('POST /signin', () => {
 
   app.set('view engine', 'ejs')
   app.use(bodyParser.urlencoded({ extended: false }))
-  app.use(cookieParser('keyboard cat'))
-
-  const hmppsCookieOperations = hmppsCookie.cookieOperationsFactory({
-    name: 'testCookie',
-    cookieLifetimeInMinutes: 1,
-    domain: '127.0.0.1',
-    secure: false,
-  })
+  app.use(
+    cookieSession({
+      name: 'testCookie',
+      maxAge: 1 * 60 * 1000,
+      secure: false,
+      signed: false, // supertest can't cope with multiple cookies - https://github.com/visionmedia/supertest/issues/336
+    })
+  )
 
   const nullFunction = () => {}
 
@@ -39,7 +38,7 @@ describe('POST /signin', () => {
     isUp: nullFunction,
   }
 
-  sessionManagementRoutes.configureRoutes({ app, healthApi, oauthApi, hmppsCookieOperations, mailTo: 'test@site.com' })
+  sessionManagementRoutes.configureRoutes({ app, healthApi, oauthApi, mailTo: 'test@site.com' })
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create()

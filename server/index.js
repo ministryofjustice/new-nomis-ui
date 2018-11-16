@@ -3,7 +3,7 @@ require('dotenv').config()
 
 const express = require('express')
 const bodyParser = require('body-parser')
-const cookieParser = require('cookie-parser')
+const cookieSession = require('cookie-session')
 const bunyanMiddleware = require('bunyan-middleware')
 const hsts = require('hsts')
 const appInsights = require('applicationinsights')
@@ -24,7 +24,6 @@ const { eliteApiFactory } = require('./api/eliteApi')
 const { keyworkerApiFactory } = require('./api/keyworkerApi')
 const oauthApiFactory = require('./api/oauthApi')
 const tokeRefresherFactory = require('./tokenRefresher').factory
-const { cookieOperationsFactory } = require('./hmppsCookie')
 const { controllerFactory } = require('./controller')
 const { userServiceFactory } = require('./services/user')
 const { bookingServiceFactory } = require('./services/booking')
@@ -69,7 +68,18 @@ app.use(bunyanMiddleware({ logger }))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.use(cookieParser())
+app.use(
+  cookieSession({
+    name: config.hmppsCookie.name,
+    domain: config.hmppsCookie.domain,
+    maxAge: config.hmppsCookie.expiryMinutes * 60 * 1000,
+    secure: config.app.production,
+    httpOnly: true,
+    signed: false,
+    overwrite: true,
+    sameSite: 'lax',
+  })
+)
 
 app.use(express.static(path.join(__dirname, '../public')))
 
@@ -133,19 +143,11 @@ const controller = controllerFactory({
 
 app.get('/terms', controller.terms)
 
-const hmppsCookieOperations = cookieOperationsFactory({
-  name: config.hmppsCookie.name,
-  domain: config.hmppsCookie.domain,
-  cookieLifetimeInMinutes: config.hmppsCookie.expiryMinutes,
-  secure: config.app.production,
-})
-
 /* login, logout, hmppsCookie management, token refresh etc */
 sessionManagementRoutes.configureRoutes({
   app,
   healthApi,
   oauthApi,
-  hmppsCookieOperations,
   tokenRefresher,
   mailTo: config.app.mailTo,
 })

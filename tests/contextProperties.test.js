@@ -5,7 +5,7 @@ const contextProperties = require('../server/contextProperties')
 describe('Should read/write properties', () => {
   it('Should set / get tokens', () => {
     const context = {}
-    contextProperties.setTokens(context, 'a', 'b')
+    contextProperties.setTokens({ access_token: 'a', refresh_token: 'b' }, context)
     expect(contextProperties.getAccessToken(context)).to.be.equal('a')
     expect(contextProperties.getRefreshToken(context)).to.be.equal('b')
   })
@@ -24,19 +24,19 @@ describe('Should read/write properties', () => {
 
   it('Should know if the context has tokens', () => {
     const context = {}
-    contextProperties.setTokens(context, null, null)
+    contextProperties.setTokens({}, context)
     expect(contextProperties.hasTokens(context)).to.be.false
 
-    contextProperties.setTokens(context, '', '')
+    contextProperties.setTokens({ access_token: '', refresh_token: '' }, context)
     expect(contextProperties.hasTokens(context)).to.be.false
 
-    contextProperties.setTokens(context, 'a', '')
+    contextProperties.setTokens({ access_token: 'a', refresh_token: '' }, context)
     expect(contextProperties.hasTokens(context)).to.be.false
 
-    contextProperties.setTokens(context, '', 'b')
+    contextProperties.setTokens({ access_token: '', refresh_token: 'b' }, context)
     expect(contextProperties.hasTokens(context)).to.be.false
 
-    contextProperties.setTokens(context, 'a', 'b')
+    contextProperties.setTokens({ access_token: 'a', refresh_token: 'b' }, context)
     expect(contextProperties.hasTokens(context)).to.be.true
   })
 

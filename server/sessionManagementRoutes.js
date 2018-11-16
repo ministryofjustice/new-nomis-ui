@@ -9,11 +9,10 @@ const contextProperties = require('./contextProperties')
  * @param app an Express instance.
  * @param healthApi a configured healthApi instance.
  * @param oauthApi (authenticate, refresh)
- * @param hmppsCookieOperations (setCookie, extractCookieValues, clearCookie)
  * @param tokenRefresher a function which uses the 'context' object to perform an OAuth token refresh (returns a promise).
  * @param mailTo The email address displayed at the bottom of the login page.
  */
-const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, tokenRefresher, mailTo }) => {
+const configureRoutes = ({ app, healthApi, oauthApi, tokenRefresher, mailTo }) => {
   const loginIndex = async (req, res) => {
     const isApiUp = await healthApi.isUp()
     logger.info(`loginIndex - health check called and the isaAppUp = ${isApiUp}`)
@@ -41,9 +40,7 @@ const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, toke
     const { username, password } = req.body
 
     try {
-      await oauthApi.authenticate(res.locals, username, password)
-
-      hmppsCookieOperations.setCookie(res, res.locals)
+      await oauthApi.authenticate(req.session, username, password)
 
       res.redirect('/')
     } catch (error) {
@@ -59,13 +56,15 @@ const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, toke
           mailTo,
         })
       } else {
+        logger.error(error)
         res.render('pages/login', { authError: false, apiUp: false, mailTo })
       }
     }
   }
 
   const logout = (req, res) => {
-    hmppsCookieOperations.clearCookie(res)
+    // eslint-disable-next-line
+    req.session = null
     res.redirect('/login')
   }
 
@@ -77,8 +76,7 @@ const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, toke
    * @param next
    */
   const loginMiddleware = (req, res, next) => {
-    hmppsCookieOperations.extractCookieValues(req, res.locals)
-    if (contextProperties.hasTokens(res.locals)) {
+    if (contextProperties.hasTokens(req.session)) {
       // implies authenticated
       res.redirect('/')
       return
@@ -88,10 +86,8 @@ const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, toke
 
   const hmppsCookieMiddleware = async (req, res, next) => {
     try {
-      hmppsCookieOperations.extractCookieValues(req, res.locals)
-      if (contextProperties.hasTokens(res.locals)) {
-        await tokenRefresher(res.locals)
-        hmppsCookieOperations.setCookie(res, res.locals)
+      if (contextProperties.hasTokens(req.session)) {
+        await tokenRefresher(req.session)
       }
       next()
     } catch (error) {
@@ -108,7 +104,8 @@ const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, toke
    * @param next
    */
   const requireLoginMiddleware = (req, res, next) => {
-    if (contextProperties.hasTokens(res.locals)) {
+    if (contextProperties.hasTokens(req.session)) {
+      contextProperties.setTokens(req.session, res.locals)
       next()
       return
     }
