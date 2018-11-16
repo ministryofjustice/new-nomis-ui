@@ -38,6 +38,14 @@ class OauthApi extends WireMockRule {
         .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
         .withRequestBody(equalTo("username=${user.username}&password=password&grant_type=password"))
         .willReturn(response))
+
+    // This is just for debugging locally (allows token to refresh if we have been paused a long time)
+    this.stubFor(
+      post('/auth/oauth/token')
+        .withHeader('authorization', equalTo('Basic ZWxpdGUyYXBpY2xpZW50OmNsaWVudHNlY3JldA=='))
+        .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
+        .withRequestBody(matching("refresh_token=.+&grant_type=refresh_token"))
+        .willReturn(response))
   }
 
   void stubInvalidOAuthTokenRequest(UserAccount user, boolean badPassword = false) {

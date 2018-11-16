@@ -91,8 +91,10 @@ class AddAppointment extends Component {
           </div>
 
           <div className="row add-gutter-margin-bottom">
-            <div className="col-md-2 no-left-gutter">
-              <b> {offenderName} </b>
+            <div className="col-md-4 no-left-gutter">
+              <b>
+                {offenderName} ({offenderNo})
+              </b>
             </div>
           </div>
 
