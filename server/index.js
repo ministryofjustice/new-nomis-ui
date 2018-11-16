@@ -68,19 +68,6 @@ app.use(bunyanMiddleware({ logger }))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.use(
-  cookieSession({
-    name: config.hmppsCookie.name,
-    domain: config.hmppsCookie.domain,
-    maxAge: config.hmppsCookie.expiryMinutes * 60 * 1000,
-    secure: config.app.production,
-    httpOnly: true,
-    signed: false,
-    overwrite: true,
-    sameSite: 'lax',
-  })
-)
-
 app.use(express.static(path.join(__dirname, '../public')))
 
 app.use('/config', (req, res) => {
@@ -142,6 +129,19 @@ const controller = controllerFactory({
 })
 
 app.get('/terms', controller.terms)
+
+app.use(
+  cookieSession({
+    name: config.hmppsCookie.name,
+    domain: config.hmppsCookie.domain,
+    maxAge: config.hmppsCookie.expiryMinutes * 60 * 1000,
+    secure: config.app.production,
+    httpOnly: true,
+    signed: false,
+    overwrite: true,
+    sameSite: 'lax',
+  })
+)
 
 /* login, logout, hmppsCookie management, token refresh etc */
 sessionManagementRoutes.configureRoutes({

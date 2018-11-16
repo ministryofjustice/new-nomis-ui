@@ -1,7 +1,7 @@
 /**
  * Wrapper functions to set commonly used fields on an 'context' object that is managed over the scope of a request.
  * Hopefully reduces the liklihood of mis-typing property names.
- * Note that by convention the controller(s) and Middleware use the req.session property as the request scoped context.
+ * Note that by convention the controller(s) and Middleware use the res.locals property as the request scoped context.
  * From controllers down to clients, client interceptors etc the context object is called 'context'.
  */
 
