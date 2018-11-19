@@ -6,6 +6,10 @@ import mockapis.response.AccessRoles
 import model.CaseNote
 import model.Offender
 
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
@@ -137,6 +141,87 @@ class Elite2Api extends WireMockRule {
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
         .withBody(JsonOutput.toJson([enabled: whereaboutsAvailable]))))
+  }
+
+  void stubAppointments() {
+    this.stubFor(
+      get('/api/agencies/LEI/locations?eventType=APP')
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody(JsonOutput.toJson([
+        [
+          locationId: 14453,
+          locationType: "EXER",
+          description: "RES-IWING-I1DOC",
+          agencyId: "LEI",
+          parentLocationId: 14452,
+          currentOccupancy: 0,
+          locationPrefix: "LEI-RES-IWING-I1DOC",
+          userDescription: "I1 Med Rec Doctor"
+        ],
+        [
+          locationId: 14461,
+          locationType: "CLAS",
+          description: "RES-FWING-F4CL",
+          agencyId: "LEI",
+          parentLocationId: 14460,
+          currentOccupancy: 0,
+          locationPrefix: "LEI-RES-FWING-F4CL",
+          userDescription: "F4 Classroom"
+        ]
+        ]))))
+  }
+
+  void stubAppointmentTypes() {
+    this.stubFor(
+      get('/api/reference-domains/scheduleReasons?eventType=APP')
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody(JsonOutput.toJson([
+        [
+          code       : "MEDO",
+          description: "Medical - Doctor"
+        ],
+        [
+          code       : "GYMF",
+          description: "Gym - Football"
+        ]
+      ]))))
+  }
+
+  void stubSaveAppointment() {
+    def startDate = LocalDate.now().plusDays(1)
+    def startTime = LocalDateTime.of(startDate, LocalTime.of(9,0,0))
+    def startTimeFormatted = startTime.format(DateTimeFormatter.ISO_DATE_TIME)
+    def data = [
+      appointmentType: "GYMF",
+      locationId     : "14461",
+      startTime      : startTimeFormatted,
+      comment        : "some details"
+    ]
+    this.stubFor(
+      post(urlMatching("/api/bookings/.+/appointments"))
+        .withRequestBody(equalToJson(JsonOutput.toJson(data), true, false))
+        .willReturn(aResponse()
+        .withStatus(201)
+        .withHeader('Content-Type', 'application/json')
+        .withBody(JsonOutput.toJson([
+        bookingId       : -10,
+        eventClass      : "INT_MOV",
+        eventStatus     : "SCH",
+        eventType       : "APP",
+        eventTypeDesc   : "Appointment",
+        eventSubType    : "GYMF",
+        eventSubTypeDesc: "Gym - Football",
+        eventDate       : startDate.format(DateTimeFormatter.ISO_DATE),
+        startTime       : startTimeFormatted,
+        eventLocation   : "A WING CLASS",
+        eventSource     : "APP",
+        eventSourceCode : "APP",
+        eventSourceDesc : "Steve woz ere"
+      ]))))
   }
 
   void stubStaffRoles(UserAccount user) {
