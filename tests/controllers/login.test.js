@@ -9,6 +9,7 @@ const cookieSession = require('cookie-session')
 const request = require('supertest')
 
 const sessionManagementRoutes = require('../../server/sessionManagementRoutes')
+const { AuthClientError } = require('../../server/api/oauthApi')
 
 chai.use(sinonChai)
 
@@ -60,7 +61,7 @@ describe('POST /signin', () => {
 
   describe('Unsuccessful signin - API up', () => {
     it('redirects to "/login" path', () => {
-      oauthApi.authenticate.rejects({ response: { status: 401 } })
+      oauthApi.authenticate.rejects(new AuthClientError('The username or password you have entered is invalid.'))
 
       return request(app)
         .post('/login')
