@@ -5,11 +5,7 @@ const contextProperties = require('../contextProperties')
 const errorStatusCode = require('../error-status-code')
 
 const AuthClientErrorName = 'AuthClientError'
-function AuthClientError(message) {
-  this.name = AuthClientErrorName
-  this.message = message
-  this.stack = new Error().stack
-}
+const AuthClientError = message => ({ name: AuthClientErrorName, message, stack: new Error().stack })
 
 /**
  * Return an oauthApi built using the supplied configuration.
