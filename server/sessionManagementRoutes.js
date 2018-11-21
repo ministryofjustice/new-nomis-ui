@@ -1,6 +1,5 @@
 const { logger } = require('./services/logger')
-const errorStatusCode = require('./error-status-code')
-
+const { AuthClientErrorName } = require('./api/oauthApi')
 const contextProperties = require('./contextProperties')
 
 /**
@@ -19,23 +18,6 @@ const configureRoutes = ({ app, healthApi, oauthApi, tokenRefresher, mailTo }) =
     res.render('pages/login', { authError: false, apiUp: isApiUp, mailTo })
   }
 
-  function getAuthErrorDescription(error) {
-    logger.info(
-      `login error description = ${error.response && error.response.data && error.response.data.error_description}`
-    )
-    let type = 'The username or password you have entered is invalid.'
-    if (error.response && error.response.data && error.response.data.error_description) {
-      if (error.response.data.error_description.includes('ORA-28000')) {
-        type = 'Your user account is locked.'
-      } else if (error.response.data.error_description.includes('does not have access to caseload NWEB')) {
-        type = 'You are not enabled for this service, please contact admin and request access.'
-      } else if (error.response.data.error_description.includes('ORA-28001')) {
-        type = 'Your password has expired.'
-      }
-    }
-    return type
-  }
-
   const login = async (req, res) => {
     const { username, password } = req.body
 
@@ -44,18 +26,16 @@ const configureRoutes = ({ app, healthApi, oauthApi, tokenRefresher, mailTo }) =
 
       res.redirect('/')
     } catch (error) {
-      const code = errorStatusCode(error)
-      res.status(code)
-      logger.error(error)
-      if (code < 500) {
-        logger.warn('Login failed for', { user: String(username) })
+      if (error.name === AuthClientErrorName) {
+        res.status(401)
         res.render('pages/login', {
           authError: true,
-          authErrorText: getAuthErrorDescription(error),
+          authErrorText: error.message,
           apiUp: true,
           mailTo,
         })
       } else {
+        res.status(503)
         logger.error(error)
         res.render('pages/login', { authError: false, apiUp: false, mailTo })
       }
