@@ -61,7 +61,7 @@ describe('POST /signin', () => {
 
   describe('Unsuccessful signin - API up', () => {
     it('redirects to "/login" path', () => {
-      oauthApi.authenticate.rejects(new AuthClientError('The username or password you have entered is invalid.'))
+      oauthApi.authenticate.rejects(AuthClientError('The username or password you have entered is invalid.'))
 
       return request(app)
         .post('/login')

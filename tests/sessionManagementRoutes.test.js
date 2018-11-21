@@ -49,7 +49,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
 
   const rejectWithStatus = rejectStatus => () => Promise.reject({ response: { status: rejectStatus } })
 
-  const rejectWithAuthenticationError = errorText => () => Promise.reject(new AuthClientError(errorText))
+  const rejectWithAuthenticationError = errorText => () => Promise.reject(AuthClientError(errorText))
 
   const oauthApi = {
     authenticate: setTokensOnContext,

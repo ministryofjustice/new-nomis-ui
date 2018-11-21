@@ -57,7 +57,7 @@ const oauthApiFactory = ({ clientId, clientSecret, url }) => {
         if (parseInt(status, 10) < 500 && errorDesc !== null) {
           logger.info(`${msg} ${error.config.method} ${error.config.url} ${status} ${errorDesc}`)
 
-          throw new AuthClientError(translateAuthClientError(errorDesc))
+          throw AuthClientError(translateAuthClientError(errorDesc))
         }
 
         logger.error(`${msg} ${error.config.method} ${error.config.url} ${status} ${error.message}`)
