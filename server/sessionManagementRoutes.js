@@ -1,5 +1,5 @@
 const { logger } = require('./services/logger')
-const { AuthClientError } = require('./api/oauthApi')
+const { AuthClientErrorName } = require('./api/oauthApi')
 const contextProperties = require('./contextProperties')
 
 /**
@@ -26,7 +26,7 @@ const configureRoutes = ({ app, healthApi, oauthApi, tokenRefresher, mailTo }) =
 
       res.redirect('/')
     } catch (error) {
-      if (error.name === 'AuthClientError') {
+      if (error.name === AuthClientErrorName) {
         res.status(401)
         res.render('pages/login', {
           authError: true,

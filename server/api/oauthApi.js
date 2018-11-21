@@ -4,11 +4,11 @@ const { logger } = require('../services/logger')
 const contextProperties = require('../contextProperties')
 const errorStatusCode = require('../error-status-code')
 
-class AuthClientError extends Error {
-  constructor(message) {
-    super(message)
-    this.name = 'AuthClientError'
-  }
+const AuthClientErrorName = 'AuthClientError'
+function AuthClientError(message) {
+  this.name = AuthClientErrorName
+  this.message = message
+  this.stack = new Error().stack
 }
 
 /**
@@ -102,4 +102,4 @@ const oauthApiFactory = ({ clientId, clientSecret, url }) => {
   }
 }
 
-module.exports = { oauthApiFactory, AuthClientError }
+module.exports = { oauthApiFactory, AuthClientError, AuthClientErrorName }
