@@ -59,10 +59,9 @@ export const Title = styled(Link)`
   font-size: 26px;
   flex-grow: 1;
   text-decoration: none;
-
-  ${media.desktop`
-     padding-left: 0px;
-  `};
+  /* These are really mobile only but desktop is now handled by shared component: */
+  padding-top: 0.1em;
+  display: inline-block;
 `
 
 export const ToggleWrapper = styled.div`
