@@ -6,6 +6,8 @@ const app = {
   feedbackUrl: process.env.FEEDBACK_URL,
   mailTo: process.env.MAIL_TO || 'feedback@digital.justice.gov.uk',
   tokenRefreshThresholdSeconds: process.env.TOKEN_REFRESH_THRESHOLD_SECONDS || 60,
+  remoteAuthStrategy: Boolean(process.env.REMOTE_AUTH_STRATEGY),
+  url: process.env.NN_ENDPOINT_URL || `http://localhost:${argv.port || process.env.PORT || 3000}`,
 }
 
 const analytics = {
@@ -18,11 +20,17 @@ const hmppsCookie = {
   name: process.env.HMPPS_COOKIE_NAME || 'hmpps-session-dev',
   domain: process.env.HMPPS_COOKIE_DOMAIN || 'localhost',
   expiryMinutes: process.env.WEB_SESSION_TIMEOUT_IN_MINUTES || 20,
+  sessionSecret: process.env.SESSION_COOKIE_SECRET || 'notm-insecure-session',
 }
 
 const apis = {
   oauth2: {
     url: process.env.OAUTH_ENDPOINT_URL || process.env.API_ENDPOINT_URL || 'http://localhost:9090/auth',
+    ui_url:
+      process.env.OAUTH_ENDPOINT_UI_URL ||
+      process.env.OAUTH_ENDPOINT_URL ||
+      process.env.API_ENDPOINT_URL ||
+      'http://localhost:9090/auth',
     timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 10,
     clientId: process.env.API_CLIENT_ID || 'elite2apiclient',
     clientSecret: process.env.API_CLIENT_SECRET || 'clientsecret',
