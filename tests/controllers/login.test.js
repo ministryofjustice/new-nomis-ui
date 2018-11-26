@@ -6,9 +6,12 @@ const sinonChai = require('sinon-chai')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cookieSession = require('cookie-session')
+const passport = require('passport')
+const flash = require('connect-flash')
 const request = require('supertest')
 
 const sessionManagementRoutes = require('../../server/sessionManagementRoutes')
+const auth = require('../../server/auth')
 const { AuthClientError } = require('../../server/api/oauthApi')
 
 chai.use(sinonChai)
@@ -19,6 +22,7 @@ describe('POST /signin', () => {
 
   app.set('view engine', 'ejs')
   app.use(bodyParser.urlencoded({ extended: false }))
+
   app.use(
     cookieSession({
       name: 'testCookie',
@@ -28,47 +32,53 @@ describe('POST /signin', () => {
     })
   )
 
+  app.use(passport.initialize())
+  app.use(passport.session())
+  app.use(flash())
+
   const nullFunction = () => {}
 
   const oauthApi = {
     authenticate: nullFunction,
     refresh: nullFunction,
   }
+  auth.init(oauthApi)
 
   const healthApi = {
-    isUp: nullFunction,
+    isUp: () => Promise.resolve(true),
   }
+  const tokenRefresher = sinon.stub()
 
-  sessionManagementRoutes.configureRoutes({ app, healthApi, oauthApi, mailTo: 'test@site.com' })
+  sessionManagementRoutes.configureRoutes({ app, healthApi, tokenRefresher, mailTo: 'test@site.com' })
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create()
-    sandbox.stub(oauthApi, 'authenticate')
+    sandbox.stub(oauthApi, 'authenticate').returns({ access_token: 'token' })
   })
 
   afterEach(() => sandbox.restore())
 
   describe('Successful signin', () => {
     it('redirects to "/" path', () =>
-      request(app)
+      request
+        .agent(app)
         .post('/login')
         .send('username=officer&password=password')
         .expect(302)
-        .expect(res => {
-          expect(res.headers.location).to.eql('/')
-        }))
+        .expect('location', '/'))
   })
 
   describe('Unsuccessful signin - API up', () => {
     it('redirects to "/login" path', () => {
       oauthApi.authenticate.rejects(AuthClientError('The username or password you have entered is invalid.'))
 
-      return request(app)
+      return request
+        .agent(app)
         .post('/login')
-        .send('username=officer&password=password')
-        .expect(401)
+        .send('username=test&password=testPassowrd')
+        .redirects(1)
+        .expect(/Login/)
         .expect(res => {
-          expect(res.error.path).to.equal('/login')
           expect(res.text).to.include('The username or password you have entered is invalid.')
         })
     })
@@ -78,13 +88,14 @@ describe('POST /signin', () => {
     it('redirects to "/login" path', () => {
       oauthApi.authenticate.rejects({ response: { status: 503 } })
 
-      return request(app)
+      return request
+        .agent(app)
         .post('/login')
         .send('username=officer&password=password')
-        .expect(503)
+        .redirects(1)
+        .expect(/Login/)
         .expect(res => {
-          expect(res.error.path).to.equal('/login')
-          expect(res.text).to.include('Service unavailable. Please try again later.')
+          expect(res.text).to.include('A system error occurred; please try again later')
         })
     })
   })

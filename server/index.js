@@ -4,12 +4,14 @@ require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const cookieSession = require('cookie-session')
+const passport = require('passport')
 const bunyanMiddleware = require('bunyan-middleware')
 const hsts = require('hsts')
 const appInsights = require('applicationinsights')
 const helmet = require('helmet')
 const path = require('path')
 const url = require('url')
+const flash = require('connect-flash')
 
 const setup = require('./middlewares/frontend-middleware')
 
@@ -18,6 +20,7 @@ const apiProxy = require('./apiproxy')
 const config = require('./config')
 
 const sessionManagementRoutes = require('./sessionManagementRoutes')
+const auth = require('./auth')
 const clientFactory = require('./api/oauthEnabledClient')
 const { healthApiFactory } = require('./api/healthApi')
 const { eliteApiFactory } = require('./api/eliteApi')
@@ -113,6 +116,7 @@ const keyworkerApi = keyworkerApiFactory(
 )
 
 const oauthApi = oauthApiFactory({ ...config.apis.oauth2 })
+auth.init(oauthApi)
 const tokenRefresher = tokeRefresherFactory(oauthApi.refresh, config.app.tokenRefreshThresholdSeconds)
 
 const userService = userServiceFactory(eliteApi)
@@ -150,11 +154,14 @@ app.use((req, res, next) => {
   next()
 })
 
-/* login, logout, hmppsCookie management, token refresh etc */
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(flash())
+
+/* login, logout, token refresh etc */
 sessionManagementRoutes.configureRoutes({
   app,
   healthApi,
-  oauthApi,
   tokenRefresher,
   mailTo: config.app.mailTo,
 })
