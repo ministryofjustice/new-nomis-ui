@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import styled from 'styled-components'
 import uuid from 'uuid/v4'
-import { FormattedDate, FormattedTime } from '../../../intl'
+import { FormattedDate, FormattedTime, FormattedDay } from '../../../intl'
 
 import { PreStyle } from './listItem.theme'
 
@@ -126,6 +126,10 @@ const CaseNoteListItem = ({ action, caseNote }) => {
           <Bold>
             <span className="col-md-12">
               <FormattedDate value={creationDateTime} />
+            </span>
+            <Separator className="hidden-md hidden-lg hidden-lx" />
+            <span className="col-md-12">
+              <FormattedDay value={creationDateTime} />
             </span>
             <Separator className="hidden-md hidden-lg hidden-lx" />
             <span className="col-md-12">
