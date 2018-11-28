@@ -29,10 +29,8 @@ InternalFormattedTime.propTypes = {
 
 export const FormattedTime = injectIntl(InternalFormattedTime)
 
-FormattedDate.propTypes = {
-  value: PropTypes.string.isRequired,
-}
+export const FormattedDay = ({ value }) => <span>{moment(value).format('dddd')}</span>
 
-FormattedTime.propTypes = {
+FormattedDay.propTypes = {
   value: PropTypes.string.isRequired,
 }

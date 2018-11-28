@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'enzyme'
 import { IntlProvider } from 'react-intl'
-import { FormattedDate, FormattedTime } from './index'
+import { FormattedDate, FormattedTime, FormattedDay } from './index'
 
 describe('Internationalized date and time components', () => {
   const dateTimeString = '2018-06-30T23:30:00.000000'
@@ -40,5 +40,10 @@ describe('Internationalized date and time components', () => {
       </IntlProvider>
     )
     expect(wrapper.html()).toEqual('<span>11:30 PM</span>')
+  })
+
+  it('FormattedDay renders the correct day name from a date', () => {
+    const wrapper = render(<FormattedDay value={dateTimeString} />)
+    expect(wrapper.html()).toEqual('<span>Saturday</span>')
   })
 })
