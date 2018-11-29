@@ -77,11 +77,8 @@ const AmendmentBlock = ({ amendment }) => {
         {shouldShowTime && (
           <div>
             <strong>
-              <FormattedDate value={amendment.creationDateTime} />
-            </strong>
-            <span>&nbsp;-&nbsp;</span>
-            <strong>
-              <FormattedTime value={amendment.creationDateTime} />
+              <FormattedDate value={amendment.creationDateTime} /> - <FormattedDay value={amendment.creationDateTime} />{' '}
+              - <FormattedTime value={amendment.creationDateTime} />
             </strong>
           </div>
         )}
@@ -151,7 +148,8 @@ const CaseNoteListItem = ({ action, caseNote }) => {
             <Block>
               <RightPadding> Occurrence date: </RightPadding>
               <span>
-                <FormattedDate value={occurrenceDateTime} /> - <FormattedTime value={occurrenceDateTime} />
+                <FormattedDate value={occurrenceDateTime} /> - <FormattedDay value={occurrenceDateTime} /> -{' '}
+                <FormattedTime value={occurrenceDateTime} />
               </span>
             </Block>
           )}
