@@ -11,7 +11,7 @@ import { inputType, metaType } from '../types'
 export class DatePicker extends Component {
   handleChange = date => {
     const { input } = this.props
-    input.onChange(moment(date).format(DEFAULT_MOMENT_DATE_FORMAT_SPEC))
+    input.onChange(date.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC))
   }
 
   renderInput = props => (

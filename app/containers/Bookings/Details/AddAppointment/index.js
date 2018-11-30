@@ -17,9 +17,9 @@ import {
 import TimePicker from '../../../../components/FormComponents/TimePicker'
 import { TextArea } from '../../../../components/FormComponents'
 
-import { DATE_TIME_FORMAT_SPEC } from '../../../App/constants'
+import { DATE_ONLY_FORMAT_SPEC, DATE_TIME_FORMAT_SPEC } from '../../../App/constants'
 
-import { loadAppointmentViewModel } from '../../../EliteApiLoader/actions'
+import { loadAppointmentViewModel, loadExistingEvents as lee } from '../../../EliteApiLoader/actions'
 import { APPOINTMENT } from '../../../EliteApiLoader/constants'
 
 import { Model as offenderDetailsModel } from '../../../../helpers/dataMappers/offenderDetails'
@@ -56,10 +56,19 @@ class AddAppointment extends Component {
       locale,
       goBackToBookingDetails,
       offenderNo,
+      offendersAgencyId,
       offenderName,
       viewModel,
+      existingEvents,
+      loadExistingEvents,
       eventDate,
     } = this.props
+
+    const onDateChange = (event, newValue) => {
+      if (newValue) {
+        loadExistingEvents(offendersAgencyId, newValue.format(DATE_ONLY_FORMAT_SPEC), offenderNo)
+      }
+    }
 
     if (!viewModel) {
       return <div />
@@ -67,6 +76,60 @@ class AddAppointment extends Component {
 
     if (error) {
       window.scrollTo(0, 0)
+    }
+
+    const getHours = timestamp => {
+      if (!timestamp) {
+        return ''
+      }
+      return timestamp.substr(0, 2)
+    }
+
+    const partition = eventArray => {
+      const am = []
+      const pm = []
+      const ed = []
+      eventArray.forEach(e => {
+        const hours = Number(getHours(e.startTime))
+        if (hours < 12) {
+          am.push(e)
+        } else if (hours >= 12 && hours < 17) {
+          pm.push(e)
+        } else {
+          ed.push(e)
+        }
+      })
+      return [am, pm, ed]
+    }
+
+    const insertForNothingScheduled = eventArray => {
+      const slots = partition(eventArray)
+      const amPresent = slots[0].length
+      const pmPresent = slots[1].length
+      if (amPresent && pmPresent) {
+        return eventArray
+      }
+      if (amPresent) {
+        return [...slots[0], { nothingScheduled: true, eventDescription: 'PM: nothing scheduled' }, ...slots[2]]
+      }
+      if (pmPresent) {
+        return [{ nothingScheduled: true, eventDescription: 'AM: nothing scheduled' }, ...slots[1], ...slots[2]]
+      }
+      return [
+        { nothingScheduled: true, eventDescription: 'AM: nothing scheduled' },
+        { nothingScheduled: true, eventDescription: 'PM: nothing scheduled' },
+        ...slots[2],
+      ]
+    }
+
+    const getStatus = (eventStatus, excluded) => {
+      // if (eventStatus === 'CANC') {
+      //   return ' (cancelled)'
+      // }
+      if (excluded) {
+        return ' (temporarily removed)'
+      }
+      return ''
     }
 
     return (
@@ -133,6 +196,7 @@ class AddAppointment extends Component {
                 name="eventDate"
                 title="Select date"
                 component={DatePicker}
+                onChange={onDateChange}
                 locale={locale}
                 format={momentToLocalizedDate(locale)}
                 parse={localizedDateToMoment(locale)}
@@ -140,6 +204,40 @@ class AddAppointment extends Component {
               />
             </div>
           </div>
+
+          {existingEvents && (
+            <div className="row add-gutter-margin-bottom">
+              <div id="other-events" className="col-md-8 col-xs-11 shaded add-gutter-padding-bottom">
+                <div className="row col-xs-12 add-gutter-margin-top add-gutter-margin-bottom">
+                  <b>Other scheduled events on this date</b>
+                </div>
+                {insertForNothingScheduled(existingEvents).map(
+                  (event, index) =>
+                    event.nothingScheduled ? (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <div key={eventDate + index} className="row">
+                        <div className="col-xs-11">{event.eventDescription}</div>
+                      </div>
+                    ) : (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <div key={eventDate + index} className="row">
+                        <div className="col-xs-4">
+                          {event.startTime}
+                          {event.endTime && ' - '}
+                          {event.endTime}
+                        </div>
+                        <div className="col-xs-8">
+                          <b>
+                            {event.eventDescription}
+                            {getStatus(event.eventStatus, event.excluded)}
+                          </b>
+                        </div>
+                      </div>
+                    )
+                )}
+              </div>
+            </div>
+          )}
 
           <div className="row">
             <div className="col-xs-6 col-md-2 no-left-gutter">
@@ -222,22 +320,34 @@ AddAppointment.propTypes = {
       PropTypes.shape({ description: PropTypes.string.isRequired, locationId: PropTypes.number.isRequired })
     ).isRequired,
   }).isRequired,
+  existingEvents: PropTypes.arrayOf(
+    PropTypes.shape({
+      eventId: PropTypes.number,
+      startTime: PropTypes.string.isRequired,
+      endTime: PropTypes.string,
+      eventDescription: PropTypes.string.isRequired,
+      eventStatus: PropTypes.string,
+    })
+  ),
 
   // mapDispatchToProps
   boundViewDetails: PropTypes.func.isRequired,
   goBackToBookingDetails: PropTypes.func.isRequired,
   loadViewModel: PropTypes.func.isRequired,
+  loadExistingEvents: PropTypes.func.isRequired,
 }
 
 AddAppointment.defaultProps = {
   error: '',
   eventDate: null,
+  existingEvents: undefined,
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
   boundViewDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.ADD_APPOINTMENT)),
   goBackToBookingDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.QUICK_LOOK)),
   loadViewModel: agencyId => dispatch(loadAppointmentViewModel(agencyId)),
+  loadExistingEvents: (agencyId, date, offenderNo) => dispatch(lee(agencyId, date, offenderNo)),
   onSubmit: createFormAction(
     formData => ({
       type: APPOINTMENT.ADD,
@@ -277,6 +387,9 @@ const mapStateToProps = (immutableState, props) => {
     })
   ).toJS()
 
+  const maybeEvents = immutableState.getIn(['eliteApiLoader', 'ExistingEvents'])
+  const existingEvents = maybeEvents && maybeEvents.toJS()
+
   return {
     locale,
     offenderNo,
@@ -285,6 +398,7 @@ const mapStateToProps = (immutableState, props) => {
     offenderName,
     eventDate,
     viewModel,
+    existingEvents,
   }
 }
 

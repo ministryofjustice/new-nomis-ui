@@ -21,7 +21,7 @@ describe('Booking Service Booking details', () => {
   beforeEach(() => {
     sandbox = sinon.sandbox.create()
     sandbox.stub(eliteApi, 'getCategoryAssessment')
-    sandbox.stub(eliteApi, 'getSentenceData')
+    sandbox.stub(eliteApi, 'getSentenceDetail')
     sandbox.stub(eliteApi, 'getIepSummary')
     sandbox.stub(eliteApi, 'getDetailsLight')
 
@@ -33,7 +33,7 @@ describe('Booking Service Booking details', () => {
   afterEach(() => sandbox.restore())
 
   it('should call getCategoryAssessment', async () => {
-    eliteApi.getSentenceData.returns({})
+    eliteApi.getSentenceDetail.returns({})
     eliteApi.getIepSummary.returns({})
 
     eliteApi.getCategoryAssessment.returns({
