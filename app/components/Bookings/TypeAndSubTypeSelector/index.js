@@ -38,16 +38,17 @@ class TypeAndSubTypeSelector extends PureComponent {
     const { types, subTypes, selectedType } = this.props
     const { resetSubType } = this.state
 
-    const constrainedSubTypes = (subTypes || []).filter(st => st.parent === selectedType)
+    const filteredSubTypes = (subTypes || []).filter(st => st.parent === selectedType)
 
     return (
       <span>
         <Field title="Type" component={SelectWithLabel} name="typeValue" options={types} onChange={this.onTypeChange} />
+
         <Field
           title="Sub-type"
           component={SelectWithLabel}
           name="subTypeValue"
-          options={constrainedSubTypes}
+          options={filteredSubTypes}
           onChange={this.onSubTypeChange}
           resetValue={resetSubType}
         />

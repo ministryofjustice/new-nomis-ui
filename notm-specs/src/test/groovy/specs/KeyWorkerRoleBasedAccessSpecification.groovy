@@ -1,13 +1,14 @@
 package specs
 
+
 import geb.spock.GebReportingSpec
 import groovy.util.logging.Slf4j
+import mockapis.Elite2Api
+import mockapis.KeyworkerApi
 import mockapis.OauthApi
 import org.junit.Rule
-import pages.LoginPage
 import pages.HomePage
-import mockapis.Elite2Api
-import pages.MyAllocationsPage
+import pages.LoginPage
 
 import static model.UserAccount.ITAG_USER
 
@@ -18,6 +19,9 @@ class KeyWorkerRoleBasedAccessSpecification extends GebReportingSpec {
 
   @Rule
   OauthApi oauthApi = new OauthApi()
+
+  @Rule
+  KeyworkerApi keyworkerApi = new KeyworkerApi()
 
   def "should see the my key worker allocations link when the user is a key worker"() {
     elite2api.stubHealthCheck()

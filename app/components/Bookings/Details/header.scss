@@ -1,6 +1,15 @@
 
 .header-details {
 
+  .stacked-links {
+    display: flex;
+    flex-direction: column;
+
+    div {
+      margin-bottom: 10px;
+    }
+  }
+
   .visible-large {
     display: block;
   }

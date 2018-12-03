@@ -49,6 +49,7 @@ describe('Header component', () => {
         onImageClick={jest.fn()}
         offenderNo="A1234RT"
         onAlertFlagClick={jest.fn()}
+        showAddKeyworkerSessionLink={false}
       />
     )
 
@@ -63,6 +64,7 @@ describe('Header component', () => {
         onImageClick={jest.fn()}
         offenderNo="A1234RE"
         onAlertFlagClick={jest.fn()}
+        showAddKeyworkerSessionLink={false}
       />
     )
 
@@ -76,6 +78,7 @@ describe('Header component', () => {
         onImageClick={jest.fn()}
         offenderNo="A1234RE"
         onAlertFlagClick={jest.fn()}
+        showAddKeyworkerSessionLink={false}
       />
     )
 
@@ -89,6 +92,7 @@ describe('Header component', () => {
         onImageClick={jest.fn()}
         offenderNo="A1234RN"
         onAlertFlagClick={jest.fn()}
+        showAddKeyworkerSessionLink={false}
       />
     )
 
@@ -102,6 +106,7 @@ describe('Header component', () => {
         onImageClick={jest.fn()}
         offenderNo="A1234RN"
         onAlertFlagClick={jest.fn()}
+        showAddKeyworkerSessionLink={false}
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
@@ -115,6 +120,7 @@ describe('Header component', () => {
         onImageClick={jest.fn()}
         offenderNo="A1234RN"
         onAlertFlagClick={jest.fn()}
+        showAddKeyworkerSessionLink={false}
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
@@ -129,9 +135,24 @@ describe('Header component', () => {
         onImageClick={jest.fn()}
         offenderNo="A1234RN"
         onAlertFlagClick={jest.fn()}
+        showAddKeyworkerSessionLink={false}
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
     expect(middleSection.find('span.cata-prov-status').text()).toEqual('CAT A\u00a0Prov')
+  })
+
+  it('should show the Add KW Session link', () => {
+    const wrapper = shallow(
+      <Header
+        inmateData={inmate(allAlerts, 'D')}
+        onImageClick={jest.fn()}
+        offenderNo="A1234RN"
+        onAlertFlagClick={jest.fn()}
+        showAddKeyworkerSessionLink
+      />
+    )
+
+    expect(wrapper.find('div.visible-small > MiddleSection').shallow()).toMatchSnapshot()
   })
 })

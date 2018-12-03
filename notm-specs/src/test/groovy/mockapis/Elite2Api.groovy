@@ -449,11 +449,11 @@ class Elite2Api extends WireMockRule {
 ]''')))
   }
 
-  void stubSaveCaseNote() {
+  void stubSaveCaseNote(String type = "CHAP", String subType = "FAITH", String typeDescription = "Chaplaincy", String subTypeDescription = "Faith Specific Action") {
     // TODO check "occurrenceDateTime": "2018-04-30T07:00:00", (what we selected on the page)
     def data = """{
-  "type": "CHAP",
-  "subType": "FAITH",
+  "type": "${type}",
+  "subType": "${subType}",
   "text": "some text"
 }"""
     this.stubFor(
@@ -462,26 +462,11 @@ class Elite2Api extends WireMockRule {
         .willReturn(aResponse()
         .withStatus(201)
         .withHeader('Content-Type', 'application/json')
-        .withBody("""{
-    "caseNoteId": 1,
-    "bookingId": -10,
-    "type": "CHAP",
-    "typeDescription": "Chaplaincy",
-    "subType": "FAITH",
-    "subTypeDescription": "Faith Specific Action",
-    "source": "EXT",
-    "creationDateTime": "2018-05-16T13:18:09.915",
-    "occurrenceDateTime": "2017-10-31T14:38:53",
-    "staffId": -2,
-    "authorName": "User, Api",
-    "text": "some text",
-    "originalNoteText": "some text",
-    "amendments": []
-}""")))
+        ))
   }
   // NB also test error 403 from this post
 
-  void stubGetCaseNote() {
+  void  stubGetCaseNote() {
     this.stubFor(
       get(urlMatching("/api/bookings/.+/caseNotes"))
         .willReturn(aResponse()

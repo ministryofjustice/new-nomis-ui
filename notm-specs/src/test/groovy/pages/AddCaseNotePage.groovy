@@ -24,6 +24,9 @@ class AddCaseNotePage extends Page {
     minutes { $('select', name: 'minutes') } // options 00, 05, 10 etc
     saveButton { $('button', type: 'submit') }
     changeDateTime { $('button', name: 'change-date-time') }
+    typeSelectValue { $('form select')[0].value() }
+    subTypeSelectValue { $('form select')[1].value() }
+
   }
 
   def createNewCaseNote(text) {
@@ -38,6 +41,18 @@ class AddCaseNotePage extends Page {
 
     changeDateTime.click()
 
+    datePicker.click()
+    days[0].click() // select 1st of this month for now
+    form.hours = "07"
+    form.minutes = "00"
+    saveButton.click()
+  }
+
+  def createNewCaseNoteLeavingTypeAndSubType(text) {
+    def textarea = textareaElement.module(Textarea)
+    textarea.text = text
+
+    changeDateTime.click()
     datePicker.click()
     days[0].click() // select 1st of this month for now
     form.hours = "07"

@@ -203,6 +203,11 @@ AddCaseNoteForm.defaultProps = {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
+  initialValues: Map({
+    typeValue: props.location.query.type,
+    subTypeValue: props.location.query.subType,
+    typeAndSubType: Map({ typeValue: '', subTypeValue: '', text: '' }),
+  }),
   goBackToBookingDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.CASE_NOTES)),
   loadCaseNoteTypes: () => dispatch(loadCaseNoteTypesAndSubTypes()),
   extendSession: () => dispatch(extendActiveSession()),
@@ -262,9 +267,6 @@ export const validate = stuff => {
 const asForm = reduxForm({
   form: 'addCaseNote',
   validate,
-  initialValues: Map({
-    typeAndSubType: Map({ typeValue: '', subTypeValue: '', text: '' }),
-  }),
 })(AddCaseNoteForm)
 
 export default connect(

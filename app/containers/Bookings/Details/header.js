@@ -9,7 +9,7 @@ import BookingsDetailsHeader from '../../../components/Bookings/Details/header'
 import { showLargePhoto, viewDetails } from '../actions'
 import { DETAILS_TABS } from '../constants'
 
-const Header = ({ headerDetails, showPhoto, offenderNo, showAlertTabForOffenderNo }) => {
+const Header = ({ headerDetails, showPhoto, offenderNo, showAlertTabForOffenderNo, showAddKeyworkerSessionLink }) => {
   const showAlertTab = () => showAlertTabForOffenderNo(offenderNo)
 
   return (
@@ -18,6 +18,7 @@ const Header = ({ headerDetails, showPhoto, offenderNo, showAlertTabForOffenderN
       inmateData={headerDetails}
       onImageClick={showPhoto}
       onAlertFlagClick={showAlertTab}
+      showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
     />
   )
 }
@@ -27,6 +28,7 @@ Header.propTypes = {
   showPhoto: PropTypes.func,
   showAlertTabForOffenderNo: PropTypes.func.isRequired,
   offenderNo: PropTypes.string.isRequired,
+  showAddKeyworkerSessionLink: PropTypes.bool.isRequired,
 }
 
 Header.defaultProps = {
@@ -54,9 +56,13 @@ const mapDispatchToProps = dispatch => ({
   showAlertTabForOffenderNo: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.ALERTS)),
 })
 
-const mapStateToProps = (immutableState, props) => ({
-  headerDetails: immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']),
-})
+const mapStateToProps = (immutableState, props) => {
+  const { isKeyWorker } = immutableState.getIn(['authentication', 'user']) || {}
+  return {
+    headerDetails: immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']),
+    showAddKeyworkerSessionLink: Boolean(isKeyWorker),
+  }
+}
 
 // Wrap the component to inject dispatch and state into it
 export default connect(
