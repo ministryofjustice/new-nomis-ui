@@ -371,6 +371,13 @@ export const loadAppointmentViewModel = ({ agencyId }) =>
     withCredentials: true,
   }).then(response => response.data)
 
+export const getExistingEvents = ({ agencyId, date, offenderNo }) =>
+  axios({
+    method: 'get',
+    url: `/app/bookings/getExistingEvents/${agencyId}/${offenderNo}?date=${date}`,
+    withCredentials: true,
+  }).then(response => response.data)
+
 export const addAppointment = ({ offenderNo, startTime, endTime, appointmentType, locationId, comment }) =>
   axios({
     method: 'post',

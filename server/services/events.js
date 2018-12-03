@@ -3,6 +3,7 @@ const utils = require('../utils')
 const { isoDateFormat } = require('./../constants')
 const toActivityViewModel = require('../data-mappers/to-activity-viewmodel')
 const nomisCodes = require('../data-mappers/nomis-codes')
+const getExternalEventsForOffenders = require('./getExternalEventsForOffenders')
 
 const eventsServiceFactory = eliteApi => {
   const getAppointmentViewModel = async (context, agencyId) => {
@@ -27,6 +28,9 @@ const eventsServiceFactory = eliteApi => {
       appointmentTypes,
     }
   }
+
+  const getExistingEvents = async (context, agencyId, date, offenderNo) =>
+    getExternalEventsForOffenders(eliteApi, context, { offenderNumbers: [offenderNo], formattedDate: date, agencyId })
 
   const buildCalendarViewFor = days =>
     days.map(day => moment().add(day, 'days')).reduce((result, current) => {
@@ -99,6 +103,7 @@ const eventsServiceFactory = eliteApi => {
     getScheduledEventsForThisWeek,
     getScheduledEventsForNextWeek,
     getAppointmentViewModel,
+    getExistingEvents,
   }
 }
 module.exports = {

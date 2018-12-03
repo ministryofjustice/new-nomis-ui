@@ -222,6 +222,10 @@ function EliteApiReducer(state = initialState, action) {
       return state.set('AppointmentTypesAndLocations', fromJS(action.payload))
     }
 
+    case APPOINTMENT.SET_EXISTING_EVENTS: {
+      return state.set('ExistingEvents', fromJS(action.payload))
+    }
+
     default: {
       return state
     }

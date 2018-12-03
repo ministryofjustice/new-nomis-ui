@@ -3,7 +3,9 @@ package mockapis
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import groovy.json.JsonOutput
 import mockapis.response.AccessRoles
+import mockapis.response.Schedules
 import model.CaseNote
+import model.Caseload
 import model.Offender
 
 import java.time.LocalDate
@@ -151,26 +153,26 @@ class Elite2Api extends WireMockRule {
         .withHeader('Content-Type', 'application/json')
         .withBody(JsonOutput.toJson([
         [
-          locationId: 14453,
-          locationType: "EXER",
-          description: "RES-IWING-I1DOC",
-          agencyId: "LEI",
+          locationId      : 14453,
+          locationType    : "EXER",
+          description     : "RES-IWING-I1DOC",
+          agencyId        : "LEI",
           parentLocationId: 14452,
           currentOccupancy: 0,
-          locationPrefix: "LEI-RES-IWING-I1DOC",
-          userDescription: "I1 Med Rec Doctor"
+          locationPrefix  : "LEI-RES-IWING-I1DOC",
+          userDescription : "I1 Med Rec Doctor"
         ],
         [
-          locationId: 14461,
-          locationType: "CLAS",
-          description: "RES-FWING-F4CL",
-          agencyId: "LEI",
+          locationId      : 14461,
+          locationType    : "CLAS",
+          description     : "RES-FWING-F4CL",
+          agencyId        : "LEI",
           parentLocationId: 14460,
           currentOccupancy: 0,
-          locationPrefix: "LEI-RES-FWING-F4CL",
-          userDescription: "F4 Classroom"
+          locationPrefix  : "LEI-RES-FWING-F4CL",
+          userDescription : "F4 Classroom"
         ]
-        ]))))
+      ]))))
   }
 
   void stubAppointmentTypes() {
@@ -193,7 +195,7 @@ class Elite2Api extends WireMockRule {
 
   void stubSaveAppointment() {
     def startDate = LocalDate.now().plusDays(1)
-    def startTime = LocalDateTime.of(startDate, LocalTime.of(9,0,0))
+    def startTime = LocalDateTime.of(startDate, LocalTime.of(9, 0, 0))
     def startTimeFormatted = startTime.format(DateTimeFormatter.ISO_DATE_TIME)
     def data = [
       appointmentType: "GYMF",
@@ -393,7 +395,7 @@ class Elite2Api extends WireMockRule {
           .withStatus(200)
           .withHeader('Content-Type', 'application/json')
           .withBody(JsonOutput.toJson(alertTypes))
-    ))
+      ))
   }
 
   void stubCaseNoteTypes() {
@@ -720,27 +722,27 @@ class Elite2Api extends WireMockRule {
         .withHeader('Content-Type', 'application/json')
         .withBody(JsonOutput.toJson(
         [
-          bookingId: -1,
+          bookingId        : -1,
           adjudicationCount: 3,
-          awards:
-          [
+          awards           :
             [
-              status: 'IMMEDIATE',
-              days: 2,
-              sanctionCodeDescription: 'Immediate',
-              comment: 'A comment',
-              sanctionCode: 'STOP_PCT',
-              effectiveDate: '2018-10-03',
-              limit: 50
-            ],
-            [
-              status: 'SUSPENDED',
-              sanctionCodeDescription: 'Stoppage of Earnings (amount)',
-              comment: 'Not shown',
-              sanctionCode: 'STOP_EARN',
-              limit: 30
+              [
+                status                 : 'IMMEDIATE',
+                days                   : 2,
+                sanctionCodeDescription: 'Immediate',
+                comment                : 'A comment',
+                sanctionCode           : 'STOP_PCT',
+                effectiveDate          : '2018-10-03',
+                limit                  : 50
+              ],
+              [
+                status                 : 'SUSPENDED',
+                sanctionCodeDescription: 'Stoppage of Earnings (amount)',
+                comment                : 'Not shown',
+                sanctionCode           : 'STOP_EARN',
+                limit                  : 30
+              ]
             ]
-          ]
         ]
       ))))
   }
@@ -872,6 +874,68 @@ class Elite2Api extends WireMockRule {
 }""")))
   }
 
+  private final offenderNumbers = [
+    Schedules.activity1_1.offenderNo,
+  ]
+
+  void stubGetActivities(Caseload caseload, String timeSlot, String date, boolean emptyResponses) {
+
+    this.stubFor(
+      post("/api/schedules/${caseload.id}/visits?timeSlot=${timeSlot}&date=${date}")
+        .withRequestBody(equalToJson(JsonOutput.toJson(offenderNumbers)))
+        .willReturn(
+        aResponse()
+          .withBody(emptyResponses ? '' : Schedules.visits)
+          .withHeader('Content-Type', 'application/json')
+          .withStatus(200))
+    )
+
+    this.stubFor(
+      post("/api/schedules/${caseload.id}/appointments?timeSlot=${timeSlot}&date=${date}")
+        .withRequestBody(equalToJson(JsonOutput.toJson(offenderNumbers)))
+        .willReturn(
+        aResponse()
+          .withBody(emptyResponses ? '' : Schedules.appointments)
+          .withHeader('Content-Type', 'application/json')
+          .withStatus(200))
+    )
+
+    this.stubFor(
+      post("/api/schedules/${caseload.id}/activities?timeSlot=${timeSlot}&date=${date}&includeExcluded=true")
+        .withRequestBody(equalToJson(JsonOutput.toJson(offenderNumbers)))
+        .willReturn(
+        aResponse()
+          .withBody(emptyResponses ? '' : Schedules.activities)
+          .withHeader('Content-Type', 'application/json')
+          .withStatus(200))
+    )
+    this.stubFor(
+      post("/api/offender-sentences")
+        .withRequestBody(equalToJson(JsonOutput.toJson(offenderNumbers)))
+        .willReturn(
+        aResponse()
+          .withBody(emptyResponses ? '' : Schedules.sentences)
+          .withHeader('Content-Type', 'application/json')
+          .withStatus(200))
+    )
+    this.stubFor(
+      post("/api/schedules/${caseload.id}/courtEvents?date=${date}")
+        .withRequestBody(equalToJson(JsonOutput.toJson(offenderNumbers), true, false))
+        .willReturn(
+        aResponse()
+          .withBody(emptyResponses ? '' : Schedules.courtEventsResponse)
+          .withHeader('Content-Type', 'application/json')
+          .withStatus(200)))
+    this.stubFor(
+      post("/api/schedules/${caseload.id}/externalTransfers?date=${date}")
+        .withRequestBody(equalToJson(JsonOutput.toJson(offenderNumbers), true, false))
+        .willReturn(
+        aResponse()
+          .withBody(emptyResponses ? '' : Schedules.externalTransfersResponse)
+          .withHeader('Content-Type', 'application/json')
+          .withStatus(200)))
+  }
+
   def buildCaseNotes(Integer pageOffset, Integer pageLimit) {
     List<CaseNote> notes = []
 
@@ -890,7 +954,7 @@ class Elite2Api extends WireMockRule {
   }
 
   def buildAlerts(Integer pageOffset, Integer pageLimit) {
-    (pageOffset..<pageLimit).collect{ index ->
+    (pageOffset..<pageLimit).collect { index ->
       Alert alert = new Alert()
       alert.alertId = index
       alert.alertCode = "alertCode${index}"

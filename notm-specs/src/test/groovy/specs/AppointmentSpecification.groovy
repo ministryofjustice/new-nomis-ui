@@ -6,10 +6,11 @@ import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
+import mockapis.response.Schedules
+import model.Caseload
 import model.Offender
 import org.junit.Rule
 import pages.*
-import spock.lang.IgnoreIf
 
 import static model.UserAccount.ITAG_USER
 
@@ -80,6 +81,31 @@ class AppointmentSpecification extends GebReportingSpec {
 
     then: 'offender number is displayed'
     nameHeading.text() == 'Smith, Daniel (A1234AJ)'
+
+    when: 'I select a date with existing activities'
+    elite2api.stubGetActivities(Caseload.LEI, '', Schedules.TOMORROW, false)
+    setDatePicker(Schedules.TOMORROW_DATE.year, Schedules.TOMORROW_DATE.monthValue, Schedules.TOMORROW_DATE.day)
+    waitFor( {otherEvents[8].displayed} )
+
+    then: 'existing scheduled events are displayed'
+    otherEvents[1].find('div')*.text() == ['09:00 - 10:30','Activity 1']
+    otherEvents[2].find('div')*.text() == ['14:00 - 15:30','Activity 2 (temporarily removed)']
+    otherEvents[3].find('div')*.text() == ['15:30','Appointment 1 - Appt details']
+    otherEvents[4].find('div')*.text() == ['17:00 - 18:30','Activity 3']
+    otherEvents[5].find('div')*.text() == ['18:00 - 18:30','Visits - Friends']
+    otherEvents[6].find('div')*.text() == ['','Release scheduled']
+    otherEvents[7].find('div')*.text() == ['','Court visit scheduled']
+    otherEvents[8].find('div')*.text() == ['','Transfer scheduled']
+    otherEvents.size() == 9
+
+    when: 'I select a date with no existing activities'
+    elite2api.stubGetActivities(Caseload.LEI, '', Schedules.TODAY, true)
+    setDatePicker(Schedules.TODAY_DATE.year, Schedules.TODAY_DATE.monthValue, Schedules.TODAY_DATE.day)
+    waitFor( {otherEvents.size() == 3} )
+
+    then: 'No scheduled events are displayed'
+    otherEvents[1].find('div').text() == 'AM: nothing scheduled'
+    otherEvents[2].find('div').text() == 'PM: nothing scheduled'
 
     when: 'I create the new appointment'
     elite2api.stubSaveAppointment()
