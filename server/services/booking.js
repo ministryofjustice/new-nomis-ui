@@ -12,7 +12,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
     const { bookingId } = await eliteApi.getDetailsLight(context, offenderNo)
 
     const [sentenceData, iepSummary, categoryAssessment] = await Promise.all([
-      eliteApi.getSentenceData(context, bookingId),
+      eliteApi.getSentenceDetail(context, bookingId),
       eliteApi.getIepSummary(context, bookingId),
       eliteApi.getCategoryAssessment(context, bookingId),
     ])
@@ -66,7 +66,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
     const apiCalls = [
       eliteApi.getBalances(context, bookingId),
       eliteApi.getMainOffence(context, bookingId),
-      eliteApi.getSentenceData(context, bookingId),
+      eliteApi.getSentenceDetail(context, bookingId),
       eliteApi.getEventsForToday(context, bookingId),
       eliteApi.getPositiveCaseNotes({ context, bookingId, fromDate: threeMonthsInThePast, toDate: today }),
       eliteApi.getNegativeCaseNotes({ context, bookingId, fromDate: threeMonthsInThePast, toDate: today }),
