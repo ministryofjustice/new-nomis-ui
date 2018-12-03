@@ -48,7 +48,7 @@ Location.propTypes = {
   assignedLivingUnit: ImmutablePropTypes.map.isRequired,
 }
 
-const MiddleSection = ({ inmateData, offenderNo }) => {
+const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink }) => {
   const cat = inmateData.get('categoryCode')
   const category = flags.AssessmentFlagsOrLetter(cat, '')
   return (
@@ -140,15 +140,30 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
         </div>
       </div>
       <div className="col-xs-12 col-sm-3">
-        <div>
-          <Link className="button-link" to={`/offenders/${offenderNo}/addCaseNote`}>
-            Add case note
-          </Link>
-        </div>
-        <div className="add-gutter-margin-top">
-          <Link className="button-link" to={`/offenders/${offenderNo}/addAppointment`}>
-            Add appointment
-          </Link>
+        <div className="stacked-links">
+          <div>
+            <Link name="add-case-note-link" className="button-link" to={`/offenders/${offenderNo}/addCaseNote`}>
+              Add case note
+            </Link>
+          </div>
+
+          {showAddKeyworkerSessionLink && (
+            <div>
+              <Link
+                name="add-kw-session-link"
+                className="button-link"
+                to={`/offenders/${offenderNo}/addCaseNote?type=KA&subType=KS`}
+              >
+                Add KW session
+              </Link>
+            </div>
+          )}
+
+          <div>
+            <Link name="add-appointment-link" className="button-link" to={`/offenders/${offenderNo}/addAppointment`}>
+              Add appointment
+            </Link>
+          </div>
         </div>
       </div>
     </div>
@@ -158,9 +173,10 @@ const MiddleSection = ({ inmateData, offenderNo }) => {
 MiddleSection.propTypes = {
   offenderNo: PropTypes.string.isRequired,
   inmateData: ImmutablePropTypes.map.isRequired,
+  showAddKeyworkerSessionLink: PropTypes.bool.isRequired,
 }
 
-const Header = ({ inmateData, onImageClick, offenderNo, onAlertFlagClick }) => {
+const Header = ({ inmateData, onImageClick, offenderNo, onAlertFlagClick, showAddKeyworkerSessionLink }) => {
   const nameString = toFullName({ firstName: inmateData.get('firstName'), lastName: inmateData.get('lastName') })
 
   const alertFlags = className => flags.AlertFlags(inmateData.get('alerts'), className, onAlertFlagClick)
@@ -208,7 +224,11 @@ const Header = ({ inmateData, onImageClick, offenderNo, onAlertFlagClick }) => {
             </div>
 
             <div className="visible-large">
-              <MiddleSection inmateData={inmateData} offenderNo={offenderNo} />
+              <MiddleSection
+                inmateData={inmateData}
+                offenderNo={offenderNo}
+                showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
+              />
             </div>
           </div>
         </div>
@@ -216,7 +236,11 @@ const Header = ({ inmateData, onImageClick, offenderNo, onAlertFlagClick }) => {
 
       <div className="row">
         <div className="visible-small">
-          <MiddleSection inmateData={inmateData} offenderNo={offenderNo} />
+          <MiddleSection
+            inmateData={inmateData}
+            offenderNo={offenderNo}
+            showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
+          />
         </div>
       </div>
     </div>
@@ -228,6 +252,7 @@ Header.propTypes = {
   offenderNo: PropTypes.string.isRequired,
   onImageClick: PropTypes.func.isRequired,
   onAlertFlagClick: PropTypes.func.isRequired,
+  showAddKeyworkerSessionLink: PropTypes.bool.isRequired,
 }
 
 export default Header

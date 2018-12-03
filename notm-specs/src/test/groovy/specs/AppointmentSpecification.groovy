@@ -75,7 +75,7 @@ class AppointmentSpecification extends GebReportingSpec {
     elite2api.stubOffenderDetails(false)
     elite2api.stubAppointmentTypes()
     elite2api.stubAppointments()
-    gotoAddAppointment()
+    addAppointmentLink.click()
     at AddAppointmentPage
 
     then: 'offender number is displayed'

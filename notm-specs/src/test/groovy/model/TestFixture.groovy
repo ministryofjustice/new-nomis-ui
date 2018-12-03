@@ -6,10 +6,6 @@ import mockapis.OauthApi
 import pages.HomePage
 import pages.LoginPage
 
-import java.lang.reflect.Array
-
-import static model.UserAccount.ITAG_USER
-
 class TestFixture {
 
     Browser browser
