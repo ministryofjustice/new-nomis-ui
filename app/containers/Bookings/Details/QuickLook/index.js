@@ -393,7 +393,6 @@ export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason 
 
       <div className="col-lg-6 col-xs-6">
         <b>
-          {' '}
           <DisplayValue value={type} />{' '}
         </b>
       </div>
@@ -406,7 +405,6 @@ export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason 
 
       <div className="col-lg-6 col-xs-6">
         <b>
-          {' '}
           <DisplayValue value={leadVisitor} />{' '}
         </b>
       </div>
@@ -419,7 +417,6 @@ export const LastVisit = ({ date, type, status, leadVisitor, cancellationReason 
 
       <div className="col-lg-6 col-xs-6">
         <b>
-          {' '}
           <DisplayValue value={status} />{' '}
         </b>
       </div>
@@ -472,7 +469,6 @@ export const NextVisit = ({ date, type, leadVisitor }) => (
 
       <div className="col-lg-6 col-xs-6">
         <b>
-          {' '}
           <DisplayValue value={type} />{' '}
         </b>
       </div>
@@ -485,7 +481,6 @@ export const NextVisit = ({ date, type, leadVisitor }) => (
 
       <div className="col-lg-6 col-xs-6">
         <b>
-          {' '}
           <DisplayValue value={leadVisitor} />{' '}
         </b>
       </div>

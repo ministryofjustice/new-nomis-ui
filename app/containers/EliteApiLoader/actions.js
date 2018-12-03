@@ -64,8 +64,15 @@ export function switchCaseLoad(caseLoadId) {
 
 export function loadAppointmentViewModel(agencyId) {
   return {
-    type: APPOINTMENT.LOAD_VIEW_MODAL,
+    type: APPOINTMENT.LOAD_VIEW_MODEL,
     payload: agencyId,
+  }
+}
+
+export function loadExistingEvents(agencyId, date, offenderNo) {
+  return {
+    type: APPOINTMENT.LOAD_EXISTING_EVENTS,
+    payload: { agencyId, date, offenderNo },
   }
 }
 

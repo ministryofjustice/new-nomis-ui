@@ -71,6 +71,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
   const keyDates = asyncMiddleware(async (req, res) => {
     const { offenderNo } = req.params
     if (!offenderNo) {
+      logger.error('Missing parameter')
       res.status(400)
       res.end()
       return
@@ -83,6 +84,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
   const bookingDetails = asyncMiddleware(async (req, res) => {
     const { offenderNo } = req.params
     if (!offenderNo) {
+      logger.error('Missing parameter')
       res.status(400)
       res.end()
       return
@@ -95,6 +97,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
   const quickLook = asyncMiddleware(async (req, res) => {
     const { offenderNo } = req.params
     if (!offenderNo) {
+      logger.error('Missing parameter')
       res.status(400)
       res.end()
       return
@@ -107,6 +110,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
   const eventsForThisWeek = asyncMiddleware(async (req, res) => {
     const { offenderNo } = req.params
     if (!offenderNo) {
+      logger.error('Missing parameter')
       res.status(400)
       res.end()
       return
@@ -119,6 +123,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
   const eventsForNextWeek = asyncMiddleware(async (req, res) => {
     const { offenderNo } = req.params
     if (!offenderNo) {
+      logger.error('Missing parameter')
       res.status(400)
       res.end()
       return
@@ -132,6 +137,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
     const { agencyId } = req.params
 
     if (!agencyId) {
+      logger.error('Missing parameter')
       res.status(400)
       res.end()
       return
@@ -141,9 +147,25 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
     res.json(viewModel)
   })
 
+  const getExistingEvents = asyncMiddleware(async (req, res) => {
+    const { agencyId, offenderNo } = req.params
+    const { date } = req.query
+    if (!agencyId || !date || !offenderNo) {
+      logger.error(`Missing parameter: agencyId=${agencyId} date=${date} offenderNo=${offenderNo}`)
+      res.status(400)
+      res.end()
+      return
+    }
+
+    const convertedDate = moment(date, 'DD/MM/YYYY').format('YYYY-MM-DD')
+    const events = await eventsService.getExistingEvents(res.locals, agencyId, convertedDate, offenderNo)
+    res.json(events)
+  })
+
   const addAppointment = asyncMiddleware(async (req, res) => {
     const { offenderNo } = req.params
     if (!offenderNo) {
+      logger.error('Missing parameter')
       res.status(400)
       res.end()
       return
@@ -167,6 +189,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
     const { from, to, alertType } = req.query
 
     if (!alertTypeValid(alertType) || !dateValid(from) || !dateValid(to) || !offenderNoValid(offenderNo)) {
+      logger.error(`Missing parameter: alertType=${alertType} from=${from} to=${to} offenderNo=${offenderNo}`)
       res.status(400)
       res.end()
       return
@@ -188,6 +211,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
   const caseNotes = asyncMiddleware(async (req, res) => {
     const { offenderNo } = req.params
     if (!offenderNo) {
+      logger.error('Missing parameter')
       res.status(400)
       res.end()
       return
@@ -207,6 +231,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
   const addCaseNote = asyncMiddleware(async (req, res) => {
     const { offenderNo } = req.params
     if (!offenderNo) {
+      logger.error('Missing parameter')
       res.status(400)
       res.end()
       return
@@ -222,6 +247,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
     const { offenderNo, caseNoteId } = req.params
 
     if (!offenderNo || !caseNoteId) {
+      logger.error(`Missing parameter: offenderNo=${offenderNo} caseNoteId=${caseNoteId}`)
       res.status(400)
       res.end()
       return
@@ -237,6 +263,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
     const { offenderNo, caseNoteId } = req.params
 
     if (!offenderNo || !caseNoteId) {
+      logger.error(`Missing parameter: offenderNo=${offenderNo} caseNoteId=${caseNoteId}`)
       res.status(400)
       res.end()
       return
@@ -266,6 +293,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
     eventsForNextWeek,
     eventsForThisWeek,
     loadAppointmentViewModel,
+    getExistingEvents,
     addAppointment,
     alerts,
     caseNotes,

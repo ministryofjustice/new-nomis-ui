@@ -31,7 +31,7 @@ describe('Booking Service Quick look', () => {
     sandbox.stub(eliteApi, 'getEventsForToday')
     sandbox.stub(eliteApi, 'getPositiveCaseNotes')
     sandbox.stub(eliteApi, 'getNegativeCaseNotes')
-    sandbox.stub(eliteApi, 'getSentenceData')
+    sandbox.stub(eliteApi, 'getSentenceDetail')
     sandbox.stub(eliteApi, 'getContacts')
     sandbox.stub(eliteApi, 'getAdjudications')
     sandbox.stub(eliteApi, 'getLastVisit')
@@ -45,7 +45,7 @@ describe('Booking Service Quick look', () => {
     eliteApi.getEventsForToday.returns([])
     eliteApi.getPositiveCaseNotes.returns(null)
     eliteApi.getNegativeCaseNotes.returns(null)
-    eliteApi.getSentenceData.returns(null)
+    eliteApi.getSentenceDetail.returns(null)
     eliteApi.getContacts.returns(null)
     eliteApi.getLastVisit.returns(null)
     eliteApi.getRelationships.returns(null)
@@ -376,51 +376,51 @@ describe('Booking Service Quick look', () => {
   })
 
   it('should return true for indeterminateReleaseDate when there is a tariff date but no release date', async () => {
-    eliteApi.getSentenceData.returns({
+    eliteApi.getSentenceDetail.returns({
       tariffDate: '2017-01-01',
     })
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
-    expect(eliteApi.getSentenceData).to.be.called
+    expect(eliteApi.getSentenceDetail).to.be.called
     expect(data.tariffDate).to.equal('2017-01-01')
     expect(data.indeterminateReleaseDate).to.be.true
   })
 
   it('should return false for indeterminateReleaseDate when there is a release date and there is a tariff date', async () => {
-    eliteApi.getSentenceData.returns({
+    eliteApi.getSentenceDetail.returns({
       releaseDate: '2016-12-12',
       tariffDate: '2017-01-01',
     })
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
-    expect(eliteApi.getSentenceData).to.be.called
+    expect(eliteApi.getSentenceDetail).to.be.called
     expect(data.releaseDate).to.equal('2016-12-12')
     expect(data.tariffDate).to.equal('2017-01-01')
     expect(data.indeterminateReleaseDate).to.be.false
   })
 
   it('should return false for indeterminateReleaseDate when there is a release date but there is no tariff date', async () => {
-    eliteApi.getSentenceData.returns({
+    eliteApi.getSentenceDetail.returns({
       releaseDate: '2016-12-12',
     })
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
-    expect(eliteApi.getSentenceData).to.be.called
+    expect(eliteApi.getSentenceDetail).to.be.called
     expect(data.releaseDate).to.equal('2016-12-12')
     expect(data.indeterminateReleaseDate).to.be.false
   })
 
   it('should return false for indeterminateReleaseDate when there is neither a release date or a tariff date', async () => {
-    eliteApi.getSentenceData.returns({
+    eliteApi.getSentenceDetail.returns({
       additionalDaysAwarded: 4,
     })
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
-    expect(eliteApi.getSentenceData).to.be.called
+    expect(eliteApi.getSentenceDetail).to.be.called
     expect(data.indeterminateReleaseDate).to.be.false
   })
 

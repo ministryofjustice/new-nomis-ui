@@ -15,6 +15,7 @@ import {
   loadAllCaseNoteFilterItems,
   loadAllAlertTypes,
   loadAppointmentViewModel,
+  getExistingEvents,
 } from '../../utils/eliteApi'
 
 import { selectOfficerStatus } from './selectors'
@@ -46,7 +47,24 @@ export function* loadAppointmentsViewModel(action) {
 }
 
 export function* loadAppointmentsViewModalWatcher() {
-  yield takeEvery(APPOINTMENT.LOAD_VIEW_MODAL, loadAppointmentsViewModel)
+  yield takeEvery(APPOINTMENT.LOAD_VIEW_MODEL, loadAppointmentsViewModel)
+}
+
+export function* loadExistingEvents(action) {
+  try {
+    const events = yield call(getExistingEvents, action.payload)
+    yield put({
+      type: APPOINTMENT.SET_EXISTING_EVENTS,
+      payload: events,
+    })
+    return { Type: 'SUCCESS' }
+  } catch (error) {
+    return { Type: 'ERROR', Error: error }
+  }
+}
+
+export function* getExistingEventsWatcher() {
+  yield takeEvery(APPOINTMENT.LOAD_EXISTING_EVENTS, loadExistingEvents)
 }
 
 export function* bookingDetailsSaga(action) {
@@ -236,4 +254,5 @@ export default [
   userCaseLoadsWatcher,
   userSwitchCaseLoadsWatcher,
   loadAppointmentsViewModalWatcher,
+  getExistingEventsWatcher,
 ]

@@ -31,7 +31,6 @@ const eliteApiFactory = client => {
   const getAdjudications = (context, bookingId) => get(context, `api/bookings/${bookingId}/adjudications`)
   const getAppointmentTypes = context => get(context, 'api/reference-domains/scheduleReasons?eventType=APP')
   const getAssignedOffenders = context => get(context, 'api/users/me/bookingAssignments')
-  const getAssessments = (context, bookingId) => get(context, `api/bookings/${bookingId}/assessments`)
   const getBalances = (context, bookingId) => get(context, `api/bookings/${bookingId}/balances`)
   const getCategoryAssessment = (context, bookingId) =>
     get(context, `api/bookings/${bookingId}/assessment/CATEGORY`).catch(map404ToNull)
@@ -57,11 +56,29 @@ const eliteApiFactory = client => {
     get(context, `api/bookings/${bookingId}/caseNotes/POS/IEP_ENC/count?fromDate=${fromDate}&toDate=${toDate}`)
   const getRelationships = (context, bookingId) => get(context, `api/bookings/${bookingId}/relationships`)
   const getStaffRoles = (context, staffId, agencyId) => get(context, `api/staff/${staffId}/${agencyId}/roles`)
-  const getSentenceData = (context, bookingId) => get(context, `api/bookings/${bookingId}/sentenceDetail`)
+  const getSentenceDetail = (context, bookingId) => get(context, `api/bookings/${bookingId}/sentenceDetail`)
+  const getSentenceData = (context, offenderNumbers) => post(context, `api/offender-sentences`, offenderNumbers)
+
   const getSummaryForOffenders = (context, offenderNumbers) =>
     get(context, `api/bookings?iepLevel=true&${toQueryParameters(offenderNumbers)}`)
   const getUserAccessRoles = context => get(context, 'api/users/me/roles')
   const getWhereaboutsConfig = (context, agencyId) => get(context, `api/agencies/${agencyId}/locations/whereabouts`)
+
+  // get existing events for an offender
+  const getVisits = (context, { agencyId, date, timeSlot, offenderNumbers }) =>
+    post(context, `api/schedules/${agencyId}/visits?timeSlot=${timeSlot}&date=${date}`, offenderNumbers)
+  const getAppointments = (context, { agencyId, date, timeSlot, offenderNumbers }) =>
+    post(context, `api/schedules/${agencyId}/appointments?timeSlot=${timeSlot}&date=${date}`, offenderNumbers)
+  const getActivities = (context, { agencyId, date, timeSlot, offenderNumbers }) =>
+    post(
+      context,
+      `api/schedules/${agencyId}/activities?timeSlot=${timeSlot}&date=${date}&includeExcluded=true`,
+      offenderNumbers
+    )
+  const getCourtEvents = (context, { agencyId, date, offenderNumbers }) =>
+    post(context, `api/schedules/${agencyId}/courtEvents?date=${date}`, offenderNumbers)
+  const getExternalTransfers = (context, { agencyId, date, offenderNumbers }) =>
+    post(context, `api/schedules/${agencyId}/externalTransfers?date=${date}`, offenderNumbers)
 
   return {
     caseNoteUsageList,
@@ -70,7 +87,6 @@ const eliteApiFactory = client => {
     getAdjudications,
     getAppointmentTypes,
     getAssignedOffenders,
-    getAssessments,
     getBalances,
     getCategoryAssessment,
     getContacts,
@@ -90,11 +106,17 @@ const eliteApiFactory = client => {
     getOffendersSentenceDates,
     getPositiveCaseNotes,
     getRelationships,
+    getSentenceDetail,
     getSentenceData,
     getStaffRoles,
     getSummaryForOffenders,
     getUserAccessRoles,
     getWhereaboutsConfig,
+    getVisits,
+    getAppointments,
+    getActivities,
+    getCourtEvents,
+    getExternalTransfers,
     isUp,
     post,
     put,

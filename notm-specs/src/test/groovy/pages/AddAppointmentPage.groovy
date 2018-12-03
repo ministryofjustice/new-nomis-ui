@@ -1,4 +1,5 @@
 package pages
+
 import geb.module.Select
 import geb.module.Textarea
 import modules.ErrorsModule
@@ -14,7 +15,7 @@ class AddAppointmentPage extends DatePickerPage {
   static content = {
     errors { module(ErrorsModule) }
     headingText { $('h1.heading-large').text() }
-    nameHeading { $('div.add-appointment b') }
+    nameHeading { $('div.add-appointment b', 0) }
     form { $('form') }
     type { $('select', name: 'appointmentType') }
     location { $('select', name: 'location') }
@@ -24,6 +25,7 @@ class AddAppointmentPage extends DatePickerPage {
     startHours { $('#startTime') } // options 00, 01, 02 etc
     // minutes are optional
     saveButton { $('button', type: 'submit') }
+    otherEvents { $('#other-events div.row') }
   }
 
   def createNewAppointment(text) {
