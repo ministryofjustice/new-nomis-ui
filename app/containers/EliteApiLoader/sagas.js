@@ -40,13 +40,17 @@ export function* loadAppointmentsViewModel(action) {
       type: APPOINTMENT.SET_VIEW_MODEL,
       payload: viewModel,
     })
+    yield put({
+      type: APPOINTMENT.SET_EXISTING_EVENTS,
+      payload: undefined,
+    })
     yield put(hideSpinner())
   } catch (error) {
     yield put(hideSpinner())
   }
 }
 
-export function* loadAppointmentsViewModalWatcher() {
+export function* loadAppointmentsViewModelWatcher() {
   yield takeEvery(APPOINTMENT.LOAD_VIEW_MODEL, loadAppointmentsViewModel)
 }
 
@@ -253,6 +257,6 @@ export default [
   bookingCaseNotesWatch,
   userCaseLoadsWatcher,
   userSwitchCaseLoadsWatcher,
-  loadAppointmentsViewModalWatcher,
+  loadAppointmentsViewModelWatcher,
   getExistingEventsWatcher,
 ]
