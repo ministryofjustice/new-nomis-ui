@@ -123,9 +123,6 @@ class AddAppointment extends Component {
     }
 
     const getStatus = (eventStatus, excluded) => {
-      // if (eventStatus === 'CANC') {
-      //   return ' (cancelled)'
-      // }
       if (excluded) {
         return ' (temporarily removed)'
       }
@@ -206,8 +203,8 @@ class AddAppointment extends Component {
           </div>
 
           {existingEvents && (
-            <div className="row add-gutter-margin-bottom">
-              <div id="other-events" className="col-md-8 col-xs-11 shaded add-gutter-padding-bottom">
+            <div className="row add-gutter-margin-bottom font-xsmall">
+              <div id="other-events" className="col-md-8 col-xs-11 shaded add-gutter-padding-bottom no-left-padding">
                 <div className="row col-xs-12 add-gutter-margin-top add-gutter-margin-bottom">
                   <b>Other scheduled events on this date</b>
                 </div>
@@ -216,7 +213,7 @@ class AddAppointment extends Component {
                     event.nothingScheduled ? (
                       // eslint-disable-next-line react/no-array-index-key
                       <div key={eventDate + index} className="row">
-                        <div className="col-xs-11">{event.eventDescription}</div>
+                        <div className="col-xs-12">{event.eventDescription}</div>
                       </div>
                     ) : (
                       // eslint-disable-next-line react/no-array-index-key
