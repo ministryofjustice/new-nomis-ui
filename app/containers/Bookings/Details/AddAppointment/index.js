@@ -110,16 +110,12 @@ class AddAppointment extends Component {
         return eventArray
       }
       if (amPresent) {
-        return [...slots[0], { nothingScheduled: true, eventDescription: 'PM: nothing scheduled' }, ...slots[2]]
+        return [...slots[0], { nothingScheduled: true, slot: 'PM' }, ...slots[2]]
       }
       if (pmPresent) {
-        return [{ nothingScheduled: true, eventDescription: 'AM: nothing scheduled' }, ...slots[1], ...slots[2]]
+        return [{ nothingScheduled: true, slot: 'AM' }, ...slots[1], ...slots[2]]
       }
-      return [
-        { nothingScheduled: true, eventDescription: 'AM: nothing scheduled' },
-        { nothingScheduled: true, eventDescription: 'PM: nothing scheduled' },
-        ...slots[2],
-      ]
+      return [{ nothingScheduled: true, slot: 'AM' }, { nothingScheduled: true, slot: 'PM' }, ...slots[2]]
     }
 
     const getStatus = (eventStatus, excluded) => {
@@ -203,38 +199,44 @@ class AddAppointment extends Component {
           </div>
 
           {existingEvents && (
-            <div className="row add-gutter-margin-bottom font-xsmall">
-              <div id="other-events" className="col-md-8 col-xs-11 shaded add-gutter-padding-bottom no-left-padding">
-                <div className="row col-xs-12 add-gutter-margin-top add-gutter-margin-bottom">
-                  <b>Other scheduled events on this date</b>
+            <div className="row">
+              <div className="col-md-8 col-xs-12 add-gutter-margin-bottom font-xsmall no-left-padding">
+                <div id="other-events" className="shaded add-gutter-padding-bottom">
+                  <div className="row col-xs-12 add-gutter-margin-top add-gutter-margin-bottom">
+                    <b>Other scheduled events on this date</b>
+                  </div>
+                  {insertForNothingScheduled(existingEvents).map(
+                    (event, index) =>
+                      event.nothingScheduled ? (
+                        // eslint-disable-next-line react/no-array-index-key
+                        <div key={eventDate + index} className="row add-small-margin-bottom">
+                          <div className="col-xs-12">{event.eventDescription}</div>
+                        </div>
+                      ) : (
+                        // eslint-disable-next-line react/no-array-index-key
+                        <div key={eventDate + index} className="row add-small-margin-bottom">
+                          <div className="col-xs-4">
+                            {event.startTime}
+                            {event.endTime && ' - '}
+                            {event.endTime}
+                          </div>
+                          <div className="col-xs-8">
+                            <b>
+                              {event.eventDescription}
+                              {getStatus(event.eventStatus, event.excluded)}
+                            </b>
+                          </div>
+                        </div>
+                      )
+                  )}
                 </div>
-                {insertForNothingScheduled(existingEvents).map(
-                  (event, index) =>
-                    event.nothingScheduled ? (
-                      // eslint-disable-next-line react/no-array-index-key
-                      <div key={eventDate + index} className="row">
-                        <div className="col-xs-12">{event.eventDescription}</div>
-                      </div>
-                    ) : (
-                      // eslint-disable-next-line react/no-array-index-key
-                      <div key={eventDate + index} className="row">
-                        <div className="col-xs-4">
-                          {event.startTime}
-                          {event.endTime && ' - '}
-                          {event.endTime}
-                        </div>
-                        <div className="col-xs-8">
-                          <b>
-                            {event.eventDescription}
-                            {getStatus(event.eventStatus, event.excluded)}
-                          </b>
-                        </div>
-                      </div>
-                    )
-                )}
               </div>
             </div>
           )}
+          {/*
+          <div className="col-xs-4">{event.slot}:</div>
+          <div className="col-xs-8">Nothing scheduled</div>
+*/}
 
           <div className="row">
             <div className="col-xs-6 col-md-2 no-left-gutter">

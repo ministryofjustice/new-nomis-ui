@@ -88,11 +88,11 @@ class AppointmentSpecification extends GebReportingSpec {
     waitFor( {otherEvents[8].displayed} )
 
     then: 'existing scheduled events are displayed'
-    otherEvents[1].find('div')*.text() == ['09:00 - 10:30','Activity 1']
-    otherEvents[2].find('div')*.text() == ['14:00 - 15:30','Activity 2 (temporarily removed)']
-    otherEvents[3].find('div')*.text() == ['15:30','Appointment 1 - Appt details']
-    otherEvents[4].find('div')*.text() == ['17:00 - 18:30','Activity 3']
-    otherEvents[5].find('div')*.text() == ['18:00 - 18:30','Visits - Friends']
+    otherEvents[1].find('div')*.text() == ['09:00 - 10:30','Location 1 - Activity - Activity 1']
+    otherEvents[2].find('div')*.text() == ['14:00 - 15:30','Location 2 - Activity - Activity 2 (temporarily removed)']
+    otherEvents[3].find('div')*.text() == ['15:30','Location 4 - Appointment 1 - Appt details']
+    otherEvents[4].find('div')*.text() == ['17:00 - 18:30','Location 3 - Activity - Activity 3']
+    otherEvents[5].find('div')*.text() == ['18:00 - 18:30','Visits Room - Visits - Friends']
     otherEvents[6].find('div')*.text() == ['','Release scheduled']
     otherEvents[7].find('div')*.text() == ['','Court visit scheduled']
     otherEvents[8].find('div')*.text() == ['','Transfer scheduled']
