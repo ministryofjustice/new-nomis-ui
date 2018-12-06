@@ -27,6 +27,7 @@ class SearchResultsPage extends Page {
   }
 
   def selectOffender(index) {
+    waitFor { images[index].displayed }
     images[index].click()
   }
 
