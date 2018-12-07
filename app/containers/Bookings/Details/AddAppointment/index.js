@@ -110,12 +110,16 @@ class AddAppointment extends Component {
         return eventArray
       }
       if (amPresent) {
-        return [...slots[0], { nothingScheduled: true, slot: 'PM' }, ...slots[2]]
+        return [...slots[0], { nothingScheduled: true, eventDescription: 'PM: nothing scheduled' }, ...slots[2]]
       }
       if (pmPresent) {
-        return [{ nothingScheduled: true, slot: 'AM' }, ...slots[1], ...slots[2]]
+        return [{ nothingScheduled: true, eventDescription: 'AM: nothing scheduled' }, ...slots[1], ...slots[2]]
       }
-      return [{ nothingScheduled: true, slot: 'AM' }, { nothingScheduled: true, slot: 'PM' }, ...slots[2]]
+      return [
+        { nothingScheduled: true, eventDescription: 'AM: nothing scheduled' },
+        { nothingScheduled: true, eventDescription: 'PM: nothing scheduled' },
+        ...slots[2],
+      ]
     }
 
     const getStatus = (eventStatus, excluded) => {
@@ -233,10 +237,6 @@ class AddAppointment extends Component {
               </div>
             </div>
           )}
-          {/*
-          <div className="col-xs-4">{event.slot}:</div>
-          <div className="col-xs-8">Nothing scheduled</div>
-*/}
 
           <div className="row">
             <div className="col-xs-6 col-md-2 no-left-gutter">
