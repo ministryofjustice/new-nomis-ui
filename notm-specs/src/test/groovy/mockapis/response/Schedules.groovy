@@ -23,7 +23,8 @@ class Schedules {
     comment         : "Activity 1",
     startTime       : TOMORROW + "T09:00:00",
     endTime         : TOMORROW + "T10:30:00",
-    locationId      : 2,
+    locationId      : 1,
+    eventLocation   : "Location 1",
     excluded        : false,
   ]
 
@@ -38,6 +39,7 @@ class Schedules {
     startTime       : TOMORROW + "T14:00:00",
     endTime         : TOMORROW + "T15:30:00",
     locationId      : 2,
+    eventLocation   : "Location 2",
     excluded        : true
   ]
 
@@ -51,7 +53,8 @@ class Schedules {
     comment         : "Activity 3",
     startTime       : TOMORROW + "T17:00:00",
     endTime         : TOMORROW + "T18:30:00",
-    locationId      : 2
+    locationId      : 3,
+    eventLocation   : "Location 3",
   ]
 
   static final appointment1 = [
@@ -63,7 +66,8 @@ class Schedules {
     event           : "MEDE",
     eventDescription: "Appointment 1",
     startTime       : TOMORROW + "T15:30:00",
-    locationId      : 4
+    locationId      : 4,
+    eventLocation   : "Location 4",
   ]
 
   static final visit = [
@@ -78,6 +82,7 @@ class Schedules {
     comment         : "Friends",
     startTime       : TOMORROW + "T18:00:00",
     endTime         : TOMORROW + "T18:30:00",
+    eventLocation   : "Visits Room",
   ]
   static final visitCanc = [
     offenderNo      : "A1234AJ",

@@ -7,7 +7,9 @@ const visits = data =>
       eventId: event.eventId,
       startTime: getHoursMinutes(event.startTime),
       endTime: getHoursMinutes(event.endTime),
-      eventDescription: event.comment ? `${event.eventDescription} - ${event.comment}` : event.eventDescription,
+      eventDescription: event.comment
+        ? `${event.eventLocation} - ${event.eventDescription} - ${event.comment}`
+        : `${event.eventLocation} - ${event.eventDescription}`,
       eventStatus: event.eventStatus,
     }))) ||
   []
@@ -19,7 +21,9 @@ const appointments = data =>
       eventId: event.eventId,
       startTime: getHoursMinutes(event.startTime),
       endTime: getHoursMinutes(event.endTime),
-      eventDescription: event.comment ? `${event.eventDescription} - ${event.comment}` : event.eventDescription,
+      eventDescription: event.comment
+        ? `${event.eventLocation} - ${event.eventDescription} - ${event.comment}`
+        : `${event.eventLocation} - ${event.eventDescription}`,
       eventStatus: event.eventStatus,
     }))) ||
   []
@@ -31,7 +35,7 @@ const activities = data =>
       eventId: event.eventId,
       startTime: getHoursMinutes(event.startTime),
       endTime: getHoursMinutes(event.endTime),
-      eventDescription: event.comment,
+      eventDescription: `${event.eventLocation} - Activity - ${event.comment}`,
       eventStatus: event.eventStatus,
       excluded: event.excluded,
     }))) ||
