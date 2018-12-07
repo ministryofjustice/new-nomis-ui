@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>QuickLook_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Mobile_BottomBar" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-93.000000, -122.000000)">
+        <g id="Bottom-buttons" transform="translate(0.000000, 108.000000)" fill="#FFFFFF">
+            <g id="QuickLook_icon" transform="translate(93.000000, 14.000000)">
+                <g>
+                    <path d="M27.2300875,23.5190375 L20.8058375,17.0947875 C19.8485875,18.5831625 18.5824625,19.8501625 17.0940875,20.8065375 L23.5192125,27.2307875 C24.5447125,28.2562875 26.2063375,28.2562875 27.2300875,27.2307875 C28.2564625,26.2070375 28.2564625,24.5454125 27.2300875,23.5190375" id="Fill-1"></path>
+                    <path d="M10.5,18.375 C6.1565,18.375 2.625,14.8435 2.625,10.5 C2.625,6.157375 6.1565,2.625 10.5,2.625 C14.842625,2.625 18.375,6.157375 18.375,10.5 C18.375,14.8435 14.842625,18.375 10.5,18.375 M21,10.5 C21,4.701375 16.298625,0 10.5,0 C4.701375,0 0,4.701375 0,10.5 C0,16.298625 4.701375,21 10.5,21 C16.298625,21 21,16.298625 21,10.5" id="Fill-3"></path>
+                    <path d="M4.375,10.5 L6.125,10.5 C6.125,8.087625 8.08675,6.125 10.5,6.125 L10.5,4.375 C7.123375,4.375 4.375,7.12425 4.375,10.5" id="Fill-5"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
