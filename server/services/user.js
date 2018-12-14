@@ -29,11 +29,17 @@ const userServiceFactory = elite2Api => {
 
     const { staffId } = details
     const agencyId = details.activeCaseLoadId
+    let staffRoles
+    let whereaboutsConfig
+    try {
+      ;[staffRoles, whereaboutsConfig] = await Promise.all([
+        elite2Api.getStaffRoles(context, staffId, agencyId),
+        elite2Api.getWhereaboutsConfig(context, agencyId),
+      ])
+    } catch (error) {
+      logger.error(error)
+    }
 
-    const [staffRoles, whereaboutsConfig] = await Promise.all([
-      elite2Api.getStaffRoles(context, staffId, agencyId),
-      elite2Api.getWhereaboutsConfig(context, agencyId),
-    ])
     return {
       ...details,
       accessRoles: accessRoles || [],
