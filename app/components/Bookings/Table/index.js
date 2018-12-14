@@ -56,7 +56,7 @@ const Table = ({ results, sortOrder, sortOrderChange, onAlertFlagClick }) => (
       </div>
 
       <div className="col-xs-3 col-md-1 no-left-gutter no-right-gutter">
-        <b className="visible-md-inline-block visible-lg-inline-block no-left-gutter"> Prison</b> <b>No. </b>
+        <b className="visible-md-inline-block visible-lg-inline-block no-left-gutter"> Prison</b> <b>no. </b>
       </div>
 
       <div className="col-xs-3 col-md-1 no-left-gutter">
