@@ -46,9 +46,6 @@ const FilterForm = ({
         </div>
         <div className="col-sm-12 col-md-6 no-left-gutter">
           <span className="form-label date-range-label hidden-md-down">Occurrence date</span>
-          <button type="button" className="pull-right link reset-filters-large clickable" onClick={resetFields}>
-            Clear filters
-          </button>
         </div>
       </div>
 
@@ -94,14 +91,6 @@ const FilterForm = ({
           </div>
         </div>
 
-        <div className="row reset-filters-small">
-          <div className="col no-gutters pull-right">
-            <button type="button" className="link clickable add-gutter-bottom" onClick={resetFields}>
-              Clear filters
-            </button>
-          </div>
-        </div>
-
         <div className="col-sm-4 col-md-2 no-left-gutter no-right-gutter">
           <div className="margin30">
             <button className="button" type="submit" disabled={dateRangeNotValid || (submitting || error)}>
@@ -109,6 +98,11 @@ const FilterForm = ({
             </button>
           </div>
         </div>
+      </div>
+      <div className="row">
+        <button type="button" className="reset-filters-button link clickable" onClick={resetFields}>
+          Clear filters
+        </button>
       </div>
     </form>
   )
