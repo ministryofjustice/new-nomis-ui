@@ -90,7 +90,7 @@ class AddCaseNoteForm extends Component {
           </div>
 
           <div className="row">
-            <strong> Occurrence date time </strong>
+            <strong> Occurrence date and time </strong>
           </div>
 
           {!editDateTime && (

@@ -257,7 +257,7 @@ Adjudications.propTypes = {
 export const KeyWorkerSessionDate = ({ lastKeyWorkerSessionDate }) => (
   <div className="row border-bottom-line">
     <div className="col-lg-6 col-xs-6">
-      <span>Last Key worker activity</span>
+      <span>Last key worker activity</span>
     </div>
 
     <div className="col-lg-6 col-xs-6">

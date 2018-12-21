@@ -26,10 +26,6 @@
     display: none;
   }
 
-  .reset-filters-small {
-    display: none;
-  }
-
   .rdtPicker {
     width: 322px;
 
@@ -46,14 +42,6 @@
 
   @media(max-width: 991px) {
     .hidden {
-      display: block;
-    }
-
-    .reset-filters-large {
-      display: none;
-    }
-
-    .reset-filters-small {
       display: block;
     }
   }
@@ -99,6 +87,18 @@
 
   .stack-dates .date-picker-component:first-child {
       margin-left: 0;
+  }
+
+  .reset-filters-button {
+    border: none;
+    background: none;
+    padding: 0;
+
+    @media(max-width: 991px) {
+      margin-bottom: -15px;
+      width: 100%;
+      padding: 15px;
+    }
   }
 }
 

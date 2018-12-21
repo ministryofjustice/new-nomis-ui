@@ -77,7 +77,7 @@ describe('POST /signin', () => {
         .post('/login')
         .send('username=test&password=testPassowrd')
         .redirects(1)
-        .expect(/Login/)
+        .expect(/Sign in/)
         .expect(res => {
           expect(res.text).to.include('The username or password you have entered is invalid.')
         })
@@ -93,7 +93,7 @@ describe('POST /signin', () => {
         .post('/login')
         .send('username=officer&password=password')
         .redirects(1)
-        .expect(/Login/)
+        .expect(/Sign in/)
         .expect(res => {
           expect(res.text).to.include('A system error occurred; please try again later')
         })
