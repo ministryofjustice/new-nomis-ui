@@ -21,8 +21,9 @@ class HomePage extends Page {
     searchButtonDesktop { $('.button-start', type: 'submit') }
     searchButtonMobile { $('.mobile-button', type: 'submit') }
     locations { $('select option') }
-    myKeyWorkerAllocationsLink(required: false) { $('.my-allocations-link') }
-    externalLinks(required: false) { $('.link-container a.clickable') }
+    myKeyWorkerAllocationsLink(required: false) { $("[data-qa='my-kw-allocations-link']") }
+    manageKeyWorkersLink(required: false) { $("[data-qa='manage-kw-link']") }
+    whereaboutsLink(required: false) { $("[data-qa='whereabouts-link']") }
     globalSearchCheckBox(required: false) { $('.global-search') }
   }
 

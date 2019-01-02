@@ -2,7 +2,7 @@ import React from 'react'
 
 import { shallow } from 'enzyme'
 
-import ActionLinks, { KeyWorkerAdminLink, MyAllocationsLink, EstablishmentRollCheckLink } from '../index'
+import ActionLinks from '../index'
 
 describe('Actions component', () => {
   it('should only show the my allocations link when the user is a key worker', () => {
@@ -17,7 +17,7 @@ describe('Actions component', () => {
       />
     )
 
-    expect(wrapper.contains(<MyAllocationsLink />)).toBe(true)
+    expect(wrapper.find('Link').prop('to')).toBe('/myKeyWorkerAllocations')
   })
 
   it('should only show the key worker admin link when the user is a key worker admin', () => {
@@ -26,13 +26,13 @@ describe('Actions component', () => {
         isKeyWorker={false}
         isKeyWorkerAdmin
         isWhereabouts={false}
-        omicUrl="."
+        omicUrl="//omicURL"
         whereaboutsUrl=""
         establishmentRollcheckUrl=""
       />
     )
 
-    expect(wrapper.contains(<KeyWorkerAdminLink omicUrl="." />)).toBe(true)
+    expect(wrapper.find('ExternalActionLink').prop('url')).toBe('//omicURL')
   })
 
   it('should not show anything when the user does not have any applicable roles', () => {
@@ -58,9 +58,10 @@ describe('Actions component', () => {
         isWhereabouts={false}
         omicUrl=""
         whereaboutsUrl=""
-        establishmentRollcheckUrl="http://test"
+        establishmentRollcheckUrl="http://establishmentRollCheckURL"
       />
     )
-    expect(wrapper.contains(<EstablishmentRollCheckLink establishmentRollCheckUrl="http://test" />)).toBe(true)
+
+    expect(wrapper.find('ExternalActionLink').prop('url')).toBe('http://establishmentRollCheckURL')
   })
 })
