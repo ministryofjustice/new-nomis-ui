@@ -1,74 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
-
 import './index.scss'
 
-export const KeyWorkerAdminLink = ({ omicUrl }) => (
-  <div className="link-box">
-    <img src="/img/manage-key-workers2x.png" className="add-gutter-margin-right" alt="Manage keyworkers icon" />
-
-    <div className="heading-medium">
-      <a href={omicUrl} className="link clickable">
-        Manage key workers
-      </a>
-    </div>
-  </div>
+export const ExternalActionLink = ({ url, testId, image, children }) => (
+  <a href={url} className="action-link link" data-qa={testId}>
+    <img src={image} alt={`${children} icon`} />
+    {children}
+  </a>
 )
 
-KeyWorkerAdminLink.propTypes = {
-  omicUrl: PropTypes.string.isRequired,
+ExternalActionLink.propTypes = {
+  url: PropTypes.string.isRequired,
+  testId: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 }
 
-export const MyAllocationsLink = () => (
-  <div className="link-box">
-    <img
-      src="/img/ICON_MyKeyWorkerAssignments@2x.png"
-      className="add-gutter-margin-right"
-      alt="Keyworker allocation icon"
-    />
-
-    <div className="heading-medium">
-      <Link className="link my-allocations-link" to="/myKeyWorkerAllocations">
-        My key worker allocations
-      </Link>
-    </div>
-  </div>
-)
-
-export const WhereaboutsLink = ({ whereaboutsUrl }) => (
-  <div className="link-box">
-    <img src="/img/ICON_ManagePrisonerWhereabouts.png" className="add-gutter-margin-right" alt="Whereabouts icon" />
-
-    <div className="heading-medium">
-      <a href={whereaboutsUrl} className="link clickable">
-        Manage prisoner whereabouts
-      </a>
-    </div>
-  </div>
-)
-
-WhereaboutsLink.propTypes = {
-  whereaboutsUrl: PropTypes.string.isRequired,
-}
-
-export const EstablishmentRollCheckLink = ({ establishmentRollCheckUrl }) => (
-  <div className="link-box">
-    <img src="/img/EstablishmentRoll_icon.png" className="add-gutter-margin-right" alt="Establishment roll icon" />
-
-    <div className="heading-medium">
-      <a href={establishmentRollCheckUrl} className="link clickable">
-        Establishment roll check
-      </a>
-    </div>
-  </div>
-)
-
-EstablishmentRollCheckLink.propTypes = {
-  establishmentRollCheckUrl: PropTypes.string.isRequired,
-}
-
-const ActionLinks = ({
+const ExternalActionLinks = ({
   isKeyWorkerAdmin,
   isKeyWorker,
   isWhereabouts,
@@ -81,32 +30,49 @@ const ActionLinks = ({
   }
 
   return (
-    <div className="action-links">
-      <h1 className="heading-medium"> Other Tasks </h1>
-      <div>
+    <div>
+      <h1 className="heading-medium">Other Tasks</h1>
+      <div className="action-links">
         {isKeyWorkerAdmin &&
           omicUrl && (
-            <div className="link-container">
-              <KeyWorkerAdminLink omicUrl={omicUrl} />
+            <div className="action-links__link">
+              <ExternalActionLink url={omicUrl} image="/img/manage-key-workers2x.png" testId="manage-kw-link">
+                Manage key workers
+              </ExternalActionLink>
             </div>
           )}
 
         {isKeyWorker && (
-          <div className="link-container">
-            <MyAllocationsLink />
+          <div className="action-links__link">
+            <Link to="/myKeyWorkerAllocations" className="action-link link" data-qa="my-kw-allocations-link">
+              <img src="/img/ICON_MyKeyWorkerAssignments@2x.png" alt="My key worker allocations icon" />
+              My key worker allocations
+            </Link>
           </div>
         )}
 
         {isWhereabouts &&
           whereaboutsUrl && (
-            <div className="link-container">
-              <WhereaboutsLink whereaboutsUrl={whereaboutsUrl} />
+            <div className="action-links__link">
+              <ExternalActionLink
+                url={whereaboutsUrl}
+                image="/img/ICON_ManagePrisonerWhereabouts.png"
+                testId="whereabouts-link"
+              >
+                Manage prisoner whereabouts
+              </ExternalActionLink>
             </div>
           )}
 
         {establishmentRollcheckUrl && (
-          <div className="link-container">
-            <EstablishmentRollCheckLink establishmentRollCheckUrl={establishmentRollcheckUrl} />
+          <div className="action-links__link">
+            <ExternalActionLink
+              url={establishmentRollcheckUrl}
+              image="/img/EstablishmentRoll_icon.png"
+              testId="establishment-roll-link"
+            >
+              Establishment roll check
+            </ExternalActionLink>
           </div>
         )}
       </div>
@@ -114,7 +80,7 @@ const ActionLinks = ({
   )
 }
 
-ActionLinks.propTypes = {
+ExternalActionLinks.propTypes = {
   isKeyWorkerAdmin: PropTypes.bool.isRequired,
   isKeyWorker: PropTypes.bool.isRequired,
   isWhereabouts: PropTypes.bool.isRequired,
@@ -123,4 +89,4 @@ ActionLinks.propTypes = {
   establishmentRollcheckUrl: PropTypes.string.isRequired,
 }
 
-export default ActionLinks
+export default ExternalActionLinks

@@ -74,8 +74,8 @@ class LoginSpecification extends GebReportingSpec {
 
         then: 'My credentials are accepted and the home page includes the whereabouts icon'
         at HomePage
-        externalLinks[0].text().contains('Manage key workers')
-        externalLinks[1].text().contains('Manage prisoner whereabouts')
+        manageKeyWorkersLink.text().contains('Manage key workers')
+        whereaboutsLink.text().contains('Manage prisoner whereabouts')
     }
 
     def "Unknown user is rejected"() {
