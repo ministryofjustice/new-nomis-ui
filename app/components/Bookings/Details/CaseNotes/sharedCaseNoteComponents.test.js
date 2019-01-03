@@ -8,10 +8,8 @@ import {
 
 describe('Localized date and time rendering', () => {
   const dateTimeString = '2018-06-30T23:30:00.000000'
-  const expectedHtmlEnGb =
-    '<div><span><span>30/06/2018</span></span><span> - </span><span><span>23:30</span></span></div>'
-  const expectedHtmlEnUs =
-    '<div><span><span>06/30/2018</span></span><span> - </span><span><span>11:30 PM</span></span></div>'
+  const expectedHtmlEnGb = '<span><span>30/06/2018</span></span><span> - </span><span><span>23:30</span></span>'
+  const expectedHtmlEnUs = '<span><span>06/30/2018</span></span><span> - </span><span><span>11:30 PM</span></span>'
 
   // This test works locally, but fails on CircleCI (it renders using the en-us locale there). Don't know why, but I'm commenting this
   // out for now because it is testing unused code.

@@ -67,12 +67,9 @@ describe('Search Form', () => {
     }
 
     const wrapper = mount(<SearchForm store={store} />)
-    const checkBox = wrapper.find('.global-search').first()
-    const dropDown = wrapper.find('.locationPrefix')
+    wrapper.find('.global-search').simulate('change', { target: { checked: true } })
 
-    checkBox.simulate('change', { target: { checked: true } })
-
-    expect(dropDown.props().disabled).toBe(true)
+    expect(wrapper.find('.locationPrefix').props().disabled).toBe(true)
   })
 
   it('should redirect to the global search site with the entered search criteria', () => {
@@ -106,7 +103,7 @@ describe('Search Form', () => {
 
     checkBox.simulate('change', { target: { checked: true } })
 
-    searchInput.node.value = 'balog, irog'
+    searchInput.instance().value = 'balog, irog'
 
     form.simulate('submit')
 
@@ -137,7 +134,7 @@ describe('Search Form', () => {
 
     const wrapper = mount(<SearchForm store={store} />)
     const searchInput = wrapper.find('.search-input').first()
-    searchInput.node.value = 'balog, irog'
+    searchInput.instance().value = 'balog, irog'
 
     const form = wrapper.find('.search-form').first()
     form.simulate('submit')

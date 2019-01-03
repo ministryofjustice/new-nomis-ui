@@ -313,8 +313,7 @@ describe('Time picker', () => {
     picker.instance().componentDidMount()
 
     expect(input.onChange).toHaveBeenCalledWith(setTime(now, 11, 10, 0))
-
-    expect(picker.find('.select-hours').node.props.value).toBe('11')
-    expect(picker.find('.select-minutes').node.props.value).toBe('10')
+    expect(picker.find('.select-hours').props().value).toBe('11')
+    expect(picker.find('.select-minutes').props().value).toBe('10')
   })
 })

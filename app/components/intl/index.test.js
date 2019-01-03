@@ -12,7 +12,7 @@ describe('Internationalized date and time components', () => {
         <FormattedDate value={dateTimeString} />
       </IntlProvider>
     )
-    expect(wrapper.html()).toEqual('<span>30/06/2018</span>')
+    expect(wrapper.html()).toEqual('30/06/2018')
   })
 
   it('FormattedTime renders ISO8601 formatted date-time string  in en-gb locale', () => {
@@ -21,7 +21,7 @@ describe('Internationalized date and time components', () => {
         <FormattedTime value={dateTimeString} />
       </IntlProvider>
     )
-    expect(wrapper.html()).toEqual('<span>23:30</span>')
+    expect(wrapper.html()).toEqual('23:30')
   })
 
   it('FormattedDate renders date ISO8601 formatted date-time string in en-us locale', () => {
@@ -30,7 +30,7 @@ describe('Internationalized date and time components', () => {
         <FormattedDate value={dateTimeString} />
       </IntlProvider>
     )
-    expect(wrapper.html()).toEqual('<span>06/30/2018</span>')
+    expect(wrapper.html()).toEqual('06/30/2018')
   })
 
   it('FormattedTime renders ISO8601 formatted date-time string  in en-us locale', () => {
@@ -39,11 +39,11 @@ describe('Internationalized date and time components', () => {
         <FormattedTime value={dateTimeString} />
       </IntlProvider>
     )
-    expect(wrapper.html()).toEqual('<span>11:30 PM</span>')
+    expect(wrapper.html()).toEqual('11:30 PM')
   })
 
   it('FormattedDay renders the correct day name from a date', () => {
     const wrapper = render(<FormattedDay value={dateTimeString} />)
-    expect(wrapper.html()).toEqual('<span>Saturday</span>')
+    expect(wrapper.html()).toEqual('Saturday')
   })
 })
