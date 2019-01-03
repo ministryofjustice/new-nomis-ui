@@ -85,6 +85,7 @@ app.use('/config', (req, res) => {
   res.json({
     feedbackUrl,
     omicUrl,
+    adminUtilitiesUrl: url.resolve(omicUrl, 'admin-utilities'),
     whereaboutsUrl: url.resolve(prisonStaffHubUrl, 'search-prisoner-whereabouts'),
     establishmentRollcheckUrl: url.resolve(prisonStaffHubUrl, 'establishment-roll'),
     globalSearchUrl: url.resolve(prisonStaffHubUrl, 'global-search-results'),
