@@ -11,9 +11,11 @@ describe('Actions component', () => {
         isKeyWorker
         isKeyWorkerAdmin={false}
         isWhereabouts={false}
+        hasAdminRights={false}
         omicUrl=""
         whereaboutsUrl=""
         establishmentRollcheckUrl=""
+        adminUtilitiesUrl=""
       />
     )
 
@@ -26,9 +28,11 @@ describe('Actions component', () => {
         isKeyWorker={false}
         isKeyWorkerAdmin
         isWhereabouts={false}
+        hasAdminRights={false}
         omicUrl="//omicURL"
         whereaboutsUrl=""
         establishmentRollcheckUrl=""
+        adminUtilitiesUrl=""
       />
     )
 
@@ -41,9 +45,11 @@ describe('Actions component', () => {
         isKeyWorker={false}
         isKeyWorkerAdmin={false}
         isWhereabouts={false}
+        hasAdminRights={false}
         omicUrl=""
         whereaboutsUrl=""
         establishmentRollcheckUrl=""
+        adminUtilitiesUrl=""
       />
     )
 
@@ -56,12 +62,31 @@ describe('Actions component', () => {
         isKeyWorker={false}
         isKeyWorkerAdmin={false}
         isWhereabouts={false}
+        hasAdminRights={false}
         omicUrl=""
         whereaboutsUrl=""
         establishmentRollcheckUrl="http://establishmentRollCheckURL"
+        adminUtilitiesUrl=""
       />
     )
 
     expect(wrapper.find('ExternalActionLink').prop('url')).toBe('http://establishmentRollCheckURL')
+  })
+
+  it('should show admin and utilities link when the user has admin rights', () => {
+    const wrapper = shallow(
+      <ActionLinks
+        isKeyWorker={false}
+        isKeyWorkerAdmin={false}
+        isWhereabouts={false}
+        hasAdminRights
+        omicUrl=""
+        whereaboutsUrl=""
+        establishmentRollcheckUrl=""
+        adminUtilitiesUrl="http://omicurl/admin-utilities"
+      />
+    )
+
+    expect(wrapper.find('ExternalActionLink').prop('url')).toBe('http://omicurl/admin-utilities')
   })
 })

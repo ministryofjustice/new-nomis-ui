@@ -40,7 +40,18 @@ function authenticationReducer(state = initialState, action) {
         user.accessRoles && user.accessRoles.filter(r => r.roleCode === 'GLOBAL_SEARCH').length > 0
       )
 
+      const hasAdminRights = Boolean(
+        user.accessRoles &&
+          user.accessRoles.filter(
+            r =>
+              r.roleCode === 'KW_MIGRATION' ||
+              r.roleCode === 'MAINTAIN_ACCESS_ROLES' ||
+              r.roleCode === 'MAINTAIN_ACCESS_ROLES_ADMIN'
+          ).length > 0
+      )
+
       return state.set('user', {
+        hasAdminRights,
         isKeyWorkerAdmin,
         isKeyWorker,
         canGlobalSearch,
