@@ -3,15 +3,17 @@ const { sortByTime, getHoursMinutes } = require('../utils')
 const visits = data =>
   (data &&
     data.length &&
-    data.filter(event => event.eventStatus === 'SCH').map(event => ({
-      eventId: event.eventId,
-      startTime: getHoursMinutes(event.startTime),
-      endTime: getHoursMinutes(event.endTime),
-      eventDescription: event.comment
-        ? `${event.eventLocation} - ${event.eventDescription} - ${event.comment}`
-        : `${event.eventLocation} - ${event.eventDescription}`,
-      eventStatus: event.eventStatus,
-    }))) ||
+    data
+      .filter(event => event.eventStatus === 'SCH')
+      .map(event => ({
+        eventId: event.eventId,
+        startTime: getHoursMinutes(event.startTime),
+        endTime: getHoursMinutes(event.endTime),
+        eventDescription: event.comment
+          ? `${event.eventLocation} - ${event.eventDescription} - ${event.comment}`
+          : `${event.eventLocation} - ${event.eventDescription}`,
+        eventStatus: event.eventStatus,
+      }))) ||
   []
 
 const appointments = data =>
@@ -63,11 +65,13 @@ const getOffenderCourtEvents = courtEvents => {
 const scheduledTransfers = transfers =>
   (transfers &&
     transfers.length &&
-    transfers.filter(event => event.eventStatus === 'SCH').map(event => ({
-      eventId: event.eventId,
-      eventDescription: 'Transfer scheduled',
-      eventStatus: event.eventStatus,
-    }))) ||
+    transfers
+      .filter(event => event.eventStatus === 'SCH')
+      .map(event => ({
+        eventId: event.eventId,
+        eventDescription: 'Transfer scheduled',
+        eventStatus: event.eventStatus,
+      }))) ||
   []
 
 const aggregate = (

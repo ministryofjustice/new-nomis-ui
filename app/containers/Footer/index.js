@@ -34,7 +34,11 @@ Footer.defaultProps = {
   mailTo: '',
 }
 
-const selectMailTo = () => createSelector(state => state.get('app'), appState => appState.get('mailTo'))
+const selectMailTo = () =>
+  createSelector(
+    state => state.get('app'),
+    appState => appState.get('mailTo')
+  )
 
 const mapStateToProps = createStructuredSelector({
   mailTo: selectMailTo(),

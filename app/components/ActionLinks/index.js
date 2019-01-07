@@ -35,14 +35,13 @@ const ExternalActionLinks = ({
     <div>
       <h1 className="heading-medium">Other Tasks</h1>
       <div className="action-links">
-        {isKeyWorkerAdmin &&
-          omicUrl && (
-            <div className="action-links__link">
-              <ExternalActionLink url={omicUrl} image="/img/manage-key-workers2x.png" testId="manage-kw-link">
-                Manage key workers
-              </ExternalActionLink>
-            </div>
-          )}
+        {isKeyWorkerAdmin && omicUrl && (
+          <div className="action-links__link">
+            <ExternalActionLink url={omicUrl} image="/img/manage-key-workers2x.png" testId="manage-kw-link">
+              Manage key workers
+            </ExternalActionLink>
+          </div>
+        )}
 
         {isKeyWorker && (
           <div className="action-links__link">
@@ -53,18 +52,17 @@ const ExternalActionLinks = ({
           </div>
         )}
 
-        {isWhereabouts &&
-          whereaboutsUrl && (
-            <div className="action-links__link">
-              <ExternalActionLink
-                url={whereaboutsUrl}
-                image="/img/ICON_ManagePrisonerWhereabouts.png"
-                testId="whereabouts-link"
-              >
-                Manage prisoner whereabouts
-              </ExternalActionLink>
-            </div>
-          )}
+        {isWhereabouts && whereaboutsUrl && (
+          <div className="action-links__link">
+            <ExternalActionLink
+              url={whereaboutsUrl}
+              image="/img/ICON_ManagePrisonerWhereabouts.png"
+              testId="whereabouts-link"
+            >
+              Manage prisoner whereabouts
+            </ExternalActionLink>
+          </div>
+        )}
 
         {establishmentRollcheckUrl && (
           <div className="action-links__link">
@@ -78,18 +76,17 @@ const ExternalActionLinks = ({
           </div>
         )}
 
-        {hasAdminRights &&
-          adminUtilitiesUrl && (
-            <div className="action-links__link">
-              <ExternalActionLink
-                url={adminUtilitiesUrl}
-                image="/img/ICON_AdminUtilities.png"
-                testId="admin-utilities-link"
-              >
-                Admin and utilities
-              </ExternalActionLink>
-            </div>
-          )}
+        {hasAdminRights && adminUtilitiesUrl && (
+          <div className="action-links__link">
+            <ExternalActionLink
+              url={adminUtilitiesUrl}
+              image="/img/ICON_AdminUtilities.png"
+              testId="admin-utilities-link"
+            >
+              Admin and utilities
+            </ExternalActionLink>
+          </div>
+        )}
       </div>
     </div>
   )

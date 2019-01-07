@@ -234,6 +234,8 @@ SearchAgainForm.propTypes = {
     keywords: PropTypes.string,
     alerts: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   }),
+  onSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
 }
 
 SearchAgainForm.defaultProps = {

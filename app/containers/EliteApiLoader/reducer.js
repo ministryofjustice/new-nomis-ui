@@ -211,10 +211,12 @@ function EliteApiReducer(state = initialState, action) {
     }
 
     case ALL_ALERT_TYPES_DATA: {
-      const alertTypes = action.payload.filter(alert => alert.activeFlag === 'Y').map(({ code, description }) => ({
-        code,
-        description,
-      }))
+      const alertTypes = action.payload
+        .filter(alert => alert.activeFlag === 'Y')
+        .map(({ code, description }) => ({
+          code,
+          description,
+        }))
       return state.set('AlertTypes', fromJS(alertTypes))
     }
 
