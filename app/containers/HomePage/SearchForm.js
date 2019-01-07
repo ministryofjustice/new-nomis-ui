@@ -8,7 +8,7 @@ import { buildSearchQueryString, buildQueryString } from '../../utils/stringUtil
 
 import './searchForm.scss'
 
-class SearchForm extends Component {
+export class SearchForm extends Component {
   constructor() {
     super()
     this.state = {
