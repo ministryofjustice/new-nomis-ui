@@ -16,7 +16,7 @@ class HomePage extends Component {
   }
 
   render() {
-    const { user, omicUrl, whereaboutsUrl, establishmentRollcheckUrl } = this.props
+    const { user, omicUrl, whereaboutsUrl, establishmentRollcheckUrl, adminUtilitiesUrl } = this.props
     if (!user) {
       return <div />
     }
@@ -33,6 +33,8 @@ class HomePage extends Component {
             omicUrl={omicUrl}
             whereaboutsUrl={whereaboutsUrl}
             establishmentRollcheckUrl={establishmentRollcheckUrl}
+            hasAdminRights={user.hasAdminRights}
+            adminUtilitiesUrl={adminUtilitiesUrl}
           />
         </div>
       </div>
@@ -50,6 +52,7 @@ HomePage.propTypes = {
   omicUrl: PropTypes.string,
   whereaboutsUrl: PropTypes.string,
   establishmentRollcheckUrl: PropTypes.string,
+  adminUtilitiesUrl: PropTypes.string,
 
   // mapDispatchToProps
   boundLoadLocations: PropTypes.func.isRequired,
@@ -60,6 +63,7 @@ HomePage.defaultProps = {
   omicUrl: null,
   whereaboutsUrl: null,
   establishmentRollcheckUrl: null,
+  adminUtilitiesUrl: null,
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -69,8 +73,9 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   user: state.getIn(['authentication', 'user']),
   omicUrl: state.getIn(['app', 'omicUrl']),
-  whereaboutsUrl: state.getIn(['app', 'whereaboutsUrl']),
+  adminUtilitiesUrl: state.getIn(['app', 'adminUtilitiesUrl']),
   establishmentRollcheckUrl: state.getIn(['app', 'establishmentRollcheckUrl']),
+  whereaboutsUrl: state.getIn(['app', 'whereaboutsUrl']),
 })
 
 export default connect(

@@ -24,8 +24,10 @@ const ExternalActionLinks = ({
   omicUrl,
   whereaboutsUrl,
   establishmentRollcheckUrl,
+  adminUtilitiesUrl,
+  hasAdminRights,
 }) => {
-  if (!isKeyWorker && !isKeyWorkerAdmin && !isWhereabouts && !establishmentRollcheckUrl) {
+  if (!isKeyWorker && !isKeyWorkerAdmin && !isWhereabouts && !establishmentRollcheckUrl && !adminUtilitiesUrl) {
     return <div />
   }
 
@@ -75,6 +77,19 @@ const ExternalActionLinks = ({
             </ExternalActionLink>
           </div>
         )}
+
+        {hasAdminRights &&
+          adminUtilitiesUrl && (
+            <div className="action-links__link">
+              <ExternalActionLink
+                url={adminUtilitiesUrl}
+                image="/img/ICON_AdminUtilities.png"
+                testId="admin-utilities-link"
+              >
+                Admin and utilities
+              </ExternalActionLink>
+            </div>
+          )}
       </div>
     </div>
   )
@@ -87,6 +102,8 @@ ExternalActionLinks.propTypes = {
   omicUrl: PropTypes.string.isRequired,
   whereaboutsUrl: PropTypes.string.isRequired,
   establishmentRollcheckUrl: PropTypes.string.isRequired,
+  adminUtilitiesUrl: PropTypes.string.isRequired,
+  hasAdminRights: PropTypes.bool.isRequired,
 }
 
 export default ExternalActionLinks

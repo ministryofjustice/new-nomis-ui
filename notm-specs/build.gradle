@@ -15,7 +15,7 @@ ext {
       //'chromeHeadless'
     ]
 
-    groovyVersion = '2.5.2'
+    groovyVersion = '2.5.5'
     gebVersion = '2.2'
     seleniumVersion = '3.14.0'
 //        chromeDriverVersion = '2.42'
@@ -26,11 +26,11 @@ repositories {
   mavenCentral()
 }
 
-project.sourceCompatibility = 8
-project.targetCompatibility = 8
+project.sourceCompatibility = 11
+project.targetCompatibility = 11
 
 dependencies {
-  testCompile('org.spockframework:spock-core:1.1-groovy-2.4') {
+  testCompile('org.spockframework:spock-core:1.2-groovy-2.5') {
     exclude group: "org.codehaus.groovy"
   }
 
