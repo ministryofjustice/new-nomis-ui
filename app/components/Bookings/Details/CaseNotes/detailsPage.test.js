@@ -2,25 +2,13 @@ import React from 'react'
 import { render } from 'enzyme'
 import { IntlProvider } from 'react-intl'
 import { Map } from 'immutable'
-import CaseNoteDetailsBlock from './detailsPage'
-
-const store = {
-  getState: jest.fn(() =>
-    Map({
-      authentication: Map({ user: { staffId: 45 } }),
-      app: { feedbackUrl: 'url' },
-    })
-  ),
-  dispatch: jest.fn(),
-  subscribe: jest.fn(),
-}
+import { CaseNoteDetails } from './detailsPage'
 
 describe('Case Note Details', () => {
-  it('CaseNoteDetailsBlock renders correctly', () => {
+  it('CaseNoteDetails renders correctly', () => {
     const wrapper = render(
       <IntlProvider locale="en-gb">
-        <CaseNoteDetailsBlock
-          store={store}
+        <CaseNoteDetails
           backToCaseNotes={jest.fn()}
           addAmendment={jest.fn()}
           caseNoteId={300}
@@ -50,8 +38,8 @@ describe('Case Note Details', () => {
   it('Make amendment button hidden for a different user', () => {
     const wrapper = render(
       <IntlProvider locale="en-gb">
-        <CaseNoteDetailsBlock
-          store={store}
+        <CaseNoteDetails
+          currentStaffId={45}
           backToCaseNotes={jest.fn()}
           addAmendment={jest.fn()}
           caseNoteId={300}

@@ -35,13 +35,12 @@ const MobileMenu = ({ user, setMenuOpen, showTerms, switchCaseLoad }) => {
         <ForwardArrow svg={forwardBack} />
       </MobileMenuOption>
 
-      {user &&
-        user.isKeyWorker && (
-          <MobileMenuOption className="dropdown-menu-option" to="/myKeyWorkerAllocations" onClick={removeMobileMenu}>
-            My key worker allocations
-            <ForwardArrow svg={forwardBack} />
-          </MobileMenuOption>
-        )}
+      {user && user.isKeyWorker && (
+        <MobileMenuOption className="dropdown-menu-option" to="/myKeyWorkerAllocations" onClick={removeMobileMenu}>
+          My key worker allocations
+          <ForwardArrow svg={forwardBack} />
+        </MobileMenuOption>
+      )}
 
       {user.caseLoadOptions.map(option => {
         const newObj = (

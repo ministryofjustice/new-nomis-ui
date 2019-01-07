@@ -43,7 +43,14 @@ const sameCreator = (currentStaffId, caseNote) => {
   return caseNoteStaffId === currentStaffId
 }
 
-const CaseNoteDetails = ({ caseNote, backToCaseNotes, addAmendment, caseNoteId, offenderNo, currentStaffId }) => {
+export const CaseNoteDetails = ({
+  caseNote,
+  backToCaseNotes,
+  addAmendment,
+  caseNoteId,
+  offenderNo,
+  currentStaffId,
+}) => {
   if (!caseNote) {
     return <div>Loading..</div>
   }
@@ -122,6 +129,7 @@ CaseNoteDetails.propTypes = {
   currentStaffId: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.string.isRequired]),
   backToCaseNotes: PropTypes.func.isRequired,
   addAmendment: PropTypes.func.isRequired,
+  caseNoteId: PropTypes.number.isRequired,
 }
 
 CaseNoteDetails.defaultProps = {

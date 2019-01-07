@@ -65,6 +65,8 @@ DatePicker.propTypes = {
   shouldShowDay: PropTypes.func.isRequired,
   input: inputType.isRequired,
   meta: metaType.isRequired,
+  defaultValue: PropTypes.string.isRequired,
+  showError: PropTypes.bool.isRequired,
 }
 
 DatePicker.defaultProps = {}

@@ -110,7 +110,12 @@ describe('Header component', () => {
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
-    expect(middleSection.find('span.cata-status').text()).toEqual('CAT A')
+    expect(
+      middleSection
+        .find('span.cata-status')
+        .first()
+        .text()
+    ).toEqual('CAT A')
   })
 
   it('should render cat A High correctly', () => {
@@ -124,8 +129,8 @@ describe('Header component', () => {
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
-    const actual = middleSection.find('span.cata-high-status').text()
-    expect(actual).toEqual('CAT A\u00a0High') // non-breaking space!
+    const actual = middleSection.find('span.cata-high-status').last()
+    expect(actual.text()).toEqual('CAT A High')
   })
 
   it('should render cat A Prov correctly', () => {
@@ -139,7 +144,12 @@ describe('Header component', () => {
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
-    expect(middleSection.find('span.cata-prov-status').text()).toEqual('CAT A\u00a0Prov')
+    expect(
+      middleSection
+        .find('span.cata-prov-status')
+        .first()
+        .text()
+    ).toEqual('CAT A Prov')
   })
 
   it('should show the Add KW Session link', () => {

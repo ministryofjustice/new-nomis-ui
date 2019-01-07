@@ -51,6 +51,6 @@ describe('Adjudications component', () => {
         .find('b')
         .at(1)
         .text()
-    ).toEqual(' code description ')
+    ).toEqual('  code description ')
   })
 })

@@ -5,20 +5,18 @@ import MenuToggle from '../index'
 describe('MenuToggle', () => {
   it('should initialise correctly when no attributes defined', () => {
     const wrapped = mount(<MenuToggle />)
-    const elem = wrapped.find('#nav-icon').node
+    const elem = wrapped.find('#nav-icon')
 
     expect(elem).not.toBe(undefined)
-
-    expect(elem.className).toBe('')
+    expect(elem.props().className).toBe('')
   })
 
   it('should initialise with correct className when menuOpen set true', () => {
     const wrapped = mount(<MenuToggle menuOpen />)
-    const elem = wrapped.find('#nav-icon').node
+    const elem = wrapped.find('#nav-icon')
 
     expect(elem).not.toBe(undefined)
-
-    expect(elem.className).toBe('open')
+    expect(elem.props().className).toBe('open')
   })
 
   it('should call specified onToggle funtion when clicked', () => {

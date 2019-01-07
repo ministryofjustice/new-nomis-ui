@@ -11,8 +11,8 @@ describe('TypeAndSubTypeSelector', () => {
   it('should not populate subTypeValues when no parent type has been selected', () => {
     const renderedComponent = shallow(<TypeAndSubTypeSelector types={types} subTypes={subTypes} />)
 
-    const typeSelectorProps = TypeSelectorNode(renderedComponent).node.props
-    const subTypeSelectorProps = SubTypeSelectorNode(renderedComponent).node.props
+    const typeSelectorProps = TypeSelectorNode(renderedComponent).props()
+    const subTypeSelectorProps = SubTypeSelectorNode(renderedComponent).props()
 
     expect(typeSelectorProps.options).toEqual(types)
     expect(subTypeSelectorProps.options).toEqual([])
@@ -23,7 +23,7 @@ describe('TypeAndSubTypeSelector', () => {
       <TypeAndSubTypeSelector selectedType={types[0].value} types={types} subTypes={subTypes} />
     )
 
-    const subTypeSelectorProps = SubTypeSelectorNode(renderedComponent).node.props
+    const subTypeSelectorProps = SubTypeSelectorNode(renderedComponent).props()
 
     expect(subTypeSelectorProps.options).toEqual(subTypes)
   })

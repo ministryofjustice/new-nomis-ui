@@ -33,13 +33,15 @@ const eventsServiceFactory = eliteApi => {
     getExternalEventsForOffenders(eliteApi, context, { offenderNumbers: [offenderNo], formattedDate: date, agencyId })
 
   const buildCalendarViewFor = days =>
-    days.map(day => moment().add(day, 'days')).reduce((result, current) => {
-      result.push({
-        date: current,
-      })
+    days
+      .map(day => moment().add(day, 'days'))
+      .reduce((result, current) => {
+        result.push({
+          date: current,
+        })
 
-      return result
-    }, [])
+        return result
+      }, [])
 
   const byStartTimeThenByEndTime = (a, b) => {
     if (moment(a.startTime).isBefore(moment(b.startTime))) {

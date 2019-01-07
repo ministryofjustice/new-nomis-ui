@@ -45,8 +45,8 @@ const keyworkerServiceFactory = (eliteApi, keyworkerApi) => {
 
       let lastKeyWorkerSessionDate = null
       if (kwCaseNoteDates.length > 0) {
-        lastKeyWorkerSessionDate = kwCaseNoteDates.reduce(
-          (m, v, i) => (v.latestCaseNote > m.latestCaseNote && i ? v : m)
+        lastKeyWorkerSessionDate = kwCaseNoteDates.reduce((m, v, i) =>
+          v.latestCaseNote > m.latestCaseNote && i ? v : m
         ).latestCaseNote
       }
       return {

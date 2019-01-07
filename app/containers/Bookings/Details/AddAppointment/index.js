@@ -209,29 +209,28 @@ class AddAppointment extends Component {
                   <div className="row col-xs-12 add-gutter-margin-top add-gutter-margin-bottom">
                     <b>Other scheduled events on this date</b>
                   </div>
-                  {insertForNothingScheduled(existingEvents).map(
-                    (event, index) =>
-                      event.nothingScheduled ? (
-                        // eslint-disable-next-line react/no-array-index-key
-                        <div key={eventDate + index} className="row add-small-margin-bottom">
-                          <div className="col-xs-12">{event.eventDescription}</div>
+                  {insertForNothingScheduled(existingEvents).map((event, index) =>
+                    event.nothingScheduled ? (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <div key={eventDate + index} className="row add-small-margin-bottom">
+                        <div className="col-xs-12">{event.eventDescription}</div>
+                      </div>
+                    ) : (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <div key={eventDate + index} className="row add-small-margin-bottom">
+                        <div className="col-xs-4">
+                          {event.startTime}
+                          {event.endTime && ' - '}
+                          {event.endTime}
                         </div>
-                      ) : (
-                        // eslint-disable-next-line react/no-array-index-key
-                        <div key={eventDate + index} className="row add-small-margin-bottom">
-                          <div className="col-xs-4">
-                            {event.startTime}
-                            {event.endTime && ' - '}
-                            {event.endTime}
-                          </div>
-                          <div className="col-xs-8">
-                            <b>
-                              {event.eventDescription}
-                              {getStatus(event.eventStatus, event.excluded)}
-                            </b>
-                          </div>
+                        <div className="col-xs-8">
+                          <b>
+                            {event.eventDescription}
+                            {getStatus(event.eventStatus, event.excluded)}
+                          </b>
                         </div>
-                      )
+                      </div>
+                    )
                   )}
                 </div>
               </div>

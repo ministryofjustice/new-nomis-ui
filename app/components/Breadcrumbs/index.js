@@ -88,7 +88,7 @@ export const buildBreadcrumb = ({ route, lastSearchResultQuery, offender, contex
   return [homeCrumb, ...routes]
 }
 
-const Breadcrumbs = ({ route, lastSearchResultQuery, offenderDetails, context, offenderNo }) => {
+const BreadcrumbsComponent = ({ route, lastSearchResultQuery, offenderDetails, context, offenderNo }) => {
   const breadcrumbArray = buildBreadcrumb({
     route,
     lastSearchResultQuery,
@@ -99,26 +99,25 @@ const Breadcrumbs = ({ route, lastSearchResultQuery, offenderDetails, context, o
 
   return (
     <div className="bread-crumbs col-xs-12 no-left-gutter" data-name="Breadcrumbs">
-      {breadcrumbArray.map(
-        (breadcrumb, i) =>
-          i !== breadcrumbArray.length - 1 ? (
-            <span className="link-wrapper" key={breadcrumb.name}>
-              <Link to={breadcrumb.route} key={breadcrumb.name} className="crumb">
-                {breadcrumb.name}
-              </Link>
-              <span>{'>'}</span>
-            </span>
-          ) : (
-            <span className="font-xsmall" key={breadcrumb.name}>
+      {breadcrumbArray.map((breadcrumb, i) =>
+        i !== breadcrumbArray.length - 1 ? (
+          <span className="link-wrapper" key={breadcrumb.name}>
+            <Link to={breadcrumb.route} key={breadcrumb.name} className="crumb">
               {breadcrumb.name}
-            </span>
-          )
+            </Link>
+            <span>{'>'}</span>
+          </span>
+        ) : (
+          <span className="font-xsmall" key={breadcrumb.name}>
+            {breadcrumb.name}
+          </span>
+        )
       )}
     </div>
   )
 }
 
-Breadcrumbs.propTypes = {
+BreadcrumbsComponent.propTypes = {
   context: PropTypes.string.isRequired,
   route: PropTypes.string.isRequired,
   lastSearchResultQuery: PropTypes.shape({}),
@@ -128,7 +127,7 @@ Breadcrumbs.propTypes = {
   offenderDetails: ImmutablePropTypes.map.isRequired,
 }
 
-Breadcrumbs.defaultProps = {
+BreadcrumbsComponent.defaultProps = {
   lastSearchResultQuery: null,
   offenderNo: '',
 }
@@ -138,4 +137,4 @@ const mapStateToProps = (immutableState, props) => ({
     immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']) || offenderDetailsModel,
 })
 
-export default connect(mapStateToProps)(Breadcrumbs)
+export default connect(mapStateToProps)(BreadcrumbsComponent)
