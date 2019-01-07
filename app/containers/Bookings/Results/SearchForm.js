@@ -235,7 +235,7 @@ SearchAgainForm.propTypes = {
     alerts: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   }),
   onSubmit: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
+  submitting: PropTypes.bool,
 }
 
 SearchAgainForm.defaultProps = {
@@ -245,6 +245,7 @@ SearchAgainForm.defaultProps = {
     keywords: '',
     alerts: [],
   },
+  submitting: false,
 }
 
 const mapStateToProps = state => ({
