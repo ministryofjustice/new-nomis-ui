@@ -21,6 +21,7 @@ import { Provider } from 'react-redux'
 import { Router } from 'react-router-dom'
 
 import App from './containers/App'
+import ScrollToTop from './components/ScrollToTop'
 
 // Import Language Provider
 import LanguageProvider from './containers/LanguageProvider'
@@ -54,7 +55,9 @@ const render = messages => {
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <Router history={history}>
-          <App routes={routes} />
+          <ScrollToTop>
+            <App routes={routes} />
+          </ScrollToTop>
         </Router>
       </LanguageProvider>
     </Provider>,
