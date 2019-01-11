@@ -241,7 +241,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = (immutableState, props) => {
-  const { offenderNo } = props.params
+  const { offenderNo } = props.match.params
   const scheduledEvents = immutableState.getIn(['search', 'details', 'scheduledEvents']) || List([])
   const offenderDetails =
     immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', offenderNo, 'Data']) || offenderDetailsModel

@@ -4,7 +4,6 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { Map } from 'immutable'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
 
 import { DETAILS_TABS } from '../../constants'
 import { loadBookingCaseNotes } from '../../../EliteApiLoader/actions'
@@ -15,6 +14,8 @@ import { buildCaseNotQueryString } from '../../../../utils/stringUtils'
 import CaseNoteList from './caseNoteList'
 import CaseNoteDetails from './caseNoteDetails'
 import caseNoteQueryType from './types'
+import { getQueryParams } from '../../../../helpers'
+import history from '../../../../history'
 
 class CaseNotes extends Component {
   componentDidMount() {
@@ -101,18 +102,21 @@ CaseNotes.defaultProps = {
   itemId: null,
 }
 
-const mapDispatchToProps = (dispatch, props) => ({
-  loadCaseNotes: (id, query) => dispatch(loadBookingCaseNotes(id, query)),
+const mapDispatchToProps = (dispatch, props) => {
+  const queryParams = getQueryParams(props.location.search)
 
-  setPagination: (id, pagination) =>
-    dispatch(
-      push(`/offenders/${id}/case-notes?${buildCaseNotQueryString({ ...props.location.query, ...pagination })}`)
-    ),
-  setCaseNoteView: id => dispatch(push(`/offenders/${props.offenderNo}/${DETAILS_TABS.CASE_NOTES}/${id}`)),
-  loadTypesSubTypes: () => dispatch(loadCaseNoteTypesAndSubTypes()),
-})
+  return {
+    loadCaseNotes: (id, query) => dispatch(loadBookingCaseNotes(id, query)),
+
+    setPagination: (id, pagination) =>
+      history.push(`/offenders/${id}/case-notes?${buildCaseNotQueryString({ ...queryParams, ...pagination })}`),
+    setCaseNoteView: id => history.push(`/offenders/${props.offenderNo}/${DETAILS_TABS.CASE_NOTES}/${id}`),
+    loadTypesSubTypes: () => dispatch(loadCaseNoteTypesAndSubTypes()),
+  }
+}
 
 const mapStateToProps = (immutableState, props) => {
+  const queryParams = getQueryParams(props.location.search)
   const { offenderNo } = props
   const caseNotes =
     immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', offenderNo, 'CaseNotes']) || caseNoteModel
@@ -120,9 +124,9 @@ const mapStateToProps = (immutableState, props) => {
   const totalResults = caseNotes.getIn(['meta', 'totalRecords'])
 
   const query = {
-    ...props.location.query,
-    perPage: parseInt(props.location.query.perPage, 10) || 10,
-    pageNumber: parseInt(props.location.query.pageNumber, 10) || 0,
+    ...queryParams,
+    perPage: parseInt(queryParams.perPage, 10) || 10,
+    pageNumber: parseInt(queryParams.pageNumber, 10) || 0,
   }
 
   const deviceFormat = immutableState.getIn(['app', 'deviceFormat'])

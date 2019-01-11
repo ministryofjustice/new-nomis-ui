@@ -1,5 +1,4 @@
 import { takeLatest, put, select, call } from 'redux-saga/effects'
-import { push } from 'react-router-redux'
 
 import { selectApi } from '../ConfigLoader/selectors'
 import { buildPaginationQueryString } from '../../utils/stringUtils'
@@ -14,6 +13,8 @@ import {
   SET_ASSIGNMENTS_VIEW,
   UPDATE_ASSIGNMENTS_VIEW,
 } from './constants'
+
+import history from '../../history'
 
 export function* assignmentLoadSaga() {
   try {
@@ -34,7 +35,7 @@ export function* assignmentLoadWatcher() {
 }
 
 export function* assignmentsPagination(action) {
-  yield put(push(`/assignments?${buildPaginationQueryString(action.payload.pagination)}`))
+  yield history.push(`/assignments?${buildPaginationQueryString(action.payload.pagination)}`)
 }
 
 export function* assignmentsPaginationWatcher() {

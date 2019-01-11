@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
 import { viewDetails as vD } from '../Bookings/actions'
 import { DETAILS_TABS, offenderImageUrl } from '../Bookings/constants'
 import EliteImage from '../EliteContainers/Image'
@@ -15,6 +14,7 @@ import { loadAssignments } from './actions'
 import { linkOnClick } from '../../helpers'
 import './index.scss'
 import userType from '../types'
+import history from '../../history'
 
 const ResultsView = ({ results, viewDetails }) => (
   <div className="offender-table">
@@ -160,7 +160,7 @@ const mapDispatchToProps = dispatch => ({
   viewDetails: offenderNo => dispatch(vD(offenderNo, DETAILS_TABS.QUICK_LOOK)),
   setContext: context => dispatch(setSearchContext(context)),
   boundLoadAssignments: () => dispatch(loadAssignments()),
-  redirectToHome: () => dispatch(push('/')),
+  redirectToHome: () => history.push('/'),
 })
 
 const mapStateToProps = immutableState => {

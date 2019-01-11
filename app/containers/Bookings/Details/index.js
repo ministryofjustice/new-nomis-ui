@@ -71,7 +71,9 @@ class Details extends Component {
   componentDidMount() {
     const {
       boundViewDetails,
-      params: { activeTab, offenderNo, itemId },
+      match: {
+        params: { activeTab, offenderNo, itemId },
+      },
     } = this.props
     const tab = parseActiveTab(activeTab)
 
@@ -84,7 +86,7 @@ class Details extends Component {
       imageSrcUrl,
       shouldShowLargePhoto,
       hidePhoto,
-      params,
+      match: { params },
       location,
       boundViewDetails,
     } = this.props
@@ -149,10 +151,12 @@ class Details extends Component {
 Details.propTypes = {
   // mapStateToProps
   deviceFormat: PropTypes.string,
-  params: PropTypes.shape({
-    activeTab: PropTypes.string.isRequired,
-    offenderNo: PropTypes.string.isRequired,
-    itemId: PropTypes.string,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      activeTab: PropTypes.string.isRequired,
+      offenderNo: PropTypes.string.isRequired,
+      itemId: PropTypes.string,
+    }),
   }).isRequired,
   imageSrcUrl: PropTypes.number,
   shouldShowLargePhoto: PropTypes.bool,
@@ -178,7 +182,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = createStructuredSelector({
   deviceFormat: selectDeviceFormat(),
-  activeTabId: (state, props) => props.params.activeTab,
+  activeTabId: (state, props) => props.match.params.activeTab,
   searchContext: selectSearchContext(),
   shouldShowLargePhoto: selectShouldShowLargePhoto(),
   imageSrcUrl: selectImageId(),

@@ -23,7 +23,7 @@ import { FormattedDate, FormattedTime } from '../../../../components/intl'
 
 import { DETAILS_TABS, ADD_NEW_CASENOTE } from '../../constants'
 import { viewDetails, extendActiveSession, loadCaseNoteTypesAndSubTypes } from '../../actions'
-
+import { getQueryParams } from '../../../../helpers'
 import './index.scss'
 
 const selector = formValueSelector('addCaseNote')
@@ -50,7 +50,9 @@ class AddCaseNoteForm extends Component {
       caseNoteTypes,
       locale,
       typeValue,
-      params: { offenderNo },
+      match: {
+        params: { offenderNo },
+      },
       goBackToBookingDetails,
       eventDate,
       extendSession,
@@ -188,8 +190,7 @@ AddCaseNoteForm.propTypes = {
   locale: PropTypes.string,
   typeValue: PropTypes.string,
   eventDate: PropTypes.string,
-  params: PropTypes.shape({ offenderNo: PropTypes.string.isRequired }).isRequired,
-
+  match: PropTypes.shape({ params: PropTypes.shape({ offenderNo: PropTypes.string.isRequired }) }).isRequired,
   goBackToBookingDetails: PropTypes.func.isRequired,
   loadCaseNoteTypes: PropTypes.func.isRequired,
   extendSession: PropTypes.func.isRequired,
@@ -202,32 +203,36 @@ AddCaseNoteForm.defaultProps = {
   eventDate: '',
 }
 
-const mapDispatchToProps = (dispatch, props) => ({
-  initialValues: Map({
-    typeValue: props.location.query.type,
-    subTypeValue: props.location.query.subType,
-    typeAndSubType: Map({ typeValue: '', subTypeValue: '', text: '' }),
-  }),
-  goBackToBookingDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.CASE_NOTES)),
-  loadCaseNoteTypes: () => dispatch(loadCaseNoteTypesAndSubTypes()),
-  extendSession: () => dispatch(extendActiveSession()),
-  onSubmit: createFormAction(
-    formData => ({
-      type: ADD_NEW_CASENOTE.BASE,
-      payload: {
-        offenderNo: props.params.offenderNo,
-        query: {
-          ...formData.toJS(),
-          typeAndSubType: {
-            type: formData.toJS().typeValue,
-            subType: formData.toJS().subTypeValue,
+const mapDispatchToProps = (dispatch, props) => {
+  const { type, subType } = getQueryParams(props.location.search)
+
+  return {
+    initialValues: Map({
+      typeValue: type,
+      subTypeValue: subType,
+      typeAndSubType: Map({ typeValue: '', subTypeValue: '', text: '' }),
+    }),
+    goBackToBookingDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.CASE_NOTES)),
+    loadCaseNoteTypes: () => dispatch(loadCaseNoteTypesAndSubTypes()),
+    extendSession: () => dispatch(extendActiveSession()),
+    onSubmit: createFormAction(
+      formData => ({
+        type: ADD_NEW_CASENOTE.BASE,
+        payload: {
+          offenderNo: props.match.params.offenderNo,
+          query: {
+            ...formData.toJS(),
+            typeAndSubType: {
+              type: formData.toJS().typeValue,
+              subType: formData.toJS().subTypeValue,
+            },
           },
         },
-      },
-    }),
-    [ADD_NEW_CASENOTE.SUCCESS, ADD_NEW_CASENOTE.ERROR]
-  ),
-})
+      }),
+      [ADD_NEW_CASENOTE.SUCCESS, ADD_NEW_CASENOTE.ERROR]
+    ),
+  }
+}
 
 const mapStateToProps = createStructuredSelector({
   caseNoteTypes: selectUsersTypesAndSubTypes(),

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { push } from 'react-router-redux'
 import { Map, List } from 'immutable'
 
 import qs from 'querystring'
@@ -16,6 +15,8 @@ import { DATE_ONLY_FORMAT_SPEC } from '../../../App/constants'
 import { loadBookingAlerts } from '../../../EliteApiLoader/actions'
 import alertsModel from '../../../../helpers/dataMappers/alerts'
 import { alertTypesFilterType } from './selectors'
+import { getQueryParams } from '../../../../helpers'
+import history from '../../../../history'
 
 class Alerts extends Component {
   componentDidMount() {
@@ -86,22 +87,26 @@ const adaptFilterValues = ({ fromDate, toDate, alertType }) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, props) => ({
-  loadAlerts: (id, pagination, filter) => dispatch(loadBookingAlerts(id, pagination, filter)),
-  setPagination: (offenderNo, pagination) =>
-    dispatch(push(buildUrl(offenderNo, { ...props.location.query, ...pagination }))),
-  // filter is {alertType: string, fromDate: moment, toDate: moment }
-  setFilter: (offenderNo, filter) => dispatch(push(buildUrl(offenderNo, adaptFilterValues(filter)))),
-})
+const mapDispatchToProps = (dispatch, props) => {
+  const queryParams = getQueryParams(props.location.search)
+
+  return {
+    loadAlerts: (id, pagination, filter) => dispatch(loadBookingAlerts(id, pagination, filter)),
+    setPagination: (offenderNo, pagination) => history.push(buildUrl(offenderNo, { ...queryParams, ...pagination })),
+    // filter is {alertType: string, fromDate: moment, toDate: moment }
+    setFilter: (offenderNo, filter) => history.push(buildUrl(offenderNo, adaptFilterValues(filter))),
+  }
+}
 
 const mapStateToProps = (immutableState, props) => {
+  const queryParams = getQueryParams(props.location.search)
   const momentFromDateString = dateString => (dateString ? moment(dateString, DATE_ONLY_FORMAT_SPEC) : '')
   const alerts =
     immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Alerts']) || alertsModel
   const alertItems = alerts.get('items') || List([])
   const totalResults = alerts.getIn(['MetaData', 'TotalRecords'])
   const deviceFormat = immutableState.getIn(['app', 'deviceFormat'])
-  const { fromDate, toDate, alertType = '', perPage, pageNumber } = props.location.query
+  const { fromDate, toDate, alertType = '', perPage, pageNumber } = queryParams
   const filter = { fromDate: momentFromDateString(fromDate), toDate: momentFromDateString(toDate), alertType }
   const pagination = { perPage: perPage || 10, pageNumber: pageNumber || 0 }
 

@@ -1,5 +1,4 @@
 import { takeLatest, put, select, call } from 'redux-saga/effects'
-import { push } from 'react-router-redux'
 import { SubmissionError } from 'redux-form/immutable'
 import { notify } from 'react-notify-toast'
 import { selectApi } from '../ConfigLoader/selectors'
@@ -8,6 +7,7 @@ import { loadBookingCaseNotes, resetCaseNotes } from '../EliteApiLoader/actions'
 import { BOOKINGS, APPOINTMENT } from '../EliteApiLoader/constants'
 import { showSpinner, hideSpinner, setSearchContext } from '../../globalReducers/app'
 import { buildSearchQueryString, buildCaseNotQueryString } from '../../utils/stringUtils'
+import history from '../../history'
 
 import {
   addCaseNote,
@@ -98,7 +98,7 @@ export function* onAddAppointment(action) {
       offenderNo,
     })
 
-    yield put(push(`/offenders/${offenderNo}/${DETAILS_TABS.QUICK_LOOK}`))
+    history.push(`/offenders/${offenderNo}/${DETAILS_TABS.QUICK_LOOK}`)
 
     yield notify.show('Appointment has been created successfully.', 'success')
   } catch (err) {
@@ -130,7 +130,7 @@ export function* addCasenoteSaga(action) {
 
     yield put(loadBookingCaseNotes(offenderNo))
 
-    yield put(push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}`))
+    history.push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}`)
 
     yield notify.show('Case note has been created successfully.', 'success')
   } catch (e) {
@@ -286,12 +286,7 @@ export function* newSearch(action) {
       ...pagination,
     })
 
-    yield put(
-      push({
-        pathname: '/results',
-        search: `?${queryString}`,
-      })
-    )
+    history.push(`/results?${queryString}`)
 
     yield put(hideSpinner())
   } catch (err) {
@@ -311,7 +306,7 @@ export function* onAmendCaseNote(action) {
 
   try {
     yield call(amendCaseNote, apiServer, offenderNo, caseNoteId, amendmentText)
-    yield put(push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}/${itemId || ''}`))
+    history.push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}/${itemId || ''}`)
 
     yield notify.show('Case note has been amended successfully.', 'success')
   } catch (err) {
@@ -336,7 +331,7 @@ export function* viewDetails(action) {
     const nextPath = `/offenders/${action.payload.offenderNo}/${action.payload.activeTabId}${itemPart}`
 
     if (previousPath !== nextPath && window.location.pathname !== nextPath) {
-      yield put(push(nextPath))
+      history.push(nextPath)
     }
   }
 
@@ -352,12 +347,7 @@ export function* updateSearchResultPagination(action) {
     ...action.payload,
   })
 
-  yield put(
-    push({
-      pathname: '/results',
-      search: `?${queryString}`,
-    })
-  )
+  yield history.push(`/results?${queryString}`)
 }
 
 export function* searchResultPaginationWatcher() {
@@ -383,7 +373,7 @@ export function* setCaseNoteFilterSaga(action) {
       },
     })
 
-    yield put(push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}?${buildCaseNotQueryString(query)}`))
+    history.push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}?${buildCaseNotQueryString(query)}`)
   } catch (err) {
     yield put({ type: CASE_NOTE_FILTER.ERROR, payload: new SubmissionError({ _error: err.message }) })
   }

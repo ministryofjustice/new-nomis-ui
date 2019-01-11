@@ -1,4 +1,6 @@
-const linkOnClick = handlerFn => ({
+import qs from 'querystring'
+
+export const linkOnClick = handlerFn => ({
   tabIndex: 0,
   role: 'link',
   onClick: handlerFn,
@@ -7,6 +9,4 @@ const linkOnClick = handlerFn => ({
   },
 })
 
-module.exports = {
-  linkOnClick,
-}
+export const getQueryParams = queryString => qs.parse(queryString.substr(1))

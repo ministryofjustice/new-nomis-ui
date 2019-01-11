@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
 import serialize from 'form-serialize'
 
 import { buildSearchQueryString, buildQueryString } from '../../utils/stringUtils'
-
 import './searchForm.scss'
+import history from '../../history'
 
 export class SearchForm extends Component {
   constructor() {
@@ -16,14 +15,25 @@ export class SearchForm extends Component {
     }
   }
 
-  handleSubmit(event) {
-    event.preventDefault()
+  onSubmit = (formData, globalSearchUrl) => {
+    if (globalSearchUrl) {
+      window.location.assign(
+        `${globalSearchUrl}?${buildQueryString({
+          searchText: formData.keywords,
+        })}`
+      )
+    } else {
+      history.push(`/results?${buildSearchQueryString(formData)}`)
+    }
+  }
 
-    const { onSubmit, globalSearchUrl, canGlobalSearch } = this.props
+  handleSubmit = event => {
+    event.preventDefault()
+    const { globalSearchUrl, canGlobalSearch } = this.props
     const { doGlobalSearch } = this.state
     const formData = serialize(event.target, { hash: true })
 
-    onSubmit(formData, canGlobalSearch && this.state && doGlobalSearch && globalSearchUrl)
+    this.onSubmit(formData, canGlobalSearch && this.state && doGlobalSearch && globalSearchUrl)
   }
 
   handleGlobalSearchCheckBoxChange(currentValue) {
@@ -117,9 +127,6 @@ SearchForm.propTypes = {
   error: PropTypes.string,
   canGlobalSearch: PropTypes.bool.isRequired,
   globalSearchUrl: PropTypes.string.isRequired,
-
-  // mapDispatchToProps
-  onSubmit: PropTypes.func.isRequired,
 }
 
 SearchForm.defaultProps = {
@@ -138,19 +145,4 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  onSubmit: (formData, globalSearchUrl) => {
-    if (globalSearchUrl)
-      window.location.assign(
-        `${globalSearchUrl}?${buildQueryString({
-          searchText: formData.keywords,
-        })}`
-      )
-    else dispatch(push(`/results?${buildSearchQueryString(formData)}`))
-  },
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SearchForm)
+export default connect(mapStateToProps)(SearchForm)

@@ -6,7 +6,7 @@ import { List } from 'immutable'
 import { FormattedNumber } from 'react-intl'
 import { connect } from 'react-redux'
 import uuid from 'uuid/v4'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import { FormattedDate, FormattedTime } from '../../../../components/intl'
 
 import { properCaseName, toFullName } from '../../../../utils/stringUtils'

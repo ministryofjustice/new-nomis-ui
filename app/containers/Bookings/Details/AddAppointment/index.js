@@ -351,7 +351,7 @@ const mapDispatchToProps = (dispatch, props) => ({
       type: APPOINTMENT.ADD,
       payload: {
         ...formData.toJS(),
-        offenderNo: props.params.offenderNo,
+        offenderNo: props.match.params.offenderNo,
       },
     }),
     [APPOINTMENT.SUCCESS, APPOINTMENT.ERROR]
@@ -366,10 +366,9 @@ const mapStateToProps = (immutableState, props) => {
     navigator.browserLanguage ||
     languageState.get('locale')
 
-  const { offenderNo } = props.params
+  const { offenderNo } = props.match.params
   const offenderDetails =
-    immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.params.offenderNo, 'Data']) ||
-    offenderDetailsModel
+    immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', offenderNo, 'Data']) || offenderDetailsModel
   const offendersAgencyId = offenderDetails.getIn(['assignedLivingUnit', 'agencyId'])
   const offenderName = toFullName({
     firstName: offenderDetails.get('firstName'),

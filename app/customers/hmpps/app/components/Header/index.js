@@ -6,7 +6,8 @@ import { DesktopOnly, MobileOnly } from 'components/CommonTheme'
 import MenuToggle from 'components/MenuToggle'
 import MobileMenu from 'containers/MobileMenu'
 import ProductGlobals from 'product-globals'
-import { Link, browserHistory } from 'react-router'
+import { Link } from 'react-router-dom'
+import history from '../../../../../history'
 import {
   PageHeader,
   LeftContent,
@@ -36,7 +37,7 @@ const HmppsHeader = ({ user, menuOpen, showTermsAndConditions, setMenuOpen, navi
           title="Prison-NOMIS"
           logoText="HMPPS"
           extraLinks={extraLinks}
-          history={browserHistory}
+          history={history}
           switchCaseLoad={switchCaseLoad}
           user={user}
           menuOpen={menuOpen}

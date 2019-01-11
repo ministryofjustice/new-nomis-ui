@@ -2,7 +2,6 @@
 import styled from 'styled-components'
 import colours from 'theme/colours'
 import fonts from 'theme/fonts'
-import { Link } from 'react-router'
 import { media } from 'utils/style-utils'
 import desktop from 'theme/desktop'
 
@@ -37,7 +36,7 @@ export const Logo = styled.div`
   float: left;
 `
 
-export const LogoText = styled(Link)`
+export const LogoText = styled.div`
   display: none;
 
   color: white;
@@ -53,7 +52,7 @@ export const LogoText = styled(Link)`
   `};
 `
 
-export const Title = styled(Link)`
+export const Title = styled.div`
   text-align: left;
   padding-left: 10px;
   font-size: 26px;
@@ -71,7 +70,7 @@ export const ToggleWrapper = styled.div`
   display: block;
 `
 
-export const UnstyledLink = styled(Link)`
+export const UnstyledLink = styled.div`
   text-decoration: none;
   color: white;
 `

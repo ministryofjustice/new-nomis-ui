@@ -10,7 +10,7 @@ import BookingGrid from '../../../components/Bookings/Grid'
 import NoSearchResultsReturnedMessage from '../../../components/NoSearchResultsReturnedMessage'
 import ResultsViewToggle from '../../../components/ResultsViewToggle'
 import searchModel from '../../../helpers/dataMappers/search'
-
+import { getQueryParams } from '../../../helpers'
 import SearchAgainForm from './SearchForm'
 
 import './index.scss'
@@ -70,14 +70,15 @@ class SearchResults extends Component {
 
   componentDidUpdate(prevProps) {
     const { location } = this.props
-    if (JSON.stringify(prevProps.location.query) !== JSON.stringify(location.query)) {
+    if (prevProps.location.search !== location.search) {
       this.loadSearch()
     }
   }
 
   loadSearch() {
     const { getSearchResults, location, pagination } = this.props
-    const { locationPrefix, keywords, alerts, perPage, pageNumber, sortOrder, sortFields } = location.query
+    const queryParams = getQueryParams(location.search)
+    const { locationPrefix, keywords, alerts, perPage, pageNumber, sortOrder, sortFields } = queryParams
     const paginationParam = perPage && pageNumber ? { perPage, pageNumber } : pagination
 
     if (locationPrefix) {
@@ -99,11 +100,12 @@ class SearchResults extends Component {
       resultsView,
       shouldShowSpinner,
       showAlertTabForOffenderNo,
-      location: { query },
+      location: { search },
       setResultsViewDispatch,
       toggleSortOrder,
       changeSortDispatch,
     } = this.props
+    const query = getQueryParams(search)
 
     const SortDropdown = ({ viewName }) => (
       <div className="col-md-4 visible-md visible-lg add-gutter-margin-top">
@@ -216,20 +218,25 @@ SearchResults.defaultProps = {
   locations: List([]),
 }
 
-const mapDispatchToProps = (dispatch, props) => ({
-  viewDetails: offenderNo => dispatch(vD(offenderNo, DETAILS_TABS.QUICK_LOOK)),
-  setPage: pagination => dispatch(sP({ ...props.location.query, ...pagination })),
-  setResultsViewDispatch: pagination => dispatch(setResultsView(pagination)),
-  boundLoadLocations: () => dispatch(loadLocations()),
-  toggleSortOrder: currentDirection => dispatch(toggleSort(currentDirection, props.location.query)),
-  changeSortDispatch: value => dispatch(changeSort(value, props.location.query)),
-  getSearchResults: query => dispatch({ type: NEW_SEARCH, payload: { query } }),
-  showAlertTabForOffenderNo: offenderNo => dispatch(vD(offenderNo, DETAILS_TABS.ALERTS)),
-})
+const mapDispatchToProps = (dispatch, props) => {
+  const queryParams = getQueryParams(props.location.search)
+
+  return {
+    viewDetails: offenderNo => dispatch(vD(offenderNo, DETAILS_TABS.QUICK_LOOK)),
+    setPage: pagination => dispatch(sP({ ...queryParams, ...pagination })),
+    setResultsViewDispatch: pagination => dispatch(setResultsView(pagination)),
+    boundLoadLocations: () => dispatch(loadLocations()),
+    toggleSortOrder: currentDirection => dispatch(toggleSort(currentDirection, queryParams)),
+    changeSortDispatch: value => dispatch(changeSort(value, queryParams)),
+    getSearchResults: query => dispatch({ type: NEW_SEARCH, payload: { query } }),
+    showAlertTabForOffenderNo: offenderNo => dispatch(vD(offenderNo, DETAILS_TABS.ALERTS)),
+  }
+}
 
 const mapStateToProps = (state, props) => {
+  const queryParams = getQueryParams(props.location.search)
   const results = state.getIn(['search', 'results']) || searchModel.get('results')
-  const { perPage, pageNumber, sortFields, sortOrder } = props.location.query
+  const { perPage, pageNumber, sortFields, sortOrder } = queryParams
   const totalResults = state.getIn(['search', 'totalResults']) || searchModel.get('totalResults')
   const resultsView = state.getIn(['search', 'resultsView']) || searchModel.get('resultsView')
   const locations = state.getIn(['search', 'details', 'locations']) || searchModel.getIn(['details', 'location'])

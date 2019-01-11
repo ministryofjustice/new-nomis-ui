@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import serialize from 'form-serialize'
 import { buildSearchQueryString } from '../../../utils/stringUtils'
 import { linkOnClick } from '../../../helpers'
+import history from '../../../history'
 
 import './SearchForm.scss'
 
@@ -20,11 +20,10 @@ class SearchAgainForm extends Component {
     }
   }
 
-  handleSubmit(event) {
-    const { onSubmit } = this.props
+  handleSubmit = event => {
     event.preventDefault()
     const formData = serialize(event.target, { hash: true })
-    onSubmit(formData)
+    history.push(`/results?${buildSearchQueryString(formData)}`)
   }
 
   render() {
@@ -234,7 +233,6 @@ SearchAgainForm.propTypes = {
     keywords: PropTypes.string,
     alerts: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   }),
-  onSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool,
 }
 
@@ -252,11 +250,4 @@ const mapStateToProps = state => ({
   error: state.getIn(['home', 'searchError']),
 })
 
-const mapDispatchToProps = dispatch => ({
-  onSubmit: formData => dispatch(push(`/results?${buildSearchQueryString(formData)}`)),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SearchAgainForm)
+export default connect(mapStateToProps)(SearchAgainForm)

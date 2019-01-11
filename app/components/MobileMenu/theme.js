@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import InlineSVG from 'react-svg-inline'
-import { Link } from 'react-router'
 import colours from '../../theme/colours'
 
 export const MobileMenuContainer = styled.div`
@@ -51,7 +50,7 @@ export const NotificationNumberAssignments = styled(NotificationNumber)`
   font-weight: bold;
 `
 
-export const MobileMenuOption = styled(Link)`
+export const MobileMenuOption = styled.div`
   position: relative;
   box-sizing: border-box;
   cursor: pointer;
@@ -67,7 +66,7 @@ export const MobileMenuOption = styled(Link)`
   }
 `
 
-export const MobileMenuAdditionalOption = styled(Link)`
+export const MobileMenuAdditionalOption = styled.div`
   box-sizing: border-box;
   cursor: pointer;
   display: block;
