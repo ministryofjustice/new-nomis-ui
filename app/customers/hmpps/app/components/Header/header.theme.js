@@ -4,6 +4,7 @@ import colours from 'theme/colours'
 import fonts from 'theme/fonts'
 import { media } from 'utils/style-utils'
 import desktop from 'theme/desktop'
+import { Link } from 'react-router-dom'
 
 export const PageHeader = styled.header`
   ${fonts.misc} display: flex;
@@ -36,7 +37,7 @@ export const Logo = styled.div`
   float: left;
 `
 
-export const LogoText = styled.div`
+export const LogoText = styled.span`
   display: none;
 
   color: white;
@@ -52,7 +53,7 @@ export const LogoText = styled.div`
   `};
 `
 
-export const Title = styled.div`
+export const Title = styled.span`
   text-align: left;
   padding-left: 10px;
   font-size: 26px;
@@ -70,7 +71,7 @@ export const ToggleWrapper = styled.div`
   display: block;
 `
 
-export const UnstyledLink = styled.div`
+export const UnstyledLink = styled(Link)`
   text-decoration: none;
   color: white;
 `
