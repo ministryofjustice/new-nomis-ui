@@ -22,6 +22,8 @@ import { caseNoteFilterSelectInfo } from './selectors'
 
 import { resetCaseNoteFilterFormField } from '../../actions'
 
+import { getQueryParams } from '../../../../helpers'
+
 const selector = formValueSelector('caseNoteFilter')
 
 const FilterForm = ({
@@ -180,15 +182,18 @@ const mapDispatchToProps = (dispatch, props) => ({
 })
 
 const mapStateToProps = createStructuredSelector({
-  initialValues: (state, props) => ({
-    typeValue: props.location.query.type,
-    subTypeValue: props.location.query.subType,
-    startDate: props.location.query.startDate,
-    endDate: props.location.query.endDate,
-  }),
+  initialValues: (state, props) => {
+    const { type, subType, startDate, endDate } = getQueryParams(props.location.search)
+    return {
+      typeValue: type,
+      subTypeValue: subType,
+      startDate,
+      endDate,
+    }
+  },
   caseNoteFilters: caseNoteFilterSelectInfo(),
-  typeValue: (state, props) => selector(state, 'typeValue') || props.location.query.type,
-  subTypeValue: (state, props) => selector(state, 'subTypeValue') || props.location.query.subType,
+  typeValue: (state, props) => selector(state, 'typeValue') || getQueryParams(props.location.search).type,
+  subTypeValue: (state, props) => selector(state, 'subTypeValue') || getQueryParams(props.location.search).subType,
   dateRangeValid: state => state.getIn(['search', 'details', 'caseNotes', 'dateRangeValid']),
   locale: selectLocale(),
 })

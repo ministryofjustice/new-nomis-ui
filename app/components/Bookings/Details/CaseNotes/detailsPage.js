@@ -2,13 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
 import { FormattedDate, FormattedTime } from '../../../intl'
 import { DETAILS_TABS } from '../../../../containers/Bookings/constants'
 import { DateTimeBlock2 } from './sharedCaseNoteComponents'
 import { linkOnClick } from '../../../../helpers'
 import { PreStyle } from './listItem.theme'
 import './details-page.scss'
+import history from '../../../../history'
 
 const AmendmentBlock = ({ dateTime, authorName, text }) => (
   <div className="row amendment add-gutter-top">
@@ -136,10 +136,10 @@ CaseNoteDetails.defaultProps = {
   currentStaffId: null,
 }
 
-const mapDispatchToProps = dispatch => ({
-  backToCaseNotes: offenderNo => dispatch(push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}`)),
+const mapDispatchToProps = () => ({
+  backToCaseNotes: offenderNo => history.push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}`),
   addAmendment: (offenderNo, caseNoteId) =>
-    dispatch(push(`/offenders/${offenderNo}/case-notes/${caseNoteId}/amendCaseNote`)),
+    history.push(`/offenders/${offenderNo}/case-notes/${caseNoteId}/amendCaseNote`),
 })
 
 const getCurrentStaffId = state => {

@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable'
-import { push } from 'react-router-redux'
+import history from '../history'
 
 // Actions
 const SET_DEVICE_FORMAT = 'globalReducer/app/SET_DEVICE_FORMAT'
@@ -106,4 +106,4 @@ export const hideTerms = () => ({
   payload: false,
 })
 
-export const navigateTo = url => push(url)
+export const navigateTo = url => history.push(url)

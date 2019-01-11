@@ -4,11 +4,29 @@ import { App } from '../index'
 
 jest.mock('../../../components/Spinner/index', () => '')
 
+const mockHistoryObject = {
+  action: 'POP',
+  block: jest.fn(),
+  createHref: jest.fn(),
+  go: jest.fn(),
+  goBack: jest.fn(),
+  goForward: jest.fn(),
+  listen: jest.fn(),
+  location: {
+    hash: 'test',
+    pathname: '/path/name',
+    search: 'searchString',
+  },
+  push: jest.fn(),
+  replace: jest.fn(),
+}
+
 describe('App container', () => {
   it('should render correctly', () => {
     const app = shallow(
       <App
-        router={{ location: {} }}
+        history={mockHistoryObject}
+        routes={[]}
         params={{ offenderNo: '123456' }}
         boundSetDeviceFormat={() => {}}
         boundSetMenuOpen={() => {}}
@@ -31,7 +49,8 @@ describe('App container', () => {
     const app = shallow(
       <App
         boundSetMenuOpen={setMenuOpen}
-        router={{ location: {} }}
+        routes={[]}
+        history={mockHistoryObject}
         params={{ offenderNo: '123' }}
         boundSetDeviceFormat={() => {}}
         boundRetrieveUserMe={() => {}}

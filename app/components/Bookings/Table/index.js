@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import React from 'react'
-import { browserHistory } from 'react-router'
 
 import EliteImage from '../../../containers/EliteContainers/Image'
 import { offenderImageUrl, DETAILS_TABS } from '../../../containers/Bookings/constants'
@@ -11,6 +10,7 @@ import Name from '../../Name'
 import './index.scss'
 import flags from '../AlertFlags'
 import { linkOnClick } from '../../../helpers'
+import history from '../../../history'
 
 const ArrowUp = ({ sortOrderChange }) => (
   <span className="clickable visible-xs-inline visible-sm-inline" {...linkOnClick(sortOrderChange)}>
@@ -37,7 +37,7 @@ ArrowDown.propTypes = {
 const onViewDetails = (event, row) => {
   event.preventDefault()
 
-  browserHistory.push(`/offenders/${row.get('offenderNo')}/${DETAILS_TABS.QUICK_LOOK}`)
+  history.push(`/offenders/${row.get('offenderNo')}/${DETAILS_TABS.QUICK_LOOK}`)
 }
 
 const Table = ({ results, sortOrder, sortOrderChange, onAlertFlagClick }) => (

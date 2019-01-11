@@ -1,5 +1,4 @@
 import { put, select, call, takeLatest, takeEvery } from 'redux-saga/effects'
-import { push } from 'react-router-redux'
 import { retrieveUserMe } from '../Authentication/actions'
 import { selectApi } from '../ConfigLoader/selectors'
 import { loadLocations } from '../Bookings/actions'
@@ -31,6 +30,8 @@ import {
   ALLCASENOTETYPESUBTYPEDATA,
   ALL_ALERT_TYPES_DATA,
 } from './constants'
+
+import history from '../../history'
 
 export function* loadAppointmentsViewModel(action) {
   try {
@@ -237,7 +238,7 @@ export function* userSwitchCaseLoadsSaga(action) {
     yield put(loadLocations())
 
     yield put(hideSpinner())
-    yield put(push('/'))
+    history.push('/')
   } catch (e) {
     yield put({ type: USER.SWITCHCASELOAD.ERROR })
     yield put(hideSpinner())

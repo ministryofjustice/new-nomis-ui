@@ -95,9 +95,9 @@ const mapDispatchToProps = (dispatch, props) => ({
       type: AMEND_CASENOTE.BASE,
       payload: {
         ...formData.toJS(),
-        offenderNo: props.params.offenderNo,
-        caseNoteId: props.params.caseNoteId,
-        itemId: props.params.caseNoteId,
+        offenderNo: props.match.params.offenderNo,
+        caseNoteId: props.match.params.caseNoteId,
+        itemId: props.match.params.caseNoteId,
       },
     }),
     [AMEND_CASENOTE.SUCCESS, AMEND_CASENOTE.ERROR]
@@ -105,8 +105,8 @@ const mapDispatchToProps = (dispatch, props) => ({
 })
 
 const mapStateToProps = (state, props) => ({
-  offenderNo: props.params.offenderNo,
-  caseNoteId: props.params.caseNoteId,
+  offenderNo: props.match.params.offenderNo,
+  caseNoteId: props.match.params.caseNoteId,
 })
 
 export const validate = form => {

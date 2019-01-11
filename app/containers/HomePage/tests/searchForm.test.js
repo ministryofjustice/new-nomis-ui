@@ -7,9 +7,8 @@ describe('Search Form', () => {
     canGlobalSearch: false,
     globalSearchUrl: 'http://somewhere/',
     locations: [],
-    onSubmit: jest.fn(),
-    dispatch: jest.fn(),
   }
+
   it('should hide the global search checkbox when the user does not have global search', () => {
     const wrapper = mount(<SearchForm {...props} />)
     expect(wrapper.find('.global-search').length).toBe(0)
@@ -33,13 +32,13 @@ describe('Search Form', () => {
     const checkBox = wrapper.find('.global-search').first()
     const searchInput = wrapper.find('.search-input').first()
     const form = wrapper.find('.search-form').first()
+    const onSubmit = jest.spyOn(wrapper.instance(), 'onSubmit')
 
     checkBox.simulate('change', { target: { checked: true } })
 
     searchInput.instance().value = 'balog, irog'
 
     form.simulate('submit')
-
-    expect(props.onSubmit).toHaveBeenCalledWith({ keywords: 'balog, irog' }, props.globalSearchUrl)
+    expect(onSubmit).toHaveBeenCalledWith({ keywords: 'balog, irog' }, props.globalSearchUrl)
   })
 })

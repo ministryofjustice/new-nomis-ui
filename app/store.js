@@ -4,7 +4,6 @@
 
 import { createStore, applyMiddleware, compose } from 'redux'
 import { fromJS } from 'immutable'
-import { routerMiddleware } from 'react-router-redux'
 import createDebounce from 'redux-debounce'
 import createSagaMiddleware from 'redux-saga'
 import { formActionSaga } from 'redux-form-saga'
@@ -17,6 +16,9 @@ import authenticationSagas from './containers/Authentication/sagas'
 import eliteApiLoaderSagas from './containers/EliteApiLoader/sagas'
 import assignmentsSagas from './containers/Assignments/sagas'
 
+// Other sagas
+import bookingsSagas from './containers/Bookings/sagas'
+
 const sagaMiddleware = createSagaMiddleware()
 
 const debounceConfig = {
@@ -26,11 +28,11 @@ const debounceConfig = {
 
 const debouncer = createDebounce(debounceConfig)
 
-export default function configureStore(initialState = {}, history) {
+export default function configureStore(initialState = {}) {
   // Create the store with two middlewares
   // 1. sagaMiddleware: Makes redux-sagas work
   // 2. routerMiddleware: Syncs the location/URL path to the state
-  const middlewares = [debouncer, sagaMiddleware, routerMiddleware(history)]
+  const middlewares = [debouncer, sagaMiddleware]
 
   /**
    * Development only middleware
@@ -42,20 +44,6 @@ export default function configureStore(initialState = {}, history) {
     // Bug catching, freeze the redux store from mutation during development
     const freeze = require('redux-freeze')
     middlewares.push(freeze)
-
-    // Console logging of redux actions
-    // const logger = require('redux-logger')({
-    //   collapsed: true,
-    //   colors: {
-    //     title: () => 'darkslategray',
-    //     prevState: () => 'darkviolet',
-    //     action: () => 'darkcyan',
-    //     nextState: () => 'green',
-    //     error: () => 'firebrick',
-    //   },
-    //   predicate: () => true, // Turn logger on/off easily
-    // });
-    // middlewares.push(logger);
 
     /* eslint-enable */
   }
@@ -94,6 +82,9 @@ export default function configureStore(initialState = {}, history) {
 
   // set up assignmentsSagas
   assignmentsSagas.map(store.runSaga)
+
+  // set up bookingsSagas
+  bookingsSagas.map(store.runSaga)
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore if */

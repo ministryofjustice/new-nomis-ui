@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
@@ -7,6 +8,7 @@ import { createStructuredSelector } from 'reselect'
 import ProductGlobals from 'product-globals'
 import Notifications from 'react-notify-toast'
 import axios from 'axios/index'
+import { Route, withRouter, Switch, matchPath } from 'react-router-dom'
 import { retrieveUserMe } from '../Authentication/actions'
 import { selectShouldShowSpinner, selectShouldShowTerms, selectMobileMenuOpen } from '../../selectors/app'
 import Header from '../Header'
@@ -14,8 +16,11 @@ import Breadcrumbs from '../Breadcrumbs'
 import Footer from '../Footer'
 import Spinner from '../../components/Spinner'
 import Terms from '../Footer/terms-and-conditions'
-
 import { setAppConfig, setDeviceFormat, setMenuOpen, hideTerms } from '../../globalReducers/app'
+
+const RouteWithSubRoutes = route => (
+  <Route path={route.path} exact={route.exact} render={props => <route.component {...props} />} />
+)
 
 export class App extends Component {
   constructor(props) {
@@ -57,15 +62,9 @@ export class App extends Component {
   }
 
   render() {
-    const {
-      shouldShowSpinner,
-      shouldShowTerms,
-      hideTermsAndConditions,
-      menuOpen,
-      router,
-      params,
-      children,
-    } = this.props
+    const { shouldShowSpinner, shouldShowTerms, hideTermsAndConditions, menuOpen, routes, history } = this.props
+    const hasOffenderNo = matchPath(history.location.pathname, { path: '/offenders/:offenderNo' })
+    const offenderNo = hasOffenderNo ? hasOffenderNo.params.offenderNo : undefined
 
     return (
       <div className="app-content">
@@ -76,13 +75,21 @@ export class App extends Component {
 
         <nav className="nav-container">
           <div className="nav-content">
-            {!shouldShowTerms && <Breadcrumbs route={router.location.pathname} offenderNo={params.offenderNo} />}
+            {!shouldShowTerms && <Breadcrumbs route={history.location.pathname} offenderNo={offenderNo} />}
           </div>
         </nav>
         {/* eslint-disable-next-line */}
         <main className={`container ${menuOpen ? 'desktop-only' : ''}`} onClick={() => this.onBackgroundClick()}>
           {shouldShowSpinner && <Spinner />}
-          {!shouldShowTerms && <div className="main-content">{React.Children.toArray(children)}</div>}
+          {!shouldShowTerms && (
+            <div className="main-content">
+              <Switch>
+                {routes.map(route => (
+                  <RouteWithSubRoutes key={route.name} {...route} />
+                ))}
+              </Switch>
+            </div>
+          )}
           {shouldShowTerms && <Terms close={() => hideTermsAndConditions()} />}
         </main>
         {/* eslint-disable-next-line */}
@@ -100,8 +107,6 @@ App.propTypes = {
   shouldShowTerms: PropTypes.bool.isRequired,
   menuOpen: PropTypes.bool.isRequired,
   children: PropTypes.node,
-  router: PropTypes.shape({}).isRequired,
-  params: PropTypes.shape({ offenderNo: PropTypes.string }),
 
   // mapDispatchToProps
   boundRetrieveUserMe: PropTypes.func.isRequired,
@@ -109,11 +114,20 @@ App.propTypes = {
   hideTermsAndConditions: PropTypes.func.isRequired,
   boundSetMenuOpen: PropTypes.func.isRequired,
   boundSetAppConfig: PropTypes.func.isRequired,
+
+  // other
+  history: ReactRouterPropTypes.history.isRequired,
+  routes: PropTypes.arrayOf(
+    PropTypes.shape({
+      path: PropTypes.string,
+      name: PropTypes.string,
+      component: PropTypes.function,
+    })
+  ).isRequired,
 }
 
 App.defaultProps = {
   children: [],
-  params: {},
 }
 
 const mapStateToProps = createStructuredSelector({
@@ -130,7 +144,9 @@ const mapDispatchToProps = dispatch => ({
   boundSetAppConfig: config => dispatch(setAppConfig(config)),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App)
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+)

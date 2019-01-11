@@ -102,8 +102,8 @@ class CaseNotesSpecification extends GebReportingSpec {
 
     then:
     at AddCaseNotePage
-    assert typeSelectValue == "CHAP"
-    assert subTypeSelectValue == "FAITH"
+    waitFor { typeSelectValue == "CHAP" }
+    waitFor { subTypeSelectValue == "FAITH" }
   }
 
   def "create a key worker session case note using the 'Add KW session' link" () {

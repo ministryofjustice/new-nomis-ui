@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { toFullName } from '../../utils/stringUtils'
 
@@ -36,10 +37,12 @@ const MobileMenu = ({ user, setMenuOpen, showTerms, switchCaseLoad }) => {
       </MobileMenuOption>
 
       {user && user.isKeyWorker && (
-        <MobileMenuOption className="dropdown-menu-option" to="/myKeyWorkerAllocations" onClick={removeMobileMenu}>
-          My key worker allocations
-          <ForwardArrow svg={forwardBack} />
-        </MobileMenuOption>
+        <Link to="/myKeyWorkerAllocations" onClick={removeMobileMenu} className="unstyled-link">
+          <MobileMenuOption>
+            My key worker allocations
+            <ForwardArrow svg={forwardBack} />
+          </MobileMenuOption>
+        </Link>
       )}
 
       {user.caseLoadOptions.map(option => {
@@ -57,10 +60,12 @@ const MobileMenu = ({ user, setMenuOpen, showTerms, switchCaseLoad }) => {
         )
         return newObj
       })}
-      <MobileMenuOption id="mobile-logout" key="logout" href="/auth/logout" data-id="dropdown-option">
-        Log out
-        <ForwardArrow svg={forwardBack} />
-      </MobileMenuOption>
+      <a id="mobile-logout" key="logout" href="/auth/logout" data-id="dropdown-option" className="unstyled-link">
+        <MobileMenuOption>
+          Log out
+          <ForwardArrow svg={forwardBack} />
+        </MobileMenuOption>
+      </a>
       <MobileMenuAdditionalOption
         onClick={() => {
           setMenuOpen(false)
