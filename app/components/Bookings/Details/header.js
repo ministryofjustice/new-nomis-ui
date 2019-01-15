@@ -141,7 +141,7 @@ const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink }) 
       <div className="col-xs-12 col-sm-3">
         <div className="stacked-links">
           <div>
-            <Link name="add-case-note-link" className="button-link" to={`/offenders/${offenderNo}/addCaseNote`}>
+            <Link name="add-case-note-link" className="button-link" to={`/offenders/${offenderNo}/add-case-note`}>
               Add case note
             </Link>
           </div>
@@ -151,7 +151,7 @@ const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink }) 
               <Link
                 name="add-kw-session-link"
                 className="button-link"
-                to={`/offenders/${offenderNo}/addCaseNote?type=KA&subType=KS`}
+                to={`/offenders/${offenderNo}/add-case-note?type=KA&subType=KS`}
               >
                 Add KW session
               </Link>
@@ -159,7 +159,7 @@ const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink }) 
           )}
 
           <div>
-            <Link name="add-appointment-link" className="button-link" to={`/offenders/${offenderNo}/addAppointment`}>
+            <Link name="add-appointment-link" className="button-link" to={`/offenders/${offenderNo}/add-appointment`}>
               Add appointment
             </Link>
           </div>

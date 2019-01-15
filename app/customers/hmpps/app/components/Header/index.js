@@ -25,7 +25,7 @@ const HmppsHeader = ({ user, menuOpen, showTermsAndConditions, setMenuOpen, navi
   if (user && user.isKeyWorker) {
     extraLinks.push({
       text: 'My key worker allocations',
-      onClick: () => navigateTo('/myKeyWorkerAllocations'),
+      onClick: () => navigateTo('/key-worker-allocations'),
     })
   }
 

@@ -45,7 +45,7 @@ const ExternalActionLinks = ({
 
         {isKeyWorker && (
           <div className="action-links__link">
-            <Link to="/myKeyWorkerAllocations" className="action-link link" data-qa="my-kw-allocations-link">
+            <Link to="/key-worker-allocations" className="action-link link" data-qa="my-kw-allocations-link">
               <img src="/img/ICON_MyKeyWorkerAssignments@2x.png" alt="My key worker allocations icon" />
               My key worker allocations
             </Link>

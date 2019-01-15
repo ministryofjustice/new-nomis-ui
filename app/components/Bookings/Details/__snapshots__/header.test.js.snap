@@ -251,7 +251,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-case-note-link"
                 replace={false}
-                to="/offenders/A1234RE/addCaseNote"
+                to="/offenders/A1234RE/add-case-note"
               >
                 Add case note
               </Link>
@@ -261,7 +261,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-appointment-link"
                 replace={false}
-                to="/offenders/A1234RE/addAppointment"
+                to="/offenders/A1234RE/add-appointment"
               >
                 Add appointment
               </Link>
@@ -1234,7 +1234,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-case-note-link"
                 replace={false}
-                to="/offenders/A1234RE/addCaseNote"
+                to="/offenders/A1234RE/add-case-note"
               >
                 Add case note
               </Link>
@@ -1244,7 +1244,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-appointment-link"
                 replace={false}
-                to="/offenders/A1234RE/addAppointment"
+                to="/offenders/A1234RE/add-appointment"
               >
                 Add appointment
               </Link>
@@ -1264,7 +1264,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RE/addCaseNote"
+                  to="/offenders/A1234RE/add-case-note"
                 >
                   Add case note
                 </Link>
@@ -1275,7 +1275,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RE/addAppointment"
+                  to="/offenders/A1234RE/add-appointment"
                 >
                   Add appointment
                 </Link>
@@ -1294,7 +1294,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RE/addCaseNote"
+                  to="/offenders/A1234RE/add-case-note"
                 >
                   Add case note
                 </Link>,
@@ -1309,7 +1309,7 @@ ShallowWrapper {
                   "className": "button-link",
                   "name": "add-case-note-link",
                   "replace": false,
-                  "to": "/offenders/A1234RE/addCaseNote",
+                  "to": "/offenders/A1234RE/add-case-note",
                 },
                 "ref": null,
                 "rendered": "Add case note",
@@ -1327,7 +1327,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RE/addAppointment"
+                  to="/offenders/A1234RE/add-appointment"
                 >
                   Add appointment
                 </Link>,
@@ -1342,7 +1342,7 @@ ShallowWrapper {
                   "className": "button-link",
                   "name": "add-appointment-link",
                   "replace": false,
-                  "to": "/offenders/A1234RE/addAppointment",
+                  "to": "/offenders/A1234RE/add-appointment",
                 },
                 "ref": null,
                 "rendered": "Add appointment",
@@ -1558,7 +1558,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RE/addCaseNote"
+                  to="/offenders/A1234RE/add-case-note"
                 >
                   Add case note
                 </Link>
@@ -1568,7 +1568,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RE/addAppointment"
+                  to="/offenders/A1234RE/add-appointment"
                 >
                   Add appointment
                 </Link>
@@ -2541,7 +2541,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RE/addCaseNote"
+                  to="/offenders/A1234RE/add-case-note"
                 >
                   Add case note
                 </Link>
@@ -2551,7 +2551,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RE/addAppointment"
+                  to="/offenders/A1234RE/add-appointment"
                 >
                   Add appointment
                 </Link>
@@ -2571,7 +2571,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-case-note-link"
                     replace={false}
-                    to="/offenders/A1234RE/addCaseNote"
+                    to="/offenders/A1234RE/add-case-note"
                   >
                     Add case note
                   </Link>
@@ -2582,7 +2582,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-appointment-link"
                     replace={false}
-                    to="/offenders/A1234RE/addAppointment"
+                    to="/offenders/A1234RE/add-appointment"
                   >
                     Add appointment
                   </Link>
@@ -2601,7 +2601,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-case-note-link"
                     replace={false}
-                    to="/offenders/A1234RE/addCaseNote"
+                    to="/offenders/A1234RE/add-case-note"
                   >
                     Add case note
                   </Link>,
@@ -2616,7 +2616,7 @@ ShallowWrapper {
                     "className": "button-link",
                     "name": "add-case-note-link",
                     "replace": false,
-                    "to": "/offenders/A1234RE/addCaseNote",
+                    "to": "/offenders/A1234RE/add-case-note",
                   },
                   "ref": null,
                   "rendered": "Add case note",
@@ -2634,7 +2634,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-appointment-link"
                     replace={false}
-                    to="/offenders/A1234RE/addAppointment"
+                    to="/offenders/A1234RE/add-appointment"
                   >
                     Add appointment
                   </Link>,
@@ -2649,7 +2649,7 @@ ShallowWrapper {
                     "className": "button-link",
                     "name": "add-appointment-link",
                     "replace": false,
-                    "to": "/offenders/A1234RE/addAppointment",
+                    "to": "/offenders/A1234RE/add-appointment",
                   },
                   "ref": null,
                   "rendered": "Add appointment",
@@ -2937,7 +2937,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-case-note-link"
                 replace={false}
-                to="/offenders/A1234RN/addCaseNote"
+                to="/offenders/A1234RN/add-case-note"
               >
                 Add case note
               </Link>
@@ -2947,7 +2947,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-appointment-link"
                 replace={false}
-                to="/offenders/A1234RN/addAppointment"
+                to="/offenders/A1234RN/add-appointment"
               >
                 Add appointment
               </Link>
@@ -3920,7 +3920,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-case-note-link"
                 replace={false}
-                to="/offenders/A1234RN/addCaseNote"
+                to="/offenders/A1234RN/add-case-note"
               >
                 Add case note
               </Link>
@@ -3930,7 +3930,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-appointment-link"
                 replace={false}
-                to="/offenders/A1234RN/addAppointment"
+                to="/offenders/A1234RN/add-appointment"
               >
                 Add appointment
               </Link>
@@ -3950,7 +3950,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote"
+                  to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
                 </Link>
@@ -3961,7 +3961,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RN/addAppointment"
+                  to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
                 </Link>
@@ -3980,7 +3980,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote"
+                  to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
                 </Link>,
@@ -3995,7 +3995,7 @@ ShallowWrapper {
                   "className": "button-link",
                   "name": "add-case-note-link",
                   "replace": false,
-                  "to": "/offenders/A1234RN/addCaseNote",
+                  "to": "/offenders/A1234RN/add-case-note",
                 },
                 "ref": null,
                 "rendered": "Add case note",
@@ -4013,7 +4013,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RN/addAppointment"
+                  to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
                 </Link>,
@@ -4028,7 +4028,7 @@ ShallowWrapper {
                   "className": "button-link",
                   "name": "add-appointment-link",
                   "replace": false,
-                  "to": "/offenders/A1234RN/addAppointment",
+                  "to": "/offenders/A1234RN/add-appointment",
                 },
                 "ref": null,
                 "rendered": "Add appointment",
@@ -4244,7 +4244,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote"
+                  to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
                 </Link>
@@ -4254,7 +4254,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RN/addAppointment"
+                  to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
                 </Link>
@@ -5227,7 +5227,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote"
+                  to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
                 </Link>
@@ -5237,7 +5237,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RN/addAppointment"
+                  to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
                 </Link>
@@ -5257,7 +5257,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-case-note-link"
                     replace={false}
-                    to="/offenders/A1234RN/addCaseNote"
+                    to="/offenders/A1234RN/add-case-note"
                   >
                     Add case note
                   </Link>
@@ -5268,7 +5268,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-appointment-link"
                     replace={false}
-                    to="/offenders/A1234RN/addAppointment"
+                    to="/offenders/A1234RN/add-appointment"
                   >
                     Add appointment
                   </Link>
@@ -5287,7 +5287,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-case-note-link"
                     replace={false}
-                    to="/offenders/A1234RN/addCaseNote"
+                    to="/offenders/A1234RN/add-case-note"
                   >
                     Add case note
                   </Link>,
@@ -5302,7 +5302,7 @@ ShallowWrapper {
                     "className": "button-link",
                     "name": "add-case-note-link",
                     "replace": false,
-                    "to": "/offenders/A1234RN/addCaseNote",
+                    "to": "/offenders/A1234RN/add-case-note",
                   },
                   "ref": null,
                   "rendered": "Add case note",
@@ -5320,7 +5320,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-appointment-link"
                     replace={false}
-                    to="/offenders/A1234RN/addAppointment"
+                    to="/offenders/A1234RN/add-appointment"
                   >
                     Add appointment
                   </Link>,
@@ -5335,7 +5335,7 @@ ShallowWrapper {
                     "className": "button-link",
                     "name": "add-appointment-link",
                     "replace": false,
-                    "to": "/offenders/A1234RN/addAppointment",
+                    "to": "/offenders/A1234RN/add-appointment",
                   },
                   "ref": null,
                   "rendered": "Add appointment",
@@ -9301,7 +9301,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-case-note-link"
                 replace={false}
-                to="/offenders/A1234RN/addCaseNote"
+                to="/offenders/A1234RN/add-case-note"
               >
                 Add case note
               </Link>
@@ -9311,7 +9311,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-kw-session-link"
                 replace={false}
-                to="/offenders/A1234RN/addCaseNote?type=KA&subType=KS"
+                to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
               >
                 Add KW session
               </Link>
@@ -9321,7 +9321,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-appointment-link"
                 replace={false}
-                to="/offenders/A1234RN/addAppointment"
+                to="/offenders/A1234RN/add-appointment"
               >
                 Add appointment
               </Link>
@@ -10294,7 +10294,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-case-note-link"
                 replace={false}
-                to="/offenders/A1234RN/addCaseNote"
+                to="/offenders/A1234RN/add-case-note"
               >
                 Add case note
               </Link>
@@ -10304,7 +10304,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-kw-session-link"
                 replace={false}
-                to="/offenders/A1234RN/addCaseNote?type=KA&subType=KS"
+                to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
               >
                 Add KW session
               </Link>
@@ -10314,7 +10314,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-appointment-link"
                 replace={false}
-                to="/offenders/A1234RN/addAppointment"
+                to="/offenders/A1234RN/add-appointment"
               >
                 Add appointment
               </Link>
@@ -10334,7 +10334,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote"
+                  to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
                 </Link>
@@ -10344,7 +10344,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-kw-session-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote?type=KA&subType=KS"
+                  to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
                 >
                   Add KW session
                 </Link>
@@ -10354,7 +10354,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RN/addAppointment"
+                  to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
                 </Link>
@@ -10373,7 +10373,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote"
+                  to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
                 </Link>,
@@ -10388,7 +10388,7 @@ ShallowWrapper {
                   "className": "button-link",
                   "name": "add-case-note-link",
                   "replace": false,
-                  "to": "/offenders/A1234RN/addCaseNote",
+                  "to": "/offenders/A1234RN/add-case-note",
                 },
                 "ref": null,
                 "rendered": "Add case note",
@@ -10405,7 +10405,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-kw-session-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote?type=KA&subType=KS"
+                  to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
                 >
                   Add KW session
                 </Link>,
@@ -10420,7 +10420,7 @@ ShallowWrapper {
                   "className": "button-link",
                   "name": "add-kw-session-link",
                   "replace": false,
-                  "to": "/offenders/A1234RN/addCaseNote?type=KA&subType=KS",
+                  "to": "/offenders/A1234RN/add-case-note?type=KA&subType=KS",
                 },
                 "ref": null,
                 "rendered": "Add KW session",
@@ -10437,7 +10437,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RN/addAppointment"
+                  to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
                 </Link>,
@@ -10452,7 +10452,7 @@ ShallowWrapper {
                   "className": "button-link",
                   "name": "add-appointment-link",
                   "replace": false,
-                  "to": "/offenders/A1234RN/addAppointment",
+                  "to": "/offenders/A1234RN/add-appointment",
                 },
                 "ref": null,
                 "rendered": "Add appointment",
@@ -10668,7 +10668,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote"
+                  to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
                 </Link>
@@ -10678,7 +10678,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-kw-session-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote?type=KA&subType=KS"
+                  to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
                 >
                   Add KW session
                 </Link>
@@ -10688,7 +10688,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RN/addAppointment"
+                  to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
                 </Link>
@@ -11661,7 +11661,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote"
+                  to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
                 </Link>
@@ -11671,7 +11671,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-kw-session-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote?type=KA&subType=KS"
+                  to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
                 >
                   Add KW session
                 </Link>
@@ -11681,7 +11681,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RN/addAppointment"
+                  to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
                 </Link>
@@ -11701,7 +11701,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-case-note-link"
                     replace={false}
-                    to="/offenders/A1234RN/addCaseNote"
+                    to="/offenders/A1234RN/add-case-note"
                   >
                     Add case note
                   </Link>
@@ -11711,7 +11711,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-kw-session-link"
                     replace={false}
-                    to="/offenders/A1234RN/addCaseNote?type=KA&subType=KS"
+                    to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
                   >
                     Add KW session
                   </Link>
@@ -11721,7 +11721,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-appointment-link"
                     replace={false}
-                    to="/offenders/A1234RN/addAppointment"
+                    to="/offenders/A1234RN/add-appointment"
                   >
                     Add appointment
                   </Link>
@@ -11740,7 +11740,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-case-note-link"
                     replace={false}
-                    to="/offenders/A1234RN/addCaseNote"
+                    to="/offenders/A1234RN/add-case-note"
                   >
                     Add case note
                   </Link>,
@@ -11755,7 +11755,7 @@ ShallowWrapper {
                     "className": "button-link",
                     "name": "add-case-note-link",
                     "replace": false,
-                    "to": "/offenders/A1234RN/addCaseNote",
+                    "to": "/offenders/A1234RN/add-case-note",
                   },
                   "ref": null,
                   "rendered": "Add case note",
@@ -11772,7 +11772,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-kw-session-link"
                     replace={false}
-                    to="/offenders/A1234RN/addCaseNote?type=KA&subType=KS"
+                    to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
                   >
                     Add KW session
                   </Link>,
@@ -11787,7 +11787,7 @@ ShallowWrapper {
                     "className": "button-link",
                     "name": "add-kw-session-link",
                     "replace": false,
-                    "to": "/offenders/A1234RN/addCaseNote?type=KA&subType=KS",
+                    "to": "/offenders/A1234RN/add-case-note?type=KA&subType=KS",
                   },
                   "ref": null,
                   "rendered": "Add KW session",
@@ -11804,7 +11804,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-appointment-link"
                     replace={false}
-                    to="/offenders/A1234RN/addAppointment"
+                    to="/offenders/A1234RN/add-appointment"
                   >
                     Add appointment
                   </Link>,
@@ -11819,7 +11819,7 @@ ShallowWrapper {
                     "className": "button-link",
                     "name": "add-appointment-link",
                     "replace": false,
-                    "to": "/offenders/A1234RN/addAppointment",
+                    "to": "/offenders/A1234RN/add-appointment",
                   },
                   "ref": null,
                   "rendered": "Add appointment",

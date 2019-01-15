@@ -103,8 +103,8 @@ class KeyWorkerRoleBasedAccessSpecification extends GebReportingSpec {
     loginAs ITAG_USER, 'password'
     at HomePage
 
-    when: 'I navigate to /myKeyWorkerAllocations'
-    go '/myKeyWorkerAllocations'
+    when: 'I navigate to /key-worker-allocations'
+    go '/key-worker-allocations'
 
     then: 'I should have been redirected to the home page'
     at HomePage

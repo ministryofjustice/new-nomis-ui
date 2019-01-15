@@ -11,8 +11,8 @@ const CaseNoteBreadCrumb = ({ match }) => <span>Case note {match.params.caseNote
 const routes = [
   { path: '/offenders', breadcrumb: null },
   { path: '/offenders/:offenderNo', breadcrumb: OffenderBreadcrumb },
-  { path: '/offenders/:offenderNo/addCaseNote', breadcrumb: 'Add new case note' },
-  { path: '/offenders/:offenderNo/addAppointment', breadcrumb: 'Add new appointment' },
+  { path: '/offenders/:offenderNo/add-case-note', breadcrumb: 'Add new case note' },
+  { path: '/offenders/:offenderNo/add-appointment', breadcrumb: 'Add new appointment' },
   { path: '/offenders/:offenderNo/schedule', breadcrumb: 'Schedule' },
   { path: '/offenders/:offenderNo/:activeTab', breadcrumb: null },
   { path: '/offenders/:offenderNo/case-notes/:caseNoteId', breadcrumb: CaseNoteBreadCrumb },

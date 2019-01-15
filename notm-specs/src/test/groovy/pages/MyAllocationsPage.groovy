@@ -4,7 +4,7 @@ import geb.Page
 import model.Offender
 
 class MyAllocationsPage extends Page {
-  static url = '/myKeyWorkerAllocations'
+  static url = '/key-worker-allocations'
 
   static at = {
     headingText == 'My key worker allocations'
