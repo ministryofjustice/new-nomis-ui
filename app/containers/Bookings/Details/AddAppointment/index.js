@@ -28,6 +28,7 @@ import { DETAILS_TABS } from '../../constants'
 import { viewDetails } from '../../actions'
 
 import './index.scss'
+import Page from '../../../../components/Page'
 
 class AddAppointment extends Component {
   componentDidMount() {
@@ -130,171 +131,171 @@ class AddAppointment extends Component {
     }
 
     return (
-      <div className="add-appointment">
-        <form onSubmit={handleSubmit}>
-          <div className="row">
-            <div className="col-md-4 no-left-gutter">
-              <h1 className="heading-large">Add new appointment</h1>
-
-              {error && (
-                <div className="error-summary">
-                  <div className="error-message">{error}</div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-md-2 no-left-gutter">
-              <span>Name</span>
-            </div>
-          </div>
-
-          <div className="row add-gutter-margin-bottom">
-            <div className="col-md-4 no-left-gutter">
-              <b>
-                {offenderName} ({offenderNo})
-              </b>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-md-4 no-left-gutter">
-              <Field
-                name="appointmentType"
-                title="Select type of appointment"
-                autocomplete="true"
-                component={Select}
-                options={viewModel.appointmentTypes.map(type => ({
-                  label: type.description,
-                  value: type.code,
-                }))}
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-4 no-left-gutter">
-              <Field
-                name="location"
-                title="Select location"
-                autocomplete="true"
-                component={Select}
-                options={viewModel.locations.map(location => ({
-                  label: location.description,
-                  value: location.locationId,
-                }))}
-              />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-md-2 no-left-gutter">
-              <Field
-                name="eventDate"
-                title="Select date"
-                component={DatePicker}
-                onChange={onDateChange}
-                locale={locale}
-                format={momentToLocalizedDate(locale)}
-                parse={localizedDateToMoment(locale)}
-                shouldShowDay={date => date.isAfter(moment().subtract(1, 'day'))}
-              />
-            </div>
-          </div>
-
-          {existingEvents && (
+      <Page title="Add new appointment">
+        <div className="add-appointment">
+          <form onSubmit={handleSubmit}>
             <div className="row">
-              <div className="col-md-8 col-xs-12 add-gutter-margin-bottom font-xsmall no-left-padding">
-                <div id="other-events" className="shaded add-gutter-padding-bottom">
-                  <div className="row col-xs-12 add-gutter-margin-top add-gutter-margin-bottom">
-                    <b>Other scheduled events on this date</b>
+              <div className="col-md-4 no-left-gutter">
+                {error && (
+                  <div className="error-summary">
+                    <div className="error-message">{error}</div>
                   </div>
-                  {insertForNothingScheduled(existingEvents).map((event, index) =>
-                    event.nothingScheduled ? (
-                      // eslint-disable-next-line react/no-array-index-key
-                      <div key={eventDate + index} className="row add-small-margin-bottom">
-                        <div className="col-xs-12">{event.eventDescription}</div>
-                      </div>
-                    ) : (
-                      // eslint-disable-next-line react/no-array-index-key
-                      <div key={eventDate + index} className="row add-small-margin-bottom">
-                        <div className="col-xs-4">
-                          {event.startTime}
-                          {event.endTime && ' - '}
-                          {event.endTime}
-                        </div>
-                        <div className="col-xs-8">
-                          <b>
-                            {event.eventDescription}
-                            {getStatus(event.eventStatus, event.excluded)}
-                          </b>
-                        </div>
-                      </div>
-                    )
-                  )}
-                </div>
+                )}
               </div>
             </div>
-          )}
 
-          <div className="row">
-            <div className="col-xs-6 col-md-2 no-left-gutter">
-              <Field
-                name="startTime"
-                title="Start time"
-                component={TimePicker}
-                date={eventDate}
-                now={moment()}
-                futureTimeOnly
-              />
+            <div className="row">
+              <div className="col-md-2 no-left-gutter">
+                <span>Name</span>
+              </div>
             </div>
 
-            <div className="col-xs-6 col-md-2 no-left-gutter">
-              <Field
-                className="add-gutter-top"
-                name="endTime"
-                title="End time (optional)"
-                component={TimePicker}
-                date={eventDate}
-                now={moment()}
-                futureTimeOnly
-              />
+            <div className="row add-gutter-margin-bottom">
+              <div className="col-md-4 no-left-gutter">
+                <b>
+                  {offenderName} ({offenderNo})
+                </b>
+              </div>
             </div>
-          </div>
 
-          <div className="row">
-            <div className="col-md-4 no-left-gutter">
-              <Field
-                name="comment"
-                component={TextArea}
-                title="Comments (optional)"
-                autocomplete="off"
-                spellcheck="true"
-              />
+            <div className="row">
+              <div className="col-md-4 no-left-gutter">
+                <Field
+                  name="appointmentType"
+                  title="Select type of appointment"
+                  autocomplete="true"
+                  component={Select}
+                  options={viewModel.appointmentTypes.map(type => ({
+                    label: type.description,
+                    value: type.code,
+                  }))}
+                />
+              </div>
             </div>
-          </div>
+            <div className="row">
+              <div className="col-md-4 no-left-gutter">
+                <Field
+                  name="location"
+                  title="Select location"
+                  autocomplete="true"
+                  component={Select}
+                  options={viewModel.locations.map(location => ({
+                    label: location.description,
+                    value: location.locationId,
+                  }))}
+                />
+              </div>
+            </div>
 
-          <div className="row">
-            <div className="col-md-4 no-left-gutter">
-              <button className="button add-gutter-margin-right" type="submit" disabled={submitting}>
-                {' '}
-                Add appointment{' '}
-              </button>
-              <button
-                type="button"
-                className="button button-cancel"
-                onClick={e => {
-                  e.preventDefault()
-                  goBackToBookingDetails(offenderNo)
-                }}
-              >
-                {' '}
-                Cancel{' '}
-              </button>
+            <div className="row">
+              <div className="col-md-2 no-left-gutter">
+                <Field
+                  name="eventDate"
+                  title="Select date"
+                  component={DatePicker}
+                  onChange={onDateChange}
+                  locale={locale}
+                  format={momentToLocalizedDate(locale)}
+                  parse={localizedDateToMoment(locale)}
+                  shouldShowDay={date => date.isAfter(moment().subtract(1, 'day'))}
+                />
+              </div>
             </div>
-          </div>
-        </form>
-      </div>
+
+            {existingEvents && (
+              <div className="row">
+                <div className="col-md-8 col-xs-12 add-gutter-margin-bottom font-xsmall no-left-padding">
+                  <div id="other-events" className="shaded add-gutter-padding-bottom">
+                    <div className="row col-xs-12 add-gutter-margin-top add-gutter-margin-bottom">
+                      <b>Other scheduled events on this date</b>
+                    </div>
+                    {insertForNothingScheduled(existingEvents).map((event, index) =>
+                      event.nothingScheduled ? (
+                        // eslint-disable-next-line react/no-array-index-key
+                        <div key={eventDate + index} className="row add-small-margin-bottom">
+                          <div className="col-xs-12">{event.eventDescription}</div>
+                        </div>
+                      ) : (
+                        // eslint-disable-next-line react/no-array-index-key
+                        <div key={eventDate + index} className="row add-small-margin-bottom">
+                          <div className="col-xs-4">
+                            {event.startTime}
+                            {event.endTime && ' - '}
+                            {event.endTime}
+                          </div>
+                          <div className="col-xs-8">
+                            <b>
+                              {event.eventDescription}
+                              {getStatus(event.eventStatus, event.excluded)}
+                            </b>
+                          </div>
+                        </div>
+                      )
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="row">
+              <div className="col-xs-6 col-md-2 no-left-gutter">
+                <Field
+                  name="startTime"
+                  title="Start time"
+                  component={TimePicker}
+                  date={eventDate}
+                  now={moment()}
+                  futureTimeOnly
+                />
+              </div>
+
+              <div className="col-xs-6 col-md-2 no-left-gutter">
+                <Field
+                  className="add-gutter-top"
+                  name="endTime"
+                  title="End time (optional)"
+                  component={TimePicker}
+                  date={eventDate}
+                  now={moment()}
+                  futureTimeOnly
+                />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-4 no-left-gutter">
+                <Field
+                  name="comment"
+                  component={TextArea}
+                  title="Comments (optional)"
+                  autocomplete="off"
+                  spellcheck="true"
+                />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-4 no-left-gutter">
+                <button className="button add-gutter-margin-right" type="submit" disabled={submitting}>
+                  {' '}
+                  Add appointment{' '}
+                </button>
+                <button
+                  type="button"
+                  className="button button-cancel"
+                  onClick={e => {
+                    e.preventDefault()
+                    goBackToBookingDetails(offenderNo)
+                  }}
+                >
+                  {' '}
+                  Cancel{' '}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </Page>
     )
   }
 }

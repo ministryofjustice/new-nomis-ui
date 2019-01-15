@@ -251,7 +251,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-case-note-link"
                 replace={false}
-                to="/offenders/A1234RE/addCaseNote"
+                to="/offenders/A1234RE/add-case-note"
               >
                 Add case note
               </Link>
@@ -261,7 +261,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-appointment-link"
                 replace={false}
-                to="/offenders/A1234RE/addAppointment"
+                to="/offenders/A1234RE/add-appointment"
               >
                 Add appointment
               </Link>
@@ -1234,7 +1234,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-case-note-link"
                 replace={false}
-                to="/offenders/A1234RE/addCaseNote"
+                to="/offenders/A1234RE/add-case-note"
               >
                 Add case note
               </Link>
@@ -1244,7 +1244,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-appointment-link"
                 replace={false}
-                to="/offenders/A1234RE/addAppointment"
+                to="/offenders/A1234RE/add-appointment"
               >
                 Add appointment
               </Link>
@@ -1264,7 +1264,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RE/addCaseNote"
+                  to="/offenders/A1234RE/add-case-note"
                 >
                   Add case note
                 </Link>
@@ -1275,7 +1275,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RE/addAppointment"
+                  to="/offenders/A1234RE/add-appointment"
                 >
                   Add appointment
                 </Link>
@@ -1294,7 +1294,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RE/addCaseNote"
+                  to="/offenders/A1234RE/add-case-note"
                 >
                   Add case note
                 </Link>,
@@ -1309,7 +1309,7 @@ ShallowWrapper {
                   "className": "button-link",
                   "name": "add-case-note-link",
                   "replace": false,
-                  "to": "/offenders/A1234RE/addCaseNote",
+                  "to": "/offenders/A1234RE/add-case-note",
                 },
                 "ref": null,
                 "rendered": "Add case note",
@@ -1327,7 +1327,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RE/addAppointment"
+                  to="/offenders/A1234RE/add-appointment"
                 >
                   Add appointment
                 </Link>,
@@ -1342,7 +1342,7 @@ ShallowWrapper {
                   "className": "button-link",
                   "name": "add-appointment-link",
                   "replace": false,
-                  "to": "/offenders/A1234RE/addAppointment",
+                  "to": "/offenders/A1234RE/add-appointment",
                 },
                 "ref": null,
                 "rendered": "Add appointment",
@@ -1558,7 +1558,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RE/addCaseNote"
+                  to="/offenders/A1234RE/add-case-note"
                 >
                   Add case note
                 </Link>
@@ -1568,7 +1568,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RE/addAppointment"
+                  to="/offenders/A1234RE/add-appointment"
                 >
                   Add appointment
                 </Link>
@@ -2541,7 +2541,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RE/addCaseNote"
+                  to="/offenders/A1234RE/add-case-note"
                 >
                   Add case note
                 </Link>
@@ -2551,7 +2551,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RE/addAppointment"
+                  to="/offenders/A1234RE/add-appointment"
                 >
                   Add appointment
                 </Link>
@@ -2571,7 +2571,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-case-note-link"
                     replace={false}
-                    to="/offenders/A1234RE/addCaseNote"
+                    to="/offenders/A1234RE/add-case-note"
                   >
                     Add case note
                   </Link>
@@ -2582,7 +2582,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-appointment-link"
                     replace={false}
-                    to="/offenders/A1234RE/addAppointment"
+                    to="/offenders/A1234RE/add-appointment"
                   >
                     Add appointment
                   </Link>
@@ -2601,7 +2601,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-case-note-link"
                     replace={false}
-                    to="/offenders/A1234RE/addCaseNote"
+                    to="/offenders/A1234RE/add-case-note"
                   >
                     Add case note
                   </Link>,
@@ -2616,7 +2616,7 @@ ShallowWrapper {
                     "className": "button-link",
                     "name": "add-case-note-link",
                     "replace": false,
-                    "to": "/offenders/A1234RE/addCaseNote",
+                    "to": "/offenders/A1234RE/add-case-note",
                   },
                   "ref": null,
                   "rendered": "Add case note",
@@ -2634,7 +2634,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-appointment-link"
                     replace={false}
-                    to="/offenders/A1234RE/addAppointment"
+                    to="/offenders/A1234RE/add-appointment"
                   >
                     Add appointment
                   </Link>,
@@ -2649,7 +2649,7 @@ ShallowWrapper {
                     "className": "button-link",
                     "name": "add-appointment-link",
                     "replace": false,
-                    "to": "/offenders/A1234RE/addAppointment",
+                    "to": "/offenders/A1234RE/add-appointment",
                   },
                   "ref": null,
                   "rendered": "Add appointment",
@@ -2937,7 +2937,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-case-note-link"
                 replace={false}
-                to="/offenders/A1234RN/addCaseNote"
+                to="/offenders/A1234RN/add-case-note"
               >
                 Add case note
               </Link>
@@ -2947,7 +2947,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-appointment-link"
                 replace={false}
-                to="/offenders/A1234RN/addAppointment"
+                to="/offenders/A1234RN/add-appointment"
               >
                 Add appointment
               </Link>
@@ -3920,7 +3920,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-case-note-link"
                 replace={false}
-                to="/offenders/A1234RN/addCaseNote"
+                to="/offenders/A1234RN/add-case-note"
               >
                 Add case note
               </Link>
@@ -3930,7 +3930,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-appointment-link"
                 replace={false}
-                to="/offenders/A1234RN/addAppointment"
+                to="/offenders/A1234RN/add-appointment"
               >
                 Add appointment
               </Link>
@@ -3950,7 +3950,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote"
+                  to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
                 </Link>
@@ -3961,7 +3961,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RN/addAppointment"
+                  to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
                 </Link>
@@ -3980,7 +3980,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote"
+                  to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
                 </Link>,
@@ -3995,7 +3995,7 @@ ShallowWrapper {
                   "className": "button-link",
                   "name": "add-case-note-link",
                   "replace": false,
-                  "to": "/offenders/A1234RN/addCaseNote",
+                  "to": "/offenders/A1234RN/add-case-note",
                 },
                 "ref": null,
                 "rendered": "Add case note",
@@ -4013,7 +4013,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RN/addAppointment"
+                  to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
                 </Link>,
@@ -4028,7 +4028,7 @@ ShallowWrapper {
                   "className": "button-link",
                   "name": "add-appointment-link",
                   "replace": false,
-                  "to": "/offenders/A1234RN/addAppointment",
+                  "to": "/offenders/A1234RN/add-appointment",
                 },
                 "ref": null,
                 "rendered": "Add appointment",
@@ -4244,7 +4244,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote"
+                  to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
                 </Link>
@@ -4254,7 +4254,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RN/addAppointment"
+                  to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
                 </Link>
@@ -5227,7 +5227,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote"
+                  to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
                 </Link>
@@ -5237,7 +5237,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RN/addAppointment"
+                  to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
                 </Link>
@@ -5257,7 +5257,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-case-note-link"
                     replace={false}
-                    to="/offenders/A1234RN/addCaseNote"
+                    to="/offenders/A1234RN/add-case-note"
                   >
                     Add case note
                   </Link>
@@ -5268,7 +5268,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-appointment-link"
                     replace={false}
-                    to="/offenders/A1234RN/addAppointment"
+                    to="/offenders/A1234RN/add-appointment"
                   >
                     Add appointment
                   </Link>
@@ -5287,7 +5287,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-case-note-link"
                     replace={false}
-                    to="/offenders/A1234RN/addCaseNote"
+                    to="/offenders/A1234RN/add-case-note"
                   >
                     Add case note
                   </Link>,
@@ -5302,7 +5302,7 @@ ShallowWrapper {
                     "className": "button-link",
                     "name": "add-case-note-link",
                     "replace": false,
-                    "to": "/offenders/A1234RN/addCaseNote",
+                    "to": "/offenders/A1234RN/add-case-note",
                   },
                   "ref": null,
                   "rendered": "Add case note",
@@ -5320,7 +5320,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-appointment-link"
                     replace={false}
-                    to="/offenders/A1234RN/addAppointment"
+                    to="/offenders/A1234RN/add-appointment"
                   >
                     Add appointment
                   </Link>,
@@ -5335,7 +5335,7 @@ ShallowWrapper {
                     "className": "button-link",
                     "name": "add-appointment-link",
                     "replace": false,
-                    "to": "/offenders/A1234RN/addAppointment",
+                    "to": "/offenders/A1234RN/add-appointment",
                   },
                   "ref": null,
                   "rendered": "Add appointment",
@@ -5517,11 +5517,6 @@ ShallowWrapper {
               <div
                 className="col-md-12"
               >
-                <h1
-                  className="heading-medium inline-header"
-                >
-                  Last, First
-                </h1>
                 <div
                   className="inline-header-large align-alerts"
                 >
@@ -6001,11 +5996,6 @@ ShallowWrapper {
                 <div
                   className="col-md-12"
                 >
-                  <h1
-                    className="heading-medium inline-header"
-                  >
-                    Last, First
-                  </h1>
                   <div
                     className="inline-header-large align-alerts"
                   >
@@ -6216,11 +6206,6 @@ ShallowWrapper {
                   <div
                     className="col-md-12"
                   >
-                    <h1
-                      className="heading-medium inline-header"
-                    >
-                      Last, First
-                    </h1>
                     <div
                       className="inline-header-large align-alerts"
                     >
@@ -6377,11 +6362,6 @@ ShallowWrapper {
                   "children": <div
                     className="col-md-12"
                   >
-                    <h1
-                      className="heading-medium inline-header"
-                    >
-                      Last, First
-                    </h1>
                     <div
                       className="inline-header-large align-alerts"
                     >
@@ -6445,15 +6425,69 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": Array [
-                      <h1
-                        className="heading-medium inline-header"
+                    "children": <div
+                      className="inline-header-large align-alerts"
+                    >
+                      <span
+                        className="acct-status"
+                        onClick={[Function]}
+                        onKeyDown={[Function]}
+                        role="link"
+                        tabIndex={0}
                       >
-                        Last, First
-                      </h1>,
-                      <div
-                        className="inline-header-large align-alerts"
+                        ACCT OPEN
+                      </span>
+                      <span
+                        className="assault-status"
+                        onClick={[Function]}
+                        onKeyDown={[Function]}
+                        role="link"
+                        tabIndex={0}
                       >
+                        STAFF ASSAULTER
+                      </span>
+                      <span
+                        className="arsonist-status"
+                        onClick={[Function]}
+                        onKeyDown={[Function]}
+                        role="link"
+                        tabIndex={0}
+                      >
+                        <img
+                          alt=""
+                          className="arsonist-adjust"
+                          height="14"
+                          src="/img/Arsonist_icon.png"
+                          width="11"
+                        />
+                         ARSONIST
+                      </span>
+                      <span
+                        className="disability-status"
+                        onClick={[Function]}
+                        onKeyDown={[Function]}
+                        role="link"
+                        tabIndex={0}
+                      >
+                        <img
+                          alt=""
+                          className="disability-adjust"
+                          height="15"
+                          src="/img/Disability_icon.png"
+                          width="14"
+                        />
+                         PEEP
+                      </span>
+                    </div>,
+                    "className": "col-md-12",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
                         <span
                           className="acct-status"
                           onClick={[Function]}
@@ -6462,7 +6496,7 @@ ShallowWrapper {
                           tabIndex={0}
                         >
                           ACCT OPEN
-                        </span>
+                        </span>,
                         <span
                           className="assault-status"
                           onClick={[Function]}
@@ -6471,7 +6505,7 @@ ShallowWrapper {
                           tabIndex={0}
                         >
                           STAFF ASSAULTER
-                        </span>
+                        </span>,
                         <span
                           className="arsonist-status"
                           onClick={[Function]}
@@ -6487,7 +6521,7 @@ ShallowWrapper {
                             width="11"
                           />
                            ARSONIST
-                        </span>
+                        </span>,
                         <span
                           className="disability-status"
                           onClick={[Function]}
@@ -6503,212 +6537,137 @@ ShallowWrapper {
                             width="14"
                           />
                            PEEP
-                        </span>
-                      </div>,
-                    ],
-                    "className": "col-md-12",
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": "Last, First",
-                        "className": "heading-medium inline-header",
-                      },
-                      "ref": null,
-                      "rendered": "Last, First",
-                      "type": "h1",
+                        </span>,
+                        false,
+                        false,
+                        false,
+                      ],
+                      "className": "inline-header-large align-alerts",
                     },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <span
-                            className="acct-status"
-                            onClick={[Function]}
-                            onKeyDown={[Function]}
-                            role="link"
-                            tabIndex={0}
-                          >
-                            ACCT OPEN
-                          </span>,
-                          <span
-                            className="assault-status"
-                            onClick={[Function]}
-                            onKeyDown={[Function]}
-                            role="link"
-                            tabIndex={0}
-                          >
-                            STAFF ASSAULTER
-                          </span>,
-                          <span
-                            className="arsonist-status"
-                            onClick={[Function]}
-                            onKeyDown={[Function]}
-                            role="link"
-                            tabIndex={0}
-                          >
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "ACCT OPEN",
+                          "className": "acct-status",
+                          "onClick": [Function],
+                          "onKeyDown": [Function],
+                          "role": "link",
+                          "tabIndex": 0,
+                        },
+                        "ref": null,
+                        "rendered": "ACCT OPEN",
+                        "type": "span",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "STAFF ASSAULTER",
+                          "className": "assault-status",
+                          "onClick": [Function],
+                          "onKeyDown": [Function],
+                          "role": "link",
+                          "tabIndex": 0,
+                        },
+                        "ref": null,
+                        "rendered": "STAFF ASSAULTER",
+                        "type": "span",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
                             <img
                               alt=""
                               className="arsonist-adjust"
                               height="14"
                               src="/img/Arsonist_icon.png"
                               width="11"
-                            />
-                             ARSONIST
-                          </span>,
-                          <span
-                            className="disability-status"
-                            onClick={[Function]}
-                            onKeyDown={[Function]}
-                            role="link"
-                            tabIndex={0}
-                          >
+                            />,
+                            " ARSONIST",
+                          ],
+                          "className": "arsonist-status",
+                          "onClick": [Function],
+                          "onKeyDown": [Function],
+                          "role": "link",
+                          "tabIndex": 0,
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "alt": "",
+                              "className": "arsonist-adjust",
+                              "height": "14",
+                              "src": "/img/Arsonist_icon.png",
+                              "width": "11",
+                            },
+                            "ref": null,
+                            "rendered": null,
+                            "type": "img",
+                          },
+                          " ARSONIST",
+                        ],
+                        "type": "span",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
                             <img
                               alt=""
                               className="disability-adjust"
                               height="15"
                               src="/img/Disability_icon.png"
                               width="14"
-                            />
-                             PEEP
-                          </span>,
-                          false,
-                          false,
-                          false,
-                        ],
-                        "className": "inline-header-large align-alerts",
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "ACCT OPEN",
-                            "className": "acct-status",
-                            "onClick": [Function],
-                            "onKeyDown": [Function],
-                            "role": "link",
-                            "tabIndex": 0,
-                          },
-                          "ref": null,
-                          "rendered": "ACCT OPEN",
-                          "type": "span",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "STAFF ASSAULTER",
-                            "className": "assault-status",
-                            "onClick": [Function],
-                            "onKeyDown": [Function],
-                            "role": "link",
-                            "tabIndex": 0,
-                          },
-                          "ref": null,
-                          "rendered": "STAFF ASSAULTER",
-                          "type": "span",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": Array [
-                              <img
-                                alt=""
-                                className="arsonist-adjust"
-                                height="14"
-                                src="/img/Arsonist_icon.png"
-                                width="11"
-                              />,
-                              " ARSONIST",
-                            ],
-                            "className": "arsonist-status",
-                            "onClick": [Function],
-                            "onKeyDown": [Function],
-                            "role": "link",
-                            "tabIndex": 0,
-                          },
-                          "ref": null,
-                          "rendered": Array [
-                            Object {
-                              "instance": null,
-                              "key": undefined,
-                              "nodeType": "host",
-                              "props": Object {
-                                "alt": "",
-                                "className": "arsonist-adjust",
-                                "height": "14",
-                                "src": "/img/Arsonist_icon.png",
-                                "width": "11",
-                              },
-                              "ref": null,
-                              "rendered": null,
-                              "type": "img",
-                            },
-                            " ARSONIST",
-                          ],
-                          "type": "span",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": Array [
-                              <img
-                                alt=""
-                                className="disability-adjust"
-                                height="15"
-                                src="/img/Disability_icon.png"
-                                width="14"
-                              />,
-                              " PEEP",
-                            ],
-                            "className": "disability-status",
-                            "onClick": [Function],
-                            "onKeyDown": [Function],
-                            "role": "link",
-                            "tabIndex": 0,
-                          },
-                          "ref": null,
-                          "rendered": Array [
-                            Object {
-                              "instance": null,
-                              "key": undefined,
-                              "nodeType": "host",
-                              "props": Object {
-                                "alt": "",
-                                "className": "disability-adjust",
-                                "height": "15",
-                                "src": "/img/Disability_icon.png",
-                                "width": "14",
-                              },
-                              "ref": null,
-                              "rendered": null,
-                              "type": "img",
-                            },
+                            />,
                             " PEEP",
                           ],
-                          "type": "span",
+                          "className": "disability-status",
+                          "onClick": [Function],
+                          "onKeyDown": [Function],
+                          "role": "link",
+                          "tabIndex": 0,
                         },
-                        false,
-                        false,
-                        false,
-                      ],
-                      "type": "div",
-                    },
-                  ],
+                        "ref": null,
+                        "rendered": Array [
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "alt": "",
+                              "className": "disability-adjust",
+                              "height": "15",
+                              "src": "/img/Disability_icon.png",
+                              "width": "14",
+                            },
+                            "ref": null,
+                            "rendered": null,
+                            "type": "img",
+                          },
+                          " PEEP",
+                        ],
+                        "type": "span",
+                      },
+                      false,
+                      false,
+                      false,
+                    ],
+                    "type": "div",
+                  },
                   "type": "div",
                 },
                 "type": "div",
@@ -7360,11 +7319,6 @@ ShallowWrapper {
                 <div
                   className="col-md-12"
                 >
-                  <h1
-                    className="heading-medium inline-header"
-                  >
-                    Last, First
-                  </h1>
                   <div
                     className="inline-header-large align-alerts"
                   >
@@ -7844,11 +7798,6 @@ ShallowWrapper {
                   <div
                     className="col-md-12"
                   >
-                    <h1
-                      className="heading-medium inline-header"
-                    >
-                      Last, First
-                    </h1>
                     <div
                       className="inline-header-large align-alerts"
                     >
@@ -8059,11 +8008,6 @@ ShallowWrapper {
                     <div
                       className="col-md-12"
                     >
-                      <h1
-                        className="heading-medium inline-header"
-                      >
-                        Last, First
-                      </h1>
                       <div
                         className="inline-header-large align-alerts"
                       >
@@ -8220,11 +8164,6 @@ ShallowWrapper {
                     "children": <div
                       className="col-md-12"
                     >
-                      <h1
-                        className="heading-medium inline-header"
-                      >
-                        Last, First
-                      </h1>
                       <div
                         className="inline-header-large align-alerts"
                       >
@@ -8288,15 +8227,69 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": Array [
-                        <h1
-                          className="heading-medium inline-header"
+                      "children": <div
+                        className="inline-header-large align-alerts"
+                      >
+                        <span
+                          className="acct-status"
+                          onClick={[Function]}
+                          onKeyDown={[Function]}
+                          role="link"
+                          tabIndex={0}
                         >
-                          Last, First
-                        </h1>,
-                        <div
-                          className="inline-header-large align-alerts"
+                          ACCT OPEN
+                        </span>
+                        <span
+                          className="assault-status"
+                          onClick={[Function]}
+                          onKeyDown={[Function]}
+                          role="link"
+                          tabIndex={0}
                         >
+                          STAFF ASSAULTER
+                        </span>
+                        <span
+                          className="arsonist-status"
+                          onClick={[Function]}
+                          onKeyDown={[Function]}
+                          role="link"
+                          tabIndex={0}
+                        >
+                          <img
+                            alt=""
+                            className="arsonist-adjust"
+                            height="14"
+                            src="/img/Arsonist_icon.png"
+                            width="11"
+                          />
+                           ARSONIST
+                        </span>
+                        <span
+                          className="disability-status"
+                          onClick={[Function]}
+                          onKeyDown={[Function]}
+                          role="link"
+                          tabIndex={0}
+                        >
+                          <img
+                            alt=""
+                            className="disability-adjust"
+                            height="15"
+                            src="/img/Disability_icon.png"
+                            width="14"
+                          />
+                           PEEP
+                        </span>
+                      </div>,
+                      "className": "col-md-12",
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
                           <span
                             className="acct-status"
                             onClick={[Function]}
@@ -8305,7 +8298,7 @@ ShallowWrapper {
                             tabIndex={0}
                           >
                             ACCT OPEN
-                          </span>
+                          </span>,
                           <span
                             className="assault-status"
                             onClick={[Function]}
@@ -8314,7 +8307,7 @@ ShallowWrapper {
                             tabIndex={0}
                           >
                             STAFF ASSAULTER
-                          </span>
+                          </span>,
                           <span
                             className="arsonist-status"
                             onClick={[Function]}
@@ -8330,7 +8323,7 @@ ShallowWrapper {
                               width="11"
                             />
                              ARSONIST
-                          </span>
+                          </span>,
                           <span
                             className="disability-status"
                             onClick={[Function]}
@@ -8346,212 +8339,137 @@ ShallowWrapper {
                               width="14"
                             />
                              PEEP
-                          </span>
-                        </div>,
-                      ],
-                      "className": "col-md-12",
-                    },
-                    "ref": null,
-                    "rendered": Array [
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "children": "Last, First",
-                          "className": "heading-medium inline-header",
-                        },
-                        "ref": null,
-                        "rendered": "Last, First",
-                        "type": "h1",
+                          </span>,
+                          false,
+                          false,
+                          false,
+                        ],
+                        "className": "inline-header-large align-alerts",
                       },
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "children": Array [
-                            <span
-                              className="acct-status"
-                              onClick={[Function]}
-                              onKeyDown={[Function]}
-                              role="link"
-                              tabIndex={0}
-                            >
-                              ACCT OPEN
-                            </span>,
-                            <span
-                              className="assault-status"
-                              onClick={[Function]}
-                              onKeyDown={[Function]}
-                              role="link"
-                              tabIndex={0}
-                            >
-                              STAFF ASSAULTER
-                            </span>,
-                            <span
-                              className="arsonist-status"
-                              onClick={[Function]}
-                              onKeyDown={[Function]}
-                              role="link"
-                              tabIndex={0}
-                            >
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "ACCT OPEN",
+                            "className": "acct-status",
+                            "onClick": [Function],
+                            "onKeyDown": [Function],
+                            "role": "link",
+                            "tabIndex": 0,
+                          },
+                          "ref": null,
+                          "rendered": "ACCT OPEN",
+                          "type": "span",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "STAFF ASSAULTER",
+                            "className": "assault-status",
+                            "onClick": [Function],
+                            "onKeyDown": [Function],
+                            "role": "link",
+                            "tabIndex": 0,
+                          },
+                          "ref": null,
+                          "rendered": "STAFF ASSAULTER",
+                          "type": "span",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": Array [
                               <img
                                 alt=""
                                 className="arsonist-adjust"
                                 height="14"
                                 src="/img/Arsonist_icon.png"
                                 width="11"
-                              />
-                               ARSONIST
-                            </span>,
-                            <span
-                              className="disability-status"
-                              onClick={[Function]}
-                              onKeyDown={[Function]}
-                              role="link"
-                              tabIndex={0}
-                            >
+                              />,
+                              " ARSONIST",
+                            ],
+                            "className": "arsonist-status",
+                            "onClick": [Function],
+                            "onKeyDown": [Function],
+                            "role": "link",
+                            "tabIndex": 0,
+                          },
+                          "ref": null,
+                          "rendered": Array [
+                            Object {
+                              "instance": null,
+                              "key": undefined,
+                              "nodeType": "host",
+                              "props": Object {
+                                "alt": "",
+                                "className": "arsonist-adjust",
+                                "height": "14",
+                                "src": "/img/Arsonist_icon.png",
+                                "width": "11",
+                              },
+                              "ref": null,
+                              "rendered": null,
+                              "type": "img",
+                            },
+                            " ARSONIST",
+                          ],
+                          "type": "span",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": Array [
                               <img
                                 alt=""
                                 className="disability-adjust"
                                 height="15"
                                 src="/img/Disability_icon.png"
                                 width="14"
-                              />
-                               PEEP
-                            </span>,
-                            false,
-                            false,
-                            false,
-                          ],
-                          "className": "inline-header-large align-alerts",
-                        },
-                        "ref": null,
-                        "rendered": Array [
-                          Object {
-                            "instance": null,
-                            "key": undefined,
-                            "nodeType": "host",
-                            "props": Object {
-                              "children": "ACCT OPEN",
-                              "className": "acct-status",
-                              "onClick": [Function],
-                              "onKeyDown": [Function],
-                              "role": "link",
-                              "tabIndex": 0,
-                            },
-                            "ref": null,
-                            "rendered": "ACCT OPEN",
-                            "type": "span",
-                          },
-                          Object {
-                            "instance": null,
-                            "key": undefined,
-                            "nodeType": "host",
-                            "props": Object {
-                              "children": "STAFF ASSAULTER",
-                              "className": "assault-status",
-                              "onClick": [Function],
-                              "onKeyDown": [Function],
-                              "role": "link",
-                              "tabIndex": 0,
-                            },
-                            "ref": null,
-                            "rendered": "STAFF ASSAULTER",
-                            "type": "span",
-                          },
-                          Object {
-                            "instance": null,
-                            "key": undefined,
-                            "nodeType": "host",
-                            "props": Object {
-                              "children": Array [
-                                <img
-                                  alt=""
-                                  className="arsonist-adjust"
-                                  height="14"
-                                  src="/img/Arsonist_icon.png"
-                                  width="11"
-                                />,
-                                " ARSONIST",
-                              ],
-                              "className": "arsonist-status",
-                              "onClick": [Function],
-                              "onKeyDown": [Function],
-                              "role": "link",
-                              "tabIndex": 0,
-                            },
-                            "ref": null,
-                            "rendered": Array [
-                              Object {
-                                "instance": null,
-                                "key": undefined,
-                                "nodeType": "host",
-                                "props": Object {
-                                  "alt": "",
-                                  "className": "arsonist-adjust",
-                                  "height": "14",
-                                  "src": "/img/Arsonist_icon.png",
-                                  "width": "11",
-                                },
-                                "ref": null,
-                                "rendered": null,
-                                "type": "img",
-                              },
-                              " ARSONIST",
-                            ],
-                            "type": "span",
-                          },
-                          Object {
-                            "instance": null,
-                            "key": undefined,
-                            "nodeType": "host",
-                            "props": Object {
-                              "children": Array [
-                                <img
-                                  alt=""
-                                  className="disability-adjust"
-                                  height="15"
-                                  src="/img/Disability_icon.png"
-                                  width="14"
-                                />,
-                                " PEEP",
-                              ],
-                              "className": "disability-status",
-                              "onClick": [Function],
-                              "onKeyDown": [Function],
-                              "role": "link",
-                              "tabIndex": 0,
-                            },
-                            "ref": null,
-                            "rendered": Array [
-                              Object {
-                                "instance": null,
-                                "key": undefined,
-                                "nodeType": "host",
-                                "props": Object {
-                                  "alt": "",
-                                  "className": "disability-adjust",
-                                  "height": "15",
-                                  "src": "/img/Disability_icon.png",
-                                  "width": "14",
-                                },
-                                "ref": null,
-                                "rendered": null,
-                                "type": "img",
-                              },
+                              />,
                               " PEEP",
                             ],
-                            "type": "span",
+                            "className": "disability-status",
+                            "onClick": [Function],
+                            "onKeyDown": [Function],
+                            "role": "link",
+                            "tabIndex": 0,
                           },
-                          false,
-                          false,
-                          false,
-                        ],
-                        "type": "div",
-                      },
-                    ],
+                          "ref": null,
+                          "rendered": Array [
+                            Object {
+                              "instance": null,
+                              "key": undefined,
+                              "nodeType": "host",
+                              "props": Object {
+                                "alt": "",
+                                "className": "disability-adjust",
+                                "height": "15",
+                                "src": "/img/Disability_icon.png",
+                                "width": "14",
+                              },
+                              "ref": null,
+                              "rendered": null,
+                              "type": "img",
+                            },
+                            " PEEP",
+                          ],
+                          "type": "span",
+                        },
+                        false,
+                        false,
+                        false,
+                      ],
+                      "type": "div",
+                    },
                     "type": "div",
                   },
                   "type": "div",
@@ -9383,7 +9301,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-case-note-link"
                 replace={false}
-                to="/offenders/A1234RN/addCaseNote"
+                to="/offenders/A1234RN/add-case-note"
               >
                 Add case note
               </Link>
@@ -9393,7 +9311,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-kw-session-link"
                 replace={false}
-                to="/offenders/A1234RN/addCaseNote?type=KA&subType=KS"
+                to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
               >
                 Add KW session
               </Link>
@@ -9403,7 +9321,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-appointment-link"
                 replace={false}
-                to="/offenders/A1234RN/addAppointment"
+                to="/offenders/A1234RN/add-appointment"
               >
                 Add appointment
               </Link>
@@ -10376,7 +10294,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-case-note-link"
                 replace={false}
-                to="/offenders/A1234RN/addCaseNote"
+                to="/offenders/A1234RN/add-case-note"
               >
                 Add case note
               </Link>
@@ -10386,7 +10304,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-kw-session-link"
                 replace={false}
-                to="/offenders/A1234RN/addCaseNote?type=KA&subType=KS"
+                to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
               >
                 Add KW session
               </Link>
@@ -10396,7 +10314,7 @@ ShallowWrapper {
                 className="button-link"
                 name="add-appointment-link"
                 replace={false}
-                to="/offenders/A1234RN/addAppointment"
+                to="/offenders/A1234RN/add-appointment"
               >
                 Add appointment
               </Link>
@@ -10416,7 +10334,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote"
+                  to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
                 </Link>
@@ -10426,7 +10344,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-kw-session-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote?type=KA&subType=KS"
+                  to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
                 >
                   Add KW session
                 </Link>
@@ -10436,7 +10354,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RN/addAppointment"
+                  to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
                 </Link>
@@ -10455,7 +10373,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote"
+                  to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
                 </Link>,
@@ -10470,7 +10388,7 @@ ShallowWrapper {
                   "className": "button-link",
                   "name": "add-case-note-link",
                   "replace": false,
-                  "to": "/offenders/A1234RN/addCaseNote",
+                  "to": "/offenders/A1234RN/add-case-note",
                 },
                 "ref": null,
                 "rendered": "Add case note",
@@ -10487,7 +10405,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-kw-session-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote?type=KA&subType=KS"
+                  to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
                 >
                   Add KW session
                 </Link>,
@@ -10502,7 +10420,7 @@ ShallowWrapper {
                   "className": "button-link",
                   "name": "add-kw-session-link",
                   "replace": false,
-                  "to": "/offenders/A1234RN/addCaseNote?type=KA&subType=KS",
+                  "to": "/offenders/A1234RN/add-case-note?type=KA&subType=KS",
                 },
                 "ref": null,
                 "rendered": "Add KW session",
@@ -10519,7 +10437,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RN/addAppointment"
+                  to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
                 </Link>,
@@ -10534,7 +10452,7 @@ ShallowWrapper {
                   "className": "button-link",
                   "name": "add-appointment-link",
                   "replace": false,
-                  "to": "/offenders/A1234RN/addAppointment",
+                  "to": "/offenders/A1234RN/add-appointment",
                 },
                 "ref": null,
                 "rendered": "Add appointment",
@@ -10750,7 +10668,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote"
+                  to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
                 </Link>
@@ -10760,7 +10678,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-kw-session-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote?type=KA&subType=KS"
+                  to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
                 >
                   Add KW session
                 </Link>
@@ -10770,7 +10688,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RN/addAppointment"
+                  to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
                 </Link>
@@ -11743,7 +11661,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-case-note-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote"
+                  to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
                 </Link>
@@ -11753,7 +11671,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-kw-session-link"
                   replace={false}
-                  to="/offenders/A1234RN/addCaseNote?type=KA&subType=KS"
+                  to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
                 >
                   Add KW session
                 </Link>
@@ -11763,7 +11681,7 @@ ShallowWrapper {
                   className="button-link"
                   name="add-appointment-link"
                   replace={false}
-                  to="/offenders/A1234RN/addAppointment"
+                  to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
                 </Link>
@@ -11783,7 +11701,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-case-note-link"
                     replace={false}
-                    to="/offenders/A1234RN/addCaseNote"
+                    to="/offenders/A1234RN/add-case-note"
                   >
                     Add case note
                   </Link>
@@ -11793,7 +11711,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-kw-session-link"
                     replace={false}
-                    to="/offenders/A1234RN/addCaseNote?type=KA&subType=KS"
+                    to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
                   >
                     Add KW session
                   </Link>
@@ -11803,7 +11721,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-appointment-link"
                     replace={false}
-                    to="/offenders/A1234RN/addAppointment"
+                    to="/offenders/A1234RN/add-appointment"
                   >
                     Add appointment
                   </Link>
@@ -11822,7 +11740,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-case-note-link"
                     replace={false}
-                    to="/offenders/A1234RN/addCaseNote"
+                    to="/offenders/A1234RN/add-case-note"
                   >
                     Add case note
                   </Link>,
@@ -11837,7 +11755,7 @@ ShallowWrapper {
                     "className": "button-link",
                     "name": "add-case-note-link",
                     "replace": false,
-                    "to": "/offenders/A1234RN/addCaseNote",
+                    "to": "/offenders/A1234RN/add-case-note",
                   },
                   "ref": null,
                   "rendered": "Add case note",
@@ -11854,7 +11772,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-kw-session-link"
                     replace={false}
-                    to="/offenders/A1234RN/addCaseNote?type=KA&subType=KS"
+                    to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
                   >
                     Add KW session
                   </Link>,
@@ -11869,7 +11787,7 @@ ShallowWrapper {
                     "className": "button-link",
                     "name": "add-kw-session-link",
                     "replace": false,
-                    "to": "/offenders/A1234RN/addCaseNote?type=KA&subType=KS",
+                    "to": "/offenders/A1234RN/add-case-note?type=KA&subType=KS",
                   },
                   "ref": null,
                   "rendered": "Add KW session",
@@ -11886,7 +11804,7 @@ ShallowWrapper {
                     className="button-link"
                     name="add-appointment-link"
                     replace={false}
-                    to="/offenders/A1234RN/addAppointment"
+                    to="/offenders/A1234RN/add-appointment"
                   >
                     Add appointment
                   </Link>,
@@ -11901,7 +11819,7 @@ ShallowWrapper {
                     "className": "button-link",
                     "name": "add-appointment-link",
                     "replace": false,
-                    "to": "/offenders/A1234RN/addAppointment",
+                    "to": "/offenders/A1234RN/add-appointment",
                   },
                   "ref": null,
                   "rendered": "Add appointment",

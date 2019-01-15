@@ -9,7 +9,7 @@ class HomePage extends Page {
   static url = '/'
 
   static at = {
-    title == 'Prison-NOMIS'
+    title == 'Welcome back - Prison NOMIS'
     headingText == 'Welcome back'
     searchButtonDesktop.text() == 'Search' || searchButtonMobile.text() == 'Search'
   }
@@ -17,7 +17,7 @@ class HomePage extends Page {
   static content = {
     errors { module(ErrorsModule) }
     header(required: false) { module(HeaderModule) }
-    headingText { $('.heading-xlarge').text() }
+    headingText { $("[data-qa=\'page-heading-text\']").text() }
     searchButtonDesktop { $('.button-start', type: 'submit') }
     searchButtonMobile { $('.mobile-button', type: 'submit') }
     locations { $('select option') }

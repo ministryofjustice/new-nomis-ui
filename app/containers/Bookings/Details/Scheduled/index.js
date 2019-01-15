@@ -16,6 +16,7 @@ import { DETAILS_TABS } from '../../constants'
 import { properCase } from '../../../../utils/stringUtils'
 
 import './index.scss'
+import Page from '../../../../components/Page'
 
 export const Event = ({ startTime, endTime, type, shortComment, cancelled }) => (
   <div className="row add-gutter-margin-bottom">
@@ -84,136 +85,136 @@ class ScheduledEvents extends Component {
     const { thisWeek, nextWeek } = currentFilter.toJS()
 
     return (
-      <div className="whereabouts">
-        <h1 className="heading-large"> Schedule for {`${properCase(firstName)} ${properCase(lastName)}`} </h1>
-
-        <div className="row filters">
-          <div className="col-xs-6 col-lg-2 no-left-gutter">
-            <div className="form-group">
+      <Page title={`Schedule for ${properCase(firstName)} ${properCase(lastName)}`}>
+        <div className="whereabouts">
+          <div className="row filters">
+            <div className="col-xs-6 col-lg-2 no-left-gutter">
+              <div className="form-group">
+                <div className="multiple-choice">
+                  <input
+                    checked={thisWeek && 'checked'}
+                    type="radio"
+                    name="radio-inline-group"
+                    id="thisWeek"
+                    value="Yes"
+                    onClick={() => loadThisWeeksScheduledEvents(offenderNo)}
+                    onChange={event => event.preventDefault()}
+                  />
+                  <label htmlFor="thisWeek">This week</label>
+                </div>
+              </div>
+            </div>
+            <div className="col-xs-6 col-lg-2 no-left-gutter">
               <div className="multiple-choice">
                 <input
-                  checked={thisWeek && 'checked'}
+                  checked={nextWeek && 'checked'}
                   type="radio"
                   name="radio-inline-group"
-                  id="thisWeek"
+                  id="nextWeek"
                   value="Yes"
-                  onClick={() => loadThisWeeksScheduledEvents(offenderNo)}
+                  onClick={() => loadNextWeeksScheduledEvents(offenderNo)}
                   onChange={event => event.preventDefault()}
                 />
-                <label htmlFor="thisWeek">This week</label>
+                <label htmlFor="nextWeek">Next week</label>
               </div>
             </div>
           </div>
-          <div className="col-xs-6 col-lg-2 no-left-gutter">
-            <div className="multiple-choice">
-              <input
-                checked={nextWeek && 'checked'}
-                type="radio"
-                name="radio-inline-group"
-                id="nextWeek"
-                value="Yes"
-                onClick={() => loadNextWeeksScheduledEvents(offenderNo)}
-                onChange={event => event.preventDefault()}
-              />
-              <label htmlFor="nextWeek">Next week</label>
+
+          <div className="row hidden-lg-down">
+            <div className="col-lg-1" />
+            <div className="col-lg-3 add-gutter-margin-left">
+              <h1 className="heading-medium">Morning (AM)</h1>
+            </div>
+            <div className="col-lg-3">
+              <h1 className="heading-medium">Afternoon (PM)</h1>
+            </div>
+            <div className="col-lg-3">
+              <h1 className="heading-medium">Evening (ED)</h1>
             </div>
           </div>
+          {scheduledEvents.map(entry => (
+            <div className="row appointment-row" key={uuid()}>
+              <div className="appointments">
+                <div className="col-lg-1 no-left-gutter add-gutter-margin-right">
+                  <DayAndDate className="whereabouts-day-header" value={entry.get('date')} />
+                  <FormattedDate
+                    className="heading-medium whereabouts-date-header"
+                    value={entry.get('date')}
+                    month="long"
+                    day="2-digit"
+                  />
+                </div>
+
+                <div className="visible-lg-down add-gutter-top">
+                  <div className="col-lg-12">
+                    <b>Morning (AM)</b>
+                  </div>
+                </div>
+
+                <div className="col-lg-3">
+                  <div className="appointment morning add-gutter-top add-gutter-bottom">
+                    {entry.get('morningActivities').map(morning => (
+                      <div key={uuid()}>
+                        <Event
+                          startTime={morning.get('startTime')}
+                          endTime={morning.get('endTime')}
+                          type={morning.get('type')}
+                          shortComment={morning.get('shortComment')}
+                          cancelled={morning.get('cancelled')}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="visible-lg-down add-gutter-top add-gutter-bottom">
+                  <div className="col-lg-12">
+                    <b>Afternoon (PM)</b>
+                  </div>
+                </div>
+
+                <div className="col-lg-3">
+                  <div className="appointment afternoon add-gutter-top">
+                    {entry.get('afternoonActivities').map(afternoon => (
+                      <div key={uuid()}>
+                        <Event
+                          startTime={afternoon.get('startTime')}
+                          endTime={afternoon.get('endTime')}
+                          type={afternoon.get('type')}
+                          shortComment={afternoon.get('shortComment')}
+                          cancelled={afternoon.get('cancelled')}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="visible-lg-down add-gutter-top add-gutter-bottom">
+                  <div className="col-lg-12">
+                    <b>Evening Duty (ED)</b>
+                  </div>
+                </div>
+
+                <div className="col-lg-3">
+                  <div className="appointment ed add-gutter-top">
+                    {entry.get('eveningDuties').map(afternoon => (
+                      <div key={uuid()}>
+                        <Event
+                          startTime={afternoon.get('startTime')}
+                          endTime={afternoon.get('endTime')}
+                          type={afternoon.get('type')}
+                          shortComment={afternoon.get('shortComment')}
+                          cancelled={afternoon.get('cancelled')}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-
-        <div className="row hidden-lg-down">
-          <div className="col-lg-1" />
-          <div className="col-lg-3 add-gutter-margin-left">
-            <h1 className="heading-medium">Morning (AM)</h1>
-          </div>
-          <div className="col-lg-3">
-            <h1 className="heading-medium">Afternoon (PM)</h1>
-          </div>
-          <div className="col-lg-3">
-            <h1 className="heading-medium">Evening (ED)</h1>
-          </div>
-        </div>
-        {scheduledEvents.map(entry => (
-          <div className="row appointment-row" key={uuid()}>
-            <div className="appointments">
-              <div className="col-lg-1 no-left-gutter add-gutter-margin-right">
-                <DayAndDate className="whereabouts-day-header" value={entry.get('date')} />
-                <FormattedDate
-                  className="heading-medium whereabouts-date-header"
-                  value={entry.get('date')}
-                  month="long"
-                  day="2-digit"
-                />
-              </div>
-
-              <div className="visible-lg-down add-gutter-top">
-                <div className="col-lg-12">
-                  <b>Morning (AM)</b>
-                </div>
-              </div>
-
-              <div className="col-lg-3">
-                <div className="appointment morning add-gutter-top add-gutter-bottom">
-                  {entry.get('morningActivities').map(morning => (
-                    <div key={uuid()}>
-                      <Event
-                        startTime={morning.get('startTime')}
-                        endTime={morning.get('endTime')}
-                        type={morning.get('type')}
-                        shortComment={morning.get('shortComment')}
-                        cancelled={morning.get('cancelled')}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="visible-lg-down add-gutter-top add-gutter-bottom">
-                <div className="col-lg-12">
-                  <b>Afternoon (PM)</b>
-                </div>
-              </div>
-
-              <div className="col-lg-3">
-                <div className="appointment afternoon add-gutter-top">
-                  {entry.get('afternoonActivities').map(afternoon => (
-                    <div key={uuid()}>
-                      <Event
-                        startTime={afternoon.get('startTime')}
-                        endTime={afternoon.get('endTime')}
-                        type={afternoon.get('type')}
-                        shortComment={afternoon.get('shortComment')}
-                        cancelled={afternoon.get('cancelled')}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="visible-lg-down add-gutter-top add-gutter-bottom">
-                <div className="col-lg-12">
-                  <b>Evening Duty (ED)</b>
-                </div>
-              </div>
-
-              <div className="col-lg-3">
-                <div className="appointment ed add-gutter-top">
-                  {entry.get('eveningDuties').map(afternoon => (
-                    <div key={uuid()}>
-                      <Event
-                        startTime={afternoon.get('startTime')}
-                        endTime={afternoon.get('endTime')}
-                        type={afternoon.get('type')}
-                        shortComment={afternoon.get('shortComment')}
-                        cancelled={afternoon.get('cancelled')}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      </Page>
     )
   }
 }

@@ -19,7 +19,7 @@ describe('Actions component', () => {
       />
     )
 
-    expect(wrapper.find('Link').prop('to')).toBe('/myKeyWorkerAllocations')
+    expect(wrapper.find('Link').prop('to')).toBe('/key-worker-allocations')
   })
 
   it('should only show the key worker admin link when the user is a key worker admin', () => {

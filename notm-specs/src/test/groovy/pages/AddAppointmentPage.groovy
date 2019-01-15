@@ -8,13 +8,13 @@ import java.time.LocalDate
 
 class AddAppointmentPage extends DatePickerPage {
   static at = {
-    title == 'Prison-NOMIS'
+    title == 'Add new appointment - Prison NOMIS'
     headingText == 'Add new appointment'
   }
 
   static content = {
     errors { module(ErrorsModule) }
-    headingText { $('h1.heading-large').text() }
+    headingText { $("[data-qa=\'page-heading-text\']").text() }
     nameHeading { $('div.add-appointment b', 0) }
     form { $('form') }
     type { $('select', name: 'appointmentType') }

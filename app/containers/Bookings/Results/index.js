@@ -25,6 +25,7 @@ import {
 } from '../actions'
 
 import { NEW_SEARCH, DETAILS_TABS } from '../constants'
+import Page from '../../../components/Page'
 
 const ResultsViewBuilder = ({
   viewName,
@@ -134,53 +135,54 @@ class SearchResults extends Component {
     }
 
     return (
-      <div className="booking-search">
-        <div className="row" ref={focusPoint}>
-          <h1 className="heading-xlarge add-gutter-top"> Search results </h1>
-          <SearchAgainForm locations={locations} query={query} />
-        </div>
+      <Page title="Offender search results">
+        <div className="booking-search">
+          <div className="row" ref={focusPoint}>
+            <SearchAgainForm locations={locations} query={query} />
+          </div>
 
-        <div className="row toggle-and-count-view">
-          {totalResults > 0 ? (
-            <div>
-              <div className="col-xs-6 col-sm-4 col-md-3">
-                {Math.min(pP * pN + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults}{' '}
-                results
+          <div className="row toggle-and-count-view">
+            {totalResults > 0 ? (
+              <div>
+                <div className="col-xs-6 col-sm-4 col-md-3">
+                  {Math.min(pP * pN + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults}{' '}
+                  results
+                </div>
+                <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsViewDispatch} />
               </div>
-              <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsViewDispatch} />
-            </div>
-          ) : null}
-        </div>
+            ) : null}
+          </div>
 
-        <div className="row">
-          <SortDropdown viewName={resultsView} />
-        </div>
+          <div className="row">
+            <SortDropdown viewName={resultsView} />
+          </div>
 
-        <div className="row">
-          {!shouldShowSpinner && <NoSearchResultsReturnedMessage resultCount={results.size} />}
+          <div className="row">
+            {!shouldShowSpinner && <NoSearchResultsReturnedMessage resultCount={results.size} />}
 
-          {totalResults > 0 && (
-            <ResultsViewBuilder
-              viewName={resultsView}
-              results={results}
-              onViewDetails={viewDetails}
-              sortOrderChange={() => toggleSortOrder(sortOrder)}
-              sortOrder={sortOrder}
-              showAlertTabForOffenderNo={showAlertTabForOffenderNo}
+            {totalResults > 0 && (
+              <ResultsViewBuilder
+                viewName={resultsView}
+                results={results}
+                onViewDetails={viewDetails}
+                sortOrderChange={() => toggleSortOrder(sortOrder)}
+                sortOrder={sortOrder}
+                showAlertTabForOffenderNo={showAlertTabForOffenderNo}
+              />
+            )}
+          </div>
+
+          <div className="row">
+            <PreviousNextNavigation
+              pagination={pagination}
+              totalRecords={totalResults}
+              pageAction={id => {
+                setPage({ perPage: pP, pageNumber: id })
+              }}
             />
-          )}
+          </div>
         </div>
-
-        <div className="row">
-          <PreviousNextNavigation
-            pagination={pagination}
-            totalRecords={totalResults}
-            pageAction={id => {
-              setPage({ perPage: pP, pageNumber: id })
-            }}
-          />
-        </div>
-      </div>
+      </Page>
     )
   }
 }

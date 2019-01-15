@@ -11,7 +11,7 @@ describe('Case Note Details', () => {
         <CaseNoteDetails
           backToCaseNotes={jest.fn()}
           addAmendment={jest.fn()}
-          caseNoteId={300}
+          caseNoteId="300"
           offenderNo="400"
           caseNote={Map({
             text: 'my text',
@@ -42,7 +42,7 @@ describe('Case Note Details', () => {
           currentStaffId={45}
           backToCaseNotes={jest.fn()}
           addAmendment={jest.fn()}
-          caseNoteId={300}
+          caseNoteId="300"
           offenderNo="400"
           caseNote={Map({
             text: 'my text',

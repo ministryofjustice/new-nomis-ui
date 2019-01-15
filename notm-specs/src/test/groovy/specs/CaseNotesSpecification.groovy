@@ -78,7 +78,7 @@ class CaseNotesSpecification extends GebReportingSpec {
     at HomePage
 
     when: "I navigate to add case note using an type and sub type"
-    go '/offenders/A1234AJ/addCaseNote'
+    go '/offenders/A1234AJ/add-case-note'
 
     then:
     at AddCaseNotePage
@@ -98,7 +98,7 @@ class CaseNotesSpecification extends GebReportingSpec {
     at HomePage
 
     when: "I navigate to add case note using an type and sub type"
-    go '/offenders/A1234AJ/addCaseNote?type=CHAP&subType=FAITH'
+    go '/offenders/A1234AJ/add-case-note?type=CHAP&subType=FAITH'
 
     then:
     at AddCaseNotePage

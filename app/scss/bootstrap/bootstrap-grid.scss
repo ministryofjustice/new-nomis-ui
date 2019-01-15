@@ -256,21 +256,18 @@
   align-items: center;
   justify-content: space-between;
 }
-.nav-content {
-  margin: 15px 0 0 0;
-}
 @media (min-width: 768px) {
-  .main-content, .header-content, .footer-content, .nav-content {
+  .main-content, .header-content, .footer-content {
     width: 738px;
   }
 }
 @media (min-width: 992px) {
-  .main-content, .header-content, .footer-content, .nav-content {
+  .main-content, .header-content, .footer-content {
     width: 962px;
   }
 }
 @media (min-width: 1200px) {
-  .main-content, .header-content, .footer-content, .nav-content {
+  .main-content, .header-content, .footer-content {
     width: 1170px;
   }
 }

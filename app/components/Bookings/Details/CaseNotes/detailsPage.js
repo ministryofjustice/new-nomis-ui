@@ -129,7 +129,7 @@ CaseNoteDetails.propTypes = {
   currentStaffId: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.string.isRequired]),
   backToCaseNotes: PropTypes.func.isRequired,
   addAmendment: PropTypes.func.isRequired,
-  caseNoteId: PropTypes.number.isRequired,
+  caseNoteId: PropTypes.string.isRequired,
 }
 
 CaseNoteDetails.defaultProps = {
@@ -139,7 +139,7 @@ CaseNoteDetails.defaultProps = {
 const mapDispatchToProps = () => ({
   backToCaseNotes: offenderNo => history.push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}`),
   addAmendment: (offenderNo, caseNoteId) =>
-    history.push(`/offenders/${offenderNo}/case-notes/${caseNoteId}/amendCaseNote`),
+    history.push(`/offenders/${offenderNo}/case-notes/${caseNoteId}/amend-case-note`),
 })
 
 const getCurrentStaffId = state => {

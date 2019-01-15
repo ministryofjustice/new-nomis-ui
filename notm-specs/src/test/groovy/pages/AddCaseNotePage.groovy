@@ -7,13 +7,13 @@ import modules.ErrorsModule
 class AddCaseNotePage extends Page {
 
   static at = {
-    title == 'Prison-NOMIS'
+    title == 'Add new case note - Prison NOMIS'
     headingText == 'Add new case note'
   }
 
   static content = {
     errors { module(ErrorsModule) }
-    headingText { $('h1.bold-large').text() }
+    headingText { $("[data-qa=\'page-heading-text\']").text() }
     form { $('form')}
     type { $('select', name: 'typeValue') }
     subType { $('select', name: 'subtypeValue') }

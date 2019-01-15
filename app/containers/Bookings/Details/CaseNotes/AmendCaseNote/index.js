@@ -12,6 +12,7 @@ import { AMEND_CASENOTE, DETAILS_TABS } from '../../../constants'
 import { extendActiveSession, viewDetails } from '../../../actions'
 
 import './index.scss'
+import Page from '../../../../../components/Page'
 
 const AmendCaseNote = ({ handleSubmit, error, submitting, goBackToBookingDetails, offenderNo, extendSession }) => {
   if (error) {
@@ -21,54 +22,54 @@ const AmendCaseNote = ({ handleSubmit, error, submitting, goBackToBookingDetails
   const sessionHandler = new SessionHeartbeatHandler(extendSession)
 
   return (
-    <div className="amend-case-note add-gutter-margin-top">
-      <form onSubmit={handleSubmit}>
-        <div className="row">
-          <div className="col-md-4 no-left-gutter">
-            <h1 className="heading-large no-top-gutter">Amend case note</h1>
-
-            {error && (
-              <div className="error-summary">
-                <div className="error-message">{error}</div>
-              </div>
-            )}
+    <Page title="Amend case note">
+      <div className="amend-case-note add-gutter-margin-top">
+        <form onSubmit={handleSubmit}>
+          <div className="row">
+            <div className="col-md-4 no-left-gutter">
+              {error && (
+                <div className="error-summary">
+                  <div className="error-message">{error}</div>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
 
-        <div className="row">
-          <div className="col-md-8 no-left-gutter">
-            <Field
-              name="amendmentText"
-              component={TextArea}
-              title="Case note amendment"
-              autocomplete="off"
-              spellcheck="true"
-              onChange={() => sessionHandler.onUpdate()}
-            />
+          <div className="row">
+            <div className="col-md-8 no-left-gutter">
+              <Field
+                name="amendmentText"
+                component={TextArea}
+                title="Case note amendment"
+                autocomplete="off"
+                spellcheck="true"
+                onChange={() => sessionHandler.onUpdate()}
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="row">
-          <div className="col-md-4 no-left-gutter">
-            <button className="button add-gutter-margin-right" type="submit" disabled={error || submitting}>
-              {' '}
-              Save amendment{' '}
-            </button>
-            <button
-              type="button"
-              className="button button-cancel"
-              onClick={e => {
-                e.preventDefault()
-                goBackToBookingDetails(offenderNo)
-              }}
-            >
-              {' '}
-              Cancel{' '}
-            </button>
+          <div className="row">
+            <div className="col-md-4 no-left-gutter">
+              <button className="button add-gutter-margin-right" type="submit" disabled={error || submitting}>
+                {' '}
+                Save amendment{' '}
+              </button>
+              <button
+                type="button"
+                className="button button-cancel"
+                onClick={e => {
+                  e.preventDefault()
+                  goBackToBookingDetails(offenderNo)
+                }}
+              >
+                {' '}
+                Cancel{' '}
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </Page>
   )
 }
 

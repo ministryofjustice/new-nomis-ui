@@ -37,7 +37,7 @@ const MobileMenu = ({ user, setMenuOpen, showTerms, switchCaseLoad }) => {
       </MobileMenuOption>
 
       {user && user.isKeyWorker && (
-        <Link to="/myKeyWorkerAllocations" onClick={removeMobileMenu} className="unstyled-link">
+        <Link to="/key-worker-allocations" onClick={removeMobileMenu} className="unstyled-link">
           <MobileMenuOption>
             My key worker allocations
             <ForwardArrow svg={forwardBack} />

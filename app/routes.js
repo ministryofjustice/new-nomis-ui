@@ -17,13 +17,13 @@ export default [
   },
   {
     exact: true,
-    path: '/offenders/:offenderNo/addCaseNote',
+    path: '/offenders/:offenderNo/add-case-note',
     name: 'addCaseNote',
     component: AddCaseNote,
   },
   {
     exact: true,
-    path: '/offenders/:offenderNo/addAppointment',
+    path: '/offenders/:offenderNo/add-appointment',
     name: 'addAppointment',
     component: AddAppointment,
   },
@@ -34,7 +34,7 @@ export default [
     component: Scheduled,
   },
   {
-    path: '/offenders/:offenderNo/case-notes/:caseNoteId/amendCaseNote',
+    path: '/offenders/:offenderNo/case-notes/:caseNoteId/amend-case-note',
     name: 'amendCaseNote',
     component: AmendCaseNote,
   },
@@ -44,7 +44,7 @@ export default [
     component: Details,
   },
   {
-    path: '/myKeyWorkerAllocations',
+    path: '/key-worker-allocations',
     name: 'myKeyWorkerAllocations',
     component: KeyWorkerAssignments,
   },

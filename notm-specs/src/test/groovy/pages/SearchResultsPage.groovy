@@ -8,13 +8,13 @@ class SearchResultsPage extends Page {
   static url = '/results'
 
   static at = {
-    title == 'Prison-NOMIS'
-    headingText == 'Search results'
+    title == 'Offender search results - Prison NOMIS'
+    headingText == 'Offender search results'
   }
 
   static content = {
     errors { module(ErrorsModule) }
-    headingText { $('h1').text() }
+    headingText { $("[data-qa=\'page-heading-text\']").text() }
     form { $('form')}
     images { $('div.photo img') }
     moreFiltersLink { $('span.govuk-details__summary-text') }

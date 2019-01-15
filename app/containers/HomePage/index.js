@@ -7,6 +7,7 @@ import SearchForm from './SearchForm'
 import { loadLocations } from '../Bookings/actions'
 
 import './homepage.scss'
+import Page from '../../components/Page'
 
 class HomePage extends Component {
   componentDidMount() {
@@ -21,8 +22,7 @@ class HomePage extends Component {
     }
 
     return (
-      <div>
-        <h1 className="heading-xlarge">Welcome back</h1>
+      <Page title="Welcome back" showBreadcrumb={false}>
         <SearchForm />
         <div>
           <ActionLinks
@@ -36,7 +36,7 @@ class HomePage extends Component {
             adminUtilitiesUrl={adminUtilitiesUrl}
           />
         </div>
-      </div>
+      </Page>
     )
   }
 }

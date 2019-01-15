@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import EliteImage from '../../../containers/EliteContainers/Image'
 import EliteOfficerName from '../../../containers/EliteContainers/OfficerName'
 
-import { toFullName } from '../../../utils/stringUtils'
 import { offenderImageUrl } from '../../../containers/Bookings/constants'
 import { linkOnClick } from '../../../helpers'
 
@@ -142,7 +141,7 @@ const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink }) 
       <div className="col-xs-12 col-sm-3">
         <div className="stacked-links">
           <div>
-            <Link name="add-case-note-link" className="button-link" to={`/offenders/${offenderNo}/addCaseNote`}>
+            <Link name="add-case-note-link" className="button-link" to={`/offenders/${offenderNo}/add-case-note`}>
               Add case note
             </Link>
           </div>
@@ -152,7 +151,7 @@ const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink }) 
               <Link
                 name="add-kw-session-link"
                 className="button-link"
-                to={`/offenders/${offenderNo}/addCaseNote?type=KA&subType=KS`}
+                to={`/offenders/${offenderNo}/add-case-note?type=KA&subType=KS`}
               >
                 Add KW session
               </Link>
@@ -160,7 +159,7 @@ const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink }) 
           )}
 
           <div>
-            <Link name="add-appointment-link" className="button-link" to={`/offenders/${offenderNo}/addAppointment`}>
+            <Link name="add-appointment-link" className="button-link" to={`/offenders/${offenderNo}/add-appointment`}>
               Add appointment
             </Link>
           </div>
@@ -177,8 +176,6 @@ MiddleSection.propTypes = {
 }
 
 const Header = ({ inmateData, onImageClick, offenderNo, onAlertFlagClick, showAddKeyworkerSessionLink }) => {
-  const nameString = toFullName({ firstName: inmateData.get('firstName'), lastName: inmateData.get('lastName') })
-
   const alertFlags = className => flags.AlertFlags(inmateData.get('alerts'), className, onAlertFlagClick)
 
   return (
@@ -196,10 +193,7 @@ const Header = ({ inmateData, onImageClick, offenderNo, onAlertFlagClick, showAd
 
         <div className="col-xs-9 col-sm-9 col-md-10 col-lg-10 no-left-gutter no-right-gutter add-gutter-bottom-mobile">
           <div className="row">
-            <div className="col-md-12">
-              <h1 className="heading-medium inline-header">{nameString}</h1>
-              {alertFlags('inline-header-large align-alerts')}
-            </div>
+            <div className="col-md-12">{alertFlags('inline-header-large align-alerts')}</div>
           </div>
 
           <div className="row">
