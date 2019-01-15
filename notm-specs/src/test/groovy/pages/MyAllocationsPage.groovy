@@ -11,7 +11,7 @@ class MyAllocationsPage extends Page {
   }
 
   static content = {
-    headingText { $('h1').text() }
+    headingText { $("[data-qa=\'page-heading-text\']").text() }
     rowsReady(wait:true) { $('.offender') }
   }
 

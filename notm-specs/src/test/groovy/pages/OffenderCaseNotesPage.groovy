@@ -6,7 +6,7 @@ import modules.ErrorsModule
 class OffenderCaseNotesPage extends Page {
 
   static at = {
-    title == 'Prison-NOMIS'
+    title == 'Smith, Daniel - Prison NOMIS'
     caseNoteDetails.size() == 2
   }
 

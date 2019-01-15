@@ -26,7 +26,7 @@ export class Page extends Component {
       <Fragment>
         {showBreadcrumb && <Breadcrumb />}
         <Container>
-          <Header level={1} size="LARGE">
+          <Header level={1} size="LARGE" data-qa="page-heading-text">
             {title}
           </Header>
           <div className="page-content">{children}</div>
