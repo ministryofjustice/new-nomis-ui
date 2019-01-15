@@ -93,7 +93,6 @@ class SearchResultsSpecification extends GebReportingSpec {
     rows[1].find('.arsonist-status').click()
 
     then: 'The offender details alert tab is shown'
-    at OffenderDetailsPage
     at AlertsPage
     alerts[0].text().contains('alertType0')
     alerts[1].text().contains('alertType1')
