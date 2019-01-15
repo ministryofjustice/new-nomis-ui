@@ -7,16 +7,17 @@ import Breadcrumb from '../Breadcrumb'
 
 export class Page extends Component {
   componentDidMount() {
-    const { title } = this.props
-    this.renderTitleString(title)
+    const { title, docTitle } = this.props
+    this.renderTitleString(title, docTitle)
   }
 
   componentWillUpdate(nextProps) {
-    this.renderTitleString(nextProps.title)
+    const { title, docTitle } = nextProps
+    this.renderTitleString(title, docTitle)
   }
 
-  renderTitleString = title => {
-    document.title = `${title} - Prison NOMIS`
+  renderTitleString = (title, docTitle) => {
+    document.title = `${docTitle || title} - Prison NOMIS`
   }
 
   render() {
@@ -38,11 +39,13 @@ export class Page extends Component {
 
 Page.propTypes = {
   title: PropTypes.string.isRequired,
+  docTitle: PropTypes.string,
   children: childrenType.isRequired,
   showBreadcrumb: PropTypes.bool,
 }
 
 Page.defaultProps = {
+  docTitle: null,
   showBreadcrumb: true,
 }
 

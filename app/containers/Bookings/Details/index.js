@@ -25,8 +25,6 @@ import { Model as offenderDetailsModel } from '../../../helpers/dataMappers/offe
 import { toFullName } from '../../../utils/stringUtils'
 import Page from '../../../components/Page'
 
-const analyticsService = analyticsServiceBuilder()
-
 const tabData = [
   {
     tabId: DETAILS_TABS.QUICK_LOOK,
@@ -123,7 +121,7 @@ class Details extends Component {
     })
 
     return (
-      <Page title={offenderName}>
+      <Page title={offenderName} docTitle={ActiveTab.title}>
         <div className="detail-content">
           <BookingsDetailsHeader offenderNo={offenderNo} />
 
@@ -132,7 +130,6 @@ class Details extends Component {
               tabData={tabData.map(tab =>
                 Object.assign(tab, {
                   action: () => {
-                    analyticsService.pageView(`offender details - ${tab.title}`)
                     boundViewDetails(offenderNo, tab.tabId, itemId)
                   },
                 })
@@ -144,7 +141,6 @@ class Details extends Component {
               tabData={tabData.map(tab =>
                 Object.assign(tab, {
                   action: () => {
-                    analyticsService.pageView(`offender details - ${tab.title}`)
                     boundViewDetails(offenderNo, tab.tabId, itemId)
                   },
                 })

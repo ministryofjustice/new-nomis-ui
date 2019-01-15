@@ -34,10 +34,19 @@ describe('<Page />', () => {
   it('should NOT display the Breadcrumb component when showBreadcrumb is false', () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/random']}>
-        <Page {...props} loaded showBreadcrumb={false} />
+        <Page {...props} showBreadcrumb={false} />
       </MemoryRouter>
     )
 
     expect(wrapper.find('Breadcrumb').exists()).toEqual(false)
+  })
+
+  it('should use the optional docTitle prop for document.title if provided', () => {
+    wrapper = mount(
+      <MemoryRouter initialEntries={['/random']}>
+        <Page {...props} docTitle="Quick look" />
+      </MemoryRouter>
+    )
+    expect(global.window.document.title).toEqual('Quick look - Prison NOMIS')
   })
 })
