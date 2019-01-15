@@ -129,7 +129,7 @@ CaseNoteDetails.propTypes = {
   currentStaffId: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.string.isRequired]),
   backToCaseNotes: PropTypes.func.isRequired,
   addAmendment: PropTypes.func.isRequired,
-  caseNoteId: PropTypes.number.isRequired,
+  caseNoteId: PropTypes.string.isRequired,
 }
 
 CaseNoteDetails.defaultProps = {

@@ -65,11 +65,14 @@ DatePicker.propTypes = {
   shouldShowDay: PropTypes.func.isRequired,
   input: inputType.isRequired,
   meta: metaType.isRequired,
-  defaultValue: PropTypes.string.isRequired,
-  showError: PropTypes.bool.isRequired,
+  defaultValue: PropTypes.string,
+  showError: PropTypes.bool,
 }
 
-DatePicker.defaultProps = {}
+DatePicker.defaultProps = {
+  defaultValue: '',
+  showError: false,
+}
 
 export const momentToLocalizedDate = locale => theMoment =>
   theMoment ? theMoment.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC, locale) : theMoment

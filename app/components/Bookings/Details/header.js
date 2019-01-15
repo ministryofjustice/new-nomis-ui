@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import EliteImage from '../../../containers/EliteContainers/Image'
 import EliteOfficerName from '../../../containers/EliteContainers/OfficerName'
 
-import { toFullName } from '../../../utils/stringUtils'
 import { offenderImageUrl } from '../../../containers/Bookings/constants'
 import { linkOnClick } from '../../../helpers'
 
@@ -177,8 +176,6 @@ MiddleSection.propTypes = {
 }
 
 const Header = ({ inmateData, onImageClick, offenderNo, onAlertFlagClick, showAddKeyworkerSessionLink }) => {
-  const nameString = toFullName({ firstName: inmateData.get('firstName'), lastName: inmateData.get('lastName') })
-
   const alertFlags = className => flags.AlertFlags(inmateData.get('alerts'), className, onAlertFlagClick)
 
   return (
@@ -196,10 +193,7 @@ const Header = ({ inmateData, onImageClick, offenderNo, onAlertFlagClick, showAd
 
         <div className="col-xs-9 col-sm-9 col-md-10 col-lg-10 no-left-gutter no-right-gutter add-gutter-bottom-mobile">
           <div className="row">
-            <div className="col-md-12">
-              <h1 className="heading-medium inline-header">{nameString}</h1>
-              {alertFlags('inline-header-large align-alerts')}
-            </div>
+            <div className="col-md-12">{alertFlags('inline-header-large align-alerts')}</div>
           </div>
 
           <div className="row">

@@ -21,6 +21,9 @@ import { hideLargePhoto, viewDetails } from '../actions'
 import './index.scss'
 
 import { DETAILS_TABS } from '../constants'
+import { Model as offenderDetailsModel } from '../../../helpers/dataMappers/offenderDetails'
+import { toFullName } from '../../../utils/stringUtils'
+import Page from '../../../components/Page'
 
 const analyticsService = analyticsServiceBuilder()
 
@@ -89,6 +92,7 @@ class Details extends Component {
       match: { params },
       location,
       boundViewDetails,
+      offenderDetails,
     } = this.props
 
     const activeTabId = parseActiveTab(params.activeTab)
@@ -113,37 +117,44 @@ class Details extends Component {
       )
     }
 
-    return (
-      <div className="detail-content">
-        <BookingsDetailsHeader offenderNo={offenderNo} />
+    const offenderName = toFullName({
+      firstName: offenderDetails.get('firstName'),
+      lastName: offenderDetails.get('lastName'),
+    })
 
-        {deviceFormat === 'desktop' ? (
-          <TabNav
-            tabData={tabData.map(tab =>
-              Object.assign(tab, {
-                action: () => {
-                  analyticsService.pageView(`offender details - ${tab.title}`)
-                  boundViewDetails(offenderNo, tab.tabId, itemId)
-                },
-              })
-            )}
-            activeTabId={activeTabId}
-          />
-        ) : (
-          <TabNavMobile
-            tabData={tabData.map(tab =>
-              Object.assign(tab, {
-                action: () => {
-                  analyticsService.pageView(`offender details - ${tab.title}`)
-                  boundViewDetails(offenderNo, tab.tabId, itemId)
-                },
-              })
-            )}
-            activeTabId={activeTabId}
-          />
-        )}
-        <TabComponent location={location} offenderNo={offenderNo} itemId={itemId} />
-      </div>
+    return (
+      <Page title={offenderName}>
+        <div className="detail-content">
+          <BookingsDetailsHeader offenderNo={offenderNo} />
+
+          {deviceFormat === 'desktop' ? (
+            <TabNav
+              tabData={tabData.map(tab =>
+                Object.assign(tab, {
+                  action: () => {
+                    analyticsService.pageView(`offender details - ${tab.title}`)
+                    boundViewDetails(offenderNo, tab.tabId, itemId)
+                  },
+                })
+              )}
+              activeTabId={activeTabId}
+            />
+          ) : (
+            <TabNavMobile
+              tabData={tabData.map(tab =>
+                Object.assign(tab, {
+                  action: () => {
+                    analyticsService.pageView(`offender details - ${tab.title}`)
+                    boundViewDetails(offenderNo, tab.tabId, itemId)
+                  },
+                })
+              )}
+              activeTabId={activeTabId}
+            />
+          )}
+          <TabComponent location={location} offenderNo={offenderNo} itemId={itemId} />
+        </div>
+      </Page>
     )
   }
 }
@@ -153,13 +164,17 @@ Details.propTypes = {
   deviceFormat: PropTypes.string,
   match: PropTypes.shape({
     params: PropTypes.shape({
-      activeTab: PropTypes.string.isRequired,
-      offenderNo: PropTypes.string.isRequired,
+      activeTab: PropTypes.string,
+      offenderNo: PropTypes.string,
       itemId: PropTypes.string,
     }),
   }).isRequired,
   imageSrcUrl: PropTypes.number,
   shouldShowLargePhoto: PropTypes.bool,
+  offenderDetails: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+  }).isRequired,
 
   // mapDispatchToProps
   boundViewDetails: PropTypes.func.isRequired,
@@ -186,6 +201,9 @@ const mapStateToProps = createStructuredSelector({
   searchContext: selectSearchContext(),
   shouldShowLargePhoto: selectShouldShowLargePhoto(),
   imageSrcUrl: selectImageId(),
+  offenderDetails: (state, props) =>
+    state.getIn(['eliteApiLoader', 'Bookings', 'Details', props.match.params.offenderNo, 'Data']) ||
+    offenderDetailsModel,
 })
 
 // Wrap the component to inject dispatch and state into it

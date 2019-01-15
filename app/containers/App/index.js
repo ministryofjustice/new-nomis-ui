@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 // eslint-disable-next-line import/no-unresolved
-import ProductGlobals from 'product-globals'
 import Notifications from 'react-notify-toast'
 import axios from 'axios/index'
-import { Route, withRouter, Switch, matchPath } from 'react-router-dom'
+import { Route, withRouter, Switch } from 'react-router-dom'
 import { retrieveUserMe } from '../Authentication/actions'
 import { selectShouldShowSpinner, selectShouldShowTerms, selectMobileMenuOpen } from '../../selectors/app'
 import Header from '../Header'
-import Breadcrumbs from '../Breadcrumbs'
 import Footer from '../Footer'
 import Spinner from '../../components/Spinner'
 import Terms from '../Footer/terms-and-conditions'
@@ -62,22 +59,12 @@ export class App extends Component {
   }
 
   render() {
-    const { shouldShowSpinner, shouldShowTerms, hideTermsAndConditions, menuOpen, routes, history } = this.props
-    const hasOffenderNo = matchPath(history.location.pathname, { path: '/offenders/:offenderNo' })
-    const offenderNo = hasOffenderNo ? hasOffenderNo.params.offenderNo : undefined
+    const { shouldShowSpinner, shouldShowTerms, hideTermsAndConditions, menuOpen, routes } = this.props
 
     return (
       <div className="app-content">
         <Notifications />
-
-        <Helmet title={ProductGlobals.serviceName} />
         <Header />
-
-        <nav className="nav-container">
-          <div className="nav-content">
-            {!shouldShowTerms && <Breadcrumbs route={history.location.pathname} offenderNo={offenderNo} />}
-          </div>
-        </nav>
         {/* eslint-disable-next-line */}
         <main className={`container ${menuOpen ? 'desktop-only' : ''}`} onClick={() => this.onBackgroundClick()}>
           {shouldShowSpinner && <Spinner />}

@@ -25,6 +25,7 @@ import { DETAILS_TABS, ADD_NEW_CASENOTE } from '../../constants'
 import { viewDetails, extendActiveSession, loadCaseNoteTypesAndSubTypes } from '../../actions'
 import { getQueryParams } from '../../../../helpers'
 import './index.scss'
+import Page from '../../../../components/Page'
 
 const selector = formValueSelector('addCaseNote')
 
@@ -63,118 +64,119 @@ class AddCaseNoteForm extends Component {
     const { editDateTime } = this.state
 
     return (
-      <div className="add-case-note">
-        <h1 className="bold-large">Add new case note</h1>
-        <form onSubmit={handleSubmit}>
-          <SubmissionError error={error}>{error}</SubmissionError>
+      <Page title="Add new case note">
+        <div className="add-case-note">
+          <form onSubmit={handleSubmit}>
+            <SubmissionError error={error}>{error}</SubmissionError>
 
-          <div className="row">
-            <div className="col-sm-4 no-left-gutter">
-              <TypeAndSubTypeSelector
-                selectedType={typeValue}
-                types={caseNoteTypes.types}
-                subTypes={caseNoteTypes.subTypes}
-              />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-sm-8 no-left-gutter">
-              <Field
-                name="caseNoteText"
-                component={TextArea}
-                title="Case note"
-                autocomplete="off"
-                spellcheck="true"
-                onChange={() => sessionHandler.onUpdate()}
-              />
-            </div>
-          </div>
-
-          <div className="row">
-            <strong> Occurrence date and time </strong>
-          </div>
-
-          {!editDateTime && (
             <div className="row">
-              <div className="col-sm-3 col-md-3 col-xs-6 no-left-gutter add-gutter-bottom">
-                <span>
-                  <FormattedDate value={today.format()} />
-                </span>
-                <span>&nbsp;-&nbsp;</span>
-                <span>
-                  <FormattedTime value={today.format()} />
-                </span>
-                <span>
-                  <button
-                    type="button"
-                    name="change-date-time"
-                    className="link"
-                    onClick={() =>
-                      this.setState({
-                        editDateTime: !this.editDateTime,
-                      })
-                    }
-                  >
-                    Change
-                  </button>
-                </span>
-              </div>
-            </div>
-          )}
-
-          {editDateTime && (
-            <div className="row">
-              <div className="col-sm-3 col-md-2 col-xs-6 no-left-gutter event-date">
-                <Field
-                  name="eventDate"
-                  title="Select date"
-                  component={DatePicker}
-                  locale={locale}
-                  format={momentToLocalizedDate(locale)}
-                  parse={localizedDateToMoment(locale)}
-                  defaultValue={eventDate || today}
-                  shouldShowDay={date => date.isBefore(moment())}
-                />
-              </div>
-              <div className="col-sm-3 col-md-2 col-xs-6 no-left-gutter">
-                <Field
-                  name="startTime"
-                  title="Time"
-                  component={TimePicker}
-                  date={eventDate || today}
-                  now={today}
-                  pastTimeOnly
-                  initialiseToNow
+              <div className="col-sm-4 no-left-gutter">
+                <TypeAndSubTypeSelector
+                  selectedType={typeValue}
+                  types={caseNoteTypes.types}
+                  subTypes={caseNoteTypes.subTypes}
                 />
               </div>
             </div>
-          )}
 
-          <div className="row">
-            <div className="col-md-3 no-left-gutter">
-              <button
-                className="button add-gutter-margin-right add-gutter-margin-bottom"
-                type="submit"
-                disabled={submitting}
-              >
-                Save case note
-              </button>
-
-              <button
-                className="button button-cancel"
-                type="button"
-                onClick={e => {
-                  e.preventDefault()
-                  goBackToBookingDetails(offenderNo)
-                }}
-              >
-                Cancel
-              </button>
+            <div className="row">
+              <div className="col-sm-8 no-left-gutter">
+                <Field
+                  name="caseNoteText"
+                  component={TextArea}
+                  title="Case note"
+                  autocomplete="off"
+                  spellcheck="true"
+                  onChange={() => sessionHandler.onUpdate()}
+                />
+              </div>
             </div>
-          </div>
-        </form>
-      </div>
+
+            <div className="row">
+              <strong> Occurrence date and time </strong>
+            </div>
+
+            {!editDateTime && (
+              <div className="row">
+                <div className="col-sm-3 col-md-3 col-xs-6 no-left-gutter add-gutter-bottom">
+                  <span>
+                    <FormattedDate value={today.format()} />
+                  </span>
+                  <span>&nbsp;-&nbsp;</span>
+                  <span>
+                    <FormattedTime value={today.format()} />
+                  </span>
+                  <span>
+                    <button
+                      type="button"
+                      name="change-date-time"
+                      className="link"
+                      onClick={() =>
+                        this.setState({
+                          editDateTime: !this.editDateTime,
+                        })
+                      }
+                    >
+                      Change
+                    </button>
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {editDateTime && (
+              <div className="row">
+                <div className="col-sm-3 col-md-2 col-xs-6 no-left-gutter event-date">
+                  <Field
+                    name="eventDate"
+                    title="Select date"
+                    component={DatePicker}
+                    locale={locale}
+                    format={momentToLocalizedDate(locale)}
+                    parse={localizedDateToMoment(locale)}
+                    defaultValue={eventDate || today}
+                    shouldShowDay={date => date.isBefore(moment())}
+                  />
+                </div>
+                <div className="col-sm-3 col-md-2 col-xs-6 no-left-gutter">
+                  <Field
+                    name="startTime"
+                    title="Time"
+                    component={TimePicker}
+                    date={eventDate || today}
+                    now={today}
+                    pastTimeOnly
+                    initialiseToNow
+                  />
+                </div>
+              </div>
+            )}
+
+            <div className="row">
+              <div className="col-md-3 no-left-gutter">
+                <button
+                  className="button add-gutter-margin-right add-gutter-margin-bottom"
+                  type="submit"
+                  disabled={submitting}
+                >
+                  Save case note
+                </button>
+
+                <button
+                  className="button button-cancel"
+                  type="button"
+                  onClick={e => {
+                    e.preventDefault()
+                    goBackToBookingDetails(offenderNo)
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </Page>
     )
   }
 }

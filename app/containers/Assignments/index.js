@@ -15,6 +15,7 @@ import { linkOnClick } from '../../helpers'
 import './index.scss'
 import userType from '../types'
 import history from '../../history'
+import Page from '../../components/Page'
 
 const ResultsView = ({ results, viewDetails }) => (
   <div className="offender-table">
@@ -117,23 +118,23 @@ class Assignments extends Component {
     const { results, totalResults, capacity, error, viewDetails } = this.props
 
     return (
-      <div className="my-allocations">
-        <h1 className="heading-large no-top-margin add-gutter-padding-top">My key worker allocations</h1>
+      <Page title="My key worker allocations">
+        <div className="my-allocations">
+          <h2 className="heading-medium no-top-margin add-gutter-padding-top">
+            <span className="add-gutter-margin-right"> Current allocations </span>{' '}
+            <ThresholdIndicator maximum={capacity} value={totalResults} />
+          </h2>
 
-        <h2 className="heading-medium no-top-margin add-gutter-padding-top">
-          <span className="add-gutter-margin-right"> Current allocations </span>{' '}
-          <ThresholdIndicator maximum={capacity} value={totalResults} />
-        </h2>
+          {error && (
+            <div className="error-summary">
+              <div className="error-message"> {error} </div>
+            </div>
+          )}
 
-        {error && (
-          <div className="error-summary">
-            <div className="error-message"> {error} </div>
-          </div>
-        )}
-
-        {results.size > 0 && <ResultsView results={results} viewDetails={viewDetails} />}
-        {results.size === 0 && <h2 className="heading-small"> No prisoners allocated. </h2>}
-      </div>
+          {results.size > 0 && <ResultsView results={results} viewDetails={viewDetails} />}
+          {results.size === 0 && <h2 className="heading-small"> No prisoners allocated. </h2>}
+        </div>
+      </Page>
     )
   }
 }
