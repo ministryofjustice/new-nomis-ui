@@ -38,10 +38,11 @@ export function hideLargePhoto(imageId) {
 }
 
 export function viewDetails(offenderNo, activeTabId, itemId) {
+  const shouldUseItemId = activeTabId === 'case-notes'
   return {
     meta: { debounce: 'simple' },
     type: VIEW_DETAILS,
-    payload: { offenderNo, activeTabId, itemId },
+    payload: { offenderNo, activeTabId, itemId: shouldUseItemId ? itemId : null },
   }
 }
 

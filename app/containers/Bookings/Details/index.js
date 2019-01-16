@@ -86,14 +86,15 @@ class Details extends Component {
       imageSrcUrl,
       shouldShowLargePhoto,
       hidePhoto,
-      match: { params },
+      match: {
+        params: { activeTab, offenderNo, itemId },
+      },
       location,
       boundViewDetails,
       offenderDetails,
     } = this.props
 
-    const activeTabId = parseActiveTab(params.activeTab)
-    const { offenderNo, itemId } = params
+    const activeTabId = parseActiveTab(activeTab)
     const ActiveTab = tabData.filter(tab => tab.tabId === activeTabId)[0]
     const TabComponentDesktop = ActiveTab.component
     const TabComponentMobile = ActiveTab.componentMobile
@@ -118,9 +119,10 @@ class Details extends Component {
       firstName: offenderDetails.get('firstName'),
       lastName: offenderDetails.get('lastName'),
     })
+    const isIndividualCaseNote = activeTab === 'case-notes' && itemId
 
     return (
-      <Page title={offenderName} docTitle={ActiveTab.title}>
+      <Page title={offenderName} docTitle={isIndividualCaseNote ? 'View case note' : ActiveTab.title}>
         <div className="detail-content">
           <BookingsDetailsHeader offenderNo={offenderNo} />
 
