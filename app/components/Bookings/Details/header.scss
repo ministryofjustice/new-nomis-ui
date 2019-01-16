@@ -1,6 +1,4 @@
-
 .header-details {
-
   .stacked-links {
     display: flex;
     flex-direction: column;
@@ -22,10 +20,9 @@
     padding-left: 0;
   }
 
-  @media(max-width: 480px) {
-
+  @media (max-width: 480px) {
     .visible-large {
-       display: none;
+      display: none;
     }
 
     .visible-small {
@@ -42,7 +39,6 @@
       display: none !important;
     }
   }
-
 
   @include add-gutter-margin-top();
 
@@ -64,7 +60,7 @@
     font-size: 24px;
   }
 
-  @media(max-width: 640px) {
+  @media (max-width: 640px) {
     h1 {
       font-size: 24px !important;
     }
@@ -105,10 +101,20 @@
     margin-top: 0;
   }
 
-  .alerts {
-
+  .alerts-link {
     display: flex;
     flex-direction: row;
+    text-decoration: 'underline';
+    color: black;
+
+    &:focus {
+      background-color: $yellow;
+      outline: 3px solid $yellow;
+
+      .active-alert {
+        color: black;
+      }
+    }
 
     @include media-breakpoint-down(md) {
       flex-direction: column;
@@ -120,11 +126,11 @@
 
     .active-alert {
       color: red;
-      padding-right: .5em;
+      padding-right: 0.5em;
     }
 
     .inactive-alert {
-      padding-left: .5em;
+      padding-left: 0.5em;
 
       @include media-breakpoint-up(lg) {
         border-left: solid 3px black;
@@ -148,7 +154,7 @@
 /* stylelint-disable property-no-vendor-prefix */
 %status-style {
   border: 3px solid;
-  padding: .4em 0.8em 0;
+  padding: 0.4em 0.8em 0;
   margin-left: 0;
   margin-right: 5px;
   margin-bottom: 5px;
@@ -177,21 +183,21 @@
 
 .acct-status {
   @extend %alert-status-style;
-  color: #D34700;
-  border-color: #D34700;
+  color: #d34700;
+  border-color: #d34700;
 }
 
 .assault-status {
   @extend %alert-status-style;
-  color: #4C2C92;
-  border-color: #4C2C92;
+  color: #4c2c92;
+  border-color: #4c2c92;
 }
 
 .disability-status {
   @extend %alert-status-style;
   padding-top: 0.32em;
-  color: #2B88C8;
-  border-color: #2B88C8;
+  color: #2b88c8;
+  border-color: #2b88c8;
 }
 
 .disability-adjust {
@@ -204,8 +210,8 @@
 .arsonist-status {
   @extend %alert-status-style;
   padding-top: 0.18em;
-  color: #DF3034;
-  border-color: #DF3034;
+  color: #df3034;
+  border-color: #df3034;
 }
 
 .arsonist-adjust {
@@ -217,40 +223,40 @@
 
 .elist-status {
   @extend %alert-status-style;
-  color: #28A197;
-  border-color: #28A197;
+  color: #28a197;
+  border-color: #28a197;
 }
 
 .risk-females-status {
   @extend %alert-status-style;
-  color: #6F71AF;
-  border-color: #6F71AF;
+  color: #6f71af;
+  border-color: #6f71af;
 }
 
 .tact-status {
   @extend %alert-status-style;
-  color: #D53880;
-  border-color: #D53880;
+  color: #d53880;
+  border-color: #d53880;
 }
 
 .cata-status {
   @extend %status-style;
-  color: #00437B;
-  border-color: #00437B;
+  color: #00437b;
+  border-color: #00437b;
 }
 
 .cata-high-status {
   @extend %status-style;
-  background-color: #00437B;
+  background-color: #00437b;
   color: white;
-  border-color: #00437B;
+  border-color: #00437b;
 }
 
 .cata-prov-status {
   @extend %status-style;
   border: 3px dashed;
-  color: #00437B;
-  border-color: #00437B;
+  color: #00437b;
+  border-color: #00437b;
 }
 
 @media (min-width: 481px) {

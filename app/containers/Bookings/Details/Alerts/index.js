@@ -36,7 +36,7 @@ class Alerts extends Component {
     const { alerts, totalResults, pagination, offenderNo, setPagination, setFilter, deviceFormat, filter } = this.props
 
     return (
-      <div>
+      <div id="tab-content">
         <AlertsFilterForm
           deviceFormat={deviceFormat}
           setFilter={filterValues => setFilter(offenderNo, filterValues)}
