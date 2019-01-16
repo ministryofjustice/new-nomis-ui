@@ -2,7 +2,7 @@ import React from 'react'
 import { Map } from 'immutable'
 import { shallow } from 'enzyme'
 
-import Header from './header'
+import Header, { Alerts } from './header'
 
 const allAlerts = [
   Map({ alertCode: 'HA' }),
@@ -164,5 +164,13 @@ describe('Header component', () => {
     )
 
     expect(wrapper.find('div.visible-small > MiddleSection').shallow()).toMatchSnapshot()
+  })
+
+  describe('<Alerts /> child component', () => {
+    it('should link to to the alerts page and ID', () => {
+      const wrapper = shallow(<Alerts activeAlertCount={10} inactiveAlertCount={1} offenderNo="A1234RT" />)
+
+      expect(wrapper.prop('to')).toBe('/offenders/A1234RT/alerts#tab-content')
+    })
   })
 })

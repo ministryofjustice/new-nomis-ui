@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Link } from 'react-router-dom'
+import { HashLink } from 'react-router-hash-link'
 import EliteImage from '../../../containers/EliteContainers/Image'
 import EliteOfficerName from '../../../containers/EliteContainers/OfficerName'
 
@@ -11,8 +12,8 @@ import { linkOnClick } from '../../../helpers'
 import './header.scss'
 import flags from '../AlertFlags'
 
-const Alerts = ({ activeAlertCount, inactiveAlertCount }) => (
-  <div className="alerts">
+export const Alerts = ({ activeAlertCount, inactiveAlertCount, offenderNo }) => (
+  <HashLink to={`/offenders/${offenderNo}/alerts#tab-content`} className="alerts-link">
     <span className="active-alert">
       <strong>{activeAlertCount}</strong>
       <span> active </span>
@@ -21,12 +22,13 @@ const Alerts = ({ activeAlertCount, inactiveAlertCount }) => (
       <strong className="inactive-alert">{inactiveAlertCount}</strong>
       <span> inactive </span>
     </span>
-  </div>
+  </HashLink>
 )
 
 Alerts.propTypes = {
   activeAlertCount: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.string.isRequired]).isRequired,
   inactiveAlertCount: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.string.isRequired]).isRequired,
+  offenderNo: PropTypes.string.isRequired,
 }
 
 const Location = ({ assignedLivingUnit }) => (
@@ -105,6 +107,7 @@ const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink }) 
               <Alerts
                 activeAlertCount={inmateData.get('activeAlertCount')}
                 inactiveAlertCount={inmateData.get('inactiveAlertCount')}
+                offenderNo={offenderNo}
               />
             </div>
           </div>
@@ -125,6 +128,7 @@ const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink }) 
               <Alerts
                 activeAlertCount={inmateData.get('activeAlertCount')}
                 inactiveAlertCount={inmateData.get('inactiveAlertCount')}
+                offenderNo={offenderNo}
               />
             </div>
           </div>
