@@ -20,19 +20,14 @@
     height: 2em;
   }
 
-  .form-control {
-    width: 95% !important;
-  }
+
 
   @include media-breakpoint-down(md) {
     .filter-box {
-      .row {
-        margin-top: 1em;
-      }
+      padding: 10px 10px 10px 0;
       
       .form-control {
         margin-bottom: 15px;
-        width: 100% !important;
       }
     }
   }
