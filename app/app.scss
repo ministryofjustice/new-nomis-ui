@@ -1,17 +1,16 @@
-.clickable{
+.clickable {
   cursor: pointer;
-  
-   &:focus {
+
+  &:focus {
     outline: 3px solid #ffbf47;
-   }
+  }
 }
 
-.button-start{
+.button-start {
   background-image: url('~/img/icon-pointer.png') !important;
 }
 
-a.link{
-
+a.link {
   color: $link-colour !important;
   font-size: 19px;
 
@@ -20,7 +19,7 @@ a.link{
   }
 
   &:visited {
-   // color: $link-colour !important;
+    // color: $link-colour !important;
     text-decoration: none !important;
   }
 }
@@ -37,4 +36,20 @@ a.link{
 
 .add-small-margin-bottom {
   margin-bottom: 5px;
+}
+
+// Global box-sizing: border-box is set because of the grid systems we use and is causing an issue with gov.uk checkbox and radio styles.
+// Unsetting until we sort out the grid choice, to fix their appearance.
+[type='radio'] + span {
+  &::after {
+    box-sizing: unset;
+  }
+}
+
+[type='checkbox'] + span {
+  &::before,
+  &::after {
+    box-sizing: unset;
+    background: white;
+  }
 }

@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import moment from 'moment'
 import { List } from 'immutable'
 import uuid from 'uuid/v4'
+import Radio from '@govuk-react/radio'
 import { FormattedDate } from '../../../../components/intl'
 
 import { Model as offenderDetailsModel } from '../../../../helpers/dataMappers/offenderDetails'
@@ -88,36 +89,28 @@ class ScheduledEvents extends Component {
       <Page title={`Schedule for ${properCase(firstName)} ${properCase(lastName)}`}>
         <div className="whereabouts">
           <div className="row filters">
-            <div className="col-xs-6 col-lg-2 no-left-gutter">
-              <div className="form-group">
-                <div className="multiple-choice">
-                  <input
-                    checked={thisWeek && 'checked'}
-                    type="radio"
-                    name="radio-inline-group"
-                    id="thisWeek"
-                    value="Yes"
-                    onClick={() => loadThisWeeksScheduledEvents(offenderNo)}
-                    onChange={event => event.preventDefault()}
-                  />
-                  <label htmlFor="thisWeek">This week</label>
-                </div>
-              </div>
-            </div>
-            <div className="col-xs-6 col-lg-2 no-left-gutter">
-              <div className="multiple-choice">
-                <input
-                  checked={nextWeek && 'checked'}
-                  type="radio"
-                  name="radio-inline-group"
-                  id="nextWeek"
-                  value="Yes"
-                  onClick={() => loadNextWeeksScheduledEvents(offenderNo)}
-                  onChange={event => event.preventDefault()}
-                />
-                <label htmlFor="nextWeek">Next week</label>
-              </div>
-            </div>
+            <Radio
+              checked={thisWeek && 'checked'}
+              name="radio-inline-group"
+              id="thisWeek"
+              value="Yes"
+              onClick={() => loadThisWeeksScheduledEvents(offenderNo)}
+              onChange={event => event.preventDefault()}
+              inline
+            >
+              This week
+            </Radio>
+            <Radio
+              checked={nextWeek && 'checked'}
+              name="radio-inline-group"
+              id="nextWeek"
+              value="Yes"
+              onClick={() => loadNextWeeksScheduledEvents(offenderNo)}
+              onChange={event => event.preventDefault()}
+              inline
+            >
+              Next week
+            </Radio>
           </div>
 
           <div className="row hidden-lg-down">

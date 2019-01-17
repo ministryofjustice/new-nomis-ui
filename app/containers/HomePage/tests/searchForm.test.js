@@ -17,19 +17,21 @@ describe('Search Form', () => {
   it('should show global search checkbox when the user has global search', () => {
     props.canGlobalSearch = true
     const wrapper = mount(<SearchForm {...props} />)
-    expect(wrapper.find('.global-search').length).toBe(1)
+
+    expect(wrapper.find('Checkbox').prop('name')).toBe('global-search')
   })
 
   it('should display the location dropdown once the global search checkbox is checked', () => {
     const wrapper = mount(<SearchForm {...props} />)
-    wrapper.find('.global-search').simulate('change', { target: { checked: true } })
+    const checkBox = wrapper.find('Checkbox').find('input')
+    checkBox.simulate('change', { target: { checked: true } })
 
     expect(wrapper.find('.locationPrefix').props().disabled).toBe(true)
   })
 
   it('should redirect to the global search site with the entered search criteria', () => {
     const wrapper = mount(<SearchForm {...props} />)
-    const checkBox = wrapper.find('.global-search').first()
+    const checkBox = wrapper.find('Checkbox').find('input')
     const searchInput = wrapper.find('.search-input').first()
     const form = wrapper.find('.search-form').first()
     const onSubmit = jest.spyOn(wrapper.instance(), 'onSubmit')

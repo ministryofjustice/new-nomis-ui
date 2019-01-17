@@ -20,8 +20,6 @@
     height: 2em;
   }
 
-
-
   @include media-breakpoint-down(md) {
     .filter-box {
       padding: 10px 10px 10px 0;
@@ -31,16 +29,4 @@
       }
     }
   }
-}
-
-div.in-rows {
-  clear: none;
-}
-
-.multiple-choice [type='checkbox'] + label::before {
-  background: white !important;
-}
-
-.add-checkbox-label-margin-left {
-  margin-left: 20px;
 }
