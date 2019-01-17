@@ -74,13 +74,13 @@ DesktopAlertsFilterForm.propTypes = {
   alertTypes: alertTypesType.isRequired,
   locale: PropTypes.string.isRequired,
   submitting: PropTypes.bool,
-  error: PropTypes.string,
+  error: PropTypes.bool,
   handleSubmit: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
 }
 
 DesktopAlertsFilterForm.defaultProps = {
-  error: '',
+  error: false,
   submitting: false,
 }
 

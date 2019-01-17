@@ -49,7 +49,7 @@ AlertsFilterForm.propTypes = {
   initialFilterValues: alertTypesFilterType.isRequired,
   alertTypes: alertTypesType.isRequired,
   locale: PropTypes.string,
-  error: PropTypes.string,
+  error: PropTypes.bool,
   handleSubmit: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
 
@@ -60,7 +60,7 @@ AlertsFilterForm.propTypes = {
 
 AlertsFilterForm.defaultProps = {
   locale: 'en',
-  error: '',
+  error: false,
 }
 
 const convertFormValues = filterValues => ({
