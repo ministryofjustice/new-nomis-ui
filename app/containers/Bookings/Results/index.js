@@ -109,7 +109,7 @@ class SearchResults extends Component {
     const query = getQueryParams(search)
 
     const SortDropdown = ({ viewName }) => (
-      <div className="col-md-4 visible-md visible-lg add-gutter-margin-top">
+      <div className="col-md-4 visible-md visible-lg add-gutter-margin-top no-right-gutter">
         <label className="form-label" htmlFor="sorting">
           <b>Order results by</b>
         </label>

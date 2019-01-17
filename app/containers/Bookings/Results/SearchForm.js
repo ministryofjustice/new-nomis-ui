@@ -102,7 +102,7 @@ class SearchAgainForm extends Component {
 
         <div className="filter-box">
           <div className="row">
-            <div className="col-md-4">
+            <div className="col-md-4 no-right-gutter">
               <label htmlFor="keywords" className="form-label visible-md visible-lg">
                 Enter prisoner Name or ID
               </label>
@@ -119,7 +119,7 @@ class SearchAgainForm extends Component {
               />
             </div>
 
-            <div className="col-md-4">
+            <div className="col-md-4 no-right-gutter">
               <label htmlFor="location" className="form-label visible-md visible-lg">
                 Select location
               </label>
@@ -132,7 +132,7 @@ class SearchAgainForm extends Component {
               </select>
             </div>
 
-            <div className="col-md-3">
+            <div className="col-md-3 no-right-gutter">
               <span className="form-label visible-md visible-lg">&nbsp;</span>
 
               <div className="visible-md visible-lg">
