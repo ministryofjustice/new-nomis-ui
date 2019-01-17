@@ -46,8 +46,10 @@
     "plant-beanstalk": "node ./bin/plant-beanstalk.js"
   },
   "dependencies": {
+    "@govuk-react/checkbox": "^0.4.0",
     "@govuk-react/constants": "^0.3.1",
     "@govuk-react/header": "^0.3.1",
+    "@govuk-react/radio": "^0.4.0",
     "applicationinsights": "^1.0.0",
     "axios": "^0.18.0",
     "babel-polyfill": "6.20.0",

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import serialize from 'form-serialize'
+import Checkbox from '@govuk-react/checkbox'
 import { buildSearchQueryString } from '../../../utils/stringUtils'
 import { linkOnClick } from '../../../helpers'
 import history from '../../../history'
@@ -73,20 +74,19 @@ class SearchAgainForm extends Component {
     const isTicked = code => checkedAlerts.indexOf(code) >= 0
 
     const AlertCheckbox = ({ code, colClasses, content, onChange }) => {
-      const classes = `${colClasses} multiple-choice in-rows`
+      const classes = `${colClasses} multiple-choice no-left-gutter`
       return (
         <div className={classes}>
-          <input
+          <Checkbox
             id={code}
             type="checkbox"
             name="alerts"
             value={code}
             defaultChecked={isTicked(code)}
             onChange={onChange}
-          />
-          <label className="add-checkbox-label-margin-left" htmlFor={code}>
+          >
             {content}
-          </label>
+          </Checkbox>
         </div>
       )
     }

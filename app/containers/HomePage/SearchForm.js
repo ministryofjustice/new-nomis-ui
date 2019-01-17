@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import serialize from 'form-serialize'
+import Checkbox from '@govuk-react/checkbox'
 
 import { buildSearchQueryString, buildQueryString } from '../../utils/stringUtils'
 import './searchForm.scss'
@@ -95,14 +96,15 @@ export class SearchForm extends Component {
 
               {canGlobalSearch && (
                 <div className="multiple-choice">
-                  <input
+                  <Checkbox
                     name="global-search"
                     type="checkbox"
                     className="global-search"
                     value={doGlobalSearch}
                     onChange={() => this.handleGlobalSearchCheckBoxChange(doGlobalSearch)}
-                  />
-                  <label htmlFor="global-search"> Global search </label>
+                  >
+                    Global search
+                  </Checkbox>
                 </div>
               )}
             </div>
