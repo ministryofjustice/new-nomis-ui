@@ -1,6 +1,6 @@
 import styled from 'react-emotion'
-import { BLACK, GREY_1, YELLOW } from 'govuk-colours'
-import { FONT_SIZE, LINE_HEIGHT, MEDIA_QUERIES, NTA_LIGHT, SPACING } from '@govuk-react/constants'
+import { BLACK, GREY_1, FOCUS_COLOUR } from 'govuk-colours'
+import { FONT_SIZE, LINE_HEIGHT, MEDIA_QUERIES, NTA_LIGHT, SPACING, FOCUS_WIDTH } from '@govuk-react/constants'
 
 export const BreadcrumbContainer = styled('div')({
   fontFamily: NTA_LIGHT,
@@ -54,8 +54,8 @@ export const BreadcrumbListItem = styled('li')({
     color: `${BLACK}`,
     textDecoration: 'underline',
     ':focus': {
-      backgroundColor: `${YELLOW}`,
-      outline: `3px solid ${YELLOW}`,
+      backgroundColor: `${FOCUS_COLOUR}`,
+      outline: `${FOCUS_WIDTH} solid ${FOCUS_COLOUR}`,
     },
   },
 })

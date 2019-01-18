@@ -62,6 +62,7 @@ function searchReducer(state = initialState, action) {
         .set('results', fromJS(action.payload.searchResults))
         .set('totalResults', fromJS(action.payload.meta.totalRecords))
         .set('sortOrder', fromJS(action.payload.meta.sortOrder))
+        .set('lastSearchResultQuery', fromJS(action.payload.queryString))
     }
 
     case SET_RESULTS_VIEW: {

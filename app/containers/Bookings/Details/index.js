@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect'
 
 import TabNav from '../../../components/Bookings/Details/tabMenu'
 import TabNavMobile from '../../../components/Bookings/Details/tabMenuMobile'
-import { selectDeviceFormat, selectSearchContext } from '../../../selectors/app'
+import { selectDeviceFormat } from '../../../selectors/app'
 import EliteImage from '../../EliteContainers/Image'
 
 import OffenderDetails from './OffenderDetails'
@@ -195,7 +195,6 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = createStructuredSelector({
   deviceFormat: selectDeviceFormat(),
   activeTabId: (state, props) => props.match.params.activeTab,
-  searchContext: selectSearchContext(),
   shouldShowLargePhoto: selectShouldShowLargePhoto(),
   imageSrcUrl: selectImageId(),
   offenderDetails: (state, props) =>

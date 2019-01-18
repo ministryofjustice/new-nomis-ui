@@ -7,6 +7,12 @@ describe('<Page />', () => {
   const props = {
     title: 'Page title',
     children: 'Page content',
+    match: {
+      path: '/',
+      url: '/',
+      isExact: true,
+      params: {},
+    },
   }
 
   let wrapper
@@ -48,5 +54,21 @@ describe('<Page />', () => {
       </MemoryRouter>
     )
     expect(global.window.document.title).toEqual('Quick look - Prison NOMIS')
+  })
+
+  it('should display a view most recent search link if results searchContext on an offender page', () => {
+    const lastSearchResultQuery = 'locationPrefix=MDI&keywords=smith'
+    props.match = {
+      ...props.match,
+      params: { offenderNo: '1234' },
+    }
+    wrapper = mount(
+      <MemoryRouter initialEntries={['/random']}>
+        <Page {...props} searchContext="results" lastSearchResultQuery={lastSearchResultQuery} />
+      </MemoryRouter>
+    )
+    const testContextLinkElement = wrapper.findWhere(node => node.props().href === `/results?${lastSearchResultQuery}`)
+
+    expect(testContextLinkElement.text()).toEqual('View most recent search')
   })
 })
