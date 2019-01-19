@@ -272,18 +272,19 @@ export function* newSearch(action) {
 
     yield put(setSearchContext('results'))
 
+    const queryString = buildSearchQueryString({
+      ...query,
+      ...pagination,
+    })
+
     yield put({
       type: SEARCH_SUCCESS,
       payload: {
         searchResults: result.bookings,
         searchQuery: query,
         meta: { totalRecords: result.totalRecords, sortOrder: query.sortOrder },
+        queryString,
       },
-    })
-
-    const queryString = buildSearchQueryString({
-      ...query,
-      ...pagination,
     })
 
     history.push(`/results?${queryString}`)
