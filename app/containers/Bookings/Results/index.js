@@ -83,7 +83,14 @@ class SearchResults extends Component {
     const paginationParam = perPage && pageNumber ? { perPage, pageNumber } : pagination
 
     if (locationPrefix) {
-      getSearchResults({ locationPrefix, keywords, alerts, pagination: paginationParam, sortFields, sortOrder })
+      getSearchResults({
+        locationPrefix,
+        keywords,
+        alerts: alerts || [],
+        pagination: paginationParam,
+        sortFields,
+        sortOrder,
+      })
     }
   }
 
@@ -189,7 +196,7 @@ class SearchResults extends Component {
 
 SearchResults.propTypes = {
   // mapStateToProps
-  sortFields: PropTypes.arrayOf(PropTypes.string).isRequired,
+  sortFields: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]).isRequired,
   sortOrder: PropTypes.string.isRequired,
   shouldShowSpinner: PropTypes.bool.isRequired,
 

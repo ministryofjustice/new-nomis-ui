@@ -24,6 +24,7 @@ class SearchResultsPage extends Page {
     sortingSelect { $('#sorting') }
     dateOfBirthOption { $('option', value: 'dateOfBirth:ASC') }
     sortingToggleArrow { $('span.clickable > img') }
+    clearFilters { $('a.clear-filters') }
   }
 
   def selectOffender(index) {

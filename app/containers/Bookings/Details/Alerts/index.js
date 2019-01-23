@@ -108,7 +108,7 @@ const mapStateToProps = (immutableState, props) => {
   const deviceFormat = immutableState.getIn(['app', 'deviceFormat'])
   const { fromDate, toDate, alertType = '', perPage, pageNumber } = queryParams
   const filter = { fromDate: momentFromDateString(fromDate), toDate: momentFromDateString(toDate), alertType }
-  const pagination = { perPage: perPage || 10, pageNumber: pageNumber || 0 }
+  const pagination = { perPage: Number.parseInt(perPage, 10) || 10, pageNumber: Number.parseInt(pageNumber, 10) || 0 }
 
   return {
     filter,

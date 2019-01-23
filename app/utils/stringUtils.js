@@ -24,16 +24,30 @@ export const toFullName = ({ firstName, lastName, name }) =>
 
 export const splitCamelCase = string => string && string.length > 1 && string.replace(/([A-Z])/g, ' $1').substring(1)
 
-export const buildSearchQueryString = query =>
-  qs.stringify({
-    locationPrefix: query.locationPrefix,
-    keywords: query.keywords || '',
-    alerts: query.alerts || [],
-    perPage: query.perPage || 10,
-    pageNumber: query.pageNumber || 0,
-    sortFields: query.sortFields || ['lastName', 'firstName'],
-    sortOrder: query.sortOrder || 'ASC',
+const validQueryValue = value =>
+  (Array.isArray(value) && value.length > 0) || (!Array.isArray(value) && (value || Number.isInteger(value)))
+
+export const cleanQuery = query => {
+  const result = {}
+  const names = Object.getOwnPropertyNames(query)
+  names.forEach(name => {
+    if (validQueryValue(query[name])) result[name] = query[name]
   })
+  return result
+}
+
+export const buildSearchQueryString = query =>
+  qs.stringify(
+    cleanQuery({
+      locationPrefix: query.locationPrefix,
+      keywords: query.keywords || '',
+      alerts: query.alerts,
+      perPage: query.perPage || 10,
+      pageNumber: query.pageNumber || 0,
+      sortFields: query.sortFields || ['lastName', 'firstName'],
+      sortOrder: query.sortOrder || 'ASC',
+    })
+  )
 
 export const buildCaseNotQueryString = query =>
   qs.stringify({

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { connect } from 'react-redux'
-import { reduxForm, Field, formValueSelector } from 'redux-form/immutable'
+import { reduxForm, Field, formValueSelector, reset } from 'redux-form/immutable'
 import { createFormAction } from 'redux-form-saga'
 import { createStructuredSelector } from 'reselect'
 import {
@@ -20,11 +20,11 @@ import { CASE_NOTE_FILTER } from '../../constants'
 
 import { caseNoteFilterSelectInfo } from './selectors'
 
-import { resetCaseNoteFilterFormField } from '../../actions'
-
 import { getQueryParams } from '../../../../helpers'
 
 const selector = formValueSelector('caseNoteFilter')
+
+const FORM_NAME = 'caseNoteFilter'
 
 const FilterForm = ({
   handleSubmit,
@@ -149,10 +149,17 @@ export const validate = form => {
 
 const mapDispatchToProps = (dispatch, props) => ({
   resetFields: () => {
-    dispatch(resetCaseNoteFilterFormField('typeValue'))
-    dispatch(resetCaseNoteFilterFormField('subTypeValue'))
-    dispatch(resetCaseNoteFilterFormField('startDate'))
-    dispatch(resetCaseNoteFilterFormField('endDate'))
+    dispatch(reset(FORM_NAME))
+    dispatch({
+      type: CASE_NOTE_FILTER.BASE,
+      payload: {
+        offenderNo: props.offenderNo,
+        query: {
+          perPage: 10,
+          pageNumber: 0,
+        },
+      },
+    })
   },
   validate,
   onSubmit: createFormAction(
@@ -203,6 +210,6 @@ export default connect(
   mapDispatchToProps
 )(
   reduxForm({
-    form: 'caseNoteFilter',
+    form: FORM_NAME,
   })(FilterForm)
 )

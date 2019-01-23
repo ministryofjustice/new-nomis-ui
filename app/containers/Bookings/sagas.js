@@ -287,8 +287,6 @@ export function* newSearch(action) {
       },
     })
 
-    history.push(`/results?${queryString}`)
-
     yield put(hideSpinner())
   } catch (err) {
     yield put(hideSpinner())

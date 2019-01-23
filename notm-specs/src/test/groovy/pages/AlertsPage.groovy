@@ -10,5 +10,8 @@ class   AlertsPage extends Page {
     alerts { $('.alert-tables tbody tr') }
     nextPageLink { $('#next-page') }
     previousPageLink { $('#previous-page') }
+    typeSelect { $('#alertType') }
+    applyFiltersButton { $('form button[type=submit]') }
+    clearFiltersButton { $( 'form button.reset-filters') }
   }
 }

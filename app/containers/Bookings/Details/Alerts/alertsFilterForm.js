@@ -13,6 +13,11 @@ import { selectLocale } from '../../../LanguageProvider/selectors'
 import selectAlertTypes, { alertTypesType, alertTypesFilterType } from './selectors'
 
 class AlertsFilterForm extends Component {
+  constructor(props) {
+    super(props)
+    this.doReset = this.doReset.bind(this)
+  }
+
   componentDidMount() {
     const { dispatchLoadAlertTypes, initialFilterValues, change } = this.props
     dispatchLoadAlertTypes()
@@ -22,8 +27,14 @@ class AlertsFilterForm extends Component {
     change('toDate', toDate)
   }
 
+  doReset() {
+    const { reset, setFilter } = this.props
+    reset()
+    setFilter({ fromDate: '', toDate: '', alertType: '' })
+  }
+
   render() {
-    const { alertTypes, deviceFormat, handleSubmit, locale, error, reset } = this.props
+    const { alertTypes, deviceFormat, handleSubmit, locale, error } = this.props
 
     return deviceFormat === 'desktop' ? (
       <DesktopAlertsFilterForm
@@ -31,7 +42,7 @@ class AlertsFilterForm extends Component {
         handleSubmit={handleSubmit}
         locale={locale}
         error={error}
-        reset={reset}
+        reset={this.doReset}
       />
     ) : (
       <MobileAlertsFilterForm
@@ -39,7 +50,7 @@ class AlertsFilterForm extends Component {
         handleSubmit={handleSubmit}
         locale={locale}
         error={error}
-        reset={reset}
+        reset={this.doReset}
       />
     )
   }
@@ -52,6 +63,7 @@ AlertsFilterForm.propTypes = {
   error: PropTypes.bool,
   handleSubmit: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
+  setFilter: PropTypes.func.isRequired,
 
   deviceFormat: PropTypes.string.isRequired,
   dispatchLoadAlertTypes: PropTypes.func.isRequired,
