@@ -162,60 +162,62 @@ class SearchAgainForm extends Component {
                 >
                   <span className="govuk-details__summary-text">{showFilters ? 'Hide filters' : 'Show filters'}</span>
                 </summary>
-                <div className="govuk-details__text">
-                  <div className="add-gutter-margin-bottom">
-                    <b>Flags</b>
+                {showFilters && (
+                  <div className="govuk-details__text">
+                    <div className="add-gutter-margin-bottom">
+                      <b>Flags</b>
+                    </div>
+                    <div className="row">
+                      <AlertCheckbox
+                        code="HA"
+                        colClasses="col-md-3"
+                        content="ACCT open"
+                        onChange={event => toggleCheckBox(event)}
+                      />
+                      <AlertCheckbox
+                        code="PEEP"
+                        colClasses="col-md-3"
+                        content="PEEP (disability)"
+                        onChange={event => toggleCheckBox(event)}
+                      />
+                      <AlertCheckbox
+                        code="XEL"
+                        colClasses="col-md-3"
+                        content="E-List"
+                        onChange={event => toggleCheckBox(event)}
+                      />
+                    </div>
+                    <div className="row">
+                      <AlertCheckbox
+                        code="XSA"
+                        colClasses="col-md-3"
+                        content="Staff assaulter"
+                        onChange={event => toggleCheckBox(event)}
+                      />
+                      <AlertCheckbox
+                        code="XA"
+                        colClasses="col-md-3"
+                        content="Arsonist"
+                        onChange={event => toggleCheckBox(event)}
+                      />
+                      <AlertCheckbox
+                        code="XTACT"
+                        colClasses="col-md-3"
+                        content="TACT"
+                        onChange={event => toggleCheckBox(event)}
+                      />
+                      <AlertCheckbox
+                        code="XRF"
+                        colClasses="col-md-3"
+                        content="Risk to females"
+                        onChange={event => toggleCheckBox(event)}
+                      />
+                    </div>
+                    <a className="clear-filters link clickable" {...linkOnClick(clearFlags)}>
+                      Clear filters
+                    </a>
                   </div>
-                  <div className="row">
-                    <AlertCheckbox
-                      code="HA"
-                      colClasses="col-md-3"
-                      content="ACCT open"
-                      onChange={event => toggleCheckBox(event)}
-                    />
-                    <AlertCheckbox
-                      code="PEEP"
-                      colClasses="col-md-3"
-                      content="PEEP (disability)"
-                      onChange={event => toggleCheckBox(event)}
-                    />
-                    <AlertCheckbox
-                      code="XEL"
-                      colClasses="col-md-3"
-                      content="E-List"
-                      onChange={event => toggleCheckBox(event)}
-                    />
-                  </div>
-                  <div className="row">
-                    <AlertCheckbox
-                      code="XSA"
-                      colClasses="col-md-3"
-                      content="Staff assaulter"
-                      onChange={event => toggleCheckBox(event)}
-                    />
-                    <AlertCheckbox
-                      code="XA"
-                      colClasses="col-md-3"
-                      content="Arsonist"
-                      onChange={event => toggleCheckBox(event)}
-                    />
-                    <AlertCheckbox
-                      code="XTACT"
-                      colClasses="col-md-3"
-                      content="TACT"
-                      onChange={event => toggleCheckBox(event)}
-                    />
-                    <AlertCheckbox
-                      code="XRF"
-                      colClasses="col-md-3"
-                      content="Risk to females"
-                      onChange={event => toggleCheckBox(event)}
-                    />
-                  </div>
-                  <a className="clear-filters link clickable" {...linkOnClick(clearFlags)}>
-                    Clear filters
-                  </a>
-                </div>
+                )}
               </details>
             </div>
           </div>
