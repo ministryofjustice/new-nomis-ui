@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import serialize from 'form-serialize'
 import Checkbox from '@govuk-react/checkbox'
 import { buildSearchQueryString } from '../../../utils/stringUtils'
 import { linkOnClick } from '../../../helpers'
@@ -12,30 +11,62 @@ import './SearchForm.scss'
 
 class SearchAgainForm extends Component {
   constructor(props) {
-    const asArray = data => (data && Array.isArray(data) ? data : [data])
-
+    const asArray = data => {
+      if (!data) return []
+      if (Array.isArray(data)) return data
+      return [data]
+    }
     super(props)
+
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.clearFlags = this.clearFlags.bind(this)
+
     this.state = {
       showFilters: false,
       checkedAlerts: asArray(props.query.alerts),
+      locationPrefix: props.query.locationPrefix,
+      keywords: props.query.keywords || '',
     }
   }
 
-  handleSubmit = event => {
+  handleSubmit(event) {
+    const {
+      query: { sortFields, sortOrder },
+    } = this.props
+    const { locationPrefix, keywords, checkedAlerts } = this.state
     event.preventDefault()
-    const formData = serialize(event.target, { hash: true })
+    const formData = {
+      locationPrefix,
+      keywords,
+      alerts: checkedAlerts,
+      sortFields,
+      sortOrder,
+    }
+    history.push(`/results?${buildSearchQueryString(formData)}`)
+  }
+
+  handleChange(event) {
+    const { name, value } = event.target
+    this.setState({ [name]: value })
+  }
+
+  clearFlags() {
+    const {
+      query: { sortFields, sortOrder },
+    } = this.props
+    const { locationPrefix, keywords } = this.state
+    const formData = {
+      locationPrefix,
+      keywords,
+      sortFields,
+      sortOrder,
+    }
+    this.setState({ checkedAlerts: [] })
     history.push(`/results?${buildSearchQueryString(formData)}`)
   }
 
   render() {
-    const clearFlags = () => {
-      const { showFilters } = this.state
-      this.setState({
-        showFilters,
-        checkedAlerts: [],
-      })
-    }
-
     const toggleDetails = event => {
       event.preventDefault()
       const { showFilters, checkedAlerts } = this.state
@@ -46,32 +77,27 @@ class SearchAgainForm extends Component {
     }
 
     const toggleCheckBox = event => {
-      const { checkedAlerts, showFilters } = this.state
+      const { checkedAlerts } = this.state
       const code = event.target.value
 
-      const exists = checkedAlerts.find(alert => alert === code)
+      const exists = checkedAlerts.includes(code)
       if (exists) {
         this.setState({
-          showFilters,
-          checkedAlerts: [...checkedAlerts.filter(alert => alert !== code)],
+          checkedAlerts: checkedAlerts.filter(alert => alert !== code),
         })
       } else {
         this.setState({
-          showFilters,
           checkedAlerts: [...checkedAlerts, code],
         })
       }
     }
 
-    const {
-      query: { locationPrefix, keywords },
-      error,
-      locations,
-      submitting,
-    } = this.props
+    const { error, locations, submitting } = this.props
+
+    const { locationPrefix, keywords } = this.state
 
     const { showFilters, checkedAlerts } = this.state
-    const isTicked = code => checkedAlerts.indexOf(code) >= 0
+    const isTicked = code => checkedAlerts.includes(code)
 
     const AlertCheckbox = ({ code, colClasses, content, onChange }) => {
       const classes = `${colClasses} multiple-choice no-left-gutter`
@@ -92,7 +118,7 @@ class SearchAgainForm extends Component {
     }
 
     return (
-      <form className="search-again" onSubmit={event => this.handleSubmit(event)}>
+      <form className="search-again" onSubmit={this.handleSubmit}>
         {error ? (
           <div className="error-summary">
             <h2 className="heading-medium error-summary-heading">Search Error</h2>
@@ -115,7 +141,8 @@ class SearchAgainForm extends Component {
                 placeholder="Last Name, First Name or ID"
                 autoComplete="off"
                 className="form-control"
-                defaultValue={keywords}
+                value={keywords}
+                onChange={this.handleChange}
               />
             </div>
 
@@ -123,7 +150,13 @@ class SearchAgainForm extends Component {
               <label htmlFor="location" className="form-label visible-md visible-lg">
                 Select location
               </label>
-              <select className="form-control" name="locationPrefix" id="location" defaultValue={locationPrefix}>
+              <select
+                className="form-control"
+                name="locationPrefix"
+                id="location"
+                value={locationPrefix}
+                onChange={this.handleChange}
+              >
                 {locations.map(location => (
                   <option key={location.get('locationPrefix')} value={location.get('locationPrefix')}>
                     {location.get('description')}
@@ -154,7 +187,7 @@ class SearchAgainForm extends Component {
               <details className="govuk-details visible-md visible-lg" open={showFilters}>
                 <summary
                   className="govuk-details__summary"
-                  onClick={event => toggleDetails(event)}
+                  onClick={toggleDetails}
                   onKeyDown={() => {}}
                   tabIndex="0"
                   role="switch"
@@ -168,52 +201,32 @@ class SearchAgainForm extends Component {
                       <b>Flags</b>
                     </div>
                     <div className="row">
-                      <AlertCheckbox
-                        code="HA"
-                        colClasses="col-md-3"
-                        content="ACCT open"
-                        onChange={event => toggleCheckBox(event)}
-                      />
+                      <AlertCheckbox code="HA" colClasses="col-md-3" content="ACCT open" onChange={toggleCheckBox} />
                       <AlertCheckbox
                         code="PEEP"
                         colClasses="col-md-3"
                         content="PEEP (disability)"
-                        onChange={event => toggleCheckBox(event)}
+                        onChange={toggleCheckBox}
                       />
-                      <AlertCheckbox
-                        code="XEL"
-                        colClasses="col-md-3"
-                        content="E-List"
-                        onChange={event => toggleCheckBox(event)}
-                      />
+                      <AlertCheckbox code="XEL" colClasses="col-md-3" content="E-List" onChange={toggleCheckBox} />
                     </div>
                     <div className="row">
                       <AlertCheckbox
                         code="XSA"
                         colClasses="col-md-3"
                         content="Staff assaulter"
-                        onChange={event => toggleCheckBox(event)}
+                        onChange={toggleCheckBox}
                       />
-                      <AlertCheckbox
-                        code="XA"
-                        colClasses="col-md-3"
-                        content="Arsonist"
-                        onChange={event => toggleCheckBox(event)}
-                      />
-                      <AlertCheckbox
-                        code="XTACT"
-                        colClasses="col-md-3"
-                        content="TACT"
-                        onChange={event => toggleCheckBox(event)}
-                      />
+                      <AlertCheckbox code="XA" colClasses="col-md-3" content="Arsonist" onChange={toggleCheckBox} />
+                      <AlertCheckbox code="XTACT" colClasses="col-md-3" content="TACT" onChange={toggleCheckBox} />
                       <AlertCheckbox
                         code="XRF"
                         colClasses="col-md-3"
                         content="Risk to females"
-                        onChange={event => toggleCheckBox(event)}
+                        onChange={toggleCheckBox}
                       />
                     </div>
-                    <a className="clear-filters link clickable" {...linkOnClick(clearFlags)}>
+                    <a className="clear-filters link clickable" {...linkOnClick(this.clearFlags)}>
                       Clear filters
                     </a>
                   </div>
@@ -234,6 +247,8 @@ SearchAgainForm.propTypes = {
     locationPrefix: PropTypes.string,
     keywords: PropTypes.string,
     alerts: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+    sortFields: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+    sortOrder: PropTypes.string,
   }),
   submitting: PropTypes.bool,
 }

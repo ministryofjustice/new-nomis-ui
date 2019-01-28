@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { Field } from 'redux-form/immutable'
 import moment from 'moment'
 import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from '../../../FormComponents/DatePicker'
-import SelectWithLabel from '../../../FormComponents/SelectWithLabel'
 
 import './mobileAlertsFilterForm.scss'
 import { alertTypesType } from '../../../../containers/Bookings/Details/Alerts/selectors'
+import SelectWithLabelAndMagicAllOption from '../../../FormComponents/SelectWithLabelAndMagicAllOption'
 
 const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleSubmit, reset }) => (
   <details className="govuk-details add-gutter-padding-top">
@@ -22,7 +22,12 @@ const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleS
 
       <div className="row add-gutter-margin-top no-left-gutter">
         <div className="col-sm-12 no-left-gutter no-right-gutter">
-          <Field title="Type of alert" component={SelectWithLabel} name="alertType" options={alertTypes} />
+          <Field
+            title="Type of alert"
+            component={SelectWithLabelAndMagicAllOption}
+            name="alertType"
+            options={alertTypes}
+          />
         </div>
       </div>
       <div className="row">
@@ -57,7 +62,7 @@ const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleS
         <div className="row reset-filters">
           <div className="col no-gutters pull-right">
             <button type="button" className="link clickable add-gutter-bottom" onClick={reset}>
-              Reset filters
+              Clear filters
             </button>
           </div>
         </div>

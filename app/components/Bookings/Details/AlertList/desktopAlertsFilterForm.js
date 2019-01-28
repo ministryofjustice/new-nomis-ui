@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Field } from 'redux-form/immutable'
 import moment from 'moment'
 import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from '../../../FormComponents/DatePicker'
-import SelectWithLabel from '../../../FormComponents/SelectWithLabel'
+import SelectWithLabelAndMagicAllOption from '../../../FormComponents/SelectWithLabelAndMagicAllOption'
 
 import './desktopAlertsFilterForm.scss'
 import { alertTypesType } from '../../../../containers/Bookings/Details/Alerts/selectors'
@@ -21,7 +21,12 @@ const DesktopAlertsFilterForm = ({ alertTypes, locale, submitting, error, handle
 
     <div className="row no-left-gutter">
       <div className="col-md-3 no-left-gutter">
-        <Field title="Type of alert" component={SelectWithLabel} name="alertType" options={alertTypes} />
+        <Field
+          title="Type of alert"
+          component={SelectWithLabelAndMagicAllOption}
+          name="alertType"
+          options={alertTypes}
+        />
       </div>
 
       <div className="col-md-4 no-left-gutter no-right-gutter">
@@ -59,13 +64,11 @@ const DesktopAlertsFilterForm = ({ alertTypes, locale, submitting, error, handle
           </button>
         </div>
       </div>
-      <div className="col-md-2">
-        <div className="margin30">
-          <button type="button" className="link clickable reset-filters" onClick={reset}>
-            Reset filters
-          </button>
-        </div>
-      </div>
+    </div>
+    <div className="row">
+      <button type="button" className="link clickable reset-filters" onClick={reset}>
+        Clear filters
+      </button>
     </div>
   </form>
 )

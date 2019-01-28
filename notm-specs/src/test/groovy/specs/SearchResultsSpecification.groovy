@@ -1,5 +1,6 @@
 package specs
 
+import com.github.tomakehurst.wiremock.client.WireMock
 import geb.spock.GebReportingSpec
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
@@ -10,11 +11,12 @@ import org.junit.Rule
 import pages.AlertsPage
 import pages.HomePage
 import pages.LoginPage
-import pages.OffenderDetailsPage
 import pages.SearchResultsPage
 import spock.lang.IgnoreIf
 import spock.lang.Requires
 
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
+import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
 import static model.UserAccount.ITAG_USER
 
 @Slf4j
@@ -22,8 +24,10 @@ class SearchResultsSpecification extends GebReportingSpec {
 
   @Rule
   Elite2Api elite2api = new Elite2Api()
+
   @Rule
   KeyworkerApi keyworkerApi = new KeyworkerApi()
+
   @Rule
   OauthApi oauthApi = new OauthApi()
 
@@ -39,7 +43,7 @@ class SearchResultsSpecification extends GebReportingSpec {
     at HomePage
 
     when: 'I search for offenders'
-    ArrayList<Offender> offenders = [
+    List<Offender> offenders = [
       Offender.SMELLEY(),
       Offender.BOB(),
       Offender.SMITH()]
@@ -70,7 +74,7 @@ class SearchResultsSpecification extends GebReportingSpec {
         Offender.SMITH(),
         Offender.BOB(),
         Offender.SMELLEY()
-      ] as ArrayList<Offender>,
+      ],
       '&alerts=HA&alerts=XA&alerts=XTACT')
     selectVisibleButton().click()
 
@@ -98,6 +102,69 @@ class SearchResultsSpecification extends GebReportingSpec {
     alerts[1].text().contains('alertType1')
   }
 
+  @IgnoreIf({System.properties['geb.env'] == 'chromeMobile'})
+  def 'Clear filters'() {
+    elite2api.stubHealthCheck()
+
+    given: 'I am logged in'
+    to LoginPage
+    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
+    elite2api.stubGetMyDetails(ITAG_USER)
+    loginAs ITAG_USER, 'password'
+    at HomePage
+
+    when: 'I search for offenders'
+    List<Offender> offenders = [
+      Offender.SMELLEY(),
+      Offender.BOB(),
+      Offender.SMITH()]
+
+    elite2api.stubOffenderSearch('aname', offenders, '')
+    elite2api.stubImage()
+    elite2api.stubIEP()
+
+    searchFor 'aname'
+
+    then: 'on the search results page'
+    at SearchResultsPage
+
+    when: 'Alert filters are selected'
+    moreFiltersLink.click()
+    checkboxes[0].click() // acct
+    checkboxes[4].click() // arsonist
+    checkboxes[5].click() // TACT
+    elite2api.stubOffenderSearch(
+      'aname',
+      [
+        Offender.SMITH(),
+      ],
+      '&alerts=HA&alerts=XA&alerts=XTACT')
+    selectVisibleButton().click()
+
+    then: 'Filters are applied'
+    rows.size() == 2
+
+    when: 'Clear filters is clicked'
+    checkboxes.every{ cb -> cb.value() == null } == false
+
+    // Forget about all previous recorded requests
+    elite2api.resetAll()
+
+    elite2api.stubOffenderSearch('aname', offenders, '')
+    clearFilters.click()
+
+    then: 'filters are cleared'
+    at SearchResultsPage
+
+    waitFor{ rows.size() == 4 }
+
+    checkboxes.size() == 7
+    checkboxes.every{ cb -> cb.value() == null } == true
+
+    // Make sure a request was made for unfiltered data
+    elite2api.verify(getRequestedFor(urlEqualTo('/api/locations/description/LEI/inmates?keywords=aname&returnIep=true&returnAlerts=true&returnCategory=true')))
+  }
+
   @IgnoreIf({ System.properties['geb.env'] == 'chromeMobile' })
   def 'Search results ordering for desktop'() {
     elite2api.stubHealthCheck()
@@ -109,7 +176,7 @@ class SearchResultsSpecification extends GebReportingSpec {
     loginAs ITAG_USER, 'password'
     at HomePage
 
-    ArrayList<Offender> offenders2 = [Offender.SMELLEY(), Offender.SMITH()]
+    List<Offender> offenders2 = [Offender.SMELLEY(), Offender.SMITH()]
     elite2api.stubOffenderSearch('aname', offenders2, '')
     elite2api.stubImage()
     elite2api.stubIEP()
@@ -119,7 +186,7 @@ class SearchResultsSpecification extends GebReportingSpec {
     rows.size() == 3
 
     when: 'I select ordering by age'
-    ArrayList<Offender> offenders1 = [Offender.SMITH()]
+    List<Offender> offenders1 = [Offender.SMITH()]
     elite2api.stubOffenderSearch('aname', offenders1, '', 'dateOfBirth', 'ASC')
     sortingSelect.click()
     waitFor { dateOfBirthOption.displayed }
@@ -141,7 +208,7 @@ class SearchResultsSpecification extends GebReportingSpec {
     loginAs ITAG_USER, 'password'
     at HomePage
 
-    ArrayList<Offender> offenders2 = [Offender.SMELLEY(), Offender.SMITH()]
+    List<Offender> offenders2 = [Offender.SMELLEY(), Offender.SMITH()]
     elite2api.stubOffenderSearch('aname', offenders2, '')
     elite2api.stubImage()
     elite2api.stubIEP()
@@ -151,7 +218,7 @@ class SearchResultsSpecification extends GebReportingSpec {
     rows.size() == 3
 
     when: 'I toggle ordering'
-    ArrayList<Offender> offenders1 = [Offender.SMITH()]
+    List<Offender> offenders1 = [Offender.SMITH()]
     elite2api.stubOffenderSearch('aname', offenders1, '', 'lastName,firstName', 'DESC')
     sortingToggleArrow.click()
 
