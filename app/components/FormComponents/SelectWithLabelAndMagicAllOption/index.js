@@ -15,7 +15,7 @@ class SelectWithLabelAndMagicAllOption extends Component {
     const {
       input: { value },
     } = this.props
-    this.state.showAllOption = showAllOption || (true && value)
+    this.state.showAllOption = showAllOption || value
   }
 
   render() {
