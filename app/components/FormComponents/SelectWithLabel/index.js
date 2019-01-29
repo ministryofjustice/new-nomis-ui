@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { inputType, metaType } from '../types'
+import { inputType, metaType } from '../../../types'
 
 const SelectWithLabel = ({ resetValue, options, input, title, meta: { touched, error } }) => {
   if (resetValue === true) {

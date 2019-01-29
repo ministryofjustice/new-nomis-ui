@@ -13,7 +13,7 @@ import { FormattedDate } from '../../components/intl'
 import { loadAssignments } from './actions'
 import { linkOnClick } from '../../helpers'
 import './index.scss'
-import userType from '../types'
+import { userType } from '../../types'
 import history from '../../history'
 import Page from '../../components/Page'
 

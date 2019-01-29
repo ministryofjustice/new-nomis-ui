@@ -299,13 +299,13 @@ export function* newSearchWatcher() {
 }
 
 export function* onAmendCaseNote(action) {
-  const { amendmentText, offenderNo, caseNoteId, itemId } = action.payload
+  const { amendmentText, offenderNo, caseNoteId, caseNoteListReferrer } = action.payload
 
   const apiServer = yield select(selectApi())
 
   try {
     yield call(amendCaseNote, apiServer, offenderNo, caseNoteId, amendmentText)
-    history.push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}/${itemId || ''}`)
+    history.push(caseNoteListReferrer)
 
     yield notify.show('Case note has been amended successfully.', 'success')
   } catch (err) {

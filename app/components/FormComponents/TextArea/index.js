@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { inputType, metaType } from '../types'
+import { inputType, metaType } from '../../../types'
 
 const TextArea = ({ input, title, meta: { touched, error }, placeholder }) => (
   <div className={!(touched && error) ? 'form-group' : 'form-group form-group-error'}>

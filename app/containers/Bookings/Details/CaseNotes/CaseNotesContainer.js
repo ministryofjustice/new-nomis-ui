@@ -11,9 +11,8 @@ import { loadCaseNoteTypesAndSubTypes } from '../../actions'
 import { Model as caseNoteModel } from '../../../../helpers/dataMappers/caseNotes'
 import { buildCaseNotQueryString } from '../../../../utils/stringUtils'
 
-import CaseNoteList from './caseNoteList'
-import CaseNoteDetails from './caseNoteDetails'
-import caseNoteQueryType from './types'
+import CaseNoteList from './CaseNoteList'
+import { caseNoteQueryType, userType } from '../../../../types'
 import { getQueryParams } from '../../../../helpers'
 import history from '../../../../history'
 
@@ -44,24 +43,11 @@ class CaseNotes extends Component {
   }
 
   render() {
-    const {
-      offenderNo,
-      itemId: caseNoteId,
-      setCaseNoteView,
-      caseNotes,
-      totalResults,
-      setPagination,
-      query,
-      location,
-    } = this.props
+    const { offenderNo, setCaseNoteView, caseNotes, totalResults, setPagination, query, location, user } = this.props
 
     const pagination = {
       perPage: query.perPage,
       pageNumber: query.pageNumber,
-    }
-
-    if (caseNoteId) {
-      return <CaseNoteDetails offenderNo={offenderNo} caseNoteId={caseNoteId} />
     }
 
     return (
@@ -74,6 +60,7 @@ class CaseNotes extends Component {
         setPagination={setPagination}
         totalResults={totalResults}
         setCaseNoteView={setCaseNoteView}
+        user={user}
       />
     )
   }
@@ -85,7 +72,7 @@ CaseNotes.propTypes = {
   caseNotes: ImmutablePropTypes.list.isRequired,
   query: caseNoteQueryType.isRequired,
   totalResults: PropTypes.number,
-  itemId: PropTypes.string,
+  user: userType.isRequired,
 
   // mapDispatchToProps
   loadCaseNotes: PropTypes.func.isRequired,
@@ -99,7 +86,6 @@ CaseNotes.propTypes = {
 
 CaseNotes.defaultProps = {
   totalResults: 0,
-  itemId: null,
 }
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -130,6 +116,7 @@ const mapStateToProps = (immutableState, props) => {
   }
 
   const deviceFormat = immutableState.getIn(['app', 'deviceFormat'])
+  const user = immutableState.getIn(['authentication', 'user'])
 
   return {
     caseNotes: results,
@@ -137,6 +124,7 @@ const mapStateToProps = (immutableState, props) => {
     deviceFormat,
     totalResults,
     query,
+    user,
   }
 }
 

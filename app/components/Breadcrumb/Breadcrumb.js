@@ -4,9 +4,6 @@ import { Link } from 'react-router-dom'
 import withBreadcrumbs from 'react-router-breadcrumbs-hoc'
 import { BreadcrumbContainer, BreadcrumbList, BreadcrumbListItem } from './Breadcrumb.styles'
 import OffenderBreadcrumb from './OffenderBreadcrumb'
-import { routeMatchType } from '../../types'
-
-const CaseNoteBreadCrumb = ({ match }) => <span>Case note {match.params.caseNoteId}</span>
 
 const routes = [
   { path: '/offenders', breadcrumb: null },
@@ -15,7 +12,7 @@ const routes = [
   { path: '/offenders/:offenderNo/add-appointment', breadcrumb: 'Add new appointment' },
   { path: '/offenders/:offenderNo/schedule', breadcrumb: 'Schedule' },
   { path: '/offenders/:offenderNo/:activeTab', breadcrumb: null },
-  { path: '/offenders/:offenderNo/case-notes/:caseNoteId', breadcrumb: CaseNoteBreadCrumb },
+  { path: '/offenders/:offenderNo/case-notes/:caseNoteId', breadcrumb: null },
   { path: '/results', breadcrumb: 'Offender search results' },
 ]
 
@@ -40,10 +37,6 @@ export const Breadcrumb = ({ breadcrumbs }) => {
       </BreadcrumbList>
     </BreadcrumbContainer>
   )
-}
-
-CaseNoteBreadCrumb.propTypes = {
-  match: routeMatchType.isRequired,
 }
 
 Breadcrumb.propTypes = {
