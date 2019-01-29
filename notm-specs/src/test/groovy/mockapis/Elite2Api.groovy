@@ -326,6 +326,7 @@ class Elite2Api extends WireMockRule {
     "activeAlertCount": 0,
     "inactiveAlertCount": 1,
     "categoryCode": "A",
+    "category": "Cat A",
     "assignedLivingUnit": {
         "agencyId": "LEI",
         "locationId": -8,

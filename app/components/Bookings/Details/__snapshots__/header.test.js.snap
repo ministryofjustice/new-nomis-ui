@@ -9,7 +9,7 @@ ShallowWrapper {
         "lastName": "Last",
         "subscribe": [Function],
         "facialImageId": -11,
-        "categoryCode": "D",
+        "categoryCode": "H",
         "iepLevel": "Standard",
         "alerts": Array [
           Immutable.Map {
@@ -37,6 +37,7 @@ ShallowWrapper {
         "keyworker": Immutable.Map {
           "staffId": -6,
         },
+        "category": "Cat H",
         "inactiveAlertCount": 8,
         "csra": "Medium",
       }
@@ -104,9 +105,15 @@ ShallowWrapper {
               >
                 Category
               </span>
-              <strong>
-                D
-              </strong>
+              <div
+                className=""
+              >
+                <span
+                  className="cata-high-status"
+                >
+                  CAT A High
+                </span>
+              </div>
             </div>
           </div>
         </div>,
@@ -148,9 +155,15 @@ ShallowWrapper {
               >
                 Category
               </span>
-              <strong>
-                D
-              </strong>
+              <div
+                className=""
+              >
+                <span
+                  className="cata-high-status"
+                >
+                  CAT A High
+                </span>
+              </div>
             </div>
           </div>
         </div>,
@@ -324,9 +337,15 @@ ShallowWrapper {
                 >
                   Category
                 </span>
-                <strong>
-                  D
-                </strong>
+                <div
+                  className=""
+                >
+                  <span
+                    className="cata-high-status"
+                  >
+                    CAT A High
+                  </span>
+                </div>
               </div>
             </div>,
           ],
@@ -481,9 +500,15 @@ ShallowWrapper {
                 >
                   Category
                 </span>
-                <strong>
-                  D
-                </strong>
+                <div
+                  className=""
+                >
+                  <span
+                    className="cata-high-status"
+                  >
+                    CAT A High
+                  </span>
+                </div>
               </div>,
               "className": "row",
             },
@@ -499,9 +524,15 @@ ShallowWrapper {
                   >
                     Category
                   </span>,
-                  <strong>
-                    D
-                  </strong>,
+                  <div
+                    className=""
+                  >
+                    <span
+                      className="cata-high-status"
+                    >
+                      CAT A High
+                    </span>
+                  </div>,
                 ],
                 "className": "col",
               },
@@ -524,11 +555,35 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": "D",
+                    "children": Array [
+                      false,
+                      <span
+                        className="cata-high-status"
+                      >
+                        CAT A High
+                      </span>,
+                      false,
+                    ],
+                    "className": "",
                   },
                   "ref": null,
-                  "rendered": "D",
-                  "type": "strong",
+                  "rendered": Array [
+                    false,
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "CAT A High",
+                        "className": "cata-high-status",
+                      },
+                      "ref": null,
+                      "rendered": "CAT A High",
+                      "type": "span",
+                    },
+                    false,
+                  ],
+                  "type": "div",
                 },
               ],
               "type": "div",
@@ -578,9 +633,15 @@ ShallowWrapper {
               >
                 Category
               </span>
-              <strong>
-                D
-              </strong>
+              <div
+                className=""
+              >
+                <span
+                  className="cata-high-status"
+                >
+                  CAT A High
+                </span>
+              </div>
             </div>
           </div>,
           "className": "col-xs-12 visible-small",
@@ -624,9 +685,15 @@ ShallowWrapper {
                 >
                   Category
                 </span>
-                <strong>
-                  D
-                </strong>
+                <div
+                  className=""
+                >
+                  <span
+                    className="cata-high-status"
+                  >
+                    CAT A High
+                  </span>
+                </div>
               </div>,
             ],
             "className": "row",
@@ -734,9 +801,15 @@ ShallowWrapper {
                   >
                     Category
                   </span>,
-                  <strong>
-                    D
-                  </strong>,
+                  <div
+                    className=""
+                  >
+                    <span
+                      className="cata-high-status"
+                    >
+                      CAT A High
+                    </span>
+                  </div>,
                 ],
                 "className": "col-xs-4 d-inline-block",
               },
@@ -759,11 +832,35 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": "D",
+                    "children": Array [
+                      false,
+                      <span
+                        className="cata-high-status"
+                      >
+                        CAT A High
+                      </span>,
+                      false,
+                    ],
+                    "className": "",
                   },
                   "ref": null,
-                  "rendered": "D",
-                  "type": "strong",
+                  "rendered": Array [
+                    false,
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "CAT A High",
+                        "className": "cata-high-status",
+                      },
+                      "ref": null,
+                      "rendered": "CAT A High",
+                      "type": "span",
+                    },
+                    false,
+                  ],
+                  "type": "div",
                 },
               ],
               "type": "div",
@@ -1423,9 +1520,15 @@ ShallowWrapper {
                 >
                   Category
                 </span>
-                <strong>
-                  D
-                </strong>
+                <div
+                  className=""
+                >
+                  <span
+                    className="cata-high-status"
+                  >
+                    CAT A High
+                  </span>
+                </div>
               </div>
             </div>
           </div>,
@@ -1467,9 +1570,15 @@ ShallowWrapper {
                 >
                   Category
                 </span>
-                <strong>
-                  D
-                </strong>
+                <div
+                  className=""
+                >
+                  <span
+                    className="cata-high-status"
+                  >
+                    CAT A High
+                  </span>
+                </div>
               </div>
             </div>
           </div>,
@@ -1643,9 +1752,15 @@ ShallowWrapper {
                   >
                     Category
                   </span>
-                  <strong>
-                    D
-                  </strong>
+                  <div
+                    className=""
+                  >
+                    <span
+                      className="cata-high-status"
+                    >
+                      CAT A High
+                    </span>
+                  </div>
                 </div>
               </div>,
             ],
@@ -1800,9 +1915,15 @@ ShallowWrapper {
                   >
                     Category
                   </span>
-                  <strong>
-                    D
-                  </strong>
+                  <div
+                    className=""
+                  >
+                    <span
+                      className="cata-high-status"
+                    >
+                      CAT A High
+                    </span>
+                  </div>
                 </div>,
                 "className": "row",
               },
@@ -1818,9 +1939,15 @@ ShallowWrapper {
                     >
                       Category
                     </span>,
-                    <strong>
-                      D
-                    </strong>,
+                    <div
+                      className=""
+                    >
+                      <span
+                        className="cata-high-status"
+                      >
+                        CAT A High
+                      </span>
+                    </div>,
                   ],
                   "className": "col",
                 },
@@ -1843,11 +1970,35 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": "D",
+                      "children": Array [
+                        false,
+                        <span
+                          className="cata-high-status"
+                        >
+                          CAT A High
+                        </span>,
+                        false,
+                      ],
+                      "className": "",
                     },
                     "ref": null,
-                    "rendered": "D",
-                    "type": "strong",
+                    "rendered": Array [
+                      false,
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "CAT A High",
+                          "className": "cata-high-status",
+                        },
+                        "ref": null,
+                        "rendered": "CAT A High",
+                        "type": "span",
+                      },
+                      false,
+                    ],
+                    "type": "div",
                   },
                 ],
                 "type": "div",
@@ -1897,9 +2048,15 @@ ShallowWrapper {
                 >
                   Category
                 </span>
-                <strong>
-                  D
-                </strong>
+                <div
+                  className=""
+                >
+                  <span
+                    className="cata-high-status"
+                  >
+                    CAT A High
+                  </span>
+                </div>
               </div>
             </div>,
             "className": "col-xs-12 visible-small",
@@ -1943,9 +2100,15 @@ ShallowWrapper {
                   >
                     Category
                   </span>
-                  <strong>
-                    D
-                  </strong>
+                  <div
+                    className=""
+                  >
+                    <span
+                      className="cata-high-status"
+                    >
+                      CAT A High
+                    </span>
+                  </div>
                 </div>,
               ],
               "className": "row",
@@ -2053,9 +2216,15 @@ ShallowWrapper {
                     >
                       Category
                     </span>,
-                    <strong>
-                      D
-                    </strong>,
+                    <div
+                      className=""
+                    >
+                      <span
+                        className="cata-high-status"
+                      >
+                        CAT A High
+                      </span>
+                    </div>,
                   ],
                   "className": "col-xs-4 d-inline-block",
                 },
@@ -2078,11 +2247,35 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": "D",
+                      "children": Array [
+                        false,
+                        <span
+                          className="cata-high-status"
+                        >
+                          CAT A High
+                        </span>,
+                        false,
+                      ],
+                      "className": "",
                     },
                     "ref": null,
-                    "rendered": "D",
-                    "type": "strong",
+                    "rendered": Array [
+                      false,
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "CAT A High",
+                          "className": "cata-high-status",
+                        },
+                        "ref": null,
+                        "rendered": "CAT A High",
+                        "type": "span",
+                      },
+                      false,
+                    ],
+                    "type": "div",
                   },
                 ],
                 "type": "div",
@@ -2747,6 +2940,7 @@ ShallowWrapper {
         "keyworker": Immutable.Map {
           "staffId": -6,
         },
+        "category": "Cat D",
         "inactiveAlertCount": 8,
         "csra": "Medium",
       }
@@ -2815,7 +3009,7 @@ ShallowWrapper {
                 Category
               </span>
               <strong>
-                D
+                Cat D
               </strong>
             </div>
           </div>
@@ -2859,7 +3053,7 @@ ShallowWrapper {
                 Category
               </span>
               <strong>
-                D
+                Cat D
               </strong>
             </div>
           </div>
@@ -3035,7 +3229,7 @@ ShallowWrapper {
                   Category
                 </span>
                 <strong>
-                  D
+                  Cat D
                 </strong>
               </div>
             </div>,
@@ -3192,7 +3386,7 @@ ShallowWrapper {
                   Category
                 </span>
                 <strong>
-                  D
+                  Cat D
                 </strong>
               </div>,
               "className": "row",
@@ -3210,7 +3404,7 @@ ShallowWrapper {
                     Category
                   </span>,
                   <strong>
-                    D
+                    Cat D
                   </strong>,
                 ],
                 "className": "col",
@@ -3234,10 +3428,10 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": "D",
+                    "children": "Cat D",
                   },
                   "ref": null,
-                  "rendered": "D",
+                  "rendered": "Cat D",
                   "type": "strong",
                 },
               ],
@@ -3289,7 +3483,7 @@ ShallowWrapper {
                 Category
               </span>
               <strong>
-                D
+                Cat D
               </strong>
             </div>
           </div>,
@@ -3335,7 +3529,7 @@ ShallowWrapper {
                   Category
                 </span>
                 <strong>
-                  D
+                  Cat D
                 </strong>
               </div>,
             ],
@@ -3445,7 +3639,7 @@ ShallowWrapper {
                     Category
                   </span>,
                   <strong>
-                    D
+                    Cat D
                   </strong>,
                 ],
                 "className": "col-xs-4 d-inline-block",
@@ -3469,10 +3663,10 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": "D",
+                    "children": "Cat D",
                   },
                   "ref": null,
-                  "rendered": "D",
+                  "rendered": "Cat D",
                   "type": "strong",
                 },
               ],
@@ -4134,7 +4328,7 @@ ShallowWrapper {
                   Category
                 </span>
                 <strong>
-                  D
+                  Cat D
                 </strong>
               </div>
             </div>
@@ -4178,7 +4372,7 @@ ShallowWrapper {
                   Category
                 </span>
                 <strong>
-                  D
+                  Cat D
                 </strong>
               </div>
             </div>
@@ -4354,7 +4548,7 @@ ShallowWrapper {
                     Category
                   </span>
                   <strong>
-                    D
+                    Cat D
                   </strong>
                 </div>
               </div>,
@@ -4511,7 +4705,7 @@ ShallowWrapper {
                     Category
                   </span>
                   <strong>
-                    D
+                    Cat D
                   </strong>
                 </div>,
                 "className": "row",
@@ -4529,7 +4723,7 @@ ShallowWrapper {
                       Category
                     </span>,
                     <strong>
-                      D
+                      Cat D
                     </strong>,
                   ],
                   "className": "col",
@@ -4553,10 +4747,10 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": "D",
+                      "children": "Cat D",
                     },
                     "ref": null,
-                    "rendered": "D",
+                    "rendered": "Cat D",
                     "type": "strong",
                   },
                 ],
@@ -4608,7 +4802,7 @@ ShallowWrapper {
                   Category
                 </span>
                 <strong>
-                  D
+                  Cat D
                 </strong>
               </div>
             </div>,
@@ -4654,7 +4848,7 @@ ShallowWrapper {
                     Category
                   </span>
                   <strong>
-                    D
+                    Cat D
                   </strong>
                 </div>,
               ],
@@ -4764,7 +4958,7 @@ ShallowWrapper {
                       Category
                     </span>,
                     <strong>
-                      D
+                      Cat D
                     </strong>,
                   ],
                   "className": "col-xs-4 d-inline-block",
@@ -4788,10 +4982,10 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": "D",
+                      "children": "Cat D",
                     },
                     "ref": null,
-                    "rendered": "D",
+                    "rendered": "Cat D",
                     "type": "strong",
                   },
                 ],
@@ -5457,6 +5651,7 @@ ShallowWrapper {
         "keyworker": Immutable.Map {
           "staffId": -6,
         },
+        "category": "Cat D",
         "inactiveAlertCount": 8,
         "csra": "Medium",
       }
@@ -5699,6 +5894,7 @@ ShallowWrapper {
                       "keyworker": Immutable.Map {
                         "staffId": -6,
                       },
+                      "category": "Cat D",
                       "inactiveAlertCount": 8,
                       "csra": "Medium",
                     }
@@ -5750,6 +5946,7 @@ ShallowWrapper {
                   "keyworker": Immutable.Map {
                     "staffId": -6,
                   },
+                  "category": "Cat D",
                   "inactiveAlertCount": 8,
                   "csra": "Medium",
                 }
@@ -6178,6 +6375,7 @@ ShallowWrapper {
                         "keyworker": Immutable.Map {
                           "staffId": -6,
                         },
+                        "category": "Cat D",
                         "inactiveAlertCount": 8,
                         "csra": "Medium",
                       }
@@ -6388,6 +6586,7 @@ ShallowWrapper {
                           "keyworker": Immutable.Map {
                             "staffId": -6,
                           },
+                          "category": "Cat D",
                           "inactiveAlertCount": 8,
                           "csra": "Medium",
                         }
@@ -6801,6 +7000,7 @@ ShallowWrapper {
                             "keyworker": Immutable.Map {
                               "staffId": -6,
                             },
+                            "category": "Cat D",
                             "inactiveAlertCount": 8,
                             "csra": "Medium",
                           }
@@ -7051,6 +7251,7 @@ ShallowWrapper {
                             "keyworker": Immutable.Map {
                               "staffId": -6,
                             },
+                            "category": "Cat D",
                             "inactiveAlertCount": 8,
                             "csra": "Medium",
                           }
@@ -7098,6 +7299,7 @@ ShallowWrapper {
                           "keyworker": Immutable.Map {
                             "staffId": -6,
                           },
+                          "category": "Cat D",
                           "inactiveAlertCount": 8,
                           "csra": "Medium",
                         },
@@ -7161,6 +7363,7 @@ ShallowWrapper {
                   "keyworker": Immutable.Map {
                     "staffId": -6,
                   },
+                  "category": "Cat D",
                   "inactiveAlertCount": 8,
                   "csra": "Medium",
                 }
@@ -7211,6 +7414,7 @@ ShallowWrapper {
                   "keyworker": Immutable.Map {
                     "staffId": -6,
                   },
+                  "category": "Cat D",
                   "inactiveAlertCount": 8,
                   "csra": "Medium",
                 }
@@ -7258,6 +7462,7 @@ ShallowWrapper {
                 "keyworker": Immutable.Map {
                   "staffId": -6,
                 },
+                "category": "Cat D",
                 "inactiveAlertCount": 8,
                 "csra": "Medium",
               },
@@ -7501,6 +7706,7 @@ ShallowWrapper {
                         "keyworker": Immutable.Map {
                           "staffId": -6,
                         },
+                        "category": "Cat D",
                         "inactiveAlertCount": 8,
                         "csra": "Medium",
                       }
@@ -7552,6 +7758,7 @@ ShallowWrapper {
                     "keyworker": Immutable.Map {
                       "staffId": -6,
                     },
+                    "category": "Cat D",
                     "inactiveAlertCount": 8,
                     "csra": "Medium",
                   }
@@ -7980,6 +8187,7 @@ ShallowWrapper {
                           "keyworker": Immutable.Map {
                             "staffId": -6,
                           },
+                          "category": "Cat D",
                           "inactiveAlertCount": 8,
                           "csra": "Medium",
                         }
@@ -8190,6 +8398,7 @@ ShallowWrapper {
                             "keyworker": Immutable.Map {
                               "staffId": -6,
                             },
+                            "category": "Cat D",
                             "inactiveAlertCount": 8,
                             "csra": "Medium",
                           }
@@ -8603,6 +8812,7 @@ ShallowWrapper {
                               "keyworker": Immutable.Map {
                                 "staffId": -6,
                               },
+                              "category": "Cat D",
                               "inactiveAlertCount": 8,
                               "csra": "Medium",
                             }
@@ -8853,6 +9063,7 @@ ShallowWrapper {
                               "keyworker": Immutable.Map {
                                 "staffId": -6,
                               },
+                              "category": "Cat D",
                               "inactiveAlertCount": 8,
                               "csra": "Medium",
                             }
@@ -8900,6 +9111,7 @@ ShallowWrapper {
                             "keyworker": Immutable.Map {
                               "staffId": -6,
                             },
+                            "category": "Cat D",
                             "inactiveAlertCount": 8,
                             "csra": "Medium",
                           },
@@ -8963,6 +9175,7 @@ ShallowWrapper {
                     "keyworker": Immutable.Map {
                       "staffId": -6,
                     },
+                    "category": "Cat D",
                     "inactiveAlertCount": 8,
                     "csra": "Medium",
                   }
@@ -9013,6 +9226,7 @@ ShallowWrapper {
                     "keyworker": Immutable.Map {
                       "staffId": -6,
                     },
+                    "category": "Cat D",
                     "inactiveAlertCount": 8,
                     "csra": "Medium",
                   }
@@ -9060,6 +9274,7 @@ ShallowWrapper {
                   "keyworker": Immutable.Map {
                     "staffId": -6,
                   },
+                  "category": "Cat D",
                   "inactiveAlertCount": 8,
                   "csra": "Medium",
                 },
@@ -9135,6 +9350,7 @@ ShallowWrapper {
         "keyworker": Immutable.Map {
           "staffId": -6,
         },
+        "category": "Cat D",
         "inactiveAlertCount": 8,
         "csra": "Medium",
       }
@@ -9203,7 +9419,7 @@ ShallowWrapper {
                 Category
               </span>
               <strong>
-                D
+                Cat D
               </strong>
             </div>
           </div>
@@ -9247,7 +9463,7 @@ ShallowWrapper {
                 Category
               </span>
               <strong>
-                D
+                Cat D
               </strong>
             </div>
           </div>
@@ -9433,7 +9649,7 @@ ShallowWrapper {
                   Category
                 </span>
                 <strong>
-                  D
+                  Cat D
                 </strong>
               </div>
             </div>,
@@ -9590,7 +9806,7 @@ ShallowWrapper {
                   Category
                 </span>
                 <strong>
-                  D
+                  Cat D
                 </strong>
               </div>,
               "className": "row",
@@ -9608,7 +9824,7 @@ ShallowWrapper {
                     Category
                   </span>,
                   <strong>
-                    D
+                    Cat D
                   </strong>,
                 ],
                 "className": "col",
@@ -9632,10 +9848,10 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": "D",
+                    "children": "Cat D",
                   },
                   "ref": null,
-                  "rendered": "D",
+                  "rendered": "Cat D",
                   "type": "strong",
                 },
               ],
@@ -9687,7 +9903,7 @@ ShallowWrapper {
                 Category
               </span>
               <strong>
-                D
+                Cat D
               </strong>
             </div>
           </div>,
@@ -9733,7 +9949,7 @@ ShallowWrapper {
                   Category
                 </span>
                 <strong>
-                  D
+                  Cat D
                 </strong>
               </div>,
             ],
@@ -9843,7 +10059,7 @@ ShallowWrapper {
                     Category
                   </span>,
                   <strong>
-                    D
+                    Cat D
                   </strong>,
                 ],
                 "className": "col-xs-4 d-inline-block",
@@ -9867,10 +10083,10 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": "D",
+                    "children": "Cat D",
                   },
                   "ref": null,
-                  "rendered": "D",
+                  "rendered": "Cat D",
                   "type": "strong",
                 },
               ],
@@ -10582,7 +10798,7 @@ ShallowWrapper {
                   Category
                 </span>
                 <strong>
-                  D
+                  Cat D
                 </strong>
               </div>
             </div>
@@ -10626,7 +10842,7 @@ ShallowWrapper {
                   Category
                 </span>
                 <strong>
-                  D
+                  Cat D
                 </strong>
               </div>
             </div>
@@ -10812,7 +11028,7 @@ ShallowWrapper {
                     Category
                   </span>
                   <strong>
-                    D
+                    Cat D
                   </strong>
                 </div>
               </div>,
@@ -10969,7 +11185,7 @@ ShallowWrapper {
                     Category
                   </span>
                   <strong>
-                    D
+                    Cat D
                   </strong>
                 </div>,
                 "className": "row",
@@ -10987,7 +11203,7 @@ ShallowWrapper {
                       Category
                     </span>,
                     <strong>
-                      D
+                      Cat D
                     </strong>,
                   ],
                   "className": "col",
@@ -11011,10 +11227,10 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": "D",
+                      "children": "Cat D",
                     },
                     "ref": null,
-                    "rendered": "D",
+                    "rendered": "Cat D",
                     "type": "strong",
                   },
                 ],
@@ -11066,7 +11282,7 @@ ShallowWrapper {
                   Category
                 </span>
                 <strong>
-                  D
+                  Cat D
                 </strong>
               </div>
             </div>,
@@ -11112,7 +11328,7 @@ ShallowWrapper {
                     Category
                   </span>
                   <strong>
-                    D
+                    Cat D
                   </strong>
                 </div>,
               ],
@@ -11222,7 +11438,7 @@ ShallowWrapper {
                       Category
                     </span>,
                     <strong>
-                      D
+                      Cat D
                     </strong>,
                   ],
                   "className": "col-xs-4 d-inline-block",
@@ -11246,10 +11462,10 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": "D",
+                      "children": "Cat D",
                     },
                     "ref": null,
-                    "rendered": "D",
+                    "rendered": "Cat D",
                     "type": "strong",
                   },
                 ],
