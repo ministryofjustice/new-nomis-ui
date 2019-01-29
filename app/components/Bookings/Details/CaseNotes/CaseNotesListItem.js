@@ -36,7 +36,7 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer }) 
   }
 
   return (
-    <CaseNote>
+    <CaseNote data-qa="case-note">
       <CaseNoteCreationDetails>
         <FormattedDay value={creationDateTime} />
         <FormattedDate value={creationDateTime} />
@@ -58,7 +58,8 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer }) 
           </CaseNoteOccurrence>
         )}
         <CaseNoteText>{originalNoteText}</CaseNoteText>
-        {amendments.length > 0 &&
+        {amendments &&
+          amendments.length > 0 &&
           amendments.map(amendment => <CaseNoteAmendmentBlock amendment={amendment} key={uuid()} />)}
         {sameCreator() && (
           <CaseNoteAmendmentButton

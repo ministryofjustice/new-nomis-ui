@@ -14,7 +14,7 @@ class OffenderCaseNotesPage extends Page {
     errors { module(ErrorsModule) }
     offenderNameHeading { $('h1').text() }
     addLinks { $('a.button-link') }// 1st is add case note, 2nd appointment
-    caseNoteDetails { $('div.add-gutter-top div.row') } // omit select option contents
+    caseNoteDetails { $("[data-qa='case-note']") }
     message {}
   }
 }
