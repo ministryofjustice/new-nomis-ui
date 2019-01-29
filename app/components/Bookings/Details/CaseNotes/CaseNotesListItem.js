@@ -14,7 +14,7 @@ import {
   CaseNoteText,
   CaseNoteOccurrence,
   CaseNoteAmendmentButton,
-} from './CaseNotesListItem.theme'
+} from './CaseNotesListItem.styles'
 
 const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer }) => {
   const {

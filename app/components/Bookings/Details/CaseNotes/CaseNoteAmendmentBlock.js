@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Header from '@govuk-react/header'
 
 import { FormattedDate, FormattedTime, FormattedDay } from '../../../intl'
-import { AmendmentBlock, AmendmentText, AmendmentDate } from './CaseNoteAmendmentBlock.theme'
+import { AmendmentBlock, AmendmentText, AmendmentDate } from './CaseNoteAmendmentBlock.styles'
 
 const CaseNoteAmendmentBlock = ({ amendment: { authorName, creationDateTime, additionalNoteText } }) => (
   <AmendmentBlock>
