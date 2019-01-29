@@ -51,7 +51,7 @@ Location.propTypes = {
 
 const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink }) => {
   const cat = inmateData.get('categoryCode')
-  const category = flags.AssessmentFlagsOrLetter(cat, '')
+  const category = flags.AssessmentFlagsOrLetter(cat, inmateData.get('category'), '')
   return (
     <div className="middle-section">
       <div className="col-xs-4 col-sm-3 visible-large">

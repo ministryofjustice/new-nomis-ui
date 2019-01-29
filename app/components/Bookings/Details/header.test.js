@@ -17,7 +17,7 @@ const irrelevantAlerts = [
   Map({ alertCode: 'TAH' }),
 ]
 
-const inmate = (alerts, categoryCode) =>
+const inmate = (alerts, categoryInfo) =>
   Map({
     offenderNo: 'A1234RT',
     firstName: 'First',
@@ -30,7 +30,8 @@ const inmate = (alerts, categoryCode) =>
     inactiveAlertCount: 8,
     iepLevel: 'Standard',
     csra: 'Medium',
-    categoryCode,
+    categoryCode: categoryInfo,
+    category: `Cat ${categoryInfo}`,
     getState: jest.fn(() =>
       Map({
         authentication: Map({ user: { staffId: 45 } }),
@@ -74,7 +75,7 @@ describe('Header component', () => {
   it('should render MiddleSection correctly large', () => {
     const wrapper = shallow(
       <Header
-        inmateData={inmate(allAlerts, 'D')}
+        inmateData={inmate(allAlerts, 'H')}
         onImageClick={jest.fn()}
         offenderNo="A1234RE"
         onAlertFlagClick={jest.fn()}

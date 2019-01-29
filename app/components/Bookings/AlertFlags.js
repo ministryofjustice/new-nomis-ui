@@ -64,9 +64,9 @@ const AssessmentFlags = (category, divClassName) => (
   </div>
 )
 
-const AssessmentFlagsOrLetter = (category, divClassName) => {
+const AssessmentFlagsOrLetter = (category, categoryDesc, divClassName) => {
   if (!['A', 'E', 'H', 'P'].includes(category)) {
-    return <strong>{category}</strong>
+    return <strong>{categoryDesc}</strong>
   }
   return AssessmentFlags(category, divClassName)
 }
