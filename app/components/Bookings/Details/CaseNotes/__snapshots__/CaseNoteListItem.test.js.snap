@@ -1,0 +1,254 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CaseNoteListItem /> should match the default snapshot 1`] = `
+<div
+  className="css-1nnv6h2"
+  data-qa="case-note"
+>
+  <div
+    className="css-v35mku"
+  >
+    <span>
+      Tuesday
+    </span>
+    <span>
+      01/01/2019
+    </span>
+    <span>
+      9:00 PM
+    </span>
+    User, Test
+  </div>
+  <div
+    className="css-1bw51u2"
+  >
+    <h2
+      className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+      size="SMALL"
+    >
+      Achievements
+       | 
+      Gym
+    </h2>
+    <div
+      className="css-1x1vvpx"
+    >
+      Occurrence date:
+       
+      <span>
+        <span>
+          Tuesday
+        </span>
+         - 
+        <span>
+          01/01/2019
+        </span>
+         -
+         
+        <span>
+          9:00 PM
+        </span>
+      </span>
+    </div>
+    <pre
+      className="css-9fadba"
+    >
+      Offender enjoys attending the gym.
+    </pre>
+  </div>
+</div>
+`;
+
+exports[`<CaseNoteListItem /> should render the with amendments snapshot 1`] = `
+<div
+  className="css-1nnv6h2"
+  data-qa="case-note"
+>
+  <div
+    className="css-v35mku"
+  >
+    <span>
+      Tuesday
+    </span>
+    <span>
+      01/01/2019
+    </span>
+    <span>
+      9:00 PM
+    </span>
+    User, Test
+  </div>
+  <div
+    className="css-1bw51u2"
+  >
+    <h2
+      className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+      size="SMALL"
+    >
+      Achievements
+       | 
+      Gym
+    </h2>
+    <div
+      className="css-1x1vvpx"
+    >
+      Occurrence date:
+       
+      <span>
+        <span>
+          Tuesday
+        </span>
+         - 
+        <span>
+          01/01/2019
+        </span>
+         -
+         
+        <span>
+          9:00 PM
+        </span>
+      </span>
+    </div>
+    <pre
+      className="css-9fadba"
+    >
+      Offender enjoys attending the gym.
+    </pre>
+    <div
+      className="css-1b30ksf"
+    >
+      <h3
+        className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+        size="SMALL"
+      >
+        Amendment
+      </h3>
+      <pre
+        className="css-9fadba"
+      >
+        Offender says he doesn't like the gym.
+      </pre>
+      <div
+        className="css-g90fw7"
+      >
+        <span>
+          Tuesday
+        </span>
+         - 
+        <span>
+          01/29/2019
+        </span>
+         -
+         
+        <span>
+          9:15 PM
+        </span>
+      </div>
+      User, Test
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<CaseNoteListItem /> should render the with make amendments button snapshot 1`] = `
+<div
+  className="css-1nnv6h2"
+  data-qa="case-note"
+>
+  <div
+    className="css-v35mku"
+  >
+    <span>
+      Tuesday
+    </span>
+    <span>
+      01/01/2019
+    </span>
+    <span>
+      9:00 PM
+    </span>
+    User, Test
+  </div>
+  <div
+    className="css-1bw51u2"
+  >
+    <h2
+      className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+      size="SMALL"
+    >
+      Achievements
+       | 
+      Gym
+    </h2>
+    <div
+      className="css-1x1vvpx"
+    >
+      Occurrence date:
+       
+      <span>
+        <span>
+          Tuesday
+        </span>
+         - 
+        <span>
+          01/01/2019
+        </span>
+         -
+         
+        <span>
+          9:00 PM
+        </span>
+      </span>
+    </div>
+    <pre
+      className="css-9fadba"
+    >
+      Offender enjoys attending the gym.
+    </pre>
+    <div
+      className="css-1b30ksf"
+    >
+      <h3
+        className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+        size="SMALL"
+      >
+        Amendment
+      </h3>
+      <pre
+        className="css-9fadba"
+      >
+        Offender says he doesn't like the gym.
+      </pre>
+      <div
+        className="css-g90fw7"
+      >
+        <span>
+          Tuesday
+        </span>
+         - 
+        <span>
+          01/29/2019
+        </span>
+         -
+         
+        <span>
+          9:15 PM
+        </span>
+      </div>
+      User, Test
+    </div>
+    <a
+      className="css-g0lbkg"
+      href="/offenders/A12345/case-notes/1/amend-case-note"
+      onClick={[Function]}
+    >
+      <button
+        className="button-cancel"
+        type="button"
+      >
+        Make amendment
+      </button>
+    </a>
+  </div>
+</div>
+`;

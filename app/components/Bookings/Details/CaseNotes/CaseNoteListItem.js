@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Header from '@govuk-react/header'
-import ImmutablePropTypes from 'react-immutable-proptypes'
 import uuid from 'uuid/v4'
 
 import { FormattedDate, FormattedTime, FormattedDay } from '../../../intl'
 import CaseNoteAmendmentBlock from './CaseNoteAmendmentBlock'
-import { userType } from '../../../../types'
+import { userType, caseNoteType } from '../../../../types'
 import {
   CaseNote,
   CaseNoteCreationDetails,
@@ -14,7 +13,7 @@ import {
   CaseNoteText,
   CaseNoteOccurrence,
   CaseNoteAmendmentButton,
-} from './CaseNotesListItem.styles'
+} from './CaseNoteListItem.styles'
 
 const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer }) => {
   const {
@@ -27,7 +26,7 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer }) 
     subTypeDescription,
     typeDescription,
     staffId,
-  } = caseNote.toJS()
+  } = caseNote
 
   const sameCreator = () => {
     if (!caseNote || !staffId || !user.staffId) return true
@@ -79,7 +78,7 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer }) 
 }
 
 CaseNoteListItem.propTypes = {
-  caseNote: ImmutablePropTypes.map.isRequired,
+  caseNote: caseNoteType.isRequired,
   user: userType.isRequired,
   offenderNo: PropTypes.string.isRequired,
   caseNoteListReferrer: PropTypes.string.isRequired,

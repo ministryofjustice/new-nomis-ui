@@ -39,3 +39,20 @@ export const inputType = shape({
   name: string.isRequired,
   value: string,
 })
+
+export const caseNoteType = shape({
+  typeDescription: string.isRequired,
+  subTypeDescription: string.isRequired,
+  amendments: arrayOf(object),
+  occurrenceDateTime: string.isRequired,
+  text: string.isRequired,
+  originalNoteText: string.isRequired,
+  bookingId: number.isRequired,
+  authorName: string.isRequired,
+  subType: string.isRequired,
+  type: string.isRequired,
+  creationDateTime: string.isRequired,
+  staffId: number.isRequired,
+  source: string.isRequired,
+  caseNoteId: number.isRequired,
+})

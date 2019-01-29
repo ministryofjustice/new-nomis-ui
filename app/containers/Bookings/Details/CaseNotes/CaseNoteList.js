@@ -4,7 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ReactRouterPropTypes from 'react-router-prop-types'
 
 import PreviousNextNavigation, { paginationType } from '../../../../components/PreviousNextNavigation'
-import CaseNoteListItem from '../../../../components/Bookings/Details/CaseNotes/CaseNotesListItem'
+import CaseNoteListItem from '../../../../components/Bookings/Details/CaseNotes/CaseNoteListItem'
 import NoSearchResultsReturnedMessage from '../../../../components/NoSearchResultsReturnedMessage'
 
 import CaseNoteFilterForm from './filterForm'
@@ -24,7 +24,7 @@ const CaseNotes = props => {
         {caseNotes.map(caseNote => (
           <CaseNoteListItem
             key={caseNote.get('caseNoteId')}
-            caseNote={caseNote}
+            caseNote={caseNote.toJS()}
             offenderNo={offenderNo}
             user={user}
             caseNoteListReferrer={caseNoteListReferrer}
