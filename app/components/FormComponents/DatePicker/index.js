@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 
 import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from '../../../containers/App/constants'
 import './index.scss'
-import { inputType, metaType } from '../types'
+import { inputType, metaType } from '../../../types'
 
 export class DatePicker extends Component {
   handleChange = date => {

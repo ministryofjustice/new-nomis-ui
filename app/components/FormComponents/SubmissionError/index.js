@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { inputType, metaType } from '../types'
+import { inputType, metaType } from '../../../types'
 
 export const InputError = () => <div />
 

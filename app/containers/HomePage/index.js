@@ -3,11 +3,10 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ActionLinks from '../../components/ActionLinks'
 import SearchForm from './SearchForm'
-
 import { loadLocations } from '../Bookings/actions'
-
 import './homepage.scss'
 import Page from '../../components/Page'
+import { userType } from '../../types'
 
 class HomePage extends Component {
   componentDidMount() {
@@ -43,11 +42,7 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
   // mapStateToProps
-  user: PropTypes.shape({
-    isKeyWorkerAdmin: PropTypes.bool.isRequired,
-    isKeyWorker: PropTypes.bool.isRequired,
-    isWhereabouts: PropTypes.bool.isRequired,
-  }),
+  user: userType,
   omicUrl: PropTypes.string,
   whereaboutsUrl: PropTypes.string,
   establishmentRollcheckUrl: PropTypes.string,

@@ -52,7 +52,7 @@ class AlertsSpecification extends GebReportingSpec {
     at AlertsPage
 
     when: 'I select Type of alert and submit'
-    typeSelect = 'R'
+    typeSelect = 'Risk (R)'
     applyFiltersButton.click()
 
     then: 'still on the alerts page'

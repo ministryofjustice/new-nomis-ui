@@ -10,7 +10,7 @@ import { selectDeviceFormat } from '../../../selectors/app'
 import EliteImage from '../../EliteContainers/Image'
 
 import OffenderDetails from './OffenderDetails'
-import CaseNotes from './CaseNotes'
+import CaseNotes from './CaseNotes/CaseNotesContainer'
 import Alerts from './Alerts'
 import KeyDates from './KeyDates'
 import QuickLook from './QuickLook'

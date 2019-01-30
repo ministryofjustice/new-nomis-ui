@@ -98,7 +98,7 @@ const mapDispatchToProps = (dispatch, props) => ({
         ...formData.toJS(),
         offenderNo: props.match.params.offenderNo,
         caseNoteId: props.match.params.caseNoteId,
-        itemId: props.match.params.caseNoteId,
+        caseNoteListReferrer: props.location.state.from,
       },
     }),
     [AMEND_CASENOTE.SUCCESS, AMEND_CASENOTE.ERROR]

@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import HeaderComponent from 'header'
 import { setMenuOpen, showTerms, navigateTo } from '../../globalReducers/app'
 import { switchCaseLoad } from '../EliteApiLoader/actions'
-import userType from '../types'
+import { userType } from '../../types'
 
 const HeaderContainer = ({
   user,

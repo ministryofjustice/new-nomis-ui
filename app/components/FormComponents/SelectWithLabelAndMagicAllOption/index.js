@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inputType, metaType } from '../types'
+import { inputType, metaType } from '../../../types'
 
 class SelectWithLabelAndMagicAllOption extends Component {
   constructor(props) {
