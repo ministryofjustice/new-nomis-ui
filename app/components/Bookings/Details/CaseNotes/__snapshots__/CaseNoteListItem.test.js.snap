@@ -51,7 +51,7 @@ exports[`<CaseNoteListItem /> should match the default snapshot 1`] = `
       </span>
     </div>
     <pre
-      className="css-9fadba"
+      className="css-6ghpto"
     >
       Offender enjoys attending the gym.
     </pre>
@@ -110,7 +110,7 @@ exports[`<CaseNoteListItem /> should render the with amendments snapshot 1`] = `
       </span>
     </div>
     <pre
-      className="css-9fadba"
+      className="css-6ghpto"
     >
       Offender enjoys attending the gym.
     </pre>
@@ -124,7 +124,7 @@ exports[`<CaseNoteListItem /> should render the with amendments snapshot 1`] = `
         Amendment
       </h3>
       <pre
-        className="css-9fadba"
+        className="css-6ghpto"
       >
         Offender says he doesn't like the gym.
       </pre>
@@ -201,7 +201,7 @@ exports[`<CaseNoteListItem /> should render the with make amendments button snap
       </span>
     </div>
     <pre
-      className="css-9fadba"
+      className="css-6ghpto"
     >
       Offender enjoys attending the gym.
     </pre>
@@ -215,7 +215,7 @@ exports[`<CaseNoteListItem /> should render the with make amendments button snap
         Amendment
       </h3>
       <pre
-        className="css-9fadba"
+        className="css-6ghpto"
       >
         Offender says he doesn't like the gym.
       </pre>
@@ -238,7 +238,7 @@ exports[`<CaseNoteListItem /> should render the with make amendments button snap
       User, Test
     </div>
     <a
-      className="css-g0lbkg"
+      className="css-i1xo79"
       href="/offenders/A12345/case-notes/1/amend-case-note"
       onClick={[Function]}
     >

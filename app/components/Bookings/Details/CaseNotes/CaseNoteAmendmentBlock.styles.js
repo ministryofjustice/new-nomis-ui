@@ -12,6 +12,7 @@ export const AmendmentText = styled('pre')`
   margin-bottom: ${SPACING.SCALE_3};
   font-family: ${NTA_LIGHT};
   white-space: pre-wrap;
+  word-break: break-all;
 `
 
 export const AmendmentDate = styled('div')`

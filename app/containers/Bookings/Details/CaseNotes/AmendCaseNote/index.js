@@ -2,19 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form/immutable'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { createFormAction } from 'redux-form-saga'
 import { Map } from 'immutable'
 import SessionHeartbeatHandler from '../../../../../utils/sessionHeartbeatHandler'
 
 import { TextArea } from '../../../../../components/FormComponents'
 
-import { AMEND_CASENOTE, DETAILS_TABS } from '../../../constants'
-import { extendActiveSession, viewDetails } from '../../../actions'
+import { AMEND_CASENOTE } from '../../../constants'
+import { extendActiveSession } from '../../../actions'
 
 import './index.scss'
 import Page from '../../../../../components/Page'
 
-const AmendCaseNote = ({ handleSubmit, error, submitting, goBackToBookingDetails, offenderNo, extendSession }) => {
+const AmendCaseNote = ({ handleSubmit, error, submitting, extendSession, location }) => {
   if (error) {
     window.scrollTo(0, 0)
   }
@@ -51,20 +53,13 @@ const AmendCaseNote = ({ handleSubmit, error, submitting, goBackToBookingDetails
           <div className="row">
             <div className="col-md-4 no-left-gutter">
               <button className="button add-gutter-margin-right" type="submit" disabled={error || submitting}>
-                {' '}
-                Save amendment{' '}
+                Save amendment
               </button>
-              <button
-                type="button"
-                className="button button-cancel"
-                onClick={e => {
-                  e.preventDefault()
-                  goBackToBookingDetails(offenderNo)
-                }}
-              >
-                {' '}
-                Cancel{' '}
-              </button>
+              <Link to={location.state.from}>
+                <button type="button" className="button-cancel">
+                  Cancel
+                </button>
+              </Link>
             </div>
           </div>
         </form>
@@ -77,10 +72,9 @@ AmendCaseNote.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   error: PropTypes.string,
   submitting: PropTypes.bool.isRequired,
-  offenderNo: PropTypes.string.isRequired,
+  location: ReactRouterPropTypes.location.isRequired,
 
   // mapDispatchToProps
-  goBackToBookingDetails: PropTypes.func.isRequired,
   extendSession: PropTypes.func.isRequired,
 }
 
@@ -89,7 +83,6 @@ AmendCaseNote.defaultProps = {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-  goBackToBookingDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.CASE_NOTES)),
   extendSession: () => dispatch(extendActiveSession()),
   onSubmit: createFormAction(
     formData => ({

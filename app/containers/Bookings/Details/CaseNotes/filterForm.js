@@ -13,13 +13,9 @@ import {
 import { selectLocale } from '../../../LanguageProvider/selectors'
 import TypeAndSubTypeSelector, { typeSelectorType } from '../../../../components/Bookings/TypeAndSubTypeSelector'
 import { DATE_ONLY_FORMAT_SPEC } from '../../../App/constants'
-
 import './filterForm.scss'
-
 import { CASE_NOTE_FILTER } from '../../constants'
-
 import { caseNoteFilterSelectInfo } from './selectors'
-
 import { getQueryParams } from '../../../../helpers'
 
 const selector = formValueSelector('caseNoteFilter')
@@ -162,6 +158,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     })
   },
   validate,
+  enableReinitialize: true,
   onSubmit: createFormAction(
     formData => {
       const startDateMoment = formData.get('startDate')
@@ -194,8 +191,8 @@ const mapStateToProps = createStructuredSelector({
     return {
       typeValue: type,
       subTypeValue: subType,
-      startDate,
-      endDate,
+      startDate: startDate ? moment(startDate, DATE_ONLY_FORMAT_SPEC) : '',
+      endDate: endDate ? moment(endDate, DATE_ONLY_FORMAT_SPEC) : '',
     }
   },
   caseNoteFilters: caseNoteFilterSelectInfo(),
