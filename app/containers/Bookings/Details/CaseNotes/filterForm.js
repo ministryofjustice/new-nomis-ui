@@ -158,6 +158,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     })
   },
   validate,
+  enableReinitialize: true,
   onSubmit: createFormAction(
     formData => {
       const startDateMoment = formData.get('startDate')
