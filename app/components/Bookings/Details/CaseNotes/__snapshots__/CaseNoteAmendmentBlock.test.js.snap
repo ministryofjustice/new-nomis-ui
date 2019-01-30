@@ -11,7 +11,7 @@ exports[`<CaseNoteAmendmentBlock /> should match the default snapshot 1`] = `
     Amendment
   </h3>
   <pre
-    className="css-9fadba"
+    className="css-6ghpto"
   >
     Offender says he doesn't like the gym.
   </pre>
