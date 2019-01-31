@@ -62,7 +62,7 @@ export const bookingAlerts = (baseUrl, offenderNo, pagination, filter) => {
   }))
 }
 
-const casenoteQueryStringGen = caseNoteOptions => {
+export const casenoteQueryStringGen = caseNoteOptions => {
   const { source, startDate, endDate } = caseNoteOptions
   let { type, subType } = caseNoteOptions
 
@@ -111,7 +111,7 @@ const casenoteQueryStringGen = caseNoteOptions => {
     // const dateTo = moment(endDate, DATE_ONLY_FORMAT_SPEC).format(ISO8601_DATE_FORMAT);
     dateFilters.push(`&to=${dateTo}`)
   }
-  const query = queryArray.length > 0 ? `&query=${queryArray.join(',and:')}` : ''
+  const query = queryArray.length > 0 ? `query=${queryArray.join(',and:')}` : ''
   const dates = dateFilters.join('')
   return query + dates
 }

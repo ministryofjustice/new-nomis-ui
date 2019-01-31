@@ -67,6 +67,7 @@ const keyworkerServiceFactory = (eliteApi, keyworkerApi) => {
     }
   }
 
+  /* Replaced as temporary fix for NN-1605, see below...
   const myAllocationsViewModel = async context => {
     const { staffId, activeCaseLoadId, capacity } = await getIfKeyWorkerIsEnabled(context)
 
@@ -74,6 +75,22 @@ const keyworkerServiceFactory = (eliteApi, keyworkerApi) => {
       context,
       // CSRA NOT NOW displayed: await offendersWithCSRA(context,
       await offendersWithConditionalReleaseDate(context, await getAssignedOffenders(context, staffId, activeCaseLoadId))
+    )
+
+    return {
+      allocations,
+      capacity,
+    }
+  }
+*/
+
+  // Temporary fix for NN-1605 - remove slow running query (offendersLastKWSession) from returned data.
+  const myAllocationsViewModel = async context => {
+    const { staffId, activeCaseLoadId, capacity } = await getIfKeyWorkerIsEnabled(context)
+
+    const allocations = await offendersWithConditionalReleaseDate(
+      context,
+      await getAssignedOffenders(context, staffId, activeCaseLoadId)
     )
 
     return {

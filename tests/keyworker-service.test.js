@@ -129,8 +129,8 @@ describe('Key worker service', () => {
     const expected = {
       capacity: 15,
       allocations: [
-        { offenderNo: 'A1', conditionalReleaseDate: '20/10/2020', lastKeyWorkerSessionDate: '04/06/2018' },
-        { offenderNo: 'A2', conditionalReleaseDate: '21/10/2020', lastKeyWorkerSessionDate: '01/06/2018' },
+        { offenderNo: 'A1', conditionalReleaseDate: '20/10/2020' }, //, lastKeyWorkerSessionDate: '04/06/2018' },
+        { offenderNo: 'A2', conditionalReleaseDate: '21/10/2020' }, // , lastKeyWorkerSessionDate: '01/06/2018' },
       ],
     }
 
