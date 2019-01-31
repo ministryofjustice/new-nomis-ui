@@ -1,7 +1,26 @@
 import styled from 'react-emotion'
-import { SPACING, LINE_HEIGHT, FONT_SIZE, MEDIA_QUERIES, GUTTER_HALF, NTA_LIGHT } from '@govuk-react/constants'
+import {
+  SPACING,
+  LINE_HEIGHT,
+  FONT_SIZE,
+  MEDIA_QUERIES,
+  GUTTER_HALF,
+  NTA_LIGHT,
+  FOCUS_WIDTH,
+  RESPONSIVE_5,
+  RESPONSIVE_7,
+} from '@govuk-react/constants'
 import { Link } from 'react-router-dom'
-import { FOOTER_BACKGROUND, FOOTER_TEXT, FOOTER_BORDER_TOP } from 'govuk-colours'
+import {
+  FOOTER_BACKGROUND,
+  FOOTER_TEXT,
+  FOOTER_BORDER_TOP,
+  FOOTER_LINK,
+  FOOTER_LINK_HOVER,
+  TEXT_COLOUR,
+  FOCUS_COLOUR,
+} from 'govuk-colours'
+import crestLogo from './govuk-crest-2x.png'
 
 // $govuk-footer-background: $govuk-canvas-background-colour;
 // $govuk-footer-border-top: #a1acb2;
@@ -11,16 +30,19 @@ import { FOOTER_BACKGROUND, FOOTER_TEXT, FOOTER_BORDER_TOP } from 'govuk-colours
 // $govuk-footer-link-hover: #171819;
 
 // // Based on the govuk-crest-2x.png image dimensions.
-// $govuk-footer-crest-image-width-2x: 250px;
-// $govuk-footer-crest-image-height-2x: 204px;
+const crestImageWidth2x = 250
+const crestImageHeight2x = 204
 // // Half the 2x image so that it fits the regular 1x size.
-// $govuk-footer-crest-image-width: ($govuk-footer-crest-image-width-2x / 2);
-// $govuk-footer-crest-image-height: ($govuk-footer-crest-image-height-2x / 2);
+const crestImageWidth = crestImageWidth2x / 2
+const crestImageHeight = crestImageHeight2x / 2
 
 export const Footer = styled('footer')`
   /* @include govuk-font($size: 16); */
   /* @include govuk-responsive-padding(7, 'top');
   @include govuk-responsive-padding(5, 'bottom'); */
+  padding-top: ${RESPONSIVE_7.tablet}px;
+  /* padding-bottom: ${RESPONSIVE_5.tablet}px; */
+  padding-bottom: 25px;
   font-family: ${NTA_LIGHT};
   font-size: ${FONT_SIZE.SIZE_14};
   line-height: ${LINE_HEIGHT.SIZE_14};
@@ -45,39 +67,65 @@ export const Meta = styled('div')`
 
 export const MetaItem = styled('div')`
   margin-right: ${GUTTER_HALF};
-  margin-bottom: ${SPACING.SCALE_5};
+  margin-bottom: 25px;
   margin-left: ${GUTTER_HALF};
-  ${props =>
-    props.grow && {
-      flex: 1,
-    }}
+  flex: ${props => (props.grow ? 1 : undefined)};
+  /* @include mq ($until: tablet) {
+    flex-basis: 320px; // Support: Flexbox
+  } */
 `
 
-// @media (min-width: ${BREAKPOINTS.TABLET}) {
-//   font-size: ${FONT_SIZE.SIZE_19};
-// }
+export const LicenseLogo = styled('svg')`
+  display: inline-block;
+  margin-right: ${SPACING.SCALE_2};
+  /* @include mq($until: desktop) {
+    margin-bottom: govuk-spacing(3);
+  } */
+  vertical-align: top;
+`
 
-// .govuk-footer__meta {
-//   display: flex; // Support: Flexbox
-//   margin-right: -$govuk-gutter-half;
-//   margin-left: -$govuk-gutter-half;
-//   flex-wrap: wrap; // Support: Flexbox
-//   align-items: flex-end; // Support: Flexbox
-//   justify-content: center; // Support: Flexbox
-// }
+export const LicenseDescription = styled('span')`
+  display: inline-block;
+`
 
-// .govuk-footer__meta-item {
-//   margin-right: $govuk-gutter-half;
-//   margin-bottom: govuk-spacing(5);
-//   margin-left: $govuk-gutter-half;
-// }
+export const FooterLink = styled('a')`
+  &:link,
+  &:visited {
+    color: ${FOOTER_LINK};
+  }
 
-// .govuk-footer__meta-item--grow {
-//   flex: 1; // Support: Flexbox
-//   @include mq ($until: tablet) {
-//     flex-basis: 320px; // Support: Flexbox
-//   }
-// }
+  &:hover,
+  &:active {
+    color: ${FOOTER_LINK_HOVER};
+  }
+
+  &:focus {
+    color: ${TEXT_COLOUR};
+    background-color: ${FOCUS_COLOUR};
+    outline: ${FOCUS_WIDTH} solid ${FOCUS_COLOUR};
+  }
+
+  &:link:focus {
+    ${TEXT_COLOUR}
+  }
+`
+
+export const CopyrightLogo = styled(FooterLink)`
+  display: inline-block;
+  min-width: ${crestImageWidth}px;
+  padding-top: ${crestImageHeight + 10}px;
+  background-image: url(${crestLogo});
+  /* @include govuk-device-pixel-ratio {
+    background-image: govuk-image-url('govuk-crest-2x.png');
+  } */
+  background-repeat: no-repeat;
+  background-position: 50% 0%;
+  background-size: ${crestImageWidth}px ${crestImageHeight}px;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+`
+
 /*
 // https://github.com/alphagov/govuk-frontend/blob/master/src/components/footer/_footer.scss
 
