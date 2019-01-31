@@ -33,7 +33,8 @@ const keyworkerServiceFactory = (eliteApi, keyworkerApi) => {
     })
   }
 
-  const offendersLastKWSession = async (context, offenders = []) => {
+  /* 
+ const offendersLastKWSession = async (context, offenders = []) => {
     if (offenders.length === 0) {
       return []
     }
@@ -55,7 +56,7 @@ const keyworkerServiceFactory = (eliteApi, keyworkerApi) => {
       }
     })
   }
-
+*/
   const getIfKeyWorkerIsEnabled = async context => {
     const { staffId, activeCaseLoadId } = await eliteApi.getMyInformation(context)
     const keyworker = await keyworkerApi.getKeyworkerByStaffIdAndPrisonId(context, staffId, activeCaseLoadId)
