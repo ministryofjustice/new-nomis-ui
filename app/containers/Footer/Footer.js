@@ -9,22 +9,108 @@ import {
   LicenseLogo,
   CopyrightLogo,
   HiddenHeader,
+  Navigation,
+  Section,
+  SectionBreak,
+  FooterList,
+  FooterHeading,
 } from './Footer.styles'
 
 const FooterGovUK = () => (
   <Footer role="contentinfo">
     <div className="govuk-width-container main-content">
+      <Navigation>
+        <Section>
+          <FooterHeading level={2} size="MEDIUM">
+            Services and information
+          </FooterHeading>
+          <FooterList columns={2}>
+            <li>
+              <FooterLink href="#">Benefits</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Births, deaths, marriages and care</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Business and self-employed</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Childcare and parenting</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Citizenship and living in the UK</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Crime, justice and the law</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Disabled people</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Driving and transport</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Education and learning</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Employing people</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Environment and countryside</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Housing and local services</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Money and tax</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Passports, travel and living abroad</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Visas and immigration</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Working, jobs and pensions</FooterLink>
+            </li>
+          </FooterList>
+        </Section>
+        <Section>
+          <FooterHeading level={2} size="MEDIUM">
+            Departments and policy
+          </FooterHeading>
+          <FooterList>
+            <li>
+              <FooterLink href="#">How government works</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Departments</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Worldwide</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Policies</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Publications</FooterLink>
+            </li>
+            <li>
+              <FooterLink href="#">Announcements</FooterLink>
+            </li>
+          </FooterList>
+        </Section>
+      </Navigation>
+      <SectionBreak />
       <Meta>
         <MetaItem grow>
           <HiddenHeader level={2}>Support links</HiddenHeader>
           <InlineList>
             <li>
-              <FooterLink href="mailto:feedback@digital.justice.gov.uk" className="govuk-footer__link">
-                Contact
-              </FooterLink>
+              <FooterLink href="mailto:feedback@digital.justice.gov.uk">Contact</FooterLink>
             </li>{' '}
             <li>
-              <FooterLink href="/auth/terms" id="terms" className="govuk-footer__link">
+              <FooterLink href="/auth/terms" id="terms">
                 Terms and conditions
               </FooterLink>
             </li>
