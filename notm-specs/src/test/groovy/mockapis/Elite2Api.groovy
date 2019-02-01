@@ -133,7 +133,7 @@ class Elite2Api extends WireMockRule {
          "caseloadFunction": "LEI"
      },
      {                                              
-         "caseLoadId": 2,
+         "caseLoadId": "2",
          "description": "X-LEI",
          "type": "X-LEI",
          "caseloadFunction": "X-LEI"
