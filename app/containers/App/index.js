@@ -10,7 +10,7 @@ import { Route, withRouter, Switch } from 'react-router-dom'
 import { retrieveUserMe } from '../Authentication/actions'
 import { selectShouldShowSpinner, selectShouldShowTerms, selectMobileMenuOpen } from '../../selectors/app'
 import Header from '../Header'
-import Footer from '../Footer/Footer'
+import Footer from '../Footer'
 import Spinner from '../../components/Spinner'
 import Terms from '../Footer/terms-and-conditions'
 import { setAppConfig, setDeviceFormat, setMenuOpen, hideTerms } from '../../globalReducers/app'
@@ -81,138 +81,7 @@ export class App extends Component {
         </main>
         {/* eslint-disable-next-line */}
         <div onClick={() => this.onBackgroundClick()}>
-          <Footer
-            meta={{
-              items: [
-                {
-                  href: '#',
-                  text: 'Help',
-                },
-                {
-                  href: '#',
-                  text: 'Cookies',
-                },
-                {
-                  href: '#',
-                  text: 'Contact',
-                },
-                {
-                  href: '#',
-                  text: 'Terms and conditions',
-                },
-                {
-                  href: '#',
-                  text: 'Rhestr o Wasanaethau Cymraeg',
-                },
-              ],
-              html: (
-                <div>
-                  Built by the <a href="#">Government Digital Service</a>
-                </div>
-              ),
-            }}
-            navigation={[
-              {
-                title: 'Services and information',
-                columns: 2,
-                items: [
-                  {
-                    href: '#',
-                    text: 'Benefits',
-                  },
-                  {
-                    href: '#',
-                    text: 'Births, deaths, marriages and care',
-                  },
-                  {
-                    href: '#',
-                    text: 'Business and self-employed',
-                  },
-                  {
-                    href: '#',
-                    text: 'Childcare and parenting',
-                  },
-                  {
-                    href: '#',
-                    text: 'Citizenship and living in the UK',
-                  },
-                  {
-                    href: '#',
-                    text: 'Crime, justice and the law',
-                  },
-                  {
-                    href: '#',
-                    text: 'Disabled people',
-                  },
-                  {
-                    href: '#',
-                    text: 'Driving and transport',
-                  },
-                  {
-                    href: '#',
-                    text: 'Education and learning',
-                  },
-                  {
-                    href: '#',
-                    text: 'Employing people',
-                  },
-                  {
-                    href: '#',
-                    text: 'Environment and countryside',
-                  },
-                  {
-                    href: '#',
-                    text: 'Housing and local services',
-                  },
-                  {
-                    href: '#',
-                    text: 'Money and tax',
-                  },
-                  {
-                    href: '#',
-                    text: 'Passports, travel and living abroad',
-                  },
-                  {
-                    href: '#',
-                    text: 'Visas and immigration',
-                  },
-                  {
-                    href: '#',
-                    text: 'Working, jobs and pensions',
-                  },
-                ],
-              },
-              {
-                title: 'Departments and policy',
-                items: [
-                  {
-                    href: '#',
-                    text: 'How government works',
-                  },
-                  {
-                    href: '#',
-                    text: 'Departments',
-                  },
-                  {
-                    href: '#',
-                    text: 'Worldwide',
-                  },
-                  {
-                    href: '#',
-                    text: 'Policies',
-                  },
-                  {
-                    href: '#',
-                    text: 'Publications',
-                  },
-                  {
-                    href: '#',
-                    text: 'Announcements',
-                  },
-                ],
-              },
-            ]}
-          />
+          <Footer />
         </div>
       </div>
     )

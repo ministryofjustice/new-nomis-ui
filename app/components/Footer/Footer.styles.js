@@ -21,8 +21,8 @@ import {
 } from 'govuk-colours'
 import Header from '@govuk-react/header'
 import { RESPONSIVE_4, RESPONSIVE_5, RESPONSIVE_7, RESPONSIVE_8 } from '@govuk-react/constants/lib/spacing'
-import crestLogo from './govuk-crest.png'
-import crestLogo2x from './govuk-crest-2x.png'
+import crestLogo from './images/govuk-crest.png'
+import crestLogo2x from './images/govuk-crest-2x.png'
 
 // https://github.com/alphagov/govuk-frontend/blob/master/src/components/footer/_footer.scss
 
@@ -52,7 +52,7 @@ const footerLinkStyle = css`
   }
 `
 
-export const Footer = styled('footer')`
+export const StyledFooter = styled('footer')`
   display: flex;
   justify-content: center;
   padding-top: ${RESPONSIVE_7.mobile}px;
@@ -71,7 +71,18 @@ export const Footer = styled('footer')`
   color: ${FOOTER_TEXT};
   background: ${FOOTER_BACKGROUND};
 `
-export const SectionBreak = styled('hr')`
+
+export const StyledContainer = styled('div')`
+  width: 100%;
+  max-width: 1100px; /* SITE_WIDTH_PX needs increasing from 960 to 1100 */
+  margin: 0 ${SPACING.SCALE_3};
+
+  @media screen and (min-width: ${BREAKPOINTS.TABLET}) {
+    margin: 0 ${SPACING.SCALE_5};
+  }
+`
+
+export const StyledSectionBreak = styled('hr')`
   margin: 0;
   margin-bottom: ${RESPONSIVE_8.mobile}px;
   border: 0;
@@ -82,7 +93,7 @@ export const SectionBreak = styled('hr')`
   }
 `
 
-export const Meta = styled('div')`
+export const StyledMeta = styled('div')`
   display: flex;
   margin-right: -${GUTTER_HALF};
   margin-left: -${GUTTER_HALF};
@@ -98,7 +109,7 @@ const flexBasisPartial = props =>
       flex-basis: 320px;
     }
   `
-export const MetaItem = styled('div')`
+export const StyledMetaItem = styled('div')`
   margin-right: ${GUTTER_HALF};
   margin-bottom: 25px;
   margin-left: ${GUTTER_HALF};
@@ -106,7 +117,7 @@ export const MetaItem = styled('div')`
   ${flexBasisPartial}
 `
 
-export const MetaCustom = styled('div')`
+export const StyledMetaCustom = styled('div')`
   margin-bottom: ${SPACING.SCALE_4};
 
   a {
@@ -115,7 +126,7 @@ export const MetaCustom = styled('div')`
 `
 
 // .govuk-visually-hidden
-export const HiddenHeader = styled(Header)`
+export const StyledHiddenHeader = styled(Header)`
   position: absolute !important;
   width: 1px !important;
   height: 1px !important;
@@ -126,7 +137,7 @@ export const HiddenHeader = styled(Header)`
   white-space: nowrap !important;
 `
 
-export const InlineList = styled('div')`
+export const StyledInlineList = styled('div')`
   margin-top: 0;
   margin-bottom: ${SPACING.SCALE_3};
   padding: 0;
@@ -138,7 +149,7 @@ export const InlineList = styled('div')`
   }
 `
 
-export const FooterHeading = styled(Header)`
+export const StyledSectionHeading = styled(Header)`
   border-bottom: 1px solid ${GREY_2};
   padding-bottom: ${SPACING.SCALE_2};
   margin-bottom: ${RESPONSIVE_7.mobile}px;
@@ -149,14 +160,14 @@ export const FooterHeading = styled(Header)`
   }
 `
 
-export const Navigation = styled('div')`
+export const StyledNavigation = styled('div')`
   display: flex;
   margin-right: -${GUTTER_HALF};
   margin-left: -${GUTTER_HALF};
   flex-wrap: wrap;
 `
 
-export const Section = styled('div')`
+export const StyledSection = styled('div')`
   display: inline-block;
   margin-right: ${GUTTER_HALF};
   margin-bottom: ${GUTTER};
@@ -180,7 +191,7 @@ export const Section = styled('div')`
   }
 `
 
-export const FooterList = styled('ul')`
+export const StyledFooterList = styled('ul')`
   margin: 0;
   padding: 0;
   list-style: none;
@@ -204,7 +215,7 @@ export const FooterList = styled('ul')`
   }
 `
 
-export const LicenseLogo = styled('svg')`
+export const StyledLicenseLogo = styled('svg')`
   display: inline-block;
   margin-right: ${SPACING.SCALE_2};
   vertical-align: top;
@@ -214,15 +225,15 @@ export const LicenseLogo = styled('svg')`
   }
 `
 
-export const LicenseDescription = styled('span')`
+export const StyledLicenseDescription = styled('span')`
   display: inline-block;
 `
 
-export const FooterLink = styled('a')`
+export const StyledFooterLink = styled('a')`
   ${footerLinkStyle}
 `
 
-export const CopyrightLogo = styled(FooterLink)`
+export const StyledCopyrightLogo = styled(StyledFooterLink)`
   display: inline-block;
   min-width: ${crestImageWidth}px;
   padding-top: ${crestImageHeight + 10}px;
