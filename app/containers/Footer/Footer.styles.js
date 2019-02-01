@@ -1,4 +1,4 @@
-import styled from 'react-emotion'
+import styled, { css } from 'react-emotion'
 import {
   SPACING,
   LINE_HEIGHT,
@@ -9,8 +9,8 @@ import {
   FOCUS_WIDTH,
   RESPONSIVE_5,
   RESPONSIVE_7,
+  BREAKPOINTS,
 } from '@govuk-react/constants'
-import { Link } from 'react-router-dom'
 import {
   FOOTER_BACKGROUND,
   FOOTER_TEXT,
@@ -20,33 +20,28 @@ import {
   TEXT_COLOUR,
   FOCUS_COLOUR,
 } from 'govuk-colours'
-import crestLogo from './govuk-crest-2x.png'
+import Header from '@govuk-react/header'
+import crestLogo from './govuk-crest.png'
+import crestLogo2x from './govuk-crest-2x.png'
 
-// $govuk-footer-background: $govuk-canvas-background-colour;
-// $govuk-footer-border-top: #a1acb2;
-// $govuk-footer-border: govuk-colour("grey-2");
-// $govuk-footer-text: #454a4c;
-// $govuk-footer-link: $govuk-footer-text;
-// $govuk-footer-link-hover: #171819;
+// https://github.com/alphagov/govuk-frontend/blob/master/src/components/footer/_footer.scss
 
-// // Based on the govuk-crest-2x.png image dimensions.
 const crestImageWidth2x = 250
 const crestImageHeight2x = 204
-// // Half the 2x image so that it fits the regular 1x size.
 const crestImageWidth = crestImageWidth2x / 2
 const crestImageHeight = crestImageHeight2x / 2
 
 export const Footer = styled('footer')`
-  /* @include govuk-font($size: 16); */
-  /* @include govuk-responsive-padding(7, 'top');
-  @include govuk-responsive-padding(5, 'bottom'); */
-  padding-top: ${RESPONSIVE_7.tablet}px;
-  /* padding-bottom: ${RESPONSIVE_5.tablet}px; */
-  padding-bottom: 25px;
+  display: flex;
+  justify-content: center;
+  padding-top: ${RESPONSIVE_7.mobile}px;
+  padding-bottom: ${RESPONSIVE_5.mobile}px;
   font-family: ${NTA_LIGHT};
   font-size: ${FONT_SIZE.SIZE_14};
   line-height: ${LINE_HEIGHT.SIZE_14};
   ${MEDIA_QUERIES.LARGESCREEN} {
+    padding-top: ${RESPONSIVE_7.tablet}px;
+    padding-bottom: 25px;
     font-size: ${FONT_SIZE.SIZE_16};
     line-height: ${LINE_HEIGHT.SIZE_16};
   }
@@ -65,23 +60,53 @@ export const Meta = styled('div')`
   justify-content: center;
 `
 
+const flexBasisPartial = props =>
+  props.grow &&
+  css`
+    @media screen and (max-width: ${BREAKPOINTS.DESKTOP}) {
+      flex-basis: 320px;
+    }
+  `
 export const MetaItem = styled('div')`
   margin-right: ${GUTTER_HALF};
   margin-bottom: 25px;
   margin-left: ${GUTTER_HALF};
   flex: ${props => (props.grow ? 1 : undefined)};
-  /* @include mq ($until: tablet) {
-    flex-basis: 320px; // Support: Flexbox
-  } */
+  ${flexBasisPartial}
+`
+
+// .govuk-visually-hidden
+export const HiddenHeader = styled(Header)`
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+`
+
+export const InlineList = styled('div')`
+  margin-top: 0;
+  margin-bottom: ${SPACING.SCALE_3};
+  padding: 0;
+
+  li {
+    display: inline-block;
+    margin-right: ${SPACING.SCALE_3};
+    margin-bottom: ${SPACING.SCALE_1};
+  }
 `
 
 export const LicenseLogo = styled('svg')`
   display: inline-block;
   margin-right: ${SPACING.SCALE_2};
-  /* @include mq($until: desktop) {
-    margin-bottom: govuk-spacing(3);
-  } */
   vertical-align: top;
+
+  @media screen and (max-width: ${BREAKPOINTS.DESKTOP}) {
+    margin-bottom: ${SPACING.SCALE_3};
+  }
 `
 
 export const LicenseDescription = styled('span')`
@@ -115,9 +140,13 @@ export const CopyrightLogo = styled(FooterLink)`
   min-width: ${crestImageWidth}px;
   padding-top: ${crestImageHeight + 10}px;
   background-image: url(${crestLogo});
-  /* @include govuk-device-pixel-ratio {
-    background-image: govuk-image-url('govuk-crest-2x.png');
-  } */
+  @media only screen and (-webkit-min-device-pixel-ratio: 2),
+    not all,
+    not all,
+    only screen and (min-resolution: 192dpi),
+    only screen and (min-resolution: 2dppx) {
+    background-image: url(${crestLogo2x});
+  }
   background-repeat: no-repeat;
   background-position: 50% 0%;
   background-size: ${crestImageWidth}px ${crestImageHeight}px;
