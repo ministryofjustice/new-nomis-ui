@@ -103,15 +103,13 @@ export const casenoteQueryStringGen = caseNoteOptions => {
   const dateFilters = []
   if (startDate) {
     const dateFrom = dateOnlyFormatTo8601(startDate)
-    // const dateFrom = moment(startDate, DATE_ONLY_FORMAT_SPEC).format(ISO8601_DATE_FORMAT);
     dateFilters.push(`&from=${dateFrom}`)
   }
   if (endDate) {
     const dateTo = dateOnlyFormatTo8601(endDate)
-    // const dateTo = moment(endDate, DATE_ONLY_FORMAT_SPEC).format(ISO8601_DATE_FORMAT);
     dateFilters.push(`&to=${dateTo}`)
   }
-  const query = queryArray.length > 0 ? `query=${queryArray.join(',and:')}` : ''
+  const query = queryArray.length > 0 ? `query=${encodeURIComponent(queryArray.join(',and:'))}` : ''
   const dates = dateFilters.join('')
   return query + dates
 }

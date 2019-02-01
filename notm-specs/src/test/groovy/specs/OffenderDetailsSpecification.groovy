@@ -7,9 +7,10 @@ import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
 import model.Offender
+import model.TestFixture
 import org.junit.Rule
-import pages.*
-import spock.lang.IgnoreIf
+import pages.OffenderDetailsPage
+import pages.SearchResultsPage
 
 import static model.UserAccount.ITAG_USER
 
@@ -25,18 +26,17 @@ class OffenderDetailsSpecification extends GebReportingSpec {
   @Rule
   OauthApi oauthApi = new OauthApi()
 
+  TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
+
+
   def "Offender quicklook details are correct"() {
     elite2api.stubHealthCheck()
 
     given: 'I log in and search for an offender'
-    to LoginPage
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-    elite2api.stubGetMyDetails(ITAG_USER)
-    loginAs ITAG_USER, 'password'
-    at HomePage
+    fixture.loginAs(ITAG_USER)
 
-    ArrayList<Offender> offenders = new ArrayList<Offender>()
-    offenders.push(model.Offender.SMITH())
+    List<Offender> offenders = []
+    offenders.push(Offender.SMITH())
 
     elite2api.stubOffenderSearch("smith", offenders, '')
     elite2api.stubOffenderDetails(true)
@@ -63,7 +63,7 @@ class OffenderDetailsSpecification extends GebReportingSpec {
     elite2api.stubContacts()
     elite2api.stubVisitLast()
     elite2api.stubRelationships()
-    elite2api.stubCaseNoteUsage(Lists.asList(model.Offender.SMITH()))
+    elite2api.stubCaseNoteUsage(Lists.asList(Offender.SMITH()))
     elite2api.stubCaseNotesNegIepWarnCount()
     elite2api.stubCaseNotesPosIepEncCount()
     elite2api.stubAdjudications()
@@ -90,7 +90,7 @@ class OffenderDetailsSpecification extends GebReportingSpec {
     containsExpected(allQuicklookValues2, expectedQuicklookValues2)
   }
 
-  private boolean containsExpected(actual, List<String> expected) {
+  private static boolean containsExpected(actual, List<String> expected) {
     return actual.intersect(expected).size() == expected.size()
   }
 

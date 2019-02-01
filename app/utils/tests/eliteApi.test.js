@@ -36,10 +36,14 @@ describe('eliteApi', () => {
     it('Should render & correctly', () => {
       expect(
         casenoteQueryStringGen({
-          type: 'ACHEIVEMENTS',
+          type: 'ACHIEVEMENTS',
           subType: 'LNG & SKILLS',
+          startDate: '01/01/2019',
+          endDate: '31/12/2019',
         })
-      ).toEqual("query=type:in:'ACHEIVEMENTS',and:subType:in:'LNG & SKILLS'")
+      ).toEqual(
+        "query=type%3Ain%3A'ACHIEVEMENTS'%2Cand%3AsubType%3Ain%3A'LNG%20%26%20SKILLS'&from=2019-01-01&to=2019-12-31"
+      )
     })
   })
 })
