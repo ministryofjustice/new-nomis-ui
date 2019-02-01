@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import PropTypes, { shape } from 'prop-types'
 import {
   Footer,
   Meta,
   MetaItem,
+  MetaCustom,
   InlineList,
   LicenseDescription,
   FooterLink,
@@ -16,105 +18,51 @@ import {
   FooterHeading,
 } from './Footer.styles'
 
-const FooterGovUK = () => (
+const hyphenateString = str => str.replace(/ +/g, '-').toLowerCase()
+
+// https://github.com/alphagov/govuk-frontend/blob/master/src/components/footer/template.njk
+const FooterGovUK = ({ navigation, meta }) => (
   <Footer role="contentinfo">
     <div className="govuk-width-container main-content">
-      <Navigation>
-        <Section>
-          <FooterHeading level={2} size="MEDIUM">
-            Services and information
-          </FooterHeading>
-          <FooterList columns={2}>
-            <li>
-              <FooterLink href="#">Benefits</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Births, deaths, marriages and care</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Business and self-employed</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Childcare and parenting</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Citizenship and living in the UK</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Crime, justice and the law</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Disabled people</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Driving and transport</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Education and learning</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Employing people</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Environment and countryside</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Housing and local services</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Money and tax</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Passports, travel and living abroad</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Visas and immigration</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Working, jobs and pensions</FooterLink>
-            </li>
-          </FooterList>
-        </Section>
-        <Section>
-          <FooterHeading level={2} size="MEDIUM">
-            Departments and policy
-          </FooterHeading>
-          <FooterList>
-            <li>
-              <FooterLink href="#">How government works</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Departments</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Worldwide</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Policies</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Publications</FooterLink>
-            </li>
-            <li>
-              <FooterLink href="#">Announcements</FooterLink>
-            </li>
-          </FooterList>
-        </Section>
-      </Navigation>
-      <SectionBreak />
+      {navigation && navigation.length > 0 && (
+        <Fragment>
+          <Navigation>
+            {navigation.map(section => (
+              <Section key={hyphenateString(section.title)}>
+                <FooterHeading level={2} size="MEDIUM">
+                  {section.title}
+                </FooterHeading>
+                {section.items && section.items.length > 0 && (
+                  <FooterList columns={section.columns}>
+                    {section.items.map(item => (
+                      <li key={hyphenateString(item.text)}>
+                        <FooterLink href={item.href}>{item.text}</FooterLink>
+                      </li>
+                    ))}
+                  </FooterList>
+                )}
+              </Section>
+            ))}
+          </Navigation>
+          <SectionBreak />
+        </Fragment>
+      )}
+
       <Meta>
         <MetaItem grow>
-          <HiddenHeader level={2}>Support links</HiddenHeader>
-          <InlineList>
-            <li>
-              <FooterLink href="mailto:feedback@digital.justice.gov.uk">Contact</FooterLink>
-            </li>{' '}
-            <li>
-              <FooterLink href="/auth/terms" id="terms">
-                Terms and conditions
-              </FooterLink>
-            </li>
-          </InlineList>
+          {meta && meta.items && meta.items.length > 1 && (
+            <Fragment>
+              <HiddenHeader level={2}>Support links</HiddenHeader>
+              <InlineList>
+                {meta.items.map(item => (
+                  <li key={hyphenateString(item.text)}>
+                    <FooterLink href={item.href}>{item.text}</FooterLink>
+                  </li>
+                ))}
+              </InlineList>
+              {(meta.text || meta.html) && <MetaCustom>{meta.text || meta.html}</MetaCustom>}
+            </Fragment>
+          )}
           <LicenseLogo
             role="presentation"
             focusable="false"
@@ -145,5 +93,35 @@ const FooterGovUK = () => (
     </div>
   </Footer>
 )
+
+FooterGovUK.propTypes = {
+  navigation: PropTypes.arrayOf(
+    shape({
+      title: PropTypes.string,
+      columns: PropTypes.number,
+      items: PropTypes.arrayOf(
+        shape({
+          href: PropTypes.string,
+          text: PropTypes.string,
+        })
+      ),
+    })
+  ),
+  meta: PropTypes.shape({
+    items: PropTypes.arrayOf(
+      shape({
+        href: PropTypes.string,
+        text: PropTypes.string,
+      })
+    ),
+    text: PropTypes.string,
+    html: PropTypes.node,
+  }),
+}
+
+FooterGovUK.defaultProps = {
+  navigation: [],
+  meta: null,
+}
 
 export default FooterGovUK

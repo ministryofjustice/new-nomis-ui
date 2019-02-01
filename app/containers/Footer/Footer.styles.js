@@ -6,8 +6,6 @@ import {
   GUTTER_HALF,
   NTA_LIGHT,
   FOCUS_WIDTH,
-  RESPONSIVE_5,
-  RESPONSIVE_7,
   BREAKPOINTS,
   GUTTER,
 } from '@govuk-react/constants'
@@ -22,7 +20,7 @@ import {
   FOCUS_COLOUR,
 } from 'govuk-colours'
 import Header from '@govuk-react/header'
-import { RESPONSIVE_4, RESPONSIVE_8 } from '@govuk-react/constants/lib/spacing'
+import { RESPONSIVE_4, RESPONSIVE_5, RESPONSIVE_7, RESPONSIVE_8 } from '@govuk-react/constants/lib/spacing'
 import crestLogo from './govuk-crest.png'
 import crestLogo2x from './govuk-crest-2x.png'
 
@@ -32,6 +30,27 @@ const crestImageWidth2x = 250
 const crestImageHeight2x = 204
 const crestImageWidth = crestImageWidth2x / 2
 const crestImageHeight = crestImageHeight2x / 2
+const footerLinkStyle = css`
+  &:link,
+  &:visited {
+    color: ${FOOTER_LINK};
+  }
+
+  &:hover,
+  &:active {
+    color: ${FOOTER_LINK_HOVER};
+  }
+
+  &:focus {
+    color: ${TEXT_COLOUR};
+    background-color: ${FOCUS_COLOUR};
+    outline: ${FOCUS_WIDTH} solid ${FOCUS_COLOUR};
+  }
+
+  &:link:focus {
+    ${TEXT_COLOUR}
+  }
+`
 
 export const Footer = styled('footer')`
   display: flex;
@@ -85,6 +104,14 @@ export const MetaItem = styled('div')`
   margin-left: ${GUTTER_HALF};
   flex: ${props => (props.grow ? 1 : undefined)};
   ${flexBasisPartial}
+`
+
+export const MetaCustom = styled('div')`
+  margin-bottom: ${SPACING.SCALE_4};
+
+  a {
+    ${footerLinkStyle}
+  }
 `
 
 // .govuk-visually-hidden
@@ -192,25 +219,7 @@ export const LicenseDescription = styled('span')`
 `
 
 export const FooterLink = styled('a')`
-  &:link,
-  &:visited {
-    color: ${FOOTER_LINK};
-  }
-
-  &:hover,
-  &:active {
-    color: ${FOOTER_LINK_HOVER};
-  }
-
-  &:focus {
-    color: ${TEXT_COLOUR};
-    background-color: ${FOCUS_COLOUR};
-    outline: ${FOCUS_WIDTH} solid ${FOCUS_COLOUR};
-  }
-
-  &:link:focus {
-    ${TEXT_COLOUR}
-  }
+  ${footerLinkStyle}
 `
 
 export const CopyrightLogo = styled(FooterLink)`
