@@ -56,7 +56,7 @@ class CaseNotesSpecification extends GebReportingSpec {
     //message == "Case note has been created successfully"
     // Check case note display; derives from wiremock response
 
-    def rowsAsText = caseNoteDetails*.text()
+    List<String> rowsAsText = caseNoteDetails*.text()
 
     rowsAsText[0].contains("User, Api")
     rowsAsText[0].contains("Chaplaincy | Faith Specific Action")
@@ -143,10 +143,10 @@ class CaseNotesSpecification extends GebReportingSpec {
   }
 
   def setupUserDetails() {
-    ArrayList<Offender> offenders = new ArrayList<Offender>()
-    offenders.push(Offender.SMELLEY())
-    offenders.push(Offender.SMITH())
-    offenders.push(Offender.BOB())
+    List<Offender> offenders = [
+      Offender.SMELLEY(),
+      Offender.SMITH(),
+      Offender.BOB()]
 
     elite2api.stubOffenderSearch("d%20s", offenders, '')
     elite2api.stubOffenderDetails(true)
@@ -170,7 +170,7 @@ class CaseNotesSpecification extends GebReportingSpec {
     elite2api.stubContacts()
     elite2api.stubVisitLast()
     elite2api.stubRelationships()
-    elite2api.stubCaseNoteUsage([model.Offender.SMITH()])
+    elite2api.stubCaseNoteUsage([Offender.SMITH()])
     elite2api.stubCaseNotesNegIepWarnCount()
     elite2api.stubCaseNotesPosIepEncCount()
     elite2api.stubAdjudications()

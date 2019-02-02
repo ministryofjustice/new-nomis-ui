@@ -5,12 +5,11 @@ import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
-import mockapis.response.AccessRoles
 import model.TestFixture
 import model.UserAccount
+
 import org.junit.Rule
 import pages.HomePage
-import spock.lang.IgnoreIf
 
 @Slf4j
 class HomePageSpecification extends GebReportingSpec {
@@ -35,6 +34,6 @@ class HomePageSpecification extends GebReportingSpec {
     at HomePage
 
     then: 'I should see the global search checkbox'
-    globalSearchCheckBox.present == true
+    assert globalSearchCheckBox.present
   }
 }
