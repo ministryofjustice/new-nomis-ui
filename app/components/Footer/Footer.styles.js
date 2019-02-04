@@ -1,28 +1,11 @@
 import styled, { css } from 'react-emotion'
-import {
-  SPACING,
-  LINE_HEIGHT,
-  FONT_SIZE,
-  GUTTER_HALF,
-  NTA_LIGHT,
-  FOCUS_WIDTH,
-  BREAKPOINTS,
-  GUTTER,
-} from '@govuk-react/constants'
-import {
-  GREY_2,
-  FOOTER_BACKGROUND,
-  FOOTER_TEXT,
-  FOOTER_BORDER_TOP,
-  FOOTER_LINK,
-  FOOTER_LINK_HOVER,
-  TEXT_COLOUR,
-  FOCUS_COLOUR,
-} from 'govuk-colours'
+import { SPACING, LINE_HEIGHT, FONT_SIZE, GUTTER_HALF, NTA_LIGHT, BREAKPOINTS, GUTTER } from '@govuk-react/constants'
+import { GREY_2, FOOTER_BACKGROUND, FOOTER_TEXT, FOOTER_BORDER_TOP } from 'govuk-colours'
 import Header from '@govuk-react/header'
 import { RESPONSIVE_4, RESPONSIVE_5, RESPONSIVE_7, RESPONSIVE_8 } from '@govuk-react/constants/lib/spacing'
 import crestLogo from './images/govuk-crest.png'
 import crestLogo2x from './images/govuk-crest-2x.png'
+import { footerLinkStyle } from './elements/FooterLink'
 
 // https://github.com/alphagov/govuk-frontend/blob/master/src/components/footer/_footer.scss
 
@@ -30,27 +13,6 @@ const crestImageWidth2x = 250
 const crestImageHeight2x = 204
 const crestImageWidth = crestImageWidth2x / 2
 const crestImageHeight = crestImageHeight2x / 2
-const footerLinkStyle = css`
-  &:link,
-  &:visited {
-    color: ${FOOTER_LINK};
-  }
-
-  &:hover,
-  &:active {
-    color: ${FOOTER_LINK_HOVER};
-  }
-
-  &:focus {
-    color: ${TEXT_COLOUR};
-    background-color: ${FOCUS_COLOUR};
-    outline: ${FOCUS_WIDTH} solid ${FOCUS_COLOUR};
-  }
-
-  &:link:focus {
-    ${TEXT_COLOUR}
-  }
-`
 
 export const StyledFooter = styled('footer')`
   display: flex;
@@ -74,7 +36,7 @@ export const StyledFooter = styled('footer')`
 
 export const StyledContainer = styled('div')`
   width: 100%;
-  max-width: 1100px; /* SITE_WIDTH_PX needs increasing from 960 to 1100 */
+  max-width: 1170px; /* Bespoke to NN - Would ordinarily be SITE_WIDTH_PX */
   margin: 0 ${SPACING.SCALE_3};
 
   @media screen and (min-width: ${BREAKPOINTS.TABLET}) {
@@ -119,10 +81,6 @@ export const StyledMetaItem = styled('div')`
 
 export const StyledMetaCustom = styled('div')`
   margin-bottom: ${SPACING.SCALE_4};
-
-  a {
-    ${footerLinkStyle}
-  }
 `
 
 // .govuk-visually-hidden
@@ -229,11 +187,8 @@ export const StyledLicenseDescription = styled('span')`
   display: inline-block;
 `
 
-export const StyledFooterLink = styled('a')`
+export const StyledCopyrightLogo = styled('a')`
   ${footerLinkStyle}
-`
-
-export const StyledCopyrightLogo = styled(StyledFooterLink)`
   display: inline-block;
   min-width: ${crestImageWidth}px;
   padding-top: ${crestImageHeight + 10}px;

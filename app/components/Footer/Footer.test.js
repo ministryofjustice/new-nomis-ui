@@ -1,5 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
+import { MemoryRouter } from 'react-router-dom'
 import Footer from './Footer'
 
 describe('<Footer />', () => {
@@ -9,22 +10,33 @@ describe('<Footer />', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
+  it('should match the with children snapshot', () => {
+    const wrapper = renderer
+      .create(
+        <Footer>
+          Built by the <a href="/gds">Government Digital Service</a>
+        </Footer>
+      )
+      .toJSON()
+
+    expect(wrapper).toMatchSnapshot()
+  })
+
   it('should match the with meta snapshot', () => {
     const meta = {
       items: [
-        { href: '/help', text: 'Help' },
-        { href: '/cookies', text: 'Cookies' },
-        { href: '/contact', text: 'Contact' },
-        { href: '/terms-conditions', text: 'Terms and conditions' },
-        { href: '/welsh', text: 'Rhestr o Wasanaethau Cymraeg' },
+        { href: '/normal-link', text: 'Normal Link' },
+        { to: '/router-link', text: 'Router Link' },
+        { clickHandler: jest.fn(), text: 'onClick Link' },
       ],
-      html: (
-        <div>
-          Built by the <a href="/gds">Government Digital Service</a>
-        </div>
-      ),
     }
-    const wrapper = renderer.create(<Footer meta={meta} />).toJSON()
+    const wrapper = renderer
+      .create(
+        <MemoryRouter>
+          <Footer meta={meta} />
+        </MemoryRouter>
+      )
+      .toJSON()
 
     expect(wrapper).toMatchSnapshot()
   })

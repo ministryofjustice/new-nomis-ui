@@ -25,6 +25,7 @@ const initialState = fromJS({
   searchContext: 'none',
   shouldShowSpinner: false,
   shouldShowTerms: false,
+  mailTo: 'feedback@digital.justice.gov.uk',
 })
 
 // Reducer

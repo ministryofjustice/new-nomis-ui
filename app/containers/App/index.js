@@ -8,12 +8,13 @@ import Notifications from 'react-notify-toast'
 import axios from 'axios/index'
 import { Route, withRouter, Switch } from 'react-router-dom'
 import { retrieveUserMe } from '../Authentication/actions'
-import { selectShouldShowSpinner, selectShouldShowTerms, selectMobileMenuOpen } from '../../selectors/app'
+import { selectShouldShowSpinner, selectShouldShowTerms, selectMobileMenuOpen, selectMailTo } from '../../selectors/app'
 import Header from '../Header'
-import Footer from '../Footer'
+// import Footer from '../Footer'
+import Footer from '../../components/Footer'
 import Spinner from '../../components/Spinner'
 import Terms from '../Footer/terms-and-conditions'
-import { setAppConfig, setDeviceFormat, setMenuOpen, hideTerms } from '../../globalReducers/app'
+import { setAppConfig, setDeviceFormat, setMenuOpen, hideTerms, showTerms } from '../../globalReducers/app'
 
 const RouteWithSubRoutes = route => (
   <Route path={route.path} exact={route.exact} render={props => <route.component {...props} />} />
@@ -59,7 +60,15 @@ export class App extends Component {
   }
 
   render() {
-    const { shouldShowSpinner, shouldShowTerms, hideTermsAndConditions, menuOpen, routes } = this.props
+    const {
+      shouldShowSpinner,
+      shouldShowTerms,
+      hideTermsAndConditions,
+      menuOpen,
+      routes,
+      showTermsAndConditions,
+      mailTo,
+    } = this.props
 
     return (
       <div className="app-content">
@@ -81,7 +90,14 @@ export class App extends Component {
         </main>
         {/* eslint-disable-next-line */}
         <div onClick={() => this.onBackgroundClick()}>
-          <Footer />
+          <Footer
+            meta={{
+              items: [
+                { text: 'Contact us', href: `mailto:${mailTo}` },
+                { text: 'Terms and conditions', clickHandler: showTermsAndConditions },
+              ],
+            }}
+          />
         </div>
       </div>
     )
@@ -94,6 +110,7 @@ App.propTypes = {
   shouldShowTerms: PropTypes.bool.isRequired,
   menuOpen: PropTypes.bool.isRequired,
   children: PropTypes.node,
+  mailTo: PropTypes.string.isRequired,
 
   // mapDispatchToProps
   boundRetrieveUserMe: PropTypes.func.isRequired,
@@ -101,6 +118,7 @@ App.propTypes = {
   hideTermsAndConditions: PropTypes.func.isRequired,
   boundSetMenuOpen: PropTypes.func.isRequired,
   boundSetAppConfig: PropTypes.func.isRequired,
+  showTermsAndConditions: PropTypes.func.isRequired,
 
   // other
   history: ReactRouterPropTypes.history.isRequired,
@@ -121,6 +139,7 @@ const mapStateToProps = createStructuredSelector({
   shouldShowSpinner: selectShouldShowSpinner(),
   shouldShowTerms: selectShouldShowTerms(),
   menuOpen: selectMobileMenuOpen(),
+  mailTo: selectMailTo(),
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -129,6 +148,7 @@ const mapDispatchToProps = dispatch => ({
   hideTermsAndConditions: () => dispatch(hideTerms()),
   boundSetMenuOpen: flag => dispatch(setMenuOpen(flag)),
   boundSetAppConfig: config => dispatch(setAppConfig(config)),
+  showTermsAndConditions: () => dispatch(showTerms()),
 })
 
 export default withRouter(
