@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import PropTypes, { shape } from 'prop-types'
+import PropTypes from 'prop-types'
 import {
   StyledFooter,
   StyledContainer,
@@ -8,7 +8,6 @@ import {
   StyledMetaCustom,
   StyledInlineList,
   StyledLicenseDescription,
-  StyledFooterLink,
   StyledLicenseLogo,
   StyledCopyrightLogo,
   StyledHiddenHeader,
@@ -19,10 +18,12 @@ import {
   StyledSectionHeading,
 } from './Footer.styles'
 
+import FooterLink from './elements/FooterLink'
+
 const hyphenateString = str => str.replace(/ +/g, '-').toLowerCase()
 
 // https://github.com/alphagov/govuk-frontend/blob/master/src/components/footer/template.njk
-const Footer = ({ navigation, meta }) => (
+const Footer = ({ navigation, meta, children }) => (
   <StyledFooter role="contentinfo">
     <StyledContainer>
       {navigation && navigation.length > 0 && (
@@ -37,7 +38,7 @@ const Footer = ({ navigation, meta }) => (
                   <StyledFooterList columns={section.columns}>
                     {section.items.map(item => (
                       <li key={hyphenateString(item.text)}>
-                        <StyledFooterLink href={item.href}>{item.text}</StyledFooterLink>
+                        <FooterLink href={item.href}>{item.text}</FooterLink>
                       </li>
                     ))}
                   </StyledFooterList>
@@ -51,19 +52,21 @@ const Footer = ({ navigation, meta }) => (
 
       <StyledMeta>
         <StyledMetaItem grow>
-          {meta && meta.items && meta.items.length > 1 && (
+          {meta && meta.items && meta.items.length > 0 && (
             <Fragment>
               <StyledHiddenHeader level={2}>Support links</StyledHiddenHeader>
               <StyledInlineList>
                 {meta.items.map(item => (
                   <li key={hyphenateString(item.text)}>
-                    <StyledFooterLink href={item.href}>{item.text}</StyledFooterLink>
+                    <FooterLink href={item.href} {...item}>
+                      {item.text}
+                    </FooterLink>
                   </li>
                 ))}
               </StyledInlineList>
-              {(meta.text || meta.html) && <StyledMetaCustom>{meta.text || meta.html}</StyledMetaCustom>}
             </Fragment>
           )}
+          {children && <StyledMetaCustom>{children}</StyledMetaCustom>}
           <StyledLicenseLogo
             role="presentation"
             focusable="false"
@@ -79,12 +82,9 @@ const Footer = ({ navigation, meta }) => (
           </StyledLicenseLogo>
           <StyledLicenseDescription>
             All content is available under the{' '}
-            <StyledFooterLink
-              href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
-              rel="license"
-            >
+            <FooterLink href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">
               Open Government Licence v3.0
-            </StyledFooterLink>
+            </FooterLink>
             , except where otherwise stated
           </StyledLicenseDescription>
         </StyledMetaItem>
@@ -100,32 +100,34 @@ const Footer = ({ navigation, meta }) => (
 
 Footer.propTypes = {
   navigation: PropTypes.arrayOf(
-    shape({
+    PropTypes.shape({
       title: PropTypes.string,
       columns: PropTypes.number,
       items: PropTypes.arrayOf(
-        shape({
+        PropTypes.shape({
           href: PropTypes.string,
-          text: PropTypes.string,
+          text: PropTypes.string.isRequired,
         })
       ),
     })
   ),
   meta: PropTypes.shape({
     items: PropTypes.arrayOf(
-      shape({
+      PropTypes.shape({
         href: PropTypes.string,
-        text: PropTypes.string,
+        text: PropTypes.string.isRequired,
       })
     ),
-    text: PropTypes.string,
-    html: PropTypes.node,
   }),
+  children: PropTypes.node,
 }
 
 Footer.defaultProps = {
   navigation: [],
   meta: null,
+  children: null,
 }
+
+Footer.Link = FooterLink
 
 export default Footer
