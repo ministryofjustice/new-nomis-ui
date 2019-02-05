@@ -3,18 +3,17 @@ import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
-// eslint-disable-next-line import/no-unresolved
 import Notifications from 'react-notify-toast'
 import axios from 'axios/index'
 import { Route, withRouter, Switch } from 'react-router-dom'
+import { Footer } from 'new-nomis-shared-components'
 import { retrieveUserMe } from '../Authentication/actions'
 import { selectShouldShowSpinner, selectShouldShowTerms, selectMobileMenuOpen, selectMailTo } from '../../selectors/app'
 import Header from '../Header'
-// import Footer from '../Footer'
-import Footer from '../../components/Footer'
 import Spinner from '../../components/Spinner'
 import Terms from '../Footer/terms-and-conditions'
 import { setAppConfig, setDeviceFormat, setMenuOpen, hideTerms, showTerms } from '../../globalReducers/app'
+import { linkOnClick } from '../../helpers'
 
 const RouteWithSubRoutes = route => (
   <Route path={route.path} exact={route.exact} render={props => <route.component {...props} />} />
@@ -94,7 +93,7 @@ export class App extends Component {
             meta={{
               items: [
                 { text: 'Contact us', href: `mailto:${mailTo}` },
-                { text: 'Terms and conditions', clickHandler: showTermsAndConditions },
+                { text: 'Terms and conditions', ...linkOnClick(showTermsAndConditions) },
               ],
             }}
           />
