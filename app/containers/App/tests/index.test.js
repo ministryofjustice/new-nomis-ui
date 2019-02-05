@@ -33,10 +33,12 @@ describe('App container', () => {
         boundRetrieveUserMe={() => {}}
         boundSetAppConfig={() => {}}
         hideTermsAndConditions={() => {}}
+        showTermsAndConditions={jest.fn()}
         menuOpen={false}
         shouldShowSpinner={false}
         shouldShowMenu={false}
         shouldShowTerms={false}
+        mailTo="email@test.com"
       />
     ) //
     expect(app.find('Connect(MobileMenu)').exists()).toBe(false)
@@ -56,10 +58,12 @@ describe('App container', () => {
         boundRetrieveUserMe={() => {}}
         boundSetAppConfig={() => {}}
         hideTermsAndConditions={() => {}}
+        showTermsAndConditions={jest.fn()}
         menuOpen={false}
         shouldShowSpinner={false}
         shouldShowMenu={false}
         shouldShowTerms={false}
+        mailTo="email@test.com"
       />
     )
     const event = {

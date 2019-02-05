@@ -1,12 +1,12 @@
 package specs
 
-import com.google.common.collect.Lists
 import geb.spock.GebReportingSpec
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
 import model.Offender
+import model.TestFixture
 import org.junit.Rule
 import pages.AddCaseNotePage
 import pages.HomePage
@@ -29,16 +29,14 @@ class CaseNotesSpecification extends GebReportingSpec {
   @Rule
   OauthApi oauthApi = new OauthApi()
 
+  TestFixture testFixture = new TestFixture(browser, elite2api, oauthApi)
+
   def "Create a new case note"() {
     elite2api.stubHealthCheck()
+    setupUserDetails()
 
     given: 'I am logged in and have selected an offender'
-    to LoginPage
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-    elite2api.stubGetMyDetails(ITAG_USER)
-    loginAs ITAG_USER, 'password'
-    at HomePage
-    setupUserDetails()
+    testFixture.loginAs(ITAG_USER)
 
     searchFor "d s"
     at SearchResultsPage
@@ -57,12 +55,16 @@ class CaseNotesSpecification extends GebReportingSpec {
     // TODO check the green notification toast
     //message == "Case note has been created successfully"
     // Check case note display; derives from wiremock response
-    caseNoteDetails*.text()[0].contains("User, Api")
-    caseNoteDetails*.text()[0].contains("Chaplaincy | Faith Specific Action")
-    caseNoteDetails*.text()[0].contains("Case note body text")
-    caseNoteDetails*.text()[1].contains("User, Api")
-    caseNoteDetails*.text()[1].contains("Communication | Communication OUT")
-    caseNoteDetails*.text()[1].contains("Test outward communication one.")
+
+    List<String> rowsAsText = caseNoteDetails*.text()
+
+    rowsAsText[0].contains("User, Api")
+    rowsAsText[0].contains("Chaplaincy | Faith Specific Action")
+    rowsAsText[0].contains("Case note body text")
+
+    rowsAsText[1].contains("User, Api")
+    rowsAsText[1].contains("Communication | Communication OUT")
+    rowsAsText[1].contains("Test outward communication one.")
 
   }
 
@@ -71,11 +73,7 @@ class CaseNotesSpecification extends GebReportingSpec {
     setupAddCaseNote()
 
     given: 'I am logged in and have selected an offender'
-    to LoginPage
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-    elite2api.stubGetMyDetails(ITAG_USER)
-    loginAs ITAG_USER, 'password'
-    at HomePage
+    testFixture.loginAs(ITAG_USER)
 
     when: "I navigate to add case note using an type and sub type"
     go '/offenders/A1234AJ/add-case-note'
@@ -91,11 +89,7 @@ class CaseNotesSpecification extends GebReportingSpec {
     setupAddCaseNote()
 
     given: 'I am logged in and have selected an offender'
-    to LoginPage
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-    elite2api.stubGetMyDetails(ITAG_USER)
-    loginAs ITAG_USER, 'password'
-    at HomePage
+    testFixture.loginAs(ITAG_USER)
 
     when: "I navigate to add case note using an type and sub type"
     go '/offenders/A1234AJ/add-case-note?type=CHAP&subType=FAITH'
@@ -131,6 +125,7 @@ class CaseNotesSpecification extends GebReportingSpec {
     elite2api.stubOffenderDetails(false)
     elite2api.stubSaveCaseNote("KA", "KS", "Key Worker Activity", "Key Worker Session")
     elite2api.stubGetCaseNote()
+    waitFor{ addKeyworkerSessionLink.present }
     addKeyworkerSessionLink.click()
     at AddCaseNotePage
     createNewCaseNoteLeavingTypeAndSubType("some text")
@@ -148,10 +143,10 @@ class CaseNotesSpecification extends GebReportingSpec {
   }
 
   def setupUserDetails() {
-    ArrayList<Offender> offenders = new ArrayList<Offender>()
-    offenders.push(Offender.SMELLEY())
-    offenders.push(Offender.SMITH())
-    offenders.push(Offender.BOB())
+    List<Offender> offenders = [
+      Offender.SMELLEY(),
+      Offender.SMITH(),
+      Offender.BOB()]
 
     elite2api.stubOffenderSearch("d%20s", offenders, '')
     elite2api.stubOffenderDetails(true)
@@ -175,7 +170,7 @@ class CaseNotesSpecification extends GebReportingSpec {
     elite2api.stubContacts()
     elite2api.stubVisitLast()
     elite2api.stubRelationships()
-    elite2api.stubCaseNoteUsage(Lists.asList(model.Offender.SMITH()))
+    elite2api.stubCaseNoteUsage([Offender.SMITH()])
     elite2api.stubCaseNotesNegIepWarnCount()
     elite2api.stubCaseNotesPosIepEncCount()
     elite2api.stubAdjudications()

@@ -44,6 +44,12 @@ const selectShouldShowTerms = () =>
     app => app.get('shouldShowTerms')
   )
 
+const selectMailTo = () =>
+  createSelector(
+    selectApp(),
+    appState => appState.get('mailTo')
+  )
+
 export {
   selectDeviceFormat,
   selectMobileMenuOpen,
@@ -52,4 +58,5 @@ export {
   selectSearchContext,
   selectShouldShowSpinner,
   selectShouldShowTerms,
+  selectMailTo,
 }
