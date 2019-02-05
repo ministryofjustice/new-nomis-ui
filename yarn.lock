@@ -7983,10 +7983,10 @@ neo-async@^2.5.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.0.tgz#b9d15e4d71c6762908654b5183ed38b753340835"
   integrity sha512-MFh0d/Wa7vkKO3Y3LlacqAEeHK0mckVqzDieUKTT+KGxi+zIpeVsFxymkIiRpbpDziHc290Xr9A1O4Om7otoRA==
 
-new-nomis-shared-components@^1.7.1:
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/new-nomis-shared-components/-/new-nomis-shared-components-1.7.2.tgz#d14ff0a686cc99dae28b26a99713085706cee55b"
-  integrity sha512-kIGk7ltr/s6R2Vr9u8ScgZHa+Ndk4ADoGfJRZ2OkSOsfRJSMFMQHcjsI70gO9eQw403GfIhOpXHD6I2HpveE6A==
+new-nomis-shared-components@^1.8.2:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/new-nomis-shared-components/-/new-nomis-shared-components-1.8.2.tgz#8c714002b8e8a3a626d867a72c45d489e9821a16"
+  integrity sha512-s7QnExFnj9DlyFRsDK1gq51CkHcyvdrr/c35xzcdQlMSYHzNcmks0cxsH34JT4UL0u3g8iGwyXUjGj9XpVFWYA==
 
 nice-try@^1.0.4:
   version "1.0.5"
