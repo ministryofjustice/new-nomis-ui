@@ -126,21 +126,11 @@ describe('Key worker service', () => {
     eliteApi.getOffendersSentenceDates.returns(sentenceDates)
     eliteApi.caseNoteUsageList.returns(kwDates)
 
-    /*
     const expected = {
       capacity: 15,
       allocations: [
         { offenderNo: 'A1', conditionalReleaseDate: '20/10/2020', lastKeyWorkerSessionDate: '04/06/2018' },
         { offenderNo: 'A2', conditionalReleaseDate: '21/10/2020', lastKeyWorkerSessionDate: '01/06/2018' },
-      ],
-    }
-*/
-
-    const expected = {
-      capacity: 15,
-      allocations: [
-        { offenderNo: 'A1', conditionalReleaseDate: '20/10/2020' },
-        { offenderNo: 'A2', conditionalReleaseDate: '21/10/2020' },
       ],
     }
 
