@@ -43,7 +43,8 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "verify": "yarn lint && yarn stylelint && yarn test",
     "record-build-info": "node ./bin/record-build-info",
-    "plant-beanstalk": "node ./bin/plant-beanstalk.js"
+    "plant-beanstalk": "node ./bin/plant-beanstalk.js",
+    "view-bundle-stats": "webpack-bundle-analyzer build/stats.json"
   },
   "dependencies": {
     "@govuk-react/checkbox": "^0.4.0",
@@ -154,6 +155,7 @@
     "wallaby-webpack": "^3.9.5",
     "warning": "3.0.0",
     "webpack": "^2.7.0",
+    "webpack-bundle-analyzer": "^3.0.3",
     "webpack-dev-middleware": "1.9.0",
     "webpack-hot-middleware": "2.15.0",
     "whatwg-fetch": "2.0.1",
@@ -229,7 +231,7 @@
   },
   "lint-staged": {
     "linters": {
-      "*.{js,json,css,md}": [
+      "*.{js,json,css}": [
         "prettier --write",
         "eslint --fix",
         "git add"
