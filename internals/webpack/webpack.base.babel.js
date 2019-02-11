@@ -86,6 +86,7 @@ const webPackConfig = options => ({
     ],
   },
   plugins: options.plugins.concat([
+    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
     new ExtractTextPlugin({ filename: 'styles.css', allChunks: true }),
     new OptimizeCssAssetsPlugin({
       cssProcessor: cssnano,
