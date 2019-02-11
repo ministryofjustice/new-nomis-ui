@@ -7,7 +7,6 @@ const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const cssnano = require('cssnano')
 
 const customerCodeResolver = require('../customerCodeResolver')
@@ -88,10 +87,6 @@ const webPackConfig = options => ({
   },
   plugins: options.plugins.concat([
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
-    new BundleAnalyzerPlugin({
-      generateStatsFile: true,
-      analyzerMode: false,
-    }),
     new ExtractTextPlugin({ filename: 'styles.css', allChunks: true }),
     new OptimizeCssAssetsPlugin({
       cssProcessor: cssnano,
