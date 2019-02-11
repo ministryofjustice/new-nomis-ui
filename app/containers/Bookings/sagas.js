@@ -8,6 +8,7 @@ import { BOOKINGS, APPOINTMENT } from '../EliteApiLoader/constants'
 import { showSpinner, hideSpinner, setSearchContext } from '../../globalReducers/app'
 import { buildSearchQueryString, buildCaseNotQueryString } from '../../utils/stringUtils'
 import history from '../../history'
+import { resetQuickLook } from './actions'
 
 import {
   addCaseNote,
@@ -145,7 +146,9 @@ export function* addCasenoteWatcher() {
 export function* onLoadQuickLook(action) {
   try {
     yield put(showSpinner())
+    yield put(resetQuickLook())
     const viewModel = yield call(loadQuickLook, action.payload)
+
     yield put({
       type: SET_QUICK_LOOK,
       payload: viewModel,
