@@ -35,6 +35,7 @@ export const DETAILS_TABS = {
 export const DETAILS_ERROR = 'app/bookings/details/error'
 export const LOAD_QUICK_LOOK = 'app/bookings/details/quicklook'
 export const SET_QUICK_LOOK = 'app/bookings/details/quicklook/set'
+export const RESET_QUICK_LOOK = 'RESET_QUICK_LOOK'
 
 export const VIEW_CASENOTE_LIST = 'app/bookings/details/casenotes/view/list'
 

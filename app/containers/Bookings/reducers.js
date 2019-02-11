@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable'
-import { transform as quickLookTransformer } from '../../helpers/dataMappers/quickLook'
+import { transform as quickLookTransformer, Model as quickLookModel } from '../../helpers/dataMappers/quickLook'
 import { transform as keyDatesTransformer } from '../../helpers/dataMappers/keydates'
 
 import {
@@ -12,6 +12,7 @@ import {
   DETAILS_ERROR,
   SET_QUICK_LOOK,
   SET_SCHEDULED_EVENTS,
+  RESET_QUICK_LOOK,
 } from './constants'
 
 const detailsState = fromJS({
@@ -99,6 +100,10 @@ function searchReducer(state = initialState, action) {
 
     case DETAILS_ERROR: {
       return state.setIn(['details', 'error'], fromJS(action.payload.error))
+    }
+
+    case RESET_QUICK_LOOK: {
+      return state.setIn(['details', 'quickLookViewModel'], quickLookModel)
     }
 
     default: {

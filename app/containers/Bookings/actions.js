@@ -14,6 +14,7 @@ import {
   LOAD_SCHEDULED_EVENTS,
   NEW_SEARCH,
   EXTEND_SESSION,
+  RESET_QUICK_LOOK,
 } from './constants'
 
 export function loadLocations(offset) {
@@ -96,6 +97,12 @@ export function loadKeyDates(offenderNo) {
   return {
     type: LOAD_KEY_DATES,
     payload: offenderNo,
+  }
+}
+
+export function resetQuickLook() {
+  return {
+    type: RESET_QUICK_LOOK,
   }
 }
 
