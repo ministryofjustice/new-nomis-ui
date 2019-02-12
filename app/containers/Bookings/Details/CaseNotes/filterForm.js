@@ -12,7 +12,7 @@ import {
 } from '../../../../components/FormComponents/DatePicker'
 import { selectLocale } from '../../../LanguageProvider/selectors'
 import TypeAndSubTypeSelector, { typeSelectorType } from '../../../../components/Bookings/TypeAndSubTypeSelector'
-import { DATE_ONLY_FORMAT_SPEC } from '../../../App/constants'
+import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from '../../../App/constants'
 import './filterForm.scss'
 import { CASE_NOTE_FILTER } from '../../constants'
 import { caseNoteFilterSelectInfo } from './selectors'
@@ -162,9 +162,9 @@ const mapDispatchToProps = (dispatch, props) => ({
   onSubmit: createFormAction(
     formData => {
       const startDateMoment = formData.get('startDate')
-      const startDate = startDateMoment ? startDateMoment.format(DATE_ONLY_FORMAT_SPEC) : ''
+      const startDate = startDateMoment ? startDateMoment.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC) : ''
       const endDateMoment = formData.get('endDate')
-      const endDate = endDateMoment ? endDateMoment.format(DATE_ONLY_FORMAT_SPEC) : ''
+      const endDate = endDateMoment ? endDateMoment.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC) : ''
 
       return {
         type: CASE_NOTE_FILTER.BASE,
@@ -191,8 +191,8 @@ const mapStateToProps = createStructuredSelector({
     return {
       typeValue: type,
       subTypeValue: subType,
-      startDate: startDate ? moment(startDate, DATE_ONLY_FORMAT_SPEC) : '',
-      endDate: endDate ? moment(endDate, DATE_ONLY_FORMAT_SPEC) : '',
+      startDate: startDate ? moment(startDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC) : '',
+      endDate: endDate ? moment(endDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC) : '',
     }
   },
   caseNoteFilters: caseNoteFilterSelectInfo(),
