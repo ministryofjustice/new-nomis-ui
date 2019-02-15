@@ -50,6 +50,12 @@ const selectMailTo = () =>
     appState => appState.get('mailTo')
   )
 
+const selectPrisonStaffHubUrl = () =>
+  createSelector(
+    selectApp(),
+    appState => appState.get('prisonStaffHubUrl')
+  )
+
 export {
   selectDeviceFormat,
   selectMobileMenuOpen,
@@ -59,4 +65,5 @@ export {
   selectShouldShowSpinner,
   selectShouldShowTerms,
   selectMailTo,
+  selectPrisonStaffHubUrl,
 }
