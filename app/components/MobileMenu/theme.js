@@ -66,20 +66,6 @@ export const MobileMenuOption = styled.div`
   }
 `
 
-export const MobileMenuAdditionalOption = styled.div`
-  box-sizing: border-box;
-  cursor: pointer;
-  display: block;
-  padding: 20px 30px;
-  color: ${colours.userMenu.text};
-  font-size: 18px;
-  text-decoration: none;
-
-  &:hover {
-    background: ${colours.userMenu.hover};
-  }
-`
-
 export const MobileMenuSignature = styled.div`
   box-sizing: border-box;
   cursor: default;

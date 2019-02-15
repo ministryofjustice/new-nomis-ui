@@ -5,38 +5,21 @@ import { createStructuredSelector } from 'reselect'
 import MobileMenuComponent from '../../components/MobileMenu'
 import ModalData from '../Footer/modal-data'
 
-import { setMenuOpen, setModalData } from '../../globalReducers/app'
+import { setMenuOpen } from '../../globalReducers/app'
 import selectUserHeaderInfo from '../Header/selectors'
 import { switchCaseLoad } from '../EliteApiLoader/actions'
 
-const MobileMenu = ({
-  user,
-  switchCaseLoad: switchLoad,
-  setModalData: modelData,
-  setMenuOpen: menuOpen,
-  showTerms: terms,
-}) => {
+const MobileMenu = ({ user, switchCaseLoad: switchLoad, setMenuOpen: menuOpen }) => {
   if (!user) {
     return <div />
   }
 
-  return (
-    <MobileMenuComponent
-      switchCaseLoad={switchLoad}
-      modalData={ModalData}
-      setModalData={modelData}
-      user={user}
-      setMenuOpen={menuOpen}
-      showTerms={terms}
-    />
-  )
+  return <MobileMenuComponent switchCaseLoad={switchLoad} modalData={ModalData} user={user} setMenuOpen={menuOpen} />
 }
 
 MobileMenu.propTypes = {
   user: PropTypes.shape({}),
-  showTerms: PropTypes.func.isRequired,
   setMenuOpen: PropTypes.func.isRequired,
-  setModalData: PropTypes.func.isRequired,
   switchCaseLoad: PropTypes.func.isRequired,
 }
 
@@ -50,7 +33,6 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   setMenuOpen,
-  setModalData,
   switchCaseLoad,
 }
 

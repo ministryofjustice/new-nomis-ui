@@ -7,7 +7,6 @@ import {
   MobileMenuContainer,
   MobileMenuHeader,
   MobileMenuOption,
-  MobileMenuAdditionalOption,
   MobileMenuSignature,
   UserName,
   CaseLoad,
@@ -16,7 +15,7 @@ import {
 
 import forwardBack from '../../assets/forward-arrow.svg'
 
-const MobileMenu = ({ user, setMenuOpen, showTerms, switchCaseLoad }) => {
+const MobileMenu = ({ user, setMenuOpen, switchCaseLoad }) => {
   const removeMobileMenu = () => {
     setMenuOpen(false)
   }
@@ -66,14 +65,6 @@ const MobileMenu = ({ user, setMenuOpen, showTerms, switchCaseLoad }) => {
           <ForwardArrow svg={forwardBack} />
         </MobileMenuOption>
       </a>
-      <MobileMenuAdditionalOption
-        onClick={() => {
-          setMenuOpen(false)
-          showTerms()
-        }}
-      >
-        Terms and conditions
-      </MobileMenuAdditionalOption>
       <MobileMenuSignature />
     </MobileMenuContainer>
   )
@@ -87,7 +78,6 @@ MobileMenu.propTypes = {
     assignments: PropTypes.number,
     facilities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }),
-  showTerms: PropTypes.func.isRequired,
 }
 
 MobileMenu.defaultProps = {
