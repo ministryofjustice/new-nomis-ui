@@ -21,6 +21,9 @@ const mockHistoryObject = {
   replace: jest.fn(),
 }
 
+const mailTo = 'email@test.com'
+const prisonStaffHubUrl = '//prisonStaffHubUrl'
+
 describe('App container', () => {
   it('should render correctly', () => {
     const app = shallow(
@@ -38,8 +41,8 @@ describe('App container', () => {
         shouldShowSpinner={false}
         shouldShowMenu={false}
         shouldShowTerms={false}
-        mailTo="email@test.com"
-        prisonStaffHubUrl="//prisonStaffHubUrl"
+        mailTo={mailTo}
+        prisonStaffHubUrl={prisonStaffHubUrl}
       />
     ) //
     expect(app.find('Connect(MobileMenu)').exists()).toBe(false)
@@ -64,8 +67,8 @@ describe('App container', () => {
         shouldShowSpinner={false}
         shouldShowMenu={false}
         shouldShowTerms={false}
-        mailTo="email@test.com"
-        prisonStaffHubUrl="//prisonStaffHubUrl"
+        mailTo={mailTo}
+        prisonStaffHubUrl={prisonStaffHubUrl}
       />
     )
     const event = {
@@ -75,5 +78,29 @@ describe('App container', () => {
     app.instance().onBackgroundClick(event)
 
     expect(setMenuOpen).toHaveBeenCalledWith(false)
+  })
+
+  it('should pass through correct props to the footer container', () => {
+    const wrapper = shallow(
+      <App
+        boundSetMenuOpen={jest.fn()}
+        routes={[]}
+        history={mockHistoryObject}
+        params={{ offenderNo: '123' }}
+        boundSetDeviceFormat={() => {}}
+        boundRetrieveUserMe={() => {}}
+        boundSetAppConfig={() => {}}
+        hideTermsAndConditions={() => {}}
+        showTermsAndConditions={jest.fn()}
+        menuOpen={false}
+        shouldShowSpinner={false}
+        shouldShowMenu={false}
+        shouldShowTerms={false}
+        mailTo={mailTo}
+        prisonStaffHubUrl={prisonStaffHubUrl}
+      />
+    )
+
+    expect(wrapper.find({ feedbackEmail: mailTo }).prop('prisonStaffHubUrl')).toEqual(prisonStaffHubUrl)
   })
 })
