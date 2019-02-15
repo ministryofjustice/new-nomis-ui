@@ -39,6 +39,7 @@ describe('App container', () => {
         shouldShowMenu={false}
         shouldShowTerms={false}
         mailTo="email@test.com"
+        prisonStaffHubUrl="//prisonStaffHubUrl"
       />
     ) //
     expect(app.find('Connect(MobileMenu)').exists()).toBe(false)
@@ -64,6 +65,7 @@ describe('App container', () => {
         shouldShowMenu={false}
         shouldShowTerms={false}
         mailTo="email@test.com"
+        prisonStaffHubUrl="//prisonStaffHubUrl"
       />
     )
     const event = {

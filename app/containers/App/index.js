@@ -6,14 +6,17 @@ import { createStructuredSelector } from 'reselect'
 import Notifications from 'react-notify-toast'
 import axios from 'axios/index'
 import { Route, withRouter, Switch } from 'react-router-dom'
-import { Footer } from 'new-nomis-shared-components'
+import { FooterContainer } from 'new-nomis-shared-components'
 import { retrieveUserMe } from '../Authentication/actions'
-import { selectShouldShowSpinner, selectShouldShowTerms, selectMobileMenuOpen, selectMailTo } from '../../selectors/app'
+import {
+  selectShouldShowSpinner,
+  selectMobileMenuOpen,
+  selectMailTo,
+  selectPrisonStaffHubUrl,
+} from '../../selectors/app'
 import Header from '../Header'
 import Spinner from '../../components/Spinner'
-import Terms from '../Footer/terms-and-conditions'
-import { setAppConfig, setDeviceFormat, setMenuOpen, hideTerms, showTerms } from '../../globalReducers/app'
-import { linkOnClick } from '../../helpers'
+import { setAppConfig, setDeviceFormat, setMenuOpen } from '../../globalReducers/app'
 
 const RouteWithSubRoutes = route => (
   <Route path={route.path} exact={route.exact} render={props => <route.component {...props} />} />
@@ -59,15 +62,7 @@ export class App extends Component {
   }
 
   render() {
-    const {
-      shouldShowSpinner,
-      shouldShowTerms,
-      hideTermsAndConditions,
-      menuOpen,
-      routes,
-      showTermsAndConditions,
-      mailTo,
-    } = this.props
+    const { shouldShowSpinner, menuOpen, routes, mailTo, prisonStaffHubUrl } = this.props
 
     return (
       <div className="app-content">
@@ -76,27 +71,17 @@ export class App extends Component {
         {/* eslint-disable-next-line */}
         <main className={`container ${menuOpen ? 'desktop-only' : ''}`} onClick={() => this.onBackgroundClick()}>
           {shouldShowSpinner && <Spinner />}
-          {!shouldShowTerms && (
-            <div className="main-content">
-              <Switch>
-                {routes.map(route => (
-                  <RouteWithSubRoutes key={route.name} {...route} />
-                ))}
-              </Switch>
-            </div>
-          )}
-          {shouldShowTerms && <Terms close={() => hideTermsAndConditions()} />}
+          <div className="main-content">
+            <Switch>
+              {routes.map(route => (
+                <RouteWithSubRoutes key={route.name} {...route} />
+              ))}
+            </Switch>
+          </div>
         </main>
         {/* eslint-disable-next-line */}
         <div onClick={() => this.onBackgroundClick()}>
-          <Footer
-            meta={{
-              items: [
-                { text: 'Contact us', href: `mailto:${mailTo}` },
-                { text: 'Terms and conditions', ...linkOnClick(showTermsAndConditions) },
-              ],
-            }}
-          />
+          <FooterContainer feedbackEmail={mailTo} prisonStaffHubUrl={prisonStaffHubUrl} />
         </div>
       </div>
     )
@@ -106,18 +91,16 @@ export class App extends Component {
 App.propTypes = {
   // mapStateToProps
   shouldShowSpinner: PropTypes.bool.isRequired,
-  shouldShowTerms: PropTypes.bool.isRequired,
   menuOpen: PropTypes.bool.isRequired,
   children: PropTypes.node,
   mailTo: PropTypes.string.isRequired,
+  prisonStaffHubUrl: PropTypes.string.isRequired,
 
   // mapDispatchToProps
   boundRetrieveUserMe: PropTypes.func.isRequired,
   boundSetDeviceFormat: PropTypes.func.isRequired,
-  hideTermsAndConditions: PropTypes.func.isRequired,
   boundSetMenuOpen: PropTypes.func.isRequired,
   boundSetAppConfig: PropTypes.func.isRequired,
-  showTermsAndConditions: PropTypes.func.isRequired,
 
   // other
   history: ReactRouterPropTypes.history.isRequired,
@@ -136,18 +119,16 @@ App.defaultProps = {
 
 const mapStateToProps = createStructuredSelector({
   shouldShowSpinner: selectShouldShowSpinner(),
-  shouldShowTerms: selectShouldShowTerms(),
   menuOpen: selectMobileMenuOpen(),
   mailTo: selectMailTo(),
+  prisonStaffHubUrl: selectPrisonStaffHubUrl(),
 })
 
 const mapDispatchToProps = dispatch => ({
   boundRetrieveUserMe: () => dispatch(retrieveUserMe()),
   boundSetDeviceFormat: format => dispatch(setDeviceFormat(format)),
-  hideTermsAndConditions: () => dispatch(hideTerms()),
   boundSetMenuOpen: flag => dispatch(setMenuOpen(flag)),
   boundSetAppConfig: config => dispatch(setAppConfig(config)),
-  showTermsAndConditions: () => dispatch(showTerms()),
 })
 
 export default withRouter(

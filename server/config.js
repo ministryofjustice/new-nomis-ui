@@ -45,7 +45,7 @@ const apis = {
     ui_url: process.env.OMIC_UI_URL || 'http://localhost:3001',
   },
   prisonStaffHub: {
-    ui_url: process.env.PRISON_STAFF_HUB_UI_URL || 'http://localhost:3002',
+    ui_url: process.env.PRISON_STAFF_HUB_UI_URL || 'http://localhost:3002/',
   },
 }
 
