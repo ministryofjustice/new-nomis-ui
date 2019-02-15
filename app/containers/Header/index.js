@@ -4,30 +4,21 @@ import { connect } from 'react-redux'
 
 // eslint-disable-next-line import/no-unresolved
 import HeaderComponent from 'header'
-import { setMenuOpen, showTerms, navigateTo } from '../../globalReducers/app'
+import { setMenuOpen, navigateTo } from '../../globalReducers/app'
 import { switchCaseLoad } from '../EliteApiLoader/actions'
 import { userType } from '../../types'
 
-const HeaderContainer = ({
-  user,
-  menuOpen,
-  switchCaseLoad: switchCL,
-  setMenuOpen: openMenu,
-  showTermsAndConditions,
-  navigateTo: toRoute,
-}) => (
+const HeaderContainer = ({ user, menuOpen, switchCaseLoad: switchCL, setMenuOpen: openMenu, navigateTo: toRoute }) => (
   <HeaderComponent
     switchCaseLoad={switchCL}
     user={user}
     menuOpen={menuOpen}
     setMenuOpen={openMenu}
-    showTermsAndConditions={showTermsAndConditions}
     navigateTo={toRoute}
   />
 )
 
 HeaderContainer.propTypes = {
-  showTermsAndConditions: PropTypes.func.isRequired,
   navigateTo: PropTypes.func.isRequired,
   menuOpen: PropTypes.bool,
   setMenuOpen: PropTypes.func,
@@ -58,7 +49,6 @@ const mapDispatchToProps = {
   setMenuOpen,
   switchCaseLoad,
   navigateTo,
-  showTermsAndConditions: showTerms,
 }
 
 export default connect(

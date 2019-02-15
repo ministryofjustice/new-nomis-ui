@@ -35,12 +35,9 @@ describe('App container', () => {
         boundSetMenuOpen={() => {}}
         boundRetrieveUserMe={() => {}}
         boundSetAppConfig={() => {}}
-        hideTermsAndConditions={() => {}}
-        showTermsAndConditions={jest.fn()}
         menuOpen={false}
         shouldShowSpinner={false}
         shouldShowMenu={false}
-        shouldShowTerms={false}
         mailTo={mailTo}
         prisonStaffHubUrl={prisonStaffHubUrl}
       />
@@ -61,12 +58,9 @@ describe('App container', () => {
         boundSetDeviceFormat={() => {}}
         boundRetrieveUserMe={() => {}}
         boundSetAppConfig={() => {}}
-        hideTermsAndConditions={() => {}}
-        showTermsAndConditions={jest.fn()}
         menuOpen={false}
         shouldShowSpinner={false}
         shouldShowMenu={false}
-        shouldShowTerms={false}
         mailTo={mailTo}
         prisonStaffHubUrl={prisonStaffHubUrl}
       />
@@ -90,12 +84,9 @@ describe('App container', () => {
         boundSetDeviceFormat={() => {}}
         boundRetrieveUserMe={() => {}}
         boundSetAppConfig={() => {}}
-        hideTermsAndConditions={() => {}}
-        showTermsAndConditions={jest.fn()}
         menuOpen={false}
         shouldShowSpinner={false}
         shouldShowMenu={false}
-        shouldShowTerms={false}
         mailTo={mailTo}
         prisonStaffHubUrl={prisonStaffHubUrl}
       />
