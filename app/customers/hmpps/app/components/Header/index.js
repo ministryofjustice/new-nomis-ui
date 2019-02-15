@@ -19,7 +19,7 @@ import {
   UnstyledLink,
 } from './header.theme'
 
-const HmppsHeader = ({ user, menuOpen, showTermsAndConditions, setMenuOpen, navigateTo, switchCaseLoad }) => {
+const HmppsHeader = ({ user, menuOpen, setMenuOpen, navigateTo, switchCaseLoad }) => {
   const extraLinks = []
 
   if (user && user.isKeyWorker) {
@@ -42,7 +42,6 @@ const HmppsHeader = ({ user, menuOpen, showTermsAndConditions, setMenuOpen, navi
           user={user}
           menuOpen={menuOpen}
           setMenuOpen={setMenuOpen}
-          showTermsAndConditions={showTermsAndConditions}
         />
       </DesktopOnly>
 
@@ -71,7 +70,7 @@ const HmppsHeader = ({ user, menuOpen, showTermsAndConditions, setMenuOpen, navi
               </MobileOnly>
             </RightContent>
           </div>
-          <MobileOnly>{menuOpen && <MobileMenu showTerms={showTermsAndConditions} />}</MobileOnly>
+          <MobileOnly>{menuOpen && <MobileMenu />}</MobileOnly>
         </PageHeader>
       </MobileOnly>
     </div>
@@ -81,7 +80,6 @@ const HmppsHeader = ({ user, menuOpen, showTermsAndConditions, setMenuOpen, navi
 HmppsHeader.propTypes = {
   user: PropTypes.shape({}),
   menuOpen: PropTypes.bool.isRequired,
-  showTermsAndConditions: PropTypes.func.isRequired,
   setMenuOpen: PropTypes.func.isRequired,
   navigateTo: PropTypes.func.isRequired,
   switchCaseLoad: PropTypes.func.isRequired,

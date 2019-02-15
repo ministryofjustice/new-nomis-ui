@@ -38,12 +38,6 @@ const selectShouldShowSpinner = () =>
     app => app.get('shouldShowSpinner')
   )
 
-const selectShouldShowTerms = () =>
-  createSelector(
-    selectApp(),
-    app => app.get('shouldShowTerms')
-  )
-
 const selectMailTo = () =>
   createSelector(
     selectApp(),
@@ -63,7 +57,6 @@ export {
   selectModalData,
   selectSearchContext,
   selectShouldShowSpinner,
-  selectShouldShowTerms,
   selectMailTo,
   selectPrisonStaffHubUrl,
 }

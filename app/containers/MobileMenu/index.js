@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import MobileMenuComponent from '../../components/MobileMenu'
-import ModalData from '../Footer/modal-data'
 
 import { setMenuOpen } from '../../globalReducers/app'
 import selectUserHeaderInfo from '../Header/selectors'
@@ -14,7 +13,7 @@ const MobileMenu = ({ user, switchCaseLoad: switchLoad, setMenuOpen: menuOpen })
     return <div />
   }
 
-  return <MobileMenuComponent switchCaseLoad={switchLoad} modalData={ModalData} user={user} setMenuOpen={menuOpen} />
+  return <MobileMenuComponent switchCaseLoad={switchLoad} user={user} setMenuOpen={menuOpen} />
 }
 
 MobileMenu.propTypes = {
