@@ -5,14 +5,10 @@ import { connect } from 'react-redux'
 import { reduxForm, Field, formValueSelector, reset } from 'redux-form/immutable'
 import { createFormAction } from 'redux-form-saga'
 import { createStructuredSelector } from 'reselect'
-import {
-  DatePicker,
-  momentToLocalizedDate,
-  localizedDateToMoment,
-} from '../../../../components/FormComponents/DatePicker'
+import { DatePicker } from '../../../../components/FormComponents/DatePicker'
 import { selectLocale } from '../../../LanguageProvider/selectors'
 import TypeAndSubTypeSelector, { typeSelectorType } from '../../../../components/Bookings/TypeAndSubTypeSelector'
-import { DEFAULT_MOMENT_DATE_FORMAT_SPEC } from '../../../App/constants'
+import { DATE_ONLY_FORMAT_SPEC } from '../../../App/constants'
 import './filterForm.scss'
 import { CASE_NOTE_FILTER } from '../../constants'
 import { caseNoteFilterSelectInfo } from './selectors'
@@ -33,7 +29,6 @@ const FilterForm = ({
   resetFields,
 }) => {
   const { type, subType } = caseNoteFilters
-
   const dateRangeNotValid = error.dateRangeValid === false
 
   return (
@@ -70,8 +65,6 @@ const FilterForm = ({
               showError={dateRangeNotValid}
               component={DatePicker}
               locale={locale}
-              format={momentToLocalizedDate(locale)}
-              parse={localizedDateToMoment(locale)}
               title="From"
               shouldShowDay={date => date && date.isBefore(moment())}
             />
@@ -80,8 +73,6 @@ const FilterForm = ({
               name="endDate"
               showError={dateRangeNotValid}
               component={DatePicker}
-              format={momentToLocalizedDate(locale)}
-              parse={localizedDateToMoment(locale)}
               locale={locale}
               title="To"
               shouldShowDay={date => date && date.isBefore(moment())}
@@ -110,7 +101,7 @@ FilterForm.propTypes = {
   locale: PropTypes.string,
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
-  error: PropTypes.string,
+  error: PropTypes.shape({ dateRangeValid: PropTypes.bool }),
   caseNoteFilters: PropTypes.shape({
     types: typeSelectorType,
     subTypes: typeSelectorType,
@@ -129,14 +120,20 @@ FilterForm.defaultProps = {
 }
 
 export const validate = form => {
-  const errors = {}
-
+  let errors = {}
   const startDate = form.get('startDate')
   const endDate = form.get('endDate')
 
-  if (endDate && startDate && endDate.isBefore(startDate, 'day')) {
-    errors.error = {
-      dateRangeValid: false,
+  if (
+    endDate &&
+    startDate &&
+    moment(endDate, DATE_ONLY_FORMAT_SPEC).isBefore(moment(startDate, DATE_ONLY_FORMAT_SPEC), 'day')
+  ) {
+    errors = {
+      ...errors,
+      _error: {
+        dateRangeValid: false,
+      },
     }
   }
 
@@ -161,10 +158,8 @@ const mapDispatchToProps = (dispatch, props) => ({
   enableReinitialize: true,
   onSubmit: createFormAction(
     formData => {
-      const startDateMoment = formData.get('startDate')
-      const startDate = startDateMoment ? startDateMoment.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC) : ''
-      const endDateMoment = formData.get('endDate')
-      const endDate = endDateMoment ? endDateMoment.format(DEFAULT_MOMENT_DATE_FORMAT_SPEC) : ''
+      const startDate = formData.get('startDate')
+      const endDate = formData.get('endDate')
 
       return {
         type: CASE_NOTE_FILTER.BASE,
@@ -188,11 +183,12 @@ const mapDispatchToProps = (dispatch, props) => ({
 const mapStateToProps = createStructuredSelector({
   initialValues: (state, props) => {
     const { type, subType, startDate, endDate } = getQueryParams(props.location.search)
+
     return {
       typeValue: type,
       subTypeValue: subType,
-      startDate: startDate ? moment(startDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC) : '',
-      endDate: endDate ? moment(endDate, DEFAULT_MOMENT_DATE_FORMAT_SPEC) : '',
+      startDate,
+      endDate,
     }
   },
   caseNoteFilters: caseNoteFilterSelectInfo(),

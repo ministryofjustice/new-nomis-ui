@@ -11,6 +11,7 @@ describe('Filter form validation', () => {
 
     const errors = validate(values)
 
-    expect(errors.error.dateRangeValid).toBe(false)
+    // eslint-disable-next-line no-underscore-dangle
+    expect(errors._error.dateRangeValid).toBe(false) // redux-form uses form level error under _error
   })
 })
