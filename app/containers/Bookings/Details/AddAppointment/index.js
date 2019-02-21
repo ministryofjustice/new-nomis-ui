@@ -1,23 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { reduxForm, Field, formValueSelector } from 'redux-form/immutable'
 import { connect } from 'react-redux'
-import { Map } from 'immutable'
+import { formValueSelector, reduxForm } from 'redux-form/immutable'
 import { createFormAction } from 'redux-form-saga'
+import { Map } from 'immutable'
 import moment from 'moment'
 
 import { toFullName } from '../../../../utils/stringUtils'
 
-import Select from '../../../../components/FormComponents/SelectWithLabel'
-import {
-  DatePicker,
-  momentToLocalizedDate,
-  localizedDateToMoment,
-} from '../../../../components/FormComponents/DatePicker'
-import TimePicker from '../../../../components/FormComponents/TimePicker'
-import { TextArea } from '../../../../components/FormComponents'
-
-import { DATE_ONLY_FORMAT_SPEC, DATE_TIME_FORMAT_SPEC } from '../../../App/constants'
+import { DATE_TIME_FORMAT_SPEC } from '../../../App/constants'
 
 import { loadAppointmentViewModel, loadExistingEvents as lee } from '../../../EliteApiLoader/actions'
 import { APPOINTMENT } from '../../../EliteApiLoader/constants'
@@ -26,11 +17,46 @@ import { Model as offenderDetailsModel } from '../../../../helpers/dataMappers/o
 
 import { DETAILS_TABS } from '../../constants'
 import { viewDetails } from '../../actions'
+import AddAppointment from './AddAppointment'
 
-import './index.scss'
-import Page from '../../../../components/Page'
+// Assumes start date does not fall on a weekend.
+const daysToAddForWeekdaysRepeat = (startDate, repeatCount) => {
+  const weekday = startDate.isoWeekday() // 1..7 == Monday .. Sunday. 6, 7 not weekdays.
+  const weeks = Math.floor((repeatCount - 1) / 5)
+  const remainder = (repeatCount - 1) % 5
 
-class AddAppointment extends Component {
+  return weeks * 7 + (remainder + weekday > 5 ? remainder + 2 : remainder)
+}
+
+export const calculateLastRepeatDate = (startDateTime, repeatPeriod, repeatCount) => {
+  if (!(startDateTime && repeatPeriod && repeatCount)) return undefined
+  if (repeatCount < 1) return undefined
+  const startDate = startDateTime.clone().startOf('day')
+
+  switch (repeatPeriod) {
+    case 'DAILY':
+      return startDate.add(repeatCount - 1, 'days')
+
+    case 'WEEKDAYS': {
+      if (startDate.isoWeekday() > 5) return undefined // Function not defined for weekend start day
+      return startDate.add(daysToAddForWeekdaysRepeat(startDate, repeatCount), 'days')
+    }
+
+    case 'WEEKLY':
+      return startDate.add(repeatCount - 1, 'weeks')
+
+    case 'FORTNIGHTLY':
+      return startDate.add((repeatCount - 1) * 2, 'weeks')
+
+    case 'MONTHLY':
+      return startDate.add(repeatCount - 1, 'months')
+
+    default:
+      return undefined
+  }
+}
+
+class AddAppointmentContainer extends Component {
   componentDidMount() {
     const { loadViewModel, offendersAgencyId, offenderNo, boundViewDetails } = this.props
 
@@ -49,258 +75,10 @@ class AddAppointment extends Component {
     }
   }
 
-  render() {
-    const {
-      handleSubmit,
-      error,
-      submitting,
-      locale,
-      goBackToBookingDetails,
-      offenderNo,
-      offendersAgencyId,
-      offenderName,
-      viewModel,
-      existingEvents,
-      loadExistingEvents,
-      eventDate,
-    } = this.props
-
-    const onDateChange = (event, newValue) => {
-      if (newValue) {
-        loadExistingEvents(offendersAgencyId, newValue.format(DATE_ONLY_FORMAT_SPEC), offenderNo)
-      }
-    }
-
-    if (!viewModel) {
-      return <div />
-    }
-
-    if (error) {
-      window.scrollTo(0, 0)
-    }
-
-    const getHours = timestamp => {
-      if (!timestamp) {
-        return ''
-      }
-      return timestamp.substr(0, 2)
-    }
-
-    const partition = eventArray => {
-      const am = []
-      const pm = []
-      const ed = []
-      eventArray.forEach(e => {
-        const hours = Number(getHours(e.startTime))
-        if (hours < 12) {
-          am.push(e)
-        } else if (hours >= 12 && hours < 17) {
-          pm.push(e)
-        } else {
-          ed.push(e)
-        }
-      })
-      return [am, pm, ed]
-    }
-
-    const insertForNothingScheduled = eventArray => {
-      const slots = partition(eventArray)
-      const amPresent = slots[0].length
-      const pmPresent = slots[1].length
-      if (amPresent && pmPresent) {
-        return eventArray
-      }
-      if (amPresent) {
-        return [...slots[0], { nothingScheduled: true, eventDescription: 'PM: nothing scheduled' }, ...slots[2]]
-      }
-      if (pmPresent) {
-        return [{ nothingScheduled: true, eventDescription: 'AM: nothing scheduled' }, ...slots[1], ...slots[2]]
-      }
-      return [
-        { nothingScheduled: true, eventDescription: 'AM: nothing scheduled' },
-        { nothingScheduled: true, eventDescription: 'PM: nothing scheduled' },
-        ...slots[2],
-      ]
-    }
-
-    const getStatus = (eventStatus, excluded) => {
-      if (excluded) {
-        return ' (temporarily removed)'
-      }
-      return ''
-    }
-
-    return (
-      <Page title="Add new appointment">
-        <div className="add-appointment">
-          <form onSubmit={handleSubmit}>
-            <div className="row">
-              <div className="col-md-4 no-left-gutter">
-                {error && (
-                  <div className="error-summary">
-                    <div className="error-message">{error}</div>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-2 no-left-gutter">
-                <span>Name</span>
-              </div>
-            </div>
-
-            <div className="row add-gutter-margin-bottom">
-              <div className="col-md-4 no-left-gutter">
-                <b>
-                  {offenderName} ({offenderNo})
-                </b>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4 no-left-gutter">
-                <Field
-                  name="appointmentType"
-                  title="Select type of appointment"
-                  autocomplete="true"
-                  component={Select}
-                  options={viewModel.appointmentTypes.map(type => ({
-                    label: type.description,
-                    value: type.code,
-                  }))}
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-4 no-left-gutter">
-                <Field
-                  name="location"
-                  title="Select location"
-                  autocomplete="true"
-                  component={Select}
-                  options={viewModel.locations.map(location => ({
-                    label: location.description,
-                    value: location.locationId,
-                  }))}
-                />
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-2 no-left-gutter">
-                <Field
-                  name="eventDate"
-                  title="Select date"
-                  component={DatePicker}
-                  onChange={onDateChange}
-                  locale={locale}
-                  format={momentToLocalizedDate(locale)}
-                  parse={localizedDateToMoment(locale)}
-                  shouldShowDay={date => date.isAfter(moment().subtract(1, 'day'))}
-                />
-              </div>
-            </div>
-
-            {existingEvents && (
-              <div className="row">
-                <div className="col-md-8 col-xs-12 add-gutter-margin-bottom font-xsmall no-left-padding">
-                  <div id="other-events" className="shaded add-gutter-padding-bottom">
-                    <div className="row col-xs-12 add-gutter-margin-top add-gutter-margin-bottom">
-                      <b>Other scheduled events on this date</b>
-                    </div>
-                    {insertForNothingScheduled(existingEvents).map((event, index) =>
-                      event.nothingScheduled ? (
-                        // eslint-disable-next-line react/no-array-index-key
-                        <div key={eventDate + index} className="row add-small-margin-bottom">
-                          <div className="col-xs-12">{event.eventDescription}</div>
-                        </div>
-                      ) : (
-                        // eslint-disable-next-line react/no-array-index-key
-                        <div key={eventDate + index} className="row add-small-margin-bottom">
-                          <div className="col-xs-4">
-                            {event.startTime}
-                            {event.endTime && ' - '}
-                            {event.endTime}
-                          </div>
-                          <div className="col-xs-8">
-                            <b>
-                              {event.eventDescription}
-                              {getStatus(event.eventStatus, event.excluded)}
-                            </b>
-                          </div>
-                        </div>
-                      )
-                    )}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <div className="row">
-              <div className="col-xs-6 col-md-2 no-left-gutter">
-                <Field
-                  name="startTime"
-                  title="Start time"
-                  component={TimePicker}
-                  date={eventDate}
-                  now={moment()}
-                  futureTimeOnly
-                />
-              </div>
-
-              <div className="col-xs-6 col-md-2 no-left-gutter">
-                <Field
-                  className="add-gutter-top"
-                  name="endTime"
-                  title="End time (optional)"
-                  component={TimePicker}
-                  date={eventDate}
-                  now={moment()}
-                  futureTimeOnly
-                />
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4 no-left-gutter">
-                <Field
-                  name="comment"
-                  component={TextArea}
-                  title="Comments (optional)"
-                  autocomplete="off"
-                  spellcheck="true"
-                />
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4 no-left-gutter">
-                <button className="button add-gutter-margin-right" type="submit" disabled={submitting}>
-                  {' '}
-                  Add appointment{' '}
-                </button>
-                <button
-                  type="button"
-                  className="button button-cancel"
-                  onClick={e => {
-                    e.preventDefault()
-                    goBackToBookingDetails(offenderNo)
-                  }}
-                >
-                  {' '}
-                  Cancel{' '}
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </Page>
-    )
-  }
+  render = () => <AddAppointment {...this.props} />
 }
 
-AddAppointment.propTypes = {
+AddAppointmentContainer.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
 
@@ -328,6 +106,8 @@ AddAppointment.propTypes = {
       eventStatus: PropTypes.string,
     })
   ),
+  recurringAppointment: PropTypes.bool,
+  lastRepeatDate: PropTypes.instanceOf(moment),
 
   // mapDispatchToProps
   boundViewDetails: PropTypes.func.isRequired,
@@ -336,10 +116,12 @@ AddAppointment.propTypes = {
   loadExistingEvents: PropTypes.func.isRequired,
 }
 
-AddAppointment.defaultProps = {
+AddAppointmentContainer.defaultProps = {
   error: '',
   eventDate: null,
   existingEvents: undefined,
+  recurringAppointment: false,
+  lastRepeatDate: undefined,
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
@@ -348,13 +130,43 @@ const mapDispatchToProps = (dispatch, props) => ({
   loadViewModel: agencyId => dispatch(loadAppointmentViewModel(agencyId)),
   loadExistingEvents: (agencyId, date, offenderNo) => dispatch(lee(agencyId, date, offenderNo)),
   onSubmit: createFormAction(
-    formData => ({
-      type: APPOINTMENT.ADD,
-      payload: {
-        ...formData.toJS(),
+    formData => {
+      const {
+        appointmentType,
+        location,
+        startTime,
+        endTime,
+        recurringAppointment,
+        repeatPeriod,
+        repeatCount,
+        comment,
+      } = formData.toJS()
+
+      const payload = {
         offenderNo: props.match.params.offenderNo,
-      },
-    }),
+        detail: {
+          appointmentDefaults: {
+            appointmentType,
+            locationId: location,
+            startTime,
+            endTime,
+            comment,
+          },
+        },
+      }
+
+      if (recurringAppointment) {
+        payload.detail.repeat = {
+          repeatPeriod,
+          count: repeatCount,
+        }
+      }
+
+      return {
+        type: APPOINTMENT.ADD,
+        payload,
+      }
+    },
     [APPOINTMENT.SUCCESS, APPOINTMENT.ERROR]
   ),
 })
@@ -376,7 +188,9 @@ const mapStateToProps = (immutableState, props) => {
     lastName: offenderDetails.get('lastName'),
   })
 
-  const eventDate = formValueSelector('addAppointment')(immutableState, 'eventDate')
+  const formSelector = formValueSelector('addAppointment')
+  const eventDate = formSelector(immutableState, 'eventDate')
+  const recurringAppointment = formSelector(immutableState, 'recurringAppointment')
   const viewModel = (
     immutableState.getIn(['eliteApiLoader', 'AppointmentTypesAndLocations']) ||
     Map({
@@ -388,6 +202,12 @@ const mapStateToProps = (immutableState, props) => {
   const maybeEvents = immutableState.getIn(['eliteApiLoader', 'ExistingEvents'])
   const existingEvents = maybeEvents && maybeEvents.toJS()
 
+  const lastRepeatDate = calculateLastRepeatDate(
+    eventDate,
+    formSelector(immutableState, 'repeatPeriod'),
+    formSelector(immutableState, 'repeatCount')
+  )
+
   return {
     locale,
     offenderNo,
@@ -397,13 +217,25 @@ const mapStateToProps = (immutableState, props) => {
     eventDate,
     viewModel,
     existingEvents,
+    recurringAppointment,
+    lastRepeatDate,
   }
 }
 
 export const validate = (form, props) => {
   if (!form) return {}
 
-  const { startTime, endTime, appointmentType, location, eventDate, comment } = form.toJS()
+  const {
+    startTime,
+    endTime,
+    appointmentType,
+    location,
+    eventDate,
+    recurringAppointment,
+    repeatPeriod,
+    repeatCount,
+    comment,
+  } = form.toJS()
   const error = {}
   const now = moment()
   const isToday = eventDate ? eventDate.isSame(now, 'day') : false
@@ -448,6 +280,32 @@ export const validate = (form, props) => {
     error.startTime = "Start time should't be after End time"
   }
 
+  if (recurringAppointment === true) {
+    if (repeatCount < 1) {
+      error.repeatCount = 'Number of times must be at least 1'
+    }
+    if (!repeatPeriod) {
+      error.repeatPeriod = 'Select a repeat period'
+    }
+    if (repeatPeriod === 'WEEKDAYS') {
+      if (eventDate && eventDate.isoWeekday() > 5) {
+        error.repeatPeriod = 'Start day must be Monday - Friday for weekday repeats'
+      }
+    }
+    const lastAppointmentDate = calculateLastRepeatDate(eventDate, repeatPeriod, repeatCount)
+    if (
+      lastAppointmentDate &&
+      lastAppointmentDate.isSameOrAfter(
+        now
+          .clone()
+          .startOf('day')
+          .add(1, 'years')
+      )
+    ) {
+      error.repeatCount = 'Date of last appointment must be less than one year from today'
+    }
+  }
+
   if (comment && comment.length > 3600) {
     error.comment = 'Maximum length should not exceed 3600 characters'
   }
@@ -455,13 +313,13 @@ export const validate = (form, props) => {
   return error
 }
 
-const asForm = reduxForm({
+const theReduxForm = reduxForm({
   form: 'addAppointment',
   validate,
-  initialValues: Map({}),
-})(AddAppointment)
+  initialValues: Map({ repeatCount: '1', recurringAppointment: false }),
+})(AddAppointmentContainer)
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(asForm)
+)(theReduxForm)

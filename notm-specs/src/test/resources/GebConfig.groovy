@@ -40,6 +40,15 @@ environments {
 // Default if geb.env is not set to one of 'chrome', or 'chromeHeadless'
 driver = {
   new ChromeDriver()
+//  new ChromeDriver(
+//    new ChromeDriverService.Builder()
+//      .withVerbose(true)
+//      .withLogFile(new File('build/chromedriver.log'))
+//      .build(),
+//    new ChromeOptions()
+//      .setExperimentalOption(
+//      "mobileEmulation",
+//      ['deviceName': 'Nexus 5']))
 }
 
 baseUrl = "http://localhost:3000/"

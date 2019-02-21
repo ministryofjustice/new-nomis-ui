@@ -2,6 +2,7 @@ package specs
 
 import com.google.common.collect.Lists
 import geb.spock.GebReportingSpec
+import groovy.json.JsonOutput
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
@@ -15,6 +16,8 @@ import pages.OffenderDetailsPage
 import pages.SearchResultsPage
 
 import static model.UserAccount.ITAG_USER
+
+import static com.github.tomakehurst.wiremock.client.WireMock.*
 
 @Slf4j
 class AppointmentSpecification extends GebReportingSpec {
@@ -79,23 +82,23 @@ class AppointmentSpecification extends GebReportingSpec {
     when: 'I select a date with existing activities'
     elite2api.stubGetActivities(Caseload.LEI, '', Schedules.TOMORROW, false)
     setDatePicker(Schedules.TOMORROW_DATE.year, Schedules.TOMORROW_DATE.monthValue, Schedules.TOMORROW_DATE.day)
-    waitFor( {otherEvents[8].displayed} )
+    waitFor({ otherEvents[8].displayed })
 
     then: 'existing scheduled events are displayed'
-    otherEvents[1].find('div')*.text() == ['09:00 - 10:30','Location 1 - Activity - Activity 1']
-    otherEvents[2].find('div')*.text() == ['14:00 - 15:30','Location 2 - Activity - Activity 2 (temporarily removed)']
-    otherEvents[3].find('div')*.text() == ['15:30','Location 4 - Appointment 1 - Appt details']
-    otherEvents[4].find('div')*.text() == ['17:00 - 18:30','Location 3 - Activity - Activity 3']
-    otherEvents[5].find('div')*.text() == ['18:00 - 18:30','Visits Room - Visits - Friends']
-    otherEvents[6].find('div')*.text() == ['','Release scheduled']
-    otherEvents[7].find('div')*.text() == ['','Court visit scheduled']
-    otherEvents[8].find('div')*.text() == ['','Transfer scheduled']
+    otherEvents[1].find('div')*.text() == ['09:00 - 10:30', 'Location 1 - Activity - Activity 1']
+    otherEvents[2].find('div')*.text() == ['14:00 - 15:30', 'Location 2 - Activity - Activity 2 (temporarily removed)']
+    otherEvents[3].find('div')*.text() == ['15:30', 'Location 4 - Appointment 1 - Appt details']
+    otherEvents[4].find('div')*.text() == ['17:00 - 18:30', 'Location 3 - Activity - Activity 3']
+    otherEvents[5].find('div')*.text() == ['18:00 - 18:30', 'Visits Room - Visits - Friends']
+    otherEvents[6].find('div')*.text() == ['', 'Release scheduled']
+    otherEvents[7].find('div')*.text() == ['', 'Court visit scheduled']
+    otherEvents[8].find('div')*.text() == ['', 'Transfer scheduled']
     otherEvents.size() == 9
 
     when: 'I select a date with no existing activities'
     elite2api.stubGetActivities(Caseload.LEI, '', Schedules.TODAY, true)
     setDatePicker(Schedules.TODAY_DATE.year, Schedules.TODAY_DATE.monthValue, Schedules.TODAY_DATE.day)
-    waitFor( {otherEvents.size() == 3} )
+    waitFor({ otherEvents.size() == 3 })
 
     then: 'No scheduled events are displayed'
     otherEvents[1].find('div').text() == 'AM: nothing scheduled'
@@ -108,5 +111,24 @@ class AppointmentSpecification extends GebReportingSpec {
     then: 'The new appointment is created and the user is returned to the details page'
     at OffenderDetailsPage
     //messageBar.text() == 'Appointment has been created successfully'
+
+    elite2api.verify(
+      postRequestedFor(urlEqualTo('/api/appointments'))
+        .withRequestBody(equalToJson(
+        JsonOutput.toJson(
+          [
+            'appointmentDefaults': [
+              'appointmentType': 'GYMF',
+              'locationId' : '14461',
+              'startTime': '2019-02-22T09:00:00',
+              'comment': 'some details'
+            ],
+            'appointments' : [
+              [ 'bookingId': -10]
+            ]
+          ]),
+        true,
+        false))
+    )
   }
 }
