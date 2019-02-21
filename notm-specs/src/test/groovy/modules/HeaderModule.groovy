@@ -13,7 +13,7 @@ class HeaderModule extends Module {
     dropDown { $('.info-wrapper') }
     dropDownMobile { $('div#nav-icon') }
     dropDownMobileContents { $('div#nav-icon span', 1) }
-    logoutLink { $('a', text: 'Log out') }
+    logoutLink { $('a', text: 'Sign out') }
     mobileLogoutLink{$('#mobile-logout')}
     myAllocationsMenuLink(required: false) { $( text: 'My key worker allocations')}
     dropDownMenu { dropDown.displayed ? dropDown : dropDownMobile }
