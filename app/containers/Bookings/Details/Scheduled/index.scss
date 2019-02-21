@@ -1,15 +1,12 @@
-
-
 .whereabouts {
-
   h1 {
-    margin-top: .5em;
-    margin-bottom: .5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
   }
 
   .cancelled {
     color: $cancelled;
-    @include bold-19()
+    @include bold-19();
   }
 
   @include media-breakpoint-up(xl) {
@@ -42,15 +39,15 @@
   }
 
   .appointment.morning {
-    background: #E9F3F9;
+    background: #e9f3f9;
   }
 
   .appointment.afternoon {
-    background: #D5E8F4;
+    background: #d5e8f4;
   }
 
   .appointment.ed {
-    background: #BEDCEE;
+    background: #bedcee;
   }
 
   .separator {
@@ -58,8 +55,7 @@
   }
 
   @include media-breakpoint-down(lg) {
-    div[class^="col-"] {
-
+    div[class^='col-'] {
       .whereabouts-startTime {
         margin-left: 10px !important;
       }
@@ -79,11 +75,17 @@
 
     .whereabouts-day-header {
       display: inline-block;
-      @include add-gutter-margin-right()
+      @include add-gutter-margin-right();
     }
 
     .whereabouts-date-header {
       display: inline-block;
+    }
+  }
+
+  @media print {
+    .filters {
+      display: none !important;
     }
   }
 }
