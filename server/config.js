@@ -6,7 +6,6 @@ const app = {
   feedbackUrl: process.env.FEEDBACK_URL,
   mailTo: process.env.MAIL_TO || 'feedback@digital.justice.gov.uk',
   tokenRefreshThresholdSeconds: process.env.TOKEN_REFRESH_THRESHOLD_SECONDS || 60,
-  remoteAuthStrategy: Boolean(process.env.REMOTE_AUTH_STRATEGY),
   url: process.env.NN_ENDPOINT_URL || `http://localhost:${argv.port || process.env.PORT || 3000}`,
 }
 

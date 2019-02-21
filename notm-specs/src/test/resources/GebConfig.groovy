@@ -48,3 +48,6 @@ reportsDir = "build/geb-reports"
 
 // Don't report anything
 reporter = new CompositeReporter();
+
+// Close browser on shutdown - uncomment to enable
+// quitCachedDriverOnShutdown = false

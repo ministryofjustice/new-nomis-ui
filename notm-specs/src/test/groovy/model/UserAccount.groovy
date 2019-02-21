@@ -2,9 +2,9 @@ package model
 
 import groovy.transform.TupleConstructor
 
-import static StaffMember.*
-import static UserType.*
-import static Caseload.*
+import static model.Caseload.*
+import static model.StaffMember.*
+import static model.UserType.GENERAL
 
 @TupleConstructor
 enum UserAccount {

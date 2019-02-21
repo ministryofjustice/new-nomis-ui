@@ -4,9 +4,7 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule
 import groovy.json.JsonOutput
 import mockapis.response.AccessRoles
 import mockapis.response.Schedules
-import model.CaseNote
-import model.Caseload
-import model.Offender
+import model.*
 
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -14,22 +12,10 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo
-import static com.github.tomakehurst.wiremock.client.WireMock.get
-import static com.github.tomakehurst.wiremock.client.WireMock.post
-import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching
-import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson
-
-import model.UserAccount
-import model.Alert
-
-import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
+import static com.github.tomakehurst.wiremock.client.WireMock.*
 import static mockapis.response.AlertTypes.alertTypes
 import static mockapis.response.CaseNoteTypes.myCaseNoteTypes
 import static mockapis.response.CaseNoteTypes.referenceCaseNoteTypes
-
-import static com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching
 
 class Elite2Api extends WireMockRule {
 

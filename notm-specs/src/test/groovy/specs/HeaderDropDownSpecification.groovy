@@ -25,11 +25,6 @@ class HeaderDropDownSpecification extends GebReportingSpec {
 
   TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
 
-  def setup(){
-    elite2api.stubHealthCheck()
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-  }
-
   def "should show the case load description"() {
 
     given: "I have logged in"

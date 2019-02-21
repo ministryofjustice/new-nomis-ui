@@ -30,8 +30,6 @@ class OffenderDetailsSpecification extends GebReportingSpec {
 
 
   def "Offender quicklook details are correct"() {
-    elite2api.stubHealthCheck()
-
     given: 'I log in and search for an offender'
     fixture.loginAs(ITAG_USER)
 
