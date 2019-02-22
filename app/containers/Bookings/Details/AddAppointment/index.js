@@ -317,6 +317,7 @@ const theReduxForm = reduxForm({
   form: 'addAppointment',
   validate,
   initialValues: Map({ repeatCount: '1', recurringAppointment: false }),
+  touchOnChange: true,
 })(AddAppointmentContainer)
 
 export default connect(
