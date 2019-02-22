@@ -6,7 +6,7 @@ import org.openqa.selenium.chrome.ChromeOptions
 atCheckWaiting = true
 
 waiting {
-  timeout = 5
+  timeout = 8
 }
 
 environments {
@@ -48,3 +48,6 @@ reportsDir = "build/geb-reports"
 
 // Don't report anything
 reporter = new CompositeReporter();
+
+// Close browser on shutdown - uncomment to enable
+// quitCachedDriverOnShutdown = false

@@ -1,22 +1,21 @@
 package specs
 
-import com.github.tomakehurst.wiremock.client.WireMock
+
 import geb.spock.GebReportingSpec
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
 import model.Offender
+import model.TestFixture
 import org.junit.Rule
 import pages.AlertsPage
-import pages.HomePage
-import pages.LoginPage
 import pages.SearchResultsPage
 import spock.lang.IgnoreIf
 import spock.lang.Requires
 
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import static model.UserAccount.ITAG_USER
 
 @Slf4j
@@ -31,16 +30,12 @@ class SearchResultsSpecification extends GebReportingSpec {
   @Rule
   OauthApi oauthApi = new OauthApi()
 
+  TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
+
   @IgnoreIf({System.properties['geb.env'] == 'chromeMobile'})
   def 'Display search results and alerts'() {
-    elite2api.stubHealthCheck()
-
     given: 'I am logged in'
-    to LoginPage
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-    elite2api.stubGetMyDetails(ITAG_USER)
-    loginAs ITAG_USER, 'password'
-    at HomePage
+    fixture.loginAs ITAG_USER
 
     when: 'I search for offenders'
     List<Offender> offenders = [
@@ -105,14 +100,8 @@ class SearchResultsSpecification extends GebReportingSpec {
 
   @IgnoreIf({System.properties['geb.env'] == 'chromeMobile'})
   def 'Clear filters'() {
-    elite2api.stubHealthCheck()
-
     given: 'I am logged in'
-    to LoginPage
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-    elite2api.stubGetMyDetails(ITAG_USER)
-    loginAs ITAG_USER, 'password'
-    at HomePage
+    fixture.loginAs ITAG_USER
 
     when: 'I search for offenders'
     List<Offender> offenders = [
@@ -168,14 +157,8 @@ class SearchResultsSpecification extends GebReportingSpec {
 
   @IgnoreIf({ System.properties['geb.env'] == 'chromeMobile' })
   def 'Search results ordering for desktop'() {
-    elite2api.stubHealthCheck()
-
     given: 'I have searched for offenders'
-    to LoginPage
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-    elite2api.stubGetMyDetails(ITAG_USER)
-    loginAs ITAG_USER, 'password'
-    at HomePage
+    fixture.loginAs ITAG_USER
 
     List<Offender> offenders2 = [Offender.SMELLEY(), Offender.SMITH()]
     elite2api.stubOffenderSearch('aname', offenders2, '')
@@ -200,14 +183,8 @@ class SearchResultsSpecification extends GebReportingSpec {
 
   @Requires({ System.properties['geb.env'] == 'chromeMobile' })
   def 'Search results ordering for mobile'() {
-    elite2api.stubHealthCheck()
-
     given: 'I have searched for offenders'
-    to LoginPage
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-    elite2api.stubGetMyDetails(ITAG_USER)
-    loginAs ITAG_USER, 'password'
-    at HomePage
+    fixture.loginAs ITAG_USER
 
     List<Offender> offenders2 = [Offender.SMELLEY(), Offender.SMITH()]
     elite2api.stubOffenderSearch('aname', offenders2, '')

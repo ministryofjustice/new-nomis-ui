@@ -8,9 +8,11 @@ import mockapis.KeyworkerApi
 import mockapis.OauthApi
 import mockapis.response.Schedules
 import model.Caseload
-import model.Offender
+import model.TestFixture
 import org.junit.Rule
-import pages.*
+import pages.AddAppointmentPage
+import pages.OffenderDetailsPage
+import pages.SearchResultsPage
 
 import static model.UserAccount.ITAG_USER
 
@@ -26,20 +28,13 @@ class AppointmentSpecification extends GebReportingSpec {
   @Rule
   OauthApi oauthApi = new OauthApi()
 
+  TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
+
   def "Create a new appointment"() {
-    elite2api.stubHealthCheck()
-
     given: 'I am logged in and have selected an offender'
-    to LoginPage
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-    elite2api.stubGetMyDetails(ITAG_USER)
-    loginAs ITAG_USER, 'password'
-    at HomePage
+    fixture.loginAs ITAG_USER
 
-    ArrayList<Offender> offenders = new ArrayList<Offender>()
-    offenders.push(model.Offender.SMELLEY())
-    offenders.push(model.Offender.SMITH())
-    offenders.push(model.Offender.BOB())
+    final offenders = [model.Offender.SMELLEY(), model.Offender.SMITH(), model.Offender.BOB()]
 
     elite2api.stubOffenderSearch("apperson", offenders, '')
     elite2api.stubOffenderDetails(true)
@@ -50,7 +45,6 @@ class AppointmentSpecification extends GebReportingSpec {
     elite2api.stubStaffDetails(-2)
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
-
 
     searchFor "apperson"
     at SearchResultsPage

@@ -1,8 +1,8 @@
 package model
 
-import groovy.transform.TupleConstructor
 
 import model.AgencyLocation.*
+
 import static model.CaseloadType.*
 
 enum Caseload {

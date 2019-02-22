@@ -1,5 +1,6 @@
 package specs
 
+import geb.module.Select
 import geb.spock.GebReportingSpec
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
@@ -8,11 +9,9 @@ import model.TestFixture
 import org.junit.Rule
 import pages.AlertsPage
 import spock.lang.IgnoreIf
-import geb.module.Select
 
 import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
-
 import static model.UserAccount.ITAG_USER
 
 class AlertsSpecification extends GebReportingSpec {
@@ -33,8 +32,6 @@ class AlertsSpecification extends GebReportingSpec {
   @IgnoreIf({System.properties['geb.env'] == 'chromeMobile'})
   def "clear filters"() {
     elite2api.stubAlertTypes()
-    elite2api.stubHealthCheck()
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
     elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
     elite2api.stubImage()
     elite2api.stubBookingAlerts(bookingId)
