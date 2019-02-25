@@ -139,34 +139,42 @@ jobs:
                  --label "build.url=$CIRCLE_BUILD_URL" \
                  --label "build.gitref=$GIT_REF"
 
-             if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
-               docker login -u $DOCKER_USER -p $DOCKER_PASS
-               docker tag mojdigitalstudio/new-nomis-ui:$BUILD_VERSION mojdigitalstudio/new-nomis-ui:latest
-               docker push mojdigitalstudio/new-nomis-ui:$BUILD_VERSION
-               docker push mojdigitalstudio/new-nomis-ui:latest
-             fi
+             docker login -u $DOCKER_USER -p $DOCKER_PASS
+             docker tag mojdigitalstudio/new-nomis-ui:$BUILD_VERSION mojdigitalstudio/new-nomis-ui:latest
+             docker push mojdigitalstudio/new-nomis-ui:$BUILD_VERSION
+             docker push mojdigitalstudio/new-nomis-ui:latest
 
   deploy_release_eb:
-    <<: *defaults
+    working_directory: ~/app
+    docker:
+      - image: mojdigitalstudio/circleci-node-awsebcli
     steps:
       - checkout
       - attach_workspace:
           at: ~/app
       - deploy:
-          name: Install elastic beanstalk CLI
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              sudo apt-get install python-pip python-dev
-              pip install --user 'six>-1.9.0' awsebcli --ignore-installed
-            fi
-      - deploy:
           name: Deploy to Elastic Beanstalk Dev
           command: |
-            if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
-              VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
-              yarn run plant-beanstalk NEW_NOMIS_UI_${VERSION}
-              ~/.local/bin/eb deploy --process --verbose
+            VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
+            yarn run plant-beanstalk ${VERSION}
+            ~/.local/bin/eb deploy notm-dev --process --verbose --label ${VERSION}
             fi
+
+
+  deploy_release_stage_eb:
+    working_directory: ~/app
+    docker:
+      - image: mojdigitalstudio/circleci-node-awsebcli
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/app
+      - deploy:
+          name: Deploy to Elastic Beanstalk Stage
+          command: |
+            VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
+            yarn run plant-beanstalk ${VERSION}
+            ~/.local/bin/eb deploy notm-stage --process --verbose --label ${VERSION}
 
 workflows:
   version: 2
@@ -188,15 +196,21 @@ workflows:
       - build_docker:
           requires:
             - integration_tests
+          filters:
+            branches:
+              only:
+                - master
+                - notm-to-aws
       - deploy_release:
           requires:
             - integration_tests
           filters:
             branches:
               only: master
-#      - deploy_release_eb:
-#          requires:
-#            - build_docker
-#          filters:
-#            branches:
-#              only: master
+      - hold:
+          type: approval
+          requires:
+            - build_docker
+      - deploy_release_stage_eb:
+          requires:
+            - hold
