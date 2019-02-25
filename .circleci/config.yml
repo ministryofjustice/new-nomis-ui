@@ -185,11 +185,8 @@ workflows:
             branches:
               ignore:
                   - deploy-to-dev
-                  - deploy-to-stage
                   - deploy-to-preprod
                   - deploy-to-prod
-                  - intergalactic
-                  - client-release-.*
       - integration_tests:
           requires:
             - build
@@ -207,6 +204,10 @@ workflows:
           filters:
             branches:
               only: master
+      - deploy_release_eb:
+          requires:
+            - deploy_release
+            - build_docker
       - hold:
           type: approval
           requires:
