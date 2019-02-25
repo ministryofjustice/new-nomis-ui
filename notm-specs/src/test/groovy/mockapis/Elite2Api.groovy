@@ -195,26 +195,8 @@ class Elite2Api extends WireMockRule {
       comment        : "some details"
     ]
     this.stubFor(
-      post(urlMatching("/api/bookings/.+/appointments"))
-        .withRequestBody(equalToJson(JsonOutput.toJson(data), true, false))
-        .willReturn(aResponse()
-        .withStatus(201)
-        .withHeader('Content-Type', 'application/json')
-        .withBody(JsonOutput.toJson([
-        bookingId       : -10,
-        eventClass      : "INT_MOV",
-        eventStatus     : "SCH",
-        eventType       : "APP",
-        eventTypeDesc   : "Appointment",
-        eventSubType    : "GYMF",
-        eventSubTypeDesc: "Gym - Football",
-        eventDate       : startDate.format(DateTimeFormatter.ISO_DATE),
-        startTime       : startTimeFormatted,
-        eventLocation   : "A WING CLASS",
-        eventSource     : "APP",
-        eventSourceCode : "APP",
-        eventSourceDesc : "Steve woz ere"
-      ]))))
+      post(urlMatching("/api/appointments"))
+        .willReturn(aResponse().withStatus(200)))
   }
 
   void stubStaffRoles(UserAccount user) {
@@ -391,18 +373,16 @@ class Elite2Api extends WireMockRule {
   }
 
   void stubMeCaseNoteTypes() {
-    def body = JsonOutput.toJson(myCaseNoteTypes)
     this.stubFor(
       get('/api/users/me/caseNoteTypes')
-      .willReturn(aResponse()
+        .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
         .withBody(JsonOutput.toJson(myCaseNoteTypes))
-    ))
+      ))
   }
 
   void stubCaseNoteTypes() {
-    def body = JsonOutput.toJson(referenceCaseNoteTypes)
     this.stubFor(
       get("/api/reference-domains/caseNoteTypes")
         .willReturn(aResponse()
@@ -424,11 +404,11 @@ class Elite2Api extends WireMockRule {
         .willReturn(aResponse()
         .withStatus(201)
         .withHeader('Content-Type', 'application/json')
-        ))
+      ))
   }
   // NB also test error 403 from this post
 
-  void  stubGetCaseNote() {
+  void stubGetCaseNote() {
     this.stubFor(
       get(urlMatching("/api/bookings/.+/caseNotes"))
         .willReturn(aResponse()

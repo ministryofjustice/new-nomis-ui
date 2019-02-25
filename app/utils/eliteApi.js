@@ -377,17 +377,11 @@ export const getExistingEvents = ({ agencyId, date, offenderNo }) =>
     withCredentials: true,
   }).then(response => response.data)
 
-export const addAppointment = ({ offenderNo, startTime, endTime, appointmentType, locationId, comment }) =>
+export const addAppointment = ({ offenderNo, detail }) =>
   axios({
     method: 'post',
-    url: `/app/bookings/addAppointment/${offenderNo}`,
-    data: {
-      startTime,
-      endTime,
-      appointmentType,
-      locationId,
-      comment,
-    },
+    url: `/app/appointments/${offenderNo}`,
+    data: detail,
     withCredentials: true,
   })
 
