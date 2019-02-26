@@ -161,21 +161,6 @@ jobs:
             fi
 
 
-  deploy_release_stage_eb:
-    working_directory: ~/app
-    docker:
-      - image: mojdigitalstudio/circleci-node-awsebcli
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/app
-      - deploy:
-          name: Deploy to Elastic Beanstalk Stage
-          command: |
-            VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
-            yarn run plant-beanstalk ${VERSION}
-            ~/.local/bin/eb deploy notm-stage --process --verbose --label ${VERSION}
-
 workflows:
   version: 2
   build-test-and-deploy:
@@ -197,7 +182,6 @@ workflows:
             branches:
               only:
                 - master
-                - notm-to-aws
       - deploy_release:
           requires:
             - integration_tests
@@ -208,10 +192,6 @@ workflows:
           requires:
             - deploy_release
             - build_docker
-      - hold:
-          type: approval
-          requires:
-            - build_docker
-      - deploy_release_stage_eb:
-          requires:
-            - hold
+          filters:
+            branches:
+              only: master
