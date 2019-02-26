@@ -2,7 +2,7 @@ package model
 
 import groovy.transform.TupleConstructor
 
-import static Caseload.*
+import static model.Caseload.*
 
 @TupleConstructor
 enum StaffMember {

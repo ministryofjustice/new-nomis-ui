@@ -9,8 +9,6 @@ import model.Offender
 import model.TestFixture
 import org.junit.Rule
 import pages.AddCaseNotePage
-import pages.HomePage
-import pages.LoginPage
 import pages.OffenderCaseNotesPage
 import pages.OffenderDetailsPage
 import pages.SearchResultsPage
@@ -32,11 +30,10 @@ class CaseNotesSpecification extends GebReportingSpec {
   TestFixture testFixture = new TestFixture(browser, elite2api, oauthApi)
 
   def "Create a new case note"() {
-    elite2api.stubHealthCheck()
     setupUserDetails()
 
     given: 'I am logged in and have selected an offender'
-    testFixture.loginAs(ITAG_USER)
+    testFixture.loginAs ITAG_USER
 
     searchFor "d s"
     at SearchResultsPage
@@ -69,11 +66,10 @@ class CaseNotesSpecification extends GebReportingSpec {
   }
 
   def "open the add case note screen with no type and sub type selected"() {
-    elite2api.stubHealthCheck()
     setupAddCaseNote()
 
     given: 'I am logged in and have selected an offender'
-    testFixture.loginAs(ITAG_USER)
+    testFixture.loginAs ITAG_USER
 
     when: "I navigate to add case note using an type and sub type"
     go '/offenders/A1234AJ/add-case-note'
@@ -85,11 +81,10 @@ class CaseNotesSpecification extends GebReportingSpec {
   }
 
   def "open the add case note screen with a pre-selected type and sub type"() {
-    elite2api.stubHealthCheck()
     setupAddCaseNote()
 
     given: 'I am logged in and have selected an offender'
-    testFixture.loginAs(ITAG_USER)
+    testFixture.loginAs ITAG_USER
 
     when: "I navigate to add case note using an type and sub type"
     go '/offenders/A1234AJ/add-case-note?type=CHAP&subType=FAITH'
@@ -101,16 +96,10 @@ class CaseNotesSpecification extends GebReportingSpec {
   }
 
   def "create a key worker session case note using the 'Add KW session' link" () {
-    elite2api.stubHealthCheck()
-
 
     given: 'I am logged in and have selected an offender'
-    to LoginPage
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-    elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
+    testFixture.loginAsKeyworker ITAG_USER
 
-    loginAs ITAG_USER, 'password'
-    at HomePage
     setupUserDetails()
 
     searchFor "d s"

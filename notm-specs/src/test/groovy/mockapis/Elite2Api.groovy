@@ -4,9 +4,7 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule
 import groovy.json.JsonOutput
 import mockapis.response.AccessRoles
 import mockapis.response.Schedules
-import model.CaseNote
-import model.Caseload
-import model.Offender
+import model.*
 
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -14,22 +12,10 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo
-import static com.github.tomakehurst.wiremock.client.WireMock.get
-import static com.github.tomakehurst.wiremock.client.WireMock.post
-import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching
-import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson
-
-import model.UserAccount
-import model.Alert
-
-import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
+import static com.github.tomakehurst.wiremock.client.WireMock.*
 import static mockapis.response.AlertTypes.alertTypes
 import static mockapis.response.CaseNoteTypes.myCaseNoteTypes
 import static mockapis.response.CaseNoteTypes.referenceCaseNoteTypes
-
-import static com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching
 
 class Elite2Api extends WireMockRule {
 
@@ -209,26 +195,8 @@ class Elite2Api extends WireMockRule {
       comment        : "some details"
     ]
     this.stubFor(
-      post(urlMatching("/api/bookings/.+/appointments"))
-        .withRequestBody(equalToJson(JsonOutput.toJson(data), true, false))
-        .willReturn(aResponse()
-        .withStatus(201)
-        .withHeader('Content-Type', 'application/json')
-        .withBody(JsonOutput.toJson([
-        bookingId       : -10,
-        eventClass      : "INT_MOV",
-        eventStatus     : "SCH",
-        eventType       : "APP",
-        eventTypeDesc   : "Appointment",
-        eventSubType    : "GYMF",
-        eventSubTypeDesc: "Gym - Football",
-        eventDate       : startDate.format(DateTimeFormatter.ISO_DATE),
-        startTime       : startTimeFormatted,
-        eventLocation   : "A WING CLASS",
-        eventSource     : "APP",
-        eventSourceCode : "APP",
-        eventSourceDesc : "Steve woz ere"
-      ]))))
+      post(urlMatching("/api/appointments"))
+        .willReturn(aResponse().withStatus(200)))
   }
 
   void stubStaffRoles(UserAccount user) {
@@ -405,18 +373,16 @@ class Elite2Api extends WireMockRule {
   }
 
   void stubMeCaseNoteTypes() {
-    def body = JsonOutput.toJson(myCaseNoteTypes)
     this.stubFor(
       get('/api/users/me/caseNoteTypes')
-      .willReturn(aResponse()
+        .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
         .withBody(JsonOutput.toJson(myCaseNoteTypes))
-    ))
+      ))
   }
 
   void stubCaseNoteTypes() {
-    def body = JsonOutput.toJson(referenceCaseNoteTypes)
     this.stubFor(
       get("/api/reference-domains/caseNoteTypes")
         .willReturn(aResponse()
@@ -438,11 +404,11 @@ class Elite2Api extends WireMockRule {
         .willReturn(aResponse()
         .withStatus(201)
         .withHeader('Content-Type', 'application/json')
-        ))
+      ))
   }
   // NB also test error 403 from this post
 
-  void  stubGetCaseNote() {
+  void stubGetCaseNote() {
     this.stubFor(
       get(urlMatching("/api/bookings/.+/caseNotes"))
         .willReturn(aResponse()

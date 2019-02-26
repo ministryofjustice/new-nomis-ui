@@ -26,6 +26,9 @@ class AddAppointmentPage extends DatePickerPage {
     // minutes are optional
     saveButton { $('button', type: 'submit') }
     otherEvents { $('#other-events div.row') }
+    recurringAppointmentCheckbox { $('input', name: 'recurringAppointment') }
+    repeatPeriod { $('select', name: 'repeatPeriod') }
+    repeatCount { $('input', name: 'repeatCount') }
   }
 
   def createNewAppointment(text) {

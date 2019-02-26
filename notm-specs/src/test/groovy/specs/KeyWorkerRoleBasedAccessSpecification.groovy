@@ -1,14 +1,13 @@
 package specs
 
-
 import geb.spock.GebReportingSpec
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
+import model.TestFixture
 import org.junit.Rule
 import pages.HomePage
-import pages.LoginPage
 
 import static model.UserAccount.ITAG_USER
 
@@ -23,16 +22,11 @@ class KeyWorkerRoleBasedAccessSpecification extends GebReportingSpec {
   @Rule
   KeyworkerApi keyworkerApi = new KeyworkerApi()
 
+  TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
+
   def "should see the my key worker allocations link when the user is a key worker"() {
-    elite2api.stubHealthCheck()
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-
     given:
-    to LoginPage
-    elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
-    loginAs ITAG_USER, 'password'
-    at HomePage
-
+    fixture.loginAsKeyworker ITAG_USER
 
     when: 'I am logged in and on the home page'
     header.dropDownMenu.click()
@@ -42,14 +36,8 @@ class KeyWorkerRoleBasedAccessSpecification extends GebReportingSpec {
   }
 
   def "should see the my key worker allocations link in the menu when the current user is a key worker"() {
-    elite2api.stubHealthCheck()
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-
     given:
-    to LoginPage
-    elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
-    loginAs ITAG_USER, 'password'
-    at HomePage
+    fixture.loginAsKeyworker ITAG_USER
 
     when: 'I am logged in and on the home page and the menu is expanded'
     header.dropDownMenu.click()
@@ -60,14 +48,8 @@ class KeyWorkerRoleBasedAccessSpecification extends GebReportingSpec {
   }
 
   def "should not be able to see the my allocations button when the current user is not a key worker"() {
-    elite2api.stubHealthCheck()
-
     given:
-    to LoginPage
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-    elite2api.stubGetMyDetails(ITAG_USER)
-    loginAs ITAG_USER, 'password'
-    at HomePage
+    fixture.loginAs ITAG_USER
 
     when: 'I am logged in and on the home page'
 
@@ -76,14 +58,8 @@ class KeyWorkerRoleBasedAccessSpecification extends GebReportingSpec {
   }
 
   def "should not see the my key worker allocations link in the menu when the current user is a key worker"() {
-    elite2api.stubHealthCheck()
-
     given:
-    to LoginPage
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-    elite2api.stubGetMyDetails(ITAG_USER)
-    loginAs ITAG_USER, 'password'
-    at HomePage
+    fixture.loginAs ITAG_USER
 
     when: 'I am logged in and on the home page and the menu is expanded'
     header.dropDownMenu.click()
@@ -94,14 +70,8 @@ class KeyWorkerRoleBasedAccessSpecification extends GebReportingSpec {
   }
 
   def "should not be able to navigate to the key worker allocations page when the current user is not a key worker"() {
-    elite2api.stubHealthCheck()
-
     given:
-    to LoginPage
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-    elite2api.stubGetMyDetails(ITAG_USER)
-    loginAs ITAG_USER, 'password'
-    at HomePage
+    fixture.loginAs ITAG_USER
 
     when: 'I navigate to /key-worker-allocations'
     go '/key-worker-allocations'

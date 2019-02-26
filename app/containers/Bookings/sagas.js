@@ -88,16 +88,9 @@ export function* bookingAlertsWatcher() {
 
 export function* onAddAppointment(action) {
   try {
-    const { appointmentType, location, startTime, endTime, comment, offenderNo } = action.payload
+    const { offenderNo } = action.payload
 
-    yield call(addAppointment, {
-      appointmentType,
-      locationId: location,
-      comment,
-      startTime,
-      endTime,
-      offenderNo,
-    })
+    yield call(addAppointment, action.payload)
 
     history.push(`/offenders/${offenderNo}/${DETAILS_TABS.QUICK_LOOK}`)
 

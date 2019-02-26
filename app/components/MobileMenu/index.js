@@ -61,7 +61,7 @@ const MobileMenu = ({ user, setMenuOpen, switchCaseLoad }) => {
       })}
       <a id="mobile-logout" key="logout" href="/auth/logout" data-id="dropdown-option" className="unstyled-link">
         <MobileMenuOption>
-          Log out
+          Sign out
           <ForwardArrow svg={forwardBack} />
         </MobileMenuOption>
       </a>
