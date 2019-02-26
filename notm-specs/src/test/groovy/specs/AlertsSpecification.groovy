@@ -32,7 +32,10 @@ class AlertsSpecification extends GebReportingSpec {
   @IgnoreIf({System.properties['geb.env'] == 'chromeMobile'})
   def "clear filters"() {
     elite2api.stubAlertTypes()
-    elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
+
+    oauthApi.stubUsersMe ITAG_USER
+    oauthApi.stubUserRoles()
+    elite2api.stubGetMyDetailsForKeyWorker ITAG_USER
     elite2api.stubImage()
     elite2api.stubBookingAlerts(bookingId)
     elite2api.stubOffenderDetails(true)

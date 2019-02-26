@@ -4,16 +4,19 @@ const { expect } = chai
 
 const MockAdapter = require('axios-mock-adapter')
 const querystring = require('querystring')
+const clientFactory = require('../../server/api/oauthEnabledClient')
 const { oauthApiFactory } = require('../../server/api/oauthApi')
 
 const clientId = 'clientId'
 const url = 'http://localhost'
 const clientSecret = 'clientSecret'
+const client = clientFactory('http://localhost:8080', 2000)
+const axiosMock = new MockAdapter(client.axiosInstance)
 
 const encodeClientCredentials = () =>
   Buffer.from(`${querystring.escape(clientId)}:${querystring.escape(clientSecret)}`).toString('base64')
 
-const oauthApi = oauthApiFactory({ url, clientId, clientSecret })
+const oauthApi = oauthApiFactory(client, { url, clientId, clientSecret })
 const mock = new MockAdapter(oauthApi.oauthAxios)
 
 const baseResponse = {
@@ -32,6 +35,10 @@ describe('oathApi tests', () => {
       requestConfig = config
       return config
     })
+  })
+
+  afterEach(() => {
+    axiosMock.reset()
   })
 
   describe('refresh', () => {

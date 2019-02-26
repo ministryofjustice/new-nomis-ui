@@ -42,37 +42,17 @@ class Elite2Api extends WireMockRule {
   }
 
   void stubGetMyDetails(UserAccount user, boolean whereaboutsAvailable = false) {
-    stubUsersMe(user)
     stubLocations()
-    stubUserRoles()
     stubStaffRoles(user)
     stubCaseLoads()
     stubWhereabouts(whereaboutsAvailable)
   }
 
   void stubGetMyDetailsForKeyWorker(UserAccount user) {
-    stubUsersMe(user)
     stubLocations()
     stubStaffRolesForKeyWorker(user)
-    stubUserRoles()
     stubCaseLoads()
     stubWhereabouts(false)
-  }
-
-  void stubUsersMe(UserAccount user) {
-    this.stubFor(
-      get('/api/users/me')
-        .willReturn(aResponse()
-        .withStatus(200)
-        .withHeader('Content-Type', 'application/json')
-        .withBody(JsonOutput.toJson([
-        staffId         : user.staffMember.id,
-        username        : user.username,
-        firstName       : user.staffMember.firstName,
-        lastName        : user.staffMember.lastName,
-        email           : 'itaguser@syscon.net',
-        activeCaseLoadId: 'LEI',
-      ]))))
   }
 
   void stubLocations() {
@@ -96,15 +76,6 @@ class Elite2Api extends WireMockRule {
       ]) + ']')))
   }
 
-  void stubUserRoles(def roles = [AccessRoles.omicAdmin, AccessRoles.globalSearch]) {
-    this.stubFor(
-      get('/api/users/me/roles')
-        .willReturn(aResponse()
-        .withStatus(200)
-        .withHeader('Content-Type', 'application/json')
-        .withBody(JsonOutput.toJson(roles))))
-  }
-
   void stubCaseLoads() {
     this.stubFor(
       get('/api/users/me/caseLoads')
@@ -116,7 +87,8 @@ class Elite2Api extends WireMockRule {
          "caseLoadId": "LEI",
          "description": "Leeds",
          "type": "LEI",
-         "caseloadFunction": "LEI"
+         "caseloadFunction": "LEI",
+         "currentlyActive": true
      },
      {                                              
          "caseLoadId": "2",
