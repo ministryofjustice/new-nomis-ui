@@ -4,5 +4,5 @@ branch-defaults:
 deploy:
   artifact: Dockerrun.aws.json
 global:
-  application_name: notm-dev
+  application_name: notm
   default_region: eu-west-2
