@@ -10,12 +10,17 @@ const apiClientCredentials = (clientId, clientSecret) => Buffer.from(`${clientId
 
 /**
  * Return an oauthApi built using the supplied configuration.
+ * @param client
  * @param clientId
  * @param clientSecret
  * @param url
  * @returns a configured oauthApi instance
  */
-const oauthApiFactory = ({ clientId, clientSecret, url }) => {
+const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
+  const get = (context, path) => client.get(context, path).then(response => response.data)
+  const getMyInformation = context => get(context, 'api/user/me')
+  const getUserAccessRoles = context => get(context, 'api/user/me/roles')
+
   const oauthAxios = axios.create({
     baseURL: url,
     url: 'oauth/token',
@@ -75,6 +80,8 @@ const oauthApiFactory = ({ clientId, clientSecret, url }) => {
     makeTokenRequest(querystring.stringify({ refresh_token: refreshToken, grant_type: 'refresh_token' }), 'refresh:')
 
   return {
+    getMyInformation,
+    getUserAccessRoles,
     refresh,
     // Expose the internals so they can be Monkey Patched for testing. Oo oo oo.
     oauthAxios,

@@ -77,6 +77,8 @@ class MyAllocationsSpecification extends GebReportingSpec {
     def keyWorker = ITAG_USER.staffMember
 
     oauthApi.stubValidOAuthTokenRequest()
+    oauthApi.stubUsersMe ITAG_USER
+    oauthApi.stubUserRoles()
     elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
     elite2api.getOffenderSummaryDetails(offenders)
     elite2api.stubImage()

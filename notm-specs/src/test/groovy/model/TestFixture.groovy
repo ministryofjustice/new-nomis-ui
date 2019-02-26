@@ -24,6 +24,8 @@ class TestFixture {
 
         oauthApi.stubValidOAuthTokenRequest()
         browser.to LoginPage
+        oauthApi.stubUsersMe currentUser
+        oauthApi.stubUserRoles()
         elite2Api.stubGetMyDetails currentUser
         browser.page.loginAs currentUser, 'password'
 
@@ -35,6 +37,8 @@ class TestFixture {
 
       oauthApi.stubValidOAuthTokenRequest()
       browser.to LoginPage
+      oauthApi.stubUsersMe currentUser
+      oauthApi.stubUserRoles()
       elite2Api.stubGetMyDetailsForKeyWorker currentUser
       browser.page.loginAs currentUser, 'password'
 

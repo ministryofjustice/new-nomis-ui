@@ -33,6 +33,9 @@ class CaseNoteFilterSpecification extends GebReportingSpec  {
 
   @IgnoreIf({System.properties['geb.env'] == 'chromeMobile'})
   def 'clear filters'() {
+
+    oauthApi.stubUsersMe ITAG_USER
+    oauthApi.stubUserRoles()
     elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
     elite2api.stubImage()
     elite2api.stubBookingCaseNotes(bookingId)

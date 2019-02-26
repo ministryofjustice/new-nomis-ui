@@ -3,6 +3,7 @@ package mockapis
 import com.github.tomakehurst.wiremock.extension.responsetemplating.ResponseTemplateTransformer
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import groovy.json.JsonOutput
+import mockapis.response.AccessRoles
 import model.UserAccount
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*
@@ -12,6 +13,30 @@ class OauthApi extends WireMockRule {
 
   OauthApi() {
     super(wireMockConfig().port(9090).extensions(new ResponseTemplateTransformer(true)))
+  }
+
+  void stubUsersMe(UserAccount user) {
+    this.stubFor(
+      get('/auth/api/user/me')
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody(JsonOutput.toJson([
+        staffId         : user.staffMember.id,
+        username        : user.username,
+        firstName       : user.staffMember.firstName,
+        lastName        : user.staffMember.lastName,
+        email           : 'itaguser@syscon.net',
+      ]))))
+  }
+
+  void stubUserRoles(def roles = [AccessRoles.omicAdmin, AccessRoles.globalSearch]) {
+    this.stubFor(
+      get('/auth/api/user/me/roles')
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody(JsonOutput.toJson(roles))))
   }
 
   void stubAuthorizeRequest() {
