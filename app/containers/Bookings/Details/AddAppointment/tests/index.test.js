@@ -7,10 +7,10 @@ describe('Create appointment functions', () => {
     it('check that Appointment type, location, date and start time have been entered', () => {
       const error = validate(Map({}))
 
-      expect(error.appointmentType).toBe('Please select an appointment type')
-      expect(error.location).toBe('Please select a location')
-      expect(error.eventDate).toBe('Please select a date')
-      expect(error.startTime).toBe('Please select a start time')
+      expect(error.appointmentType).toBe('Select appointment type')
+      expect(error.location).toBe('Select location')
+      expect(error.eventDate).toBe('Select date')
+      expect(error.startTime).toBe('Select start time')
     })
 
     it('should ensure that the event date is not in the past', () => {
@@ -24,7 +24,7 @@ describe('Create appointment functions', () => {
         })
       )
 
-      expect(error.eventDate).toBe("Date shouldn't be in the past")
+      expect(error.eventDate).toBe('The start date must not be in the past')
     })
 
     it('should ensure that start and end time are not in the past when the event date is today', () => {
@@ -39,8 +39,8 @@ describe('Create appointment functions', () => {
         })
       )
 
-      expect(error.startTime).toBe("Start time shouldn't be in the past")
-      expect(error.endTime).toBe("End time shouldn't be in the past")
+      expect(error.startTime).toBe('The start time must not be in the past')
+      expect(error.endTime).toBe('The end time must be in the future')
     })
 
     it('should ensure the end time does not come before the start time', () => {
@@ -59,7 +59,7 @@ describe('Create appointment functions', () => {
         })
       )
 
-      expect(error.endTime).toBe("End time shouldn't be before Start time")
+      expect(error.endTime).toBe('The end time must be after the start time')
     })
 
     it('should ensure the correct error message when there are no locations available', () => {
@@ -118,7 +118,7 @@ describe('Create appointment functions', () => {
           eventDate: moment(),
         })
       )
-      expect(error.repeatCount).toBe('Date of last appointment must be less than one year from today')
+      expect(error.repeatCount).toBe('Last appointment must be within one year')
     })
 
     it('Should ensure that the last appointment date falls within one year (WEEKLY repeats).', () => {
@@ -130,7 +130,7 @@ describe('Create appointment functions', () => {
           eventDate: moment(),
         })
       )
-      expect(error.repeatCount).toBe('Date of last appointment must be less than one year from today')
+      expect(error.repeatCount).toBe('Last appointment must be within one year')
     })
 
     it('Should ensure that the last appointment date falls within one year (MONTHLY repeats).', () => {
@@ -142,7 +142,7 @@ describe('Create appointment functions', () => {
           eventDate: moment(),
         })
       )
-      expect(error.repeatCount).toBe('Date of last appointment must be less than one year from today')
+      expect(error.repeatCount).toBe('Last appointment must be within one year')
     })
 
     it('Should accept valid repeat values!', () => {

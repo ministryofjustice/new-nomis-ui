@@ -241,43 +241,43 @@ export const validate = (form, props) => {
   const isToday = eventDate ? eventDate.isSame(now, 'day') : false
 
   if (!appointmentType) {
-    error.appointmentType = 'Please select an appointment type'
+    error.appointmentType = 'Select appointment type'
   }
 
   if (!location) {
     if (props && props.viewModel && (!props.viewModel.locations || props.viewModel.locations.length === 0)) {
       error.location = 'No appointment locations set up; please see your Systems administrator'
     } else {
-      error.location = 'Please select a location'
+      error.location = 'Select location'
     }
   }
 
   if (!eventDate) {
-    error.eventDate = 'Please select a date'
+    error.eventDate = 'Select date'
   } else {
     if (eventDate.isValid() === false) {
-      error.eventDate = 'Please enter a valid date'
+      error.eventDate = 'Date is required'
     }
     if (eventDate.isBefore(now, 'day')) {
-      error.eventDate = "Date shouldn't be in the past"
+      error.eventDate = 'The start date must not be in the past'
     }
   }
 
   if (!startTime) {
-    error.startTime = 'Please select a start time'
+    error.startTime = 'Select start time'
   }
 
   if (isToday && moment(startTime).isBefore(now)) {
-    error.startTime = "Start time shouldn't be in the past"
+    error.startTime = 'The start time must not be in the past'
   }
 
   if (isToday && moment(endTime).isBefore(now)) {
-    error.endTime = "End time shouldn't be in the past"
+    error.endTime = 'The end time must be in the future'
   }
 
   if (moment(endTime, DATE_TIME_FORMAT_SPEC).isBefore(moment(startTime, DATE_TIME_FORMAT_SPEC), 'minute')) {
-    error.endTime = "End time shouldn't be before Start time"
-    error.startTime = "Start time should't be after End time"
+    error.endTime = 'The end time must be after the start time'
+    error.startTime = 'The start time must be before the end time'
   }
 
   if (recurringAppointment === true) {
@@ -302,7 +302,7 @@ export const validate = (form, props) => {
           .add(1, 'years')
       )
     ) {
-      error.repeatCount = 'Date of last appointment must be less than one year from today'
+      error.repeatCount = 'Last appointment must be within one year'
     }
   }
 
