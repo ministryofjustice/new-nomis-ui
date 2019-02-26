@@ -48,7 +48,9 @@ class LoginSpecification extends GebReportingSpec {
         given: 'I am on the Login page'
         to LoginPage
 
-        elite2api.stubGetMyDetails(ITAG_USER)
+        oauthApi.stubUsersMe ITAG_USER
+        oauthApi.stubUserRoles()
+        elite2api.stubGetMyDetails ITAG_USER
 
         when: "I login using valid credentials"
         loginAs ITAG_USER, 'password'
@@ -63,6 +65,8 @@ class LoginSpecification extends GebReportingSpec {
         given: 'I am on the Login page'
         to LoginPage
 
+        oauthApi.stubUsersMe ITAG_USER
+        oauthApi.stubUserRoles()
         elite2api.stubGetMyDetails(ITAG_USER, true)
 
         when: "I login using valid credentials"

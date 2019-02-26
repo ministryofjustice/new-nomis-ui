@@ -31,8 +31,9 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
 
   const getKeyworker = async (context, offenderNo) => {
     try {
-      const me = await eliteApi.getMyInformation(context)
-      return await keyworkerApi.getKeyworkerByCaseloadAndOffenderNo(context, me.activeCaseLoadId, offenderNo)
+      const caseloads = await eliteApi.getCaseLoads(context)
+      const activeCaseLoadId = caseloads.find(cl => cl.currentlyActive).caseLoadId
+      return await keyworkerApi.getKeyworkerByCaseloadAndOffenderNo(context, activeCaseLoadId, offenderNo)
     } catch (error) {
       return {}
     }

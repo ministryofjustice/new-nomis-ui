@@ -1,16 +1,18 @@
 const { logger } = require('./logger')
 
-const userServiceFactory = elite2Api => {
-  async function setActiveCaseloadToTheDefaultOne(context, details) {
-    const caseLoads = await elite2Api.get(context, '/api/users/me/caseLoads')
-    if (caseLoads.length > 0) {
-      const firstCaseLoad = caseLoads[0].caseLoadId
-      logger.warn({ details }, `No active caseload set: setting to ${firstCaseLoad}`)
-      await elite2Api.put(context, '/api/users/me/activeCaseLoad', { caseLoadId: firstCaseLoad })
-      return {
-        ...details,
-        activeCaseLoadId: firstCaseLoad,
-      }
+const userServiceFactory = (elite2Api, oauthApi) => {
+  async function getActiveCaseloadAndSetIfNotSet(context, details) {
+    const caseloads = await elite2Api.getCaseLoads(context)
+
+    const activeCaseLoad = caseloads.find(cl => cl.currentlyActive)
+
+    if (activeCaseLoad) return activeCaseLoad.caseLoadId
+
+    if (caseloads.length > 0) {
+      const firstCaseLoadId = caseloads[0].caseLoadId
+      logger.warn({ details }, `No active caseload set: setting to ${firstCaseLoadId}`)
+      await elite2Api.put(context, '/api/users/me/activeCaseLoad', { caseLoadId: firstCaseLoadId })
+      return firstCaseLoadId
     }
     const msg = 'No active caseload set: none available'
     logger.error({ details }, msg)
@@ -19,16 +21,14 @@ const userServiceFactory = elite2Api => {
 
   const me = async context => {
     const [detailsData, accessRoles] = await Promise.all([
-      elite2Api.getMyInformation(context),
-      elite2Api.getUserAccessRoles(context),
+      oauthApi.getMyInformation(context),
+      oauthApi.getUserAccessRoles(context),
     ])
 
-    const details = !detailsData.activeCaseLoadId
-      ? await setActiveCaseloadToTheDefaultOne(context, detailsData)
-      : detailsData
+    const activeCaseLoadId = await getActiveCaseloadAndSetIfNotSet(context, detailsData)
 
-    const { staffId } = details
-    const agencyId = details.activeCaseLoadId
+    const { staffId } = detailsData
+    const agencyId = activeCaseLoadId
     let staffRoles
     let whereaboutsConfig
     try {
@@ -41,7 +41,8 @@ const userServiceFactory = elite2Api => {
     }
 
     return {
-      ...details,
+      ...detailsData,
+      activeCaseLoadId,
       accessRoles: accessRoles || [],
       staffRoles: staffRoles || [],
       isWhereabouts: whereaboutsConfig && whereaboutsConfig.enabled,

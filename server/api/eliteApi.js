@@ -34,6 +34,7 @@ const eliteApiFactory = client => {
   const getBalances = (context, bookingId) => get(context, `api/bookings/${bookingId}/balances`)
   const getCategoryAssessment = (context, bookingId) =>
     get(context, `api/bookings/${bookingId}/assessment/CATEGORY`).catch(map404ToNull)
+  const getCaseLoads = context => get(context, '/api/users/me/caseLoads')
   const getContacts = (context, bookingId) => get(context, `api/bookings/${bookingId}/contacts`)
   const getDetails = (context, offenderNo) => get(context, `api/bookings/offenderNo/${offenderNo}?fullInfo=true`)
   const getDetailsLight = (context, offenderNo) => get(context, `api/bookings/offenderNo/${offenderNo}?fullInfo=false`)
@@ -46,7 +47,6 @@ const eliteApiFactory = client => {
     get(context, `api/agencies/${agencyId}/locations?eventType=APP`)
   const getKeyworker = (context, offenderNo) => get(context, `api/bookings/offenderNo/${offenderNo}/key-worker`)
   const getMainOffence = (context, bookingId) => get(context, `api/bookings/${bookingId}/mainOffence`)
-  const getMyInformation = context => get(context, 'api/users/me')
   const getNegativeCaseNotes = ({ context, bookingId, fromDate, toDate }) =>
     get(context, `api/bookings/${bookingId}/caseNotes/NEG/IEP_WARN/count?fromDate=${fromDate}&toDate=${toDate}`)
   const getNextVisit = (context, bookingId) => get(context, `api/bookings/${bookingId}/visits/next`)
@@ -61,7 +61,6 @@ const eliteApiFactory = client => {
 
   const getSummaryForOffenders = (context, offenderNumbers) =>
     get(context, `api/bookings?iepLevel=true&${toQueryParameters(offenderNumbers)}`)
-  const getUserAccessRoles = context => get(context, 'api/users/me/roles')
   const getWhereaboutsConfig = (context, agencyId) => get(context, `api/agencies/${agencyId}/locations/whereabouts`)
 
   // get existing events for an offender
@@ -89,6 +88,7 @@ const eliteApiFactory = client => {
     getAssignedOffenders,
     getBalances,
     getCategoryAssessment,
+    getCaseLoads,
     getContacts,
     getDetails,
     getDetailsLight,
@@ -100,7 +100,6 @@ const eliteApiFactory = client => {
     getLastVisit,
     getLocationsForAppointments,
     getMainOffence,
-    getMyInformation,
     getNegativeCaseNotes,
     getNextVisit,
     getOffendersSentenceDates,
@@ -110,7 +109,6 @@ const eliteApiFactory = client => {
     getSentenceData,
     getStaffRoles,
     getSummaryForOffenders,
-    getUserAccessRoles,
     getWhereaboutsConfig,
     getVisits,
     getAppointments,

@@ -8,12 +8,14 @@ const sinonChai = require('sinon-chai')
 chai.use(sinonChai)
 
 const { eliteApiFactory } = require('../server/api/eliteApi')
+const { oauthApiFactory } = require('../server/api/oauthApi')
 const { keyworkerApiFactory } = require('../server/api/keyworkerApi')
 const { keyworkerServiceFactory } = require('../server/services/keyworker')
 
 const eliteApi = eliteApiFactory(null)
+const oauthApi = oauthApiFactory(null, { clientId: 'clientId', clientSecret: 'clientSecret', url: 'url' })
 const keyworkerApi = keyworkerApiFactory(null)
-const service = keyworkerServiceFactory(eliteApi, keyworkerApi)
+const service = keyworkerServiceFactory(eliteApi, oauthApi, keyworkerApi)
 
 const context = {}
 
@@ -22,20 +24,25 @@ describe('Key worker service', () => {
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create()
-    sandbox.stub(eliteApi, 'getMyInformation')
+    sandbox.stub(eliteApi, 'getCaseLoads')
     sandbox.stub(eliteApi, 'getSummaryForOffenders')
     sandbox.stub(eliteApi, 'getAssignedOffenders')
     sandbox.stub(eliteApi, 'getOffendersSentenceDates')
     sandbox.stub(eliteApi, 'caseNoteUsageList')
 
+    sandbox.stub(oauthApi, 'getMyInformation')
+
     sandbox.stub(keyworkerApi, 'getKeyworkerByStaffIdAndPrisonId')
     sandbox.stub(keyworkerApi, 'getPrisonMigrationStatus')
     sandbox.stub(keyworkerApi, 'getAssignedOffenders')
 
-    eliteApi.getMyInformation.returns({
-      activeCaseLoadId: 'LEI',
-      staffId: 1,
-    })
+    eliteApi.getCaseLoads.returns([
+      {
+        caseLoadId: 'LEI',
+        currentlyActive: true,
+      },
+    ])
+    oauthApi.getMyInformation.returns({ staffId: 1 })
   })
 
   afterEach(() => sandbox.restore())

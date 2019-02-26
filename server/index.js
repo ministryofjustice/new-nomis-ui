@@ -117,14 +117,20 @@ const keyworkerApi = keyworkerApiFactory(
   })
 )
 
-const oauthApi = oauthApiFactory({ ...config.apis.oauth2 })
+const oauthApi = oauthApiFactory(
+  clientFactory({
+    baseUrl: config.apis.oauth2.url,
+    timeout: config.apis.oauth2.timeoutSeconds * 1000,
+  }),
+  { ...config.apis.oauth2 }
+)
 auth.init(oauthApi)
 const tokenRefresher = tokeRefresherFactory(oauthApi.refresh, config.app.tokenRefreshThresholdSeconds)
 
-const userService = userServiceFactory(eliteApi)
+const userService = userServiceFactory(eliteApi, oauthApi)
 const bookingService = bookingServiceFactory(eliteApi, keyworkerApi)
 const eventsService = eventsServiceFactory(eliteApi)
-const keyworkerService = keyworkerServiceFactory(eliteApi, keyworkerApi)
+const keyworkerService = keyworkerServiceFactory(eliteApi, oauthApi, keyworkerApi)
 
 const controller = controllerFactory({
   elite2Api: eliteApi,

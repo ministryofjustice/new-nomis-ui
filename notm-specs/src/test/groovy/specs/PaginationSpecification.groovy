@@ -33,7 +33,9 @@ class PaginationSpecification extends GebReportingSpec {
   @IgnoreIf({System.properties['geb.env'] == 'chromeMobile'})
   def "should be able to page through the alerts"() {
     elite2api.stubAlertTypes()
-    elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
+    oauthApi.stubUsersMe ITAG_USER
+    oauthApi.stubUserRoles()
+    elite2api.stubGetMyDetailsForKeyWorker ITAG_USER
     elite2api.stubImage()
     elite2api.stubBookingAlerts(bookingId)
     elite2api.stubOffenderDetails(true)
@@ -67,7 +69,9 @@ class PaginationSpecification extends GebReportingSpec {
   }
 
   def "should be able to page through the case notes"() {
-    elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
+    oauthApi.stubUsersMe ITAG_USER
+    oauthApi.stubUserRoles()
+    elite2api.stubGetMyDetailsForKeyWorker ITAG_USER
     elite2api.stubImage()
     elite2api.stubBookingCaseNotes(bookingId)
     elite2api.stubOffenderDetails(true)

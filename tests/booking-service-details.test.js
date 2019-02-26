@@ -25,7 +25,7 @@ describe('Booking Service Booking details', () => {
     sandbox.stub(eliteApi, 'getIepSummary')
     sandbox.stub(eliteApi, 'getDetailsLight')
     sandbox.stub(eliteApi, 'getKeyworker')
-    sandbox.stub(eliteApi, 'getMyInformation')
+    sandbox.stub(eliteApi, 'getCaseLoads')
     sandbox.stub(keyworkerApi, 'getKeyworkerByCaseloadAndOffenderNo')
 
     eliteApi.getDetailsLight.returns({
@@ -36,7 +36,7 @@ describe('Booking Service Booking details', () => {
       category: 'Cat B',
     })
     eliteApi.getIepSummary.returns({ iepLevel: null })
-    eliteApi.getMyInformation.returns({ activeCaseloadId: 'LEI' })
+    eliteApi.getCaseLoads.returns([{ caseLoadId: 'LEI', currentlyActive: true }])
     keyworkerApi.getKeyworkerByCaseloadAndOffenderNo.returns({ firstName: 'John' })
   })
 
