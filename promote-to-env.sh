@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 display_usage() {
-  echo -e "\nUsage: $0 [tag] [dev|stage|preprod|prod]\n"
+  echo -e "\nUsage: $0 [tag] [preprod|prod]\n"
 }
 
 promote_to_env() {
@@ -36,7 +36,7 @@ fi
 TAG=$1
 ENV=$2
 
-if [[ "$ENV" =~ ^(dev|stage|preprod|prod)$ ]]; then
+if [[ "$ENV" =~ ^(preprod|prod)$ ]]; then
     echo "Deploying to $ENV"
 else
     echo "$ENV is not a valid environment"
