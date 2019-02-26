@@ -182,7 +182,7 @@ app.use('/app/bookings/scheduled/events/forThisWeek/:offenderNo', controller.eve
 app.use('/app/bookings/scheduled/events/forNextWeek/:offenderNo', controller.eventsForNextWeek)
 app.use('/app/bookings/loadAppointmentViewModel/:agencyId', controller.loadAppointmentViewModel)
 app.use('/app/bookings/getExistingEvents/:agencyId/:offenderNo', controller.getExistingEvents)
-app.use('/app/bookings/addAppointment/:offenderNo', controller.addAppointment)
+app.use('/app/appointments/:offenderNo', controller.addAppointment)
 app.use('/app/bookings/:offenderNo/alerts', controller.alerts)
 app.get('/app/bookings/:offenderNo/caseNotes', controller.caseNotes)
 app.post('/app/bookings/:offenderNo/caseNotes', controller.addCaseNote)
