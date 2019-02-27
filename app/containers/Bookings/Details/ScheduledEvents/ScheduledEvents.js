@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
 import { List } from 'immutable'
-import uuid from 'uuid/v4'
 import Radio from '@govuk-react/radio'
 import Header from '@govuk-react/header'
+import uuid from 'uuid/v4'
 
 import { FormattedDate } from '../../../../components/intl'
 import { Model as offenderDetailsModel } from '../../../../helpers/dataMappers/offenderDetails'
@@ -31,16 +31,16 @@ export class ScheduledEvents extends Component {
   }
 
   renderEvent = eventPeriods => {
-    if (!eventPeriods || eventPeriods.size === 0) return <span>No activities or appointments</span>
+    if (!eventPeriods || eventPeriods.size === 0) return 'No activities or appointments.'
 
     return eventPeriods.map(period => (
       <Event
+        key={uuid()}
         startTime={period.get('startTime')}
         endTime={period.get('endTime')}
         type={period.get('type')}
         shortComment={period.get('shortComment')}
         cancelled={period.get('cancelled')}
-        key={uuid()}
       />
     ))
   }
@@ -48,9 +48,7 @@ export class ScheduledEvents extends Component {
   render() {
     const { scheduledEvents } = this.props
 
-    if (!scheduledEvents && !scheduledEvents) {
-      return null
-    }
+    if (scheduledEvents.size === 0) return null
 
     const {
       loadThisWeeksScheduledEvents,
@@ -59,8 +57,6 @@ export class ScheduledEvents extends Component {
       currentFilter,
       offenderDetails: { firstName, lastName },
     } = this.props
-
-    // console.log('scheduledEvents', scheduledEvents)
 
     const { thisWeek, nextWeek } = currentFilter.toJS()
 
@@ -92,7 +88,7 @@ export class ScheduledEvents extends Component {
         </ScheduleFilters>
 
         {scheduledEvents.map(day => (
-          <DayContainer key={uuid()}>
+          <DayContainer key={day.get('date')}>
             <Header level={2} size="MEDIUM">
               <DayWithDate value={day.get('date')} />{' '}
               <FormattedDate value={day.get('date')} month="long" day="2-digit" />

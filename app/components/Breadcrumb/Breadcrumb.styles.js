@@ -12,9 +12,6 @@ export const BreadcrumbContainer = styled('div')({
   },
   marginTop: SPACING.SCALE_3,
   WebkitFontSmoothing: 'antialiased',
-  [MEDIA_QUERIES.PRINT]: {
-    display: 'none',
-  },
 })
 
 export const BreadcrumbList = styled('ul')({

@@ -8,6 +8,9 @@ export const NavigationContainer = styled('div')`
     display: flex;
     align-items: center;
   }
+  @media print {
+    display: none;
+  }
 `
 export const ContextLinkContainer = styled('div')`
   margin-top: ${SPACING.SCALE_3};

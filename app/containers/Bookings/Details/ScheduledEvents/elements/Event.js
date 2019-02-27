@@ -3,18 +3,12 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import styled from 'react-emotion'
 import { SPACING } from '@govuk-react/constants'
-import { typography } from '@govuk-react/lib'
 
 export const StyledEvent = styled('div')`
   margin-bottom: ${SPACING.SCALE_3};
-  ${typography.font({ size: 19 })};
 
   :last-of-type {
     margin-bottom: 0;
-  }
-
-  @media print {
-    font-size: 14px;
   }
 `
 

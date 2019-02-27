@@ -1,0 +1,1241 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Scheduled /> should match the default snapshot 1`] = `
+Array [
+  <div
+    className="css-1kgemzi"
+  >
+    <div
+      className="css-2n4gqn"
+    >
+      <ul
+        className="css-1me48lg"
+      >
+        <li
+          className="css-122wdxf"
+        >
+          <span
+            location={
+              Object {
+                "hash": "",
+                "key": "testKey",
+                "pathname": "/",
+                "search": "",
+              }
+            }
+            match={
+              Object {
+                "isExact": true,
+                "params": Object {},
+                "path": "/",
+                "url": "/",
+              }
+            }
+          >
+            Home
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>,
+  <div
+    className="css-1bxbnlh"
+  >
+    <h1
+      className="e1vcssft0 css-162lx7h-StyledHeader-StyledHoc e4u1u2g0"
+      data-qa="page-heading-text"
+      size="LARGE"
+    >
+      Schedule for Test User
+    </h1>
+    <div
+      className="page-content"
+    >
+      <div
+        className="css-1twtykl"
+      >
+        <label
+          className="eghbvew0 css-p3popv-Label-StyledHoc eqinktp0"
+        >
+          <input
+            checked="checked"
+            className="css-1cykcm5-Input eqinktp1"
+            id="thisWeek"
+            name="radio-inline-group"
+            onChange={[Function]}
+            onClick={[Function]}
+            type="radio"
+            value="Yes"
+          />
+          <span
+            className="css-11gu4gd-LabelText eqinktp2"
+          >
+            This week
+          </span>
+        </label>
+        <label
+          className="eghbvew0 css-p3popv-Label-StyledHoc eqinktp0"
+        >
+          <input
+            checked={undefined}
+            className="css-1cykcm5-Input eqinktp1"
+            id="nextWeek"
+            name="radio-inline-group"
+            onChange={[Function]}
+            onClick={[Function]}
+            type="radio"
+            value="Yes"
+          />
+          <span
+            className="css-11gu4gd-LabelText eqinktp2"
+          >
+            Next week
+          </span>
+        </label>
+      </div>
+      <div
+        className="css-1vcrthw"
+      >
+        <h2
+          className="e1vcssft0 css-1wlsbnr-StyledHeader-StyledHoc e4u1u2g0"
+          size="MEDIUM"
+        >
+          Wednesday
+           
+          <span>
+            02/27/2019
+          </span>
+        </h2>
+        <div
+          className="css-m24vi6"
+        >
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Morning (AM)
+            </h3>
+            <div
+              className="css-1fvvzmf"
+              value="morning"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Afternoon (PM)
+            </h3>
+            <div
+              className="css-17cqpt5"
+              value="afternoon"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Evening Duty (ED)
+            </h3>
+            <div
+              className="css-ypt7d4"
+              value="evening"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="css-1vcrthw"
+      >
+        <h2
+          className="e1vcssft0 css-1wlsbnr-StyledHeader-StyledHoc e4u1u2g0"
+          size="MEDIUM"
+        >
+          Thursday
+           
+          <span>
+            02/28/2019
+          </span>
+        </h2>
+        <div
+          className="css-m24vi6"
+        >
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Morning (AM)
+            </h3>
+            <div
+              className="css-1fvvzmf"
+              value="morning"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Afternoon (PM)
+            </h3>
+            <div
+              className="css-17cqpt5"
+              value="afternoon"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Evening Duty (ED)
+            </h3>
+            <div
+              className="css-ypt7d4"
+              value="evening"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="css-1vcrthw"
+      >
+        <h2
+          className="e1vcssft0 css-1wlsbnr-StyledHeader-StyledHoc e4u1u2g0"
+          size="MEDIUM"
+        >
+          Friday
+           
+          <span>
+            03/01/2019
+          </span>
+        </h2>
+        <div
+          className="css-m24vi6"
+        >
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Morning (AM)
+            </h3>
+            <div
+              className="css-1fvvzmf"
+              value="morning"
+            >
+              <div
+                className="css-8fnfo7"
+              >
+                <span
+                  className="whereabouts-startTime"
+                >
+                  10:00
+                </span>
+                 
+                - 
+                <span
+                  className="whereabouts-endTime"
+                >
+                   
+                  10:10
+                   
+                </span>
+                <div
+                  className="css-g90fw7"
+                >
+                  Careers Adviser Appointment
+                </div>
+                I'm a recurring bulk appointment.
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Afternoon (PM)
+            </h3>
+            <div
+              className="css-17cqpt5"
+              value="afternoon"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Evening Duty (ED)
+            </h3>
+            <div
+              className="css-ypt7d4"
+              value="evening"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="css-1vcrthw"
+      >
+        <h2
+          className="e1vcssft0 css-1wlsbnr-StyledHeader-StyledHoc e4u1u2g0"
+          size="MEDIUM"
+        >
+          Saturday
+           
+          <span>
+            03/02/2019
+          </span>
+        </h2>
+        <div
+          className="css-m24vi6"
+        >
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Morning (AM)
+            </h3>
+            <div
+              className="css-1fvvzmf"
+              value="morning"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Afternoon (PM)
+            </h3>
+            <div
+              className="css-17cqpt5"
+              value="afternoon"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Evening Duty (ED)
+            </h3>
+            <div
+              className="css-ypt7d4"
+              value="evening"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="css-1vcrthw"
+      >
+        <h2
+          className="e1vcssft0 css-1wlsbnr-StyledHeader-StyledHoc e4u1u2g0"
+          size="MEDIUM"
+        >
+          Sunday
+           
+          <span>
+            03/03/2019
+          </span>
+        </h2>
+        <div
+          className="css-m24vi6"
+        >
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Morning (AM)
+            </h3>
+            <div
+              className="css-1fvvzmf"
+              value="morning"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Afternoon (PM)
+            </h3>
+            <div
+              className="css-17cqpt5"
+              value="afternoon"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Evening Duty (ED)
+            </h3>
+            <div
+              className="css-ypt7d4"
+              value="evening"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="css-1vcrthw"
+      >
+        <h2
+          className="e1vcssft0 css-1wlsbnr-StyledHeader-StyledHoc e4u1u2g0"
+          size="MEDIUM"
+        >
+          Monday
+           
+          <span>
+            03/04/2019
+          </span>
+        </h2>
+        <div
+          className="css-m24vi6"
+        >
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Morning (AM)
+            </h3>
+            <div
+              className="css-1fvvzmf"
+              value="morning"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Afternoon (PM)
+            </h3>
+            <div
+              className="css-17cqpt5"
+              value="afternoon"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Evening Duty (ED)
+            </h3>
+            <div
+              className="css-ypt7d4"
+              value="evening"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="css-1vcrthw"
+      >
+        <h2
+          className="e1vcssft0 css-1wlsbnr-StyledHeader-StyledHoc e4u1u2g0"
+          size="MEDIUM"
+        >
+          Tuesday
+           
+          <span>
+            03/05/2019
+          </span>
+        </h2>
+        <div
+          className="css-m24vi6"
+        >
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Morning (AM)
+            </h3>
+            <div
+              className="css-1fvvzmf"
+              value="morning"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Afternoon (PM)
+            </h3>
+            <div
+              className="css-17cqpt5"
+              value="afternoon"
+            >
+              <div
+                className="css-8fnfo7"
+              >
+                <span
+                  className="whereabouts-startTime"
+                >
+                  13:00
+                </span>
+                 
+                - 
+                <span
+                  className="whereabouts-endTime"
+                >
+                   
+                  14:00
+                   
+                </span>
+                <div
+                  className="css-g90fw7"
+                >
+                  Another appointment
+                </div>
+                I'm another appointment.
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Evening Duty (ED)
+            </h3>
+            <div
+              className="css-ypt7d4"
+              value="evening"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`<Scheduled /> should match the snapshot with a cancelled event 1`] = `
+Array [
+  <div
+    className="css-1kgemzi"
+  >
+    <div
+      className="css-2n4gqn"
+    >
+      <ul
+        className="css-1me48lg"
+      >
+        <li
+          className="css-122wdxf"
+        >
+          <span
+            location={
+              Object {
+                "hash": "",
+                "key": "testKey",
+                "pathname": "/",
+                "search": "",
+              }
+            }
+            match={
+              Object {
+                "isExact": true,
+                "params": Object {},
+                "path": "/",
+                "url": "/",
+              }
+            }
+          >
+            Home
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>,
+  <div
+    className="css-1bxbnlh"
+  >
+    <h1
+      className="e1vcssft0 css-162lx7h-StyledHeader-StyledHoc e4u1u2g0"
+      data-qa="page-heading-text"
+      size="LARGE"
+    >
+      Schedule for Test User
+    </h1>
+    <div
+      className="page-content"
+    >
+      <div
+        className="css-1twtykl"
+      >
+        <label
+          className="eghbvew0 css-p3popv-Label-StyledHoc eqinktp0"
+        >
+          <input
+            checked="checked"
+            className="css-1cykcm5-Input eqinktp1"
+            id="thisWeek"
+            name="radio-inline-group"
+            onChange={[Function]}
+            onClick={[Function]}
+            type="radio"
+            value="Yes"
+          />
+          <span
+            className="css-11gu4gd-LabelText eqinktp2"
+          >
+            This week
+          </span>
+        </label>
+        <label
+          className="eghbvew0 css-p3popv-Label-StyledHoc eqinktp0"
+        >
+          <input
+            checked={undefined}
+            className="css-1cykcm5-Input eqinktp1"
+            id="nextWeek"
+            name="radio-inline-group"
+            onChange={[Function]}
+            onClick={[Function]}
+            type="radio"
+            value="Yes"
+          />
+          <span
+            className="css-11gu4gd-LabelText eqinktp2"
+          >
+            Next week
+          </span>
+        </label>
+      </div>
+      <div
+        className="css-1vcrthw"
+      >
+        <h2
+          className="e1vcssft0 css-1wlsbnr-StyledHeader-StyledHoc e4u1u2g0"
+          size="MEDIUM"
+        >
+          Wednesday
+           
+          <span>
+            02/27/2019
+          </span>
+        </h2>
+        <div
+          className="css-m24vi6"
+        >
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Morning (AM)
+            </h3>
+            <div
+              className="css-1fvvzmf"
+              value="morning"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Afternoon (PM)
+            </h3>
+            <div
+              className="css-17cqpt5"
+              value="afternoon"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Evening Duty (ED)
+            </h3>
+            <div
+              className="css-ypt7d4"
+              value="evening"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="css-1vcrthw"
+      >
+        <h2
+          className="e1vcssft0 css-1wlsbnr-StyledHeader-StyledHoc e4u1u2g0"
+          size="MEDIUM"
+        >
+          Thursday
+           
+          <span>
+            02/28/2019
+          </span>
+        </h2>
+        <div
+          className="css-m24vi6"
+        >
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Morning (AM)
+            </h3>
+            <div
+              className="css-1fvvzmf"
+              value="morning"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Afternoon (PM)
+            </h3>
+            <div
+              className="css-17cqpt5"
+              value="afternoon"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Evening Duty (ED)
+            </h3>
+            <div
+              className="css-ypt7d4"
+              value="evening"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="css-1vcrthw"
+      >
+        <h2
+          className="e1vcssft0 css-1wlsbnr-StyledHeader-StyledHoc e4u1u2g0"
+          size="MEDIUM"
+        >
+          Friday
+           
+          <span>
+            03/01/2019
+          </span>
+        </h2>
+        <div
+          className="css-m24vi6"
+        >
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Morning (AM)
+            </h3>
+            <div
+              className="css-1fvvzmf"
+              value="morning"
+            >
+              <div
+                className="css-8fnfo7"
+              >
+                <span
+                  className="whereabouts-startTime"
+                >
+                  10:00
+                </span>
+                 
+                - 
+                <span
+                  className="whereabouts-endTime"
+                >
+                   
+                  10:10
+                   
+                </span>
+                <div
+                  className="css-g90fw7"
+                >
+                  Careers Adviser Appointment
+                </div>
+                I'm a recurring bulk appointment.
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Afternoon (PM)
+            </h3>
+            <div
+              className="css-17cqpt5"
+              value="afternoon"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Evening Duty (ED)
+            </h3>
+            <div
+              className="css-ypt7d4"
+              value="evening"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="css-1vcrthw"
+      >
+        <h2
+          className="e1vcssft0 css-1wlsbnr-StyledHeader-StyledHoc e4u1u2g0"
+          size="MEDIUM"
+        >
+          Saturday
+           
+          <span>
+            03/02/2019
+          </span>
+        </h2>
+        <div
+          className="css-m24vi6"
+        >
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Morning (AM)
+            </h3>
+            <div
+              className="css-1fvvzmf"
+              value="morning"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Afternoon (PM)
+            </h3>
+            <div
+              className="css-17cqpt5"
+              value="afternoon"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Evening Duty (ED)
+            </h3>
+            <div
+              className="css-ypt7d4"
+              value="evening"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="css-1vcrthw"
+      >
+        <h2
+          className="e1vcssft0 css-1wlsbnr-StyledHeader-StyledHoc e4u1u2g0"
+          size="MEDIUM"
+        >
+          Sunday
+           
+          <span>
+            03/03/2019
+          </span>
+        </h2>
+        <div
+          className="css-m24vi6"
+        >
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Morning (AM)
+            </h3>
+            <div
+              className="css-1fvvzmf"
+              value="morning"
+            >
+              <div
+                className="css-8fnfo7"
+              >
+                <span
+                  className="whereabouts-startTime"
+                >
+                  11:00
+                </span>
+                 
+                - 
+                <span
+                  className="whereabouts-endTime"
+                >
+                   
+                  11:30
+                   
+                </span>
+                <div
+                  className="css-g90fw7"
+                >
+                  Another appointment
+                </div>
+                I'm another appointment.
+                <span
+                  className="cancelled"
+                >
+                   (cancelled)
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Afternoon (PM)
+            </h3>
+            <div
+              className="css-17cqpt5"
+              value="afternoon"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Evening Duty (ED)
+            </h3>
+            <div
+              className="css-ypt7d4"
+              value="evening"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="css-1vcrthw"
+      >
+        <h2
+          className="e1vcssft0 css-1wlsbnr-StyledHeader-StyledHoc e4u1u2g0"
+          size="MEDIUM"
+        >
+          Monday
+           
+          <span>
+            03/04/2019
+          </span>
+        </h2>
+        <div
+          className="css-m24vi6"
+        >
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Morning (AM)
+            </h3>
+            <div
+              className="css-1fvvzmf"
+              value="morning"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Afternoon (PM)
+            </h3>
+            <div
+              className="css-17cqpt5"
+              value="afternoon"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Evening Duty (ED)
+            </h3>
+            <div
+              className="css-ypt7d4"
+              value="evening"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="css-1vcrthw"
+      >
+        <h2
+          className="e1vcssft0 css-1wlsbnr-StyledHeader-StyledHoc e4u1u2g0"
+          size="MEDIUM"
+        >
+          Tuesday
+           
+          <span>
+            03/05/2019
+          </span>
+        </h2>
+        <div
+          className="css-m24vi6"
+        >
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Morning (AM)
+            </h3>
+            <div
+              className="css-1fvvzmf"
+              value="morning"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Afternoon (PM)
+            </h3>
+            <div
+              className="css-17cqpt5"
+              value="afternoon"
+            >
+              <div
+                className="css-8fnfo7"
+              >
+                <span
+                  className="whereabouts-startTime"
+                >
+                  13:00
+                </span>
+                 
+                - 
+                <span
+                  className="whereabouts-endTime"
+                >
+                   
+                  14:00
+                   
+                </span>
+                <div
+                  className="css-g90fw7"
+                >
+                  Another appointment
+                </div>
+                I'm another appointment.
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-wwpffz"
+          >
+            <h3
+              className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+              size="SMALL"
+            >
+              Evening Duty (ED)
+            </h3>
+            <div
+              className="css-ypt7d4"
+              value="evening"
+            >
+              No activities or appointments.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;

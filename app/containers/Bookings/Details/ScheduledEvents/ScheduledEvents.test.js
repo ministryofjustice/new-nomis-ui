@@ -1,9 +1,15 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import renderer from 'react-test-renderer'
+import { IntlProvider } from 'react-intl'
+import { MemoryRouter } from 'react-router-dom'
 import { Map, List } from 'immutable'
 import { ScheduledEvents } from './ScheduledEvents'
 
-const events = List([
+jest.mock('react-redux', () => ({
+  connect: () => ReactComponent => ReactComponent,
+}))
+
+const scheduledEvents = List([
   Map({
     date: '2019-02-27T15:40:17.317Z',
     morningActivities: List([]),
@@ -26,15 +32,6 @@ const events = List([
         startTime: '2019-03-01T10:00:00',
         endTime: '2019-03-01T10:10:00',
         cancelled: false,
-        eventStatus: 'SCH',
-      }),
-      Map({
-        type: 'Another appointment',
-        comment: "I'm another appointment.",
-        shortComment: "I'm another appointment.",
-        startTime: '2019-03-01T11:00:00',
-        endTime: '2019-03-01T12:00:00',
-        cancelled: true,
         eventStatus: 'SCH',
       }),
     ]),
@@ -64,12 +61,13 @@ const events = List([
     morningActivities: List([]),
     afternoonActivities: List([
       Map({
+        uuid: '456',
         type: 'Another appointment',
         comment: "I'm another appointment.",
         shortComment: "I'm another appointment.",
-        startTime: '2019-03-01T11:00:00',
-        endTime: '2019-03-01T12:00:00',
-        cancelled: true,
+        startTime: '2019-03-01T13:00:00',
+        endTime: '2019-03-01T14:00:00',
+        cancelled: false,
         eventStatus: 'SCH',
       }),
     ]),
@@ -80,7 +78,7 @@ const events = List([
 describe('<Scheduled />', () => {
   const props = {
     offenderNo: 'A12345',
-    scheduledEvents: events,
+    scheduledEvents,
     offenderDetails: {
       firstName: 'Test',
       lastName: 'User',
@@ -92,15 +90,44 @@ describe('<Scheduled />', () => {
     loadBookingDetails: jest.fn(),
   }
 
-  it('renders correctly', () => {
-    const wrapper = shallow(<ScheduledEvents {...props} />)
+  it('should match the default snapshot', () => {
+    const tree = renderer
+      .create(
+        <IntlProvider locale="en">
+          <MemoryRouter initialEntries={[{ pathname: '/', key: 'testKey' }]}>
+            <ScheduledEvents {...props} />
+          </MemoryRouter>
+        </IntlProvider>
+      )
+      .toJSON()
 
-    console.log(wrapper.debug())
+    expect(tree).toMatchSnapshot()
   })
 
-  it('should pass the correct offender name to the page title', () => {
-    const wrapper = shallow(<ScheduledEvents {...props} />)
+  it('should match the snapshot with a cancelled event', () => {
+    const cancelledEvent = Map({
+      type: 'Another appointment',
+      comment: "I'm another appointment.",
+      shortComment: "I'm another appointment.",
+      startTime: '2019-03-01T11:00:00',
+      endTime: '2019-03-01T11:30:00',
+      cancelled: true,
+      eventStatus: 'SCH',
+    })
+    const updatedSchedule = scheduledEvents.map(event =>
+      event.get('date') === '2019-03-03T15:40:17.317Z' ? event.setIn(['morningActivities', 0], cancelledEvent) : event
+    )
 
-    expect(wrapper.find('withRouter(Connect(Page))').prop('title')).toEqual('Schedule for Test User')
+    const tree = renderer
+      .create(
+        <IntlProvider locale="en">
+          <MemoryRouter initialEntries={[{ pathname: '/', key: 'testKey' }]}>
+            <ScheduledEvents {...props} scheduledEvents={updatedSchedule} />
+          </MemoryRouter>
+        </IntlProvider>
+      )
+      .toJSON()
+
+    expect(tree).toMatchSnapshot()
   })
 })

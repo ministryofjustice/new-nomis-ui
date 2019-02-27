@@ -1,6 +1,6 @@
 import styled from 'react-emotion'
 import { SPACING, BREAKPOINTS } from '@govuk-react/constants'
-import { spacing } from '@govuk-react/lib'
+import { spacing, typography } from '@govuk-react/lib'
 import { BORDER_COLOUR } from 'govuk-colours'
 
 export const DayContainer = styled('div')`
@@ -14,7 +14,6 @@ export const DayContainer = styled('div')`
   @media print {
     padding: ${SPACING.SCALE_3} 0;
   }
-
 `
 
 export const ScheduleFilters = styled('div')`
@@ -73,9 +72,11 @@ export const EventsContainer = styled('div')`
     if (props.value === 'afternoon') return '#d5e8f4'
     return '#bedcee'
   }};
+  ${typography.font({ size: 19 })};
 
   @media print {
     padding: 0;
     background: none;
+    font-size: 14px;
   }
 `
