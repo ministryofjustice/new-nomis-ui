@@ -5,13 +5,16 @@ const contextProperties = require('../server/contextProperties')
 describe('Should read/write properties', () => {
   describe('Should set / get tokens', () => {
     const context = {}
-    contextProperties.setTokens({ access_token: 'a', refresh_token: 'b' }, context)
+    contextProperties.setTokens({ access_token: 'a', refresh_token: 'b', authSource: 'joe' }, context)
 
     it('should set the access token', () => {
       expect(contextProperties.getAccessToken(context)).to.be.equal('a')
     })
     it('should set the refresh token', () => {
       expect(contextProperties.getRefreshToken(context)).to.be.equal('b')
+    })
+    it('should set the auth source', () => {
+      expect(context.authSource).to.be.equal('joe')
     })
   })
 
@@ -99,6 +102,12 @@ describe('Should read/write properties', () => {
       'sort-order': 'ASC',
       'total-records': 100,
     })
+  })
+
+  it('Should set page limit', () => {
+    const context = {}
+    contextProperties.setPageLimit(context, 1000)
+    expect(contextProperties.getRequestPagination(context)).to.deep.equal({ 'page-limit': 1000 })
   })
 
   it('Should return an empty responsePagination object if no values were set', () => {

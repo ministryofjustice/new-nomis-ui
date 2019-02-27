@@ -89,7 +89,8 @@ app.use('/config', (req, res) => {
     adminUtilitiesUrl: url.resolve(omicUrl, 'admin-utilities'),
     whereaboutsUrl: url.resolve(prisonStaffHubUrl, 'search-prisoner-whereabouts'),
     establishmentRollcheckUrl: url.resolve(prisonStaffHubUrl, 'establishment-roll'),
-    globalSearchUrl: url.resolve(prisonStaffHubUrl, 'global-search-results'),
+    globalSearchResultsUrl: url.resolve(prisonStaffHubUrl, 'global-search-results'),
+    globalSearchUrl: url.resolve(prisonStaffHubUrl, 'global-search'),
     mailTo,
   })
 })
@@ -117,14 +118,20 @@ const keyworkerApi = keyworkerApiFactory(
   })
 )
 
-const oauthApi = oauthApiFactory({ ...config.apis.oauth2 })
+const oauthApi = oauthApiFactory(
+  clientFactory({
+    baseUrl: config.apis.oauth2.url,
+    timeout: config.apis.oauth2.timeoutSeconds * 1000,
+  }),
+  { ...config.apis.oauth2 }
+)
 auth.init(oauthApi)
 const tokenRefresher = tokeRefresherFactory(oauthApi.refresh, config.app.tokenRefreshThresholdSeconds)
 
-const userService = userServiceFactory(eliteApi)
+const userService = userServiceFactory(eliteApi, oauthApi)
 const bookingService = bookingServiceFactory(eliteApi, keyworkerApi)
 const eventsService = eventsServiceFactory(eliteApi)
-const keyworkerService = keyworkerServiceFactory(eliteApi, keyworkerApi)
+const keyworkerService = keyworkerServiceFactory(eliteApi, oauthApi, keyworkerApi)
 
 const controller = controllerFactory({
   elite2Api: eliteApi,
@@ -182,7 +189,7 @@ app.use('/app/bookings/scheduled/events/forThisWeek/:offenderNo', controller.eve
 app.use('/app/bookings/scheduled/events/forNextWeek/:offenderNo', controller.eventsForNextWeek)
 app.use('/app/bookings/loadAppointmentViewModel/:agencyId', controller.loadAppointmentViewModel)
 app.use('/app/bookings/getExistingEvents/:agencyId/:offenderNo', controller.getExistingEvents)
-app.use('/app/bookings/addAppointment/:offenderNo', controller.addAppointment)
+app.use('/app/appointments/:offenderNo', controller.addAppointment)
 app.use('/app/bookings/:offenderNo/alerts', controller.alerts)
 app.get('/app/bookings/:offenderNo/caseNotes', controller.caseNotes)
 app.post('/app/bookings/:offenderNo/caseNotes', controller.addCaseNote)

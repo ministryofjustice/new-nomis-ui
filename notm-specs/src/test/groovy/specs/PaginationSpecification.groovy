@@ -33,9 +33,9 @@ class PaginationSpecification extends GebReportingSpec {
   @IgnoreIf({System.properties['geb.env'] == 'chromeMobile'})
   def "should be able to page through the alerts"() {
     elite2api.stubAlertTypes()
-    elite2api.stubHealthCheck()
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-    elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
+    oauthApi.stubUsersMe ITAG_USER
+    oauthApi.stubUserRoles()
+    elite2api.stubGetMyDetailsForKeyWorker ITAG_USER
     elite2api.stubImage()
     elite2api.stubBookingAlerts(bookingId)
     elite2api.stubOffenderDetails(true)
@@ -47,7 +47,7 @@ class PaginationSpecification extends GebReportingSpec {
     elite2api.stubAliases()
 
     given: 'I navigate to an offenders alerts page'
-    fixture.loginAs(ITAG_USER)
+    fixture.loginAs ITAG_USER
     go "/offenders/${offenderNo}/alerts"
 
     when: "I can see the first 10 alerts and click on the next page link"
@@ -69,9 +69,9 @@ class PaginationSpecification extends GebReportingSpec {
   }
 
   def "should be able to page through the case notes"() {
-    elite2api.stubHealthCheck()
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-    elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
+    oauthApi.stubUsersMe ITAG_USER
+    oauthApi.stubUserRoles()
+    elite2api.stubGetMyDetailsForKeyWorker ITAG_USER
     elite2api.stubImage()
     elite2api.stubBookingCaseNotes(bookingId)
     elite2api.stubOffenderDetails(true)
@@ -85,7 +85,7 @@ class PaginationSpecification extends GebReportingSpec {
     elite2api.stubMeCaseNoteTypes()
 
     given: 'I navigate to an offenders case notes'
-    fixture.loginAs(ITAG_USER)
+    fixture.loginAs ITAG_USER
     go "/offenders/${offenderNo}/case-notes"
 
     when: 'I can see the first ten case notes and click on the next page link'

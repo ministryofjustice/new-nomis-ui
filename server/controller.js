@@ -172,9 +172,11 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
     }
 
     const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo)
+    req.body.appointments = [{ bookingId }]
 
-    const data = await elite2Api.post(res.locals, `/api/bookings/${bookingId}/appointments`, req.body)
-    res.json(data)
+    await elite2Api.post(res.locals, `/api/appointments`, req.body)
+    res.status(200)
+    res.end()
   })
 
   const alerts = asyncMiddleware(async (req, res) => {

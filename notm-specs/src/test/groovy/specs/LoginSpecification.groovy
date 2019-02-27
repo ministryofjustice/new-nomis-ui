@@ -2,16 +2,14 @@ package specs
 
 import geb.spock.GebReportingSpec
 import groovy.util.logging.Slf4j
-import mockapis.OauthApi
-import org.junit.Rule
 import mockapis.Elite2Api
+import mockapis.OauthApi
 import model.TestFixture
+import org.junit.Rule
 import pages.HomePage
 import pages.LoginPage
-import spock.lang.Ignore
 
 import static model.UserAccount.ITAG_USER
-import static model.UserAccount.NOT_KNOWN
 
 @Slf4j
 class LoginSpecification extends GebReportingSpec {
@@ -24,13 +22,10 @@ class LoginSpecification extends GebReportingSpec {
 
     TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
 
-    def setup(){
-      elite2api.stubHealthCheck()
-    }
-
     def "The login page is present"() {
 
-      when: 'I go to the login page'
+        when: 'I go to the login page'
+        oauthApi.stubAuthorizeRequest()
         to LoginPage
 
         then: 'The Login page is displayed'
@@ -38,6 +33,7 @@ class LoginSpecification extends GebReportingSpec {
     }
 
    def "Default URI redirects to Login page"() {
+        oauthApi.stubAuthorizeRequest()
 
         when: "I go to the website URL using an empty path"
         go '/'
@@ -47,12 +43,14 @@ class LoginSpecification extends GebReportingSpec {
    }
 
    def "Log in with valid credentials"() {
+        oauthApi.stubValidOAuthTokenRequest()
 
         given: 'I am on the Login page'
         to LoginPage
 
-        oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-        elite2api.stubGetMyDetails(ITAG_USER)
+        oauthApi.stubUsersMe ITAG_USER
+        oauthApi.stubUserRoles()
+        elite2api.stubGetMyDetails ITAG_USER
 
         when: "I login using valid credentials"
         loginAs ITAG_USER, 'password'
@@ -62,11 +60,13 @@ class LoginSpecification extends GebReportingSpec {
     }
 
     def "Log in successfully with external links available at current caseload prison"() {
+        oauthApi.stubValidOAuthTokenRequest()
 
         given: 'I am on the Login page'
         to LoginPage
 
-        oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
+        oauthApi.stubUsersMe ITAG_USER
+        oauthApi.stubUserRoles()
         elite2api.stubGetMyDetails(ITAG_USER, true)
 
         when: "I login using valid credentials"
@@ -78,44 +78,12 @@ class LoginSpecification extends GebReportingSpec {
         whereaboutsLink.text().contains('Manage prisoner whereabouts')
     }
 
-    def "Unknown user is rejected"() {
-
-        given: 'I am on the Login page'
-        oauthApi.stubInvalidOAuthTokenRequest(NOT_KNOWN)
-        to LoginPage
-
-        when: 'I login using an unknown username'
-        loginAs NOT_KNOWN, 'password'
-
-        then: 'I remain on the login page'
-        at LoginPage
-
-        and: 'I am told why I couldn\'t log in'
-        errors.message == 'The username or password you have entered is invalid.'
-    }
-
-    def "Unknown password is rejected"() {
-
-        given: 'I am on the Login page'
-        oauthApi.stubInvalidOAuthTokenRequest(ITAG_USER, true)
-        to LoginPage
-
-        when: 'I login using an unknown username'
-        loginAs ITAG_USER, 'wildGuess'
-
-        then: 'I remain on the login page'
-        at LoginPage
-
-        and: 'I am told why I couldn\'t log in'
-        errors.message == 'The username or password you have entered is invalid.'
-    }
-
     def "Log out"() {
-
         given: "I have logged in"
-        fixture.loginAs(ITAG_USER)
+        fixture.loginAs ITAG_USER
 
         when: "I log out"
+        oauthApi.stubLogout()
         header.logout()
 
         then: "I am returned to the Login page."

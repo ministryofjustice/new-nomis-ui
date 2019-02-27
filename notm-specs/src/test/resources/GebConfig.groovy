@@ -6,7 +6,7 @@ import org.openqa.selenium.chrome.ChromeOptions
 atCheckWaiting = true
 
 waiting {
-  timeout = 5
+  timeout = 10
 }
 
 environments {
@@ -40,6 +40,15 @@ environments {
 // Default if geb.env is not set to one of 'chrome', or 'chromeHeadless'
 driver = {
   new ChromeDriver()
+//  new ChromeDriver(
+//    new ChromeDriverService.Builder()
+//      .withVerbose(true)
+//      .withLogFile(new File('build/chromedriver.log'))
+//      .build(),
+//    new ChromeOptions()
+//      .setExperimentalOption(
+//      "mobileEmulation",
+//      ['deviceName': 'Nexus 5']))
 }
 
 baseUrl = "http://localhost:3000/"
@@ -48,3 +57,6 @@ reportsDir = "build/geb-reports"
 
 // Don't report anything
 reporter = new CompositeReporter();
+
+// Close browser on shutdown - uncomment to enable
+// quitCachedDriverOnShutdown = false

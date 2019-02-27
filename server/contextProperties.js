@@ -6,11 +6,13 @@
  */
 
 // eslint-disable-next-line camelcase
-const setTokens = ({ access_token, refresh_token }, context) => {
+const setTokens = ({ access_token, refresh_token, authSource }, context) => {
   // eslint-disable-next-line no-param-reassign,camelcase
   context.access_token = access_token
   // eslint-disable-next-line no-param-reassign,camelcase
   context.refresh_token = refresh_token
+  // eslint-disable-next-line no-param-reassign
+  context.authSource = authSource
 }
 
 const hasTokens = context => Boolean(context && context.access_token && context.refresh_token)
@@ -56,6 +58,10 @@ const setResponsePagination = (context, headers) => {
 
 const getResponsePagination = context => context.responseHeaders || {}
 
+const setPageLimit = (context, limit) => {
+  setRequestPagination(context, { 'page-limit': limit })
+}
+
 module.exports = {
   setTokens,
   hasTokens,
@@ -65,4 +71,5 @@ module.exports = {
   getRequestPagination,
   setResponsePagination,
   getResponsePagination,
+  setPageLimit,
 }

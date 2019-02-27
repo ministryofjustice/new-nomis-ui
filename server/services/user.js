@@ -1,50 +1,54 @@
 const { logger } = require('./logger')
 
-const userServiceFactory = elite2Api => {
-  async function setActiveCaseloadToTheDefaultOne(context, details) {
-    const caseLoads = await elite2Api.get(context, '/api/users/me/caseLoads')
-    if (caseLoads.length > 0) {
-      const firstCaseLoad = caseLoads[0].caseLoadId
-      logger.warn({ details }, `No active caseload set: setting to ${firstCaseLoad}`)
-      await elite2Api.put(context, '/api/users/me/activeCaseLoad', { caseLoadId: firstCaseLoad })
-      return {
-        ...details,
-        activeCaseLoadId: firstCaseLoad,
-      }
+const userServiceFactory = (elite2Api, oauthApi) => {
+  async function getActiveCaseloadAndSetIfNotSet(context, details) {
+    const caseloads = await elite2Api.getCaseLoads(context)
+
+    const activeCaseLoad = caseloads.find(cl => cl.currentlyActive)
+
+    if (activeCaseLoad) return activeCaseLoad.caseLoadId
+
+    const potentialCaseLoad = caseloads.find(cl => cl.caseLoadId !== '___')
+    if (potentialCaseLoad) {
+      const firstCaseLoadId = potentialCaseLoad.caseLoadId
+      logger.warn({ details }, `No active caseload set: setting to ${firstCaseLoadId}`)
+      await elite2Api.put(context, '/api/users/me/activeCaseLoad', { caseLoadId: firstCaseLoadId })
+      return firstCaseLoadId
     }
     const msg = 'No active caseload set: none available'
-    logger.error({ details }, msg)
-    throw new Error(msg)
+    logger.info({ details }, msg)
+    return undefined
   }
 
   const me = async context => {
     const [detailsData, accessRoles] = await Promise.all([
-      elite2Api.getMyInformation(context),
-      elite2Api.getUserAccessRoles(context),
+      oauthApi.getMyInformation(context),
+      oauthApi.getUserAccessRoles(context),
     ])
 
-    const details = !detailsData.activeCaseLoadId
-      ? await setActiveCaseloadToTheDefaultOne(context, detailsData)
-      : detailsData
+    const activeCaseLoadId = await getActiveCaseloadAndSetIfNotSet(context, detailsData)
 
-    const { staffId } = details
-    const agencyId = details.activeCaseLoadId
+    const { staffId } = detailsData
+
     let staffRoles
     let whereaboutsConfig
-    try {
-      ;[staffRoles, whereaboutsConfig] = await Promise.all([
-        elite2Api.getStaffRoles(context, staffId, agencyId),
-        elite2Api.getWhereaboutsConfig(context, agencyId),
-      ])
-    } catch (error) {
-      logger.error(error)
+    if (activeCaseLoadId) {
+      try {
+        ;[staffRoles, whereaboutsConfig] = await Promise.all([
+          elite2Api.getStaffRoles(context, staffId, activeCaseLoadId),
+          elite2Api.getWhereaboutsConfig(context, activeCaseLoadId),
+        ])
+      } catch (error) {
+        logger.error(error)
+      }
     }
 
     return {
-      ...details,
+      ...detailsData,
+      activeCaseLoadId,
       accessRoles: accessRoles || [],
       staffRoles: staffRoles || [],
-      isWhereabouts: whereaboutsConfig && whereaboutsConfig.enabled,
+      isWhereabouts: (whereaboutsConfig && whereaboutsConfig.enabled) || false,
     }
   }
 

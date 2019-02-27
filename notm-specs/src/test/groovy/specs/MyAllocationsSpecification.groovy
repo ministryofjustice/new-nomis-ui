@@ -2,14 +2,14 @@ package specs
 
 import geb.spock.GebReportingSpec
 import groovy.util.logging.Slf4j
+import mockapis.Elite2Api
+import mockapis.KeyworkerApi
 import mockapis.OauthApi
 import model.Offender
 import org.junit.Rule
-import mockapis.Elite2Api
-import mockapis.KeyworkerApi
-import pages.MyAllocationsPage
 import pages.HomePage
 import pages.LoginPage
+import pages.MyAllocationsPage
 
 import static model.UserAccount.ITAG_USER
 
@@ -76,8 +76,9 @@ class MyAllocationsSpecification extends GebReportingSpec {
     def staffId = ITAG_USER.staffMember.id
     def keyWorker = ITAG_USER.staffMember
 
-    elite2api.stubHealthCheck()
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
+    oauthApi.stubValidOAuthTokenRequest()
+    oauthApi.stubUsersMe ITAG_USER
+    oauthApi.stubUserRoles()
     elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
     elite2api.getOffenderSummaryDetails(offenders)
     elite2api.stubImage()

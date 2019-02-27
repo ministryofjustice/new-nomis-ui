@@ -7,7 +7,6 @@ import mockapis.KeyworkerApi
 import mockapis.OauthApi
 import model.TestFixture
 import model.UserAccount
-
 import org.junit.Rule
 import pages.HomePage
 
@@ -27,7 +26,6 @@ class HomePageSpecification extends GebReportingSpec {
 
   def "should show the global search check box when the current is has the global search access role"() {
     given: "the user is logged in and has the global search access role"
-    elite2api.stubHealthCheck()
     fixture.loginAs(UserAccount.ITAG_USER)
 
     when: 'I am on the homepage'

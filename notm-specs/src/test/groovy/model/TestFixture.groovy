@@ -22,11 +22,26 @@ class TestFixture {
     def loginAs(UserAccount user) {
         currentUser = user
 
+        oauthApi.stubValidOAuthTokenRequest()
         browser.to LoginPage
-        oauthApi.stubValidOAuthTokenRequest currentUser
+        oauthApi.stubUsersMe currentUser
+        oauthApi.stubUserRoles()
         elite2Api.stubGetMyDetails currentUser
         browser.page.loginAs currentUser, 'password'
 
         browser.at HomePage
+    }
+
+    def loginAsKeyworker(UserAccount user) {
+      currentUser = user
+
+      oauthApi.stubValidOAuthTokenRequest()
+      browser.to LoginPage
+      oauthApi.stubUsersMe currentUser
+      oauthApi.stubUserRoles()
+      elite2Api.stubGetMyDetailsForKeyWorker currentUser
+      browser.page.loginAs currentUser, 'password'
+
+      browser.at HomePage
     }
 }

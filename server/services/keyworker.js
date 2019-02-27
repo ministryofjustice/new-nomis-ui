@@ -1,4 +1,6 @@
-const keyworkerServiceFactory = (eliteApi, keyworkerApi) => {
+const { setPageLimit } = require('../contextProperties')
+
+const keyworkerServiceFactory = (eliteApi, oauthApi, keyworkerApi) => {
   const getAssignedOffenders = async (context, staffId, agencyId) => {
     const status = await keyworkerApi.getPrisonMigrationStatus(context, agencyId)
 
@@ -57,7 +59,11 @@ const keyworkerServiceFactory = (eliteApi, keyworkerApi) => {
   }
 
   const getIfKeyWorkerIsEnabled = async context => {
-    const { staffId, activeCaseLoadId } = await eliteApi.getMyInformation(context)
+    const [{ staffId }, caseloads] = await Promise.all([
+      oauthApi.getMyInformation(context),
+      eliteApi.getCaseLoads(context),
+    ])
+    const activeCaseLoadId = caseloads.find(cl => cl.currentlyActive).caseLoadId
     const keyworker = await keyworkerApi.getKeyworkerByStaffIdAndPrisonId(context, staffId, activeCaseLoadId)
 
     return {
@@ -69,6 +75,8 @@ const keyworkerServiceFactory = (eliteApi, keyworkerApi) => {
 
   const myAllocationsViewModel = async context => {
     const { staffId, activeCaseLoadId, capacity } = await getIfKeyWorkerIsEnabled(context)
+
+    setPageLimit(context, 200)
 
     const allocations = await offendersLastKWSession(
       context,

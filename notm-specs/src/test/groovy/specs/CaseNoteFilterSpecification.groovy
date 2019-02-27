@@ -1,5 +1,6 @@
 package specs
 
+import geb.module.Select
 import geb.spock.GebReportingSpec
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
@@ -7,8 +8,6 @@ import mockapis.OauthApi
 import model.TestFixture
 import org.junit.Rule
 import pages.CaseNotesPage
-
-import geb.module.Select
 import spock.lang.IgnoreIf
 
 import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
@@ -34,8 +33,9 @@ class CaseNoteFilterSpecification extends GebReportingSpec  {
 
   @IgnoreIf({System.properties['geb.env'] == 'chromeMobile'})
   def 'clear filters'() {
-    elite2api.stubHealthCheck()
-    oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
+
+    oauthApi.stubUsersMe ITAG_USER
+    oauthApi.stubUserRoles()
     elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
     elite2api.stubImage()
     elite2api.stubBookingCaseNotes(bookingId)
@@ -50,7 +50,7 @@ class CaseNoteFilterSpecification extends GebReportingSpec  {
     elite2api.stubMeCaseNoteTypes()
 
     given: 'I navigate to an offenders case notes'
-    fixture.loginAs(ITAG_USER)
+    fixture.loginAs ITAG_USER
     go "/offenders/${offenderNo}/case-notes"
 
     at CaseNotesPage

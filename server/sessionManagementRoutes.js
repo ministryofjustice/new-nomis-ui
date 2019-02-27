@@ -15,18 +15,9 @@ const isXHRRequest = req =>
  * @param mailTo The email address displayed at the bottom of the login page.
  */
 const configureRoutes = ({ app, healthApi, tokenRefresher, mailTo }) => {
-  const authLogoutUrl = config.app.remoteAuthStrategy
-    ? `${config.apis.oauth2.ui_url}logout?client_id=${config.apis.oauth2.clientId}&redirect_uri=${config.app.url}`
-    : '/login'
-
-  const loginIndex = async (req, res) => {
-    const isApiUp = await healthApi.isUp()
-    logger.info(`loginIndex - health check called and isApiUp = ${isApiUp}`)
-    const errors = req.flash('error')
-    const authError = Boolean(errors && errors.length > 0)
-    const authErrorText = (authError && errors[0]) || ''
-    res.render('pages/login', { authError, authErrorText, apiUp: isApiUp, mailTo })
-  }
+  const authLogoutUrl = `${config.apis.oauth2.ui_url}logout?client_id=${config.apis.oauth2.clientId}&redirect_uri=${
+    config.app.url
+  }`
 
   const remoteLoginIndex = passport.authenticate('oauth2')
 
@@ -101,8 +92,7 @@ const configureRoutes = ({ app, healthApi, tokenRefresher, mailTo }) => {
     res.redirect('/login')
   }
 
-  app.get('/login', loginMiddleware, config.app.remoteAuthStrategy ? remoteLoginIndex : loginIndex)
-  if (!config.app.remoteAuthStrategy) app.post('/login', login)
+  app.get('/login', loginMiddleware, remoteLoginIndex)
 
   app.get('/login/callback', (req, res, next) => {
     passport.authenticate('oauth2', (err, user, info) => {
