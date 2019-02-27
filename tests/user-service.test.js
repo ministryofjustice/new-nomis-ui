@@ -73,15 +73,32 @@ describe('User service', () => {
     expect(elite2Api.getWhereaboutsConfig).calledWith(context, 'FIRST')
   })
 
-  it('should throw an error if no caseload is set or available', async () => {
+  it('should return undefined if only caseload is ___', async () => {
+    const context = { hello: 'Hello!' }
+    elite2Api.getCaseLoads.returns([{ caseLoadId: '___' }])
+    const viewModel = await userService.me(context)
+
+    expect(viewModel).to.deep.equal({
+      ...details,
+      activeCaseLoadId: undefined,
+      accessRoles,
+      staffRoles: [],
+      isWhereabouts: false,
+    })
+  })
+
+  it('should return undefined if no caseload is set or available', async () => {
     const context = { hello: 'Hello!' }
     elite2Api.getCaseLoads.returns([])
-    try {
-      await userService.me(context)
-      expect.fail('should have thrown error')
-    } catch (error) {
-      expect(error.message).to.equal('No active caseload set: none available')
-    }
+    const viewModel = await userService.me(context)
+
+    expect(viewModel).to.deep.equal({
+      ...details,
+      activeCaseLoadId: undefined,
+      accessRoles,
+      staffRoles: [],
+      isWhereabouts: false,
+    })
   })
 
   it('should combine user info, access roles and staff roles into one view model', async () => {

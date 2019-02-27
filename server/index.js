@@ -89,7 +89,8 @@ app.use('/config', (req, res) => {
     adminUtilitiesUrl: url.resolve(omicUrl, 'admin-utilities'),
     whereaboutsUrl: url.resolve(prisonStaffHubUrl, 'search-prisoner-whereabouts'),
     establishmentRollcheckUrl: url.resolve(prisonStaffHubUrl, 'establishment-roll'),
-    globalSearchUrl: url.resolve(prisonStaffHubUrl, 'global-search-results'),
+    globalSearchResultsUrl: url.resolve(prisonStaffHubUrl, 'global-search-results'),
+    globalSearchUrl: url.resolve(prisonStaffHubUrl, 'global-search'),
     mailTo,
   })
 })

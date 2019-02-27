@@ -15,14 +15,14 @@ class HomePage extends Component {
   }
 
   render() {
-    const { user, omicUrl, whereaboutsUrl, establishmentRollcheckUrl, adminUtilitiesUrl } = this.props
+    const { user, omicUrl, whereaboutsUrl, establishmentRollcheckUrl, adminUtilitiesUrl, globalSearchUrl } = this.props
     if (!user) {
       return <div />
     }
 
     return (
       <Page title="Welcome back" showBreadcrumb={false}>
-        <SearchForm />
+        {user.activeCaseLoadId && <SearchForm />}
         <div>
           <ActionLinks
             isKeyWorkerAdmin={user.isKeyWorkerAdmin}
@@ -30,9 +30,12 @@ class HomePage extends Component {
             isWhereabouts={user.isWhereabouts}
             omicUrl={omicUrl}
             whereaboutsUrl={whereaboutsUrl}
+            isEstablishmentRollCheck={user.activeCaseLoadId || false}
             establishmentRollcheckUrl={establishmentRollcheckUrl}
             hasAdminRights={user.hasAdminRights}
             adminUtilitiesUrl={adminUtilitiesUrl}
+            isGlobalSearch={user.canGlobalSearch}
+            globalSearchUrl={globalSearchUrl}
           />
         </div>
       </Page>
@@ -47,6 +50,7 @@ HomePage.propTypes = {
   whereaboutsUrl: PropTypes.string,
   establishmentRollcheckUrl: PropTypes.string,
   adminUtilitiesUrl: PropTypes.string,
+  globalSearchUrl: PropTypes.string,
 
   // mapDispatchToProps
   boundLoadLocations: PropTypes.func.isRequired,
@@ -58,6 +62,7 @@ HomePage.defaultProps = {
   whereaboutsUrl: null,
   establishmentRollcheckUrl: null,
   adminUtilitiesUrl: null,
+  globalSearchUrl: null,
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -70,6 +75,7 @@ const mapStateToProps = state => ({
   adminUtilitiesUrl: state.getIn(['app', 'adminUtilitiesUrl']),
   establishmentRollcheckUrl: state.getIn(['app', 'establishmentRollcheckUrl']),
   whereaboutsUrl: state.getIn(['app', 'whereaboutsUrl']),
+  globalSearchUrl: state.getIn(['app', 'globalSearchUrl']),
 })
 
 export default connect(

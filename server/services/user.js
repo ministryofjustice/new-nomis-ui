@@ -8,15 +8,16 @@ const userServiceFactory = (elite2Api, oauthApi) => {
 
     if (activeCaseLoad) return activeCaseLoad.caseLoadId
 
-    if (caseloads.length > 0) {
-      const firstCaseLoadId = caseloads[0].caseLoadId
+    const potentialCaseLoad = caseloads.find(cl => cl.caseLoadId !== '___')
+    if (potentialCaseLoad) {
+      const firstCaseLoadId = potentialCaseLoad.caseLoadId
       logger.warn({ details }, `No active caseload set: setting to ${firstCaseLoadId}`)
       await elite2Api.put(context, '/api/users/me/activeCaseLoad', { caseLoadId: firstCaseLoadId })
       return firstCaseLoadId
     }
     const msg = 'No active caseload set: none available'
-    logger.error({ details }, msg)
-    throw new Error(msg)
+    logger.info({ details }, msg)
+    return undefined
   }
 
   const me = async context => {
@@ -28,16 +29,18 @@ const userServiceFactory = (elite2Api, oauthApi) => {
     const activeCaseLoadId = await getActiveCaseloadAndSetIfNotSet(context, detailsData)
 
     const { staffId } = detailsData
-    const agencyId = activeCaseLoadId
+
     let staffRoles
     let whereaboutsConfig
-    try {
-      ;[staffRoles, whereaboutsConfig] = await Promise.all([
-        elite2Api.getStaffRoles(context, staffId, agencyId),
-        elite2Api.getWhereaboutsConfig(context, agencyId),
-      ])
-    } catch (error) {
-      logger.error(error)
+    if (activeCaseLoadId) {
+      try {
+        ;[staffRoles, whereaboutsConfig] = await Promise.all([
+          elite2Api.getStaffRoles(context, staffId, activeCaseLoadId),
+          elite2Api.getWhereaboutsConfig(context, activeCaseLoadId),
+        ])
+      } catch (error) {
+        logger.error(error)
+      }
     }
 
     return {
@@ -45,7 +48,7 @@ const userServiceFactory = (elite2Api, oauthApi) => {
       activeCaseLoadId,
       accessRoles: accessRoles || [],
       staffRoles: staffRoles || [],
-      isWhereabouts: whereaboutsConfig && whereaboutsConfig.enabled,
+      isWhereabouts: (whereaboutsConfig && whereaboutsConfig.enabled) || false,
     }
   }
 
