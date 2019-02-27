@@ -1,6 +1,6 @@
 import styled from 'react-emotion'
 import { SPACING, BREAKPOINTS } from '@govuk-react/constants'
-import { typography, spacing } from '@govuk-react/lib'
+import { spacing } from '@govuk-react/lib'
 import { BORDER_COLOUR } from 'govuk-colours'
 
 export const DayContainer = styled('div')`
@@ -13,7 +13,6 @@ export const DayContainer = styled('div')`
 
   @media print {
     padding: ${SPACING.SCALE_3} 0;
-    page-break-inside: avoid;
   }
 
 `
@@ -42,6 +41,12 @@ export const TimePeriodsContainer = styled('div')`
 export const TimePeriod = styled('div')`
   margin-bottom: ${SPACING.SCALE_3};
 
+  &:first-of-type {
+    margin-left: 0;
+    padding-left: 0;
+    border-left: 0;
+  }
+
   &:last-of-type {
     margin-bottom: 0;
   }
@@ -52,17 +57,11 @@ export const TimePeriod = styled('div')`
     flex: 1 33.3333%;
     margin-bottom: 0;
     margin-left: ${SPACING.SCALE_3};
+  }
 
-    @media print {
-      padding-left: ${SPACING.SCALE_3};
-      border-left: 1px solid ${BORDER_COLOUR};
-    }
-
-    &:first-of-type {
-      margin-left: 0;
-      padding-left: 0;
-      border-left: 0;
-    }
+  @media print {
+    padding-left: ${SPACING.SCALE_3};
+    border-left: 1px solid ${BORDER_COLOUR};
   }
 `
 
@@ -74,11 +73,9 @@ export const Appointments = styled('div')`
     if (props.value === 'afternoon') return '#d5e8f4'
     return '#bedcee'
   }};
-  ${typography.font({ size: 19 })};
 
   @media print {
     padding: 0;
     background: none;
-    font-size: 14px;
   }
 `
