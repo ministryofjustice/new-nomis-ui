@@ -104,6 +104,12 @@ describe('Should read/write properties', () => {
     })
   })
 
+  it('Should set page limit', () => {
+    const context = {}
+    contextProperties.setPageLimit(context, 1000)
+    expect(contextProperties.getRequestPagination(context)).to.deep.equal({ 'page-limit': 1000 })
+  })
+
   it('Should return an empty responsePagination object if no values were set', () => {
     const context = {}
     contextProperties.setResponsePagination(context, {})

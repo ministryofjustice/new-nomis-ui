@@ -250,11 +250,11 @@ const AddAppointment = ({
                 <div className="col-md-4 no-left-gutter">
                   <Field
                     name="repeatCount"
-                    title="Number of times"
+                    title="Occurrences"
                     hint={['Up to a maximum of 1 year']}
                     component={NumberInput}
                   >
-                    Number of times
+                    Occurrences
                   </Field>
                 </div>
               </div>
