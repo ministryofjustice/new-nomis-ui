@@ -15,6 +15,9 @@ describe('Actions component', () => {
         omicUrl=""
         whereaboutsUrl=""
         establishmentRollcheckUrl=""
+        isEstablishmentRollCheck={false}
+        isGlobalSearch={false}
+        globalSearchUrl=""
         adminUtilitiesUrl=""
       />
     )
@@ -32,11 +35,14 @@ describe('Actions component', () => {
         omicUrl="//omicURL"
         whereaboutsUrl=""
         establishmentRollcheckUrl=""
+        isEstablishmentRollCheck={false}
+        isGlobalSearch={false}
+        globalSearchUrl=""
         adminUtilitiesUrl=""
       />
     )
 
-    expect(wrapper.find('ExternalActionLink').prop('url')).toBe('//omicURL')
+    expect(wrapper.find('ActionLink').prop('url')).toBe('//omicURL')
   })
 
   it('should not show anything when the user does not have any applicable roles', () => {
@@ -49,6 +55,9 @@ describe('Actions component', () => {
         omicUrl=""
         whereaboutsUrl=""
         establishmentRollcheckUrl=""
+        isEstablishmentRollCheck={false}
+        isGlobalSearch={false}
+        globalSearchUrl=""
         adminUtilitiesUrl=""
       />
     )
@@ -56,7 +65,27 @@ describe('Actions component', () => {
     expect(wrapper.find('div').children().length).toBe(0)
   })
 
-  it('should show roll check link when the establishmentRollcheckUrl is configured', () => {
+  it('should show global search link when the user has isGlobalSearch', () => {
+    const wrapper = shallow(
+      <ActionLinks
+        isKeyWorker={false}
+        isKeyWorkerAdmin={false}
+        isWhereabouts={false}
+        hasAdminRights={false}
+        omicUrl=""
+        whereaboutsUrl=""
+        establishmentRollcheckUrl=""
+        isEstablishmentRollCheck={false}
+        globalSearchUrl="http://globalSearchUrl"
+        isGlobalSearch
+        adminUtilitiesUrl=""
+      />
+    )
+
+    expect(wrapper.find('ActionLink').prop('url')).toBe('http://globalSearchUrl')
+  })
+
+  it('should show roll check link when the user has isEstablishmentRollCheck', () => {
     const wrapper = shallow(
       <ActionLinks
         isKeyWorker={false}
@@ -66,11 +95,14 @@ describe('Actions component', () => {
         omicUrl=""
         whereaboutsUrl=""
         establishmentRollcheckUrl="http://establishmentRollCheckURL"
+        isEstablishmentRollCheck
+        isGlobalSearch={false}
+        globalSearchUrl=""
         adminUtilitiesUrl=""
       />
     )
 
-    expect(wrapper.find('ExternalActionLink').prop('url')).toBe('http://establishmentRollCheckURL')
+    expect(wrapper.find('ActionLink').prop('url')).toBe('http://establishmentRollCheckURL')
   })
 
   it('should show admin and utilities link when the user has admin rights', () => {
@@ -83,10 +115,13 @@ describe('Actions component', () => {
         omicUrl=""
         whereaboutsUrl=""
         establishmentRollcheckUrl=""
+        isEstablishmentRollCheck={false}
+        isGlobalSearch={false}
+        globalSearchUrl=""
         adminUtilitiesUrl="http://omicurl/admin-utilities"
       />
     )
 
-    expect(wrapper.find('ExternalActionLink').prop('url')).toBe('http://omicurl/admin-utilities')
+    expect(wrapper.find('ActionLink').prop('url')).toBe('http://omicurl/admin-utilities')
   })
 })
