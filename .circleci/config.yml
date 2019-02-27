@@ -158,7 +158,6 @@ jobs:
             VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
             yarn run plant-beanstalk ${VERSION}
             ~/.local/bin/eb deploy notm-dev --verbose --label ${VERSION}
-            fi
 
 
 workflows:
