@@ -76,7 +76,7 @@ const keyworkerServiceFactory = (eliteApi, oauthApi, keyworkerApi) => {
   const myAllocationsViewModel = async context => {
     const { staffId, activeCaseLoadId, capacity } = await getIfKeyWorkerIsEnabled(context)
 
-    setPageLimit(context, 50)
+    setPageLimit(context, 200)
 
     const allocations = await offendersLastKWSession(
       context,
