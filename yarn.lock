@@ -118,6 +118,13 @@
   dependencies:
     govuk-colours "^1.0.3"
 
+"@govuk-react/constants@^0.6.0-alpha.1":
+  version "0.6.0-alpha.4"
+  resolved "https://registry.yarnpkg.com/@govuk-react/constants/-/constants-0.6.0-alpha.4.tgz#77c083ea6c7c54a3803a79329e95a381af72daec"
+  integrity sha512-UUUPBrLEjLd+opYTdBzZL1pzLnLvWyJYHmP4Fd6trNckuy9kMv2prvzJOc1zWjxhXRLy4J7/HXCRXOiOMFRclg==
+  dependencies:
+    govuk-colours "^1.0.3"
+
 "@govuk-react/header@^0.3.1":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@govuk-react/header/-/header-0.3.1.tgz#8380c9bd978ba50949e9bf1e0a5afb8e300a2317"
@@ -159,6 +166,14 @@
   integrity sha512-mcLQ57yioIqVk3XyiHXUddii5/fOgwfaWUqHV7flj1h0UwXoNtjPVmdrNZS8+TADu58a+WK1k6xDux+idfL2Yg==
   dependencies:
     "@govuk-react/constants" "^0.4.0"
+    govuk-colours "^1.0.3"
+
+"@govuk-react/lib@^0.6.0-alpha.1":
+  version "0.6.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/@govuk-react/lib/-/lib-0.6.0-alpha.1.tgz#45c09e9e3e3bcd7215e6ba19da14ac5e10305776"
+  integrity sha512-W5Ai4EOgEkhYlGueVOM//zjN4r6S0Mk4OXPbHF74px+tkB6AoPODA9EO8xHFcvYlcEAbcxZ1pU8m0DGO/jWtFg==
+  dependencies:
+    "@govuk-react/constants" "^0.6.0-alpha.1"
     govuk-colours "^1.0.3"
 
 "@govuk-react/radio@^0.4.0":
@@ -8026,10 +8041,10 @@ neo-async@^2.5.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.0.tgz#b9d15e4d71c6762908654b5183ed38b753340835"
   integrity sha512-MFh0d/Wa7vkKO3Y3LlacqAEeHK0mckVqzDieUKTT+KGxi+zIpeVsFxymkIiRpbpDziHc290Xr9A1O4Om7otoRA==
 
-new-nomis-shared-components@^1.10.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/new-nomis-shared-components/-/new-nomis-shared-components-1.10.0.tgz#ddf61229aef05c312df3facdc113efdf3c26640a"
-  integrity sha512-jHLRqo6KcPl6YWHXo8pB0g9yb+l2GMuODZlYslKVqG8ck6KY+89VazvxlCJziVyMdGPd9lYX0jgibuHdzwnveg==
+new-nomis-shared-components@^1.10.1:
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/new-nomis-shared-components/-/new-nomis-shared-components-1.10.1.tgz#5048717a16cf2716d86ddd21f3a37471d94cb05e"
+  integrity sha512-EENhLWPaiz3dGTUsncOnqjQk6aFqrTC3j9ppyZa2bFr0iEiactg37rZzc1u9qOpTlWfJsuKB1Xi2rmYwuonvKw==
 
 nice-try@^1.0.4:
   version "1.0.5"

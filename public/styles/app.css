@@ -98,12 +98,6 @@
   }
 }
 
-@media (min-width: 39rem) {
-  p {
-    width: 39rem;
-  }
-}
-
 .container {
   max-width: 640px;
   justify-content: center;
