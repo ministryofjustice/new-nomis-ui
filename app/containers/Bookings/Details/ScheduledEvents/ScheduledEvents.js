@@ -48,8 +48,6 @@ export class ScheduledEvents extends Component {
   render() {
     const { scheduledEvents } = this.props
 
-    if (scheduledEvents.size === 0) return null
-
     const {
       loadThisWeeksScheduledEvents,
       loadNextWeeksScheduledEvents,
