@@ -58,6 +58,10 @@ const setResponsePagination = (context, headers) => {
 
 const getResponsePagination = context => context.responseHeaders || {}
 
+const setPageLimit = (context, limit) => {
+  setRequestPagination(context, { 'page-limit': limit })
+}
+
 module.exports = {
   setTokens,
   hasTokens,
@@ -67,4 +71,5 @@ module.exports = {
   getRequestPagination,
   setResponsePagination,
   getResponsePagination,
+  setPageLimit,
 }

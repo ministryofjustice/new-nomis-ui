@@ -1,3 +1,5 @@
+const { setPageLimit } = require('../contextProperties')
+
 const keyworkerServiceFactory = (eliteApi, oauthApi, keyworkerApi) => {
   const getAssignedOffenders = async (context, staffId, agencyId) => {
     const status = await keyworkerApi.getPrisonMigrationStatus(context, agencyId)
@@ -73,6 +75,8 @@ const keyworkerServiceFactory = (eliteApi, oauthApi, keyworkerApi) => {
 
   const myAllocationsViewModel = async context => {
     const { staffId, activeCaseLoadId, capacity } = await getIfKeyWorkerIsEnabled(context)
+
+    setPageLimit(context, 50)
 
     const allocations = await offendersLastKWSession(
       context,
