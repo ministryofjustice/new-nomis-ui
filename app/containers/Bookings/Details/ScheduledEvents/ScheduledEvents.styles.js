@@ -65,7 +65,7 @@ export const TimePeriod = styled('div')`
   }
 `
 
-export const Appointments = styled('div')`
+export const EventsContainer = styled('div')`
   ${spacing.responsivePadding(3)}
   flex: 1;
   background-color: ${props => {

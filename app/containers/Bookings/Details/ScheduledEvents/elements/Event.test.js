@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 
 import Event from './Event'
 
-describe('Event component', () => {
+describe('<Event />', () => {
   it('should format the startTime and endTime into a time only format', () => {
     const component = shallow(
       <Event startTime="2017-12-12T08:00" endTime="2017-12-12T22:00" cancelled={false} type="" />

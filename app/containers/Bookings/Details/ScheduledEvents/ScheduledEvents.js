@@ -15,19 +15,25 @@ import { properCase } from '../../../../utils/stringUtils'
 import Page from '../../../../components/Page'
 import Event from './elements/Event'
 import DayWithDate from './elements/DayWithDate'
-import { DayContainer, TimePeriodsContainer, TimePeriod, Appointments, ScheduleFilters } from './Scheduled.styles'
+import {
+  DayContainer,
+  TimePeriodsContainer,
+  TimePeriod,
+  EventsContainer,
+  ScheduleFilters,
+} from './ScheduledEvents.styles'
 
-class ScheduledEvents extends Component {
+export class ScheduledEvents extends Component {
   componentDidMount() {
     const { loadThisWeeksScheduledEvents, offenderNo, loadBookingDetails } = this.props
     loadBookingDetails(offenderNo)
     loadThisWeeksScheduledEvents(offenderNo)
   }
 
-  renderEvent = eventPeriod => {
-    if (!eventPeriod || eventPeriod.size === 0) return <span>No activities or appointments</span>
+  renderEvent = eventPeriods => {
+    if (!eventPeriods || eventPeriods.size === 0) return <span>No activities or appointments</span>
 
-    return eventPeriod.map(period => (
+    return eventPeriods.map(period => (
       <Event
         startTime={period.get('startTime')}
         endTime={period.get('endTime')}
@@ -53,6 +59,8 @@ class ScheduledEvents extends Component {
       currentFilter,
       offenderDetails: { firstName, lastName },
     } = this.props
+
+    // console.log('scheduledEvents', scheduledEvents)
 
     const { thisWeek, nextWeek } = currentFilter.toJS()
 
@@ -96,7 +104,7 @@ class ScheduledEvents extends Component {
                   Morning (AM)
                 </Header>
 
-                <Appointments value="morning">{this.renderEvent(day.get('morningActivities'))}</Appointments>
+                <EventsContainer value="morning">{this.renderEvent(day.get('morningActivities'))}</EventsContainer>
               </TimePeriod>
 
               <TimePeriod>
@@ -104,7 +112,7 @@ class ScheduledEvents extends Component {
                   Afternoon (PM)
                 </Header>
 
-                <Appointments value="afternoon">{this.renderEvent(day.get('afternoonActivities'))}</Appointments>
+                <EventsContainer value="afternoon">{this.renderEvent(day.get('afternoonActivities'))}</EventsContainer>
               </TimePeriod>
 
               <TimePeriod>
@@ -112,7 +120,7 @@ class ScheduledEvents extends Component {
                   Evening Duty (ED)
                 </Header>
 
-                <Appointments value="evening">{this.renderEvent(day.get('eveningDuties'))}</Appointments>
+                <EventsContainer value="evening">{this.renderEvent(day.get('eveningDuties'))}</EventsContainer>
               </TimePeriod>
             </TimePeriodsContainer>
           </DayContainer>

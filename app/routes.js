@@ -3,7 +3,7 @@ import AddCaseNote from './containers/Bookings/Details/AddCaseNote'
 import KeyWorkerAssignments from './containers/Assignments'
 import ResultsContainer from './containers/Bookings/Results'
 import Details from './containers/Bookings/Details'
-import Scheduled from './containers/Bookings/Details/Scheduled'
+import ScheduledEvents from './containers/Bookings/Details/ScheduledEvents'
 import AddAppointment from './containers/Bookings/Details/AddAppointment'
 import AmendCaseNote from './containers/Bookings/Details/CaseNotes/AmendCaseNote'
 import NotFoundPage from './containers/NotFoundPage'
@@ -31,7 +31,7 @@ export default [
     exact: true,
     path: '/offenders/:offenderNo/schedule',
     name: 'schedule',
-    component: Scheduled,
+    component: ScheduledEvents,
   },
   {
     path: '/offenders/:offenderNo/case-notes/:caseNoteId/amend-case-note',
