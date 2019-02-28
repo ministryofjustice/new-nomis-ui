@@ -28,12 +28,6 @@ a.link {
   background-color: white;
 }
 
-@media (min-width: 39rem) {
-  p {
-    width: 39rem;
-  }
-}
-
 .add-small-margin-bottom {
   margin-bottom: 5px;
 }
@@ -51,5 +45,12 @@ a.link {
   &::after {
     box-sizing: unset;
     background: white;
+  }
+}
+
+// Remove default print details (url and document title etc)
+@media print {
+  @page {
+    margin: 15px;
   }
 }

@@ -3,6 +3,9 @@ import { media } from '../../utils/style-utils'
 
 export const MobileOnly = styled.div`
   ${media.desktop`display: none;`};
+  @media print {
+    display: none;
+  }
 `
 
 // IE11 does not recognise display 'initial'

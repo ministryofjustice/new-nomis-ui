@@ -118,6 +118,13 @@
   dependencies:
     govuk-colours "^1.0.3"
 
+"@govuk-react/constants@^0.6.0-alpha.1":
+  version "0.6.0-alpha.4"
+  resolved "https://registry.yarnpkg.com/@govuk-react/constants/-/constants-0.6.0-alpha.4.tgz#77c083ea6c7c54a3803a79329e95a381af72daec"
+  integrity sha512-UUUPBrLEjLd+opYTdBzZL1pzLnLvWyJYHmP4Fd6trNckuy9kMv2prvzJOc1zWjxhXRLy4J7/HXCRXOiOMFRclg==
+  dependencies:
+    govuk-colours "^1.0.3"
+
 "@govuk-react/constants@^0.5.1":
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@govuk-react/constants/-/constants-0.5.1.tgz#cfa8ab2ce5fde8384e299b572ba8f39b2b9bf3a3"
@@ -198,6 +205,12 @@
     "@govuk-react/constants" "^0.4.0"
     govuk-colours "^1.0.3"
 
+"@govuk-react/lib@^0.6.0-alpha.1":
+  version "0.6.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/@govuk-react/lib/-/lib-0.6.0-alpha.1.tgz#45c09e9e3e3bcd7215e6ba19da14ac5e10305776"
+  integrity sha512-W5Ai4EOgEkhYlGueVOM//zjN4r6S0Mk4OXPbHF74px+tkB6AoPODA9EO8xHFcvYlcEAbcxZ1pU8m0DGO/jWtFg==
+  dependencies:
+    "@govuk-react/constants" "^0.6.0-alpha.1"
 "@govuk-react/icons@^0.5.1":
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@govuk-react/icons/-/icons-0.5.1.tgz#20e4c9bef1fa9d2c40c7c921be989419b64f3639"
@@ -10370,7 +10383,7 @@ redux-logger@^2.8.1:
   dependencies:
     deep-diff "0.3.4"
 
-redux-mock-store@^1.5.1:
+redux-mock-store@^1.5.3:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/redux-mock-store/-/redux-mock-store-1.5.3.tgz#1f10528949b7ce8056c2532624f7cafa98576c6d"
   integrity sha512-ryhkkb/4D4CUGpAV2ln1GOY/uh51aczjcRz9k2L2bPx/Xja3c5pSGJJPyR25GNVRXtKIExScdAgFdiXp68GmJA==
