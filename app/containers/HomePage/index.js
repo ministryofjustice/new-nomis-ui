@@ -15,7 +15,15 @@ class HomePage extends Component {
   }
 
   render() {
-    const { user, omicUrl, whereaboutsUrl, establishmentRollcheckUrl, adminUtilitiesUrl, globalSearchUrl } = this.props
+    const {
+      user,
+      omicUrl,
+      whereaboutsUrl,
+      establishmentRollcheckUrl,
+      adminUtilitiesUrl,
+      globalSearchUrl,
+      addBulkAppointmentsUrl,
+    } = this.props
     if (!user) {
       return <div />
     }
@@ -30,12 +38,14 @@ class HomePage extends Component {
             isWhereabouts={user.isWhereabouts}
             omicUrl={omicUrl}
             whereaboutsUrl={whereaboutsUrl}
-            isEstablishmentRollCheck={user.activeCaseLoadId || false}
+            isEstablishmentRollCheck={Boolean(user.activeCaseLoadId)}
             establishmentRollcheckUrl={establishmentRollcheckUrl}
             hasAdminRights={user.hasAdminRights}
             adminUtilitiesUrl={adminUtilitiesUrl}
             isGlobalSearch={user.canGlobalSearch}
             globalSearchUrl={globalSearchUrl}
+            isAddBulkAppointments={user.canAddBulkAppointments}
+            addBulkAppointmentsUrl={addBulkAppointmentsUrl}
           />
         </div>
       </Page>
@@ -51,6 +61,7 @@ HomePage.propTypes = {
   establishmentRollcheckUrl: PropTypes.string,
   adminUtilitiesUrl: PropTypes.string,
   globalSearchUrl: PropTypes.string,
+  addBulkAppointmentsUrl: PropTypes.string,
 
   // mapDispatchToProps
   boundLoadLocations: PropTypes.func.isRequired,
@@ -63,6 +74,7 @@ HomePage.defaultProps = {
   establishmentRollcheckUrl: null,
   adminUtilitiesUrl: null,
   globalSearchUrl: null,
+  addBulkAppointmentsUrl: null,
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -76,6 +88,7 @@ const mapStateToProps = state => ({
   establishmentRollcheckUrl: state.getIn(['app', 'establishmentRollcheckUrl']),
   whereaboutsUrl: state.getIn(['app', 'whereaboutsUrl']),
   globalSearchUrl: state.getIn(['app', 'globalSearchUrl']),
+  addBulkAppointmentsUrl: state.getIn(['app', 'addBulkAppointmentsUrl']),
 })
 
 export default connect(

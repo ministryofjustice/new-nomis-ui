@@ -91,6 +91,7 @@ app.use('/config', (req, res) => {
     establishmentRollcheckUrl: url.resolve(prisonStaffHubUrl, 'establishment-roll'),
     globalSearchResultsUrl: url.resolve(prisonStaffHubUrl, 'global-search-results'),
     globalSearchUrl: url.resolve(prisonStaffHubUrl, 'global-search'),
+    addBulkAppointmentsUrl: url.resolve(prisonStaffHubUrl, 'add-bulk-appointments'),
     mailTo,
   })
 })

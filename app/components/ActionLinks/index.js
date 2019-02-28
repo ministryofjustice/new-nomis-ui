@@ -31,6 +31,8 @@ const ActionLinks = ({
   hasAdminRights,
   isGlobalSearch,
   globalSearchUrl,
+  isAddBulkAppointments,
+  addBulkAppointmentsUrl,
 }) => {
   if (
     !isKeyWorker &&
@@ -38,7 +40,8 @@ const ActionLinks = ({
     !isWhereabouts &&
     !isEstablishmentRollCheck &&
     !hasAdminRights &&
-    !isGlobalSearch
+    !isGlobalSearch &&
+    !isAddBulkAppointments
   ) {
     return <div />
   }
@@ -89,6 +92,16 @@ const ActionLinks = ({
             Global search
           </ActionLink>
         )}
+
+        {isAddBulkAppointments && addBulkAppointmentsUrl && (
+          <ActionLink
+            url={addBulkAppointmentsUrl}
+            image="/img/bulk-appointments.png"
+            testId="add-bulk-appointments-link"
+          >
+            Add bulk appointments
+          </ActionLink>
+        )}
       </div>
     </div>
   )
@@ -106,6 +119,8 @@ ActionLinks.propTypes = {
   hasAdminRights: PropTypes.bool.isRequired,
   isGlobalSearch: PropTypes.bool.isRequired,
   globalSearchUrl: PropTypes.string.isRequired,
+  isAddBulkAppointments: PropTypes.bool.isRequired,
+  addBulkAppointmentsUrl: PropTypes.string.isRequired,
 }
 
 export default ActionLinks

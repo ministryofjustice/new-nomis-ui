@@ -30,7 +30,7 @@ class OauthApi extends WireMockRule {
       ]))))
   }
 
-  void stubUserRoles(def roles = [AccessRoles.omicAdmin, AccessRoles.globalSearch]) {
+  void stubUserRoles(def roles = [AccessRoles.omicAdmin, AccessRoles.globalSearch, AccessRoles.addBulkAppointments]) {
     this.stubFor(
       get('/auth/api/user/me/roles')
         .willReturn(aResponse()
