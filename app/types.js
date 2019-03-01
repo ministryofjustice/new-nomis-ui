@@ -17,6 +17,7 @@ export const userType = shape({
   accessRoles: arrayOf(object),
   activeCaseLoadId: string,
   canGlobalSearch: bool,
+  canAddBulkAppointments: bool,
   expiredFlag: bool,
   firstName: string,
   hasAdminRights: bool,

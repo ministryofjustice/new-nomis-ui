@@ -31,23 +31,25 @@ function authenticationReducer(state = initialState, action) {
 
       const isKeyWorkerAdmin = Boolean(
         user.accessRoles &&
-          user.accessRoles.filter(r => r.roleCode === 'OMIC_ADMIN' || r.roleCode === 'KEYWORKER_MONITOR').length > 0
+          user.accessRoles.some(r => r.roleCode === 'OMIC_ADMIN' || r.roleCode === 'KEYWORKER_MONITOR')
       )
 
-      const isKeyWorker = Boolean(user.staffRoles && user.staffRoles.filter(r => r.role === 'KW').length > 0)
+      const isKeyWorker = Boolean(user.staffRoles && user.staffRoles.some(r => r.role === 'KW'))
 
-      const canGlobalSearch = Boolean(
-        user.accessRoles && user.accessRoles.filter(r => r.roleCode === 'GLOBAL_SEARCH').length > 0
+      const canGlobalSearch = Boolean(user.accessRoles && user.accessRoles.some(r => r.roleCode === 'GLOBAL_SEARCH'))
+
+      const canAddBulkAppointments = Boolean(
+        user.accessRoles && user.accessRoles.some(r => r.roleCode === 'BULK_APPOINTMENTS')
       )
 
       const hasAdminRights = Boolean(
         user.accessRoles &&
-          user.accessRoles.filter(
+          user.accessRoles.some(
             r =>
               r.roleCode === 'KW_MIGRATION' ||
               r.roleCode === 'MAINTAIN_ACCESS_ROLES' ||
               r.roleCode === 'MAINTAIN_ACCESS_ROLES_ADMIN'
-          ).length > 0
+          )
       )
 
       return state.set('user', {
@@ -55,6 +57,7 @@ function authenticationReducer(state = initialState, action) {
         isKeyWorkerAdmin,
         isKeyWorker,
         canGlobalSearch,
+        canAddBulkAppointments,
         ...action.payload.user,
       })
     }

@@ -32,7 +32,7 @@ export const ScheduleFilters = styled('div')`
 
 export const TimePeriodsContainer = styled('div')`
   @media print, (min-width: ${BREAKPOINTS.DESKTOP}) {
-    flex: 1;
+    flex: 1 0 auto;
     display: flex;
   }
 `
@@ -66,7 +66,7 @@ export const TimePeriod = styled('div')`
 
 export const EventsContainer = styled('div')`
   ${spacing.responsivePadding(3)}
-  flex: 1;
+  flex: 1 0 auto;
   background-color: ${props => {
     if (props.value === 'morning') return '#e9f3f9'
     if (props.value === 'afternoon') return '#d5e8f4'
