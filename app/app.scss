@@ -53,4 +53,11 @@ a.link {
   @page {
     margin: 0;
   }
+  .container {
+    display: block !important; // overwritten from bootstrap.grid.scss;
+  }
+  .app-content {
+    display: block !important; // overwritten from bootstrap.grid.scss
+    padding: 10px;
+  }
 }
