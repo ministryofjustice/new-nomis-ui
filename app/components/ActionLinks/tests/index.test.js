@@ -98,8 +98,8 @@ describe('Actions component', () => {
   it('should show admin and utilities link when the user has admin rights', () => {
     const wrapper = shallow(
       <ActionLinks
-        omicUrl=""
-        prisonStaffHubUrl="http://"
+        omicUrl="http://omic/"
+        prisonStaffHubUrl="http://psh/"
         isKeyWorker={false}
         isKeyWorkerAdmin={false}
         isWhereabouts={false}
@@ -110,7 +110,7 @@ describe('Actions component', () => {
       />
     )
 
-    expect(wrapper.find('ActionLink').prop('url')).toBe('http://admin-utilities')
+    expect(wrapper.find('ActionLink').prop('url')).toBe('http://omic/admin-utilities')
   })
 
   it('should show add bulk appointments link when the user has admin rights', () => {
