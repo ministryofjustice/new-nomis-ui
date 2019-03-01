@@ -114,7 +114,7 @@ describe('Create appointment functions', () => {
         Map({
           recurringAppointment: true,
           repeatPeriod: 'DAILY',
-          repeatCount: 366, // A leap year has 366 days...
+          repeatCount: 367, // A leap year has 366 days...
           eventDate: moment(),
         })
       )
