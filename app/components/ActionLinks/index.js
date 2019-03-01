@@ -24,15 +24,11 @@ const ActionLinks = ({
   isKeyWorker,
   isWhereabouts,
   omicUrl,
-  whereaboutsUrl,
+  prisonStaffHubUrl,
   isEstablishmentRollCheck,
-  establishmentRollcheckUrl,
-  adminUtilitiesUrl,
   hasAdminRights,
   isGlobalSearch,
-  globalSearchUrl,
   isAddBulkAppointments,
-  addBulkAppointmentsUrl,
 }) => {
   if (
     !isKeyWorker &&
@@ -65,15 +61,19 @@ const ActionLinks = ({
           </div>
         )}
 
-        {isWhereabouts && whereaboutsUrl && (
-          <ActionLink url={whereaboutsUrl} image="/img/ICON_ManagePrisonerWhereabouts.png" testId="whereabouts-link">
+        {isWhereabouts && prisonStaffHubUrl && (
+          <ActionLink
+            url={`${prisonStaffHubUrl}search-prisoner-whereabouts`}
+            image="/img/ICON_ManagePrisonerWhereabouts.png"
+            testId="whereabouts-link"
+          >
             Manage prisoner whereabouts
           </ActionLink>
         )}
 
-        {isEstablishmentRollCheck && establishmentRollcheckUrl && (
+        {isEstablishmentRollCheck && prisonStaffHubUrl && (
           <ActionLink
-            url={establishmentRollcheckUrl}
+            url={`${prisonStaffHubUrl}establishment-roll`}
             image="/img/EstablishmentRoll_icon.png"
             testId="establishment-roll-link"
           >
@@ -81,21 +81,29 @@ const ActionLinks = ({
           </ActionLink>
         )}
 
-        {hasAdminRights && adminUtilitiesUrl && (
-          <ActionLink url={adminUtilitiesUrl} image="/img/ICON_AdminUtilities.png" testId="admin-utilities-link">
+        {hasAdminRights && prisonStaffHubUrl && (
+          <ActionLink
+            url={`${prisonStaffHubUrl}admin-utilities`}
+            image="/img/ICON_AdminUtilities.png"
+            testId="admin-utilities-link"
+          >
             Admin and utilities
           </ActionLink>
         )}
 
-        {isGlobalSearch && globalSearchUrl && (
-          <ActionLink url={globalSearchUrl} image="/img/global-search.png" testId="global-search-link">
+        {isGlobalSearch && prisonStaffHubUrl && (
+          <ActionLink
+            url={`${prisonStaffHubUrl}global-search`}
+            image="/img/global-search.png"
+            testId="global-search-link"
+          >
             Global search
           </ActionLink>
         )}
 
-        {isAddBulkAppointments && addBulkAppointmentsUrl && (
+        {isAddBulkAppointments && prisonStaffHubUrl && (
           <ActionLink
-            url={addBulkAppointmentsUrl}
+            url={`${prisonStaffHubUrl}add-bulk-appointments`}
             image="/img/bulk-appointments.png"
             testId="add-bulk-appointments-link"
           >
@@ -112,15 +120,11 @@ ActionLinks.propTypes = {
   isKeyWorker: PropTypes.bool.isRequired,
   isWhereabouts: PropTypes.bool.isRequired,
   omicUrl: PropTypes.string.isRequired,
-  whereaboutsUrl: PropTypes.string.isRequired,
   isEstablishmentRollCheck: PropTypes.bool.isRequired,
-  establishmentRollcheckUrl: PropTypes.string.isRequired,
-  adminUtilitiesUrl: PropTypes.string.isRequired,
   hasAdminRights: PropTypes.bool.isRequired,
   isGlobalSearch: PropTypes.bool.isRequired,
-  globalSearchUrl: PropTypes.string.isRequired,
   isAddBulkAppointments: PropTypes.bool.isRequired,
-  addBulkAppointmentsUrl: PropTypes.string.isRequired,
+  prisonStaffHubUrl: PropTypes.string.isRequired,
 }
 
 export default ActionLinks

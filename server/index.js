@@ -10,7 +10,6 @@ const hsts = require('hsts')
 const appInsights = require('applicationinsights')
 const helmet = require('helmet')
 const path = require('path')
-const url = require('url')
 const flash = require('connect-flash')
 
 const setup = require('./middlewares/frontend-middleware')
@@ -86,12 +85,6 @@ app.use('/config', (req, res) => {
     feedbackUrl,
     omicUrl,
     prisonStaffHubUrl,
-    adminUtilitiesUrl: url.resolve(omicUrl, 'admin-utilities'),
-    whereaboutsUrl: url.resolve(prisonStaffHubUrl, 'search-prisoner-whereabouts'),
-    establishmentRollcheckUrl: url.resolve(prisonStaffHubUrl, 'establishment-roll'),
-    globalSearchResultsUrl: url.resolve(prisonStaffHubUrl, 'global-search-results'),
-    globalSearchUrl: url.resolve(prisonStaffHubUrl, 'global-search'),
-    addBulkAppointmentsUrl: url.resolve(prisonStaffHubUrl, 'add-bulk-appointments'),
     mailTo,
   })
 })

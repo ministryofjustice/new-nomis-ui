@@ -10,23 +10,15 @@ const isXHRRequest = req =>
  * Add session management related routes to an express 'app'.
  * These handle login, logout, and middleware to handle the JWT token cookie. (hmppsCookie).
  * @param app an Express instance.
- * @param healthApi a configured healthApi instance.
  * @param tokenRefresher a function which uses the 'context' object to perform an OAuth token refresh (returns a promise).
  * @param mailTo The email address displayed at the bottom of the login page.
  */
-const configureRoutes = ({ app, healthApi, tokenRefresher, mailTo }) => {
+const configureRoutes = ({ app, tokenRefresher, mailTo }) => {
   const authLogoutUrl = `${config.apis.oauth2.ui_url}logout?client_id=${config.apis.oauth2.clientId}&redirect_uri=${
     config.app.url
   }`
 
   const remoteLoginIndex = passport.authenticate('oauth2')
-
-  const login = (req, res) =>
-    passport.authenticate('local', {
-      successRedirect: '/',
-      failureRedirect: '/login',
-      failureFlash: true,
-    })(req, res)
 
   const logout = (req, res) => {
     req.logout()
