@@ -81,9 +81,9 @@ const ActionLinks = ({
           </ActionLink>
         )}
 
-        {hasAdminRights && prisonStaffHubUrl && (
+        {hasAdminRights && omicUrl && (
           <ActionLink
-            url={`${prisonStaffHubUrl}admin-utilities`}
+            url={`${omicUrl}admin-utilities`}
             image="/img/ICON_AdminUtilities.png"
             testId="admin-utilities-link"
           >
