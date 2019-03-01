@@ -5,7 +5,7 @@ import { SearchForm } from '../SearchForm'
 describe('Search Form', () => {
   const props = {
     canGlobalSearch: false,
-    globalSearchResultsUrl: 'http://somewhere/',
+    prisonStaffHubUrl: 'http://somewhere/',
     locations: [],
   }
 
@@ -41,6 +41,6 @@ describe('Search Form', () => {
     searchInput.instance().value = 'balog, irog'
 
     form.simulate('submit')
-    expect(onSubmit).toHaveBeenCalledWith({ keywords: 'balog, irog' }, props.globalSearchResultsUrl)
+    expect(onSubmit).toHaveBeenCalledWith({ keywords: 'balog, irog' }, props.prisonStaffHubUrl)
   })
 })
