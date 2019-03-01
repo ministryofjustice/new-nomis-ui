@@ -40,7 +40,7 @@ class AddCaseNotePage extends Page {
     form.subTypeValue = "Faith Specific Action"
 
     changeDateTime.click()
-    waitFor { datePicker.displayed }
+    waitFor(10, 0.25) { datePicker.displayed }
     datePicker.click()
     days[0].click() // select 1st of this month for now
     form.hours = "07"

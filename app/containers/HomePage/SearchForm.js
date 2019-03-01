@@ -19,7 +19,7 @@ export class SearchForm extends Component {
   onSubmit = (formData, prisonStaffHubUrl) => {
     if (prisonStaffHubUrl) {
       window.location.assign(
-        `${prisonStaffHubUrl}global-search?${buildQueryString({
+        `${prisonStaffHubUrl}global-search-results?${buildQueryString({
           searchText: formData.keywords,
         })}`
       )
