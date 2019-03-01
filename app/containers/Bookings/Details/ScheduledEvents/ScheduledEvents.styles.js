@@ -13,6 +13,7 @@ export const DayContainer = styled('div')`
 
   @media print {
     padding: ${SPACING.SCALE_3} 0;
+    page-break-inside: avoid;
   }
 `
 
