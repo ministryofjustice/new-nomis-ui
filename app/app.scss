@@ -51,6 +51,6 @@ a.link {
 // Remove default print details (url and document title etc)
 @media print {
   @page {
-    margin: 15px;
+    margin: 0;
   }
 }

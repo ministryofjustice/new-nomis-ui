@@ -215,6 +215,11 @@
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+
+  @media print {
+    display: block;
+    padding: 10px;
+  }
 }
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
@@ -247,6 +252,7 @@
   padding-bottom: 40px;
 
   @media print {
+    display: block;
     padding: 0;
   }
 }
