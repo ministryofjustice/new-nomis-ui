@@ -17,9 +17,15 @@ class AccessRoles {
   static def globalSearch = [
     roleId: 0,
     roleCode: "GLOBAL_SEARCH",
-    roleName: "global swarch",
+    roleName: "Global search",
     parentRoleCode: "code",
     caseloadId: "LEI"
+  ]
+
+  static def addBulkAppointments = [
+          roleId: 1,
+    roleCode: 'BULK_APPOINTMENTS',
+    roleName:  'Bulk appointments'
   ]
 
 }

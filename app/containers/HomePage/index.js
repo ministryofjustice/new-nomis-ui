@@ -15,7 +15,7 @@ class HomePage extends Component {
   }
 
   render() {
-    const { user, omicUrl, whereaboutsUrl, establishmentRollcheckUrl, adminUtilitiesUrl, globalSearchUrl } = this.props
+    const { user, omicUrl, prisonStaffHubUrl } = this.props
     if (!user) {
       return <div />
     }
@@ -29,13 +29,11 @@ class HomePage extends Component {
             isKeyWorker={user.isKeyWorker}
             isWhereabouts={user.isWhereabouts}
             omicUrl={omicUrl}
-            whereaboutsUrl={whereaboutsUrl}
-            isEstablishmentRollCheck={user.activeCaseLoadId || false}
-            establishmentRollcheckUrl={establishmentRollcheckUrl}
+            prisonStaffHubUrl={prisonStaffHubUrl}
+            isEstablishmentRollCheck={Boolean(user.activeCaseLoadId)}
             hasAdminRights={user.hasAdminRights}
-            adminUtilitiesUrl={adminUtilitiesUrl}
             isGlobalSearch={user.canGlobalSearch}
-            globalSearchUrl={globalSearchUrl}
+            isAddBulkAppointments={user.canAddBulkAppointments}
           />
         </div>
       </Page>
@@ -47,10 +45,7 @@ HomePage.propTypes = {
   // mapStateToProps
   user: userType,
   omicUrl: PropTypes.string,
-  whereaboutsUrl: PropTypes.string,
-  establishmentRollcheckUrl: PropTypes.string,
-  adminUtilitiesUrl: PropTypes.string,
-  globalSearchUrl: PropTypes.string,
+  prisonStaffHubUrl: PropTypes.string,
 
   // mapDispatchToProps
   boundLoadLocations: PropTypes.func.isRequired,
@@ -59,10 +54,7 @@ HomePage.propTypes = {
 HomePage.defaultProps = {
   user: {},
   omicUrl: null,
-  whereaboutsUrl: null,
-  establishmentRollcheckUrl: null,
-  adminUtilitiesUrl: null,
-  globalSearchUrl: null,
+  prisonStaffHubUrl: null,
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -72,10 +64,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   user: state.getIn(['authentication', 'user']),
   omicUrl: state.getIn(['app', 'omicUrl']),
-  adminUtilitiesUrl: state.getIn(['app', 'adminUtilitiesUrl']),
-  establishmentRollcheckUrl: state.getIn(['app', 'establishmentRollcheckUrl']),
-  whereaboutsUrl: state.getIn(['app', 'whereaboutsUrl']),
-  globalSearchUrl: state.getIn(['app', 'globalSearchUrl']),
+  prisonStaffHubUrl: state.getIn(['app', 'prisonStaffHubUrl']),
 })
 
 export default connect(

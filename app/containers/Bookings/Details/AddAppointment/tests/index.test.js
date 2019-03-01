@@ -184,8 +184,6 @@ describe('Create appointment functions', () => {
       )
 
     it('DAILY repeats', () => {
-      const monday = asMoment(2019, 1, 4) // Monday, 4th February
-
       const assertResult = createCalculationResultAsserter(asMoment(2019, 1, 4), 'DAILY')
 
       assertResult(1, asMoment(2019, 1, 4))
