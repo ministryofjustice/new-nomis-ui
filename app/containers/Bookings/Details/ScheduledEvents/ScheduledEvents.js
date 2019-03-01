@@ -31,7 +31,7 @@ export class ScheduledEvents extends Component {
   }
 
   renderEvent = eventPeriods => {
-    if (!eventPeriods || eventPeriods.size === 0) return 'No activities or appointments.'
+    if (!eventPeriods || eventPeriods.size === 0) return 'No scheduled events.'
 
     return eventPeriods.map(period => (
       <Event
