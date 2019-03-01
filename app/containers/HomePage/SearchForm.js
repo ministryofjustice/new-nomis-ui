@@ -16,10 +16,10 @@ export class SearchForm extends Component {
     }
   }
 
-  onSubmit = (formData, globalSearchResultsUrl) => {
-    if (globalSearchResultsUrl) {
+  onSubmit = (formData, prisonStaffHubUrl) => {
+    if (prisonStaffHubUrl) {
       window.location.assign(
-        `${globalSearchResultsUrl}?${buildQueryString({
+        `${prisonStaffHubUrl}global-search?${buildQueryString({
           searchText: formData.keywords,
         })}`
       )
@@ -30,11 +30,11 @@ export class SearchForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    const { globalSearchResultsUrl, canGlobalSearch } = this.props
+    const { prisonStaffHubUrl, canGlobalSearch } = this.props
     const { doGlobalSearch } = this.state
     const formData = serialize(event.target, { hash: true })
 
-    this.onSubmit(formData, canGlobalSearch && this.state && doGlobalSearch && globalSearchResultsUrl)
+    this.onSubmit(formData, canGlobalSearch && this.state && doGlobalSearch && prisonStaffHubUrl)
   }
 
   handleGlobalSearchCheckBoxChange(currentValue) {
@@ -128,7 +128,7 @@ SearchForm.propTypes = {
   ).isRequired,
   error: PropTypes.string,
   canGlobalSearch: PropTypes.bool.isRequired,
-  globalSearchResultsUrl: PropTypes.string.isRequired,
+  prisonStaffHubUrl: PropTypes.string.isRequired,
 }
 
 SearchForm.defaultProps = {
@@ -143,7 +143,7 @@ const mapStateToProps = state => {
     locations: state.getIn(['home', 'locations']).toJS(),
     error: state.getIn(['home', 'searchError']),
     canGlobalSearch: (user && user.canGlobalSearch) || false,
-    globalSearchResultsUrl: state.getIn(['app', 'globalSearchResultsUrl']),
+    prisonStaffHubUrl: state.getIn(['app', 'prisonStaffHubUrl']),
   }
 }
 
