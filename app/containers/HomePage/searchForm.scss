@@ -1,18 +1,9 @@
 .search-form {
 
-  .location-with-global-search-checkbox {
-
-    .form-control:disabled {
-      color: grey;
-    }
-
+  .location-select {
     .multiple-choice {
       float: none;
       display: inline-flex;
-
-      @include media-breakpoint-down(xs) {
-        display: none;
-      }
       margin-left: 15px;
     }
   }
