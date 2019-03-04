@@ -24,7 +24,7 @@ class HomePage extends Page {
     myKeyWorkerAllocationsLink(required: false) { $("[data-qa='my-kw-allocations-link']") }
     manageKeyWorkersLink(required: false) { $("[data-qa='manage-kw-link']") }
     whereaboutsLink(required: false) { $("[data-qa='whereabouts-link']") }
-    globalSearchCheckBox(required: false) { $('.global-search') }
+    globalSearchLink(required: false) { $("[data-qa='global-search-link']") }
     addBulkAppointmentsLink(required: false) { $("[data-qa='add-bulk-appointments-link']") }
   }
 
