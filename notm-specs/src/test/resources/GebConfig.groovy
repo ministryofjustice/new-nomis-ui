@@ -2,6 +2,8 @@ import geb.report.CompositeReporter
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeDriverService
 import org.openqa.selenium.chrome.ChromeOptions
+import org.openqa.selenium.logging.LoggingPreferences
+import org.openqa.selenium.remote.DesiredCapabilities
 
 atCheckWaiting = true
 
@@ -16,8 +18,15 @@ environments {
 
   chromeHeadless {
     driver = {
+      DesiredCapabilities capabilities = DesiredCapabilities.chrome()
       ChromeOptions options = new ChromeOptions()
       options.addArguments('headless')
+      options.setExperimentalOption("prefs", ["browser.custom_chrome_frame": false])
+      capabilities.setCapability(ChromeOptions.CAPABILITY, options)
+      LoggingPreferences logPrefs = new LoggingPreferences()
+      logPrefs.enable(BROWSER, ALL)
+      capabilities.setCapability(LOGGING_PREFS, logPrefs)
+
       new ChromeDriver(options)
     }
   }
