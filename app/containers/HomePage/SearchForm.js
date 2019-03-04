@@ -41,7 +41,6 @@ export class SearchForm extends Component {
             name="keywords"
             type="text"
             title="Enter"
-            placeholder="Last Name, First Name or ID"
             autoComplete="off"
             className="form-control search-input"
           />
@@ -52,7 +51,7 @@ export class SearchForm extends Component {
 
           <div className="location-select">
             <label htmlFor="location" className="form-label">
-              Select location
+              Select housing location
             </label>
             <select className="form-control locationPrefix" name="locationPrefix" defaultValue={defaultLocationPrefix}>
               {locations.map(location => (
