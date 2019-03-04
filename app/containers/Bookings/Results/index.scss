@@ -5,6 +5,9 @@
   }
 
   .toggle-and-count-view {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     margin-bottom: 0;
   }
 
@@ -31,4 +34,11 @@
   .mobile-only {
     display: none;
   }
+}
+
+.sort-dropdown {
+  @extend .visible-md;
+  @extend .visible-lg;
+  width: 33.3333%;
+  padding: 15px 0;
 }

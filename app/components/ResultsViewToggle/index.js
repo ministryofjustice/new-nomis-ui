@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 import colours from '../../theme/colours'
@@ -7,6 +8,12 @@ import listIcon from '../../assets/list-icon.svg'
 import gridIcon from '../../assets/grid-icon.svg'
 
 import { IconSVG, ToggleButton } from './theme'
+
+const StyledContainer = styled.div`
+  @media print {
+    display: none;
+  }
+`
 
 class ResultsViewToggle extends Component {
   constructor() {
@@ -58,7 +65,7 @@ class ResultsViewToggle extends Component {
     }
 
     return (
-      <div className="pull-right">
+      <StyledContainer>
         <ToggleButton data-name="List" onClick={this.setToggle} style={listStyle}>
           List
           <IconSVG svg={listIcon} />
@@ -67,7 +74,7 @@ class ResultsViewToggle extends Component {
           Grid
           <IconSVG svg={gridIcon} />
         </ToggleButton>
-      </div>
+      </StyledContainer>
     )
   }
 }

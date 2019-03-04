@@ -154,7 +154,7 @@
 /* stylelint-disable property-no-vendor-prefix */
 %status-style {
   border: 3px solid;
-  padding: 0.4em 0.8em 0;
+  padding: 0.4em 0.8em 0.3em;
   margin-left: 0;
   margin-right: 5px;
   margin-bottom: 5px;
@@ -164,7 +164,6 @@
   line-height: 1;
   display: inline-block;
   min-width: 7em;
-  height: 29px;
 
   // disable text selection in the alert flags.
   // From https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting
@@ -174,6 +173,10 @@
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+
+  @media print {
+    font-size: 10px;
+  }
 }
 
 %alert-status-style {
