@@ -31,13 +31,13 @@ const ResultsTable = ({ results, onAlertFlagClick }) => (
     }
   >
     {results.map(row => (
-      <Table.Row key={row.get('offenderNo')}>
+      <Table.Row key={row.get('offenderNo')} data-qa="bookings-results-table-row">
         <StyledCell>
           <div className="photo clickable" {...linkOnClick(e => onViewDetails(e, row))}>
             <EliteImage src={offenderImageUrl(row.get('facialImageId'))} listView />
           </div>
         </StyledCell>
-        <StyledCell bold>
+        <StyledCell bold data-qa="bookings-results-offender-name">
           <div className="link clickable" {...linkOnClick(e => onViewDetails(e, row))}>
             <Name lastName={row.get('lastName')} firstName={row.get('firstName')} />
           </div>
