@@ -37,13 +37,7 @@ export class SearchForm extends Component {
             Enter a prisoner name or number
           </label>
 
-          <input
-            name="keywords"
-            type="text"
-            title="Enter"
-            autoComplete="off"
-            className="form-control search-input"
-          />
+          <input name="keywords" type="text" title="Enter" autoComplete="off" className="form-control search-input" />
           <button type="submit" className="button button-start desktop-button">
             {' '}
             Search
