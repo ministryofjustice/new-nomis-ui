@@ -46,9 +46,13 @@ const ActionLinks = ({
     <div>
       <h1 className="heading-medium">Tasks</h1>
       <div className="action-links">
-        {isKeyWorkerAdmin && omicUrl && (
-          <ActionLink url={omicUrl} image="/img/manage-key-workers2x.png" testId="manage-kw-link">
-            Manage key workers
+        {isGlobalSearch && prisonStaffHubUrl && (
+          <ActionLink
+            url={`${prisonStaffHubUrl}global-search`}
+            image="/img/global-search.png"
+            testId="global-search-link"
+          >
+            Global search
           </ActionLink>
         )}
 
@@ -81,26 +85,6 @@ const ActionLinks = ({
           </ActionLink>
         )}
 
-        {hasAdminRights && omicUrl && (
-          <ActionLink
-            url={`${omicUrl}admin-utilities`}
-            image="/img/ICON_AdminUtilities.png"
-            testId="admin-utilities-link"
-          >
-            Admin and utilities
-          </ActionLink>
-        )}
-
-        {isGlobalSearch && prisonStaffHubUrl && (
-          <ActionLink
-            url={`${prisonStaffHubUrl}global-search`}
-            image="/img/global-search.png"
-            testId="global-search-link"
-          >
-            Global search
-          </ActionLink>
-        )}
-
         {isAddBulkAppointments && prisonStaffHubUrl && (
           <ActionLink
             url={`${prisonStaffHubUrl}add-bulk-appointments`}
@@ -108,6 +92,22 @@ const ActionLinks = ({
             testId="add-bulk-appointments-link"
           >
             Add bulk appointments
+          </ActionLink>
+        )}
+
+        {isKeyWorkerAdmin && omicUrl && (
+          <ActionLink url={omicUrl} image="/img/manage-key-workers2x.png" testId="manage-kw-link">
+            Manage key workers
+          </ActionLink>
+        )}
+
+        {hasAdminRights && omicUrl && (
+          <ActionLink
+            url={`${omicUrl}admin-utilities`}
+            image="/img/ICON_AdminUtilities.png"
+            testId="admin-utilities-link"
+          >
+            Admin and utilities
           </ActionLink>
         )}
       </div>
