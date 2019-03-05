@@ -1,4 +1,3 @@
-import geb.report.CompositeReporter
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeDriverService
 import org.openqa.selenium.chrome.ChromeOptions
@@ -63,9 +62,7 @@ driver = {
 baseUrl = "http://localhost:3000/"
 
 reportsDir = "build/geb-reports"
-
-// Don't report anything
-reporter = new CompositeReporter();
+reportOnTestFailureOnly=true
 
 // Close browser on shutdown - uncomment to enable
 // quitCachedDriverOnShutdown = false
