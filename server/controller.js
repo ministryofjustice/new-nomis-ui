@@ -26,10 +26,6 @@ const asyncMiddleware = fn => (req, res, next) => {
 }
 
 const controllerFactory = ({ elite2Api, userService, bookingService, eventsService, keyworkerService }) => {
-  const terms = async (req, res) => {
-    res.render('pages/terms', { mailTo })
-  }
-
   function enableCaching(res) {
     res.setHeader('Cache-Control', 'max-age=3600')
     const expirationDate = moment().add(1, 'h') // one hour from now
@@ -289,7 +285,6 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
 
   return {
     keyDates,
-    terms,
     bookingDetails,
     quickLook,
     eventsForNextWeek,

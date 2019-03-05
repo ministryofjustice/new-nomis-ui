@@ -135,8 +135,6 @@ const controller = controllerFactory({
   keyworkerService,
 })
 
-app.get('/terms', controller.terms)
-
 app.use(
   cookieSession({
     name: config.hmppsCookie.name,
