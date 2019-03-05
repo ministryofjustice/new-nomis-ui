@@ -19,7 +19,7 @@ export class Page extends Component {
   }
 
   renderTitleString = (title, docTitle) => {
-    document.title = `${docTitle || title} - Prison NOMIS`
+    document.title = `${docTitle || title} - Digital Prison Services`
   }
 
   render() {
