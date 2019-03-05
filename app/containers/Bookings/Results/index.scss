@@ -1,4 +1,3 @@
-
 .booking-search {
   .heading-xlarge {
     margin: 10px 0 !important;
@@ -37,8 +36,11 @@
 }
 
 .sort-dropdown {
-  @extend .visible-md;
-  @extend .visible-lg;
-  width: 33.3333%;
-  padding: 15px 0;
+  display: none;
+
+  @media (min-width: 769px) {
+    display: block;
+    width: 33.3333%;
+    padding: 15px 0;
+  }
 }

@@ -23,7 +23,7 @@ class SearchResultsPage extends Page {
     searchAgainButtons {$('button.button')}
     sortingSelect { $('#sorting') }
     dateOfBirthOption { $('option', value: 'dateOfBirth:ASC') }
-    sortingToggleArrow { $('span.clickable > img') }
+    sortingToggleArrow { $("[data-qa=\'bookings-results-sort-arrow\']") }
     clearFilters { $('a.clear-filters') }
   }
 

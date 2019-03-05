@@ -22,6 +22,14 @@ export const customCellStyles = css`
 
 export const StyledCellHeader = styled(Table.CellHeader)`
   ${customCellStyles}
+
+  span {
+    cursor: pointer;
+
+    @media print, (min-width: ${BREAKPOINTS.DESKTOP}) {
+      display: none;
+    }
+  }
 `
 
 export const StyledCell = styled(Table.Cell)`

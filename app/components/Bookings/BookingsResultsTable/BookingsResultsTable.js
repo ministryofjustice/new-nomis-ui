@@ -16,12 +16,23 @@ const onViewDetails = (event, row) => {
   history.push(`/offenders/${row.get('offenderNo')}/${DETAILS_TABS.QUICK_LOOK}`)
 }
 
-const ResultsTable = ({ results, onAlertFlagClick }) => (
+const ResultsTable = ({ results, sortOrder, sortOrderChange, onAlertFlagClick }) => (
   <StyledTable
     head={
       <Table.Row>
         <StyledCellHeader>Picture</StyledCellHeader>
-        <StyledCellHeader>Name</StyledCellHeader>
+        <StyledCellHeader>
+          Name{' '}
+          {sortOrderChange && (
+            <span {...linkOnClick(sortOrderChange)} data-qa="bookings-results-sort-arrow">
+              {sortOrder === 'ASC' ? (
+                <img src="/img/Triangle_asc.png" height="8" width="15" alt="Up arrow" />
+              ) : (
+                <img src="/img/Triangle_desc.png" height="8" width="15" alt="Down arrow" />
+              )}
+            </span>
+          )}
+        </StyledCellHeader>
         <StyledCellHeader>Prison no.</StyledCellHeader>
         <StyledCellHeader>Location</StyledCellHeader>
         <StyledCellHeader desktopOnly>IEP</StyledCellHeader>
@@ -61,6 +72,8 @@ const ResultsTable = ({ results, onAlertFlagClick }) => (
 
 ResultsTable.propTypes = {
   results: ImmutablePropTypes.list.isRequired,
+  sortOrderChange: PropTypes.func.isRequired,
+  sortOrder: PropTypes.string.isRequired,
   onAlertFlagClick: PropTypes.func.isRequired,
 }
 
