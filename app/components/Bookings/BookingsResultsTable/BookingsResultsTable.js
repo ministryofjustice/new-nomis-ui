@@ -21,7 +21,7 @@ const ResultsTable = ({ results, sortOrder, sortOrderChange, onAlertFlagClick })
     head={
       <Table.Row>
         <StyledCellHeader>Picture</StyledCellHeader>
-        <StyledCellHeader>
+        <StyledCellHeader setWidth="25%">
           Name{' '}
           {sortOrderChange && (
             <span {...linkOnClick(sortOrderChange)} data-qa="bookings-results-sort-arrow">
@@ -33,11 +33,13 @@ const ResultsTable = ({ results, sortOrder, sortOrderChange, onAlertFlagClick })
             </span>
           )}
         </StyledCellHeader>
-        <StyledCellHeader>Prison no.</StyledCellHeader>
+        <StyledCellHeader desktopOnly>Prison no.</StyledCellHeader>
         <StyledCellHeader>Location</StyledCellHeader>
         <StyledCellHeader desktopOnly>IEP</StyledCellHeader>
         <StyledCellHeader desktopOnly>Age</StyledCellHeader>
-        <StyledCellHeader desktopOnly>Flags</StyledCellHeader>
+        <StyledCellHeader desktopOnly setWidth="33.3333%">
+          Flags
+        </StyledCellHeader>
       </Table.Row>
     }
   >
@@ -53,7 +55,7 @@ const ResultsTable = ({ results, sortOrder, sortOrderChange, onAlertFlagClick })
             <Name lastName={row.get('lastName')} firstName={row.get('firstName')} />
           </div>
         </StyledCell>
-        <StyledCell>{row.get('offenderNo')}</StyledCell>
+        <StyledCell desktopOnly>{row.get('offenderNo')}</StyledCell>
         <StyledCell>{row.get('assignedLivingUnitDesc')}</StyledCell>
         <StyledCell desktopOnly>{row.get('iepLevel')}</StyledCell>
         <StyledCell desktopOnly>{row.get('age')}</StyledCell>
