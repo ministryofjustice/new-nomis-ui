@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
 import ActionLinks from '../../components/ActionLinks'
 import SearchForm from './SearchForm'
@@ -15,14 +16,14 @@ class HomePage extends Component {
   }
 
   render() {
-    const { user, omicUrl, prisonStaffHubUrl } = this.props
+    const { user, omicUrl, prisonStaffHubUrl, locations } = this.props
     if (!user) {
       return <div />
     }
 
     return (
       <Page title="Welcome back" showBreadcrumb={false}>
-        {user.activeCaseLoadId && <SearchForm />}
+        {locations.size > 0 && <SearchForm />}
         <div>
           <ActionLinks
             isKeyWorkerAdmin={user.isKeyWorkerAdmin}
@@ -46,6 +47,7 @@ HomePage.propTypes = {
   user: userType,
   omicUrl: PropTypes.string,
   prisonStaffHubUrl: PropTypes.string,
+  locations: ImmutablePropTypes.list.isRequired,
 
   // mapDispatchToProps
   boundLoadLocations: PropTypes.func.isRequired,
@@ -65,6 +67,7 @@ const mapStateToProps = state => ({
   user: state.getIn(['authentication', 'user']),
   omicUrl: state.getIn(['app', 'omicUrl']),
   prisonStaffHubUrl: state.getIn(['app', 'prisonStaffHubUrl']),
+  locations: state.getIn(['home', 'locations']),
 })
 
 export default connect(

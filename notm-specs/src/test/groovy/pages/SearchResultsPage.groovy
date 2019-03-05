@@ -19,11 +19,11 @@ class SearchResultsPage extends Page {
     images { $('div.photo img') }
     moreFiltersLink { $('span.govuk-details__summary-text') }
     checkboxes(required: false) { $('input', name: 'alerts') }
-    rows { $('div.booking-table div.row') }
+    rows { $("[data-qa=\'bookings-results-table-row\']") }
     searchAgainButtons {$('button.button')}
     sortingSelect { $('#sorting') }
     dateOfBirthOption { $('option', value: 'dateOfBirth:ASC') }
-    sortingToggleArrow { $('span.clickable > img') }
+    sortingToggleArrow { $("[data-qa=\'bookings-results-sort-arrow\']") }
     clearFilters { $('a.clear-filters') }
   }
 

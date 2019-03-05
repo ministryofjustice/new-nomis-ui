@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { List, Map } from 'immutable'
 import { connect } from 'react-redux'
 import PreviousNextNavigation, { paginationType } from '../../../components/PreviousNextNavigation'
-import BookingTable from '../../../components/Bookings/Table'
+import BookingResultsTable from '../../../components/Bookings/BookingsResultsTable'
 import BookingGrid from '../../../components/Bookings/Grid'
 import NoSearchResultsReturnedMessage from '../../../components/NoSearchResultsReturnedMessage'
 import ResultsViewToggle from '../../../components/ResultsViewToggle'
@@ -36,7 +36,7 @@ const ResultsViewBuilder = ({
   showAlertTabForOffenderNo,
 }) =>
   viewName === 'List' ? (
-    <BookingTable
+    <BookingResultsTable
       results={results}
       viewDetails={onViewDetails}
       sortOrderChange={sortOrderChange}
@@ -116,7 +116,7 @@ class SearchResults extends Component {
     const query = getQueryParams(search)
 
     const SortDropdown = ({ viewName }) => (
-      <div className="col-md-4 visible-md visible-lg add-gutter-margin-top no-right-gutter">
+      <div className="sort-dropdown">
         <label className="form-label" htmlFor="sorting">
           <b>Order results by</b>
         </label>
@@ -148,21 +148,19 @@ class SearchResults extends Component {
             <SearchAgainForm locations={locations} query={query} />
           </div>
 
-          <div className="row toggle-and-count-view">
+          <div className="toggle-and-count-view">
             {totalResults > 0 ? (
-              <div>
-                <div className="col-xs-6 col-sm-4 col-md-3">
+              <Fragment>
+                <span>
                   {Math.min(pP * pN + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults}{' '}
                   results
-                </div>
+                </span>
                 <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsViewDispatch} />
-              </div>
+              </Fragment>
             ) : null}
           </div>
 
-          <div className="row">
-            <SortDropdown viewName={resultsView} />
-          </div>
+          <SortDropdown viewName={resultsView} />
 
           <div className="row">
             {!shouldShowSpinner && <NoSearchResultsReturnedMessage resultCount={results.size} />}

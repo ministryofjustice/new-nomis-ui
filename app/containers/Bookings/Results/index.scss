@@ -1,10 +1,12 @@
-
 .booking-search {
   .heading-xlarge {
     margin: 10px 0 !important;
   }
 
   .toggle-and-count-view {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     margin-bottom: 0;
   }
 
@@ -30,5 +32,15 @@
 
   .mobile-only {
     display: none;
+  }
+}
+
+.sort-dropdown {
+  display: none;
+
+  @media (min-width: 769px) {
+    display: block;
+    width: 33.3333%;
+    padding: 15px 0;
   }
 }
