@@ -10,13 +10,13 @@ class JwtFactory {
   static String token() {
     Date now = new Date()
 
-    Date fiveMinutesLater = new Date(now.getTime() + (5 * 60 * 1000))
+    Date tenMinutesLater = new Date(now.getTime() + (10 * 60 * 1000))
 
     JWT
       .create()
       .withIssuer(ISSUER)
       .withIssuedAt(now)
-      .withExpiresAt(fiveMinutesLater)
+      .withExpiresAt(tenMinutesLater)
       .sign ALGORITHM
   }
 }
