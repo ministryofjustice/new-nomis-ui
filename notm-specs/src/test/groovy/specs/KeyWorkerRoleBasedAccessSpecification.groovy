@@ -1,6 +1,6 @@
 package specs
 
-import geb.spock.GebReportingSpec
+
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
@@ -12,7 +12,7 @@ import pages.HomePage
 import static model.UserAccount.ITAG_USER
 
 @Slf4j
-class KeyWorkerRoleBasedAccessSpecification extends GebReportingSpec {
+class KeyWorkerRoleBasedAccessSpecification extends BrowserReportingSpec {
   @Rule
   Elite2Api elite2api = new Elite2Api()
 

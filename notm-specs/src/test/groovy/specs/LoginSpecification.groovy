@@ -1,6 +1,6 @@
 package specs
 
-import geb.spock.GebReportingSpec
+
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.OauthApi
@@ -12,7 +12,7 @@ import pages.LoginPage
 import static model.UserAccount.ITAG_USER
 
 @Slf4j
-class LoginSpecification extends GebReportingSpec {
+class LoginSpecification extends BrowserReportingSpec {
 
   @Rule
   Elite2Api elite2api = new Elite2Api()

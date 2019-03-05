@@ -1,7 +1,6 @@
 package specs
 
 import geb.module.Select
-import geb.spock.GebReportingSpec
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
@@ -14,7 +13,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import static model.UserAccount.ITAG_USER
 
-class CaseNoteFilterSpecification extends GebReportingSpec  {
+class CaseNoteFilterSpecification extends BrowserReportingSpec  {
 
   @Rule
   Elite2Api elite2api = new Elite2Api()

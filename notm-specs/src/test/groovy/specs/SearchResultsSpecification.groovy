@@ -1,7 +1,6 @@
 package specs
 
 
-import geb.spock.GebReportingSpec
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
@@ -19,7 +18,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import static model.UserAccount.ITAG_USER
 
 @Slf4j
-class SearchResultsSpecification extends GebReportingSpec {
+class SearchResultsSpecification extends BrowserReportingSpec {
 
   @Rule
   Elite2Api elite2api = new Elite2Api()

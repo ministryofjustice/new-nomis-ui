@@ -1,6 +1,6 @@
 package specs
 
-import geb.spock.GebReportingSpec
+
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
@@ -13,11 +13,10 @@ import pages.OffenderCaseNotesPage
 import pages.OffenderDetailsPage
 import pages.SearchResultsPage
 
-import static org.openqa.selenium.logging.LogType.BROWSER
 import static model.UserAccount.ITAG_USER
 
 @Slf4j
-class CaseNotesSpecification extends GebReportingSpec {
+class CaseNotesSpecification extends BrowserReportingSpec {
 
   @Rule
   Elite2Api elite2api = new Elite2Api()
@@ -29,20 +28,6 @@ class CaseNotesSpecification extends GebReportingSpec {
   OauthApi oauthApi = new OauthApi()
 
   TestFixture testFixture = new TestFixture(browser, elite2api, oauthApi)
-
-  void cleanup() {
-    try {
-      driver.executeScript("console.log('Test finished')")
-      def logEntries = driver.manage().logs().get(BROWSER).all
-      println "START WebDriver $BROWSER logs"
-      logEntries.each {
-        println(it)
-      }
-      println "END WebDriver $BROWSER logs"
-    } catch (error) {
-      error.printStackTrace()
-    }
-  }
 
   def "Create a new case note"() {
     setupUserDetails()
