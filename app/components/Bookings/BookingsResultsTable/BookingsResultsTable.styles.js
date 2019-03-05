@@ -37,7 +37,7 @@ export const StyledCell = styled(Table.Cell)`
 `
 
 export const FlagsContainer = styled.div`
-  [class$='status'] {
-    display: block;
+  @media print {
+    width: 250px;
   }
 `
