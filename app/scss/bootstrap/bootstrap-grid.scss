@@ -260,16 +260,6 @@
   align-items: center;
   justify-content: space-between;
 }
-@media (min-width: 768px) {
-  .main-content, .header-content, .footer-content {
-    width: 738px;
-  }
-}
-@media (min-width: 992px) {
-  .main-content, .header-content, .footer-content {
-    width: 962px;
-  }
-}
 @media (min-width: 1200px) {
   .main-content, .header-content, .footer-content {
     width: 1170px;

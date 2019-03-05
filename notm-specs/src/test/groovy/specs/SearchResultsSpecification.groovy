@@ -53,10 +53,10 @@ class SearchResultsSpecification extends GebReportingSpec {
     at SearchResultsPage
     images.size() == 3
     images[2].displayed
-    rows[1].text().contains('Smelley, Daniel\nA1234AL\nA-1-8')
-    rows[2].text().contains('Bob, Darius\n' + 'A1234AK\n' + 'A-1-7')
-    rows[3].text() == 'Smith, Daniel\n' + 'A1234AJ\n' + 'A-1-6' ||
-      rows[3].text() == 'Smith, Daniel\n' + 'A1234AJ\n' + 'A-1-6\n' + 'Standard\n' + '60\n' + 'ARSONIST PEEP'
+
+    rows[0].text().contains('Smelley, Daniel\nA1234AL A-1-8')
+    rows[1].text().contains('Bob, Darius\nA1234AK A-1-7')
+    rows[2].text().contains('Smith, Daniel\nA1234AJ A-1-6')
 
     when: 'Alert filters are selected'
     moreFiltersLink.click()
@@ -74,11 +74,11 @@ class SearchResultsSpecification extends GebReportingSpec {
     selectVisibleButton().click()
 
     then: 'Filters are applied'
-    rows.size() == 4
+    rows.size() == 3
     // new results match stub with alert filters
-    rows[1].find('div.add-margin-top', 0).text() == 'Smith, Daniel'
-    rows[2].find('div.add-margin-top', 0).text() == 'Bob, Darius'
-    rows[3].find('div.add-margin-top', 0).text() == 'Smelley, Daniel'
+    rows[0].find("[data-qa=\'bookings-results-offender-name\']", 0).text() == 'Smith, Daniel'
+    rows[1].find("[data-qa=\'bookings-results-offender-name\']", 0).text() == 'Bob, Darius'
+    rows[2].find("[data-qa=\'bookings-results-offender-name\']", 0).text() == 'Smelley, Daniel'
 
     when: 'Alert is clicked'
     elite2api.stubOffenderDetails(true)
@@ -89,7 +89,7 @@ class SearchResultsSpecification extends GebReportingSpec {
     elite2api.stubStaffDetails(-2)
     elite2api.stubAlertTypes()
 
-    rows[1].find('.arsonist-status').click()
+    rows[0].find('.arsonist-status').click()
 
     then: 'The offender details alert tab is shown'
     at AlertsPage
@@ -132,7 +132,7 @@ class SearchResultsSpecification extends GebReportingSpec {
     selectVisibleButton().click()
 
     then: 'Filters are applied'
-    rows.size() == 2
+    rows.size() == 1
 
     when: 'Clear filters is clicked'
     checkboxes.every{ cb -> cb.value() == null } == false
@@ -146,7 +146,7 @@ class SearchResultsSpecification extends GebReportingSpec {
     then: 'filters are cleared'
     at SearchResultsPage
 
-    waitFor{ rows.size() == 4 }
+    waitFor{ rows.size() == 3 }
 
     checkboxes.size() == 7
     checkboxes.every{ cb -> cb.value() == null } == true
@@ -178,7 +178,7 @@ class SearchResultsSpecification extends GebReportingSpec {
 
     then: 'The correct sort field is passed to the api'
     // The stub has matched the correct header sort params
-    waitFor { rows.size() == 2 }
+    waitFor { rows.size() == 1 }
   }
 
   @Requires({ System.properties['geb.env'] == 'chromeMobile' })
@@ -193,7 +193,7 @@ class SearchResultsSpecification extends GebReportingSpec {
     searchFor 'aname'
 
     at SearchResultsPage
-    rows.size() == 3
+    rows.size() == 2
 
     when: 'I toggle ordering'
     List<Offender> offenders1 = [Offender.SMITH()]
@@ -201,7 +201,7 @@ class SearchResultsSpecification extends GebReportingSpec {
     sortingToggleArrow.click()
 
     then: 'The correct sort field is passed to the api'
-    waitFor { rows.size() == 2 }
-    rows[1].find('div.add-margin-top', 0).text() == 'Smith, Daniel'
+    waitFor { rows.size() == 1 }
+    rows[0].find("[data-qa=\'bookings-results-offender-name\']", 0).text() == 'Smith, Daniel'
   }
 }
