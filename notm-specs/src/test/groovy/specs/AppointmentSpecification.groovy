@@ -2,7 +2,6 @@ package specs
 
 import com.google.common.collect.Lists
 import geb.module.Select
-import geb.spock.GebReportingSpec
 import groovy.json.JsonOutput
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
@@ -26,7 +25,7 @@ import static model.Offender.*
 import static model.UserAccount.ITAG_USER
 
 @Slf4j
-class AppointmentSpecification extends GebReportingSpec {
+class AppointmentSpecification extends BrowserReportingSpec {
 
   @Rule
   Elite2Api elite2api = new Elite2Api()

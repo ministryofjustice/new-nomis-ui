@@ -1,6 +1,6 @@
 package specs
 
-import geb.spock.GebReportingSpec
+
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
@@ -14,7 +14,7 @@ import spock.lang.IgnoreIf
 import static model.UserAccount.ITAG_USER
 
 @Slf4j
-class PaginationSpecification extends GebReportingSpec {
+class PaginationSpecification extends BrowserReportingSpec {
 
   @Rule
   Elite2Api elite2api = new Elite2Api()

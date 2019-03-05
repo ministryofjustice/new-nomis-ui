@@ -1,7 +1,6 @@
 package specs
 
 import com.google.common.collect.Lists
-import geb.spock.GebReportingSpec
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
@@ -15,7 +14,7 @@ import pages.SearchResultsPage
 import static model.UserAccount.ITAG_USER
 
 @Slf4j
-class OffenderDetailsSpecification extends GebReportingSpec {
+class OffenderDetailsSpecification extends BrowserReportingSpec {
 
   @Rule
   Elite2Api elite2api = new Elite2Api()

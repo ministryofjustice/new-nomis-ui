@@ -1,6 +1,6 @@
 package specs
 
-import geb.spock.GebReportingSpec
+
 import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
@@ -11,7 +11,7 @@ import org.junit.Rule
 import pages.HomePage
 
 @Slf4j
-class HomePageSpecification extends GebReportingSpec {
+class HomePageSpecification extends BrowserReportingSpec {
   @Rule
   Elite2Api elite2api = new Elite2Api()
 
