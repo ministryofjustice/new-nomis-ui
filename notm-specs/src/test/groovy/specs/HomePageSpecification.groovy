@@ -24,14 +24,14 @@ class HomePageSpecification extends GebReportingSpec {
   TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
 
 
-  def "should show the global search check box when the current is has the global search access role"() {
+  def "should show the global search task when the current is has the global search access role"() {
     given: "the user is logged in and has the global search access role"
     fixture.loginAs(UserAccount.ITAG_USER)
 
     when: 'I am on the homepage'
     at HomePage
 
-    then: 'I should see the global search checkbox'
-    assert globalSearchCheckBox.present
+    then: 'I should see the global search task'
+    assert globalSearchLink.text().contains("Global search")
   }
 }

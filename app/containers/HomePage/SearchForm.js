@@ -2,50 +2,24 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import serialize from 'form-serialize'
-import Checkbox from '@govuk-react/checkbox'
 
-import { buildSearchQueryString, buildQueryString } from '../../utils/stringUtils'
+import { buildSearchQueryString } from '../../utils/stringUtils'
 import './searchForm.scss'
 import history from '../../history'
 
 export class SearchForm extends Component {
-  constructor() {
-    super()
-    this.state = {
-      doGlobalSearch: false,
-    }
-  }
-
-  onSubmit = (formData, prisonStaffHubUrl) => {
-    if (prisonStaffHubUrl) {
-      window.location.assign(
-        `${prisonStaffHubUrl}global-search-results?${buildQueryString({
-          searchText: formData.keywords,
-        })}`
-      )
-    } else {
-      history.push(`/results?${buildSearchQueryString(formData)}`)
-    }
+  onSubmit = formData => {
+    history.push(`/results?${buildSearchQueryString(formData)}`)
   }
 
   handleSubmit = event => {
     event.preventDefault()
-    const { prisonStaffHubUrl, canGlobalSearch } = this.props
-    const { doGlobalSearch } = this.state
     const formData = serialize(event.target, { hash: true })
-
-    this.onSubmit(formData, canGlobalSearch && this.state && doGlobalSearch && prisonStaffHubUrl)
-  }
-
-  handleGlobalSearchCheckBoxChange(currentValue) {
-    this.setState({
-      doGlobalSearch: !currentValue,
-    })
+    this.onSubmit(formData)
   }
 
   render() {
-    const { locations, defaultLocationPrefix, error, canGlobalSearch } = this.props
-    const { doGlobalSearch } = this.state
+    const { locations, defaultLocationPrefix, error } = this.props
 
     return (
       <form className="search-form" onSubmit={event => this.handleSubmit(event)}>
@@ -63,51 +37,23 @@ export class SearchForm extends Component {
             Enter a prisoner name or number
           </label>
 
-          <input
-            name="keywords"
-            type="text"
-            title="Enter"
-            placeholder="Last Name, First Name or ID"
-            autoComplete="off"
-            className="form-control search-input"
-          />
+          <input name="keywords" type="text" title="Enter" autoComplete="off" className="form-control search-input" />
           <button type="submit" className="button button-start desktop-button">
             {' '}
             Search
           </button>
 
-          <div className="location-with-global-search-checkbox">
-            <div className="location-select">
-              <label htmlFor="location" className="form-label">
-                Select location
-              </label>
-              <select
-                disabled={doGlobalSearch}
-                className="form-control locationPrefix"
-                name="locationPrefix"
-                defaultValue={defaultLocationPrefix}
-              >
-                {locations.map(location => (
-                  <option key={location.locationPrefix} value={location.locationPrefix}>
-                    {location.description}
-                  </option>
-                ))}
-              </select>
-
-              {canGlobalSearch && (
-                <div className="multiple-choice">
-                  <Checkbox
-                    name="global-search"
-                    type="checkbox"
-                    className="global-search"
-                    value={doGlobalSearch}
-                    onChange={() => this.handleGlobalSearchCheckBoxChange(doGlobalSearch)}
-                  >
-                    Global search
-                  </Checkbox>
-                </div>
-              )}
-            </div>
+          <div className="location-select">
+            <label htmlFor="location" className="form-label">
+              Select housing location
+            </label>
+            <select className="form-control locationPrefix" name="locationPrefix" defaultValue={defaultLocationPrefix}>
+              {locations.map(location => (
+                <option key={location.locationPrefix} value={location.locationPrefix}>
+                  {location.description}
+                </option>
+              ))}
+            </select>
           </div>
 
           <button type="submit" className="button mobile-button">
@@ -119,6 +65,7 @@ export class SearchForm extends Component {
     )
   }
 }
+
 SearchForm.propTypes = {
   defaultLocationPrefix: PropTypes.string,
 
@@ -127,8 +74,6 @@ SearchForm.propTypes = {
     PropTypes.shape({ locationPrefix: PropTypes.string.isRequired, description: PropTypes.string.isRequired })
   ).isRequired,
   error: PropTypes.string,
-  canGlobalSearch: PropTypes.bool.isRequired,
-  prisonStaffHubUrl: PropTypes.string.isRequired,
 }
 
 SearchForm.defaultProps = {
@@ -136,15 +81,9 @@ SearchForm.defaultProps = {
   defaultLocationPrefix: '',
 }
 
-const mapStateToProps = state => {
-  const user = state.getIn(['authentication', 'user'])
-
-  return {
-    locations: state.getIn(['home', 'locations']).toJS(),
-    error: state.getIn(['home', 'searchError']),
-    canGlobalSearch: (user && user.canGlobalSearch) || false,
-    prisonStaffHubUrl: state.getIn(['app', 'prisonStaffHubUrl']),
-  }
-}
+const mapStateToProps = state => ({
+  locations: state.getIn(['home', 'locations']).toJS(),
+  error: state.getIn(['home', 'searchError']),
+})
 
 export default connect(mapStateToProps)(SearchForm)

@@ -130,15 +130,14 @@ class SearchAgainForm extends Component {
           <div className="row">
             <div className="col-md-4 no-right-gutter">
               <label htmlFor="keywords" className="form-label visible-md visible-lg">
-                Enter prisoner Name or ID
+                Enter a prisoner name or number
               </label>
 
               <input
                 name="keywords"
                 id="keywords"
                 type="text"
-                title="Last Name, First Name or ID"
-                placeholder="Last Name, First Name or ID"
+                title="Enter a prisoner name or number"
                 autoComplete="off"
                 className="form-control"
                 value={keywords}
@@ -148,7 +147,7 @@ class SearchAgainForm extends Component {
 
             <div className="col-md-4 no-right-gutter">
               <label htmlFor="location" className="form-label visible-md visible-lg">
-                Select location
+                Select housing location
               </label>
               <select
                 className="form-control"
