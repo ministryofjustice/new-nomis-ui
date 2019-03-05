@@ -3,6 +3,10 @@ import { media } from '../../utils/style-utils'
 
 export const PrevNextNavContainer = styled.nav`
   display: ${props => (props.show ? 'block' : 'none')};
+
+  @media print {
+    display: none;
+  }
 `
 
 export const PrevNextNavWrapper = styled.ul`
