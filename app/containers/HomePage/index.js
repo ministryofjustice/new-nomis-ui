@@ -31,7 +31,7 @@ class HomePage extends Component {
             isWhereabouts={user.isWhereabouts}
             omicUrl={omicUrl}
             prisonStaffHubUrl={prisonStaffHubUrl}
-            isEstablishmentRollCheck={Boolean(user.activeCaseLoadId)}
+            isEstablishmentRollCheck={Boolean(locations.size > 0)}
             hasAdminRights={user.hasAdminRights}
             isGlobalSearch={user.canGlobalSearch}
             isAddBulkAppointments={user.canAddBulkAppointments}
