@@ -142,7 +142,7 @@ class SearchResults extends Component {
     }
 
     return (
-      <Page title="Offender search results">
+      <Page title="Offender search results" showPrint>
         <div className="booking-search">
           <div className="row" ref={focusPoint}>
             <SearchAgainForm locations={locations} query={query} />

@@ -37,6 +37,22 @@ describe('<Page />', () => {
     expect(wrapper.find('Breadcrumb').exists()).toEqual(true)
   })
 
+  it('should NOT display the PrintLink component by default', () => {
+    expect(wrapper.find('PrintLink').exists()).toEqual(false)
+  })
+
+  it('should display a print this page link at the top and bottom when specified', () => {
+    wrapper = mount(
+      <MemoryRouter initialEntries={['/random']}>
+        <Page {...props} docTitle="Results" showPrint />
+      </MemoryRouter>
+    )
+    const printLinks = wrapper.find('PrintLink')
+
+    expect(printLinks.at(0).props().bottom).toEqual(undefined)
+    expect(printLinks.at(1).props().bottom).toEqual(true)
+  })
+
   it('should NOT display the Breadcrumb component when showBreadcrumb is false', () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/random']}>

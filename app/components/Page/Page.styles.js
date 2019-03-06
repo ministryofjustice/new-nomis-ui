@@ -1,9 +1,9 @@
-import styled from 'react-emotion'
+import styled from 'styled-components'
 import { SPACING, LINE_HEIGHT, FONT_SIZE, FOCUS_WIDTH, MEDIA_QUERIES } from '@govuk-react/constants'
 import { Link } from 'react-router-dom'
 import { LINK_COLOUR, LINK_HOVER_COLOUR, GREY_1, FOCUS_COLOUR } from 'govuk-colours'
 
-export const NavigationContainer = styled('div')`
+export const NavigationContainer = styled.div`
   ${MEDIA_QUERIES.LARGESCREEN} {
     display: flex;
     align-items: center;
@@ -12,7 +12,7 @@ export const NavigationContainer = styled('div')`
     display: none;
   }
 `
-export const ContextLinkContainer = styled('div')`
+export const ContextLinkContainer = styled.div`
   margin-top: ${SPACING.SCALE_3};
   ${MEDIA_QUERIES.LARGESCREEN} {
     margin-top: ${SPACING.SCALE_2};
@@ -39,12 +39,16 @@ export const ContextLink = styled(Link)`
     outline: ${FOCUS_WIDTH} solid ${FOCUS_COLOUR};
   }
 `
-export const Breadcrumbs = styled('div')`
+export const Breadcrumbs = styled.div`
   padding-top: ${SPACING.SCALE_3};
 `
-export const Container = styled('div')`
+export const Container = styled.div`
   padding-top: ${SPACING.SCALE_4};
   @media print {
     padding-top: 0;
   }
+`
+export const PageHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
 `

@@ -59,7 +59,7 @@ export class ScheduledEvents extends Component {
     const { thisWeek, nextWeek } = currentFilter.toJS()
 
     return (
-      <Page title={`Schedule for ${properCase(firstName)} ${properCase(lastName)}`}>
+      <Page title={`Schedule for ${properCase(firstName)} ${properCase(lastName)}`} showPrint>
         <ScheduleFilters>
           <Radio
             checked={thisWeek && 'checked'}
