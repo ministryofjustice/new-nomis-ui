@@ -7,7 +7,7 @@ import modules.ErrorsModule
 class AddCaseNotePage extends Page {
 
   static at = {
-    title == 'Add new case note - Prison NOMIS'
+    title == 'Add new case note - Digital Prison Services'
     headingText == 'Add new case note'
   }
 
@@ -29,14 +29,14 @@ class AddCaseNotePage extends Page {
 
   }
 
-  def createNewCaseNote(text) {
-    form.typeValue = "Chaplaincy"
+  def createNewCaseNote() {
+    form.typeValue = 'Chaplaincy'
 
     waitFor { form.find('option', value: 'FAITH').displayed }
 
-    form.subTypeValue = "Faith Specific Action"
+    form.subTypeValue = 'Faith Specific Action'
 
-    textareaElement.module(Textarea).text = text
+    textareaElement.module(Textarea).text = 'some text'
 
     changeDateTime.click()
     waitFor { datePicker.displayed }
@@ -47,9 +47,8 @@ class AddCaseNotePage extends Page {
     saveButton.click()
   }
 
-  def createNewCaseNoteLeavingTypeAndSubType(text) {
-    def textarea = textareaElement.module(Textarea)
-    textarea.text = text
+  def createNewCaseNoteLeavingTypeAndSubType() {
+    textareaElement.module(Textarea).text = 'some text'
 
     changeDateTime.click()
     waitFor { datePicker.present }

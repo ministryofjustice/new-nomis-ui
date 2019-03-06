@@ -26,12 +26,12 @@ class HomePage extends Component {
         {locations.size > 0 && <SearchForm />}
         <div>
           <ActionLinks
-            isKeyWorkerAdmin={user.isKeyWorkerAdmin}
+            isKeyWorkerAdmin={user.isKeyWorkerAdmin && Boolean(locations.size > 0)}
             isKeyWorker={user.isKeyWorker}
             isWhereabouts={user.isWhereabouts}
             omicUrl={omicUrl}
             prisonStaffHubUrl={prisonStaffHubUrl}
-            isEstablishmentRollCheck={Boolean(user.activeCaseLoadId)}
+            isEstablishmentRollCheck={Boolean(locations.size > 0)}
             hasAdminRights={user.hasAdminRights}
             isGlobalSearch={user.canGlobalSearch}
             isAddBulkAppointments={user.canAddBulkAppointments}

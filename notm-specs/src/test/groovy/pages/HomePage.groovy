@@ -9,7 +9,7 @@ class HomePage extends Page {
   static url = '/'
 
   static at = {
-    title == 'Welcome back - Prison NOMIS'
+    title == 'Welcome back - Digital Prison Services'
     headingText == 'Welcome back'
     searchButtonDesktop.text() == 'Search' || searchButtonMobile.text() == 'Search'
   }

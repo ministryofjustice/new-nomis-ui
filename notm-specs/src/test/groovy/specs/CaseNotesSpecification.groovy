@@ -45,7 +45,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     setupAddCaseNote()
     addCaseNoteLink.click()
     at AddCaseNotePage
-    createNewCaseNote("some text")
+    createNewCaseNote()
 
     then: 'The new case note is displayed'
     at OffenderCaseNotesPage
@@ -117,7 +117,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     waitFor{ addKeyworkerSessionLink.present }
     addKeyworkerSessionLink.click()
     at AddCaseNotePage
-    createNewCaseNoteLeavingTypeAndSubType("some text")
+    createNewCaseNoteLeavingTypeAndSubType()
 
     then:
     at OffenderCaseNotesPage

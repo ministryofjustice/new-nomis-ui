@@ -8,7 +8,7 @@ class SearchResultsPage extends Page {
   static url = '/results'
 
   static at = {
-    title == 'Offender search results - Prison NOMIS'
+    title == 'Offender search results - Digital Prison Services'
     headingText == 'Offender search results'
   }
 
