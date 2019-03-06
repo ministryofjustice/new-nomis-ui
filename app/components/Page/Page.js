@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import Header from '@govuk-react/header'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { NavigationContainer, ContextLinkContainer, ContextLink, Container } from './Page.styles'
+import { NavigationContainer, ContextLinkContainer, ContextLink, Container, PageHeader } from './Page.styles'
 import { childrenType, routeMatchType } from '../../types'
 import Breadcrumb from '../Breadcrumb'
+import PrintLink from './elements/PrintLink'
 
 export class Page extends Component {
   componentDidMount() {
@@ -32,6 +33,7 @@ export class Page extends Component {
       match: {
         params: { offenderNo },
       },
+      showPrint,
     } = this.props
     const showRecentResultsLink = searchContext === 'results' && offenderNo
 
@@ -48,11 +50,19 @@ export class Page extends Component {
           </NavigationContainer>
         )}
         <Container>
-          <Header level={1} size="LARGE" data-qa="page-heading-text">
-            {title}
-          </Header>
+          <PageHeader>
+            <Header level={1} size="LARGE" data-qa="page-heading-text">
+              {title}
+            </Header>
+            {showPrint && (
+              <div>
+                <PrintLink />
+              </div>
+            )}
+          </PageHeader>
           <div className="page-content">{children}</div>
         </Container>
+        {showPrint && <PrintLink bottom />}
       </Fragment>
     )
   }
@@ -66,6 +76,7 @@ Page.propTypes = {
   searchContext: PropTypes.string,
   lastSearchResultQuery: PropTypes.string,
   match: routeMatchType.isRequired,
+  showPrint: PropTypes.bool,
 }
 
 Page.defaultProps = {
@@ -73,6 +84,7 @@ Page.defaultProps = {
   showBreadcrumb: true,
   searchContext: '',
   lastSearchResultQuery: null,
+  showPrint: false,
 }
 
 const mapStateToProps = state => ({

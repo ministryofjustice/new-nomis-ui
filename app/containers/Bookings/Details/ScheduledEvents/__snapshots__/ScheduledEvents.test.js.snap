@@ -3,7 +3,7 @@
 exports[`<Scheduled /> should match the default snapshot 1`] = `
 Array [
   <div
-    className="css-1kgemzi"
+    className="sc-bdVaJa jZoFNG"
   >
     <div
       className="css-2n4gqn"
@@ -39,15 +39,32 @@ Array [
     </div>
   </div>,
   <div
-    className="css-1bxbnlh"
+    className="sc-ifAKCX KeNWI"
   >
-    <h1
-      className="e1vcssft0 css-162lx7h-StyledHeader-StyledHoc e4u1u2g0"
-      data-qa="page-heading-text"
-      size="LARGE"
+    <div
+      className="sc-EHOje gTGnrE"
     >
-      Schedule for Test User
-    </h1>
+      <h1
+        className="e1vcssft0 css-162lx7h-StyledHeader-StyledHoc e4u1u2g0"
+        data-qa="page-heading-text"
+        size="LARGE"
+      >
+        Schedule for Test User
+      </h1>
+      <div>
+        <div
+          className="sc-bZQynM khnfld"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="link"
+          tabIndex={0}
+        >
+          <span>
+            Print this page
+          </span>
+        </div>
+      </div>
+    </div>
     <div
       className="page-content"
     >
@@ -603,13 +620,24 @@ Array [
       </div>
     </div>
   </div>,
+  <div
+    className="sc-bZQynM khnfld"
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    role="link"
+    tabIndex={0}
+  >
+    <span>
+      Print this page
+    </span>
+  </div>,
 ]
 `;
 
 exports[`<Scheduled /> should match the snapshot with a cancelled event 1`] = `
 Array [
   <div
-    className="css-1kgemzi"
+    className="sc-bdVaJa jZoFNG"
   >
     <div
       className="css-2n4gqn"
@@ -645,15 +673,32 @@ Array [
     </div>
   </div>,
   <div
-    className="css-1bxbnlh"
+    className="sc-ifAKCX KeNWI"
   >
-    <h1
-      className="e1vcssft0 css-162lx7h-StyledHeader-StyledHoc e4u1u2g0"
-      data-qa="page-heading-text"
-      size="LARGE"
+    <div
+      className="sc-EHOje gTGnrE"
     >
-      Schedule for Test User
-    </h1>
+      <h1
+        className="e1vcssft0 css-162lx7h-StyledHeader-StyledHoc e4u1u2g0"
+        data-qa="page-heading-text"
+        size="LARGE"
+      >
+        Schedule for Test User
+      </h1>
+      <div>
+        <div
+          className="sc-bZQynM khnfld"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="link"
+          tabIndex={0}
+        >
+          <span>
+            Print this page
+          </span>
+        </div>
+      </div>
+    </div>
     <div
       className="page-content"
     >
@@ -1236,6 +1281,17 @@ Array [
         </div>
       </div>
     </div>
+  </div>,
+  <div
+    className="sc-bZQynM khnfld"
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    role="link"
+    tabIndex={0}
+  >
+    <span>
+      Print this page
+    </span>
   </div>,
 ]
 `;
