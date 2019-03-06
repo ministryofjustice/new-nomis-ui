@@ -231,6 +231,9 @@
   },
   "lint-staged": {
     "linters": {
+      ".{sass,scss}": [
+        "stylelint"
+      ],
       "*.{js,json,css}": [
         "prettier --write",
         "eslint --fix",

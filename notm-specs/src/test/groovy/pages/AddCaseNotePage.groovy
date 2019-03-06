@@ -30,11 +30,8 @@ class AddCaseNotePage extends Page {
   }
 
   def createNewCaseNote() {
-    form.typeValue = 'Chaplaincy'
-
+    form.typeValue = 'CHAP'
     waitFor { form.find('option', value: 'FAITH').displayed }
-
-    form.subTypeValue = 'Faith Specific Action'
 
     textareaElement.module(Textarea).text = 'some text'
 
@@ -44,6 +41,13 @@ class AddCaseNotePage extends Page {
     days[0].click() // select 1st of this month for now
     form.hours = "07"
     form.minutes = "00"
+
+    // ensure that the javascript after selecting type has fired so our faith selection sticks
+    waitFor {
+      form.find('#subTypeValue').value('FAITH')
+      subTypeSelectValue == 'FAITH'
+    }
+
     saveButton.click()
   }
 

@@ -13,6 +13,7 @@ import {
   LeftContent,
   RightContent,
   Logo,
+  CrestImg,
   LogoText,
   Title,
   ToggleWrapper,
@@ -51,7 +52,7 @@ const HmppsHeader = ({ user, menuOpen, setMenuOpen, navigateTo, switchCaseLoad }
             <LeftContent>
               <Link to="/">
                 <Logo>
-                  <img src="/img/Crest@2x.png" alt="" width="42" height="35" />
+                  <CrestImg src="/img/Crest@2x.png" alt="" width="42" height="35" />
                 </Logo>
               </Link>
 

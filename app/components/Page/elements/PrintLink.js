@@ -9,7 +9,7 @@ import { linkOnClick } from '../../../helpers'
 const StyledPrintLink = styled.div`
   display: none;
 
-  @media print, (min-width: ${BREAKPOINTS.DESKTOP}) {
+  @media screen and (min-width: ${BREAKPOINTS.DESKTOP}) {
     display: inline-block;
     ${props => (props.bottom ? spacing.responsive({ size: 6, property: 'margin', direction: ['top'] }) : null)}
     text-decoration: underline;

@@ -52,7 +52,7 @@ Array [
       </h1>
       <div>
         <div
-          className="sc-fjdhpX jfISbU"
+          className="sc-fjdhpX bRCAPC"
           onClick={[Function]}
           onKeyDown={[Function]}
           role="link"
@@ -592,7 +592,7 @@ Array [
     </div>
   </div>,
   <div
-    className="sc-fjdhpX jfISbU"
+    className="sc-fjdhpX bRCAPC"
     onClick={[Function]}
     onKeyDown={[Function]}
     role="link"
@@ -657,7 +657,7 @@ Array [
       </h1>
       <div>
         <div
-          className="sc-fjdhpX jfISbU"
+          className="sc-fjdhpX bRCAPC"
           onClick={[Function]}
           onKeyDown={[Function]}
           role="link"
@@ -1225,7 +1225,7 @@ Array [
     </div>
   </div>,
   <div
-    className="sc-fjdhpX jfISbU"
+    className="sc-fjdhpX bRCAPC"
     onClick={[Function]}
     onKeyDown={[Function]}
     role="link"

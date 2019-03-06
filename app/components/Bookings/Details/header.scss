@@ -154,7 +154,7 @@
 /* stylelint-disable property-no-vendor-prefix */
 %status-style {
   border: 3px solid;
-  padding: 0.4em 0.8em 0.3em;
+  padding: 0.4em 0.8em;
   margin-left: 0;
   margin-right: 5px;
   margin-bottom: 5px;
@@ -176,6 +176,7 @@
   user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 
   @media print {
+    padding-top: 0.7em;
     font-size: 10px;
   }
 }
