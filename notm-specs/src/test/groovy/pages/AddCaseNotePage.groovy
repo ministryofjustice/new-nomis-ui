@@ -35,6 +35,7 @@ class AddCaseNotePage extends Page {
     waitFor { form.find('option', value: 'FAITH').displayed }
 
     form.subTypeValue = 'FAITH'
+    waitFor { form.subTypeValue == 'FAITH' }
 
     textareaElement.module(Textarea).text = 'some text'
 
