@@ -20,6 +20,21 @@ export const PageHeader = styled.header`
   ${media.desktop`
     justify-content: center;
   `};
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.14286;
+  border-bottom: 10px solid #fff;
+  color: #fff;
+  background: #0b0c0c;
+
+  position: relative;
+  margin-bottom: -10px;
+  padding-top: 10px;
+  border-bottom: 5px solid #000;
 `
 
 export const LeftContent = styled.div`
@@ -31,10 +46,17 @@ export const RightContent = styled.div`
   height: 100%;
 `
 
-export const Logo = styled.div`
-  margin-left: 10px;
+export const Logo = styled.span`
   margin-right: 5px;
-  float: left;
+`
+
+export const CrestImg = styled.img`
+  position: relative;
+  top: -4px;
+  width: 36px;
+  height: 32px;
+  border: 0;
+  vertical-align: middle;
 `
 
 export const LogoText = styled.span`
@@ -54,14 +76,14 @@ export const LogoText = styled.span`
 `
 
 export const Title = styled.span`
-  text-align: left;
-  padding-left: 10px;
-  font-size: 26px;
-  flex-grow: 1;
-  text-decoration: none;
-  /* These are really mobile only but desktop is now handled by shared component: */
-  padding-top: 0.1em;
-  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 1.11111;
+  display: inline-table;
+  padding-right: 10px;
 `
 
 export const ToggleWrapper = styled.div`
