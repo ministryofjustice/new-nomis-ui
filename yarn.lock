@@ -130,13 +130,6 @@
     "@govuk-react/lib" "^0.6.0"
     govuk-colours "^1.0.3"
 
-"@govuk-react/constants@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@govuk-react/constants/-/constants-0.4.0.tgz#a8c1bf6eb2c133de479420c6d57b754e8e17e959"
-  integrity sha512-v/Imw4qYS02yLRAupAYwXEmt8y18nVL+0ZkOMCsRqE3dQkYQXblZfX0mJ07M1230rP64ukm8AJce5XRnb26E7A==
-  dependencies:
-    govuk-colours "^1.0.3"
-
 "@govuk-react/constants@^0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@govuk-react/constants/-/constants-0.6.0.tgz#8dd84556d0524019c15e883228abf3a0707f3768"
@@ -179,15 +172,6 @@
     "@govuk-react/lib" "^0.6.0"
     govuk-colours "^1.0.3"
 
-"@govuk-react/hoc@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@govuk-react/hoc/-/hoc-0.4.0.tgz#81cb4653cb328bf8cfec8fb74b6abdcc7d19da57"
-  integrity sha512-YIzczPj6VM5JfaoR2iwhUHVCucMgx1r5DOxRoM4S87g6AybVFxhpAK3JSZIFrXJmftOGhl5BgnehALFvDFpU5w==
-  dependencies:
-    "@govuk-react/constants" "^0.4.0"
-    "@govuk-react/icons" "^0.4.0"
-    govuk-colours "^1.0.3"
-
 "@govuk-react/hoc@^0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@govuk-react/hoc/-/hoc-0.6.0.tgz#0ed10d21a3d4e74b6f7bbe3e68b43a6857243066"
@@ -197,14 +181,6 @@
     "@govuk-react/icons" "^0.6.0"
     "@govuk-react/lib" "^0.6.0"
     "@govuk-react/link" "^0.6.0"
-    govuk-colours "^1.0.3"
-
-"@govuk-react/icons@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@govuk-react/icons/-/icons-0.4.0.tgz#5b875b41319a1f1b9b8a9a5d71d6e833db1d0b18"
-  integrity sha512-mcLQ57yioIqVk3XyiHXUddii5/fOgwfaWUqHV7flj1h0UwXoNtjPVmdrNZS8+TADu58a+WK1k6xDux+idfL2Yg==
-  dependencies:
-    "@govuk-react/constants" "^0.4.0"
     govuk-colours "^1.0.3"
 
 "@govuk-react/icons@^0.6.0":
@@ -269,13 +245,14 @@
     "@govuk-react/lib" "^0.6.0"
     govuk-colours "^1.0.3"
 
-"@govuk-react/radio@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@govuk-react/radio/-/radio-0.4.0.tgz#a8f5a1be788caf3eda97aa00b71729eff6d9a2ef"
-  integrity sha512-cOXkb2vwxZ1JpNHfIt2FPUyNfk8yRkuD5rUeEekAX8S61435jEmCb9QOgEQ51sWHRmW8rW+13IADeo7FSCSW9g==
+"@govuk-react/radio@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@govuk-react/radio/-/radio-0.6.0.tgz#c40e4abf2fdb5e74bfdd55992cef94f28997a0e5"
+  integrity sha512-UzK/3l+t4IZ0eLAdFBkknDGdom7cGQW6TRRd7+/sTQS7pdi4qOKBTOFlCyhYcwC+xubYeF8TF2oQDDviNviIpA==
   dependencies:
-    "@govuk-react/constants" "^0.4.0"
-    "@govuk-react/hoc" "^0.4.0"
+    "@govuk-react/constants" "^0.6.0"
+    "@govuk-react/hint-text" "^0.6.0"
+    "@govuk-react/lib" "^0.6.0"
     govuk-colours "^1.0.3"
 
 "@govuk-react/table@^0.6.0":

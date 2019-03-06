@@ -3,7 +3,7 @@
 exports[`<Scheduled /> should match the default snapshot 1`] = `
 Array [
   <div
-    className="sc-bwzfXH kkYVmt"
+    className="sc-bZQynM cccIja"
   >
     <div
       className="css-2n4gqn"
@@ -39,20 +39,20 @@ Array [
     </div>
   </div>,
   <div
-    className="sc-EHOje gGvWDh"
+    className="sc-iwsKbI eKLVrf"
   >
     <div
-      className="sc-bZQynM gJmhNi"
+      className="sc-gZMcBi dcMSXI"
     >
       <h1
-        className="sc-bdVaJa eLwxMn"
+        className="sc-EHOje bsIerq"
         data-qa="page-heading-text"
       >
         Schedule for Test User
       </h1>
       <div>
         <div
-          className="sc-gzVnrw kmmJFT"
+          className="sc-gqjmRU iutRKC"
           onClick={[Function]}
           onKeyDown={[Function]}
           role="link"
@@ -71,11 +71,11 @@ Array [
         className="css-1twtykl"
       >
         <label
-          className="eghbvew0 css-p3popv-Label-StyledHoc eqinktp0"
+          className="sc-bwzfXH drtIuJ"
         >
           <input
             checked="checked"
-            className="css-1cykcm5-Input eqinktp1"
+            className="sc-htpNat gUOYBv"
             id="thisWeek"
             name="radio-inline-group"
             onChange={[Function]}
@@ -84,17 +84,17 @@ Array [
             value="Yes"
           />
           <span
-            className="css-11gu4gd-LabelText eqinktp2"
+            className="sc-bxivhb eArzwx"
           >
             This week
           </span>
         </label>
         <label
-          className="eghbvew0 css-p3popv-Label-StyledHoc eqinktp0"
+          className="sc-bwzfXH drtIuJ"
         >
           <input
             checked={undefined}
-            className="css-1cykcm5-Input eqinktp1"
+            className="sc-htpNat gUOYBv"
             id="nextWeek"
             name="radio-inline-group"
             onChange={[Function]}
@@ -103,7 +103,7 @@ Array [
             value="Yes"
           />
           <span
-            className="css-11gu4gd-LabelText eqinktp2"
+            className="sc-bxivhb eArzwx"
           >
             Next week
           </span>
@@ -113,7 +113,7 @@ Array [
         className="css-1tuknv3"
       >
         <h2
-          className="sc-bdVaJa jAqeHE"
+          className="sc-EHOje efHrfh"
         >
           Wednesday
            
@@ -128,7 +128,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Morning (AM)
             </h3>
@@ -143,7 +143,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Afternoon (PM)
             </h3>
@@ -158,7 +158,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Evening Duty (ED)
             </h3>
@@ -175,7 +175,7 @@ Array [
         className="css-1tuknv3"
       >
         <h2
-          className="sc-bdVaJa jAqeHE"
+          className="sc-EHOje efHrfh"
         >
           Thursday
            
@@ -190,7 +190,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Morning (AM)
             </h3>
@@ -205,7 +205,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Afternoon (PM)
             </h3>
@@ -220,7 +220,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Evening Duty (ED)
             </h3>
@@ -237,7 +237,7 @@ Array [
         className="css-1tuknv3"
       >
         <h2
-          className="sc-bdVaJa jAqeHE"
+          className="sc-EHOje efHrfh"
         >
           Friday
            
@@ -252,7 +252,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Morning (AM)
             </h3>
@@ -290,7 +290,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Afternoon (PM)
             </h3>
@@ -305,7 +305,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Evening Duty (ED)
             </h3>
@@ -322,7 +322,7 @@ Array [
         className="css-1tuknv3"
       >
         <h2
-          className="sc-bdVaJa jAqeHE"
+          className="sc-EHOje efHrfh"
         >
           Saturday
            
@@ -337,7 +337,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Morning (AM)
             </h3>
@@ -352,7 +352,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Afternoon (PM)
             </h3>
@@ -367,7 +367,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Evening Duty (ED)
             </h3>
@@ -384,7 +384,7 @@ Array [
         className="css-1tuknv3"
       >
         <h2
-          className="sc-bdVaJa jAqeHE"
+          className="sc-EHOje efHrfh"
         >
           Sunday
            
@@ -399,7 +399,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Morning (AM)
             </h3>
@@ -414,7 +414,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Afternoon (PM)
             </h3>
@@ -429,7 +429,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Evening Duty (ED)
             </h3>
@@ -446,7 +446,7 @@ Array [
         className="css-1tuknv3"
       >
         <h2
-          className="sc-bdVaJa jAqeHE"
+          className="sc-EHOje efHrfh"
         >
           Monday
            
@@ -461,7 +461,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Morning (AM)
             </h3>
@@ -476,7 +476,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Afternoon (PM)
             </h3>
@@ -491,7 +491,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Evening Duty (ED)
             </h3>
@@ -508,7 +508,7 @@ Array [
         className="css-1tuknv3"
       >
         <h2
-          className="sc-bdVaJa jAqeHE"
+          className="sc-EHOje efHrfh"
         >
           Tuesday
            
@@ -523,7 +523,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Morning (AM)
             </h3>
@@ -538,7 +538,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Afternoon (PM)
             </h3>
@@ -576,7 +576,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Evening Duty (ED)
             </h3>
@@ -592,7 +592,7 @@ Array [
     </div>
   </div>,
   <div
-    className="sc-gzVnrw kmmJFT"
+    className="sc-gqjmRU iutRKC"
     onClick={[Function]}
     onKeyDown={[Function]}
     role="link"
@@ -608,7 +608,7 @@ Array [
 exports[`<Scheduled /> should match the snapshot with a cancelled event 1`] = `
 Array [
   <div
-    className="sc-bwzfXH kkYVmt"
+    className="sc-bZQynM cccIja"
   >
     <div
       className="css-2n4gqn"
@@ -644,20 +644,20 @@ Array [
     </div>
   </div>,
   <div
-    className="sc-EHOje gGvWDh"
+    className="sc-iwsKbI eKLVrf"
   >
     <div
-      className="sc-bZQynM gJmhNi"
+      className="sc-gZMcBi dcMSXI"
     >
       <h1
-        className="sc-bdVaJa eLwxMn"
+        className="sc-EHOje bsIerq"
         data-qa="page-heading-text"
       >
         Schedule for Test User
       </h1>
       <div>
         <div
-          className="sc-gzVnrw kmmJFT"
+          className="sc-gqjmRU iutRKC"
           onClick={[Function]}
           onKeyDown={[Function]}
           role="link"
@@ -676,11 +676,11 @@ Array [
         className="css-1twtykl"
       >
         <label
-          className="eghbvew0 css-p3popv-Label-StyledHoc eqinktp0"
+          className="sc-bwzfXH drtIuJ"
         >
           <input
             checked="checked"
-            className="css-1cykcm5-Input eqinktp1"
+            className="sc-htpNat gUOYBv"
             id="thisWeek"
             name="radio-inline-group"
             onChange={[Function]}
@@ -689,17 +689,17 @@ Array [
             value="Yes"
           />
           <span
-            className="css-11gu4gd-LabelText eqinktp2"
+            className="sc-bxivhb eArzwx"
           >
             This week
           </span>
         </label>
         <label
-          className="eghbvew0 css-p3popv-Label-StyledHoc eqinktp0"
+          className="sc-bwzfXH drtIuJ"
         >
           <input
             checked={undefined}
-            className="css-1cykcm5-Input eqinktp1"
+            className="sc-htpNat gUOYBv"
             id="nextWeek"
             name="radio-inline-group"
             onChange={[Function]}
@@ -708,7 +708,7 @@ Array [
             value="Yes"
           />
           <span
-            className="css-11gu4gd-LabelText eqinktp2"
+            className="sc-bxivhb eArzwx"
           >
             Next week
           </span>
@@ -718,7 +718,7 @@ Array [
         className="css-1tuknv3"
       >
         <h2
-          className="sc-bdVaJa jAqeHE"
+          className="sc-EHOje efHrfh"
         >
           Wednesday
            
@@ -733,7 +733,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Morning (AM)
             </h3>
@@ -748,7 +748,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Afternoon (PM)
             </h3>
@@ -763,7 +763,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Evening Duty (ED)
             </h3>
@@ -780,7 +780,7 @@ Array [
         className="css-1tuknv3"
       >
         <h2
-          className="sc-bdVaJa jAqeHE"
+          className="sc-EHOje efHrfh"
         >
           Thursday
            
@@ -795,7 +795,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Morning (AM)
             </h3>
@@ -810,7 +810,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Afternoon (PM)
             </h3>
@@ -825,7 +825,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Evening Duty (ED)
             </h3>
@@ -842,7 +842,7 @@ Array [
         className="css-1tuknv3"
       >
         <h2
-          className="sc-bdVaJa jAqeHE"
+          className="sc-EHOje efHrfh"
         >
           Friday
            
@@ -857,7 +857,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Morning (AM)
             </h3>
@@ -895,7 +895,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Afternoon (PM)
             </h3>
@@ -910,7 +910,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Evening Duty (ED)
             </h3>
@@ -927,7 +927,7 @@ Array [
         className="css-1tuknv3"
       >
         <h2
-          className="sc-bdVaJa jAqeHE"
+          className="sc-EHOje efHrfh"
         >
           Saturday
            
@@ -942,7 +942,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Morning (AM)
             </h3>
@@ -957,7 +957,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Afternoon (PM)
             </h3>
@@ -972,7 +972,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Evening Duty (ED)
             </h3>
@@ -989,7 +989,7 @@ Array [
         className="css-1tuknv3"
       >
         <h2
-          className="sc-bdVaJa jAqeHE"
+          className="sc-EHOje efHrfh"
         >
           Sunday
            
@@ -1004,7 +1004,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Morning (AM)
             </h3>
@@ -1047,7 +1047,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Afternoon (PM)
             </h3>
@@ -1062,7 +1062,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Evening Duty (ED)
             </h3>
@@ -1079,7 +1079,7 @@ Array [
         className="css-1tuknv3"
       >
         <h2
-          className="sc-bdVaJa jAqeHE"
+          className="sc-EHOje efHrfh"
         >
           Monday
            
@@ -1094,7 +1094,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Morning (AM)
             </h3>
@@ -1109,7 +1109,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Afternoon (PM)
             </h3>
@@ -1124,7 +1124,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Evening Duty (ED)
             </h3>
@@ -1141,7 +1141,7 @@ Array [
         className="css-1tuknv3"
       >
         <h2
-          className="sc-bdVaJa jAqeHE"
+          className="sc-EHOje efHrfh"
         >
           Tuesday
            
@@ -1156,7 +1156,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Morning (AM)
             </h3>
@@ -1171,7 +1171,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Afternoon (PM)
             </h3>
@@ -1209,7 +1209,7 @@ Array [
             className="css-wwpffz"
           >
             <h3
-              className="sc-bdVaJa dbbMZC"
+              className="sc-EHOje RpDGg"
             >
               Evening Duty (ED)
             </h3>
@@ -1225,7 +1225,7 @@ Array [
     </div>
   </div>,
   <div
-    className="sc-gzVnrw kmmJFT"
+    className="sc-gqjmRU iutRKC"
     onClick={[Function]}
     onKeyDown={[Function]}
     role="link"
