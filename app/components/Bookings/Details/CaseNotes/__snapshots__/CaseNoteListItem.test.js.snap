@@ -2,11 +2,11 @@
 
 exports[`<CaseNoteListItem /> should match the default snapshot 1`] = `
 <div
-  className="css-1nnv6h2"
+  className="sc-ifAKCX guNQlg"
   data-qa="case-note"
 >
   <div
-    className="css-v35mku"
+    className="sc-EHOje iONyKS"
   >
     <span>
       Tuesday
@@ -20,7 +20,7 @@ exports[`<CaseNoteListItem /> should match the default snapshot 1`] = `
     User, Test
   </div>
   <div
-    className="css-1bw51u2"
+    className="sc-bZQynM IutSs"
   >
     <h2
       className="sc-bdVaJa dbbMZC"
@@ -30,7 +30,7 @@ exports[`<CaseNoteListItem /> should match the default snapshot 1`] = `
       Gym
     </h2>
     <div
-      className="css-1x1vvpx"
+      className="sc-gzVnrw gNKPgp"
     >
       Occurrence date:
        
@@ -50,7 +50,7 @@ exports[`<CaseNoteListItem /> should match the default snapshot 1`] = `
       </span>
     </div>
     <pre
-      className="css-9fadba"
+      className="sc-htoDjs hEHbwl"
     >
       Offender enjoys attending the gym.
     </pre>
@@ -60,11 +60,11 @@ exports[`<CaseNoteListItem /> should match the default snapshot 1`] = `
 
 exports[`<CaseNoteListItem /> should render the with amendments snapshot 1`] = `
 <div
-  className="css-1nnv6h2"
+  className="sc-ifAKCX guNQlg"
   data-qa="case-note"
 >
   <div
-    className="css-v35mku"
+    className="sc-EHOje iONyKS"
   >
     <span>
       Tuesday
@@ -78,7 +78,7 @@ exports[`<CaseNoteListItem /> should render the with amendments snapshot 1`] = `
     User, Test
   </div>
   <div
-    className="css-1bw51u2"
+    className="sc-bZQynM IutSs"
   >
     <h2
       className="sc-bdVaJa dbbMZC"
@@ -88,7 +88,7 @@ exports[`<CaseNoteListItem /> should render the with amendments snapshot 1`] = `
       Gym
     </h2>
     <div
-      className="css-1x1vvpx"
+      className="sc-gzVnrw gNKPgp"
     >
       Occurrence date:
        
@@ -108,12 +108,12 @@ exports[`<CaseNoteListItem /> should render the with amendments snapshot 1`] = `
       </span>
     </div>
     <pre
-      className="css-9fadba"
+      className="sc-htoDjs hEHbwl"
     >
       Offender enjoys attending the gym.
     </pre>
     <div
-      className="css-1b30ksf"
+      className="sc-bwzfXH iaUqUE"
     >
       <h3
         className="sc-bdVaJa dbbMZC"
@@ -121,12 +121,12 @@ exports[`<CaseNoteListItem /> should render the with amendments snapshot 1`] = `
         Amendment
       </h3>
       <pre
-        className="css-9fadba"
+        className="sc-htpNat bSPCkp"
       >
         Offender says he doesn't like the gym.
       </pre>
       <div
-        className="css-g90fw7"
+        className="sc-bxivhb deBXyH"
       >
         <span>
           Tuesday
@@ -149,11 +149,11 @@ exports[`<CaseNoteListItem /> should render the with amendments snapshot 1`] = `
 
 exports[`<CaseNoteListItem /> should render the with make amendments button snapshot 1`] = `
 <div
-  className="css-1nnv6h2"
+  className="sc-ifAKCX guNQlg"
   data-qa="case-note"
 >
   <div
-    className="css-v35mku"
+    className="sc-EHOje iONyKS"
   >
     <span>
       Tuesday
@@ -167,7 +167,7 @@ exports[`<CaseNoteListItem /> should render the with make amendments button snap
     User, Test
   </div>
   <div
-    className="css-1bw51u2"
+    className="sc-bZQynM IutSs"
   >
     <h2
       className="sc-bdVaJa dbbMZC"
@@ -177,7 +177,7 @@ exports[`<CaseNoteListItem /> should render the with make amendments button snap
       Gym
     </h2>
     <div
-      className="css-1x1vvpx"
+      className="sc-gzVnrw gNKPgp"
     >
       Occurrence date:
        
@@ -197,12 +197,12 @@ exports[`<CaseNoteListItem /> should render the with make amendments button snap
       </span>
     </div>
     <pre
-      className="css-9fadba"
+      className="sc-htoDjs hEHbwl"
     >
       Offender enjoys attending the gym.
     </pre>
     <div
-      className="css-1b30ksf"
+      className="sc-bwzfXH iaUqUE"
     >
       <h3
         className="sc-bdVaJa dbbMZC"
@@ -210,12 +210,12 @@ exports[`<CaseNoteListItem /> should render the with make amendments button snap
         Amendment
       </h3>
       <pre
-        className="css-9fadba"
+        className="sc-htpNat bSPCkp"
       >
         Offender says he doesn't like the gym.
       </pre>
       <div
-        className="css-g90fw7"
+        className="sc-bxivhb deBXyH"
       >
         <span>
           Tuesday
@@ -233,7 +233,7 @@ exports[`<CaseNoteListItem /> should render the with make amendments button snap
       User, Test
     </div>
     <a
-      className="css-i1xo79"
+      className="sc-dnqmqq kWGTec"
       href="/offenders/A12345/case-notes/1/amend-case-note"
       onClick={[Function]}
     >

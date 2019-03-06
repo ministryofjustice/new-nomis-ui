@@ -1,4 +1,4 @@
-import styled from 'react-emotion'
+import styled from 'styled-components'
 import { GREY_3 } from 'govuk-colours'
 import { SPACING, NTA_LIGHT } from '@govuk-react/constants'
 
