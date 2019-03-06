@@ -5,8 +5,7 @@ exports[`<CaseNoteAmendmentBlock /> should match the default snapshot 1`] = `
   className="css-1b30ksf"
 >
   <h3
-    className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
-    size="SMALL"
+    className="sc-bdVaJa dbbMZC"
   >
     Amendment
   </h3>

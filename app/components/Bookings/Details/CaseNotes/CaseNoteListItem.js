@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Header from '@govuk-react/header'
+import Heading from '@govuk-react/heading'
 import uuid from 'uuid/v4'
 
 import { FormattedDate, FormattedTime, FormattedDay } from '../../../intl'
@@ -44,9 +44,9 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer }) 
       </CaseNoteCreationDetails>
 
       <CaseNoteContent>
-        <Header level={2} size="SMALL">
+        <Heading level={2} size="SMALL">
           {typeDescription} | {subTypeDescription}
-        </Header>
+        </Heading>
         {occurrenceDateTime && (
           <CaseNoteOccurrence>
             Occurrence date:{' '}

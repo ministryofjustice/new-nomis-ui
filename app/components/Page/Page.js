@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import Header from '@govuk-react/header'
+import Heading from '@govuk-react/heading'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { NavigationContainer, ContextLinkContainer, ContextLink, Container, PageHeader } from './Page.styles'
@@ -51,9 +51,9 @@ export class Page extends Component {
         )}
         <Container>
           <PageHeader>
-            <Header level={1} size="LARGE" data-qa="page-heading-text">
+            <Heading level={1} size="LARGE" data-qa="page-heading-text">
               {title}
-            </Header>
+            </Heading>
             {showPrint && (
               <div>
                 <PrintLink />
