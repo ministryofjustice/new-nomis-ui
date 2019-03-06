@@ -2,21 +2,20 @@
 
 exports[`<CaseNoteAmendmentBlock /> should match the default snapshot 1`] = `
 <div
-  className="css-1b30ksf"
+  className="sc-bwzfXH iaUqUE"
 >
   <h3
-    className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
-    size="SMALL"
+    className="sc-bdVaJa dbbMZC"
   >
     Amendment
   </h3>
   <pre
-    className="css-9fadba"
+    className="sc-htpNat bSPCkp"
   >
     Offender says he doesn't like the gym.
   </pre>
   <div
-    className="css-g90fw7"
+    className="sc-bxivhb deBXyH"
   >
     <span>
       Tuesday

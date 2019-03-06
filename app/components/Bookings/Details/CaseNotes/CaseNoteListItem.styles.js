@@ -1,4 +1,4 @@
-import styled from 'react-emotion'
+import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { GREY_2 } from 'govuk-colours'
 import { SPACING, MEDIA_QUERIES, NTA_LIGHT } from '@govuk-react/constants'

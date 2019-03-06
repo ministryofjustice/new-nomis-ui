@@ -1,4 +1,4 @@
-import styled from 'react-emotion'
+import styled from 'styled-components'
 import { SPACING, BREAKPOINTS } from '@govuk-react/constants'
 import { spacing, typography } from '@govuk-react/lib'
 import { BORDER_COLOUR } from 'govuk-colours'

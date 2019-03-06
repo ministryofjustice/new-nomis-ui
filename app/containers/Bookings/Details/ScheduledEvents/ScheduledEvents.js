@@ -4,7 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
 import { List } from 'immutable'
 import Radio from '@govuk-react/radio'
-import Header from '@govuk-react/header'
+import Heading from '@govuk-react/heading'
 import uuid from 'uuid/v4'
 
 import { FormattedDate } from '../../../../components/intl'
@@ -87,32 +87,32 @@ export class ScheduledEvents extends Component {
 
         {scheduledEvents.map(day => (
           <DayContainer key={day.get('date')}>
-            <Header level={2} size="MEDIUM">
+            <Heading level={2} size="MEDIUM">
               <DayWithDate value={day.get('date')} />{' '}
               <FormattedDate value={day.get('date')} month="long" day="2-digit" />
-            </Header>
+            </Heading>
 
             <TimePeriodsContainer>
               <TimePeriod>
-                <Header level={3} size="SMALL">
+                <Heading level={3} size="SMALL">
                   Morning (AM)
-                </Header>
+                </Heading>
 
                 <EventsContainer value="morning">{this.renderEvent(day.get('morningActivities'))}</EventsContainer>
               </TimePeriod>
 
               <TimePeriod>
-                <Header level={3} size="SMALL">
+                <Heading level={3} size="SMALL">
                   Afternoon (PM)
-                </Header>
+                </Heading>
 
                 <EventsContainer value="afternoon">{this.renderEvent(day.get('afternoonActivities'))}</EventsContainer>
               </TimePeriod>
 
               <TimePeriod>
-                <Header level={3} size="SMALL">
+                <Heading level={3} size="SMALL">
                   Evening Duty (ED)
-                </Header>
+                </Heading>
 
                 <EventsContainer value="evening">{this.renderEvent(day.get('eveningDuties'))}</EventsContainer>
               </TimePeriod>

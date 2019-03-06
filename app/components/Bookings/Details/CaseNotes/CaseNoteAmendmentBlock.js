@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Header from '@govuk-react/header'
+import Heading from '@govuk-react/heading'
 
 import { FormattedDate, FormattedTime, FormattedDay } from '../../../intl'
 import { AmendmentBlock, AmendmentText, AmendmentDate } from './CaseNoteAmendmentBlock.styles'
 
 const CaseNoteAmendmentBlock = ({ amendment: { authorName, creationDateTime, additionalNoteText } }) => (
   <AmendmentBlock>
-    <Header level={3} size="SMALL">
+    <Heading level={3} size="SMALL">
       Amendment
-    </Header>
+    </Heading>
     <AmendmentText>{additionalNoteText}</AmendmentText>
 
     {creationDateTime && (
