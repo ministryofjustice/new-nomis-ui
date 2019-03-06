@@ -47,7 +47,7 @@
     "view-bundle-stats": "webpack-bundle-analyzer build/stats.json"
   },
   "dependencies": {
-    "@govuk-react/checkbox": "^0.4.0",
+    "@govuk-react/checkbox": "^0.6.0",
     "@govuk-react/constants": "^0.3.1",
     "@govuk-react/header": "^0.3.1",
     "@govuk-react/input-field": "^0.5.1",

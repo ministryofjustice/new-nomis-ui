@@ -41,7 +41,10 @@ a.link {
 }
 
 [type='checkbox'] + span {
-  &::before,
+  &::before {
+    background: white;
+  }
+
   &::after {
     box-sizing: unset;
     background: white;
