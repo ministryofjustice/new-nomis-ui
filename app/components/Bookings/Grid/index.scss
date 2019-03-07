@@ -118,5 +118,18 @@ $person-details-background-colour: #F2F2F2;
         }
       }
     }
+
+    @media print {
+      display: block;
+
+      .grid-item {
+        float: left;
+        page-break-inside: avoid;
+      }
+
+      .person-details {
+        min-height: 140px;
+      }
+    }
   }
 }
