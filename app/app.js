@@ -11,6 +11,9 @@ import '!file-loader?name=[name].[ext]!./manifest.json'
 import 'file-loader?name=[name].[ext]!./.htaccess'
 /* eslint-enable */
 
+// https://babeljs.io/docs/en/babel-polyfill
+import '@babel/polyfill'
+
 // Import all the third party stuff
 import React from 'react'
 import ReactDOM from 'react-dom'
