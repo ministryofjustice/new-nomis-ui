@@ -3,7 +3,7 @@ import geb.Page
 
 class   AlertsPage extends Page {
   static at = {
-    title == 'Alerts - Digital Prison Services'
+    title == 'Alerts - Prison NOMIS'
   }
 
   static content = {
