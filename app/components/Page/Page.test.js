@@ -26,7 +26,7 @@ describe('<Page />', () => {
   })
 
   it('should update the document title', () => {
-    expect(global.window.document.title).toEqual('Page title - Digital Prison Services')
+    expect(global.window.document.title).toEqual('Page title - Prison NOMIS')
   })
 
   it('should display the children prop', () => {
@@ -69,7 +69,7 @@ describe('<Page />', () => {
         <Page {...props} docTitle="Quick look" />
       </MemoryRouter>
     )
-    expect(global.window.document.title).toEqual('Quick look - Digital Prison Services')
+    expect(global.window.document.title).toEqual('Quick look - Prison NOMIS')
   })
 
   it('should display a view most recent search link if results searchContext on an offender page', () => {

@@ -7,7 +7,7 @@ import modules.ErrorsModule
 class AddCaseNotePage extends Page {
 
   static at = {
-    title == 'Add new case note - Digital Prison Services'
+    title == 'Add new case note - Prison NOMIS'
     headingText == 'Add new case note'
   }
 

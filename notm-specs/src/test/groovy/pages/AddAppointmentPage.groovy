@@ -8,7 +8,7 @@ import java.time.LocalDate
 
 class AddAppointmentPage extends DatePickerPage {
   static at = {
-    title == 'Add new appointment - Digital Prison Services'
+    title == 'Add new appointment - Prison NOMIS'
     headingText == 'Add new appointment'
   }
 
