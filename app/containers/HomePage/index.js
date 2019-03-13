@@ -8,6 +8,7 @@ import { loadLocations } from '../Bookings/actions'
 import './homepage.scss'
 import Page from '../../components/Page'
 import { userType } from '../../types'
+import NotificationBar from '../NotificationBar'
 
 class HomePage extends Component {
   componentDidMount() {
@@ -22,22 +23,25 @@ class HomePage extends Component {
     }
 
     return (
-      <Page title="Welcome back" showBreadcrumb={false}>
-        {locations.size > 0 && <SearchForm />}
-        <div>
-          <ActionLinks
-            isKeyWorkerAdmin={user.isKeyWorkerAdmin && Boolean(locations.size > 0)}
-            isKeyWorker={user.isKeyWorker}
-            isWhereabouts={user.isWhereabouts}
-            omicUrl={omicUrl}
-            prisonStaffHubUrl={prisonStaffHubUrl}
-            isEstablishmentRollCheck={Boolean(locations.size > 0)}
-            hasAdminRights={user.hasAdminRights}
-            isGlobalSearch={user.canGlobalSearch}
-            isAddBulkAppointments={user.canAddBulkAppointments}
-          />
-        </div>
-      </Page>
+      <React.Fragment>
+        <NotificationBar />
+        <Page title="Welcome back" showBreadcrumb={false}>
+          {locations.size > 0 && <SearchForm />}
+          <div>
+            <ActionLinks
+              isKeyWorkerAdmin={user.isKeyWorkerAdmin && Boolean(locations.size > 0)}
+              isKeyWorker={user.isKeyWorker}
+              isWhereabouts={user.isWhereabouts}
+              omicUrl={omicUrl}
+              prisonStaffHubUrl={prisonStaffHubUrl}
+              isEstablishmentRollCheck={Boolean(locations.size > 0)}
+              hasAdminRights={user.hasAdminRights}
+              isGlobalSearch={user.canGlobalSearch}
+              isAddBulkAppointments={user.canAddBulkAppointments}
+            />
+          </div>
+        </Page>
+      </React.Fragment>
     )
   }
 }
