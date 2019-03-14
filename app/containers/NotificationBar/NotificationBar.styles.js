@@ -14,7 +14,3 @@ export const Container = styled.div`
   align-items: center;
 `
 export const Notification = styled.article``
-
-export const Paragraph = styled.p`
-  margin: 0;
-`

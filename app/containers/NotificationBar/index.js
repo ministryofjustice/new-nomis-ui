@@ -1,4 +1,3 @@
-import { withCookies } from 'react-cookie'
-import NotificationBar from './NotificationBar'
+import NotificationBarContainer from './NotificationBarContainer'
 
-export default withCookies(NotificationBar)
+export default NotificationBarContainer
