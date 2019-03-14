@@ -16,7 +16,7 @@ export function* updateUserDetails() {
     yield put({ type: USER.CASELOADS.BASE })
     yield put({ type: USER.ROLES.BASE })
 
-    yield put(hideSpinner())
+    yield put(hideSpinner()) // causing search results spinner to dismiss early
   } catch (err) {
     yield put(hideSpinner())
   }

@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { List, Map } from 'immutable'
 import { connect } from 'react-redux'
+import { BREAKPOINTS } from '@govuk-react/constants'
 import PreviousNextNavigation, { paginationType } from '../../../components/PreviousNextNavigation'
 import BookingResultsTable from '../../../components/Bookings/BookingsResultsTable'
 import BookingGrid from '../../../components/Bookings/Grid'
@@ -22,10 +24,21 @@ import {
   setResultsView,
   loadLocations,
   changeSort,
+  changePerPage,
 } from '../actions'
 
 import { NEW_SEARCH, DETAILS_TABS } from '../constants'
 import Page from '../../../components/Page'
+import PerPageDropdown from './elements/PerPageDropdown'
+
+const SortContainer = styled.div`
+  display: none;
+
+  @media screen and (min-width: ${BREAKPOINTS.DESKTOP}) {
+    display: flex;
+    padding: 15px 0;
+  }
+`
 
 const ResultsViewBuilder = ({
   viewName,
@@ -112,11 +125,12 @@ class SearchResults extends Component {
       setResultsViewDispatch,
       toggleSortOrder,
       changeSortDispatch,
+      changePerPageDispatch,
     } = this.props
     const query = getQueryParams(search)
 
     const SortDropdown = ({ viewName }) => (
-      <div className="sort-dropdown">
+      <div>
         <label className="form-label" htmlFor="sorting">
           <b>Order results by</b>
         </label>
@@ -160,7 +174,10 @@ class SearchResults extends Component {
             ) : null}
           </div>
 
-          <SortDropdown viewName={resultsView} />
+          <SortContainer>
+            <SortDropdown viewName={resultsView} />
+            <PerPageDropdown handleChange={changePerPageDispatch} totalResults={totalResults} perPage={pP} />
+          </SortContainer>
 
           <div className="row">
             {!shouldShowSpinner && <NoSearchResultsReturnedMessage resultCount={results.size} />}
@@ -211,6 +228,7 @@ SearchResults.propTypes = {
   boundLoadLocations: PropTypes.func.isRequired,
   toggleSortOrder: PropTypes.func.isRequired,
   changeSortDispatch: PropTypes.func.isRequired,
+  changePerPageDispatch: PropTypes.func.isRequired,
   getSearchResults: PropTypes.func.isRequired,
   showAlertTabForOffenderNo: PropTypes.func.isRequired,
 
@@ -235,6 +253,7 @@ const mapDispatchToProps = (dispatch, props) => {
     boundLoadLocations: () => dispatch(loadLocations()),
     toggleSortOrder: currentDirection => dispatch(toggleSort(currentDirection, queryParams)),
     changeSortDispatch: value => dispatch(changeSort(value, queryParams)),
+    changePerPageDispatch: value => dispatch(changePerPage(value, queryParams)),
     getSearchResults: query => dispatch({ type: NEW_SEARCH, payload: { query } }),
     showAlertTabForOffenderNo: offenderNo => dispatch(vD(offenderNo, DETAILS_TABS.ALERTS)),
   }

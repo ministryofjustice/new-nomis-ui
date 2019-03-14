@@ -1,9 +1,9 @@
 import { buildSearchQueryString, cleanQuery } from './stringUtils'
 
-const DEFAULT_QUERY_STRING = 'perPage=10&pageNumber=0&sortFields=lastName&sortFields=firstName&sortOrder=ASC'
+const DEFAULT_QUERY_STRING = 'perPage=20&pageNumber=0&sortFields=lastName&sortFields=firstName&sortOrder=ASC'
 
 const WITH_ALERT_QUERY_STRING =
-  'alerts=ALRT&perPage=10&pageNumber=0&sortFields=lastName&sortFields=firstName&sortOrder=ASC'
+  'alerts=ALRT&perPage=20&pageNumber=0&sortFields=lastName&sortFields=firstName&sortOrder=ASC'
 
 describe('stringUtils', () => {
   describe('buildSearchQueryString', () => {
