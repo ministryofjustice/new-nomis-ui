@@ -22,7 +22,7 @@ const initialState = fromJS({
     body: 'body',
   },
   searchContext: 'none',
-  shouldShowSpinner: false,
+  shouldShowSpinner: 0,
   mailTo: 'feedback@digital.justice.gov.uk',
   prisonStaffHubUrl: '/',
 })
@@ -41,7 +41,7 @@ export default function appReducer(state = initialState, action) {
     case SET_SEARCH_CONTEXT:
       return state.set('searchContext', action.payload)
     case SET_SPINNER_VISIBILITY:
-      return state.set('shouldShowSpinner', action.payload)
+      return state.set('shouldShowSpinner', state.get('shouldShowSpinner') + action.payload)
     case SET_APP_CONFIG:
       Object.keys(action.payload).forEach(name => {
         // eslint-disable-next-line
@@ -86,12 +86,12 @@ export const setSearchContext = context => ({
 
 export const showSpinner = () => ({
   type: SET_SPINNER_VISIBILITY,
-  payload: true,
+  payload: 1,
 })
 
 export const hideSpinner = () => ({
   type: SET_SPINNER_VISIBILITY,
-  payload: false,
+  payload: -1,
 })
 
 export const navigateTo = url => history.push(url)

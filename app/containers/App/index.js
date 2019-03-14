@@ -70,7 +70,7 @@ export class App extends Component {
         <Header />
         {/* eslint-disable-next-line */}
         <main className={`container ${menuOpen ? 'desktop-only' : ''}`} onClick={() => this.onBackgroundClick()}>
-          {shouldShowSpinner && <Spinner />}
+          {shouldShowSpinner > 0 && <Spinner />}
           <div className="main-content">
             <Switch>
               {routes.map(route => (
@@ -90,7 +90,7 @@ export class App extends Component {
 
 App.propTypes = {
   // mapStateToProps
-  shouldShowSpinner: PropTypes.bool.isRequired,
+  shouldShowSpinner: PropTypes.number.isRequired,
   menuOpen: PropTypes.bool.isRequired,
   children: PropTypes.node,
   mailTo: PropTypes.string.isRequired,

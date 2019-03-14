@@ -213,7 +213,7 @@ SearchResults.propTypes = {
   // mapStateToProps
   sortFields: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]).isRequired,
   sortOrder: PropTypes.string.isRequired,
-  shouldShowSpinner: PropTypes.bool.isRequired,
+  shouldShowSpinner: PropTypes.number.isRequired,
 
   results: ImmutablePropTypes.list,
   totalResults: PropTypes.number,
