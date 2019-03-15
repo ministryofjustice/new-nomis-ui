@@ -32,8 +32,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     given: 'I log in and search for an offender'
     fixture.loginAs(ITAG_USER)
 
-    List<Offender> offenders = []
-    offenders.push(Offender.SMITH())
+    def offenders = [Offender.SMITH()]
 
     elite2api.stubOffenderSearch("smith", offenders, '')
     elite2api.stubOffenderDetails(true)
@@ -50,20 +49,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
 
     when: 'I select an offender'
     /* stubs required for default Quick look tab */
-    elite2api.stubOffenderDetails(false)
-    elite2api.stubGetCaseNote()
-    elite2api.stubBalances()
-    elite2api.stubVisitsNext()
-    elite2api.stubEvents()
-    elite2api.stubSentenceDetail()
-    elite2api.stubMainOffence()
-    elite2api.stubContacts()
-    elite2api.stubVisitLast()
-    elite2api.stubRelationships()
-    elite2api.stubCaseNoteUsage(Lists.asList(Offender.SMITH()))
-    elite2api.stubCaseNotesNegIepWarnCount()
-    elite2api.stubCaseNotesPosIepEncCount()
-    elite2api.stubAdjudications()
+    elite2api.stubQuickLook()
     selectOffender(0)
     at OffenderDetailsPage
 

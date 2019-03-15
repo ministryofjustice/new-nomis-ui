@@ -37,7 +37,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
 
     searchFor "d s"
     at SearchResultsPage
-    setUpQuickLook()
+    elite2api.stubQuickLook()
     selectOffender(1)
     at OffenderDetailsPage
 
@@ -104,7 +104,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
 
     searchFor "d s"
     at SearchResultsPage
-    setUpQuickLook()
+    elite2api.stubQuickLook()
     selectOffender(1)
     at OffenderDetailsPage
 
@@ -147,23 +147,4 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
   }
-
-  def setUpQuickLook() {
-    elite2api.stubOffenderDetails(false)
-    elite2api.stubGetCaseNote()
-    elite2api.stubBalances()
-    elite2api.stubVisitsNext()
-    elite2api.stubEvents()
-    elite2api.stubSentenceDetail()
-    elite2api.stubMainOffence()
-    elite2api.stubContacts()
-    elite2api.stubVisitLast()
-    elite2api.stubRelationships()
-    elite2api.stubCaseNoteUsage([Offender.SMITH()])
-    elite2api.stubCaseNotesNegIepWarnCount()
-    elite2api.stubCaseNotesPosIepEncCount()
-    elite2api.stubAdjudications()
-  }
-
-
 }

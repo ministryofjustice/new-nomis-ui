@@ -1,4 +1,5 @@
 const passport = require('passport')
+const querystring = require('querystring')
 const { logger } = require('./services/logger')
 const contextProperties = require('./contextProperties')
 const config = require('./config')
@@ -18,7 +19,11 @@ const configureRoutes = ({ app, tokenRefresher, mailTo }) => {
     config.app.url
   }`
 
-  const remoteLoginIndex = passport.authenticate('oauth2')
+  const remoteLoginIndex = (req, res, next) => {
+    // eslint-disable-next-line no-param-reassign
+    req.session.returnTo = req.query.returnTo
+    return passport.authenticate('oauth2')(req, res, next)
+  }
 
   const logout = (req, res) => {
     req.logout()
@@ -61,7 +66,8 @@ const configureRoutes = ({ app, tokenRefresher, mailTo }) => {
         return
       }
 
-      res.redirect('/login')
+      const query = querystring.stringify({ returnTo: req.originalUrl })
+      res.redirect(`/login?${query}`)
     }
   }
 
@@ -81,7 +87,8 @@ const configureRoutes = ({ app, tokenRefresher, mailTo }) => {
       return
     }
 
-    res.redirect('/login')
+    const query = querystring.stringify({ returnTo: req.originalUrl })
+    res.redirect(`/login?${query}`)
   }
 
   app.get('/login', loginMiddleware, remoteLoginIndex)
@@ -103,6 +110,10 @@ const configureRoutes = ({ app, tokenRefresher, mailTo }) => {
       req.logIn(user, err2 => {
         if (err2) {
           return next(err2)
+        }
+        const { returnTo } = req.session
+        if (typeof returnTo === 'string' && returnTo.startsWith('/')) {
+          return res.redirect(returnTo)
         }
         return res.redirect('/')
       })
