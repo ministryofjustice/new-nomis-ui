@@ -6,9 +6,7 @@ import Dismiss from './Dismiss'
 const NotificationBar = ({ type, children, onDismiss }) => (
   <Container type={type}>
     <Notification>{children}</Notification>
-    <Dismiss type={type} onClick={onDismiss}>
-      Dismiss
-    </Dismiss>
+    <Dismiss onClick={onDismiss}>Dismiss</Dismiss>
   </Container>
 )
 

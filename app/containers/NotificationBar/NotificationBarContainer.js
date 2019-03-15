@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import getTheNotification from './notificationSource'
-import { alreadyDismissed, rememberDismissed } from './revisionState'
+import dismissState from './dismissState'
 import NotificationBar from './NotificationBar'
 import RichText from './RichText'
 
 export default class NotificationBarContainer extends Component {
   constructor(props) {
     super(props)
+    this.dismissState = dismissState() // Ugly, but needed for testing.
     this.dismissed = this.dismissed.bind(this)
     this.state = {}
   }
@@ -17,7 +18,8 @@ export default class NotificationBarContainer extends Component {
   }
 
   async initialise() {
-    this.retrieved(await getTheNotification())
+    const n = await getTheNotification()
+    this.retrieved(n)
   }
 
   retrieved(notification) {
@@ -27,14 +29,14 @@ export default class NotificationBarContainer extends Component {
 
     if (!body) return
     if (moment().isAfter(expiryTime)) return
-    if (alreadyDismissed(notification)) return
+    if (this.dismissState.alreadyDismissed(notification)) return
 
     this.setState({ notification })
   }
 
   dismissed() {
     const { notification } = this.state
-    rememberDismissed(notification)
+    this.dismissState.rememberDismissed(notification)
     this.setState({ notification: undefined })
   }
 

@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { LIGHT_BLUE, YELLOW } from 'govuk-colours'
 
 export const DismissBox = styled.div`
   width: 26px;
@@ -14,13 +13,13 @@ const Slash = styled.span`
   top: 10px;
   display: block;
   position: absolute;
-  height: 5px;
+  height: 3px;
   width: 100%;
-  border-radius: 5px;
+  border-radius: 1.5px;
   opacity: 1;
   left: 0;
   box-sizing: border-box;
-  background: ${props => (props.type === 'Information' ? LIGHT_BLUE : YELLOW)};
+  background: #000;
 `
 
 export const SlashLeft = styled(Slash)`
