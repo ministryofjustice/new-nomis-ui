@@ -8,6 +8,7 @@ import model.TestFixture
 import org.junit.Rule
 import pages.HomePage
 import pages.LoginPage
+import pages.OffenderDetailsPage
 
 import static model.UserAccount.ITAG_USER
 
@@ -15,12 +16,12 @@ import static model.UserAccount.ITAG_USER
 class LoginSpecification extends BrowserReportingSpec {
 
   @Rule
-  Elite2Api elite2api = new Elite2Api()
+  Elite2Api elite2Api = new Elite2Api()
 
   @Rule
   OauthApi oauthApi = new OauthApi()
 
-  TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
+  TestFixture fixture = new TestFixture(browser, elite2Api, oauthApi)
 
   def "The login page is present"() {
 
@@ -50,7 +51,7 @@ class LoginSpecification extends BrowserReportingSpec {
 
     oauthApi.stubUsersMe ITAG_USER
     oauthApi.stubUserRoles()
-    elite2api.stubGetMyDetails ITAG_USER
+    elite2Api.stubGetMyDetails ITAG_USER
 
     when: "I login using valid credentials"
     loginAs ITAG_USER, 'password'
@@ -67,7 +68,7 @@ class LoginSpecification extends BrowserReportingSpec {
 
     oauthApi.stubUsersMe ITAG_USER
     oauthApi.stubUserRoles()
-    elite2api.stubGetMyDetails(ITAG_USER, true)
+    elite2Api.stubGetMyDetails(ITAG_USER, true)
 
     when: "I login using valid credentials"
     loginAs ITAG_USER, 'password'
@@ -78,6 +79,29 @@ class LoginSpecification extends BrowserReportingSpec {
     whereaboutsLink.text().contains('Manage prisoner whereabouts')
     def t = addBulkAppointmentsLink.text()
     t == 'Add bulk appointments'
+  }
+
+  def "User login takes user back to requested page"() {
+    given: "I would like to view a specific offender"
+    oauthApi.stubValidOAuthTokenRequest()
+    oauthApi.stubUsersMe ITAG_USER
+    oauthApi.stubUserRoles()
+    elite2Api.stubGetMyDetails ITAG_USER
+
+    elite2Api.stubOffenderDetails(true)
+    elite2Api.stubIEP()
+    elite2Api.stubAliases()
+    elite2Api.stubImage()
+    elite2Api.stubQuickLook()
+
+    browser.go('/offenders/A1234AJ/quick-look')
+
+    when: "I have logged in"
+    at LoginPage
+    loginAs ITAG_USER, 'password'
+
+    then: "I am taken to quick look for the offender"
+    at OffenderDetailsPage
   }
 
   def "Log out"() {

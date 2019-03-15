@@ -813,6 +813,22 @@ class Elite2Api extends WireMockRule {
     }
   }
 
+  def stubQuickLook() {
+    stubOffenderDetails(false)
+    stubGetCaseNote()
+    stubBalances()
+    stubVisitsNext()
+    stubEvents()
+    stubSentenceDetail()
+    stubMainOffence()
+    stubContacts()
+    stubVisitLast()
+    stubRelationships()
+    stubCaseNoteUsage([Offender.SMITH()])
+    stubCaseNotesNegIepWarnCount()
+    stubCaseNotesPosIepEncCount()
+    stubAdjudications()
+  }
 
   static String buildOffenderQueryString(List<Offender> offenders) {
     return offenders

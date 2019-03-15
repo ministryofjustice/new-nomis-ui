@@ -1,11 +1,8 @@
 const url = require('url')
 const path = require('path')
 const moment = require('moment')
-const config = require('./config')
 const { logger } = require('./services/logger')
 const errorStatusCode = require('./error-status-code')
-
-const { mailTo } = config.app
 
 /*
  * This isn't really middleware. Its a wrapper for many of the async function calls in this file.

@@ -49,10 +49,6 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
   }
   auth.init(oauthApi)
 
-  const healthApi = {
-    isUp: () => Promise.resolve(true),
-  }
-
   /**
    * A Token refresher that does nothing.
    * @returns {Promise<void>}
@@ -61,7 +57,6 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
 
   sessionManagementRoutes.configureRoutes({
     app,
-    healthApi,
     tokenRefresher,
     mailTo: 'test@site.com',
   })
@@ -75,13 +70,22 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
   // because the outcome of each test depends upon the successful completion of the previous tests.
   const agent = request.agent(app)
 
-  it('GET "/" with no cooke (not authenticated) redirects to /login', () => {
+  it('GET "/" with no cookie (not authenticated) redirects to /login', () => {
     tokenRefresher.resolves()
 
     return agent
       .get('/')
       .expect(302)
-      .expect('location', '/login')
+      .expect('location', '/login?returnTo=%2F')
+  })
+
+  it('GET "/some-page" with no cookie (not authenticated) redirects to /login?returnTo=some-page', () => {
+    tokenRefresher.resolves()
+
+    return agent
+      .get('/some-page')
+      .expect(302)
+      .expect('location', '/login?returnTo=%2Fsome-page')
   })
 
   it('GET "/login" when not authenticated returns login page', () => agent.get('/login').expect(302))
@@ -115,6 +119,6 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
     agent
       .get('/')
       .expect(302)
-      .expect('location', '/login')
+      .expect('location', '/login?returnTo=%2F')
       .expect(hasCookies([])))
 })
