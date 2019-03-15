@@ -3,7 +3,7 @@ import { TURQUOISE_25, YELLOW_25 } from 'govuk-colours'
 import { MEDIA_QUERIES } from '@govuk-react/constants'
 
 export const Container = styled.div`
-  ${MEDIA_QUERIES.LARGESCREEN} {
+  ${MEDIA_QUERIES.MAX} {
     margin-top: 0;
   }
   margin-top: 10px;
@@ -13,6 +13,7 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: center;
 `
+
 export const Notification = styled.article`
   padding-right: 10px;
 `
