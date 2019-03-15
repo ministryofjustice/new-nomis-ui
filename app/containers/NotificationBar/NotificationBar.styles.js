@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 import { TURQUOISE_25, YELLOW_25 } from 'govuk-colours'
-import { MEDIA_QUERIES } from '@govuk-react/constants'
 
 export const Container = styled.div`
-  ${MEDIA_QUERIES.MAX} {
+  @media only screen and (min-width: 1024px) {
     margin-top: 0;
   }
   margin-top: 10px;
