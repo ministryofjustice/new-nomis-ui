@@ -3,7 +3,7 @@ import geb.Page
 
 class CaseNotesPage extends Page {
   static at = {
-    title == 'Case notes - Prison NOMIS'
+    title == 'Case notes - Digital Prison Services'
   }
 
   static content = {

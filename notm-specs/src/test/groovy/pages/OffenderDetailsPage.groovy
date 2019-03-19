@@ -6,7 +6,7 @@ import modules.ErrorsModule
 class OffenderDetailsPage extends Page {
 
   static at = {
-    title == 'Quick look - Prison NOMIS'
+    title == 'Quick look - Digital Prison Services'
     addCaseNoteLink.displayed
     addAppointmentLink.displayed
     !offenderNameHeading.empty

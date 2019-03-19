@@ -35,7 +35,7 @@ const HmppsHeader = ({ user, menuOpen, setMenuOpen, navigateTo, switchCaseLoad }
       <DesktopOnly>
         <Header
           homeLink="/"
-          title="Prison NOMIS"
+          title="Digital Prison Services"
           logoText="HMPPS"
           extraLinks={extraLinks}
           history={history}
