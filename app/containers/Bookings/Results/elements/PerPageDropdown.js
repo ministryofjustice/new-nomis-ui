@@ -13,20 +13,24 @@ const DropdownContainer = styled.div`
   }
 `
 
-const PerPageDropdown = ({ handleChange, totalResults, perPage }) => (
-  <DropdownContainer>
-    <label htmlFor="perPage">
-      <LabelText>Results per page</LabelText>
-    </label>
-    <SelectInput id="perPage" onChange={event => handleChange(event.target.value)} value={perPage}>
-      <option value="10">10</option>
-      <option value="20">20</option>
-      <option value="50">50</option>
-      <option value="100">100</option>
-      <option value={totalResults}>All</option>
-    </SelectInput>
-  </DropdownContainer>
-)
+const PerPageDropdown = ({ handleChange, totalResults, perPage }) => {
+  const defaultValue = totalResults <= 10 ? totalResults : perPage
+
+  return (
+    <DropdownContainer>
+      <label htmlFor="perPage">
+        <LabelText>Results per page</LabelText>
+      </label>
+      <SelectInput id="perPage" onChange={event => handleChange(event.target.value)} value={defaultValue}>
+        {totalResults > 10 && <option value="10">10</option>}
+        {totalResults > 20 && <option value="20">20</option>}
+        {totalResults > 50 && <option value="50">50</option>}
+        {totalResults > 100 && <option value="100">100</option>}
+        <option value={totalResults}>All</option>
+      </SelectInput>
+    </DropdownContainer>
+  )
+}
 
 PerPageDropdown.propTypes = {
   handleChange: PropTypes.func.isRequired,
