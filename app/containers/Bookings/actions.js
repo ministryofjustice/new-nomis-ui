@@ -75,7 +75,7 @@ export function changeSort(value, pagination) {
 export function changePerPage(perPage, pagination) {
   return {
     type: UPDATE_PAGINATION,
-    payload: { ...pagination, perPage },
+    payload: { ...pagination, perPage, pageNumber: 0 },
   }
 }
 
