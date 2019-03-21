@@ -119,7 +119,7 @@ class SearchResults extends Component {
       pagination: { perPage: pP, pageNumber: pN },
       setPage,
       resultsView,
-      shouldShowSpinner,
+      spinnerCount,
       showAlertTabForOffenderNo,
       location: { search },
       setResultsViewDispatch,
@@ -180,7 +180,7 @@ class SearchResults extends Component {
           </SortContainer>
 
           <div className="row">
-            {!shouldShowSpinner && <NoSearchResultsReturnedMessage resultCount={results.size} />}
+            {!spinnerCount && <NoSearchResultsReturnedMessage resultCount={results.size} />}
 
             {totalResults > 0 && (
               <ResultsViewBuilder
@@ -213,7 +213,7 @@ SearchResults.propTypes = {
   // mapStateToProps
   sortFields: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]).isRequired,
   sortOrder: PropTypes.string.isRequired,
-  shouldShowSpinner: PropTypes.number.isRequired,
+  spinnerCount: PropTypes.number.isRequired,
 
   results: ImmutablePropTypes.list,
   totalResults: PropTypes.number,
@@ -266,7 +266,7 @@ const mapStateToProps = (state, props) => {
   const totalResults = state.getIn(['search', 'totalResults']) || searchModel.get('totalResults')
   const resultsView = state.getIn(['search', 'resultsView']) || searchModel.get('resultsView')
   const locations = state.getIn(['search', 'details', 'locations']) || searchModel.getIn(['details', 'location'])
-  const shouldShowSpinner = state.getIn(['app', 'shouldShowSpinner'])
+  const spinnerCount = state.getIn(['app', 'spinnerCount'])
 
   const pagination =
     perPage && pageNumber
@@ -281,7 +281,7 @@ const mapStateToProps = (state, props) => {
     locations,
     sortFields,
     sortOrder,
-    shouldShowSpinner,
+    spinnerCount,
   }
 }
 

@@ -32,10 +32,10 @@ const selectSearchContext = () =>
     state => state.get('searchContext')
   )
 
-const selectShouldShowSpinner = () =>
+const selectSpinnerCount = () =>
   createSelector(
     selectApp(),
-    app => app.get('shouldShowSpinner')
+    app => app.get('spinnerCount')
   )
 
 const selectMailTo = () =>
@@ -56,7 +56,7 @@ export {
   selectModalOpen,
   selectModalData,
   selectSearchContext,
-  selectShouldShowSpinner,
+  selectSpinnerCount,
   selectMailTo,
   selectPrisonStaffHubUrl,
 }
