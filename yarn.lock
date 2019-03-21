@@ -954,6 +954,19 @@
     "@govuk-react/lib" "^0.6.0"
     govuk-colours "^1.0.3"
 
+"@govuk-react/select@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@govuk-react/select/-/select-0.6.0.tgz#8e2442d92d29d441a6fda82411ef744df38bb659"
+  integrity sha512-iz3tfO4KaWm8C5FpyU/QKZuDSPlf+LnSWyK7w+BquOsSe5AnYSlMDShMiiy7e/oX0p5/FRYO3KwU2MteReCctg==
+  dependencies:
+    "@govuk-react/constants" "^0.6.0"
+    "@govuk-react/error-text" "^0.6.0"
+    "@govuk-react/hint-text" "^0.6.0"
+    "@govuk-react/label" "^0.6.0"
+    "@govuk-react/label-text" "^0.6.0"
+    "@govuk-react/lib" "^0.6.0"
+    govuk-colours "^1.0.3"
+
 "@govuk-react/table@^0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@govuk-react/table/-/table-0.6.0.tgz#8d3608c60e1f911504daa6aa80f59ab79708fb33"

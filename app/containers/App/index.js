@@ -8,12 +8,7 @@ import axios from 'axios/index'
 import { Route, withRouter, Switch } from 'react-router-dom'
 import { FooterContainer } from 'new-nomis-shared-components'
 import { retrieveUserMe } from '../Authentication/actions'
-import {
-  selectShouldShowSpinner,
-  selectMobileMenuOpen,
-  selectMailTo,
-  selectPrisonStaffHubUrl,
-} from '../../selectors/app'
+import { selectSpinnerCount, selectMobileMenuOpen, selectMailTo, selectPrisonStaffHubUrl } from '../../selectors/app'
 import Header from '../Header'
 import Spinner from '../../components/Spinner'
 import { setAppConfig, setDeviceFormat, setMenuOpen } from '../../globalReducers/app'
@@ -62,7 +57,7 @@ export class App extends Component {
   }
 
   render() {
-    const { shouldShowSpinner, menuOpen, routes, mailTo, prisonStaffHubUrl } = this.props
+    const { spinnerCount, menuOpen, routes, mailTo, prisonStaffHubUrl } = this.props
 
     return (
       <div className="app-content">
@@ -70,7 +65,7 @@ export class App extends Component {
         <Header />
         {/* eslint-disable-next-line */}
         <main className={`container ${menuOpen ? 'desktop-only' : ''}`} onClick={() => this.onBackgroundClick()}>
-          {shouldShowSpinner && <Spinner />}
+          {spinnerCount > 0 && <Spinner />}
           <div className="main-content">
             <Switch>
               {routes.map(route => (
@@ -90,7 +85,7 @@ export class App extends Component {
 
 App.propTypes = {
   // mapStateToProps
-  shouldShowSpinner: PropTypes.bool.isRequired,
+  spinnerCount: PropTypes.number.isRequired,
   menuOpen: PropTypes.bool.isRequired,
   children: PropTypes.node,
   mailTo: PropTypes.string.isRequired,
@@ -118,7 +113,7 @@ App.defaultProps = {
 }
 
 const mapStateToProps = createStructuredSelector({
-  shouldShowSpinner: selectShouldShowSpinner(),
+  spinnerCount: selectSpinnerCount(),
   menuOpen: selectMobileMenuOpen(),
   mailTo: selectMailTo(),
   prisonStaffHubUrl: selectPrisonStaffHubUrl(),

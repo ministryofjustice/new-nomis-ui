@@ -72,6 +72,13 @@ export function changeSort(value, pagination) {
   }
 }
 
+export function changePerPage(perPage, pagination) {
+  return {
+    type: UPDATE_PAGINATION,
+    payload: { ...pagination, perPage, pageNumber: 0 },
+  }
+}
+
 export function addNewCaseNote({ offenderNo, type, subType, occurrenceDateTime }) {
   return {
     meta: { debounce: 'simple' },

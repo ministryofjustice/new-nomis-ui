@@ -42,7 +42,7 @@ export const buildSearchQueryString = query =>
       locationPrefix: query.locationPrefix,
       keywords: query.keywords || '',
       alerts: query.alerts,
-      perPage: query.perPage || 10,
+      perPage: query.perPage || 20,
       pageNumber: query.pageNumber || 0,
       sortFields: query.sortFields || ['lastName', 'firstName'],
       sortOrder: query.sortOrder || 'ASC',

@@ -195,14 +195,14 @@ class Elite2Api extends WireMockRule {
   void stubOffenderSearch(String details, List<Offender> offenders, String alertsParams, String sortFields = 'lastName,firstName', String sortOrder = 'ASC') {
     this.stubFor(
       get("/api/locations/description/LEI/inmates?keywords=${details}${alertsParams}&returnIep=true&returnAlerts=true&returnCategory=true")
-        .withHeader('Page-Limit', equalTo('10'))
+        .withHeader('Page-Limit', equalTo('20'))
         .withHeader('Page-Offset', equalTo('0'))
         .withHeader('Sort-Fields', equalTo(sortFields))
         .withHeader('Sort-Order', equalTo(sortOrder))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
-        .withHeader('Page-Limit', '10')
+        .withHeader('Page-Limit', '20')
         .withHeader('Page-Offset', '0')
         .withHeader('Total-Records', String.valueOf(offenders.size()))
         .withBody(JsonOutput.toJson(offenders))))
@@ -500,7 +500,7 @@ class Elite2Api extends WireMockRule {
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
         .withHeader('total-records', '20')
-        .withHeader('page-limit', '10')
+        .withHeader('page-limit', '20')
         .withHeader('page-offset', '0')
         .withBody(JsonOutput.toJson(buildAlerts(0, 10)))))
 
@@ -511,7 +511,7 @@ class Elite2Api extends WireMockRule {
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
         .withHeader('total-records', '20')
-        .withHeader('page-limit', '10')
+        .withHeader('page-limit', '20')
         .withHeader('page-offset', '0')
         .withBody(JsonOutput.toJson(buildAlerts(10, 20)))))
   }
@@ -524,7 +524,7 @@ class Elite2Api extends WireMockRule {
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
         .withHeader('total-records', '20')
-        .withHeader('page-limit', '10')
+        .withHeader('page-limit', '20')
         .withHeader('page-offset', '0')
         .withBody(JsonOutput.toJson(buildCaseNotes(0, 10)))))
 
@@ -535,7 +535,7 @@ class Elite2Api extends WireMockRule {
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
         .withHeader('total-records', '20')
-        .withHeader('page-limit', '10')
+        .withHeader('page-limit', '20')
         .withHeader('page-offset', '0')
         .withBody(JsonOutput.toJson(buildCaseNotes(10, 20)))))
   }
