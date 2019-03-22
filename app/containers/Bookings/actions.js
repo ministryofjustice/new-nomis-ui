@@ -15,6 +15,7 @@ import {
   NEW_SEARCH,
   EXTEND_SESSION,
   RESET_QUICK_LOOK,
+  CASE_NOTE_FILTER,
 } from './constants'
 
 export function loadLocations(offset) {
@@ -185,5 +186,19 @@ export function bookingSearch(formData) {
 export function extendActiveSession() {
   return {
     type: EXTEND_SESSION,
+  }
+}
+
+export function updateCaseNoteResultsPerPage(offenderNo, perPage, query) {
+  return {
+    type: CASE_NOTE_FILTER.BASE,
+    payload: {
+      offenderNo,
+      query: {
+        ...query,
+        perPage,
+        pageNumber: 0,
+      },
+    },
   }
 }

@@ -1,11 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { List, Map } from 'immutable'
 import { connect } from 'react-redux'
-import { BREAKPOINTS } from '@govuk-react/constants'
 import PreviousNextNavigation, { paginationType } from '../../../components/PreviousNextNavigation'
 import BookingResultsTable from '../../../components/Bookings/BookingsResultsTable'
 import BookingGrid from '../../../components/Bookings/Grid'
@@ -14,6 +12,7 @@ import ResultsViewToggle from '../../../components/ResultsViewToggle'
 import searchModel from '../../../helpers/dataMappers/search'
 import { getQueryParams } from '../../../helpers'
 import SearchAgainForm from './SearchForm'
+import { SortContainer } from './BookingResults.styles'
 
 import './index.scss'
 
@@ -30,15 +29,6 @@ import {
 import { NEW_SEARCH, DETAILS_TABS } from '../constants'
 import Page from '../../../components/Page'
 import PerPageDropdown from './elements/PerPageDropdown'
-
-const SortContainer = styled.div`
-  display: none;
-
-  @media screen and (min-width: ${BREAKPOINTS.DESKTOP}) {
-    display: flex;
-    padding: 15px 0;
-  }
-`
 
 const ResultsViewBuilder = ({
   viewName,

@@ -3,18 +3,15 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import LabelText from '@govuk-react/label-text'
 import { SelectInput } from '@govuk-react/select'
-import { SPACING } from '@govuk-react/constants'
 
 const DropdownContainer = styled.div`
-  margin-left: ${SPACING.SCALE_3};
-
   span {
     font-weight: 700;
   }
 `
 
 const PerPageDropdown = ({ handleChange, totalResults, perPage }) => {
-  const defaultValue = totalResults <= 10 ? totalResults : perPage
+  const defaultValue = totalResults <= 20 && perPage !== 10 ? totalResults : perPage
 
   return (
     <DropdownContainer>

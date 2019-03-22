@@ -2,7 +2,7 @@
 
 exports[`<PerPageDropdown /> should match 10 or less results snapshot 1`] = `
 <div
-  className="sc-EHOje filMHp"
+  className="sc-EHOje KqnQa"
 >
   <label
     htmlFor="perPage"
@@ -30,7 +30,7 @@ exports[`<PerPageDropdown /> should match 10 or less results snapshot 1`] = `
 
 exports[`<PerPageDropdown /> should match 20 or less results snapshot 1`] = `
 <div
-  className="sc-EHOje filMHp"
+  className="sc-EHOje KqnQa"
 >
   <label
     htmlFor="perPage"
@@ -63,7 +63,7 @@ exports[`<PerPageDropdown /> should match 20 or less results snapshot 1`] = `
 
 exports[`<PerPageDropdown /> should match 50 or less results snapshot 1`] = `
 <div
-  className="sc-EHOje filMHp"
+  className="sc-EHOje KqnQa"
 >
   <label
     htmlFor="perPage"
@@ -101,7 +101,7 @@ exports[`<PerPageDropdown /> should match 50 or less results snapshot 1`] = `
 
 exports[`<PerPageDropdown /> should match 100 or less results snapshot 1`] = `
 <div
-  className="sc-EHOje filMHp"
+  className="sc-EHOje KqnQa"
 >
   <label
     htmlFor="perPage"
@@ -144,7 +144,7 @@ exports[`<PerPageDropdown /> should match 100 or less results snapshot 1`] = `
 
 exports[`<PerPageDropdown /> should match the default snapshot 1`] = `
 <div
-  className="sc-EHOje filMHp"
+  className="sc-EHOje KqnQa"
 >
   <label
     htmlFor="perPage"
