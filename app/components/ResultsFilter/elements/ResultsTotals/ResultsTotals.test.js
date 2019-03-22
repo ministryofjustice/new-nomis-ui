@@ -1,6 +1,5 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-// import { shallow } from 'enzyme'
 import ResultsTotals from './ResultsTotals'
 
 describe('<ResultsTotals />', () => {

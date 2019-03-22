@@ -155,8 +155,7 @@ class SearchResults extends Component {
 
           <GridRow>
             <GridCol setWidth="two-thirds">
-              <ResultsFilter noBorder>
-                <ResultsFilter.ResultsTotals perPage={pP} pageNumber={pN} totalResults={totalResults} />
+              <ResultsFilter perPage={pP} pageNumber={pN} totalResults={totalResults} noBorder>
                 <SortDropdown viewName={resultsView} />
                 <ResultsFilter.PerPageDropdown
                   handleChange={changePerPageDispatch}

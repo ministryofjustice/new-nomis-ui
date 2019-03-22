@@ -54,8 +54,7 @@ class Alerts extends Component {
           initialFilterValues={filter}
         />
 
-        <ResultsFilter>
-          <ResultsFilter.ResultsTotals perPage={perPage} pageNumber={pageNumber} totalResults={totalResults} />
+        <ResultsFilter perPage={perPage} pageNumber={pageNumber} totalResults={totalResults}>
           <ResultsFilter.PerPageDropdown
             handleChange={value => setPagination(offenderNo, { perPage: value, pageNumber: 0 })}
             totalResults={totalResults}

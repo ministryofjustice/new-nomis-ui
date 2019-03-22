@@ -42,6 +42,10 @@
   .date-picker-component:first-child {
     margin-left: 0;
   }
+
+  @include media-breakpoint-up(sm) {
+    margin-top: 1.875em;
+  }
 }
 
 

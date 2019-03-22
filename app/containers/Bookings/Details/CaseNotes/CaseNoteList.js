@@ -29,8 +29,7 @@ const CaseNotes = props => {
   return (
     <div>
       <CaseNoteFilterForm offenderNo={offenderNo} location={location} />
-      <ResultsFilter>
-        <ResultsFilter.ResultsTotals perPage={perPage} pageNumber={pageNumber} totalResults={totalResults} />
+      <ResultsFilter perPage={perPage} pageNumber={pageNumber} totalResults={totalResults}>
         <ResultsFilter.PerPageDropdown
           handleChange={handlePerPageChange}
           totalResults={totalResults}
