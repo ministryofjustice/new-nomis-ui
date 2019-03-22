@@ -499,21 +499,21 @@ class Elite2Api extends WireMockRule {
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
-        .withHeader('total-records', '20')
+        .withHeader('total-records', '40')
         .withHeader('page-limit', '20')
         .withHeader('page-offset', '0')
-        .withBody(JsonOutput.toJson(buildAlerts(0, 10)))))
+        .withBody(JsonOutput.toJson(buildAlerts(0, 20)))))
 
     this.stubFor(
       get(urlPathEqualTo("/api/bookings/${bookingId}/alerts"))
-        .withHeader('page-offset', equalTo('10'))
+        .withHeader('page-offset', equalTo('20'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
-        .withHeader('total-records', '20')
+        .withHeader('total-records', '40')
         .withHeader('page-limit', '20')
         .withHeader('page-offset', '0')
-        .withBody(JsonOutput.toJson(buildAlerts(10, 20)))))
+        .withBody(JsonOutput.toJson(buildAlerts(20, 40)))))
   }
 
   def stubBookingCaseNotes(Integer bookingId) {
@@ -523,21 +523,21 @@ class Elite2Api extends WireMockRule {
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
-        .withHeader('total-records', '20')
+        .withHeader('total-records', '40')
         .withHeader('page-limit', '20')
         .withHeader('page-offset', '0')
-        .withBody(JsonOutput.toJson(buildCaseNotes(0, 10)))))
+        .withBody(JsonOutput.toJson(buildCaseNotes(0, 20)))))
 
     this.stubFor(
       get(urlPathEqualTo("/api/bookings/${bookingId}/caseNotes"))
-        .withHeader('page-offset', equalTo('10'))
+        .withHeader('page-offset', equalTo('20'))
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
-        .withHeader('total-records', '20')
+        .withHeader('total-records', '40')
         .withHeader('page-limit', '20')
         .withHeader('page-offset', '0')
-        .withBody(JsonOutput.toJson(buildCaseNotes(10, 20)))))
+        .withBody(JsonOutput.toJson(buildCaseNotes(20, 40)))))
   }
 
   void stubBalances() {

@@ -50,22 +50,22 @@ class PaginationSpecification extends BrowserReportingSpec {
     fixture.loginAs ITAG_USER
     go "/offenders/${offenderNo}/alerts"
 
-    when: "I can see the first 10 alerts and click on the next page link"
+    when: "I can see the first 20 alerts and click on the next page link"
     at AlertsPage
-    assertAlerts(0, 9)
+    assertAlerts(0, 19)
     // Scroll to bottom to avoid link being hidden behind the mobile fixed icons
     scrollToBottom()
     nextPageLink.click()
 
     then: "I can see the next set of alerts"
-    assertAlerts(10, 19)
+    assertAlerts(20, 39)
 
     when: "I click on the previous page link"
     scrollToBottom()
     previousPageLink.click()
 
     then: "I can see the previous set of alerts"
-    assertAlerts(0, 9)
+    assertAlerts(0, 19)
   }
 
   def "should be able to page through the case notes"() {
@@ -88,21 +88,21 @@ class PaginationSpecification extends BrowserReportingSpec {
     fixture.loginAs ITAG_USER
     go "/offenders/${offenderNo}/case-notes"
 
-    when: 'I can see the first ten case notes and click on the next page link'
+    when: 'I can see the first twenty case notes and click on the next page link'
     at CaseNotesPage
-    assert checkCaseNotes(0, 10)
+    assert checkCaseNotes(0, 20)
     scrollToBottom()
     nextPageLink.click()
 
     then: 'I can see the next set of case notes'
-    assert checkCaseNotes(10, 20)
+    assert checkCaseNotes(20, 40)
 
     when: 'I click on the previous page link'
     scrollToBottom()
     previousPageLink.click()
 
     then: 'I can see the previous set of alerts'
-    assert checkCaseNotes(0, 10)
+    assert checkCaseNotes(0, 20)
   }
 
   def scrollToBottom() {
