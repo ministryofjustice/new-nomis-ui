@@ -1,5 +1,7 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import GridRow from '@govuk-react/grid-row'
+import GridCol from '@govuk-react/grid-col'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { List, Map } from 'immutable'
@@ -12,7 +14,6 @@ import ResultsViewToggle from '../../../components/ResultsViewToggle'
 import searchModel from '../../../helpers/dataMappers/search'
 import { getQueryParams } from '../../../helpers'
 import SearchAgainForm from './SearchForm'
-import { SortContainer } from './BookingResults.styles'
 
 import './index.scss'
 
@@ -28,7 +29,7 @@ import {
 
 import { NEW_SEARCH, DETAILS_TABS } from '../constants'
 import Page from '../../../components/Page'
-import PerPageDropdown from './elements/PerPageDropdown'
+import ResultsFilter from '../../../components/ResultsFilter'
 
 const ResultsViewBuilder = ({
   viewName,
@@ -152,22 +153,24 @@ class SearchResults extends Component {
             <SearchAgainForm locations={locations} query={query} />
           </div>
 
-          <div className="toggle-and-count-view">
-            {totalResults > 0 ? (
-              <Fragment>
-                <span>
-                  {Math.min(pP * pN + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults}{' '}
-                  results
-                </span>
+          <GridRow>
+            <GridCol setWidth="two-thirds">
+              <ResultsFilter noBorder>
+                <ResultsFilter.ResultsTotals perPage={pP} pageNumber={pN} totalResults={totalResults} />
+                <SortDropdown viewName={resultsView} />
+                <ResultsFilter.PerPageDropdown
+                  handleChange={changePerPageDispatch}
+                  totalResults={totalResults}
+                  perPage={pP}
+                />
+              </ResultsFilter>
+            </GridCol>
+            <GridCol>
+              {totalResults > 0 ? (
                 <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsViewDispatch} />
-              </Fragment>
-            ) : null}
-          </div>
-
-          <SortContainer>
-            <SortDropdown viewName={resultsView} />
-            <PerPageDropdown handleChange={changePerPageDispatch} totalResults={totalResults} perPage={pP} />
-          </SortContainer>
+              ) : null}
+            </GridCol>
+          </GridRow>
 
           <div className="row">
             {!spinnerCount && <NoSearchResultsReturnedMessage resultCount={results.size} />}

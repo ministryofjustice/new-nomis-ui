@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import { spacing } from '@govuk-react/lib'
+import { BREAKPOINTS } from '@govuk-react/constants'
 
 import colours from '../../theme/colours'
 
@@ -10,6 +12,14 @@ import gridIcon from '../../assets/grid-icon.svg'
 import { IconSVG, ToggleButton } from './theme'
 
 const StyledContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  ${spacing.responsiveMargin({ size: 6, direction: 'bottom' })}
+
+  @media screen and (min-width: ${BREAKPOINTS.TABLET}) {
+    justify-content: flex-end;
+  }
+
   @media print {
     display: none;
   }

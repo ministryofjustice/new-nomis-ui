@@ -12,6 +12,7 @@ const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   border: none;
+  margin-top: 1em;
   margin-bottom: 1em;
 `
 

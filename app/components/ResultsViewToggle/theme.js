@@ -19,9 +19,9 @@ export const IconSVG = styled(InlineSVG)`
 export const ToggleButton = styled.div`
   width: 91px;
   height: 20px;
-  float: left;
   margin-top: 0px;
   padding: 0px 16px;
+  cursor: pointer;
   &:last-child {
     border-left: 1px solid grey;
   }
