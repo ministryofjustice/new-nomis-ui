@@ -9,18 +9,37 @@ import NoSearchResultsReturnedMessage from '../../../../components/NoSearchResul
 
 import CaseNoteFilterForm from './filterForm'
 import { caseNoteQueryType, userType } from '../../../../types'
+import ResultsFilter from '../../../../components/ResultsFilter/ResultsFilter'
 
 const CaseNotes = props => {
-  const { caseNotes, totalResults, pagination, offenderNo, caseNotesQuery, setPagination, location, user } = props
+  const {
+    caseNotes,
+    totalResults,
+    pagination,
+    pagination: { perPage, pageNumber },
+    offenderNo,
+    caseNotesQuery,
+    setPagination,
+    location,
+    user,
+    handlePerPageChange,
+  } = props
   const caseNoteListReferrer = location.pathname + location.search
 
   return (
     <div>
       <CaseNoteFilterForm offenderNo={offenderNo} location={location} />
+      <ResultsFilter perPage={perPage} pageNumber={pageNumber} totalResults={totalResults}>
+        <ResultsFilter.PerPageDropdown
+          handleChange={handlePerPageChange}
+          totalResults={totalResults}
+          perPage={perPage}
+        />
+      </ResultsFilter>
       <div>
         <NoSearchResultsReturnedMessage resultCount={caseNotes.size} />
       </div>
-      <div className="add-gutter-top case-notes">
+      <div className="case-notes">
         {caseNotes.map(caseNote => (
           <CaseNoteListItem
             key={caseNote.get('caseNoteId')}
@@ -48,6 +67,7 @@ CaseNotes.propTypes = {
   setPagination: PropTypes.func.isRequired,
   totalResults: PropTypes.number,
   user: userType.isRequired,
+  handlePerPageChange: PropTypes.func.isRequired,
 
   // special
   location: ReactRouterPropTypes.location.isRequired,

@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import GridRow from '@govuk-react/grid-row'
+import GridCol from '@govuk-react/grid-col'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { List, Map } from 'immutable'
 import { connect } from 'react-redux'
-import { BREAKPOINTS } from '@govuk-react/constants'
 import PreviousNextNavigation, { paginationType } from '../../../components/PreviousNextNavigation'
 import BookingResultsTable from '../../../components/Bookings/BookingsResultsTable'
 import BookingGrid from '../../../components/Bookings/Grid'
@@ -29,16 +29,7 @@ import {
 
 import { NEW_SEARCH, DETAILS_TABS } from '../constants'
 import Page from '../../../components/Page'
-import PerPageDropdown from './elements/PerPageDropdown'
-
-const SortContainer = styled.div`
-  display: none;
-
-  @media screen and (min-width: ${BREAKPOINTS.DESKTOP}) {
-    display: flex;
-    padding: 15px 0;
-  }
-`
+import ResultsFilter from '../../../components/ResultsFilter'
 
 const ResultsViewBuilder = ({
   viewName,
@@ -162,22 +153,23 @@ class SearchResults extends Component {
             <SearchAgainForm locations={locations} query={query} />
           </div>
 
-          <div className="toggle-and-count-view">
-            {totalResults > 0 ? (
-              <Fragment>
-                <span>
-                  {Math.min(pP * pN + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults}{' '}
-                  results
-                </span>
+          <GridRow>
+            <GridCol setWidth="two-thirds">
+              <ResultsFilter perPage={pP} pageNumber={pN} totalResults={totalResults} noBorder>
+                <SortDropdown viewName={resultsView} />
+                <ResultsFilter.PerPageDropdown
+                  handleChange={changePerPageDispatch}
+                  totalResults={totalResults}
+                  perPage={pP}
+                />
+              </ResultsFilter>
+            </GridCol>
+            <GridCol>
+              {totalResults > 0 ? (
                 <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsViewDispatch} />
-              </Fragment>
-            ) : null}
-          </div>
-
-          <SortContainer>
-            <SortDropdown viewName={resultsView} />
-            <PerPageDropdown handleChange={changePerPageDispatch} totalResults={totalResults} perPage={pP} />
-          </SortContainer>
+              ) : null}
+            </GridCol>
+          </GridRow>
 
           <div className="row">
             {!spinnerCount && <NoSearchResultsReturnedMessage resultCount={results.size} />}

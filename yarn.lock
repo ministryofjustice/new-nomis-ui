@@ -845,6 +845,13 @@
   dependencies:
     govuk-colours "^1.0.3"
 
+"@govuk-react/constants@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@govuk-react/constants/-/constants-0.7.0.tgz#c0b20c02e105f72b69d4e3347c65f85bdc968abc"
+  integrity sha512-HFDpxlcNlSE9bG3OrhCE6bqXxjhdbw7UFgv4AcY84ALtYufpNigkXs1pUBepkfH9ywcVPA6kAbe1f1ZA3bUT9A==
+  dependencies:
+    govuk-colours "^1.0.3"
+
 "@govuk-react/error-text@^0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@govuk-react/error-text/-/error-text-0.6.0.tgz#79486f94db4aab3753eda74f449f36d71fc8c69f"
@@ -853,6 +860,22 @@
     "@govuk-react/constants" "^0.6.0"
     "@govuk-react/lib" "^0.6.0"
     govuk-colours "^1.0.3"
+
+"@govuk-react/grid-col@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@govuk-react/grid-col/-/grid-col-0.7.0.tgz#6d81d0a53fba9f99a6f6b86411a5cac42c0b2005"
+  integrity sha512-pRd6iP75VnGxZVhrXKBy6hpjYZ3ulp+wWlH+U3MZgSR16UssBAGAMQSpmbhZaKSf/4H1/O6wikNcLD7KJ0h+BQ==
+  dependencies:
+    "@govuk-react/constants" "^0.7.0"
+    "@govuk-react/lib" "^0.7.0"
+
+"@govuk-react/grid-row@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@govuk-react/grid-row/-/grid-row-0.7.0.tgz#65fc71ba88a0a8021a72159b6816ac5ecd49172f"
+  integrity sha512-zAwPVg8ucstu1LKKE5c2dLZ4W9w21CJv32/yZGEjov2aGtCUYNPaoRNJCaMVQt3pPB983r7J2vQ9k0hYb+t5WA==
+  dependencies:
+    "@govuk-react/constants" "^0.7.0"
+    "@govuk-react/lib" "^0.7.0"
 
 "@govuk-react/heading@^0.6.0":
   version "0.6.0"
@@ -934,6 +957,14 @@
   integrity sha512-LKgroF1B3nWn+WtPp62qb7b5u80qXjQDieTAWmYQmWpOd31EwG+C+I7CVdP/YpJKAm1vdfEAaJYLZI5iAkh5Sw==
   dependencies:
     "@govuk-react/constants" "^0.6.0"
+    govuk-colours "^1.0.3"
+
+"@govuk-react/lib@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@govuk-react/lib/-/lib-0.7.0.tgz#8ec4350e3b95da5e1d15df5ded4c80881c489d78"
+  integrity sha512-GqYZVFXusYiHDnoelMs91mZ/5O6QwYXyJQwtl31CgB0UM6OhoJTJl5XueDYZUFt34SPrby1Mi2uYildEYFQMPw==
+  dependencies:
+    "@govuk-react/constants" "^0.7.0"
     govuk-colours "^1.0.3"
 
 "@govuk-react/link@^0.6.0":
