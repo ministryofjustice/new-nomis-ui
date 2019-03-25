@@ -7,7 +7,7 @@ const SET_MOBILE_MENU_OPEN = 'globalReducer/app/SET_MOBILE_MENU_OPEN'
 const SET_MODAL_OPEN = 'globalReducer/app/SET_MODAL_OPEN'
 const SET_MODAL_DATA = 'globalReducer/app/SET_MODAL_DATA'
 const SET_SEARCH_CONTEXT = 'globalReducer/app/SET_SEARCH_CONTEXT'
-const SET_SPINNER_VISIBILITY = 'globalReducer/app/SET_SPINNER_VISIBILITY'
+const SET_SPINNER_COUNT = 'globalReducer/app/SET_SPINNER_COUNT'
 
 const SET_APP_CONFIG = '/globalReducer/app/SET_CONFIG'
 
@@ -22,7 +22,7 @@ const initialState = fromJS({
     body: 'body',
   },
   searchContext: 'none',
-  shouldShowSpinner: false,
+  spinnerCount: 0,
   mailTo: 'feedback@digital.justice.gov.uk',
   prisonStaffHubUrl: '/',
 })
@@ -40,8 +40,8 @@ export default function appReducer(state = initialState, action) {
       return state.set('modalData', action.payload)
     case SET_SEARCH_CONTEXT:
       return state.set('searchContext', action.payload)
-    case SET_SPINNER_VISIBILITY:
-      return state.set('shouldShowSpinner', action.payload)
+    case SET_SPINNER_COUNT:
+      return state.set('spinnerCount', state.get('spinnerCount') + action.payload)
     case SET_APP_CONFIG:
       Object.keys(action.payload).forEach(name => {
         // eslint-disable-next-line
@@ -85,13 +85,13 @@ export const setSearchContext = context => ({
 })
 
 export const showSpinner = () => ({
-  type: SET_SPINNER_VISIBILITY,
-  payload: true,
+  type: SET_SPINNER_COUNT,
+  payload: 1,
 })
 
 export const hideSpinner = () => ({
-  type: SET_SPINNER_VISIBILITY,
-  payload: false,
+  type: SET_SPINNER_COUNT,
+  payload: -1,
 })
 
 export const navigateTo = url => history.push(url)

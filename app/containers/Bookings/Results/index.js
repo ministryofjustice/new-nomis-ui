@@ -1,5 +1,7 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import GridRow from '@govuk-react/grid-row'
+import GridCol from '@govuk-react/grid-col'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { List, Map } from 'immutable'
@@ -22,10 +24,12 @@ import {
   setResultsView,
   loadLocations,
   changeSort,
+  changePerPage,
 } from '../actions'
 
 import { NEW_SEARCH, DETAILS_TABS } from '../constants'
 import Page from '../../../components/Page'
+import ResultsFilter from '../../../components/ResultsFilter'
 
 const ResultsViewBuilder = ({
   viewName,
@@ -106,17 +110,18 @@ class SearchResults extends Component {
       pagination: { perPage: pP, pageNumber: pN },
       setPage,
       resultsView,
-      shouldShowSpinner,
+      spinnerCount,
       showAlertTabForOffenderNo,
       location: { search },
       setResultsViewDispatch,
       toggleSortOrder,
       changeSortDispatch,
+      changePerPageDispatch,
     } = this.props
     const query = getQueryParams(search)
 
     const SortDropdown = ({ viewName }) => (
-      <div className="sort-dropdown">
+      <div>
         <label className="form-label" htmlFor="sorting">
           <b>Order results by</b>
         </label>
@@ -148,22 +153,26 @@ class SearchResults extends Component {
             <SearchAgainForm locations={locations} query={query} />
           </div>
 
-          <div className="toggle-and-count-view">
-            {totalResults > 0 ? (
-              <Fragment>
-                <span>
-                  {Math.min(pP * pN + 1, totalResults)} - {Math.min(pP * (pN + 1), totalResults)} of {totalResults}{' '}
-                  results
-                </span>
+          <GridRow>
+            <GridCol setWidth="two-thirds">
+              <ResultsFilter perPage={pP} pageNumber={pN} totalResults={totalResults} noBorder>
+                <SortDropdown viewName={resultsView} />
+                <ResultsFilter.PerPageDropdown
+                  handleChange={changePerPageDispatch}
+                  totalResults={totalResults}
+                  perPage={pP}
+                />
+              </ResultsFilter>
+            </GridCol>
+            <GridCol>
+              {totalResults > 0 ? (
                 <ResultsViewToggle resultsView={resultsView} setResultsView={setResultsViewDispatch} />
-              </Fragment>
-            ) : null}
-          </div>
-
-          <SortDropdown viewName={resultsView} />
+              ) : null}
+            </GridCol>
+          </GridRow>
 
           <div className="row">
-            {!shouldShowSpinner && <NoSearchResultsReturnedMessage resultCount={results.size} />}
+            {!spinnerCount && <NoSearchResultsReturnedMessage resultCount={results.size} />}
 
             {totalResults > 0 && (
               <ResultsViewBuilder
@@ -196,7 +205,7 @@ SearchResults.propTypes = {
   // mapStateToProps
   sortFields: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]).isRequired,
   sortOrder: PropTypes.string.isRequired,
-  shouldShowSpinner: PropTypes.bool.isRequired,
+  spinnerCount: PropTypes.number.isRequired,
 
   results: ImmutablePropTypes.list,
   totalResults: PropTypes.number,
@@ -211,6 +220,7 @@ SearchResults.propTypes = {
   boundLoadLocations: PropTypes.func.isRequired,
   toggleSortOrder: PropTypes.func.isRequired,
   changeSortDispatch: PropTypes.func.isRequired,
+  changePerPageDispatch: PropTypes.func.isRequired,
   getSearchResults: PropTypes.func.isRequired,
   showAlertTabForOffenderNo: PropTypes.func.isRequired,
 
@@ -235,6 +245,7 @@ const mapDispatchToProps = (dispatch, props) => {
     boundLoadLocations: () => dispatch(loadLocations()),
     toggleSortOrder: currentDirection => dispatch(toggleSort(currentDirection, queryParams)),
     changeSortDispatch: value => dispatch(changeSort(value, queryParams)),
+    changePerPageDispatch: value => dispatch(changePerPage(value, queryParams)),
     getSearchResults: query => dispatch({ type: NEW_SEARCH, payload: { query } }),
     showAlertTabForOffenderNo: offenderNo => dispatch(vD(offenderNo, DETAILS_TABS.ALERTS)),
   }
@@ -247,7 +258,7 @@ const mapStateToProps = (state, props) => {
   const totalResults = state.getIn(['search', 'totalResults']) || searchModel.get('totalResults')
   const resultsView = state.getIn(['search', 'resultsView']) || searchModel.get('resultsView')
   const locations = state.getIn(['search', 'details', 'locations']) || searchModel.getIn(['details', 'location'])
-  const shouldShowSpinner = state.getIn(['app', 'shouldShowSpinner'])
+  const spinnerCount = state.getIn(['app', 'spinnerCount'])
 
   const pagination =
     perPage && pageNumber
@@ -262,7 +273,7 @@ const mapStateToProps = (state, props) => {
     locations,
     sortFields,
     sortOrder,
-    shouldShowSpinner,
+    spinnerCount,
   }
 }
 

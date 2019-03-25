@@ -7,7 +7,7 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-bottom: 0;
+    margin-bottom: 15px;
   }
 
   select {
@@ -32,15 +32,5 @@
 
   .mobile-only {
     display: none;
-  }
-}
-
-.sort-dropdown {
-  display: none;
-
-  @media screen and (min-width: 769px) {
-    display: block;
-    width: 33.3333%;
-    padding: 15px 0;
   }
 }

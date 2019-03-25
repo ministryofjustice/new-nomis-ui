@@ -17,6 +17,7 @@ import alertsModel from '../../../../helpers/dataMappers/alerts'
 import { alertTypesFilterType } from './selectors'
 import { getQueryParams } from '../../../../helpers'
 import history from '../../../../history'
+import ResultsFilter from '../../../../components/ResultsFilter'
 
 class Alerts extends Component {
   componentDidMount() {
@@ -33,7 +34,17 @@ class Alerts extends Component {
   }
 
   render() {
-    const { alerts, totalResults, pagination, offenderNo, setPagination, setFilter, deviceFormat, filter } = this.props
+    const {
+      alerts,
+      totalResults,
+      pagination,
+      pagination: { perPage, pageNumber },
+      offenderNo,
+      setPagination,
+      setFilter,
+      deviceFormat,
+      filter,
+    } = this.props
 
     return (
       <div id="tab-content">
@@ -43,13 +54,21 @@ class Alerts extends Component {
           initialFilterValues={filter}
         />
 
+        <ResultsFilter perPage={perPage} pageNumber={pageNumber} totalResults={totalResults}>
+          <ResultsFilter.PerPageDropdown
+            handleChange={value => setPagination(offenderNo, { perPage: value, pageNumber: 0 })}
+            totalResults={totalResults}
+            perPage={pagination.perPage}
+          />
+        </ResultsFilter>
+
         <AlertList alerts={alerts} deviceFormat={deviceFormat} />
 
         <PreviousNextNavigation
           pagination={pagination}
           totalRecords={totalResults}
-          pageAction={pageNumber => {
-            setPagination(offenderNo, { perPage: pagination.perPage, pageNumber }, pageNumber)
+          pageAction={id => {
+            setPagination(offenderNo, { perPage: pagination.perPage, pageNumber: id }, id)
             if (window) window.scrollTo(0, 0)
           }}
         />
@@ -76,11 +95,12 @@ Alerts.defaultProps = {
   totalResults: 0,
 }
 
-const buildUrl = (offenderNo, queryParams) =>
-  `/offenders/${offenderNo}/alerts?${qs.stringify({ perPage: 10, pageNumber: 0, ...queryParams })}`
+const buildUrl = (offenderNo, queryParams) => `/offenders/${offenderNo}/alerts?${qs.stringify({ ...queryParams })}`
 const adaptFilterValues = ({ fromDate, toDate, alertType }) => {
   const momentToDateString = m => (m ? m.format(DATE_ONLY_FORMAT_SPEC) : '')
   return {
+    perPage: 20,
+    pageNumber: 0,
     fromDate: momentToDateString(fromDate),
     toDate: momentToDateString(toDate),
     alertType,
@@ -108,7 +128,7 @@ const mapStateToProps = (immutableState, props) => {
   const deviceFormat = immutableState.getIn(['app', 'deviceFormat'])
   const { fromDate, toDate, alertType = '', perPage, pageNumber } = queryParams
   const filter = { fromDate: momentFromDateString(fromDate), toDate: momentFromDateString(toDate), alertType }
-  const pagination = { perPage: Number.parseInt(perPage, 10) || 10, pageNumber: Number.parseInt(pageNumber, 10) || 0 }
+  const pagination = { perPage: Number.parseInt(perPage, 10) || 20, pageNumber: Number.parseInt(pageNumber, 10) || 0 }
 
   return {
     filter,

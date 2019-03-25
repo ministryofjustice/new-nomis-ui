@@ -36,7 +36,7 @@ describe('App container', () => {
         boundRetrieveUserMe={() => {}}
         boundSetAppConfig={() => {}}
         menuOpen={false}
-        shouldShowSpinner={false}
+        spinnerCount={0}
         shouldShowMenu={false}
         mailTo={mailTo}
         prisonStaffHubUrl={prisonStaffHubUrl}
@@ -59,7 +59,7 @@ describe('App container', () => {
         boundRetrieveUserMe={() => {}}
         boundSetAppConfig={() => {}}
         menuOpen={false}
-        shouldShowSpinner={false}
+        spinnerCount={0}
         shouldShowMenu={false}
         mailTo={mailTo}
         prisonStaffHubUrl={prisonStaffHubUrl}
@@ -85,7 +85,7 @@ describe('App container', () => {
         boundRetrieveUserMe={() => {}}
         boundSetAppConfig={() => {}}
         menuOpen={false}
-        shouldShowSpinner={false}
+        spinnerCount={0}
         shouldShowMenu={false}
         mailTo={mailTo}
         prisonStaffHubUrl={prisonStaffHubUrl}

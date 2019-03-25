@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 
 import { DETAILS_TABS } from '../../constants'
 import { loadBookingCaseNotes } from '../../../EliteApiLoader/actions'
-import { loadCaseNoteTypesAndSubTypes } from '../../actions'
+import { loadCaseNoteTypesAndSubTypes, updateCaseNoteResultsPerPage } from '../../actions'
 import { Model as caseNoteModel } from '../../../../helpers/dataMappers/caseNotes'
 import { buildCaseNotQueryString } from '../../../../utils/stringUtils'
 
@@ -43,7 +43,17 @@ class CaseNotes extends Component {
   }
 
   render() {
-    const { offenderNo, setCaseNoteView, caseNotes, totalResults, setPagination, query, location, user } = this.props
+    const {
+      offenderNo,
+      setCaseNoteView,
+      caseNotes,
+      totalResults,
+      setPagination,
+      query,
+      location,
+      user,
+      updateResultsPerPage,
+    } = this.props
 
     const pagination = {
       perPage: query.perPage,
@@ -61,6 +71,7 @@ class CaseNotes extends Component {
         totalResults={totalResults}
         setCaseNoteView={setCaseNoteView}
         user={user}
+        handlePerPageChange={updateResultsPerPage}
       />
     )
   }
@@ -79,6 +90,7 @@ CaseNotes.propTypes = {
   setPagination: PropTypes.func.isRequired,
   setCaseNoteView: PropTypes.func.isRequired,
   loadTypesSubTypes: PropTypes.func.isRequired,
+  updateResultsPerPage: PropTypes.func.isRequired,
 
   // special
   location: ReactRouterPropTypes.location.isRequired,
@@ -98,6 +110,7 @@ const mapDispatchToProps = (dispatch, props) => {
       history.push(`/offenders/${id}/case-notes?${buildCaseNotQueryString({ ...queryParams, ...pagination })}`),
     setCaseNoteView: id => history.push(`/offenders/${props.offenderNo}/${DETAILS_TABS.CASE_NOTES}/${id}`),
     loadTypesSubTypes: () => dispatch(loadCaseNoteTypesAndSubTypes()),
+    updateResultsPerPage: perPage => dispatch(updateCaseNoteResultsPerPage(props.offenderNo, perPage, queryParams)),
   }
 }
 
@@ -111,7 +124,7 @@ const mapStateToProps = (immutableState, props) => {
 
   const query = {
     ...queryParams,
-    perPage: parseInt(queryParams.perPage, 10) || 10,
+    perPage: parseInt(queryParams.perPage, 10) || 20,
     pageNumber: parseInt(queryParams.pageNumber, 10) || 0,
   }
 

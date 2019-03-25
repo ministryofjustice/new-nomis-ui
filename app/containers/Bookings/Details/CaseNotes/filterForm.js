@@ -148,7 +148,7 @@ const mapDispatchToProps = (dispatch, props) => ({
       payload: {
         offenderNo: props.offenderNo,
         query: {
-          perPage: 10,
+          perPage: 20,
           pageNumber: 0,
         },
       },
@@ -166,7 +166,7 @@ const mapDispatchToProps = (dispatch, props) => ({
         payload: {
           offenderNo: props.offenderNo,
           query: {
-            perPage: 10,
+            perPage: 20,
             pageNumber: 0,
             startDate,
             endDate,
