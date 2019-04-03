@@ -18,12 +18,14 @@ import TimePicker from '../../../../components/FormComponents/TimePicker'
 
 import TypeAndSubTypeSelector, { typeSelectorType } from '../../../../components/Bookings/TypeAndSubTypeSelector'
 import { selectUsersTypesAndSubTypes } from '../../../EliteApiLoader/selectors'
+import { Model as offenderDetailsModel } from '../../../../helpers/dataMappers/offenderDetails'
 import SessionHeartbeatHandler from '../../../../utils/sessionHeartbeatHandler'
 import { FormattedDate, FormattedTime } from '../../../../components/intl'
 
 import { DETAILS_TABS, ADD_NEW_CASENOTE } from '../../constants'
 import { viewDetails, extendActiveSession, loadCaseNoteTypesAndSubTypes } from '../../actions'
 import { getQueryParams } from '../../../../helpers'
+import { toFullName } from '../../../../utils/stringUtils'
 import './index.scss'
 import Page from '../../../../components/Page'
 
@@ -57,17 +59,36 @@ class AddCaseNoteForm extends Component {
       goBackToBookingDetails,
       eventDate,
       extendSession,
+      offenderDetails,
     } = this.props
 
     const sessionHandler = new SessionHeartbeatHandler(extendSession)
     const today = moment()
     const { editDateTime } = this.state
+    const offenderName = toFullName({
+      firstName: offenderDetails.get('firstName'),
+      lastName: offenderDetails.get('lastName'),
+    })
 
     return (
       <Page title="Add new case note">
         <div className="add-case-note">
           <form onSubmit={handleSubmit}>
             <SubmissionError error={error}>{error}</SubmissionError>
+
+            <div className="row">
+              <div className="col-md-2 no-left-gutter">
+                <span>Name</span>
+              </div>
+            </div>
+
+            <div className="row add-gutter-margin-bottom">
+              <div className="col-md-4 no-left-gutter">
+                <strong>
+                  {offenderName} ({offenderNo})
+                </strong>
+              </div>
+            </div>
 
             <div className="row">
               <div className="col-sm-4 no-left-gutter">
@@ -196,6 +217,10 @@ AddCaseNoteForm.propTypes = {
   goBackToBookingDetails: PropTypes.func.isRequired,
   loadCaseNoteTypes: PropTypes.func.isRequired,
   extendSession: PropTypes.func.isRequired,
+  offenderDetails: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+  }).isRequired,
 }
 
 AddCaseNoteForm.defaultProps = {
@@ -241,6 +266,9 @@ const mapStateToProps = createStructuredSelector({
   locale: selectLocale(),
   typeValue: state => selector(state, 'typeValue'),
   eventDate: state => formValueSelector('addCaseNote')(state, 'eventDate'),
+  offenderDetails: (state, props) =>
+    state.getIn(['eliteApiLoader', 'Bookings', 'Details', props.match.params.offenderNo, 'Data']) ||
+    offenderDetailsModel,
 })
 
 export const validate = stuff => {
