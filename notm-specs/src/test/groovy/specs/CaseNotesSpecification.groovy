@@ -67,6 +67,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
 
   def "open the add case note screen with no type and sub type selected"() {
     setupAddCaseNote()
+    setupUserDetails()
 
     given: 'I am logged in and have selected an offender'
     testFixture.loginAs ITAG_USER
@@ -82,6 +83,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
 
   def "open the add case note screen with a pre-selected type and sub type"() {
     setupAddCaseNote()
+    setupUserDetails()
 
     given: 'I am logged in and have selected an offender'
     testFixture.loginAs ITAG_USER
@@ -126,7 +128,6 @@ class CaseNotesSpecification extends BrowserReportingSpec {
   def setupAddCaseNote() {
     elite2api.stubCaseNoteTypes()
     elite2api.stubMeCaseNoteTypes()
-    elite2api.stubOffenderDetails(false)
     elite2api.stubSaveCaseNote()
     elite2api.stubGetCaseNote()
   }

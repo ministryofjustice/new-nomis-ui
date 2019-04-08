@@ -29,7 +29,8 @@ export const DETAILS_TABS = {
   KEY_DATES: 'key-dates',
   QUICK_LOOK: 'quick-look',
   SCHEDULED: 'schedule',
-  ADD_APPOINTMENT: 'addAppointment',
+  ADD_APPOINTMENT: 'add-appointment',
+  ADD_CASE_NOTE: 'add-case-note',
 }
 
 export const DETAILS_ERROR = 'app/bookings/details/error'

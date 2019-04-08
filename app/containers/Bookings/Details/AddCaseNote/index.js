@@ -40,8 +40,9 @@ class AddCaseNoteForm extends Component {
   }
 
   componentDidMount() {
-    const { loadCaseNoteTypes } = this.props
+    const { loadCaseNoteTypes, boundViewDetails } = this.props
 
+    boundViewDetails()
     loadCaseNoteTypes()
   }
 
@@ -188,7 +189,7 @@ class AddCaseNoteForm extends Component {
                   type="button"
                   onClick={e => {
                     e.preventDefault()
-                    goBackToBookingDetails(offenderNo)
+                    goBackToBookingDetails()
                   }}
                 >
                   Cancel
@@ -221,6 +222,7 @@ AddCaseNoteForm.propTypes = {
     firstName: PropTypes.string,
     lastName: PropTypes.string,
   }).isRequired,
+  boundViewDetails: PropTypes.func.isRequired,
 }
 
 AddCaseNoteForm.defaultProps = {
@@ -232,6 +234,11 @@ AddCaseNoteForm.defaultProps = {
 
 const mapDispatchToProps = (dispatch, props) => {
   const { type, subType } = getQueryParams(props.location.search)
+  const {
+    match: {
+      params: { offenderNo },
+    },
+  } = props
 
   return {
     initialValues: Map({
@@ -239,14 +246,15 @@ const mapDispatchToProps = (dispatch, props) => {
       subTypeValue: subType,
       typeAndSubType: Map({ typeValue: '', subTypeValue: '', text: '' }),
     }),
-    goBackToBookingDetails: offenderNo => dispatch(viewDetails(offenderNo, DETAILS_TABS.CASE_NOTES)),
+    boundViewDetails: () => dispatch(viewDetails(offenderNo, DETAILS_TABS.ADD_CASE_NOTE)),
+    goBackToBookingDetails: () => dispatch(viewDetails(offenderNo, DETAILS_TABS.CASE_NOTES)),
     loadCaseNoteTypes: () => dispatch(loadCaseNoteTypesAndSubTypes()),
     extendSession: () => dispatch(extendActiveSession()),
     onSubmit: createFormAction(
       formData => ({
         type: ADD_NEW_CASENOTE.BASE,
         payload: {
-          offenderNo: props.match.params.offenderNo,
+          offenderNo,
           query: {
             ...formData.toJS(),
             typeAndSubType: {
