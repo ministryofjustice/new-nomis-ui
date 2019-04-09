@@ -15,7 +15,7 @@ class AddAppointmentPage extends DatePickerPage {
   static content = {
     errors { module(ErrorsModule) }
     headingText { $("[data-qa=\'page-heading-text\']").text() }
-    nameHeading { $('div.add-appointment b', 0) }
+    nameHeading { $("[data-qa=\'offender-name\']", 0) }
     form { $('form') }
     type { $('select', name: 'appointmentType') }
     location { $('select', name: 'location') }
@@ -25,7 +25,7 @@ class AddAppointmentPage extends DatePickerPage {
     startHours { $('#startTime') } // options 00, 01, 02 etc
     // minutes are optional
     saveButton { $('button', type: 'submit') }
-    otherEvents { $('#other-events div.row') }
+    otherEvents { $('#other-events [data-qa=\'event\']') }
     recurringAppointmentCheckbox { $('input', name: 'recurringAppointment') }
     repeatPeriod { $('select', name: 'repeatPeriod') }
     repeatCount { $('input', name: 'repeatCount') }

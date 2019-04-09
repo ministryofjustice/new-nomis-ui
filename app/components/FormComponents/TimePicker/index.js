@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import PropTypes from 'prop-types'
+import Label from '@govuk-react/label'
+import LabelText from '@govuk-react/label-text'
+import { SelectInput } from '@govuk-react/select'
+import ErrorText from '@govuk-react/error-text'
+import styled from 'styled-components'
+import { spacing } from '@govuk-react/lib'
+import { MEDIA_QUERIES } from '@govuk-react/constants'
 
 import { DATE_TIME_FORMAT_SPEC, DATE_ONLY_FORMAT_SPEC } from '../../../containers/App/constants'
 import { inputType, metaType } from '../../../types'
@@ -33,6 +40,19 @@ const constructMinutes = ({ selectedHour, dateTime, futureTimeOnly, enableFilter
 
   return minutes
 }
+
+const Container = styled('div')`
+  display: flex;
+  margin-left: -${spacing.simple(3)}px;
+
+  select {
+    margin-left: ${spacing.simple(3)}px !important;
+
+    ${MEDIA_QUERIES.TABLET} {
+      width: 70px; /* Generally used with DatePicker which is 155 (155px width - 15px margin / 2) */
+    }
+  }
+`
 
 class TimePicker extends Component {
   constructor() {
@@ -160,44 +180,37 @@ class TimePicker extends Component {
     })
 
     return (
-      <div className={!(touched && error) ? 'time-picker form-group' : 'time-picker form-group form-group-error'}>
-        <label htmlFor={name} className="form-label">
-          {title}
-        </label>
-
-        <div className="error-message">{touched && (error && <span>{error}</span>)}</div>
-
-        <select
-          disabled={!date}
-          className={
-            !(touched && error)
-              ? 'form-control add-gutter-margin-right select-hours'
-              : 'form-control form-control-error add-gutter-margin-right'
-          }
-          name="hours"
-          id={name}
-          onChange={this.onHoursChange}
-          defaultValue="--"
-          value={hours}
-        >
-          {constructedHours.map(hour => (
-            <option key={hour}>{hour}</option>
-          ))}
-        </select>
-
-        <select
-          disabled={!date}
-          className={!(touched && error) ? 'form-control select-minutes' : 'form-control form-control-error'}
-          name="minutes"
-          onChange={this.onMinutesChange}
-          defaultValue="--"
-          value={minutes}
-        >
-          {constructedMinutes.map(minute => (
-            <option key={minute}>{minute}</option>
-          ))}
-        </select>
-      </div>
+      <Label error={touched && error} mb={6}>
+        {title && <LabelText> {title} </LabelText>}
+        {touched && error && <ErrorText>{error}</ErrorText>}
+        <Container error={Boolean(error)} name={name}>
+          <SelectInput
+            disabled={!date}
+            name="hours"
+            id={name}
+            onChange={this.onHoursChange}
+            defaultValue="--"
+            value={hours}
+            error={touched && error}
+          >
+            {constructedHours.map(hour => (
+              <option key={hour}>{hour}</option>
+            ))}
+          </SelectInput>
+          <SelectInput
+            disabled={!date}
+            name="minutes"
+            onChange={this.onMinutesChange}
+            defaultValue="--"
+            value={minutes}
+            error={touched && error}
+          >
+            {constructedMinutes.map(minute => (
+              <option key={minute}>{minute}</option>
+            ))}
+          </SelectInput>
+        </Container>
+      </Label>
     )
   }
 }

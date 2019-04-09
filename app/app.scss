@@ -32,6 +32,12 @@ a.link {
   margin-bottom: 5px;
 }
 
+// Consistent react-datetime datepicker width
+.rdtPicker {
+  margin-top: -27px !important;
+  width: 350px !important;
+}
+
 // Global box-sizing: border-box is set because of the grid systems we use and is causing an issue with gov.uk checkbox and radio styles.
 // Unsetting until we sort out the grid choice, to fix their appearance.
 [type='radio'] + span {
