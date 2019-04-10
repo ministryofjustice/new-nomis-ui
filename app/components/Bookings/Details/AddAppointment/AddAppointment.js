@@ -5,15 +5,15 @@ import { Field } from 'redux-form/immutable'
 import GridRow from '@govuk-react/grid-row'
 import GridCol from '@govuk-react/grid-col'
 import TextArea from '@govuk-react/text-area'
+import Button from '@govuk-react/button'
 
 import Page from '../../../Page'
 import { DatePicker, localizedDateToMoment, momentToLocalizedDate } from '../../../FormComponents/DatePicker'
-import TimePicker from '../../../FormComponents/TimePicker'
+import { Select, TimePicker, ButtonCancel } from '../../../FormComponents'
 import NumberInput from './elements/NumberInput'
 import EventsView from './elements/EventsView'
 import Checkbox from './elements/Checkbox'
-import Select from './elements/Select'
-import { FauxField, ConditionalInset, TimeContainer } from './AddAppointment.styles'
+import { FauxField, ConditionalInset, TimeContainer, ButtonContainer } from './AddAppointment.styles'
 import { DATE_ONLY_FORMAT_SPEC } from '../../../../containers/App/constants'
 
 const AddAppointment = ({
@@ -59,13 +59,13 @@ const AddAppointment = ({
                 </strong>
               </FauxField>
 
-              <Field name="appointmentType" label="Select type of appointment" component={Select} mb={6}>
+              <Field name="appointmentType" label="Select type of appointment" component={Select}>
                 {viewModel.appointmentTypes.map(type => (
                   <option value={type.code}>{type.description}</option>
                 ))}
               </Field>
 
-              <Field name="location" label="Select location" component={Select} mb={6}>
+              <Field name="location" label="Select location" component={Select}>
                 {viewModel.locations.map(location => (
                   <option value={location.locationId}>{location.description}</option>
                 ))}
@@ -122,13 +122,9 @@ const AddAppointment = ({
                     <option value="MONTHLY">Monthly</option>
                   </Field>
 
-                  <Field
-                    name="repeatCount"
-                    title="Occurrences"
-                    hint={['Up to a maximum of 1 year']}
-                    component={NumberInput}
-                    type="number"
-                  />
+                  <Field name="repeatCount" hint={['Up to a maximum of 1 year']} component={NumberInput} type="number">
+                    Occurrences
+                  </Field>
 
                   <div>Last appointment on</div>
                   <strong>{lastRepeatDate ? lastRepeatDate.format('dddd Do MMMM Y') : '\u2014'}</strong>
@@ -139,19 +135,19 @@ const AddAppointment = ({
                 Comments (optional)
               </Field>
 
-              <button className="button add-gutter-margin-right" type="submit" disabled={submitting}>
-                Add appointment
-              </button>
-              <button
-                type="button"
-                className="button button-cancel"
-                onClick={e => {
-                  e.preventDefault()
-                  goBackToBookingDetails(offenderNo)
-                }}
-              >
-                Cancel
-              </button>
+              <ButtonContainer>
+                <Button type="submit" disabled={submitting}>
+                  Add appointment
+                </Button>
+                <ButtonCancel
+                  onClick={e => {
+                    e.preventDefault()
+                    goBackToBookingDetails(offenderNo)
+                  }}
+                >
+                  Cancel
+                </ButtonCancel>
+              </ButtonContainer>
             </GridCol>
           </GridRow>
         </form>

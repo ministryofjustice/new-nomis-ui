@@ -24,3 +24,11 @@ export const TimeContainer = styled.div`
     }
   }
 `
+
+export const ButtonContainer = styled.div`
+  button {
+    ${MEDIA_QUERIES.TABLET} {
+      ${spacing.responsiveMargin({ size: 3, direction: 'right' })}
+    }
+  }
+`

@@ -5,15 +5,7 @@ import GovUkCheckbox from '@govuk-react/checkbox'
 import { metaType } from '../../../../../types'
 
 const Checkbox = ({ input, meta, children }) => (
-  <GovUkCheckbox
-    name={input.name}
-    checked={input.checked}
-    onChange={input.onChange}
-    onFocus={input.onFocus}
-    onBlur={input.onBlur}
-    meta={meta}
-    mb={6}
-  >
+  <GovUkCheckbox {...input} meta={meta} mb={6}>
     {children}
   </GovUkCheckbox>
 )

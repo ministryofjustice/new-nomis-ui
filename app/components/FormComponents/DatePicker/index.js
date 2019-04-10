@@ -31,13 +31,14 @@ export class DatePicker extends Component {
       input: { name },
       meta: { touched, error },
     } = this.props
+    const hasError = touched && error
 
     return (
       <StyledDatePicker>
-        <Label error={touched && error} mb={6}>
+        <Label error={hasError} mb={6}>
           <LabelText>{title}</LabelText>
-          {touched && error && <ErrorText>{error}</ErrorText>}
-          <Input {...props} name={name} error={touched && error} readOnly />
+          {hasError && <ErrorText>{error}</ErrorText>}
+          <Input {...props} name={name} error={hasError} readOnly />
         </Label>
       </StyledDatePicker>
     )
