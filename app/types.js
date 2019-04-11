@@ -57,3 +57,5 @@ export const caseNoteType = shape({
   source: string.isRequired,
   caseNoteId: number.isRequired,
 })
+
+export const typeSelectorType = arrayOf(shape({ label: string.isRequired, value: string.isRequired }).isRequired)

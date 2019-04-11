@@ -7,12 +7,13 @@ import { createFormAction } from 'redux-form-saga'
 import { createStructuredSelector } from 'reselect'
 import { DatePicker } from '../../../../components/FormComponents/DatePicker'
 import { selectLocale } from '../../../LanguageProvider/selectors'
-import TypeAndSubTypeSelector, { typeSelectorType } from '../../../../components/Bookings/TypeAndSubTypeSelector'
+import TypeAndSubTypeSelector from '../../../../components/Bookings/TypeAndSubTypeSelector'
 import { DATE_ONLY_FORMAT_SPEC } from '../../../App/constants'
 import './filterForm.scss'
 import { CASE_NOTE_FILTER } from '../../constants'
 import { caseNoteFilterSelectInfo } from './selectors'
 import { getQueryParams } from '../../../../helpers'
+import { typeSelectorType } from '../../../../types'
 
 const selector = formValueSelector('caseNoteFilter')
 

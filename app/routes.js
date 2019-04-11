@@ -4,7 +4,7 @@ import KeyWorkerAssignments from './containers/Assignments'
 import ResultsContainer from './containers/Bookings/Results'
 import Details from './containers/Bookings/Details'
 import ScheduledEvents from './containers/Bookings/Details/ScheduledEvents'
-import AddAppointment from './containers/Bookings/Details/AddAppointment'
+import AddAppointmentContainer from './containers/Bookings/Details/AddAppointmentContainer'
 import AmendCaseNote from './containers/Bookings/Details/CaseNotes/AmendCaseNote'
 import NotFoundPage from './containers/NotFoundPage'
 
@@ -25,7 +25,7 @@ export default [
     exact: true,
     path: '/offenders/:offenderNo/add-appointment',
     name: 'addAppointment',
-    component: AddAppointment,
+    component: AddAppointmentContainer,
   },
   {
     exact: true,

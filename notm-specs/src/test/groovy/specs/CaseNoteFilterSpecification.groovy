@@ -76,7 +76,7 @@ class CaseNoteFilterSpecification extends BrowserReportingSpec  {
     resetFiltersButton.click()
 
     then: 'type and sub-type values are reset'
-    typeSelect.module(Select).selectedText == '— Show all —'
+    typeSelect.module(Select).selectedText == 'Select'
     subTypeSelect.module(Select).selectedText == 'Select'
 
     and: 'case note data is refreshed'

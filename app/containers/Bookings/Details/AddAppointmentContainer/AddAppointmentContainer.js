@@ -17,7 +17,7 @@ import { Model as offenderDetailsModel } from '../../../../helpers/dataMappers/o
 
 import { DETAILS_TABS } from '../../constants'
 import { viewDetails } from '../../actions'
-import AddAppointment from './AddAppointment'
+import AddAppointment from '../../../../components/Bookings/Details/AddAppointment'
 
 // Assumes start date does not fall on a weekend.
 const daysToAddForWeekdaysRepeat = (startDate, repeatCount) => {

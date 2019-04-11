@@ -1,8 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-
-import './index.scss'
+import styled from 'styled-components'
+import GridRow from '@govuk-react/grid-row'
+import GridCol from '@govuk-react/grid-col'
+import { spacing, typography } from '@govuk-react/lib'
+import { H3 } from '@govuk-react/heading'
 
 const getStatus = (eventStatus, excluded) => {
   if (excluded) {
@@ -55,40 +58,52 @@ const insertForNothingScheduled = eventArray => {
   ]
 }
 
+const StyledEventsView = styled.div`
+  ${spacing.withWhiteSpace({ marginBottom: 6 })}
+  ${spacing.responsivePadding(3)}
+  ${typography.font({ size: 16 })}
+  background: #E9F3F9;
+`
+
+const Event = styled.div`
+  ${spacing.withWhiteSpace({ marginBottom: 2 })}
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+`
+
 const EventsView = ({ events, eventDate }) =>
   events ? (
-    <div className="row">
-      <div className="col-md-8 col-xs-12 add-gutter-margin-bottom font-xsmall no-left-padding">
-        <div id="other-events" className="shaded add-gutter-padding-bottom">
-          <div className="row col-xs-12 add-gutter-margin-top add-gutter-margin-bottom">
-            <b>Other scheduled events on this date</b>
-          </div>
-          {insertForNothingScheduled(events).map((event, index) =>
-            event.nothingScheduled ? (
-              // eslint-disable-next-line react/no-array-index-key
-              <div key={eventDate + index} className="row add-small-margin-bottom">
-                <div className="col-xs-12">{event.eventDescription}</div>
-              </div>
-            ) : (
-              // eslint-disable-next-line react/no-array-index-key
-              <div key={eventDate + index} className="row add-small-margin-bottom">
-                <div className="col-xs-4">
-                  {event.startTime}
-                  {event.endTime && ' - '}
-                  {event.endTime}
-                </div>
-                <div className="col-xs-8">
-                  <b>
-                    {event.eventDescription}
-                    {getStatus(event.eventStatus, event.excluded)}
-                  </b>
-                </div>
-              </div>
-            )
+    <StyledEventsView id="other-events">
+      <H3 size="SMALL">Other scheduled events on this date</H3>
+
+      {insertForNothingScheduled(events).map((event, index) => (
+        <Event data-qa="event">
+          {event.nothingScheduled ? (
+            // eslint-disable-next-line react/no-array-index-key
+            <GridRow key={eventDate + index}>
+              <GridCol>{event.eventDescription}</GridCol>
+            </GridRow>
+          ) : (
+            // eslint-disable-next-line react/no-array-index-key
+            <GridRow key={eventDate + index}>
+              <GridCol setWidth="one-quarter">
+                {event.startTime}
+                {event.endTime && ' - '}
+                {event.endTime}
+              </GridCol>
+              <GridCol setWidth="three-quarters">
+                <strong>
+                  {event.eventDescription}
+                  {getStatus(event.eventStatus, event.excluded)}
+                </strong>
+              </GridCol>
+            </GridRow>
           )}
-        </div>
-      </div>
-    </div>
+        </Event>
+      ))}
+    </StyledEventsView>
   ) : null
 
 EventsView.propTypes = {

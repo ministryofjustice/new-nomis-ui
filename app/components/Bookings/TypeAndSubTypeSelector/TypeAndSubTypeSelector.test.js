@@ -1,31 +1,34 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import TypeAndSubTypeSelector from '../index'
+
+import TypeAndSubTypeSelector from '.'
 
 describe('TypeAndSubTypeSelector', () => {
   const types = [{ label: 'parent1', value: 'p1' }]
   const subTypes = [{ label: 'child1', value: 'c1', parent: 'p1' }]
-  const TypeSelectorNode = renderedComponent => renderedComponent.find('[title="Type"]')
-  const SubTypeSelectorNode = renderedComponent => renderedComponent.find('[title="Sub-type"]')
+  const TypeSelectorNode = renderedComponent => renderedComponent.find('[name="typeValue"]')
+  const SubTypeSelectorNode = renderedComponent => renderedComponent.find('[name="subTypeValue"]')
 
   it('should not populate subTypeValues when no parent type has been selected', () => {
     const renderedComponent = shallow(<TypeAndSubTypeSelector types={types} subTypes={subTypes} />)
+    const typeSelectorOptions = TypeSelectorNode(renderedComponent).children()
+    const subTypeSelectorOptions = SubTypeSelectorNode(renderedComponent).children()
 
-    const typeSelectorProps = TypeSelectorNode(renderedComponent).props()
-    const subTypeSelectorProps = SubTypeSelectorNode(renderedComponent).props()
-
-    expect(typeSelectorProps.options).toEqual(types)
-    expect(subTypeSelectorProps.options).toEqual([])
+    expect(typeSelectorOptions.find('option')).toHaveLength(1)
+    expect(typeSelectorOptions.find('option').prop('value')).toEqual('p1')
+    expect(typeSelectorOptions.find('option').text()).toEqual('parent1')
+    expect(subTypeSelectorOptions.find('option')).toHaveLength(0)
   })
 
   it('should populate subTypeValue options with related types once a parent type has been selected', () => {
     const renderedComponent = shallow(
       <TypeAndSubTypeSelector selectedType={types[0].value} types={types} subTypes={subTypes} />
     )
+    const subTypeSelectorOptions = SubTypeSelectorNode(renderedComponent).children()
 
-    const subTypeSelectorProps = SubTypeSelectorNode(renderedComponent).props()
-
-    expect(subTypeSelectorProps.options).toEqual(subTypes)
+    expect(subTypeSelectorOptions.find('option')).toHaveLength(1)
+    expect(subTypeSelectorOptions.find('option').prop('value')).toEqual('c1')
+    expect(subTypeSelectorOptions.find('option').text()).toEqual('child1')
   })
 
   it('should reset the subType by default', () => {

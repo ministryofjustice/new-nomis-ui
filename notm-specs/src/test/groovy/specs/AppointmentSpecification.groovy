@@ -86,27 +86,27 @@ class AppointmentSpecification extends BrowserReportingSpec {
     when: 'I select a date with existing activities'
     elite2api.stubGetActivities(Caseload.LEI, '', Schedules.TOMORROW, false)
     setDatePicker(Schedules.TOMORROW_DATE.year, Schedules.TOMORROW_DATE.monthValue, Schedules.TOMORROW_DATE.day)
-    waitFor({ otherEvents[8].displayed })
+    waitFor({ otherEvents[7].displayed })
 
     then: 'existing scheduled events are displayed'
-    otherEvents[1].find('div')*.text() == ['09:00 - 10:30', 'Location 1 - Activity - Activity 1']
-    otherEvents[2].find('div')*.text() == ['14:00 - 15:30', 'Location 2 - Activity - Activity 2 (temporarily removed)']
-    otherEvents[3].find('div')*.text() == ['15:30', 'Location 4 - Appointment 1 - Appt details']
-    otherEvents[4].find('div')*.text() == ['17:00 - 18:30', 'Location 3 - Activity - Activity 3']
-    otherEvents[5].find('div')*.text() == ['18:00 - 18:30', 'Visits Room - Visits - Friends']
-    otherEvents[6].find('div')*.text() == ['', 'Release scheduled']
-    otherEvents[7].find('div')*.text() == ['', 'Court visit scheduled']
-    otherEvents[8].find('div')*.text() == ['', 'Transfer scheduled']
-    otherEvents.size() == 9
+    otherEvents[0].text() == "09:00 - 10:30\nLocation 1 - Activity - Activity 1"
+    otherEvents[1].text() == "14:00 - 15:30\nLocation 2 - Activity - Activity 2 (temporarily removed)"
+    otherEvents[2].text() == "15:30\nLocation 4 - Appointment 1 - Appt details"
+    otherEvents[3].text() == "17:00 - 18:30\nLocation 3 - Activity - Activity 3"
+    otherEvents[4].text() == "18:00 - 18:30\nVisits Room - Visits - Friends"
+    otherEvents[5].text() == "Release scheduled"
+    otherEvents[6].text() == "Court visit scheduled"
+    otherEvents[7].text() == "Transfer scheduled"
+    otherEvents.size() == 8
 
     when: 'I select a date with no existing activities'
     elite2api.stubGetActivities(Caseload.LEI, '', Schedules.TODAY, true)
     setDatePicker(Schedules.TODAY_DATE.year, Schedules.TODAY_DATE.monthValue, Schedules.TODAY_DATE.day)
-    waitFor({ otherEvents.size() == 3 })
+    waitFor({ otherEvents.size() == 2 })
 
     then: 'No scheduled events are displayed'
-    otherEvents[1].find('div').text() == 'AM: nothing scheduled'
-    otherEvents[2].find('div').text() == 'PM: nothing scheduled'
+    otherEvents[0].text() == 'AM: nothing scheduled'
+    otherEvents[1].text() == 'PM: nothing scheduled'
 
     when: 'I create the new appointment'
     elite2api.stubSaveAppointment()

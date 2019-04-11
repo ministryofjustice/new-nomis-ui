@@ -1,6 +1,6 @@
 import { Map } from 'immutable'
 import moment from 'moment'
-import { calculateLastRepeatDate, validate } from '../index'
+import { calculateLastRepeatDate, validate } from './AddAppointmentContainer'
 
 describe('Create appointment functions', () => {
   describe('validate', () => {

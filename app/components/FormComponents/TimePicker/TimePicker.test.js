@@ -1,9 +1,9 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import moment from 'moment'
-import { DATE_TIME_FORMAT_SPEC } from '../../../../containers/App/constants'
+import { DATE_TIME_FORMAT_SPEC } from '../../../containers/App/constants'
 
-import TimePicker from '../index'
+import TimePicker from '.'
 
 const setTime = (date, hours, minutes, seconds) => {
   date.hours(hours)
@@ -17,8 +17,8 @@ describe('Time picker', () => {
   it('should disable the component until a date has been passed in', () => {
     const meta = { touched: false }
     const picker = shallow(<TimePicker meta={meta} title="test" now={moment()} input={{ name: 'picker' }} />)
-    const selectHours = picker.find('.select-hours').props()
-    const selectMinutes = picker.find('.select-minutes').props()
+    const selectHours = picker.find('[name="hours"]').props()
+    const selectMinutes = picker.find('[name="minutes"]').props()
 
     expect(selectHours.disabled).toBe(true)
     expect(selectMinutes.disabled).toBe(true)
@@ -29,8 +29,8 @@ describe('Time picker', () => {
     const picker = shallow(
       <TimePicker date={moment('2017-10-10')} meta={meta} title="test" now={moment()} input={{ name: 'picker' }} />
     )
-    const selectHours = picker.find('.select-hours').props()
-    const selectMinutes = picker.find('.select-minutes').props()
+    const selectHours = picker.find('[name="hours"]').props()
+    const selectMinutes = picker.find('[name="minutes"]').props()
 
     expect(selectHours.disabled).toBe(false)
     expect(selectMinutes.disabled).toBe(false)
@@ -75,11 +75,11 @@ describe('Time picker', () => {
       <TimePicker date={moment('2017-10-10')} now={now} meta={meta} title="test" input={input} futureTimeOnly />
     )
     const hours = picker
-      .find('.select-hours')
+      .find('[name="hours"]')
       .props()
       .children.map(item => item.key)
     const minutes = picker
-      .find('.select-minutes')
+      .find('[name="minutes"]')
       .props()
       .children.map(item => item.key)
 
@@ -104,11 +104,11 @@ describe('Time picker', () => {
       <TimePicker date={moment('2017-10-10')} now={now} meta={meta} input={input} pastTimeOnly title="someTitle" />
     )
     const hours = picker
-      .find('.select-hours')
+      .find('[name="hours"]')
       .props()
       .children.map(item => item.key)
     const minutes = picker
-      .find('.select-minutes')
+      .find('[name="minutes"]')
       .props()
       .children.map(item => item.key)
 
@@ -133,11 +133,11 @@ describe('Time picker', () => {
       <TimePicker date={moment('2017-09-10')} now={now} meta={meta} input={input} futureTimeOnly title="title" />
     )
     const hours = picker
-      .find('.select-hours')
+      .find('[name="hours"]')
       .props()
       .children.map(item => item.key)
     const minutes = picker
-      .find('.select-minutes')
+      .find('[name="minutes"]')
       .props()
       .children.map(item => item.key)
 
@@ -165,7 +165,7 @@ describe('Time picker', () => {
     })
 
     const minutes = picker
-      .find('.select-minutes')
+      .find('[name="minutes"]')
       .props()
       .children.map(item => item.key)
 
@@ -195,11 +195,11 @@ describe('Time picker', () => {
     })
 
     const hours = picker
-      .find('.select-hours')
+      .find('[name="hours"]')
       .props()
       .children.map(item => item.key)
     const minutes = picker
-      .find('.select-minutes')
+      .find('[name="minutes"]')
       .props()
       .children.map(item => item.key)
 
@@ -313,7 +313,7 @@ describe('Time picker', () => {
     picker.instance().componentDidMount()
 
     expect(input.onChange).toHaveBeenCalledWith(setTime(now, 11, 10, 0))
-    expect(picker.find('.select-hours').props().value).toBe('11')
-    expect(picker.find('.select-minutes').props().value).toBe('10')
+    expect(picker.find('[name="hours"]').props().value).toBe('11')
+    expect(picker.find('[name="minutes"]').props().value).toBe('10')
   })
 })
