@@ -89,6 +89,7 @@ class LoginSpecification extends BrowserReportingSpec {
     elite2Api.stubGetMyDetails ITAG_USER
 
     elite2Api.stubOffenderDetails(true)
+    elite2Api.stubOffenderAddresses()
     elite2Api.stubIEP()
     elite2Api.stubAliases()
     elite2Api.stubImage()

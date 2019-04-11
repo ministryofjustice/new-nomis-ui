@@ -40,6 +40,7 @@ class PaginationSpecification extends BrowserReportingSpec {
     elite2api.stubBookingAlerts(bookingId)
     elite2api.stubOffenderDetails(true)
     elite2api.stubOffenderDetails(false)
+    elite2api.stubOffenderAddresses()
 
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo(agencyId, offenderNo)
 
@@ -76,6 +77,7 @@ class PaginationSpecification extends BrowserReportingSpec {
     elite2api.stubBookingCaseNotes(bookingId)
     elite2api.stubOffenderDetails(true)
     elite2api.stubOffenderDetails(false)
+    elite2api.stubOffenderAddresses()
 
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo(agencyId, offenderNo)
 

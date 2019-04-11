@@ -5,6 +5,7 @@ const { isoDateFormat } = require('./../constants')
 const toAward = require('../data-mappers/to-award')
 const { toVisit } = require('../data-mappers/to-visit')
 const { toLastVisit } = require('../data-mappers/to-visit')
+
 const toActivityViewModel = require('../data-mappers/to-activity-viewmodel')
 
 const bookingServiceFactory = (eliteApi, keyworkerApi) => {
@@ -39,13 +40,25 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
     }
   }
 
+  const getAddressType = address => {
+    if (!address) {
+      return 'ABSENT'
+    }
+    return address.noFixedAddress ? 'NFA' : 'PRESENT'
+  }
+
   const getBookingDetailsViewModel = async (context, offenderNo) => {
-    const details = await eliteApi.getDetails(context, offenderNo)
+    const apiCalls = [
+      eliteApi.getDetails(context, offenderNo),
+      eliteApi.getAddresses(context, offenderNo),
+      getKeyworker(context, offenderNo),
+    ]
+
+    const [details, addresses, keyworker] = await Promise.all(apiCalls)
+
     const { bookingId } = details
-
     const { iepLevel } = await eliteApi.getIepSummary(context, bookingId)
-
-    const keyworker = await getKeyworker(context, offenderNo)
+    const primaryAddress = addresses.find(address => address.primary)
 
     return {
       ...details,
@@ -53,6 +66,10 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
       keyworker,
       csra: details.csra,
       category: details.category,
+      primaryAddress: {
+        ...primaryAddress,
+        type: getAddressType(primaryAddress),
+      },
     }
   }
 

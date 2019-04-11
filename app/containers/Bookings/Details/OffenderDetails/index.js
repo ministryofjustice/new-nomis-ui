@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { FormattedDate } from '../../../../components/intl'
 import EliteImage from '../../../EliteContainers/Image/index'
 import { offenderImageUrl } from '../../constants'
-import DisplayValue from '../../../../components/FormComponents/DisplayValue'
+import ValueWithLabel from '../../../../components/ValueWithLabel'
 import { toFullName } from '../../../../utils/stringUtils'
 import { Model as offenderDetailsModel } from '../../../../helpers/dataMappers/offenderDetails'
 import { showLargePhoto } from '../../actions'
@@ -40,6 +40,34 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
   const characteristicsGroupedIntoPairs = groupByPairs(offenderDetails.get('physicalCharacteristics').toJS())
   const physicalAttributes = offenderDetails.get('physicalAttributes')
 
+  const detailsLookup = [
+    { key: 'dateOfBirth', label: 'Date of birth', value: <FormattedDate value={offenderDetails.get('dateOfBirth')} /> },
+    { key: 'age', label: 'Age', value: offenderDetails.get('age') },
+    { key: 'gender', label: 'Gender', value: physicalAttributes.get('gender') },
+    {
+      key: 'ethnicity',
+      label: 'Ethnicity',
+      value: `${physicalAttributes.get('ethnicity')} (${physicalAttributes.get('raceCode')})`,
+    },
+    { key: 'religion', label: 'Religion', value: getProfileInformation(offenderDetails, 'RELF') },
+    { key: 'nationality', label: 'Nationality', value: getProfileInformation(offenderDetails, 'NAT') },
+    { key: 'language', label: 'Spoken language', value: offenderDetails.get('language') },
+    { key: 'flat', label: 'Flat', value: offenderDetails.getIn(['primaryAddress', 'flat']) },
+    {
+      key: 'street',
+      label: 'Street Address',
+      value: [offenderDetails.getIn(['primaryAddress', 'premise']), offenderDetails.getIn(['primaryAddress', 'street'])]
+        .filter(Boolean)
+        .join(' '),
+    },
+    { key: 'town', label: 'Town', value: offenderDetails.getIn(['primaryAddress', 'town']) },
+    { key: 'postcode', label: 'Post Code', value: offenderDetails.getIn(['primaryAddress', 'postalCode']) },
+    { key: 'county', label: 'County', value: offenderDetails.getIn(['primaryAddress', 'county']) },
+    { key: 'country', label: 'Country', value: offenderDetails.getIn(['primaryAddress', 'country']) },
+    { key: 'comment', label: 'Comment', value: offenderDetails.getIn(['primaryAddress', 'comment']) },
+  ]
+  const getDetails = labels => detailsLookup.filter(detail => labels.includes(detail.key))
+
   return (
     <div className="offender-details">
       <div className="row">
@@ -48,92 +76,13 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
             <h3 className="heading-medium top-heading">Personal details</h3>
           </div>
 
-          <div className="row border-bottom-line">
-            <div className="col-md-6 col-xs-6">
-              <span>Date of birth</span>
-            </div>
-
-            <div className="col-md-6 col-xs-6">
-              {offenderDetails.get('dateOfBirth') && (
-                <strong>
-                  {' '}
-                  <FormattedDate value={offenderDetails.get('dateOfBirth')} />{' '}
-                </strong>
-              )}
-            </div>
-          </div>
-
-          <div className="row border-bottom-line">
-            <div className="col-md-6 col-xs-6">
-              <span>Age</span>
-            </div>
-
-            <div className="col-md-6 col-xs-6">
-              <strong>
-                {' '}
-                <DisplayValue value={offenderDetails.get('age')} />{' '}
-              </strong>
-            </div>
-          </div>
-
-          <div className="row border-bottom-line">
-            <div className="col-md-6 col-xs-6">
-              <span>Gender</span>
-            </div>
-
-            <div className="col-md-6 col-xs-6">
-              <strong>
-                {' '}
-                <DisplayValue value={physicalAttributes.get('gender')} />{' '}
-              </strong>
-            </div>
-          </div>
-
-          <div className="row border-bottom-line">
-            <div className="col-md-6 col-xs-6">
-              <span>Ethnicity</span>
-            </div>
-
-            <div className="col-md-6 col-xs-6">
-              <strong>
-                {' '}
-                <DisplayValue
-                  value={`${physicalAttributes.get('ethnicity')} (${physicalAttributes.get('raceCode')})`}
-                />{' '}
-              </strong>
-            </div>
-          </div>
-
-          <div className="row border-bottom-line">
-            <div className="col-lg-6 col-xs-6">
-              <span>Religion</span>
-            </div>
-            <div className="col-lg-6 col-xs-6">
-              <strong>
-                <DisplayValue value={getProfileInformation(offenderDetails, 'RELF')} />
-              </strong>
-            </div>
-          </div>
-          <div className="row border-bottom-line">
-            <div className="col-lg-6 col-xs-6">
-              <span>Nationality</span>
-            </div>
-            <div className="col-lg-6 col-xs-6">
-              <strong>
-                <DisplayValue value={getProfileInformation(offenderDetails, 'NAT')} />
-              </strong>
-            </div>
-          </div>
-          <div className="row border-bottom-line">
-            <div className="col-lg-6 col-xs-6">
-              <span>Spoken language</span>
-            </div>
-            <div className="col-lg-6 col-xs-6">
-              <strong>
-                <DisplayValue value={offenderDetails.get('language')} />
-              </strong>
-            </div>
-          </div>
+          {getDetails(['dateOfBirth', 'age', 'gender', 'ethnicity', 'religion', 'nationality', 'language']).map(
+            details => (
+              <ValueWithLabel key={details.key} label={details.label}>
+                {details.value}
+              </ValueWithLabel>
+            )
+          )}
         </div>
 
         <div className="col-md-6">
@@ -153,6 +102,32 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="row">
+        <div className="col-md-12">
+          <h3 className="heading-medium">Address Details</h3>
+        </div>
+      </div>
+      <div className="col-md-6 col-xs-12">
+        {(() => {
+          switch (offenderDetails.getIn(['primaryAddress', 'type'])) {
+            case 'NFA':
+              return <span>No Fixed Abode</span>
+            case 'ABSENT':
+              return <span>No Address On Record</span>
+            case 'PRESENT':
+              return getDetails(['flat', 'street', 'town', 'postCode', 'county', 'country', 'comment'])
+                .filter(details => details.value)
+                .map(details => (
+                  <ValueWithLabel key={details.key} label={details.label}>
+                    {details.value}
+                  </ValueWithLabel>
+                ))
+            default:
+              return null
+          }
+        })()}
       </div>
 
       <div className="row">
@@ -263,36 +238,9 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
         <div className="row" key={uuid()}>
           {pairs.map(mark => (
             <div className="col-md-6" key={uuid()}>
-              <div className="row border-bottom-line">
-                <div className="col-md-6 col-xs-6">
-                  <span>Type</span>
-                </div>
-
-                <div className="col-md-6 col-xs-6">
-                  <strong>{mark.type}</strong>
-                </div>
-              </div>
-
-              <div className="row border-bottom-line">
-                <div className="col-md-6 col-xs-6">
-                  <span>Body part</span>
-                </div>
-
-                <div className="col-md-6 col-xs-6">
-                  <strong>{mark.bodyPart}</strong>
-                </div>
-              </div>
-
-              <div className="row border-bottom-line">
-                <div className="col-md-6 col-xs-6">
-                  <span>Comment</span>
-                </div>
-
-                <div className="col-md-6 col-xs-6">
-                  <strong>{mark.comment}</strong>
-                </div>
-              </div>
-
+              <ValueWithLabel label="Type">{mark.type}</ValueWithLabel>
+              <ValueWithLabel label="Body Part">{mark.bodyPart}</ValueWithLabel>
+              <ValueWithLabel label="Comment">{mark.comment}</ValueWithLabel>
               {mark.imageId && (
                 <div className="row">
                   <div className="col-md-6 col-xs-6">

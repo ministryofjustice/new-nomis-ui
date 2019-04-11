@@ -140,6 +140,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
 
     elite2api.stubOffenderSearch("d%20s", offenders, '')
     elite2api.stubOffenderDetails(true)
+    elite2api.stubOffenderAddresses()
     elite2api.stubImage()
     elite2api.stubIEP()
     elite2api.stubKeyworkerOld()

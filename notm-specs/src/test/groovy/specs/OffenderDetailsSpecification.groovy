@@ -36,6 +36,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
 
     elite2api.stubOffenderSearch("smith", offenders, '')
     elite2api.stubOffenderDetails(true)
+    elite2api.stubOffenderAddresses()
     elite2api.stubImage()
     elite2api.stubIEP()
     elite2api.stubKeyworkerOld()
