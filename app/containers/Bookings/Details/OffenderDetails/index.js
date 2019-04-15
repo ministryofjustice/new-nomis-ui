@@ -66,7 +66,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
     { key: 'country', label: 'Country', value: offenderDetails.getIn(['primaryAddress', 'country']) },
     { key: 'comment', label: 'Comment', value: offenderDetails.getIn(['primaryAddress', 'comment']) },
   ]
-  const getDetails = labels => detailsLookup.filter(detail => labels.includes(detail.key))
+  const getDetails = labels => labels.map(label => detailsLookup.find(detail => label === detail.key))
 
   return (
     <div className="offender-details">
@@ -117,7 +117,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
             case 'ABSENT':
               return <span>No primary address on record</span>
             case 'PRESENT':
-              return getDetails(['flat', 'street', 'town', 'postCode', 'county', 'country', 'comment'])
+              return getDetails(['flat', 'street', 'town', 'county', 'postcode', 'country', 'comment'])
                 .filter(details => details.value)
                 .map(details => (
                   <ValueWithLabel key={details.key} label={details.label}>
