@@ -324,6 +324,32 @@ class Elite2Api extends WireMockRule {
         .withBody(fullInfo ? bigResult : smallResult)))
   }
 
+  void stubOffenderAddresses() {
+    this.stubFor(
+      get("/api/offenders/A1234AJ/addresses")
+        .willReturn(aResponse()
+          .withStatus(200)
+          .withHeader('Content-Type', 'application/json')
+          .withBody("""[
+     {
+      "flat": "7",
+      "premise": "premises",
+      "street": "street name",
+      "town": "Barnsley",
+      "postalCode": "LS1 XXX",
+      "county": "South Yorkshire",
+      "country": "England",
+      "comment": "comment text goes here",
+      "primary": true,
+      "noFixedAddress": false
+     },
+     {
+      "primary": false,
+      "noFixedAddress": true
+     }
+     ]""")))
+  }
+
   void stubAliases() {
     this.stubFor(
       get(urlMatching("/api/bookings/.+/aliases"))

@@ -26,6 +26,7 @@ describe('Booking Service Booking details', () => {
     sandbox.stub(eliteApi, 'getDetailsLight')
     sandbox.stub(eliteApi, 'getKeyworker')
     sandbox.stub(eliteApi, 'getCaseLoads')
+    sandbox.stub(eliteApi, 'getAddresses')
     sandbox.stub(keyworkerApi, 'getKeyworkerByCaseloadAndOffenderNo')
 
     eliteApi.getDetailsLight.returns({
@@ -37,6 +38,7 @@ describe('Booking Service Booking details', () => {
     })
     eliteApi.getIepSummary.returns({ iepLevel: null })
     eliteApi.getCaseLoads.returns([{ caseLoadId: 'LEI', currentlyActive: true }])
+    eliteApi.getAddresses.returns([{ primary: true }, { primary: false }])
     keyworkerApi.getKeyworkerByCaseloadAndOffenderNo.returns({ firstName: 'John' })
   })
 
@@ -58,5 +60,12 @@ describe('Booking Service Booking details', () => {
     const data = await bookingService.getBookingDetailsViewModel({}, offenderNo)
     expect(keyworkerApi.getKeyworkerByCaseloadAndOffenderNo).to.be.called
     expect(data.keyworker.firstName).to.equal('John')
+  })
+
+  it('it should call getAddresses', async () => {
+    const data = await bookingService.getBookingDetailsViewModel({}, offenderNo)
+    expect(eliteApi.getAddresses).to.be.called
+    expect(data.primaryAddress.primary).to.equal(true)
+    expect(data.primaryAddress.type).to.equal('PRESENT')
   })
 })

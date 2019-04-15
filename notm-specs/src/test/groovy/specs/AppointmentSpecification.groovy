@@ -46,6 +46,7 @@ class AppointmentSpecification extends BrowserReportingSpec {
 
     elite2api.stubOffenderSearch("apperson", offenders, '')
     elite2api.stubOffenderDetails(true)
+    elite2api.stubOffenderAddresses()
     elite2api.stubImage()
     elite2api.stubIEP()
     elite2api.stubKeyworkerOld()
@@ -164,6 +165,7 @@ class AppointmentSpecification extends BrowserReportingSpec {
     at SearchResultsPage
     /* required for default Quick look tab */
     elite2api.stubOffenderDetails(false)
+    elite2api.stubOffenderAddresses()
 
     elite2api.stubGetCaseNote()
 

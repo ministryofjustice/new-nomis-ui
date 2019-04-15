@@ -82,6 +82,8 @@ class SearchResultsSpecification extends BrowserReportingSpec {
     when: 'Alert is clicked'
     elite2api.stubOffenderDetails(true)
     elite2api.stubOffenderDetails(false)
+    elite2api.stubOffenderAddresses()
+
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubBookingAlerts(-10)
     elite2api.stubAliases()

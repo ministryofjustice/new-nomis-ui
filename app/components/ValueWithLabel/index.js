@@ -1,27 +1,36 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import { BORDER_COLOUR } from 'govuk-colours'
+import { spacing } from '@govuk-react/lib'
 
-const ValueWithLabel = ({ label, children, indent }) => (
-  <div className="value-with-label row border-bottom-line">
-    <div className="col-lg-6 col-xs-6">
-      <span className={`value-with-label__label ${indent && 'shift-right'}`}>{label}</span>
-    </div>
+const Container = styled.div`
+  display: flex;
+  ${spacing.withWhiteSpace({ marginBottom: 3 })};
+  border-bottom: 1px solid ${BORDER_COLOUR};
+`
 
-    <div className="col-lg-6 col-xs-6">
-      <strong className="value-with-label__value">{children}</strong>
-    </div>
-  </div>
+const Item = styled.div`
+  flex: 1 50%;
+`
+
+const ValueWithLabel = ({ label, children }) => (
+  <Container>
+    <Item>{label}</Item>
+    <Item>
+      <strong>{children}</strong>
+    </Item>
+  </Container>
 )
 
-ValueWithLabel.defaultProps = {
-  children: '--',
-  indent: false,
+ValueWithLabel.propTypes = {
+  label: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.node, PropTypes.object]),
 }
 
-ValueWithLabel.propTypes = {
-  label: PropTypes.string.isRequired,
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  indent: PropTypes.bool,
+ValueWithLabel.defaultProps = {
+  label: '',
+  children: '--',
 }
 
 export default ValueWithLabel
