@@ -58,7 +58,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
       label: 'Street Address',
       value: [offenderDetails.getIn(['primaryAddress', 'premise']), offenderDetails.getIn(['primaryAddress', 'street'])]
         .filter(Boolean)
-        .join(' '),
+        .join(', '),
     },
     { key: 'town', label: 'Town', value: offenderDetails.getIn(['primaryAddress', 'town']) },
     { key: 'postcode', label: 'Post Code', value: offenderDetails.getIn(['primaryAddress', 'postalCode']) },
