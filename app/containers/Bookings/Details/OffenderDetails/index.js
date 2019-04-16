@@ -35,7 +35,7 @@ const groupByPairs = dataset =>
     return result
   }, [])
 
-const OffenderDetails = ({ offenderDetails, showPhoto }) => {
+export const OffenderDetails = ({ offenderDetails, showPhoto }) => {
   const marksGroupedIntoPairs = groupByPairs(offenderDetails.get('physicalMarks').toJS())
   const characteristicsGroupedIntoPairs = groupByPairs(offenderDetails.get('physicalCharacteristics').toJS())
   const physicalAttributes = offenderDetails.get('physicalAttributes')
