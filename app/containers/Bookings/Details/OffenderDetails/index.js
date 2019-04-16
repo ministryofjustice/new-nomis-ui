@@ -61,7 +61,7 @@ export const OffenderDetails = ({ offenderDetails, showPhoto }) => {
         .join(', '),
     },
     { key: 'town', label: 'Town', value: offenderDetails.getIn(['primaryAddress', 'town']) },
-    { key: 'postcode', label: 'Post Code', value: offenderDetails.getIn(['primaryAddress', 'postalCode']) },
+    { key: 'postcode', label: 'Postcode', value: offenderDetails.getIn(['primaryAddress', 'postalCode']) },
     { key: 'county', label: 'County', value: offenderDetails.getIn(['primaryAddress', 'county']) },
     { key: 'country', label: 'Country', value: offenderDetails.getIn(['primaryAddress', 'country']) },
     { key: 'comment', label: 'Comment', value: offenderDetails.getIn(['primaryAddress', 'comment']) },
