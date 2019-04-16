@@ -237,7 +237,7 @@ exports[`<OffenderDetails /> should match the default snapshot 1`] = `
       <div
         className="sc-htpNat idItfP"
       >
-        Post Code
+        Postcode
       </div>
       <div
         className="sc-htpNat idItfP"
