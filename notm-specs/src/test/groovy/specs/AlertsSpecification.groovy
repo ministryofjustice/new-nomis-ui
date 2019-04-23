@@ -41,7 +41,6 @@ class AlertsSpecification extends BrowserReportingSpec {
     elite2api.stubOffenderDetails(false)
     elite2api.stubOffenderAddresses()
 
-
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo(agencyId, offenderNo)
 
     elite2api.stubIEP()
@@ -67,6 +66,7 @@ class AlertsSpecification extends BrowserReportingSpec {
     clearFiltersButton.click()
 
     then: 'Type of alert is reset'
+    at AlertsPage
     typeSelect.module(Select).selectedText == '— Show all —'
 
     and: 'alert data is refreshed'

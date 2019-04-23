@@ -38,11 +38,28 @@ yarn start:prod
 
 ## Running tests
 
-The system makes use of mocka to run test:
+The system makes use of mocha to run the tests:
 
 ```bash
 yarn test
 ```
+
+### Starting feature tests node instance
+
+A separate node instance needs to be started for the feature tests. This will run on port 3006 and won't conflict
+with any of the api services, e.g. elite2-api or oauth.
+
+`yarn start-feature`
+
+**To run the tests using Gradle:**
+Ensure that chromedriver is on your path. Run `./gradlew build` from the root of this project.
+The Gradle build will produce report(s) at `notm-specs/reports/tests`
+
+**To run the tests from IntelliJ IDEA:**
+Ensure that `build.gradle` is linked to the IDE project (See here: https://www.jetbrains.com/help/idea/gradle.html)
+and that `chromedriver` is on the PATH. Open a Spock Specification
+(`specs.LoginSpecification` for example). The gutter should
+now display 'run' icons for the class and each of its tests methods.
 
 ## Checking bundle size
 

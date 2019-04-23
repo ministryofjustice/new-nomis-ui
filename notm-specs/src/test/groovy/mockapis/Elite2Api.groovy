@@ -20,7 +20,7 @@ import static mockapis.response.CaseNoteTypes.referenceCaseNoteTypes
 class Elite2Api extends WireMockRule {
 
   Elite2Api() {
-    super(8080)
+    super(18080)
   }
 
   void stubHealthCheck() {

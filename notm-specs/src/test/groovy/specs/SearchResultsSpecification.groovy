@@ -50,8 +50,8 @@ class SearchResultsSpecification extends BrowserReportingSpec {
 
     then: 'The correct offenders are listed'
     at SearchResultsPage
-    images.size() == 3
-    images[2].displayed
+    waitFor { images.size() == 3 }
+    waitFor { images[2].displayed }
 
     rows[0].text().contains('Smelley, Daniel\nA1234AL A-1-8')
     rows[1].text().contains('Bob, Darius\nA1234AK A-1-7')
@@ -75,7 +75,7 @@ class SearchResultsSpecification extends BrowserReportingSpec {
     then: 'Filters are applied'
     rows.size() == 3
     // new results match stub with alert filters
-    rows[0].find("[data-qa=\'bookings-results-offender-name\']", 0).text() == 'Smith, Daniel'
+    waitFor { rows[0].find("[data-qa=\'bookings-results-offender-name\']", 0).text() == 'Smith, Daniel' }
     rows[1].find("[data-qa=\'bookings-results-offender-name\']", 0).text() == 'Bob, Darius'
     rows[2].find("[data-qa=\'bookings-results-offender-name\']", 0).text() == 'Smelley, Daniel'
 
@@ -94,7 +94,6 @@ class SearchResultsSpecification extends BrowserReportingSpec {
 
     then: 'The offender details alert tab is shown'
     at AlertsPage
-    waitFor{ alerts.present }
     alerts[0].text().contains('alertType0')
     alerts[1].text().contains('alertType1')
   }
@@ -118,6 +117,7 @@ class SearchResultsSpecification extends BrowserReportingSpec {
 
     then: 'on the search results page'
     at SearchResultsPage
+    waitFor { rows.size() == 3 }
 
     when: 'Alert filters are selected'
     moreFiltersLink.click()
@@ -133,7 +133,7 @@ class SearchResultsSpecification extends BrowserReportingSpec {
     selectVisibleButton().click()
 
     then: 'Filters are applied'
-    rows.size() == 1
+    waitFor { rows.size() == 1 }
 
     when: 'Clear filters is clicked'
     checkboxes.every{ cb -> cb.value() == null } == false
@@ -147,7 +147,7 @@ class SearchResultsSpecification extends BrowserReportingSpec {
     then: 'filters are cleared'
     at SearchResultsPage
 
-    waitFor{ rows.size() == 3 }
+    waitFor { rows.size() == 3 }
 
     checkboxes.size() == 7
     checkboxes.every{ cb -> cb.value() == null } == true
@@ -168,7 +168,7 @@ class SearchResultsSpecification extends BrowserReportingSpec {
     searchFor 'aname'
 
     at SearchResultsPage
-    rows.size() == 3
+    waitFor { rows.size() == 2 }
 
     when: 'I select ordering by age'
     List<Offender> offenders1 = [Offender.SMITH()]
@@ -194,7 +194,7 @@ class SearchResultsSpecification extends BrowserReportingSpec {
     searchFor 'aname'
 
     at SearchResultsPage
-    rows.size() == 2
+    waitFor { rows.size() == 2 }
 
     when: 'I toggle ordering'
     List<Offender> offenders1 = [Offender.SMITH()]
