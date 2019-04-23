@@ -174,7 +174,7 @@ class Elite2Api extends WireMockRule {
   void stubStaffRoles(UserAccount user) {
 
     this.stubFor(
-      get("/api/staff/${user.staffMember.id}/${user.staffMember.assginedCaseload.id}/roles")
+      get("/api/staff/${user.staffMember.id}/${user.staffMember.assignedCaseload.id}/roles")
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
@@ -185,7 +185,7 @@ class Elite2Api extends WireMockRule {
 
     def json = JsonOutput.toJson([AccessRoles.keyworker])
     this.stubFor(
-      get("/api/staff/${user.staffMember.id}/${user.staffMember.assginedCaseload.id}/roles")
+      get("/api/staff/${user.staffMember.id}/${user.staffMember.assignedCaseload.id}/roles")
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')

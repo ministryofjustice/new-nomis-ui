@@ -26,7 +26,7 @@ class AlertsSpecification extends BrowserReportingSpec {
   TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
   def offenderNo = "A1234AJ"
   def bookingId = -10
-  def agencyId = "${ITAG_USER.staffMember.assginedCaseload}"
+  def agencyId = "${ITAG_USER.staffMember.assignedCaseload}"
 
   @IgnoreIf({System.properties['geb.env'] == 'chromeMobile'})
   def "clear filters"() {
