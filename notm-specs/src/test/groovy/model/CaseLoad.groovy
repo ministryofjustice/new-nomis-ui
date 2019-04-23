@@ -1,8 +1,5 @@
 package model
 
-
-import model.AgencyLocation.*
-
 import static model.CaseloadType.*
 
 enum Caseload {

@@ -59,7 +59,7 @@ driver = {
 //      ['deviceName': 'Nexus 5']))
 }
 
-baseUrl = "http://localhost:3000/"
+baseUrl = "http://localhost:3007/"
 
 reportsDir = "build/geb-reports"
 reportOnTestFailureOnly=true

@@ -26,7 +26,7 @@ class AlertsSpecification extends BrowserReportingSpec {
   TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
   def offenderNo = "A1234AJ"
   def bookingId = -10
-  def agencyId = "${ITAG_USER.staffMember.assginedCaseload}"
+  def agencyId = "${ITAG_USER.staffMember.assignedCaseload}"
 
   @IgnoreIf({System.properties['geb.env'] == 'chromeMobile'})
   def "clear filters"() {
@@ -40,7 +40,6 @@ class AlertsSpecification extends BrowserReportingSpec {
     elite2api.stubOffenderDetails(true)
     elite2api.stubOffenderDetails(false)
     elite2api.stubOffenderAddresses()
-
 
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo(agencyId, offenderNo)
 
@@ -67,6 +66,7 @@ class AlertsSpecification extends BrowserReportingSpec {
     clearFiltersButton.click()
 
     then: 'Type of alert is reset'
+    at AlertsPage
     typeSelect.module(Select).selectedText == '— Show all —'
 
     and: 'alert data is refreshed'

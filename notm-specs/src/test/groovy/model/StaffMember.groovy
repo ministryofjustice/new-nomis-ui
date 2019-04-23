@@ -19,7 +19,7 @@ enum StaffMember {
     SM_10(-10, LEI, LEI, 'Officer', 'Ex', null, false)
 
     Integer id
-    Caseload assginedCaseload
+    Caseload assignedCaseload
     Caseload workingCaseload
     String lastName
     String firstName
