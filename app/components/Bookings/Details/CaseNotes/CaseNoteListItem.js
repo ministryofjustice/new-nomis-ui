@@ -37,9 +37,9 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer }) 
   return (
     <CaseNote data-qa="case-note">
       <CaseNoteCreationDetails>
-        <FormattedDay value={creationDateTime} />
-        <FormattedDate value={creationDateTime} />
-        <FormattedTime value={creationDateTime} />
+        <FormattedDay value={occurrenceDateTime} />
+        <FormattedDate value={occurrenceDateTime} />
+        <FormattedTime value={occurrenceDateTime} />
         {authorName}
       </CaseNoteCreationDetails>
 
@@ -47,12 +47,12 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer }) 
         <Heading level={2} size="SMALL">
           {typeDescription} | {subTypeDescription}
         </Heading>
-        {occurrenceDateTime && (
+        {creationDateTime && (
           <CaseNoteOccurrence>
-            Occurrence date:{' '}
+            Creation date:{' '}
             <span>
-              <FormattedDay value={occurrenceDateTime} /> - <FormattedDate value={occurrenceDateTime} /> -{' '}
-              <FormattedTime value={occurrenceDateTime} />
+              <FormattedDay value={creationDateTime} /> - <FormattedDate value={creationDateTime} /> -{' '}
+              <FormattedTime value={creationDateTime} />
             </span>
           </CaseNoteOccurrence>
         )}

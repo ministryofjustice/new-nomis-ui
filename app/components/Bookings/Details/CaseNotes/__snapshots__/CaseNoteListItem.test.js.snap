@@ -15,7 +15,7 @@ exports[`<CaseNoteListItem /> should match the default snapshot 1`] = `
       01/01/2019
     </span>
     <span>
-      9:00 PM
+      7:00 PM
     </span>
     User, Test
   </div>
@@ -32,7 +32,7 @@ exports[`<CaseNoteListItem /> should match the default snapshot 1`] = `
     <div
       className="sc-gzVnrw gNKPgp"
     >
-      Occurrence date:
+      Creation date:
        
       <span>
         <span>
@@ -73,7 +73,7 @@ exports[`<CaseNoteListItem /> should render the with amendments snapshot 1`] = `
       01/01/2019
     </span>
     <span>
-      9:00 PM
+      7:00 PM
     </span>
     User, Test
   </div>
@@ -90,7 +90,7 @@ exports[`<CaseNoteListItem /> should render the with amendments snapshot 1`] = `
     <div
       className="sc-gzVnrw gNKPgp"
     >
-      Occurrence date:
+      Creation date:
        
       <span>
         <span>
@@ -162,7 +162,7 @@ exports[`<CaseNoteListItem /> should render the with make amendments button snap
       01/01/2019
     </span>
     <span>
-      9:00 PM
+      7:00 PM
     </span>
     User, Test
   </div>
@@ -179,7 +179,7 @@ exports[`<CaseNoteListItem /> should render the with make amendments button snap
     <div
       className="sc-gzVnrw gNKPgp"
     >
-      Occurrence date:
+      Creation date:
        
       <span>
         <span>
