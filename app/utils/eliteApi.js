@@ -123,6 +123,7 @@ export const bookingCaseNotes = (baseUrl, { offenderNo, query }) => {
     headers: {
       'Page-Offset': query.perPage * query.pageNumber,
       'Page-Limit': query.perPage,
+      'Sort-Fields': 'occurrenceDateTime',
     },
     url: `/bookings/${offenderNo}/caseNotes${queryParams}`,
   }).then(response => ({

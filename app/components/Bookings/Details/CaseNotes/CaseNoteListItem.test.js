@@ -11,7 +11,7 @@ describe('<CaseNoteListItem />', () => {
       typeDescription: 'Achievements',
       subTypeDescription: 'Gym',
       amendments: [],
-      occurrenceDateTime: '2019-01-01T21:00:00',
+      occurrenceDateTime: '2019-01-01T19:00:00',
       text: 'Offender enjoys attending the gym.',
       originalNoteText: 'Offender enjoys attending the gym.',
       bookingId: 1,

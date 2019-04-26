@@ -8,10 +8,10 @@ import CaseNoteAmendmentBlock from './CaseNoteAmendmentBlock'
 import { userType, caseNoteType } from '../../../../types'
 import {
   CaseNote,
-  CaseNoteCreationDetails,
+  CaseNoteOccurrenceDetails,
   CaseNoteContent,
   CaseNoteText,
-  CaseNoteOccurrence,
+  CaseNoteCreation,
   CaseNoteAmendmentButton,
 } from './CaseNoteListItem.styles'
 
@@ -36,25 +36,25 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer }) 
 
   return (
     <CaseNote data-qa="case-note">
-      <CaseNoteCreationDetails>
-        <FormattedDay value={creationDateTime} />
-        <FormattedDate value={creationDateTime} />
-        <FormattedTime value={creationDateTime} />
+      <CaseNoteOccurrenceDetails>
+        <FormattedDay value={occurrenceDateTime} />
+        <FormattedDate value={occurrenceDateTime} />
+        <FormattedTime value={occurrenceDateTime} />
         {authorName}
-      </CaseNoteCreationDetails>
+      </CaseNoteOccurrenceDetails>
 
       <CaseNoteContent>
         <Heading level={2} size="SMALL">
           {typeDescription} | {subTypeDescription}
         </Heading>
-        {occurrenceDateTime && (
-          <CaseNoteOccurrence>
-            Occurrence date:{' '}
+        {creationDateTime && (
+          <CaseNoteCreation>
+            Creation date:{' '}
             <span>
-              <FormattedDay value={occurrenceDateTime} /> - <FormattedDate value={occurrenceDateTime} /> -{' '}
-              <FormattedTime value={occurrenceDateTime} />
+              <FormattedDay value={creationDateTime} /> - <FormattedDate value={creationDateTime} /> -{' '}
+              <FormattedTime value={creationDateTime} />
             </span>
-          </CaseNoteOccurrence>
+          </CaseNoteCreation>
         )}
         <CaseNoteText>{originalNoteText}</CaseNoteText>
         {amendments &&

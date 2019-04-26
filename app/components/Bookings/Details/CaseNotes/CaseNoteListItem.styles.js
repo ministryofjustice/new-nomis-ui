@@ -14,7 +14,7 @@ export const CaseNote = styled('div')`
   }
 `
 
-export const CaseNoteCreationDetails = styled('div')`
+export const CaseNoteOccurrenceDetails = styled('div')`
   margin-bottom: ${SPACING.SCALE_3};
 
   ${MEDIA_QUERIES.LARGESCREEN} {
@@ -40,7 +40,7 @@ export const CaseNoteContent = styled('div')`
   }
 `
 
-export const CaseNoteOccurrence = styled('div')`
+export const CaseNoteCreation = styled('div')`
   margin-bottom: ${SPACING.SCALE_3};
 
   span {
