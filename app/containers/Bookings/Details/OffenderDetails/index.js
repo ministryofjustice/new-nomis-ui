@@ -35,7 +35,7 @@ const groupByPairs = dataset =>
     return result
   }, [])
 
-const OffenderDetails = ({ offenderDetails, showPhoto }) => {
+export const OffenderDetails = ({ offenderDetails, showPhoto }) => {
   const marksGroupedIntoPairs = groupByPairs(offenderDetails.get('physicalMarks').toJS())
   const characteristicsGroupedIntoPairs = groupByPairs(offenderDetails.get('physicalCharacteristics').toJS())
   const physicalAttributes = offenderDetails.get('physicalAttributes')
@@ -61,12 +61,12 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
         .join(', '),
     },
     { key: 'town', label: 'Town', value: offenderDetails.getIn(['primaryAddress', 'town']) },
-    { key: 'postcode', label: 'Post Code', value: offenderDetails.getIn(['primaryAddress', 'postalCode']) },
+    { key: 'postcode', label: 'Postcode', value: offenderDetails.getIn(['primaryAddress', 'postalCode']) },
     { key: 'county', label: 'County', value: offenderDetails.getIn(['primaryAddress', 'county']) },
     { key: 'country', label: 'Country', value: offenderDetails.getIn(['primaryAddress', 'country']) },
     { key: 'comment', label: 'Comment', value: offenderDetails.getIn(['primaryAddress', 'comment']) },
   ]
-  const getDetails = labels => detailsLookup.filter(detail => labels.includes(detail.key))
+  const getDetails = labels => labels.map(label => detailsLookup.find(detail => label === detail.key))
 
   return (
     <div className="offender-details">
@@ -117,7 +117,7 @@ const OffenderDetails = ({ offenderDetails, showPhoto }) => {
             case 'ABSENT':
               return <span>No primary address on record</span>
             case 'PRESENT':
-              return getDetails(['flat', 'street', 'town', 'postCode', 'county', 'country', 'comment'])
+              return getDetails(['flat', 'street', 'town', 'county', 'postcode', 'country', 'comment'])
                 .filter(details => details.value)
                 .map(details => (
                   <ValueWithLabel key={details.key} label={details.label}>

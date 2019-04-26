@@ -10,7 +10,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.get
 
 class KeyworkerApi extends WireMockRule {
   KeyworkerApi() {
-    super(8081)
+    super(18081)
   }
 
   void stubMigrationStatus(String prisonId,boolean migrated) {

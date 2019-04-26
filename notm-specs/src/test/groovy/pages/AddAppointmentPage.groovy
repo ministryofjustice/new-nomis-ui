@@ -10,9 +10,11 @@ class AddAppointmentPage extends DatePickerPage {
   static at = {
     title == 'Add new appointment - Digital Prison Services'
     headingText == 'Add new appointment'
+    !spinner.displayed
   }
 
   static content = {
+    spinner(required: false) { $('.spinner-component') }
     errors { module(ErrorsModule) }
     headingText { $("[data-qa=\'page-heading-text\']").text() }
     nameHeading { $("[data-qa=\'offender-name\']", 0) }
