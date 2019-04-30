@@ -15,6 +15,7 @@
     "postinstall": "npm run build:dll",
     "prebuild": "npm run build:clean",
     "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p",
+    "build:analyse": "BUNDLE_ANALYSE=true npm run build:hmpps",
     "build:syscon": "cross-env CLIENT=syscon NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p",
     "build:hmpps": "cross-env CLIENT=hmpps NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p",
     "build:clean": "npm run test:clean && rimraf ./build",
@@ -44,8 +45,7 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "verify": "yarn lint && yarn stylelint && yarn test",
     "record-build-info": "node ./bin/record-build-info",
-    "plant-beanstalk": "node ./bin/plant-beanstalk.js",
-    "view-bundle-stats": "webpack-bundle-analyzer build/stats.json"
+    "plant-beanstalk": "node ./bin/plant-beanstalk.js"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
@@ -173,7 +173,6 @@
     "wallaby-webpack": "^3.9.5",
     "warning": "3.0.0",
     "webpack": "^2.7.0",
-    "webpack-bundle-analyzer": "^3.0.3",
     "webpack-dev-middleware": "1.9.0",
     "webpack-hot-middleware": "2.15.0",
     "whatwg-fetch": "2.0.1",
@@ -242,7 +241,8 @@
     "stylelint": "^8.1.1",
     "stylelint-scss": "^2.1.0",
     "supertest": "^3.0.0",
-    "url-loader": "0.5.7"
+    "url-loader": "0.5.7",
+    "webpack-bundle-analyzer": "^3.3.2"
   },
   "private": true,
   "husky": {
