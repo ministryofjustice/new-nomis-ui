@@ -498,7 +498,7 @@ class Elite2Api extends WireMockRule {
     String queryString = "type=KA&subType=KS&numMonths=6&${buildOffenderBookingIdQueryString(offenders)}"
 
     this.stubFor(
-      get("/api/case-notes/usage?${queryString}")
+      get("/api/case-notes/summary?${queryString}")
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
