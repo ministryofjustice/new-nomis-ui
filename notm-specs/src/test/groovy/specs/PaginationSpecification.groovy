@@ -59,6 +59,7 @@ class PaginationSpecification extends BrowserReportingSpec {
     nextPageLink.click()
 
     then: "I can see the next set of alerts"
+    at AlertsPage
     assertAlerts(20, 39)
 
     when: "I click on the previous page link"
@@ -66,6 +67,7 @@ class PaginationSpecification extends BrowserReportingSpec {
     previousPageLink.click()
 
     then: "I can see the previous set of alerts"
+    at AlertsPage
     assertAlerts(0, 19)
   }
 
