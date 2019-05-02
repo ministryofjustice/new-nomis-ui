@@ -495,7 +495,7 @@ class Elite2Api extends WireMockRule {
   }
 
   def stubCaseNoteUsage(List<Offender> offenders) {
-    String queryString = "type=KA&subType=KS&numMonths=1&${buildOffenderBookingIdQueryString(offenders)}"1
+    String queryString = "type=KA&subType=KS&numMonths=1&${buildOffenderBookingIdQueryString(offenders)}"
 
     this.stubFor(
       get("/api/case-notes/summary?${queryString}")
