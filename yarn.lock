@@ -1086,6 +1086,15 @@
     "@govuk-react/lib" "^0.7.0"
     govuk-colours "^1.0.3"
 
+"@govuk-react/skip-link@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@govuk-react/skip-link/-/skip-link-0.7.0.tgz#7a7931aa49005bd0d284fa4dd42b2d5655d71aa7"
+  integrity sha512-UO5QIrz1NX7503983mWWOJ40mfbgvfuDYDVZVT9BHOLpB9zaH/wrrqTvPaDSxo1OhAPPV+xJfGhBFvcGS59Qjg==
+  dependencies:
+    "@govuk-react/constants" "^0.7.0"
+    "@govuk-react/lib" "^0.7.0"
+    govuk-colours "^1.0.3"
+
 "@govuk-react/table@^0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@govuk-react/table/-/table-0.6.0.tgz#8d3608c60e1f911504daa6aa80f59ab79708fb33"

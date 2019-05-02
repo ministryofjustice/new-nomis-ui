@@ -5,10 +5,11 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import Notifications from 'react-notify-toast'
 import axios from 'axios/index'
-import { Route, withRouter, Switch } from 'react-router-dom'
+import { Route, Switch, withRouter } from 'react-router-dom'
+import SkipLink from '@govuk-react/skip-link'
 import { FooterContainer } from 'new-nomis-shared-components'
 import { retrieveUserMe } from '../Authentication/actions'
-import { selectSpinnerCount, selectMobileMenuOpen, selectMailTo, selectPrisonStaffHubUrl } from '../../selectors/app'
+import { selectMailTo, selectMobileMenuOpen, selectPrisonStaffHubUrl, selectSpinnerCount } from '../../selectors/app'
 import Header from '../Header'
 import Spinner from '../../components/Spinner'
 import { setAppConfig, setDeviceFormat, setMenuOpen } from '../../globalReducers/app'
@@ -61,6 +62,7 @@ export class App extends Component {
 
     return (
       <div className="app-content">
+        <SkipLink href="#aaaaamain-content">Skip to main content</SkipLink>
         <Notifications />
         <Header />
         {/* eslint-disable-next-line */}

@@ -66,6 +66,7 @@
     "@govuk-react/lib": "^0.7.0",
     "@govuk-react/radio": "^0.6.0",
     "@govuk-react/select": "^0.7.0",
+    "@govuk-react/skip-link": "^0.7.0",
     "@govuk-react/table": "^0.6.0",
     "@govuk-react/text-area": "^0.7.0",
     "applicationinsights": "^1.0.0",

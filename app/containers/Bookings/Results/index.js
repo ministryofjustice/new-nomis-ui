@@ -18,16 +18,16 @@ import SearchAgainForm from './SearchForm'
 import './index.scss'
 
 import {
-  viewDetails as vD,
-  setPagination as sP,
-  toggleSort,
-  setResultsView,
-  loadLocations,
-  changeSort,
   changePerPage,
+  changeSort,
+  loadLocations,
+  setPagination as sP,
+  setResultsView,
+  toggleSort,
+  viewDetails as vD,
 } from '../actions'
 
-import { NEW_SEARCH, DETAILS_TABS } from '../constants'
+import { DETAILS_TABS, NEW_SEARCH } from '../constants'
 import Page from '../../../components/Page'
 import ResultsFilter from '../../../components/ResultsFilter'
 
@@ -68,7 +68,6 @@ ResultsViewBuilder.propTypes = {
 class SearchResults extends Component {
   componentDidMount() {
     const { boundLoadLocations } = this.props
-    this.focusPoint.scrollIntoView()
     boundLoadLocations()
     this.loadSearch()
   }
@@ -142,14 +141,10 @@ class SearchResults extends Component {
       </div>
     )
 
-    const focusPoint = el => {
-      this.focusPoint = el
-    }
-
     return (
       <Page title="Offender search results" showPrint>
         <div className="booking-search">
-          <div className="row" ref={focusPoint}>
+          <div className="row">
             <SearchAgainForm locations={locations} query={query} />
           </div>
 
