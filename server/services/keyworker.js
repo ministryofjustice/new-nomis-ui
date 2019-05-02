@@ -39,11 +39,11 @@ const keyworkerServiceFactory = (eliteApi, oauthApi, keyworkerApi) => {
     if (offenders.length === 0) {
       return []
     }
-    const offenderNumbers = offenders.map(offender => offender.offenderNo)
-    const caseNotes = (await eliteApi.caseNoteUsageList(context, offenderNumbers)) || []
+    const bookingIds = offenders.map(offender => offender.bookingId)
+    const caseNotes = (await eliteApi.caseNoteUsageList(context, bookingIds)) || []
 
     return offenders.map(offender => {
-      const kwCaseNoteDates = caseNotes.filter(caseNote => caseNote.offenderNo === offender.offenderNo)
+      const kwCaseNoteDates = caseNotes.filter(caseNote => caseNote.bookingId === offender.bookingId)
 
       let lastKeyWorkerSessionDate = null
       if (kwCaseNoteDates.length > 0) {
