@@ -112,16 +112,26 @@ describe('Key worker service', () => {
     expect(eliteApi.getOffendersSentenceDates).to.be.calledWith(context, ['A1', 'A2'])
   })
 
-  it('should produce a view model that contains a key workers capacity and allocations merged with assessment and sentence information', async () => {
+  it('should call case note usage with the correct booking IDs', async () => {
     const offenders = [{ offenderNo: 'A1' }, { offenderNo: 'A2' }]
+    const offendersBookingIds = [{ bookingId: 1 }, { bookingId: 2 }]
+    keyworkerApi.getPrisonMigrationStatus.returns({ migrated: true })
+    keyworkerApi.getAssignedOffenders.returns(offenders)
+    eliteApi.getSummaryForOffenders.returns(offendersBookingIds)
+    eliteApi.caseNoteUsageList.returns(offendersBookingIds)
+
+    await service.myAllocationsViewModel(context)
+
+    expect(eliteApi.caseNoteUsageList).to.be.calledWith(context, [1, 2])
+  })
+
+  it('should produce a view model that contains a key workers capacity and allocations merged with assessment and sentence information', async () => {
+    const offenders = [{ offenderNo: 'A1', bookingId: 1 }, { offenderNo: 'A2', bookingId: 2 }]
     const sentenceDates = [
       { offenderNo: 'A1', sentenceDetail: { conditionalReleaseDate: '20/10/2020' } },
       { offenderNo: 'A2', sentenceDetail: { conditionalReleaseDate: '21/10/2020' } },
     ]
-    const kwDates = [
-      { offenderNo: 'A1', latestCaseNote: '04/06/2018' },
-      { offenderNo: 'A2', latestCaseNote: '01/06/2018' },
-    ]
+    const kwDates = [{ bookingId: 1, latestCaseNote: '04/06/2018' }, { bookingId: 2, latestCaseNote: '01/06/2018' }]
 
     keyworkerApi.getPrisonMigrationStatus.returns({ migrated: true })
     keyworkerApi.getKeyworkerByStaffIdAndPrisonId.returns({
@@ -136,8 +146,18 @@ describe('Key worker service', () => {
     const expected = {
       capacity: 15,
       allocations: [
-        { offenderNo: 'A1', conditionalReleaseDate: '20/10/2020', lastKeyWorkerSessionDate: '04/06/2018' },
-        { offenderNo: 'A2', conditionalReleaseDate: '21/10/2020', lastKeyWorkerSessionDate: '01/06/2018' },
+        {
+          offenderNo: 'A1',
+          bookingId: 1,
+          conditionalReleaseDate: '20/10/2020',
+          lastKeyWorkerSessionDate: '04/06/2018',
+        },
+        {
+          offenderNo: 'A2',
+          bookingId: 2,
+          conditionalReleaseDate: '21/10/2020',
+          lastKeyWorkerSessionDate: '01/06/2018',
+        },
       ],
     }
 

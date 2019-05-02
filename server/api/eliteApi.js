@@ -1,6 +1,6 @@
 const contextProperties = require('../contextProperties')
 
-const toQueryParameters = offenderNumbers => offenderNumbers.map(offenderNo => `offenderNo=${offenderNo}`).join('&')
+const toQueryParameters = (values, name) => values.map(v => `${name}=${v}`).join('&')
 
 const eliteApiFactory = client => {
   const processResponse = context => response => {
@@ -26,8 +26,8 @@ const eliteApiFactory = client => {
   // TODO: Needs fixed timeout of 2 sec... Use a different '2 sec' client?
   const isUp = () => client.get({}, 'health').then(() => true, () => false)
 
-  const caseNoteUsageList = (context, offenderNumbers) =>
-    get(context, `api/case-notes/usage?type=KA&subType=KS&numMonths=6&${toQueryParameters(offenderNumbers)}`)
+  const caseNoteUsageList = (context, bookingIds) =>
+    get(context, `api/case-notes/summary?type=KA&subType=KS&numMonths=6&${toQueryParameters(bookingIds, 'bookingId')}`)
   const getAddresses = (context, offenderNo) => get(context, `api/offenders/${offenderNo}/addresses`)
   const getAdjudications = (context, bookingId) => get(context, `api/bookings/${bookingId}/adjudications`)
   const getAppointmentTypes = context => get(context, 'api/reference-domains/scheduleReasons?eventType=APP')
@@ -52,7 +52,7 @@ const eliteApiFactory = client => {
     get(context, `api/bookings/${bookingId}/caseNotes/NEG/IEP_WARN/count?fromDate=${fromDate}&toDate=${toDate}`)
   const getNextVisit = (context, bookingId) => get(context, `api/bookings/${bookingId}/visits/next`)
   const getOffendersSentenceDates = (context, offenderNumbers) =>
-    get(context, `api/offender-sentences/?${toQueryParameters(offenderNumbers)}`)
+    get(context, `api/offender-sentences/?${toQueryParameters(offenderNumbers, 'offenderNo')}`)
   const getPositiveCaseNotes = ({ context, bookingId, fromDate, toDate }) =>
     get(context, `api/bookings/${bookingId}/caseNotes/POS/IEP_ENC/count?fromDate=${fromDate}&toDate=${toDate}`)
   const getRelationships = (context, bookingId) => get(context, `api/bookings/${bookingId}/relationships`)
@@ -61,7 +61,7 @@ const eliteApiFactory = client => {
   const getSentenceData = (context, offenderNumbers) => post(context, `api/offender-sentences`, offenderNumbers)
 
   const getSummaryForOffenders = (context, offenderNumbers) =>
-    get(context, `api/bookings?iepLevel=true&${toQueryParameters(offenderNumbers)}`)
+    get(context, `api/bookings?iepLevel=true&${toQueryParameters(offenderNumbers, 'offenderNo')}`)
   const getWhereaboutsConfig = (context, agencyId) => get(context, `api/agencies/${agencyId}/locations/whereabouts`)
 
   // get existing events for an offender

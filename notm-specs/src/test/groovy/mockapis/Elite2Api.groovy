@@ -495,7 +495,7 @@ class Elite2Api extends WireMockRule {
   }
 
   def stubCaseNoteUsage(List<Offender> offenders) {
-    String queryString = "type=KA&subType=KS&numMonths=6&" + buildOffenderQueryString(offenders)
+    String queryString = "type=KA&subType=KS&numMonths=6&${buildOffenderBookingIdQueryString(offenders)}"
 
     this.stubFor(
       get("/api/case-notes/usage?${queryString}")
@@ -861,5 +861,9 @@ class Elite2Api extends WireMockRule {
       .stream()
       .map { o -> "offenderNo=${o.offenderNo}" }
       .collect(Collectors.joining("&"))
+  }
+
+  static String buildOffenderBookingIdQueryString(List<Offender> offenders) {
+    return offenders.stream().map { o -> "bookingId=${o.bookingId}" }.collect(Collectors.joining("&"))
   }
 }
