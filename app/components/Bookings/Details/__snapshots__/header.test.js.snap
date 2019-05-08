@@ -47,6 +47,7 @@ ShallowWrapper {
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
     "getNode": [Function],
     "render": [Function],
     "simulateError": [Function],
@@ -265,7 +266,6 @@ ShallowWrapper {
               <Link
                 className="button-link"
                 name="add-case-note-link"
-                replace={false}
                 to="/offenders/A1234RE/add-case-note"
               >
                 Add case note
@@ -275,7 +275,6 @@ ShallowWrapper {
               <Link
                 className="button-link"
                 name="add-appointment-link"
-                replace={false}
                 to="/offenders/A1234RE/add-appointment"
               >
                 Add appointment
@@ -1342,7 +1341,6 @@ ShallowWrapper {
               <Link
                 className="button-link"
                 name="add-case-note-link"
-                replace={false}
                 to="/offenders/A1234RE/add-case-note"
               >
                 Add case note
@@ -1352,7 +1350,6 @@ ShallowWrapper {
               <Link
                 className="button-link"
                 name="add-appointment-link"
-                replace={false}
                 to="/offenders/A1234RE/add-appointment"
               >
                 Add appointment
@@ -1372,7 +1369,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-case-note-link"
-                  replace={false}
                   to="/offenders/A1234RE/add-case-note"
                 >
                   Add case note
@@ -1383,7 +1379,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-appointment-link"
-                  replace={false}
                   to="/offenders/A1234RE/add-appointment"
                 >
                   Add appointment
@@ -1402,7 +1397,6 @@ ShallowWrapper {
                 "children": <Link
                   className="button-link"
                   name="add-case-note-link"
-                  replace={false}
                   to="/offenders/A1234RE/add-case-note"
                 >
                   Add case note
@@ -1417,7 +1411,6 @@ ShallowWrapper {
                   "children": "Add case note",
                   "className": "button-link",
                   "name": "add-case-note-link",
-                  "replace": false,
                   "to": "/offenders/A1234RE/add-case-note",
                 },
                 "ref": null,
@@ -1435,7 +1428,6 @@ ShallowWrapper {
                 "children": <Link
                   className="button-link"
                   name="add-appointment-link"
-                  replace={false}
                   to="/offenders/A1234RE/add-appointment"
                 >
                   Add appointment
@@ -1450,7 +1442,6 @@ ShallowWrapper {
                   "children": "Add appointment",
                   "className": "button-link",
                   "name": "add-appointment-link",
-                  "replace": false,
                   "to": "/offenders/A1234RE/add-appointment",
                 },
                 "ref": null,
@@ -1680,7 +1671,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-case-note-link"
-                  replace={false}
                   to="/offenders/A1234RE/add-case-note"
                 >
                   Add case note
@@ -1690,7 +1680,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-appointment-link"
-                  replace={false}
                   to="/offenders/A1234RE/add-appointment"
                 >
                   Add appointment
@@ -2757,7 +2746,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-case-note-link"
-                  replace={false}
                   to="/offenders/A1234RE/add-case-note"
                 >
                   Add case note
@@ -2767,7 +2755,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-appointment-link"
-                  replace={false}
                   to="/offenders/A1234RE/add-appointment"
                 >
                   Add appointment
@@ -2787,7 +2774,6 @@ ShallowWrapper {
                   <Link
                     className="button-link"
                     name="add-case-note-link"
-                    replace={false}
                     to="/offenders/A1234RE/add-case-note"
                   >
                     Add case note
@@ -2798,7 +2784,6 @@ ShallowWrapper {
                   <Link
                     className="button-link"
                     name="add-appointment-link"
-                    replace={false}
                     to="/offenders/A1234RE/add-appointment"
                   >
                     Add appointment
@@ -2817,7 +2802,6 @@ ShallowWrapper {
                   "children": <Link
                     className="button-link"
                     name="add-case-note-link"
-                    replace={false}
                     to="/offenders/A1234RE/add-case-note"
                   >
                     Add case note
@@ -2832,7 +2816,6 @@ ShallowWrapper {
                     "children": "Add case note",
                     "className": "button-link",
                     "name": "add-case-note-link",
-                    "replace": false,
                     "to": "/offenders/A1234RE/add-case-note",
                   },
                   "ref": null,
@@ -2850,7 +2833,6 @@ ShallowWrapper {
                   "children": <Link
                     className="button-link"
                     name="add-appointment-link"
-                    replace={false}
                     to="/offenders/A1234RE/add-appointment"
                   >
                     Add appointment
@@ -2865,7 +2847,6 @@ ShallowWrapper {
                     "children": "Add appointment",
                     "className": "button-link",
                     "name": "add-appointment-link",
-                    "replace": false,
                     "to": "/offenders/A1234RE/add-appointment",
                   },
                   "ref": null,
@@ -2887,11 +2868,18 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
         "lifecycles": Object {
           "componentDidUpdate": Object {
             "onSetState": true,
           },
-          "getDerivedStateFromProps": true,
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromError": true,
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": true,
+          },
           "getSnapshotBeforeUpdate": true,
           "setState": Object {
             "skipsComponentDidUpdateOnNullish": true,
@@ -2950,6 +2938,7 @@ ShallowWrapper {
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
     "getNode": [Function],
     "render": [Function],
     "simulateError": [Function],
@@ -3156,7 +3145,6 @@ ShallowWrapper {
               <Link
                 className="button-link"
                 name="add-case-note-link"
-                replace={false}
                 to="/offenders/A1234RN/add-case-note"
               >
                 Add case note
@@ -3166,7 +3154,6 @@ ShallowWrapper {
               <Link
                 className="button-link"
                 name="add-appointment-link"
-                replace={false}
                 to="/offenders/A1234RN/add-appointment"
               >
                 Add appointment
@@ -4149,7 +4136,6 @@ ShallowWrapper {
               <Link
                 className="button-link"
                 name="add-case-note-link"
-                replace={false}
                 to="/offenders/A1234RN/add-case-note"
               >
                 Add case note
@@ -4159,7 +4145,6 @@ ShallowWrapper {
               <Link
                 className="button-link"
                 name="add-appointment-link"
-                replace={false}
                 to="/offenders/A1234RN/add-appointment"
               >
                 Add appointment
@@ -4179,7 +4164,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-case-note-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
@@ -4190,7 +4174,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-appointment-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
@@ -4209,7 +4192,6 @@ ShallowWrapper {
                 "children": <Link
                   className="button-link"
                   name="add-case-note-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
@@ -4224,7 +4206,6 @@ ShallowWrapper {
                   "children": "Add case note",
                   "className": "button-link",
                   "name": "add-case-note-link",
-                  "replace": false,
                   "to": "/offenders/A1234RN/add-case-note",
                 },
                 "ref": null,
@@ -4242,7 +4223,6 @@ ShallowWrapper {
                 "children": <Link
                   className="button-link"
                   name="add-appointment-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
@@ -4257,7 +4237,6 @@ ShallowWrapper {
                   "children": "Add appointment",
                   "className": "button-link",
                   "name": "add-appointment-link",
-                  "replace": false,
                   "to": "/offenders/A1234RN/add-appointment",
                 },
                 "ref": null,
@@ -4475,7 +4454,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-case-note-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
@@ -4485,7 +4463,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-appointment-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
@@ -5468,7 +5445,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-case-note-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
@@ -5478,7 +5454,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-appointment-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
@@ -5498,7 +5473,6 @@ ShallowWrapper {
                   <Link
                     className="button-link"
                     name="add-case-note-link"
-                    replace={false}
                     to="/offenders/A1234RN/add-case-note"
                   >
                     Add case note
@@ -5509,7 +5483,6 @@ ShallowWrapper {
                   <Link
                     className="button-link"
                     name="add-appointment-link"
-                    replace={false}
                     to="/offenders/A1234RN/add-appointment"
                   >
                     Add appointment
@@ -5528,7 +5501,6 @@ ShallowWrapper {
                   "children": <Link
                     className="button-link"
                     name="add-case-note-link"
-                    replace={false}
                     to="/offenders/A1234RN/add-case-note"
                   >
                     Add case note
@@ -5543,7 +5515,6 @@ ShallowWrapper {
                     "children": "Add case note",
                     "className": "button-link",
                     "name": "add-case-note-link",
-                    "replace": false,
                     "to": "/offenders/A1234RN/add-case-note",
                   },
                   "ref": null,
@@ -5561,7 +5532,6 @@ ShallowWrapper {
                   "children": <Link
                     className="button-link"
                     name="add-appointment-link"
-                    replace={false}
                     to="/offenders/A1234RN/add-appointment"
                   >
                     Add appointment
@@ -5576,7 +5546,6 @@ ShallowWrapper {
                     "children": "Add appointment",
                     "className": "button-link",
                     "name": "add-appointment-link",
-                    "replace": false,
                     "to": "/offenders/A1234RN/add-appointment",
                   },
                   "ref": null,
@@ -5598,11 +5567,18 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
         "lifecycles": Object {
           "componentDidUpdate": Object {
             "onSetState": true,
           },
-          "getDerivedStateFromProps": true,
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromError": true,
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": true,
+          },
           "getSnapshotBeforeUpdate": true,
           "setState": Object {
             "skipsComponentDidUpdateOnNullish": true,
@@ -5663,6 +5639,7 @@ ShallowWrapper {
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
     "getNode": [Function],
     "render": [Function],
     "simulateError": [Function],
@@ -5851,7 +5828,7 @@ ShallowWrapper {
                       Key worker
                     </span>
                     <strong>
-                      <Connect(EliteOfficerName)
+                      <UNDEFINED
                         staffId={-6}
                       />
                     </strong>
@@ -6333,7 +6310,7 @@ ShallowWrapper {
                         Key worker
                       </span>
                       <strong>
-                        <Connect(EliteOfficerName)
+                        <UNDEFINED
                           staffId={-6}
                         />
                       </strong>
@@ -6547,7 +6524,7 @@ ShallowWrapper {
                           Key worker
                         </span>
                         <strong>
-                          <Connect(EliteOfficerName)
+                          <UNDEFINED
                             staffId={-6}
                           />
                         </strong>
@@ -6961,7 +6938,7 @@ ShallowWrapper {
                             Key worker
                           </span>
                           <strong>
-                            <Connect(EliteOfficerName)
+                            <UNDEFINED
                               staffId={-6}
                             />
                           </strong>
@@ -7053,7 +7030,7 @@ ShallowWrapper {
                               Key worker
                             </span>
                             <strong>
-                              <Connect(EliteOfficerName)
+                              <UNDEFINED
                                 staffId={-6}
                               />
                             </strong>
@@ -7145,7 +7122,7 @@ ShallowWrapper {
                               Key worker
                             </span>
                             <strong>
-                              <Connect(EliteOfficerName)
+                              <UNDEFINED
                                 staffId={-6}
                               />
                             </strong>
@@ -7165,7 +7142,7 @@ ShallowWrapper {
                                 Key worker
                               </span>,
                               <strong>
-                                <Connect(EliteOfficerName)
+                                <UNDEFINED
                                   staffId={-6}
                                 />
                               </strong>,
@@ -7191,7 +7168,7 @@ ShallowWrapper {
                               "key": undefined,
                               "nodeType": "host",
                               "props": Object {
-                                "children": <Connect(EliteOfficerName)
+                                "children": <UNDEFINED
                                   staffId={-6}
                                 />,
                               },
@@ -7199,13 +7176,20 @@ ShallowWrapper {
                               "rendered": Object {
                                 "instance": null,
                                 "key": undefined,
-                                "nodeType": "class",
+                                "nodeType": "function",
                                 "props": Object {
                                   "staffId": -6,
                                 },
                                 "ref": null,
                                 "rendered": null,
-                                "type": [Function],
+                                "type": Object {
+                                  "$$typeof": Symbol(react.memo),
+                                  "WrappedComponent": [Function],
+                                  "compare": null,
+                                  "displayName": "Connect(EliteOfficerName)",
+                                  "type": [Function],
+                                  Symbol(Symbol.hasInstance): [Function],
+                                },
                               },
                               "type": "strong",
                             },
@@ -7668,7 +7652,7 @@ ShallowWrapper {
                         Key worker
                       </span>
                       <strong>
-                        <Connect(EliteOfficerName)
+                        <UNDEFINED
                           staffId={-6}
                         />
                       </strong>
@@ -8150,7 +8134,7 @@ ShallowWrapper {
                           Key worker
                         </span>
                         <strong>
-                          <Connect(EliteOfficerName)
+                          <UNDEFINED
                             staffId={-6}
                           />
                         </strong>
@@ -8364,7 +8348,7 @@ ShallowWrapper {
                             Key worker
                           </span>
                           <strong>
-                            <Connect(EliteOfficerName)
+                            <UNDEFINED
                               staffId={-6}
                             />
                           </strong>
@@ -8778,7 +8762,7 @@ ShallowWrapper {
                               Key worker
                             </span>
                             <strong>
-                              <Connect(EliteOfficerName)
+                              <UNDEFINED
                                 staffId={-6}
                               />
                             </strong>
@@ -8870,7 +8854,7 @@ ShallowWrapper {
                                 Key worker
                               </span>
                               <strong>
-                                <Connect(EliteOfficerName)
+                                <UNDEFINED
                                   staffId={-6}
                                 />
                               </strong>
@@ -8962,7 +8946,7 @@ ShallowWrapper {
                                 Key worker
                               </span>
                               <strong>
-                                <Connect(EliteOfficerName)
+                                <UNDEFINED
                                   staffId={-6}
                                 />
                               </strong>
@@ -8982,7 +8966,7 @@ ShallowWrapper {
                                   Key worker
                                 </span>,
                                 <strong>
-                                  <Connect(EliteOfficerName)
+                                  <UNDEFINED
                                     staffId={-6}
                                   />
                                 </strong>,
@@ -9008,7 +8992,7 @@ ShallowWrapper {
                                 "key": undefined,
                                 "nodeType": "host",
                                 "props": Object {
-                                  "children": <Connect(EliteOfficerName)
+                                  "children": <UNDEFINED
                                     staffId={-6}
                                   />,
                                 },
@@ -9016,13 +9000,20 @@ ShallowWrapper {
                                 "rendered": Object {
                                   "instance": null,
                                   "key": undefined,
-                                  "nodeType": "class",
+                                  "nodeType": "function",
                                   "props": Object {
                                     "staffId": -6,
                                   },
                                   "ref": null,
                                   "rendered": null,
-                                  "type": [Function],
+                                  "type": Object {
+                                    "$$typeof": Symbol(react.memo),
+                                    "WrappedComponent": [Function],
+                                    "compare": null,
+                                    "displayName": "Connect(EliteOfficerName)",
+                                    "type": [Function],
+                                    Symbol(Symbol.hasInstance): [Function],
+                                  },
                                 },
                                 "type": "strong",
                               },
@@ -9307,11 +9298,18 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
         "lifecycles": Object {
           "componentDidUpdate": Object {
             "onSetState": true,
           },
-          "getDerivedStateFromProps": true,
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromError": true,
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": true,
+          },
           "getSnapshotBeforeUpdate": true,
           "setState": Object {
             "skipsComponentDidUpdateOnNullish": true,
@@ -9370,6 +9368,7 @@ ShallowWrapper {
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
     "getNode": [Function],
     "render": [Function],
     "simulateError": [Function],
@@ -9576,7 +9575,6 @@ ShallowWrapper {
               <Link
                 className="button-link"
                 name="add-case-note-link"
-                replace={false}
                 to="/offenders/A1234RN/add-case-note"
               >
                 Add case note
@@ -9586,7 +9584,6 @@ ShallowWrapper {
               <Link
                 className="button-link"
                 name="add-kw-session-link"
-                replace={false}
                 to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
               >
                 Add KW session
@@ -9596,7 +9593,6 @@ ShallowWrapper {
               <Link
                 className="button-link"
                 name="add-appointment-link"
-                replace={false}
                 to="/offenders/A1234RN/add-appointment"
               >
                 Add appointment
@@ -10579,7 +10575,6 @@ ShallowWrapper {
               <Link
                 className="button-link"
                 name="add-case-note-link"
-                replace={false}
                 to="/offenders/A1234RN/add-case-note"
               >
                 Add case note
@@ -10589,7 +10584,6 @@ ShallowWrapper {
               <Link
                 className="button-link"
                 name="add-kw-session-link"
-                replace={false}
                 to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
               >
                 Add KW session
@@ -10599,7 +10593,6 @@ ShallowWrapper {
               <Link
                 className="button-link"
                 name="add-appointment-link"
-                replace={false}
                 to="/offenders/A1234RN/add-appointment"
               >
                 Add appointment
@@ -10619,7 +10612,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-case-note-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
@@ -10629,7 +10621,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-kw-session-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
                 >
                   Add KW session
@@ -10639,7 +10630,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-appointment-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
@@ -10658,7 +10648,6 @@ ShallowWrapper {
                 "children": <Link
                   className="button-link"
                   name="add-case-note-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
@@ -10673,7 +10662,6 @@ ShallowWrapper {
                   "children": "Add case note",
                   "className": "button-link",
                   "name": "add-case-note-link",
-                  "replace": false,
                   "to": "/offenders/A1234RN/add-case-note",
                 },
                 "ref": null,
@@ -10690,7 +10678,6 @@ ShallowWrapper {
                 "children": <Link
                   className="button-link"
                   name="add-kw-session-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
                 >
                   Add KW session
@@ -10705,7 +10692,6 @@ ShallowWrapper {
                   "children": "Add KW session",
                   "className": "button-link",
                   "name": "add-kw-session-link",
-                  "replace": false,
                   "to": "/offenders/A1234RN/add-case-note?type=KA&subType=KS",
                 },
                 "ref": null,
@@ -10722,7 +10708,6 @@ ShallowWrapper {
                 "children": <Link
                   className="button-link"
                   name="add-appointment-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
@@ -10737,7 +10722,6 @@ ShallowWrapper {
                   "children": "Add appointment",
                   "className": "button-link",
                   "name": "add-appointment-link",
-                  "replace": false,
                   "to": "/offenders/A1234RN/add-appointment",
                 },
                 "ref": null,
@@ -10955,7 +10939,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-case-note-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
@@ -10965,7 +10948,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-kw-session-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
                 >
                   Add KW session
@@ -10975,7 +10957,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-appointment-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
@@ -11958,7 +11939,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-case-note-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-case-note"
                 >
                   Add case note
@@ -11968,7 +11948,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-kw-session-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
                 >
                   Add KW session
@@ -11978,7 +11957,6 @@ ShallowWrapper {
                 <Link
                   className="button-link"
                   name="add-appointment-link"
-                  replace={false}
                   to="/offenders/A1234RN/add-appointment"
                 >
                   Add appointment
@@ -11998,7 +11976,6 @@ ShallowWrapper {
                   <Link
                     className="button-link"
                     name="add-case-note-link"
-                    replace={false}
                     to="/offenders/A1234RN/add-case-note"
                   >
                     Add case note
@@ -12008,7 +11985,6 @@ ShallowWrapper {
                   <Link
                     className="button-link"
                     name="add-kw-session-link"
-                    replace={false}
                     to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
                   >
                     Add KW session
@@ -12018,7 +11994,6 @@ ShallowWrapper {
                   <Link
                     className="button-link"
                     name="add-appointment-link"
-                    replace={false}
                     to="/offenders/A1234RN/add-appointment"
                   >
                     Add appointment
@@ -12037,7 +12012,6 @@ ShallowWrapper {
                   "children": <Link
                     className="button-link"
                     name="add-case-note-link"
-                    replace={false}
                     to="/offenders/A1234RN/add-case-note"
                   >
                     Add case note
@@ -12052,7 +12026,6 @@ ShallowWrapper {
                     "children": "Add case note",
                     "className": "button-link",
                     "name": "add-case-note-link",
-                    "replace": false,
                     "to": "/offenders/A1234RN/add-case-note",
                   },
                   "ref": null,
@@ -12069,7 +12042,6 @@ ShallowWrapper {
                   "children": <Link
                     className="button-link"
                     name="add-kw-session-link"
-                    replace={false}
                     to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
                   >
                     Add KW session
@@ -12084,7 +12056,6 @@ ShallowWrapper {
                     "children": "Add KW session",
                     "className": "button-link",
                     "name": "add-kw-session-link",
-                    "replace": false,
                     "to": "/offenders/A1234RN/add-case-note?type=KA&subType=KS",
                   },
                   "ref": null,
@@ -12101,7 +12072,6 @@ ShallowWrapper {
                   "children": <Link
                     className="button-link"
                     name="add-appointment-link"
-                    replace={false}
                     to="/offenders/A1234RN/add-appointment"
                   >
                     Add appointment
@@ -12116,7 +12086,6 @@ ShallowWrapper {
                     "children": "Add appointment",
                     "className": "button-link",
                     "name": "add-appointment-link",
-                    "replace": false,
                     "to": "/offenders/A1234RN/add-appointment",
                   },
                   "ref": null,
@@ -12138,11 +12107,18 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
         "lifecycles": Object {
           "componentDidUpdate": Object {
             "onSetState": true,
           },
-          "getDerivedStateFromProps": true,
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromError": true,
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": true,
+          },
           "getSnapshotBeforeUpdate": true,
           "setState": Object {
             "skipsComponentDidUpdateOnNullish": true,

@@ -28,7 +28,7 @@ describe('<AssignedStaffMembers />', () => {
       const staffId = '12345'
       wrapper.setProps({ keyWorkerId: staffId })
       expect(wrapper.find('ValueWithLabel').prop('label')).toEqual('Key Worker')
-      expect(wrapper.find('Connect(EliteOfficerName)').prop('staffId')).toEqual(staffId)
+      expect(wrapper.find('ConnectFunction').prop('staffId')).toEqual(staffId)
     })
 
     const staffDetails = new Map([['firstName', 'Test'], ['lastName', 'User']])
