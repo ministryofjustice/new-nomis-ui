@@ -5828,7 +5828,7 @@ ShallowWrapper {
                       Key worker
                     </span>
                     <strong>
-                      <UNDEFINED
+                      <Connect(EliteOfficerName)
                         staffId={-6}
                       />
                     </strong>
@@ -6310,7 +6310,7 @@ ShallowWrapper {
                         Key worker
                       </span>
                       <strong>
-                        <UNDEFINED
+                        <Connect(EliteOfficerName)
                           staffId={-6}
                         />
                       </strong>
@@ -6524,7 +6524,7 @@ ShallowWrapper {
                           Key worker
                         </span>
                         <strong>
-                          <UNDEFINED
+                          <Connect(EliteOfficerName)
                             staffId={-6}
                           />
                         </strong>
@@ -6938,7 +6938,7 @@ ShallowWrapper {
                             Key worker
                           </span>
                           <strong>
-                            <UNDEFINED
+                            <Connect(EliteOfficerName)
                               staffId={-6}
                             />
                           </strong>
@@ -7030,7 +7030,7 @@ ShallowWrapper {
                               Key worker
                             </span>
                             <strong>
-                              <UNDEFINED
+                              <Connect(EliteOfficerName)
                                 staffId={-6}
                               />
                             </strong>
@@ -7122,7 +7122,7 @@ ShallowWrapper {
                               Key worker
                             </span>
                             <strong>
-                              <UNDEFINED
+                              <Connect(EliteOfficerName)
                                 staffId={-6}
                               />
                             </strong>
@@ -7142,7 +7142,7 @@ ShallowWrapper {
                                 Key worker
                               </span>,
                               <strong>
-                                <UNDEFINED
+                                <Connect(EliteOfficerName)
                                   staffId={-6}
                                 />
                               </strong>,
@@ -7168,7 +7168,7 @@ ShallowWrapper {
                               "key": undefined,
                               "nodeType": "host",
                               "props": Object {
-                                "children": <UNDEFINED
+                                "children": <Connect(EliteOfficerName)
                                   staffId={-6}
                                 />,
                               },
@@ -7176,20 +7176,13 @@ ShallowWrapper {
                               "rendered": Object {
                                 "instance": null,
                                 "key": undefined,
-                                "nodeType": "function",
+                                "nodeType": "class",
                                 "props": Object {
                                   "staffId": -6,
                                 },
                                 "ref": null,
                                 "rendered": null,
-                                "type": Object {
-                                  "$$typeof": Symbol(react.memo),
-                                  "WrappedComponent": [Function],
-                                  "compare": null,
-                                  "displayName": "Connect(EliteOfficerName)",
-                                  "type": [Function],
-                                  Symbol(Symbol.hasInstance): [Function],
-                                },
+                                "type": [Function],
                               },
                               "type": "strong",
                             },
@@ -7652,7 +7645,7 @@ ShallowWrapper {
                         Key worker
                       </span>
                       <strong>
-                        <UNDEFINED
+                        <Connect(EliteOfficerName)
                           staffId={-6}
                         />
                       </strong>
@@ -8134,7 +8127,7 @@ ShallowWrapper {
                           Key worker
                         </span>
                         <strong>
-                          <UNDEFINED
+                          <Connect(EliteOfficerName)
                             staffId={-6}
                           />
                         </strong>
@@ -8348,7 +8341,7 @@ ShallowWrapper {
                             Key worker
                           </span>
                           <strong>
-                            <UNDEFINED
+                            <Connect(EliteOfficerName)
                               staffId={-6}
                             />
                           </strong>
@@ -8762,7 +8755,7 @@ ShallowWrapper {
                               Key worker
                             </span>
                             <strong>
-                              <UNDEFINED
+                              <Connect(EliteOfficerName)
                                 staffId={-6}
                               />
                             </strong>
@@ -8854,7 +8847,7 @@ ShallowWrapper {
                                 Key worker
                               </span>
                               <strong>
-                                <UNDEFINED
+                                <Connect(EliteOfficerName)
                                   staffId={-6}
                                 />
                               </strong>
@@ -8946,7 +8939,7 @@ ShallowWrapper {
                                 Key worker
                               </span>
                               <strong>
-                                <UNDEFINED
+                                <Connect(EliteOfficerName)
                                   staffId={-6}
                                 />
                               </strong>
@@ -8966,7 +8959,7 @@ ShallowWrapper {
                                   Key worker
                                 </span>,
                                 <strong>
-                                  <UNDEFINED
+                                  <Connect(EliteOfficerName)
                                     staffId={-6}
                                   />
                                 </strong>,
@@ -8992,7 +8985,7 @@ ShallowWrapper {
                                 "key": undefined,
                                 "nodeType": "host",
                                 "props": Object {
-                                  "children": <UNDEFINED
+                                  "children": <Connect(EliteOfficerName)
                                     staffId={-6}
                                   />,
                                 },
@@ -9000,20 +8993,13 @@ ShallowWrapper {
                                 "rendered": Object {
                                   "instance": null,
                                   "key": undefined,
-                                  "nodeType": "function",
+                                  "nodeType": "class",
                                   "props": Object {
                                     "staffId": -6,
                                   },
                                   "ref": null,
                                   "rendered": null,
-                                  "type": Object {
-                                    "$$typeof": Symbol(react.memo),
-                                    "WrappedComponent": [Function],
-                                    "compare": null,
-                                    "displayName": "Connect(EliteOfficerName)",
-                                    "type": [Function],
-                                    Symbol(Symbol.hasInstance): [Function],
-                                  },
+                                  "type": [Function],
                                 },
                                 "type": "strong",
                               },
