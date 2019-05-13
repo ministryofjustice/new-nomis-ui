@@ -17,7 +17,7 @@ const routes = [
 ]
 
 export const Breadcrumb = ({ breadcrumbs }) => {
-  // Pick (pop) the last breadcrumd from the array (also removes it from the array)
+  // Pick (pop) the last breadcrumb from the array (also removes it from the array)
   const { breadcrumb: poppedBreadcrumb } = breadcrumbs.pop()
 
   return (

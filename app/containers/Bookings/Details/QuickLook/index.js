@@ -206,52 +206,62 @@ NegativeAndPositiveCaseNoteCount.defaultProps = {
   positiveCaseNotes: '',
 }
 
-export const Adjudications = ({ adjudications }) => {
+export const Adjudications = ({ adjudications, adjudicationHistoryUrl }) => {
   const awards = adjudications.get('awards')
   const proven = adjudications.get('proven')
   return (
-    <div>
+    <>
       <div className="row border-bottom-line">
-        <div className="col-lg-6 col-xs-6">
-          <span>Proven adjudications</span>
-        </div>
+        <div className="row border-bottom-line">
+          <div className="col-lg-6 col-xs-6">
+            <span>Proven adjudications</span>
+          </div>
 
-        <div className="col-lg-6 col-xs-6">
-          <b> {proven || 0} </b>
+          <div className="col-lg-6 col-xs-6">
+            <b> {proven || 0} </b>
+          </div>
         </div>
+        {awards.size === 0 && (
+          <div className="add-gutter-margin-top">
+            <div className="col-lg-6 col-xs-6">
+              <span>Active adjudications</span>
+            </div>
+            <div className="col-lg-6 col-xs-6">
+              <b> No active awards </b>
+            </div>
+          </div>
+        )}
+        {awards.map((award, index) => (
+          <div key={uuid()} className="row add-gutter-margin-top">
+            <div className="col-lg-6 col-xs-6">{index === 0 && <span>Active awards</span>}</div>
+            <div className="col-lg-6 col-xs-6">
+              <b>
+                {' '}
+                {award.get('durationText')} {award.get('sanctionCodeDescription')}{' '}
+              </b>
+              <div> {award.get('comment')} </div>
+              <div> {award.get('effectiveDate') && <FormattedDate value={award.get('effectiveDate')} />} </div>
+            </div>
+          </div>
+        ))}
       </div>
-
-      {awards.size === 0 && (
-        <div className="add-gutter-margin-top">
-          <div className="col-lg-6 col-xs-6">
-            <span>Active adjudications</span>
-          </div>
-
-          <div className="col-lg-6 col-xs-6">
-            <b> No active awards </b>
-          </div>
-        </div>
+      {adjudicationHistoryUrl && (
+        <a data-qa="adjudications-link" className="link" href={adjudicationHistoryUrl}>
+          {' '}
+          Adjudications
+        </a>
       )}
-
-      {awards.map((award, index) => (
-        <div key={uuid()} className="row add-gutter-margin-top">
-          <div className="col-lg-6 col-xs-6">{index === 0 && <span>Active awards</span>}</div>
-          <div className="col-lg-6 col-xs-6">
-            <b>
-              {' '}
-              {award.get('durationText')} {award.get('sanctionCodeDescription')}{' '}
-            </b>
-            <div> {award.get('comment')} </div>
-            <div> {award.get('effectiveDate') && <FormattedDate value={award.get('effectiveDate')} />} </div>
-          </div>
-        </div>
-      ))}
-    </div>
+    </>
   )
 }
 
 Adjudications.propTypes = {
   adjudications: ImmutablePropTypes.map.isRequired,
+  adjudicationHistoryUrl: PropTypes.string,
+}
+
+Adjudications.defaultProps = {
+  adjudicationHistoryUrl: null,
 }
 
 export const KeyWorkerSessionDate = ({ lastKeyWorkerSessionDate }) => (
@@ -579,7 +589,7 @@ class QuickLook extends Component {
   }
 
   render() {
-    const { viewModel, offenderDetails, offenderNo } = this.props
+    const { viewModel, offenderDetails, offenderNo, prisonStaffHubUrl } = this.props
     const adjudications = viewModel.get('adjudications')
     const lastVisit = viewModel.get('lastVisit')
     const nextVisit = viewModel.get('nextVisit')
@@ -619,7 +629,12 @@ class QuickLook extends Component {
                 negativeCaseNotes={viewModel.get('negativeCaseNotes')}
                 positiveCaseNotes={viewModel.get('positiveCaseNotes')}
               />
-              <Adjudications adjudications={adjudications} />
+              <Adjudications
+                adjudications={adjudications}
+                adjudicationHistoryUrl={
+                  prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/adjudications`
+                }
+              />
             </div>
           </div>
 
@@ -682,6 +697,11 @@ QuickLook.propTypes = {
   loadViewModel: PropTypes.func.isRequired,
   viewModel: ImmutablePropTypes.map.isRequired,
   offenderDetails: ImmutablePropTypes.map.isRequired,
+  prisonStaffHubUrl: PropTypes.string,
+}
+
+QuickLook.defaultProps = {
+  prisonStaffHubUrl: null,
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -692,11 +712,13 @@ const mapStateToProps = (immutableState, props) => {
   const data =
     immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']) || offenderProfileModel
   const viewModel = immutableState.getIn(['search', 'details', 'quickLookViewModel']) || quickLookModel
+  const prisonStaffHubUrl = immutableState.getIn(['app', 'prisonStaffHubUrl'])
 
   return {
     offenderNo: props.offenderNo,
     viewModel,
     offenderDetails: data,
+    prisonStaffHubUrl,
   }
 }
 
