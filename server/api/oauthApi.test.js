@@ -7,8 +7,6 @@ const clientId = 'clientId'
 const url = 'http://localhost'
 const clientSecret = 'clientSecret'
 const client = clientFactory('http://localhost:8080', 2000)
-const axiosReadMock = new MockAdapter(client.axiosReadInstance)
-const axiosWriteMock = new MockAdapter(client.axiosWriteInstance)
 
 const encodeClientCredentials = () =>
   Buffer.from(`${querystring.escape(clientId)}:${querystring.escape(clientSecret)}`).toString('base64')
@@ -32,11 +30,6 @@ describe('oathApi tests', () => {
       requestConfig = config
       return config
     })
-  })
-
-  afterEach(() => {
-    axiosReadMock.reset()
-    axiosWriteMock.reset()
   })
 
   describe('refresh', () => {
