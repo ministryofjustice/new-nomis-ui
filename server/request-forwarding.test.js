@@ -1,15 +1,9 @@
 const supertest = require('supertest')
 const express = require('express')
-const chai = require('chai')
-
-const { expect } = chai
-chai.use(require('sinon-chai'))
-const sinon = require('sinon')
 const bodyParser = require('body-parser')
 
 const contextProperties = require('../server/contextProperties')
 const requestForwarding = require('../server/request-forwarding')
-const { eliteApiFactory } = require('../server/api/eliteApi')
 
 describe('Test request forwarding', () => {
   describe('extractRequestPaginationMiddleware', () => {
@@ -31,7 +25,7 @@ describe('Test request forwarding', () => {
         .set('junk', 'junkValue')
         .expect(200)
         .then(() => {
-          expect(contextProperties.getRequestPagination(context)).to.deep.equal({
+          expect(contextProperties.getRequestPagination(context)).toEqual({
             'page-offset': '20',
             'page-limit': '10',
           })
@@ -39,9 +33,8 @@ describe('Test request forwarding', () => {
   })
 
   describe('forwarding handler', () => {
-    const eliteApi = eliteApiFactory(null)
+    const eliteApi = {}
     const forwardingHandler = requestForwarding.forwardingHandlerFactory(eliteApi)
-    const sandbox = sinon.createSandbox()
 
     const app = express()
     app.use(bodyParser.json())
@@ -50,16 +43,12 @@ describe('Test request forwarding', () => {
     const request = supertest(app)
 
     beforeEach(() => {
-      sandbox.stub(eliteApi, 'get')
-      sandbox.stub(eliteApi, 'post')
-    })
-
-    afterEach(() => {
-      sandbox.restore()
+      eliteApi.get = jest.fn()
+      eliteApi.post = jest.fn()
     })
 
     it('Should forward get requests', () => {
-      eliteApi.get.resolves({ value: 'responseValue' })
+      eliteApi.get.mockReturnValueOnce(Promise.resolve({ value: 'responseValue' }))
 
       return request
         .get('/app/me/locations')
@@ -68,15 +57,15 @@ describe('Test request forwarding', () => {
         .expect(200)
         .expect({ value: 'responseValue' })
         .then(() => {
-          expect(eliteApi.get).to.have.been.calledWith(
+          expect(eliteApi.get).toBeCalledWith(
             { requestHeaders: { 'page-limit': '10', 'page-offset': '20' } },
-            '/api/me/locations'
+            'api/me/locations'
           )
         })
     })
 
     it('Should forward post requests', () => {
-      eliteApi.post.resolves({ value: 'responseValue' })
+      eliteApi.post.mockReturnValueOnce(Promise.resolve({ value: 'responseValue' }))
 
       return request
         .post('/app/me/locations')
@@ -87,9 +76,9 @@ describe('Test request forwarding', () => {
         .expect(200)
         .expect({ value: 'responseValue' })
         .then(() => {
-          expect(eliteApi.post).to.have.been.calledWith(
+          expect(eliteApi.post).toBeCalledWith(
             { requestHeaders: { 'page-limit': '10', 'page-offset': '20' } },
-            '/api/me/locations',
+            'api/me/locations',
             { value: 'requestValue' }
           )
         })
