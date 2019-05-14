@@ -9,6 +9,8 @@ import mockapis.OauthApi
 import model.Offender
 import model.TestFixture
 import org.junit.Rule
+import org.openqa.selenium.Keys
+import org.openqa.selenium.interactions.Actions
 import pages.OffenderDetailsPage
 import pages.SearchResultsPage
 
@@ -116,7 +118,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
         .willReturn(
           aResponse().withBody("hello").withStatus(200)))
 
-    adjudicationsLink.click()
+    adjudicationsLink.singleElement().sendKeys(Keys.RETURN)
 
     then: 'The browser goes to the prison hub url'
     def adjudicationSuffix = '/offenders/A1234AJ/adjudications'
