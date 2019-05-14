@@ -1,8 +1,8 @@
 const contextProperties = require('../contextProperties')
 
-const processResponse = context => response => {
+const processSuperAgentResponse = context => response => {
   contextProperties.setResponsePagination(context, response.headers)
-  return response.data
+  return response.body
 }
 
 const processError = error => {
@@ -16,7 +16,7 @@ const keyworkerApiFactory = client => {
   const get = (context, url) =>
     client
       .get(context, url)
-      .then(processResponse(context))
+      .then(processSuperAgentResponse(context))
       .catch(processError)
 
   const getKeyworkerByCaseloadAndOffenderNo = (context, activeCaseLoadId, offenderNo) =>
