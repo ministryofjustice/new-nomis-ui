@@ -7,6 +7,10 @@ const eliteApiFactory = client => {
     contextProperties.setResponsePagination(context, response.headers)
     return response.data
   }
+  const processSuperAgentResponse = context => response => {
+    contextProperties.setResponsePagination(context, response.headers)
+    return response.body
+  }
 
   const map404ToNull = error => {
     if (!error.response) throw error
@@ -15,7 +19,7 @@ const eliteApiFactory = client => {
     return null
   }
 
-  const get = (context, url) => client.get(context, url).then(processResponse(context))
+  const get = (context, url) => client.get(context, url).then(processSuperAgentResponse(context))
 
   const post = (context, url, data) => client.post(context, url, data).then(processResponse(context))
 
@@ -35,7 +39,7 @@ const eliteApiFactory = client => {
   const getBalances = (context, bookingId) => get(context, `api/bookings/${bookingId}/balances`)
   const getCategoryAssessment = (context, bookingId) =>
     get(context, `api/bookings/${bookingId}/assessment/CATEGORY`).catch(map404ToNull)
-  const getCaseLoads = context => get(context, '/api/users/me/caseLoads')
+  const getCaseLoads = context => get(context, 'api/users/me/caseLoads')
   const getContacts = (context, bookingId) => get(context, `api/bookings/${bookingId}/contacts`)
   const getDetails = (context, offenderNo) => get(context, `api/bookings/offenderNo/${offenderNo}?fullInfo=true`)
   const getDetailsLight = (context, offenderNo) => get(context, `api/bookings/offenderNo/${offenderNo}?fullInfo=false`)

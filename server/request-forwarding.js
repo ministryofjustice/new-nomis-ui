@@ -43,7 +43,7 @@ const forwardingHandlerFactory = elite2Api =>
     //   res.json(data);
     // };
 
-    const theUrl = `/api${req.url}`
+    const theUrl = `api${req.url}`
 
     switch (req.method) {
       case 'GET':

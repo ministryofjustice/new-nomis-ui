@@ -12,7 +12,7 @@ const userServiceFactory = (elite2Api, oauthApi) => {
     if (potentialCaseLoad) {
       const firstCaseLoadId = potentialCaseLoad.caseLoadId
       logger.warn({ details }, `No active caseload set: setting to ${firstCaseLoadId}`)
-      await elite2Api.put(context, '/api/users/me/activeCaseLoad', { caseLoadId: firstCaseLoadId })
+      await elite2Api.put(context, 'api/users/me/activeCaseLoad', { caseLoadId: firstCaseLoadId })
       return firstCaseLoadId
     }
     const msg = 'No active caseload set: none available'
