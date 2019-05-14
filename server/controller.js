@@ -167,7 +167,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
     const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo)
     req.body.appointments = [{ bookingId }]
 
-    await elite2Api.post(res.locals, `/api/appointments`, req.body)
+    await elite2Api.post(res.locals, `api/appointments`, req.body)
     res.status(200)
     res.end()
   })
@@ -196,7 +196,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
 
     const query = queryParts ? `?query=${queryParts}` : ''
 
-    const data = await elite2Api.get(res.locals, `/api/bookings/${bookingId}/alerts${query}`)
+    const data = await elite2Api.get(res.locals, `api/bookings/${bookingId}/alerts${query}`)
 
     res.set(res.locals.responseHeaders)
 
@@ -216,7 +216,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
 
     const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo)
 
-    const data = await elite2Api.get(res.locals, `/api/bookings/${bookingId}/caseNotes?${queryString}`)
+    const data = await elite2Api.get(res.locals, `api/bookings/${bookingId}/caseNotes?${queryString}`)
 
     res.set(res.locals.responseHeaders)
 
@@ -234,7 +234,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
 
     const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo)
 
-    const data = await elite2Api.post(res.locals, `/api/bookings/${bookingId}/caseNotes`, req.body)
+    const data = await elite2Api.post(res.locals, `api/bookings/${bookingId}/caseNotes`, req.body)
     res.json(data)
   })
 
@@ -250,7 +250,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
 
     const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo)
 
-    const data = await elite2Api.get(res.locals, `/api/bookings/${bookingId}/caseNotes/${caseNoteId}`)
+    const data = await elite2Api.get(res.locals, `api/bookings/${bookingId}/caseNotes/${caseNoteId}`)
     res.json(data)
   })
 
@@ -266,7 +266,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
 
     const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo)
 
-    const data = await elite2Api.put(res.locals, `/api/bookings/${bookingId}/caseNotes/${caseNoteId}`, req.body)
+    const data = await elite2Api.put(res.locals, `api/bookings/${bookingId}/caseNotes/${caseNoteId}`, req.body)
     res.json(data)
   })
 

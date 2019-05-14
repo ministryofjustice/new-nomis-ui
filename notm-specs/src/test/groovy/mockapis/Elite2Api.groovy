@@ -220,6 +220,7 @@ class Elite2Api extends WireMockRule {
       get(urlMatching("/api/bookings/.+/iepSummary"))
         .willReturn(aResponse()
         .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
         .withBody('''
 {
     "bookingId": -10,
