@@ -40,9 +40,7 @@ Array [
       >
         <b>
            
-           
           code description
-           
         </b>
         <div>
            
@@ -69,8 +67,6 @@ Array [
       >
         <b>
            
-           
-           
         </b>
         <div>
            
@@ -94,8 +90,6 @@ Array [
       >
         <b>
            
-           
-           
         </b>
         <div>
            
@@ -114,7 +108,6 @@ Array [
     data-qa="adjudications-link"
     href="http://prisonstaffhub"
   >
-     
     Adjudications
   </a>,
 ]
