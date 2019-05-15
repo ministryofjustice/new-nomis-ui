@@ -1,6 +1,9 @@
 import React from 'react'
 import { Map } from 'immutable'
 import { shallow } from 'enzyme'
+import renderer from 'react-test-renderer'
+import { Provider } from 'react-redux'
+import { MemoryRouter } from 'react-router-dom'
 
 import Header, { Alerts } from './header'
 
@@ -43,7 +46,30 @@ const inmate = (alerts, categoryInfo) =>
   })
 
 describe('Header component', () => {
+  const store = { subscribe: jest.fn(), dispatch: jest.fn(), getState: jest.fn(), setState: jest.fn() }
+  store.getState.mockReturnValue(Map())
+
   it('should render correctly', () => {
+    const wrapper = renderer
+      .create(
+        <Provider store={store}>
+          <MemoryRouter>
+            <Header
+              inmateData={inmate(allAlerts, 'D')}
+              onImageClick={jest.fn()}
+              offenderNo="A1234RT"
+              onAlertFlagClick={jest.fn()}
+              showAddKeyworkerSessionLink={false}
+            />
+          </MemoryRouter>
+        </Provider>
+      )
+      .toJSON()
+
+    expect(wrapper).toMatchSnapshot()
+  })
+
+  it('should render four alerts', () => {
     const wrapper = shallow(
       <Header
         inmateData={inmate(allAlerts, 'D')}
@@ -55,7 +81,6 @@ describe('Header component', () => {
     )
 
     expect(wrapper.find('div.align-alerts span')).toHaveLength(4)
-    expect(wrapper).toMatchSnapshot()
   })
 
   it('should ignore irrelevant alert flags', () => {
@@ -70,34 +95,6 @@ describe('Header component', () => {
     )
 
     expect(wrapper.find('div.align-alerts AlertFlag')).toHaveLength(0)
-  })
-
-  it('should render MiddleSection correctly large', () => {
-    const wrapper = shallow(
-      <Header
-        inmateData={inmate(allAlerts, 'H')}
-        onImageClick={jest.fn()}
-        offenderNo="A1234RE"
-        onAlertFlagClick={jest.fn()}
-        showAddKeyworkerSessionLink={false}
-      />
-    )
-
-    expect(wrapper.find('div.visible-large > MiddleSection').shallow()).toMatchSnapshot()
-  })
-
-  it('should render MiddleSection correctly small', () => {
-    const wrapper = shallow(
-      <Header
-        inmateData={inmate(allAlerts, 'D')}
-        onImageClick={jest.fn()}
-        offenderNo="A1234RN"
-        onAlertFlagClick={jest.fn()}
-        showAddKeyworkerSessionLink={false}
-      />
-    )
-
-    expect(wrapper.find('div.visible-small > MiddleSection').shallow()).toMatchSnapshot()
   })
 
   it('should render cat A correctly', () => {
@@ -151,20 +148,6 @@ describe('Header component', () => {
         .first()
         .text()
     ).toEqual('CAT A Prov')
-  })
-
-  it('should show the Add KW Session link', () => {
-    const wrapper = shallow(
-      <Header
-        inmateData={inmate(allAlerts, 'D')}
-        onImageClick={jest.fn()}
-        offenderNo="A1234RN"
-        onAlertFlagClick={jest.fn()}
-        showAddKeyworkerSessionLink
-      />
-    )
-
-    expect(wrapper.find('div.visible-small > MiddleSection').shallow()).toMatchSnapshot()
   })
 
   describe('<Alerts /> child component', () => {
