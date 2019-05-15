@@ -51,6 +51,7 @@ describe('Header component', () => {
         offenderNo="A1234RT"
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
+        pristonStaffHubUrl="localhost:3002"
       />
     )
 
@@ -66,6 +67,7 @@ describe('Header component', () => {
         offenderNo="A1234RE"
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
+        pristonStaffHubUrl="localhost:3002"
       />
     )
 
@@ -80,6 +82,7 @@ describe('Header component', () => {
         offenderNo="A1234RE"
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
+        pristonStaffHubUrl="localhost:3002"
       />
     )
 
@@ -94,6 +97,7 @@ describe('Header component', () => {
         offenderNo="A1234RN"
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
+        pristonStaffHubUrl="localhost:3002"
       />
     )
 
@@ -108,6 +112,7 @@ describe('Header component', () => {
         offenderNo="A1234RN"
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
+        pristonStaffHubUrl="localhost:3002"
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
@@ -127,6 +132,7 @@ describe('Header component', () => {
         offenderNo="A1234RN"
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
+        pristonStaffHubUrl="localhost:3002"
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
@@ -142,6 +148,7 @@ describe('Header component', () => {
         offenderNo="A1234RN"
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
+        pristonStaffHubUrl="localhost:3002"
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
@@ -161,6 +168,22 @@ describe('Header component', () => {
         offenderNo="A1234RN"
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink
+        pristonStaffHubUrl="localhost:3002"
+      />
+    )
+
+    expect(wrapper.find('div.visible-small > MiddleSection').shallow()).toMatchSnapshot()
+  })
+
+  it('should show the IEP Details link', () => {
+    const wrapper = shallow(
+      <Header
+        inmateData={inmate(allAlerts, 'D')}
+        onImageClick={jest.fn()}
+        offenderNo="A1234RN"
+        onAlertFlagClick={jest.fn()}
+        showAddKeyworkerSessionLink
+        pristonStaffHubUrl="localhost:3002"
       />
     )
 

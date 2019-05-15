@@ -4,6 +4,7 @@ exports[`Header component should render MiddleSection correctly large 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <MiddleSection
+    iepHistoryUrl={undefined}
     inmateData={
       Immutable.Map {
         "lastName": "Last",
@@ -386,6 +387,7 @@ ShallowWrapper {
                   <strong>
                     Standard
                   </strong>,
+                  undefined,
                 ],
                 "className": "col",
               },
@@ -414,6 +416,7 @@ ShallowWrapper {
                   "rendered": "Standard",
                   "type": "strong",
                 },
+                undefined,
               ],
               "type": "div",
             },
@@ -1791,6 +1794,7 @@ ShallowWrapper {
                     <strong>
                       Standard
                     </strong>,
+                    undefined,
                   ],
                   "className": "col",
                 },
@@ -1819,6 +1823,7 @@ ShallowWrapper {
                     "rendered": "Standard",
                     "type": "strong",
                   },
+                  undefined,
                 ],
                 "type": "div",
               },
@@ -2895,6 +2900,7 @@ exports[`Header component should render MiddleSection correctly small 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <MiddleSection
+    iepHistoryUrl={undefined}
     inmateData={
       Immutable.Map {
         "lastName": "Last",
@@ -3259,6 +3265,7 @@ ShallowWrapper {
                   <strong>
                     Standard
                   </strong>,
+                  undefined,
                 ],
                 "className": "col",
               },
@@ -3287,6 +3294,7 @@ ShallowWrapper {
                   "rendered": "Standard",
                   "type": "strong",
                 },
+                undefined,
               ],
               "type": "div",
             },
@@ -4568,6 +4576,7 @@ ShallowWrapper {
                     <strong>
                       Standard
                     </strong>,
+                    undefined,
                   ],
                   "className": "col",
                 },
@@ -4596,6 +4605,7 @@ ShallowWrapper {
                     "rendered": "Standard",
                     "type": "strong",
                   },
+                  undefined,
                 ],
                 "type": "div",
               },
@@ -5635,6 +5645,7 @@ ShallowWrapper {
     offenderNo="A1234RT"
     onAlertFlagClick={[Function]}
     onImageClick={[Function]}
+    pristonStaffHubUrl="localhost:3002"
     showAddKeyworkerSessionLink={false}
   />,
   Symbol(enzyme.__renderer__): Object {
@@ -5839,6 +5850,7 @@ ShallowWrapper {
                 className="visible-large"
               >
                 <MiddleSection
+                  iepHistoryUrl={undefined}
                   inmateData={
                     Immutable.Map {
                       "lastName": "Last",
@@ -5891,6 +5903,7 @@ ShallowWrapper {
             className="visible-small"
           >
             <MiddleSection
+              iepHistoryUrl={undefined}
               inmateData={
                 Immutable.Map {
                   "lastName": "Last",
@@ -6321,6 +6334,7 @@ ShallowWrapper {
                   className="visible-large"
                 >
                   <MiddleSection
+                    iepHistoryUrl={undefined}
                     inmateData={
                       Immutable.Map {
                         "lastName": "Last",
@@ -6535,6 +6549,7 @@ ShallowWrapper {
                     className="visible-large"
                   >
                     <MiddleSection
+                      iepHistoryUrl={undefined}
                       inmateData={
                         Immutable.Map {
                           "lastName": "Last",
@@ -6949,6 +6964,7 @@ ShallowWrapper {
                       className="visible-large"
                     >
                       <MiddleSection
+                        iepHistoryUrl={undefined}
                         inmateData={
                           Immutable.Map {
                             "lastName": "Last",
@@ -7200,6 +7216,7 @@ ShallowWrapper {
                     "nodeType": "host",
                     "props": Object {
                       "children": <MiddleSection
+                        iepHistoryUrl={undefined}
                         inmateData={
                           Immutable.Map {
                             "lastName": "Last",
@@ -7249,6 +7266,7 @@ ShallowWrapper {
                       "key": undefined,
                       "nodeType": "function",
                       "props": Object {
+                        "iepHistoryUrl": undefined,
                         "inmateData": Immutable.Map {
                           "lastName": "Last",
                           "subscribe": [Function],
@@ -7312,6 +7330,7 @@ ShallowWrapper {
             className="visible-small"
           >
             <MiddleSection
+              iepHistoryUrl={undefined}
               inmateData={
                 Immutable.Map {
                   "lastName": "Last",
@@ -7363,6 +7382,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": <MiddleSection
+              iepHistoryUrl={undefined}
               inmateData={
                 Immutable.Map {
                   "lastName": "Last",
@@ -7412,6 +7432,7 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "function",
             "props": Object {
+              "iepHistoryUrl": undefined,
               "inmateData": Immutable.Map {
                 "lastName": "Last",
                 "subscribe": [Function],
@@ -7656,6 +7677,7 @@ ShallowWrapper {
                   className="visible-large"
                 >
                   <MiddleSection
+                    iepHistoryUrl={undefined}
                     inmateData={
                       Immutable.Map {
                         "lastName": "Last",
@@ -7708,6 +7730,7 @@ ShallowWrapper {
               className="visible-small"
             >
               <MiddleSection
+                iepHistoryUrl={undefined}
                 inmateData={
                   Immutable.Map {
                     "lastName": "Last",
@@ -8138,6 +8161,7 @@ ShallowWrapper {
                     className="visible-large"
                   >
                     <MiddleSection
+                      iepHistoryUrl={undefined}
                       inmateData={
                         Immutable.Map {
                           "lastName": "Last",
@@ -8352,6 +8376,7 @@ ShallowWrapper {
                       className="visible-large"
                     >
                       <MiddleSection
+                        iepHistoryUrl={undefined}
                         inmateData={
                           Immutable.Map {
                             "lastName": "Last",
@@ -8766,6 +8791,7 @@ ShallowWrapper {
                         className="visible-large"
                       >
                         <MiddleSection
+                          iepHistoryUrl={undefined}
                           inmateData={
                             Immutable.Map {
                               "lastName": "Last",
@@ -9017,6 +9043,7 @@ ShallowWrapper {
                       "nodeType": "host",
                       "props": Object {
                         "children": <MiddleSection
+                          iepHistoryUrl={undefined}
                           inmateData={
                             Immutable.Map {
                               "lastName": "Last",
@@ -9066,6 +9093,7 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "function",
                         "props": Object {
+                          "iepHistoryUrl": undefined,
                           "inmateData": Immutable.Map {
                             "lastName": "Last",
                             "subscribe": [Function],
@@ -9129,6 +9157,7 @@ ShallowWrapper {
               className="visible-small"
             >
               <MiddleSection
+                iepHistoryUrl={undefined}
                 inmateData={
                   Immutable.Map {
                     "lastName": "Last",
@@ -9180,6 +9209,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": <MiddleSection
+                iepHistoryUrl={undefined}
                 inmateData={
                   Immutable.Map {
                     "lastName": "Last",
@@ -9229,6 +9259,7 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "function",
               "props": Object {
+                "iepHistoryUrl": undefined,
                 "inmateData": Immutable.Map {
                   "lastName": "Last",
                   "subscribe": [Function],
@@ -9311,6 +9342,7 @@ exports[`Header component should show the Add KW Session link 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <MiddleSection
+    iepHistoryUrl={undefined}
     inmateData={
       Immutable.Map {
         "lastName": "Last",
@@ -9684,6 +9716,7 @@ ShallowWrapper {
                   <strong>
                     Standard
                   </strong>,
+                  undefined,
                 ],
                 "className": "col",
               },
@@ -9712,6 +9745,7 @@ ShallowWrapper {
                   "rendered": "Standard",
                   "type": "strong",
                 },
+                undefined,
               ],
               "type": "div",
             },
@@ -11048,6 +11082,7 @@ ShallowWrapper {
                     <strong>
                       Standard
                     </strong>,
+                    undefined,
                   ],
                   "className": "col",
                 },
@@ -11076,6 +11111,2821 @@ ShallowWrapper {
                     "rendered": "Standard",
                     "type": "strong",
                   },
+                  undefined,
+                ],
+                "type": "div",
+              },
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="col"
+                >
+                  <span
+                    className="label"
+                  >
+                    CSRA
+                  </span>
+                  <strong>
+                    Medium
+                  </strong>
+                </div>,
+                "className": "row",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <span
+                      className="label"
+                    >
+                      CSRA
+                    </span>,
+                    <strong>
+                      Medium
+                    </strong>,
+                  ],
+                  "className": "col",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "CSRA",
+                      "className": "label",
+                    },
+                    "ref": null,
+                    "rendered": "CSRA",
+                    "type": "span",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Medium",
+                    },
+                    "ref": null,
+                    "rendered": "Medium",
+                    "type": "strong",
+                  },
+                ],
+                "type": "div",
+              },
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="col"
+                >
+                  <span
+                    className="label"
+                  >
+                    Category
+                  </span>
+                  <strong>
+                    Cat D
+                  </strong>
+                </div>,
+                "className": "row",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <span
+                      className="label"
+                    >
+                      Category
+                    </span>,
+                    <strong>
+                      Cat D
+                    </strong>,
+                  ],
+                  "className": "col",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Category",
+                      "className": "label",
+                    },
+                    "ref": null,
+                    "rendered": "Category",
+                    "type": "span",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Cat D",
+                    },
+                    "ref": null,
+                    "rendered": "Cat D",
+                    "type": "strong",
+                  },
+                ],
+                "type": "div",
+              },
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <div
+              className="row"
+            >
+              <div
+                className="col-xs-4 d-inline-block"
+              >
+                <span
+                  className="label"
+                >
+                  IEP
+                </span>
+                <strong>
+                  Standard
+                </strong>
+              </div>
+              <div
+                className="col-xs-4 d-inline-block"
+              >
+                <span
+                  className="label"
+                >
+                  CSRA
+                </span>
+                <strong>
+                  Medium
+                </strong>
+              </div>
+              <div
+                className="col-xs-4 d-inline-block"
+              >
+                <span
+                  className="label"
+                >
+                  Category
+                </span>
+                <strong>
+                  Cat D
+                </strong>
+              </div>
+            </div>,
+            "className": "col-xs-12 visible-small",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <div
+                  className="col-xs-4 d-inline-block"
+                >
+                  <span
+                    className="label"
+                  >
+                    IEP
+                  </span>
+                  <strong>
+                    Standard
+                  </strong>
+                </div>,
+                <div
+                  className="col-xs-4 d-inline-block"
+                >
+                  <span
+                    className="label"
+                  >
+                    CSRA
+                  </span>
+                  <strong>
+                    Medium
+                  </strong>
+                </div>,
+                <div
+                  className="col-xs-4 d-inline-block"
+                >
+                  <span
+                    className="label"
+                  >
+                    Category
+                  </span>
+                  <strong>
+                    Cat D
+                  </strong>
+                </div>,
+              ],
+              "className": "row",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <span
+                      className="label"
+                    >
+                      IEP
+                    </span>,
+                    <strong>
+                      Standard
+                    </strong>,
+                  ],
+                  "className": "col-xs-4 d-inline-block",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "IEP",
+                      "className": "label",
+                    },
+                    "ref": null,
+                    "rendered": "IEP",
+                    "type": "span",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Standard",
+                    },
+                    "ref": null,
+                    "rendered": "Standard",
+                    "type": "strong",
+                  },
+                ],
+                "type": "div",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <span
+                      className="label"
+                    >
+                      CSRA
+                    </span>,
+                    <strong>
+                      Medium
+                    </strong>,
+                  ],
+                  "className": "col-xs-4 d-inline-block",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "CSRA",
+                      "className": "label",
+                    },
+                    "ref": null,
+                    "rendered": "CSRA",
+                    "type": "span",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Medium",
+                    },
+                    "ref": null,
+                    "rendered": "Medium",
+                    "type": "strong",
+                  },
+                ],
+                "type": "div",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <span
+                      className="label"
+                    >
+                      Category
+                    </span>,
+                    <strong>
+                      Cat D
+                    </strong>,
+                  ],
+                  "className": "col-xs-4 d-inline-block",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Category",
+                      "className": "label",
+                    },
+                    "ref": null,
+                    "rendered": "Category",
+                    "type": "span",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Cat D",
+                    },
+                    "ref": null,
+                    "rendered": "Cat D",
+                    "type": "strong",
+                  },
+                ],
+                "type": "div",
+              },
+            ],
+            "type": "div",
+          },
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <div
+              className="col-xs-6 col-sm-3"
+            >
+              <div
+                className="row"
+              >
+                <div
+                  className="col"
+                >
+                  <span
+                    className="label"
+                  >
+                    Alerts
+                  </span>
+                  <Alerts
+                    activeAlertCount={9}
+                    inactiveAlertCount={8}
+                    offenderNo="A1234RN"
+                  />
+                </div>
+              </div>
+              <div
+                className="row"
+              >
+                <div
+                  className="col"
+                >
+                  <Location
+                    assignedLivingUnit={
+                      Immutable.Map {
+                        "description": "H-1-001",
+                        "agencyName": "HLI",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>,
+            "className": "visible-large",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col"
+                  >
+                    <span
+                      className="label"
+                    >
+                      Alerts
+                    </span>
+                    <Alerts
+                      activeAlertCount={9}
+                      inactiveAlertCount={8}
+                      offenderNo="A1234RN"
+                    />
+                  </div>
+                </div>,
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col"
+                  >
+                    <Location
+                      assignedLivingUnit={
+                        Immutable.Map {
+                          "description": "H-1-001",
+                          "agencyName": "HLI",
+                        }
+                      }
+                    />
+                  </div>
+                </div>,
+              ],
+              "className": "col-xs-6 col-sm-3",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="col"
+                  >
+                    <span
+                      className="label"
+                    >
+                      Alerts
+                    </span>
+                    <Alerts
+                      activeAlertCount={9}
+                      inactiveAlertCount={8}
+                      offenderNo="A1234RN"
+                    />
+                  </div>,
+                  "className": "row",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <span
+                        className="label"
+                      >
+                        Alerts
+                      </span>,
+                      <Alerts
+                        activeAlertCount={9}
+                        inactiveAlertCount={8}
+                        offenderNo="A1234RN"
+                      />,
+                    ],
+                    "className": "col",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Alerts",
+                        "className": "label",
+                      },
+                      "ref": null,
+                      "rendered": "Alerts",
+                      "type": "span",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "function",
+                      "props": Object {
+                        "activeAlertCount": 9,
+                        "inactiveAlertCount": 8,
+                        "offenderNo": "A1234RN",
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                  ],
+                  "type": "div",
+                },
+                "type": "div",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="col"
+                  >
+                    <Location
+                      assignedLivingUnit={
+                        Immutable.Map {
+                          "description": "H-1-001",
+                          "agencyName": "HLI",
+                        }
+                      }
+                    />
+                  </div>,
+                  "className": "row",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <Location
+                      assignedLivingUnit={
+                        Immutable.Map {
+                          "description": "H-1-001",
+                          "agencyName": "HLI",
+                        }
+                      }
+                    />,
+                    "className": "col",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "assignedLivingUnit": Immutable.Map {
+                        "description": "H-1-001",
+                        "agencyName": "HLI",
+                      },
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  "type": "div",
+                },
+                "type": "div",
+              },
+            ],
+            "type": "div",
+          },
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div
+                className="col-xs-4"
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col"
+                  >
+                    <span
+                      className="label"
+                    >
+                      Alerts
+                    </span>
+                    <Alerts
+                      activeAlertCount={9}
+                      inactiveAlertCount={8}
+                      offenderNo="A1234RN"
+                    />
+                  </div>
+                </div>
+              </div>,
+              <div
+                className="col-xs-4"
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col"
+                  >
+                    <Location
+                      assignedLivingUnit={
+                        Immutable.Map {
+                          "description": "H-1-001",
+                          "agencyName": "HLI",
+                        }
+                      }
+                    />
+                  </div>
+                </div>
+              </div>,
+            ],
+            "className": "visible-small",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="row"
+                >
+                  <div
+                    className="col"
+                  >
+                    <span
+                      className="label"
+                    >
+                      Alerts
+                    </span>
+                    <Alerts
+                      activeAlertCount={9}
+                      inactiveAlertCount={8}
+                      offenderNo="A1234RN"
+                    />
+                  </div>
+                </div>,
+                "className": "col-xs-4",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="col"
+                  >
+                    <span
+                      className="label"
+                    >
+                      Alerts
+                    </span>
+                    <Alerts
+                      activeAlertCount={9}
+                      inactiveAlertCount={8}
+                      offenderNo="A1234RN"
+                    />
+                  </div>,
+                  "className": "row",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <span
+                        className="label"
+                      >
+                        Alerts
+                      </span>,
+                      <Alerts
+                        activeAlertCount={9}
+                        inactiveAlertCount={8}
+                        offenderNo="A1234RN"
+                      />,
+                    ],
+                    "className": "col",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Alerts",
+                        "className": "label",
+                      },
+                      "ref": null,
+                      "rendered": "Alerts",
+                      "type": "span",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "function",
+                      "props": Object {
+                        "activeAlertCount": 9,
+                        "inactiveAlertCount": 8,
+                        "offenderNo": "A1234RN",
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                  ],
+                  "type": "div",
+                },
+                "type": "div",
+              },
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="row"
+                >
+                  <div
+                    className="col"
+                  >
+                    <Location
+                      assignedLivingUnit={
+                        Immutable.Map {
+                          "description": "H-1-001",
+                          "agencyName": "HLI",
+                        }
+                      }
+                    />
+                  </div>
+                </div>,
+                "className": "col-xs-4",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="col"
+                  >
+                    <Location
+                      assignedLivingUnit={
+                        Immutable.Map {
+                          "description": "H-1-001",
+                          "agencyName": "HLI",
+                        }
+                      }
+                    />
+                  </div>,
+                  "className": "row",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <Location
+                      assignedLivingUnit={
+                        Immutable.Map {
+                          "description": "H-1-001",
+                          "agencyName": "HLI",
+                        }
+                      }
+                    />,
+                    "className": "col",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "assignedLivingUnit": Immutable.Map {
+                        "description": "H-1-001",
+                        "agencyName": "HLI",
+                      },
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  "type": "div",
+                },
+                "type": "div",
+              },
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <div
+              className="stacked-links"
+            >
+              <div>
+                <Link
+                  className="button-link"
+                  name="add-case-note-link"
+                  to="/offenders/A1234RN/add-case-note"
+                >
+                  Add case note
+                </Link>
+              </div>
+              <div>
+                <Link
+                  className="button-link"
+                  name="add-kw-session-link"
+                  to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
+                >
+                  Add KW session
+                </Link>
+              </div>
+              <div>
+                <Link
+                  className="button-link"
+                  name="add-appointment-link"
+                  to="/offenders/A1234RN/add-appointment"
+                >
+                  Add appointment
+                </Link>
+              </div>
+            </div>,
+            "className": "col-xs-12 col-sm-3",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <div>
+                  <Link
+                    className="button-link"
+                    name="add-case-note-link"
+                    to="/offenders/A1234RN/add-case-note"
+                  >
+                    Add case note
+                  </Link>
+                </div>,
+                <div>
+                  <Link
+                    className="button-link"
+                    name="add-kw-session-link"
+                    to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
+                  >
+                    Add KW session
+                  </Link>
+                </div>,
+                <div>
+                  <Link
+                    className="button-link"
+                    name="add-appointment-link"
+                    to="/offenders/A1234RN/add-appointment"
+                  >
+                    Add appointment
+                  </Link>
+                </div>,
+              ],
+              "className": "stacked-links",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <Link
+                    className="button-link"
+                    name="add-case-note-link"
+                    to="/offenders/A1234RN/add-case-note"
+                  >
+                    Add case note
+                  </Link>,
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": "Add case note",
+                    "className": "button-link",
+                    "name": "add-case-note-link",
+                    "to": "/offenders/A1234RN/add-case-note",
+                  },
+                  "ref": null,
+                  "rendered": "Add case note",
+                  "type": [Function],
+                },
+                "type": "div",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <Link
+                    className="button-link"
+                    name="add-kw-session-link"
+                    to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
+                  >
+                    Add KW session
+                  </Link>,
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": "Add KW session",
+                    "className": "button-link",
+                    "name": "add-kw-session-link",
+                    "to": "/offenders/A1234RN/add-case-note?type=KA&subType=KS",
+                  },
+                  "ref": null,
+                  "rendered": "Add KW session",
+                  "type": [Function],
+                },
+                "type": "div",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <Link
+                    className="button-link"
+                    name="add-appointment-link"
+                    to="/offenders/A1234RN/add-appointment"
+                  >
+                    Add appointment
+                  </Link>,
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": "Add appointment",
+                    "className": "button-link",
+                    "name": "add-appointment-link",
+                    "to": "/offenders/A1234RN/add-appointment",
+                  },
+                  "ref": null,
+                  "rendered": "Add appointment",
+                  "type": [Function],
+                },
+                "type": "div",
+              },
+            ],
+            "type": "div",
+          },
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromError": true,
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": true,
+          },
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Header component should show the IEP Details link 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <MiddleSection
+    iepHistoryUrl={undefined}
+    inmateData={
+      Immutable.Map {
+        "lastName": "Last",
+        "subscribe": [Function],
+        "facialImageId": -11,
+        "categoryCode": "D",
+        "iepLevel": "Standard",
+        "alerts": Array [
+          Immutable.Map {
+            "alertCode": "HA",
+          },
+          Immutable.Map {
+            "alertCode": "XSA",
+          },
+          Immutable.Map {
+            "alertCode": "XA",
+          },
+          Immutable.Map {
+            "alertCode": "PEEP",
+          },
+        ],
+        "activeAlertCount": 9,
+        "dispatch": [Function],
+        "offenderNo": "A1234RT",
+        "assignedLivingUnit": Immutable.Map {
+          "description": "H-1-001",
+          "agencyName": "HLI",
+        },
+        "firstName": "First",
+        "getState": [Function],
+        "keyworker": Immutable.Map {
+          "staffId": -6,
+        },
+        "category": "Cat D",
+        "inactiveAlertCount": 8,
+        "csra": "Medium",
+      }
+    }
+    offenderNo="A1234RN"
+    showAddKeyworkerSessionLink={true}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="col-xs-4 col-sm-3 visible-large"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col"
+            >
+              <span
+                className="label"
+              >
+                IEP
+              </span>
+              <strong>
+                Standard
+              </strong>
+            </div>
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col"
+            >
+              <span
+                className="label"
+              >
+                CSRA
+              </span>
+              <strong>
+                Medium
+              </strong>
+            </div>
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col"
+            >
+              <span
+                className="label"
+              >
+                Category
+              </span>
+              <strong>
+                Cat D
+              </strong>
+            </div>
+          </div>
+        </div>,
+        <div
+          className="col-xs-12 visible-small"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-xs-4 d-inline-block"
+            >
+              <span
+                className="label"
+              >
+                IEP
+              </span>
+              <strong>
+                Standard
+              </strong>
+            </div>
+            <div
+              className="col-xs-4 d-inline-block"
+            >
+              <span
+                className="label"
+              >
+                CSRA
+              </span>
+              <strong>
+                Medium
+              </strong>
+            </div>
+            <div
+              className="col-xs-4 d-inline-block"
+            >
+              <span
+                className="label"
+              >
+                Category
+              </span>
+              <strong>
+                Cat D
+              </strong>
+            </div>
+          </div>
+        </div>,
+        <div
+          className="visible-large"
+        >
+          <div
+            className="col-xs-6 col-sm-3"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col"
+              >
+                <span
+                  className="label"
+                >
+                  Alerts
+                </span>
+                <Alerts
+                  activeAlertCount={9}
+                  inactiveAlertCount={8}
+                  offenderNo="A1234RN"
+                />
+              </div>
+            </div>
+            <div
+              className="row"
+            >
+              <div
+                className="col"
+              >
+                <Location
+                  assignedLivingUnit={
+                    Immutable.Map {
+                      "description": "H-1-001",
+                      "agencyName": "HLI",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>,
+        <div
+          className="visible-small"
+        >
+          <div
+            className="col-xs-4"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col"
+              >
+                <span
+                  className="label"
+                >
+                  Alerts
+                </span>
+                <Alerts
+                  activeAlertCount={9}
+                  inactiveAlertCount={8}
+                  offenderNo="A1234RN"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-xs-4"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col"
+              >
+                <Location
+                  assignedLivingUnit={
+                    Immutable.Map {
+                      "description": "H-1-001",
+                      "agencyName": "HLI",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>,
+        <div
+          className="col-xs-12 col-sm-3"
+        >
+          <div
+            className="stacked-links"
+          >
+            <div>
+              <Link
+                className="button-link"
+                name="add-case-note-link"
+                to="/offenders/A1234RN/add-case-note"
+              >
+                Add case note
+              </Link>
+            </div>
+            <div>
+              <Link
+                className="button-link"
+                name="add-kw-session-link"
+                to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
+              >
+                Add KW session
+              </Link>
+            </div>
+            <div>
+              <Link
+                className="button-link"
+                name="add-appointment-link"
+                to="/offenders/A1234RN/add-appointment"
+              >
+                Add appointment
+              </Link>
+            </div>
+          </div>
+        </div>,
+      ],
+      "className": "middle-section",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <div
+              className="row"
+            >
+              <div
+                className="col"
+              >
+                <span
+                  className="label"
+                >
+                  IEP
+                </span>
+                <strong>
+                  Standard
+                </strong>
+              </div>
+            </div>,
+            <div
+              className="row"
+            >
+              <div
+                className="col"
+              >
+                <span
+                  className="label"
+                >
+                  CSRA
+                </span>
+                <strong>
+                  Medium
+                </strong>
+              </div>
+            </div>,
+            <div
+              className="row"
+            >
+              <div
+                className="col"
+              >
+                <span
+                  className="label"
+                >
+                  Category
+                </span>
+                <strong>
+                  Cat D
+                </strong>
+              </div>
+            </div>,
+          ],
+          "className": "col-xs-4 col-sm-3 visible-large",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <div
+                className="col"
+              >
+                <span
+                  className="label"
+                >
+                  IEP
+                </span>
+                <strong>
+                  Standard
+                </strong>
+              </div>,
+              "className": "row",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <span
+                    className="label"
+                  >
+                    IEP
+                  </span>,
+                  <strong>
+                    Standard
+                  </strong>,
+                  undefined,
+                ],
+                "className": "col",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "IEP",
+                    "className": "label",
+                  },
+                  "ref": null,
+                  "rendered": "IEP",
+                  "type": "span",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Standard",
+                  },
+                  "ref": null,
+                  "rendered": "Standard",
+                  "type": "strong",
+                },
+                undefined,
+              ],
+              "type": "div",
+            },
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <div
+                className="col"
+              >
+                <span
+                  className="label"
+                >
+                  CSRA
+                </span>
+                <strong>
+                  Medium
+                </strong>
+              </div>,
+              "className": "row",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <span
+                    className="label"
+                  >
+                    CSRA
+                  </span>,
+                  <strong>
+                    Medium
+                  </strong>,
+                ],
+                "className": "col",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "CSRA",
+                    "className": "label",
+                  },
+                  "ref": null,
+                  "rendered": "CSRA",
+                  "type": "span",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Medium",
+                  },
+                  "ref": null,
+                  "rendered": "Medium",
+                  "type": "strong",
+                },
+              ],
+              "type": "div",
+            },
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <div
+                className="col"
+              >
+                <span
+                  className="label"
+                >
+                  Category
+                </span>
+                <strong>
+                  Cat D
+                </strong>
+              </div>,
+              "className": "row",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <span
+                    className="label"
+                  >
+                    Category
+                  </span>,
+                  <strong>
+                    Cat D
+                  </strong>,
+                ],
+                "className": "col",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Category",
+                    "className": "label",
+                  },
+                  "ref": null,
+                  "rendered": "Category",
+                  "type": "span",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Cat D",
+                  },
+                  "ref": null,
+                  "rendered": "Cat D",
+                  "type": "strong",
+                },
+              ],
+              "type": "div",
+            },
+            "type": "div",
+          },
+        ],
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <div
+            className="row"
+          >
+            <div
+              className="col-xs-4 d-inline-block"
+            >
+              <span
+                className="label"
+              >
+                IEP
+              </span>
+              <strong>
+                Standard
+              </strong>
+            </div>
+            <div
+              className="col-xs-4 d-inline-block"
+            >
+              <span
+                className="label"
+              >
+                CSRA
+              </span>
+              <strong>
+                Medium
+              </strong>
+            </div>
+            <div
+              className="col-xs-4 d-inline-block"
+            >
+              <span
+                className="label"
+              >
+                Category
+              </span>
+              <strong>
+                Cat D
+              </strong>
+            </div>
+          </div>,
+          "className": "col-xs-12 visible-small",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div
+                className="col-xs-4 d-inline-block"
+              >
+                <span
+                  className="label"
+                >
+                  IEP
+                </span>
+                <strong>
+                  Standard
+                </strong>
+              </div>,
+              <div
+                className="col-xs-4 d-inline-block"
+              >
+                <span
+                  className="label"
+                >
+                  CSRA
+                </span>
+                <strong>
+                  Medium
+                </strong>
+              </div>,
+              <div
+                className="col-xs-4 d-inline-block"
+              >
+                <span
+                  className="label"
+                >
+                  Category
+                </span>
+                <strong>
+                  Cat D
+                </strong>
+              </div>,
+            ],
+            "className": "row",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <span
+                    className="label"
+                  >
+                    IEP
+                  </span>,
+                  <strong>
+                    Standard
+                  </strong>,
+                ],
+                "className": "col-xs-4 d-inline-block",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "IEP",
+                    "className": "label",
+                  },
+                  "ref": null,
+                  "rendered": "IEP",
+                  "type": "span",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Standard",
+                  },
+                  "ref": null,
+                  "rendered": "Standard",
+                  "type": "strong",
+                },
+              ],
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <span
+                    className="label"
+                  >
+                    CSRA
+                  </span>,
+                  <strong>
+                    Medium
+                  </strong>,
+                ],
+                "className": "col-xs-4 d-inline-block",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "CSRA",
+                    "className": "label",
+                  },
+                  "ref": null,
+                  "rendered": "CSRA",
+                  "type": "span",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Medium",
+                  },
+                  "ref": null,
+                  "rendered": "Medium",
+                  "type": "strong",
+                },
+              ],
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <span
+                    className="label"
+                  >
+                    Category
+                  </span>,
+                  <strong>
+                    Cat D
+                  </strong>,
+                ],
+                "className": "col-xs-4 d-inline-block",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Category",
+                    "className": "label",
+                  },
+                  "ref": null,
+                  "rendered": "Category",
+                  "type": "span",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Cat D",
+                  },
+                  "ref": null,
+                  "rendered": "Cat D",
+                  "type": "strong",
+                },
+              ],
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <div
+            className="col-xs-6 col-sm-3"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col"
+              >
+                <span
+                  className="label"
+                >
+                  Alerts
+                </span>
+                <Alerts
+                  activeAlertCount={9}
+                  inactiveAlertCount={8}
+                  offenderNo="A1234RN"
+                />
+              </div>
+            </div>
+            <div
+              className="row"
+            >
+              <div
+                className="col"
+              >
+                <Location
+                  assignedLivingUnit={
+                    Immutable.Map {
+                      "description": "H-1-001",
+                      "agencyName": "HLI",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>,
+          "className": "visible-large",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div
+                className="row"
+              >
+                <div
+                  className="col"
+                >
+                  <span
+                    className="label"
+                  >
+                    Alerts
+                  </span>
+                  <Alerts
+                    activeAlertCount={9}
+                    inactiveAlertCount={8}
+                    offenderNo="A1234RN"
+                  />
+                </div>
+              </div>,
+              <div
+                className="row"
+              >
+                <div
+                  className="col"
+                >
+                  <Location
+                    assignedLivingUnit={
+                      Immutable.Map {
+                        "description": "H-1-001",
+                        "agencyName": "HLI",
+                      }
+                    }
+                  />
+                </div>
+              </div>,
+            ],
+            "className": "col-xs-6 col-sm-3",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="col"
+                >
+                  <span
+                    className="label"
+                  >
+                    Alerts
+                  </span>
+                  <Alerts
+                    activeAlertCount={9}
+                    inactiveAlertCount={8}
+                    offenderNo="A1234RN"
+                  />
+                </div>,
+                "className": "row",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <span
+                      className="label"
+                    >
+                      Alerts
+                    </span>,
+                    <Alerts
+                      activeAlertCount={9}
+                      inactiveAlertCount={8}
+                      offenderNo="A1234RN"
+                    />,
+                  ],
+                  "className": "col",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Alerts",
+                      "className": "label",
+                    },
+                    "ref": null,
+                    "rendered": "Alerts",
+                    "type": "span",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "activeAlertCount": 9,
+                      "inactiveAlertCount": 8,
+                      "offenderNo": "A1234RN",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                ],
+                "type": "div",
+              },
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="col"
+                >
+                  <Location
+                    assignedLivingUnit={
+                      Immutable.Map {
+                        "description": "H-1-001",
+                        "agencyName": "HLI",
+                      }
+                    }
+                  />
+                </div>,
+                "className": "row",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <Location
+                    assignedLivingUnit={
+                      Immutable.Map {
+                        "description": "H-1-001",
+                        "agencyName": "HLI",
+                      }
+                    }
+                  />,
+                  "className": "col",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "assignedLivingUnit": Immutable.Map {
+                      "description": "H-1-001",
+                      "agencyName": "HLI",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": "div",
+              },
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <div
+              className="col-xs-4"
+            >
+              <div
+                className="row"
+              >
+                <div
+                  className="col"
+                >
+                  <span
+                    className="label"
+                  >
+                    Alerts
+                  </span>
+                  <Alerts
+                    activeAlertCount={9}
+                    inactiveAlertCount={8}
+                    offenderNo="A1234RN"
+                  />
+                </div>
+              </div>
+            </div>,
+            <div
+              className="col-xs-4"
+            >
+              <div
+                className="row"
+              >
+                <div
+                  className="col"
+                >
+                  <Location
+                    assignedLivingUnit={
+                      Immutable.Map {
+                        "description": "H-1-001",
+                        "agencyName": "HLI",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>,
+          ],
+          "className": "visible-small",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <div
+                className="row"
+              >
+                <div
+                  className="col"
+                >
+                  <span
+                    className="label"
+                  >
+                    Alerts
+                  </span>
+                  <Alerts
+                    activeAlertCount={9}
+                    inactiveAlertCount={8}
+                    offenderNo="A1234RN"
+                  />
+                </div>
+              </div>,
+              "className": "col-xs-4",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="col"
+                >
+                  <span
+                    className="label"
+                  >
+                    Alerts
+                  </span>
+                  <Alerts
+                    activeAlertCount={9}
+                    inactiveAlertCount={8}
+                    offenderNo="A1234RN"
+                  />
+                </div>,
+                "className": "row",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <span
+                      className="label"
+                    >
+                      Alerts
+                    </span>,
+                    <Alerts
+                      activeAlertCount={9}
+                      inactiveAlertCount={8}
+                      offenderNo="A1234RN"
+                    />,
+                  ],
+                  "className": "col",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Alerts",
+                      "className": "label",
+                    },
+                    "ref": null,
+                    "rendered": "Alerts",
+                    "type": "span",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "activeAlertCount": 9,
+                      "inactiveAlertCount": 8,
+                      "offenderNo": "A1234RN",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                ],
+                "type": "div",
+              },
+              "type": "div",
+            },
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <div
+                className="row"
+              >
+                <div
+                  className="col"
+                >
+                  <Location
+                    assignedLivingUnit={
+                      Immutable.Map {
+                        "description": "H-1-001",
+                        "agencyName": "HLI",
+                      }
+                    }
+                  />
+                </div>
+              </div>,
+              "className": "col-xs-4",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="col"
+                >
+                  <Location
+                    assignedLivingUnit={
+                      Immutable.Map {
+                        "description": "H-1-001",
+                        "agencyName": "HLI",
+                      }
+                    }
+                  />
+                </div>,
+                "className": "row",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <Location
+                    assignedLivingUnit={
+                      Immutable.Map {
+                        "description": "H-1-001",
+                        "agencyName": "HLI",
+                      }
+                    }
+                  />,
+                  "className": "col",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "assignedLivingUnit": Immutable.Map {
+                      "description": "H-1-001",
+                      "agencyName": "HLI",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": "div",
+              },
+              "type": "div",
+            },
+            "type": "div",
+          },
+        ],
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <div
+            className="stacked-links"
+          >
+            <div>
+              <Link
+                className="button-link"
+                name="add-case-note-link"
+                to="/offenders/A1234RN/add-case-note"
+              >
+                Add case note
+              </Link>
+            </div>
+            <div>
+              <Link
+                className="button-link"
+                name="add-kw-session-link"
+                to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
+              >
+                Add KW session
+              </Link>
+            </div>
+            <div>
+              <Link
+                className="button-link"
+                name="add-appointment-link"
+                to="/offenders/A1234RN/add-appointment"
+              >
+                Add appointment
+              </Link>
+            </div>
+          </div>,
+          "className": "col-xs-12 col-sm-3",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div>
+                <Link
+                  className="button-link"
+                  name="add-case-note-link"
+                  to="/offenders/A1234RN/add-case-note"
+                >
+                  Add case note
+                </Link>
+              </div>,
+              <div>
+                <Link
+                  className="button-link"
+                  name="add-kw-session-link"
+                  to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
+                >
+                  Add KW session
+                </Link>
+              </div>,
+              <div>
+                <Link
+                  className="button-link"
+                  name="add-appointment-link"
+                  to="/offenders/A1234RN/add-appointment"
+                >
+                  Add appointment
+                </Link>
+              </div>,
+            ],
+            "className": "stacked-links",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <Link
+                  className="button-link"
+                  name="add-case-note-link"
+                  to="/offenders/A1234RN/add-case-note"
+                >
+                  Add case note
+                </Link>,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": "Add case note",
+                  "className": "button-link",
+                  "name": "add-case-note-link",
+                  "to": "/offenders/A1234RN/add-case-note",
+                },
+                "ref": null,
+                "rendered": "Add case note",
+                "type": [Function],
+              },
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <Link
+                  className="button-link"
+                  name="add-kw-session-link"
+                  to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
+                >
+                  Add KW session
+                </Link>,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": "Add KW session",
+                  "className": "button-link",
+                  "name": "add-kw-session-link",
+                  "to": "/offenders/A1234RN/add-case-note?type=KA&subType=KS",
+                },
+                "ref": null,
+                "rendered": "Add KW session",
+                "type": [Function],
+              },
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <Link
+                  className="button-link"
+                  name="add-appointment-link"
+                  to="/offenders/A1234RN/add-appointment"
+                >
+                  Add appointment
+                </Link>,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": "Add appointment",
+                  "className": "button-link",
+                  "name": "add-appointment-link",
+                  "to": "/offenders/A1234RN/add-appointment",
+                },
+                "ref": null,
+                "rendered": "Add appointment",
+                "type": [Function],
+              },
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="col-xs-4 col-sm-3 visible-large"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col"
+              >
+                <span
+                  className="label"
+                >
+                  IEP
+                </span>
+                <strong>
+                  Standard
+                </strong>
+              </div>
+            </div>
+            <div
+              className="row"
+            >
+              <div
+                className="col"
+              >
+                <span
+                  className="label"
+                >
+                  CSRA
+                </span>
+                <strong>
+                  Medium
+                </strong>
+              </div>
+            </div>
+            <div
+              className="row"
+            >
+              <div
+                className="col"
+              >
+                <span
+                  className="label"
+                >
+                  Category
+                </span>
+                <strong>
+                  Cat D
+                </strong>
+              </div>
+            </div>
+          </div>,
+          <div
+            className="col-xs-12 visible-small"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-xs-4 d-inline-block"
+              >
+                <span
+                  className="label"
+                >
+                  IEP
+                </span>
+                <strong>
+                  Standard
+                </strong>
+              </div>
+              <div
+                className="col-xs-4 d-inline-block"
+              >
+                <span
+                  className="label"
+                >
+                  CSRA
+                </span>
+                <strong>
+                  Medium
+                </strong>
+              </div>
+              <div
+                className="col-xs-4 d-inline-block"
+              >
+                <span
+                  className="label"
+                >
+                  Category
+                </span>
+                <strong>
+                  Cat D
+                </strong>
+              </div>
+            </div>
+          </div>,
+          <div
+            className="visible-large"
+          >
+            <div
+              className="col-xs-6 col-sm-3"
+            >
+              <div
+                className="row"
+              >
+                <div
+                  className="col"
+                >
+                  <span
+                    className="label"
+                  >
+                    Alerts
+                  </span>
+                  <Alerts
+                    activeAlertCount={9}
+                    inactiveAlertCount={8}
+                    offenderNo="A1234RN"
+                  />
+                </div>
+              </div>
+              <div
+                className="row"
+              >
+                <div
+                  className="col"
+                >
+                  <Location
+                    assignedLivingUnit={
+                      Immutable.Map {
+                        "description": "H-1-001",
+                        "agencyName": "HLI",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>,
+          <div
+            className="visible-small"
+          >
+            <div
+              className="col-xs-4"
+            >
+              <div
+                className="row"
+              >
+                <div
+                  className="col"
+                >
+                  <span
+                    className="label"
+                  >
+                    Alerts
+                  </span>
+                  <Alerts
+                    activeAlertCount={9}
+                    inactiveAlertCount={8}
+                    offenderNo="A1234RN"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="col-xs-4"
+            >
+              <div
+                className="row"
+              >
+                <div
+                  className="col"
+                >
+                  <Location
+                    assignedLivingUnit={
+                      Immutable.Map {
+                        "description": "H-1-001",
+                        "agencyName": "HLI",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>,
+          <div
+            className="col-xs-12 col-sm-3"
+          >
+            <div
+              className="stacked-links"
+            >
+              <div>
+                <Link
+                  className="button-link"
+                  name="add-case-note-link"
+                  to="/offenders/A1234RN/add-case-note"
+                >
+                  Add case note
+                </Link>
+              </div>
+              <div>
+                <Link
+                  className="button-link"
+                  name="add-kw-session-link"
+                  to="/offenders/A1234RN/add-case-note?type=KA&subType=KS"
+                >
+                  Add KW session
+                </Link>
+              </div>
+              <div>
+                <Link
+                  className="button-link"
+                  name="add-appointment-link"
+                  to="/offenders/A1234RN/add-appointment"
+                >
+                  Add appointment
+                </Link>
+              </div>
+            </div>
+          </div>,
+        ],
+        "className": "middle-section",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div
+                className="row"
+              >
+                <div
+                  className="col"
+                >
+                  <span
+                    className="label"
+                  >
+                    IEP
+                  </span>
+                  <strong>
+                    Standard
+                  </strong>
+                </div>
+              </div>,
+              <div
+                className="row"
+              >
+                <div
+                  className="col"
+                >
+                  <span
+                    className="label"
+                  >
+                    CSRA
+                  </span>
+                  <strong>
+                    Medium
+                  </strong>
+                </div>
+              </div>,
+              <div
+                className="row"
+              >
+                <div
+                  className="col"
+                >
+                  <span
+                    className="label"
+                  >
+                    Category
+                  </span>
+                  <strong>
+                    Cat D
+                  </strong>
+                </div>
+              </div>,
+            ],
+            "className": "col-xs-4 col-sm-3 visible-large",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="col"
+                >
+                  <span
+                    className="label"
+                  >
+                    IEP
+                  </span>
+                  <strong>
+                    Standard
+                  </strong>
+                </div>,
+                "className": "row",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <span
+                      className="label"
+                    >
+                      IEP
+                    </span>,
+                    <strong>
+                      Standard
+                    </strong>,
+                    undefined,
+                  ],
+                  "className": "col",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "IEP",
+                      "className": "label",
+                    },
+                    "ref": null,
+                    "rendered": "IEP",
+                    "type": "span",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Standard",
+                    },
+                    "ref": null,
+                    "rendered": "Standard",
+                    "type": "strong",
+                  },
+                  undefined,
                 ],
                 "type": "div",
               },

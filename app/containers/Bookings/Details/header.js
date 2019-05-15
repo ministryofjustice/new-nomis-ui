@@ -9,7 +9,14 @@ import BookingsDetailsHeader from '../../../components/Bookings/Details/header'
 import { showLargePhoto, viewDetails } from '../actions'
 import { DETAILS_TABS } from '../constants'
 
-const Header = ({ headerDetails, showPhoto, offenderNo, showAlertTabForOffenderNo, showAddKeyworkerSessionLink }) => {
+const Header = ({
+  headerDetails,
+  showPhoto,
+  offenderNo,
+  showAlertTabForOffenderNo,
+  showAddKeyworkerSessionLink,
+  prisonStaffHubUrl,
+}) => {
   const showAlertTab = () => showAlertTabForOffenderNo(offenderNo)
 
   return (
@@ -19,6 +26,7 @@ const Header = ({ headerDetails, showPhoto, offenderNo, showAlertTabForOffenderN
       onImageClick={showPhoto}
       onAlertFlagClick={showAlertTab}
       showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
+      prisonStaffHubUrl={prisonStaffHubUrl}
     />
   )
 }
@@ -29,6 +37,7 @@ Header.propTypes = {
   showAlertTabForOffenderNo: PropTypes.func.isRequired,
   offenderNo: PropTypes.string.isRequired,
   showAddKeyworkerSessionLink: PropTypes.bool.isRequired,
+  prisonStaffHubUrl: PropTypes.string.isRequired,
 }
 
 Header.defaultProps = {
@@ -47,6 +56,7 @@ Header.defaultProps = {
     iepLevel: '',
     csra: '',
     keyworker: null,
+    prisonStaffHubUrl: null,
   }),
   showPhoto: () => {},
 }
