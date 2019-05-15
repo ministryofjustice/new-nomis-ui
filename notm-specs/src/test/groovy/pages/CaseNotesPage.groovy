@@ -8,6 +8,7 @@ class CaseNotesPage extends Page {
   }
 
   static content = {
+    spinner(required: false) { $('.spinner-component') }
     nextPageLink { $('#next-page') }
     previousPageLink { $('#previous-page') }
     caseNotes { $('.case-notes') }
