@@ -1,7 +1,7 @@
 node_modules
 build
 internals
+internals/testing
 public
 docs
 bin
-
