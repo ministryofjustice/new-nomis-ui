@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 const nock = require('nock')
 const clientFactory = require('./oauthEnabledClient')
 const contextProperties = require('../contextProperties')
@@ -109,10 +108,10 @@ describe('Test clients built by oauthEnabledClient', () => {
           .get('/api/users/me')
           .reply(500, { failure: 'two' })
           .get('/api/users/me')
-          .reply(200, { hi: 'bob' })
+          .reply(200, '{"hi":"bob"}', ['Content-Type', 'image/png'])
 
         const response = await client.getStream({}, 'api/users/me')
-        expect(response.body.toString()).toEqual('{"hi":"bob"}')
+        expect(response.read().toString()).toEqual('{"hi":"bob"}')
       })
 
       it('Should retry twice if request times out', async () => {
@@ -124,10 +123,10 @@ describe('Test clients built by oauthEnabledClient', () => {
           .delay(10000)
           .reply(200, { failure: 'two' })
           .get('/api/users/me')
-          .reply(200, { hi: 'bob' })
+          .reply(200, '{"hi":"bob"}', ['Content-Type', 'image/png'])
 
         const response = await client.getStream({}, 'api/users/me')
-        expect(response.body.toString()).toEqual('{"hi":"bob"}')
+        expect(response.read().toString()).toEqual('{"hi":"bob"}')
       })
 
       it('Should fail if request times out three times', async () => {

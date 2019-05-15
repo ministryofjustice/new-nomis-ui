@@ -1,4 +1,5 @@
 const superagent = require('superagent')
+const { Readable } = require('stream')
 const { logger } = require('../services/logger')
 
 const { getHeaders } = require('./axios-config-decorators')
@@ -47,7 +48,7 @@ const factory = ({ baseUrl, timeout }) => {
         .timeout({ deadline: timeout / 3 })
         .end((error, response) => {
           if (error) reject(errorLogger(error))
-          if (response) resolve(resultLogger(response))
+          else if (response) resolve(resultLogger(response))
         })
     })
 
@@ -66,7 +67,7 @@ const factory = ({ baseUrl, timeout }) => {
         .set(getHeaders(context))
         .end((error, response) => {
           if (error) reject(errorLogger(error))
-          if (response) resolve(resultLogger(response))
+          else if (response) resolve(resultLogger(response))
         })
     })
   const put = (context, path, body) =>
@@ -77,7 +78,7 @@ const factory = ({ baseUrl, timeout }) => {
         .set(getHeaders(context))
         .end((error, response) => {
           if (error) reject(errorLogger(error))
-          if (response) resolve(resultLogger(response))
+          else if (response) resolve(resultLogger(response))
         })
     })
 
@@ -86,7 +87,6 @@ const factory = ({ baseUrl, timeout }) => {
       superagent
         .get(baseUrl + path)
         .set(getHeaders(context))
-        .responseType('binary')
         .retry(2, (err, res) => {
           if (err) logger.info(`Retry handler found API error with ${err.code} ${err.message}`)
           return undefined // retry handler only for logging retries, not to influence retry logic
@@ -94,7 +94,15 @@ const factory = ({ baseUrl, timeout }) => {
         .timeout({ deadline: timeout / 3 })
         .end((error, response) => {
           if (error) reject(errorLogger(error))
-          if (response) resolve(resultLogger(response))
+          else if (response) {
+            resultLogger(response)
+            const s = new Readable()
+            // eslint-disable-next-line no-underscore-dangle
+            s._read = () => {}
+            s.push(response.body)
+            s.push(null)
+            resolve(s)
+          }
         })
     })
 

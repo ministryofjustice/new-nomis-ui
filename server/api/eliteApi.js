@@ -21,7 +21,7 @@ const eliteApiFactory = client => {
 
   const put = (context, url, data) => client.put(context, url, data).then(processResponse(context))
 
-  const getStream = (context, url) => client.getStream(context, url).then(response => response.body)
+  const getStream = (context, url) => client.getStream(context, url)
 
   // TODO: Needs fixed timeout of 2 sec... Use a different '2 sec' client?
   const isUp = () => client.get({}, 'health').then(() => true, () => false)
