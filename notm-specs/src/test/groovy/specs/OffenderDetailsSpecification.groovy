@@ -160,7 +160,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
         .willReturn(
           aResponse().withBody("hello").withStatus(200)))
 
-    iepHistoryLink.singleElement().sendKeys(Keys.RETURN)
+    iepHistoryLink.click()
 
     then: 'The browser goes to the iep history prison hub url'
     def iepHistorySuffix = '/offenders/A1234AJ/iep-level'

@@ -9,7 +9,6 @@ class OffenderDetailsPage extends Page {
     title == 'Quick look - Digital Prison Services'
     addCaseNoteLink.displayed
     addAppointmentLink.displayed
-    iepHistoryLink.displayed
     !offenderNameHeading.empty
     !spinner.displayed
   }
