@@ -50,53 +50,100 @@ describe('Test clients built by oauthEnabledClient', () => {
 
   describe('retry and timeout behaviour', () => {
     const client = clientFactory({ baseUrl: `${hostname}/`, timeout: 900 })
-    const getRequest = nock(hostname)
+    const mock = nock(hostname)
 
     afterEach(() => {
       nock.cleanAll()
     })
 
-    it('Should retry twice if request fails', async () => {
-      getRequest
-        .get('/api/users/me')
-        .reply(500, { failure: 'one' })
-        .get('/api/users/me')
-        .reply(500, { failure: 'two' })
-        .get('/api/users/me')
-        .reply(200, { hi: 'bob' })
+    describe('get', () => {
+      it('Should retry twice if request fails', async () => {
+        mock
+          .get('/api/users/me')
+          .reply(500, { failure: 'one' })
+          .get('/api/users/me')
+          .reply(500, { failure: 'two' })
+          .get('/api/users/me')
+          .reply(200, { hi: 'bob' })
 
-      const response = await client.get({}, 'api/users/me')
-      expect(response.body).toEqual({ hi: 'bob' })
+        const response = await client.get({}, 'api/users/me')
+        expect(response.body).toEqual({ hi: 'bob' })
+      })
+
+      it('Should retry twice if request times out', async () => {
+        mock
+          .get('/api/users/me')
+          .delay(10000) // delay set to 10s, timeout to 900/3=300ms
+          .reply(200, { failure: 'one' })
+          .get('/api/users/me')
+          .delay(10000)
+          .reply(200, { failure: 'two' })
+          .get('/api/users/me')
+          .reply(200, { hi: 'bob' })
+
+        const response = await client.get({}, 'api/users/me')
+        expect(response.body).toEqual({ hi: 'bob' })
+      })
+
+      it('Should fail if request times out three times', async () => {
+        mock
+          .get('/api/users/me')
+          .delay(10000) // delay set to 10s, timeout to 900/3=300ms
+          .reply(200, { failure: 'one' })
+          .get('/api/users/me')
+          .delay(10000)
+          .reply(200, { failure: 'two' })
+          .get('/api/users/me')
+          .delay(10000)
+          .reply(200, { failure: 'three' })
+
+        await expect(client.get({}, 'api/users/me')).rejects.toThrow('Timeout of 300ms exceeded')
+      })
     })
 
-    it('Should retry twice if request times out', async () => {
-      getRequest
-        .get('/api/users/me')
-        .delay(10000) // delay set to 10s, timeout to 900/3=300ms
-        .reply(200, { failure: 'one' })
-        .get('/api/users/me')
-        .delay(10000)
-        .reply(200, { failure: 'two' })
-        .get('/api/users/me')
-        .reply(200, { hi: 'bob' })
+    describe('getStream', () => {
+      it('Should retry twice if request fails', async () => {
+        mock
+          .get('/api/users/me')
+          .reply(500, { failure: 'one' })
+          .get('/api/users/me')
+          .reply(500, { failure: 'two' })
+          .get('/api/users/me')
+          .reply(200, { hi: 'bob' })
 
-      const response = await client.get({}, 'api/users/me')
-      expect(response.body).toEqual({ hi: 'bob' })
-    })
+        const response = await client.getStream({}, 'api/users/me')
+        expect(response.body.toString()).toEqual('{"hi":"bob"}')
+      })
 
-    it('Should fail if request times out three times', async () => {
-      getRequest
-        .get('/api/users/me')
-        .delay(10000) // delay set to 10s, timeout to 900/3=300ms
-        .reply(200, { failure: 'one' })
-        .get('/api/users/me')
-        .delay(10000)
-        .reply(200, { failure: 'two' })
-        .get('/api/users/me')
-        .delay(10000)
-        .reply(200, { failure: 'three' })
+      it('Should retry twice if request times out', async () => {
+        mock
+          .get('/api/users/me')
+          .delay(10000) // delay set to 10s, timeout to 900/3=300ms
+          .reply(200, { failure: 'one' })
+          .get('/api/users/me')
+          .delay(10000)
+          .reply(200, { failure: 'two' })
+          .get('/api/users/me')
+          .reply(200, { hi: 'bob' })
 
-      expect(client.get({}, 'api/users/me')).rejects.toThrow(new Error('Timeout of 300ms exceeded'))
+        const response = await client.getStream({}, 'api/users/me')
+        expect(response.body.toString()).toEqual('{"hi":"bob"}')
+      })
+
+      it('Should fail if request times out three times', async () => {
+        mock
+          .get('/api/users/me')
+          .delay(10000) // delay set to 10s, timeout to 900/3=300ms
+          .reply(200, { failure: 'one' })
+          .get('/api/users/me')
+          .delay(10000)
+          .reply(200, { failure: 'two' })
+          .get('/api/users/me')
+          .delay(10000)
+          .reply(200, { failure: 'three' })
+
+        await expect(client.getStream({}, 'api/users/me')).rejects.toThrow('Timeout of 300ms exceeded')
+      })
     })
   })
 })
