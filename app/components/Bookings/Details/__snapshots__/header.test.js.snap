@@ -12,7 +12,7 @@ exports[`Header component should render correctly 1`] = `
     >
       <span
         className="acct-status"
-        onClick={[MockFunction]}
+        onClick={[Function]}
         onKeyDown={[Function]}
         role="link"
         tabIndex={0}
@@ -21,7 +21,7 @@ exports[`Header component should render correctly 1`] = `
       </span>
       <span
         className="assault-status"
-        onClick={[MockFunction]}
+        onClick={[Function]}
         onKeyDown={[Function]}
         role="link"
         tabIndex={0}
@@ -30,7 +30,7 @@ exports[`Header component should render correctly 1`] = `
       </span>
       <span
         className="arsonist-status"
-        onClick={[MockFunction]}
+        onClick={[Function]}
         onKeyDown={[Function]}
         role="link"
         tabIndex={0}
@@ -46,7 +46,7 @@ exports[`Header component should render correctly 1`] = `
       </span>
       <span
         className="disability-status"
-        onClick={[MockFunction]}
+        onClick={[Function]}
         onKeyDown={[Function]}
         role="link"
         tabIndex={0}
@@ -95,7 +95,7 @@ exports[`Header component should render correctly 1`] = `
           >
             <span
               className="acct-status"
-              onClick={[MockFunction]}
+              onClick={[Function]}
               onKeyDown={[Function]}
               role="link"
               tabIndex={0}
@@ -104,7 +104,7 @@ exports[`Header component should render correctly 1`] = `
             </span>
             <span
               className="assault-status"
-              onClick={[MockFunction]}
+              onClick={[Function]}
               onKeyDown={[Function]}
               role="link"
               tabIndex={0}
@@ -113,7 +113,7 @@ exports[`Header component should render correctly 1`] = `
             </span>
             <span
               className="arsonist-status"
-              onClick={[MockFunction]}
+              onClick={[Function]}
               onKeyDown={[Function]}
               role="link"
               tabIndex={0}
@@ -129,7 +129,7 @@ exports[`Header component should render correctly 1`] = `
             </span>
             <span
               className="disability-status"
-              onClick={[MockFunction]}
+              onClick={[Function]}
               onKeyDown={[Function]}
               role="link"
               tabIndex={0}

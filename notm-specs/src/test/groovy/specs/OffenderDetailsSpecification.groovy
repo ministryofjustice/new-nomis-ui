@@ -126,6 +126,48 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     prisonHubServer.verify(WireMock.getRequestedFor(WireMock.urlPathEqualTo(adjudicationSuffix)))
   }
 
+  def "IEP history link takes the user to prison staff hub"() {
+    given: 'I log in and search for an offender'
+    fixture.loginAs(ITAG_USER)
+
+    def offenders = [Offender.SMITH()]
+
+    elite2api.stubOffenderSearch("smith", offenders, '')
+    elite2api.stubOffenderDetails(true)
+    elite2api.stubOffenderAddresses()
+    elite2api.stubImage()
+    elite2api.stubIEP()
+    elite2api.stubKeyworkerOld()
+    elite2api.stubAliases()
+    elite2api.stubStaffDetails(-2)
+    keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
+    elite2api.stubGetKeyWorker(-2, 'A1234AJ')
+
+    searchFor "smith"
+    at SearchResultsPage
+
+    when: 'I select an offender'
+    /* stubs required for default Quick look tab */
+    elite2api.stubQuickLook()
+    selectOffender(0)
+    at OffenderDetailsPage
+
+    then: 'The I can click through to IEP details'
+
+
+    prisonHubServer.stubFor(
+      get(WireMock.urlPathMatching('/.*'))
+        .willReturn(
+          aResponse().withBody("hello").withStatus(200)))
+
+    iepHistoryLink.singleElement().sendKeys(Keys.RETURN)
+
+    then: 'The browser goes to the iep history prison hub url'
+    def iepHistorySuffix = '/offenders/A1234AJ/iep-level'
+    waitFor { currentUrl == (PRISON_HUB_URL + iepHistorySuffix) }
+    prisonHubServer.verify(WireMock.getRequestedFor(WireMock.urlPathEqualTo(iepHistorySuffix)))
+  }
+
   private static boolean containsExpected(actual, List<String> expected) {
     return actual.intersect(expected).size() == expected.size()
   }

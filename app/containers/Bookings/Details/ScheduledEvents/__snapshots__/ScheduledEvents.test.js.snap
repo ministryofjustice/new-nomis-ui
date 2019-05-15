@@ -76,6 +76,7 @@ Array [
           className="sc-bwzfXH drtIuJ"
         >
           <input
+            checked={undefined}
             className="sc-htpNat gUOYBv"
             id="nextWeek"
             name="radio-inline-group"
@@ -663,6 +664,7 @@ Array [
           className="sc-bwzfXH drtIuJ"
         >
           <input
+            checked={undefined}
             className="sc-htpNat gUOYBv"
             id="nextWeek"
             name="radio-inline-group"
