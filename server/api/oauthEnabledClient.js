@@ -67,7 +67,7 @@ const factory = ({ baseUrl, timeout }) => {
         .timeout({ deadline: timeout / 3 })
         .end((error, response) => {
           if (error) reject(superAgentErrorHandler(error))
-          if (response) resolve(superAgentResultHandler(response))
+          else if (response) resolve(superAgentResultHandler(response))
         })
     })
 
