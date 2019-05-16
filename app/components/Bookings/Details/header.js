@@ -268,7 +268,11 @@ Header.propTypes = {
   onImageClick: PropTypes.func.isRequired,
   onAlertFlagClick: PropTypes.func.isRequired,
   showAddKeyworkerSessionLink: PropTypes.bool.isRequired,
-  prisonStaffHubUrl: PropTypes.string.isRequired,
+  prisonStaffHubUrl: PropTypes.string,
+}
+
+Header.defaultProps = {
+  prisonStaffHubUrl: null,
 }
 
 export default Header

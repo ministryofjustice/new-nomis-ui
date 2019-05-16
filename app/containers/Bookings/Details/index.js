@@ -198,7 +198,7 @@ const mapStateToProps = createStructuredSelector({
   deviceFormat: selectDeviceFormat(),
   activeTabId: (state, props) => props.match.params.activeTab,
   shouldShowLargePhoto: selectShouldShowLargePhoto(),
-  prisonStaffHubUrl: selectPrisonStaffHubUrl(),
+  prisonStaffHubUrl: state => state.getIn(['app', 'prisonStaffHubUrl']),
   imageSrcUrl: selectImageId(),
   offenderDetails: (state, props) =>
     state.getIn(['eliteApiLoader', 'Bookings', 'Details', props.match.params.offenderNo, 'Data']) ||

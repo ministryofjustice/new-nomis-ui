@@ -60,6 +60,7 @@ describe('Header component', () => {
               offenderNo="A1234RT"
               onAlertFlagClick={jest.fn()}
               showAddKeyworkerSessionLink={false}
+              prisonStaffHubUrl="http://prisonstaffhub"
             />
           </MemoryRouter>
         </Provider>
@@ -77,7 +78,7 @@ describe('Header component', () => {
         offenderNo="A1234RT"
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
-        pristonStaffHubUrl="localhost:3002"
+        prisonStaffHubUrl="http://prisonstaffhub"
       />
     )
 
@@ -92,7 +93,7 @@ describe('Header component', () => {
         offenderNo="A1234RE"
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
-        pristonStaffHubUrl="localhost:3002"
+        prisonStaffHubUrl="http://prisonstaffhub"
       />
     )
 
@@ -107,7 +108,7 @@ describe('Header component', () => {
         offenderNo="A1234RE"
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
-        pristonStaffHubUrl="localhost:3002"
+        prisonStaffHubUrl="http://prisonstaffhub"
       />
     )
 
@@ -122,7 +123,7 @@ describe('Header component', () => {
         offenderNo="A1234RN"
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
-        pristonStaffHubUrl="localhost:3002"
+        prisonStaffHubUrl="http://prisonstaffhub"
       />
     )
 
@@ -137,7 +138,7 @@ describe('Header component', () => {
         offenderNo="A1234RN"
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
-        pristonStaffHubUrl="localhost:3002"
+        prisonStaffHubUrl="http://prisonstaffhub"
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
@@ -157,7 +158,7 @@ describe('Header component', () => {
         offenderNo="A1234RN"
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
-        pristonStaffHubUrl="localhost:3002"
+        prisonStaffHubUrl="http://prisonstaffhub"
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
@@ -173,7 +174,7 @@ describe('Header component', () => {
         offenderNo="A1234RN"
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
-        pristonStaffHubUrl="localhost:3002"
+        prisonStaffHubUrl="http://prisonstaffhub"
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
@@ -193,7 +194,7 @@ describe('Header component', () => {
         offenderNo="A1234RN"
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink
-        pristonStaffHubUrl="localhost:3002"
+        prisonStaffHubUrl="http://prisonstaffhub"
       />
     )
 
@@ -208,7 +209,7 @@ describe('Header component', () => {
         offenderNo="A1234RN"
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink
-        pristonStaffHubUrl="localhost:3002"
+        prisonStaffHubUrl="http://prisonstaffhub"
       />
     )
 
