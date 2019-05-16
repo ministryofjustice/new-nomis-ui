@@ -210,6 +210,15 @@ exports[`Header component should render correctly 1`] = `
                   <strong>
                     Standard
                   </strong>
+                  <div>
+                    <a
+                      className="link"
+                      data-qa="iep-history-link"
+                      href="http://prisonstaffhuboffenders/A1234RT/iep-level"
+                    >
+                      IEP Details
+                    </a>
+                  </div>
                 </div>
               </div>
               <div
@@ -262,6 +271,15 @@ exports[`Header component should render correctly 1`] = `
                   <strong>
                     Standard
                   </strong>
+                  <div>
+                    <a
+                      className="link"
+                      data-qa="iep-history-link"
+                      href="http://prisonstaffhuboffenders/A1234RT/iep-level"
+                    >
+                      IEP Details
+                    </a>
+                  </div>
                 </div>
                 <div
                   className="col-xs-4 d-inline-block"
@@ -496,6 +514,15 @@ exports[`Header component should render correctly 1`] = `
               <strong>
                 Standard
               </strong>
+              <div>
+                <a
+                  className="link"
+                  data-qa="iep-history-link"
+                  href="http://prisonstaffhuboffenders/A1234RT/iep-level"
+                >
+                  IEP Details
+                </a>
+              </div>
             </div>
           </div>
           <div
@@ -548,6 +575,15 @@ exports[`Header component should render correctly 1`] = `
               <strong>
                 Standard
               </strong>
+              <div>
+                <a
+                  className="link"
+                  data-qa="iep-history-link"
+                  href="http://prisonstaffhuboffenders/A1234RT/iep-level"
+                >
+                  IEP Details
+                </a>
+              </div>
             </div>
             <div
               className="col-xs-4 d-inline-block"

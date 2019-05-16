@@ -49,7 +49,7 @@ Location.propTypes = {
   assignedLivingUnit: ImmutablePropTypes.map.isRequired,
 }
 
-const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink }) => {
+const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink, iepHistoryUrl }) => {
   const cat = inmateData.get('categoryCode')
   const category = flags.AssessmentFlagsOrLetter(cat, inmateData.get('category'), '')
   return (
@@ -59,6 +59,13 @@ const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink }) 
           <div className="col">
             <span className="label">IEP</span>
             <strong>{inmateData.get('iepLevel') || '--'}</strong>
+            {iepHistoryUrl && (
+              <div>
+                <a data-qa="iep-history-link" className="link" href={iepHistoryUrl}>
+                  IEP Details
+                </a>
+              </div>
+            )}
           </div>
         </div>
 
@@ -83,6 +90,13 @@ const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink }) 
           <div className="col-xs-4 d-inline-block">
             <span className="label">IEP</span>
             <strong>{inmateData.get('iepLevel') || '--'}</strong>
+            {iepHistoryUrl && (
+              <div>
+                <a data-qa="iep-history-link" className="link" href={iepHistoryUrl}>
+                  IEP Details
+                </a>
+              </div>
+            )}
           </div>
 
           <div className="col-xs-4 d-inline-block">
@@ -177,9 +191,17 @@ MiddleSection.propTypes = {
   offenderNo: PropTypes.string.isRequired,
   inmateData: ImmutablePropTypes.map.isRequired,
   showAddKeyworkerSessionLink: PropTypes.bool.isRequired,
+  iepHistoryUrl: PropTypes.string.isRequired,
 }
 
-const Header = ({ inmateData, onImageClick, offenderNo, onAlertFlagClick, showAddKeyworkerSessionLink }) => {
+const Header = ({
+  inmateData,
+  onImageClick,
+  offenderNo,
+  onAlertFlagClick,
+  showAddKeyworkerSessionLink,
+  prisonStaffHubUrl,
+}) => {
   const alertFlags = className => flags.AlertFlags(inmateData.get('alerts'), className, onAlertFlagClick)
 
   return (
@@ -226,6 +248,7 @@ const Header = ({ inmateData, onImageClick, offenderNo, onAlertFlagClick, showAd
                 inmateData={inmateData}
                 offenderNo={offenderNo}
                 showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
+                iepHistoryUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-level`}
               />
             </div>
           </div>
@@ -238,6 +261,7 @@ const Header = ({ inmateData, onImageClick, offenderNo, onAlertFlagClick, showAd
             inmateData={inmateData}
             offenderNo={offenderNo}
             showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
+            iepHistoryUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-level`}
           />
         </div>
       </div>
@@ -251,6 +275,11 @@ Header.propTypes = {
   onImageClick: PropTypes.func.isRequired,
   onAlertFlagClick: PropTypes.func.isRequired,
   showAddKeyworkerSessionLink: PropTypes.bool.isRequired,
+  prisonStaffHubUrl: PropTypes.string,
+}
+
+Header.defaultProps = {
+  prisonStaffHubUrl: null,
 }
 
 export default Header

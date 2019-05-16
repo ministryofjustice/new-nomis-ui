@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect'
 
 import TabNav from '../../../components/Bookings/Details/tabMenu'
 import TabNavMobile from '../../../components/Bookings/Details/tabMenuMobile'
-import { selectDeviceFormat } from '../../../selectors/app'
+import { selectDeviceFormat, selectPrisonStaffHubUrl } from '../../../selectors/app'
 import EliteImage from '../../EliteContainers/Image'
 
 import OffenderDetails from './OffenderDetails'
@@ -92,6 +92,7 @@ class Details extends Component {
       location,
       boundViewDetails,
       offenderDetails,
+      prisonStaffHubUrl,
     } = this.props
 
     const activeTabId = parseActiveTab(activeTab)
@@ -124,7 +125,7 @@ class Details extends Component {
     return (
       <Page title={offenderName} docTitle={isIndividualCaseNote ? 'View case note' : ActiveTab.title}>
         <div className="detail-content">
-          <BookingsDetailsHeader offenderNo={offenderNo} />
+          <BookingsDetailsHeader offenderNo={offenderNo} prisonStaffHubUrl={prisonStaffHubUrl} />
 
           {deviceFormat === 'desktop' ? (
             <TabNav
@@ -168,6 +169,7 @@ Details.propTypes = {
   }).isRequired,
   imageSrcUrl: PropTypes.number,
   shouldShowLargePhoto: PropTypes.bool,
+  prisonStaffHubUrl: PropTypes.string.isRequired,
   offenderDetails: PropTypes.shape({
     firstName: PropTypes.string,
     lastName: PropTypes.string,
@@ -196,6 +198,7 @@ const mapStateToProps = createStructuredSelector({
   deviceFormat: selectDeviceFormat(),
   activeTabId: (state, props) => props.match.params.activeTab,
   shouldShowLargePhoto: selectShouldShowLargePhoto(),
+  prisonStaffHubUrl: state => state.getIn(['app', 'prisonStaffHubUrl']),
   imageSrcUrl: selectImageId(),
   offenderDetails: (state, props) =>
     state.getIn(['eliteApiLoader', 'Bookings', 'Details', props.match.params.offenderNo, 'Data']) ||
