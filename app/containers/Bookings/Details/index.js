@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect'
 
 import TabNav from '../../../components/Bookings/Details/tabMenu'
 import TabNavMobile from '../../../components/Bookings/Details/tabMenuMobile'
-import { selectDeviceFormat, selectPrisonStaffHubUrl } from '../../../selectors/app'
+import { selectDeviceFormat } from '../../../selectors/app'
 import EliteImage from '../../EliteContainers/Image'
 
 import OffenderDetails from './OffenderDetails'
