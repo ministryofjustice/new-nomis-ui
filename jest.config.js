@@ -24,6 +24,6 @@ module.exports = {
     '^header$': '<rootDir>/app/customers/hmpps/app/components/Header/index.js',
     '^product-globals$': '<rootDir>/app/customers/hmpps/app/product-globals.js',
   },
-  setupTestFrameworkScriptFile: '<rootDir>/internals/testing/test-bundler.js',
+  setupFilesAfterEnv: ['<rootDir>/internals/testing/test-bundler.js'],
   roots: ['tests', 'app', 'server'],
 }

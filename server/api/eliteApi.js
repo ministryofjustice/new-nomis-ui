@@ -5,10 +5,6 @@ const toQueryParameters = (values, name) => values.map(v => `${name}=${v}`).join
 const eliteApiFactory = client => {
   const processResponse = context => response => {
     contextProperties.setResponsePagination(context, response.headers)
-    return response.data
-  }
-  const processSuperAgentResponse = context => response => {
-    contextProperties.setResponsePagination(context, response.headers)
     return response.body
   }
 
@@ -19,13 +15,13 @@ const eliteApiFactory = client => {
     return null
   }
 
-  const get = (context, url) => client.get(context, url).then(processSuperAgentResponse(context))
+  const get = (context, url) => client.get(context, url).then(processResponse(context))
 
   const post = (context, url, data) => client.post(context, url, data).then(processResponse(context))
 
   const put = (context, url, data) => client.put(context, url, data).then(processResponse(context))
 
-  const getStream = (context, url) => client.getStream(context, url).then(response => response.data)
+  const getStream = (context, url) => client.getStream(context, url)
 
   // TODO: Needs fixed timeout of 2 sec... Use a different '2 sec' client?
   const isUp = () => client.get({}, 'health').then(() => true, () => false)

@@ -53,6 +53,7 @@ $person-details-background-colour: #F2F2F2;
         .grid-photo {
           height: 280px;
           cursor: pointer;
+          overflow: hidden;
 
           img {
             min-width: 80px;
@@ -125,10 +126,6 @@ $person-details-background-colour: #F2F2F2;
       .grid-item {
         float: left;
         page-break-inside: avoid;
-      }
-
-      .person-details {
-        min-height: 140px;
       }
     }
   }

@@ -4,9 +4,11 @@ import geb.Page
 class CaseNotesPage extends Page {
   static at = {
     title == 'Case notes - Digital Prison Services'
+    !spinner.displayed
   }
 
   static content = {
+    spinner(required: false) { $('.spinner-component') }
     nextPageLink { $('#next-page') }
     previousPageLink { $('#previous-page') }
     caseNotes { $('.case-notes') }
