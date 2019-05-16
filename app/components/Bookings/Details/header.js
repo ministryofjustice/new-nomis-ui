@@ -90,6 +90,13 @@ const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink, ie
           <div className="col-xs-4 d-inline-block">
             <span className="label">IEP</span>
             <strong>{inmateData.get('iepLevel') || '--'}</strong>
+            {iepHistoryUrl && (
+              <div>
+                <a data-qa="iep-history-link" className="link" href={iepHistoryUrl}>
+                  IEP Details
+                </a>
+              </div>
+            )}
           </div>
 
           <div className="col-xs-4 d-inline-block">
