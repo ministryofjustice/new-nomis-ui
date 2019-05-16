@@ -100,36 +100,6 @@ describe('Header component', () => {
     expect(wrapper.find('div.align-alerts AlertFlag')).toHaveLength(0)
   })
 
-  it('should render MiddleSection correctly large', () => {
-    const wrapper = shallow(
-      <Header
-        inmateData={inmate(allAlerts, 'H')}
-        onImageClick={jest.fn()}
-        offenderNo="A1234RE"
-        onAlertFlagClick={jest.fn()}
-        showAddKeyworkerSessionLink={false}
-        prisonStaffHubUrl="http://prisonstaffhub"
-      />
-    )
-
-    expect(wrapper.find('div.visible-large > MiddleSection').shallow()).toMatchSnapshot()
-  })
-
-  it('should render MiddleSection correctly small', () => {
-    const wrapper = shallow(
-      <Header
-        inmateData={inmate(allAlerts, 'D')}
-        onImageClick={jest.fn()}
-        offenderNo="A1234RN"
-        onAlertFlagClick={jest.fn()}
-        showAddKeyworkerSessionLink={false}
-        prisonStaffHubUrl="http://prisonstaffhub"
-      />
-    )
-
-    expect(wrapper.find('div.visible-small > MiddleSection').shallow()).toMatchSnapshot()
-  })
-
   it('should render cat A correctly', () => {
     const wrapper = shallow(
       <Header
@@ -184,36 +154,6 @@ describe('Header component', () => {
         .first()
         .text()
     ).toEqual('CAT A Prov')
-  })
-
-  it('should show the Add KW Session link', () => {
-    const wrapper = shallow(
-      <Header
-        inmateData={inmate(allAlerts, 'D')}
-        onImageClick={jest.fn()}
-        offenderNo="A1234RN"
-        onAlertFlagClick={jest.fn()}
-        showAddKeyworkerSessionLink
-        prisonStaffHubUrl="http://prisonstaffhub"
-      />
-    )
-
-    expect(wrapper.find('div.visible-small > MiddleSection').shallow()).toMatchSnapshot()
-  })
-
-  it('should show the IEP Details link', () => {
-    const wrapper = shallow(
-      <Header
-        inmateData={inmate(allAlerts, 'D')}
-        onImageClick={jest.fn()}
-        offenderNo="A1234RN"
-        onAlertFlagClick={jest.fn()}
-        showAddKeyworkerSessionLink
-        prisonStaffHubUrl="http://prisonstaffhub"
-      />
-    )
-
-    expect(wrapper.find('div.visible-small > MiddleSection').shallow()).toMatchSnapshot()
   })
 
   describe('<Alerts /> child component', () => {

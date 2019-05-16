@@ -1,9 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header component should render MiddleSection correctly large 1`] = `ShallowWrapper {}`;
-
-exports[`Header component should render MiddleSection correctly small 1`] = `ShallowWrapper {}`;
-
 exports[`Header component should render correctly 1`] = `
 <div
   className="header-details"
@@ -778,7 +774,3 @@ exports[`Header component should render correctly 1`] = `
   </div>
 </div>
 `;
-
-exports[`Header component should show the Add KW Session link 1`] = `ShallowWrapper {}`;
-
-exports[`Header component should show the IEP Details link 1`] = `ShallowWrapper {}`;
