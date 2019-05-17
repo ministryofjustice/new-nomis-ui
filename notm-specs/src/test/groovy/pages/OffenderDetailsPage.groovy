@@ -21,6 +21,6 @@ class OffenderDetailsPage extends Page {
     addAppointmentLink { $('a.button-link[name="add-appointment-link"]').find{element -> element.displayed }}
     spinner(required: false) { $('div.spinner-component')}
     adjudicationsLink { $("a[data-qa=\'adjudications-link\']") }
-    iepHistoryLink { $("a[data-qa=\'iep-history-link\']").find{element -> element.displayed } }
+    iepDetailsLink { $("a[data-qa=\'iep-details-link\']").find{element -> element.displayed } }
   }
 }
