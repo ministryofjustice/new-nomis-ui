@@ -49,7 +49,7 @@ Location.propTypes = {
   assignedLivingUnit: ImmutablePropTypes.map.isRequired,
 }
 
-const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink, iepHistoryUrl }) => {
+const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink, iepDetailsUrl }) => {
   const cat = inmateData.get('categoryCode')
   const category = flags.AssessmentFlagsOrLetter(cat, inmateData.get('category'), '')
   return (
@@ -59,9 +59,9 @@ const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink, ie
           <div className="col">
             <span className="label">IEP</span>
             <strong>{inmateData.get('iepLevel') || '--'}</strong>
-            {iepHistoryUrl && (
+            {iepDetailsUrl && (
               <div>
-                <a data-qa="iep-history-link" className="link" href={iepHistoryUrl}>
+                <a data-qa="iep-details-link" className="link" href={iepDetailsUrl}>
                   IEP Details
                 </a>
               </div>
@@ -90,9 +90,9 @@ const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink, ie
           <div className="col-xs-4 d-inline-block">
             <span className="label">IEP</span>
             <strong>{inmateData.get('iepLevel') || '--'}</strong>
-            {iepHistoryUrl && (
+            {iepDetailsUrl && (
               <div>
-                <a data-qa="iep-history-link" className="link" href={iepHistoryUrl}>
+                <a data-qa="iep-details-link" className="link" href={iepDetailsUrl}>
                   IEP Details
                 </a>
               </div>
@@ -191,7 +191,7 @@ MiddleSection.propTypes = {
   offenderNo: PropTypes.string.isRequired,
   inmateData: ImmutablePropTypes.map.isRequired,
   showAddKeyworkerSessionLink: PropTypes.bool.isRequired,
-  iepHistoryUrl: PropTypes.string.isRequired,
+  iepDetailsUrl: PropTypes.string.isRequired,
 }
 
 const Header = ({
@@ -248,7 +248,7 @@ const Header = ({
                 inmateData={inmateData}
                 offenderNo={offenderNo}
                 showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
-                iepHistoryUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-level`}
+                iepDetailsUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-details`}
               />
             </div>
           </div>
@@ -261,7 +261,7 @@ const Header = ({
             inmateData={inmateData}
             offenderNo={offenderNo}
             showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
-            iepHistoryUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-level`}
+            iepDetailsUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-details`}
           />
         </div>
       </div>
