@@ -160,12 +160,12 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
         .willReturn(
           aResponse().withBody("hello").withStatus(200)))
 
-    iepHistoryLink.singleElement().sendKeys(Keys.RETURN)
+    iepDetailsLink.singleElement().sendKeys(Keys.RETURN)
 
     then: 'The browser goes to the iep history prison hub url'
-    def iepHistorySuffix = '/offenders/A1234AJ/iep-level'
-    waitFor { currentUrl == (PRISON_HUB_URL + iepHistorySuffix) }
-    prisonHubServer.verify(WireMock.getRequestedFor(WireMock.urlPathEqualTo(iepHistorySuffix)))
+    def iepDetailsSuffix = '/offenders/A1234AJ/iep-details'
+    waitFor { currentUrl == (PRISON_HUB_URL + iepDetailsSuffix) }
+    prisonHubServer.verify(WireMock.getRequestedFor(WireMock.urlPathEqualTo(iepDetailsSuffix)))
   }
 
   private static boolean containsExpected(actual, List<String> expected) {
