@@ -62,7 +62,7 @@ const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink, ie
             {iepDetailsUrl && (
               <div>
                 <a data-qa="iep-details-link" className="link" href={iepDetailsUrl}>
-                  IEP Details
+                  IEP details
                 </a>
               </div>
             )}
@@ -93,7 +93,7 @@ const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink, ie
             {iepDetailsUrl && (
               <div>
                 <a data-qa="iep-details-link" className="link" href={iepDetailsUrl}>
-                  IEP Details
+                  IEP details
                 </a>
               </div>
             )}

@@ -216,7 +216,7 @@ exports[`Header component should render correctly 1`] = `
                       data-qa="iep-details-link"
                       href="http://prisonstaffhuboffenders/A1234RT/iep-details"
                     >
-                      IEP Details
+                      IEP details
                     </a>
                   </div>
                 </div>
@@ -277,7 +277,7 @@ exports[`Header component should render correctly 1`] = `
                       data-qa="iep-details-link"
                       href="http://prisonstaffhuboffenders/A1234RT/iep-details"
                     >
-                      IEP Details
+                      IEP details
                     </a>
                   </div>
                 </div>
@@ -520,7 +520,7 @@ exports[`Header component should render correctly 1`] = `
                   data-qa="iep-details-link"
                   href="http://prisonstaffhuboffenders/A1234RT/iep-details"
                 >
-                  IEP Details
+                  IEP details
                 </a>
               </div>
             </div>
@@ -581,7 +581,7 @@ exports[`Header component should render correctly 1`] = `
                   data-qa="iep-details-link"
                   href="http://prisonstaffhuboffenders/A1234RT/iep-details"
                 >
-                  IEP Details
+                  IEP details
                 </a>
               </div>
             </div>
