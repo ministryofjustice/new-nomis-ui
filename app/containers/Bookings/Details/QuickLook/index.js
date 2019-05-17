@@ -246,7 +246,7 @@ export const Adjudications = ({ adjudications, adjudicationHistoryUrl }) => {
       </div>
       {adjudicationHistoryUrl && (
         <a data-qa="adjudications-link" className="link" href={adjudicationHistoryUrl}>
-          Adjudications
+          Adjudication history
         </a>
       )}
     </>

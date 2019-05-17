@@ -1,5 +1,7 @@
 const superagent = require('superagent')
 const { Readable } = require('stream')
+const Agent = require('agentkeepalive')
+const { HttpsAgent } = require('agentkeepalive')
 const { logger } = require('../services/logger')
 
 const { getHeaders } = require('./axios-config-decorators')
@@ -29,6 +31,13 @@ const errorLogger = error => {
  * @returns {{get: (function(*=): *), post: (function(*=, *=): *)}}
  */
 const factory = ({ baseUrl, timeout }) => {
+  const agentOptions = {
+    maxSockets: 100,
+    maxFreeSockets: 10,
+    freeSocketTimeout: 30000,
+  }
+  const keepaliveAgent = baseUrl.startsWith('https') ? new HttpsAgent(agentOptions) : new Agent(agentOptions)
+
   /**
    * A superagent GET request with Oauth token
    *
@@ -40,6 +49,7 @@ const factory = ({ baseUrl, timeout }) => {
     new Promise((resolve, reject) => {
       superagent
         .get(baseUrl + path)
+        .agent(keepaliveAgent)
         .set(getHeaders(context))
         .retry(2, (err, res) => {
           if (err) logger.info(`Retry handler found API error with ${err.code} ${err.message}`)
@@ -86,6 +96,7 @@ const factory = ({ baseUrl, timeout }) => {
     new Promise((resolve, reject) => {
       superagent
         .get(baseUrl + path)
+        .agent(keepaliveAgent)
         .set(getHeaders(context))
         .retry(2, (err, res) => {
           if (err) logger.info(`Retry handler found API error with ${err.code} ${err.message}`)

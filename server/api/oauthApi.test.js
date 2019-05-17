@@ -6,7 +6,7 @@ const { oauthApiFactory } = require('../../server/api/oauthApi')
 const clientId = 'clientId'
 const url = 'http://localhost'
 const clientSecret = 'clientSecret'
-const client = clientFactory('http://localhost:8080', 2000)
+const client = clientFactory({ baseUrl: 'http://localhost:8080', timeout: 2000 })
 
 const encodeClientCredentials = () =>
   Buffer.from(`${querystring.escape(clientId)}:${querystring.escape(clientSecret)}`).toString('base64')
