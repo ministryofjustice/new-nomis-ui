@@ -253,7 +253,7 @@
   },
   "lint-staged": {
     "linters": {
-      ".{sass,scss}": [
+      "*.{sass,scss}": [
         "stylelint"
       ],
       "*.{js,json,css}": [
