@@ -50,7 +50,6 @@ Location.propTypes = {
 }
 
 const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink, iepDetailsUrl, iepLinkEnabled }) => {
-
   const cat = inmateData.get('categoryCode')
   const category = flags.AssessmentFlagsOrLetter(cat, inmateData.get('category'), '')
   return (
@@ -189,14 +188,14 @@ const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink, ie
 }
 
 MiddleSection.defaultProps = {
-  iepHistoryUrl: undefined,
+  iepDetailsUrl: undefined,
 }
 
 MiddleSection.propTypes = {
   offenderNo: PropTypes.string.isRequired,
   inmateData: ImmutablePropTypes.map.isRequired,
   showAddKeyworkerSessionLink: PropTypes.bool.isRequired,
-  iepDetailsUrl: PropTypes.string.isRequired,
+  iepDetailsUrl: PropTypes.string,
   iepLinkEnabled: PropTypes.bool.isRequired,
 }
 
@@ -255,7 +254,7 @@ const Header = ({
                 inmateData={inmateData}
                 offenderNo={offenderNo}
                 showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
-                iepDetailsUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-level`}
+                iepDetailsUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-details`}
                 iepLinkEnabled={iepLinkEnabled}
               />
             </div>
@@ -269,7 +268,7 @@ const Header = ({
             inmateData={inmateData}
             offenderNo={offenderNo}
             showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
-            iepDetailsUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-level`}
+            iepDetailsUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-details`}
             iepLinkEnabled={iepLinkEnabled}
           />
         </div>
