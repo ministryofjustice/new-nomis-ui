@@ -16,9 +16,9 @@ const Header = ({
   showAlertTabForOffenderNo,
   showAddKeyworkerSessionLink,
   prisonStaffHubUrl,
+  iepLinkEnabled,
 }) => {
   const showAlertTab = () => showAlertTabForOffenderNo(offenderNo)
-
   return (
     <BookingsDetailsHeader
       offenderNo={offenderNo}
@@ -27,6 +27,7 @@ const Header = ({
       onAlertFlagClick={showAlertTab}
       showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
       prisonStaffHubUrl={prisonStaffHubUrl}
+      iepLinkEnabled={iepLinkEnabled}
     />
   )
 }
@@ -38,6 +39,7 @@ Header.propTypes = {
   offenderNo: PropTypes.string.isRequired,
   showAddKeyworkerSessionLink: PropTypes.bool.isRequired,
   prisonStaffHubUrl: PropTypes.string.isRequired,
+  iepLinkEnabled: PropTypes.bool,
 }
 
 Header.defaultProps = {
@@ -59,6 +61,7 @@ Header.defaultProps = {
     prisonStaffHubUrl: null,
   }),
   showPhoto: () => {},
+  iepLinkEnabled: false,
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -71,6 +74,7 @@ const mapStateToProps = (immutableState, props) => {
   return {
     headerDetails: immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']),
     showAddKeyworkerSessionLink: Boolean(isKeyWorker),
+    iepLinkEnabled: immutableState.getIn(['app', 'iepLinkEnabled']),
   }
 }
 

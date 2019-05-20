@@ -49,7 +49,7 @@ describe('Header component', () => {
   const store = { subscribe: jest.fn(), dispatch: jest.fn(), getState: jest.fn(), setState: jest.fn() }
   store.getState.mockReturnValue(Map())
 
-  it('should render correctly', () => {
+  it('should render correctly when iep link toggle enabled', () => {
     const wrapper = renderer
       .create(
         <Provider store={store}>
@@ -61,6 +61,28 @@ describe('Header component', () => {
               onAlertFlagClick={jest.fn()}
               showAddKeyworkerSessionLink={false}
               prisonStaffHubUrl="http://prisonstaffhub"
+              iepLinkEnabled
+            />
+          </MemoryRouter>
+        </Provider>
+      )
+      .toJSON()
+
+    expect(wrapper).toMatchSnapshot()
+  })
+
+  it('should render correctly when iep link toggle disabled', () => {
+    const wrapper = renderer
+      .create(
+        <Provider store={store}>
+          <MemoryRouter>
+            <Header
+              inmateData={inmate(allAlerts, 'D')}
+              onImageClick={jest.fn()}
+              offenderNo="A1234RT"
+              onAlertFlagClick={jest.fn()}
+              showAddKeyworkerSessionLink={false}
+              iepLinkEnabled={false}
             />
           </MemoryRouter>
         </Provider>

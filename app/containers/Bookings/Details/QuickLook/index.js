@@ -710,7 +710,6 @@ const mapStateToProps = (immutableState, props) => {
     immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']) || offenderProfileModel
   const viewModel = immutableState.getIn(['search', 'details', 'quickLookViewModel']) || quickLookModel
   const prisonStaffHubUrl = immutableState.getIn(['app', 'prisonStaffHubUrl'])
-
   return {
     offenderNo: props.offenderNo,
     viewModel,
