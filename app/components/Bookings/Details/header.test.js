@@ -49,7 +49,7 @@ describe('Header component', () => {
   const store = { subscribe: jest.fn(), dispatch: jest.fn(), getState: jest.fn(), setState: jest.fn() }
   store.getState.mockReturnValue(Map())
 
-  it('should render correctly when iep linktoggle enabled', () => {
+  it('should render correctly when iep link toggle enabled', () => {
     const wrapper = renderer
       .create(
         <Provider store={store}>

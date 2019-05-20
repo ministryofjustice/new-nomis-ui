@@ -757,7 +757,7 @@ exports[`Header component should render correctly when iep link toggle disabled 
 </div>
 `;
 
-exports[`Header component should render correctly when iep linktoggle enabled 1`] = `
+exports[`Header component should render correctly when iep link toggle enabled 1`] = `
 <div
   className="header-details"
 >
