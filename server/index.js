@@ -77,7 +77,7 @@ app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, '../public')))
 
 app.use('/config', (req, res) => {
-  const { feedbackUrl, mailTo } = config.app
+  const { feedbackUrl, mailTo, iepLinkEnabled } = config.app
   const omicUrl = config.apis.keyworker.ui_url
   const prisonStaffHubUrl = config.apis.prisonStaffHub.ui_url
 
@@ -90,6 +90,7 @@ app.use('/config', (req, res) => {
     omicUrl,
     prisonStaffHubUrl,
     mailTo,
+    iepLinkEnabled,
   })
 })
 
