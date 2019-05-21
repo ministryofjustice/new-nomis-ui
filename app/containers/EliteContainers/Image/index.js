@@ -11,7 +11,7 @@ const StyledImage = styled.img`
   }
 `
 
-const EliteImage = ({ src, listView }) => <StyledImage src={src} listView={listView} />
+const EliteImage = ({ src, listView, ...props }) => <StyledImage src={src} listView={listView} {...props} />
 
 EliteImage.propTypes = {
   src: PropTypes.string.isRequired,

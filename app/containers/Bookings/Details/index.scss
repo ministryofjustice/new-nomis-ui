@@ -10,25 +10,13 @@
 }
 
 .large-image-container {
-  margin: auto;
-  width: 240px;
-}
-
-.image-container {
-  height: 400px;
-  margin-top: 6%;
-  width: 240px;
-  display: flex;
-  flex-direction: column;
-}
-
-.button-container {
-  margin-top: 6%;
   text-align: center;
-
-  button {
-    width: 50%;
+  
+  &__image {
+    margin: 30px 0;
+    max-height: 400px;
   }
+
 }
 
 //TODO Will be moved during the button rework.
