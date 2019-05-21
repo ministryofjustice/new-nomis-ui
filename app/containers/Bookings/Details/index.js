@@ -104,10 +104,8 @@ class Details extends Component {
     if (shouldShowLargePhoto) {
       return (
         <div className="large-image-container">
-          <div className="image-container">
-            <EliteImage src={imageSrcUrl} />
-          </div>
-          <div className="button-container">
+          <EliteImage className="large-image-container__image" src={imageSrcUrl} />
+          <div>
             <button type="button" className="cancel-button" onClick={() => hidePhoto(imageSrcUrl)}>
               Close
             </button>
