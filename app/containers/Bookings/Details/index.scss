@@ -11,15 +11,19 @@
 
 .large-image-container {
   margin: auto;
-  width: 240px;
+  width: 320px;
 }
 
 .image-container {
   height: 400px;
   margin-top: 6%;
-  width: 240px;
+  width: 320px;
   display: flex;
   flex-direction: column;
+}
+
+.large-image-container img {
+  height: 400px;
 }
 
 .button-container {
