@@ -61,6 +61,8 @@ describe('Header component', () => {
               onAlertFlagClick={jest.fn()}
               showAddKeyworkerSessionLink={false}
               prisonStaffHubUrl="http://prisonstaffhub"
+              showCategorisationLink={false}
+              categorisationUrl="http://catTool"
             />
           </MemoryRouter>
         </Provider>
@@ -79,6 +81,8 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
+        showCategorisationLink={false}
+        categorisationUrl="http://catTool"
       />
     )
 
@@ -94,6 +98,8 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
+        showCategorisationLink={false}
+        categorisationUrl="http://catTool"
       />
     )
 
@@ -109,6 +115,8 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
+        showCategorisationLink={false}
+        categorisationUrl="http://catTool"
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
@@ -120,6 +128,28 @@ describe('Header component', () => {
     ).toEqual('CAT A')
   })
 
+  it('should render the Manage category link', () => {
+    const wrapper = shallow(
+      <Header
+        inmateData={inmate(irrelevantAlerts, 'A')}
+        onImageClick={jest.fn()}
+        offenderNo="A1234RN"
+        onAlertFlagClick={jest.fn()}
+        showAddKeyworkerSessionLink={false}
+        prisonStaffHubUrl="http://prisonstaffhub"
+        showCategorisationLink
+        categorisationUrl="http://catTool"
+      />
+    )
+    const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
+    expect(
+      middleSection
+        .find("a[data-qa='categorisation-external-link']")
+        .first()
+        .text()
+    ).toEqual('Manage')
+  })
+
   it('should render cat A High correctly', () => {
     const wrapper = shallow(
       <Header
@@ -129,6 +159,8 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
+        showCategorisationLink={false}
+        categorisationUrl="http://catTool"
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
@@ -145,6 +177,8 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
+        showCategorisationLink={false}
+        categorisationUrl="http://catTool"
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
