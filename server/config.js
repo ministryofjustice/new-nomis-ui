@@ -42,6 +42,9 @@ const apis = {
   prisonStaffHub: {
     ui_url: process.env.PRISON_STAFF_HUB_UI_URL || 'http://localhost:3002/',
   },
+  categorisation: {
+    ui_url: process.env.CATEGORISATION_UI_URL || 'http://localhost:3003/',
+  },
 }
 
 module.exports = {

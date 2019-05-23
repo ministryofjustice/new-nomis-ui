@@ -15,6 +15,8 @@ const Header = ({
   offenderNo,
   showAlertTabForOffenderNo,
   showAddKeyworkerSessionLink,
+  showCategorisationLink,
+  categorisationUrl,
   prisonStaffHubUrl,
 }) => {
   const showAlertTab = () => showAlertTabForOffenderNo(offenderNo)
@@ -26,6 +28,8 @@ const Header = ({
       onImageClick={showPhoto}
       onAlertFlagClick={showAlertTab}
       showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
+      showCategorisationLink={showCategorisationLink}
+      categorisationUrl={categorisationUrl}
       prisonStaffHubUrl={prisonStaffHubUrl}
     />
   )
@@ -37,6 +41,8 @@ Header.propTypes = {
   showAlertTabForOffenderNo: PropTypes.func.isRequired,
   offenderNo: PropTypes.string.isRequired,
   showAddKeyworkerSessionLink: PropTypes.bool.isRequired,
+  showCategorisationLink: PropTypes.bool.isRequired,
+  categorisationUrl: PropTypes.string.isRequired,
   prisonStaffHubUrl: PropTypes.string.isRequired,
 }
 
@@ -57,6 +63,7 @@ Header.defaultProps = {
     csra: '',
     keyworker: null,
     prisonStaffHubUrl: null,
+    categorisationUrl: null,
   }),
   showPhoto: () => {},
 }
@@ -67,10 +74,12 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = (immutableState, props) => {
-  const { isKeyWorker } = immutableState.getIn(['authentication', 'user']) || {}
+  const { isKeyWorker, isRecategoriser } = immutableState.getIn(['authentication', 'user']) || {}
   return {
     headerDetails: immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']),
     showAddKeyworkerSessionLink: Boolean(isKeyWorker),
+    showCategorisationLink: Boolean(isRecategoriser),
+    categorisationUrl: immutableState.getIn(['app', 'categorisationUrl']),
   }
 }
 

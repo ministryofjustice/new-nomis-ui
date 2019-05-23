@@ -49,7 +49,14 @@ Location.propTypes = {
   assignedLivingUnit: ImmutablePropTypes.map.isRequired,
 }
 
-const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink, iepDetailsUrl }) => {
+const MiddleSection = ({
+  inmateData,
+  offenderNo,
+  showAddKeyworkerSessionLink,
+  showCategorisationLink,
+  categorisationUrl,
+  iepDetailsUrl,
+}) => {
   const cat = inmateData.get('categoryCode')
   const category = flags.AssessmentFlagsOrLetter(cat, inmateData.get('category'), '')
   return (
@@ -81,6 +88,17 @@ const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink, ie
             <div className="col">
               <span className="label">Category</span>
               {category}
+              {showCategorisationLink && (
+                <div>
+                  <a
+                    data-qa="categorisation-external-link"
+                    className="link"
+                    href={`${categorisationUrl}${inmateData.get('bookingId')}`}
+                  >
+                    Manage
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -108,6 +126,17 @@ const MiddleSection = ({ inmateData, offenderNo, showAddKeyworkerSessionLink, ie
             <div className="col-xs-4 d-inline-block">
               <span className="label">Category</span>
               {category}
+            </div>
+          )}
+          {cat && showCategorisationLink && (
+            <div>
+              <a
+                data-qa="categorisation-external-link"
+                className="link"
+                href={`${categorisationUrl}${inmateData.get('bookingId')}`}
+              >
+                Manage
+              </a>
             </div>
           )}
         </div>
@@ -191,6 +220,8 @@ MiddleSection.propTypes = {
   offenderNo: PropTypes.string.isRequired,
   inmateData: ImmutablePropTypes.map.isRequired,
   showAddKeyworkerSessionLink: PropTypes.bool.isRequired,
+  showCategorisationLink: PropTypes.bool.isRequired,
+  categorisationUrl: PropTypes.string.isRequired,
   iepDetailsUrl: PropTypes.string.isRequired,
 }
 
@@ -200,6 +231,8 @@ const Header = ({
   offenderNo,
   onAlertFlagClick,
   showAddKeyworkerSessionLink,
+  showCategorisationLink,
+  categorisationUrl,
   prisonStaffHubUrl,
 }) => {
   const alertFlags = className => flags.AlertFlags(inmateData.get('alerts'), className, onAlertFlagClick)
@@ -248,6 +281,8 @@ const Header = ({
                 inmateData={inmateData}
                 offenderNo={offenderNo}
                 showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
+                showCategorisationLink={showCategorisationLink}
+                categorisationUrl={categorisationUrl}
                 iepDetailsUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-details`}
               />
             </div>
@@ -261,6 +296,8 @@ const Header = ({
             inmateData={inmateData}
             offenderNo={offenderNo}
             showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
+            showCategorisationLink={showCategorisationLink}
+            categorisationUrl={categorisationUrl}
             iepDetailsUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-details`}
           />
         </div>
@@ -275,6 +312,8 @@ Header.propTypes = {
   onImageClick: PropTypes.func.isRequired,
   onAlertFlagClick: PropTypes.func.isRequired,
   showAddKeyworkerSessionLink: PropTypes.bool.isRequired,
+  showCategorisationLink: PropTypes.bool.isRequired,
+  categorisationUrl: PropTypes.string.isRequired,
   prisonStaffHubUrl: PropTypes.string,
 }
 

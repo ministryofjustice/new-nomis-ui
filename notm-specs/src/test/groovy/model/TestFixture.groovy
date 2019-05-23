@@ -3,6 +3,7 @@ package model
 import geb.Browser
 import mockapis.Elite2Api
 import mockapis.OauthApi
+import mockapis.response.AccessRoles
 import pages.HomePage
 
 class TestFixture {
@@ -18,12 +19,12 @@ class TestFixture {
         this.oauthApi = oauthApi
     }
 
-    def loginAs(UserAccount user) {
+    def loginAs(UserAccount user, def roles = [AccessRoles.omicAdmin, AccessRoles.globalSearch, AccessRoles.addBulkAppointments]) {
         currentUser = user
 
         oauthApi.stubValidOAuthTokenLogin()
         oauthApi.stubUsersMe currentUser
-        oauthApi.stubUserRoles()
+        oauthApi.stubUserRoles(roles)
         elite2Api.stubGetMyDetails currentUser
 
         browser.to HomePage

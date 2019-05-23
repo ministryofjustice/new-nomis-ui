@@ -23,6 +23,16 @@ describe('Authentication reducer', () => {
 
     expect(userState.isKeyWorker).toBe(true)
   })
+  it('should return state with a user having the Recategoriser role', () => {
+    const user = {
+      ...userData,
+      accessRoles: [{ roleCode: 'CREATE_RECATEGORISATION', roleDescription: 'Recategoriser' }],
+    }
+    const state = authenticationReducer(Map({}), userMe({ user }))
+    const userState = state.get('user')
+
+    expect(userState.isRecategoriser).toBe(true)
+  })
   it('should return state with a user as a key worker admin', () => {
     const user = {
       ...userData,
@@ -54,6 +64,7 @@ describe('Authentication reducer', () => {
 
     expect(userState.isKeyWorkerAdmin).toBe(false)
     expect(userState.isKeyWorker).toBe(false)
+    expect(userState.isRecategoriser).toBe(false)
   })
 
   it('should return a user with global search access', () => {

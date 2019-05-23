@@ -22,5 +22,6 @@ class OffenderDetailsPage extends Page {
     spinner(required: false) { $('div.spinner-component')}
     adjudicationsLink { $("a[data-qa=\'adjudications-link\']") }
     iepDetailsLink { $("a[data-qa=\'iep-details-link\']").find{element -> element.displayed } }
+    categorisationLink (required: false) { $("a[data-qa=\'categorisation-external-link\']") }
   }
 }

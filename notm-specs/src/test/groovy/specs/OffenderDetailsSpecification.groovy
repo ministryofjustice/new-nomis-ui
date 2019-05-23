@@ -6,6 +6,7 @@ import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
+import mockapis.response.AccessRoles
 import model.Offender
 import model.TestFixture
 import org.junit.Rule
@@ -82,6 +83,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
                                     'No visit history', 'No upcoming visits', 'Sashonda, Diydonopher', 'Social/ Family(Girlfriend)']
     // todo: release date '07/04/2017' is displayed in US formaty in circle ci!
     containsExpected(allQuicklookValues2, expectedQuicklookValues2)
+    !categorisationLink.isDisplayed()
   }
 
   def "Adjudications link takes the user to prison staff hub"() {
@@ -166,6 +168,36 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     def iepDetailsSuffix = '/offenders/A1234AJ/iep-details'
     waitFor { currentUrl == (PRISON_HUB_URL + iepDetailsSuffix) }
     prisonHubServer.verify(WireMock.getRequestedFor(WireMock.urlPathEqualTo(iepDetailsSuffix)))
+  }
+
+  def "Categorisation link is displayed for a user with the CREATE_RECATEGORISATION access role"() {
+    given: 'As a Recategoriser, I log in and search for an offender'
+    fixture.loginAs(ITAG_USER, [AccessRoles.recategoriser])
+
+    def offenders = [Offender.SMITH()]
+
+    elite2api.stubOffenderSearch("smith", offenders, '')
+    elite2api.stubOffenderDetails(true)
+    elite2api.stubOffenderAddresses()
+    elite2api.stubImage()
+    elite2api.stubIEP()
+    elite2api.stubKeyworkerOld()
+    elite2api.stubAliases()
+    elite2api.stubStaffDetails(-2)
+    keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
+    elite2api.stubGetKeyWorker(-2, 'A1234AJ')
+
+    searchFor "smith"
+    at SearchResultsPage
+
+    when: 'I select an offender'
+    /* stubs required for default Quick look tab */
+    elite2api.stubQuickLook()
+    selectOffender(0)
+    at OffenderDetailsPage
+
+    then: 'Then the Manage link is displayed as part of the Category section'
+    categorisationLink*.text() contains 'Manage'
   }
 
   private static boolean containsExpected(actual, List<String> expected) {
