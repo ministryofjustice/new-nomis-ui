@@ -2,7 +2,7 @@ const contextProperties = require('../contextProperties')
 
 const processResponse = context => response => {
   contextProperties.setResponsePagination(context, response.headers)
-  return response.data
+  return response.body
 }
 
 const processError = error => {

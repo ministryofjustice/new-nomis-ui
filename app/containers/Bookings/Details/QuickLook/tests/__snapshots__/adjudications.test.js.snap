@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Adjudications component Adjudications are rendered correctly 1`] = `
+Array [
+  <div
+    className="row border-bottom-line"
+  >
+    <div
+      className="row border-bottom-line"
+    >
+      <div
+        className="col-lg-6 col-xs-6"
+      >
+        <span>
+          Proven adjudications
+        </span>
+      </div>
+      <div
+        className="col-lg-6 col-xs-6"
+      >
+        <b>
+           
+          1
+           
+        </b>
+      </div>
+    </div>
+    <div
+      className="row add-gutter-margin-top"
+    >
+      <div
+        className="col-lg-6 col-xs-6"
+      >
+        <span>
+          Active awards
+        </span>
+      </div>
+      <div
+        className="col-lg-6 col-xs-6"
+      >
+        <b>
+           
+          code description
+        </b>
+        <div>
+           
+          a comment
+           
+        </div>
+        <div>
+           
+          <span>
+            10/19/2018
+          </span>
+           
+        </div>
+      </div>
+    </div>
+    <div
+      className="row add-gutter-margin-top"
+    >
+      <div
+        className="col-lg-6 col-xs-6"
+      />
+      <div
+        className="col-lg-6 col-xs-6"
+      >
+        <b>
+           
+        </b>
+        <div>
+           
+          comment 2
+           
+        </div>
+        <div>
+           
+           
+        </div>
+      </div>
+    </div>
+    <div
+      className="row add-gutter-margin-top"
+    >
+      <div
+        className="col-lg-6 col-xs-6"
+      />
+      <div
+        className="col-lg-6 col-xs-6"
+      >
+        <b>
+           
+        </b>
+        <div>
+           
+          comment 3
+           
+        </div>
+        <div>
+           
+           
+        </div>
+      </div>
+    </div>
+  </div>,
+  <a
+    className="link"
+    data-qa="adjudications-link"
+    href="http://prisonstaffhub"
+  >
+    Adjudication history
+  </a>,
+]
+`;

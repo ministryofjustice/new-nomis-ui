@@ -92,6 +92,7 @@ class Details extends Component {
       location,
       boundViewDetails,
       offenderDetails,
+      prisonStaffHubUrl,
     } = this.props
 
     const activeTabId = parseActiveTab(activeTab)
@@ -103,10 +104,8 @@ class Details extends Component {
     if (shouldShowLargePhoto) {
       return (
         <div className="large-image-container">
-          <div className="image-container">
-            <EliteImage src={imageSrcUrl} />
-          </div>
-          <div className="button-container">
+          <EliteImage className="large-image-container__image" src={imageSrcUrl} />
+          <div>
             <button type="button" className="cancel-button" onClick={() => hidePhoto(imageSrcUrl)}>
               Close
             </button>
@@ -124,7 +123,7 @@ class Details extends Component {
     return (
       <Page title={offenderName} docTitle={isIndividualCaseNote ? 'View case note' : ActiveTab.title}>
         <div className="detail-content">
-          <BookingsDetailsHeader offenderNo={offenderNo} />
+          <BookingsDetailsHeader offenderNo={offenderNo} prisonStaffHubUrl={prisonStaffHubUrl} />
 
           {deviceFormat === 'desktop' ? (
             <TabNav
@@ -168,6 +167,7 @@ Details.propTypes = {
   }).isRequired,
   imageSrcUrl: PropTypes.number,
   shouldShowLargePhoto: PropTypes.bool,
+  prisonStaffHubUrl: PropTypes.string.isRequired,
   offenderDetails: PropTypes.shape({
     firstName: PropTypes.string,
     lastName: PropTypes.string,
@@ -196,6 +196,7 @@ const mapStateToProps = createStructuredSelector({
   deviceFormat: selectDeviceFormat(),
   activeTabId: (state, props) => props.match.params.activeTab,
   shouldShowLargePhoto: selectShouldShowLargePhoto(),
+  prisonStaffHubUrl: state => state.getIn(['app', 'prisonStaffHubUrl']),
   imageSrcUrl: selectImageId(),
   offenderDetails: (state, props) =>
     state.getIn(['eliteApiLoader', 'Bookings', 'Details', props.match.params.offenderNo, 'Data']) ||

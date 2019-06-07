@@ -14,24 +14,7 @@ Array [
         <li
           className="sc-jTzLTM cCidJu"
         >
-          <span
-            location={
-              Object {
-                "hash": "",
-                "key": "testKey",
-                "pathname": "/",
-                "search": "",
-              }
-            }
-            match={
-              Object {
-                "isExact": true,
-                "params": Object {},
-                "path": "/",
-                "url": "/",
-              }
-            }
-          >
+          <span>
             Home
           </span>
         </li>
@@ -93,7 +76,6 @@ Array [
           className="sc-bwzfXH drtIuJ"
         >
           <input
-            checked={undefined}
             className="sc-htpNat gUOYBv"
             id="nextWeek"
             name="radio-inline-group"
@@ -619,24 +601,7 @@ Array [
         <li
           className="sc-jTzLTM cCidJu"
         >
-          <span
-            location={
-              Object {
-                "hash": "",
-                "key": "testKey",
-                "pathname": "/",
-                "search": "",
-              }
-            }
-            match={
-              Object {
-                "isExact": true,
-                "params": Object {},
-                "path": "/",
-                "url": "/",
-              }
-            }
-          >
+          <span>
             Home
           </span>
         </li>
@@ -698,7 +663,6 @@ Array [
           className="sc-bwzfXH drtIuJ"
         >
           <input
-            checked={undefined}
             className="sc-htpNat gUOYBv"
             id="nextWeek"
             name="radio-inline-group"

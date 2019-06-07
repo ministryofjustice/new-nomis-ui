@@ -34,6 +34,10 @@ function authenticationReducer(state = initialState, action) {
           user.accessRoles.some(r => r.roleCode === 'OMIC_ADMIN' || r.roleCode === 'KEYWORKER_MONITOR')
       )
 
+      const isRecategoriser = Boolean(
+        user.accessRoles && user.accessRoles.some(r => r.roleCode === 'CREATE_RECATEGORISATION')
+      )
+
       const isKeyWorker = Boolean(user.staffRoles && user.staffRoles.some(r => r.role === 'KW'))
 
       const canGlobalSearch = Boolean(user.accessRoles && user.accessRoles.some(r => r.roleCode === 'GLOBAL_SEARCH'))
@@ -59,6 +63,7 @@ function authenticationReducer(state = initialState, action) {
         canGlobalSearch,
         canAddBulkAppointments,
         ...action.payload.user,
+        isRecategoriser,
       })
     }
 

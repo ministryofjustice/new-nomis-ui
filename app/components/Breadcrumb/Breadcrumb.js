@@ -17,17 +17,17 @@ const routes = [
 ]
 
 export const Breadcrumb = ({ breadcrumbs }) => {
-  // Pick (pop) the last breadcrumd from the array (also removes it from the array)
-  const poppedBreadcrumb = breadcrumbs.pop()
+  // Pick (pop) the last breadcrumb from the array (also removes it from the array)
+  const { breadcrumb: poppedBreadcrumb } = breadcrumbs.pop()
 
   return (
     <BreadcrumbContainer>
       <BreadcrumbList>
-        {breadcrumbs.map((breadcrumb, i, arr) => {
+        {breadcrumbs.map(({ match, breadcrumb }, i, arr) => {
           const parentPageLink = arr.length - 1 === i ? 'breadcrumb-parent-page-link' : null
           return (
-            <BreadcrumbListItem key={breadcrumb.key}>
-              <Link to={breadcrumb.props.match.url} data-qa={parentPageLink}>
+            <BreadcrumbListItem key={match.url}>
+              <Link to={match.url} data-qa={parentPageLink}>
                 {breadcrumb}
               </Link>
             </BreadcrumbListItem>

@@ -11,6 +11,7 @@ const appInsights = require('applicationinsights')
 const helmet = require('helmet')
 const path = require('path')
 const flash = require('connect-flash')
+const fs = require('fs')
 
 const setup = require('./middlewares/frontend-middleware')
 
@@ -44,6 +45,8 @@ app.set('trust proxy', 1) // trust first proxy
 app.set('view engine', 'ejs')
 
 if (config.app.production && config.analytics.appInsightsKey) {
+  const packageData = JSON.parse(fs.readFileSync('./package.json'))
+
   appInsights
     .setup(config.analytics.appInsightsKey)
     .setAutoDependencyCorrelation(true)
@@ -54,6 +57,7 @@ if (config.app.production && config.analytics.appInsightsKey) {
     .setAutoCollectConsole(true)
     .setUseDiskRetryCaching(true)
     .start()
+  appInsights.defaultClient.context.tags['ai.cloud.role'] = `${packageData.name}`
 }
 
 app.use(helmet())
@@ -76,8 +80,9 @@ app.use('/config', (req, res) => {
   const { feedbackUrl, mailTo } = config.app
   const omicUrl = config.apis.keyworker.ui_url
   const prisonStaffHubUrl = config.apis.prisonStaffHub.ui_url
+  const categorisationUrl = config.apis.categorisation.ui_url
 
-  if (!feedbackUrl && !omicUrl && !prisonStaffHubUrl && !mailTo) {
+  if (!feedbackUrl && !omicUrl && !prisonStaffHubUrl && !mailTo && !categorisationUrl) {
     res.end()
     return
   }
@@ -86,6 +91,7 @@ app.use('/config', (req, res) => {
     omicUrl,
     prisonStaffHubUrl,
     mailTo,
+    categorisationUrl,
   })
 })
 

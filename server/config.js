@@ -31,16 +31,19 @@ const apis = {
     clientSecret: process.env.API_CLIENT_SECRET || 'clientsecret',
   },
   elite2: {
-    url: process.env.API_ENDPOINT_URL || 'http://localhost:8080',
+    url: process.env.API_ENDPOINT_URL || 'http://localhost:8080/',
     timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 30,
   },
   keyworker: {
-    url: process.env.KEYWORKER_API_URL || 'http://localhost:8081',
+    url: process.env.KEYWORKER_API_URL || 'http://localhost:8081/',
     timeoutSeconds: process.env.KEYWORKER_API_TIMEOUT_SECONDS || 30,
-    ui_url: process.env.OMIC_UI_URL || 'http://localhost:3001',
+    ui_url: process.env.OMIC_UI_URL || 'http://localhost:3001/',
   },
   prisonStaffHub: {
     ui_url: process.env.PRISON_STAFF_HUB_UI_URL || 'http://localhost:3002/',
+  },
+  categorisation: {
+    ui_url: process.env.CATEGORISATION_UI_URL || 'http://localhost:3003/',
   },
 }
 

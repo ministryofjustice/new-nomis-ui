@@ -1,6 +1,6 @@
 const supertest = require('supertest')
 const express = require('express')
-const { controllerFactory } = require('../server/controller')
+const { controllerFactory } = require('./controller')
 
 describe('controller tests', () => {
   describe('alerts', () => {
@@ -29,7 +29,7 @@ describe('controller tests', () => {
         .get('/app/bookings/X1/alerts')
         .expect(200)
         .then(() => {
-          expect(elite2Api.get.mock.calls[0][1]).toBe('/api/bookings/1/alerts')
+          expect(elite2Api.get.mock.calls[0][1]).toBe('api/bookings/1/alerts')
         }))
 
     it('Should invoke elite2Api.get with the correct "from" query parameter', () =>
@@ -37,7 +37,7 @@ describe('controller tests', () => {
         .get('/app/bookings/XXX/alerts?from=2011-01-01')
         .expect(200)
         .then(() => {
-          expect(elite2Api.get.mock.calls[0][1]).toBe("/api/bookings/1/alerts?query=dateCreated:gteq:DATE'2011-01-01'")
+          expect(elite2Api.get.mock.calls[0][1]).toBe("api/bookings/1/alerts?query=dateCreated:gteq:DATE'2011-01-01'")
         }))
 
     it('Should invoke elite2Api.get with the correct "to" query parameter', () =>
@@ -45,7 +45,7 @@ describe('controller tests', () => {
         .get('/app/bookings/XXX/alerts?to=2011-01-01')
         .expect(200)
         .then(() => {
-          expect(elite2Api.get.mock.calls[0][1]).toBe("/api/bookings/1/alerts?query=dateCreated:lteq:DATE'2011-01-01'")
+          expect(elite2Api.get.mock.calls[0][1]).toBe("api/bookings/1/alerts?query=dateCreated:lteq:DATE'2011-01-01'")
         }))
 
     it('Should invoke elite2Api.get with the correct "alertType" query parameter', () =>
@@ -53,7 +53,7 @@ describe('controller tests', () => {
         .get('/app/bookings/XXX/alerts?alertType=R')
         .expect(200)
         .then(() => {
-          expect(elite2Api.get.mock.calls[0][1]).toBe("/api/bookings/1/alerts?query=alertType:in:'R'")
+          expect(elite2Api.get.mock.calls[0][1]).toBe("api/bookings/1/alerts?query=alertType:in:'R'")
         }))
 
     it('Should invoke elite2Api.get, combining the query parameters correctly', () =>
@@ -62,7 +62,7 @@ describe('controller tests', () => {
         .expect(200)
         .then(() => {
           expect(elite2Api.get.mock.calls[0][1]).toBe(
-            "/api/bookings/1/alerts?query=dateCreated:gteq:DATE'2011-01-01',and:dateCreated:lteq:DATE'2020-12-31',and:alertType:in:'R'"
+            "api/bookings/1/alerts?query=dateCreated:gteq:DATE'2011-01-01',and:dateCreated:lteq:DATE'2020-12-31',and:alertType:in:'R'"
           )
         }))
 

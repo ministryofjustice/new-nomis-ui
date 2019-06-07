@@ -93,7 +93,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
       eliteApi.getLastVisit(context, bookingId),
       eliteApi.getNextVisit(context, bookingId),
       eliteApi.getRelationships(context, bookingId),
-      eliteApi.caseNoteUsageList(context, [offenderNo]),
+      eliteApi.caseNoteUsageList(context, [bookingId]),
     ]
 
     const [
