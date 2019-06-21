@@ -49,13 +49,7 @@ if (config.app.production && config.analytics.appInsightsKey) {
 
   appInsights
     .setup(config.analytics.appInsightsKey)
-    .setAutoDependencyCorrelation(true)
-    .setAutoCollectRequests(true)
-    .setAutoCollectPerformance(true)
-    .setAutoCollectExceptions(true)
-    .setAutoCollectDependencies(true)
-    .setAutoCollectConsole(true)
-    .setUseDiskRetryCaching(true)
+    .setDistributedTracingMode(appInsights.DistributedTracingModes.AI_AND_W3C)
     .start()
   appInsights.defaultClient.context.tags['ai.cloud.role'] = `${packageData.name}`
 }
