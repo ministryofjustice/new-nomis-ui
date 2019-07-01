@@ -1,5 +1,5 @@
 const healthApiFactory = client => {
-  const isUp = () => client.get({}, 'health').then(() => true, () => false)
+  const isUp = () => client.get({}, 'ping').then(() => true, () => false)
   return {
     isUp,
   }

@@ -8,9 +8,9 @@ const eliteApiClient = clientFactory({
   timeout: 10000,
 })
 
-console.log('get(health)')
+console.log('get(ping)')
 eliteApiClient
-  .get({}, 'health')
+  .get({}, 'ping')
   .then(result => {
     console.info(result.data)
   })

@@ -23,22 +23,23 @@ class Elite2Api extends WireMockRule {
     super(18080)
   }
 
-  void stubHealthCheck() {
+  void stubHealth() {
     this.stubFor(
-      get('/health')
+      get('/ping')
         .willReturn(aResponse()
         .withStatus(200)
-        .withBody('''{"name":"elite2-web","version":"1.0.14","description":"Elite 2 Web",
-"api":{"status":"UP","healthInfo":{"status":"UP","version":"2018-05-15"},
-"diskSpace":{"status":"UP","total":510923390976,"free":114173091840,"threshold":10485760},
-"db":{"status":"UP","database":"HSQL Database Engine","hello":4}}}'''))
+        .withBody('pong'))
     )
+  }
 
+
+  void stubDelayedError(url, status) {
     this.stubFor(
-      get('/heart-beat')
-        .willReturn(aResponse()
-        .withStatus(200)
-        .withBody()))
+      get(url)
+        .willReturn(
+          aResponse()
+            .withStatus(status)
+            .withFixedDelay(3000)))
   }
 
   void stubGetMyDetails(UserAccount user, boolean whereaboutsAvailable = false) {

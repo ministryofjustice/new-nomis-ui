@@ -5,7 +5,7 @@ const fs = require('fs')
 const modifyResponse = require('node-http-proxy-json')
 const config = require('./config')
 
-const HEALTH_CHECK_PATH = 'health'
+const HEALTH_CHECK_PATH = 'ping'
 
 function getAppInfo() {
   const packageData = JSON.parse(fs.readFileSync('./package.json'))
