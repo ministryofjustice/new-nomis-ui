@@ -16,13 +16,12 @@ const fs = require('fs')
 const setup = require('./middlewares/frontend-middleware')
 
 const { logger } = require('./services/logger')
-const apiProxy = require('./apiproxy')
 const config = require('./config')
 
 const sessionManagementRoutes = require('./sessionManagementRoutes')
 const auth = require('./auth')
 const clientFactory = require('./api/oauthEnabledClient')
-const { healthApiFactory } = require('./api/healthApi')
+const healthFactory = require('./services/healthCheck')
 const { eliteApiFactory } = require('./api/eliteApi')
 const { keyworkerApiFactory } = require('./api/keyworkerApi')
 const { oauthApiFactory } = require('./api/oauthApi')
@@ -89,14 +88,20 @@ app.use('/config', (req, res) => {
   })
 })
 
-app.use('/health', apiProxy)
+const health = healthFactory(config.apis.oauth2.url, config.apis.elite2.url, config.apis.keyworker.url)
 
-const healthApi = healthApiFactory(
-  clientFactory({
-    baseUrl: config.apis.elite2.url,
-    timeout: 10000,
+app.get('/health', (req, res, next) => {
+  health((err, result) => {
+    if (err) {
+      return next(err)
+    }
+    if (!(result.status === 'UP')) {
+      res.status(503)
+    }
+    res.json(result)
+    return result
   })
-)
+})
 
 const eliteApi = eliteApiFactory(
   clientFactory({
@@ -163,7 +168,6 @@ app.use(flash())
 /* login, logout, token refresh etc */
 sessionManagementRoutes.configureRoutes({
   app,
-  healthApi,
   tokenRefresher,
   mailTo: config.app.mailTo,
 })

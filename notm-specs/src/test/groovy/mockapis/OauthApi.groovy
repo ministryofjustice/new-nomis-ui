@@ -163,4 +163,14 @@ class OauthApi extends WireMockRule {
               "invalid authorization specification"
         ]))))
   }
+
+  void stubHealth() {
+    this.stubFor(
+      get('/auth/ping')
+        .willReturn(
+          aResponse()
+            .withStatus(200)
+            .withHeader('Content-Type', 'text/plain')
+            .withBody("pong")))
+  }
 }

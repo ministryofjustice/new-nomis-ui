@@ -23,13 +23,15 @@ class Elite2Api extends WireMockRule {
     super(18080)
   }
 
+
   void stubHealth() {
     this.stubFor(
       get('/ping')
-        .willReturn(aResponse()
-        .withStatus(200)
-        .withBody('pong'))
-    )
+        .willReturn(
+          aResponse()
+            .withStatus(200)
+            .withHeader('Content-Type', 'text/plain')
+            .withBody("pong")))
   }
 
 
