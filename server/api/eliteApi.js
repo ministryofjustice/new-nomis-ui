@@ -24,7 +24,7 @@ const eliteApiFactory = client => {
   const getStream = (context, url) => client.getStream(context, url)
 
   // TODO: Needs fixed timeout of 2 sec... Use a different '2 sec' client?
-  const isUp = () => client.get({}, 'health').then(() => true, () => false)
+  const isUp = () => client.get({}, 'ping').then(() => true, () => false)
 
   const caseNoteUsageList = (context, bookingIds) =>
     get(context, `api/case-notes/summary?type=KA&subType=KS&numMonths=1&${toQueryParameters(bookingIds, 'bookingId')}`)

@@ -49,4 +49,24 @@ class KeyworkerApi extends WireMockRule {
           .withStatus(404)
           .withBody("")))
   }
+
+  void stubHealth() {
+    this.stubFor(
+      get('/ping')
+        .willReturn(
+          aResponse()
+            .withStatus(200)
+            .withHeader('Content-Type', 'text/plain')
+            .withBody("pong")))
+  }
+
+
+  void stubDelayedError(url, status) {
+    this.stubFor(
+      get(url)
+        .willReturn(
+          aResponse()
+            .withStatus(status)
+            .withFixedDelay(3000)))
+  }
 }
