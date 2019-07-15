@@ -132,5 +132,4 @@ describe('Authentication reducer', () => {
 
     expect(userState.hasAdminRights).toBe(true)
   })
-
 })
