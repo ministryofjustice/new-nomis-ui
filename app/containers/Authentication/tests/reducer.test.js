@@ -110,4 +110,26 @@ describe('Authentication reducer', () => {
 
     expect(userState.hasAdminRights).toBe(true)
   })
+
+  it('should return a user with admin rights if they have MAINTAIN_OAUTH_USERS role', () => {
+    const user = {
+      ...userData,
+      accessRoles: [{ roleCode: 'MAINTAIN_OAUTH_USERS', roleDescription: 'Maintain access roles' }],
+    }
+    const state = authenticationReducer(Map({}), userMe({ user }))
+    const userState = state.get('user')
+
+    expect(userState.hasAdminRights).toBe(true)
+  })
+
+  it('should return a user with admin rights if they have AUTH_GROUP_MANAGER role', () => {
+    const user = {
+      ...userData,
+      accessRoles: [{ roleCode: 'AUTH_GROUP_MANAGER', roleDescription: 'Maintain access roles' }],
+    }
+    const state = authenticationReducer(Map({}), userMe({ user }))
+    const userState = state.get('user')
+
+    expect(userState.hasAdminRights).toBe(true)
+  })
 })
