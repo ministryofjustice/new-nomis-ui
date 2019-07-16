@@ -53,9 +53,9 @@ class SearchResultsSpecification extends BrowserReportingSpec {
     waitFor { images.size() == 3 }
     waitFor { images[2].displayed }
 
-    rows[0].text().contains('Smelley, Daniel\nA1234AL A-1-8')
-    rows[1].text().contains('Bob, Darius\nA1234AK A-1-7')
-    rows[2].text().contains('Smith, Daniel\nA1234AJ A-1-6')
+    rows[0].text().contains('Smelley, Daniel A1234AL A-1-8')
+    rows[1].text().contains('Bob, Darius A1234AK A-1-7')
+    rows[2].text().contains('Smith, Daniel A1234AJ A-1-6')
 
     when: 'Alert filters are selected'
     moreFiltersLink.click()

@@ -14,16 +14,16 @@ class SearchResultsPage extends Page {
 
   static content = {
     errors { module(ErrorsModule) }
-    headingText { $("[data-qa=\'page-heading-text\']").text() }
+    headingText { $("[data-qa='page-heading-text']").text() }
     form { $('form')}
-    images { $('div.photo img') }
+    images  { $("[data-qa='bookings-results-offender-photo']") }
     moreFiltersLink { $('span.govuk-details__summary-text') }
     checkboxes(required: false) { $('input', name: 'alerts') }
-    rows { $("[data-qa=\'bookings-results-table-row\']") }
+    rows { $("[data-qa='bookings-results-table-row']") }
     searchAgainButtons {$('button.button')}
     sortingSelect { $('#sorting') }
     dateOfBirthOption { $('option', value: 'dateOfBirth:ASC') }
-    sortingToggleArrow { $("[data-qa=\'bookings-results-sort-arrow\']") }
+    sortingToggleArrow { $("[data-qa='bookings-results-sort-arrow']") }
     clearFilters { $('a.clear-filters') }
   }
 

@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link as RouterLink } from 'react-router-dom'
+import Link from '@govuk-react/link'
 import PropTypes from 'prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import Table from '@govuk-react/table'
@@ -9,12 +11,6 @@ import EliteImage from '../../../containers/EliteContainers/Image'
 import Name from '../../Name'
 import flags from '../AlertFlags'
 import { linkOnClick } from '../../../helpers'
-import history from '../../../history'
-
-const onViewDetails = (event, row) => {
-  event.preventDefault()
-  history.push(`/offenders/${row.get('offenderNo')}/${DETAILS_TABS.QUICK_LOOK}`)
-}
 
 const ResultsTable = ({ results, sortOrder, sortOrderChange, onAlertFlagClick }) => (
   <StyledTable
@@ -43,32 +39,41 @@ const ResultsTable = ({ results, sortOrder, sortOrderChange, onAlertFlagClick })
       </Table.Row>
     }
   >
-    {results.map(row => (
-      <Table.Row key={row.get('offenderNo')} data-qa="bookings-results-table-row">
-        <StyledCell>
-          <div className="photo clickable" {...linkOnClick(e => onViewDetails(e, row))}>
-            <EliteImage src={offenderImageUrl(row.get('facialImageId'))} listView />
-          </div>
-        </StyledCell>
-        <StyledCell bold data-qa="bookings-results-offender-name">
-          <div className="link clickable" {...linkOnClick(e => onViewDetails(e, row))}>
-            <Name lastName={row.get('lastName')} firstName={row.get('firstName')} />
-          </div>
-        </StyledCell>
-        <StyledCell desktopOnly>{row.get('offenderNo')}</StyledCell>
-        <StyledCell>{row.get('assignedLivingUnitDesc')}</StyledCell>
-        <StyledCell desktopOnly>{row.get('iepLevel')}</StyledCell>
-        <StyledCell desktopOnly>{row.get('age')}</StyledCell>
-        <StyledCell desktopOnly>
-          <FlagsContainer>
-            {flags.AlertFlags(row.get('alertsDetails'), 'inline-header-large align-alerts', () =>
-              onAlertFlagClick(row.get('offenderNo'))
-            )}
-            {flags.AssessmentFlags(row.get('categoryCode'), 'inline-header-large align-alerts')}
-          </FlagsContainer>
-        </StyledCell>
-      </Table.Row>
-    ))}
+    {results.map(row => {
+      const offenderNo = row.get('offenderNo')
+      const offenderQuickLook = `/offenders/${offenderNo}/${DETAILS_TABS.QUICK_LOOK}`
+
+      return (
+        <Table.Row key={offenderNo} data-qa="bookings-results-table-row">
+          <StyledCell>
+            <Link as={RouterLink} to={offenderQuickLook}>
+              <EliteImage
+                src={offenderImageUrl(row.get('facialImageId'))}
+                listView
+                data-qa="bookings-results-offender-photo"
+              />
+            </Link>
+          </StyledCell>
+          <StyledCell bold data-qa="bookings-results-offender-name">
+            <Link as={RouterLink} to={offenderQuickLook}>
+              <Name lastName={row.get('lastName')} firstName={row.get('firstName')} />
+            </Link>
+          </StyledCell>
+          <StyledCell desktopOnly>{offenderNo}</StyledCell>
+          <StyledCell>{row.get('assignedLivingUnitDesc')}</StyledCell>
+          <StyledCell desktopOnly>{row.get('iepLevel')}</StyledCell>
+          <StyledCell desktopOnly>{row.get('age')}</StyledCell>
+          <StyledCell desktopOnly>
+            <FlagsContainer>
+              {flags.AlertFlags(row.get('alertsDetails'), 'inline-header-large align-alerts', () =>
+                onAlertFlagClick(offenderNo)
+              )}
+              {flags.AssessmentFlags(row.get('categoryCode'), 'inline-header-large align-alerts')}
+            </FlagsContainer>
+          </StyledCell>
+        </Table.Row>
+      )
+    })}
   </StyledTable>
 )
 
