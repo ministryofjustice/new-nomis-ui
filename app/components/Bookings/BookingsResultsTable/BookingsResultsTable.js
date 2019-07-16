@@ -47,7 +47,11 @@ const ResultsTable = ({ results, sortOrder, sortOrderChange, onAlertFlagClick })
         <Table.Row key={offenderNo} data-qa="bookings-results-table-row">
           <StyledCell>
             <Link as={RouterLink} to={offenderQuickLook}>
-              <EliteImage src={offenderImageUrl(row.get('facialImageId'))} listView />
+              <EliteImage
+                src={offenderImageUrl(row.get('facialImageId'))}
+                listView
+                data-qa="bookings-results-offender-photo"
+              />
             </Link>
           </StyledCell>
           <StyledCell bold data-qa="bookings-results-offender-name">
