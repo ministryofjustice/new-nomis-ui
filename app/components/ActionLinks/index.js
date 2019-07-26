@@ -96,7 +96,11 @@ const ActionLinks = ({
         )}
 
         {isKeyWorkerAdmin && omicUrl && (
-          <ActionLink url={omicUrl} image="/img/manage-key-workers2x.png" testId="manage-kw-link">
+          <ActionLink
+            url={`${omicUrl}manage-key-workers`}
+            image="/img/manage-key-workers2x.png"
+            testId="manage-kw-link"
+          >
             Manage key workers
           </ActionLink>
         )}
