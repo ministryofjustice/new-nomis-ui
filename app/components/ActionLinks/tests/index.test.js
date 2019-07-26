@@ -38,7 +38,7 @@ describe('Actions component', () => {
       />
     )
 
-    expect(wrapper.find('ActionLink').prop('url')).toBe('//omicURL')
+    expect(wrapper.find('ActionLink').prop('url')).toBe('//omicURLmanage-key-workers')
   })
 
   it('should not show anything when the user does not have any applicable roles', () => {
