@@ -9,7 +9,7 @@ import { DETAILS_TABS } from '../../constants'
 import { loadBookingCaseNotes } from '../../../EliteApiLoader/actions'
 import { loadCaseNoteTypesAndSubTypes, updateCaseNoteResultsPerPage } from '../../actions'
 import { Model as caseNoteModel } from '../../../../helpers/dataMappers/caseNotes'
-import { buildCaseNotQueryString } from '../../../../utils/stringUtils'
+import { buildCaseNotQueryString, properCaseName } from '../../../../utils/stringUtils'
 
 import CaseNoteList from './CaseNoteList'
 import { caseNoteQueryType, userType } from '../../../../types'
@@ -53,7 +53,15 @@ class CaseNotes extends Component {
       location,
       user,
       updateResultsPerPage,
+      offenderDetails,
     } = this.props
+
+    const iepInformation = {
+      cellLocation: offenderDetails.getIn(['assignedLivingUnit', 'description']),
+      offenderName: `${properCaseName(offenderDetails.get('firstName'))} ${properCaseName(
+        offenderDetails.get('lastName')
+      )}`,
+    }
 
     const pagination = {
       perPage: query.perPage,
@@ -72,6 +80,7 @@ class CaseNotes extends Component {
         setCaseNoteView={setCaseNoteView}
         user={user}
         handlePerPageChange={updateResultsPerPage}
+        iepInformation={iepInformation}
       />
     )
   }
@@ -84,6 +93,10 @@ CaseNotes.propTypes = {
   query: caseNoteQueryType.isRequired,
   totalResults: PropTypes.number,
   user: userType.isRequired,
+  offenderDetails: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+  }).isRequired,
 
   // mapDispatchToProps
   loadCaseNotes: PropTypes.func.isRequired,
@@ -130,6 +143,7 @@ const mapStateToProps = (immutableState, props) => {
 
   const deviceFormat = immutableState.getIn(['app', 'deviceFormat'])
   const user = immutableState.getIn(['authentication', 'user'])
+  const offenderDetails = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', offenderNo, 'Data'])
 
   return {
     caseNotes: results,
@@ -138,6 +152,7 @@ const mapStateToProps = (immutableState, props) => {
     totalResults,
     query,
     user,
+    offenderDetails,
   }
 }
 

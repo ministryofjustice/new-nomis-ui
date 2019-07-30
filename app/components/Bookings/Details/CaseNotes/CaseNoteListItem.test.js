@@ -28,6 +28,10 @@ describe('<CaseNoteListItem />', () => {
     },
     offenderNo: 'A12345',
     caseNoteListReferrer: '/case-notes',
+    iepInformation: {
+      cellLocation: 'CELL-123',
+      offenderName: 'Test Offender',
+    },
   }
 
   it('should match the default snapshot', () => {
@@ -63,6 +67,21 @@ describe('<CaseNoteListItem />', () => {
 
   it('should render the with make amendments button snapshot', () => {
     props.user.staffId = 1234
+    const tree = renderer
+      .create(
+        <IntlProvider locale="en">
+          <MemoryRouter>
+            <CaseNoteListItem {...props} />
+          </MemoryRouter>
+        </IntlProvider>
+      )
+      .toJSON()
+
+    expect(tree).toMatchSnapshot()
+  })
+
+  it('should render the with print IEP slip link snapshot', () => {
+    props.caseNote.subTypeDescription = 'IEP Warning'
     const tree = renderer
       .create(
         <IntlProvider locale="en">
