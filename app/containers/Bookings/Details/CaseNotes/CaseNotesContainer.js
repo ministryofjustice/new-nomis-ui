@@ -57,10 +57,10 @@ class CaseNotes extends Component {
     } = this.props
 
     const iepInformation = {
-      cellLocation: offenderDetails.getIn(['assignedLivingUnit', 'description']),
-      offenderName: `${properCaseName(offenderDetails.get('firstName'))} ${properCaseName(
-        offenderDetails.get('lastName')
-      )}`,
+      cellLocation: offenderDetails && offenderDetails.getIn(['assignedLivingUnit', 'description']),
+      offenderName:
+        offenderDetails &&
+        `${properCaseName(offenderDetails.get('firstName'))} ${properCaseName(offenderDetails.get('lastName'))}`,
     }
 
     const pagination = {
