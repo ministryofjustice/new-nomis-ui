@@ -345,15 +345,17 @@ exports[`<CaseNoteListItem /> should render the with print IEP slip link snapsho
         Make amendment
       </button>
     </a>
-    <a
-      className="sc-bwzfXH kjBzWc"
-      href="/iep-slip"
-      muted={false}
-      onClick={[Function]}
-      target="_blank"
-    >
-      Print IEP slip
-    </a>
+    <div>
+      <a
+        className="sc-bwzfXH kjBzWc"
+        href="/iep-slip"
+        muted={false}
+        onClick={[Function]}
+        target="_blank"
+      >
+        Print IEP slip
+      </a>
+    </div>
   </div>
 </div>
 `;

@@ -91,9 +91,11 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer, ie
           </CaseNoteAmendmentButton>
         )}
         {subTypeDescription.includes('IEP') && (
-          <Link noVisitedState href="/iep-slip" target="_blank" onClick={setPrintIepData}>
-            Print IEP slip
-          </Link>
+          <div>
+            <Link noVisitedState href="/iep-slip" target="_blank" onClick={setPrintIepData}>
+              Print IEP slip
+            </Link>
+          </div>
         )}
       </CaseNoteContent>
     </CaseNote>
