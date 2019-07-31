@@ -23,6 +23,7 @@ const CaseNotes = props => {
     location,
     user,
     handlePerPageChange,
+    iepInformation,
   } = props
   const caseNoteListReferrer = location.pathname + location.search
 
@@ -47,6 +48,7 @@ const CaseNotes = props => {
             offenderNo={offenderNo}
             user={user}
             caseNoteListReferrer={caseNoteListReferrer}
+            iepInformation={iepInformation}
           />
         ))}
       </div>
@@ -68,6 +70,7 @@ CaseNotes.propTypes = {
   totalResults: PropTypes.number,
   user: userType.isRequired,
   handlePerPageChange: PropTypes.func.isRequired,
+  iepInformation: PropTypes.shape({ cellLocation: PropTypes.string, offenderName: PropTypes.string }).isRequired,
 
   // special
   location: ReactRouterPropTypes.location.isRequired,

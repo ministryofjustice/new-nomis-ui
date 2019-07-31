@@ -18,7 +18,7 @@ import '@babel/polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { Router } from 'react-router-dom'
+import { Router, Route, Switch } from 'react-router-dom'
 
 import App from './containers/App'
 import ScrollToTop from './components/ScrollToTop'
@@ -39,6 +39,7 @@ import updateApplicationWatcher from './utils/update-application-watcher'
 import { translationMessages } from './translations/i18n'
 import routes from './routes'
 import history from './history'
+import IEPSlipContainer from './containers/IEPSlipContainer'
 
 // Create redux store with history
 // this uses the singleton browserHistory provided by react-router
@@ -55,9 +56,12 @@ const render = messages => {
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <Router history={history}>
-          <ScrollToTop>
-            <App routes={routes} />
-          </ScrollToTop>
+          <Switch>
+            <Route exact path="/iep-slip" render={() => <IEPSlipContainer />} />
+            <ScrollToTop>
+              <App routes={routes} />
+            </ScrollToTop>
+          </Switch>
         </Router>
       </LanguageProvider>
     </Provider>,

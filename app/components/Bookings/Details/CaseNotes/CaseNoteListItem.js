@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Heading from '@govuk-react/heading'
 import uuid from 'uuid/v4'
-
+import Link from '@govuk-react/link'
 import { FormattedDate, FormattedTime, FormattedDay } from '../../../intl'
 import CaseNoteAmendmentBlock from './CaseNoteAmendmentBlock'
 import { userType, caseNoteType } from '../../../../types'
@@ -15,7 +15,7 @@ import {
   CaseNoteAmendmentButton,
 } from './CaseNoteListItem.styles'
 
-const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer }) => {
+const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer, iepInformation }) => {
   const {
     caseNoteId,
     authorName,
@@ -32,6 +32,24 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer }) 
     if (!caseNote || !staffId || !user.staffId) return true
 
     return staffId === user.staffId
+  }
+
+  const { cellLocation, offenderName } = iepInformation || {}
+
+  const setPrintIepData = () => {
+    const iepSlipData = {
+      type: subTypeDescription,
+      raisedDate: creationDateTime,
+      raisedBy: authorName,
+      issuedBy: user.name,
+      offenderNo,
+      offenderName,
+      caseNote: originalNoteText,
+      cellLocation,
+      amendments,
+    }
+
+    localStorage.setItem('iepSlip', JSON.stringify(iepSlipData))
   }
 
   return (
@@ -72,6 +90,11 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer }) 
             </button>
           </CaseNoteAmendmentButton>
         )}
+        {subTypeDescription.includes('IEP') && (
+          <Link noVisitedState href="/iep-slip" target="_blank" onClick={setPrintIepData}>
+            Print IEP slip
+          </Link>
+        )}
       </CaseNoteContent>
     </CaseNote>
   )
@@ -82,6 +105,7 @@ CaseNoteListItem.propTypes = {
   user: userType.isRequired,
   offenderNo: PropTypes.string.isRequired,
   caseNoteListReferrer: PropTypes.string.isRequired,
+  iepInformation: PropTypes.shape({ cellLocation: PropTypes.string, offenderName: PropTypes.string }).isRequired,
 }
 
 export default CaseNoteListItem
