@@ -3,11 +3,11 @@ import styled from 'styled-components'
 import { IEPSlip } from 'new-nomis-shared-components'
 import { spacing } from '@govuk-react/lib'
 
-const StyledIEPContainer = styled.div`
+const StyledIEPSlipContainer = styled.div`
   padding: ${spacing.simple(3)}px;
 `
 
-function IEPContainer() {
+function IEPSlipContainer() {
   const [iepData, setIepData] = useState()
   const [printed, setPrinted] = useState(false)
 
@@ -26,10 +26,10 @@ function IEPContainer() {
   }
 
   return (
-    <StyledIEPContainer>
+    <StyledIEPSlipContainer>
       <IEPSlip {...iepData} />
-    </StyledIEPContainer>
+    </StyledIEPSlipContainer>
   )
 }
 
-export default IEPContainer
+export default IEPSlipContainer
