@@ -2,12 +2,6 @@ import { createSelector } from 'reselect'
 
 const selectApp = () => state => state.get('app')
 
-const selectDeviceFormat = () =>
-  createSelector(
-    selectApp(),
-    state => state.get('deviceFormat')
-  )
-
 const selectMobileMenuOpen = () =>
   createSelector(
     selectApp(),
@@ -51,7 +45,6 @@ const selectPrisonStaffHubUrl = () =>
   )
 
 export {
-  selectDeviceFormat,
   selectMobileMenuOpen,
   selectModalOpen,
   selectModalData,

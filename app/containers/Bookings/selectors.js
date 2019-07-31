@@ -72,18 +72,6 @@ const selectError = () =>
     searchState => searchState.getIn(['details', 'error'])
   )
 
-const selectShouldShowLargePhoto = () =>
-  createSelector(
-    selectSearch(),
-    searchState => searchState.getIn(['details', 'shouldShowLargePhoto'])
-  )
-
-const selectImageId = () =>
-  createSelector(
-    selectSearch(),
-    searchState => searchState.getIn(['details', 'imageId'])
-  )
-
 const selectResultsView = () =>
   createSelector(
     selectSearch(),
@@ -252,8 +240,6 @@ export {
   selectCaseNotesQuery,
   selectCaseNotesView,
   selectCaseNotesDetailId,
-  selectShouldShowLargePhoto,
-  selectImageId,
   selectLocations,
   intlSelector,
   selectKeyDatesViewModel,

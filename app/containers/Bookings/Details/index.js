@@ -2,11 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { connect } from 'react-redux'
-import { createStructuredSelector } from 'reselect'
 
 import TabNav from '../../../components/Bookings/Details/tabMenu'
 import TabNavMobile from '../../../components/Bookings/Details/tabMenuMobile'
-import { selectDeviceFormat } from '../../../selectors/app'
 import EliteImage from '../../EliteContainers/Image'
 
 import OffenderDetails from './OffenderDetails'
@@ -15,7 +13,6 @@ import Alerts from './Alerts'
 import KeyDates from './KeyDates'
 import QuickLook from './QuickLook'
 import BookingsDetailsHeader from './header'
-import { selectShouldShowLargePhoto, selectImageId } from '../selectors'
 import { hideLargePhoto, viewDetails } from '../actions'
 import './index.scss'
 
@@ -56,10 +53,11 @@ const tabData = [
   },
 ]
 
-const parseActiveTab = needle => {
+const parseActiveTab = (needle, userCanEdit) => {
+  if (needle === DETAILS_TABS.CASE_NOTES && !userCanEdit) return DETAILS_TABS.QUICK_LOOK
+
   const keys = Object.keys(DETAILS_TABS)
   const haystack = keys.map(key => DETAILS_TABS[key])
-
   if (haystack.includes(needle)) {
     return needle
   }
@@ -74,8 +72,9 @@ class Details extends Component {
       match: {
         params: { activeTab, offenderNo, itemId },
       },
+      userCanEdit,
     } = this.props
-    const tab = parseActiveTab(activeTab)
+    const tab = parseActiveTab(activeTab, userCanEdit)
 
     boundViewDetails(offenderNo, tab, itemId)
   }
@@ -93,10 +92,11 @@ class Details extends Component {
       boundViewDetails,
       offenderDetails,
       prisonStaffHubUrl,
+      userCanEdit,
     } = this.props
 
-    const activeTabId = parseActiveTab(activeTab)
-    const ActiveTab = tabData.filter(tab => tab.tabId === activeTabId)[0]
+    const activeTabId = parseActiveTab(activeTab, userCanEdit)
+    const ActiveTab = tabData.find(tab => tab.tabId === activeTabId)
     const TabComponentDesktop = ActiveTab.component
     const TabComponentMobile = ActiveTab.componentMobile
     const TabComponent = deviceFormat === 'desktop' ? TabComponentDesktop : TabComponentMobile
@@ -118,7 +118,7 @@ class Details extends Component {
       firstName: offenderDetails.get('firstName'),
       lastName: offenderDetails.get('lastName'),
     })
-    const isIndividualCaseNote = activeTab === 'case-notes' && itemId
+    const isIndividualCaseNote = activeTab === DETAILS_TABS.CASE_NOTES && itemId
 
     return (
       <Page title={offenderName} docTitle={isIndividualCaseNote ? 'View case note' : ActiveTab.title}>
@@ -127,24 +127,28 @@ class Details extends Component {
 
           {deviceFormat === 'desktop' ? (
             <TabNav
-              tabData={tabData.map(tab =>
-                Object.assign(tab, {
-                  action: () => {
-                    boundViewDetails(offenderNo, tab.tabId, itemId)
-                  },
-                })
-              )}
+              tabData={tabData
+                .filter(tab => userCanEdit || tab.tabId !== DETAILS_TABS.CASE_NOTES)
+                .map(tab =>
+                  Object.assign(tab, {
+                    action: () => {
+                      boundViewDetails(offenderNo, tab.tabId, itemId)
+                    },
+                  })
+                )}
               activeTabId={activeTabId}
             />
           ) : (
             <TabNavMobile
-              tabData={tabData.map(tab =>
-                Object.assign(tab, {
-                  action: () => {
-                    boundViewDetails(offenderNo, tab.tabId, itemId)
-                  },
-                })
-              )}
+              tabData={tabData
+                .filter(tab => userCanEdit || tab.tabId !== DETAILS_TABS.CASE_NOTES)
+                .map(tab =>
+                  Object.assign(tab, {
+                    action: () => {
+                      boundViewDetails(offenderNo, tab.tabId, itemId)
+                    },
+                  })
+                )}
               activeTabId={activeTabId}
             />
           )}
@@ -172,6 +176,7 @@ Details.propTypes = {
     firstName: PropTypes.string,
     lastName: PropTypes.string,
   }).isRequired,
+  userCanEdit: PropTypes.bool,
 
   // mapDispatchToProps
   boundViewDetails: PropTypes.func.isRequired,
@@ -185,6 +190,7 @@ Details.defaultProps = {
   deviceFormat: '',
   shouldShowLargePhoto: false,
   imageSrcUrl: null,
+  userCanEdit: false,
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -192,16 +198,19 @@ const mapDispatchToProps = dispatch => ({
   hidePhoto: imageSrcUrl => dispatch(hideLargePhoto(imageSrcUrl)),
 })
 
-const mapStateToProps = createStructuredSelector({
-  deviceFormat: selectDeviceFormat(),
-  activeTabId: (state, props) => props.match.params.activeTab,
-  shouldShowLargePhoto: selectShouldShowLargePhoto(),
-  prisonStaffHubUrl: state => state.getIn(['app', 'prisonStaffHubUrl']),
-  imageSrcUrl: selectImageId(),
-  offenderDetails: (state, props) =>
+const mapStateToProps = (state, props) => ({
+  deviceFormat: state.getIn(['app', 'deviceFormat']),
+  activeTabId: props.match.params.activeTab,
+  shouldShowLargePhoto: state.getIn(['search', 'results']),
+  prisonStaffHubUrl: state.getIn(['app', 'prisonStaffHubUrl']),
+  imageSrcUrl: state.getIn(['search', 'details', 'imageId']),
+  offenderDetails:
     state.getIn(['eliteApiLoader', 'Bookings', 'Details', props.match.params.offenderNo, 'Data']) ||
     offenderDetailsModel,
+  userCanEdit: state.getIn(['eliteApiLoader', 'Bookings', 'Details', props.match.params.offenderNo, 'UserCanEdit']),
 })
+
+export { Details }
 
 // Wrap the component to inject dispatch and state into it
 export default connect(

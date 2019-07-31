@@ -10,6 +10,7 @@ export const UPDATE_PAGINATION = 'app/bookings/search/results/pagination/update'
 export const VIEW_DETAILS = 'app/bookings/details/view'
 export const LOAD_KEY_DATES = 'app/bookings/details/tab/load/keydates'
 export const SET_KEYDATES = 'app/bookings/details/tab/set/keydates'
+export const CALC_READ_ONLY_VIEW = 'app/bookings/details/readOnlyCalc'
 
 export const SET_SCHEDULED_EVENTS = 'app/bookings/details/scheduled-events/set'
 export const LOAD_SCHEDULED_EVENTS = 'app/bookings/details/scheduled-events/load'

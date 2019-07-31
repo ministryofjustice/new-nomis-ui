@@ -49,12 +49,16 @@ const eliteApiFactory = client => {
   const getKeyworker = (context, offenderNo) => get(context, `api/bookings/offenderNo/${offenderNo}/key-worker`)
   const getMainOffence = (context, bookingId) => get(context, `api/bookings/${bookingId}/mainOffence`)
   const getNegativeCaseNotes = ({ context, bookingId, fromDate, toDate }) =>
-    get(context, `api/bookings/${bookingId}/caseNotes/NEG/IEP_WARN/count?fromDate=${fromDate}&toDate=${toDate}`)
+    get(context, `api/bookings/${bookingId}/caseNotes/NEG/IEP_WARN/count?fromDate=${fromDate}&toDate=${toDate}`).catch(
+      map404ToNull
+    )
   const getNextVisit = (context, bookingId) => get(context, `api/bookings/${bookingId}/visits/next`)
   const getOffendersSentenceDates = (context, offenderNumbers) =>
     get(context, `api/offender-sentences/?${toQueryParameters(offenderNumbers, 'offenderNo')}`)
   const getPositiveCaseNotes = ({ context, bookingId, fromDate, toDate }) =>
-    get(context, `api/bookings/${bookingId}/caseNotes/POS/IEP_ENC/count?fromDate=${fromDate}&toDate=${toDate}`)
+    get(context, `api/bookings/${bookingId}/caseNotes/POS/IEP_ENC/count?fromDate=${fromDate}&toDate=${toDate}`).catch(
+      map404ToNull
+    )
   const getRelationships = (context, bookingId) => get(context, `api/bookings/${bookingId}/relationships`)
   const getStaffRoles = (context, staffId, agencyId) => get(context, `api/staff/${staffId}/${agencyId}/roles`)
   const getSentenceDetail = (context, bookingId) => get(context, `api/bookings/${bookingId}/sentenceDetail`)
