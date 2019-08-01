@@ -201,7 +201,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = (state, props) => ({
   deviceFormat: state.getIn(['app', 'deviceFormat']),
   activeTabId: props.match.params.activeTab,
-  shouldShowLargePhoto: state.getIn(['search', 'results']),
+  shouldShowLargePhoto: state.getIn(['search', 'results', 'shouldShowLargePhoto']),
   prisonStaffHubUrl: state.getIn(['app', 'prisonStaffHubUrl']),
   imageSrcUrl: state.getIn(['search', 'details', 'imageId']),
   offenderDetails:
