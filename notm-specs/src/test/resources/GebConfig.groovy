@@ -39,9 +39,8 @@ environments {
           .build(),
         new ChromeOptions()
           .addArguments('--lang=en-GB')
-          .setExperimentalOption(
-            "mobileEmulation",
-            ['deviceName': 'Nexus 5', 'intl.accept_languages': 'en_GB']))
+          .setExperimentalOption('mobileEmulation', ['deviceName': 'Nexus 5'])
+          .setExperimentalOption('prefs', ['intl.accept_languages': 'en_GB']))
     }
   }
 }
