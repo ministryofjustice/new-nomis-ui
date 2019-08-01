@@ -77,7 +77,7 @@ class AppointmentSpecification extends BrowserReportingSpec {
     when: 'I go to new appointment page'
     elite2api.stubOffenderDetails(false)
     elite2api.stubAppointmentTypes()
-    elite2api.stubAppointments()
+    elite2api.stubAppointments(ITAG_USER)
     addAppointmentLink.click()
     at AddAppointmentPage
 
@@ -187,7 +187,7 @@ class AppointmentSpecification extends BrowserReportingSpec {
     when: 'I go to new appointment page'
     elite2api.stubOffenderDetails(false)
     elite2api.stubAppointmentTypes()
-    elite2api.stubAppointments()
+    elite2api.stubAppointments(ITAG_USER)
     addAppointmentLink.click()
     at AddAppointmentPage
 

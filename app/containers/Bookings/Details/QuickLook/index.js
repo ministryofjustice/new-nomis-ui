@@ -168,7 +168,7 @@ Activities.propTypes = {
   period: PropTypes.string.isRequired,
 }
 
-const NegativeAndPositiveCaseNoteCount = ({ negativeCaseNotes, positiveCaseNotes }) => (
+export const NegativeAndPositiveCaseNoteCount = ({ negativeCaseNotes, positiveCaseNotes }) => (
   <div>
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
@@ -587,7 +587,7 @@ class QuickLook extends Component {
   }
 
   render() {
-    const { viewModel, offenderDetails, offenderNo, prisonStaffHubUrl } = this.props
+    const { viewModel, offenderDetails, offenderNo, prisonStaffHubUrl, userCanEdit } = this.props
     const adjudications = viewModel.get('adjudications')
     const lastVisit = viewModel.get('lastVisit')
     const nextVisit = viewModel.get('nextVisit')
@@ -623,10 +623,12 @@ class QuickLook extends Component {
             <div>
               <h3 className="heading-medium">Case notes and adjudications (Last 3 months)</h3>
 
-              <NegativeAndPositiveCaseNoteCount
-                negativeCaseNotes={viewModel.get('negativeCaseNotes')}
-                positiveCaseNotes={viewModel.get('positiveCaseNotes')}
-              />
+              {userCanEdit && (
+                <NegativeAndPositiveCaseNoteCount
+                  negativeCaseNotes={viewModel.get('negativeCaseNotes')}
+                  positiveCaseNotes={viewModel.get('positiveCaseNotes')}
+                />
+              )}
               <Adjudications
                 adjudications={adjudications}
                 adjudicationHistoryUrl={
@@ -695,10 +697,12 @@ QuickLook.propTypes = {
   viewModel: ImmutablePropTypes.map.isRequired,
   offenderDetails: ImmutablePropTypes.map.isRequired,
   prisonStaffHubUrl: PropTypes.string,
+  userCanEdit: PropTypes.bool,
 }
 
 QuickLook.defaultProps = {
   prisonStaffHubUrl: null,
+  userCanEdit: false,
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -710,14 +714,18 @@ const mapStateToProps = (immutableState, props) => {
     immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']) || offenderProfileModel
   const viewModel = immutableState.getIn(['search', 'details', 'quickLookViewModel']) || quickLookModel
   const prisonStaffHubUrl = immutableState.getIn(['app', 'prisonStaffHubUrl'])
+  const userCanEdit = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'UserCanEdit'])
 
   return {
     offenderNo: props.offenderNo,
     viewModel,
     offenderDetails: data,
     prisonStaffHubUrl,
+    userCanEdit,
   }
 }
+
+export { QuickLook }
 
 export default connect(
   mapStateToProps,

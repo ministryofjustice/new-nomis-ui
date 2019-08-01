@@ -7,8 +7,6 @@ class OffenderDetailsPage extends Page {
 
   static at = {
     title == 'Quick look - Digital Prison Services'
-    addCaseNoteLink.displayed
-    addAppointmentLink.displayed
     !offenderNameHeading.empty
     !spinner.displayed
   }
@@ -16,9 +14,9 @@ class OffenderDetailsPage extends Page {
   static content = {
     errors { module(ErrorsModule) }
     offenderNameHeading { $("[data-qa=\'page-heading-text\']").text() }
-    addCaseNoteLink { $('a.button-link[name="add-case-note-link"]').find{element -> element.displayed }}
+    addCaseNoteLink(required: false) { $('a.button-link[name="add-case-note-link"]').find{element -> element.displayed }}
     addKeyworkerSessionLink(required: false) { $('a.button-link[name="add-kw-session-link"]').find{element -> element.displayed }}
-    addAppointmentLink { $('a.button-link[name="add-appointment-link"]').find{element -> element.displayed }}
+    addAppointmentLink(required: false) { $('a.button-link[name="add-appointment-link"]').find{element -> element.displayed }}
     spinner(required: false) { $('div.spinner-component')}
     adjudicationsLink { $("a[data-qa=\'adjudications-link\']") }
     iepDetailsLink { $("a[data-qa=\'iep-details-link\']").find{element -> element.displayed } }

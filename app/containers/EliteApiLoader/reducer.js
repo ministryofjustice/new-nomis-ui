@@ -13,7 +13,7 @@ import {
   ALL_ALERT_TYPES_DATA,
   APPOINTMENT,
 } from './constants'
-import { CASE_NOTE } from '../Bookings/constants'
+import { CALC_READ_ONLY_VIEW, CASE_NOTE } from '../Bookings/constants'
 
 export const initialState = Map({
   Bookings: Map({
@@ -226,6 +226,15 @@ function EliteApiReducer(state = initialState, action) {
 
     case APPOINTMENT.SET_EXISTING_EVENTS: {
       return state.set('ExistingEvents', fromJS(action.payload))
+    }
+
+    case CALC_READ_ONLY_VIEW: {
+      const { offenderNo } = action.payload
+      const caseLoadOptions = state.getIn(['User', 'CaseLoads', 'Data'])
+      const offenderAgency = state.getIn(['Bookings', 'Details', offenderNo, 'Data', 'agencyId'])
+      const caseLoad = caseLoadOptions.find(x => x.get('caseLoadId') === offenderAgency)
+
+      return state.setIn(['Bookings', 'Details', offenderNo, 'UserCanEdit'], caseLoad !== undefined)
     }
 
     default: {

@@ -63,6 +63,7 @@ describe('Header component', () => {
               prisonStaffHubUrl="http://prisonstaffhub"
               showCategorisationLink={false}
               categorisationUrl="http://catTool"
+              userCanEdit
             />
           </MemoryRouter>
         </Provider>
@@ -70,6 +71,32 @@ describe('Header component', () => {
       .toJSON()
 
     expect(wrapper).toMatchSnapshot()
+  })
+
+  describe('should render differently based on user privileges', () => {
+    const headerProps = {
+      inmateData: inmate(allAlerts, 'D'),
+      onImageClick: jest.fn(),
+      offenderNo: 'A1234RT',
+      onAlertFlagClick: jest.fn(),
+      showAddKeyworkerSessionLink: false,
+      prisonStaffHubUrl: 'http://prisonstaffhub',
+      showCategorisationLink: false,
+      categorisationUrl: 'http://catTool',
+    }
+    it('should render buttons if user can edit', () => {
+      const wrapper = shallow(<Header userCanEdit {...headerProps} />)
+
+      const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
+
+      expect(middleSection.find('div.stacked-links div')).toHaveLength(2)
+    })
+    it('should hide buttons if user cannot edit', () => {
+      const wrapper = shallow(<Header userCanEdit={false} {...headerProps} />)
+      const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
+
+      expect(middleSection.find('div.stacked-links div')).toHaveLength(0)
+    })
   })
 
   it('should render four alerts', () => {
@@ -83,6 +110,7 @@ describe('Header component', () => {
         prisonStaffHubUrl="http://prisonstaffhub"
         showCategorisationLink={false}
         categorisationUrl="http://catTool"
+        userCanEdit
       />
     )
 
@@ -100,6 +128,7 @@ describe('Header component', () => {
         prisonStaffHubUrl="http://prisonstaffhub"
         showCategorisationLink={false}
         categorisationUrl="http://catTool"
+        userCanEdit
       />
     )
 
@@ -117,6 +146,7 @@ describe('Header component', () => {
         prisonStaffHubUrl="http://prisonstaffhub"
         showCategorisationLink={false}
         categorisationUrl="http://catTool"
+        userCanEdit
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
@@ -139,6 +169,7 @@ describe('Header component', () => {
         prisonStaffHubUrl="http://prisonstaffhub"
         showCategorisationLink
         categorisationUrl="http://catTool"
+        userCanEdit
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
@@ -161,6 +192,7 @@ describe('Header component', () => {
         prisonStaffHubUrl="http://prisonstaffhub"
         showCategorisationLink={false}
         categorisationUrl="http://catTool"
+        userCanEdit
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
@@ -179,6 +211,7 @@ describe('Header component', () => {
         prisonStaffHubUrl="http://prisonstaffhub"
         showCategorisationLink={false}
         categorisationUrl="http://catTool"
+        userCanEdit
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()

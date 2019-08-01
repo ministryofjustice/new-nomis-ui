@@ -56,6 +56,7 @@ const MiddleSection = ({
   showCategorisationLink,
   categorisationUrl,
   iepDetailsUrl,
+  userCanEdit,
 }) => {
   const cat = inmateData.get('categoryCode')
   const category = flags.AssessmentFlagsOrLetter(cat, inmateData.get('category'), '')
@@ -185,33 +186,35 @@ const MiddleSection = ({
           </div>
         </div>
       </div>
-      <div className="col-xs-12 col-sm-3">
-        <div className="stacked-links">
-          <div>
-            <Link name="add-case-note-link" className="button-link" to={`/offenders/${offenderNo}/add-case-note`}>
-              Add case note
-            </Link>
-          </div>
-
-          {showAddKeyworkerSessionLink && (
+      {userCanEdit && (
+        <div className="col-xs-12 col-sm-3">
+          <div className="stacked-links">
             <div>
-              <Link
-                name="add-kw-session-link"
-                className="button-link"
-                to={`/offenders/${offenderNo}/add-case-note?type=KA&subType=KS`}
-              >
-                Add KW session
+              <Link name="add-case-note-link" className="button-link" to={`/offenders/${offenderNo}/add-case-note`}>
+                Add case note
               </Link>
             </div>
-          )}
 
-          <div>
-            <Link name="add-appointment-link" className="button-link" to={`/offenders/${offenderNo}/add-appointment`}>
-              Add appointment
-            </Link>
+            {showAddKeyworkerSessionLink && (
+              <div>
+                <Link
+                  name="add-kw-session-link"
+                  className="button-link"
+                  to={`/offenders/${offenderNo}/add-case-note?type=KA&subType=KS`}
+                >
+                  Add KW session
+                </Link>
+              </div>
+            )}
+
+            <div>
+              <Link name="add-appointment-link" className="button-link" to={`/offenders/${offenderNo}/add-appointment`}>
+                Add appointment
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
@@ -223,6 +226,7 @@ MiddleSection.propTypes = {
   showCategorisationLink: PropTypes.bool.isRequired,
   categorisationUrl: PropTypes.string.isRequired,
   iepDetailsUrl: PropTypes.string.isRequired,
+  userCanEdit: PropTypes.bool.isRequired,
 }
 
 const Header = ({
@@ -234,6 +238,7 @@ const Header = ({
   showCategorisationLink,
   categorisationUrl,
   prisonStaffHubUrl,
+  userCanEdit,
 }) => {
   const alertFlags = className => flags.AlertFlags(inmateData.get('alerts'), className, onAlertFlagClick)
 
@@ -284,6 +289,7 @@ const Header = ({
                 showCategorisationLink={showCategorisationLink}
                 categorisationUrl={categorisationUrl}
                 iepDetailsUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-details`}
+                userCanEdit={userCanEdit}
               />
             </div>
           </div>
@@ -299,6 +305,7 @@ const Header = ({
             showCategorisationLink={showCategorisationLink}
             categorisationUrl={categorisationUrl}
             iepDetailsUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-details`}
+            userCanEdit={userCanEdit}
           />
         </div>
       </div>
@@ -315,6 +322,7 @@ Header.propTypes = {
   showCategorisationLink: PropTypes.bool.isRequired,
   categorisationUrl: PropTypes.string.isRequired,
   prisonStaffHubUrl: PropTypes.string,
+  userCanEdit: PropTypes.bool.isRequired,
 }
 
 Header.defaultProps = {

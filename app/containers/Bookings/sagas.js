@@ -51,6 +51,7 @@ import {
   SET_SCHEDULED_EVENTS,
   CASE_NOTE,
   EXTEND_SESSION,
+  CALC_READ_ONLY_VIEW,
 } from './constants'
 
 export function* extendActiveSessionWatcher() {
@@ -321,6 +322,8 @@ export function* viewDetails(action) {
 
   const { Type } = yield call(bookingDetailsElite, action)
   if (Type !== 'ERROR') {
+    yield put({ type: CALC_READ_ONLY_VIEW, payload: action.payload })
+
     const previousPath = yield select(state => state.getIn(['route', 'locationBeforeTransitions', 'pathname']))
     const itemPart = action.payload.itemId ? `/${action.payload.itemId}` : ''
     const nextPath = `/offenders/${action.payload.offenderNo}/${action.payload.activeTabId}${itemPart}`

@@ -18,6 +18,7 @@ const Header = ({
   showCategorisationLink,
   categorisationUrl,
   prisonStaffHubUrl,
+  userCanEdit,
 }) => {
   const showAlertTab = () => showAlertTabForOffenderNo(offenderNo)
 
@@ -31,6 +32,7 @@ const Header = ({
       showCategorisationLink={showCategorisationLink}
       categorisationUrl={categorisationUrl}
       prisonStaffHubUrl={prisonStaffHubUrl}
+      userCanEdit={userCanEdit}
     />
   )
 }
@@ -44,6 +46,7 @@ Header.propTypes = {
   showCategorisationLink: PropTypes.bool.isRequired,
   categorisationUrl: PropTypes.string.isRequired,
   prisonStaffHubUrl: PropTypes.string.isRequired,
+  userCanEdit: PropTypes.bool,
 }
 
 Header.defaultProps = {
@@ -65,6 +68,7 @@ Header.defaultProps = {
     prisonStaffHubUrl: null,
     categorisationUrl: null,
   }),
+  userCanEdit: false,
   showPhoto: () => {},
 }
 
@@ -77,6 +81,7 @@ const mapStateToProps = (immutableState, props) => {
   const { isKeyWorker, isRecategoriser } = immutableState.getIn(['authentication', 'user']) || {}
   return {
     headerDetails: immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']),
+    userCanEdit: immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'UserCanEdit']),
     showAddKeyworkerSessionLink: Boolean(isKeyWorker),
     showCategorisationLink: Boolean(isRecategoriser),
     categorisationUrl: immutableState.getIn(['app', 'categorisationUrl']),

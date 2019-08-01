@@ -1,6 +1,7 @@
 package mockapis
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule
+import groovy.json.JsonBuilder
 import groovy.json.JsonOutput
 import mockapis.response.AccessRoles
 import mockapis.response.Schedules
@@ -47,15 +48,15 @@ class Elite2Api extends WireMockRule {
   void stubGetMyDetails(UserAccount user, boolean whereaboutsAvailable = false) {
     stubLocations()
     stubStaffRoles(user)
-    stubCaseLoads()
-    stubWhereabouts(whereaboutsAvailable)
+    stubCaseLoads(user)
+    stubWhereabouts(user, whereaboutsAvailable)
   }
 
   void stubGetMyDetailsForKeyWorker(UserAccount user) {
     stubLocations()
     stubStaffRolesForKeyWorker(user)
-    stubCaseLoads()
-    stubWhereabouts(false)
+    stubCaseLoads(user)
+    stubWhereabouts(user, false)
   }
 
   void stubLocations() {
@@ -79,41 +80,39 @@ class Elite2Api extends WireMockRule {
       ]) + ']')))
   }
 
-  void stubCaseLoads() {
+  void stubCaseLoads(UserAccount user) {
+    def json = new JsonBuilder()
+    json user.caseloads, { cl ->
+      caseLoadId cl.id
+      description cl.description
+      type cl.type
+      caseloadFunction 'DUMMY'
+      currentlyActive cl.id == user.workingCaseload.id
+    }
+
     this.stubFor(
       get('/api/users/me/caseLoads')
-        .willReturn(aResponse()
-        .withStatus(200)
-        .withHeader('Content-Type', 'application/json')
-        .withBody('''[
-     {                                              
-         "caseLoadId": "LEI",
-         "description": "Leeds",
-         "type": "LEI",
-         "caseloadFunction": "LEI",
-         "currentlyActive": true
-     },
-     {                                              
-         "caseLoadId": "2",
-         "description": "X-LEI",
-         "type": "X-LEI",
-         "caseloadFunction": "X-LEI"
-     }
-     ]''')))
+        .willReturn(
+          aResponse()
+            .withStatus(200)
+            .withHeader('Content-Type', 'application/json')
+            .withBody(json.toString())
+        ))
   }
 
-  void stubWhereabouts(boolean whereaboutsAvailable) {
+
+  void stubWhereabouts(UserAccount user, boolean whereaboutsAvailable) {
     this.stubFor(
-      get('/api/agencies/LEI/locations/whereabouts')
+      get("/api/agencies/${user.workingCaseload.id}/locations/whereabouts")
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')
         .withBody(JsonOutput.toJson([enabled: whereaboutsAvailable]))))
   }
 
-  void stubAppointments() {
+  void stubAppointments(UserAccount user) {
     this.stubFor(
-      get('/api/agencies/LEI/locations?eventType=APP')
+      get("/api/agencies/${user.workingCaseload.id}/locations?eventType=APP")
         .willReturn(aResponse()
         .withStatus(200)
         .withHeader('Content-Type', 'application/json')

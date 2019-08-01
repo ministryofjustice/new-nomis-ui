@@ -45,6 +45,32 @@ describe('eliteApi tests', () => {
     })
   })
 
+  describe('GET negative case notes request', () => {
+    it('Maps a GET negative case notes response status of 404 to a null response', async () => {
+      mock.get('/api/bookings/1234/caseNotes/NEG/IEP_WARN/count?fromDate=from&toDate=to').reply(404)
+      const result = await eliteApi.getNegativeCaseNotes({
+        context: {},
+        bookingId: 1234,
+        fromDate: 'from',
+        toDate: 'to',
+      })
+      expect(result).toBeNull()
+    })
+
+    it('throws an exception for a GET negative case notes response status of 401 ', async () => {
+      mock.get('/api/bookings/1234/caseNotes/NEG/IEP_WARN/count?fromDate=from&toDate=to').reply(401)
+
+      await expect(
+        eliteApi.getNegativeCaseNotes({
+          context: {},
+          bookingId: 1234,
+          fromDate: 'from',
+          toDate: 'to',
+        })
+      ).rejects.toThrow('Unauthorized')
+    })
+  })
+
   describe('POST requests', () => {
     it('Extracts POST response data', async () => {
       mock.post('/test').reply(200, { test: 'test' })
