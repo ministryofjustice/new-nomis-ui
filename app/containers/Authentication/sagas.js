@@ -14,7 +14,6 @@ export function* updateUserDetails() {
     const user = yield call(users.me, apiUrl)
     yield put({ type: USER_ME, payload: { user } })
     yield put({ type: USER.CASELOADS.BASE })
-    yield put({ type: USER.ROLES.BASE })
 
     yield put(hideSpinner())
   } catch (err) {
