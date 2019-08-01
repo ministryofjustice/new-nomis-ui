@@ -14,6 +14,7 @@ import {
   APPOINTMENT,
 } from './constants'
 import { CALC_READ_ONLY_VIEW, CASE_NOTE } from '../Bookings/constants'
+import { USER_ME } from '../Authentication/constants'
 
 export const initialState = Map({
   Bookings: Map({
@@ -178,12 +179,11 @@ function EliteApiReducer(state = initialState, action) {
       return state.setIn(['User', 'CaseLoads'], fromJS({ Status: { Type: 'ERROR', Error: action.payload.error } }))
     }
 
-    case USER.ROLES.SUCCESS: {
-      return state.setIn(['User', 'Roles'], fromJS({ Status: { Type: 'SUCCESS' }, Data: action.payload.roles }))
-    }
-
-    case USER.ROLES.ERROR: {
-      return state.setIn(['User', 'Roles'], fromJS({ Status: { Type: 'ERROR', Error: action.payload.error } }))
+    case USER_ME: {
+      return state.setIn(
+        ['User', 'Roles'],
+        fromJS({ Status: { Type: 'SUCCESS' }, Data: action.payload.user.accessRoles })
+      )
     }
 
     case ALLCASENOTETYPESUBTYPEDATA: {
@@ -230,11 +230,15 @@ function EliteApiReducer(state = initialState, action) {
 
     case CALC_READ_ONLY_VIEW: {
       const { offenderNo } = action.payload
-      const caseLoadOptions = state.getIn(['User', 'CaseLoads', 'Data'])
-      const offenderAgency = state.getIn(['Bookings', 'Details', offenderNo, 'Data', 'agencyId'])
-      const caseLoad = caseLoadOptions.find(x => x.get('caseLoadId') === offenderAgency)
+      const caseloads = state.getIn(['User', 'CaseLoads', 'Data'])
+      const roles = state.getIn(['User', 'Roles', 'Data'])
+      const canViewInactivePrisoner = roles && roles.some(r => r.get('roleCode') === 'INACTIVE_BOOKINGS')
 
-      return state.setIn(['Bookings', 'Details', offenderNo, 'UserCanEdit'], caseLoad !== undefined)
+      const offenderAgency = state.getIn(['Bookings', 'Details', offenderNo, 'Data', 'agencyId'])
+      const caseLoad = caseloads.find(x => x.get('caseLoadId') === offenderAgency)
+
+      const userCanEdit = (canViewInactivePrisoner && ['OUT', 'TRN'].includes(offenderAgency)) || caseLoad !== undefined
+      return state.setIn(['Bookings', 'Details', offenderNo, 'UserCanEdit'], userCanEdit)
     }
 
     default: {

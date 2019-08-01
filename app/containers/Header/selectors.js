@@ -1,14 +1,13 @@
 import { createSelector } from 'reselect'
 
 import selectUser from '../Authentication/selectors'
-import { selectUserCaseLoads, selectUserRoles } from '../EliteApiLoader/selectors'
+import { selectUserCaseLoads } from '../EliteApiLoader/selectors'
 import { selectAssignmentsTotal } from '../Assignments/selectors'
 
 export default () =>
   createSelector(
     selectUser(),
     selectUserCaseLoads(),
-    selectUserRoles(),
     selectAssignmentsTotal(),
     (userState, caseLoadsState, rolesState, totalAssignmentsState) => {
       if (userState && caseLoadsState) {
