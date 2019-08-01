@@ -53,10 +53,6 @@ jobs:
     working_directory: ~/app
     docker:
       - image: circleci/openjdk:11-jdk-node-browsers
-        environment:
-          TZ: "Europe/London"
-    environment:
-      TZ: "Europe/London"
     steps:
       - checkout
       - attach_workspace:

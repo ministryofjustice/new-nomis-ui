@@ -19,8 +19,8 @@ environments {
     driver = {
       DesiredCapabilities capabilities = DesiredCapabilities.chrome()
       ChromeOptions options = new ChromeOptions()
-      options.addArguments('headless', '--lang=en-GB');
-      options.setExperimentalOption("prefs", ['browser.custom_chrome_frame': false, 'intl.accept_languages': 'en-GB'])
+      options.addArguments('headless')
+      options.setExperimentalOption("prefs", ["browser.custom_chrome_frame": false])
       capabilities.setCapability(ChromeOptions.CAPABILITY, options)
       LoggingPreferences logPrefs = new LoggingPreferences()
       logPrefs.enable(BROWSER, ALL)
@@ -38,9 +38,9 @@ environments {
           .withLogFile(new File('build/chromedriver.log'))
           .build(),
         new ChromeOptions()
-          .addArguments('--lang=en-GB')
-          .setExperimentalOption('mobileEmulation', ['deviceName': 'Nexus 5'])
-          .setExperimentalOption('prefs', ['intl.accept_languages': 'en-GB']))
+          .setExperimentalOption(
+          "mobileEmulation",
+          ['deviceName': 'Nexus 5']))
     }
   }
 }
@@ -48,12 +48,21 @@ environments {
 // Default if geb.env is not set to one of 'chrome', or 'chromeHeadless'
 driver = {
   new ChromeDriver()
+//  new ChromeDriver(
+//    new ChromeDriverService.Builder()
+//      .withVerbose(true)
+//      .withLogFile(new File('build/chromedriver.log'))
+//      .build(),
+//    new ChromeOptions()
+//      .setExperimentalOption(
+//      "mobileEmulation",
+//      ['deviceName': 'Nexus 5']))
 }
 
 baseUrl = "http://localhost:3007/"
 
 reportsDir = "build/geb-reports"
-reportOnTestFailureOnly = true
+reportOnTestFailureOnly=true
 
 // Close browser on shutdown - uncomment to enable
 // quitCachedDriverOnShutdown = false
