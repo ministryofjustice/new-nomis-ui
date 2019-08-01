@@ -23,15 +23,7 @@ describe('<Details />', () => {
     }
 
     describe('set active tab', () => {
-      it('should set active tab back to quick look tab if user cannot edit', () => {
-        const wrapper = shallow(
-          <Details {...detailsProps} match={{ params: { offenderNo: 'AB12345C', activeTab: 'case-notes' } }} />
-        )
-
-        const div = wrapper.find(TabMenuMobile)
-        expect(div.props().activeTabId).toEqual('quick-look')
-      })
-      it('should leave active tab alone if user can edit', () => {
+      it('should pass active tab down from details to tab menu', () => {
         const wrapper = shallow(
           <Details
             userCanEdit

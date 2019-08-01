@@ -25,6 +25,7 @@ const initialState = fromJS({
   spinnerCount: 0,
   mailTo: 'feedback@digital.justice.gov.uk',
   prisonStaffHubUrl: '/',
+  categorisationUrl: '/',
 })
 
 // Reducer
