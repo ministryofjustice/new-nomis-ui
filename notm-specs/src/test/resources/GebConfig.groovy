@@ -20,7 +20,7 @@ environments {
       DesiredCapabilities capabilities = DesiredCapabilities.chrome()
       ChromeOptions options = new ChromeOptions()
       options.addArguments('headless', '--lang=en-GB');
-      options.setExperimentalOption("prefs", ['browser.custom_chrome_frame': false, 'intl.accept_languages': 'en_GB'])
+      options.setExperimentalOption("prefs", ['browser.custom_chrome_frame': false, 'intl.accept_languages': 'en-GB'])
       capabilities.setCapability(ChromeOptions.CAPABILITY, options)
       LoggingPreferences logPrefs = new LoggingPreferences()
       logPrefs.enable(BROWSER, ALL)
@@ -40,7 +40,7 @@ environments {
         new ChromeOptions()
           .addArguments('--lang=en-GB')
           .setExperimentalOption('mobileEmulation', ['deviceName': 'Nexus 5'])
-          .setExperimentalOption('prefs', ['intl.accept_languages': 'en_GB']))
+          .setExperimentalOption('prefs', ['intl.accept_languages': 'en-GB']))
     }
   }
 }
