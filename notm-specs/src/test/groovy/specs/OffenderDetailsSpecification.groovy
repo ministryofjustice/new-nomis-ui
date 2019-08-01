@@ -82,7 +82,6 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     def allQuicklookValues2 = $('div.quick-look b')*.text()
     def expectedQuicklookValues2 = ['Attempt burglary dwelling with intent to steal', '07/04/2017', '1', '1', '1', '1', '3', '2 days Immediate (50%)',
                                     'No visit history', 'No upcoming visits', 'Sashonda, Diydonopher', 'Social/ Family(Girlfriend)', '--']
-    // todo: release date '07/04/2017' is displayed in US formaty in circle ci!
     containsExpected(allQuicklookValues2, expectedQuicklookValues2)
     !categorisationLink.isDisplayed()
 
@@ -134,7 +133,6 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     // note that case note iep numbers not shown
     def expectedQuicklookValues2 = ['Attempt burglary dwelling with intent to steal', '07/04/2017', '3', '2 days Immediate (50%)',
                                     'No visit history', 'No upcoming visits', 'Sashonda, Diydonopher', 'Social/ Family(Girlfriend)', '--']
-    // todo: release date '07/04/2017' is displayed in US formaty in circle ci!
     containsExpected(allQuicklookValues2, expectedQuicklookValues2)
     !categorisationLink.isDisplayed()
 
