@@ -140,7 +140,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
 
     // read only view means links not shown
     addAppointmentLink == null
-    !addCaseNoteLink == null
+    addCaseNoteLink == null
   }
 
   def "Adjudications link takes the user to prison staff hub"() {
