@@ -53,9 +53,7 @@ const tabData = [
   },
 ]
 
-const parseActiveTab = (needle, userCanEdit) => {
-  if (needle === DETAILS_TABS.CASE_NOTES && !userCanEdit) return DETAILS_TABS.QUICK_LOOK
-
+const parseActiveTab = needle => {
   const keys = Object.keys(DETAILS_TABS)
   const haystack = keys.map(key => DETAILS_TABS[key])
   if (haystack.includes(needle)) {
@@ -72,9 +70,8 @@ class Details extends Component {
       match: {
         params: { activeTab, offenderNo, itemId },
       },
-      userCanEdit,
     } = this.props
-    const tab = parseActiveTab(activeTab, userCanEdit)
+    const tab = parseActiveTab(activeTab)
 
     boundViewDetails(offenderNo, tab, itemId)
   }
@@ -95,7 +92,7 @@ class Details extends Component {
       userCanEdit,
     } = this.props
 
-    const activeTabId = parseActiveTab(activeTab, userCanEdit)
+    const activeTabId = parseActiveTab(activeTab)
     const ActiveTab = tabData.find(tab => tab.tabId === activeTabId)
     const TabComponentDesktop = ActiveTab.component
     const TabComponentMobile = ActiveTab.componentMobile
