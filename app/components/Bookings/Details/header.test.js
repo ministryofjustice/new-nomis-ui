@@ -97,6 +97,19 @@ describe('Header component', () => {
 
       expect(middleSection.find('div.stacked-links div')).toHaveLength(0)
     })
+    it('should render iep details link if user can edit', () => {
+      const wrapper = shallow(<Header userCanEdit {...headerProps} />)
+
+      const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
+
+      expect(middleSection.find("a[data-qa='iep-details-link']")).toHaveLength(2)
+    })
+    it('should hide iep details link if user cannot edit', () => {
+      const wrapper = shallow(<Header userCanEdit={false} {...headerProps} />)
+      const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
+
+      expect(middleSection.find("a[data-qa='iep-details-link']")).toHaveLength(0)
+    })
   })
 
   it('should render four alerts', () => {
