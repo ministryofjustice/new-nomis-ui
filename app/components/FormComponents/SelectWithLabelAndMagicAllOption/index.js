@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ErrorText from '@govuk-react/error-text'
 import { inputType, metaType } from '../../../types'
 
 class SelectWithLabelAndMagicAllOption extends Component {
@@ -26,6 +27,7 @@ class SelectWithLabelAndMagicAllOption extends Component {
       title,
       meta: { touched, error },
     } = this.props
+    const hasError = touched && error
 
     this.updateDefaulted()
 
@@ -41,8 +43,7 @@ class SelectWithLabelAndMagicAllOption extends Component {
           {title}
         </label>
 
-        <div className="error-message">{touched && (error && <span>{error}</span>)}</div>
-
+        {hasError && <ErrorText>{error}</ErrorText>}
         <select
           id={input.name}
           className={!(touched && error) ? 'form-control' : 'form-control form-control-error'}
