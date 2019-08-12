@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Field } from 'redux-form/immutable'
+import Button from '@govuk-react/button'
 import moment from 'moment'
 import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from '../../../FormComponents/DatePicker'
 import SelectWithLabelAndMagicAllOption from '../../../FormComponents/SelectWithLabelAndMagicAllOption'
@@ -58,11 +59,9 @@ const DesktopAlertsFilterForm = ({ alertTypes, locale, submitting, error, handle
       </div>
 
       <div className="col-md-2 no-left-gutter no-right-gutter">
-        <div className="margin30">
-          <button type="submit" className="button" disabled={submitting || error}>
-            Apply filters
-          </button>
-        </div>
+        <Button type="submit" disabled={submitting || error} margin={{ size: 5, direction: 'top' }}>
+          Apply filters
+        </Button>
       </div>
     </div>
     <div className="row">
