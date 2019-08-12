@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Field } from 'redux-form/immutable'
+import Button from '@govuk-react/button'
 import moment from 'moment'
 import { DatePicker, momentToLocalizedDate, localizedDateToMoment } from '../../../FormComponents/DatePicker'
 
@@ -68,11 +69,9 @@ const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleS
         </div>
 
         <div className="col-sm-12 no-left-gutter no-right-gutter">
-          <div>
-            <button type="submit" className="button" disabled={submitting || error}>
-              Apply filters
-            </button>
-          </div>
+          <Button type="submit" disabled={submitting || error}>
+            Apply filters
+          </Button>
         </div>
       </div>
     </form>

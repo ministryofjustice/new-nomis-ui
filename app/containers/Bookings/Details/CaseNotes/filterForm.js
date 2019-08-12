@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { connect } from 'react-redux'
+import Button from '@govuk-react/button'
 import { reduxForm, Field, formValueSelector, reset } from 'redux-form/immutable'
 import { createFormAction } from 'redux-form-saga'
 import { createStructuredSelector } from 'reselect'
@@ -82,11 +83,13 @@ const FilterForm = ({
         </div>
 
         <div className="col-sm-4 col-md-2 no-left-gutter no-right-gutter">
-          <div className="margin30">
-            <button className="button" type="submit" disabled={dateRangeNotValid || (submitting || error)}>
-              Apply filters
-            </button>
-          </div>
+          <Button
+            type="submit"
+            disabled={dateRangeNotValid || (submitting || error)}
+            margin={{ size: 5, direction: 'top' }}
+          >
+            Apply filters
+          </Button>
         </div>
       </div>
       <div className="row">
