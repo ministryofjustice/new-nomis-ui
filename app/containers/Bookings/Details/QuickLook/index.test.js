@@ -16,12 +16,12 @@ describe('<QuickLook />', () => {
     }
 
     it('should not render case note counts if user cannot edit', () => {
-      const wrapper = shallow(<QuickLook {...quickLookProps} />)
+      const wrapper = shallow(<QuickLook {...quickLookProps} userCanEdit={false} />)
 
       expect(wrapper.find(NegativeAndPositiveCaseNoteCount)).toHaveLength(0)
     })
     it('should render case note counts if user can edit', () => {
-      const wrapper = shallow(<QuickLook {...quickLookProps} userCanEdit />)
+      const wrapper = shallow(<QuickLook {...quickLookProps} />)
 
       expect(wrapper.find(NegativeAndPositiveCaseNoteCount)).toHaveLength(1)
     })
