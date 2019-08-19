@@ -187,7 +187,7 @@ Details.defaultProps = {
   deviceFormat: '',
   shouldShowLargePhoto: false,
   imageSrcUrl: null,
-  userCanEdit: false,
+  userCanEdit: true,
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -198,7 +198,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = (state, props) => ({
   deviceFormat: state.getIn(['app', 'deviceFormat']),
   activeTabId: props.match.params.activeTab,
-  shouldShowLargePhoto: state.getIn(['search', 'results', 'shouldShowLargePhoto']),
+  shouldShowLargePhoto: state.getIn(['search', 'details', 'shouldShowLargePhoto']),
   prisonStaffHubUrl: state.getIn(['app', 'prisonStaffHubUrl']),
   imageSrcUrl: state.getIn(['search', 'details', 'imageId']),
   offenderDetails:

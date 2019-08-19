@@ -56,37 +56,51 @@ describe('Adjudications component', () => {
     ).toEqual(' code description')
   })
 
-  it('Adjudications are rendered correctly', () => {
-    const component = renderer
-      .create(
-        <IntlProvider locale="en">
-          <Adjudications
-            adjudicationHistoryUrl="http://prisonstaffhub"
-            adjudications={Map({
-              proven: 1,
-              awards: List([
-                Map({
-                  status: 'IMMEDIATE',
-                  months: 2,
-                  days: 10,
-                  effectiveDate: '2018-10-19',
-                  comment: 'a comment',
-                  sanctionCodeDescription: 'code description',
-                }),
-                Map({
-                  status: 'AS_AWARDED',
-                  comment: 'comment 2',
-                }),
-                Map({
-                  status: 'PROSPECTIVE',
-                  comment: 'comment 3',
-                }),
-              ]),
-            })}
-          />
-        </IntlProvider>
-      )
-      .toJSON()
-    expect(component).toMatchSnapshot()
+  describe('Adjudications are rendered correctly', () => {
+    const adjudicationsMap = Map({
+      proven: 1,
+      awards: List([
+        Map({
+          status: 'IMMEDIATE',
+          months: 2,
+          days: 10,
+          effectiveDate: '2018-10-19',
+          comment: 'a comment',
+          sanctionCodeDescription: 'code description',
+        }),
+        Map({
+          status: 'AS_AWARDED',
+          comment: 'comment 2',
+        }),
+        Map({
+          status: 'PROSPECTIVE',
+          comment: 'comment 3',
+        }),
+      ]),
+    })
+    it('when user can edit', () => {
+      const component = renderer
+        .create(
+          <IntlProvider locale="en">
+            <Adjudications adjudicationHistoryUrl="http://prisonstaffhub" adjudications={adjudicationsMap} />
+          </IntlProvider>
+        )
+        .toJSON()
+      expect(component).toMatchSnapshot()
+    })
+    it('when user cannot edit', () => {
+      const component = renderer
+        .create(
+          <IntlProvider locale="en">
+            <Adjudications
+              adjudicationHistoryUrl="http://prisonstaffhub"
+              adjudications={adjudicationsMap}
+              userCanEdit={false}
+            />
+          </IntlProvider>
+        )
+        .toJSON()
+      expect(component).toMatchSnapshot()
+    })
   })
 })

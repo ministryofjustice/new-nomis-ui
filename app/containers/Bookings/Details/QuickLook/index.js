@@ -206,7 +206,7 @@ NegativeAndPositiveCaseNoteCount.defaultProps = {
   positiveCaseNotes: '',
 }
 
-export const Adjudications = ({ adjudications, adjudicationHistoryUrl }) => {
+export const Adjudications = ({ adjudications, adjudicationHistoryUrl, userCanEdit }) => {
   const awards = adjudications.get('awards')
   const proven = adjudications.get('proven')
   return (
@@ -244,7 +244,7 @@ export const Adjudications = ({ adjudications, adjudicationHistoryUrl }) => {
           </div>
         ))}
       </div>
-      {adjudicationHistoryUrl && (
+      {userCanEdit && adjudicationHistoryUrl && (
         <a data-qa="adjudications-link" className="link" href={adjudicationHistoryUrl}>
           Adjudication history
         </a>
@@ -256,10 +256,12 @@ export const Adjudications = ({ adjudications, adjudicationHistoryUrl }) => {
 Adjudications.propTypes = {
   adjudications: ImmutablePropTypes.map.isRequired,
   adjudicationHistoryUrl: PropTypes.string,
+  userCanEdit: PropTypes.bool,
 }
 
 Adjudications.defaultProps = {
   adjudicationHistoryUrl: null,
+  userCanEdit: true,
 }
 
 export const KeyWorkerSessionDate = ({ lastKeyWorkerSessionDate }) => (
@@ -634,6 +636,7 @@ class QuickLook extends Component {
                 adjudicationHistoryUrl={
                   prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/adjudications`
                 }
+                userCanEdit={userCanEdit}
               />
             </div>
           </div>
@@ -702,7 +705,7 @@ QuickLook.propTypes = {
 
 QuickLook.defaultProps = {
   prisonStaffHubUrl: null,
-  userCanEdit: false,
+  userCanEdit: true,
 }
 
 const mapDispatchToProps = dispatch => ({
