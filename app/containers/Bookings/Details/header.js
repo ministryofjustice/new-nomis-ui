@@ -68,7 +68,7 @@ Header.defaultProps = {
     prisonStaffHubUrl: null,
     categorisationUrl: null,
   }),
-  userCanEdit: false,
+  userCanEdit: true,
   showPhoto: () => {},
 }
 

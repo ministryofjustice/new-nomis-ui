@@ -187,7 +187,7 @@ Details.defaultProps = {
   deviceFormat: '',
   shouldShowLargePhoto: false,
   imageSrcUrl: null,
-  userCanEdit: false,
+  userCanEdit: true,
 }
 
 const mapDispatchToProps = dispatch => ({
