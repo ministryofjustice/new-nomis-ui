@@ -82,11 +82,7 @@ describe('Adjudications component', () => {
       const component = renderer
         .create(
           <IntlProvider locale="en">
-            <Adjudications
-              adjudicationHistoryUrl="http://prisonstaffhub"
-              adjudications={adjudicationsMap}
-              userCanEdit
-            />
+            <Adjudications adjudicationHistoryUrl="http://prisonstaffhub" adjudications={adjudicationsMap} />
           </IntlProvider>
         )
         .toJSON()
@@ -96,7 +92,11 @@ describe('Adjudications component', () => {
       const component = renderer
         .create(
           <IntlProvider locale="en">
-            <Adjudications adjudicationHistoryUrl="http://prisonstaffhub" adjudications={adjudicationsMap} />
+            <Adjudications
+              adjudicationHistoryUrl="http://prisonstaffhub"
+              adjudications={adjudicationsMap}
+              userCanEdit={false}
+            />
           </IntlProvider>
         )
         .toJSON()
