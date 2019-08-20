@@ -12,7 +12,7 @@ import SelectWithLabelAndMagicAllOption from '../../../FormComponents/SelectWith
 const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleSubmit, reset }) => (
   <details className="govuk-details add-gutter-padding-top">
     <summary className="govuk-details__summary">
-      <span className="govuk-details__summary-text">Show filters</span>
+      <span className="govuk-details__summary-text">Filters</span>
     </summary>
     <form className="mobile-alerts-filter-form" onSubmit={handleSubmit}>
       <div className="row">

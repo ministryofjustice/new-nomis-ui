@@ -192,7 +192,7 @@ class SearchAgainForm extends Component {
                   role="switch"
                   aria-checked={showFilters}
                 >
-                  <span className="govuk-details__summary-text">{showFilters ? 'Hide filters' : 'Show filters'}</span>
+                  <span className="govuk-details__summary-text">Filters</span>
                 </summary>
                 {showFilters && (
                   <div className="govuk-details__text">
