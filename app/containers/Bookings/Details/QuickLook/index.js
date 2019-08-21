@@ -261,7 +261,7 @@ Adjudications.propTypes = {
 
 Adjudications.defaultProps = {
   adjudicationHistoryUrl: null,
-  userCanEdit: false,
+  userCanEdit: true,
 }
 
 export const KeyWorkerSessionDate = ({ lastKeyWorkerSessionDate }) => (
@@ -705,7 +705,7 @@ QuickLook.propTypes = {
 
 QuickLook.defaultProps = {
   prisonStaffHubUrl: null,
-  userCanEdit: false,
+  userCanEdit: true,
 }
 
 const mapDispatchToProps = dispatch => ({

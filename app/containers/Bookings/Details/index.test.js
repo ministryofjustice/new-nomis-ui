@@ -39,13 +39,13 @@ describe('<Details />', () => {
 
     describe('mobile view', () => {
       it('should not render case note tab if user cannot edit', () => {
-        const wrapper = shallow(<Details {...detailsProps} />)
+        const wrapper = shallow(<Details {...detailsProps} userCanEdit={false} />)
 
         const div = wrapper.find(TabMenuMobile)
         expect(div.props().tabData).toHaveLength(4)
       })
       it('should render case note tab if user can edit', () => {
-        const wrapper = shallow(<Details {...detailsProps} userCanEdit />)
+        const wrapper = shallow(<Details {...detailsProps} />)
 
         const div = wrapper.find(TabMenuMobile)
         expect(div.props().tabData).toHaveLength(5)
@@ -53,13 +53,13 @@ describe('<Details />', () => {
     })
     describe('desktop view', () => {
       it('should not render case note tab if user cannot edit', () => {
-        const wrapper = shallow(<Details deviceFormat="desktop" {...detailsProps} />)
+        const wrapper = shallow(<Details deviceFormat="desktop" {...detailsProps} userCanEdit={false} />)
 
         const div = wrapper.find(TabMenu)
         expect(div.props().tabData).toHaveLength(4)
       })
       it('should render case note tab if user can edit', () => {
-        const wrapper = shallow(<Details deviceFormat="desktop" {...detailsProps} userCanEdit />)
+        const wrapper = shallow(<Details deviceFormat="desktop" {...detailsProps} />)
 
         const div = wrapper.find(TabMenu)
         expect(div.props().tabData).toHaveLength(5)
