@@ -61,6 +61,14 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
     })
   })
 
+  const getFullSizeImage = asyncMiddleware(async (req, res) => {
+    fetchImage({
+      targetEndpoint: `api/images/${req.params.imageId}/data?fullSizeImage=true`,
+      req,
+      res,
+    })
+  })
+
   const keyDates = asyncMiddleware(async (req, res) => {
     const { offenderNo } = req.params
     if (!offenderNo) {
@@ -295,6 +303,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
     amendCaseNote,
     caseNote,
     getImage,
+    getFullSizeImage,
     myAssignments,
     user,
   }
