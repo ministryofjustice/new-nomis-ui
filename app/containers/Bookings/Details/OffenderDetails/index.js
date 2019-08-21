@@ -5,7 +5,7 @@ import uuid from 'uuid/v4'
 import { connect } from 'react-redux'
 import { FormattedDate } from '../../../../components/intl'
 import EliteImage from '../../../EliteContainers/Image/index'
-import { offenderImageUrl } from '../../constants'
+import { offenderImageUrl, offenderFullSizeImageUrl } from '../../constants'
 import ValueWithLabel from '../../../../components/ValueWithLabel'
 import { toFullName } from '../../../../utils/stringUtils'
 import { Model as offenderDetailsModel } from '../../../../helpers/dataMappers/offenderDetails'
@@ -250,7 +250,7 @@ export const OffenderDetails = ({ offenderDetails, showPhoto }) => {
                   <div className="col-md-6 col-xs-6">
                     <div
                       className="photo clickable offenderDetails"
-                      {...linkOnClick(() => showPhoto(offenderImageUrl(mark.imageId)))}
+                      {...linkOnClick(() => showPhoto(offenderFullSizeImageUrl(mark.imageId)))}
                     >
                       {(mark.imageId && <EliteImage src={offenderImageUrl(mark.imageId)} />) || '--'}
                     </div>

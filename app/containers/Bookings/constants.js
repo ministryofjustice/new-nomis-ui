@@ -22,6 +22,13 @@ export const offenderImageUrl = imageId => {
   return '/app/images/placeholder/data'
 }
 
+export const offenderFullSizeImageUrl = imageId => {
+  if (imageId) {
+    return `/app/full-size-image/${imageId}/data`
+  }
+  return '/app/full-size-image/placeholder/data'
+}
+
 export const DETAILS_TABS = {
   OFFENDER_DETAILS: 'personal',
   PHYSICAL_ATTR: 'physical-attributes',
