@@ -24,6 +24,7 @@ const clientFactory = require('./api/oauthEnabledClient')
 const healthFactory = require('./services/healthCheck')
 const { eliteApiFactory } = require('./api/eliteApi')
 const { keyworkerApiFactory } = require('./api/keyworkerApi')
+const { caseNotesApiFactory } = require('./api/caseNotesApi')
 const { oauthApiFactory } = require('./api/oauthApi')
 const tokeRefresherFactory = require('./tokenRefresher').factory
 const { controllerFactory } = require('./controller')
@@ -88,7 +89,12 @@ app.use('/config', (req, res) => {
   })
 })
 
-const health = healthFactory(config.apis.oauth2.url, config.apis.elite2.url, config.apis.keyworker.url)
+const health = healthFactory(
+  config.apis.oauth2.url,
+  config.apis.elite2.url,
+  config.apis.keyworker.url,
+  config.apis.caseNotes.url
+)
 
 app.get('/health', (req, res, next) => {
   health((err, result) => {
@@ -114,6 +120,13 @@ const keyworkerApi = keyworkerApiFactory(
   clientFactory({
     baseUrl: config.apis.keyworker.url,
     timeout: config.apis.keyworker.timeoutSeconds * 1000,
+  })
+)
+
+const caseNotesApi = caseNotesApiFactory(
+  clientFactory({
+    baseUrl: config.apis.caseNotes.url,
+    timeout: config.apis.caseNotes.timeoutSeconds * 1000,
   })
 )
 
@@ -195,6 +208,7 @@ app.get('/app/full-size-image/:imageId/data', controller.getFullSizeImage)
 app.get('/app/images/:imageId/data', controller.getImage)
 app.get('/app/users/me/bookingAssignments', controller.myAssignments)
 app.get('/app/users/me', controller.user)
+app.use('/app/reference-domains/caseNoteTypes', requestForwarding.forwardingHandlerFactory(caseNotesApi))
 
 // Forward requests to the eliteApi get/post functions.
 app.use('/app', requestForwarding.forwardingHandlerFactory(eliteApi))
