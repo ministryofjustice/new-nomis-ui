@@ -17,7 +17,7 @@ import { USER } from '../EliteApiLoader/constants'
 import { CHANGE_USERNAME_INPUT, CHANGE_PASSWORD_INPUT, USER_ME } from './constants'
 
 export const initialState = fromJS({
-  user: null,
+  user: {},
   usernameInput: '',
   passwordInput: '',
 })
