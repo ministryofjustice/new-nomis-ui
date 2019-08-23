@@ -23,7 +23,7 @@ import history from '../../../../history'
 import ResultsFilter from '../../../../components/ResultsFilter'
 import { userType } from '../../../../types'
 
-const ButtonContainer = styled.div`
+const AlertButtons = styled.div`
   display: flex;
   flex: 1 0 auto;
   align-items: flex-end;
@@ -74,18 +74,19 @@ class Alerts extends Component {
             perPage={pagination.perPage}
           />
           {user.canUpdateAlerts && (
-            <ButtonContainer>
+            <AlertButtons>
               <Button
                 buttonColour={BLUE}
-                type="submit"
+                type="button"
                 mb={0}
                 onClick={() => {
-                  window.location = `${prisonStaffHubUrl}offenders/${offenderNo}/create-alert`
+                  window.location.assign(`${prisonStaffHubUrl}offenders/${offenderNo}/create-alert`)
                 }}
+                data-qa="create-alert-button"
               >
                 Add alert
               </Button>
-            </ButtonContainer>
+            </AlertButtons>
           )}
         </ResultsFilter>
 
@@ -177,6 +178,8 @@ const mapStateToProps = (immutableState, props) => {
     user,
   }
 }
+
+export { Alerts }
 
 export default connect(
   mapStateToProps,
