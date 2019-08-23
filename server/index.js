@@ -151,6 +151,7 @@ const controller = controllerFactory({
   bookingService,
   eventsService,
   keyworkerService,
+  caseNotesApi,
 })
 
 app.use(
@@ -208,7 +209,7 @@ app.get('/app/full-size-image/:imageId/data', controller.getFullSizeImage)
 app.get('/app/images/:imageId/data', controller.getImage)
 app.get('/app/users/me/bookingAssignments', controller.myAssignments)
 app.get('/app/users/me', controller.user)
-app.use('/app/reference-domains/caseNoteTypes', requestForwarding.forwardingHandlerFactory(caseNotesApi))
+app.use('/app/reference-domains/caseNoteTypes', controller.caseNoteTypes)
 
 // Forward requests to the eliteApi get/post functions.
 app.use('/app', requestForwarding.forwardingHandlerFactory(eliteApi))

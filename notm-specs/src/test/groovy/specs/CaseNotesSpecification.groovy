@@ -2,6 +2,7 @@ package specs
 
 
 import groovy.util.logging.Slf4j
+import mockapis.CaseNotesApi
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
@@ -23,6 +24,9 @@ class CaseNotesSpecification extends BrowserReportingSpec {
 
   @Rule
   KeyworkerApi keyworkerApi = new KeyworkerApi()
+
+  @Rule
+  CaseNotesApi caseNotesApi = new CaseNotesApi()
 
   @Rule
   OauthApi oauthApi = new OauthApi()
@@ -111,7 +115,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     at OffenderDetailsPage
 
     when: 'I create a new case note'
-    elite2api.stubCaseNoteTypes()
+    caseNotesApi.stubCaseNoteTypes()
     elite2api.stubMeCaseNoteTypes()
     elite2api.stubOffenderDetails(false)
     elite2api.stubSaveCaseNote("KA", "KS", "Key Worker Activity", "Key Worker Session")
@@ -126,7 +130,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
   }
 
   def setupAddCaseNote() {
-    elite2api.stubCaseNoteTypes()
+    caseNotesApi.stubCaseNoteTypes()
     elite2api.stubMeCaseNoteTypes()
     elite2api.stubSaveCaseNote()
     elite2api.stubGetCaseNote()

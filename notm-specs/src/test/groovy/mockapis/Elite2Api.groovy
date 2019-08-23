@@ -383,15 +383,6 @@ class Elite2Api extends WireMockRule {
       ))
   }
 
-  void stubCaseNoteTypes() {
-    this.stubFor(
-      get("/api/reference-domains/caseNoteTypes")
-        .willReturn(aResponse()
-        .withStatus(200)
-        .withHeader('Content-Type', 'application/json')
-        .withBody(JsonOutput.toJson(referenceCaseNoteTypes))))
-  }
-
   void stubSaveCaseNote(String type = "CHAP", String subType = "FAITH", String typeDescription = "Chaplaincy", String subTypeDescription = "Faith Specific Action") {
     // TODO check "occurrenceDateTime": "2018-04-30T07:00:00", (what we selected on the page)
     def data = """{

@@ -2,6 +2,7 @@ package specs
 
 
 import groovy.util.logging.Slf4j
+import mockapis.CaseNotesApi
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
@@ -23,6 +24,9 @@ class PaginationSpecification extends BrowserReportingSpec {
   KeyworkerApi keyworkerApi = new KeyworkerApi()
 
   @Rule
+  CaseNotesApi caseNotesApi = new CaseNotesApi()
+
+  @Rule
   OauthApi oauthApi = new OauthApi()
 
   TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
@@ -30,7 +34,7 @@ class PaginationSpecification extends BrowserReportingSpec {
   def bookingId = -10
   def agencyId = "${ITAG_USER.staffMember.assignedCaseload}"
 
-  @IgnoreIf({System.properties['geb.env'] == 'chromeMobile'})
+  @IgnoreIf({ System.properties['geb.env'] == 'chromeMobile' })
   def "should be able to page through the alerts"() {
     elite2api.stubAlertTypes()
     oauthApi.stubUsersMe ITAG_USER
@@ -85,7 +89,7 @@ class PaginationSpecification extends BrowserReportingSpec {
 
     elite2api.stubIEP()
     elite2api.stubAliases()
-    elite2api.stubCaseNoteTypes()
+    caseNotesApi.stubCaseNoteTypes()
     elite2api.stubMeCaseNoteTypes()
 
     given: 'I navigate to an offenders case notes'
@@ -126,6 +130,6 @@ class PaginationSpecification extends BrowserReportingSpec {
 
     waitFor { alerts[0].text().contains("alertType") }
     int index = 0;
-    (start..end).each{ assert alerts[index++].text().indexOf("alertType${it}") != -1 }
+    (start..end).each { assert alerts[index++].text().indexOf("alertType${it}") != -1 }
   }
 }

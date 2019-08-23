@@ -22,7 +22,14 @@ const asyncMiddleware = fn => (req, res, next) => {
   })
 }
 
-const controllerFactory = ({ elite2Api, userService, bookingService, eventsService, keyworkerService }) => {
+const controllerFactory = ({
+  elite2Api,
+  userService,
+  bookingService,
+  eventsService,
+  keyworkerService,
+  caseNotesApi,
+}) => {
   function enableCaching(res) {
     res.setHeader('Cache-Control', 'max-age=3600')
     const expirationDate = moment().add(1, 'h') // one hour from now
@@ -211,6 +218,12 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
     res.json(data)
   })
 
+  const caseNoteTypes = asyncMiddleware(async (req, res) => {
+    const data = await caseNotesApi.getCaseNoteTypes(res.locals)
+    res.set(res.locals.responseHeaders)
+    res.json(data)
+  })
+
   const caseNotes = asyncMiddleware(async (req, res) => {
     const { offenderNo } = req.params
     if (!offenderNo) {
@@ -298,6 +311,7 @@ const controllerFactory = ({ elite2Api, userService, bookingService, eventsServi
     getExistingEvents,
     addAppointment,
     alerts,
+    caseNoteTypes,
     caseNotes,
     addCaseNote,
     amendCaseNote,

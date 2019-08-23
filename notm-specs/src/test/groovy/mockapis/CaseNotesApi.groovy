@@ -7,18 +7,20 @@ import model.StaffMember
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import static com.github.tomakehurst.wiremock.client.WireMock.get
+import static mockapis.response.CaseNoteTypes.getReferenceCaseNoteTypes
 
 class CaseNotesApi extends WireMockRule {
   CaseNotesApi() {
     super(18083)
   }
 
-  void stubGetKeyworkerByPrisonAndOffenderNo(String prisonId, String offenderNo) {
+  void stubCaseNoteTypes() {
     this.stubFor(
-      get("/key-worker/${prisonId}/offender/${offenderNo}")
+      get("/case-notes/types")
         .willReturn(aResponse()
-          .withStatus(404)
-          .withBody("")))
+          .withStatus(200)
+          .withHeader('Content-Type', 'application/json')
+          .withBody(JsonOutput.toJson(referenceCaseNoteTypes))))
   }
 
   void stubHealth() {
