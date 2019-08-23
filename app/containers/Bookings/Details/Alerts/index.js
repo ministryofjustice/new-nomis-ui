@@ -3,9 +3,12 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Map, List } from 'immutable'
+import styled from 'styled-components'
 
 import qs from 'querystring'
 import moment from 'moment'
+import { BLUE } from 'govuk-colours'
+import Button from '@govuk-react/button'
 
 import PreviousNextNavigation, { paginationType } from '../../../../components/PreviousNextNavigation'
 import AlertsFilterForm from './alertsFilterForm'
@@ -18,6 +21,14 @@ import { alertTypesFilterType } from './selectors'
 import { getQueryParams } from '../../../../helpers'
 import history from '../../../../history'
 import ResultsFilter from '../../../../components/ResultsFilter'
+import { userType } from '../../../../types'
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex: 1 0 auto;
+  align-items: flex-end;
+  justify-content: flex-end;
+`
 
 class Alerts extends Component {
   componentDidMount() {
@@ -44,6 +55,8 @@ class Alerts extends Component {
       setFilter,
       deviceFormat,
       filter,
+      prisonStaffHubUrl,
+      user,
     } = this.props
 
     return (
@@ -60,9 +73,28 @@ class Alerts extends Component {
             totalResults={totalResults}
             perPage={pagination.perPage}
           />
+          {user.canUpdateAlerts && (
+            <ButtonContainer>
+              <Button
+                buttonColour={BLUE}
+                type="submit"
+                mb={0}
+                onClick={() => {
+                  window.location = `${prisonStaffHubUrl}offenders/${offenderNo}/create-alert`
+                }}
+              >
+                Add alert
+              </Button>
+            </ButtonContainer>
+          )}
         </ResultsFilter>
 
-        <AlertList alerts={alerts} deviceFormat={deviceFormat} />
+        <AlertList
+          alerts={alerts}
+          deviceFormat={deviceFormat}
+          offenderNo={offenderNo}
+          prisonStaffHubUrl={prisonStaffHubUrl}
+        />
 
         <PreviousNextNavigation
           pagination={pagination}
@@ -84,6 +116,8 @@ Alerts.propTypes = {
   pagination: paginationType.isRequired,
   alerts: ImmutablePropTypes.list.isRequired,
   deviceFormat: PropTypes.string.isRequired,
+  prisonStaffHubUrl: PropTypes.string.isRequired,
+  user: userType.isRequired,
 
   // mapDispatchToProps
   loadAlerts: PropTypes.func.isRequired,
@@ -129,6 +163,8 @@ const mapStateToProps = (immutableState, props) => {
   const { fromDate, toDate, alertType = '', perPage, pageNumber } = queryParams
   const filter = { fromDate: momentFromDateString(fromDate), toDate: momentFromDateString(toDate), alertType }
   const pagination = { perPage: Number.parseInt(perPage, 10) || 20, pageNumber: Number.parseInt(pageNumber, 10) || 0 }
+  const prisonStaffHubUrl = immutableState.getIn(['app', 'prisonStaffHubUrl'])
+  const user = immutableState.getIn(['authentication', 'user'])
 
   return {
     filter,
@@ -137,6 +173,8 @@ const mapStateToProps = (immutableState, props) => {
     alerts: alertItems,
     totalResults,
     deviceFormat,
+    prisonStaffHubUrl,
+    user,
   }
 }
 

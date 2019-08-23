@@ -58,6 +58,8 @@ function authenticationReducer(state = initialState, action) {
           )
       )
 
+      const canUpdateAlerts = Boolean(user.accessRoles && user.accessRoles.some(r => r.roleCode === 'UPDATE_ALERT'))
+
       return state.set('user', {
         hasAdminRights,
         isKeyWorkerAdmin,
@@ -66,6 +68,7 @@ function authenticationReducer(state = initialState, action) {
         canAddBulkAppointments,
         ...action.payload.user,
         isRecategoriser,
+        canUpdateAlerts,
       })
     }
 
