@@ -56,7 +56,7 @@ class HealthSpecification extends Specification {
     keyworkerApi.stubDelayedError('/ping', 500)
     elite2Api.stubHealth()
     oauthApi.stubHealth()
-    elite2Api.stubHealth()
+    caseNotesApi.stubHealth()
 
     when:
     def response
@@ -69,6 +69,6 @@ class HealthSpecification extends Specification {
     then:
     response.name == "new-nomis-ui"
     !response.version.isEmpty()
-    response.api == [auth: 'UP', elite2: 'UP', keyworker: [timeout: 1000, code: 'ECONNABORTED', errno: 'ETIMEDOUT', retries: 2]]
+    response.api == [auth: 'UP', elite2: 'UP', caseNotes: 'UP', keyworker: [timeout: 1000, code: 'ECONNABORTED', errno: 'ETIMEDOUT', retries: 2]]
   }
 }
