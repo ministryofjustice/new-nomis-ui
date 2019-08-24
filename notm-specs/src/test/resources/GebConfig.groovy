@@ -65,4 +65,4 @@ reportsDir = "build/geb-reports"
 reportOnTestFailureOnly=true
 
 // Close browser on shutdown - uncomment to enable
-quitCachedDriverOnShutdown = false
+// quitCachedDriverOnShutdown = false
