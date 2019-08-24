@@ -19,7 +19,7 @@ const caseNotesApiFactory = client => {
       .then(processResponse(context))
       .catch(processError)
 
-  const getCaseNoteTypes = context => get(context, `case-notes/types`)
+  const getCaseNoteTypes = context => get(context, '/case-notes/types')
 
   return { getCaseNoteTypes }
 }
