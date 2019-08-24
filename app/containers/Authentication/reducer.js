@@ -17,7 +17,7 @@ import { USER } from '../EliteApiLoader/constants'
 import { CHANGE_USERNAME_INPUT, CHANGE_PASSWORD_INPUT, USER_ME } from './constants'
 
 export const initialState = fromJS({
-  user: null,
+  user: {},
   usernameInput: '',
   passwordInput: '',
 })
@@ -58,6 +58,8 @@ function authenticationReducer(state = initialState, action) {
           )
       )
 
+      const canUpdateAlerts = Boolean(user.accessRoles && user.accessRoles.some(r => r.roleCode === 'UPDATE_ALERT'))
+
       return state.set('user', {
         hasAdminRights,
         isKeyWorkerAdmin,
@@ -66,6 +68,7 @@ function authenticationReducer(state = initialState, action) {
         canAddBulkAppointments,
         ...action.payload.user,
         isRecategoriser,
+        canUpdateAlerts,
       })
     }
 

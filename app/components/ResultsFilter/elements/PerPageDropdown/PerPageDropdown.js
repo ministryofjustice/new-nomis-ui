@@ -3,10 +3,17 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import LabelText from '@govuk-react/label-text'
 import { SelectInput } from '@govuk-react/select'
+import { BREAKPOINTS } from '@govuk-react/constants'
 
 const DropdownContainer = styled.div`
-  span {
-    font-weight: 700;
+  display: none;
+
+  @media screen and (min-width: ${BREAKPOINTS.DESKTOP}) {
+    display: block;
+
+    span {
+      font-weight: 700;
+    }
   }
 `
 

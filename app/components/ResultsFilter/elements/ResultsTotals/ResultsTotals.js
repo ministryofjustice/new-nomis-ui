@@ -2,11 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { spacing } from '@govuk-react/lib'
+import { BREAKPOINTS } from '@govuk-react/constants'
 
 const StyledResultsTotals = styled.div`
-  flex: 1 0 100%;
-  ${spacing.withWhiteSpace({ margin: { size: 3, direction: 'bottom' } })}
-  margin-right: 0;
+  display: none;
+
+  @media screen and (min-width: ${BREAKPOINTS.DESKTOP}) {
+    display: block;
+    flex: 1 0 100%;
+    ${spacing.withWhiteSpace({ margin: { size: 3, direction: 'bottom' } })}
+    margin-right: 0;
+  }
 `
 
 const ResultsTotals = ({ perPage, pageNumber, totalResults }) => (
