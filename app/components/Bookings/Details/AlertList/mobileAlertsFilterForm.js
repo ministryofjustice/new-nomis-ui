@@ -35,8 +35,6 @@ const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleS
         <div className="col-sm-12 no-left-gutter no-right-gutter">
           {error && <div className="error-message">Start date must be equal to or before the end date</div>}
 
-          <span className="form-label date-range-label add-gutter-margin-bottom add-gutter-margin-top">Added date</span>
-
           <Field
             name="fromDate"
             showError={error}
@@ -44,7 +42,7 @@ const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleS
             locale={locale}
             format={momentToLocalizedDate(locale)}
             parse={localizedDateToMoment(locale)}
-            title="From"
+            title="Effective date from"
             shouldShowDay={date => date && date.isBefore(moment())}
           />
 
@@ -55,7 +53,7 @@ const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleS
             format={momentToLocalizedDate(locale)}
             parse={localizedDateToMoment(locale)}
             locale={locale}
-            title="To"
+            title="Effective date to"
             shouldShowDay={date => date && date.isBefore(moment())}
           />
         </div>

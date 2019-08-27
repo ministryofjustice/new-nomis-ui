@@ -115,8 +115,8 @@ const DesktopAlertItems = ({ alerts, active }) => (
         <ThSixth>Type of alert</ThSixth>
         <ThSixth>Alert</ThSixth>
         <ThThird>Notes</ThThird>
-        {active ? <ThSixth>Date added</ThSixth> : <ThSixth>Date added / expired</ThSixth>}
-        {active ? <ThSixth>Added by</ThSixth> : <ThSixth>Added / Expired by</ThSixth>}
+        {active ? <ThSixth>Effective date</ThSixth> : <ThSixth>Effective / Expired date</ThSixth>}
+        {active ? <ThSixth>Created by</ThSixth> : <ThSixth>Created / Expired by</ThSixth>}
       </tr>
     </thead>
     <tbody>

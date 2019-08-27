@@ -84,7 +84,7 @@ class Alerts extends Component {
                 }}
                 data-qa="create-alert-button"
               >
-                Add alert
+                Create alert
               </Button>
             </AlertButtons>
           )}
