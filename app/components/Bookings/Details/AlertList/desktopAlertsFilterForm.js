@@ -15,9 +15,6 @@ const DesktopAlertsFilterForm = ({ alertTypes, locale, submitting, error, handle
       <div className="col-md-3 no-left-gutter">
         <h3 className="bold-medium no-left-gutter">Filters</h3>
       </div>
-      <div className="col-md-9 no-left-gutter add-gutter-margin-top">
-        <span className="form-label date-range-label">Added date</span>
-      </div>
     </div>
 
     <div className="row no-left-gutter">
@@ -42,7 +39,7 @@ const DesktopAlertsFilterForm = ({ alertTypes, locale, submitting, error, handle
           locale={locale}
           format={momentToLocalizedDate(locale)}
           parse={localizedDateToMoment(locale)}
-          title="From"
+          title="Effective date from"
           shouldShowDay={date => date && date.isBefore(moment())}
         />
 
@@ -53,7 +50,7 @@ const DesktopAlertsFilterForm = ({ alertTypes, locale, submitting, error, handle
           format={momentToLocalizedDate(locale)}
           parse={localizedDateToMoment(locale)}
           locale={locale}
-          title="To"
+          title="Effective date to"
           shouldShowDay={date => date && date.isBefore(moment())}
         />
       </div>
