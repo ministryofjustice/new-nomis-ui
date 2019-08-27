@@ -2,11 +2,8 @@ package mockapis
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import groovy.json.JsonOutput
-import model.Offender
-import model.StaffMember
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
-import static com.github.tomakehurst.wiremock.client.WireMock.get
+import static com.github.tomakehurst.wiremock.client.WireMock.*
 import static mockapis.response.CaseNoteTypes.getReferenceCaseNoteTypes
 
 class CaseNotesApi extends WireMockRule {
@@ -31,5 +28,21 @@ class CaseNotesApi extends WireMockRule {
             .withStatus(200)
             .withHeader('Content-Type', 'text/plain')
             .withBody("pong")))
+  }
+
+  void stubSaveCaseNote(String type = "CHAP", String subType = "FAITH", String typeDescription = "Chaplaincy", String subTypeDescription = "Faith Specific Action") {
+    // TODO check "occurrenceDateTime": "2018-04-30T07:00:00", (what we selected on the page)
+    def data = """{
+  "type": "${type}",
+  "subType": "${subType}",
+  "text": "some text"
+}"""
+    this.stubFor(
+      post(urlMatching("/case-notes/.+"))
+        .withRequestBody(equalToJson(data, true, true))
+        .willReturn(aResponse()
+          .withStatus(201)
+          .withHeader('Content-Type', 'application/json')
+        ))
   }
 }

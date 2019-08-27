@@ -253,9 +253,7 @@ const controllerFactory = ({
       return
     }
 
-    const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo)
-
-    const data = await elite2Api.post(res.locals, `api/bookings/${bookingId}/caseNotes`, req.body)
+    const data = await caseNotesApi.post(res.locals, `/case-notes/${offenderNo}`, req.body)
     res.json(data)
   })
 
