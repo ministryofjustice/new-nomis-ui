@@ -1,6 +1,7 @@
 package specs
 
 import geb.module.Select
+import mockapis.CaseNotesApi
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
@@ -20,6 +21,9 @@ class CaseNoteFilterSpecification extends BrowserReportingSpec  {
 
   @Rule
   KeyworkerApi keyworkerApi = new KeyworkerApi()
+
+  @Rule
+  CaseNotesApi caseNotesApi = new CaseNotesApi()
 
   @Rule
   OauthApi oauthApi = new OauthApi()
@@ -45,7 +49,7 @@ class CaseNoteFilterSpecification extends BrowserReportingSpec  {
 
     elite2api.stubIEP()
     elite2api.stubAliases()
-    elite2api.stubCaseNoteTypes()
+    caseNotesApi.stubCaseNoteTypes()
     elite2api.stubMeCaseNoteTypes()
 
     given: 'I navigate to an offenders case notes'

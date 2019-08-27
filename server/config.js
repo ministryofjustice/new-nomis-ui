@@ -45,6 +45,10 @@ const apis = {
   categorisation: {
     ui_url: process.env.CATEGORISATION_UI_URL || 'http://localhost:3003/',
   },
+  caseNotes: {
+    url: process.env.CASENOTES_API_URL || 'http://localhost:8083',
+    timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 30,
+  },
 }
 
 module.exports = {
