@@ -208,6 +208,7 @@ app.get('/app/bookings/:offenderNo/caseNotes/:caseNoteId', controller.caseNote)
 app.get('/app/full-size-image/:imageId/data', controller.getFullSizeImage)
 app.get('/app/images/:imageId/data', controller.getImage)
 app.get('/app/users/me/bookingAssignments', controller.myAssignments)
+app.get('/app/users/me/caseNoteTypes', controller.myCaseNoteTypes)
 app.get('/app/users/me', controller.user)
 app.use('/app/reference-domains/caseNoteTypes', controller.caseNoteTypes)
 

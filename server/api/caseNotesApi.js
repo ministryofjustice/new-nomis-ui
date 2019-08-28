@@ -22,8 +22,9 @@ const caseNotesApiFactory = client => {
   const post = (context, url, data) => client.post(context, url, data).then(processResponse(context))
 
   const getCaseNoteTypes = context => get(context, '/case-notes/types')
+  const myCaseNoteTypes = context => get(context, '/case-notes/types-for-user')
 
-  return { getCaseNoteTypes, post }
+  return { getCaseNoteTypes, myCaseNoteTypes, post }
 }
 
 module.exports = { caseNotesApiFactory }
