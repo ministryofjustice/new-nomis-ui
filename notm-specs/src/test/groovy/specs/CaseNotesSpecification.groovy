@@ -101,7 +101,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     waitFor { subTypeSelectValue == "FAITH" }
   }
 
-  def "create a key worker session case note using the 'Add KW session' link" () {
+  def "create a key worker session case note using the 'Add KW session' link"() {
 
     given: 'I am logged in and have selected an offender'
     testFixture.loginAsKeyworker ITAG_USER
@@ -117,10 +117,9 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     when: 'I create a new case note'
     caseNotesApi.stubCaseNoteTypes()
     elite2api.stubMeCaseNoteTypes()
-    elite2api.stubOffenderDetails(false)
-    elite2api.stubSaveCaseNote("KA", "KS", "Key Worker Activity", "Key Worker Session")
+    caseNotesApi.stubSaveCaseNote("KA", "KS", "Key Worker Activity", "Key Worker Session")
     elite2api.stubGetCaseNote()
-    waitFor{ addKeyworkerSessionLink.present }
+    waitFor { addKeyworkerSessionLink.present }
     addKeyworkerSessionLink.click()
     at AddCaseNotePage
     createNewCaseNoteLeavingTypeAndSubType()
@@ -132,7 +131,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
   def setupAddCaseNote() {
     caseNotesApi.stubCaseNoteTypes()
     elite2api.stubMeCaseNoteTypes()
-    elite2api.stubSaveCaseNote()
+    caseNotesApi.stubSaveCaseNote()
     elite2api.stubGetCaseNote()
   }
 
