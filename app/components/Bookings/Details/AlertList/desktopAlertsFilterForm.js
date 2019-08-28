@@ -39,7 +39,7 @@ const DesktopAlertsFilterForm = ({ alertTypes, locale, submitting, error, handle
           locale={locale}
           format={momentToLocalizedDate(locale)}
           parse={localizedDateToMoment(locale)}
-          title="Effective date from"
+          title="Date from"
           shouldShowDay={date => date && date.isBefore(moment())}
         />
 
@@ -50,7 +50,7 @@ const DesktopAlertsFilterForm = ({ alertTypes, locale, submitting, error, handle
           format={momentToLocalizedDate(locale)}
           parse={localizedDateToMoment(locale)}
           locale={locale}
-          title="Effective date to"
+          title="Date to"
           shouldShowDay={date => date && date.isBefore(moment())}
         />
       </div>
