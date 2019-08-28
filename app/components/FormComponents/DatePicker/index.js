@@ -15,7 +15,7 @@ import { inputType, metaType } from '../../../types'
 
 const StyledDatePicker = styled.div`
   ${MEDIA_QUERIES.TABLET} {
-    max-width: auto;
+    max-width: 155px;
   }
 `
 

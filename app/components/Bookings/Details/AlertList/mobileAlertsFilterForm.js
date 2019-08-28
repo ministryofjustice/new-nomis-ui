@@ -42,7 +42,7 @@ const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleS
             locale={locale}
             format={momentToLocalizedDate(locale)}
             parse={localizedDateToMoment(locale)}
-            title="Effective date from"
+            title="Date from"
             shouldShowDay={date => date && date.isBefore(moment())}
           />
 
@@ -53,7 +53,7 @@ const MobileAlertsFilterForm = ({ alertTypes, locale, submitting, error, handleS
             format={momentToLocalizedDate(locale)}
             parse={localizedDateToMoment(locale)}
             locale={locale}
-            title="Effective date to"
+            title="Date to"
             shouldShowDay={date => date && date.isBefore(moment())}
           />
         </div>
