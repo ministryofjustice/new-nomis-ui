@@ -4,6 +4,7 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule
 import groovy.json.JsonOutput
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*
+import static mockapis.response.CaseNoteTypes.getMyCaseNoteTypes
 import static mockapis.response.CaseNoteTypes.getReferenceCaseNoteTypes
 
 class CaseNotesApi extends WireMockRule {
@@ -18,6 +19,16 @@ class CaseNotesApi extends WireMockRule {
           .withStatus(200)
           .withHeader('Content-Type', 'application/json')
           .withBody(JsonOutput.toJson(referenceCaseNoteTypes))))
+  }
+
+  void stubMeCaseNoteTypes() {
+    this.stubFor(
+      get('/case-notes/types-for-user')
+        .willReturn(aResponse()
+          .withStatus(200)
+          .withHeader('Content-Type', 'application/json')
+          .withBody(JsonOutput.toJson(myCaseNoteTypes))
+        ))
   }
 
   void stubHealth() {

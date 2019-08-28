@@ -224,6 +224,12 @@ const controllerFactory = ({
     res.json(data)
   })
 
+  const myCaseNoteTypes = asyncMiddleware(async (req, res) => {
+    const data = await caseNotesApi.myCaseNoteTypes(res.locals)
+    res.set(res.locals.responseHeaders)
+    res.json(data)
+  })
+
   const caseNotes = asyncMiddleware(async (req, res) => {
     const { offenderNo } = req.params
     if (!offenderNo) {
@@ -310,6 +316,7 @@ const controllerFactory = ({
     addAppointment,
     alerts,
     caseNoteTypes,
+    myCaseNoteTypes,
     caseNotes,
     addCaseNote,
     amendCaseNote,

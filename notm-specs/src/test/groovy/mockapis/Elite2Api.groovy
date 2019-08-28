@@ -372,16 +372,6 @@ class Elite2Api extends WireMockRule {
       ))
   }
 
-  void stubMeCaseNoteTypes() {
-    this.stubFor(
-      get('/api/users/me/caseNoteTypes')
-        .willReturn(aResponse()
-        .withStatus(200)
-        .withHeader('Content-Type', 'application/json')
-        .withBody(JsonOutput.toJson(myCaseNoteTypes))
-      ))
-  }
-
   void stubGetCaseNote() {
     this.stubFor(
       get(urlMatching("/api/bookings/.+/caseNotes"))

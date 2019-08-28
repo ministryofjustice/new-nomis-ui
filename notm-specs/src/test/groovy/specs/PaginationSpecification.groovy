@@ -90,7 +90,7 @@ class PaginationSpecification extends BrowserReportingSpec {
     elite2api.stubIEP()
     elite2api.stubAliases()
     caseNotesApi.stubCaseNoteTypes()
-    elite2api.stubMeCaseNoteTypes()
+    caseNotesApi.stubMeCaseNoteTypes()
 
     given: 'I navigate to an offenders case notes'
     fixture.loginAs ITAG_USER

@@ -116,7 +116,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
 
     when: 'I create a new case note'
     caseNotesApi.stubCaseNoteTypes()
-    elite2api.stubMeCaseNoteTypes()
+    caseNotesApi.stubMeCaseNoteTypes()
     caseNotesApi.stubSaveCaseNote("KA", "KS", "Key Worker Activity", "Key Worker Session")
     elite2api.stubGetCaseNote()
     waitFor { addKeyworkerSessionLink.present }
@@ -130,7 +130,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
 
   def setupAddCaseNote() {
     caseNotesApi.stubCaseNoteTypes()
-    elite2api.stubMeCaseNoteTypes()
+    caseNotesApi.stubMeCaseNoteTypes()
     caseNotesApi.stubSaveCaseNote()
     elite2api.stubGetCaseNote()
   }
