@@ -16,7 +16,6 @@ import java.util.stream.Collectors
 import static com.github.tomakehurst.wiremock.client.WireMock.*
 import static mockapis.response.AlertTypes.alertTypes
 import static mockapis.response.CaseNoteTypes.myCaseNoteTypes
-import static mockapis.response.CaseNoteTypes.referenceCaseNoteTypes
 
 class Elite2Api extends WireMockRule {
 
@@ -382,23 +381,6 @@ class Elite2Api extends WireMockRule {
         .withBody(JsonOutput.toJson(myCaseNoteTypes))
       ))
   }
-
-  void stubSaveCaseNote(String type = "CHAP", String subType = "FAITH", String typeDescription = "Chaplaincy", String subTypeDescription = "Faith Specific Action") {
-    // TODO check "occurrenceDateTime": "2018-04-30T07:00:00", (what we selected on the page)
-    def data = """{
-  "type": "${type}",
-  "subType": "${subType}",
-  "text": "some text"
-}"""
-    this.stubFor(
-      post(urlMatching("/api/bookings/.+/caseNotes"))
-        .withRequestBody(equalToJson(data, true, true))
-        .willReturn(aResponse()
-        .withStatus(201)
-        .withHeader('Content-Type', 'application/json')
-      ))
-  }
-  // NB also test error 403 from this post
 
   void stubGetCaseNote() {
     this.stubFor(
