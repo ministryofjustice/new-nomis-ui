@@ -15,6 +15,7 @@ class OffenderDetailsPage extends Page {
     errors { module(ErrorsModule) }
     offenderNameHeading { $("[data-qa=\'page-heading-text\']").text() }
     addCaseNoteLink(required: false) { $('a.button-link[name="add-case-note-link"]').find{element -> element.displayed }}
+    caseNotesTab { $("[data-qa='case-notes']")}
     addKeyworkerSessionLink(required: false) { $('a.button-link[name="add-kw-session-link"]').find{element -> element.displayed }}
     addAppointmentLink(required: false) { $('a.button-link[name="add-appointment-link"]').find{element -> element.displayed }}
     spinner(required: false) { $('div.spinner-component')}

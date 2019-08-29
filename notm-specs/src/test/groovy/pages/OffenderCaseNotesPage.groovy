@@ -15,6 +15,7 @@ class OffenderCaseNotesPage extends Page {
     offenderNameHeading { $('h1').text() }
     addLinks { $('a.button-link') }// 1st is add case note, 2nd appointment
     caseNoteDetails { $("[data-qa='case-note']") }
+    amendCaseNoteLinks(required: false) { $("[data-qa='make-amendment']")}
     message {}
   }
 }

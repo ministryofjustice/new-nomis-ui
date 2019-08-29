@@ -56,4 +56,14 @@ class CaseNotesApi extends WireMockRule {
           .withHeader('Content-Type', 'application/json')
         ))
   }
+
+  void  stubSaveAmendCaseNote(){
+    this.stubFor(
+      put(urlMatching("/case-notes/.+/.+"))
+        .willReturn(aResponse()
+          .withStatus(200)
+          .withHeader('Content-Type', 'application/json')
+        ))
+
+  }
 }

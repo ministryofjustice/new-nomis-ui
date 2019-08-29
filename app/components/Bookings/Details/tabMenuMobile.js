@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { TabWrapper, TabMenuItem, TextHolder, TabWrapperContentPadding } from './tabMenuMobile.theme'
+import { TabMenuItem, TabWrapper, TabWrapperContentPadding, TextHolder } from './tabMenuMobile.theme'
 
 const TabMenuMobile = ({ tabData, activeTabId }) => {
   const imgArray = [
@@ -18,6 +18,7 @@ const TabMenuMobile = ({ tabData, activeTabId }) => {
         {tabData.map((tab, i) => (
           <TabMenuItem
             key={tab.tabId}
+            data-qa={tab.tabId}
             active={tab.tabId === activeTabId}
             onClick={tab.tabId === activeTabId ? null : tab.action}
             bgImg={imgArray[i]}

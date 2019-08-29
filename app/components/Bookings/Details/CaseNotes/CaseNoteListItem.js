@@ -3,16 +3,16 @@ import PropTypes from 'prop-types'
 import Heading from '@govuk-react/heading'
 import uuid from 'uuid/v4'
 import Link from '@govuk-react/link'
-import { FormattedDate, FormattedTime, FormattedDay } from '../../../intl'
+import { FormattedDate, FormattedDay, FormattedTime } from '../../../intl'
 import CaseNoteAmendmentBlock from './CaseNoteAmendmentBlock'
-import { userType, caseNoteType } from '../../../../types'
+import { caseNoteType, userType } from '../../../../types'
 import {
   CaseNote,
-  CaseNoteOccurrenceDetails,
-  CaseNoteContent,
-  CaseNoteText,
-  CaseNoteCreation,
   CaseNoteAmendmentButton,
+  CaseNoteContent,
+  CaseNoteCreation,
+  CaseNoteOccurrenceDetails,
+  CaseNoteText,
 } from './CaseNoteListItem.styles'
 
 const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer, iepInformation }) => {
@@ -85,7 +85,7 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer, ie
               state: { from: caseNoteListReferrer },
             }}
           >
-            <button type="button" className="button-cancel">
+            <button data-qa="make-amendment" type="button" className="button-cancel">
               Make amendment
             </button>
           </CaseNoteAmendmentButton>

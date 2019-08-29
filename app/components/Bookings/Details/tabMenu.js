@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { TabWrapper, TabMenuItem } from './tabMenu.theme'
+import { TabMenuItem, TabWrapper } from './tabMenu.theme'
 
 const TabMenu = ({ tabData, activeTabId }) => (
   <TabWrapper>
     {tabData.map(tab => (
       <TabMenuItem
         key={tab.tabId}
+        data-qa={tab.tabId}
         active={tab.tabId === activeTabId}
         onClick={tab.tabId === activeTabId ? null : tab.action}
       >
