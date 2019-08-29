@@ -19,14 +19,16 @@ const caseNotesApiFactory = client => {
       .then(processResponse(context))
       .catch(processError)
 
-  const post = (context, url, data) => client.post(context, url, data).then(processResponse(context))
+  const addCaseNote = (context, offenderNo, data) =>
+    client.post(context, `/case-notes/${offenderNo}`, data).then(processResponse(context))
 
-  const put = (context, url, data) => client.put(context, url, data).then(processResponse(context))
+  const amendCaseNote = (context, offenderNo, caseNoteId, data) =>
+    client.put(context, `/case-notes/${offenderNo}/${caseNoteId}`, data).then(processResponse(context))
 
   const getCaseNoteTypes = context => get(context, '/case-notes/types')
   const myCaseNoteTypes = context => get(context, '/case-notes/types-for-user')
 
-  return { getCaseNoteTypes, myCaseNoteTypes, post, put }
+  return { getCaseNoteTypes, myCaseNoteTypes, addCaseNote, amendCaseNote }
 }
 
 module.exports = { caseNotesApiFactory }
