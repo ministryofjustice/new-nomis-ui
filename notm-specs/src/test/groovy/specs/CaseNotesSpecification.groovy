@@ -138,7 +138,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     selectOffender(1)
     at OffenderDetailsPage
     caseNotesApi.stubCaseNoteTypes()
-    elite2api.stubMeCaseNoteTypes()
+    caseNotesApi.stubMeCaseNoteTypes()
     caseNotesTab.click()
     at OffenderCaseNotesPage
 

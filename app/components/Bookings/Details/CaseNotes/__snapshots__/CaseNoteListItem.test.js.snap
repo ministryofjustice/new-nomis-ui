@@ -239,6 +239,7 @@ exports[`<CaseNoteListItem /> should render the with make amendments button snap
     >
       <button
         className="button-cancel"
+        data-qa="make-amendment"
         type="button"
       >
         Make amendment
@@ -340,6 +341,7 @@ exports[`<CaseNoteListItem /> should render the with print IEP slip link snapsho
     >
       <button
         className="button-cancel"
+        data-qa="make-amendment"
         type="button"
       >
         Make amendment
