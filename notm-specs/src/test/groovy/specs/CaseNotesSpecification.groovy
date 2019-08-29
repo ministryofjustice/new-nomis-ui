@@ -1,6 +1,5 @@
 package specs
 
-
 import groovy.util.logging.Slf4j
 import mockapis.CaseNotesApi
 import mockapis.Elite2Api
@@ -9,10 +8,8 @@ import mockapis.OauthApi
 import model.Offender
 import model.TestFixture
 import org.junit.Rule
-import pages.AddCaseNotePage
-import pages.OffenderCaseNotesPage
-import pages.OffenderDetailsPage
-import pages.SearchResultsPage
+import pages.*
+import spock.lang.IgnoreIf
 
 import static model.UserAccount.ITAG_USER
 
@@ -125,6 +122,33 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     createNewCaseNoteLeavingTypeAndSubType()
 
     then:
+    at OffenderCaseNotesPage
+  }
+
+  @IgnoreIf({System.properties['geb.env'] == 'chromeMobile'})
+  def "Amend a case note"() {
+    setupUserDetails()
+
+    given: 'I am logged in and have selected an offender'
+    testFixture.loginAs ITAG_USER
+
+    searchFor "d s"
+    at SearchResultsPage
+    elite2api.stubQuickLook()
+    selectOffender(1)
+    at OffenderDetailsPage
+    caseNotesApi.stubCaseNoteTypes()
+    elite2api.stubMeCaseNoteTypes()
+    caseNotesTab.click()
+    at OffenderCaseNotesPage
+
+    when: 'I amend the case note'
+    amendCaseNoteLinks[0].click()
+    at AmendCaseNotePage
+    caseNotesApi.stubSaveAmendCaseNote()
+    amendCaseNote()
+
+    then: 'I am returned to the case notes page'
     at OffenderCaseNotesPage
   }
 
