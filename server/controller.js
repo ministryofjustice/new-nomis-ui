@@ -259,7 +259,7 @@ const controllerFactory = ({
       return
     }
 
-    const data = await caseNotesApi.post(res.locals, `/case-notes/${offenderNo}`, req.body)
+    const data = await caseNotesApi.addCaseNote(res.locals, offenderNo, req.body)
     res.json(data)
   })
 
@@ -289,7 +289,7 @@ const controllerFactory = ({
       return
     }
 
-    const data = await caseNotesApi.put(res.locals, `/case-notes/${offenderNo}/${caseNoteId}`, req.body)
+    const data = await caseNotesApi.amendCaseNote(res.locals, offenderNo, caseNoteId, req.body)
     res.json(data)
   })
 
