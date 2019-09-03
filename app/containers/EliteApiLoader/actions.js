@@ -1,5 +1,4 @@
 import { BOOKINGS, CASENOTETYPES, OFFICERS, USER, APPOINTMENT } from './constants'
-import { CASE_NOTE } from '../Bookings/constants'
 
 export function loadOfficer(staffId, username) {
   return {
@@ -73,15 +72,5 @@ export function loadExistingEvents(agencyId, date, offenderNo) {
   return {
     type: APPOINTMENT.LOAD_EXISTING_EVENTS,
     payload: { agencyId, date, offenderNo },
-  }
-}
-
-export function loadCaseNote(offenderNo, caseNoteId) {
-  return {
-    type: CASE_NOTE.LOAD,
-    payload: {
-      offenderNo,
-      caseNoteId,
-    },
   }
 }

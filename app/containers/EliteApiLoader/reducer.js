@@ -13,7 +13,7 @@ import {
   ALL_ALERT_TYPES_DATA,
   APPOINTMENT,
 } from './constants'
-import { CALC_READ_ONLY_VIEW, CASE_NOTE } from '../Bookings/constants'
+import { CALC_READ_ONLY_VIEW } from '../Bookings/constants'
 import { USER_ME } from '../Authentication/constants'
 
 export const initialState = Map({
@@ -89,22 +89,6 @@ function EliteApiReducer(state = initialState, action) {
       const { offenderNo, pagination } = action.payload
 
       return state.setIn(['Bookings', 'Details', offenderNo, 'CaseNotes', 'pagination'], fromJS(pagination))
-    }
-
-    case CASE_NOTE.CLEAR:
-    case CASE_NOTE.SET: {
-      const { offenderNo, caseNoteDetails } = action.payload
-      const path = ['Bookings', 'Details', offenderNo, 'CaseNoteDetails']
-
-      return state.setIn(path, fromJS(caseNoteDetails))
-    }
-
-    case CASE_NOTE.ERROR: {
-      const { offenderNo, error } = action.payload
-      const path = ['Bookings', 'Details', offenderNo, 'CaseNoteDetails']
-      const errorPath = [...path, 'error']
-
-      return state.setIn([...errorPath], fromJS(error))
     }
 
     case BOOKINGS.CASENOTES.SUCCESS: {

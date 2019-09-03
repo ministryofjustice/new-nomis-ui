@@ -263,22 +263,6 @@ const controllerFactory = ({
     res.json(data)
   })
 
-  const caseNote = asyncMiddleware(async (req, res) => {
-    const { offenderNo, caseNoteId } = req.params
-
-    if (!offenderNo || !caseNoteId) {
-      logger.error(`Missing parameter: offenderNo=${offenderNo} caseNoteId=${caseNoteId}`)
-      res.status(400)
-      res.end()
-      return
-    }
-
-    const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo)
-
-    const data = await elite2Api.get(res.locals, `api/bookings/${bookingId}/caseNotes/${caseNoteId}`)
-    res.json(data)
-  })
-
   const amendCaseNote = asyncMiddleware(async (req, res) => {
     const { offenderNo, caseNoteId } = req.params
 
@@ -318,7 +302,6 @@ const controllerFactory = ({
     caseNotes,
     addCaseNote,
     amendCaseNote,
-    caseNote,
     getImage,
     getFullSizeImage,
     myAssignments,

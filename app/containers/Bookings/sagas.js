@@ -13,7 +13,6 @@ import { resetQuickLook } from './actions'
 import {
   addCaseNote,
   amendCaseNote,
-  getCaseNote,
   loadMyLocations,
   searchOffenders,
   loadKeyDates,
@@ -49,7 +48,6 @@ import {
   SET_QUICK_LOOK,
   LOAD_SCHEDULED_EVENTS,
   SET_SCHEDULED_EVENTS,
-  CASE_NOTE,
   EXTEND_SESSION,
   CALC_READ_ONLY_VIEW,
 } from './constants'
@@ -384,47 +382,6 @@ export function* setCaseNoteFilterWatcher() {
   yield takeLatest(CASE_NOTE_FILTER.BASE, setCaseNoteFilterSaga)
 }
 
-export function* loadCaseNote(action) {
-  try {
-    yield put(showSpinner())
-
-    const { offenderNo, caseNoteId } = action.payload
-
-    yield put({
-      type: CASE_NOTE.CLEAR,
-      payload: {
-        offenderNo,
-      },
-    })
-
-    const apiServer = yield select(selectApi())
-
-    const caseNoteDetails = yield call(getCaseNote, apiServer, offenderNo, caseNoteId)
-
-    yield put({
-      type: CASE_NOTE.SET,
-      payload: {
-        offenderNo,
-        caseNoteDetails,
-      },
-    })
-    yield put(hideSpinner())
-  } catch (error) {
-    yield put({
-      type: CASE_NOTE.ERROR,
-      payload: {
-        offenderNo: action.payload.offenderNo,
-        error: 'Could not open the case note at this time, please try again later',
-      },
-    })
-    yield put(hideSpinner())
-  }
-}
-
-export function* loadCaseNoteWatcher() {
-  yield takeLatest(CASE_NOTE.LOAD, loadCaseNote)
-}
-
 export default [
   detailsWatcher,
   searchResultPaginationWatcher,
@@ -441,6 +398,5 @@ export default [
   loadScheduledEventsWatcher,
   addAppointmentWatcher,
   bookingAlertsWatcher,
-  loadCaseNoteWatcher,
   extendActiveSessionWatcher,
 ]
