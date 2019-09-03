@@ -61,7 +61,7 @@ export function* extendActiveSessionWatcher() {
 }
 
 export function* bookingAlertsSaga(action) {
-  const { offenderNo, pagination, filter } = action.payload
+  const { offenderNo, pagination, filter, alertStatus } = action.payload
 
   const apiServer = yield select(selectApi())
 
@@ -75,6 +75,9 @@ export function* bookingAlertsSaga(action) {
       payload: { offenderNo, results: data.alerts, meta: { totalRecords: data.totalRecords } },
     })
     yield put(hideSpinner())
+    if (alertStatus === 'closed') {
+      yield notify.show('Alert successfully closed.', 'success')
+    }
     return { Type: 'SUCCESS' }
   } catch (err) {
     yield put(hideSpinner())
