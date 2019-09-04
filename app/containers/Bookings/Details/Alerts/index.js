@@ -95,7 +95,6 @@ class Alerts extends Component {
           deviceFormat={deviceFormat}
           offenderNo={offenderNo}
           prisonStaffHubUrl={prisonStaffHubUrl}
-          canUpdateAlerts={user.canUpdateAlerts}
         />
 
         <PreviousNextNavigation
@@ -144,10 +143,10 @@ const adaptFilterValues = ({ fromDate, toDate, alertType }) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => {
-  const { alertStatus, ...queryParams } = getQueryParams(props.location.search)
+  const queryParams = getQueryParams(props.location.search)
 
   return {
-    loadAlerts: (id, pagination, filter) => dispatch(loadBookingAlerts(id, pagination, filter, alertStatus)),
+    loadAlerts: (id, pagination, filter) => dispatch(loadBookingAlerts(id, pagination, filter)),
     setPagination: (offenderNo, pagination) => history.push(buildUrl(offenderNo, { ...queryParams, ...pagination })),
     // filter is {alertType: string, fromDate: moment, toDate: moment }
     setFilter: (offenderNo, filter) => history.push(buildUrl(offenderNo, adaptFilterValues(filter))),

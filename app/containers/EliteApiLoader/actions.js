@@ -14,10 +14,10 @@ export function loadBookingDetails(offenderNo) {
   }
 }
 
-export function loadBookingAlerts(offenderNo, pagination, filter, alertStatus) {
+export function loadBookingAlerts(offenderNo, pagination, filter) {
   return {
     type: BOOKINGS.ALERTS.BASE,
-    payload: { offenderNo, pagination, filter, alertStatus },
+    payload: { offenderNo, pagination, filter },
   }
 }
 

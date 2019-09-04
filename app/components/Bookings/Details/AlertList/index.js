@@ -6,7 +6,6 @@ import { List } from 'immutable'
 
 import { FormattedDate } from '../../../intl'
 import colours from '../../../../theme/colours'
-import { ButtonCancel } from '../../../FormComponents'
 
 const Table = styled.table`
   table-layout: fixed;
@@ -40,7 +39,6 @@ const Td = styled.td`
   border: none;
   font-size: 16px;
   padding: 25px 15px 25px 0;
-  ${props => props.rightAlign && 'text-align: right'}
 `
 
 const TdAlertType = styled(Td)`
@@ -104,7 +102,7 @@ const formatName = (alert, firstNameKey, lastNameKey) => {
 const formatAlertType = alert => `${String(alert.get('alertTypeDescription'))} (${alert.get('alertType')})`
 const formatAlert = a => `${a.get('alertCodeDescription')} (${a.get('alertCode')})`
 
-const DesktopAlertItems = ({ alerts, active, canUpdateAlerts, prisonStaffHubUrl, offenderNo }) => (
+const DesktopAlertItems = ({ alerts, active }) => (
   <Table>
     {active ? (
       <caption className="bold-medium add-gutter-bottom">Active alerts</caption>
@@ -119,49 +117,30 @@ const DesktopAlertItems = ({ alerts, active, canUpdateAlerts, prisonStaffHubUrl,
         <ThThird>Notes</ThThird>
         {active ? <ThSixth>Effective date</ThSixth> : <ThSixth>Effective / Expired date</ThSixth>}
         {active ? <ThSixth>Created by</ThSixth> : <ThSixth>Created / Expired by</ThSixth>}
-        {active && canUpdateAlerts && <ThSixth />}
       </tr>
     </thead>
     <tbody>
-      {alerts.map(alert => {
-        const alertId = alert.get('alertId')
-
-        return (
-          <TrBody active={active} key={alertId}>
-            <TdAlertType active={active}>{formatAlertType(alert)}</TdAlertType>
-            <Td>{formatAlert(alert)}</Td>
-            <TdNotes>{alert.get('comment') ? alert.get('comment') : '―'}</TdNotes>
-            <Td>
+      {alerts.map(alert => (
+        <TrBody active={active} key={alert.get('alertId')}>
+          <TdAlertType active={active}>{formatAlertType(alert)}</TdAlertType>
+          <Td>{formatAlert(alert)}</Td>
+          <TdNotes>{alert.get('comment') ? alert.get('comment') : '―'}</TdNotes>
+          <Td>
+            <P>
+              <FormattedDate value={alert.get('dateCreated')} />
+            </P>
+            {!active && (
               <P>
-                <FormattedDate value={alert.get('dateCreated')} />
+                <FormattedDate value={alert.get('dateExpires')} />
               </P>
-              {!active && (
-                <P>
-                  <FormattedDate value={alert.get('dateExpires')} />
-                </P>
-              )}
-            </Td>
-            <Td>
-              <P>{formatName(alert, 'addedByFirstName', 'addedByLastName')}</P>
-              {!active && <P>{formatName(alert, 'expiredByFirstName', 'expiredByLastName')}</P>}
-            </Td>
-            {active && canUpdateAlerts && (
-              <Td rightAlign>
-                <ButtonCancel
-                  data-qa="close-alert-button"
-                  onClick={() =>
-                    window.location.assign(
-                      `${prisonStaffHubUrl}close-alert?offenderNo=${offenderNo}&alertId=${alertId}`
-                    )
-                  }
-                >
-                  Close alert
-                </ButtonCancel>
-              </Td>
             )}
-          </TrBody>
-        )
-      })}
+          </Td>
+          <Td>
+            <P>{formatName(alert, 'addedByFirstName', 'addedByLastName')}</P>
+            {!active && <P>{formatName(alert, 'expiredByFirstName', 'expiredByLastName')}</P>}
+          </Td>
+        </TrBody>
+      ))}
     </tbody>
   </Table>
 )
@@ -169,15 +148,6 @@ const DesktopAlertItems = ({ alerts, active, canUpdateAlerts, prisonStaffHubUrl,
 DesktopAlertItems.propTypes = {
   alerts: ImmutablePropTypes.list.isRequired,
   active: PropTypes.bool.isRequired,
-  canUpdateAlerts: PropTypes.bool,
-  prisonStaffHubUrl: PropTypes.string,
-  offenderNo: PropTypes.string,
-}
-
-DesktopAlertItems.defaultProps = {
-  canUpdateAlerts: false,
-  prisonStaffHubUrl: undefined,
-  offenderNo: undefined,
 }
 
 const MobileAlertItems = ({ alerts, active }) => (
@@ -225,31 +195,16 @@ MobileAlertItems.propTypes = {
   active: PropTypes.bool.isRequired,
 }
 
-const ActiveAlertItems = ({ alerts, desktop, canUpdateAlerts, prisonStaffHubUrl, offenderNo }) => {
+const ActiveAlertItems = ({ alerts, desktop }) => {
   if (alerts.size < 1) return false
   return (
-    <div>
-      {desktop ? (
-        <DesktopAlertItems
-          alerts={alerts}
-          active
-          canUpdateAlerts={canUpdateAlerts}
-          prisonStaffHubUrl={prisonStaffHubUrl}
-          offenderNo={offenderNo}
-        />
-      ) : (
-        <MobileAlertItems alerts={alerts} active />
-      )}
-    </div>
+    <div>{desktop ? <DesktopAlertItems alerts={alerts} active /> : <MobileAlertItems alerts={alerts} active />}</div>
   )
 }
 
 ActiveAlertItems.propTypes = {
   alerts: ImmutablePropTypes.list.isRequired,
   desktop: PropTypes.bool.isRequired,
-  canUpdateAlerts: PropTypes.bool.isRequired,
-  prisonStaffHubUrl: PropTypes.string.isRequired,
-  offenderNo: PropTypes.string.isRequired,
 }
 
 const InactiveAlertItems = ({ alerts, desktop }) => {
@@ -270,7 +225,7 @@ InactiveAlertItems.propTypes = {
   desktop: PropTypes.bool.isRequired,
 }
 
-const AlertList = ({ alerts, deviceFormat, canUpdateAlerts, prisonStaffHubUrl, offenderNo }) => {
+const AlertList = ({ alerts, deviceFormat }) => {
   if (alerts.size < 1) {
     return <h1 className="bold-medium">There are no alerts for this offender.</h1>
   }
@@ -282,13 +237,7 @@ const AlertList = ({ alerts, deviceFormat, canUpdateAlerts, prisonStaffHubUrl, o
   return (
     // The Integration tests use alert-tables class to select content. This class doesn't have any CSS styles attached.
     <div className="alert-tables">
-      <ActiveAlertItems
-        alerts={activeAlerts}
-        desktop={desktop}
-        canUpdateAlerts={canUpdateAlerts}
-        prisonStaffHubUrl={prisonStaffHubUrl}
-        offenderNo={offenderNo}
-      />
+      <ActiveAlertItems alerts={activeAlerts} desktop={desktop} />
       {activeAlerts && expiredAlerts && <VerticalSpace />}
       <InactiveAlertItems alerts={expiredAlerts} desktop={desktop} />
     </div>
@@ -298,16 +247,10 @@ const AlertList = ({ alerts, deviceFormat, canUpdateAlerts, prisonStaffHubUrl, o
 AlertList.propTypes = {
   alerts: ImmutablePropTypes.list,
   deviceFormat: PropTypes.string.isRequired,
-  prisonStaffHubUrl: PropTypes.string,
-  canUpdateAlerts: PropTypes.bool,
-  offenderNo: PropTypes.string,
 }
 
 AlertList.defaultProps = {
   alerts: List([]),
-  canUpdateAlerts: false,
-  prisonStaffHubUrl: undefined,
-  offenderNo: undefined,
 }
 
 export default AlertList
