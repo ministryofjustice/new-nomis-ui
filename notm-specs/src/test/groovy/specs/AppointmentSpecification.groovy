@@ -4,6 +4,7 @@ import com.google.common.collect.Lists
 import geb.module.Select
 import groovy.json.JsonOutput
 import groovy.util.logging.Slf4j
+import mockapis.CaseNotesApi
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
@@ -35,6 +36,9 @@ class AppointmentSpecification extends BrowserReportingSpec {
 
   @Rule
   OauthApi oauthApi = new OauthApi()
+
+  @Rule
+  CaseNotesApi caseNotesApi = new CaseNotesApi()
 
   TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
 
@@ -167,7 +171,7 @@ class AppointmentSpecification extends BrowserReportingSpec {
     elite2api.stubOffenderDetails(false)
     elite2api.stubOffenderAddresses()
 
-    elite2api.stubGetCaseNote()
+    caseNotesApi.stubGetCaseNote()
 
     elite2api.stubBalances()
     elite2api.stubVisitsNext()

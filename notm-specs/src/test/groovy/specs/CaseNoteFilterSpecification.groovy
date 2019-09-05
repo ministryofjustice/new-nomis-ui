@@ -10,8 +10,6 @@ import org.junit.Rule
 import pages.CaseNotesPage
 import spock.lang.IgnoreIf
 
-import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import static model.UserAccount.ITAG_USER
 
 class CaseNoteFilterSpecification extends BrowserReportingSpec  {
@@ -41,7 +39,7 @@ class CaseNoteFilterSpecification extends BrowserReportingSpec  {
     oauthApi.stubUserRoles()
     elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
     elite2api.stubImage()
-    elite2api.stubBookingCaseNotes(bookingId)
+    caseNotesApi.stubBookingCaseNotes(offenderNo)
     elite2api.stubOffenderDetails(true)
     elite2api.stubOffenderDetails(false)
 
@@ -65,7 +63,7 @@ class CaseNoteFilterSpecification extends BrowserReportingSpec  {
     typeSelect = 'ALERT'
     subTypeSelect = 'ACTIVE'
 
-    elite2api.stubBookingCaseNotes(bookingId)
+    caseNotesApi.stubBookingCaseNotes(offenderNo)
     applyFiltersButton.click()
 
     then: 'Still on the casenotes page'
@@ -75,7 +73,7 @@ class CaseNoteFilterSpecification extends BrowserReportingSpec  {
     when: 'I click the clear filters link'
     elite2api.resetAll()
     elite2api.stubOffenderDetails(false)
-    elite2api.stubBookingCaseNotes(bookingId)
+    caseNotesApi.stubBookingCaseNotes(offenderNo)
 
     resetFiltersButton.click()
 
@@ -83,8 +81,6 @@ class CaseNoteFilterSpecification extends BrowserReportingSpec  {
     typeSelect.module(Select).selectedText == 'Select'
     subTypeSelect.module(Select).selectedText == 'Select'
 
-    and: 'case note data is refreshed'
-    elite2api.verify(getRequestedFor(urlEqualTo('/api/bookings/offenderNo/A1234AJ?fullInfo=false')))
   }
 
 }
