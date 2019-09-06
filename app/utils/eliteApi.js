@@ -62,60 +62,8 @@ export const bookingAlerts = (baseUrl, offenderNo, pagination, filter) => {
   }))
 }
 
-export const casenoteQueryStringGen = caseNoteOptions => {
-  const { source, startDate, endDate } = caseNoteOptions
-  let { type, subType } = caseNoteOptions
-
-  const queryArray = []
-
-  if (type === 'All') {
-    type = null
-  }
-
-  if (subType === 'All') {
-    subType = null
-  }
-
-  if (type && Array.isArray(type) !== true) {
-    const t = type
-    type = []
-    type.push(t)
-  }
-
-  if (subType && Array.isArray(subType) !== true) {
-    const st = subType
-    subType = []
-    subType.push(st)
-  }
-
-  if (source && source.length > 0) {
-    queryArray.push(`source:in:'${source.join("'|'")}'`)
-  }
-
-  if (type && type.length > 0) {
-    queryArray.push(`type:in:'${type.join("'|'")}'`)
-  }
-
-  if (subType && subType.length > 0) {
-    queryArray.push(`subType:in:'${subType.join("'|'")}'`)
-  }
-
-  const dateFilters = []
-  if (startDate) {
-    const dateFrom = dateOnlyFormatTo8601(startDate)
-    dateFilters.push(`&from=${dateFrom}`)
-  }
-  if (endDate) {
-    const dateTo = dateOnlyFormatTo8601(endDate)
-    dateFilters.push(`&to=${dateTo}`)
-  }
-  const query = queryArray.length > 0 ? `query=${encodeURIComponent(queryArray.join(',and:'))}` : ''
-  const dates = dateFilters.join('')
-  return query + dates
-}
-
 export const bookingCaseNotes = (baseUrl, { offenderNo, query }) => {
-  const queryParams = `?${casenoteQueryStringGen(query)}`
+  const queryParams = `?${qs.stringify(query)}`
 
   return axios({
     baseURL: baseUrl,

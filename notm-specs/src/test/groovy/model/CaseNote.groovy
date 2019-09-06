@@ -4,5 +4,5 @@ class CaseNote {
   String typeDescription
   String subTypeDescription
   String authorName
-  String originalNoteText
+  String text
 }

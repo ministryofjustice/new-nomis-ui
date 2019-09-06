@@ -1,4 +1,4 @@
-import { CaseNoteTypeMapper, casenoteQueryStringGen } from '../eliteApi'
+import { CaseNoteTypeMapper } from '../eliteApi'
 
 describe('eliteApi', () => {
   describe('case note types', () => {
@@ -25,25 +25,6 @@ describe('eliteApi', () => {
         types: [{ code: 'ACP', description: 'Accredited Programme' }],
         subTypes: [{ code: 'ACP', description: 'Assessment', parentCode: 'ACP' }],
       })
-    })
-  })
-
-  describe('caseNoteQueryStringGen', () => {
-    it('empty query', () => {
-      expect(casenoteQueryStringGen({})).toEqual('')
-    })
-
-    it('Should render & correctly', () => {
-      expect(
-        casenoteQueryStringGen({
-          type: 'ACHIEVEMENTS',
-          subType: 'LNG & SKILLS',
-          startDate: '01/01/2019',
-          endDate: '31/12/2019',
-        })
-      ).toEqual(
-        "query=type%3Ain%3A'ACHIEVEMENTS'%2Cand%3AsubType%3Ain%3A'LNG%20%26%20SKILLS'&from=2019-01-01&to=2019-12-31"
-      )
     })
   })
 })

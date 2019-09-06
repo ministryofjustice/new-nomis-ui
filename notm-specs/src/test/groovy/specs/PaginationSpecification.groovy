@@ -80,7 +80,7 @@ class PaginationSpecification extends BrowserReportingSpec {
     oauthApi.stubUserRoles()
     elite2api.stubGetMyDetailsForKeyWorker ITAG_USER
     elite2api.stubImage()
-    elite2api.stubBookingCaseNotes(bookingId)
+    caseNotesApi.stubBookingCaseNotes(offenderNo)
     elite2api.stubOffenderDetails(true)
     elite2api.stubOffenderDetails(false)
     elite2api.stubOffenderAddresses()
@@ -98,19 +98,19 @@ class PaginationSpecification extends BrowserReportingSpec {
 
     when: 'I can see the first twenty case notes and click on the next page link'
     at CaseNotesPage
-    assert checkCaseNotes(0, 20)
+    assert checkCaseNotes(0, 19)
     scrollToBottom()
     nextPageLink.click()
 
     then: 'I can see the next set of case notes'
-    assert checkCaseNotes(20, 40)
+    assert checkCaseNotes(20, 39)
 
     when: 'I click on the previous page link'
     scrollToBottom()
     previousPageLink.click()
 
     then: 'I can see the previous set of alerts'
-    assert checkCaseNotes(0, 20)
+    assert checkCaseNotes(0, 19)
   }
 
   def scrollToBottom() {
@@ -118,9 +118,9 @@ class PaginationSpecification extends BrowserReportingSpec {
   }
 
   def checkCaseNotes(Integer start, Integer end) {
-    waitFor { caseNotes[0].text().contains("CaseNoteOriginalNoteText${start}") }
+    waitFor { caseNotes[0].text().contains("CaseNoteText${start}") }
     for (Integer index = start; index != end; index++) {
-      if (caseNotes[0].text().indexOf("CaseNoteOriginalNoteText${index}") == -1)
+      if (caseNotes[0].text().indexOf("CaseNoteText${index}") == -1)
         return false
     }
     return true

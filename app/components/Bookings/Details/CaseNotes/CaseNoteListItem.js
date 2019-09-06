@@ -19,7 +19,7 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer, ie
   const {
     caseNoteId,
     authorName,
-    originalNoteText,
+    text,
     amendments,
     occurrenceDateTime,
     creationDateTime,
@@ -44,7 +44,7 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer, ie
       issuedBy: user.name,
       offenderNo,
       offenderName,
-      caseNote: originalNoteText,
+      caseNote: text,
       cellLocation,
       amendments,
     }
@@ -74,7 +74,7 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer, ie
             </span>
           </CaseNoteCreation>
         )}
-        <CaseNoteText>{originalNoteText}</CaseNoteText>
+        <CaseNoteText>{text}</CaseNoteText>
         {amendments &&
           amendments.length > 0 &&
           amendments.map(amendment => <CaseNoteAmendmentBlock amendment={amendment} key={uuid()} />)}

@@ -5,7 +5,10 @@ import groovy.json.JsonBuilder
 import groovy.json.JsonOutput
 import mockapis.response.AccessRoles
 import mockapis.response.Schedules
-import model.*
+import model.Alert
+import model.Caseload
+import model.Offender
+import model.UserAccount
 
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -15,7 +18,6 @@ import java.util.stream.Collectors
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*
 import static mockapis.response.AlertTypes.alertTypes
-import static mockapis.response.CaseNoteTypes.myCaseNoteTypes
 
 class Elite2Api extends WireMockRule {
 
@@ -372,47 +374,6 @@ class Elite2Api extends WireMockRule {
       ))
   }
 
-  void stubGetCaseNote() {
-    this.stubFor(
-      get(urlMatching("/api/bookings/.+/caseNotes"))
-        .willReturn(aResponse()
-        .withStatus(200)
-        .withHeader('Content-Type', 'application/json')
-        .withBody('''[
-    {
-        "caseNoteId": 1,
-        "bookingId": -10,
-        "type": "CHAP",
-        "typeDescription": "Chaplaincy",
-        "subType": "FAITH",
-        "subTypeDescription": "Faith Specific Action",
-        "source": "EXT",
-        "creationDateTime": "2018-05-16T13:18:09.915",
-        "occurrenceDateTime": "2017-10-31T14:38:53",
-        "staffId": -2,
-        "authorName": "User, Api",
-        "text": "Case note body text",
-        "originalNoteText": "Case note body text",
-        "amendments": []
-    },
-    {
-        "caseNoteId": -5,
-        "bookingId": -10,
-        "type": "COMMS",
-        "typeDescription": "Communication",
-        "subType": "COM_OUT",
-        "subTypeDescription": "Communication OUT",
-        "creationDateTime": "2017-05-06T17:11:00",
-        "occurrenceDateTime": "2017-05-06T17:11:00",
-        "staffId": -2,
-        "authorName": "User, Api",
-        "text": "Test outward communication one.",
-        "originalNoteText": "Test outward communication one.",
-        "amendments": []
-    }
-]''')))
-  }
-
   void stubStaffDetails(id) {
     this.stubFor(
       get("/api/users/staff/${id}")
@@ -506,30 +467,6 @@ class Elite2Api extends WireMockRule {
         .withHeader('page-limit', '20')
         .withHeader('page-offset', '0')
         .withBody(JsonOutput.toJson(buildAlerts(20, 40)))))
-  }
-
-  def stubBookingCaseNotes(Integer bookingId) {
-    this.stubFor(
-      get(urlPathEqualTo("/api/bookings/${bookingId}/caseNotes"))
-        .withHeader('page-offset', equalTo('0'))
-        .willReturn(aResponse()
-        .withStatus(200)
-        .withHeader('Content-Type', 'application/json')
-        .withHeader('total-records', '40')
-        .withHeader('page-limit', '20')
-        .withHeader('page-offset', '0')
-        .withBody(JsonOutput.toJson(buildCaseNotes(0, 20)))))
-
-    this.stubFor(
-      get(urlPathEqualTo("/api/bookings/${bookingId}/caseNotes"))
-        .withHeader('page-offset', equalTo('20'))
-        .willReturn(aResponse()
-        .withStatus(200)
-        .withHeader('Content-Type', 'application/json')
-        .withHeader('total-records', '40')
-        .withHeader('page-limit', '20')
-        .withHeader('page-offset', '0')
-        .withBody(JsonOutput.toJson(buildCaseNotes(20, 40)))))
   }
 
   void stubBalances() {
@@ -777,23 +714,6 @@ class Elite2Api extends WireMockRule {
           .withStatus(200)))
   }
 
-  def buildCaseNotes(Integer pageOffset, Integer pageLimit) {
-    List<CaseNote> notes = []
-
-    for (Integer index = pageOffset; index != pageLimit; index++) {
-      CaseNote note = new CaseNote()
-
-      note.subTypeDescription = "caseNotesubTypeDescription${index}"
-      note.typeDescription = "caseNotetypeDescription${index}"
-      note.authorName = "CaseNoteauthorName${index}"
-      note.originalNoteText = "CaseNoteOriginalNoteText${index}"
-
-      notes.push(note)
-    }
-
-    return notes;
-  }
-
   def buildAlerts(Integer pageOffset, Integer pageLimit) {
     (pageOffset..<pageLimit).collect { index ->
       Alert alert = new Alert()
@@ -807,7 +727,6 @@ class Elite2Api extends WireMockRule {
 
   def stubQuickLook() {
     stubOffenderDetails(false)
-    stubGetCaseNote()
     stubBalances()
     stubVisitsNext()
     stubEvents()

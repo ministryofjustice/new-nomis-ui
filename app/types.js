@@ -1,4 +1,4 @@
-import { shape, string, bool, oneOfType, arrayOf, node, number, object } from 'prop-types'
+import { arrayOf, bool, node, number, object, oneOfType, shape, string } from 'prop-types'
 
 export const childrenType = oneOfType([arrayOf(node), node])
 
@@ -47,7 +47,6 @@ export const caseNoteType = shape({
   amendments: arrayOf(object),
   occurrenceDateTime: string.isRequired,
   text: string.isRequired,
-  originalNoteText: string.isRequired,
   bookingId: number.isRequired,
   authorName: string.isRequired,
   subType: string.isRequired,

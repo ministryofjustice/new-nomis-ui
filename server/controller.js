@@ -1,6 +1,7 @@
 const url = require('url')
 const path = require('path')
 const moment = require('moment')
+const qs = require('querystring')
 const { logger } = require('./services/logger')
 const errorStatusCode = require('./error-status-code')
 
@@ -241,13 +242,11 @@ const controllerFactory = ({
 
     const queryString = url.parse(req.url).query
 
-    const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo)
-
-    const data = await elite2Api.get(res.locals, `api/bookings/${bookingId}/caseNotes?${queryString}`)
+    const data = await caseNotesApi.getCaseNotes(res.locals, offenderNo, qs.parse(queryString))
 
     res.set(res.locals.responseHeaders)
 
-    res.json(data)
+    res.json(data.content)
   })
 
   const addCaseNote = asyncMiddleware(async (req, res) => {

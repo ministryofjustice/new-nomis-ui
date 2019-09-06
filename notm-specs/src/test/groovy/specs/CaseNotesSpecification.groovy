@@ -39,6 +39,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     searchFor "d s"
     at SearchResultsPage
     elite2api.stubQuickLook()
+    caseNotesApi.stubGetCaseNote()
     selectOffender(1)
     at OffenderDetailsPage
 
@@ -115,7 +116,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     caseNotesApi.stubCaseNoteTypes()
     caseNotesApi.stubMeCaseNoteTypes()
     caseNotesApi.stubSaveCaseNote("KA", "KS", "Key Worker Activity", "Key Worker Session")
-    elite2api.stubGetCaseNote()
+    caseNotesApi.stubGetCaseNote()
     waitFor { addKeyworkerSessionLink.present }
     addKeyworkerSessionLink.click()
     at AddCaseNotePage
@@ -135,6 +136,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     searchFor "d s"
     at SearchResultsPage
     elite2api.stubQuickLook()
+    caseNotesApi.stubGetCaseNote()
     selectOffender(1)
     at OffenderDetailsPage
     caseNotesApi.stubCaseNoteTypes()
@@ -156,7 +158,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     caseNotesApi.stubCaseNoteTypes()
     caseNotesApi.stubMeCaseNoteTypes()
     caseNotesApi.stubSaveCaseNote()
-    elite2api.stubGetCaseNote()
+    caseNotesApi.stubGetCaseNote()
   }
 
   def setupUserDetails() {
