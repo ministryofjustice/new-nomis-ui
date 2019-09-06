@@ -67,7 +67,7 @@ const ActionLinks = ({
 
         {isWhereabouts && prisonStaffHubUrl && (
           <ActionLink
-            url={`${prisonStaffHubUrl}search-prisoner-whereabouts`}
+            url={`${prisonStaffHubUrl}manage-prisoner-whereabouts`}
             image="/img/ICON_ManagePrisonerWhereabouts.png"
             testId="whereabouts-link"
           >
