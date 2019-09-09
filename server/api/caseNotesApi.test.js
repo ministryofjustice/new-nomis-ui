@@ -34,6 +34,117 @@ describe('caseNoteApi tests', () => {
 
       await expect(caseNoteAPi.getCaseNotes({}, 1234, {})).rejects.toThrow('Unauthorized')
     })
+
+    it('Should set response headers for page-limit page-offset and total-records', async () => {
+      mock
+        .get('/case-notes/1234')
+        .query({
+          size: 10,
+          page: 1,
+          type: 'GEN',
+          subType: 'BOB',
+          startDate: '2019-02-20T00:00:00',
+          endDate: '2019-02-21T23:59:59',
+        })
+        .reply(200, {
+          pageable: {
+            pageSize: 10,
+            offset: 10,
+          },
+          totalElements: 20,
+        })
+
+      const context = {}
+      const result = await caseNoteAPi.getCaseNotes(context, 1234, {
+        perPage: 10,
+        pageNumber: 1,
+        type: 'GEN',
+        subType: 'BOB',
+        startDate: '20/02/2019',
+        endDate: 'endDate":"21/02/2019',
+      })
+      expect(context).toEqual({
+        responseHeaders: {
+          'page-limit': '10',
+          'page-offset': '10',
+          'total-records': '20',
+        },
+      })
+    })
+
+    describe('format query parameters', () => {
+      it('Should format date and add time of start of day and end of day', async () => {
+        mock
+          .get('/case-notes/1234')
+          .query({
+            size: null,
+            page: null,
+            type: null,
+            subType: null,
+            startDate: '2019-02-20T00:00:00',
+            endDate: '2019-02-21T23:59:59',
+          })
+          .reply(200, { test: 'test' })
+
+        const result = await caseNoteAPi.getCaseNotes({}, 1234, {
+          perPage: null,
+          pageNumber: null,
+          type: null,
+          subType: null,
+          startDate: '20/02/2019',
+          endDate: '21/02/2019',
+        })
+        expect(result).toEqual({ test: 'test' })
+      })
+
+      it('Should format date and add time of start of day', async () => {
+        mock
+          .get('/case-notes/1234')
+          .query({
+            size: null,
+            page: null,
+            type: null,
+            subType: null,
+            startDate: '2019-02-20T00:00:00',
+            endDate: null,
+          })
+          .reply(200, { test: 'test' })
+
+        const result = await caseNoteAPi.getCaseNotes({}, 1234, {
+          perPage: null,
+          pageNumber: null,
+          type: null,
+          subType: null,
+          startDate: '20/02/2019',
+          endDate: null,
+        })
+        expect(result).toEqual({ test: 'test' })
+      })
+
+      it('Should format dates and pass all query parameters', async () => {
+        mock
+          .get('/case-notes/1234')
+          .query({
+            size: 10,
+            page: 1,
+            type: 'GEN',
+            subType: 'BOB',
+            startDate: '2019-02-20T00:00:00',
+            endDate: '2019-02-21T23:59:59',
+          })
+          .reply(200, { test: 'test' })
+
+        const result = await caseNoteAPi.getCaseNotes({}, 1234, {
+          perPage: 10,
+          pageNumber: 1,
+          type: 'GEN',
+          subType: 'BOB',
+          startDate: '20/02/2019',
+          endDate: 'endDate":"21/02/2019',
+        })
+        expect(result).toEqual({ test: 'test' })
+      })
+    })
   })
 
   describe('POST requests', () => {
