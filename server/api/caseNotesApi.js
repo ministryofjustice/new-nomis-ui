@@ -9,9 +9,9 @@ const processResponse = context => response => {
     return response.body
   }
   const headers = {
-    'total-records': response.body.totalElements || 0,
-    'page-offset': response.body.pageable.offset || 0,
-    'page-limit': response.body.pageable.pageSize || 20,
+    'total-records': (response.body.totalElements || 0).toString(),
+    'page-offset': (response.body.pageable.offset || 0).toString(),
+    'page-limit': (response.body.pageable.pageSize || 20).toString(),
   }
   contextProperties.setResponsePagination(context, headers)
   return response.body
