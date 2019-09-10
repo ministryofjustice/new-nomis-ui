@@ -18,7 +18,7 @@ describe('<CaseNoteListItem />', () => {
       subType: 'GYM',
       type: 'ACHIEVEMENTS',
       creationDateTime: '2019-01-01T21:00:00',
-      staffId: 1234,
+      authorUsername: '1234',
       source: 'INST',
       caseNoteId: 1,
     },
@@ -45,7 +45,7 @@ describe('<CaseNoteListItem />', () => {
     expect(tree).toMatchSnapshot()
   })
 
-  it('should render the with amendments snapshot', () => {
+  it('should render with amendments snapshot', () => {
     props.caseNote.amendments = [
       {
         creationDateTime: '2019-01-29T21:15:00',
@@ -64,8 +64,8 @@ describe('<CaseNoteListItem />', () => {
     expect(tree).toMatchSnapshot()
   })
 
-  it('should render the with make amendments button snapshot', () => {
-    props.user.staffId = 1234
+  it('should render the make amendments button snapshot', () => {
+    props.user.username = '1234'
     const tree = renderer
       .create(
         <IntlProvider locale="en">
@@ -79,7 +79,7 @@ describe('<CaseNoteListItem />', () => {
     expect(tree).toMatchSnapshot()
   })
 
-  it('should render the with print IEP slip link snapshot', () => {
+  it('should render with print IEP slip link snapshot', () => {
     props.caseNote.subTypeDescription = 'IEP Warning'
     const tree = renderer
       .create(
