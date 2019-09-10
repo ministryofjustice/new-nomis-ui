@@ -2,7 +2,9 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { IntlProvider } from 'react-intl'
 import { MemoryRouter } from 'react-router-dom'
+import Link from '@govuk-react/link'
 import CaseNoteListItem from './CaseNoteListItem'
+import { CaseNoteAmendmentButton } from './CaseNoteListItem.styles'
 
 describe('<CaseNoteListItem />', () => {
   const props = {
@@ -22,9 +24,6 @@ describe('<CaseNoteListItem />', () => {
       source: 'INST',
       caseNoteId: 1,
     },
-    user: {
-      staffId: 5678,
-    },
     offenderNo: 'A12345',
     caseNoteListReferrer: '/case-notes',
     iepInformation: {
@@ -32,6 +31,10 @@ describe('<CaseNoteListItem />', () => {
       offenderName: 'Test Offender',
     },
   }
+
+  beforeEach(() => {
+    props.user = { staffId: 5678 }
+  })
 
   it('should match the default snapshot', () => {
     const tree = renderer
@@ -64,33 +67,81 @@ describe('<CaseNoteListItem />', () => {
     expect(tree).toMatchSnapshot()
   })
 
-  it('should render the make amendments button snapshot', () => {
+  it('should render the make amendments button', () => {
     props.user.username = '1234'
-    const tree = renderer
-      .create(
-        <IntlProvider locale="en">
-          <MemoryRouter>
-            <CaseNoteListItem {...props} />
-          </MemoryRouter>
-        </IntlProvider>
-      )
-      .toJSON()
 
-    expect(tree).toMatchSnapshot()
+    const tree = renderer.create(
+      <IntlProvider locale="en">
+        <MemoryRouter>
+          <CaseNoteListItem {...props} />
+        </MemoryRouter>
+      </IntlProvider>
+    )
+    expect(tree.root.findAllByType(CaseNoteAmendmentButton)).toHaveLength(1)
   })
 
-  it('should render with print IEP slip link snapshot', () => {
-    props.caseNote.subTypeDescription = 'IEP Warning'
-    const tree = renderer
-      .create(
-        <IntlProvider locale="en">
-          <MemoryRouter>
-            <CaseNoteListItem {...props} />
-          </MemoryRouter>
-        </IntlProvider>
-      )
-      .toJSON()
+  it('should render the make amendments button for matching staff', () => {
+    props.user.staffId = 1234
 
-    expect(tree).toMatchSnapshot()
+    const tree = renderer.create(
+      <IntlProvider locale="en">
+        <MemoryRouter>
+          <CaseNoteListItem {...props} />
+        </MemoryRouter>
+      </IntlProvider>
+    )
+    expect(tree.root.findAllByType(CaseNoteAmendmentButton)).toHaveLength(1)
+  })
+
+  it('should not render the make amendments button if different user', () => {
+    props.user.username = '12345'
+
+    const tree = renderer.create(
+      <IntlProvider locale="en">
+        <MemoryRouter>
+          <CaseNoteListItem {...props} />
+        </MemoryRouter>
+      </IntlProvider>
+    )
+    expect(tree.root.findAllByType(CaseNoteAmendmentButton)).toHaveLength(0)
+  })
+
+  it('should not render the make amendments button if user not set', () => {
+    props.user = {}
+
+    const tree = renderer.create(
+      <IntlProvider locale="en">
+        <MemoryRouter>
+          <CaseNoteListItem {...props} />
+        </MemoryRouter>
+      </IntlProvider>
+    )
+    expect(tree.root.findAllByType(CaseNoteAmendmentButton)).toHaveLength(0)
+  })
+
+  it('should render with print IEP slip link', () => {
+    props.caseNote.subTypeDescription = 'IEP Warning'
+    const tree = renderer.create(
+      <IntlProvider locale="en">
+        <MemoryRouter>
+          <CaseNoteListItem {...props} />
+        </MemoryRouter>
+      </IntlProvider>
+    )
+
+    expect(tree.root.findAllByType(Link)).toHaveLength(1)
+  })
+
+  it('should not render with print IEP slip link if not iep', () => {
+    props.caseNote.subTypeDescription = 'Something else'
+    const tree = renderer.create(
+      <IntlProvider locale="en">
+        <MemoryRouter>
+          <CaseNoteListItem {...props} />
+        </MemoryRouter>
+      </IntlProvider>
+    )
+
+    expect(tree.root.findAllByType(Link)).toHaveLength(0)
   })
 })
