@@ -22,6 +22,13 @@ export const initialState = fromJS({
   passwordInput: '',
 })
 
+const CAT_ROLES = [
+  'CREATE_CATEGORISATION',
+  'CREATE_RECATEGORISATION',
+  'ROLE_APPROVE_CATEGORISATION',
+  'ROLE_CATEGORISATION_SECURITY',
+]
+
 function authenticationReducer(state = initialState, action) {
   switch (action.type) {
     case USER_ME: {
@@ -33,10 +40,7 @@ function authenticationReducer(state = initialState, action) {
         user.accessRoles &&
           user.accessRoles.some(r => r.roleCode === 'OMIC_ADMIN' || r.roleCode === 'KEYWORKER_MONITOR')
       )
-
-      const isRecategoriser = Boolean(
-        user.accessRoles && user.accessRoles.some(r => r.roleCode === 'CREATE_RECATEGORISATION')
-      )
+      const isCatToolUser = Boolean(user.accessRoles && user.accessRoles.some(r => CAT_ROLES.includes(r.roleCode)))
 
       const isKeyWorker = Boolean(user.staffRoles && user.staffRoles.some(r => r.role === 'KW'))
 
@@ -67,7 +71,7 @@ function authenticationReducer(state = initialState, action) {
         canGlobalSearch,
         canAddBulkAppointments,
         ...action.payload.user,
-        isRecategoriser,
+        isCatToolUser,
         canUpdateAlerts,
       })
     }
