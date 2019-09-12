@@ -23,6 +23,7 @@ const irrelevantAlerts = [
 const inmate = (alerts, categoryInfo) =>
   Map({
     offenderNo: 'A1234RT',
+    bookingId: 100,
     firstName: 'First',
     lastName: 'Last',
     facialImageId: -11,
@@ -181,7 +182,7 @@ describe('Header component', () => {
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
         showCategorisationLink
-        categorisationUrl="http://catTool"
+        categorisationUrl="http://catTool/"
         userCanEdit
       />
     )
@@ -192,6 +193,38 @@ describe('Header component', () => {
         .first()
         .text()
     ).toEqual('Manage')
+    const middleSectionMobile = wrapper.find('div.visible-small > MiddleSection').shallow()
+    expect(
+      middleSectionMobile
+        .find("a[data-qa='categorisation-external-link']")
+        .first()
+        .text()
+    ).toEqual('Manage')
+  })
+
+  it('should render the category even when no cat', () => {
+    const wrapper = shallow(
+      <Header
+        inmateData={inmate(irrelevantAlerts, null)}
+        onImageClick={jest.fn()}
+        offenderNo="A1234RN"
+        onAlertFlagClick={jest.fn()}
+        showAddKeyworkerSessionLink={false}
+        prisonStaffHubUrl="http://prisonstaffhub"
+        showCategorisationLink
+        categorisationUrl="http://catTool/"
+        userCanEdit
+      />
+    )
+    const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
+    expect(middleSection.find("div[data-qa='category'] > strong").text()).toEqual('--')
+    expect(middleSection.find("div[data-qa='category'] > div> a").getElement().props.href).toEqual('http://catTool/100')
+
+    const middleSectionMobile = wrapper.find('div.visible-small > MiddleSection').shallow()
+    expect(middleSectionMobile.find("div[data-qa='category'] > strong").text()).toEqual('--')
+    expect(middleSectionMobile.find("div[data-qa='category'] > div > a").getElement().props.href).toEqual(
+      'http://catTool/100'
+    )
   })
 
   it('should render cat A High correctly', () => {

@@ -227,9 +227,9 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     prisonHubServer.verify(WireMock.getRequestedFor(WireMock.urlPathEqualTo(iepDetailsSuffix)))
   }
 
-  def "Categorisation link is displayed for a user with the CREATE_RECATEGORISATION access role"() {
-    given: 'As a Recategoriser, I log in and search for an offender'
-    fixture.loginAs(ITAG_USER, [AccessRoles.recategoriser])
+  def "Categorisation link is displayed for a user with a categorisation access role"() {
+    given: 'As a Categoriser, I log in and search for an offender'
+    fixture.loginAs(ITAG_USER, [AccessRoles.categoriser])
 
     def offenders = [Offender.SMITH()]
 

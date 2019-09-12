@@ -58,8 +58,7 @@ const MiddleSection = ({
   iepDetailsUrl,
   userCanEdit,
 }) => {
-  const cat = inmateData.get('categoryCode')
-  const category = flags.AssessmentFlagsOrLetter(cat, inmateData.get('category'), '')
+  const category = flags.AssessmentFlagsOrLetter(inmateData.get('categoryCode'), inmateData.get('category'), '')
   return (
     <div className="middle-section">
       <div className="col-xs-4 col-sm-3 visible-large">
@@ -84,25 +83,23 @@ const MiddleSection = ({
           </div>
         </div>
 
-        {cat && (
-          <div className="row">
-            <div className="col">
-              <span className="label">Category</span>
-              {category}
-              {showCategorisationLink && (
-                <div>
-                  <a
-                    data-qa="categorisation-external-link"
-                    className="link"
-                    href={`${categorisationUrl}${inmateData.get('bookingId')}`}
-                  >
-                    Manage
-                  </a>
-                </div>
-              )}
-            </div>
+        <div className="row">
+          <div className="col" data-qa="category">
+            <span className="label">Category</span>
+            {category}
+            {showCategorisationLink && (
+              <div>
+                <a
+                  data-qa="categorisation-external-link"
+                  className="link"
+                  href={`${categorisationUrl}${inmateData.get('bookingId')}`}
+                >
+                  Manage
+                </a>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
       <div className="col-xs-12 visible-small">
         <div className="row">
@@ -123,13 +120,11 @@ const MiddleSection = ({
             <strong>{inmateData.get('csra') || '--'}</strong>
           </div>
 
-          {cat && (
-            <div className="col-xs-4 d-inline-block">
-              <span className="label">Category</span>
-              {category}
-            </div>
-          )}
-          {cat && showCategorisationLink && (
+          <div className="col-xs-4 d-inline-block">
+            <span className="label">Category</span>
+            {category}
+          </div>
+          {showCategorisationLink && (
             <div>
               <a
                 data-qa="categorisation-external-link"
