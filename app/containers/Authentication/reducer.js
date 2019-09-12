@@ -25,8 +25,8 @@ export const initialState = fromJS({
 const CAT_ROLES = [
   'CREATE_CATEGORISATION',
   'CREATE_RECATEGORISATION',
-  'ROLE_APPROVE_CATEGORISATION',
-  'ROLE_CATEGORISATION_SECURITY',
+  'APPROVE_CATEGORISATION',
+  'CATEGORISATION_SECURITY',
 ]
 
 function authenticationReducer(state = initialState, action) {

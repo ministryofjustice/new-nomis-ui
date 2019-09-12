@@ -217,14 +217,13 @@ describe('Header component', () => {
       />
     )
     const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
-    expect(middleSection.find("div[data-qa='category'] > strong").html()).toEqual('<strong>--</strong>')
-    expect(middleSection.find("div[data-qa='category'] > div > a").html()).toEqual(
-      '<a data-qa="categorisation-external-link" class="link" href="http://catTool/100">Manage</a>'
-    )
+    expect(middleSection.find("div[data-qa='category'] > strong").text()).toEqual('--')
+    expect(middleSection.find("div[data-qa='category'] > div> a").getElement().props.href).toEqual('http://catTool/100')
+
     const middleSectionMobile = wrapper.find('div.visible-small > MiddleSection').shallow()
-    expect(middleSectionMobile.find("div[data-qa='category'] > strong").html()).toEqual('<strong>--</strong>')
-    expect(middleSectionMobile.find("div[data-qa='category'] > div > a").html()).toEqual(
-      '<a data-qa="categorisation-external-link" class="link" href="http://catTool/100">Manage</a>'
+    expect(middleSectionMobile.find("div[data-qa='category'] > strong").text()).toEqual('--')
+    expect(middleSectionMobile.find("div[data-qa='category'] > div > a").getElement().props.href).toEqual(
+      'http://catTool/100'
     )
   })
 
