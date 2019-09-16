@@ -52,7 +52,7 @@ export const caseNoteType = shape({
   subType: string.isRequired,
   type: string.isRequired,
   creationDateTime: string.isRequired,
-  staffId: number.isRequired,
+  authorUsername: string.isRequired,
   source: string.isRequired,
   caseNoteId: number.isRequired,
 })

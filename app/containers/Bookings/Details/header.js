@@ -78,12 +78,12 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = (immutableState, props) => {
-  const { isKeyWorker, isRecategoriser } = immutableState.getIn(['authentication', 'user']) || {}
+  const { isKeyWorker, isCatToolUser } = immutableState.getIn(['authentication', 'user']) || {}
   return {
     headerDetails: immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']),
     userCanEdit: immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'UserCanEdit']),
     showAddKeyworkerSessionLink: Boolean(isKeyWorker),
-    showCategorisationLink: Boolean(isRecategoriser),
+    showCategorisationLink: Boolean(isCatToolUser),
     categorisationUrl: immutableState.getIn(['app', 'categorisationUrl']),
   }
 }

@@ -242,6 +242,7 @@ exports[`Header component should render correctly 1`] = `
               >
                 <div
                   className="col"
+                  data-qa="category"
                 >
                   <span
                     className="label"
@@ -546,6 +547,7 @@ exports[`Header component should render correctly 1`] = `
           >
             <div
               className="col"
+              data-qa="category"
             >
               <span
                 className="label"

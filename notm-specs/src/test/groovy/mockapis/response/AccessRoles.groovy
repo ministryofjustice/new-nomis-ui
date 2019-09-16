@@ -28,10 +28,9 @@ class AccessRoles {
     roleName:  'Bulk appointments'
   ]
 
-  static def recategoriser = [
+  static def categoriser = [
     roleId: 2,
-    roleCode: "CREATE_RECATEGORISATION",
-    roleName: "Create Recategorisation"
+    roleCode: "CREATE_CATEGORISATION",
+    roleName: "Create Categorisation"
   ]
-
 }

@@ -23,7 +23,7 @@ exports[`<CaseNoteListItem /> should match the default snapshot 1`] = `
     className="sc-gzVnrw kAvXkR"
   >
     <h2
-      className="sc-bdVaJa dbbMZC"
+      className="sc-bwzfXH byYzXZ"
     >
       Achievements
        | 
@@ -58,7 +58,7 @@ exports[`<CaseNoteListItem /> should match the default snapshot 1`] = `
 </div>
 `;
 
-exports[`<CaseNoteListItem /> should render the with amendments snapshot 1`] = `
+exports[`<CaseNoteListItem /> should render with amendments snapshot 1`] = `
 <div
   className="sc-EHOje iAVrZB"
   data-qa="case-note"
@@ -81,7 +81,7 @@ exports[`<CaseNoteListItem /> should render the with amendments snapshot 1`] = `
     className="sc-gzVnrw kAvXkR"
   >
     <h2
-      className="sc-bdVaJa dbbMZC"
+      className="sc-bwzfXH byYzXZ"
     >
       Achievements
        | 
@@ -116,7 +116,7 @@ exports[`<CaseNoteListItem /> should render the with amendments snapshot 1`] = `
       className="sc-htpNat dHsapQ"
     >
       <h3
-        className="sc-bdVaJa dbbMZC"
+        className="sc-bwzfXH byYzXZ"
       >
         Amendment
       </h3>
@@ -142,221 +142,6 @@ exports[`<CaseNoteListItem /> should render the with amendments snapshot 1`] = `
         </span>
       </div>
       User, Test
-    </div>
-  </div>
-</div>
-`;
-
-exports[`<CaseNoteListItem /> should render the with make amendments button snapshot 1`] = `
-<div
-  className="sc-EHOje iAVrZB"
-  data-qa="case-note"
->
-  <div
-    className="sc-bZQynM iLmuGP"
-  >
-    <span>
-      Tuesday
-    </span>
-    <span>
-      01/01/2019
-    </span>
-    <span>
-      7:00 PM
-    </span>
-    User, Test
-  </div>
-  <div
-    className="sc-gzVnrw kAvXkR"
-  >
-    <h2
-      className="sc-bdVaJa dbbMZC"
-    >
-      Achievements
-       | 
-      Gym
-    </h2>
-    <div
-      className="sc-htoDjs cWPcJf"
-    >
-      Creation date:
-       
-      <span>
-        <span>
-          Tuesday
-        </span>
-         - 
-        <span>
-          01/01/2019
-        </span>
-         -
-         
-        <span>
-          9:00 PM
-        </span>
-      </span>
-    </div>
-    <pre
-      className="sc-dnqmqq gMkpRg"
-    >
-      Offender enjoys attending the gym.
-    </pre>
-    <div
-      className="sc-htpNat dHsapQ"
-    >
-      <h3
-        className="sc-bdVaJa dbbMZC"
-      >
-        Amendment
-      </h3>
-      <pre
-        className="sc-bxivhb ggFkgd"
-      >
-        Offender says he doesn't like the gym.
-      </pre>
-      <div
-        className="sc-ifAKCX klzJTC"
-      >
-        <span>
-          Tuesday
-        </span>
-         - 
-        <span>
-          01/29/2019
-        </span>
-         -
-         
-        <span>
-          9:15 PM
-        </span>
-      </div>
-      User, Test
-    </div>
-    <a
-      className="sc-iwsKbI cjqKHP"
-      href="/offenders/A12345/case-notes/1/amend-case-note"
-      onClick={[Function]}
-    >
-      <button
-        className="button-cancel"
-        data-qa="make-amendment"
-        type="button"
-      >
-        Make amendment
-      </button>
-    </a>
-  </div>
-</div>
-`;
-
-exports[`<CaseNoteListItem /> should render the with print IEP slip link snapshot 1`] = `
-<div
-  className="sc-EHOje iAVrZB"
-  data-qa="case-note"
->
-  <div
-    className="sc-bZQynM iLmuGP"
-  >
-    <span>
-      Tuesday
-    </span>
-    <span>
-      01/01/2019
-    </span>
-    <span>
-      7:00 PM
-    </span>
-    User, Test
-  </div>
-  <div
-    className="sc-gzVnrw kAvXkR"
-  >
-    <h2
-      className="sc-bdVaJa dbbMZC"
-    >
-      Achievements
-       | 
-      IEP Warning
-    </h2>
-    <div
-      className="sc-htoDjs cWPcJf"
-    >
-      Creation date:
-       
-      <span>
-        <span>
-          Tuesday
-        </span>
-         - 
-        <span>
-          01/01/2019
-        </span>
-         -
-         
-        <span>
-          9:00 PM
-        </span>
-      </span>
-    </div>
-    <pre
-      className="sc-dnqmqq gMkpRg"
-    >
-      Offender enjoys attending the gym.
-    </pre>
-    <div
-      className="sc-htpNat dHsapQ"
-    >
-      <h3
-        className="sc-bdVaJa dbbMZC"
-      >
-        Amendment
-      </h3>
-      <pre
-        className="sc-bxivhb ggFkgd"
-      >
-        Offender says he doesn't like the gym.
-      </pre>
-      <div
-        className="sc-ifAKCX klzJTC"
-      >
-        <span>
-          Tuesday
-        </span>
-         - 
-        <span>
-          01/29/2019
-        </span>
-         -
-         
-        <span>
-          9:15 PM
-        </span>
-      </div>
-      User, Test
-    </div>
-    <a
-      className="sc-iwsKbI cjqKHP"
-      href="/offenders/A12345/case-notes/1/amend-case-note"
-      onClick={[Function]}
-    >
-      <button
-        className="button-cancel"
-        data-qa="make-amendment"
-        type="button"
-      >
-        Make amendment
-      </button>
-    </a>
-    <div>
-      <a
-        className="sc-bwzfXH kjBzWc"
-        href="/iep-slip"
-        muted={false}
-        onClick={[Function]}
-        target="_blank"
-      >
-        Print IEP slip
-      </a>
     </div>
   </div>
 </div>
