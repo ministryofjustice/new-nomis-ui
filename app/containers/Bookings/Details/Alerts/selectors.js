@@ -13,7 +13,7 @@ export default () => state =>
     })
     .map(({ code, description }) => ({
       value: code,
-      label: `${description} (${code})`,
+      label: `${description}`,
     }))
 
 export const alertTypesType = PropTypes.arrayOf(

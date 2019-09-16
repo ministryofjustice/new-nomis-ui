@@ -52,7 +52,7 @@ class AlertsSpecification extends BrowserReportingSpec {
     at AlertsPage
 
     when: 'I select Type of alert and submit'
-    typeSelect = 'Risk (R)'
+    typeSelect = 'Risk'
     applyFiltersButton.click()
 
     then: 'still on the alerts page'
