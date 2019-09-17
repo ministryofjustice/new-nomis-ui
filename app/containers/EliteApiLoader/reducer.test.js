@@ -1,4 +1,4 @@
-import { fromJS, List, Map } from 'immutable'
+import { fromJS } from 'immutable'
 import eliteApiReducer from './reducer'
 import { CALC_READ_ONLY_VIEW } from '../Bookings/constants'
 import { ALL_ALERT_TYPES_DATA } from './constants'
