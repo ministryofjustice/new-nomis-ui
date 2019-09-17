@@ -1,6 +1,7 @@
 import { fromJS } from 'immutable'
 import eliteApiReducer from './reducer'
 import { CALC_READ_ONLY_VIEW } from '../Bookings/constants'
+import { ALL_ALERT_TYPES_DATA } from './constants'
 import { USER_ME } from '../Authentication/constants'
 
 describe('EliteApiReducer reducer', () => {
@@ -65,5 +66,38 @@ describe('EliteApiReducer reducer', () => {
 
       expect(userCanEdit).toBe(false)
     })
+  })
+
+  it('should return all alert types', () => {
+    const state = eliteApiReducer(fromJS({}), {
+      type: ALL_ALERT_TYPES_DATA,
+      payload: [
+        {
+          domain: 'ALERT',
+          code: 'S',
+          description: 'Sexual Offence',
+          activeFlag: 'Y',
+          listSeq: 7,
+          systemDataFlag: 'N',
+          subCodes: undefined,
+        },
+        {
+          domain: 'ALERT',
+          code: 'T',
+          description: 'Hold Against Transfer',
+          activeFlag: 'N',
+          listSeq: 8,
+          systemDataFlag: 'N',
+          subCodes: undefined,
+        },
+      ],
+    })
+
+    const alertTypes = state.getIn(['AlertTypes'])
+
+    expect(alertTypes.toJS()).toEqual([
+      { code: 'S', description: 'Sexual Offence' },
+      { code: 'T', description: 'Hold Against Transfer' },
+    ])
   })
 })
