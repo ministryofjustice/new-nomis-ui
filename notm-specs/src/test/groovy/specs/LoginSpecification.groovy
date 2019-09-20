@@ -79,7 +79,6 @@ class LoginSpecification extends BrowserReportingSpec {
     whereaboutsLink.text().contains('Manage prisoner whereabouts')
     def t = addBulkAppointmentsLink.text()
     t == 'Add bulk appointments'
-    useOfForceLink.text().contains('Use of force incidents')
 
   }
 

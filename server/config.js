@@ -52,8 +52,8 @@ const apis = {
 }
 
 const useOfForce = {
-  ui_url: process.env.USE_OF_FORCE_URL || 'https://www.bbc.co.uk',
-  prisons: process.env.USE_OF_FORCE_PRISONS || ' MdI,lei  , wri    ,',
+  ui_url: process.env.USE_OF_FORCE_URL,
+  prisons: process.env.USE_OF_FORCE_PRISONS || '',
 }
 
 module.exports = {

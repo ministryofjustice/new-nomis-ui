@@ -137,8 +137,13 @@ ActionLinks.propTypes = {
   isGlobalSearch: PropTypes.bool.isRequired,
   isAddBulkAppointments: PropTypes.bool.isRequired,
   prisonStaffHubUrl: PropTypes.string.isRequired,
-  isUseOfForce: PropTypes.bool.isRequired,
-  useOfForceUrl: PropTypes.string.isRequired,
+  isUseOfForce: PropTypes.bool,
+  useOfForceUrl: PropTypes.string,
+}
+
+ActionLinks.defaultProps = {
+  isUseOfForce: false,
+  useOfForceUrl: '',
 }
 
 export default ActionLinks

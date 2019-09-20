@@ -142,7 +142,7 @@ const oauthApi = oauthApiFactory(
 auth.init(oauthApi)
 const tokenRefresher = tokeRefresherFactory(oauthApi.refresh, config.app.tokenRefreshThresholdSeconds)
 
-const userService = userServiceFactory(eliteApi, oauthApi)
+const userService = userServiceFactory(eliteApi, oauthApi, config)
 const bookingService = bookingServiceFactory(eliteApi, keyworkerApi)
 const eventsService = eventsServiceFactory(eliteApi)
 const keyworkerService = keyworkerServiceFactory(eliteApi, oauthApi, keyworkerApi)

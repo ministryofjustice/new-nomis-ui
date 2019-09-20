@@ -18,9 +18,17 @@ describe('User service', () => {
   // The api will be stubbed so there's no need to provide a real client for it to use.
   const elite2Api = {}
   const oauthApi = {}
-  const userService = userServiceFactory(elite2Api, oauthApi)
+  let userService = userServiceFactory(elite2Api, oauthApi, {})
 
   beforeEach(() => {
+    const config = {
+      useOfForce: {
+        ui_url: process.env.USE_OF_FORCE_URL,
+        prisons: 'LEI',
+      },
+    }
+
+    userService = userServiceFactory(elite2Api, oauthApi, config)
     oauthApi.getMyInformation = jest.fn()
     oauthApi.getUserAccessRoles = jest.fn()
     elite2Api.getCaseLoads = jest.fn()
@@ -88,7 +96,21 @@ describe('User service', () => {
     })
   })
 
-  it('should combine user info, access roles and staff roles into one view model', async () => {
+  it('should return FALSE for isUseOfForce if UoF enabled locations does NOT include a match of caseLoadId', async () => {
+    elite2Api.getCaseLoads.mockReturnValueOnce([{ caseLoadId: 'WRI', currentlyActive: true }, { caseLoadId: 'SECOND' }])
+    const viewModel = await userService.me({})
+
+    expect(viewModel).toEqual({
+      ...details,
+      activeCaseLoadId: 'WRI',
+      accessRoles,
+      staffRoles,
+      isWhereabouts: true,
+      isUseOfForce: false,
+    })
+  })
+
+  it('should return TRUE for isUseOfForce if UoF enabled locations DOES include a match of caseLoadId', async () => {
     elite2Api.getCaseLoads.mockReturnValueOnce([{ caseLoadId: 'LEI', currentlyActive: true }, { caseLoadId: 'SECOND' }])
     const viewModel = await userService.me({})
 
@@ -99,6 +121,42 @@ describe('User service', () => {
       staffRoles,
       isWhereabouts: true,
       isUseOfForce: true,
+    })
+  })
+
+  it('should return false for isUseOfForce if no value has been assigned to caseLoadId', async () => {
+    elite2Api.getCaseLoads.mockReturnValueOnce([{ caseLoadId: '', currentlyActive: true }, { caseLoadId: 'SECOND' }])
+    const viewModel = await userService.me({})
+
+    expect(viewModel).toEqual({
+      ...details,
+      activeCaseLoadId: '',
+      accessRoles,
+      staffRoles: [],
+      isWhereabouts: false,
+      isUseOfForce: false,
+    })
+  })
+
+  it('should return false for isUseOfForce if no value has been assigned to useOfForcePrisons', async () => {
+    const config = {
+      useOfForce: {
+        ui_url: process.env.USE_OF_FORCE_URL,
+        prisons: '',
+      },
+    }
+
+    userService = userServiceFactory(elite2Api, oauthApi, config)
+    elite2Api.getCaseLoads.mockReturnValueOnce([{ caseLoadId: 'LEI', currentlyActive: true }, { caseLoadId: 'SECOND' }])
+    const viewModel = await userService.me({})
+
+    expect(viewModel).toEqual({
+      ...details,
+      activeCaseLoadId: 'LEI',
+      accessRoles,
+      staffRoles,
+      isWhereabouts: true,
+      isUseOfForce: false,
     })
   })
 })
