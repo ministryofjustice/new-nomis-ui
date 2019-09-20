@@ -33,4 +33,10 @@ class AccessRoles {
     roleCode: "CREATE_CATEGORISATION",
     roleName: "Create Categorisation"
   ]
+
+  static def prisonOffenderManager = [
+    roleId: 3,
+    roleCode: "VIEW_PROBATION_DOCUMENTS",
+    roleName: "View probation documents"
+  ]
 }

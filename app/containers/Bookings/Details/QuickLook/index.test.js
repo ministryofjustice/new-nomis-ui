@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import { Map } from 'immutable'
 import { Model as quickLookModel } from '../../../../helpers/dataMappers/quickLook'
 
-import { QuickLook, NegativeAndPositiveCaseNoteCount } from './index'
+import { QuickLook, NegativeAndPositiveCaseNoteCount, OffenderManagementInCustody } from './index'
 
 describe('<QuickLook />', () => {
   describe('should render differently based on user privileges', () => {
@@ -24,6 +24,16 @@ describe('<QuickLook />', () => {
       const wrapper = shallow(<QuickLook {...quickLookProps} />)
 
       expect(wrapper.find(NegativeAndPositiveCaseNoteCount)).toHaveLength(1)
+    })
+    it('should not render offender management if user cannot view probation documents', () => {
+      const wrapper = shallow(<QuickLook {...quickLookProps} />)
+
+      expect(wrapper.find(OffenderManagementInCustody)).toHaveLength(0)
+    })
+    it('should render offender management if user can view probation documents', () => {
+      const wrapper = shallow(<QuickLook {...quickLookProps} canUserViewProbationDocuments />)
+
+      expect(wrapper.find(OffenderManagementInCustody)).toHaveLength(1)
     })
   })
 })

@@ -16,6 +16,7 @@ import ValueWithLabel from '../../../../components/ValueWithLabel'
 
 import { Model as quickLookModel } from '../../../../helpers/dataMappers/quickLook'
 import { Model as offenderProfileModel } from '../../../../helpers/dataMappers/offenderDetails'
+import userModel from '../../../../helpers/dataMappers/user'
 
 import { loadQuickLook } from '../../actions'
 
@@ -581,6 +582,28 @@ AssignedStaffMembers.defaultProps = {
   keyWorkerId: null,
 }
 
+export const OffenderManagementInCustody = ({ probationDocumentsUrl, canUserViewProbationDocuments }) => {
+  return (
+    <div>
+      {canUserViewProbationDocuments && probationDocumentsUrl && (
+        <a data-qa="probation-documents-link" className="link" href={probationDocumentsUrl}>
+          View documents held by probation
+        </a>
+      )}
+    </div>
+  )
+}
+
+OffenderManagementInCustody.propTypes = {
+  probationDocumentsUrl: PropTypes.string,
+  canUserViewProbationDocuments: PropTypes.bool,
+}
+
+OffenderManagementInCustody.defaultProps = {
+  probationDocumentsUrl: '',
+  canUserViewProbationDocuments: false,
+}
+
 class QuickLook extends Component {
   componentDidMount() {
     const { loadViewModel, offenderNo } = this.props
@@ -589,7 +612,14 @@ class QuickLook extends Component {
   }
 
   render() {
-    const { viewModel, offenderDetails, offenderNo, prisonStaffHubUrl, userCanEdit } = this.props
+    const {
+      viewModel,
+      offenderDetails,
+      offenderNo,
+      prisonStaffHubUrl,
+      userCanEdit,
+      canUserViewProbationDocuments,
+    } = this.props
     const adjudications = viewModel.get('adjudications')
     const lastVisit = viewModel.get('lastVisit')
     const nextVisit = viewModel.get('nextVisit')
@@ -677,6 +707,18 @@ class QuickLook extends Component {
                 <KeyWorkerSessionDate lastKeyWorkerSessionDate={viewModel.get('lastKeyWorkerSessionDate')} />
               </div>
             </div>
+            {canUserViewProbationDocuments && (
+              <div className="col-xs-12">
+                <h3 className="heading-medium">Offender Management</h3>
+
+                <OffenderManagementInCustody
+                  probationDocumentsUrl={
+                    prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/probation-documents`
+                  }
+                  canUserViewProbationDocuments={canUserViewProbationDocuments}
+                />
+              </div>
+            )}
           </div>
           <div className="col-md-6 col-xs-12">
             <h3 className="heading-medium">Schedule for today</h3>
@@ -701,11 +743,13 @@ QuickLook.propTypes = {
   offenderDetails: ImmutablePropTypes.map.isRequired,
   prisonStaffHubUrl: PropTypes.string,
   userCanEdit: PropTypes.bool,
+  canUserViewProbationDocuments: PropTypes.bool,
 }
 
 QuickLook.defaultProps = {
   prisonStaffHubUrl: null,
   userCanEdit: true,
+  canUserViewProbationDocuments: false,
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -718,6 +762,7 @@ const mapStateToProps = (immutableState, props) => {
   const viewModel = immutableState.getIn(['search', 'details', 'quickLookViewModel']) || quickLookModel
   const prisonStaffHubUrl = immutableState.getIn(['app', 'prisonStaffHubUrl'])
   const userCanEdit = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'UserCanEdit'])
+  const user = immutableState.getIn(['authentication', 'user']) || userModel
 
   return {
     offenderNo: props.offenderNo,
@@ -725,6 +770,7 @@ const mapStateToProps = (immutableState, props) => {
     offenderDetails: data,
     prisonStaffHubUrl,
     userCanEdit,
+    canUserViewProbationDocuments: user.canViewProbationDocuments,
   }
 }
 
