@@ -29,6 +29,7 @@ export const userType = shape({
   staffId: number,
   staffRoles: arrayOf(object),
   username: string,
+  isUseOfForce: bool,
 })
 
 export const metaType = shape({

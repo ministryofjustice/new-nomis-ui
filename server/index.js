@@ -75,6 +75,7 @@ app.use('/config', (req, res) => {
   const omicUrl = config.apis.keyworker.ui_url
   const prisonStaffHubUrl = config.apis.prisonStaffHub.ui_url
   const categorisationUrl = config.apis.categorisation.ui_url
+  const useOfForceUrl = config.useOfForce.ui_url
 
   if (!feedbackUrl && !omicUrl && !prisonStaffHubUrl && !mailTo && !categorisationUrl) {
     res.end()
@@ -86,6 +87,7 @@ app.use('/config', (req, res) => {
     prisonStaffHubUrl,
     mailTo,
     categorisationUrl,
+    useOfForceUrl,
   })
 })
 

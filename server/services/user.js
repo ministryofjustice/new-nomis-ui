@@ -1,4 +1,5 @@
 const { logger } = require('./logger')
+const config = require('../config')
 
 const userServiceFactory = (elite2Api, oauthApi) => {
   async function getActiveCaseloadAndSetIfNotSet(context, details) {
@@ -27,7 +28,6 @@ const userServiceFactory = (elite2Api, oauthApi) => {
     ])
 
     const activeCaseLoadId = await getActiveCaseloadAndSetIfNotSet(context, detailsData)
-
     const { staffId } = detailsData
 
     let staffRoles
@@ -43,15 +43,18 @@ const userServiceFactory = (elite2Api, oauthApi) => {
       }
     }
 
+    const prisons = config.useOfForce.prisons.split(',')
+    const sanitisedPrisons = prisons.map(prison => prison.trim().toUpperCase())
+
     return {
       ...detailsData,
       activeCaseLoadId,
       accessRoles: accessRoles || [],
       staffRoles: staffRoles || [],
       isWhereabouts: (whereaboutsConfig && whereaboutsConfig.enabled) || false,
+      isUseOfForce: sanitisedPrisons.includes(activeCaseLoadId),
     }
   }
-
   return {
     me,
   }
