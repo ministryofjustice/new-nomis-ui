@@ -1,7 +1,6 @@
 const { logger } = require('./logger')
-const config = require('../config')
 
-const userServiceFactory = (elite2Api, oauthApi) => {
+const userServiceFactory = (elite2Api, oauthApi, config) => {
   async function getActiveCaseloadAndSetIfNotSet(context, details) {
     const caseloads = await elite2Api.getCaseLoads(context)
 
@@ -43,8 +42,8 @@ const userServiceFactory = (elite2Api, oauthApi) => {
       }
     }
 
-    const prisons = config.useOfForce.prisons.split(',')
-    const sanitisedPrisons = prisons.map(prison => prison.trim().toUpperCase())
+    const useOfForcePrisons = config.useOfForce.prisons.split(',')
+    const sanitisedPrisons = useOfForcePrisons.map(prison => prison.trim().toUpperCase())
 
     return {
       ...detailsData,
