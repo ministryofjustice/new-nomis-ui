@@ -26,6 +26,7 @@ class HomePage extends Page {
     whereaboutsLink(required: false) { $("[data-qa='whereabouts-link']") }
     globalSearchLink(required: false) { $("[data-qa='global-search-link']") }
     addBulkAppointmentsLink(required: false) { $("[data-qa='add-bulk-appointments-link']") }
+    useOfForceLink(required: false) { $("[data-qa='useOfForce-link']") }
   }
 
   void searchFor(String offenderInfo) {

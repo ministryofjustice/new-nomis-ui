@@ -17,7 +17,7 @@ class HomePage extends Component {
   }
 
   render() {
-    const { user, omicUrl, prisonStaffHubUrl, locations } = this.props
+    const { user, omicUrl, prisonStaffHubUrl, locations, useOfForceUrl } = this.props
     if (!user) {
       return <div />
     }
@@ -34,10 +34,12 @@ class HomePage extends Component {
               isWhereabouts={user.isWhereabouts}
               omicUrl={omicUrl}
               prisonStaffHubUrl={prisonStaffHubUrl}
+              useOfForceUrl={useOfForceUrl}
               isEstablishmentRollCheck={Boolean(locations.size > 0)}
               hasAdminRights={user.hasAdminRights}
               isGlobalSearch={user.canGlobalSearch}
               isAddBulkAppointments={user.canAddBulkAppointments}
+              isUseOfForce={user.isUseOfForce}
             />
           </div>
         </Page>
@@ -52,6 +54,7 @@ HomePage.propTypes = {
   omicUrl: PropTypes.string,
   prisonStaffHubUrl: PropTypes.string,
   locations: ImmutablePropTypes.list.isRequired,
+  useOfForceUrl: PropTypes.string,
 
   // mapDispatchToProps
   boundLoadLocations: PropTypes.func.isRequired,
@@ -61,6 +64,7 @@ HomePage.defaultProps = {
   user: {},
   omicUrl: null,
   prisonStaffHubUrl: null,
+  useOfForceUrl: null,
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -72,6 +76,7 @@ const mapStateToProps = state => ({
   omicUrl: state.getIn(['app', 'omicUrl']),
   prisonStaffHubUrl: state.getIn(['app', 'prisonStaffHubUrl']),
   locations: state.getIn(['home', 'locations']),
+  useOfForceUrl: state.getIn(['app', 'useOfForceUrl']),
 })
 
 export default connect(

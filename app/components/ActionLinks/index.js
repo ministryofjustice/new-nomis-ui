@@ -25,10 +25,12 @@ const ActionLinks = ({
   isWhereabouts,
   omicUrl,
   prisonStaffHubUrl,
+  useOfForceUrl,
   isEstablishmentRollCheck,
   hasAdminRights,
   isGlobalSearch,
   isAddBulkAppointments,
+  isUseOfForce,
 }) => {
   if (
     !isKeyWorker &&
@@ -37,11 +39,11 @@ const ActionLinks = ({
     !isEstablishmentRollCheck &&
     !hasAdminRights &&
     !isGlobalSearch &&
-    !isAddBulkAppointments
+    !isAddBulkAppointments &&
+    !isUseOfForce
   ) {
     return <div />
   }
-
   return (
     <div>
       <h1 className="heading-medium">Tasks</h1>
@@ -72,6 +74,12 @@ const ActionLinks = ({
             testId="whereabouts-link"
           >
             Manage prisoner whereabouts
+          </ActionLink>
+        )}
+
+        {isUseOfForce && useOfForceUrl && (
+          <ActionLink url={`${useOfForceUrl}`} image="/img/blank.png" testId="useOfForce-link">
+            Use of force incidents
           </ActionLink>
         )}
 
@@ -129,6 +137,8 @@ ActionLinks.propTypes = {
   isGlobalSearch: PropTypes.bool.isRequired,
   isAddBulkAppointments: PropTypes.bool.isRequired,
   prisonStaffHubUrl: PropTypes.string.isRequired,
+  isUseOfForce: PropTypes.bool.isRequired,
+  useOfForceUrl: PropTypes.string.isRequired,
 }
 
 export default ActionLinks

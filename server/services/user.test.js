@@ -69,6 +69,7 @@ describe('User service', () => {
       accessRoles,
       staffRoles: [],
       isWhereabouts: false,
+      isUseOfForce: false,
     })
   })
 
@@ -83,6 +84,7 @@ describe('User service', () => {
       accessRoles,
       staffRoles: [],
       isWhereabouts: false,
+      isUseOfForce: false,
     })
   })
 
@@ -96,6 +98,7 @@ describe('User service', () => {
       accessRoles,
       staffRoles,
       isWhereabouts: true,
+      isUseOfForce: true,
     })
   })
 })
