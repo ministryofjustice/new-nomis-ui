@@ -132,4 +132,26 @@ describe('Authentication reducer', () => {
 
     expect(userState.hasAdminRights).toBe(true)
   })
+
+  it('should return a user that can view probation documents if they have VIEW_PROBATION_DOCUMENTS role', () => {
+    const user = {
+      ...userData,
+      accessRoles: [{ roleCode: 'VIEW_PROBATION_DOCUMENTS', roleDescription: 'View probation documents' }],
+    }
+    const state = authenticationReducer(Map({}), userMe({ user }))
+    const userState = state.get('user')
+
+    expect(userState.canViewProbationDocuments).toBe(true)
+  })
+
+  it("should not return a user that can view probation documents if they don't VIEW_PROBATION_DOCUMENTS role", () => {
+    const user = {
+      ...userData,
+      accessRoles: [{ roleCode: 'SOME_OTHER_ROLE', roleDescription: 'A role' }],
+    }
+    const state = authenticationReducer(Map({}), userMe({ user }))
+    const userState = state.get('user')
+
+    expect(userState.canViewProbationDocuments).toBe(false)
+  })
 })

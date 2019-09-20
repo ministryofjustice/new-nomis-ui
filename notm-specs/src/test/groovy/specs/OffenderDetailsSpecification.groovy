@@ -257,6 +257,36 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     categorisationLink*.text() contains 'Manage'
   }
 
+  def "View probation documents link is displayed for a prison offender manager"() {
+    given: 'As a Prison offender manager, I log in and search for an offender'
+    fixture.loginAs(ITAG_USER, [AccessRoles.prisonOffenderManager])
+
+    def offenders = [Offender.SMITH()]
+
+    elite2api.stubOffenderSearch("smith", offenders, '')
+    elite2api.stubOffenderDetails(true)
+    elite2api.stubOffenderAddresses()
+    elite2api.stubImage()
+    elite2api.stubIEP()
+    elite2api.stubKeyworkerOld()
+    elite2api.stubAliases()
+    elite2api.stubStaffDetails(-2)
+    keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
+    elite2api.stubGetKeyWorker(-2, 'A1234AJ')
+
+    searchFor "smith"
+    at SearchResultsPage
+
+    when: 'I select an offender'
+    /* stubs required for default Quick look tab */
+    elite2api.stubQuickLook()
+    selectOffender(0)
+    at OffenderDetailsPage
+
+    then: 'Then the View Probation documents link is displayed'
+    viewProbationDocumentsLink*.text() contains 'View documents held by probation'
+  }
+
   private static boolean containsExpectedIgnoringBlankAndDates(actual, List<String> expected) {
     return actual.findAll { StringUtils.isNotBlank(it) && !it.contains('/2017') } == expected
   }
