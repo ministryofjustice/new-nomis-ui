@@ -72,7 +72,8 @@ function authenticationReducer(state = initialState, action) {
 
       const canUpdateAlerts = Boolean(user.accessRoles && user.accessRoles.some(r => r.roleCode === 'UPDATE_ALERT'))
       const canViewProbationDocuments = Boolean(
-        user.accessRoles && user.accessRoles.some(r => r.roleCode === 'VIEW_PROBATION_DOCUMENTS')
+        user.accessRoles &&
+          user.accessRoles.some(r => r.roleCode === 'VIEW_PROBATION_DOCUMENTS' || r.roleCode === 'POM')
       )
 
       return state.set('user', {
