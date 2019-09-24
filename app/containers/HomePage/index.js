@@ -50,21 +50,14 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
   // mapStateToProps
-  user: userType,
-  omicUrl: PropTypes.string,
-  prisonStaffHubUrl: PropTypes.string,
-  categorisationUrl: PropTypes.string,
+  user: userType.isRequired,
+  omicUrl: PropTypes.string.isRequired,
+  prisonStaffHubUrl: PropTypes.string.isRequired,
+  categorisationUrl: PropTypes.string.isRequired,
   locations: ImmutablePropTypes.list.isRequired,
 
   // mapDispatchToProps
   boundLoadLocations: PropTypes.func.isRequired,
-}
-
-HomePage.defaultProps = {
-  user: {},
-  omicUrl: null,
-  prisonStaffHubUrl: null,
-  categorisationUrl: null,
 }
 
 const mapDispatchToProps = dispatch => ({
