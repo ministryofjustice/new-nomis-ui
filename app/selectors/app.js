@@ -44,6 +44,12 @@ const selectPrisonStaffHubUrl = () =>
     appState => appState.get('prisonStaffHubUrl')
   )
 
+const selectCategorisationUrl = () =>
+  createSelector(
+    selectApp(),
+    appState => appState.get('categorisationUrl')
+  )
+
 export {
   selectMobileMenuOpen,
   selectModalOpen,
@@ -52,4 +58,5 @@ export {
   selectSpinnerCount,
   selectMailTo,
   selectPrisonStaffHubUrl,
+  selectCategorisationUrl,
 }

@@ -17,7 +17,7 @@ class HomePage extends Component {
   }
 
   render() {
-    const { user, omicUrl, prisonStaffHubUrl, locations } = this.props
+    const { user, omicUrl, prisonStaffHubUrl, categorisationUrl, locations } = this.props
     if (!user) {
       return <div />
     }
@@ -38,6 +38,8 @@ class HomePage extends Component {
               hasAdminRights={user.hasAdminRights}
               isGlobalSearch={user.canGlobalSearch}
               isAddBulkAppointments={user.canAddBulkAppointments}
+              isCatToolUser={user.isCatToolUser}
+              categorisationUrl={categorisationUrl}
             />
           </div>
         </Page>
@@ -48,19 +50,14 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
   // mapStateToProps
-  user: userType,
-  omicUrl: PropTypes.string,
-  prisonStaffHubUrl: PropTypes.string,
+  user: userType.isRequired,
+  omicUrl: PropTypes.string.isRequired,
+  prisonStaffHubUrl: PropTypes.string.isRequired,
+  categorisationUrl: PropTypes.string.isRequired,
   locations: ImmutablePropTypes.list.isRequired,
 
   // mapDispatchToProps
   boundLoadLocations: PropTypes.func.isRequired,
-}
-
-HomePage.defaultProps = {
-  user: {},
-  omicUrl: null,
-  prisonStaffHubUrl: null,
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -71,6 +68,7 @@ const mapStateToProps = state => ({
   user: state.getIn(['authentication', 'user']),
   omicUrl: state.getIn(['app', 'omicUrl']),
   prisonStaffHubUrl: state.getIn(['app', 'prisonStaffHubUrl']),
+  categorisationUrl: state.getIn(['app', 'categorisationUrl']),
   locations: state.getIn(['home', 'locations']),
 })
 

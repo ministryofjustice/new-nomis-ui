@@ -10,14 +10,22 @@
  *   Complete proper authentication! use redux saga for log in messages...
  */
 
-import { fromJS } from 'immutable'
+import { Map } from 'immutable'
 
 import { USER } from '../EliteApiLoader/constants'
 
 import { CHANGE_USERNAME_INPUT, CHANGE_PASSWORD_INPUT, USER_ME } from './constants'
 
-export const initialState = fromJS({
-  user: {},
+export const initialState = Map({
+  user: {
+    isKeyWorkerAdmin: false,
+    isKeyWorker: false,
+    isWhereabouts: false,
+    hasAdminRights: false,
+    canGlobalSearch: false,
+    canAddBulkAppointments: false,
+    isCatToolUser: false,
+  },
   usernameInput: '',
   passwordInput: '',
 })

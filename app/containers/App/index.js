@@ -8,7 +8,13 @@ import axios from 'axios/index'
 import { Route, withRouter, Switch } from 'react-router-dom'
 import { FooterContainer } from 'new-nomis-shared-components'
 import { retrieveUserMe } from '../Authentication/actions'
-import { selectSpinnerCount, selectMobileMenuOpen, selectMailTo, selectPrisonStaffHubUrl } from '../../selectors/app'
+import {
+  selectSpinnerCount,
+  selectMobileMenuOpen,
+  selectMailTo,
+  selectPrisonStaffHubUrl,
+  selectCategorisationUrl,
+} from '../../selectors/app'
 import Header from '../Header'
 import Spinner from '../../components/Spinner'
 import { setAppConfig, setDeviceFormat, setMenuOpen } from '../../globalReducers/app'
@@ -117,6 +123,7 @@ const mapStateToProps = createStructuredSelector({
   menuOpen: selectMobileMenuOpen(),
   mailTo: selectMailTo(),
   prisonStaffHubUrl: selectPrisonStaffHubUrl(),
+  categorisationUrl: selectCategorisationUrl(),
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -29,6 +29,8 @@ const ActionLinks = ({
   hasAdminRights,
   isGlobalSearch,
   isAddBulkAppointments,
+  isCatToolUser,
+  categorisationUrl,
 }) => {
   if (
     !isKeyWorker &&
@@ -37,7 +39,8 @@ const ActionLinks = ({
     !isEstablishmentRollCheck &&
     !hasAdminRights &&
     !isGlobalSearch &&
-    !isAddBulkAppointments
+    !isAddBulkAppointments &&
+    !isCatToolUser
   ) {
     return <div />
   }
@@ -114,6 +117,12 @@ const ActionLinks = ({
             Admin and utilities
           </ActionLink>
         )}
+
+        {isCatToolUser && categorisationUrl && (
+          <ActionLink url={`${categorisationUrl}`} image="/img/ICON_CatTool.png" testId="cat-tool-link">
+            Categorisation
+          </ActionLink>
+        )}
       </div>
     </div>
   )
@@ -129,6 +138,8 @@ ActionLinks.propTypes = {
   isGlobalSearch: PropTypes.bool.isRequired,
   isAddBulkAppointments: PropTypes.bool.isRequired,
   prisonStaffHubUrl: PropTypes.string.isRequired,
+  isCatToolUser: PropTypes.bool.isRequired,
+  categorisationUrl: PropTypes.string.isRequired,
 }
 
 export default ActionLinks
