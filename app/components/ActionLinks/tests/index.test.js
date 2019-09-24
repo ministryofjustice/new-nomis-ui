@@ -10,6 +10,7 @@ describe('Actions component', () => {
       <ActionLinks
         omicUrl=""
         prisonStaffHubUrl=""
+        categorisationUrl=""
         isKeyWorker
         isKeyWorkerAdmin={false}
         isWhereabouts={false}
@@ -17,6 +18,7 @@ describe('Actions component', () => {
         isEstablishmentRollCheck={false}
         isGlobalSearch={false}
         isAddBulkAppointments={false}
+        isCatToolUser={false}
       />
     )
 
@@ -28,6 +30,7 @@ describe('Actions component', () => {
       <ActionLinks
         omicUrl="//omicURL"
         prisonStaffHubUrl=""
+        categorisationUrl=""
         isKeyWorker={false}
         isKeyWorkerAdmin
         isWhereabouts={false}
@@ -35,6 +38,7 @@ describe('Actions component', () => {
         isEstablishmentRollCheck={false}
         isGlobalSearch={false}
         isAddBulkAppointments={false}
+        isCatToolUser={false}
       />
     )
 
@@ -46,6 +50,7 @@ describe('Actions component', () => {
       <ActionLinks
         omicUrl=""
         prisonStaffHubUrl=""
+        categorisationUrl=""
         isKeyWorker={false}
         isKeyWorkerAdmin={false}
         isWhereabouts={false}
@@ -53,6 +58,7 @@ describe('Actions component', () => {
         isEstablishmentRollCheck={false}
         isGlobalSearch={false}
         isAddBulkAppointments={false}
+        isCatToolUser={false}
       />
     )
 
@@ -64,6 +70,7 @@ describe('Actions component', () => {
       <ActionLinks
         omicUrl=""
         prisonStaffHubUrl="http://"
+        categorisationUrl=""
         isKeyWorker={false}
         isKeyWorkerAdmin={false}
         isWhereabouts={false}
@@ -71,6 +78,7 @@ describe('Actions component', () => {
         isEstablishmentRollCheck={false}
         isGlobalSearch
         isAddBulkAppointments={false}
+        isCatToolUser={false}
       />
     )
 
@@ -82,6 +90,7 @@ describe('Actions component', () => {
       <ActionLinks
         omicUrl=""
         prisonStaffHubUrl="http://"
+        categorisationUrl=""
         isKeyWorker={false}
         isKeyWorkerAdmin={false}
         isWhereabouts={false}
@@ -89,6 +98,7 @@ describe('Actions component', () => {
         isEstablishmentRollCheck
         isGlobalSearch={false}
         isAddBulkAppointments={false}
+        isCatToolUser={false}
       />
     )
 
@@ -100,6 +110,7 @@ describe('Actions component', () => {
       <ActionLinks
         omicUrl="http://omic/"
         prisonStaffHubUrl="http://psh/"
+        categorisationUrl=""
         isKeyWorker={false}
         isKeyWorkerAdmin={false}
         isWhereabouts={false}
@@ -107,6 +118,7 @@ describe('Actions component', () => {
         isEstablishmentRollCheck={false}
         isGlobalSearch={false}
         isAddBulkAppointments={false}
+        isCatToolUser={false}
       />
     )
 
@@ -118,6 +130,7 @@ describe('Actions component', () => {
       <ActionLinks
         omicUrl=""
         prisonStaffHubUrl="http://"
+        categorisationUrl=""
         isKeyWorker={false}
         isKeyWorkerAdmin={false}
         isWhereabouts={false}
@@ -125,9 +138,30 @@ describe('Actions component', () => {
         isEstablishmentRollCheck={false}
         isGlobalSearch={false}
         isAddBulkAppointments
+        isCatToolUser={false}
       />
     )
 
     expect(wrapper.find('ActionLink').prop('url')).toBe('http://add-bulk-appointments')
+  })
+
+  it('should show add cat tool link when the user has cat tool role', () => {
+    const wrapper = shallow(
+      <ActionLinks
+        omicUrl=""
+        prisonStaffHubUrl=""
+        categorisationUrl="http://cat-tool"
+        isKeyWorker={false}
+        isKeyWorkerAdmin={false}
+        isWhereabouts={false}
+        hasAdminRights={false}
+        isEstablishmentRollCheck={false}
+        isGlobalSearch={false}
+        isAddBulkAppointments={false}
+        isCatToolUser
+      />
+    )
+
+    expect(wrapper.find('ActionLink').prop('url')).toBe('http://cat-tool')
   })
 })
