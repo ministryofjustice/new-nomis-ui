@@ -19,6 +19,8 @@ const Header = ({
   categorisationUrl,
   prisonStaffHubUrl,
   userCanEdit,
+  isUseOfForce,
+  useOfForceUrl,
 }) => {
   const showAlertTab = () => showAlertTabForOffenderNo(offenderNo)
 
@@ -33,6 +35,8 @@ const Header = ({
       categorisationUrl={categorisationUrl}
       prisonStaffHubUrl={prisonStaffHubUrl}
       userCanEdit={userCanEdit}
+      isUseOfForce={isUseOfForce}
+      useOfForceUrl={useOfForceUrl}
     />
   )
 }
@@ -47,6 +51,8 @@ Header.propTypes = {
   categorisationUrl: PropTypes.string.isRequired,
   prisonStaffHubUrl: PropTypes.string.isRequired,
   userCanEdit: PropTypes.bool,
+  useOfForceUrl: PropTypes.string.isRequired,
+  isUseOfForce: PropTypes.bool.isRequired,
 }
 
 Header.defaultProps = {
@@ -67,6 +73,8 @@ Header.defaultProps = {
     keyworker: null,
     prisonStaffHubUrl: null,
     categorisationUrl: null,
+    useOfForceUrl: null,
+    isUseOfForce: false,
   }),
   userCanEdit: true,
   showPhoto: () => {},
@@ -78,13 +86,15 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = (immutableState, props) => {
-  const { isKeyWorker, isCatToolUser } = immutableState.getIn(['authentication', 'user']) || {}
+  const { isKeyWorker, isCatToolUser, isUseOfForce } = immutableState.getIn(['authentication', 'user']) || {}
   return {
     headerDetails: immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']),
     userCanEdit: immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'UserCanEdit']),
     showAddKeyworkerSessionLink: Boolean(isKeyWorker),
     showCategorisationLink: Boolean(isCatToolUser),
     categorisationUrl: immutableState.getIn(['app', 'categorisationUrl']),
+    isUseOfForce: Boolean(isUseOfForce),
+    useOfForceUrl: immutableState.getIn(['app', 'useOfForceUrl']),
   }
 }
 
