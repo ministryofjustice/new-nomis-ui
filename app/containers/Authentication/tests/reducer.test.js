@@ -144,6 +144,17 @@ describe('Authentication reducer', () => {
     expect(userState.canViewProbationDocuments).toBe(true)
   })
 
+  it('should return a user that can view probation documents if they have POM role', () => {
+    const user = {
+      ...userData,
+      accessRoles: [{ roleCode: 'POM', roleDescription: 'View probation documents' }],
+    }
+    const state = authenticationReducer(Map({}), userMe({ user }))
+    const userState = state.get('user')
+
+    expect(userState.canViewProbationDocuments).toBe(true)
+  })
+
   it("should not return a user that can view probation documents if they don't VIEW_PROBATION_DOCUMENTS role", () => {
     const user = {
       ...userData,
