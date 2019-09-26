@@ -57,17 +57,10 @@ HomePage.propTypes = {
   prisonStaffHubUrl: PropTypes.string.isRequired,
   categorisationUrl: PropTypes.string.isRequired,
   locations: ImmutablePropTypes.list.isRequired,
-  useOfForceUrl: PropTypes.string,
+  useOfForceUrl: PropTypes.string.isRequired,
 
   // mapDispatchToProps
   boundLoadLocations: PropTypes.func.isRequired,
-}
-
-HomePage.defaultProps = {
-  user: {},
-  omicUrl: null,
-  prisonStaffHubUrl: null,
-  useOfForceUrl: null,
 }
 
 const mapDispatchToProps = dispatch => ({

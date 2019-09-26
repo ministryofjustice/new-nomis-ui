@@ -64,6 +64,8 @@ describe('Header component', () => {
               prisonStaffHubUrl="http://prisonstaffhub"
               showCategorisationLink={false}
               categorisationUrl="http://catTool"
+              isUseOfForce={false}
+              useOfForceUrl="http://useofforce"
               userCanEdit
             />
           </MemoryRouter>
@@ -84,6 +86,8 @@ describe('Header component', () => {
       prisonStaffHubUrl: 'http://prisonstaffhub',
       showCategorisationLink: false,
       categorisationUrl: 'http://catTool',
+      isUseOfForce: false,
+      useOfForceUrl: 'http://useofforce',
     }
     it('should render buttons if user can edit', () => {
       const wrapper = shallow(<Header userCanEdit {...headerProps} />)
@@ -124,6 +128,8 @@ describe('Header component', () => {
         prisonStaffHubUrl="http://prisonstaffhub"
         showCategorisationLink={false}
         categorisationUrl="http://catTool"
+        isUseOfForce={false}
+        useOfForceUrl="http://useofforce"
         userCanEdit
       />
     )
@@ -142,6 +148,8 @@ describe('Header component', () => {
         prisonStaffHubUrl="http://prisonstaffhub"
         showCategorisationLink={false}
         categorisationUrl="http://catTool"
+        isUseOfForce={false}
+        useOfForceUrl="http://useofforce"
         userCanEdit
       />
     )
@@ -160,6 +168,8 @@ describe('Header component', () => {
         prisonStaffHubUrl="http://prisonstaffhub"
         showCategorisationLink={false}
         categorisationUrl="http://catTool"
+        isUseOfForce={false}
+        useOfForceUrl="http://useofforce"
         userCanEdit
       />
     )
@@ -183,6 +193,8 @@ describe('Header component', () => {
         prisonStaffHubUrl="http://prisonstaffhub"
         showCategorisationLink
         categorisationUrl="http://catTool/"
+        isUseOfForce={false}
+        useOfForceUrl="http://useofforce"
         userCanEdit
       />
     )
@@ -213,6 +225,8 @@ describe('Header component', () => {
         prisonStaffHubUrl="http://prisonstaffhub"
         showCategorisationLink
         categorisationUrl="http://catTool/"
+        isUseOfForce={false}
+        useOfForceUrl="http://useofforce"
         userCanEdit
       />
     )
@@ -238,6 +252,8 @@ describe('Header component', () => {
         prisonStaffHubUrl="http://prisonstaffhub"
         showCategorisationLink={false}
         categorisationUrl="http://catTool"
+        isUseOfForce={false}
+        useOfForceUrl="http://useofforce"
         userCanEdit
       />
     )
@@ -257,6 +273,8 @@ describe('Header component', () => {
         prisonStaffHubUrl="http://prisonstaffhub"
         showCategorisationLink={false}
         categorisationUrl="http://catTool"
+        isUseOfForce={false}
+        useOfForceUrl="http://useofforce"
         userCanEdit
       />
     )
@@ -277,7 +295,7 @@ describe('Header component', () => {
     })
   })
 
-  describe('should render link for Report use of force if user caseload IS NOT UoF enabled prison', () => {
+  describe('should not render link for Report use of force if user caseload IS NOT UoF enabled prison', () => {
     const headerProps = {
       inmateData: inmate(allAlerts, 'D'),
       onImageClick: jest.fn(),
@@ -288,6 +306,7 @@ describe('Header component', () => {
       showCategorisationLink: false,
       categorisationUrl: 'http://catTool',
       isUseOfForce: false,
+      useOfForceUrl: 'http://useofforce',
     }
     it('should render buttons if user can edit', () => {
       const wrapper = shallow(<Header userCanEdit {...headerProps} />)
