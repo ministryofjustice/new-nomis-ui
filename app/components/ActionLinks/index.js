@@ -81,7 +81,7 @@ const ActionLinks = ({
         )}
 
         {isUseOfForce && useOfForceUrl && (
-          <ActionLink url={`${useOfForceUrl}`} image="/img/blank.png" testId="useOfForce-link">
+          <ActionLink url={`${useOfForceUrl}`} image="/img/UseOfForce_icon.png" testId="useOfForce-link">
             Use of force incidents
           </ActionLink>
         )}

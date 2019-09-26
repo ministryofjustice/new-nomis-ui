@@ -18,13 +18,15 @@ describe('User service', () => {
   // The api will be stubbed so there's no need to provide a real client for it to use.
   const elite2Api = {}
   const oauthApi = {}
-  let userService = userServiceFactory(elite2Api, oauthApi, {})
+  let userService
 
   beforeEach(() => {
     const config = {
-      useOfForce: {
-        ui_url: process.env.USE_OF_FORCE_URL,
-        prisons: 'LEI',
+      apis: {
+        useOfForce: {
+          ui_url: process.env.USE_OF_FORCE_URL,
+          prisons: 'LEI',
+        },
       },
     }
 
@@ -140,9 +142,11 @@ describe('User service', () => {
 
   it('should return false for isUseOfForce if no value has been assigned to useOfForcePrisons', async () => {
     const config = {
-      useOfForce: {
-        ui_url: process.env.USE_OF_FORCE_URL,
-        prisons: '',
+      apis: {
+        useOfForce: {
+          ui_url: process.env.USE_OF_FORCE_URL,
+          prisons: '',
+        },
       },
     }
 

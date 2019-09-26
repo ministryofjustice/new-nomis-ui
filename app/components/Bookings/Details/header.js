@@ -249,7 +249,6 @@ const Header = ({
   isUseOfForce,
 }) => {
   const alertFlags = className => flags.AlertFlags(inmateData.get('alerts'), className, onAlertFlagClick)
-
   return (
     <div className="header-details">
       <div className="row visible-small">{alertFlags('col-sm-12 no-padding-left')}</div>

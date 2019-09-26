@@ -42,7 +42,7 @@ const userServiceFactory = (elite2Api, oauthApi, config) => {
       }
     }
 
-    const useOfForcePrisons = config.useOfForce.prisons.split(',')
+    const useOfForcePrisons = config.apis.useOfForce.prisons.split(',')
     const sanitisedPrisons = useOfForcePrisons.map(prison => prison.trim().toUpperCase())
 
     return {
