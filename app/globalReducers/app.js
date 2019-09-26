@@ -27,6 +27,7 @@ const initialState = fromJS({
   prisonStaffHubUrl: '/',
   omicUrl: '/',
   categorisationUrl: '/',
+  useOfForceUrl: '/',
 })
 
 // Reducer

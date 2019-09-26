@@ -57,6 +57,8 @@ const MiddleSection = ({
   categorisationUrl,
   iepDetailsUrl,
   userCanEdit,
+  isUseOfForce,
+  useOfForceUrl,
 }) => {
   const category = flags.AssessmentFlagsOrLetter(inmateData.get('categoryCode'), inmateData.get('category'), '')
   return (
@@ -207,6 +209,13 @@ const MiddleSection = ({
                 Add appointment
               </Link>
             </div>
+            {isUseOfForce && (
+              <div>
+                <a data-qa="use-of-force-link" className="button-link" href={useOfForceUrl}>
+                  Report use of force
+                </a>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -222,6 +231,8 @@ MiddleSection.propTypes = {
   categorisationUrl: PropTypes.string.isRequired,
   iepDetailsUrl: PropTypes.string.isRequired,
   userCanEdit: PropTypes.bool.isRequired,
+  isUseOfForce: PropTypes.bool.isRequired,
+  useOfForceUrl: PropTypes.string.isRequired,
 }
 
 const Header = ({
@@ -233,10 +244,11 @@ const Header = ({
   showCategorisationLink,
   categorisationUrl,
   prisonStaffHubUrl,
+  useOfForceUrl,
   userCanEdit,
+  isUseOfForce,
 }) => {
   const alertFlags = className => flags.AlertFlags(inmateData.get('alerts'), className, onAlertFlagClick)
-
   return (
     <div className="header-details">
       <div className="row visible-small">{alertFlags('col-sm-12 no-padding-left')}</div>
@@ -285,6 +297,8 @@ const Header = ({
                 categorisationUrl={categorisationUrl}
                 iepDetailsUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-details`}
                 userCanEdit={userCanEdit}
+                isUseOfForce={isUseOfForce}
+                useOfForceUrl={`${useOfForceUrl}/report/${inmateData.get('bookingId')}/report-use-of-force`}
               />
             </div>
           </div>
@@ -301,6 +315,8 @@ const Header = ({
             categorisationUrl={categorisationUrl}
             iepDetailsUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-details`}
             userCanEdit={userCanEdit}
+            isUseOfForce={isUseOfForce}
+            useOfForceUrl={`${useOfForceUrl}/report/${inmateData.get('bookingId')}/report-use-of-force`}
           />
         </div>
       </div>
@@ -318,6 +334,8 @@ Header.propTypes = {
   categorisationUrl: PropTypes.string.isRequired,
   prisonStaffHubUrl: PropTypes.string,
   userCanEdit: PropTypes.bool.isRequired,
+  isUseOfForce: PropTypes.bool.isRequired,
+  useOfForceUrl: PropTypes.string.isRequired,
 }
 
 Header.defaultProps = {
