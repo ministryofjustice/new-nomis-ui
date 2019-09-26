@@ -75,6 +75,7 @@ app.use('/config', (req, res) => {
   const omicUrl = config.apis.keyworker.ui_url
   const prisonStaffHubUrl = config.apis.prisonStaffHub.ui_url
   const categorisationUrl = config.apis.categorisation.ui_url
+  const useOfForceUrl = config.apis.useOfForce.ui_url
 
   if (!feedbackUrl && !omicUrl && !prisonStaffHubUrl && !mailTo && !categorisationUrl) {
     res.end()
@@ -86,6 +87,7 @@ app.use('/config', (req, res) => {
     prisonStaffHubUrl,
     mailTo,
     categorisationUrl,
+    useOfForceUrl,
   })
 })
 
@@ -140,7 +142,7 @@ const oauthApi = oauthApiFactory(
 auth.init(oauthApi)
 const tokenRefresher = tokeRefresherFactory(oauthApi.refresh, config.app.tokenRefreshThresholdSeconds)
 
-const userService = userServiceFactory(eliteApi, oauthApi)
+const userService = userServiceFactory(eliteApi, oauthApi, config)
 const bookingService = bookingServiceFactory(eliteApi, keyworkerApi)
 const eventsService = eventsServiceFactory(eliteApi)
 const keyworkerService = keyworkerServiceFactory(eliteApi, oauthApi, keyworkerApi)

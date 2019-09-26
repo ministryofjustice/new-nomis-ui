@@ -55,7 +55,7 @@ describe('caseNoteApi tests', () => {
         })
 
       const context = {}
-      const result = await caseNoteAPi.getCaseNotes(context, 1234, {
+      await caseNoteAPi.getCaseNotes(context, 1234, {
         perPage: 10,
         pageNumber: 1,
         type: 'GEN',

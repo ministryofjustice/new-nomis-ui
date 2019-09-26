@@ -19,6 +19,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments={false}
         isCatToolUser={false}
+        isUseOfForce={false}
+        useOfForceUrl=""
       />
     )
 
@@ -39,6 +41,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments={false}
         isCatToolUser={false}
+        isUseOfForce={false}
+        useOfForceUrl=""
       />
     )
 
@@ -59,6 +63,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments={false}
         isCatToolUser={false}
+        isUseOfForce={false}
+        useOfForceUrl=""
       />
     )
 
@@ -79,6 +85,8 @@ describe('Actions component', () => {
         isGlobalSearch
         isAddBulkAppointments={false}
         isCatToolUser={false}
+        isUseOfForce={false}
+        useOfForceUrl=""
       />
     )
 
@@ -99,6 +107,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments={false}
         isCatToolUser={false}
+        isUseOfForce={false}
+        useOfForceUrl=""
       />
     )
 
@@ -119,6 +129,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments={false}
         isCatToolUser={false}
+        isUseOfForce={false}
+        useOfForceUrl=""
       />
     )
 
@@ -139,6 +151,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments
         isCatToolUser={false}
+        isUseOfForce={false}
+        useOfForceUrl=""
       />
     )
 
@@ -159,9 +173,33 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments={false}
         isCatToolUser
+        isUseOfForce={false}
+        useOfForceUrl=""
       />
     )
 
     expect(wrapper.find('ActionLink').prop('url')).toBe('http://cat-tool')
   })
+})
+
+it('should show Use of Force link when the user has selected at UoF enabled prison', () => {
+  const wrapper = shallow(
+    <ActionLinks
+      omicUrl=""
+      categorisationUrl=""
+      prisonStaffHubUrl="http://"
+      isKeyWorker={false}
+      isKeyWorkerAdmin={false}
+      isWhereabouts={false}
+      hasAdminRights={false}
+      isEstablishmentRollCheck={false}
+      isGlobalSearch={false}
+      isAddBulkAppointments={false}
+      isUseOfForce
+      isCatToolUser={false}
+      useOfForceUrl="http://use-of-force/"
+    />
+  )
+
+  expect(wrapper.find('ActionLink').prop('url')).toBe('http://use-of-force/')
 })
