@@ -86,9 +86,11 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     containsExpectedIgnoringBlankAndDates(allQuicklookValues2, expectedQuicklookValues2)
     !categorisationLink.isDisplayed()
 
+
     // edit view means links shown
     addAppointmentLink.isDisplayed()
     addCaseNoteLink.isDisplayed()
+    useOfForceLink.isDisplayed()
   }
 
   def "Offender quicklook details are correct in read only view"() {

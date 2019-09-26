@@ -19,6 +19,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments={false}
         isCatToolUser={false}
+        isUseOfForce={false}
+        useOfForceUrl=""
       />
     )
 
@@ -39,6 +41,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments={false}
         isCatToolUser={false}
+        isUseOfForce={false}
+        useOfForceUrl=""
       />
     )
 
@@ -59,6 +63,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments={false}
         isCatToolUser={false}
+        isUseOfForce={false}
+        useOfForceUrl=""
       />
     )
 
@@ -79,6 +85,8 @@ describe('Actions component', () => {
         isGlobalSearch
         isAddBulkAppointments={false}
         isCatToolUser={false}
+        isUseOfForce={false}
+        useOfForceUrl=""
       />
     )
 
@@ -99,6 +107,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments={false}
         isCatToolUser={false}
+        isUseOfForce={false}
+        useOfForceUrl=""
       />
     )
 
@@ -119,6 +129,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments={false}
         isCatToolUser={false}
+        isUseOfForce={false}
+        useOfForceUrl=""
       />
     )
 
@@ -139,6 +151,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments
         isCatToolUser={false}
+        isUseOfForce={false}
+        useOfForceUrl=""
       />
     )
 
@@ -159,6 +173,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments={false}
         isCatToolUser
+        isUseOfForce={false}
+        useOfForceUrl=""
       />
     )
 
@@ -170,6 +186,7 @@ it('should show Use of Force link when the user has selected at UoF enabled pris
   const wrapper = shallow(
     <ActionLinks
       omicUrl=""
+      categorisationUrl=""
       prisonStaffHubUrl="http://"
       isKeyWorker={false}
       isKeyWorkerAdmin={false}
@@ -179,6 +196,7 @@ it('should show Use of Force link when the user has selected at UoF enabled pris
       isGlobalSearch={false}
       isAddBulkAppointments={false}
       isUseOfForce
+      isCatToolUser={false}
       useOfForceUrl="http://use-of-force/"
     />
   )
