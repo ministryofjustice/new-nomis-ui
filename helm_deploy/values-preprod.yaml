@@ -1,0 +1,31 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 2
+
+image:
+  repository: docker.io/mojdigitalstudio/prisonstaffhub
+  tag: latest
+  pullPolicy: IfNotPresent
+  port: 3000
+
+ingress:
+  enabled: true
+  host: digital-preprod.prison.service.justice.gov.uk
+  cert_secret: notm-cert
+  path: /
+
+env:
+  API_ENDPOINT_URL: "https://gateway.preprod.nomis-api.service.hmpps.dsd.io/elite2api/"
+  OAUTH_ENDPOINT_URL: "https://gateway.preprod.nomis-api.service.hmpps.dsd.io/auth/"
+  API_WHEREABOUTS_ENDPOINT_URL: "https://whereabouts-api-preprod.service.justice.gov.uk/"
+  API_COMMUNITY_ENDPOINT_URL: "https://community-api-t2.hmpps.dsd.io/communityapi/"
+  PRISON_STAFF_HUB_UI_URL: "https://whereabouts-preprod.prison.service.justice.gov.uk/"
+  KEYWORKER_API_URL: "https://keyworker-api-preprod.service.hmpps.dsd.io/"
+  CASENOTES_API_URL: "https://preprod.offender-case-notes.service.justice.gov.uk"
+  OMIC_UI_URL: "https://preprod.manage-key-workers.service.justice.gov.uk/"
+  CATEGORISATION_UI_URL: "https://preprod.offender-categorisation.service.justice.gov.uk/"
+  HMPPS_COOKIE_NAME: hmpps-session-preprod
+  NODE_ENV: production
+  REMOTE_AUTH_STRATEGY: "true"
+  WEB_SESSION_TIMEOUT_IN_MINUTES: "60"
