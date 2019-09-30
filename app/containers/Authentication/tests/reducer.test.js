@@ -165,4 +165,37 @@ describe('Authentication reducer', () => {
 
     expect(userState.canViewProbationDocuments).toBe(false)
   })
+
+  it('should return a user with access to Pathfinder links where a PATHFINDER_PPL role is present', () => {
+    const user = {
+      ...userData,
+      accessRoles: [{ roleCode: 'PATHFINDER_PPL', roleDescription: 'Prison Prevent Lead' }],
+    }
+    const state = authenticationReducer(Map({}), userMe({ user }))
+    const userState = state.get('user')
+
+    expect(userState.isPathfinderUser).toBe(true)
+  })
+
+  it('should return a user with access to Pathfinder links where a PATHFINDER_OM role is present', () => {
+    const user = {
+      ...userData,
+      accessRoles: [{ roleCode: 'PATHFINDER_OM', roleDescription: 'Offender Manager' }],
+    }
+    const state = authenticationReducer(Map({}), userMe({ user }))
+    const userState = state.get('user')
+
+    expect(userState.isPathfinderUser).toBe(true)
+  })
+
+  it('should return a user that has no access to Pathfinder', () => {
+    const user = {
+      ...userData,
+      accessRoles: [{ roleCode: 'ANOTHER_ROLE', roleDescription: 'Not pathfinder' }],
+    }
+    const state = authenticationReducer(Map({}), userMe({ user }))
+    const userState = state.get('user')
+
+    expect(userState.isPathfinderUser).toBe(false)
+  })
 })

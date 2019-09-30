@@ -49,6 +49,9 @@ const apis = {
     ui_url: process.env.USE_OF_FORCE_URL,
     prisons: process.env.USE_OF_FORCE_PRISONS || '',
   },
+  pathfinder: {
+    ui_url: process.env.PATHFINDER_URL,
+  },
   caseNotes: {
     url: process.env.CASENOTES_API_URL || 'http://localhost:8083',
     timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 30,
