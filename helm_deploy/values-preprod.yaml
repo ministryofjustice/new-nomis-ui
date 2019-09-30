@@ -4,7 +4,7 @@
 replicaCount: 2
 
 image:
-  repository: docker.io/mojdigitalstudio/prisonstaffhub
+  repository: docker.io/mojdigitalstudio/new-nomis-ui
   tag: latest
   pullPolicy: IfNotPresent
   port: 3000
