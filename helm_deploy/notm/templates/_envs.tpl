@@ -58,6 +58,12 @@ env:
   - name: CATEGORISATION_UI_URL
     value: {{ .Values.env.CATEGORISATION_UI_URL | quote }}
 
+  - name: USE_OF_FORCE_URL
+    value: {{ .Values.env.USE_OF_FORCE_URL | quote }}
+
+  - name: USE_OF_FORCE_PRISONS
+    value: {{ .Values.env.USE_OF_FORCE_PRISONS | quote }}
+
   - name: REMOTE_AUTH_STRATEGY 
     value: {{ .Values.env.REMOTE_AUTH_STRATEGY | quote }}
 
