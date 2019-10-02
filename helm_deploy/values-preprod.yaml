@@ -30,7 +30,6 @@ env:
   USE_OF_FORCE_URL: "https://preprod.use-of-force.service.justice.gov.uk" 
   USE_OF_FORCE_PRISONS: "WRI"
   HMPPS_COOKIE_NAME: hmpps-session-preprod
-  NODE_ENV: production
   REMOTE_AUTH_STRATEGY: "true"
   WEB_SESSION_TIMEOUT_IN_MINUTES: "60"
 
