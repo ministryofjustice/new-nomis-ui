@@ -28,6 +28,7 @@ const initialState = fromJS({
   omicUrl: '/',
   categorisationUrl: '/',
   useOfForceUrl: '/',
+  pathfinderUrl: '/',
 })
 
 // Reducer

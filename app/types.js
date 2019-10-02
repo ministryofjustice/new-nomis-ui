@@ -30,6 +30,7 @@ export const userType = shape({
   staffRoles: arrayOf(object),
   username: string,
   isUseOfForce: bool,
+  isPathfinderUser: bool,
 })
 
 export const metaType = shape({

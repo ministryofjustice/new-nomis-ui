@@ -21,6 +21,8 @@ describe('Actions component', () => {
         isCatToolUser={false}
         isUseOfForce={false}
         useOfForceUrl=""
+        isPathfinderUser={false}
+        pathfinderUrl=""
       />
     )
 
@@ -43,6 +45,8 @@ describe('Actions component', () => {
         isCatToolUser={false}
         isUseOfForce={false}
         useOfForceUrl=""
+        isPathfinderUser={false}
+        pathfinderUrl=""
       />
     )
 
@@ -65,6 +69,8 @@ describe('Actions component', () => {
         isCatToolUser={false}
         isUseOfForce={false}
         useOfForceUrl=""
+        isPathfinderUser={false}
+        pathfinderUrl=""
       />
     )
 
@@ -87,6 +93,8 @@ describe('Actions component', () => {
         isCatToolUser={false}
         isUseOfForce={false}
         useOfForceUrl=""
+        isPathfinderUser={false}
+        pathfinderUrl=""
       />
     )
 
@@ -109,6 +117,8 @@ describe('Actions component', () => {
         isCatToolUser={false}
         isUseOfForce={false}
         useOfForceUrl=""
+        isPathfinderUser={false}
+        pathfinderUrl=""
       />
     )
 
@@ -131,6 +141,8 @@ describe('Actions component', () => {
         isCatToolUser={false}
         isUseOfForce={false}
         useOfForceUrl=""
+        isPathfinderUser={false}
+        pathfinderUrl=""
       />
     )
 
@@ -153,6 +165,8 @@ describe('Actions component', () => {
         isCatToolUser={false}
         isUseOfForce={false}
         useOfForceUrl=""
+        isPathfinderUser={false}
+        pathfinderUrl=""
       />
     )
 
@@ -175,6 +189,8 @@ describe('Actions component', () => {
         isCatToolUser
         isUseOfForce={false}
         useOfForceUrl=""
+        isPathfinderUser={false}
+        pathfinderUrl=""
       />
     )
 
@@ -198,8 +214,34 @@ it('should show Use of Force link when the user has selected at UoF enabled pris
       isUseOfForce
       isCatToolUser={false}
       useOfForceUrl="http://use-of-force/"
+      isPathfinderUser={false}
+      pathfinderUrl=""
     />
   )
 
   expect(wrapper.find('ActionLink').prop('url')).toBe('http://use-of-force/')
+})
+
+it('should show Pathfinder link when the user has a Pathfinder role', () => {
+  const wrapper = shallow(
+    <ActionLinks
+      omicUrl=""
+      categorisationUrl=""
+      prisonStaffHubUrl="http://"
+      isKeyWorker={false}
+      isKeyWorkerAdmin={false}
+      isWhereabouts={false}
+      hasAdminRights={false}
+      isEstablishmentRollCheck={false}
+      isGlobalSearch={false}
+      isAddBulkAppointments={false}
+      isUseOfForce={false}
+      isCatToolUser={false}
+      useOfForceUrl=""
+      isPathfinderUser
+      pathfinderUrl="http://pathfinder/"
+    />
+  )
+
+  expect(wrapper.find('ActionLink').prop('url')).toBe('http://pathfinder/')
 })

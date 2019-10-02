@@ -39,4 +39,10 @@ class AccessRoles {
     roleCode: "VIEW_PROBATION_DOCUMENTS",
     roleName: "View probation documents"
   ]
+
+  static def pathfinderUser = [
+    roleId: 4,
+    roleCode: "PATHFINDER_PPL",
+    roleName: "Prison Prevent Lead"
+  ]
 }

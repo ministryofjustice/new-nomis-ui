@@ -24,5 +24,6 @@ class OffenderDetailsPage extends Page {
     categorisationLink (required: false) { $("a[data-qa=\'categorisation-external-link\']") }
     useOfForceLink (required: false) { $('a[data-qa="use-of-force-link"]').find{element -> element.displayed }}
     viewProbationDocumentsLink (required: false) { $("a[data-qa=\'probation-documents-link\']") }
+    pathfinderLink (required: false) { $("a[data-qa=\'pathfinder-link\']")}
   }
 }

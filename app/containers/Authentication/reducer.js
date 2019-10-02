@@ -37,6 +37,8 @@ const CAT_ROLES = [
   'CATEGORISATION_SECURITY',
 ]
 
+const PATHFINDER_ROLES = ['PATHFINDER_PPL', 'PATHFINDER_OM', 'PATHFINDER_IC']
+
 function authenticationReducer(state = initialState, action) {
   switch (action.type) {
     case USER_ME: {
@@ -49,6 +51,10 @@ function authenticationReducer(state = initialState, action) {
           user.accessRoles.some(r => r.roleCode === 'OMIC_ADMIN' || r.roleCode === 'KEYWORKER_MONITOR')
       )
       const isCatToolUser = Boolean(user.accessRoles && user.accessRoles.some(r => CAT_ROLES.includes(r.roleCode)))
+
+      const isPathfinderUser = Boolean(
+        user.accessRoles && user.accessRoles.some(r => PATHFINDER_ROLES.includes(r.roleCode))
+      )
 
       const isKeyWorker = Boolean(user.staffRoles && user.staffRoles.some(r => r.role === 'KW'))
 
@@ -86,6 +92,7 @@ function authenticationReducer(state = initialState, action) {
         isCatToolUser,
         canUpdateAlerts,
         canViewProbationDocuments,
+        isPathfinderUser,
       })
     }
 
