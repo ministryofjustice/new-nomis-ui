@@ -113,6 +113,8 @@ app.get('/health', (req, res, next) => {
   })
 })
 
+app.get('/ping', (req, res) => res.send('pong'))
+
 const eliteApi = eliteApiFactory(
   clientFactory({
     baseUrl: config.apis.elite2.url,
