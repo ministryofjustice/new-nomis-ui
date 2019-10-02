@@ -604,26 +604,25 @@ OffenderManagementInCustody.defaultProps = {
   canUserViewProbationDocuments: false,
 }
 
-export const Pathfinder = ({ pathfinderUrl, isPathfinderUser }) => {
+export const Pathfinder = ({ pathfinderUrl }) => {
   return (
-    <div>
-      {isPathfinderUser && pathfinderUrl && (
+    <div className="col-xs-12">
+      <h3 className="heading-medium">Pathfinder</h3>
+      <div>
         <a data-qa="pathfinder-link" className="link" href={pathfinderUrl}>
           Refer to Pathfinder
         </a>
-      )}
+      </div>
     </div>
   )
 }
 
 Pathfinder.propTypes = {
   pathfinderUrl: PropTypes.string,
-  isPathfinderUser: PropTypes.bool,
 }
 
 Pathfinder.defaultProps = {
   pathfinderUrl: '',
-  isPathfinderUser: false,
 }
 
 class QuickLook extends Component {
@@ -743,15 +742,9 @@ class QuickLook extends Component {
                 />
               </div>
             )}
-            {isPathfinderUser && (
-              <div className="col-xs-12">
-                <h3 className="heading-medium">Pathfinder</h3>
 
-                <Pathfinder
-                  pathfinderUrl={pathfinderUrl && `${pathfinderUrl}/refer/offender/${offenderNo}`}
-                  isPathfinderUser={isPathfinderUser}
-                />
-              </div>
+            {isPathfinderUser && pathfinderUrl && (
+              <Pathfinder pathfinderUrl={`${pathfinderUrl}/refer/offender/${offenderNo}`} />
             )}
           </div>
           <div className="col-md-6 col-xs-12">

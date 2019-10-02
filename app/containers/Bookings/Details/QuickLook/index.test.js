@@ -36,13 +36,13 @@ describe('<QuickLook />', () => {
 
       expect(wrapper.find(OffenderManagementInCustody)).toHaveLength(1)
     })
-    it('should not render pathfinder if user does not have a Pathfinder role', () => {
+    it('should not render the pathfinder section if the user does not have a Pathfinder role', () => {
       const wrapper = shallow(<QuickLook {...quickLookProps} />)
 
       expect(wrapper.find(Pathfinder)).toHaveLength(0)
     })
-    it('should render pathfinder if user has a Pathfinder role', () => {
-      const wrapper = shallow(<QuickLook {...quickLookProps} isPathfinderUser />)
+    it('should render the pathfinder section if the user has a Pathfinder role and the URL is present', () => {
+      const wrapper = shallow(<QuickLook {...quickLookProps} isPathfinderUser pathfinderUrl="https://pathfinder" />)
 
       expect(wrapper.find(Pathfinder)).toHaveLength(1)
     })
