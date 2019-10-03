@@ -26,6 +26,7 @@ const ActionLinks = ({
   omicUrl,
   prisonStaffHubUrl,
   useOfForceUrl,
+  pathfinderUrl,
   isEstablishmentRollCheck,
   hasAdminRights,
   isGlobalSearch,
@@ -33,6 +34,7 @@ const ActionLinks = ({
   isCatToolUser,
   categorisationUrl,
   isUseOfForce,
+  isPathfinderUser,
 }) => {
   if (
     !isKeyWorker &&
@@ -43,7 +45,8 @@ const ActionLinks = ({
     !isGlobalSearch &&
     !isAddBulkAppointments &&
     !isCatToolUser &&
-    !isUseOfForce
+    !isUseOfForce &&
+    !isPathfinderUser
   ) {
     return <div />
   }
@@ -83,6 +86,12 @@ const ActionLinks = ({
         {isUseOfForce && useOfForceUrl && (
           <ActionLink url={`${useOfForceUrl}`} image="/img/UseOfForce_icon.png" testId="useOfForce-link">
             Use of force incidents
+          </ActionLink>
+        )}
+
+        {isPathfinderUser && pathfinderUrl && (
+          <ActionLink url={`${pathfinderUrl}`} image="/img/Pathfinder_icon.png" testId="pathfinder-link">
+            Pathfinder
           </ActionLink>
         )}
 
@@ -150,6 +159,8 @@ ActionLinks.propTypes = {
   categorisationUrl: PropTypes.string.isRequired,
   isUseOfForce: PropTypes.bool.isRequired,
   useOfForceUrl: PropTypes.string.isRequired,
+  isPathfinderUser: PropTypes.bool.isRequired,
+  pathfinderUrl: PropTypes.string.isRequired,
 }
 
 export default ActionLinks
