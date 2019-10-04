@@ -9,9 +9,21 @@ import Header, { Alerts } from './header'
 
 const allAlerts = [
   Map({ alertCode: 'HA' }),
+  Map({ alertCode: 'HA1' }),
   Map({ alertCode: 'XSA' }),
   Map({ alertCode: 'XA' }),
   Map({ alertCode: 'PEEP' }),
+  Map({ alertCode: 'XCO' }),
+  Map({ alertCode: 'XCA' }),
+  Map({ alertCode: 'XCI' }),
+  Map({ alertCode: 'XR' }),
+  Map({ alertCode: 'RTP' }),
+  Map({ alertCode: 'RLG' }),
+  Map({ alertCode: 'XHT' }),
+  Map({ alertCode: 'XCU' }),
+  Map({ alertCode: 'XGANG' }),
+  Map({ alertCode: 'CSIP' }),
+  Map({ alertCode: 'F1' }),
 ]
 const irrelevantAlerts = [
   Map({ alertCode: 'HA', expired: true }),
@@ -117,7 +129,7 @@ describe('Header component', () => {
     })
   })
 
-  it('should render four alerts', () => {
+  it('should render 15 alerts', () => {
     const wrapper = shallow(
       <Header
         inmateData={inmate(allAlerts, 'D')}
@@ -134,7 +146,10 @@ describe('Header component', () => {
       />
     )
 
-    expect(wrapper.find('div.align-alerts span')).toHaveLength(4)
+    // There are 16 alerts assigned to the inmate, but
+    // the RTP and RLG result in the same alert flag so
+    // there's one less flag to display
+    expect(wrapper.find('div.align-alerts span')).toHaveLength(15)
   })
 
   it('should ignore irrelevant alert flags', () => {

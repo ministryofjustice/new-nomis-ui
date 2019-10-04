@@ -23,6 +23,11 @@ const AlertFlags = (alerts, divClassName, onAlertFlagClick) => {
           ACCT OPEN
         </span>
       )}
+      {isShown('HA1') && (
+        <span className="acct-post-closure-status" {...linkOnClick(onAlertFlagClick)}>
+          ACCT&#x2011;POST CLOSURE
+        </span>
+      )}
       {isShown('XSA') && (
         <span className="assault-status" {...linkOnClick(onAlertFlagClick)}>
           STAFF ASSAULTER
@@ -51,6 +56,56 @@ const AlertFlags = (alerts, divClassName, onAlertFlagClick) => {
       {isShown('XTACT') && (
         <span className="tact-status" {...linkOnClick(onAlertFlagClick)}>
           TACT
+        </span>
+      )}
+      {isShown('XCO') && (
+        <span className="corruptor-status" {...linkOnClick(onAlertFlagClick)}>
+          <img src="/img/CU_icon.png" className="corruptor-adjust" alt="" width="14" height="15" /> CORRUPTOR
+        </span>
+      )}
+      {isShown('XCA') && (
+        <span className="chemical-attacker-status" {...linkOnClick(onAlertFlagClick)}>
+          CHEMICAL ATTACKER
+        </span>
+      )}
+      {isShown('XCI') && (
+        <span className="concerted-indiscipline-status" {...linkOnClick(onAlertFlagClick)}>
+          CONCERTED INDISCIPLINE
+        </span>
+      )}
+      {isShown('XR') && (
+        <span className="racist-status" {...linkOnClick(onAlertFlagClick)}>
+          RACIST
+        </span>
+      )}
+      {(isShown('RTP') || isShown('RLG')) && (
+        <span className="risk-lgbt-status" {...linkOnClick(onAlertFlagClick)}>
+          RISK TO LGBT
+        </span>
+      )}
+      {isShown('XHT') && (
+        <span className="hostage-taker-status" {...linkOnClick(onAlertFlagClick)}>
+          HOSTAGE TAKER
+        </span>
+      )}
+      {isShown('XCU') && (
+        <span className="controlled-unlock-status" {...linkOnClick(onAlertFlagClick)}>
+          CONTROLLED UNLOCK
+        </span>
+      )}
+      {isShown('XGANG') && (
+        <span className="gang-member-status" {...linkOnClick(onAlertFlagClick)}>
+          GANG MEMBER
+        </span>
+      )}
+      {isShown('CSIP') && (
+        <span className="csip-status" {...linkOnClick(onAlertFlagClick)}>
+          CSIP
+        </span>
+      )}
+      {isShown('F1') && (
+        <span className="veteran-status" {...linkOnClick(onAlertFlagClick)}>
+          VETERAN
         </span>
       )}
     </div>

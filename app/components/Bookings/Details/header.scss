@@ -227,10 +227,10 @@
 }
 
 .elist-status {
-  @extend %alert-status-style;
-  color: #28a197;
-  border-color: #28a197;
-}
+   @extend %alert-status-style;
+   color: #28a197;
+   border-color: #28a197;
+ }
 
 .risk-females-status {
   @extend %alert-status-style;
@@ -262,6 +262,79 @@
   border: 3px dashed;
   color: #00437b;
   border-color: #00437b;
+}
+
+.corruptor-status {
+  @extend %alert-status-style;
+  color: #B10E1E;
+  border-color: #B10E1E;
+}
+
+.corruptor-adjust {
+  margin-bottom: 2px;
+  position: relative;
+  left: 0;
+  top: -1px;
+}
+
+.chemical-attacker-status {
+  @extend %alert-status-style;
+  color: #69831E;
+  border-color: #69831E;
+}
+
+.concerted-indiscipline-status {
+  @extend %alert-status-style;
+  color: #444;
+  border-color: #444;
+}
+
+.racist-status {
+  @extend %alert-status-style;
+  color: #8F5F11;
+  border-color: #8F5F11;
+}
+
+.risk-lgbt-status {
+  @extend %alert-status-style;
+  color: #912B88;
+  border-color: #912B88;
+}
+
+.hostage-taker-status {
+  @extend %alert-status-style;
+  color: #C6545F;
+  border-color: #C6545F;
+}
+
+.controlled-unlock-status {
+  @extend %alert-status-style;
+  color: #2E358B;
+  border-color: #2E358B;
+}
+
+.gang-member-status {
+  @extend %alert-status-style;
+  color: #005F9E;
+  border-color: #005F9E;
+}
+
+.csip-status {
+  @extend %alert-status-style;
+  color: #4C2C92;
+  border-color: #4C2C92;
+}
+
+.veteran-status {
+  @extend %alert-status-style;
+  color: #006435;
+  border-color: #006435;
+}
+
+.acct-post-closure-status {
+  @extend %alert-status-style;
+  color: #F47738;
+  border: 3px dashed #F47738;
 }
 
 @media (min-width: 481px) {
