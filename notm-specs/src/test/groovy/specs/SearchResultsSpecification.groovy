@@ -60,8 +60,8 @@ class SearchResultsSpecification extends BrowserReportingSpec {
     when: 'Alert filters are selected'
     moreFiltersLink.click()
     checkboxes[0].click() // acct
-    checkboxes[4].click() // arsonist
-    checkboxes[5].click() // TACT
+    checkboxes[2].click() // arsonist
+    checkboxes[17].click() // TACT
     elite2api.stubOffenderSearch(
       'aname',
       [
@@ -122,8 +122,8 @@ class SearchResultsSpecification extends BrowserReportingSpec {
     when: 'Alert filters are selected'
     moreFiltersLink.click()
     checkboxes[0].click() // acct
-    checkboxes[4].click() // arsonist
-    checkboxes[5].click() // TACT
+    checkboxes[2].click() // arsonist
+    checkboxes[17].click() // TACT
     elite2api.stubOffenderSearch(
       'aname',
       [
@@ -149,7 +149,7 @@ class SearchResultsSpecification extends BrowserReportingSpec {
 
     waitFor { rows.size() == 3 }
 
-    checkboxes.size() == 7
+    checkboxes.size() == 19
     checkboxes.every{ cb -> cb.value() == null } == true
 
     // Make sure a request was made for unfiltered data
