@@ -129,7 +129,7 @@ describe('Header component', () => {
     })
   })
 
-  it('should render 15 alerts', () => {
+  it('should render 16 alerts', () => {
     const wrapper = shallow(
       <Header
         inmateData={inmate(allAlerts, 'D')}
@@ -146,10 +146,7 @@ describe('Header component', () => {
       />
     )
 
-    // There are 16 alerts assigned to the inmate, but
-    // the RTP and RLG result in the same alert flag so
-    // there's one less flag to display
-    expect(wrapper.find('div.align-alerts span')).toHaveLength(15)
+    expect(wrapper.find('div.align-alerts span')).toHaveLength(16)
   })
 
   it('should ignore irrelevant alert flags', () => {
