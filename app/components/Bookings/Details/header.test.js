@@ -129,7 +129,7 @@ describe('Header component', () => {
     })
   })
 
-  it('should render 16 alerts', () => {
+  it('should render 15 alerts', () => {
     const wrapper = shallow(
       <Header
         inmateData={inmate(allAlerts, 'D')}
@@ -146,7 +146,9 @@ describe('Header component', () => {
       />
     )
 
-    expect(wrapper.find('div.align-alerts span')).toHaveLength(16)
+    // Risk to LGBT is backed by two codes, so even though there are
+    // 16 alert codes, only one alert flag will be shown
+    expect(wrapper.find('div.align-alerts span')).toHaveLength(15)
   })
 
   it('should ignore irrelevant alert flags', () => {

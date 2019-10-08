@@ -5,14 +5,14 @@ const AlertFlags = (alerts, divClassName, onAlertFlagClick) => {
   // eslint-disable-next-line global-require
   const alertFlags = require('./alertFlags.json')
 
-  function isShown(code) {
+  function isShown(codes) {
     if (alerts) {
       return alerts.some(alert => {
         if (alert.get) {
           if (!alert.get('expired')) {
-            if (alert.get('alertCode') === code) return true
+            if (codes.includes(alert.get('alertCode'))) return true
           }
-        } else if (alert === code) return true
+        } else if (codes.includes(alert)) return true
         return false
       })
     }
@@ -25,9 +25,9 @@ const AlertFlags = (alerts, divClassName, onAlertFlagClick) => {
         alertFlags.map(alert => {
           return (
             <>
-              {isShown(alert.alertCode) && (
+              {isShown(alert.alertCodes) && (
                 <span className={alert.className} {...linkOnClick(onAlertFlagClick)}>
-                  {alert.img && <img src={alert.img} className={alert.imgClass} alt="" width="11" height="14" />}
+                  {alert.img && <img src={alert.img} className={alert.imgClass} alt={alert.label} />}
                   {alert.label.toUpperCase()}
                 </span>
               )}

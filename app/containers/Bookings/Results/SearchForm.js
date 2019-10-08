@@ -78,16 +78,16 @@ class SearchAgainForm extends Component {
 
     const toggleCheckBox = event => {
       const { checkedAlerts } = this.state
-      const code = event.target.value
+      const codes = event.target.value.split(',')
 
-      const exists = checkedAlerts.includes(code)
+      const exists = checkedAlerts.includes(codes[0])
       if (exists) {
         this.setState({
-          checkedAlerts: checkedAlerts.filter(alert => alert !== code),
+          checkedAlerts: checkedAlerts.filter(alert => !codes.includes(alert)),
         })
       } else {
         this.setState({
-          checkedAlerts: [...checkedAlerts, code],
+          checkedAlerts: [...checkedAlerts, ...codes],
         })
       }
     }
@@ -99,16 +99,16 @@ class SearchAgainForm extends Component {
     const { showFilters, checkedAlerts } = this.state
     const isTicked = code => checkedAlerts.includes(code)
 
-    const AlertCheckbox = ({ code, colClasses, content, onChange }) => {
+    const AlertCheckbox = ({ codes, colClasses, content, onChange }) => {
       const classes = `${colClasses} multiple-choice no-left-gutter`
       return (
         <div className={classes}>
           <Checkbox
-            id={code}
+            id={codes[0]}
             type="checkbox"
             name="alerts"
-            value={code}
-            defaultChecked={isTicked(code)}
+            value={codes}
+            defaultChecked={isTicked(codes[0])}
             onChange={onChange}
           >
             {content}
@@ -209,7 +209,7 @@ class SearchAgainForm extends Component {
                           .map(alertFlag => {
                             return (
                               <AlertCheckbox
-                                code={alertFlag.alertCode}
+                                codes={alertFlag.alertCodes}
                                 colClasses="col-md-3"
                                 content={alertFlag.label}
                                 onChange={toggleCheckBox}

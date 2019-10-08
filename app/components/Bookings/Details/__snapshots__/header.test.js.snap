@@ -48,11 +48,9 @@ exports[`Header component should render correctly 1`] = `
         tabIndex={0}
       >
         <img
-          alt=""
+          alt="Arsonist"
           className="arsonist-adjust"
-          height="14"
           src="/img/Arsonist_icon.png"
-          width="11"
         />
         ARSONIST
       </span>
@@ -64,11 +62,9 @@ exports[`Header component should render correctly 1`] = `
         tabIndex={0}
       >
         <img
-          alt=""
+          alt="PEEP"
           className="disability-adjust"
-          height="14"
           src="/img/Disability_icon.png"
-          width="11"
         />
         PEEP
       </span>
@@ -80,11 +76,9 @@ exports[`Header component should render correctly 1`] = `
         tabIndex={0}
       >
         <img
-          alt=""
+          alt="Corruptor"
           className="corruptor-adjust"
-          height="14"
           src="/img/CU_icon.png"
-          width="11"
         />
         CORRUPTOR
       </span>
@@ -117,16 +111,6 @@ exports[`Header component should render correctly 1`] = `
       >
         
         RACIST
-      </span>
-      <span
-        className="risk-lgbt-status"
-        onClick={[MockFunction]}
-        onKeyDown={[Function]}
-        role="link"
-        tabIndex={0}
-      >
-        
-        RISK TO LGBT
       </span>
       <span
         className="risk-lgbt-status"
@@ -259,11 +243,9 @@ exports[`Header component should render correctly 1`] = `
               tabIndex={0}
             >
               <img
-                alt=""
+                alt="Arsonist"
                 className="arsonist-adjust"
-                height="14"
                 src="/img/Arsonist_icon.png"
-                width="11"
               />
               ARSONIST
             </span>
@@ -275,11 +257,9 @@ exports[`Header component should render correctly 1`] = `
               tabIndex={0}
             >
               <img
-                alt=""
+                alt="PEEP"
                 className="disability-adjust"
-                height="14"
                 src="/img/Disability_icon.png"
-                width="11"
               />
               PEEP
             </span>
@@ -291,11 +271,9 @@ exports[`Header component should render correctly 1`] = `
               tabIndex={0}
             >
               <img
-                alt=""
+                alt="Corruptor"
                 className="corruptor-adjust"
-                height="14"
                 src="/img/CU_icon.png"
-                width="11"
               />
               CORRUPTOR
             </span>
@@ -328,16 +306,6 @@ exports[`Header component should render correctly 1`] = `
             >
               
               RACIST
-            </span>
-            <span
-              className="risk-lgbt-status"
-              onClick={[MockFunction]}
-              onKeyDown={[Function]}
-              role="link"
-              tabIndex={0}
-            >
-              
-              RISK TO LGBT
             </span>
             <span
               className="risk-lgbt-status"
