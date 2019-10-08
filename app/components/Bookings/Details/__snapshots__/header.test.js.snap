@@ -17,6 +17,7 @@ exports[`Header component should render correctly 1`] = `
         role="link"
         tabIndex={0}
       >
+        
         ACCT OPEN
       </span>
       <span
@@ -26,7 +27,8 @@ exports[`Header component should render correctly 1`] = `
         role="link"
         tabIndex={0}
       >
-        ACCT‑POST CLOSURE
+        
+        ACCT POST CLOSURE
       </span>
       <span
         className="assault-status"
@@ -35,6 +37,7 @@ exports[`Header component should render correctly 1`] = `
         role="link"
         tabIndex={0}
       >
+        
         STAFF ASSAULTER
       </span>
       <span
@@ -45,13 +48,11 @@ exports[`Header component should render correctly 1`] = `
         tabIndex={0}
       >
         <img
-          alt=""
+          alt="Arsonist"
           className="arsonist-adjust"
-          height="14"
           src="/img/Arsonist_icon.png"
-          width="11"
         />
-         ARSONIST
+        ARSONIST
       </span>
       <span
         className="disability-status"
@@ -61,13 +62,11 @@ exports[`Header component should render correctly 1`] = `
         tabIndex={0}
       >
         <img
-          alt=""
+          alt="PEEP"
           className="disability-adjust"
-          height="15"
           src="/img/Disability_icon.png"
-          width="14"
         />
-         PEEP
+        PEEP
       </span>
       <span
         className="corruptor-status"
@@ -77,13 +76,11 @@ exports[`Header component should render correctly 1`] = `
         tabIndex={0}
       >
         <img
-          alt=""
+          alt="Corruptor"
           className="corruptor-adjust"
-          height="15"
           src="/img/CU_icon.png"
-          width="14"
         />
-         CORRUPTOR
+        CORRUPTOR
       </span>
       <span
         className="chemical-attacker-status"
@@ -92,6 +89,7 @@ exports[`Header component should render correctly 1`] = `
         role="link"
         tabIndex={0}
       >
+        
         CHEMICAL ATTACKER
       </span>
       <span
@@ -101,6 +99,7 @@ exports[`Header component should render correctly 1`] = `
         role="link"
         tabIndex={0}
       >
+        
         CONCERTED INDISCIPLINE
       </span>
       <span
@@ -110,6 +109,7 @@ exports[`Header component should render correctly 1`] = `
         role="link"
         tabIndex={0}
       >
+        
         RACIST
       </span>
       <span
@@ -119,6 +119,7 @@ exports[`Header component should render correctly 1`] = `
         role="link"
         tabIndex={0}
       >
+        
         RISK TO LGBT
       </span>
       <span
@@ -128,6 +129,7 @@ exports[`Header component should render correctly 1`] = `
         role="link"
         tabIndex={0}
       >
+        
         HOSTAGE TAKER
       </span>
       <span
@@ -137,6 +139,7 @@ exports[`Header component should render correctly 1`] = `
         role="link"
         tabIndex={0}
       >
+        
         CONTROLLED UNLOCK
       </span>
       <span
@@ -146,6 +149,7 @@ exports[`Header component should render correctly 1`] = `
         role="link"
         tabIndex={0}
       >
+        
         GANG MEMBER
       </span>
       <span
@@ -155,6 +159,7 @@ exports[`Header component should render correctly 1`] = `
         role="link"
         tabIndex={0}
       >
+        
         CSIP
       </span>
       <span
@@ -164,6 +169,7 @@ exports[`Header component should render correctly 1`] = `
         role="link"
         tabIndex={0}
       >
+        
         VETERAN
       </span>
     </div>
@@ -206,6 +212,7 @@ exports[`Header component should render correctly 1`] = `
               role="link"
               tabIndex={0}
             >
+              
               ACCT OPEN
             </span>
             <span
@@ -215,7 +222,8 @@ exports[`Header component should render correctly 1`] = `
               role="link"
               tabIndex={0}
             >
-              ACCT‑POST CLOSURE
+              
+              ACCT POST CLOSURE
             </span>
             <span
               className="assault-status"
@@ -224,6 +232,7 @@ exports[`Header component should render correctly 1`] = `
               role="link"
               tabIndex={0}
             >
+              
               STAFF ASSAULTER
             </span>
             <span
@@ -234,13 +243,11 @@ exports[`Header component should render correctly 1`] = `
               tabIndex={0}
             >
               <img
-                alt=""
+                alt="Arsonist"
                 className="arsonist-adjust"
-                height="14"
                 src="/img/Arsonist_icon.png"
-                width="11"
               />
-               ARSONIST
+              ARSONIST
             </span>
             <span
               className="disability-status"
@@ -250,13 +257,11 @@ exports[`Header component should render correctly 1`] = `
               tabIndex={0}
             >
               <img
-                alt=""
+                alt="PEEP"
                 className="disability-adjust"
-                height="15"
                 src="/img/Disability_icon.png"
-                width="14"
               />
-               PEEP
+              PEEP
             </span>
             <span
               className="corruptor-status"
@@ -266,13 +271,11 @@ exports[`Header component should render correctly 1`] = `
               tabIndex={0}
             >
               <img
-                alt=""
+                alt="Corruptor"
                 className="corruptor-adjust"
-                height="15"
                 src="/img/CU_icon.png"
-                width="14"
               />
-               CORRUPTOR
+              CORRUPTOR
             </span>
             <span
               className="chemical-attacker-status"
@@ -281,6 +284,7 @@ exports[`Header component should render correctly 1`] = `
               role="link"
               tabIndex={0}
             >
+              
               CHEMICAL ATTACKER
             </span>
             <span
@@ -290,6 +294,7 @@ exports[`Header component should render correctly 1`] = `
               role="link"
               tabIndex={0}
             >
+              
               CONCERTED INDISCIPLINE
             </span>
             <span
@@ -299,6 +304,7 @@ exports[`Header component should render correctly 1`] = `
               role="link"
               tabIndex={0}
             >
+              
               RACIST
             </span>
             <span
@@ -308,6 +314,7 @@ exports[`Header component should render correctly 1`] = `
               role="link"
               tabIndex={0}
             >
+              
               RISK TO LGBT
             </span>
             <span
@@ -317,6 +324,7 @@ exports[`Header component should render correctly 1`] = `
               role="link"
               tabIndex={0}
             >
+              
               HOSTAGE TAKER
             </span>
             <span
@@ -326,6 +334,7 @@ exports[`Header component should render correctly 1`] = `
               role="link"
               tabIndex={0}
             >
+              
               CONTROLLED UNLOCK
             </span>
             <span
@@ -335,6 +344,7 @@ exports[`Header component should render correctly 1`] = `
               role="link"
               tabIndex={0}
             >
+              
               GANG MEMBER
             </span>
             <span
@@ -344,6 +354,7 @@ exports[`Header component should render correctly 1`] = `
               role="link"
               tabIndex={0}
             >
+              
               CSIP
             </span>
             <span
@@ -353,6 +364,7 @@ exports[`Header component should render correctly 1`] = `
               role="link"
               tabIndex={0}
             >
+              
               VETERAN
             </span>
           </div>

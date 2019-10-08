@@ -146,9 +146,8 @@ describe('Header component', () => {
       />
     )
 
-    // There are 16 alerts assigned to the inmate, but
-    // the RTP and RLG result in the same alert flag so
-    // there's one less flag to display
+    // Risk to LGBT is backed by two codes, so even though there are
+    // 16 alert codes, only one alert flag will be shown
     expect(wrapper.find('div.align-alerts span')).toHaveLength(15)
   })
 

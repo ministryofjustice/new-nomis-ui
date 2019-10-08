@@ -24,5 +24,13 @@
     "jsx-a11y/label-has-for": 0, // disable as has been deprecated and replaced by label-has-associated-control
     "import/no-dynamic-require": 0
   },
+  "overrides": [
+    {
+      "files": ["*.json"],
+      "rules": {
+        "no-unused-expressions": "off"
+      }
+    }
+  ],
   "plugins": ["prettier"]
 }

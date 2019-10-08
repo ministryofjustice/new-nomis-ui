@@ -2,14 +2,17 @@ import React from 'react'
 import { linkOnClick } from '../../helpers'
 
 const AlertFlags = (alerts, divClassName, onAlertFlagClick) => {
-  function isShown(code) {
+  // eslint-disable-next-line global-require
+  const alertFlags = require('./alertFlags.json')
+
+  function isShown(codes) {
     if (alerts) {
       return alerts.some(alert => {
         if (alert.get) {
           if (!alert.get('expired')) {
-            if (alert.get('alertCode') === code) return true
+            if (codes.includes(alert.get('alertCode'))) return true
           }
-        } else if (alert === code) return true
+        } else if (codes.includes(alert)) return true
         return false
       })
     }
@@ -18,96 +21,19 @@ const AlertFlags = (alerts, divClassName, onAlertFlagClick) => {
 
   return (
     <div className={divClassName}>
-      {isShown('HA') && (
-        <span className="acct-status" {...linkOnClick(onAlertFlagClick)}>
-          ACCT OPEN
-        </span>
-      )}
-      {isShown('HA1') && (
-        <span className="acct-post-closure-status" {...linkOnClick(onAlertFlagClick)}>
-          ACCT&#x2011;POST CLOSURE
-        </span>
-      )}
-      {isShown('XSA') && (
-        <span className="assault-status" {...linkOnClick(onAlertFlagClick)}>
-          STAFF ASSAULTER
-        </span>
-      )}
-      {isShown('XA') && (
-        <span className="arsonist-status" {...linkOnClick(onAlertFlagClick)}>
-          <img src="/img/Arsonist_icon.png" className="arsonist-adjust" alt="" width="11" height="14" /> ARSONIST
-        </span>
-      )}
-      {isShown('PEEP') && (
-        <span className="disability-status" {...linkOnClick(onAlertFlagClick)}>
-          <img src="/img/Disability_icon.png" className="disability-adjust" alt="" width="14" height="15" /> PEEP
-        </span>
-      )}
-      {isShown('XEL') && (
-        <span className="elist-status" {...linkOnClick(onAlertFlagClick)}>
-          E&#x2011;LIST
-        </span>
-      )}
-      {isShown('XRF') && (
-        <span className="risk-females-status" {...linkOnClick(onAlertFlagClick)}>
-          RISK TO FEMALES
-        </span>
-      )}
-      {isShown('XTACT') && (
-        <span className="tact-status" {...linkOnClick(onAlertFlagClick)}>
-          TACT
-        </span>
-      )}
-      {isShown('XCO') && (
-        <span className="corruptor-status" {...linkOnClick(onAlertFlagClick)}>
-          <img src="/img/CU_icon.png" className="corruptor-adjust" alt="" width="14" height="15" /> CORRUPTOR
-        </span>
-      )}
-      {isShown('XCA') && (
-        <span className="chemical-attacker-status" {...linkOnClick(onAlertFlagClick)}>
-          CHEMICAL ATTACKER
-        </span>
-      )}
-      {isShown('XCI') && (
-        <span className="concerted-indiscipline-status" {...linkOnClick(onAlertFlagClick)}>
-          CONCERTED INDISCIPLINE
-        </span>
-      )}
-      {isShown('XR') && (
-        <span className="racist-status" {...linkOnClick(onAlertFlagClick)}>
-          RACIST
-        </span>
-      )}
-      {(isShown('RTP') || isShown('RLG')) && (
-        <span className="risk-lgbt-status" {...linkOnClick(onAlertFlagClick)}>
-          RISK TO LGBT
-        </span>
-      )}
-      {isShown('XHT') && (
-        <span className="hostage-taker-status" {...linkOnClick(onAlertFlagClick)}>
-          HOSTAGE TAKER
-        </span>
-      )}
-      {isShown('XCU') && (
-        <span className="controlled-unlock-status" {...linkOnClick(onAlertFlagClick)}>
-          CONTROLLED UNLOCK
-        </span>
-      )}
-      {isShown('XGANG') && (
-        <span className="gang-member-status" {...linkOnClick(onAlertFlagClick)}>
-          GANG MEMBER
-        </span>
-      )}
-      {isShown('CSIP') && (
-        <span className="csip-status" {...linkOnClick(onAlertFlagClick)}>
-          CSIP
-        </span>
-      )}
-      {isShown('F1') && (
-        <span className="veteran-status" {...linkOnClick(onAlertFlagClick)}>
-          VETERAN
-        </span>
-      )}
+      {alertFlags &&
+        alertFlags.map(alert => {
+          return (
+            <>
+              {isShown(alert.alertCodes) && (
+                <span className={alert.className} {...linkOnClick(onAlertFlagClick)}>
+                  {alert.img && <img src={alert.img} className={alert.imgClass} alt={alert.label} />}
+                  {alert.label.toUpperCase()}
+                </span>
+              )}
+            </>
+          )
+        })}
     </div>
   )
 }

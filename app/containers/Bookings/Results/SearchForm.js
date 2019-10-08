@@ -78,16 +78,16 @@ class SearchAgainForm extends Component {
 
     const toggleCheckBox = event => {
       const { checkedAlerts } = this.state
-      const code = event.target.value
+      const codes = event.target.value.split(',')
 
-      const exists = checkedAlerts.includes(code)
+      const exists = checkedAlerts.includes(codes[0])
       if (exists) {
         this.setState({
-          checkedAlerts: checkedAlerts.filter(alert => alert !== code),
+          checkedAlerts: checkedAlerts.filter(alert => !codes.includes(alert)),
         })
       } else {
         this.setState({
-          checkedAlerts: [...checkedAlerts, code],
+          checkedAlerts: [...checkedAlerts, ...codes],
         })
       }
     }
@@ -99,16 +99,16 @@ class SearchAgainForm extends Component {
     const { showFilters, checkedAlerts } = this.state
     const isTicked = code => checkedAlerts.includes(code)
 
-    const AlertCheckbox = ({ code, colClasses, content, onChange }) => {
+    const AlertCheckbox = ({ codes, colClasses, content, onChange }) => {
       const classes = `${colClasses} multiple-choice no-left-gutter`
       return (
         <div className={classes}>
           <Checkbox
-            id={code}
+            id={codes[0]}
             type="checkbox"
             name="alerts"
-            value={code}
-            defaultChecked={isTicked(code)}
+            value={codes}
+            defaultChecked={isTicked(codes[0])}
             onChange={onChange}
           >
             {content}
@@ -116,6 +116,9 @@ class SearchAgainForm extends Component {
         </div>
       )
     }
+
+    // eslint-disable-next-line global-require
+    const alertFlags = require('../../../components/Bookings/alertFlags.json')
 
     return (
       <form className="search-again" onSubmit={this.handleSubmit}>
@@ -200,36 +203,27 @@ class SearchAgainForm extends Component {
                       <b>Flags</b>
                     </div>
                     <div className="row">
-                      <AlertCheckbox code="HA" colClasses="col-md-3" content="ACCT open" onChange={toggleCheckBox} />
-                      <AlertCheckbox
-                        code="PEEP"
-                        colClasses="col-md-3"
-                        content="PEEP (disability)"
-                        onChange={toggleCheckBox}
-                      />
-                      <AlertCheckbox code="XEL" colClasses="col-md-3" content="E-List" onChange={toggleCheckBox} />
+                      {alertFlags &&
+                        alertFlags
+                          .sort((a, b) => (a.label > b.label ? 1 : -1))
+                          .map(alertFlag => {
+                            return (
+                              <AlertCheckbox
+                                codes={alertFlag.alertCodes}
+                                colClasses="col-md-3"
+                                content={alertFlag.label}
+                                onChange={toggleCheckBox}
+                              />
+                            )
+                          })}
                     </div>
-                    <div className="row">
-                      <AlertCheckbox
-                        code="XSA"
-                        colClasses="col-md-3"
-                        content="Staff assaulter"
-                        onChange={toggleCheckBox}
-                      />
-                      <AlertCheckbox code="XA" colClasses="col-md-3" content="Arsonist" onChange={toggleCheckBox} />
-                      <AlertCheckbox code="XTACT" colClasses="col-md-3" content="TACT" onChange={toggleCheckBox} />
-                      <AlertCheckbox
-                        code="XRF"
-                        colClasses="col-md-3"
-                        content="Risk to females"
-                        onChange={toggleCheckBox}
-                      />
-                    </div>
-                    <a className="clear-filters link clickable" {...linkOnClick(this.clearFlags)}>
-                      Clear filters
-                    </a>
                   </div>
                 )}
+                <div className="row">
+                  <a className="clear-filters link clickable" {...linkOnClick(this.clearFlags)}>
+                    Clear filters
+                  </a>
+                </div>
               </details>
             </div>
           </div>
