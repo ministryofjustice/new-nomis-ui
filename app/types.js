@@ -27,6 +27,7 @@ export const userType = shape({
   lastName: string,
   lockedFlag: bool,
   staffId: number,
+  userId: string,
   staffRoles: arrayOf(object),
   username: string,
   isUseOfForce: bool,
@@ -54,7 +55,7 @@ export const caseNoteType = shape({
   subType: string.isRequired,
   type: string.isRequired,
   creationDateTime: string.isRequired,
-  authorUsername: string.isRequired,
+  authorUserId: string.isRequired,
   source: string.isRequired,
   caseNoteId: number.isRequired,
 })
