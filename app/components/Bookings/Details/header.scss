@@ -337,6 +337,12 @@
   border-color: #006435;
 }
 
+.care-leaver-status {
+  @extend %alert-status-style;
+  color: #3F90AE;
+  border-color: #3F90AE;
+}
+
 .acct-post-closure-status {
   @extend %alert-status-style;
   color: #F47738;

@@ -58,5 +58,6 @@
   },
   { "alertCodes": ["XGANG"], "className": "gang-member-status", "label": "Gang member", "img": "", "imgClass": "" },
   { "alertCodes": ["CSIP"], "className": "csip-status", "label": "CSIP", "img": "", "imgClass": "" },
-  { "alertCodes": ["F1"], "className": "veteran-status", "label": "Veteran", "img": "", "imgClass": "" }
+  { "alertCodes": ["F1"], "className": "veteran-status", "label": "Veteran", "img": "", "imgClass": "" },
+  { "alertCodes": ["LCE"], "className": "care-leaver-status", "label": "Care leaver", "img": "", "imgClass": "" }
 ]

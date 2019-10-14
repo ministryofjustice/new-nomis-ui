@@ -24,6 +24,7 @@ const allAlerts = [
   Map({ alertCode: 'XGANG' }),
   Map({ alertCode: 'CSIP' }),
   Map({ alertCode: 'F1' }),
+  Map({ alertCode: 'LCE' }),
 ]
 const irrelevantAlerts = [
   Map({ alertCode: 'HA', expired: true }),
@@ -129,7 +130,7 @@ describe('Header component', () => {
     })
   })
 
-  it('should render 15 alerts', () => {
+  it('should render 16 alerts', () => {
     const wrapper = shallow(
       <Header
         inmateData={inmate(allAlerts, 'D')}
@@ -148,7 +149,7 @@ describe('Header component', () => {
 
     // Risk to LGBT is backed by two codes, so even though there are
     // 16 alert codes, only one alert flag will be shown
-    expect(wrapper.find('div.align-alerts span')).toHaveLength(15)
+    expect(wrapper.find('div.align-alerts span')).toHaveLength(16)
   })
 
   it('should ignore irrelevant alert flags', () => {
