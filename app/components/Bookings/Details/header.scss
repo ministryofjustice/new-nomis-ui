@@ -205,29 +205,11 @@
   border-color: #2b88c8;
 }
 
-.disability-adjust {
-  margin-bottom: 2px;
-  position: relative;
-  width: 14px;
-  height: 15px;
-  left: 0;
-  top: -1px;
-}
-
 .arsonist-status {
   @extend %alert-status-style;
   padding-top: 0.18em;
   color: #df3034;
   border-color: #df3034;
-}
-
-.arsonist-adjust {
-  margin-bottom: 7px;
-  position: relative;
-  width: 11px;
-  height: 14px;
-  left: 0;
-  top: 2px;
 }
 
 .elist-status {
@@ -272,15 +254,6 @@
   @extend %alert-status-style;
   color: #B10E1E;
   border-color: #B10E1E;
-}
-
-.corruptor-adjust {
-  margin-bottom: 2px;
-  position: relative;
-  width: 14px;
-  height: 12px;
-  left: 0;
-  top: -1px;
 }
 
 .chemical-attacker-status {
@@ -347,6 +320,30 @@
   @extend %alert-status-style;
   color: #F47738;
   border: 3px dashed #F47738;
+}
+
+.arsonist-adjust {
+  margin-bottom: 7px;
+  position: relative;
+  height: 14px;
+  left: 0;
+  top: 2px;
+}
+
+.corruptor-adjust {
+  margin-bottom: 2px;
+  position: relative;
+  height: 13px;
+  left: 0;
+  top: -1px;
+}
+
+.disability-adjust {
+  margin-bottom: 2px;
+  position: relative;
+  height: 14px;
+  left: 0;
+  top: -1px;
 }
 
 @media (min-width: 481px) {
