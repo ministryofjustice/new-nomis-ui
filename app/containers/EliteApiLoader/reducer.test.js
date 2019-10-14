@@ -23,8 +23,10 @@ describe('EliteApiReducer reducer', () => {
       const initialState = fromJS({ User: { CaseLoads: { Data: {} } } })
       const state = eliteApiReducer(initialState, { type: CALC_READ_ONLY_VIEW, payload: { offenderNo: 'AB12345C' } })
       const userCanEdit = state.getIn(['Bookings', 'Details', 'AB12345C', 'UserCanEdit'])
+      const offenderInCaseload = state.getIn(['Bookings', 'Details', 'AB12345C', 'OffenderInCaseload'])
 
       expect(userCanEdit).toBe(false)
+      expect(offenderInCaseload).toBe(false)
     })
     it('should be able to edit if offender in case load', () => {
       const initialState = fromJS({
@@ -33,8 +35,10 @@ describe('EliteApiReducer reducer', () => {
       })
       const state = eliteApiReducer(initialState, { type: CALC_READ_ONLY_VIEW, payload: { offenderNo: 'AB12345C' } })
       const userCanEdit = state.getIn(['Bookings', 'Details', 'AB12345C', 'UserCanEdit'])
+      const offenderInCaseload = state.getIn(['Bookings', 'Details', 'AB12345C', 'OffenderInCaseload'])
 
       expect(userCanEdit).toBe(true)
+      expect(offenderInCaseload).toBe(true)
     })
     it('should be able to edit if user can view inactive bookings and prisoner out', () => {
       const initialState = fromJS({
@@ -43,8 +47,10 @@ describe('EliteApiReducer reducer', () => {
       })
       const state = eliteApiReducer(initialState, { type: CALC_READ_ONLY_VIEW, payload: { offenderNo: 'AB12345C' } })
       const userCanEdit = state.getIn(['Bookings', 'Details', 'AB12345C', 'UserCanEdit'])
+      const offenderInCaseload = state.getIn(['Bookings', 'Details', 'AB12345C', 'OffenderInCaseload'])
 
       expect(userCanEdit).toBe(true)
+      expect(offenderInCaseload).toBe(false)
     })
     it('should be able to edit if user can view inactive bookings and prisoner transfer', () => {
       const initialState = fromJS({
