@@ -219,8 +219,12 @@ function EliteApiReducer(state = initialState, action) {
       const offenderAgency = state.getIn(['Bookings', 'Details', offenderNo, 'Data', 'agencyId'])
       const caseLoad = caseloads.find(x => x.get('caseLoadId') === offenderAgency)
 
-      const userCanEdit = (canViewInactivePrisoner && ['OUT', 'TRN'].includes(offenderAgency)) || caseLoad !== undefined
-      return state.setIn(['Bookings', 'Details', offenderNo, 'UserCanEdit'], userCanEdit)
+      const offenderInCaseload = caseLoad !== undefined
+      const userCanEdit = (canViewInactivePrisoner && ['OUT', 'TRN'].includes(offenderAgency)) || offenderInCaseload
+
+      return state
+        .setIn(['Bookings', 'Details', offenderNo, 'UserCanEdit'], userCanEdit)
+        .setIn(['Bookings', 'Details', offenderNo, 'OffenderInCaseload'], offenderInCaseload)
     }
 
     default: {
