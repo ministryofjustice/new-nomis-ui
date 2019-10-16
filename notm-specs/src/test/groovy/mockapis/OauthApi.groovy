@@ -23,6 +23,7 @@ class OauthApi extends WireMockRule {
         .withHeader('Content-Type', 'application/json')
         .withBody(JsonOutput.toJson([
         staffId         : user.staffMember.id,
+        userId          : "${user.staffMember.id}",
         username        : user.username,
         firstName       : user.staffMember.firstName,
         lastName        : user.staffMember.lastName,

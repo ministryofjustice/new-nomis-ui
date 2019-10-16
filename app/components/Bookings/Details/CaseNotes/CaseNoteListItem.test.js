@@ -20,7 +20,7 @@ describe('<CaseNoteListItem />', () => {
       subType: 'GYM',
       type: 'ACHIEVEMENTS',
       creationDateTime: '2019-01-01T21:00:00',
-      authorUsername: '1234',
+      authorUserId: '1234',
       source: 'INST',
       caseNoteId: 1,
     },
@@ -33,7 +33,7 @@ describe('<CaseNoteListItem />', () => {
   }
 
   beforeEach(() => {
-    props.user = { staffId: 5678 }
+    props.user = { userId: '5678' }
   })
 
   it('should match the default snapshot', () => {
@@ -68,7 +68,7 @@ describe('<CaseNoteListItem />', () => {
   })
 
   it('should render the make amendments button', () => {
-    props.user.username = '1234'
+    props.user.userId = '1234'
 
     const tree = renderer.create(
       <IntlProvider locale="en">
@@ -81,7 +81,7 @@ describe('<CaseNoteListItem />', () => {
   })
 
   it('should render the make amendments button for matching staff', () => {
-    props.user.staffId = 1234
+    props.user.userId = '1234'
 
     const tree = renderer.create(
       <IntlProvider locale="en">
@@ -94,7 +94,7 @@ describe('<CaseNoteListItem />', () => {
   })
 
   it('should not render the make amendments button if different user', () => {
-    props.user.username = '12345'
+    props.user.userId = '12345'
 
     const tree = renderer.create(
       <IntlProvider locale="en">
