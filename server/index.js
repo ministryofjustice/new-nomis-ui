@@ -2,7 +2,6 @@
 require('dotenv').config()
 
 const express = require('express')
-const bunyanMiddleware = require('bunyan-middleware')
 const path = require('path')
 
 const apis = require('./apis')
