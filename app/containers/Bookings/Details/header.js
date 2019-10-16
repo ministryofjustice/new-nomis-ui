@@ -87,11 +87,19 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = (immutableState, props) => {
   const { isKeyWorker, isCatToolUser, isUseOfForce } = immutableState.getIn(['authentication', 'user']) || {}
+  const userCanEdit = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'UserCanEdit'])
+  const offenderInCaseload = immutableState.getIn([
+    'eliteApiLoader',
+    'Bookings',
+    'Details',
+    props.offenderNo,
+    'OffenderInCaseload',
+  ])
   return {
     headerDetails: immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']),
-    userCanEdit: immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'UserCanEdit']),
+    userCanEdit,
     showAddKeyworkerSessionLink: Boolean(isKeyWorker),
-    showCategorisationLink: Boolean(isCatToolUser),
+    showCategorisationLink: Boolean(isCatToolUser || offenderInCaseload),
     categorisationUrl: immutableState.getIn(['app', 'categorisationUrl']),
     isUseOfForce: Boolean(isUseOfForce),
     useOfForceUrl: immutableState.getIn(['app', 'useOfForceUrl']),

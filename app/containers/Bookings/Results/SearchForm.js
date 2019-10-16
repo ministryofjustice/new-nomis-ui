@@ -205,7 +205,7 @@ class SearchAgainForm extends Component {
                     <div className="row">
                       {alertFlags &&
                         alertFlags
-                          .sort((a, b) => (a.label > b.label ? 1 : -1))
+                          .sort((a, b) => (a.label.toLowerCase() > b.label.toLowerCase() ? 1 : -1))
                           .map(alertFlag => {
                             return (
                               <AlertCheckbox

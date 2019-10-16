@@ -84,7 +84,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
                                     'No visit history', 'No upcoming visits', 'Sashonda, Diydonopher', 'Social/ Family(Girlfriend)', '--']
     // todo: release date '07/04/2017' is displayed in US formaty in circle ci!
     containsExpectedIgnoringBlankAndDates(allQuicklookValues2, expectedQuicklookValues2)
-    !categorisationLink.isDisplayed()
+    categorisationLink*.text() contains 'Manage'
 
     // edit view means links shown
     addAppointmentLink.isDisplayed()
@@ -228,9 +228,9 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     prisonHubServer.verify(WireMock.getRequestedFor(WireMock.urlPathEqualTo(iepDetailsSuffix)))
   }
 
-  def "Categorisation link is displayed for a user with a categorisation access role"() {
+  def "Categorisation link is displayed for a user with a categorisation access role but prisoner not in caseload"() {
     given: 'As a Categoriser, I log in and search for an offender'
-    fixture.loginAs(ITAG_USER, [AccessRoles.categoriser])
+    fixture.loginAs(GLOBAL_USER, [AccessRoles.categoriser])
 
     def offenders = [Offender.SMITH()]
 
@@ -242,7 +242,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     elite2api.stubKeyworkerOld()
     elite2api.stubAliases()
     elite2api.stubStaffDetails(-2)
-    keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
+    keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('BXI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
 
     searchFor "smith"
