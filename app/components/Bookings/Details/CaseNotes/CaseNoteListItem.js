@@ -25,14 +25,14 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer, ie
     creationDateTime,
     subTypeDescription,
     typeDescription,
-    authorUsername,
+    authorUserId,
   } = caseNote
 
   const sameCreator = () => {
-    if (!caseNote || !authorUsername || !user.staffId) return false
+    if (!caseNote || !authorUserId || !user.userId) return false
 
-    // case notes service should be returning username, but currently returning staff id
-    return authorUsername === user.staffId.toString() || authorUsername === user.username
+    // case notes service can return username for old notes
+    return authorUserId === user.userId.toString() || authorUserId === user.username
   }
 
   const { cellLocation, offenderName } = iepInformation || {}
