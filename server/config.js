@@ -9,6 +9,12 @@ const app = {
   url: process.env.NN_ENDPOINT_URL || `http://localhost:${argv.port || process.env.PORT || 3000}/`,
 }
 
+const redis = {
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT || 6379,
+  password: process.env.REDIS_PASSWORD,
+}
+
 const analytics = {
   google_analytics_id: process.env.GOOGLE_ANALYTICS_ID || 'UA-106741063-1',
   appInsightsKey: process.env.APPINSIGHTS_INSTRUMENTATIONKEY || 'secret',
@@ -63,4 +69,5 @@ module.exports = {
   analytics,
   hmppsCookie,
   apis,
+  redis,
 }
