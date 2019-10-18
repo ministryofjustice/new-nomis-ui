@@ -26,9 +26,9 @@ const configureRoutes = ({ app, tokenRefresher, mailTo }) => {
   }
 
   const logout = (req, res) => {
-    req.logout()
-    req.session = null
-    res.redirect(authLogoutUrl)
+    req.session.destroy(() => {
+      res.redirect(authLogoutUrl)
+    })
   }
 
   /**
