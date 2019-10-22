@@ -99,7 +99,7 @@ const mapStateToProps = (immutableState, props) => {
     headerDetails: immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']),
     userCanEdit,
     showAddKeyworkerSessionLink: Boolean(isKeyWorker),
-    showCategorisationLink: Boolean(isCatToolUser || offenderInCaseload),
+    showCategorisationLink: Boolean(isCatToolUser), // disable temporarily:   || offenderInCaseload),
     categorisationUrl: immutableState.getIn(['app', 'categorisationUrl']),
     isUseOfForce: Boolean(isUseOfForce),
     useOfForceUrl: immutableState.getIn(['app', 'useOfForceUrl']),
