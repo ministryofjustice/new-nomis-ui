@@ -34,6 +34,18 @@ env:
         name: {{ template "app.name" . }}
         key: SESSION_COOKIE_SECRET
 
+  - name: REDIS_HOST
+    valueFrom:
+      secretKeyRef:
+        name: dps-redis
+        key: REDIS_HOST
+
+   - name: REDIS_PASSWORD
+     valueFrom:
+      secretKeyRef:
+        name: dps-redis
+        key: REDIS_PASSWORD
+
   - name: API_ENDPOINT_URL
     value: {{ .Values.env.API_ENDPOINT_URL | quote }}
 
@@ -46,10 +58,10 @@ env:
   - name: PRISON_STAFF_HUB_UI_URL
     value: {{ .Values.env.PRISON_STAFF_HUB_UI_URL | quote }}
 
-  - name: KEYWORKER_API_URL 
+  - name: KEYWORKER_API_URL
     value: {{ .Values.env.KEYWORKER_API_URL | quote }}
 
-  - name: CASENOTES_API_URL 
+  - name: CASENOTES_API_URL
     value: {{ .Values.env.CASENOTES_API_URL | quote }}
 
   - name: OMIC_UI_URL
@@ -67,7 +79,7 @@ env:
   - name: USE_OF_FORCE_PRISONS
     value: {{ .Values.env.USE_OF_FORCE_PRISONS | quote }}
 
-  - name: REMOTE_AUTH_STRATEGY 
+  - name: REMOTE_AUTH_STRATEGY
     value: {{ .Values.env.REMOTE_AUTH_STRATEGY | quote }}
 
   - name: WEB_SESSION_TIMEOUT_IN_MINUTES
