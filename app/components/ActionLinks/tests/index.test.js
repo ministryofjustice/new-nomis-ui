@@ -170,7 +170,7 @@ describe('Actions component', () => {
       />
     )
 
-    expect(wrapper.find('ActionLink').prop('url')).toBe('http://add-bulk-appointments')
+    expect(wrapper.find('ActionLink').prop('url')).toBe('http://bulk-appointments/need-to-upload-file')
   })
 
   it('should show add cat tool link when the user has cat tool role', () => {
