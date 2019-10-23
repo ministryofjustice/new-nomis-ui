@@ -57,6 +57,7 @@ class Alerts extends Component {
       filter,
       prisonStaffHubUrl,
       user,
+      userCanEdit,
     } = this.props
 
     return (
@@ -73,7 +74,7 @@ class Alerts extends Component {
             totalResults={totalResults}
             perPage={pagination.perPage}
           />
-          {user.canUpdateAlerts && (
+          {user.canUpdateAlerts && userCanEdit && (
             <AlertButtons>
               <Button
                 buttonColour={BLUE}
@@ -96,6 +97,7 @@ class Alerts extends Component {
           offenderNo={offenderNo}
           prisonStaffHubUrl={prisonStaffHubUrl}
           canUpdateAlerts={user.canUpdateAlerts}
+          userCanEdit={userCanEdit}
         />
 
         <PreviousNextNavigation
@@ -120,6 +122,7 @@ Alerts.propTypes = {
   deviceFormat: PropTypes.string.isRequired,
   prisonStaffHubUrl: PropTypes.string.isRequired,
   user: userType.isRequired,
+  userCanEdit: PropTypes.bool,
 
   // mapDispatchToProps
   loadAlerts: PropTypes.func.isRequired,
@@ -129,6 +132,7 @@ Alerts.propTypes = {
 
 Alerts.defaultProps = {
   totalResults: 0,
+  userCanEdit: false,
 }
 
 const buildUrl = (offenderNo, queryParams) => `/offenders/${offenderNo}/alerts?${qs.stringify({ ...queryParams })}`
@@ -167,6 +171,7 @@ const mapStateToProps = (immutableState, props) => {
   const pagination = { perPage: Number.parseInt(perPage, 10) || 20, pageNumber: Number.parseInt(pageNumber, 10) || 0 }
   const prisonStaffHubUrl = immutableState.getIn(['app', 'prisonStaffHubUrl'])
   const user = immutableState.getIn(['authentication', 'user'])
+  const userCanEdit = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'UserCanEdit'])
 
   return {
     filter,
@@ -177,6 +182,7 @@ const mapStateToProps = (immutableState, props) => {
     deviceFormat,
     prisonStaffHubUrl,
     user,
+    userCanEdit,
   }
 }
 

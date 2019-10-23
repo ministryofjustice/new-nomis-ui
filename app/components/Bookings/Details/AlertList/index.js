@@ -104,7 +104,7 @@ const formatName = (alert, firstNameKey, lastNameKey) => {
 const formatAlertType = alert => `${String(alert.get('alertTypeDescription'))} (${alert.get('alertType')})`
 const formatAlert = a => `${a.get('alertCodeDescription')} (${a.get('alertCode')})`
 
-const DesktopAlertItems = ({ alerts, active, canUpdateAlerts, prisonStaffHubUrl, offenderNo }) => (
+const DesktopAlertItems = ({ alerts, active, canUpdateAlerts, prisonStaffHubUrl, offenderNo, userCanEdit }) => (
   <Table>
     {active ? (
       <caption className="bold-medium add-gutter-bottom">Active alerts</caption>
@@ -119,7 +119,7 @@ const DesktopAlertItems = ({ alerts, active, canUpdateAlerts, prisonStaffHubUrl,
         <ThThird>Notes</ThThird>
         {active ? <ThSixth>Effective date</ThSixth> : <ThSixth>Effective / Expired date</ThSixth>}
         {active ? <ThSixth>Created by</ThSixth> : <ThSixth>Created / Expired by</ThSixth>}
-        {active && canUpdateAlerts && <ThSixth />}
+        {active && canUpdateAlerts && userCanEdit && <ThSixth />}
       </tr>
     </thead>
     <tbody>
@@ -145,7 +145,7 @@ const DesktopAlertItems = ({ alerts, active, canUpdateAlerts, prisonStaffHubUrl,
               <P>{formatName(alert, 'addedByFirstName', 'addedByLastName')}</P>
               {!active && <P>{formatName(alert, 'expiredByFirstName', 'expiredByLastName')}</P>}
             </Td>
-            {active && canUpdateAlerts && (
+            {active && canUpdateAlerts && userCanEdit && (
               <Td rightAlign>
                 <ButtonCancel
                   data-qa="close-alert-button"
@@ -170,12 +170,14 @@ DesktopAlertItems.propTypes = {
   alerts: ImmutablePropTypes.list.isRequired,
   active: PropTypes.bool.isRequired,
   canUpdateAlerts: PropTypes.bool,
+  userCanEdit: PropTypes.bool,
   prisonStaffHubUrl: PropTypes.string,
   offenderNo: PropTypes.string,
 }
 
 DesktopAlertItems.defaultProps = {
   canUpdateAlerts: false,
+  userCanEdit: true,
   prisonStaffHubUrl: undefined,
   offenderNo: undefined,
 }
@@ -225,7 +227,7 @@ MobileAlertItems.propTypes = {
   active: PropTypes.bool.isRequired,
 }
 
-const ActiveAlertItems = ({ alerts, desktop, canUpdateAlerts, prisonStaffHubUrl, offenderNo }) => {
+const ActiveAlertItems = ({ alerts, desktop, canUpdateAlerts, prisonStaffHubUrl, offenderNo, userCanEdit }) => {
   if (alerts.size < 1) return false
   return (
     <div>
@@ -234,6 +236,7 @@ const ActiveAlertItems = ({ alerts, desktop, canUpdateAlerts, prisonStaffHubUrl,
           alerts={alerts}
           active
           canUpdateAlerts={canUpdateAlerts}
+          userCanEdit={userCanEdit}
           prisonStaffHubUrl={prisonStaffHubUrl}
           offenderNo={offenderNo}
         />
@@ -248,6 +251,7 @@ ActiveAlertItems.propTypes = {
   alerts: ImmutablePropTypes.list.isRequired,
   desktop: PropTypes.bool.isRequired,
   canUpdateAlerts: PropTypes.bool.isRequired,
+  userCanEdit: PropTypes.bool.isRequired,
   prisonStaffHubUrl: PropTypes.string.isRequired,
   offenderNo: PropTypes.string.isRequired,
 }
@@ -270,7 +274,7 @@ InactiveAlertItems.propTypes = {
   desktop: PropTypes.bool.isRequired,
 }
 
-const AlertList = ({ alerts, deviceFormat, canUpdateAlerts, prisonStaffHubUrl, offenderNo }) => {
+const AlertList = ({ alerts, deviceFormat, canUpdateAlerts, prisonStaffHubUrl, offenderNo, userCanEdit }) => {
   if (alerts.size < 1) {
     return <h1 className="bold-medium">There are no alerts for this offender.</h1>
   }
@@ -286,6 +290,7 @@ const AlertList = ({ alerts, deviceFormat, canUpdateAlerts, prisonStaffHubUrl, o
         alerts={activeAlerts}
         desktop={desktop}
         canUpdateAlerts={canUpdateAlerts}
+        userCanEdit={userCanEdit}
         prisonStaffHubUrl={prisonStaffHubUrl}
         offenderNo={offenderNo}
       />
@@ -300,12 +305,14 @@ AlertList.propTypes = {
   deviceFormat: PropTypes.string.isRequired,
   prisonStaffHubUrl: PropTypes.string,
   canUpdateAlerts: PropTypes.bool,
+  userCanEdit: PropTypes.bool,
   offenderNo: PropTypes.string,
 }
 
 AlertList.defaultProps = {
   alerts: List([]),
   canUpdateAlerts: false,
+  userCanEdit: true,
   prisonStaffHubUrl: undefined,
   offenderNo: undefined,
 }

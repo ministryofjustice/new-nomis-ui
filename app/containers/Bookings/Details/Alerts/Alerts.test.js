@@ -33,7 +33,7 @@ describe('Alerts page/tab', () => {
     })
 
     describe('when the user can update alerts', () => {
-      const wrapper = shallow(<Alerts {...props} user={{ canUpdateAlerts: true }} />)
+      const wrapper = shallow(<Alerts {...props} user={{ canUpdateAlerts: true }} userCanEdit />)
       const createAlertButton = wrapper.find('[data-qa="create-alert-button"]')
 
       it('should show the create alert button when user has the correct role', () => {
@@ -47,6 +47,15 @@ describe('Alerts page/tab', () => {
         expect(window.location.assign).toBeCalledWith(
           `${props.prisonStaffHubUrl}offenders/${props.offenderNo}/create-alert`
         )
+      })
+    })
+
+    describe('when the user has the role, but cannot edit', () => {
+      const wrapper = shallow(<Alerts {...props} user={{ canUpdateAlerts: true }} />)
+      const createAlertButton = wrapper.find('[data-qa="create-alert-button"]')
+
+      it('should show the create alert button when user has the correct role', () => {
+        expect(createAlertButton).toHaveLength(0)
       })
     })
   })
