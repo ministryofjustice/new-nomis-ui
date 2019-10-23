@@ -44,7 +44,7 @@ describe('<AlertList />', () => {
     describe('on mobile', () => {
       const wrapper = mount(
         <IntlProvider locale="en">
-          <AlertList {...props} canUpdateAlerts deviceFormat="mobile" />
+          <AlertList {...props} canUpdateAlerts userCanEdit deviceFormat="mobile" />
         </IntlProvider>
       )
 
@@ -56,7 +56,19 @@ describe('<AlertList />', () => {
     describe('on desktop', () => {
       const deviceFormat = 'desktop'
 
-      describe('when a user CANNOT update alerts', () => {
+      describe('when a user has role but cannot update alerts but cannot edit offender', () => {
+        const wrapper = mount(
+          <IntlProvider locale="en">
+            <AlertList {...props} user={{ canUpdateAlerts: true }} deviceFormat={deviceFormat} />
+          </IntlProvider>
+        )
+
+        it('should not show the close alert button', () => {
+          expect(wrapper.find('ButtonCancel[data-qa="close-alert-button"]')).toHaveLength(0)
+        })
+      })
+
+      describe('when a user does not have role and cannot edit offender', () => {
         const wrapper = mount(
           <IntlProvider locale="en">
             <AlertList {...props} deviceFormat={deviceFormat} />
@@ -68,10 +80,22 @@ describe('<AlertList />', () => {
         })
       })
 
+      describe('when a user does not have role but can edit offender', () => {
+        const wrapper = mount(
+          <IntlProvider locale="en">
+            <AlertList {...props} userCanEdit deviceFormat={deviceFormat} />
+          </IntlProvider>
+        )
+
+        it('should not show the close alert button', () => {
+          expect(wrapper.find('ButtonCancel[data-qa="close-alert-button"]')).toHaveLength(0)
+        })
+      })
+
       describe('when a user CAN update alerts', () => {
         const wrapper = mount(
           <IntlProvider locale="en">
-            <AlertList {...props} deviceFormat={deviceFormat} canUpdateAlerts />
+            <AlertList {...props} deviceFormat={deviceFormat} canUpdateAlerts userCanEdit />
           </IntlProvider>
         )
 
