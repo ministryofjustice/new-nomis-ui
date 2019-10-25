@@ -107,7 +107,7 @@ const ActionLinks = ({
 
         {isAddBulkAppointments && prisonStaffHubUrl && (
           <ActionLink
-            url={`${prisonStaffHubUrl}bulk-appointments/need-to-upload-file`}
+            url={`${prisonStaffHubUrl}add-bulk-appointments`}
             image="/img/bulk-appointments.png"
             testId="add-bulk-appointments-link"
           >
