@@ -119,29 +119,51 @@ describe('<CaseNoteListItem />', () => {
     expect(tree.root.findAllByType(CaseNoteAmendmentButton)).toHaveLength(0)
   })
 
-  it('should render with print IEP slip link', () => {
-    props.caseNote.subTypeDescription = 'IEP Warning'
-    const tree = renderer.create(
-      <IntlProvider locale="en">
-        <MemoryRouter>
-          <CaseNoteListItem {...props} />
-        </MemoryRouter>
-      </IntlProvider>
-    )
+  describe('when the sub type is IEP Warning', () => {
+    it('should render with print IEP slip link', () => {
+      props.caseNote.subTypeDescription = 'IEP Warning'
 
-    expect(tree.root.findAllByType(Link)).toHaveLength(1)
+      const tree = renderer.create(
+        <IntlProvider locale="en">
+          <MemoryRouter>
+            <CaseNoteListItem {...props} />
+          </MemoryRouter>
+        </IntlProvider>
+      )
+
+      expect(tree.root.findAllByType(Link)).toHaveLength(1)
+    })
   })
 
-  it('should not render with print IEP slip link if not iep', () => {
-    props.caseNote.subTypeDescription = 'Something else'
-    const tree = renderer.create(
-      <IntlProvider locale="en">
-        <MemoryRouter>
-          <CaseNoteListItem {...props} />
-        </MemoryRouter>
-      </IntlProvider>
-    )
+  describe('when the sub type is IEP Encouragement', () => {
+    it('should render with print IEP slip link', () => {
+      props.caseNote.subTypeDescription = 'IEP Encouragement'
 
-    expect(tree.root.findAllByType(Link)).toHaveLength(0)
+      const tree = renderer.create(
+        <IntlProvider locale="en">
+          <MemoryRouter>
+            <CaseNoteListItem {...props} />
+          </MemoryRouter>
+        </IntlProvider>
+      )
+
+      expect(tree.root.findAllByType(Link)).toHaveLength(1)
+    })
+  })
+
+  describe('when the sub type is something else', () => {
+    it('should NOT render with print IEP slip link', () => {
+      props.caseNote.subTypeDescription = 'Something else'
+
+      const tree = renderer.create(
+        <IntlProvider locale="en">
+          <MemoryRouter>
+            <CaseNoteListItem {...props} />
+          </MemoryRouter>
+        </IntlProvider>
+      )
+
+      expect(tree.root.findAllByType(Link)).toHaveLength(0)
+    })
   })
 })
