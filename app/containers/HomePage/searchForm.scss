@@ -1,4 +1,5 @@
 .search-form {
+  margin-top: -20px;
 
   .location-select {
     .multiple-choice {
@@ -8,76 +9,76 @@
     }
   }
 
-  .error-summary{
+  .error-summary {
     width: 75% !important;
   }
 
   @include media-breakpoint-down(sm) {
-    .error-summary{
+    .error-summary {
       width: 100% !important;
     }
   }
 
-  .box{
-    padding:2em;
-    background-color: lighten(#2B88C8,45%);
+  .box {
+    padding: 2em;
+    background-color: lighten(#2b88c8, 45%);
 
-    .heading-large{
-      margin-top: 0em !important;
+    .heading-large {
+      margin-top: 0 !important;
       margin-bottom: 1em !important;
     }
 
-    .search-input{
+    .search-input {
       height: 48px;
-      margin-right: .5em;
+      margin-right: 0.5em;
     }
 
-    select{
+    select {
       height: 45px;
     }
 
-    .form-control{
+    .form-control {
       margin-bottom: 1.5em;
     }
 
-    .form-control:last-child{
-      margin-bottom:0;
+    .form-control:last-child {
+      margin-bottom: 0;
     }
 
-    .mobile-button{
+    .mobile-button {
       display: none;
     }
 
     @include media-breakpoint-down(sm) {
       width: 100%;
 
-      .error-summary{
+      .error-summary {
         width: 100% !important;
       }
 
-      .mobile-button{
+      .mobile-button {
         display: block;
         margin-top: 1em !important;
       }
 
-      .desktop-button{
-        display:none;
+      .desktop-button {
+        display: none;
       }
     }
   }
 }
-.assignment-box{
-  padding:2em;
+.assignment-box {
+  padding: 2em;
   background-color: $highlight-colour;
   width: 75%;
   margin-top: 2em;
 
-  .heading-large{
-    margin-top:0em !important;
+  .heading-large {
+    margin-top: 0 !important;
     margin-bottom: 1em !important;
   }
 
-  @include media-breakpoint-down(sm){
+  @include media-breakpoint-down(sm) {
     width: 100%;
   }
 }
@@ -85,7 +86,7 @@
 .kw-manager-box {
   padding: 0.5em;
   background-color: $highlight-colour;
-  border: 0.15em solid #BFC1C3;
+  border: 0.15em solid #bfc1c3;
   margin-top: 1em;
 
   @include media-breakpoint-down(sm) {

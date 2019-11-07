@@ -51,9 +51,11 @@ export class Page extends Component {
         )}
         <Container>
           <PageHeader>
-            <Heading level={1} size="LARGE" data-qa="page-heading-text">
-              {title}
-            </Heading>
+            {title && (
+              <Heading level={1} size="LARGE" data-qa="page-heading-text">
+                {title}
+              </Heading>
+            )}
             {showPrint && (
               <div>
                 <PrintLink />

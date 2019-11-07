@@ -9,17 +9,17 @@ class HomePage extends Page {
   static url = '/'
 
   static at = {
-    title == 'Welcome back - Digital Prison Services'
-    headingText == 'Welcome back'
+    title == 'Home - Digital Prison Services'
+    headingText == 'Search for a prisoner'
     searchButtonDesktop.text() == 'Search' || searchButtonMobile.text() == 'Search'
   }
 
   static content = {
     errors { module(ErrorsModule) }
     header(required: false) { module(HeaderModule) }
-    headingText { $("[data-qa=\'page-heading-text\']").text() }
-    searchButtonDesktop { $('.button-start', type: 'submit') }
-    searchButtonMobile { $('.mobile-button', type: 'submit') }
+    headingText { $("[data-qa='page-heading-text']").text() }
+    searchButtonDesktop { $("[data-qa='search-button']") }
+    searchButtonMobile { $("[data-qa='search-button']") }
     locations { $('select option') }
     myKeyWorkerAllocationsLink(required: false) { $("[data-qa='my-kw-allocations-link']") }
     manageKeyWorkersLink(required: false) { $("[data-qa='manage-kw-link']") }

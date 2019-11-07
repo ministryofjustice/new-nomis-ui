@@ -25,7 +25,7 @@ class HomePage extends Component {
     return (
       <React.Fragment>
         <NotificationBar />
-        <Page title="Welcome back" showBreadcrumb={false}>
+        <Page docTitle="Home" showBreadcrumb={false}>
           {locations.size > 0 && <SearchForm />}
           <div>
             <ActionLinks
