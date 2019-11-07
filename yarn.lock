@@ -1101,6 +1101,14 @@
     "@govuk-react/constants" "^0.7.0"
     govuk-colours "^1.0.3"
 
+"@govuk-react/icons@^0.7.1":
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/@govuk-react/icons/-/icons-0.7.1.tgz#35642ec39703662a18efd4edd6b4a4f05a9a85b2"
+  integrity sha512-RAEHM+o7oiMjElU1z/hzm9d6RplCXCFyputKn5tE3ZLDgPiNyn7Vhd60bUP+kfCbGeMprcxsTN/wYw020jyYqg==
+  dependencies:
+    "@govuk-react/constants" "^0.7.1"
+    govuk-colours "^1.0.3"
+
 "@govuk-react/input-field@^0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@govuk-react/input-field/-/input-field-0.6.0.tgz#fd759c9f7f79f3802f7fe4460644b6347057869f"

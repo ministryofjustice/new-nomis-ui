@@ -2,10 +2,22 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import serialize from 'form-serialize'
+import styled from 'styled-components'
+import Button from '@govuk-react/button'
+import { ButtonArrow } from '@govuk-react/icons'
+import InputField from '@govuk-react/input-field'
+import Select from '@govuk-react/select'
+import { MEDIA_QUERIES } from '@govuk-react/constants'
 
 import { buildSearchQueryString } from '../../utils/stringUtils'
 import './searchForm.scss'
 import history from '../../history'
+
+const SearchField = styled(InputField)`
+  ${MEDIA_QUERIES.LARGESCREEN} {
+    width: 50%;
+  }
+`
 
 export class SearchForm extends Component {
   onSubmit = formData => {
@@ -31,35 +43,32 @@ export class SearchForm extends Component {
         ) : null}
 
         <div className="box">
-          <h1 className="heading-large">Search for a prisoner</h1>
+          <h1 className="heading-large" data-qa="page-heading-text">
+            Search for a prisoner
+          </h1>
 
-          <label htmlFor="keywords" className="form-label">
-            Enter a prisoner name or number
-          </label>
+          <SearchField
+            hint="Leave blank to view all results for selected location"
+            mb={6}
+            input={{
+              autoComplete: 'off',
+              name: 'keywords',
+            }}
+          >
+            Prisoner name or number
+          </SearchField>
 
-          <input name="keywords" type="text" title="Enter" autoComplete="off" className="form-control search-input" />
-          <button type="submit" className="button button-start desktop-button">
-            {' '}
+          <Select label="Location" defaultValue={defaultLocationPrefix} mb={6} input={{ name: 'locationPrefix' }}>
+            {locations.map(location => (
+              <option key={location.locationPrefix} value={location.locationPrefix}>
+                {location.description}
+              </option>
+            ))}
+          </Select>
+
+          <Button type="submit" start icon={<ButtonArrow />} mb={0} data-qa="search-button">
             Search
-          </button>
-
-          <div className="location-select">
-            <label htmlFor="location" className="form-label">
-              Select housing location
-            </label>
-            <select className="form-control locationPrefix" name="locationPrefix" defaultValue={defaultLocationPrefix}>
-              {locations.map(location => (
-                <option key={location.locationPrefix} value={location.locationPrefix}>
-                  {location.description}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <button type="submit" className="button mobile-button">
-            {' '}
-            Search{' '}
-          </button>
+          </Button>
         </div>
       </form>
     )
