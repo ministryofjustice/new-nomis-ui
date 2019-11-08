@@ -4,8 +4,12 @@ import { connect } from 'react-redux'
 import serialize from 'form-serialize'
 import styled from 'styled-components'
 import Button from '@govuk-react/button'
+import { H1 } from '@govuk-react/heading'
 import { ButtonArrow } from '@govuk-react/icons'
-import InputField from '@govuk-react/input-field'
+import LabelText from '@govuk-react/label-text'
+import Label from '@govuk-react/label'
+import Input from '@govuk-react/input'
+import HintText from '@govuk-react/hint-text'
 import Select from '@govuk-react/select'
 import { MEDIA_QUERIES } from '@govuk-react/constants'
 
@@ -13,7 +17,7 @@ import { buildSearchQueryString } from '../../utils/stringUtils'
 import './searchForm.scss'
 import history from '../../history'
 
-const SearchField = styled(InputField)`
+const SearchField = styled(Label)`
   ${MEDIA_QUERIES.LARGESCREEN} {
     width: 50%;
   }
@@ -43,22 +47,22 @@ export class SearchForm extends Component {
         ) : null}
 
         <div className="box">
-          <h1 className="heading-large" data-qa="page-heading-text">
+          <H1 size="LARGE" data-qa="page-heading-text">
             Search for a prisoner
-          </h1>
+          </H1>
 
-          <SearchField
-            hint="Leave blank to view all results for selected location"
-            mb={6}
-            input={{
-              autoComplete: 'off',
-              name: 'keywords',
-            }}
-          >
-            Prisoner name or number
+          <SearchField mb={5}>
+            <LabelText>Prisoner name or number</LabelText>
+            <HintText mb={2}>Leave blank to view all results for selected residential location</HintText>
+            <Input name="keywords" autoComplete="off" />
           </SearchField>
 
-          <Select label="Location" defaultValue={defaultLocationPrefix} mb={6} input={{ name: 'locationPrefix' }}>
+          <Select
+            label="Residential location"
+            defaultValue={defaultLocationPrefix}
+            mb={5}
+            input={{ name: 'locationPrefix' }}
+          >
             {locations.map(location => (
               <option key={location.locationPrefix} value={location.locationPrefix}>
                 {location.description}
