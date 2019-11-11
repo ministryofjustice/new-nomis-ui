@@ -84,7 +84,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
                                     'No visit history', 'No upcoming visits', 'Sashonda, Diydonopher', 'Social/ Family(Girlfriend)', '--']
     // todo: release date '07/04/2017' is displayed in US formaty in circle ci!
     containsExpectedIgnoringBlankAndDates(allQuicklookValues2, expectedQuicklookValues2)
-    categorisationLink*.text() contains 'Manage'
+    !categorisationLink.isDisplayed() // TODO categorisationLink*.text() contains 'Manage'
 
     // edit view means links shown
     addAppointmentLink.isDisplayed()
