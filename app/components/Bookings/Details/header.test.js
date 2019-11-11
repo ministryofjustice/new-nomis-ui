@@ -75,7 +75,7 @@ describe('Header component', () => {
               onAlertFlagClick={jest.fn()}
               showAddKeyworkerSessionLink={false}
               prisonStaffHubUrl="http://prisonstaffhub"
-              categorisationLinkText=""
+              showCategorisationLink={false}
               categorisationUrl="http://catTool"
               isUseOfForce={false}
               useOfForceUrl="http://useofforce"
@@ -97,7 +97,7 @@ describe('Header component', () => {
       onAlertFlagClick: jest.fn(),
       showAddKeyworkerSessionLink: false,
       prisonStaffHubUrl: 'http://prisonstaffhub',
-      categorisationLinkText: '',
+      showCategorisationLink: false,
       categorisationUrl: 'http://catTool',
       isUseOfForce: false,
       useOfForceUrl: 'http://useofforce',
@@ -139,7 +139,7 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
-        categorisationLinkText=""
+        showCategorisationLink={false}
         categorisationUrl="http://catTool"
         isUseOfForce={false}
         useOfForceUrl="http://useofforce"
@@ -161,7 +161,7 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
-        categorisationLinkText=""
+        showCategorisationLink={false}
         categorisationUrl="http://catTool"
         isUseOfForce={false}
         useOfForceUrl="http://useofforce"
@@ -181,7 +181,7 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
-        categorisationLinkText=""
+        showCategorisationLink={false}
         categorisationUrl="http://catTool"
         isUseOfForce={false}
         useOfForceUrl="http://useofforce"
@@ -206,7 +206,7 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
-        categorisationLinkText="Manage"
+        showCategorisationLink
         categorisationUrl="http://catTool/"
         isUseOfForce={false}
         useOfForceUrl="http://useofforce"
@@ -238,7 +238,7 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
-        categorisationLinkText="Manage"
+        showCategorisationLink
         categorisationUrl="http://catTool/"
         isUseOfForce={false}
         useOfForceUrl="http://useofforce"
@@ -265,7 +265,7 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
-        categorisationLinkText=""
+        showCategorisationLink={false}
         categorisationUrl="http://catTool"
         isUseOfForce={false}
         useOfForceUrl="http://useofforce"
@@ -286,7 +286,7 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
-        categorisationLinkText=""
+        showCategorisationLink={false}
         categorisationUrl="http://catTool"
         isUseOfForce={false}
         useOfForceUrl="http://useofforce"
@@ -318,7 +318,7 @@ describe('Header component', () => {
       onAlertFlagClick: jest.fn(),
       showAddKeyworkerSessionLink: false,
       prisonStaffHubUrl: 'http://prisonstaffhub',
-      categorisationLinkText: '',
+      showCategorisationLink: false,
       categorisationUrl: 'http://catTool',
       isUseOfForce: false,
       useOfForceUrl: 'http://useofforce',
@@ -339,7 +339,7 @@ describe('Header component', () => {
       onAlertFlagClick: jest.fn(),
       showAddKeyworkerSessionLink: false,
       prisonStaffHubUrl: 'http://prisonstaffhub',
-      categorisationLinkText: '',
+      showCategorisationLink: false,
       categorisationUrl: 'http://catTool',
       isUseOfForce: true,
       useOfForceUrl: 'http://use-of-force',
