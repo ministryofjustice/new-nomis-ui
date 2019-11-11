@@ -53,7 +53,7 @@ const MiddleSection = ({
   inmateData,
   offenderNo,
   showAddKeyworkerSessionLink,
-  categorisationLinkText,
+  showCategorisationLink,
   categorisationUrl,
   iepDetailsUrl,
   userCanEdit,
@@ -89,14 +89,14 @@ const MiddleSection = ({
           <div className="col" data-qa="category">
             <span className="label">Category</span>
             {category}
-            {categorisationLinkText && (
+            {showCategorisationLink && (
               <div>
                 <a
                   data-qa="categorisation-external-link"
                   className="link"
                   href={`${categorisationUrl}${inmateData.get('bookingId')}`}
                 >
-                  {categorisationLinkText}
+                  Manage
                 </a>
               </div>
             )}
@@ -126,14 +126,14 @@ const MiddleSection = ({
             <span className="label">Category</span>
             {category}
           </div>
-          {categorisationLinkText && (
+          {showCategorisationLink && (
             <div>
               <a
                 data-qa="categorisation-external-link"
                 className="link"
                 href={`${categorisationUrl}${inmateData.get('bookingId')}`}
               >
-                {categorisationLinkText}
+                Manage
               </a>
             </div>
           )}
@@ -227,7 +227,7 @@ MiddleSection.propTypes = {
   offenderNo: PropTypes.string.isRequired,
   inmateData: ImmutablePropTypes.map.isRequired,
   showAddKeyworkerSessionLink: PropTypes.bool.isRequired,
-  categorisationLinkText: PropTypes.string.isRequired,
+  showCategorisationLink: PropTypes.bool.isRequired,
   categorisationUrl: PropTypes.string.isRequired,
   iepDetailsUrl: PropTypes.string.isRequired,
   userCanEdit: PropTypes.bool.isRequired,
@@ -241,7 +241,7 @@ const Header = ({
   offenderNo,
   onAlertFlagClick,
   showAddKeyworkerSessionLink,
-  categorisationLinkText,
+  showCategorisationLink,
   categorisationUrl,
   prisonStaffHubUrl,
   useOfForceUrl,
@@ -293,7 +293,7 @@ const Header = ({
                 inmateData={inmateData}
                 offenderNo={offenderNo}
                 showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
-                categorisationLinkText={categorisationLinkText}
+                showCategorisationLink={showCategorisationLink}
                 categorisationUrl={categorisationUrl}
                 iepDetailsUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-details`}
                 userCanEdit={userCanEdit}
@@ -311,7 +311,7 @@ const Header = ({
             inmateData={inmateData}
             offenderNo={offenderNo}
             showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
-            categorisationLinkText={categorisationLinkText}
+            showCategorisationLink={showCategorisationLink}
             categorisationUrl={categorisationUrl}
             iepDetailsUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-details`}
             userCanEdit={userCanEdit}
@@ -330,7 +330,7 @@ Header.propTypes = {
   onImageClick: PropTypes.func.isRequired,
   onAlertFlagClick: PropTypes.func.isRequired,
   showAddKeyworkerSessionLink: PropTypes.bool.isRequired,
-  categorisationLinkText: PropTypes.string.isRequired,
+  showCategorisationLink: PropTypes.bool.isRequired,
   categorisationUrl: PropTypes.string.isRequired,
   prisonStaffHubUrl: PropTypes.string,
   userCanEdit: PropTypes.bool.isRequired,
