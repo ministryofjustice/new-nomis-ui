@@ -496,6 +496,7 @@ exports[`Header component should render correctly 1`] = `
                   <strong>
                     Cat D
                   </strong>
+                  
                 </div>
               </div>
             </div>
@@ -550,6 +551,7 @@ exports[`Header component should render correctly 1`] = `
                     Cat D
                   </strong>
                 </div>
+                
               </div>
             </div>
             <div
@@ -801,6 +803,7 @@ exports[`Header component should render correctly 1`] = `
               <strong>
                 Cat D
               </strong>
+              
             </div>
           </div>
         </div>
@@ -855,6 +858,7 @@ exports[`Header component should render correctly 1`] = `
                 Cat D
               </strong>
             </div>
+            
           </div>
         </div>
         <div
