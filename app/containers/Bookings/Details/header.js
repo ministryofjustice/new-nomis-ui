@@ -95,9 +95,7 @@ const mapStateToProps = (immutableState, props) => {
     props.offenderNo,
     'OffenderInCaseload',
   ])
-  let categorisationLinkText = ''
-  if (isCatToolUser) categorisationLinkText = 'Manage category'
-  else if (offenderInCaseload) categorisationLinkText = 'View category'
+  const categorisationLinkText = (isCatToolUser && 'Manage category') || (offenderInCaseload && 'View category') || ''
 
   return {
     headerDetails: immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']),
