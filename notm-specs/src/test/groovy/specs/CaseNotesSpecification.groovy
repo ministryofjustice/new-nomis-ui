@@ -117,6 +117,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     caseNotesApi.stubMeCaseNoteTypes()
     caseNotesApi.stubSaveCaseNote("KA", "KS", "Key Worker Activity", "Key Worker Session")
     caseNotesApi.stubGetCaseNote()
+    scrollToBottom()
     waitFor { addKeyworkerSessionLink.present }
     addKeyworkerSessionLink.click()
     at AddCaseNotePage
@@ -177,5 +178,9 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     elite2api.stubStaffDetails(-2)
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
+  }
+
+  def scrollToBottom() {
+    js.exec("window.scrollTo(0, document.body.scrollHeight)")
   }
 }

@@ -496,6 +496,15 @@ exports[`Header component should render correctly 1`] = `
                   <strong>
                     Cat D
                   </strong>
+                  <div>
+                    <a
+                      className="link"
+                      data-qa="categorisation-external-link"
+                      href="http://catTool100"
+                    >
+                      View category
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -549,6 +558,15 @@ exports[`Header component should render correctly 1`] = `
                   <strong>
                     Cat D
                   </strong>
+                  <div>
+                    <a
+                      className="link"
+                      data-qa="categorisation-external-link"
+                      href="http://catTool100"
+                    >
+                      View category
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -801,6 +819,15 @@ exports[`Header component should render correctly 1`] = `
               <strong>
                 Cat D
               </strong>
+              <div>
+                <a
+                  className="link"
+                  data-qa="categorisation-external-link"
+                  href="http://catTool100"
+                >
+                  View category
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -854,6 +881,15 @@ exports[`Header component should render correctly 1`] = `
               <strong>
                 Cat D
               </strong>
+              <div>
+                <a
+                  className="link"
+                  data-qa="categorisation-external-link"
+                  href="http://catTool100"
+                >
+                  View category
+                </a>
+              </div>
             </div>
           </div>
         </div>
