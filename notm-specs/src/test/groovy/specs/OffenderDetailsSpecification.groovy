@@ -84,7 +84,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
                                     'No visit history', 'No upcoming visits', 'Sashonda, Diydonopher', 'Social/ Family(Girlfriend)', '--']
     // todo: release date '07/04/2017' is displayed in US formaty in circle ci!
     containsExpectedIgnoringBlankAndDates(allQuicklookValues2, expectedQuicklookValues2)
-    !categorisationLink.isDisplayed() // TODO categorisationLink*.text() contains 'Manage'
+    categorisationLink*.text() contains 'View category'
 
     // edit view means links shown
     addAppointmentLink.isDisplayed()
@@ -255,7 +255,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     at OffenderDetailsPage
 
     then: 'Then the Manage link is displayed as part of the Category section'
-    categorisationLink*.text() contains 'Manage'
+    categorisationLink*.text() contains 'Manage category'
   }
 
   def "View probation documents link is displayed for a prison offender manager"() {

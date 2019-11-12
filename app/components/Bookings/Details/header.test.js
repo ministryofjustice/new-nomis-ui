@@ -75,7 +75,7 @@ describe('Header component', () => {
               onAlertFlagClick={jest.fn()}
               showAddKeyworkerSessionLink={false}
               prisonStaffHubUrl="http://prisonstaffhub"
-              showCategorisationLink={false}
+              categorisationLinkText="View category"
               categorisationUrl="http://catTool"
               isUseOfForce={false}
               useOfForceUrl="http://useofforce"
@@ -97,7 +97,7 @@ describe('Header component', () => {
       onAlertFlagClick: jest.fn(),
       showAddKeyworkerSessionLink: false,
       prisonStaffHubUrl: 'http://prisonstaffhub',
-      showCategorisationLink: false,
+      categorisationLinkText: '',
       categorisationUrl: 'http://catTool',
       isUseOfForce: false,
       useOfForceUrl: 'http://useofforce',
@@ -139,7 +139,7 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
-        showCategorisationLink={false}
+        categorisationLinkText=""
         categorisationUrl="http://catTool"
         isUseOfForce={false}
         useOfForceUrl="http://useofforce"
@@ -161,7 +161,7 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
-        showCategorisationLink={false}
+        categorisationLinkText=""
         categorisationUrl="http://catTool"
         isUseOfForce={false}
         useOfForceUrl="http://useofforce"
@@ -181,7 +181,7 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
-        showCategorisationLink={false}
+        categorisationLinkText=""
         categorisationUrl="http://catTool"
         isUseOfForce={false}
         useOfForceUrl="http://useofforce"
@@ -206,7 +206,7 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
-        showCategorisationLink
+        categorisationLinkText="Manage category"
         categorisationUrl="http://catTool/"
         isUseOfForce={false}
         useOfForceUrl="http://useofforce"
@@ -219,14 +219,14 @@ describe('Header component', () => {
         .find("a[data-qa='categorisation-external-link']")
         .first()
         .text()
-    ).toEqual('Manage')
+    ).toEqual('Manage category')
     const middleSectionMobile = wrapper.find('div.visible-small > MiddleSection').shallow()
     expect(
       middleSectionMobile
         .find("a[data-qa='categorisation-external-link']")
         .first()
         .text()
-    ).toEqual('Manage')
+    ).toEqual('Manage category')
   })
 
   it('should render the category even when no cat', () => {
@@ -238,7 +238,7 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
-        showCategorisationLink
+        categorisationLinkText="Manage"
         categorisationUrl="http://catTool/"
         isUseOfForce={false}
         useOfForceUrl="http://useofforce"
@@ -265,7 +265,7 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
-        showCategorisationLink={false}
+        categorisationLinkText=""
         categorisationUrl="http://catTool"
         isUseOfForce={false}
         useOfForceUrl="http://useofforce"
@@ -286,7 +286,7 @@ describe('Header component', () => {
         onAlertFlagClick={jest.fn()}
         showAddKeyworkerSessionLink={false}
         prisonStaffHubUrl="http://prisonstaffhub"
-        showCategorisationLink={false}
+        categorisationLinkText=""
         categorisationUrl="http://catTool"
         isUseOfForce={false}
         useOfForceUrl="http://useofforce"
@@ -318,7 +318,7 @@ describe('Header component', () => {
       onAlertFlagClick: jest.fn(),
       showAddKeyworkerSessionLink: false,
       prisonStaffHubUrl: 'http://prisonstaffhub',
-      showCategorisationLink: false,
+      categorisationLinkText: '',
       categorisationUrl: 'http://catTool',
       isUseOfForce: false,
       useOfForceUrl: 'http://useofforce',
@@ -339,7 +339,7 @@ describe('Header component', () => {
       onAlertFlagClick: jest.fn(),
       showAddKeyworkerSessionLink: false,
       prisonStaffHubUrl: 'http://prisonstaffhub',
-      showCategorisationLink: false,
+      categorisationLinkText: '',
       categorisationUrl: 'http://catTool',
       isUseOfForce: true,
       useOfForceUrl: 'http://use-of-force',

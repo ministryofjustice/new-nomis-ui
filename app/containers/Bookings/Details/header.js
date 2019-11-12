@@ -15,7 +15,7 @@ const Header = ({
   offenderNo,
   showAlertTabForOffenderNo,
   showAddKeyworkerSessionLink,
-  showCategorisationLink,
+  categorisationLinkText,
   categorisationUrl,
   prisonStaffHubUrl,
   userCanEdit,
@@ -31,7 +31,7 @@ const Header = ({
       onImageClick={showPhoto}
       onAlertFlagClick={showAlertTab}
       showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
-      showCategorisationLink={showCategorisationLink}
+      categorisationLinkText={categorisationLinkText}
       categorisationUrl={categorisationUrl}
       prisonStaffHubUrl={prisonStaffHubUrl}
       userCanEdit={userCanEdit}
@@ -47,7 +47,7 @@ Header.propTypes = {
   showAlertTabForOffenderNo: PropTypes.func.isRequired,
   offenderNo: PropTypes.string.isRequired,
   showAddKeyworkerSessionLink: PropTypes.bool.isRequired,
-  showCategorisationLink: PropTypes.bool.isRequired,
+  categorisationLinkText: PropTypes.string.isRequired,
   categorisationUrl: PropTypes.string.isRequired,
   prisonStaffHubUrl: PropTypes.string.isRequired,
   userCanEdit: PropTypes.bool,
@@ -95,11 +95,15 @@ const mapStateToProps = (immutableState, props) => {
     props.offenderNo,
     'OffenderInCaseload',
   ])
+  let categorisationLinkText = ''
+  if (isCatToolUser) categorisationLinkText = 'Manage category'
+  else if (offenderInCaseload) categorisationLinkText = 'View category'
+
   return {
     headerDetails: immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'Data']),
     userCanEdit,
     showAddKeyworkerSessionLink: Boolean(isKeyWorker),
-    showCategorisationLink: Boolean(isCatToolUser), // disable temporarily:   || offenderInCaseload),
+    categorisationLinkText,
     categorisationUrl: immutableState.getIn(['app', 'categorisationUrl']),
     isUseOfForce: Boolean(isUseOfForce),
     useOfForceUrl: immutableState.getIn(['app', 'useOfForceUrl']),
