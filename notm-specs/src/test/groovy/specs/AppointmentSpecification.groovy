@@ -82,6 +82,7 @@ class AppointmentSpecification extends BrowserReportingSpec {
     elite2api.stubOffenderDetails(false)
     elite2api.stubAppointmentTypes()
     elite2api.stubAppointments(ITAG_USER)
+    scrollToBottom()
     addAppointmentLink.click()
     at AddAppointmentPage
 
@@ -192,6 +193,7 @@ class AppointmentSpecification extends BrowserReportingSpec {
     elite2api.stubOffenderDetails(false)
     elite2api.stubAppointmentTypes()
     elite2api.stubAppointments(ITAG_USER)
+    scrollToBottom()
     addAppointmentLink.click()
     at AddAppointmentPage
 
@@ -245,5 +247,9 @@ class AppointmentSpecification extends BrowserReportingSpec {
         true,
         false))
     )
+  }
+
+  def scrollToBottom() {
+    js.exec("window.scrollTo(0, document.body.scrollHeight)")
   }
 }
