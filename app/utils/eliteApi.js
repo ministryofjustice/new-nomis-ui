@@ -214,9 +214,9 @@ export const getAll = (func, itemName, args) => {
 export const loadAllCaseNoteFilterItems = baseUrl => {
   const types = getAll(loadSomeCaseNoteTypes, 'referenceCodes')(baseUrl)
   return Promise.all([types]).then(res => {
-    const allTypes = res[0].map(t => ({ code: t.code, description: t.description, source: t.source }))
+    const allTypes = res[0].map(t => ({ code: t.code, description: t.description }))
     const subTypes = res[0].map(t =>
-      t.subCodes.map(sc => ({ code: sc.code, description: sc.description, parentCode: t.code, source: sc.source }))
+      t.subCodes.map(sc => ({ code: sc.code, description: sc.description, parentCode: t.code }))
     )
     return { types: allTypes, subTypes }
   })

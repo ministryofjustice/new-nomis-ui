@@ -238,7 +238,7 @@ const mapDispatchToProps = (dispatch, props) => {
             ...formData.toJS(),
             typeAndSubType: {
               type: formData.toJS().typeValue,
-              subType: formData.toJS().subTypeValue,
+              subType: formData.toJS().subTypeValue.replace('XXX_', ''),
             },
           },
         },
@@ -263,6 +263,15 @@ export const validate = stuff => {
   const { caseNoteText, startTime, subTypeValue, typeValue } = stuff.toJS()
   const error = {}
 
+  if (caseNoteText) {
+    if (subTypeValue.startsWith('XXX_')) {
+      if (caseNoteText.length > 30000) {
+        error.caseNoteText = 'Maximum length should not exceed 30000 characters'
+      }
+    } else if (caseNoteText.length > 4000) {
+      error.caseNoteText = 'Maximum length should not exceed 4000 characters'
+    }
+  }
   if (!typeValue) {
     error.typeValue = 'Required'
   }
