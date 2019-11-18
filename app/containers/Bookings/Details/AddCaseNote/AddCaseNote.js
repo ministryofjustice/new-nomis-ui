@@ -263,10 +263,6 @@ export const validate = stuff => {
   const { caseNoteText, startTime, subTypeValue, typeValue } = stuff.toJS()
   const error = {}
 
-  if (caseNoteText && caseNoteText.length > 4000) {
-    error.caseNoteText = 'Maximum length should not exceed 4000 characters'
-  }
-
   if (!typeValue) {
     error.typeValue = 'Required'
   }

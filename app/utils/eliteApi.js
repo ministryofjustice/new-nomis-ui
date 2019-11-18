@@ -122,9 +122,9 @@ export const amendCaseNote = (baseUrl, offenderNo, caseNoteId, amendmentText) =>
 const flatten = list => list.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), [])
 
 export const CaseNoteTypeMapper = res => {
-  const allTypes = res.map(t => ({ code: t.code, description: t.description }))
+  const allTypes = res.map(t => ({ code: t.code, description: t.description, source: t.source }))
   const subTypes = res.map(type =>
-    type.subCodes.map(sc => ({ code: sc.code, description: sc.description, parentCode: type.code }))
+    type.subCodes.map(sc => ({ code: sc.code, description: sc.description, parentCode: type.code, source: sc.source }))
   )
 
   return { types: allTypes, subTypes: flatten(subTypes) }
@@ -214,9 +214,9 @@ export const getAll = (func, itemName, args) => {
 export const loadAllCaseNoteFilterItems = baseUrl => {
   const types = getAll(loadSomeCaseNoteTypes, 'referenceCodes')(baseUrl)
   return Promise.all([types]).then(res => {
-    const allTypes = res[0].map(t => ({ code: t.code, description: t.description }))
+    const allTypes = res[0].map(t => ({ code: t.code, description: t.description, source: t.source }))
     const subTypes = res[0].map(t =>
-      t.subCodes.map(sc => ({ code: sc.code, description: sc.description, parentCode: t.code }))
+      t.subCodes.map(sc => ({ code: sc.code, description: sc.description, parentCode: t.code, source: sc.source }))
     )
     return { types: allTypes, subTypes }
   })
