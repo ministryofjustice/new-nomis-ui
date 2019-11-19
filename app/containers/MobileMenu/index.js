@@ -6,20 +6,19 @@ import MobileMenuComponent from '../../components/MobileMenu'
 
 import { setMenuOpen } from '../../globalReducers/app'
 import selectUserHeaderInfo from '../Header/selectors'
-import { switchCaseLoad } from '../EliteApiLoader/actions'
 
-const MobileMenu = ({ user, switchCaseLoad: switchLoad, setMenuOpen: menuOpen }) => {
+const MobileMenu = ({ user, setMenuOpen: menuOpen, extraLinks }) => {
   if (!user) {
     return <div />
   }
 
-  return <MobileMenuComponent switchCaseLoad={switchLoad} user={user} setMenuOpen={menuOpen} />
+  return <MobileMenuComponent user={user} setMenuOpen={menuOpen} extraLinks={extraLinks} />
 }
 
 MobileMenu.propTypes = {
   user: PropTypes.shape({}),
   setMenuOpen: PropTypes.func.isRequired,
-  switchCaseLoad: PropTypes.func.isRequired,
+  extraLinks: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 }
 
 MobileMenu.defaultProps = {
@@ -32,7 +31,6 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   setMenuOpen,
-  switchCaseLoad,
 }
 
 export default connect(
