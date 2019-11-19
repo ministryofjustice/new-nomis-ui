@@ -15,7 +15,7 @@ import {
 
 import forwardBack from '../../assets/forward-arrow.svg'
 
-const MobileMenu = ({ user, setMenuOpen, switchCaseLoad }) => {
+const MobileMenu = ({ user, setMenuOpen, extraLinks }) => {
   const removeMobileMenu = () => {
     setMenuOpen(false)
   }
@@ -44,21 +44,14 @@ const MobileMenu = ({ user, setMenuOpen, switchCaseLoad }) => {
         </Link>
       )}
 
-      {user.caseLoadOptions.map(option => {
-        const newObj = (
-          <MobileMenuOption
-            key={option.caseLoadId}
-            onClick={() => {
-              switchCaseLoad(option.caseLoadId)
-            }}
-            data-id="dropdown-option"
-          >
-            {option.description}
+      {extraLinks.map(link => (
+        <a href={link.url} className="unstyled-link" data-id="dropdown-option">
+          <MobileMenuOption>
+            {link.text}
             <ForwardArrow svg={forwardBack} />
           </MobileMenuOption>
-        )
-        return newObj
-      })}
+        </a>
+      ))}
       <a id="mobile-logout" key="logout" href="/auth/logout" data-id="dropdown-option" className="unstyled-link">
         <MobileMenuOption>
           Sign out
@@ -73,11 +66,11 @@ const MobileMenu = ({ user, setMenuOpen, switchCaseLoad }) => {
 MobileMenu.propTypes = {
   user: PropTypes.shape({}),
   setMenuOpen: PropTypes.func.isRequired,
-  switchCaseLoad: PropTypes.func.isRequired,
   options: PropTypes.shape({
     assignments: PropTypes.number,
     facilities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }),
+  extraLinks: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 }
 
 MobileMenu.defaultProps = {

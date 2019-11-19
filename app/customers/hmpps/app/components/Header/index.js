@@ -20,9 +20,7 @@ import {
   UnstyledLink,
 } from './header.theme'
 
-const HmppsHeader = ({ user, menuOpen, setMenuOpen, navigateTo, switchCaseLoad }) => {
-  const extraLinks = []
-
+const HmppsHeader = ({ user, menuOpen, setMenuOpen, navigateTo, extraLinks }) => {
   if (user && user.isKeyWorker) {
     extraLinks.push({
       text: 'My key worker allocations',
@@ -39,7 +37,6 @@ const HmppsHeader = ({ user, menuOpen, setMenuOpen, navigateTo, switchCaseLoad }
           logoText="HMPPS"
           extraLinks={extraLinks}
           history={history}
-          switchCaseLoad={switchCaseLoad}
           user={user}
           menuOpen={menuOpen}
           setMenuOpen={setMenuOpen}
@@ -71,7 +68,7 @@ const HmppsHeader = ({ user, menuOpen, setMenuOpen, navigateTo, switchCaseLoad }
               </MobileOnly>
             </RightContent>
           </div>
-          <MobileOnly>{menuOpen && <MobileMenu />}</MobileOnly>
+          <MobileOnly>{menuOpen && <MobileMenu extraLinks={extraLinks} />}</MobileOnly>
         </PageHeader>
       </MobileOnly>
     </div>
@@ -83,7 +80,7 @@ HmppsHeader.propTypes = {
   menuOpen: PropTypes.bool.isRequired,
   setMenuOpen: PropTypes.func.isRequired,
   navigateTo: PropTypes.func.isRequired,
-  switchCaseLoad: PropTypes.func.isRequired,
+  extraLinks: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 HmppsHeader.defaultProps = {
