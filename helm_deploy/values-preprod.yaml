@@ -28,7 +28,7 @@ env:
   CATEGORISATION_UI_URL: "https://preprod.offender-categorisation.service.justice.gov.uk/"
   PATHFINDER_URL: "https://preprod.pathfinder.service.justice.gov.uk"
   USE_OF_FORCE_URL: "https://preprod.use-of-force.service.justice.gov.uk"
-  USE_OF_FORCE_PRISONS: "WRI"
+  USE_OF_FORCE_PRISONS: "WRI,WEI,BLI"
   HMPPS_COOKIE_NAME: hmpps-session-preprod
   REMOTE_AUTH_STRATEGY: "true"
   WEB_SESSION_TIMEOUT_IN_MINUTES: "60"
