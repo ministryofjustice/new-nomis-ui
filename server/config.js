@@ -41,7 +41,7 @@ const apis = {
     timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 30,
   },
   allocationManager: {
-    url: process.env.ALLOCATION_MANAGER_ENDPOINT_URL,
+    url: process.env.ALLOCATION_MANAGER_ENDPOINT_URL || '',
     timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 30,
   },
   keyworker: {
