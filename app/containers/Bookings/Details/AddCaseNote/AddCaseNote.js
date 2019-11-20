@@ -110,7 +110,7 @@ class AddCaseNoteForm extends Component {
                 {!editDateTime && (
                   <FauxField>
                     <FormattedDate value={today.format()} />
-                    -
+                    {' - '}
                     <FormattedTime value={today.format()} />
                     <ButtonLink
                       data-qa="change-date-time"
