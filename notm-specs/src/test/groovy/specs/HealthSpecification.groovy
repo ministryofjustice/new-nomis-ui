@@ -2,7 +2,6 @@ package specs
 
 import groovyx.net.http.HttpBuilder
 import groovyx.net.http.HttpException
-import mockapis.AllocationManagerApi
 import mockapis.CaseNotesApi
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
@@ -26,9 +25,6 @@ class HealthSpecification extends Specification {
   @Rule
   OauthApi oauthApi = new OauthApi()
 
-  @Rule
-  AllocationManagerApi allocationManagerApi = new AllocationManagerApi()
-
   HttpBuilder http
 
   def setup() {
@@ -44,7 +40,6 @@ class HealthSpecification extends Specification {
     caseNotesApi.stubHealth()
     elite2Api.stubHealth()
     oauthApi.stubHealth()
-    allocationManagerApi.stubHealth()
 
     when:
     def response = this.http.get()
@@ -52,7 +47,7 @@ class HealthSpecification extends Specification {
     response.uptime > 0.0
     response.name == "new-nomis-ui"
     !response.version.isEmpty()
-    response.api == [auth: 'UP', elite2: 'UP', keyworker: 'UP', caseNotes: 'UP', allocationManager: 'UP']
+    response.api == [auth: 'UP', elite2: 'UP', keyworker: 'UP', caseNotes: 'UP']
   }
 
   def "Health page reports API down"() {
@@ -62,7 +57,6 @@ class HealthSpecification extends Specification {
     elite2Api.stubHealth()
     oauthApi.stubHealth()
     caseNotesApi.stubHealth()
-    allocationManagerApi.stubHealth()
 
     when:
     def response
@@ -75,6 +69,6 @@ class HealthSpecification extends Specification {
     then:
     response.name == "new-nomis-ui"
     !response.version.isEmpty()
-    response.api == [auth: 'UP', elite2: 'UP', caseNotes: 'UP', allocationManager: 'UP', keyworker: [timeout: 1000, code: 'ECONNABORTED', errno: 'ETIMEDOUT', retries: 2]]
+    response.api == [auth: 'UP', elite2: 'UP', caseNotes: 'UP', keyworker: [timeout: 1000, code: 'ECONNABORTED', errno: 'ETIMEDOUT', retries: 2]]
   }
 }
