@@ -42,12 +42,12 @@ class CaseNotesApi extends WireMockRule {
             .withBody("pong")))
   }
 
-  void stubSaveCaseNote(String type = "CHAP", String subType = "FAITH", String typeDescription = "Chaplaincy", String subTypeDescription = "Faith Specific Action") {
+  void stubSaveCaseNote(String type = "CHAP", String subType = "FAITH", String text = "some text") {
     // TODO check "occurrenceDateTime": "2018-04-30T07:00:00", (what we selected on the page)
     def data = """{
   "type": "${type}",
   "subType": "${subType}",
-  "text": "some text"
+  "text": "${text}"
 }"""
     this.stubFor(
       post(urlMatching("/case-notes/.+"))

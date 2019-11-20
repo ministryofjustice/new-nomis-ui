@@ -67,6 +67,30 @@ class CaseNotesSpecification extends BrowserReportingSpec {
 
   }
 
+  def "Create a new sensitive case note"() {
+    setupUserDetails()
+
+    given: 'I am logged in and have selected an offender'
+    testFixture.loginAs ITAG_USER
+
+    searchFor "d s"
+    at SearchResultsPage
+    elite2api.stubQuickLook()
+    caseNotesApi.stubGetCaseNote()
+    selectOffender(1)
+    at OffenderDetailsPage
+
+    when: 'I create a new senstive case note'
+    setupAddSensitiveCaseNote()
+    addCaseNoteLink.click()
+    at AddCaseNotePage
+    createNewSensitiveCaseNote()
+
+    then: 'The new case note is displayed'
+    at OffenderCaseNotesPage
+
+  }
+
   def "open the add case note screen with no type and sub type selected"() {
     setupAddCaseNote()
     setupUserDetails()
@@ -115,7 +139,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     when: 'I create a new case note'
     caseNotesApi.stubCaseNoteTypes()
     caseNotesApi.stubMeCaseNoteTypes()
-    caseNotesApi.stubSaveCaseNote("KA", "KS", "Key Worker Activity", "Key Worker Session")
+    caseNotesApi.stubSaveCaseNote("KA", "KS", "some text")
     caseNotesApi.stubGetCaseNote()
     scrollToBottom()
     waitFor { addKeyworkerSessionLink.present }
@@ -159,6 +183,13 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     caseNotesApi.stubCaseNoteTypes()
     caseNotesApi.stubMeCaseNoteTypes()
     caseNotesApi.stubSaveCaseNote()
+    caseNotesApi.stubGetCaseNote()
+  }
+
+  def setupAddSensitiveCaseNote() {
+    caseNotesApi.stubCaseNoteTypes()
+    caseNotesApi.stubMeCaseNoteTypes()
+    caseNotesApi.stubSaveCaseNote("OMIC","TEST_OMIC", "some sensitive text")
     caseNotesApi.stubGetCaseNote()
   }
 

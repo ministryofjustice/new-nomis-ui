@@ -32,6 +32,7 @@ class AddCaseNotePage extends Page {
   def createNewCaseNote() {
     form.typeValue = 'CHAP'
     waitFor { form.find('option', value: 'FAITH').displayed }
+    form.subTypeValue = 'FAITH'
     textareaElement.module(Textarea).text = 'some text'
     changeDateTime.click()
     waitFor { datePicker.displayed }
@@ -39,7 +40,20 @@ class AddCaseNotePage extends Page {
     days[0].click() // select 1st of this month for now
     form.hours = "07"
     form.minutes = "00"
-    form.subTypeValue = 'FAITH'
+    saveButton.click()
+  }
+
+  def createNewSensitiveCaseNote() {
+    form.typeValue = 'OMIC'
+    waitFor { form.find('option', value: 'XXX_TEST_OMIC').displayed }
+    form.subTypeValue = 'XXX_TEST_OMIC'
+    textareaElement.module(Textarea).text = 'some sensitive text'
+    changeDateTime.click()
+    waitFor { datePicker.displayed }
+    datePicker.click()
+    days[0].click() // select 1st of this month for now
+    form.hours = "07"
+    form.minutes = "00"
     saveButton.click()
   }
 

@@ -407,6 +407,22 @@ class CaseNoteTypes {
       ],
       [
         domain     : "TASK_TYPE",
+        code       : "OMIC",
+        description: "OMiC",
+        source     : "OCNS",
+        activeFlag : "Y",
+        subCodes   : [
+          [
+            domain     : "TASK_SUBTYPE",
+            code       : "TEST_OMIC",
+            description: "Omic Case Note",
+            source     : "OCNS",
+            activeFlag : "Y",
+          ]
+        ]
+      ],
+      [
+        domain     : "TASK_TYPE",
         code       : "CNOTE",
         description: "Case Note",
         activeFlag : "N",
@@ -2181,6 +2197,22 @@ class CaseNoteTypes {
             domain     : "TASK_SUBTYPE",
             code       : "TSP_SESSION",
             description: "TSP 'Catch up' Session",
+            activeFlag : "Y",
+          ]
+        ]
+      ],
+      [
+        domain     : "TASK_TYPE",
+        code       : "OMIC",
+        description: "OMiC",
+        source     : "OCNS",
+        activeFlag : "Y",
+        subCodes   : [
+          [
+            domain     : "TASK_SUBTYPE",
+            code       : "TEST_OMIC",
+            description: "Omic Case Note",
+            source     : "OCNS",
             activeFlag : "Y",
           ]
         ]
