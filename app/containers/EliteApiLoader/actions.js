@@ -54,12 +54,6 @@ export function loadUserCaseLoads() {
     type: USER.CASELOADS.BASE,
   }
 }
-export function switchCaseLoad(caseLoadId) {
-  return {
-    type: USER.SWITCHCASELOAD.BASE,
-    payload: { caseLoadId },
-  }
-}
 
 export function loadAppointmentViewModel(agencyId) {
   return {

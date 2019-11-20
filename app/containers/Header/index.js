@@ -5,16 +5,19 @@ import { connect } from 'react-redux'
 // eslint-disable-next-line import/no-unresolved
 import HeaderComponent from 'header'
 import { setMenuOpen, navigateTo } from '../../globalReducers/app'
-import { switchCaseLoad } from '../EliteApiLoader/actions'
 import { userType } from '../../types'
 
-const HeaderContainer = ({ user, menuOpen, switchCaseLoad: switchCL, setMenuOpen: openMenu, navigateTo: toRoute }) => (
+const HeaderContainer = ({ user, menuOpen, setMenuOpen: openMenu, navigateTo: toRoute, prisonStaffHubUrl }) => (
   <HeaderComponent
-    switchCaseLoad={switchCL}
     user={user}
     menuOpen={menuOpen}
     setMenuOpen={openMenu}
     navigateTo={toRoute}
+    extraLinks={
+      user.caseLoadOptions && user.caseLoadOptions.length > 1
+        ? [{ text: 'Change caseload', url: `${prisonStaffHubUrl}change-caseload/` }]
+        : []
+    }
   />
 )
 
@@ -22,8 +25,8 @@ HeaderContainer.propTypes = {
   navigateTo: PropTypes.func.isRequired,
   menuOpen: PropTypes.bool,
   setMenuOpen: PropTypes.func,
-  switchCaseLoad: PropTypes.func.isRequired,
   user: userType,
+  prisonStaffHubUrl: PropTypes.string.isRequired,
 }
 
 HeaderContainer.defaultProps = {
@@ -47,7 +50,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   setMenuOpen,
-  switchCaseLoad,
   navigateTo,
 }
 

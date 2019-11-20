@@ -68,7 +68,7 @@ export class App extends Component {
     return (
       <div className="app-content">
         <Notifications />
-        <Header />
+        <Header prisonStaffHubUrl={prisonStaffHubUrl} />
         {/* eslint-disable-next-line */}
         <main className={`container ${menuOpen ? 'desktop-only' : ''}`} onClick={() => this.onBackgroundClick()}>
           {spinnerCount > 0 && <Spinner />}
