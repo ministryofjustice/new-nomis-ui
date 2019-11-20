@@ -9,7 +9,8 @@ module.exports = () => {
     config.apis.oauth2.url,
     config.apis.elite2.url,
     config.apis.keyworker.url,
-    config.apis.caseNotes.url
+    config.apis.caseNotes.url,
+    config.apis.allocationManager.url
   )
 
   router.get('/health', (req, res, next) => {
