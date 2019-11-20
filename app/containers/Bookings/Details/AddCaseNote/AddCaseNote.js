@@ -110,9 +110,8 @@ class AddCaseNoteForm extends Component {
                 {!editDateTime && (
                   <FauxField>
                     <FormattedDate value={today.format()} />
-                    {' - '}
+                    -
                     <FormattedTime value={today.format()} />
-
                     <ButtonLink
                       data-qa="change-date-time"
                       {...linkOnClick(() =>
@@ -263,15 +262,6 @@ export const validate = stuff => {
   const { caseNoteText, startTime, subTypeValue, typeValue } = stuff.toJS()
   const error = {}
 
-  if (caseNoteText) {
-    if (subTypeValue.startsWith('XXX_')) {
-      if (caseNoteText.length > 30000) {
-        error.caseNoteText = 'Maximum length should not exceed 30000 characters'
-      }
-    } else if (caseNoteText.length > 4000) {
-      error.caseNoteText = 'Maximum length should not exceed 4000 characters'
-    }
-  }
   if (!typeValue) {
     error.typeValue = 'Required'
   }
@@ -282,6 +272,12 @@ export const validate = stuff => {
 
   if (!caseNoteText) {
     error.caseNoteText = 'Required'
+  } else if (subTypeValue && subTypeValue.startsWith('XXX_')) {
+    if (caseNoteText.length > 30000) {
+      error.caseNoteText = 'Maximum length should not exceed 30000 characters'
+    }
+  } else if (caseNoteText.length > 4000) {
+    error.caseNoteText = 'Maximum length should not exceed 4000 characters'
   }
 
   if (!startTime) {
@@ -296,7 +292,4 @@ const asForm = reduxForm({
   validate,
 })(AddCaseNoteForm)
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(asForm)
+export default connect(mapStateToProps, mapDispatchToProps)(asForm)
