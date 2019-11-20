@@ -146,7 +146,11 @@ function EliteApiReducer(state = initialState, action) {
     case CASENOTETYPES.PRELOAD.SUCCESS: {
       const { types, subTypes } = action.payload
       const Types = types.map(x => ({ label: x.description, value: x.code }))
-      const SubTypes = subTypes.map(x => ({ label: x.description, value: x.code, parent: x.parentCode }))
+      const SubTypes = subTypes.map(x => ({
+        value: x.source === 'OCNS' ? `XXX_${x.code}` : x.code,
+        label: x.description,
+        parent: x.parentCode,
+      }))
 
       return state.setIn(['User', 'CaseNoteTypes'], Types).setIn(['User', 'CaseNoteSubTypes'], SubTypes)
     }

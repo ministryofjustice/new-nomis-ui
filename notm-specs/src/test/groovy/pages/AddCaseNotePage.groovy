@@ -29,17 +29,17 @@ class AddCaseNotePage extends Page {
 
   }
 
-  def createNewCaseNote() {
-    form.typeValue = 'CHAP'
-    waitFor { form.find('option', value: 'FAITH').displayed }
-    textareaElement.module(Textarea).text = 'some text'
+  def createNewCaseNote(type = 'CHAP', subType = 'FAITH', text = 'some text') {
+    form.typeValue = type
+    waitFor { form.find('option', value: subType).displayed }
+    textareaElement.module(Textarea).text = text
     changeDateTime.click()
     waitFor { datePicker.displayed }
     datePicker.click()
     days[0].click() // select 1st of this month for now
     form.hours = "07"
     form.minutes = "00"
-    form.subTypeValue = 'FAITH'
+    form.subTypeValue = subType
     saveButton.click()
   }
 
