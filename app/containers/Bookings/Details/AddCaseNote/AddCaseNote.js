@@ -274,10 +274,12 @@ export const validate = stuff => {
     error.caseNoteText = 'Required'
   } else if (subTypeValue && subTypeValue.startsWith('XXX_')) {
     if (caseNoteText.length > 30000) {
-      error.caseNoteText = 'Maximum length should not exceed 30000 characters'
+      error.caseNoteText = `Maximum length should not exceed 30000 characters (over by ${caseNoteText.length -
+        30000} characters)`
     }
   } else if (caseNoteText.length > 4000) {
-    error.caseNoteText = 'Maximum length should not exceed 4000 characters'
+    error.caseNoteText = `Maximum length should not exceed 4000 characters (over by ${caseNoteText.length -
+      4000} characters)`
   }
 
   if (!startTime) {
