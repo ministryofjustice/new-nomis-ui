@@ -36,7 +36,7 @@ module.exports = function healthcheckFactory(authUrl, elite2Url, keyworkerUrl, c
     service('elite2', `${elite2Url}ping`),
     service('keyworker', `${keyworkerUrl}ping`),
     service('caseNotes', `${caseNotesUrl}/ping`),
-    service('allocationManager', `${allocationManagerUrl}/health`),
+    service('allocationManager', `${allocationManagerUrl}health`),
   ]
 
   return callback =>
