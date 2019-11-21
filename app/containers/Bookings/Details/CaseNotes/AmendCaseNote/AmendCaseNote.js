@@ -102,8 +102,9 @@ export const validate = form => {
 
   if (!amendmentText) {
     error.amendmentText = 'Required'
+  } else if (amendmentText.length > 30000) {
+    error.amendmentText = 'Maximum length should not exceed 30000 characters'
   }
-
   return error
 }
 
