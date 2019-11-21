@@ -310,7 +310,7 @@ export function* onAmendCaseNote(action) {
     yield put({
       type: AMEND_CASENOTE.ERROR,
       payload: new SubmissionError({
-        _error: (err.response.data && err.response.data.message) || 'Unable to amend case note at this time.',
+        _error: 'Unable to amend case note at this time.',
       }),
     })
   }
