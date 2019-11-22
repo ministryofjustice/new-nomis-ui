@@ -150,12 +150,10 @@ const DesktopAlertItems = ({ alerts, active, canUpdateAlerts, prisonStaffHubUrl,
                 <ButtonCancel
                   data-qa="close-alert-button"
                   onClick={() =>
-                    window.location.assign(
-                      `${prisonStaffHubUrl}close-alert?offenderNo=${offenderNo}&alertId=${alertId}`
-                    )
+                    window.location.assign(`${prisonStaffHubUrl}edit-alert?offenderNo=${offenderNo}&alertId=${alertId}`)
                   }
                 >
-                  Close alert
+                  Edit / Close
                 </ButtonCancel>
               </Td>
             )}
