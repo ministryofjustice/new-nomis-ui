@@ -29,7 +29,7 @@ env:
   PATHFINDER_URL: "https://pathfinder.service.justice.gov.uk"
   USE_OF_FORCE_URL: "https://use-of-force.service.justice.gov.uk"
   ALLOCATION_MANAGER_ENDPOINT_URL: "https://moic.service.justice.gov.uk/"
-  USE_OF_FORCE_PRISONS: "WRI"
+  USE_OF_FORCE_PRISONS: "WRI,BLI"
   HMPPS_COOKIE_NAME: hmpps-session-prod
   REMOTE_AUTH_STRATEGY: "true"
   WEB_SESSION_TIMEOUT_IN_MINUTES: "60"
