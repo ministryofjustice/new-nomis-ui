@@ -111,7 +111,7 @@ describe('<AlertList />', () => {
             closeAlertButtons.props().onClick()
 
             expect(window.location.assign).toBeCalledWith(
-              `${props.prisonStaffHubUrl}edit-alert?offenderNo=${props.offenderNo}&alertId=1`
+              `${props.prisonStaffHubUrl}close-alert?offenderNo=${props.offenderNo}&alertId=1`
             )
           })
         })
