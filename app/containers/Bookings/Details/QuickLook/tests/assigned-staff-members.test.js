@@ -34,11 +34,13 @@ describe('<AssignedStaffMembers />', () => {
     const staffDetails = new Map([['firstName', 'Test'], ['lastName', 'User']])
 
     each`
-      propName                      | propValue        | staffRole
-      ${'communityOffenderManager'} | ${staffDetails}  | ${'Community Offender Manager'}
-      ${'offenderSupervisor'}       | ${staffDetails}  | ${'Offender Supervisor'}
-      ${'caseAdministrator'}        | ${staffDetails}  | ${'Case Administrator'}
-      ${'drugWorker'}               | ${staffDetails}  | ${'Drug Worker'}
+      propName                            | propValue        | staffRole
+      ${'communityOffenderManager'}       | ${staffDetails}  | ${'Community Offender Manager'}
+      ${'offenderSupervisor'}             | ${staffDetails}  | ${'Offender Supervisor'}
+      ${'caseAdministrator'}              | ${staffDetails}  | ${'Case Administrator'}
+      ${'drugWorker'}                     | ${staffDetails}  | ${'Drug Worker'}
+      ${'prisonOffenderManager'}          | ${staffDetails}  | ${'Prison Offender Manager (POM)'}
+      ${'coworkingPrisonOffenderManager'} | ${staffDetails}  | ${'Co-working Prison Offender Manager (POM)'}
     `.it('should render a $staffRole label and value', ({ propName, propValue, staffRole }) => {
       wrapper.setProps({ [propName]: propValue })
       expect(wrapper.find('ValueWithLabel').prop('label')).toEqual(staffRole)
