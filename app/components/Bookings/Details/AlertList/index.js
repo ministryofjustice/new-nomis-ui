@@ -153,7 +153,7 @@ const DesktopAlertItems = ({ alerts, active, canUpdateAlerts, prisonStaffHubUrl,
                     window.location.assign(`${prisonStaffHubUrl}edit-alert?offenderNo=${offenderNo}&alertId=${alertId}`)
                   }
                 >
-                  Edit / Close
+                  Edit / close
                 </ButtonCancel>
               </Td>
             )}

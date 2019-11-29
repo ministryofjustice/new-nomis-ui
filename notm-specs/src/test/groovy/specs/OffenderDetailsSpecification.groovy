@@ -3,6 +3,7 @@ package specs
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import groovy.util.logging.Slf4j
+import mockapis.AllocationManagerApi
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
@@ -37,6 +38,9 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
   @Rule
   OauthApi oauthApi = new OauthApi()
 
+  @Rule
+  AllocationManagerApi allocationManagerApi = new AllocationManagerApi()
+
   TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
 
 
@@ -56,6 +60,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     elite2api.stubStaffDetails(-2)
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
+    allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
 
     searchFor "smith"
     at SearchResultsPage
@@ -108,6 +113,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     elite2api.stubStaffDetails(-2)
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('BXI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
+    allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
 
     searchFor "smith"
     at SearchResultsPage
@@ -160,6 +166,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     elite2api.stubStaffDetails(-2)
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
+    allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
 
     searchFor "smith"
     at SearchResultsPage
@@ -202,6 +209,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     elite2api.stubStaffDetails(-2)
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
+    allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
 
     searchFor "smith"
     at SearchResultsPage
@@ -244,6 +252,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     elite2api.stubStaffDetails(-2)
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('BXI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
+    allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
 
     searchFor "smith"
     at SearchResultsPage
@@ -274,6 +283,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     elite2api.stubStaffDetails(-2)
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
+    allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
 
     searchFor "smith"
     at SearchResultsPage
@@ -304,6 +314,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     elite2api.stubStaffDetails(-2)
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
+    allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
 
     searchFor "smith"
     at SearchResultsPage

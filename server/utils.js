@@ -29,8 +29,24 @@ const getHoursMinutes = timestamp => {
   return timestamp.substr(indexOfT + 1, 5)
 }
 
+const properCase = word =>
+  typeof word === 'string' && word.length >= 1 ? word[0].toUpperCase() + word.toLowerCase().slice(1) : word
+
+function isBlank(str) {
+  return !str || /^\s*$/.test(str)
+}
+
+const properCaseName = name =>
+  isBlank(name)
+    ? ''
+    : name
+        .split('-')
+        .map(properCase)
+        .join('-')
+
 module.exports = {
   groupBy,
   sortByTime,
   getHoursMinutes,
+  properCaseName,
 }
