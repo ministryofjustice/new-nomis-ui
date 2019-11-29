@@ -75,6 +75,12 @@ env:
   - name: PATHFINDER_URL
     value: {{ .Values.env.PATHFINDER_URL | quote }}
 
+  - name: MOIC_URL
+    value: {{ .Values.env.MOIC_URL | quote }}
+
+  - name: LICENCES_URL
+    value: {{ .Values.env.LICENCES_URL | quote }}
+
   - name: USE_OF_FORCE_URL
     value: {{ .Values.env.USE_OF_FORCE_URL | quote }}
 

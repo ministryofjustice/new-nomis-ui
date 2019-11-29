@@ -11,6 +11,8 @@ describe('Actions component', () => {
         omicUrl=""
         prisonStaffHubUrl=""
         categorisationUrl=""
+        licencesUrl=""
+        moicUrl=""
         isKeyWorker
         isKeyWorkerAdmin={false}
         isWhereabouts={false}
@@ -19,6 +21,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments={false}
         isCatToolUser={false}
+        isLicenceUser={false}
+        isPomAllocUser={false}
         isUseOfForce={false}
         useOfForceUrl=""
         isPathfinderUser={false}
@@ -35,6 +39,8 @@ describe('Actions component', () => {
         omicUrl="//omicURL"
         prisonStaffHubUrl=""
         categorisationUrl=""
+        licencesUrl=""
+        moicUrl=""
         isKeyWorker={false}
         isKeyWorkerAdmin
         isWhereabouts={false}
@@ -43,6 +49,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments={false}
         isCatToolUser={false}
+        isLicenceUser={false}
+        isPomAllocUser={false}
         isUseOfForce={false}
         useOfForceUrl=""
         isPathfinderUser={false}
@@ -59,6 +67,8 @@ describe('Actions component', () => {
         omicUrl=""
         prisonStaffHubUrl=""
         categorisationUrl=""
+        licencesUrl=""
+        moicUrl=""
         isKeyWorker={false}
         isKeyWorkerAdmin={false}
         isWhereabouts={false}
@@ -67,6 +77,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments={false}
         isCatToolUser={false}
+        isLicenceUser={false}
+        isPomAllocUser={false}
         isUseOfForce={false}
         useOfForceUrl=""
         isPathfinderUser={false}
@@ -83,6 +95,8 @@ describe('Actions component', () => {
         omicUrl=""
         prisonStaffHubUrl="http://"
         categorisationUrl=""
+        licencesUrl=""
+        moicUrl=""
         isKeyWorker={false}
         isKeyWorkerAdmin={false}
         isWhereabouts={false}
@@ -91,6 +105,8 @@ describe('Actions component', () => {
         isGlobalSearch
         isAddBulkAppointments={false}
         isCatToolUser={false}
+        isLicenceUser={false}
+        isPomAllocUser={false}
         isUseOfForce={false}
         useOfForceUrl=""
         isPathfinderUser={false}
@@ -107,6 +123,8 @@ describe('Actions component', () => {
         omicUrl=""
         prisonStaffHubUrl="http://"
         categorisationUrl=""
+        licencesUrl=""
+        moicUrl=""
         isKeyWorker={false}
         isKeyWorkerAdmin={false}
         isWhereabouts={false}
@@ -115,6 +133,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments={false}
         isCatToolUser={false}
+        isLicenceUser={false}
+        isPomAllocUser={false}
         isUseOfForce={false}
         useOfForceUrl=""
         isPathfinderUser={false}
@@ -131,6 +151,8 @@ describe('Actions component', () => {
         omicUrl="http://omic/"
         prisonStaffHubUrl="http://psh/"
         categorisationUrl=""
+        licencesUrl=""
+        moicUrl=""
         isKeyWorker={false}
         isKeyWorkerAdmin={false}
         isWhereabouts={false}
@@ -139,6 +161,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments={false}
         isCatToolUser={false}
+        isLicenceUser={false}
+        isPomAllocUser={false}
         isUseOfForce={false}
         useOfForceUrl=""
         isPathfinderUser={false}
@@ -155,6 +179,8 @@ describe('Actions component', () => {
         omicUrl=""
         prisonStaffHubUrl="http://"
         categorisationUrl=""
+        licencesUrl=""
+        moicUrl=""
         isKeyWorker={false}
         isKeyWorkerAdmin={false}
         isWhereabouts={false}
@@ -163,6 +189,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments
         isCatToolUser={false}
+        isLicenceUser={false}
+        isPomAllocUser={false}
         isUseOfForce={false}
         useOfForceUrl=""
         isPathfinderUser={false}
@@ -179,6 +207,8 @@ describe('Actions component', () => {
         omicUrl=""
         prisonStaffHubUrl=""
         categorisationUrl="http://cat-tool"
+        licencesUrl=""
+        moicUrl=""
         isKeyWorker={false}
         isKeyWorkerAdmin={false}
         isWhereabouts={false}
@@ -187,6 +217,8 @@ describe('Actions component', () => {
         isGlobalSearch={false}
         isAddBulkAppointments={false}
         isCatToolUser
+        isLicenceUser={false}
+        isPomAllocUser={false}
         isUseOfForce={false}
         useOfForceUrl=""
         isPathfinderUser={false}
@@ -203,6 +235,8 @@ it('should show Use of Force link when the user has selected at UoF enabled pris
     <ActionLinks
       omicUrl=""
       categorisationUrl=""
+      licencesUrl=""
+      moicUrl=""
       prisonStaffHubUrl="http://"
       isKeyWorker={false}
       isKeyWorkerAdmin={false}
@@ -213,6 +247,8 @@ it('should show Use of Force link when the user has selected at UoF enabled pris
       isAddBulkAppointments={false}
       isUseOfForce
       isCatToolUser={false}
+      isLicenceUser={false}
+      isPomAllocUser={false}
       useOfForceUrl="http://use-of-force/"
       isPathfinderUser={false}
       pathfinderUrl=""
@@ -227,6 +263,8 @@ it('should show Pathfinder link when the user has a Pathfinder role', () => {
     <ActionLinks
       omicUrl=""
       categorisationUrl=""
+      licencesUrl=""
+      moicUrl=""
       prisonStaffHubUrl="http://"
       isKeyWorker={false}
       isKeyWorkerAdmin={false}
@@ -237,6 +275,8 @@ it('should show Pathfinder link when the user has a Pathfinder role', () => {
       isAddBulkAppointments={false}
       isUseOfForce={false}
       isCatToolUser={false}
+      isLicenceUser={false}
+      isPomAllocUser={false}
       useOfForceUrl=""
       isPathfinderUser
       pathfinderUrl="http://pathfinder/"
@@ -244,4 +284,60 @@ it('should show Pathfinder link when the user has a Pathfinder role', () => {
   )
 
   expect(wrapper.find('ActionLink').prop('url')).toBe('http://pathfinder/')
+})
+
+it('should show Licence link when the user has a licence role', () => {
+  const wrapper = shallow(
+    <ActionLinks
+      omicUrl=""
+      categorisationUrl=""
+      licencesUrl="http://licences/"
+      moicUrl=""
+      prisonStaffHubUrl="http://"
+      isKeyWorker={false}
+      isKeyWorkerAdmin={false}
+      isWhereabouts={false}
+      hasAdminRights={false}
+      isEstablishmentRollCheck={false}
+      isGlobalSearch={false}
+      isAddBulkAppointments={false}
+      isUseOfForce={false}
+      isCatToolUser={false}
+      isLicenceUser
+      isPomAllocUser={false}
+      useOfForceUrl=""
+      isPathfinderUser={false}
+      pathfinderUrl=""
+    />
+  )
+
+  expect(wrapper.find('ActionLink').prop('url')).toBe('http://licences/')
+})
+
+it('should show Pom alloc link when the user has a POM Alloc role', () => {
+  const wrapper = shallow(
+    <ActionLinks
+      omicUrl=""
+      categorisationUrl=""
+      licencesUrl=""
+      moicUrl="http://moic/"
+      prisonStaffHubUrl="http://"
+      isKeyWorker={false}
+      isKeyWorkerAdmin={false}
+      isWhereabouts={false}
+      hasAdminRights={false}
+      isEstablishmentRollCheck={false}
+      isGlobalSearch={false}
+      isAddBulkAppointments={false}
+      isUseOfForce={false}
+      isCatToolUser={false}
+      isLicenceUser={false}
+      isPomAllocUser
+      useOfForceUrl=""
+      isPathfinderUser={false}
+      pathfinderUrl=""
+    />
+  )
+
+  expect(wrapper.find('ActionLink').prop('url')).toBe('http://moic/')
 })

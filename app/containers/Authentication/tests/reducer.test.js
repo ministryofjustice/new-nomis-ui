@@ -177,6 +177,28 @@ describe('Authentication reducer', () => {
     expect(userState.isPathfinderUser).toBe(true)
   })
 
+  it('should return a user with access to Licences links where a LICENCE role is present', () => {
+    const user = {
+      ...userData,
+      accessRoles: [{ roleCode: 'LICENCE_CA', roleDescription: 'Licence Case Admin' }],
+    }
+    const state = authenticationReducer(Map({}), userMe({ user }))
+    const userState = state.get('user')
+
+    expect(userState.isLicenceUser).toBe(true)
+  })
+
+  it('should return a user with access to Pom Alloc link where a ALLOC_MGR role is present', () => {
+    const user = {
+      ...userData,
+      accessRoles: [{ roleCode: 'ALLOC_MGR', roleDescription: 'POM Allocation Manager' }],
+    }
+    const state = authenticationReducer(Map({}), userMe({ user }))
+    const userState = state.get('user')
+
+    expect(userState.isPomAllocUser).toBe(true)
+  })
+
   it('should return a user with access to Pathfinder links where a PATHFINDER_OM role is present', () => {
     const user = {
       ...userData,

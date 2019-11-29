@@ -27,6 +27,8 @@ env:
   OMIC_UI_URL: "https://dev.manage-key-workers.service.justice.gov.uk/"
   CATEGORISATION_UI_URL: "https://dev.offender-categorisation.service.justice.gov.uk/"
   PATHFINDER_URL: "https://dev.pathfinder.service.justice.gov.uk"
+  MOIC_URL: "https://allocation-manager-staging.apps.live-1.cloud-platform.service.justice.gov.uk"
+  LICENCES_URL: "https://licences-dev.prison.service.justice.gov.uk"
   USE_OF_FORCE_URL: "https://dev.use-of-force.service.justice.gov.uk"
   ALLOCATION_MANAGER_ENDPOINT_URL: "https://allocation-manager-staging.apps.live-1.cloud-platform.service.justice.gov.uk/"
   USE_OF_FORCE_PRISONS: "WRI"

@@ -27,6 +27,8 @@ const ActionLinks = ({
   prisonStaffHubUrl,
   useOfForceUrl,
   pathfinderUrl,
+  licencesUrl,
+  moicUrl,
   isEstablishmentRollCheck,
   hasAdminRights,
   isGlobalSearch,
@@ -35,6 +37,8 @@ const ActionLinks = ({
   categorisationUrl,
   isUseOfForce,
   isPathfinderUser,
+  isLicenceUser,
+  isPomAllocUser,
 }) => {
   if (
     !isKeyWorker &&
@@ -46,7 +50,9 @@ const ActionLinks = ({
     !isAddBulkAppointments &&
     !isCatToolUser &&
     !isUseOfForce &&
-    !isPathfinderUser
+    !isPathfinderUser &&
+    !isPomAllocUser &&
+    !isLicenceUser
   ) {
     return <div />
   }
@@ -95,6 +101,12 @@ const ActionLinks = ({
           </ActionLink>
         )}
 
+        {isLicenceUser && licencesUrl && (
+          <ActionLink url={`${licencesUrl}`} image="/img/ICON_Licences.png" testId="licence-link">
+            HDC and Licences
+          </ActionLink>
+        )}
+
         {isEstablishmentRollCheck && prisonStaffHubUrl && (
           <ActionLink
             url={`${prisonStaffHubUrl}establishment-roll`}
@@ -118,10 +130,16 @@ const ActionLinks = ({
         {isKeyWorkerAdmin && omicUrl && (
           <ActionLink
             url={`${omicUrl}manage-key-workers`}
-            image="/img/manage-key-workers2x.png"
+            image="/img/ICON_ManageKeyWorkers.png"
             testId="manage-kw-link"
           >
             Manage key workers
+          </ActionLink>
+        )}
+
+        {isPomAllocUser && moicUrl && (
+          <ActionLink url={`${moicUrl}`} image="/img/ICON_POMAllocation.png" testId="pom-alloc-link">
+            Manage POM allocation
           </ActionLink>
         )}
 
@@ -161,6 +179,10 @@ ActionLinks.propTypes = {
   useOfForceUrl: PropTypes.string.isRequired,
   isPathfinderUser: PropTypes.bool.isRequired,
   pathfinderUrl: PropTypes.string.isRequired,
+  isLicenceUser: PropTypes.bool.isRequired,
+  licencesUrl: PropTypes.string.isRequired,
+  isPomAllocUser: PropTypes.bool.isRequired,
+  moicUrl: PropTypes.string.isRequired,
 }
 
 export default ActionLinks
