@@ -29,6 +29,8 @@ const initialState = fromJS({
   categorisationUrl: '/',
   useOfForceUrl: '/',
   pathfinderUrl: '/',
+  moicUrl: '/',
+  licencesUrl: '/',
 })
 
 // Reducer

@@ -25,6 +25,8 @@ export const initialState = Map({
     canGlobalSearch: false,
     canAddBulkAppointments: false,
     isCatToolUser: false,
+    isLicenceUser: false,
+    isPomAllocUser: false,
   },
   usernameInput: '',
   passwordInput: '',
@@ -57,6 +59,22 @@ function authenticationReducer(state = initialState, action) {
       )
 
       const isKeyWorker = Boolean(user.staffRoles && user.staffRoles.some(r => r.role === 'KW'))
+
+      const isPomAllocUser = Boolean(
+        user.accessRoles && user.accessRoles.some(r => r.roleCode === 'ALLOC_MGR' || r.roleCode === 'ALLOC_CASE_MGR')
+      )
+
+      const isLicenceUser = Boolean(
+        user.accessRoles &&
+          user.accessRoles.some(
+            r =>
+              r.roleCode === 'NOMIS_BATCHLOAD' ||
+              r.roleCode === 'LICENCE_CA' ||
+              r.roleCode === 'LICENCE_DM' ||
+              r.roleCode === 'LICENCE_RO' ||
+              r.roleCode === 'LICENCE_VARY'
+          )
+      )
 
       const canGlobalSearch = Boolean(user.accessRoles && user.accessRoles.some(r => r.roleCode === 'GLOBAL_SEARCH'))
 
@@ -93,6 +111,8 @@ function authenticationReducer(state = initialState, action) {
         canUpdateAlerts,
         canViewProbationDocuments,
         isPathfinderUser,
+        isLicenceUser,
+        isPomAllocUser,
       })
     }
 

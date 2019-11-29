@@ -31,6 +31,8 @@ module.exports = ({ eliteApi, oauthApi, keyworkerApi, caseNotesApi, allocationMa
     const categorisationUrl = config.apis.categorisation.ui_url
     const useOfForceUrl = config.apis.useOfForce.ui_url
     const pathfinderUrl = config.apis.pathfinder.ui_url
+    const moicUrl = config.apis.moic.ui_url
+    const licencesUrl = config.apis.licences.ui_url
 
     if (!feedbackUrl && !omicUrl && !prisonStaffHubUrl && !mailTo && !categorisationUrl) {
       res.end()
@@ -44,6 +46,8 @@ module.exports = ({ eliteApi, oauthApi, keyworkerApi, caseNotesApi, allocationMa
       categorisationUrl,
       useOfForceUrl,
       pathfinderUrl,
+      moicUrl,
+      licencesUrl,
     })
   })
 

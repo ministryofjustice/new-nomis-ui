@@ -27,6 +27,8 @@ env:
   OMIC_UI_URL: "https://manage-key-workers.service.justice.gov.uk/"
   CATEGORISATION_UI_URL: "https://offender-categorisation.service.justice.gov.uk/"
   PATHFINDER_URL: "https://pathfinder.service.justice.gov.uk"
+  MOIC_URL: " https://moic.service.justice.gov.uk"
+  LICENCES_URL: "https://licences.prison.service.justice.gov.uk"
   USE_OF_FORCE_URL: "https://use-of-force.service.justice.gov.uk"
   ALLOCATION_MANAGER_ENDPOINT_URL: "https://moic.service.justice.gov.uk/"
   USE_OF_FORCE_PRISONS: "WRI,BLI"
