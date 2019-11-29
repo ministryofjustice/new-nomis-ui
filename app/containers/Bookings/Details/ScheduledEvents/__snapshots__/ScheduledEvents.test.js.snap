@@ -6,13 +6,13 @@ Array [
     className="sc-bZQynM cccIja"
   >
     <div
-      className="sc-gqjmRU kwEKRP"
+      className="sc-gqjmRU ewFzNf"
     >
       <ul
-        className="sc-VigVT hWopXp"
+        className="sc-VigVT lkJoSz"
       >
         <li
-          className="sc-jTzLTM cCidJu"
+          className="sc-jTzLTM xfK"
         >
           <span>
             Home
@@ -28,14 +28,14 @@ Array [
       className="sc-gZMcBi dcMSXI"
     >
       <h1
-        className="sc-EHOje bsIerq"
+        className="sc-EHOje geWHoL"
         data-qa="page-heading-text"
       >
         Schedule for Test User
       </h1>
       <div>
         <div
-          className="sc-fjdhpX bRCAPC"
+          className="sc-fjdhpX dDrzuQ"
           onClick={[Function]}
           onKeyDown={[Function]}
           role="link"
@@ -54,11 +54,11 @@ Array [
         className="sc-chPdSV kYKrpt"
       >
         <label
-          className="sc-bwzfXH drtIuJ"
+          className="sc-bwzfXH gCfcLz"
         >
           <input
             checked="checked"
-            className="sc-htpNat gUOYBv"
+            className="sc-htpNat eTlQXL"
             id="thisWeek"
             name="radio-inline-group"
             onChange={[Function]}
@@ -67,16 +67,16 @@ Array [
             value="Yes"
           />
           <span
-            className="sc-bxivhb eArzwx"
+            className="sc-bxivhb kLkdLT"
           >
             This week
           </span>
         </label>
         <label
-          className="sc-bwzfXH drtIuJ"
+          className="sc-bwzfXH gCfcLz"
         >
           <input
-            className="sc-htpNat gUOYBv"
+            className="sc-htpNat eTlQXL"
             id="nextWeek"
             name="radio-inline-group"
             onChange={[Function]}
@@ -85,17 +85,17 @@ Array [
             value="Yes"
           />
           <span
-            className="sc-bxivhb eArzwx"
+            className="sc-bxivhb kLkdLT"
           >
             Next week
           </span>
         </label>
       </div>
       <div
-        className="sc-kAzzGY hSLMZT"
+        className="sc-kAzzGY hkcyBv"
       >
         <h2
-          className="sc-EHOje efHrfh"
+          className="sc-EHOje dInovL"
         >
           Wednesday
            
@@ -110,12 +110,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Morning (AM)
             </h3>
             <div
-              className="sc-kpOJdX eJcUWQ"
+              className="sc-kpOJdX cuGhld"
               value="morning"
             >
               No scheduled events.
@@ -125,12 +125,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Afternoon (PM)
             </h3>
             <div
-              className="sc-kpOJdX hOXoXg"
+              className="sc-kpOJdX dATOoM"
               value="afternoon"
             >
               No scheduled events.
@@ -140,12 +140,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Evening Duty (ED)
             </h3>
             <div
-              className="sc-kpOJdX cEnUtU"
+              className="sc-kpOJdX dOMPJy"
               value="evening"
             >
               No scheduled events.
@@ -154,10 +154,10 @@ Array [
         </div>
       </div>
       <div
-        className="sc-kAzzGY hSLMZT"
+        className="sc-kAzzGY hkcyBv"
       >
         <h2
-          className="sc-EHOje efHrfh"
+          className="sc-EHOje dInovL"
         >
           Thursday
            
@@ -172,12 +172,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Morning (AM)
             </h3>
             <div
-              className="sc-kpOJdX eJcUWQ"
+              className="sc-kpOJdX cuGhld"
               value="morning"
             >
               No scheduled events.
@@ -187,12 +187,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Afternoon (PM)
             </h3>
             <div
-              className="sc-kpOJdX hOXoXg"
+              className="sc-kpOJdX dATOoM"
               value="afternoon"
             >
               No scheduled events.
@@ -202,12 +202,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Evening Duty (ED)
             </h3>
             <div
-              className="sc-kpOJdX cEnUtU"
+              className="sc-kpOJdX dOMPJy"
               value="evening"
             >
               No scheduled events.
@@ -216,10 +216,10 @@ Array [
         </div>
       </div>
       <div
-        className="sc-kAzzGY hSLMZT"
+        className="sc-kAzzGY hkcyBv"
       >
         <h2
-          className="sc-EHOje efHrfh"
+          className="sc-EHOje dInovL"
         >
           Friday
            
@@ -234,12 +234,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Morning (AM)
             </h3>
             <div
-              className="sc-kpOJdX eJcUWQ"
+              className="sc-kpOJdX cuGhld"
               value="morning"
             >
               <div
@@ -272,12 +272,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Afternoon (PM)
             </h3>
             <div
-              className="sc-kpOJdX hOXoXg"
+              className="sc-kpOJdX dATOoM"
               value="afternoon"
             >
               No scheduled events.
@@ -287,12 +287,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Evening Duty (ED)
             </h3>
             <div
-              className="sc-kpOJdX cEnUtU"
+              className="sc-kpOJdX dOMPJy"
               value="evening"
             >
               No scheduled events.
@@ -301,10 +301,10 @@ Array [
         </div>
       </div>
       <div
-        className="sc-kAzzGY hSLMZT"
+        className="sc-kAzzGY hkcyBv"
       >
         <h2
-          className="sc-EHOje efHrfh"
+          className="sc-EHOje dInovL"
         >
           Saturday
            
@@ -319,12 +319,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Morning (AM)
             </h3>
             <div
-              className="sc-kpOJdX eJcUWQ"
+              className="sc-kpOJdX cuGhld"
               value="morning"
             >
               No scheduled events.
@@ -334,12 +334,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Afternoon (PM)
             </h3>
             <div
-              className="sc-kpOJdX hOXoXg"
+              className="sc-kpOJdX dATOoM"
               value="afternoon"
             >
               No scheduled events.
@@ -349,12 +349,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Evening Duty (ED)
             </h3>
             <div
-              className="sc-kpOJdX cEnUtU"
+              className="sc-kpOJdX dOMPJy"
               value="evening"
             >
               No scheduled events.
@@ -363,10 +363,10 @@ Array [
         </div>
       </div>
       <div
-        className="sc-kAzzGY hSLMZT"
+        className="sc-kAzzGY hkcyBv"
       >
         <h2
-          className="sc-EHOje efHrfh"
+          className="sc-EHOje dInovL"
         >
           Sunday
            
@@ -381,12 +381,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Morning (AM)
             </h3>
             <div
-              className="sc-kpOJdX eJcUWQ"
+              className="sc-kpOJdX cuGhld"
               value="morning"
             >
               No scheduled events.
@@ -396,12 +396,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Afternoon (PM)
             </h3>
             <div
-              className="sc-kpOJdX hOXoXg"
+              className="sc-kpOJdX dATOoM"
               value="afternoon"
             >
               No scheduled events.
@@ -411,12 +411,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Evening Duty (ED)
             </h3>
             <div
-              className="sc-kpOJdX cEnUtU"
+              className="sc-kpOJdX dOMPJy"
               value="evening"
             >
               No scheduled events.
@@ -425,10 +425,10 @@ Array [
         </div>
       </div>
       <div
-        className="sc-kAzzGY hSLMZT"
+        className="sc-kAzzGY hkcyBv"
       >
         <h2
-          className="sc-EHOje efHrfh"
+          className="sc-EHOje dInovL"
         >
           Monday
            
@@ -443,12 +443,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Morning (AM)
             </h3>
             <div
-              className="sc-kpOJdX eJcUWQ"
+              className="sc-kpOJdX cuGhld"
               value="morning"
             >
               No scheduled events.
@@ -458,12 +458,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Afternoon (PM)
             </h3>
             <div
-              className="sc-kpOJdX hOXoXg"
+              className="sc-kpOJdX dATOoM"
               value="afternoon"
             >
               No scheduled events.
@@ -473,12 +473,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Evening Duty (ED)
             </h3>
             <div
-              className="sc-kpOJdX cEnUtU"
+              className="sc-kpOJdX dOMPJy"
               value="evening"
             >
               No scheduled events.
@@ -487,10 +487,10 @@ Array [
         </div>
       </div>
       <div
-        className="sc-kAzzGY hSLMZT"
+        className="sc-kAzzGY hkcyBv"
       >
         <h2
-          className="sc-EHOje efHrfh"
+          className="sc-EHOje dInovL"
         >
           Tuesday
            
@@ -505,12 +505,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Morning (AM)
             </h3>
             <div
-              className="sc-kpOJdX eJcUWQ"
+              className="sc-kpOJdX cuGhld"
               value="morning"
             >
               No scheduled events.
@@ -520,12 +520,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Afternoon (PM)
             </h3>
             <div
-              className="sc-kpOJdX hOXoXg"
+              className="sc-kpOJdX dATOoM"
               value="afternoon"
             >
               <div
@@ -558,12 +558,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Evening Duty (ED)
             </h3>
             <div
-              className="sc-kpOJdX cEnUtU"
+              className="sc-kpOJdX dOMPJy"
               value="evening"
             >
               No scheduled events.
@@ -574,7 +574,7 @@ Array [
     </div>
   </div>,
   <div
-    className="sc-fjdhpX bRCAPC"
+    className="sc-fjdhpX dDrzuQ"
     onClick={[Function]}
     onKeyDown={[Function]}
     role="link"
@@ -593,13 +593,13 @@ Array [
     className="sc-bZQynM cccIja"
   >
     <div
-      className="sc-gqjmRU kwEKRP"
+      className="sc-gqjmRU ewFzNf"
     >
       <ul
-        className="sc-VigVT hWopXp"
+        className="sc-VigVT lkJoSz"
       >
         <li
-          className="sc-jTzLTM cCidJu"
+          className="sc-jTzLTM xfK"
         >
           <span>
             Home
@@ -615,14 +615,14 @@ Array [
       className="sc-gZMcBi dcMSXI"
     >
       <h1
-        className="sc-EHOje bsIerq"
+        className="sc-EHOje geWHoL"
         data-qa="page-heading-text"
       >
         Schedule for Test User
       </h1>
       <div>
         <div
-          className="sc-fjdhpX bRCAPC"
+          className="sc-fjdhpX dDrzuQ"
           onClick={[Function]}
           onKeyDown={[Function]}
           role="link"
@@ -641,11 +641,11 @@ Array [
         className="sc-chPdSV kYKrpt"
       >
         <label
-          className="sc-bwzfXH drtIuJ"
+          className="sc-bwzfXH gCfcLz"
         >
           <input
             checked="checked"
-            className="sc-htpNat gUOYBv"
+            className="sc-htpNat eTlQXL"
             id="thisWeek"
             name="radio-inline-group"
             onChange={[Function]}
@@ -654,16 +654,16 @@ Array [
             value="Yes"
           />
           <span
-            className="sc-bxivhb eArzwx"
+            className="sc-bxivhb kLkdLT"
           >
             This week
           </span>
         </label>
         <label
-          className="sc-bwzfXH drtIuJ"
+          className="sc-bwzfXH gCfcLz"
         >
           <input
-            className="sc-htpNat gUOYBv"
+            className="sc-htpNat eTlQXL"
             id="nextWeek"
             name="radio-inline-group"
             onChange={[Function]}
@@ -672,17 +672,17 @@ Array [
             value="Yes"
           />
           <span
-            className="sc-bxivhb eArzwx"
+            className="sc-bxivhb kLkdLT"
           >
             Next week
           </span>
         </label>
       </div>
       <div
-        className="sc-kAzzGY hSLMZT"
+        className="sc-kAzzGY hkcyBv"
       >
         <h2
-          className="sc-EHOje efHrfh"
+          className="sc-EHOje dInovL"
         >
           Wednesday
            
@@ -697,12 +697,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Morning (AM)
             </h3>
             <div
-              className="sc-kpOJdX eJcUWQ"
+              className="sc-kpOJdX cuGhld"
               value="morning"
             >
               No scheduled events.
@@ -712,12 +712,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Afternoon (PM)
             </h3>
             <div
-              className="sc-kpOJdX hOXoXg"
+              className="sc-kpOJdX dATOoM"
               value="afternoon"
             >
               No scheduled events.
@@ -727,12 +727,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Evening Duty (ED)
             </h3>
             <div
-              className="sc-kpOJdX cEnUtU"
+              className="sc-kpOJdX dOMPJy"
               value="evening"
             >
               No scheduled events.
@@ -741,10 +741,10 @@ Array [
         </div>
       </div>
       <div
-        className="sc-kAzzGY hSLMZT"
+        className="sc-kAzzGY hkcyBv"
       >
         <h2
-          className="sc-EHOje efHrfh"
+          className="sc-EHOje dInovL"
         >
           Thursday
            
@@ -759,12 +759,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Morning (AM)
             </h3>
             <div
-              className="sc-kpOJdX eJcUWQ"
+              className="sc-kpOJdX cuGhld"
               value="morning"
             >
               No scheduled events.
@@ -774,12 +774,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Afternoon (PM)
             </h3>
             <div
-              className="sc-kpOJdX hOXoXg"
+              className="sc-kpOJdX dATOoM"
               value="afternoon"
             >
               No scheduled events.
@@ -789,12 +789,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Evening Duty (ED)
             </h3>
             <div
-              className="sc-kpOJdX cEnUtU"
+              className="sc-kpOJdX dOMPJy"
               value="evening"
             >
               No scheduled events.
@@ -803,10 +803,10 @@ Array [
         </div>
       </div>
       <div
-        className="sc-kAzzGY hSLMZT"
+        className="sc-kAzzGY hkcyBv"
       >
         <h2
-          className="sc-EHOje efHrfh"
+          className="sc-EHOje dInovL"
         >
           Friday
            
@@ -821,12 +821,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Morning (AM)
             </h3>
             <div
-              className="sc-kpOJdX eJcUWQ"
+              className="sc-kpOJdX cuGhld"
               value="morning"
             >
               <div
@@ -859,12 +859,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Afternoon (PM)
             </h3>
             <div
-              className="sc-kpOJdX hOXoXg"
+              className="sc-kpOJdX dATOoM"
               value="afternoon"
             >
               No scheduled events.
@@ -874,12 +874,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Evening Duty (ED)
             </h3>
             <div
-              className="sc-kpOJdX cEnUtU"
+              className="sc-kpOJdX dOMPJy"
               value="evening"
             >
               No scheduled events.
@@ -888,10 +888,10 @@ Array [
         </div>
       </div>
       <div
-        className="sc-kAzzGY hSLMZT"
+        className="sc-kAzzGY hkcyBv"
       >
         <h2
-          className="sc-EHOje efHrfh"
+          className="sc-EHOje dInovL"
         >
           Saturday
            
@@ -906,12 +906,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Morning (AM)
             </h3>
             <div
-              className="sc-kpOJdX eJcUWQ"
+              className="sc-kpOJdX cuGhld"
               value="morning"
             >
               No scheduled events.
@@ -921,12 +921,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Afternoon (PM)
             </h3>
             <div
-              className="sc-kpOJdX hOXoXg"
+              className="sc-kpOJdX dATOoM"
               value="afternoon"
             >
               No scheduled events.
@@ -936,12 +936,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Evening Duty (ED)
             </h3>
             <div
-              className="sc-kpOJdX cEnUtU"
+              className="sc-kpOJdX dOMPJy"
               value="evening"
             >
               No scheduled events.
@@ -950,10 +950,10 @@ Array [
         </div>
       </div>
       <div
-        className="sc-kAzzGY hSLMZT"
+        className="sc-kAzzGY hkcyBv"
       >
         <h2
-          className="sc-EHOje efHrfh"
+          className="sc-EHOje dInovL"
         >
           Sunday
            
@@ -968,12 +968,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Morning (AM)
             </h3>
             <div
-              className="sc-kpOJdX eJcUWQ"
+              className="sc-kpOJdX cuGhld"
               value="morning"
             >
               <div
@@ -1011,12 +1011,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Afternoon (PM)
             </h3>
             <div
-              className="sc-kpOJdX hOXoXg"
+              className="sc-kpOJdX dATOoM"
               value="afternoon"
             >
               No scheduled events.
@@ -1026,12 +1026,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Evening Duty (ED)
             </h3>
             <div
-              className="sc-kpOJdX cEnUtU"
+              className="sc-kpOJdX dOMPJy"
               value="evening"
             >
               No scheduled events.
@@ -1040,10 +1040,10 @@ Array [
         </div>
       </div>
       <div
-        className="sc-kAzzGY hSLMZT"
+        className="sc-kAzzGY hkcyBv"
       >
         <h2
-          className="sc-EHOje efHrfh"
+          className="sc-EHOje dInovL"
         >
           Monday
            
@@ -1058,12 +1058,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Morning (AM)
             </h3>
             <div
-              className="sc-kpOJdX eJcUWQ"
+              className="sc-kpOJdX cuGhld"
               value="morning"
             >
               No scheduled events.
@@ -1073,12 +1073,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Afternoon (PM)
             </h3>
             <div
-              className="sc-kpOJdX hOXoXg"
+              className="sc-kpOJdX dATOoM"
               value="afternoon"
             >
               No scheduled events.
@@ -1088,12 +1088,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Evening Duty (ED)
             </h3>
             <div
-              className="sc-kpOJdX cEnUtU"
+              className="sc-kpOJdX dOMPJy"
               value="evening"
             >
               No scheduled events.
@@ -1102,10 +1102,10 @@ Array [
         </div>
       </div>
       <div
-        className="sc-kAzzGY hSLMZT"
+        className="sc-kAzzGY hkcyBv"
       >
         <h2
-          className="sc-EHOje efHrfh"
+          className="sc-EHOje dInovL"
         >
           Tuesday
            
@@ -1120,12 +1120,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Morning (AM)
             </h3>
             <div
-              className="sc-kpOJdX eJcUWQ"
+              className="sc-kpOJdX cuGhld"
               value="morning"
             >
               No scheduled events.
@@ -1135,12 +1135,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Afternoon (PM)
             </h3>
             <div
-              className="sc-kpOJdX hOXoXg"
+              className="sc-kpOJdX dATOoM"
               value="afternoon"
             >
               <div
@@ -1173,12 +1173,12 @@ Array [
             className="sc-kGXeez jCeSwQ"
           >
             <h3
-              className="sc-EHOje RpDGg"
+              className="sc-EHOje diBbSC"
             >
               Evening Duty (ED)
             </h3>
             <div
-              className="sc-kpOJdX cEnUtU"
+              className="sc-kpOJdX dOMPJy"
               value="evening"
             >
               No scheduled events.
@@ -1189,7 +1189,7 @@ Array [
     </div>
   </div>,
   <div
-    className="sc-fjdhpX bRCAPC"
+    className="sc-fjdhpX dDrzuQ"
     onClick={[Function]}
     onKeyDown={[Function]}
     role="link"
