@@ -20,7 +20,4 @@ const mapStateToProps = createStructuredSelector({
   location: selectLocation(),
 })
 
-export default connect(
-  mapStateToProps,
-  null
-)(EliteLocation)
+export default connect(mapStateToProps, null)(EliteLocation)

@@ -26,9 +26,8 @@ const selectLocale = () =>
  * component. See 'containers/Bookings/selectors#selectOffenderDetails' for an example of how to use intlSelector.
  */
 const intlSelector = () =>
-  createSelector(
-    selectLocale(),
-    currentLocale => new IntlProvider({ locale: currentLocale, messages: {} }, {}).getChildContext()
+  createSelector(selectLocale(), currentLocale =>
+    new IntlProvider({ locale: currentLocale, messages: {} }, {}).getChildContext()
   )
 
 export { selectLanguage, selectLocale, intlSelector }

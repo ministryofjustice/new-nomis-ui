@@ -80,7 +80,4 @@ const mapStateToProps = state => ({
   pathfinderUrl: state.getIn(['app', 'pathfinderUrl']),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(HomePage)
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)

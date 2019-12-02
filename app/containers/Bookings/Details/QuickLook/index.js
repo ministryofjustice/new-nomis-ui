@@ -836,7 +836,4 @@ const mapStateToProps = (immutableState, props) => {
 
 export { QuickLook }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(QuickLook)
+export default connect(mapStateToProps, mapDispatchToProps)(QuickLook)

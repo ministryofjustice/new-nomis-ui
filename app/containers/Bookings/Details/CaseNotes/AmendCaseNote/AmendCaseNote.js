@@ -115,7 +115,4 @@ const asForm = reduxForm({
   initialValues: Map({}),
 })(AmendCaseNote)
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(asForm)
+export default connect(mapStateToProps, mapDispatchToProps)(asForm)

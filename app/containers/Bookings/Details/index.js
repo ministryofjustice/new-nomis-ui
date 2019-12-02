@@ -210,7 +210,4 @@ const mapStateToProps = (state, props) => ({
 export { Details }
 
 // Wrap the component to inject dispatch and state into it
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Details)
+export default connect(mapStateToProps, mapDispatchToProps)(Details)

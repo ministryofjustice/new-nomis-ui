@@ -53,7 +53,4 @@ const mapDispatchToProps = {
   navigateTo,
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(HeaderContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer)

@@ -13,7 +13,7 @@ const SelectWithLabel = ({ resetValue, options, input, title, meta: { touched, e
         {title}
       </label>
 
-      <div className="error-message">{touched && (error && <span>{error}</span>)}</div>
+      <div className="error-message">{touched && error && <span>{error}</span>}</div>
 
       <select
         id={input.name}

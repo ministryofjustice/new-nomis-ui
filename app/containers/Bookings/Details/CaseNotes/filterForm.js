@@ -85,7 +85,7 @@ const FilterForm = ({
         <div className="col-sm-4 col-md-2 no-left-gutter no-right-gutter">
           <Button
             type="submit"
-            disabled={dateRangeNotValid || (submitting || error)}
+            disabled={dateRangeNotValid || submitting || error}
             margin={{ size: 5, direction: 'top' }}
           >
             Apply filters

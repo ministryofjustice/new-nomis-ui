@@ -6,7 +6,10 @@ describe('SelectWithLabelAndMagicAllOption', () => {
   it('Renders without Show All', () => {
     const wrapper = shallow(
       <Select
-        options={[{ value: 'A', label: 'L1' }, { value: 'B', label: 'L2' }]}
+        options={[
+          { value: 'A', label: 'L1' },
+          { value: 'B', label: 'L2' },
+        ]}
         resetValue={false}
         input={{ name: 'inputName' }}
         meta={{ touched: false }}
@@ -31,7 +34,10 @@ describe('SelectWithLabelAndMagicAllOption', () => {
   it('Renders with Show All when a value has been selected', () => {
     const wrapper = shallow(
       <Select
-        options={[{ value: 'A', label: 'L1' }, { value: 'B', label: 'L2' }]}
+        options={[
+          { value: 'A', label: 'L1' },
+          { value: 'B', label: 'L2' },
+        ]}
         resetValue={false}
         input={{ name: 'inputName', value: 'A' }}
         meta={{ touched: false }}

@@ -100,7 +100,4 @@ const mapStateToProps = () =>
     locale: selectLocale(),
   })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(reduxForm({ form: 'alertsFilter' })(AlertsFilterForm))
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'alertsFilter' })(AlertsFilterForm))

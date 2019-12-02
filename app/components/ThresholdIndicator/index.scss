@@ -1,12 +1,9 @@
-
-
 .threshold-indicator {
-
   > span {
-    color: #0B0C0C;
-    border-radius:50%;
-    -moz-border-radius:50%;
-    -webkit-border-radius:50%;
+    color: #0b0c0c;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
 
     width: 1.7em;
     line-height: 1.7em;
@@ -17,15 +14,15 @@
   }
 
   .high {
-    background: #EF9799;
+    background: #ef9799;
   }
 
   .medium {
-    background: #F9BB9B;
+    background: #f9bb9b;
   }
 
   .low {
-    background: #C2CCA5;
+    background: #c2cca5;
   }
 
   .none {

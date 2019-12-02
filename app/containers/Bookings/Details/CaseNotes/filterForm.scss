@@ -1,6 +1,5 @@
-
 .filter-form {
-  background: #F2F2F2;
+  background: #f2f2f2;
   padding: 15px;
 
   @mixin large-inline-stack {
@@ -26,7 +25,7 @@
     display: none;
   }
 
-  @media(max-width: 991px) {
+  @media (max-width: 991px) {
     .hidden {
       display: block;
     }
@@ -44,7 +43,7 @@
   .stack-type-subtype label {
     @include large-inline-stack();
 
-    @media(max-width: 991px) {
+    @media (max-width: 991px) {
       @include small-inline-stack();
     }
 
@@ -54,13 +53,13 @@
   }
 
   .stack-type-subtype label:first-child {
-     margin-left: 0;
+    margin-left: 0;
   }
 
   .stack-dates .date-picker-component {
     @include large-inline-stack();
 
-    @media(max-width: 991px) {
+    @media (max-width: 991px) {
       width: 49%;
     }
 
@@ -70,7 +69,7 @@
   }
 
   .stack-dates .date-picker-component:first-child {
-      margin-left: 0;
+    margin-left: 0;
   }
 
   .reset-filters-button {
@@ -78,12 +77,10 @@
     background: none;
     padding: 0;
 
-    @media(max-width: 991px) {
+    @media (max-width: 991px) {
       margin-bottom: -15px;
       width: 100%;
       padding: 15px;
     }
   }
 }
-
-

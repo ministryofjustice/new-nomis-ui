@@ -31,7 +31,10 @@ describe('<AssignedStaffMembers />', () => {
       expect(wrapper.find('Connect(EliteOfficerName)').prop('staffId')).toEqual(staffId)
     })
 
-    const staffDetails = new Map([['firstName', 'Test'], ['lastName', 'User']])
+    const staffDetails = new Map([
+      ['firstName', 'Test'],
+      ['lastName', 'User'],
+    ])
 
     each`
       propName                            | propValue        | staffRole

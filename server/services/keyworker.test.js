@@ -109,12 +109,18 @@ describe('Key worker service', () => {
   })
 
   it('should produce a view model that contains a key workers capacity and allocations merged with assessment and sentence information', async () => {
-    const offenders = [{ offenderNo: 'A1', bookingId: 1 }, { offenderNo: 'A2', bookingId: 2 }]
+    const offenders = [
+      { offenderNo: 'A1', bookingId: 1 },
+      { offenderNo: 'A2', bookingId: 2 },
+    ]
     const sentenceDates = [
       { offenderNo: 'A1', sentenceDetail: { conditionalReleaseDate: '20/10/2020' } },
       { offenderNo: 'A2', sentenceDetail: { conditionalReleaseDate: '21/10/2020' } },
     ]
-    const kwDates = [{ bookingId: 1, latestCaseNote: '04/06/2018' }, { bookingId: 2, latestCaseNote: '01/06/2018' }]
+    const kwDates = [
+      { bookingId: 1, latestCaseNote: '04/06/2018' },
+      { bookingId: 2, latestCaseNote: '01/06/2018' },
+    ]
 
     keyworkerApi.getPrisonMigrationStatus.mockReturnValue({ migrated: true })
     keyworkerApi.getKeyworkerByStaffIdAndPrisonId.mockReturnValue({

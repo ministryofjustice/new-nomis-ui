@@ -1,5 +1,4 @@
 .offender-details {
-
   @include media-breakpoint-down(sm) {
     .top-heading {
       margin-top: 0 !important;
@@ -9,7 +8,7 @@
   overflow: hidden;
   @include add-gutter-margin-bottom();
 
-  div[class^="col-"] {
+  div[class^='col-'] {
     padding-left: 0 !important;
   }
 
@@ -23,9 +22,9 @@
     @include media-breakpoint-up(lg) {
       display: none;
     }
-     .row {
-       padding-left: 0 !important;
-     }
+    .row {
+      padding-left: 0 !important;
+    }
   }
 
   .photo {
@@ -34,14 +33,15 @@
   }
 
   .border-bottom-line {
-    border-bottom: solid .1px lightgrey;
+    border-bottom: solid 0.1px lightgrey;
   }
 
   .row {
     @include add-gutter-margin-bottom();
     margin-left: 0;
 
-    b, span {
+    b,
+    span {
       word-wrap: break-word;
     }
   }

@@ -294,7 +294,4 @@ const asForm = reduxForm({
   validate,
 })(AddCaseNoteForm)
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(asForm)
+export default connect(mapStateToProps, mapDispatchToProps)(asForm)

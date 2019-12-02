@@ -62,7 +62,6 @@
   }
 }
 
-
 .add-gutter-margin-top {
   @include add-gutter-margin-top();
 }
@@ -129,7 +128,7 @@
 }
 
 .no-right-margin {
-  margin-right : 0 !important;
+  margin-right: 0 !important;
 }
 
 .no-right-padding {
@@ -230,7 +229,6 @@
   }
 }
 
-
 .add-gutter-top-sm-down {
   @include media-breakpoint-down(sm) {
     @include add-gutter-margin-top();
@@ -258,4 +256,3 @@
     font-size: 14px;
   }
 }
-

@@ -1,8 +1,7 @@
 .quick-look {
-
   .cancelled {
     color: $cancelled;
-    @include bold-19()
+    @include bold-19();
   }
 
   overflow: hidden;
@@ -14,17 +13,18 @@
     }
   }
 
-  b, span {
+  b,
+  span {
     word-wrap: break-word;
   }
 
-  div[class^="col-"] {
+  div[class^='col-'] {
     padding-left: 0 !important;
   }
 
   .border-bottom-line {
     @include add-gutter-padding-top();
-    border-bottom: solid .1px lightgrey;
+    border-bottom: solid 0.1px lightgrey;
   }
 
   .panel {
@@ -42,7 +42,7 @@
   }
 
   .add-top-margin10 {
-     margin-top: 5px;
+    margin-top: 5px;
   }
 
   .shift-right {

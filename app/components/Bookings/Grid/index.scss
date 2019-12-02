@@ -1,4 +1,4 @@
-$person-details-background-colour: #F2F2F2;
+$person-details-background-colour: #f2f2f2;
 
 .booking-grid {
   margin-left: 3px;
@@ -33,8 +33,8 @@ $person-details-background-colour: #F2F2F2;
       width: 20%;
 
       .person-block {
-        margin-top: .5em;
-        margin-right: .5em;
+        margin-top: 0.5em;
+        margin-right: 0.5em;
         background: $person-details-background-colour;
         padding: 1px;
 
@@ -108,7 +108,7 @@ $person-details-background-colour: #F2F2F2;
         }
 
         .person-details {
-          background: #F2F2F2;
+          background: #f2f2f2;
           padding: 1em 0.5em;
         }
 
