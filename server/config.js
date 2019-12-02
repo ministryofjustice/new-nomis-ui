@@ -62,6 +62,12 @@ const apis = {
   pathfinder: {
     ui_url: process.env.PATHFINDER_URL,
   },
+  moic: {
+    ui_url: process.env.MOIC_URL,
+  },
+  licences: {
+    ui_url: process.env.LICENCES_URL,
+  },
   caseNotes: {
     url: process.env.CASENOTES_API_URL || 'http://localhost:8083',
     timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 30,

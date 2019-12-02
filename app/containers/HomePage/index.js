@@ -17,7 +17,17 @@ class HomePage extends Component {
   }
 
   render() {
-    const { user, omicUrl, prisonStaffHubUrl, categorisationUrl, locations, useOfForceUrl, pathfinderUrl } = this.props
+    const {
+      user,
+      omicUrl,
+      prisonStaffHubUrl,
+      categorisationUrl,
+      locations,
+      useOfForceUrl,
+      pathfinderUrl,
+      moicUrl,
+      licencesUrl,
+    } = this.props
     if (!user) {
       return <div />
     }
@@ -44,6 +54,10 @@ class HomePage extends Component {
               isUseOfForce={user.isUseOfForce}
               pathfinderUrl={pathfinderUrl}
               isPathfinderUser={user.isPathfinderUser}
+              moicUrl={moicUrl}
+              isPomAllocUser={user.isPomAllocUser}
+              licencesUrl={licencesUrl}
+              isLicenceUser={user.isLicenceUser}
             />
           </div>
         </Page>
@@ -61,6 +75,8 @@ HomePage.propTypes = {
   locations: ImmutablePropTypes.list.isRequired,
   useOfForceUrl: PropTypes.string.isRequired,
   pathfinderUrl: PropTypes.string.isRequired,
+  moicUrl: PropTypes.string.isRequired,
+  licencesUrl: PropTypes.string.isRequired,
 
   // mapDispatchToProps
   boundLoadLocations: PropTypes.func.isRequired,
@@ -78,6 +94,8 @@ const mapStateToProps = state => ({
   locations: state.getIn(['home', 'locations']),
   useOfForceUrl: state.getIn(['app', 'useOfForceUrl']),
   pathfinderUrl: state.getIn(['app', 'pathfinderUrl']),
+  moicUrl: state.getIn(['app', 'moicUrl']),
+  licencesUrl: state.getIn(['app', 'licencesUrl']),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
