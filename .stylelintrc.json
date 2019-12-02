@@ -16,6 +16,7 @@
     "rule-empty-line-before": null,
     "selector-max-id": null,
     "indentation": null,
-    "selector-no-qualifying-type": null
+    "selector-no-qualifying-type": null,
+    "order/order": null
   }
 }
