@@ -205,7 +205,7 @@ jobs:
           command: 'yarn --frozen-lockfile --no-audit'
       - run:
           name: run-security-audit
-          command: 'security_audit'
+          command: 'yarn security_audit'
 
 
 workflows:
