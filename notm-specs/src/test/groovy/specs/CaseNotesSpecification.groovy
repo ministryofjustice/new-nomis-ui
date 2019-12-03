@@ -1,7 +1,6 @@
 package specs
 
 import groovy.util.logging.Slf4j
-import mockapis.AllocationManagerApi
 import mockapis.CaseNotesApi
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
@@ -28,9 +27,6 @@ class CaseNotesSpecification extends BrowserReportingSpec {
 
   @Rule
   OauthApi oauthApi = new OauthApi()
-
-  @Rule
-  AllocationManagerApi allocationManagerApi = new AllocationManagerApi()
 
   TestFixture testFixture = new TestFixture(browser, elite2api, oauthApi)
 
@@ -205,7 +201,6 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     elite2api.stubStaffDetails(-2)
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
-    allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
   }
 
   def scrollToBottom() {

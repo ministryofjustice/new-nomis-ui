@@ -26,8 +26,6 @@ export const Model = Map({
     offenderSupervisor: Map({}),
     caseAdministrator: Map({}),
     drugWorker: Map({}),
-    prisonOffenderManager: Map({}),
-    coworkingPrisonOffenderManager: Map({}),
   }),
 })
 

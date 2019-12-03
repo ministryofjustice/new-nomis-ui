@@ -7,8 +7,7 @@ const { bookingServiceFactory } = require('./booking')
 
 const eliteApi = {}
 const keyworkerApi = {}
-const allocationManagerApi = {}
-const bookingService = bookingServiceFactory(eliteApi, keyworkerApi, allocationManagerApi)
+const bookingService = bookingServiceFactory(eliteApi, keyworkerApi)
 
 describe('Booking Service Quick look', () => {
   const OFFENDER_NO = 'AA0000AE'
@@ -31,7 +30,6 @@ describe('Booking Service Quick look', () => {
       bookingId: 1,
     })
     eliteApi.caseNoteUsageList = jest.fn().mockReturnValue([])
-    allocationManagerApi.getPomByOffenderNo = jest.fn().mockReturnValue({})
   })
 
   it('should call getBalance', async () => {
@@ -590,27 +588,6 @@ describe('Booking Service Quick look', () => {
 
     expect(data.assignedStaffMembers.communityOffenderManager.firstName).toEqual('Dom3')
     expect(data.assignedStaffMembers.communityOffenderManager.lastName).toEqual('Bull')
-  })
-
-  it('should retun prison allocation managers', async () => {
-    allocationManagerApi.getPomByOffenderNo.mockReturnValue({
-      primary_pom: {
-        staff_id: 1,
-        name: 'POM, PRIMARY',
-      },
-      secondary_pom: {
-        staff_id: 2,
-        name: 'POM, SECONDARY',
-      },
-    })
-
-    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
-
-    expect(data.assignedStaffMembers.prisonOffenderManager.firstName).toEqual('Primary')
-    expect(data.assignedStaffMembers.prisonOffenderManager.lastName).toEqual('Pom')
-
-    expect(data.assignedStaffMembers.coworkingPrisonOffenderManager.firstName).toEqual('Secondary')
-    expect(data.assignedStaffMembers.coworkingPrisonOffenderManager.lastName).toEqual('Pom')
   })
 
   it('should call case note usage', async () => {
