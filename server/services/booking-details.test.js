@@ -2,8 +2,7 @@ const { bookingServiceFactory } = require('./booking')
 
 const eliteApi = {}
 const keyworkerApi = {}
-const allocationManagerApi = {}
-const bookingService = bookingServiceFactory(eliteApi, keyworkerApi, allocationManagerApi)
+const bookingService = bookingServiceFactory(eliteApi, keyworkerApi)
 
 describe('Booking Service Booking details', () => {
   const offenderNo = 'A12345'
