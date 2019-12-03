@@ -277,7 +277,4 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SearchResults)
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResults)

@@ -98,7 +98,4 @@ const mapStateToProps = state => ({
   licencesUrl: state.getIn(['app', 'licencesUrl']),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(HomePage)
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)

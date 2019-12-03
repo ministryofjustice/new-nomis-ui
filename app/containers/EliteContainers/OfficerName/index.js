@@ -38,7 +38,4 @@ const mapStateToProps = createStructuredSelector({
   name: selectOfficerName(),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EliteOfficerName)
+export default connect(mapStateToProps, mapDispatchToProps)(EliteOfficerName)

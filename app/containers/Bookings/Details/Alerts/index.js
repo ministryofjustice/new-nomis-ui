@@ -188,7 +188,4 @@ const mapStateToProps = (immutableState, props) => {
 
 export { Alerts }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Alerts)
+export default connect(mapStateToProps, mapDispatchToProps)(Alerts)

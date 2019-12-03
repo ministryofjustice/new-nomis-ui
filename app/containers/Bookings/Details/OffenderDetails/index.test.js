@@ -48,7 +48,10 @@ describe('<OffenderDetails />', () => {
       dateOfBirth: '1980-01-02',
       age: '40',
       language: 'English',
-      profileInformation: [{ type: 'RELF', resultValue: 'Atheist' }, { type: 'NAT', resultValue: 'British' }],
+      profileInformation: [
+        { type: 'RELF', resultValue: 'Atheist' },
+        { type: 'NAT', resultValue: 'British' },
+      ],
       primaryAddress: {
         flat: '7',
         premise: 'premises',

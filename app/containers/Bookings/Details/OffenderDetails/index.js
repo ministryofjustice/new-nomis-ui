@@ -283,7 +283,4 @@ const mapStateToProps = (immutableState, props) => {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(OffenderDetails)
+export default connect(mapStateToProps, mapDispatchToProps)(OffenderDetails)

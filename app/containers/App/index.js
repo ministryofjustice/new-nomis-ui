@@ -133,9 +133,4 @@ const mapDispatchToProps = dispatch => ({
   boundSetAppConfig: config => dispatch(setAppConfig(config)),
 })
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App)
-)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

@@ -320,7 +320,4 @@ const theReduxForm = reduxForm({
   touchOnChange: true,
 })(AddAppointmentContainer)
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(theReduxForm)
+export default connect(mapStateToProps, mapDispatchToProps)(theReduxForm)

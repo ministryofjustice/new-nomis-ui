@@ -50,7 +50,7 @@ executors:
     docker:
       - image: circleci/python:3
     working_directory: ~/app
-  builder:  
+  builder:
     docker:
       - image: circleci/node:10.15.3-browsers
     working_directory: ~/app
@@ -83,14 +83,14 @@ jobs:
       - run:
           name: Run Tests
           command: |
-             set -e
-             yarn test --maxWorkers=2
+            set -e
+            yarn test --maxWorkers=2
       - run: export CLIENT=hmpps && NODE_ENV=production yarn build
       - run: |
-             DATE=$(date '+%Y-%m-%d')
-             export BUILD_NUMBER=${DATE}.${CIRCLE_BUILD_NUM}
-             export GIT_REF=${CIRCLE_SHA1}
-             yarn record-build-info
+          DATE=$(date '+%Y-%m-%d')
+          export BUILD_NUMBER=${DATE}.${CIRCLE_BUILD_NUM}
+          export GIT_REF=${CIRCLE_SHA1}
+          yarn record-build-info
       - store_artifacts:
           path: test-report.html
       - store_artifacts:
@@ -129,11 +129,11 @@ jobs:
       - save_cache:
           key: gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
           paths:
-              - /home/circleci/.gradle/wrapper
+            - /home/circleci/.gradle/wrapper
       - save_cache:
           key: gradle-cache-{{ checksum "notm-specs/build.gradle" }}
           paths:
-              - /home/circleci/.gradle/caches
+            - /home/circleci/.gradle/caches
       - store_artifacts:
           path: notm-specs/build/reports
           destination: integration/spock
@@ -155,7 +155,7 @@ jobs:
           name: Build container and publish to docker hub
           command: |
             APP_VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
-            
+
             docker build --rm=false . \
               --build-arg BUILD_NUMBER=$APP_VERSION \
               --build-arg GIT_REF=$CIRCLE_SHA1 \
@@ -190,6 +190,23 @@ jobs:
     steps:
       - deploy_to_env:
           env: "prod"
+
+  security_audit:
+    executor: builder
+    steps:
+      - checkout
+      - run:
+          name: update-yarn
+          command: 'sudo yarn global add yarn'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install-yarn
+          command: 'yarn --frozen-lockfile --no-audit'
+      - run:
+          name: run-security-audit
+          command: 'security_audit'
+
 
 workflows:
   version: 2
@@ -228,3 +245,13 @@ workflows:
           requires:
             - request-prod-approval
 
+  scheduled:
+    triggers:
+      - schedule:
+          cron: "0 7 * * 1-5"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - security_audit

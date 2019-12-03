@@ -83,7 +83,9 @@ describe('<Page />', () => {
         <Page {...props} searchContext="results" lastSearchResultQuery={lastSearchResultQuery} />
       </MemoryRouter>
     )
-    const testContextLinkElement = wrapper.findWhere(node => node.props().href === `/results?${lastSearchResultQuery}`)
+    const testContextLinkElement = wrapper
+      .findWhere(node => node.props().href === `/results?${lastSearchResultQuery}`)
+      .at(0)
 
     expect(testContextLinkElement.text()).toEqual('View most recent search')
   })

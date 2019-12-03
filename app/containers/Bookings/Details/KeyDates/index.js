@@ -177,7 +177,4 @@ const mapStateToProps = (immutableState, props) => {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(KeyDates)
+export default connect(mapStateToProps, mapDispatchToProps)(KeyDates)

@@ -185,7 +185,4 @@ const mapStateToProps = immutableState => {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Assignments)
+export default connect(mapStateToProps, mapDispatchToProps)(Assignments)

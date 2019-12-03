@@ -23,7 +23,7 @@ exports[`<CaseNoteListItem /> should match the default snapshot 1`] = `
     className="sc-gzVnrw kAvXkR"
   >
     <h2
-      className="sc-bwzfXH byYzXZ"
+      className="sc-bwzfXH dSJAzS"
     >
       Achievements
        | 
@@ -81,7 +81,7 @@ exports[`<CaseNoteListItem /> should render with amendments snapshot 1`] = `
     className="sc-gzVnrw kAvXkR"
   >
     <h2
-      className="sc-bwzfXH byYzXZ"
+      className="sc-bwzfXH dSJAzS"
     >
       Achievements
        | 
@@ -113,10 +113,10 @@ exports[`<CaseNoteListItem /> should render with amendments snapshot 1`] = `
       Offender enjoys attending the gym.
     </pre>
     <div
-      className="sc-htpNat dHsapQ"
+      className="sc-htpNat gxjyDa"
     >
       <h3
-        className="sc-bwzfXH byYzXZ"
+        className="sc-bwzfXH dSJAzS"
       >
         Amendment
       </h3>

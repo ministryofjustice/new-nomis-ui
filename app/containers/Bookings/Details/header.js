@@ -109,7 +109,4 @@ const mapStateToProps = (immutableState, props) => {
 }
 
 // Wrap the component to inject dispatch and state into it
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

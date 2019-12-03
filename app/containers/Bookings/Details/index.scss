@@ -11,26 +11,24 @@
 
 .large-image-container {
   text-align: center;
-  
+
   &__image {
     margin: 30px 0;
     max-height: 600px;
   }
-
 }
 
 //TODO Will be moved during the button rework.
 
 .cancel-button {
-
   @extend .button;
 
-  background: #DEE0E2 !important;
-  color: #0B0C0C !important;
+  background: #dee0e2 !important;
+  color: #0b0c0c !important;
   font-family: 'nta', Arial, sans-serif;
 
   &:hover {
-    background: #BABABA !important;
-    color: #0B0C0C !important;
+    background: #bababa !important;
+    color: #0b0c0c !important;
   }
 }

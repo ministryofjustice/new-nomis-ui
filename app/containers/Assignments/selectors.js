@@ -5,58 +5,29 @@ import { paginationHash, idsFromPagination } from '../EliteApiLoader/helpers'
 const selectAssignments = () => state => state.get('assignments')
 
 const selectAssignmentsPagination = () =>
-  createSelector(
-    selectAssignments(),
-    assState => assState.get('pagination').toJS()
-  )
+  createSelector(selectAssignments(), assState => assState.get('pagination').toJS())
 
-const selectAssignmentsView = () =>
-  createSelector(
-    selectAssignments(),
-    assState => assState.get('view')
-  )
+const selectAssignmentsView = () => createSelector(selectAssignments(), assState => assState.get('view'))
 
-const selectAssignmentsSortOrder = () =>
-  createSelector(
-    selectAssignments(),
-    assState => assState.get('sortOrder')
-  )
+const selectAssignmentsSortOrder = () => createSelector(selectAssignments(), assState => assState.get('sortOrder'))
 
-const selectBookings = () =>
-  createSelector(
-    selectEliteApi(),
-    eliteApiState => eliteApiState.get('Bookings')
-  )
+const selectBookings = () => createSelector(selectEliteApi(), eliteApiState => eliteApiState.get('Bookings'))
 
-const selectBookingSummaries = () =>
-  createSelector(
-    selectBookings(),
-    bookingsState => bookingsState.get('Summaries')
-  )
+const selectBookingSummaries = () => createSelector(selectBookings(), bookingsState => bookingsState.get('Summaries'))
 
-const selectBookingsSearch = () =>
-  createSelector(
-    selectBookings(),
-    bookingsState => bookingsState.get('Search')
-  )
+const selectBookingsSearch = () => createSelector(selectBookings(), bookingsState => bookingsState.get('Search'))
 
 const selectAssignmentsSearch = () =>
-  createSelector(
-    selectBookingsSearch(),
-    bookingsSearchState => bookingsSearchState.get('officerAssignments')
-  )
+  createSelector(selectBookingsSearch(), bookingsSearchState => bookingsSearchState.get('officerAssignments'))
 
 const selectAssignmentsTotal = () =>
-  createSelector(
-    selectAssignmentsSearch(),
-    assSearchState => (assSearchState ? assSearchState.getIn(['MetaData', 'TotalRecords']) : 0)
+  createSelector(selectAssignmentsSearch(), assSearchState =>
+    assSearchState ? assSearchState.getIn(['MetaData', 'TotalRecords']) : 0
   )
 
 const selectAssignmentSortResults = () =>
-  createSelector(
-    selectAssignmentsSearch(),
-    selectAssignmentsSortOrder(),
-    (assignmentsSearchState, sortOrder) => assignmentsSearchState.getIn(['Sorted', sortOrder])
+  createSelector(selectAssignmentsSearch(), selectAssignmentsSortOrder(), (assignmentsSearchState, sortOrder) =>
+    assignmentsSearchState.getIn(['Sorted', sortOrder])
   )
 
 const selectAssignmentsPaginationStatus = () =>
@@ -69,10 +40,7 @@ const selectAssignmentsPaginationStatus = () =>
   )
 
 const selectAssignmentSortedIds = () =>
-  createSelector(
-    selectAssignmentSortResults(),
-    sortState => sortState && sortState.get('SortedIds')
-  )
+  createSelector(selectAssignmentSortResults(), sortState => sortState && sortState.get('SortedIds'))
 
 const selectAssignmentsResults = () =>
   createSelector(

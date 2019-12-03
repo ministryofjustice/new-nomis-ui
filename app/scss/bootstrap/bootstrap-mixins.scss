@@ -22,7 +22,6 @@
   }
 }
 
-
 // Grid breakpoints
 //
 // Define the minimum dimensions at which your layout will change,
@@ -33,11 +32,10 @@ $grid-breakpoints: (
   sm: 576px,
   md: 768px,
   lg: 992px,
-  xl: 1200px
+  xl: 1200px,
 ) !default;
-@include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
+@include _assert-ascending($grid-breakpoints, '$grid-breakpoints');
 @include _assert-starts-at-zero($grid-breakpoints);
-
 
 // Grid containers
 //
@@ -47,25 +45,23 @@ $container-max-widths: (
   sm: 540px,
   md: 720px,
   lg: 960px,
-  xl: 1140px
+  xl: 1140px,
 ) !default;
-@include _assert-ascending($container-max-widths, "$container-max-widths");
-
+@include _assert-ascending($container-max-widths, '$container-max-widths');
 
 // Grid columns
 //
 // Set the number of columns and specify the width of the gutters.
 
-$grid-columns:               12 !default;
-$grid-gutter-width-base:     30px !default;
+$grid-columns: 12 !default;
+$grid-gutter-width-base: 30px !default;
 $grid-gutter-widths: (
   xs: $grid-gutter-width-base,
   sm: $grid-gutter-width-base,
   md: $grid-gutter-width-base,
   lg: $grid-gutter-width-base,
-  xl: $grid-gutter-width-base
+  xl: $grid-gutter-width-base,
 ) !default;
-
 
 // Replace `$search` with `$replace` in `$string`
 // @author Hugo Giraudel
@@ -73,11 +69,12 @@ $grid-gutter-widths: (
 // @param {String} $search - Substring to replace
 // @param {String} $replace ('') - New value
 // @return {String} - Updated string
-@function str-replace($string, $search, $replace: "") {
+@function str-replace($string, $search, $replace: '') {
   $index: str-index($string, $search);
 
   @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
   }
 
   @return $string;
@@ -90,8 +87,6 @@ $grid-gutter-widths: (
     @warn "First breakpoint in `$grid-breakpoints` must start at 0, but starts at #{$first-value}.";
   }
 }
-
-
 
 // Breakpoint viewport sizes and media queries.
 //
@@ -141,7 +136,7 @@ $grid-gutter-widths: (
 //    >> breakpoint-infix(sm, (xs: 0, sm: 576px, md: 768px))
 //    "-sm"
 @function breakpoint-infix($name, $breakpoints: $grid-breakpoints) {
-  @return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+  @return if(breakpoint-min($name, $breakpoints) == null, '', '-#{$name}');
 }
 
 // Media of at least the minimum breakpoint width. No query for the smallest breakpoint.
@@ -189,7 +184,6 @@ $grid-gutter-widths: (
   }
 }
 
-
 .well {
   min-height: 20px;
   //padding: 19px 19px 19px 0;
@@ -198,7 +192,7 @@ $grid-gutter-widths: (
 }
 .well blockquote {
   border-color: #ddd;
-  border-color: rgba(0, 0, 0, .15);
+  border-color: rgba(0, 0, 0, 0.15);
 }
 .well-lg {
   padding: 24px;
@@ -208,4 +202,3 @@ $grid-gutter-widths: (
   padding: 9px;
   border-radius: 3px;
 }
-

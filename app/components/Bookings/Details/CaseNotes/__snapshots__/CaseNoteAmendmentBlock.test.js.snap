@@ -2,10 +2,10 @@
 
 exports[`<CaseNoteAmendmentBlock /> should match the default snapshot 1`] = `
 <div
-  className="sc-bwzfXH iaUqUE"
+  className="sc-bwzfXH dfdgQA"
 >
   <h3
-    className="sc-bdVaJa dbbMZC"
+    className="sc-bdVaJa iOvnVG"
   >
     Amendment
   </h3>

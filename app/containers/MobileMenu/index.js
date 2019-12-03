@@ -33,7 +33,4 @@ const mapDispatchToProps = {
   setMenuOpen,
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MobileMenu)
+export default connect(mapStateToProps, mapDispatchToProps)(MobileMenu)
