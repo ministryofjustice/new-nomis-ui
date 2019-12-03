@@ -515,15 +515,11 @@ export const AssignedStaffMembers = ({
   offenderSupervisor,
   caseAdministrator,
   drugWorker,
-  prisonOffenderManager,
-  coworkingPrisonOffenderManager,
 }) => {
   const hasCommunityOffenderManager = communityOffenderManager && communityOffenderManager.size > 0
   const hasOffenderSupervisor = offenderSupervisor && offenderSupervisor.size > 0
   const hasCaseAdministrator = caseAdministrator && caseAdministrator.size > 0
   const hasDrugWorker = drugWorker && drugWorker.size > 0
-  const hasPrisonOffenderManager = prisonOffenderManager && prisonOffenderManager.size > 0
-  const hasCoworkingPrisonOffenderManager = coworkingPrisonOffenderManager && coworkingPrisonOffenderManager.size > 0
 
   return (
     <div>
@@ -531,16 +527,11 @@ export const AssignedStaffMembers = ({
         !hasCommunityOffenderManager &&
         !hasOffenderSupervisor &&
         !hasCaseAdministrator &&
-        !hasDrugWorker &&
-        !hasPrisonOffenderManager &&
-        !hasCoworkingPrisonOffenderManager && <p>No assigned staff members</p>}
+        !hasDrugWorker && <p>No assigned staff members</p>}
 
-      {hasCaseAdministrator && (
-        <ValueWithLabel label="Case Administrator">
-          {toFullName({
-            firstName: caseAdministrator.get('firstName'),
-            lastName: caseAdministrator.get('lastName'),
-          })}
+      {keyWorkerId && (
+        <ValueWithLabel label="Key Worker">
+          <EliteOfficerName staffId={keyWorkerId} />
         </ValueWithLabel>
       )}
       {hasCommunityOffenderManager && (
@@ -551,19 +542,6 @@ export const AssignedStaffMembers = ({
           })}
         </ValueWithLabel>
       )}
-      {hasDrugWorker && (
-        <ValueWithLabel label="Drug Worker">
-          {toFullName({
-            firstName: drugWorker.get('firstName'),
-            lastName: drugWorker.get('lastName'),
-          })}
-        </ValueWithLabel>
-      )}
-      {keyWorkerId && (
-        <ValueWithLabel label="Key Worker">
-          <EliteOfficerName staffId={keyWorkerId} />
-        </ValueWithLabel>
-      )}
       {hasOffenderSupervisor && (
         <ValueWithLabel label="Offender Supervisor">
           {toFullName({
@@ -572,19 +550,19 @@ export const AssignedStaffMembers = ({
           })}
         </ValueWithLabel>
       )}
-      {hasPrisonOffenderManager && (
-        <ValueWithLabel label="Prison Offender Manager (POM)">
+      {hasCaseAdministrator && (
+        <ValueWithLabel label="Case Administrator">
           {toFullName({
-            firstName: prisonOffenderManager.get('firstName'),
-            lastName: prisonOffenderManager.get('lastName'),
+            firstName: caseAdministrator.get('firstName'),
+            lastName: caseAdministrator.get('lastName'),
           })}
         </ValueWithLabel>
       )}
-      {hasCoworkingPrisonOffenderManager && (
-        <ValueWithLabel label="Co-working Prison Offender Manager (POM)">
+      {hasDrugWorker && (
+        <ValueWithLabel label="Drug Worker">
           {toFullName({
-            firstName: coworkingPrisonOffenderManager.get('firstName'),
-            lastName: coworkingPrisonOffenderManager.get('lastName'),
+            firstName: drugWorker.get('firstName'),
+            lastName: drugWorker.get('lastName'),
           })}
         </ValueWithLabel>
       )}
@@ -598,8 +576,6 @@ AssignedStaffMembers.propTypes = {
   offenderSupervisor: ImmutablePropTypes.map.isRequired,
   caseAdministrator: ImmutablePropTypes.map.isRequired,
   drugWorker: ImmutablePropTypes.map.isRequired,
-  prisonOffenderManager: ImmutablePropTypes.map.isRequired,
-  coworkingPrisonOffenderManager: ImmutablePropTypes.map.isRequired,
 }
 
 AssignedStaffMembers.defaultProps = {
@@ -735,8 +711,6 @@ class QuickLook extends Component {
                   offenderSupervisor={assignedStaffMembers.get('offenderSupervisor')}
                   caseAdministrator={assignedStaffMembers.get('caseAdministrator')}
                   drugWorker={assignedStaffMembers.get('drugWorker')}
-                  prisonOffenderManager={assignedStaffMembers.get('prisonOffenderManager')}
-                  coworkingPrisonOffenderManager={assignedStaffMembers.get('coworkingPrisonOffenderManager')}
                 />
               </div>
             </div>
