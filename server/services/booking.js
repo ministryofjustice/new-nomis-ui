@@ -5,10 +5,12 @@ const { isoDateFormat } = require('./../constants')
 const toAward = require('../data-mappers/to-award')
 const { toVisit } = require('../data-mappers/to-visit')
 const { toLastVisit } = require('../data-mappers/to-visit')
+const { properCaseName } = require('../utils')
+const { logger } = require('../services/logger')
 
 const toActivityViewModel = require('../data-mappers/to-activity-viewmodel')
 
-const bookingServiceFactory = (eliteApi, keyworkerApi) => {
+const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => {
   const getKeyDatesVieModel = async (context, offenderNo) => {
     const { bookingId } = await eliteApi.getDetailsLight(context, offenderNo)
 
@@ -111,6 +113,14 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
       kwCaseNoteDates,
     ] = await Promise.all(apiCalls)
 
+    let prisonOffenderManagerData
+    try {
+      prisonOffenderManagerData = await allocationManagerApi.getPomByOffenderNo(context, offenderNo)
+    } catch (e) {
+      // Log error, but don't break quicklook
+      logger.error(e)
+    }
+
     const activities = toActivityViewModel(activityData)
     const hasAnyActivity =
       activities.morningActivities.length > 0 ||
@@ -133,8 +143,20 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
         : null
     }
 
+    const getPrisonOffenderManagerName = pom => {
+      if (pom.name) {
+        const names = pom.name.split(',')
+        return {
+          firstName: properCaseName(names[1].trim()),
+          lastName: properCaseName(names[0].trim()),
+        }
+      }
+
+      return null
+    }
+
     let lastKWSessionDate = null
-    if (kwCaseNoteDates.length > 0) {
+    if (kwCaseNoteDates && kwCaseNoteDates.length > 0) {
       lastKWSessionDate = kwCaseNoteDates.reduce((m, v, i) => (v.latestCaseNote > m.latestCaseNote && i ? v : m))
         .latestCaseNote
     }
@@ -152,6 +174,14 @@ const bookingServiceFactory = (eliteApi, keyworkerApi) => {
         offenderSupervisor: relationships && getFirstRelationshipByType('OFS', relationships),
         caseAdministrator: relationships && getFirstRelationshipByType('CA', relationships),
         drugWorker: relationships && getFirstRelationshipByType('DART', relationships),
+        prisonOffenderManager:
+          prisonOffenderManagerData &&
+          prisonOffenderManagerData.primary_pom &&
+          getPrisonOffenderManagerName(prisonOffenderManagerData.primary_pom),
+        coworkingPrisonOffenderManager:
+          prisonOffenderManagerData &&
+          prisonOffenderManagerData.secondary_pom &&
+          getPrisonOffenderManagerName(prisonOffenderManagerData.secondary_pom),
       },
       balance: balance && {
         spends: balance.spends,
