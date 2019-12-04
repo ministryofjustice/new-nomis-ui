@@ -144,7 +144,6 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
     }
 
     const getPrisonOffenderManagerName = pom => {
-      console.log(pom)
       if (pom.name) {
         const names = pom.name.split(',')
         return {
