@@ -6,6 +6,7 @@ const toAward = require('../data-mappers/to-award')
 const { toVisit } = require('../data-mappers/to-visit')
 const { toLastVisit } = require('../data-mappers/to-visit')
 const { properCaseName } = require('../utils')
+const { logger } = require('../services/logger')
 
 const toActivityViewModel = require('../data-mappers/to-activity-viewmodel')
 
@@ -117,9 +118,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
       prisonOffenderManagerData = await allocationManagerApi.getPomByOffenderNo(context, offenderNo)
     } catch (e) {
       // Log error, but don't break quicklook
-
-      /* eslint-disable no-console */
-      console.log(e)
+      logger.error(e)
     }
 
     const activities = toActivityViewModel(activityData)
