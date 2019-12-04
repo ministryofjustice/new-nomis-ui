@@ -4,6 +4,7 @@ import com.google.common.collect.Lists
 import geb.module.Select
 import groovy.json.JsonOutput
 import groovy.util.logging.Slf4j
+import mockapis.AllocationManagerApi
 import mockapis.CaseNotesApi
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
@@ -40,6 +41,9 @@ class AppointmentSpecification extends BrowserReportingSpec {
   @Rule
   CaseNotesApi caseNotesApi = new CaseNotesApi()
 
+  @Rule
+  AllocationManagerApi allocationManagerApi = new AllocationManagerApi()
+
   TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
 
   def "Create a new appointment"() {
@@ -58,6 +62,7 @@ class AppointmentSpecification extends BrowserReportingSpec {
     elite2api.stubStaffDetails(-2)
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
+    allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
 
     searchFor "apperson"
     at SearchResultsPage
@@ -164,6 +169,7 @@ class AppointmentSpecification extends BrowserReportingSpec {
     elite2api.stubStaffDetails(-2)
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
+    allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
 
 
     searchFor "apperson"

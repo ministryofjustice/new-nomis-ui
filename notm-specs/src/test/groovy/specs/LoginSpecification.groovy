@@ -2,6 +2,7 @@ package specs
 
 
 import groovy.util.logging.Slf4j
+import mockapis.AllocationManagerApi
 import mockapis.Elite2Api
 import mockapis.OauthApi
 import model.TestFixture
@@ -20,6 +21,9 @@ class LoginSpecification extends BrowserReportingSpec {
 
   @Rule
   OauthApi oauthApi = new OauthApi()
+
+  @Rule
+  AllocationManagerApi allocationManagerApi = new AllocationManagerApi()
 
   TestFixture fixture = new TestFixture(browser, elite2Api, oauthApi)
 
@@ -97,6 +101,7 @@ class LoginSpecification extends BrowserReportingSpec {
     elite2Api.stubAliases()
     elite2Api.stubImage()
     elite2Api.stubQuickLook()
+    allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
 
     browser.go('/offenders/A1234AJ/quick-look')
 
