@@ -30,10 +30,8 @@ const eliteApiFactory = client => {
       () => false
     )
 
-  const caseNoteUsageList = (context, bookingIds) => {
-    console.log(context.access_token)
+  const caseNoteUsageList = (context, bookingIds) =>
     get(context, `api/case-notes/summary?type=KA&subType=KS&numMonths=1&${toQueryParameters(bookingIds, 'bookingId')}`)
-  }
   const getAddresses = (context, offenderNo) => get(context, `api/offenders/${offenderNo}/addresses`)
   const getAdjudications = (context, bookingId) => get(context, `api/bookings/${bookingId}/adjudications`)
   const getAppointmentTypes = context => get(context, 'api/reference-domains/scheduleReasons?eventType=APP')

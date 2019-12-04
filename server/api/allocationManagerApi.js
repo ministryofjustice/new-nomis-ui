@@ -6,11 +6,9 @@ const processResponse = context => response => {
 }
 
 const processError = error => {
-  // If the allocation manager throws an error, log it
-  // but don't throw (prevents app throwing a fit)
-
-  /* eslint-disable no-console */
-  console.log(error)
+  if (!error.response) throw error
+  if (!error.response.status) throw error
+  if (error.response.status !== 404) throw error // Not Found
   return {}
 }
 
@@ -21,9 +19,7 @@ const allocationManagerApiFactory = client => {
       .then(processResponse(context))
       .catch(processError)
 
-  const getPomByOffenderNo = (context, offenderNo) => {
-    get(context, `api/allocation/${offenderNo}`)
-  }
+  const getPomByOffenderNo = (context, offenderNo) => get(context, `api/allocation/${offenderNo}`)
 
   return {
     getPomByOffenderNo,

@@ -95,7 +95,6 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
       eliteApi.getNextVisit(context, bookingId),
       eliteApi.getRelationships(context, bookingId),
       eliteApi.caseNoteUsageList(context, [bookingId]),
-      allocationManagerApi.getPomByOffenderNo(context, offenderNo),
     ]
 
     const [
@@ -111,8 +110,17 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
       nextVisit,
       relationships,
       kwCaseNoteDates,
-      prisonOffenderManagerData,
     ] = await Promise.all(apiCalls)
+
+    let prisonOffenderManagerData
+    try {
+      prisonOffenderManagerData = await allocationManagerApi.getPomByOffenderNo(context, offenderNo)
+    } catch (e) {
+      // Log error, but don't break quicklook
+
+      /* eslint-disable no-console */
+      console.log(e)
+    }
 
     const activities = toActivityViewModel(activityData)
     const hasAnyActivity =
@@ -137,6 +145,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
     }
 
     const getPrisonOffenderManagerName = pom => {
+      console.log(pom)
       if (pom.name) {
         const names = pom.name.split(',')
         return {
