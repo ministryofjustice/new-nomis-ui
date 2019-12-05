@@ -73,10 +73,6 @@ const eventsServiceFactory = eliteApi => {
         .map(date => groupedByDate[date])
         .reduce((result, current) => result.concat(current), [])
         .sort(byStartTimeThenByEndTime)
-        .filter(
-          event =>
-            event.eventType === nomisCodes.eventTypes.visit || event.eventStatus === nomisCodes.statusCodes.scheduled
-        )
 
       const activities = toActivityViewModel(events)
 
