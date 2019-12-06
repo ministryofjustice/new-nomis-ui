@@ -1,6 +1,10 @@
 /* eslint consistent-return:0 */
 require('dotenv').config()
 
+// Do appinsights first as it does some magic instrumentation work, i.e. it affects other 'require's
+// In particular, applicationinsights automatically collects bunyan logs
+require('./azure-appinsights')
+
 const express = require('express')
 const path = require('path')
 
@@ -9,7 +13,6 @@ const apis = require('./apis')
 const setup = require('./middlewares/frontend-middleware')
 const setupBodyParsers = require('./setupBodyParsers')
 const setupHealthChecks = require('./setupHealthChecks')
-const setupTelemetry = require('./setupTelemetry')
 const setupRoutes = require('./setupRoutes')
 const setupWebSecurity = require('./setupWebSecurity')
 const setupWebSession = require('./setupWebSession')
@@ -19,8 +22,6 @@ const { logger } = require('./services/logger')
 const config = require('./config')
 
 const app = express()
-
-setupTelemetry()
 
 app.set('trust proxy', 1) // trust first proxy
 app.set('view engine', 'ejs')
