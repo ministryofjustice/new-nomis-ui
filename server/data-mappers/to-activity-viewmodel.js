@@ -29,13 +29,9 @@ const byStartTimeThenByEndTime = (a, b) => {
 }
 
 module.exports = events => {
-  const activityData = events.filter(
-    event => event.eventType === nomisCodes.eventTypes.visit || event.eventStatus === nomisCodes.statusCodes.scheduled
-  )
-
-  const morningActivity = filterMorning(activityData)
-  const afternoonActivity = filterAfternoon(activityData)
-  const eveningDuties = filterEveningDuties(activityData)
+  const morningActivity = filterMorning(events)
+  const afternoonActivity = filterAfternoon(events)
+  const eveningDuties = filterEveningDuties(events)
 
   return {
     morningActivities: morningActivity && morningActivity.map(data => toEvent(data)).sort(byStartTimeThenByEndTime),

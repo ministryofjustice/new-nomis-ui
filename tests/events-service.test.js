@@ -333,7 +333,7 @@ describe('Events service', () => {
     expect(data.locations[1].description).to.equal('Yrk')
   })
 
-  it('show only scheduled appointments and activity', async () => {
+  it('show all appointments and activities', async () => {
     const today = moment().format(isoDateFormat)
 
     eliteApi.getEventsForThisWeek.returns([
@@ -374,6 +374,7 @@ describe('Events service', () => {
     const data = await eventsService.getScheduledEventsForThisWeek(req)
 
     expect(data[0].morningActivities.length).to.equal(2)
+    expect(data[0].afternoonActivities.length).to.equal(2)
     expect(data[0].morningActivities[0].type).to.equal('activity 1')
     expect(data[0].morningActivities[1].type).to.equal('appointment 1')
   })
@@ -405,5 +406,276 @@ describe('Events service', () => {
     expect(data[0].morningActivities.length).to.equal(2)
     expect(data[0].morningActivities[0].type).to.equal('visit 1')
     expect(data[0].morningActivities[1].type).to.equal('visit 2')
+  })
+
+  it('should build correctly structured dataset given calendar view and data', () => {
+    const calendarView = [
+      { date: moment('2019-12-05T15:01:13.183') },
+      { date: moment('2019-12-06T15:01:13.183') },
+      { date: moment('2019-12-07T15:01:13.184') },
+      { date: moment('2019-12-08T15:01:13.184') },
+      { date: moment('2019-12-09T15:01:13.184') },
+      { date: moment('2019-12-10T15:01:13.184') },
+      { date: moment('2019-12-11T15:01:13.184') },
+    ]
+
+    const data = [
+      {
+        bookingId: 1,
+        eventClass: 'INT_MOV',
+        eventStatus: 'SCH',
+        eventType: 'APP',
+        eventTypeDesc: 'Appointment',
+        eventSubType: 'MEOT',
+        eventSubTypeDesc: 'Medical - Other',
+        eventDate: '2019-12-05',
+        startTime: '2019-12-05T07:30:00',
+        endTime: '2019-12-05T08:30:00',
+        eventLocation: 'HEALTH CARE',
+        eventSource: 'APP',
+        eventSourceCode: 'APP',
+        eventSourceDesc: 'IDST',
+      },
+      {
+        bookingId: 1,
+        eventClass: 'INT_MOV',
+        eventId: 2,
+        eventStatus: 'CANC',
+        eventType: 'PRISON_ACT',
+        eventTypeDesc: 'Prison Activities',
+        eventSubType: 'PA',
+        eventSubTypeDesc: 'Prison Activities',
+        eventDate: '2019-12-05',
+        startTime: '2019-12-05T08:15:00',
+        endTime: '2019-12-05T11:50:00',
+        eventLocation: 'KITCHEN - CLOSED UNTIL 30.7.2019',
+        eventLocationId: 27002,
+        eventSource: 'PA',
+        eventSourceCode: 'KITCH-AM',
+        eventSourceDesc: 'Kitchen Worker AM',
+        eventOutcome: 'CANC',
+        paid: false,
+        payRate: 1.25,
+        locationCode: 'KITCH',
+      },
+      {
+        bookingId: 1,
+        eventClass: 'INT_MOV',
+        eventId: 3,
+        eventStatus: 'SCH',
+        eventType: 'PRISON_ACT',
+        eventTypeDesc: 'Prison Activities',
+        eventSubType: 'PA',
+        eventSubTypeDesc: 'Prison Activities',
+        eventDate: '2019-12-05',
+        startTime: '2019-12-05T08:30:00',
+        endTime: '2019-12-05T11:45:00',
+        eventLocation: 'HOUSEBLOCK 1 WORKERS',
+        eventLocationId: 721768,
+        eventSource: 'PA',
+        eventSourceCode: 'R1-PID AM',
+        eventSourceDesc: 'R1 PID Worker AM',
+        paid: false,
+        payRate: 1.25,
+        locationCode: 'WOW',
+      },
+      {
+        bookingId: 1,
+        eventClass: 'INT_MOV',
+        eventId: 4,
+        eventStatus: 'SCH',
+        eventType: 'PRISON_ACT',
+        eventTypeDesc: 'Prison Activities',
+        eventSubType: 'PA',
+        eventSubTypeDesc: 'Prison Activities',
+        eventDate: '2019-12-05',
+        startTime: '2019-12-05T08:30:00',
+        endTime: '2019-12-05T11:45:00',
+        eventLocation: 'HOUSEBLOCK 1 WORKERS',
+        eventLocationId: 721768,
+        eventSource: 'PA',
+        eventSourceCode: 'HB1_CLN',
+        eventSourceDesc: 'Cleaner HB1 AM',
+        paid: false,
+        payRate: 1.05,
+        locationCode: 'WOW',
+      },
+      {
+        bookingId: 1,
+        eventClass: 'INT_MOV',
+        eventId: 5,
+        eventStatus: 'SCH',
+        eventType: 'PRISON_ACT',
+        eventTypeDesc: 'Prison Activities',
+        eventSubType: 'PA',
+        eventSubTypeDesc: 'Prison Activities',
+        eventDate: '2019-12-05',
+        startTime: '2019-12-05T13:15:00',
+        endTime: '2019-12-05T16:15:00',
+        eventLocation: 'HOUSEBLOCK 2 WORKERS',
+        eventLocationId: 721767,
+        eventSource: 'PA',
+        eventSourceCode: 'HB2-CLN-PM',
+        eventSourceDesc: 'Cleaner HB2 PM',
+        paid: false,
+        payRate: 1.05,
+        locationCode: 'WOW',
+      },
+      {
+        bookingId: 1,
+        eventClass: 'INT_MOV',
+        eventId: 4,
+        eventStatus: 'EXP',
+        eventType: 'PRISON_ACT',
+        eventTypeDesc: 'Prison Activities',
+        eventSubType: 'PA',
+        eventSubTypeDesc: 'Prison Activities',
+        eventDate: '2019-12-05',
+        startTime: '2019-12-05T13:15:00',
+        endTime: '2019-12-05T16:15:00',
+        eventLocation: 'HOUSEBLOCK 2 WORKERS',
+        eventLocationId: 721767,
+        eventSource: 'PA',
+        eventSourceCode: 'LAUND2PM',
+        eventSourceDesc: 'HB2 Laundry PM',
+        paid: false,
+        payRate: 1.05,
+        locationCode: 'WOW',
+      },
+      {
+        bookingId: 1,
+        eventClass: 'INT_MOV',
+        eventId: 10,
+        eventStatus: 'CANC',
+        eventType: 'PRISON_ACT',
+        eventTypeDesc: 'Prison Activities',
+        eventSubType: 'PA',
+        eventSubTypeDesc: 'Prison Activities',
+        eventDate: '2019-12-05',
+        startTime: '2019-12-05T13:15:00',
+        endTime: '2019-12-05T16:15:00',
+        eventLocation: 'HOUSEBLOCK 1 WORKERS',
+        eventLocationId: 721768,
+        eventSource: 'PA',
+        eventSourceCode: 'R1-PID-PM',
+        eventSourceDesc: 'R1 PID Worker PM',
+        paid: false,
+        payRate: 1.25,
+        locationCode: 'WOW',
+      },
+    ]
+
+    const expectedResult = [
+      {
+        afternoonActivities: [
+          {
+            cancelled: false,
+            comment: null,
+            endTime: '2019-12-05T16:15:00',
+            eventStatus: 'SCH',
+            shortComment: null,
+            startTime: '2019-12-05T13:15:00',
+            type: 'Cleaner HB2 PM',
+          },
+          {
+            cancelled: false,
+            comment: null,
+            endTime: '2019-12-05T16:15:00',
+            eventStatus: 'EXP',
+            shortComment: null,
+            startTime: '2019-12-05T13:15:00',
+            type: 'HB2 Laundry PM',
+          },
+          {
+            cancelled: true,
+            comment: null,
+            endTime: '2019-12-05T16:15:00',
+            eventStatus: 'CANC',
+            shortComment: null,
+            startTime: '2019-12-05T13:15:00',
+            type: 'R1 PID Worker PM',
+          },
+        ],
+        date: moment('2019-12-05T15:01:13.183'),
+        eveningDuties: [],
+        morningActivities: [
+          {
+            cancelled: false,
+            comment: 'IDST',
+            endTime: '2019-12-05T08:30:00',
+            eventStatus: 'SCH',
+            shortComment: 'IDST',
+            startTime: '2019-12-05T07:30:00',
+            type: 'Medical - Other',
+          },
+          {
+            cancelled: true,
+            comment: null,
+            endTime: '2019-12-05T11:50:00',
+            eventStatus: 'CANC',
+            shortComment: null,
+            startTime: '2019-12-05T08:15:00',
+            type: 'Kitchen Worker AM',
+          },
+          {
+            cancelled: false,
+            comment: null,
+            endTime: '2019-12-05T11:45:00',
+            eventStatus: 'SCH',
+            shortComment: null,
+            startTime: '2019-12-05T08:30:00',
+            type: 'R1 PID Worker AM',
+          },
+          {
+            cancelled: false,
+            comment: null,
+            endTime: '2019-12-05T11:45:00',
+            eventStatus: 'SCH',
+            shortComment: null,
+            startTime: '2019-12-05T08:30:00',
+            type: 'Cleaner HB1 AM',
+          },
+        ],
+      },
+      {
+        afternoonActivities: [],
+        date: moment('2019-12-06T15:01:13.183'),
+        eveningDuties: [],
+        morningActivities: [],
+      },
+      {
+        afternoonActivities: [],
+        date: moment('2019-12-07T15:01:13.184'),
+        eveningDuties: [],
+        morningActivities: [],
+      },
+      {
+        afternoonActivities: [],
+        date: moment('2019-12-08T15:01:13.184'),
+        eveningDuties: [],
+        morningActivities: [],
+      },
+      {
+        afternoonActivities: [],
+        date: moment('2019-12-09T15:01:13.184'),
+        eveningDuties: [],
+        morningActivities: [],
+      },
+      {
+        afternoonActivities: [],
+        date: moment('2019-12-10T15:01:13.184'),
+        eveningDuties: [],
+        morningActivities: [],
+      },
+      {
+        afternoonActivities: [],
+        date: moment('2019-12-11T15:01:13.184'),
+        eveningDuties: [],
+        morningActivities: [],
+      },
+    ]
+
+    const result = eventsService.buildScheduledEvents(data, calendarView)
+    expect(result).to.eql(expectedResult)
   })
 })

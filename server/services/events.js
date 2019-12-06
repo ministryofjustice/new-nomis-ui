@@ -2,7 +2,6 @@ const moment = require('moment')
 const utils = require('../utils')
 const { isoDateFormat } = require('./../constants')
 const toActivityViewModel = require('../data-mappers/to-activity-viewmodel')
-const nomisCodes = require('../data-mappers/nomis-codes')
 const getExternalEventsForOffenders = require('./getExternalEventsForOffenders')
 
 const eventsServiceFactory = eliteApi => {
@@ -73,10 +72,6 @@ const eventsServiceFactory = eliteApi => {
         .map(date => groupedByDate[date])
         .reduce((result, current) => result.concat(current), [])
         .sort(byStartTimeThenByEndTime)
-        .filter(
-          event =>
-            event.eventType === nomisCodes.eventTypes.visit || event.eventStatus === nomisCodes.statusCodes.scheduled
-        )
 
       const activities = toActivityViewModel(events)
 
@@ -106,6 +101,7 @@ const eventsServiceFactory = eliteApi => {
     getScheduledEventsForNextWeek,
     getAppointmentViewModel,
     getExistingEvents,
+    buildScheduledEvents,
   }
 }
 module.exports = {
