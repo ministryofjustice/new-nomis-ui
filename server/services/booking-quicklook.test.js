@@ -658,7 +658,7 @@ describe('Booking Service Quick look', () => {
     expect(data.lastKeyWorkerSessionDate).toEqual('2018-07-02T15:03:47.337Z')
   })
 
-  it('should retun prison allocation managers', async () => {
+  it('should return prison allocation managers', async () => {
     allocationManagerApi.getPomByOffenderNo.mockReturnValue(
       Promise.resolve({
         primary_pom: {
@@ -679,6 +679,21 @@ describe('Booking Service Quick look', () => {
 
     expect(data.assignedStaffMembers.coworkingPrisonOffenderManager.firstName).toEqual('Secondary')
     expect(data.assignedStaffMembers.coworkingPrisonOffenderManager.lastName).toEqual('Pom')
+  })
+
+  it('should handle prison allocation managers with first names only ', async () => {
+    allocationManagerApi.getPomByOffenderNo.mockReturnValue(
+      Promise.resolve({
+        primary_pom: {
+          staff_id: 1,
+          name: 'POM',
+        },
+      })
+    )
+
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
+
+    expect(data.assignedStaffMembers.prisonOffenderManager.firstName).toEqual('Pom')
   })
 
   it('should continue on error', async () => {
