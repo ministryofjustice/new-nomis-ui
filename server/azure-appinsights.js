@@ -1,15 +1,16 @@
 const appInsights = require('applicationinsights')
-const fs = require('fs')
-const config = require('./config')
+const applicationVersion = require('./application-version')
 
-module.exports = () => {
-  if (config.app.production && config.analytics.appInsightsKey) {
-    const packageData = JSON.parse(fs.readFileSync('./package.json'))
-
-    appInsights
-      .setup(config.analytics.appInsightsKey)
-      .setDistributedTracingMode(appInsights.DistributedTracingModes.AI_AND_W3C)
-      .start()
-    appInsights.defaultClient.context.tags['ai.cloud.role'] = `${packageData.name}`
-  }
+const { packageData } = applicationVersion
+if (process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
+  // eslint-disable-next-line no-console
+  console.log('Enabling azure application insights')
+  appInsights
+    .setup()
+    .setDistributedTracingMode(appInsights.DistributedTracingModes.AI_AND_W3C)
+    .start()
+  module.exports = appInsights.defaultClient
+  appInsights.defaultClient.context.tags['ai.cloud.role'] = `${packageData.name}`
+} else {
+  module.exports = null
 }
