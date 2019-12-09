@@ -149,10 +149,16 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
 
     const getPrisonOffenderManagerName = pom => {
       if (pom.name) {
-        const names = pom.name.split(',')
+        logger.info(`Attempting to process prison offender manager name ${pom.name}`)
+        if (pom.name.indexOf(',') >= 0) {
+          const names = pom.name.split(',')
+          return {
+            firstName: properCaseName(names[1].trim()),
+            lastName: properCaseName(names[0].trim()),
+          }
+        }
         return {
-          firstName: properCaseName(names[1].trim()),
-          lastName: properCaseName(names[0].trim()),
+          firstName: properCaseName(pom.name),
         }
       }
 
