@@ -10,6 +10,15 @@ const { logger } = require('../services/logger')
 
 const toActivityViewModel = require('../data-mappers/to-activity-viewmodel')
 
+const logErrorAndContinue = fn =>
+  fn &&
+  new Promise(resolve => {
+    fn.then(response => resolve(response)).catch(error => {
+      logger.error(error)
+      resolve(null)
+    })
+  })
+
 const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => {
   const getKeyDatesVieModel = async (context, offenderNo) => {
     const { bookingId } = await eliteApi.getDetailsLight(context, offenderNo)
@@ -83,6 +92,8 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
 
     const { bookingId } = await eliteApi.getDetailsLight(context, offenderNo)
 
+    logger.info(`Fetching quick look page data for booking ${bookingId}`)
+
     const apiCalls = [
       eliteApi.getBalances(context, bookingId),
       eliteApi.getMainOffence(context, bookingId),
@@ -96,6 +107,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
       eliteApi.getNextVisit(context, bookingId),
       eliteApi.getRelationships(context, bookingId),
       eliteApi.caseNoteUsageList(context, [bookingId]),
+      allocationManagerApi.getPomByOffenderNo(context, offenderNo),
     ]
 
     const [
@@ -111,15 +123,8 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
       nextVisit,
       relationships,
       kwCaseNoteDates,
-    ] = await Promise.all(apiCalls)
-
-    let prisonOffenderManagerData
-    try {
-      prisonOffenderManagerData = await allocationManagerApi.getPomByOffenderNo(context, offenderNo)
-    } catch (e) {
-      // Log error, but don't break quicklook
-      logger.error(e)
-    }
+      prisonOffenderManagerData,
+    ] = await Promise.all(apiCalls.map(apiCall => logErrorAndContinue(apiCall)))
 
     const activities = toActivityViewModel(activityData)
     const hasAnyActivity =

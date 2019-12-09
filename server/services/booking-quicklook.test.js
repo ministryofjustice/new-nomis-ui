@@ -14,24 +14,28 @@ describe('Booking Service Quick look', () => {
   const OFFENDER_NO = 'AA0000AE'
 
   beforeEach(() => {
-    eliteApi.getBalances = jest.fn().mockReturnValue(null)
-    eliteApi.getMainOffence = jest.fn().mockReturnValue(null)
-    eliteApi.getEventsForToday = jest.fn().mockReturnValue([])
-    eliteApi.getPositiveCaseNotes = jest.fn().mockReturnValue(null)
-    eliteApi.getNegativeCaseNotes = jest.fn().mockReturnValue(null)
-    eliteApi.getSentenceDetail = jest.fn().mockReturnValue(null)
-    eliteApi.getContacts = jest.fn().mockReturnValue(null)
-    eliteApi.getLastVisit = jest.fn().mockReturnValue(null)
-    eliteApi.getRelationships = jest.fn().mockReturnValue(null)
-    eliteApi.getNextVisit = jest.fn().mockReturnValue(null)
-    eliteApi.getAdjudications = jest.fn().mockReturnValue({
-      awards: [],
-    })
-    eliteApi.getDetailsLight = jest.fn().mockReturnValue({
-      bookingId: 1,
-    })
-    eliteApi.caseNoteUsageList = jest.fn().mockReturnValue([])
-    allocationManagerApi.getPomByOffenderNo = jest.fn().mockReturnValue({})
+    eliteApi.getBalances = jest.fn().mockReturnValue(Promise.resolve(null))
+    eliteApi.getMainOffence = jest.fn().mockReturnValue(Promise.resolve(null))
+    eliteApi.getEventsForToday = jest.fn().mockReturnValue(Promise.resolve([]))
+    eliteApi.getPositiveCaseNotes = jest.fn().mockReturnValue(Promise.resolve(null))
+    eliteApi.getNegativeCaseNotes = jest.fn().mockReturnValue(Promise.resolve(null))
+    eliteApi.getSentenceDetail = jest.fn().mockReturnValue(Promise.resolve(null))
+    eliteApi.getContacts = jest.fn().mockReturnValue(Promise.resolve(null))
+    eliteApi.getLastVisit = jest.fn().mockReturnValue(Promise.resolve(null))
+    eliteApi.getRelationships = jest.fn().mockReturnValue(Promise.resolve(null))
+    eliteApi.getNextVisit = jest.fn().mockReturnValue(Promise.resolve(null))
+    eliteApi.getAdjudications = jest.fn().mockReturnValue(
+      Promise.resolve({
+        awards: [],
+      })
+    )
+    eliteApi.getDetailsLight = jest.fn().mockReturnValue(
+      Promise.resolve({
+        bookingId: 1,
+      })
+    )
+    eliteApi.caseNoteUsageList = jest.fn().mockReturnValue(Promise.resolve([]))
+    allocationManagerApi.getPomByOffenderNo = jest.fn().mockReturnValue(Promise.resolve({}))
   })
 
   it('should call getBalance', async () => {
@@ -42,7 +46,7 @@ describe('Booking Service Quick look', () => {
       currency: 'GBP',
     }
 
-    eliteApi.getBalances.mockReturnValue(balance)
+    eliteApi.getBalances.mockReturnValue(Promise.resolve(balance))
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
@@ -55,12 +59,14 @@ describe('Booking Service Quick look', () => {
   })
 
   it('should call getMainOffence', async () => {
-    eliteApi.getMainOffence.mockReturnValue([
-      {
-        bookingId: 1,
-        offenceDescription: 'basic',
-      },
-    ])
+    eliteApi.getMainOffence.mockReturnValue(
+      Promise.resolve([
+        {
+          bookingId: 1,
+          offenceDescription: 'basic',
+        },
+      ])
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
@@ -70,29 +76,31 @@ describe('Booking Service Quick look', () => {
   })
 
   it('should call getEventsForToday', async () => {
-    eliteApi.getEventsForToday.mockReturnValue([
-      {
-        eventSubType: 'PA',
-        eventSourceDesc: 'workshop 1',
-        startTime: '2017-01-01T10:41:10.572',
-        endTime: '2017-01-01T10:41:10.572',
-        eventStatus: 'SCH',
-      },
-      {
-        eventSubType: 'PA',
-        eventSourceDesc: 'workshop 2',
-        startTime: '2017-01-01T12:41:10.572',
-        endTime: '2017-01-01T15:41:10.572',
-        eventStatus: 'SCH',
-      },
-      {
-        eventSubType: 'PA',
-        eventSourceDesc: 'workshop 3',
-        startTime: '2017-01-01T17:41:10.572',
-        endTime: '2017-01-01T17:41:10.572',
-        eventStatus: 'SCH',
-      },
-    ])
+    eliteApi.getEventsForToday.mockReturnValue(
+      Promise.resolve([
+        {
+          eventSubType: 'PA',
+          eventSourceDesc: 'workshop 1',
+          startTime: '2017-01-01T10:41:10.572',
+          endTime: '2017-01-01T10:41:10.572',
+          eventStatus: 'SCH',
+        },
+        {
+          eventSubType: 'PA',
+          eventSourceDesc: 'workshop 2',
+          startTime: '2017-01-01T12:41:10.572',
+          endTime: '2017-01-01T15:41:10.572',
+          eventStatus: 'SCH',
+        },
+        {
+          eventSubType: 'PA',
+          eventSourceDesc: 'workshop 3',
+          startTime: '2017-01-01T17:41:10.572',
+          endTime: '2017-01-01T17:41:10.572',
+          eventStatus: 'SCH',
+        },
+      ])
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
@@ -115,9 +123,11 @@ describe('Booking Service Quick look', () => {
   })
 
   it('should call getPositiveCaseNotes', async () => {
-    eliteApi.getPositiveCaseNotes.mockReturnValue({
-      count: 1,
-    })
+    eliteApi.getPositiveCaseNotes.mockReturnValue(
+      Promise.resolve({
+        count: 1,
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
@@ -127,9 +137,11 @@ describe('Booking Service Quick look', () => {
   })
 
   it('should call getNegativeCaseNotes', async () => {
-    eliteApi.getNegativeCaseNotes.mockReturnValue({
-      count: 1,
-    })
+    eliteApi.getNegativeCaseNotes.mockReturnValue(
+      Promise.resolve({
+        count: 1,
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
@@ -172,10 +184,12 @@ describe('Booking Service Quick look', () => {
   })
 
   it('should call getAdjudications and populate the response with proven adjudication count', async () => {
-    eliteApi.getAdjudications.mockReturnValue({
-      adjudicationCount: 2,
-      awards: [{}, {}],
-    })
+    eliteApi.getAdjudications.mockReturnValue(
+      Promise.resolve({
+        adjudicationCount: 2,
+        awards: [{}, {}],
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
@@ -183,42 +197,44 @@ describe('Booking Service Quick look', () => {
   })
 
   it('should call getAdjudications and populate the response with filtered awards formatted with duration and description', async () => {
-    eliteApi.getAdjudications.mockReturnValue({
-      awards: [
-        {
-          status: 'IMMEDIATE',
-          months: 10,
-          sanctionCodeDescription: 'comment 1',
-          comment: 'c1',
-        },
-        {
-          status: 'AS_AWARDED',
-          days: 20,
-          sanctionCodeDescription: 'comment 2',
-          comment: 'c2',
-        },
-        {
-          status: 'IMMEDIATE',
-          months: 1,
-          sanctionCodeDescription: 'comment 3',
-          comment: 'c3',
-        },
-        {
-          status: 'IMMEDIATE',
-          days: 1,
-          sanctionCodeDescription: 'comment 4',
-          comment: 'c4',
-        },
-        {
-          status: 'SUSP_STATUS',
-          comment: 'NOT SHOWN',
-        },
-        {
-          status: 'QUASHED',
-          comment: 'NOT SHOWN',
-        },
-      ],
-    })
+    eliteApi.getAdjudications.mockReturnValue(
+      Promise.resolve({
+        awards: [
+          {
+            status: 'IMMEDIATE',
+            months: 10,
+            sanctionCodeDescription: 'comment 1',
+            comment: 'c1',
+          },
+          {
+            status: 'AS_AWARDED',
+            days: 20,
+            sanctionCodeDescription: 'comment 2',
+            comment: 'c2',
+          },
+          {
+            status: 'IMMEDIATE',
+            months: 1,
+            sanctionCodeDescription: 'comment 3',
+            comment: 'c3',
+          },
+          {
+            status: 'IMMEDIATE',
+            days: 1,
+            sanctionCodeDescription: 'comment 4',
+            comment: 'c4',
+          },
+          {
+            status: 'SUSP_STATUS',
+            comment: 'NOT SHOWN',
+          },
+          {
+            status: 'QUASHED',
+            comment: 'NOT SHOWN',
+          },
+        ],
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
@@ -244,42 +260,44 @@ describe('Booking Service Quick look', () => {
   })
 
   it('should append the award description with a properly formatted level, like 50% stoppage of earnings', async () => {
-    eliteApi.getAdjudications.mockReturnValue({
-      awards: [
-        {
-          status: 'IMMEDIATE',
-          days: 1,
-          sanctionCodeDescription: 'Stoppage of Earnings (%)',
-          comment: 'c1',
-          sanctionCode: 'STOP_PCT',
-          limit: 50,
-        },
-        {
-          status: 'IMMEDIATE',
-          days: 1,
-          sanctionCodeDescription: 'Stoppage of Earnings (amount)',
-          comment: 'c2',
-          sanctionCode: 'STOP_EARN',
-          limit: 50,
-        },
-        {
-          status: 'IMMEDIATE',
-          days: 1,
-          sanctionCodeDescription: 'Stoppage of Earnings',
-          comment: 'c3',
-          sanctionCode: 'STOP_PCT',
-          limit: 50,
-        },
-        {
-          status: 'IMMEDIATE',
-          days: 1,
-          sanctionCodeDescription: 'Stoppage of Earnings',
-          comment: 'c4',
-          sanctionCode: 'STOP_EARN',
-          limit: 50,
-        },
-      ],
-    })
+    eliteApi.getAdjudications.mockReturnValue(
+      Promise.resolve({
+        awards: [
+          {
+            status: 'IMMEDIATE',
+            days: 1,
+            sanctionCodeDescription: 'Stoppage of Earnings (%)',
+            comment: 'c1',
+            sanctionCode: 'STOP_PCT',
+            limit: 50,
+          },
+          {
+            status: 'IMMEDIATE',
+            days: 1,
+            sanctionCodeDescription: 'Stoppage of Earnings (amount)',
+            comment: 'c2',
+            sanctionCode: 'STOP_EARN',
+            limit: 50,
+          },
+          {
+            status: 'IMMEDIATE',
+            days: 1,
+            sanctionCodeDescription: 'Stoppage of Earnings',
+            comment: 'c3',
+            sanctionCode: 'STOP_PCT',
+            limit: 50,
+          },
+          {
+            status: 'IMMEDIATE',
+            days: 1,
+            sanctionCodeDescription: 'Stoppage of Earnings',
+            comment: 'c4',
+            sanctionCode: 'STOP_EARN',
+            limit: 50,
+          },
+        ],
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
     const { awards } = data.adjudications
@@ -291,20 +309,22 @@ describe('Booking Service Quick look', () => {
   })
 
   it('should display months and days', async () => {
-    eliteApi.getAdjudications.mockReturnValue({
-      awards: [
-        {
-          status: 'IMMEDIATE',
-          months: 10,
-          days: 2,
-        },
-        {
-          status: 'IMMEDIATE',
-          months: 1,
-          days: 1,
-        },
-      ],
-    })
+    eliteApi.getAdjudications.mockReturnValue(
+      Promise.resolve({
+        awards: [
+          {
+            status: 'IMMEDIATE',
+            months: 10,
+            days: 2,
+          },
+          {
+            status: 'IMMEDIATE',
+            months: 1,
+            days: 1,
+          },
+        ],
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
     const { awards } = data.adjudications
@@ -314,20 +334,22 @@ describe('Booking Service Quick look', () => {
   })
 
   it('should call getContacts', async () => {
-    eliteApi.getContacts.mockReturnValue({
-      nextOfKin: [
-        {
-          lastName: 'BALOG',
-          firstName: 'EVA',
-          middleName: 'GOLAB',
-          contactType: 'S',
-          contactTypeDescription: 'Social/Family',
-          relationship: 'SIS',
-          relationshipDescription: 'Sister',
-          emergencyContact: true,
-        },
-      ],
-    })
+    eliteApi.getContacts.mockReturnValue(
+      Promise.resolve({
+        nextOfKin: [
+          {
+            lastName: 'BALOG',
+            firstName: 'EVA',
+            middleName: 'GOLAB',
+            contactType: 'S',
+            contactTypeDescription: 'Social/Family',
+            relationship: 'SIS',
+            relationshipDescription: 'Sister',
+            emergencyContact: true,
+          },
+        ],
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
@@ -349,9 +371,11 @@ describe('Booking Service Quick look', () => {
   })
 
   it('should return true for indeterminateReleaseDate when there is a tariff date but no release date', async () => {
-    eliteApi.getSentenceDetail.mockReturnValue({
-      tariffDate: '2017-01-01',
-    })
+    eliteApi.getSentenceDetail.mockReturnValue(
+      Promise.resolve({
+        tariffDate: '2017-01-01',
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
@@ -361,10 +385,12 @@ describe('Booking Service Quick look', () => {
   })
 
   it('should return false for indeterminateReleaseDate when there is a release date and there is a tariff date', async () => {
-    eliteApi.getSentenceDetail.mockReturnValue({
-      releaseDate: '2016-12-12',
-      tariffDate: '2017-01-01',
-    })
+    eliteApi.getSentenceDetail.mockReturnValue(
+      Promise.resolve({
+        releaseDate: '2016-12-12',
+        tariffDate: '2017-01-01',
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
@@ -375,9 +401,11 @@ describe('Booking Service Quick look', () => {
   })
 
   it('should return false for indeterminateReleaseDate when there is a release date but there is no tariff date', async () => {
-    eliteApi.getSentenceDetail.mockReturnValue({
-      releaseDate: '2016-12-12',
-    })
+    eliteApi.getSentenceDetail.mockReturnValue(
+      Promise.resolve({
+        releaseDate: '2016-12-12',
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
@@ -387,9 +415,11 @@ describe('Booking Service Quick look', () => {
   })
 
   it('should return false for indeterminateReleaseDate when there is neither a release date or a tariff date', async () => {
-    eliteApi.getSentenceDetail.mockReturnValue({
-      additionalDaysAwarded: 4,
-    })
+    eliteApi.getSentenceDetail.mockReturnValue(
+      Promise.resolve({
+        additionalDaysAwarded: 4,
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
@@ -398,65 +428,73 @@ describe('Booking Service Quick look', () => {
   })
 
   it('should only show attended, cancelled and ongoing', async () => {
-    eliteApi.getLastVisit.mockReturnValue({
-      eventStatusDescription: 'Expired',
-      eventStatus: 'EXP',
-      visitTypeDescription: 'Social Contact',
-      leadVisitor: 'JOHN SMITH',
-      relationshipDescription: 'Brother',
-      startTime: '2017-12-22T10:00:00',
-      endTime: '2017-12-22T12:00:00',
-      cancelReasonDescription: 'All visits canceled',
-    })
+    eliteApi.getLastVisit.mockReturnValue(
+      Promise.resolve({
+        eventStatusDescription: 'Expired',
+        eventStatus: 'EXP',
+        visitTypeDescription: 'Social Contact',
+        leadVisitor: 'JOHN SMITH',
+        relationshipDescription: 'Brother',
+        startTime: '2017-12-22T10:00:00',
+        endTime: '2017-12-22T12:00:00',
+        cancelReasonDescription: 'All visits canceled',
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
     expect(data.lastVisit).toEqual(null)
   })
 
   it('should only show an attended visit', async () => {
-    eliteApi.getLastVisit.mockReturnValue({
-      eventStatus: 'SCH',
-      eventOutcome: 'ATT',
-      eventOutcomeDescription: 'Attended',
-      visitTypeDescription: 'Social Contact',
-      leadVisitor: 'JOHN SMITH',
-      relationshipDescription: 'Brother',
-      startTime: '2017-12-22T10:00:00',
-      endTime: '2017-12-22T12:00:00',
-    })
+    eliteApi.getLastVisit.mockReturnValue(
+      Promise.resolve({
+        eventStatus: 'SCH',
+        eventOutcome: 'ATT',
+        eventOutcomeDescription: 'Attended',
+        visitTypeDescription: 'Social Contact',
+        leadVisitor: 'JOHN SMITH',
+        relationshipDescription: 'Brother',
+        startTime: '2017-12-22T10:00:00',
+        endTime: '2017-12-22T12:00:00',
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
     expect(data.lastVisit.status).toEqual('Attended')
   })
 
   it('should only show cancelled visit (status CANC)', async () => {
-    eliteApi.getLastVisit.mockReturnValue({
-      eventStatus: 'CANC',
-      eventStatusDescription: 'Cancelled',
-      visitTypeDescription: 'Social Contact',
-      leadVisitor: 'JOHN SMITH',
-      relationshipDescription: 'Brother',
-      startTime: '2017-12-22T10:00:00',
-      endTime: '2017-12-22T12:00:00',
-    })
+    eliteApi.getLastVisit.mockReturnValue(
+      Promise.resolve({
+        eventStatus: 'CANC',
+        eventStatusDescription: 'Cancelled',
+        visitTypeDescription: 'Social Contact',
+        leadVisitor: 'JOHN SMITH',
+        relationshipDescription: 'Brother',
+        startTime: '2017-12-22T10:00:00',
+        endTime: '2017-12-22T12:00:00',
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
     expect(data.lastVisit.status).toEqual('Cancelled')
   })
 
   it('should ensure that event status "CANC" (Cancel) overrides the outcome status', async () => {
-    eliteApi.getLastVisit.mockReturnValue({
-      eventStatus: 'CANC',
-      eventStatusDescription: 'Cancelled',
-      cancelReasonDescription: 'some reason',
-      eventOutcome: 'ATT',
-      eventOutcomeDescription: 'Attended',
-      visitTypeDescription: 'Social Contact',
-      leadVisitor: 'JOHN SMITH',
-      relationshipDescription: 'Brother',
-      startTime: '2017-12-22T10:00:00',
-      endTime: '2017-12-22T12:00:00',
-    })
+    eliteApi.getLastVisit.mockReturnValue(
+      Promise.resolve({
+        eventStatus: 'CANC',
+        eventStatusDescription: 'Cancelled',
+        cancelReasonDescription: 'some reason',
+        eventOutcome: 'ATT',
+        eventOutcomeDescription: 'Attended',
+        visitTypeDescription: 'Social Contact',
+        leadVisitor: 'JOHN SMITH',
+        relationshipDescription: 'Brother',
+        startTime: '2017-12-22T10:00:00',
+        endTime: '2017-12-22T12:00:00',
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
     expect(data.lastVisit.status).toEqual('Cancelled')
@@ -468,20 +506,22 @@ describe('Booking Service Quick look', () => {
     const fiveMinutesAgo = momentTimeZone.tz(zone).subtract(5, 'minutes')
     const fiveMinutesTime = momentTimeZone.tz(zone).add(5, 'minutes')
 
-    eliteApi.getLastVisit.mockReturnValue({
-      eventStatus: 'SCH',
-      eventStatusDescription: 'Scheduled (Approved)',
-      visitType: 'OFFI',
-      visitTypeDescription: 'Official Visit',
-      leadVisitor: 'first last',
-      relationship: 'COM',
-      relationshipDescription: 'Community Offender Manager',
-      location: 'VISITS',
-      eventOutcome: 'ATT',
-      eventOutcomeDescription: 'Attended',
-      startTime: fiveMinutesAgo.format(isoDateTimeFormat).toString(),
-      endTime: fiveMinutesTime.format(isoDateTimeFormat).toString(),
-    })
+    eliteApi.getLastVisit.mockReturnValue(
+      Promise.resolve({
+        eventStatus: 'SCH',
+        eventStatusDescription: 'Scheduled (Approved)',
+        visitType: 'OFFI',
+        visitTypeDescription: 'Official Visit',
+        leadVisitor: 'first last',
+        relationship: 'COM',
+        relationshipDescription: 'Community Offender Manager',
+        location: 'VISITS',
+        eventOutcome: 'ATT',
+        eventOutcomeDescription: 'Attended',
+        startTime: fiveMinutesAgo.format(isoDateTimeFormat).toString(),
+        endTime: fiveMinutesTime.format(isoDateTimeFormat).toString(),
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
@@ -489,102 +529,110 @@ describe('Booking Service Quick look', () => {
   })
 
   it('should show an attended visit even though its currently expired', async () => {
-    eliteApi.getLastVisit.mockReturnValue({
-      eventStatus: 'EXP',
-      eventStatusDescription: 'Expired',
-      visitType: 'SCON',
-      visitTypeDescription: 'Social Contact',
-      leadVisitor: 'JOHN SMITH',
-      relationship: 'FA',
-      relationshipDescription: 'Father',
-      startTime: '2017-12-23T09:00:00',
-      endTime: '2017-12-23T12:00:00',
-      location: 'SOCIAL VISITS',
-      eventOutcome: 'ATT',
-      eventOutcomeDescription: 'Attended',
-    })
+    eliteApi.getLastVisit.mockReturnValue(
+      Promise.resolve({
+        eventStatus: 'EXP',
+        eventStatusDescription: 'Expired',
+        visitType: 'SCON',
+        visitTypeDescription: 'Social Contact',
+        leadVisitor: 'JOHN SMITH',
+        relationship: 'FA',
+        relationshipDescription: 'Father',
+        startTime: '2017-12-23T09:00:00',
+        endTime: '2017-12-23T12:00:00',
+        location: 'SOCIAL VISITS',
+        eventOutcome: 'ATT',
+        eventOutcomeDescription: 'Attended',
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
     expect(data.lastVisit.status).toEqual('Attended')
   })
 
   it('should show lead visitor name in title case with relationship description after in parentheses', async () => {
-    eliteApi.getLastVisit.mockReturnValue({
-      eventStatus: 'EXP',
-      eventStatusDescription: 'Expired',
-      visitType: 'SCON',
-      visitTypeDescription: 'Social Contact',
-      leadVisitor: 'JOHN SMITH',
-      relationship: 'FA',
-      relationshipDescription: 'Father',
-      startTime: '2017-12-23T09:00:00',
-      endTime: '2017-12-23T12:00:00',
-      location: 'SOCIAL VISITS',
-      eventOutcome: 'ATT',
-      eventOutcomeDescription: 'Attended',
-    })
+    eliteApi.getLastVisit.mockReturnValue(
+      Promise.resolve({
+        eventStatus: 'EXP',
+        eventStatusDescription: 'Expired',
+        visitType: 'SCON',
+        visitTypeDescription: 'Social Contact',
+        leadVisitor: 'JOHN SMITH',
+        relationship: 'FA',
+        relationshipDescription: 'Father',
+        startTime: '2017-12-23T09:00:00',
+        endTime: '2017-12-23T12:00:00',
+        location: 'SOCIAL VISITS',
+        eventOutcome: 'ATT',
+        eventOutcomeDescription: 'Attended',
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
     expect(data.lastVisit.leadVisitor).toEqual('John Smith (Father)')
   })
 
   it('should not show any text after lead visitor name if no relationship description in API response', async () => {
-    eliteApi.getLastVisit.mockReturnValue({
-      eventStatus: 'EXP',
-      eventStatusDescription: 'Expired',
-      visitType: 'SCON',
-      visitTypeDescription: 'Social Contact',
-      leadVisitor: 'JOHN SMITH',
-      startTime: '2017-12-23T09:00:00',
-      endTime: '2017-12-23T12:00:00',
-      location: 'SOCIAL VISITS',
-      eventOutcome: 'ATT',
-      eventOutcomeDescription: 'Attended',
-    })
+    eliteApi.getLastVisit.mockReturnValue(
+      Promise.resolve({
+        eventStatus: 'EXP',
+        eventStatusDescription: 'Expired',
+        visitType: 'SCON',
+        visitTypeDescription: 'Social Contact',
+        leadVisitor: 'JOHN SMITH',
+        startTime: '2017-12-23T09:00:00',
+        endTime: '2017-12-23T12:00:00',
+        location: 'SOCIAL VISITS',
+        eventOutcome: 'ATT',
+        eventOutcomeDescription: 'Attended',
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
     expect(data.lastVisit.leadVisitor).toEqual('John Smith')
   })
 
   it('should call getRelationships', async () => {
-    eliteApi.getRelationships.mockReturnValue([
-      {
-        lastName: 'Bull',
-        firstName: 'Dom3',
-        contactType: 'O',
-        contactTypeDescription: 'Official',
-        relationship: 'COM',
-        relationshipDescription: 'Community Offender Manager',
-        emergencyContact: false,
-        nextOfKin: false,
-        relationshipId: 18718,
-        personId: 13518,
-      },
-      {
-        lastName: 'Dom2',
-        firstName: 'Bull',
-        contactType: 'O',
-        contactTypeDescription: 'Official',
-        relationship: 'POM',
-        relationshipDescription: 'Prison Offender Manager',
-        emergencyContact: false,
-        nextOfKin: false,
-        relationshipId: 18773,
-        personId: 13499,
-      },
-      {
-        lastName: 'BALOG',
-        firstName: 'IVOR',
-        contactType: 'S',
-        contactTypeDescription: 'Social/ Family',
-        relationship: 'BRO',
-        relationshipDescription: 'Brother',
-        emergencyContact: false,
-        nextOfKin: false,
-        relationshipId: 18593,
-        personId: 13318,
-      },
-    ])
+    eliteApi.getRelationships.mockReturnValue(
+      Promise.resolve([
+        {
+          lastName: 'Bull',
+          firstName: 'Dom3',
+          contactType: 'O',
+          contactTypeDescription: 'Official',
+          relationship: 'COM',
+          relationshipDescription: 'Community Offender Manager',
+          emergencyContact: false,
+          nextOfKin: false,
+          relationshipId: 18718,
+          personId: 13518,
+        },
+        {
+          lastName: 'Dom2',
+          firstName: 'Bull',
+          contactType: 'O',
+          contactTypeDescription: 'Official',
+          relationship: 'POM',
+          relationshipDescription: 'Prison Offender Manager',
+          emergencyContact: false,
+          nextOfKin: false,
+          relationshipId: 18773,
+          personId: 13499,
+        },
+        {
+          lastName: 'BALOG',
+          firstName: 'IVOR',
+          contactType: 'S',
+          contactTypeDescription: 'Social/ Family',
+          relationship: 'BRO',
+          relationshipDescription: 'Brother',
+          emergencyContact: false,
+          nextOfKin: false,
+          relationshipId: 18593,
+          personId: 13318,
+        },
+      ])
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
@@ -593,15 +641,17 @@ describe('Booking Service Quick look', () => {
   })
 
   it('should call case note usage', async () => {
-    eliteApi.caseNoteUsageList.mockReturnValue([
-      {
-        staffId: 234423,
-        caseNoteType: 'KA',
-        caseNoteSubType: 'KS',
-        numCaseNotes: 4,
-        latestCaseNote: '2018-07-02T15:03:47.337Z',
-      },
-    ])
+    eliteApi.caseNoteUsageList.mockReturnValue(
+      Promise.resolve([
+        {
+          staffId: 234423,
+          caseNoteType: 'KA',
+          caseNoteSubType: 'KS',
+          numCaseNotes: 4,
+          latestCaseNote: '2018-07-02T15:03:47.337Z',
+        },
+      ])
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
@@ -609,16 +659,18 @@ describe('Booking Service Quick look', () => {
   })
 
   it('should retun prison allocation managers', async () => {
-    allocationManagerApi.getPomByOffenderNo.mockReturnValue({
-      primary_pom: {
-        staff_id: 1,
-        name: 'POM, PRIMARY',
-      },
-      secondary_pom: {
-        staff_id: 2,
-        name: 'POM, SECONDARY',
-      },
-    })
+    allocationManagerApi.getPomByOffenderNo.mockReturnValue(
+      Promise.resolve({
+        primary_pom: {
+          staff_id: 1,
+          name: 'POM, PRIMARY',
+        },
+        secondary_pom: {
+          staff_id: 2,
+          name: 'POM, SECONDARY',
+        },
+      })
+    )
 
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
@@ -627,5 +679,19 @@ describe('Booking Service Quick look', () => {
 
     expect(data.assignedStaffMembers.coworkingPrisonOffenderManager.firstName).toEqual('Secondary')
     expect(data.assignedStaffMembers.coworkingPrisonOffenderManager.lastName).toEqual('Pom')
+  })
+
+  it('should continue on error', async () => {
+    eliteApi.getContacts.mockReturnValue(Promise.reject(new Error('There was a massive error')))
+    eliteApi.getBalances.mockReturnValue(
+      Promise.resolve({
+        spends: 10,
+      })
+    )
+
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
+
+    expect(eliteApi.getBalances).toBeCalled()
+    expect(data.balance.spends).toEqual(10)
   })
 })
