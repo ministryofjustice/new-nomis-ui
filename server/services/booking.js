@@ -11,7 +11,6 @@ const { logger } = require('../services/logger')
 const toActivityViewModel = require('../data-mappers/to-activity-viewmodel')
 
 const logErrorAndContinue = fn =>
-  fn &&
   new Promise(resolve => {
     fn.then(response => resolve(response)).catch(error => {
       logger.error(error)
