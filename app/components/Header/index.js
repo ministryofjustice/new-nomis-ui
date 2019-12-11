@@ -1,13 +1,12 @@
-/* eslint-disable import/no-unresolved */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Header } from 'new-nomis-shared-components'
-import { DesktopOnly, MobileOnly } from 'components/CommonTheme'
-import MenuToggle from 'components/MenuToggle'
-import MobileMenu from 'containers/MobileMenu'
-import ProductGlobals from 'product-globals'
 import { Link } from 'react-router-dom'
-import history from '../../../../../history'
+import ProductGlobals from '../../product-globals'
+import { DesktopOnly, MobileOnly } from '../CommonTheme'
+import MenuToggle from '../MenuToggle'
+import MobileMenu from '../MobileMenu'
+import history from '../../history'
 import {
   PageHeader,
   LeftContent,

@@ -110,7 +110,6 @@ const webPackConfig = options => ({
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-        CLIENT: JSON.stringify(process.env.CLIENT || 'hmpps'),
       },
     }),
     new webpack.NamedModulesPlugin(),

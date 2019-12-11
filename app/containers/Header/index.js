@@ -2,8 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-// eslint-disable-next-line import/no-unresolved
-import HeaderComponent from 'header'
+import HeaderComponent from '../../components/Header'
 import { setMenuOpen, navigateTo } from '../../globalReducers/app'
 import { userType } from '../../types'
 
