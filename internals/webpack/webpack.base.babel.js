@@ -9,8 +9,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const cssnano = require('cssnano')
 
-const customerCodeResolver = require('../customerCodeResolver')
-
 const webPackConfig = options => ({
   entry: options.entry,
   output: Object.assign(
@@ -48,8 +46,16 @@ const webPackConfig = options => ({
               },
             },
             {
-              loader: options.themeLoader.loader,
-              options: options.themeLoader.options,
+              loader: 'sass-resources-loader',
+              options: {
+                resources: [
+                  'app/scss/index.scss',
+                  'app/scss/govuk-elements-sass/public/sass/_govuk-elements.scss',
+                  'app/scss/govuk_frontend/all.scss',
+                  'app/scss/bootstrap/bootstrap-mixins.scss',
+                  'app/scss/bootstrap/bootstrap-grid.scss',
+                ],
+              },
             },
           ],
           fallback: 'style-loader',
@@ -131,4 +137,4 @@ const webPackConfig = options => ({
   performance: options.performance || {},
 })
 
-module.exports = options => customerCodeResolver({ webPackConfig, options })
+module.exports = options => webPackConfig(options)
