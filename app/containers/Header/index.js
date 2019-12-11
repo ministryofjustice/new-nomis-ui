@@ -3,15 +3,13 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import HeaderComponent from '../../components/Header'
-import { setMenuOpen, navigateTo } from '../../globalReducers/app'
 import { userType } from '../../types'
 
-const HeaderContainer = ({ user, menuOpen, setMenuOpen: openMenu, navigateTo: toRoute, prisonStaffHubUrl }) => (
+const HeaderContainer = ({ user, menuOpen, setMenuOpen, prisonStaffHubUrl }) => (
   <HeaderComponent
     user={user}
     menuOpen={menuOpen}
-    setMenuOpen={openMenu}
-    navigateTo={toRoute}
+    setMenuOpen={setMenuOpen}
     extraLinks={
       user.caseLoadOptions && user.caseLoadOptions.length > 1
         ? [{ text: 'Change caseload', url: `${prisonStaffHubUrl}change-caseload/` }]
@@ -21,16 +19,13 @@ const HeaderContainer = ({ user, menuOpen, setMenuOpen: openMenu, navigateTo: to
 )
 
 HeaderContainer.propTypes = {
-  navigateTo: PropTypes.func.isRequired,
   menuOpen: PropTypes.bool,
-  setMenuOpen: PropTypes.func,
   user: userType,
   prisonStaffHubUrl: PropTypes.string.isRequired,
 }
 
 HeaderContainer.defaultProps = {
   menuOpen: false,
-  setMenuOpen: () => {},
   user: undefined,
 }
 
@@ -47,9 +42,4 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = {
-  setMenuOpen,
-  navigateTo,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer)
+export default connect(mapStateToProps)(HeaderContainer)

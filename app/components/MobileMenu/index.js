@@ -35,15 +35,6 @@ const MobileMenu = ({ user, setMenuOpen, extraLinks }) => {
         <ForwardArrow svg={forwardBack} />
       </MobileMenuOption>
 
-      {user && user.isKeyWorker && (
-        <Link to="/key-worker-allocations" onClick={removeMobileMenu} className="unstyled-link">
-          <MobileMenuOption>
-            My key worker allocations
-            <ForwardArrow svg={forwardBack} />
-          </MobileMenuOption>
-        </Link>
-      )}
-
       {extraLinks.map(link => (
         <a href={link.url} className="unstyled-link" data-id="dropdown-option">
           <MobileMenuOption>
@@ -70,7 +61,12 @@ MobileMenu.propTypes = {
     assignments: PropTypes.number,
     facilities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }),
-  extraLinks: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  extraLinks: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
+    })
+  ),
 }
 
 MobileMenu.defaultProps = {
@@ -79,6 +75,7 @@ MobileMenu.defaultProps = {
     assignments: 12,
     facilities: ['Sheffield', 'Cloverfield'],
   },
+  extraLinks: [],
 }
 
 export default MobileMenu

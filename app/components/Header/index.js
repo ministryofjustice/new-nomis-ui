@@ -19,11 +19,11 @@ import {
   UnstyledLink,
 } from './header.theme'
 
-const HmppsHeader = ({ user, menuOpen, setMenuOpen, navigateTo, extraLinks }) => {
+const HmppsHeader = ({ user, menuOpen, setMenuOpen, extraLinks }) => {
   if (user && user.isKeyWorker) {
     extraLinks.push({
       text: 'My key worker allocations',
-      onClick: () => navigateTo('/key-worker-allocations'),
+      url: '/key-worker-allocations',
     })
   }
 
@@ -67,7 +67,9 @@ const HmppsHeader = ({ user, menuOpen, setMenuOpen, navigateTo, extraLinks }) =>
               </MobileOnly>
             </RightContent>
           </div>
-          <MobileOnly>{menuOpen && <MobileMenu extraLinks={extraLinks} />}</MobileOnly>
+          <MobileOnly>
+            {menuOpen && <MobileMenu extraLinks={extraLinks} setMenuOpen={MobileMenu} user={user} />}
+          </MobileOnly>
         </PageHeader>
       </MobileOnly>
     </div>
@@ -78,12 +80,17 @@ HmppsHeader.propTypes = {
   user: PropTypes.shape({}),
   menuOpen: PropTypes.bool.isRequired,
   setMenuOpen: PropTypes.func.isRequired,
-  navigateTo: PropTypes.func.isRequired,
-  extraLinks: PropTypes.arrayOf(PropTypes.string).isRequired,
+  extraLinks: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
+    })
+  ),
 }
 
 HmppsHeader.defaultProps = {
   user: undefined,
+  extraLinks: [],
 }
 
 export default HmppsHeader

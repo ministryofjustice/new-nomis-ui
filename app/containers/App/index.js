@@ -63,12 +63,12 @@ export class App extends Component {
   }
 
   render() {
-    const { spinnerCount, menuOpen, routes, mailTo, prisonStaffHubUrl } = this.props
+    const { spinnerCount, menuOpen, routes, mailTo, prisonStaffHubUrl, boundSetMenuOpen } = this.props
 
     return (
       <div className="app-content">
         <Notifications />
-        <Header prisonStaffHubUrl={prisonStaffHubUrl} />
+        <Header prisonStaffHubUrl={prisonStaffHubUrl} setMenuOpen={boundSetMenuOpen} />
         {/* eslint-disable-next-line */}
         <main className={`container ${menuOpen ? 'desktop-only' : ''}`} onClick={() => this.onBackgroundClick()}>
           {spinnerCount > 0 && <Spinner />}
