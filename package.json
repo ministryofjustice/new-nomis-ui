@@ -15,6 +15,7 @@
     "start:production": "yarn test && yarn build && yarn start:prod",
     "start:prod": "cross-env NODE_ENV=production node server",
     "lint": "node node_modules/eslint/bin/eslint.js app server",
+    "lint:js:ci": "yarn lint:eslint -- . -f html . > eslint-report.html",
     "stylelint": "stylelint app/**/**/**/*.scss -s scss",
     "stylelint:ci": "stylelint app/**/**/**/*.scss -s scss > scss-report.txt",
     "test": "cross-env NODE_ENV=test jest --testResultsProcessor=jest-html-reporter",
