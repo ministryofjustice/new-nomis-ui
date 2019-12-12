@@ -7,7 +7,6 @@
 // Load the favicon, the manifest.json file and the .htaccess file
 /* eslint-disable */
 import '!file-loader?name=[name].[ext]!./favicon.ico'
-import '!file-loader?name=[name].[ext]!./manifest.json'
 import 'file-loader?name=[name].[ext]!./.htaccess'
 /* eslint-enable */
 

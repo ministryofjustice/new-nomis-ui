@@ -70,7 +70,7 @@ function dependencyHandlers() {
   // If the package.json does not have a dllPlugin property, use the CommonsChunkPlugin
   if (!dllPlugin) {
     return [
-      new webpack.optimize.CommonsChunkPlugin({
+      new webpack.optimize.SplitChunksPlugin({
         name: 'vendor',
         children: true,
         minChunks: 2,
