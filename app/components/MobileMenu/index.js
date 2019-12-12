@@ -20,15 +20,18 @@ const MobileMenu = ({ user, setMenuOpen, extraLinks }) => {
     setMenuOpen(false)
   }
 
+  const getPrisonDescription = () => {
+    const caseLoadOption = user.caseLoadOptions
+      ? user.caseLoadOptions.find(option => option.caseLoadId === user.activeCaseLoadId)
+      : undefined
+    return caseLoadOption ? caseLoadOption.description : user.activeCaseLoadId
+  }
+
   return (
     <MobileMenuContainer>
       <MobileMenuHeader>
         <UserName>{toFullName(user)}</UserName>
-        <CaseLoad>
-          {user.activeCaseLoad && user.activeCaseLoad.description
-            ? user.activeCaseLoad.description
-            : user.activeCaseLoadId}
-        </CaseLoad>
+        <CaseLoad>{getPrisonDescription()}</CaseLoad>
       </MobileMenuHeader>
       <MobileMenuOption to="/" onClick={removeMobileMenu}>
         Search

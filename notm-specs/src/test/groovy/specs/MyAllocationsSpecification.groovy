@@ -53,7 +53,7 @@ class MyAllocationsSpecification extends BrowserReportingSpec {
     waitFor { header.dropDownMenuContents.displayed }
 
     then: 'I click on the allocations link'
-    header.myAllocationsMenuLink[0].click()
+    header.myAllocationsMenuLink[1].click()
 
     then: 'I should be on the my allocations page'
     at MyAllocationsPage
