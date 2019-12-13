@@ -1,3 +1,4 @@
 bootstrap_grid.scss
 app/scss/govuk_frontend_toolkit/stylesheets/**/*.scss
 _organisation.scss
+_font_stack.scss

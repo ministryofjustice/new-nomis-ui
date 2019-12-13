@@ -104,14 +104,9 @@ ResultsView.propTypes = {
 
 class Assignments extends Component {
   componentDidMount() {
-    const { user, setContext, boundLoadAssignments, redirectToHome } = this.props
-
-    if (user && user.isKeyWorker) {
-      setContext('assignments')
-      boundLoadAssignments()
-    } else {
-      redirectToHome()
-    }
+    const { setContext, boundLoadAssignments } = this.props
+    setContext('assignments')
+    boundLoadAssignments()
   }
 
   render() {
@@ -144,13 +139,11 @@ Assignments.propTypes = {
   error: PropTypes.string,
   capacity: PropTypes.number.isRequired,
   results: ImmutablePropTypes.listOf(ImmutablePropTypes.map).isRequired,
-  user: userType.isRequired,
 
   // mapDispatchToProps
   viewDetails: PropTypes.func.isRequired,
   setContext: PropTypes.func.isRequired,
   boundLoadAssignments: PropTypes.func.isRequired,
-  redirectToHome: PropTypes.func.isRequired,
 }
 
 Assignments.defaultProps = {

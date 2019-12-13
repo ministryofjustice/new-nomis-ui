@@ -57,7 +57,7 @@ class KeyWorkerRoleBasedAccessSpecification extends BrowserReportingSpec {
     assert myKeyWorkerAllocationsLink.present == false
   }
 
-  def "should not see the my key worker allocations link in the menu when the current user is a key worker"() {
+  def "should not see the my key worker allocations link in the menu when the current user is not a key worker"() {
     given:
     fixture.loginAs ITAG_USER
 
@@ -67,17 +67,6 @@ class KeyWorkerRoleBasedAccessSpecification extends BrowserReportingSpec {
 
     then: 'I should not see the my key worker allocations link in the drop down menu'
     assert header.myAllocationsMenuLink.present == false
-  }
-
-  def "should not be able to navigate to the key worker allocations page when the current user is not a key worker"() {
-    given:
-    fixture.loginAs ITAG_USER
-
-    when: 'I navigate to /key-worker-allocations'
-    go '/key-worker-allocations'
-
-    then: 'I should have been redirected to the home page'
-    at HomePage
   }
 
 }

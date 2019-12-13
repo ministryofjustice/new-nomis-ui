@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { toFullName } from '../../utils/stringUtils'
 
@@ -20,29 +19,23 @@ const MobileMenu = ({ user, setMenuOpen, extraLinks }) => {
     setMenuOpen(false)
   }
 
+  const getPrisonDescription = () => {
+    const caseLoadOption = user.caseLoadOptions
+      ? user.caseLoadOptions.find(option => option.caseLoadId === user.activeCaseLoadId)
+      : undefined
+    return caseLoadOption ? caseLoadOption.description : user.activeCaseLoadId
+  }
+
   return (
     <MobileMenuContainer>
       <MobileMenuHeader>
         <UserName>{toFullName(user)}</UserName>
-        <CaseLoad>
-          {user.activeCaseLoad && user.activeCaseLoad.description
-            ? user.activeCaseLoad.description
-            : user.activeCaseLoadId}
-        </CaseLoad>
+        <CaseLoad>{getPrisonDescription()}</CaseLoad>
       </MobileMenuHeader>
       <MobileMenuOption to="/" onClick={removeMobileMenu}>
         Search
         <ForwardArrow svg={forwardBack} />
       </MobileMenuOption>
-
-      {user && user.isKeyWorker && (
-        <Link to="/key-worker-allocations" onClick={removeMobileMenu} className="unstyled-link">
-          <MobileMenuOption>
-            My key worker allocations
-            <ForwardArrow svg={forwardBack} />
-          </MobileMenuOption>
-        </Link>
-      )}
 
       {extraLinks.map(link => (
         <a href={link.url} className="unstyled-link" data-id="dropdown-option">
@@ -70,7 +63,12 @@ MobileMenu.propTypes = {
     assignments: PropTypes.number,
     facilities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }),
-  extraLinks: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  extraLinks: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
+    })
+  ),
 }
 
 MobileMenu.defaultProps = {
@@ -79,6 +77,7 @@ MobileMenu.defaultProps = {
     assignments: 12,
     facilities: ['Sheffield', 'Cloverfield'],
   },
+  extraLinks: [],
 }
 
 export default MobileMenu

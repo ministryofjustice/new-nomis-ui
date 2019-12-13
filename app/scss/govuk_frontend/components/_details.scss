@@ -56,7 +56,7 @@ which replaces govuk-elements */
 }
 
 // Append our own open / closed marker using a pseudo-element
-.govuk-details__summary:before {
+.govuk-details__summary::before {
   content: '';
   position: absolute;
 

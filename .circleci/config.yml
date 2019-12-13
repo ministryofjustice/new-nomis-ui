@@ -85,7 +85,7 @@ jobs:
           command: |
             set -e
             yarn test --maxWorkers=2
-      - run: export CLIENT=hmpps && NODE_ENV=production yarn build
+      - run: export NODE_ENV=production yarn build
       - run: |
           DATE=$(date '+%Y-%m-%d')
           export BUILD_NUMBER=${DATE}.${CIRCLE_BUILD_NUM}
