@@ -458,7 +458,7 @@ exports[`Header component should render correctly 1`] = `
                     <a
                       className="link"
                       data-qa="iep-details-link"
-                      href="http://prisonstaffhuboffenders/A1234RT/iep-details"
+                      href="http://prisonstaffhub/offenders/A1234RT/iep-details"
                     >
                       IEP details
                     </a>
@@ -529,7 +529,7 @@ exports[`Header component should render correctly 1`] = `
                     <a
                       className="link"
                       data-qa="iep-details-link"
-                      href="http://prisonstaffhuboffenders/A1234RT/iep-details"
+                      href="http://prisonstaffhub/offenders/A1234RT/iep-details"
                     >
                       IEP details
                     </a>
@@ -737,9 +737,8 @@ exports[`Header component should render correctly 1`] = `
                 <div>
                   <a
                     className="button-link"
-                    href="/offenders/A1234RT/add-appointment"
+                    href="http://prisonstaffhub/offenders/A1234RT/add-appointment"
                     name="add-appointment-link"
-                    onClick={[Function]}
                   >
                     Add appointment
                   </a>
@@ -781,7 +780,7 @@ exports[`Header component should render correctly 1`] = `
                 <a
                   className="link"
                   data-qa="iep-details-link"
-                  href="http://prisonstaffhuboffenders/A1234RT/iep-details"
+                  href="http://prisonstaffhub/offenders/A1234RT/iep-details"
                 >
                   IEP details
                 </a>
@@ -852,7 +851,7 @@ exports[`Header component should render correctly 1`] = `
                 <a
                   className="link"
                   data-qa="iep-details-link"
-                  href="http://prisonstaffhuboffenders/A1234RT/iep-details"
+                  href="http://prisonstaffhub/offenders/A1234RT/iep-details"
                 >
                   IEP details
                 </a>
@@ -1060,9 +1059,7 @@ exports[`Header component should render correctly 1`] = `
             <div>
               <a
                 className="button-link"
-                href="/offenders/A1234RT/add-appointment"
                 name="add-appointment-link"
-                onClick={[Function]}
               >
                 Add appointment
               </a>

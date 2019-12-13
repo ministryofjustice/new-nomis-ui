@@ -314,14 +314,6 @@ export const getExistingEvents = ({ agencyId, date, offenderNo }) =>
     withCredentials: true,
   }).then(response => response.data)
 
-export const addAppointment = ({ offenderNo, detail }) =>
-  axios({
-    method: 'post',
-    url: `/app/appointments/${offenderNo}`,
-    data: detail,
-    withCredentials: true,
-  })
-
 export const extendSessionRequest = () =>
   axios({
     method: 'GET',

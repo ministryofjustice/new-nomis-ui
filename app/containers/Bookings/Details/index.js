@@ -19,6 +19,7 @@ import './index.scss'
 import { DETAILS_TABS } from '../constants'
 import { Model as offenderDetailsModel } from '../../../helpers/dataMappers/offenderDetails'
 import { toFullName } from '../../../utils/stringUtils'
+import { getQueryParams } from '../../../helpers'
 import Page from '../../../components/Page'
 
 const tabData = [
@@ -190,10 +191,15 @@ Details.defaultProps = {
   userCanEdit: true,
 }
 
-const mapDispatchToProps = dispatch => ({
-  boundViewDetails: (offenderNo, activeTabId, itemId) => dispatch(viewDetails(offenderNo, activeTabId, itemId)),
-  hidePhoto: imageSrcUrl => dispatch(hideLargePhoto(imageSrcUrl)),
-})
+const mapDispatchToProps = (dispatch, props) => {
+  const { appointmentAdded } = getQueryParams(props.location.search)
+
+  return {
+    boundViewDetails: (offenderNo, activeTabId, itemId) =>
+      dispatch(viewDetails(offenderNo, activeTabId, itemId, appointmentAdded)),
+    hidePhoto: imageSrcUrl => dispatch(hideLargePhoto(imageSrcUrl)),
+  }
+}
 
 const mapStateToProps = (state, props) => ({
   deviceFormat: state.getIn(['app', 'deviceFormat']),

@@ -101,9 +101,6 @@ export const APPOINTMENT = {
   SET_VIEW_MODEL: 'app/bookings/details/setViewModel',
   LOAD_EXISTING_EVENTS: 'app/bookings/appointments/loadEvents',
   SET_EXISTING_EVENTS: 'app/bookings/appointments/setEvents',
-  ADD: 'app/bookings/details/addAppointment',
-  SUCCESS: 'app/bookings/details/addAppointment/SUCCESS',
-  ERROR: 'app/bookings/details/addAppointment/ERROR',
 }
 
 export const ALLCASENOTETYPESUBTYPEDATA = 'allCaseNoteTypeSubTypeData'

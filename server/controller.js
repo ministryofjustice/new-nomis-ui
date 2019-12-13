@@ -171,23 +171,6 @@ const controllerFactory = ({
     res.json(events)
   })
 
-  const addAppointment = asyncMiddleware(async (req, res) => {
-    const { offenderNo } = req.params
-    if (!offenderNo) {
-      logger.error('Missing parameter')
-      res.status(400)
-      res.end()
-      return
-    }
-
-    const { bookingId } = await elite2Api.getDetailsLight(res.locals, offenderNo)
-    req.body.appointments = [{ bookingId }]
-
-    await elite2Api.post(res.locals, `api/appointments`, req.body)
-    res.status(200)
-    res.end()
-  })
-
   const alerts = asyncMiddleware(async (req, res) => {
     const alertTypeValid = alertType => (alertType ? /^[A-Z]{1,4}$/.test(alertType) : true)
     const dateValid = date => (date ? /^\d{4}-\d{2}-\d{2}$/.test(date) : true)
@@ -294,7 +277,6 @@ const controllerFactory = ({
     eventsForThisWeek,
     loadAppointmentViewModel,
     getExistingEvents,
-    addAppointment,
     alerts,
     caseNoteTypes,
     myCaseNoteTypes,
