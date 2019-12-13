@@ -737,9 +737,8 @@ exports[`Header component should render correctly 1`] = `
                 <div>
                   <a
                     className="button-link"
-                    href="/offenders/A1234RT/add-appointment"
+                    href="http://prisonstaffhuboffenders/A1234RT/add-appointment"
                     name="add-appointment-link"
-                    onClick={[Function]}
                   >
                     Add appointment
                   </a>
@@ -1060,9 +1059,7 @@ exports[`Header component should render correctly 1`] = `
             <div>
               <a
                 className="button-link"
-                href="/offenders/A1234RT/add-appointment"
                 name="add-appointment-link"
-                onClick={[Function]}
               >
                 Add appointment
               </a>

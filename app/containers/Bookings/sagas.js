@@ -19,7 +19,6 @@ import {
   loadQuickLook,
   loadScheduledEventsForThisWeek,
   loadScheduledEventsForNextWeek,
-  addAppointment,
   bookingAlerts,
   extendSessionRequest,
 } from '../../utils/eliteApi'
@@ -86,27 +85,6 @@ export function* bookingAlertsSaga(action) {
 
 export function* bookingAlertsWatcher() {
   yield takeLatest(BOOKINGS.ALERTS.BASE, bookingAlertsSaga)
-}
-
-export function* onAddAppointment(action) {
-  try {
-    const { offenderNo } = action.payload
-
-    yield call(addAppointment, action.payload)
-
-    history.push(`/offenders/${offenderNo}/${DETAILS_TABS.QUICK_LOOK}`)
-
-    yield notify.show('Appointment has been created successfully.', 'success')
-  } catch (err) {
-    yield put({
-      type: APPOINTMENT.ERROR,
-      payload: new SubmissionError({ _error: 'Unable to create a new appointment at this time.' }),
-    })
-  }
-}
-
-export function* addAppointmentWatcher() {
-  yield takeLatest(APPOINTMENT.ADD, onAddAppointment)
 }
 
 export function* addCasenoteSaga(action) {
@@ -323,6 +301,8 @@ export function* amendCaseNoteWatcher() {
 export function* viewDetails(action) {
   yield put(showSpinner())
 
+  console.log(action)
+
   const { Type } = yield call(bookingDetailsElite, action)
   if (Type !== 'ERROR') {
     yield put({ type: CALC_READ_ONLY_VIEW, payload: action.payload })
@@ -334,6 +314,8 @@ export function* viewDetails(action) {
     if (previousPath !== nextPath && window.location.pathname !== nextPath) {
       history.push(nextPath)
     }
+
+    if (action.payload.appointmentAdded) yield notify.show('Appointment has been created successfully.', 'success')
   }
 
   yield put(hideSpinner())
@@ -398,7 +380,6 @@ export default [
   loadKeyDatesWatcher,
   loadQuickLookWatcher,
   loadScheduledEventsWatcher,
-  addAppointmentWatcher,
   bookingAlertsWatcher,
   extendActiveSessionWatcher,
 ]

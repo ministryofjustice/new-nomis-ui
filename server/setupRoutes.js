@@ -60,7 +60,6 @@ module.exports = ({ eliteApi, oauthApi, keyworkerApi, caseNotesApi, allocationMa
   router.use('/app/bookings/scheduled/events/forNextWeek/:offenderNo', controller.eventsForNextWeek)
   router.use('/app/bookings/loadAppointmentViewModel/:agencyId', controller.loadAppointmentViewModel)
   router.use('/app/bookings/getExistingEvents/:agencyId/:offenderNo', controller.getExistingEvents)
-  router.use('/app/appointments/:offenderNo', controller.addAppointment)
   router.use('/app/bookings/:offenderNo/alerts', controller.alerts)
   router.get('/app/bookings/:offenderNo/caseNotes', controller.caseNotes)
   router.post('/app/bookings/:offenderNo/caseNotes', controller.addCaseNote)

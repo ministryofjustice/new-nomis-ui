@@ -50,6 +50,7 @@ Location.propTypes = {
 }
 
 const MiddleSection = ({
+  addAppointmentUrl,
   inmateData,
   offenderNo,
   showAddKeyworkerSessionLink,
@@ -205,9 +206,9 @@ const MiddleSection = ({
             )}
 
             <div>
-              <Link name="add-appointment-link" className="button-link" to={`/offenders/${offenderNo}/add-appointment`}>
+              <a name="add-appointment-link" className="button-link" href={addAppointmentUrl}>
                 Add appointment
-              </Link>
+              </a>
             </div>
             {isUseOfForce && (
               <div>
@@ -233,6 +234,7 @@ MiddleSection.propTypes = {
   userCanEdit: PropTypes.bool.isRequired,
   isUseOfForce: PropTypes.bool.isRequired,
   useOfForceUrl: PropTypes.string.isRequired,
+  addAppointmentUrl: PropTypes.string.isRequired,
 }
 
 const Header = ({
@@ -299,6 +301,7 @@ const Header = ({
                 userCanEdit={userCanEdit}
                 isUseOfForce={isUseOfForce}
                 useOfForceUrl={`${useOfForceUrl}/report/${inmateData.get('bookingId')}/report-use-of-force`}
+                addAppointmentUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/add-appointment`}
               />
             </div>
           </div>
