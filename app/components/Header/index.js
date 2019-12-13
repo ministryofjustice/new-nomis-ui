@@ -20,10 +20,12 @@ import {
 } from './header.theme'
 
 const HmppsHeader = ({ user, menuOpen, setMenuOpen, extraLinks }) => {
-  extraLinks.push({
-    text: 'My key worker allocations',
-    url: '/key-worker-allocations',
-  })
+  if (user && user.isKeyWorker) {
+    extraLinks.push({
+      text: 'My key worker allocations',
+      url: '/key-worker-allocations',
+    })
+  }
 
   return (
     <div>
