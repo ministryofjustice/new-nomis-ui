@@ -301,8 +301,6 @@ export function* amendCaseNoteWatcher() {
 export function* viewDetails(action) {
   yield put(showSpinner())
 
-  console.log(action)
-
   const { Type } = yield call(bookingDetailsElite, action)
   if (Type !== 'ERROR') {
     yield put({ type: CALC_READ_ONLY_VIEW, payload: action.payload })
