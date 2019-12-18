@@ -1059,6 +1059,7 @@ exports[`Header component should render correctly 1`] = `
             <div>
               <a
                 className="button-link"
+                href="http://prisonstaffhub/offenders/A1234RT/add-appointment"
                 name="add-appointment-link"
               >
                 Add appointment

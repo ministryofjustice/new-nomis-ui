@@ -320,6 +320,7 @@ const Header = ({
             userCanEdit={userCanEdit}
             isUseOfForce={isUseOfForce}
             useOfForceUrl={`${useOfForceUrl}/report/${inmateData.get('bookingId')}/report-use-of-force`}
+            addAppointmentUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/add-appointment`}
           />
         </div>
       </div>
