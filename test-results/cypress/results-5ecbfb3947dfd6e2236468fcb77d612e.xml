@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0" tests="2" failures="1">
+  <testsuite name="Root Suite" timestamp="2019-12-20T15:36:57" tests="0" failures="0" time="0">
+  </testsuite>
+  <testsuite name="Alerts page" timestamp="2019-12-20T15:36:57" tests="2" failures="1" time="0">
+    <testcase name="Alerts page &quot;before each&quot; hook for &quot;Remains on the page when filters are applied&quot;" time="0" classname="&quot;before each&quot; hook for &quot;Remains on the page when filters are applied&quot;">
+      <failure message="cy.request() failed trying to load:
+
+http://localhost:3007/
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  &gt; Error: connect ECONNREFUSED 127.0.0.1:19090
+
+-----------------------------------------------------------
+
+The request we sent was:
+
+Method: GET
+URL: http://localhost:3007/
+
+-----------------------------------------------------------
+
+Common situations why this would fail:
+  - you don&apos;t have internet access
+  - you forgot to run / boot your web server
+  - your web server isn&apos;t accessible
+  - you have weird network configuration settings on your computer
+
+The stack trace for this error is:
+
+RequestError: Error: connect ECONNREFUSED 127.0.0.1:19090
+    at new RequestError (/home/nevelina/.cache/Cypress/3.8.0/Cypress/resources/app/packages/server/node_modules/request-promise-core/lib/errors.js:14:15)
+    at Request.plumbing.callback (/home/nevelina/.cache/Cypress/3.8.0/Cypress/resources/app/packages/server/node_modules/request-promise-core/lib/plumbing.js:87:29)
+    at Request.RP$callback [as _callback] (/home/nevelina/.cache/Cypress/3.8.0/Cypress/resources/app/packages/server/node_modules/request-promise-core/lib/plumbing.js:46:31)
+    at self.callback (/home/nevelina/.cache/Cypress/3.8.0/Cypress/resources/app/packages/server/node_modules/request/request.js:185:22)
+    at Request.emit (events.js:203:13)
+    at Request.onRequestError (/home/nevelina/.cache/Cypress/3.8.0/Cypress/resources/app/packages/server/node_modules/request/request.js:877:8)
+    at ClientRequest.emit (events.js:208:15)
+    at Socket.socketErrorListener (_http_client.js:399:9)
+    at Socket.emit (events.js:203:13)
+    at emitErrorNT (internal/streams/destroy.js:91:8)
+    at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+    at processTicksAndRejections (internal/process/task_queues.js:77:11)
+
+
+Because this error occurred during a &apos;before each&apos; hook we are skipping the remaining tests in the current suite: &apos;Alerts page&apos;" type="CypressError"><![CDATA[CypressError: cy.request() failed trying to load:
+
+http://localhost:3007/
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  > Error: connect ECONNREFUSED 127.0.0.1:19090
+
+-----------------------------------------------------------
+
+The request we sent was:
+
+Method: GET
+URL: http://localhost:3007/
+
+-----------------------------------------------------------
+
+Common situations why this would fail:
+  - you don't have internet access
+  - you forgot to run / boot your web server
+  - your web server isn't accessible
+  - you have weird network configuration settings on your computer
+
+The stack trace for this error is:
+
+RequestError: Error: connect ECONNREFUSED 127.0.0.1:19090
+    at new RequestError (/home/nevelina/.cache/Cypress/3.8.0/Cypress/resources/app/packages/server/node_modules/request-promise-core/lib/errors.js:14:15)
+    at Request.plumbing.callback (/home/nevelina/.cache/Cypress/3.8.0/Cypress/resources/app/packages/server/node_modules/request-promise-core/lib/plumbing.js:87:29)
+    at Request.RP$callback [as _callback] (/home/nevelina/.cache/Cypress/3.8.0/Cypress/resources/app/packages/server/node_modules/request-promise-core/lib/plumbing.js:46:31)
+    at self.callback (/home/nevelina/.cache/Cypress/3.8.0/Cypress/resources/app/packages/server/node_modules/request/request.js:185:22)
+    at Request.emit (events.js:203:13)
+    at Request.onRequestError (/home/nevelina/.cache/Cypress/3.8.0/Cypress/resources/app/packages/server/node_modules/request/request.js:877:8)
+    at ClientRequest.emit (events.js:208:15)
+    at Socket.socketErrorListener (_http_client.js:399:9)
+    at Socket.emit (events.js:203:13)
+    at emitErrorNT (internal/streams/destroy.js:91:8)
+    at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+    at processTicksAndRejections (internal/process/task_queues.js:77:11)
+
+
+Because this error occurred during a 'before each' hook we are skipping the remaining tests in the current suite: 'Alerts page'
+    at Object.cypressErr (http://localhost:3007/__cypress/runner/cypress_runner.js:106136:11)
+    at Object.throwErr (http://localhost:3007/__cypress/runner/cypress_runner.js:106091:18)
+    at Object.throwErrByPath (http://localhost:3007/__cypress/runner/cypress_runner.js:106123:17)
+    at http://localhost:3007/__cypress/runner/cypress_runner.js:92491:23
+    at tryCatcher (http://localhost:3007/__cypress/runner/cypress_runner.js:140400:23)
+    at http://localhost:3007/__cypress/runner/cypress_runner.js:135558:37
+    at tryCatcher (http://localhost:3007/__cypress/runner/cypress_runner.js:140400:23)
+    at Promise._settlePromiseFromHandler (http://localhost:3007/__cypress/runner/cypress_runner.js:138336:31)
+    at Promise._settlePromise (http://localhost:3007/__cypress/runner/cypress_runner.js:138393:18)
+    at Promise._settlePromise0 (http://localhost:3007/__cypress/runner/cypress_runner.js:138438:10)
+    at Promise._settlePromises (http://localhost:3007/__cypress/runner/cypress_runner.js:138513:18)
+    at Async../node_modules/bluebird/js/release/async.js.Async._drainQueue (http://localhost:3007/__cypress/runner/cypress_runner.js:135125:16)
+    at Async../node_modules/bluebird/js/release/async.js.Async._drainQueues (http://localhost:3007/__cypress/runner/cypress_runner.js:135135:10)
+    at Async.drainQueues (http://localhost:3007/__cypress/runner/cypress_runner.js:135009:14)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

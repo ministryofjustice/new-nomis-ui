@@ -4,3 +4,5 @@ internals
 public
 docs
 bin
+cypress.json
+reporter-config.json

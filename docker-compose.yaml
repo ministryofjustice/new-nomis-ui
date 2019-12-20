@@ -57,3 +57,10 @@ services:
     image: redis
     ports:
       - 6379:6379
+
+  wiremock:
+    image: rodolpheche/wiremock
+    container_name: notm-wiremock
+    restart: always
+    ports:
+      - "9091:8080"

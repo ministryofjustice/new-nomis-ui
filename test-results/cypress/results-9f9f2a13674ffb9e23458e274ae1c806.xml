@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0" tests="2" failures="2">
+  <testsuite name="Root Suite" timestamp="2019-12-20T15:31:41" tests="0" failures="0" time="0">
+  </testsuite>
+  <testsuite name="Alerts page" timestamp="2019-12-20T15:31:41" tests="2" failures="2" time="0">
+    <testcase name="Alerts page Remains on the page when filters are applied" time="0" classname="Remains on the page when filters are applied">
+      <failure message="AlertsPage.visit is not a function" type="TypeError"><![CDATA[TypeError: AlertsPage.visit is not a function
+    at Context.<anonymous> (http://localhost:3007/__cypress/tests?p=integration-tests/integration/alerts.spec.js-369:77:33)]]></failure>
+    </testcase>
+    <testcase name="Alerts page Clears filters" time="0" classname="Clears filters">
+      <failure message="AlertsPage.visit is not a function" type="TypeError"><![CDATA[TypeError: AlertsPage.visit is not a function
+    at Context.<anonymous> (http://localhost:3007/__cypress/tests?p=integration-tests/integration/alerts.spec.js-369:83:33)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>
