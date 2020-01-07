@@ -124,24 +124,6 @@ class KeyDates extends Component {
 
     return (
       <div className="key-dates">
-        <div>
-          <h3 className="heading-medium no-top-margin">Incentives and earned privileges</h3>
-
-          <div className="section">
-            <div className="information-group">
-              <div className="information">
-                <span>IEP Level</span>
-                <b>{keyDates.get('iepLevel')}</b>
-              </div>
-
-              <div className="information">
-                <span>Days since review</span>
-                <b>{keyDates.get('daysSinceReview')}</b>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <SentenceView
           additionalDaysAwarded={sentence.get('additionalDaysAwarded')}
           dtoReleaseDates={sentence.get('dtoReleaseDates')}

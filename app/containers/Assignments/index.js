@@ -33,7 +33,7 @@ const ResultsView = ({ results, viewDetails }) => (
       </div>
 
       <div className="col-sm-1 hidden-xs">
-        <b> IEP </b>
+        <b> Incentive level </b>
       </div>
 
       <div className="col-sm-2 hidden-xs">
