@@ -1584,7 +1584,7 @@ class CaseNoteTypes {
           [
             domain     : "TASK_SUBTYPE",
             code       : "IEP_ENC",
-            description: "Incentives Encouragement",
+            description: "IEP Encouragement",
             activeFlag : "Y",
           ],
           [
@@ -3128,7 +3128,7 @@ class CaseNoteTypes {
           [
             domain     : "TASK_SUBTYPE",
             code       : "IEP_ENC",
-            description: "Incentives Encouragement",
+            description: "IEP Encouragement",
             activeFlag : "Y",
           ],
           [
