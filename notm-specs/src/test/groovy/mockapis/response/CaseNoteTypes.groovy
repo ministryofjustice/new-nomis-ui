@@ -967,26 +967,26 @@ class CaseNoteTypes {
       ],
       [
         domain     : "TASK_TYPE",
-        code       : "IEP ENTRY",
-        description: "Entry Level IEP information",
+        code       : "Incentive level ENTRY",
+        description: "Entry Level Incentive level information",
         activeFlag : "Y",
         subCodes   : [
           [
             domain     : "TASK_SUBTYPE",
             code       : "ENTRY ASSESS",
-            description: "Entry Level IEP Assessment information",
+            description: "Entry Level Incentive level Assessment information",
             activeFlag : "Y",
           ],
           [
             domain     : "TASK_SUBTYPE",
             code       : "ENTRY REVIEW",
-            description: "Entry Level IEP Review Information",
+            description: "Entry Level Incentive level Review Information",
             activeFlag : "Y",
           ],
           [
             domain     : "TASK_SUBTYPE",
             code       : "ENTRY WARN",
-            description: "Entry Level IEP Warning Information",
+            description: "Entry Level Incentive level Warning Information",
             activeFlag : "Y",
           ]
         ]
@@ -1310,7 +1310,7 @@ class CaseNoteTypes {
           [
             domain     : "TASK_SUBTYPE",
             code       : "IEP_WARN",
-            description: "IEP Warning",
+            description: "Incentive level Warning",
             activeFlag : "Y",
           ],
           [
@@ -1584,7 +1584,7 @@ class CaseNoteTypes {
           [
             domain     : "TASK_SUBTYPE",
             code       : "IEP_ENC",
-            description: "IEP Encouragement",
+            description: "Incentives Encouragement",
             activeFlag : "Y",
           ],
           [
@@ -1888,7 +1888,7 @@ class CaseNoteTypes {
           [
             domain     : "TASK_SUBTYPE",
             code       : "REP_IEP",
-            description: "IEP Report",
+            description: "Incentive level Report",
             activeFlag : "Y",
           ],
           [
@@ -2699,26 +2699,26 @@ class CaseNoteTypes {
       ],
       [
         domain     : "TASK_TYPE",
-        code       : "IEP ENTRY",
-        description: "Entry Level IEP information",
+        code       : "Incentive level ENTRY",
+        description: "Entry Level Incentive level information",
         activeFlag : "Y",
         subCodes   : [
           [
             domain     : "TASK_SUBTYPE",
             code       : "ENTRY ASSESS",
-            description: "Entry Level IEP Assessment information",
+            description: "Entry Level Incentive level Assessment information",
             activeFlag : "Y",
           ],
           [
             domain     : "TASK_SUBTYPE",
             code       : "ENTRY REVIEW",
-            description: "Entry Level IEP Review Information",
+            description: "Entry Level Incentive level Review Information",
             activeFlag : "Y",
           ],
           [
             domain     : "TASK_SUBTYPE",
             code       : "ENTRY WARN",
-            description: "Entry Level IEP Warning Information",
+            description: "Entry Level Incentive level Warning Information",
             activeFlag : "Y",
           ]
         ]
@@ -2948,7 +2948,7 @@ class CaseNoteTypes {
           [
             domain     : "TASK_SUBTYPE",
             code       : "IEP_WARN",
-            description: "IEP Warning",
+            description: "Incentive level Warning",
             activeFlag : "Y",
           ],
           [
@@ -3128,7 +3128,7 @@ class CaseNoteTypes {
           [
             domain     : "TASK_SUBTYPE",
             code       : "IEP_ENC",
-            description: "IEP Encouragement",
+            description: "Incentives Encouragement",
             activeFlag : "Y",
           ],
           [
@@ -3318,7 +3318,7 @@ class CaseNoteTypes {
           [
             domain     : "TASK_SUBTYPE",
             code       : "REP_IEP",
-            description: "IEP Report",
+            description: "Incentive level Report",
             activeFlag : "Y",
           ],
           [
