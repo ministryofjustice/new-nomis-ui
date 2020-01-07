@@ -53,7 +53,7 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer, ie
     localStorage.setItem('iepSlip', JSON.stringify(iepSlipData))
   }
 
-  const showPrintIEPLink = ['Incentive level Warning', 'Incentives Encouragement'].includes(subTypeDescription)
+  const showPrintIEPLink = ['IEP Warning', 'IEP Encouragement'].includes(subTypeDescription)
 
   return (
     <CaseNote data-qa="case-note">
@@ -96,7 +96,7 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer, ie
         {showPrintIEPLink && (
           <div>
             <Link noVisitedState href="/iep-slip" target="_blank" onClick={setPrintIepData}>
-              Print Incentive level slip
+              Print IEP slip
             </Link>
           </div>
         )}

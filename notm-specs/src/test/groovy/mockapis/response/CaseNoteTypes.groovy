@@ -967,26 +967,26 @@ class CaseNoteTypes {
       ],
       [
         domain     : "TASK_TYPE",
-        code       : "Incentive level ENTRY",
-        description: "Entry Level Incentive level information",
+        code       : "IEP ENTRY",
+        description: "Entry Level IEP information",
         activeFlag : "Y",
         subCodes   : [
           [
             domain     : "TASK_SUBTYPE",
             code       : "ENTRY ASSESS",
-            description: "Entry Level Incentive level Assessment information",
+            description: "Entry Level IEP Assessment information",
             activeFlag : "Y",
           ],
           [
             domain     : "TASK_SUBTYPE",
             code       : "ENTRY REVIEW",
-            description: "Entry Level Incentive level Review Information",
+            description: "Entry Level IEP Review Information",
             activeFlag : "Y",
           ],
           [
             domain     : "TASK_SUBTYPE",
             code       : "ENTRY WARN",
-            description: "Entry Level Incentive level Warning Information",
+            description: "Entry Level IEP Warning Information",
             activeFlag : "Y",
           ]
         ]
@@ -1310,7 +1310,7 @@ class CaseNoteTypes {
           [
             domain     : "TASK_SUBTYPE",
             code       : "IEP_WARN",
-            description: "Incentive level Warning",
+            description: "IEP Warning",
             activeFlag : "Y",
           ],
           [
@@ -1888,7 +1888,7 @@ class CaseNoteTypes {
           [
             domain     : "TASK_SUBTYPE",
             code       : "REP_IEP",
-            description: "Incentive level Report",
+            description: "IEP Report",
             activeFlag : "Y",
           ],
           [
@@ -2699,26 +2699,26 @@ class CaseNoteTypes {
       ],
       [
         domain     : "TASK_TYPE",
-        code       : "Incentive level ENTRY",
-        description: "Entry Level Incentive level information",
+        code       : "IEP ENTRY",
+        description: "Entry Level IEP information",
         activeFlag : "Y",
         subCodes   : [
           [
             domain     : "TASK_SUBTYPE",
             code       : "ENTRY ASSESS",
-            description: "Entry Level Incentive level Assessment information",
+            description: "Entry Level IEP Assessment information",
             activeFlag : "Y",
           ],
           [
             domain     : "TASK_SUBTYPE",
             code       : "ENTRY REVIEW",
-            description: "Entry Level Incentive level Review Information",
+            description: "Entry Level IEP Review Information",
             activeFlag : "Y",
           ],
           [
             domain     : "TASK_SUBTYPE",
             code       : "ENTRY WARN",
-            description: "Entry Level Incentive level Warning Information",
+            description: "Entry Level IEP Warning Information",
             activeFlag : "Y",
           ]
         ]
@@ -2948,7 +2948,7 @@ class CaseNoteTypes {
           [
             domain     : "TASK_SUBTYPE",
             code       : "IEP_WARN",
-            description: "Incentive level Warning",
+            description: "IEP Warning",
             activeFlag : "Y",
           ],
           [
@@ -3318,7 +3318,7 @@ class CaseNoteTypes {
           [
             domain     : "TASK_SUBTYPE",
             code       : "REP_IEP",
-            description: "Incentive level Report",
+            description: "IEP Report",
             activeFlag : "Y",
           ],
           [
