@@ -185,7 +185,7 @@ export const NegativeAndPositiveCaseNoteCount = ({ negativeCaseNotes, positiveCa
 
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
-        <span>Incentives Encouragement</span>
+        <span>Incentive Encouragement</span>
       </div>
 
       <div className="col-lg-6 col-xs-6">
