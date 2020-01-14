@@ -22,7 +22,7 @@ import static model.UserAccount.GLOBAL_USER
 import static model.UserAccount.ITAG_USER
 
 @Slf4j
-class OffenderDetailsSpecification extends BrowserReportingSpec {
+class expectedQuicklookValues2OffenderDetailsSpecification extends BrowserReportingSpec {
 
   static String PRISON_HUB_URL = "http://localhost:18082"
 
@@ -85,7 +85,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     containsExpectedIgnoringBlankAndDates(allQuicklookValues1, expectedQuicklookValues1)
 
     def allQuicklookValues2 = $('div.quick-look b')*.text()
-    def expectedQuicklookValues2 = ['Attempt burglary dwelling with intent to steal', '1', '1', '1', '1', '3', '2 days Immediate (50%)',
+    def expectedQuicklookValues2 = ['Attempt burglary dwelling with intent to steal', '1', '1', '252', '252', '3', '2 days Immediate (50%)',
                                     'No visit history', 'No upcoming visits', 'Sashonda, Diydonopher', 'Social/ Family(Girlfriend)', '--']
     // todo: release date '07/04/2017' is displayed in US formaty in circle ci!
     containsExpectedIgnoringBlankAndDates(allQuicklookValues2, expectedQuicklookValues2)
