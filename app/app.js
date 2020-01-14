@@ -38,7 +38,7 @@ import updateApplicationWatcher from './utils/update-application-watcher'
 import { translationMessages } from './translations/i18n'
 import routes from './routes'
 import history from './history'
-import IEPSlipContainer from './containers/IEPSlipContainer'
+import IncentiveLevelSlipContainer from './containers/IncentiveLevelSlipContainer'
 
 // Create redux store with history
 // this uses the singleton browserHistory provided by react-router
@@ -56,7 +56,7 @@ const render = messages => {
       <LanguageProvider messages={messages}>
         <Router history={history}>
           <Switch>
-            <Route exact path="/iep-slip" render={() => <IEPSlipContainer />} />
+            <Route exact path="/iep-slip" render={() => <IncentiveLevelSlipContainer />} />
             <ScrollToTop>
               <App routes={routes} />
             </ScrollToTop>
