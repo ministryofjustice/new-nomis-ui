@@ -15,6 +15,7 @@ describe('Booking Service Quick look', () => {
 
   beforeEach(() => {
     eliteApi.getBalances = jest.fn().mockReturnValue(Promise.resolve(null))
+    eliteApi.getIepSummary = jest.fn().mockReturnValue(Promise.resolve(null))
     eliteApi.getMainOffence = jest.fn().mockReturnValue(Promise.resolve(null))
     eliteApi.getEventsForToday = jest.fn().mockReturnValue(Promise.resolve([]))
     eliteApi.getPositiveCaseNotes = jest.fn().mockReturnValue(Promise.resolve(null))
@@ -361,6 +362,35 @@ describe('Booking Service Quick look', () => {
     expect(data.nextOfKin[0].middleName).toEqual('GOLAB')
     expect(data.nextOfKin[0].relationship).toEqual('Sister')
     expect(data.nextOfKin[0].contactTypeDescription).toEqual('Social/Family')
+  })
+
+  it('should call getContacts', async () => {
+    eliteApi.getIepSummary.mockReturnValue(
+      Promise.resolve({
+        bookingId: 1,
+        iepDate: '2020-01-14',
+        iepTime: '2020-01-14T16:33:01.481Z',
+        iepLevel: 'Basic',
+        daysSinceReview: 0,
+        iepDetails: [
+          {
+            bookingId: 1,
+            iepDate: '2020-01-14',
+            iepTime: '2020-01-14T16:33:01.481Z',
+            agencyId: 'LEI',
+            iepLevel: 'Basic',
+            comments: '',
+            userId: '',
+          },
+        ],
+      })
+    )
+
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
+
+    expect(eliteApi.getIepSummary).toBeCalled()
+
+    expect(data.daysSinceReview).toEqual(0)
   })
 
   it('should return an empty array when no contacts details are returned', async () => {
