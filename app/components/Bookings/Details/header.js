@@ -67,7 +67,7 @@ const MiddleSection = ({
       <div className="col-xs-4 col-sm-3 visible-large">
         <div className="row">
           <div className="col">
-            <span className="label">Incentive level</span>
+            <span className="label">Incentive Level</span>
             <strong>{inmateData.get('iepLevel') || '--'}</strong>
             {userCanEdit && iepDetailsUrl && (
               <div>
@@ -107,7 +107,7 @@ const MiddleSection = ({
       <div className="col-xs-12 visible-small">
         <div className="row">
           <div className="col-xs-4 d-inline-block">
-            <span className="label">Incentive level</span>
+            <span className="label">Incentive Level</span>
             <strong>{inmateData.get('iepLevel') || '--'}</strong>
             {userCanEdit && iepDetailsUrl && (
               <div>

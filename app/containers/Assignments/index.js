@@ -13,7 +13,6 @@ import { FormattedDate } from '../../components/intl'
 import { loadAssignments } from './actions'
 import { linkOnClick } from '../../helpers'
 import './index.scss'
-import { userType } from '../../types'
 import history from '../../history'
 import Page from '../../components/Page'
 
@@ -33,7 +32,7 @@ const ResultsView = ({ results, viewDetails }) => (
       </div>
 
       <div className="col-sm-1 hidden-xs">
-        <b> Incentive level </b>
+        <b> Incentive Level </b>
       </div>
 
       <div className="col-sm-2 hidden-xs">

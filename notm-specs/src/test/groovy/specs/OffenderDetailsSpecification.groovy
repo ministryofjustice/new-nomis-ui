@@ -193,7 +193,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     prisonHubServer.verify(WireMock.getRequestedFor(WireMock.urlPathEqualTo(adjudicationSuffix)))
   }
 
-  def "Incentive level history link takes the user to prison staff hub"() {
+  def "Incentive Level history link takes the user to prison staff hub"() {
     given: 'I log in and search for an offender'
     fixture.loginAs(ITAG_USER)
 
@@ -230,7 +230,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
 
     iepDetailsLink.singleElement().sendKeys(Keys.RETURN)
 
-    then: 'The browser goes to the Incentive level history prison hub url'
+    then: 'The browser goes to the Incentive Level history prison hub url'
     def iepDetailsSuffix = '/offenders/A1234AJ/iep-details'
     waitFor { currentUrl == (PRISON_HUB_URL + iepDetailsSuffix) }
     prisonHubServer.verify(WireMock.getRequestedFor(WireMock.urlPathEqualTo(iepDetailsSuffix)))

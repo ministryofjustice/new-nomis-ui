@@ -449,7 +449,7 @@ exports[`Header component should render correctly 1`] = `
                   <span
                     className="label"
                   >
-                    Incentive level
+                    Incentive Level
                   </span>
                   <strong>
                     Standard
@@ -520,7 +520,7 @@ exports[`Header component should render correctly 1`] = `
                   <span
                     className="label"
                   >
-                    Incentive level
+                    Incentive Level
                   </span>
                   <strong>
                     Standard
@@ -771,7 +771,7 @@ exports[`Header component should render correctly 1`] = `
               <span
                 className="label"
               >
-                Incentive level
+                Incentive Level
               </span>
               <strong>
                 Standard
@@ -842,7 +842,7 @@ exports[`Header component should render correctly 1`] = `
               <span
                 className="label"
               >
-                Incentive level
+                Incentive Level
               </span>
               <strong>
                 Standard

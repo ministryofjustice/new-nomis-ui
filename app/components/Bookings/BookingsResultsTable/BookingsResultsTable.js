@@ -31,7 +31,7 @@ const ResultsTable = ({ results, sortOrder, sortOrderChange, onAlertFlagClick })
         </StyledCellHeader>
         <StyledCellHeader desktopOnly>Prison no.</StyledCellHeader>
         <StyledCellHeader>Location</StyledCellHeader>
-        <StyledCellHeader desktopOnly>Incentive level</StyledCellHeader>
+        <StyledCellHeader desktopOnly>Incentive Level</StyledCellHeader>
         <StyledCellHeader desktopOnly>Age</StyledCellHeader>
         <StyledCellHeader desktopOnly setWidth="33.3333%">
           Flags

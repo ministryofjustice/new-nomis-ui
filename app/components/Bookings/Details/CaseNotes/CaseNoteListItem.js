@@ -23,6 +23,7 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer, ie
     amendments,
     occurrenceDateTime,
     creationDateTime,
+    subType,
     subTypeDescription,
     typeDescription,
     authorUserId,
@@ -38,7 +39,7 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer, ie
   const { cellLocation, offenderName } = iepInformation || {}
 
   const setPrintIepData = () => {
-    const iepSlipData = {
+    const incentiveLevelSlipData = {
       type: subTypeDescription,
       raisedDate: creationDateTime,
       raisedBy: authorName,
@@ -50,10 +51,10 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer, ie
       amendments,
     }
 
-    localStorage.setItem('iepSlip', JSON.stringify(iepSlipData))
+    localStorage.setItem('incentiveLevelSlip', JSON.stringify(incentiveLevelSlipData))
   }
 
-  const showPrintIEPLink = ['IEP Warning', 'IEP Encouragement'].includes(subTypeDescription)
+  const showPrintIncentiveLevelLink = ['IEP_WARN', 'IEP_ENC'].includes(subType)
 
   return (
     <CaseNote data-qa="case-note">
@@ -93,10 +94,10 @@ const CaseNoteListItem = ({ caseNote, user, offenderNo, caseNoteListReferrer, ie
             </button>
           </CaseNoteAmendmentButton>
         )}
-        {showPrintIEPLink && (
+        {showPrintIncentiveLevelLink && (
           <div>
             <Link noVisitedState href="/iep-slip" target="_blank" onClick={setPrintIepData}>
-              Print IEP slip
+              Print Incentive Level slip
             </Link>
           </div>
         )}

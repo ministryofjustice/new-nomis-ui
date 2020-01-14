@@ -119,9 +119,10 @@ describe('<CaseNoteListItem />', () => {
     expect(tree.root.findAllByType(CaseNoteAmendmentButton)).toHaveLength(0)
   })
 
-  describe('when the sub type is IEP Warning', () => {
-    it('should render with print IEP slip link', () => {
-      props.caseNote.subTypeDescription = 'IEP Warning'
+  describe('when the sub type is Incentive Level warning', () => {
+    it('should render with print Incentive Level slip link', () => {
+      props.caseNote.subTypeDescription = 'Incentive Level warning'
+      props.caseNote.subType = 'IEP_WARN'
 
       const tree = renderer.create(
         <IntlProvider locale="en">
@@ -135,9 +136,10 @@ describe('<CaseNoteListItem />', () => {
     })
   })
 
-  describe('when the sub type is IEP Encouragement', () => {
-    it('should render with print IEP slip link', () => {
-      props.caseNote.subTypeDescription = 'IEP Encouragement'
+  describe('when the sub type is Incentives Encouragement', () => {
+    it('should render with print Incentive Level slip link', () => {
+      props.caseNote.subTypeDescription = 'Incentive Encouragement'
+      props.caseNote.subType = 'IEP_ENC'
 
       const tree = renderer.create(
         <IntlProvider locale="en">
@@ -152,8 +154,9 @@ describe('<CaseNoteListItem />', () => {
   })
 
   describe('when the sub type is something else', () => {
-    it('should NOT render with print IEP slip link', () => {
+    it('should NOT render with print Incentive Level slip link', () => {
       props.caseNote.subTypeDescription = 'Something else'
+      props.caseNote.subType = 'SOME'
 
       const tree = renderer.create(
         <IntlProvider locale="en">
