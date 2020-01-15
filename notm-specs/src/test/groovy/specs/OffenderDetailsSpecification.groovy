@@ -22,7 +22,7 @@ import static model.UserAccount.GLOBAL_USER
 import static model.UserAccount.ITAG_USER
 
 @Slf4j
-class expectedQuicklookValues2OffenderDetailsSpecification extends BrowserReportingSpec {
+class OffenderDetailsSpecification extends BrowserReportingSpec {
 
   static String PRISON_HUB_URL = "http://localhost:18082"
 
