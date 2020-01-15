@@ -173,14 +173,14 @@ exports[`Header component should render correctly 1`] = `
         VETERAN
       </span>
       <span
-        className="care-leaver-status"
+        className="care-experienced-status"
         onClick={[MockFunction]}
         onKeyDown={[Function]}
         role="link"
         tabIndex={0}
       >
         
-        CARE LEAVER
+        CARE EXPERIENCED
       </span>
     </div>
   </div>
@@ -378,14 +378,14 @@ exports[`Header component should render correctly 1`] = `
               VETERAN
             </span>
             <span
-              className="care-leaver-status"
+              className="care-experienced-status"
               onClick={[MockFunction]}
               onKeyDown={[Function]}
               role="link"
               tabIndex={0}
             >
               
-              CARE LEAVER
+              CARE EXPERIENCED
             </span>
           </div>
         </div>
