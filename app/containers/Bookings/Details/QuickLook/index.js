@@ -169,7 +169,7 @@ Activities.propTypes = {
   period: PropTypes.string.isRequired,
 }
 
-export const NegativeAndPositiveCaseNoteCount = ({ negativeCaseNotes, positiveCaseNotes }) => (
+export const NegativeAndPositiveCaseNoteCount = ({ negativeCaseNotes, positiveCaseNotes, daysSinceReview }) => (
   <div>
     <div className="row border-bottom-line">
       <div className="col-lg-6 col-xs-6">
@@ -191,6 +191,18 @@ export const NegativeAndPositiveCaseNoteCount = ({ negativeCaseNotes, positiveCa
       <div className="col-lg-6 col-xs-6">
         <b>
           <b> {positiveCaseNotes} </b>
+        </b>
+      </div>
+    </div>
+
+    <div className="row border-bottom-line">
+      <div className="col-lg-6 col-xs-6">
+        <span>Days since Incentive Level review</span>
+      </div>
+
+      <div className="col-lg-6 col-xs-6">
+        <b>
+          <b> {daysSinceReview} </b>
         </b>
       </div>
     </div>
@@ -706,6 +718,7 @@ class QuickLook extends Component {
                 <NegativeAndPositiveCaseNoteCount
                   negativeCaseNotes={viewModel.get('negativeCaseNotes')}
                   positiveCaseNotes={viewModel.get('positiveCaseNotes')}
+                  daysSinceReview={viewModel.get('daysSinceReview')}
                 />
               )}
               <Adjudications

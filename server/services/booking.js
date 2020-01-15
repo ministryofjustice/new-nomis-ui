@@ -22,9 +22,8 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
   const getKeyDatesVieModel = async (context, offenderNo) => {
     const { bookingId } = await eliteApi.getDetailsLight(context, offenderNo)
 
-    const [sentenceData, iepSummary, categoryAssessment] = await Promise.all([
+    const [sentenceData, categoryAssessment] = await Promise.all([
       eliteApi.getSentenceDetail(context, bookingId),
-      eliteApi.getIepSummary(context, bookingId),
       eliteApi.getCategoryAssessment(context, bookingId),
     ])
 
@@ -32,8 +31,6 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
     const other = keyDatesMapper.otherDates(sentenceData)
 
     return {
-      iepLevel: iepSummary.iepLevel,
-      daysSinceReview: iepSummary.daysSinceReview,
       sentence,
       other,
       reCategorisationDate: categoryAssessment && categoryAssessment.nextReviewDate,
@@ -95,6 +92,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
 
     const apiCalls = [
       eliteApi.getBalances(context, bookingId),
+      eliteApi.getIepSummary(context, bookingId),
       eliteApi.getMainOffence(context, bookingId),
       eliteApi.getSentenceDetail(context, bookingId),
       eliteApi.getEventsForToday(context, bookingId),
@@ -111,6 +109,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
 
     const [
       balance,
+      iepSummary,
       offenceData,
       sentenceData,
       activityData,
@@ -202,6 +201,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
       activities: hasAnyActivity ? activities : null,
       positiveCaseNotes: (positiveCaseNotes && positiveCaseNotes.count) || 0,
       negativeCaseNotes: (negativeCaseNotes && negativeCaseNotes.count) || 0,
+      daysSinceReview: iepSummary ? iepSummary.daysSinceReview : null,
       offences: offenceDetails && offenceDetails.length > 0 ? offenceDetails : null,
       releaseDate: sentenceData ? sentenceData.releaseDate : null,
       tariffDate: sentenceData ? sentenceData.tariffDate : null,
