@@ -297,7 +297,9 @@ const Header = ({
                 showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
                 categorisationLinkText={categorisationLinkText}
                 categorisationUrl={categorisationUrl}
-                iepDetailsUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-details`}
+                iepDetailsUrl={
+                  prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/incentive-level-details`
+                }
                 userCanEdit={userCanEdit}
                 isUseOfForce={isUseOfForce}
                 useOfForceUrl={`${useOfForceUrl}/report/${inmateData.get('bookingId')}/report-use-of-force`}
@@ -316,7 +318,7 @@ const Header = ({
             showAddKeyworkerSessionLink={showAddKeyworkerSessionLink}
             categorisationLinkText={categorisationLinkText}
             categorisationUrl={categorisationUrl}
-            iepDetailsUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/iep-details`}
+            iepDetailsUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/incentive-level-details`}
             userCanEdit={userCanEdit}
             isUseOfForce={isUseOfForce}
             useOfForceUrl={`${useOfForceUrl}/report/${inmateData.get('bookingId')}/report-use-of-force`}

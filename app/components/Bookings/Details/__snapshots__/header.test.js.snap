@@ -458,7 +458,7 @@ exports[`Header component should render correctly 1`] = `
                     <a
                       className="link"
                       data-qa="iep-details-link"
-                      href="http://prisonstaffhub/offenders/A1234RT/iep-details"
+                      href="http://prisonstaffhub/offenders/A1234RT/incentive-level-details"
                     >
                       Incentive details
                     </a>
@@ -529,7 +529,7 @@ exports[`Header component should render correctly 1`] = `
                     <a
                       className="link"
                       data-qa="iep-details-link"
-                      href="http://prisonstaffhub/offenders/A1234RT/iep-details"
+                      href="http://prisonstaffhub/offenders/A1234RT/incentive-level-details"
                     >
                       Incentive details
                     </a>
@@ -780,7 +780,7 @@ exports[`Header component should render correctly 1`] = `
                 <a
                   className="link"
                   data-qa="iep-details-link"
-                  href="http://prisonstaffhub/offenders/A1234RT/iep-details"
+                  href="http://prisonstaffhub/offenders/A1234RT/incentive-level-details"
                 >
                   Incentive details
                 </a>
@@ -851,7 +851,7 @@ exports[`Header component should render correctly 1`] = `
                 <a
                   className="link"
                   data-qa="iep-details-link"
-                  href="http://prisonstaffhub/offenders/A1234RT/iep-details"
+                  href="http://prisonstaffhub/offenders/A1234RT/incentive-level-details"
                 >
                   Incentive details
                 </a>
