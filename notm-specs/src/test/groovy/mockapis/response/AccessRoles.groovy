@@ -42,7 +42,7 @@ class AccessRoles {
 
   static def pathfinderUser = [
     roleId: 4,
-    roleCode: "PATHFINDER_PPL",
-    roleName: "Prison Prevent Lead"
+    roleCode: "PF_STD_PRISON",
+    roleName: "Pathfinder prison role"
   ]
 }

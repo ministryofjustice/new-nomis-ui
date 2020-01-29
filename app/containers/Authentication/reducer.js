@@ -39,7 +39,7 @@ const CAT_ROLES = [
   'CATEGORISATION_SECURITY',
 ]
 
-const PATHFINDER_ROLES = ['PATHFINDER_PPL', 'PATHFINDER_OM', 'PATHFINDER_IC']
+const PATHFINDER_ROLES = ['PF_STD_PRISON', 'PF_STD_PROBATION', 'PF_APPROVAL', 'PF_STD_PRISON_RO', 'PF_STD_PROBATION_RO']
 
 function authenticationReducer(state = initialState, action) {
   switch (action.type) {
