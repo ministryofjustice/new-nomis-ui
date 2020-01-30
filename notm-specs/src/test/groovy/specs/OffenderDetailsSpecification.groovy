@@ -231,7 +231,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     iepDetailsLink.singleElement().sendKeys(Keys.RETURN)
 
     then: 'The browser goes to the Incentive Level history prison hub url'
-    def iepDetailsSuffix = '/offenders/A1234AJ/iep-details'
+    def iepDetailsSuffix = '/offenders/A1234AJ/incentive-level-details'
     waitFor { currentUrl == (PRISON_HUB_URL + iepDetailsSuffix) }
     prisonHubServer.verify(WireMock.getRequestedFor(WireMock.urlPathEqualTo(iepDetailsSuffix)))
   }
