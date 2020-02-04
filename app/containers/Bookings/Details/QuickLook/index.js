@@ -13,6 +13,7 @@ import { properCaseName, toFullName } from '../../../../utils/stringUtils'
 import DisplayValue from '../../../../components/FormComponents/DisplayValue'
 import EliteOfficerName from '../../../EliteContainers/OfficerName'
 import ValueWithLabel from '../../../../components/ValueWithLabel'
+import Identifiers from './Identifiers'
 
 import { Model as quickLookModel } from '../../../../helpers/dataMappers/quickLook'
 import { Model as offenderProfileModel } from '../../../../helpers/dataMappers/offenderDetails'
@@ -298,7 +299,7 @@ KeyWorkerSessionDate.defaultProps = {
 }
 
 export const NextOfKin = ({ nextOfKin }) => (
-  <div>
+  <div className="add-gutter-margin-bottom">
     {nextOfKin.size === 0 && (
       <div>
         <div className="row border-bottom-line">
@@ -759,6 +760,7 @@ class QuickLook extends Component {
                 <h3 className="heading-medium">Other</h3>
 
                 <NextOfKin nextOfKin={viewModel.get('nextOfKin')} />
+                <Identifiers identifiers={viewModel.get('identifiers')} />
               </div>
             </div>
 

@@ -105,6 +105,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
       eliteApi.getRelationships(context, bookingId),
       eliteApi.caseNoteUsageList(context, [bookingId]),
       allocationManagerApi.getPomByOffenderNo(context, offenderNo),
+      eliteApi.getIdentifiers(context, bookingId),
     ]
 
     const [
@@ -122,6 +123,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
       relationships,
       kwCaseNoteDates,
       prisonOffenderManagerData,
+      identifiers,
     ] = await Promise.all(apiCalls.map(apiCall => logErrorAndContinue(apiCall)))
 
     const activities = toActivityViewModel(activityData)
@@ -226,6 +228,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
             contactTypeDescription: contact.contactTypeDescription,
           }))) ||
         [],
+      identifiers,
     }
   }
 

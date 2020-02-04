@@ -37,6 +37,7 @@ describe('Booking Service Quick look', () => {
     )
     eliteApi.caseNoteUsageList = jest.fn().mockReturnValue(Promise.resolve([]))
     allocationManagerApi.getPomByOffenderNo = jest.fn().mockReturnValue(Promise.resolve({}))
+    eliteApi.getIdentifiers = jest.fn().mockReturnValue(Promise.resolve(null))
   })
 
   it('should call getBalance', async () => {
@@ -724,6 +725,18 @@ describe('Booking Service Quick look', () => {
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
     expect(data.assignedStaffMembers.prisonOffenderManager.firstName).toEqual('Pom')
+  })
+
+  it('should call get identifiers', async () => {
+    const identifiers = [
+      { type: 'PNC', value: '96/346527V' },
+      { type: 'CRO', value: '51916/99A' },
+    ]
+    eliteApi.getIdentifiers.mockReturnValue(Promise.resolve(identifiers))
+
+    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
+
+    expect(data.identifiers).toEqual(identifiers)
   })
 
   it('should continue on error', async () => {
