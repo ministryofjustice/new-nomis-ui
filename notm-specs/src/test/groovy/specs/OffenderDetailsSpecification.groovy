@@ -81,7 +81,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     and: 'The quicklook page has the correct data'
 
     def allQuicklookValues1 = $('div.quick-look strong')*.text()
-    def expectedQuicklookValues1 = ['£475.61', '£10.00', '£10.00']
+    def expectedQuicklookValues1 = ['£475.61', '£10.00', '£10.00', '96/346527V', '51916/99A', '--', '--', '--']
     containsExpectedIgnoringBlankAndDates(allQuicklookValues1, expectedQuicklookValues1)
 
     def allQuicklookValues2 = $('div.quick-look b')*.text()
@@ -134,7 +134,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     and: 'The quicklook page has the correct data'
 
     def allQuicklookValues1 = $('div.quick-look strong')*.text()
-    def expectedQuicklookValues1 = ['£475.61', '£10.00', '£10.00']
+    def expectedQuicklookValues1 = ['£475.61', '£10.00', '£10.00', '96/346527V', '51916/99A', '--', '--', '--']
     containsExpectedIgnoringBlankAndDates(allQuicklookValues1, expectedQuicklookValues1)
 
     def allQuicklookValues2 = $('div.quick-look b')*.text()
