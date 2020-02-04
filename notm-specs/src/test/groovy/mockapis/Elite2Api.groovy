@@ -444,6 +444,18 @@ class Elite2Api extends WireMockRule {
         .withBody(JsonOutput.toJson(offenders))))
   }
 
+  def stubBookingIdentifiers(Integer bookingId) {
+    this.stubFor(
+      get(urlPathEqualTo("/api/bookings/${bookingId}/identifiers"))
+        .willReturn(aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json')
+        .withBody(JsonOutput.toJson([
+          [ type: 'PNC', value: '96/346527V' ],
+          [ type: 'CRO', value: '51916/99A' ],
+      ]))))
+  }
+
   def stubBookingAlerts(Integer bookingId) {
 
     this.stubFor(
@@ -739,6 +751,7 @@ class Elite2Api extends WireMockRule {
     stubCaseNotesNegIepWarnCount()
     stubCaseNotesPosIepEncCount()
     stubAdjudications()
+    stubBookingIdentifiers(-10)
   }
 
   static String buildOffenderQueryString(List<Offender> offenders) {

@@ -87,6 +87,7 @@ const eliteApiFactory = client => {
     post(context, `api/schedules/${agencyId}/courtEvents?date=${date}`, offenderNumbers)
   const getExternalTransfers = (context, { agencyId, date, offenderNumbers }) =>
     post(context, `api/schedules/${agencyId}/externalTransfers?date=${date}`, offenderNumbers)
+  const getIdentifiers = (context, bookingId) => get(context, `api/bookings/${bookingId}/identifiers`)
 
   return {
     caseNoteUsageList,
@@ -125,6 +126,7 @@ const eliteApiFactory = client => {
     getActivities,
     getCourtEvents,
     getExternalTransfers,
+    getIdentifiers,
     isUp,
     post,
     put,
