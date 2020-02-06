@@ -144,121 +144,117 @@ exports[`<OffenderDetails /> should match the default snapshot 1`] = `
           >
             Primary Address
           </h3>
-        </div>
-      </div>
-      <div
-        className="col-md-6 col-xs-12"
-      >
-        <div
-          className="sc-bwzfXH ijiype"
-        >
           <div
-            className="sc-htpNat idItfP"
+            className="sc-bwzfXH ijiype"
           >
-            Flat
+            <div
+              className="sc-htpNat idItfP"
+            >
+              Flat
+            </div>
+            <div
+              className="sc-htpNat idItfP"
+            >
+              <strong>
+                7
+              </strong>
+            </div>
           </div>
           <div
-            className="sc-htpNat idItfP"
+            className="sc-bwzfXH ijiype"
           >
-            <strong>
-              7
-            </strong>
-          </div>
-        </div>
-        <div
-          className="sc-bwzfXH ijiype"
-        >
-          <div
-            className="sc-htpNat idItfP"
-          >
-            Street Address
-          </div>
-          <div
-            className="sc-htpNat idItfP"
-          >
-            <strong>
-              premises, street name
-            </strong>
-          </div>
-        </div>
-        <div
-          className="sc-bwzfXH ijiype"
-        >
-          <div
-            className="sc-htpNat idItfP"
-          >
-            Town
+            <div
+              className="sc-htpNat idItfP"
+            >
+              Street Address
+            </div>
+            <div
+              className="sc-htpNat idItfP"
+            >
+              <strong>
+                premises, street name
+              </strong>
+            </div>
           </div>
           <div
-            className="sc-htpNat idItfP"
+            className="sc-bwzfXH ijiype"
           >
-            <strong>
-              Barnsley
-            </strong>
-          </div>
-        </div>
-        <div
-          className="sc-bwzfXH ijiype"
-        >
-          <div
-            className="sc-htpNat idItfP"
-          >
-            County
-          </div>
-          <div
-            className="sc-htpNat idItfP"
-          >
-            <strong>
-              South Yorkshire
-            </strong>
-          </div>
-        </div>
-        <div
-          className="sc-bwzfXH ijiype"
-        >
-          <div
-            className="sc-htpNat idItfP"
-          >
-            Postcode
+            <div
+              className="sc-htpNat idItfP"
+            >
+              Town
+            </div>
+            <div
+              className="sc-htpNat idItfP"
+            >
+              <strong>
+                Barnsley
+              </strong>
+            </div>
           </div>
           <div
-            className="sc-htpNat idItfP"
+            className="sc-bwzfXH ijiype"
           >
-            <strong>
-              LS1 XXX
-            </strong>
-          </div>
-        </div>
-        <div
-          className="sc-bwzfXH ijiype"
-        >
-          <div
-            className="sc-htpNat idItfP"
-          >
-            Country
-          </div>
-          <div
-            className="sc-htpNat idItfP"
-          >
-            <strong>
-              England
-            </strong>
-          </div>
-        </div>
-        <div
-          className="sc-bwzfXH ijiype"
-        >
-          <div
-            className="sc-htpNat idItfP"
-          >
-            Comment
+            <div
+              className="sc-htpNat idItfP"
+            >
+              County
+            </div>
+            <div
+              className="sc-htpNat idItfP"
+            >
+              <strong>
+                South Yorkshire
+              </strong>
+            </div>
           </div>
           <div
-            className="sc-htpNat idItfP"
+            className="sc-bwzfXH ijiype"
           >
-            <strong>
-              comment text goes here
-            </strong>
+            <div
+              className="sc-htpNat idItfP"
+            >
+              Postcode
+            </div>
+            <div
+              className="sc-htpNat idItfP"
+            >
+              <strong>
+                LS1 XXX
+              </strong>
+            </div>
+          </div>
+          <div
+            className="sc-bwzfXH ijiype"
+          >
+            <div
+              className="sc-htpNat idItfP"
+            >
+              Country
+            </div>
+            <div
+              className="sc-htpNat idItfP"
+            >
+              <strong>
+                England
+              </strong>
+            </div>
+          </div>
+          <div
+            className="sc-bwzfXH ijiype"
+          >
+            <div
+              className="sc-htpNat idItfP"
+            >
+              Comment
+            </div>
+            <div
+              className="sc-htpNat idItfP"
+            >
+              <strong>
+                comment text goes here
+              </strong>
+            </div>
           </div>
         </div>
       </div>

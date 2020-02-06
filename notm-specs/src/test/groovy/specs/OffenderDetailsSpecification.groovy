@@ -81,12 +81,12 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     and: 'The quicklook page has the correct data'
 
     def allQuicklookValues1 = $('div.quick-look strong')*.text()
-    def expectedQuicklookValues1 = ['£475.61', '£10.00', '£10.00', '96/346527V', '51916/99A', '--', '--', '--']
+    def expectedQuicklookValues1 = ['£475.61', '£10.00', '£10.00']
     containsExpectedIgnoringBlankAndDates(allQuicklookValues1, expectedQuicklookValues1)
 
     def allQuicklookValues2 = $('div.quick-look b')*.text()
     def expectedQuicklookValues2 = ['Attempt burglary dwelling with intent to steal', '1', '1', '1', '1', '252', '252', '3', '2 days Immediate (50%)',
-                                    'No visit history', 'No upcoming visits', 'Sashonda, Diydonopher', 'Social/ Family(Girlfriend)', '--']
+                                    'No visit history', 'No upcoming visits', '--']
     // todo: release date '07/04/2017' is displayed in US formaty in circle ci!
     containsExpectedIgnoringBlankAndDates(allQuicklookValues2, expectedQuicklookValues2)
     categorisationLink*.text() contains 'View category'
@@ -134,13 +134,13 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     and: 'The quicklook page has the correct data'
 
     def allQuicklookValues1 = $('div.quick-look strong')*.text()
-    def expectedQuicklookValues1 = ['£475.61', '£10.00', '£10.00', '96/346527V', '51916/99A', '--', '--', '--']
+    def expectedQuicklookValues1 = ['£475.61', '£10.00', '£10.00']
     containsExpectedIgnoringBlankAndDates(allQuicklookValues1, expectedQuicklookValues1)
 
     def allQuicklookValues2 = $('div.quick-look b')*.text()
     // note that case note iep numbers not shown
     def expectedQuicklookValues2 = ['Attempt burglary dwelling with intent to steal', '3', '2 days Immediate (50%)',
-                                    'No visit history', 'No upcoming visits', 'Sashonda, Diydonopher', 'Social/ Family(Girlfriend)', '--']
+                                    'No visit history', 'No upcoming visits', '--']
     // todo: release date '07/04/2017' is displayed in US formaty in circle ci!
     containsExpectedIgnoringBlankAndDates(allQuicklookValues2, expectedQuicklookValues2)
     !categorisationLink.isDisplayed()

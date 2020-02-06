@@ -130,27 +130,26 @@ export const OffenderDetails = ({ offenderDetails, showPhoto }) => {
           <div className="row">
             <div className="col-md-12">
               <h3 className="heading-medium">Primary Address</h3>
+
+              {(() => {
+                switch (offenderDetails.getIn(['primaryAddress', 'type'])) {
+                  case 'NFA':
+                    return <span>No fixed abode</span>
+                  case 'ABSENT':
+                    return <span>No primary address on record</span>
+                  case 'PRESENT':
+                    return getDetails(['flat', 'street', 'town', 'county', 'postcode', 'country', 'comment'])
+                      .filter(details => details.value)
+                      .map(details => (
+                        <ValueWithLabel key={details.key} label={details.label}>
+                          {details.value}
+                        </ValueWithLabel>
+                      ))
+                  default:
+                    return null
+                }
+              })()}
             </div>
-          </div>
-          <div className="col-md-6 col-xs-12">
-            {(() => {
-              switch (offenderDetails.getIn(['primaryAddress', 'type'])) {
-                case 'NFA':
-                  return <span>No fixed abode</span>
-                case 'ABSENT':
-                  return <span>No primary address on record</span>
-                case 'PRESENT':
-                  return getDetails(['flat', 'street', 'town', 'county', 'postcode', 'country', 'comment'])
-                    .filter(details => details.value)
-                    .map(details => (
-                      <ValueWithLabel key={details.key} label={details.label}>
-                        {details.value}
-                      </ValueWithLabel>
-                    ))
-                default:
-                  return null
-              }
-            })()}
           </div>
         </div>
 

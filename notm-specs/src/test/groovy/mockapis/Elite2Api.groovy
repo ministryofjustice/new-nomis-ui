@@ -745,13 +745,13 @@ class Elite2Api extends WireMockRule {
     stubSentenceDetail()
     stubMainOffence()
     stubContacts()
+    stubBookingIdentifiers(-10)
     stubVisitLast()
     stubRelationships()
     stubCaseNoteUsage([Offender.SMITH()])
     stubCaseNotesNegIepWarnCount()
     stubCaseNotesPosIepEncCount()
     stubAdjudications()
-    stubBookingIdentifiers(-10)
   }
 
   static String buildOffenderQueryString(List<Offender> offenders) {

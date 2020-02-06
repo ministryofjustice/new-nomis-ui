@@ -83,6 +83,8 @@ class SearchResultsSpecification extends BrowserReportingSpec {
     elite2api.stubOffenderDetails(true)
     elite2api.stubOffenderDetails(false)
     elite2api.stubOffenderAddresses()
+    elite2api.stubContacts()
+    elite2api.stubBookingIdentifiers(-10)
 
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubBookingAlerts(-10)
