@@ -55,16 +55,18 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
   }
 
   const getBookingDetailsViewModel = async (context, offenderNo) => {
-    const apiCalls = [
+    const [details, addresses, keyworker] = await Promise.all([
       eliteApi.getDetails(context, offenderNo),
       eliteApi.getAddresses(context, offenderNo),
       getKeyworker(context, offenderNo),
-    ]
-
-    const [details, addresses, keyworker] = await Promise.all(apiCalls)
-
+    ])
     const { bookingId } = details
-    const { iepLevel } = await eliteApi.getIepSummary(context, bookingId)
+    const [iepDetails, contacts, identifiers] = await Promise.all([
+      eliteApi.getIepSummary(context, bookingId),
+      eliteApi.getContacts(context, bookingId),
+      eliteApi.getIdentifiers(context, bookingId),
+    ])
+    const { iepLevel } = iepDetails
     const primaryAddress = addresses.find(address => address.primary)
 
     return {
@@ -77,6 +79,18 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
         ...primaryAddress,
         type: getAddressType(primaryAddress),
       },
+      nextOfKin:
+        (contacts &&
+          contacts.nextOfKin &&
+          contacts.nextOfKin.map(contact => ({
+            firstName: contact.firstName,
+            lastName: contact.lastName,
+            middleName: contact.middleName,
+            relationship: contact.relationshipDescription,
+            contactTypeDescription: contact.contactTypeDescription,
+          }))) ||
+        [],
+      identifiers,
     }
   }
 
@@ -98,14 +112,12 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
       eliteApi.getEventsForToday(context, bookingId),
       eliteApi.getPositiveCaseNotes({ context, bookingId, fromDate: threeMonthsInThePast, toDate: today }),
       eliteApi.getNegativeCaseNotes({ context, bookingId, fromDate: threeMonthsInThePast, toDate: today }),
-      eliteApi.getContacts(context, bookingId),
       eliteApi.getAdjudications(context, bookingId),
       eliteApi.getLastVisit(context, bookingId),
       eliteApi.getNextVisit(context, bookingId),
       eliteApi.getRelationships(context, bookingId),
       eliteApi.caseNoteUsageList(context, [bookingId]),
       allocationManagerApi.getPomByOffenderNo(context, offenderNo),
-      eliteApi.getIdentifiers(context, bookingId),
     ]
 
     const [
@@ -116,14 +128,12 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
       activityData,
       positiveCaseNotes,
       negativeCaseNotes,
-      contacts,
       adjudications,
       lastVisit,
       nextVisit,
       relationships,
       kwCaseNoteDates,
       prisonOffenderManagerData,
-      identifiers,
     ] = await Promise.all(apiCalls.map(apiCall => logErrorAndContinue(apiCall)))
 
     const activities = toActivityViewModel(activityData)
@@ -217,18 +227,6 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
             adjudications.awards.filter(awardFilter).map(award => toAward(award))) ||
           [],
       },
-      nextOfKin:
-        (contacts &&
-          contacts.nextOfKin &&
-          contacts.nextOfKin.map(contact => ({
-            firstName: contact.firstName,
-            lastName: contact.lastName,
-            middleName: contact.middleName,
-            relationship: contact.relationshipDescription,
-            contactTypeDescription: contact.contactTypeDescription,
-          }))) ||
-        [],
-      identifiers,
     }
   }
 

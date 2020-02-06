@@ -335,37 +335,7 @@ describe('Booking Service Quick look', () => {
     expect(awards[1].durationText).toEqual('1 month and 1 day')
   })
 
-  it('should call getContacts', async () => {
-    eliteApi.getContacts.mockReturnValue(
-      Promise.resolve({
-        nextOfKin: [
-          {
-            lastName: 'BALOG',
-            firstName: 'EVA',
-            middleName: 'GOLAB',
-            contactType: 'S',
-            contactTypeDescription: 'Social/Family',
-            relationship: 'SIS',
-            relationshipDescription: 'Sister',
-            emergencyContact: true,
-          },
-        ],
-      })
-    )
-
-    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
-
-    expect(eliteApi.getContacts).toBeCalled()
-
-    expect(data.nextOfKin.length).toEqual(1)
-    expect(data.nextOfKin[0].firstName).toEqual('EVA')
-    expect(data.nextOfKin[0].lastName).toEqual('BALOG')
-    expect(data.nextOfKin[0].middleName).toEqual('GOLAB')
-    expect(data.nextOfKin[0].relationship).toEqual('Sister')
-    expect(data.nextOfKin[0].contactTypeDescription).toEqual('Social/Family')
-  })
-
-  it('should call getContacts', async () => {
+  it('should call getIepSummary', async () => {
     eliteApi.getIepSummary.mockReturnValue(
       Promise.resolve({
         bookingId: 1,
@@ -392,13 +362,6 @@ describe('Booking Service Quick look', () => {
     expect(eliteApi.getIepSummary).toBeCalled()
 
     expect(data.daysSinceReview).toEqual(0)
-  })
-
-  it('should return an empty array when no contacts details are returned', async () => {
-    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
-
-    expect(eliteApi.getContacts).toBeCalled()
-    expect(data.nextOfKin.length).toEqual(0)
   })
 
   it('should return true for indeterminateReleaseDate when there is a tariff date but no release date', async () => {
@@ -725,18 +688,6 @@ describe('Booking Service Quick look', () => {
     const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
 
     expect(data.assignedStaffMembers.prisonOffenderManager.firstName).toEqual('Pom')
-  })
-
-  it('should call get identifiers', async () => {
-    const identifiers = [
-      { type: 'PNC', value: '96/346527V' },
-      { type: 'CRO', value: '51916/99A' },
-    ]
-    eliteApi.getIdentifiers.mockReturnValue(Promise.resolve(identifiers))
-
-    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
-
-    expect(data.identifiers).toEqual(identifiers)
   })
 
   it('should continue on error', async () => {

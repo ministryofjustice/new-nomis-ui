@@ -13,7 +13,6 @@ import { properCaseName, toFullName } from '../../../../utils/stringUtils'
 import DisplayValue from '../../../../components/FormComponents/DisplayValue'
 import EliteOfficerName from '../../../EliteContainers/OfficerName'
 import ValueWithLabel from '../../../../components/ValueWithLabel'
-import Identifiers from './Identifiers'
 
 import { Model as quickLookModel } from '../../../../helpers/dataMappers/quickLook'
 import { Model as offenderProfileModel } from '../../../../helpers/dataMappers/offenderDetails'
@@ -752,15 +751,6 @@ class QuickLook extends Component {
                   prisonOffenderManager={assignedStaffMembers.get('prisonOffenderManager')}
                   coworkingPrisonOffenderManager={assignedStaffMembers.get('coworkingPrisonOffenderManager')}
                 />
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-xs-12">
-                <h3 className="heading-medium">Other</h3>
-
-                <NextOfKin nextOfKin={viewModel.get('nextOfKin')} />
-                <Identifiers identifiers={viewModel.get('identifiers')} />
               </div>
             </div>
 

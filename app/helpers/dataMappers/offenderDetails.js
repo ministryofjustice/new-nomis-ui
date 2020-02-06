@@ -51,6 +51,8 @@ export const Model = Map({
   iepLevel: '',
   csra: '',
   aliases: List([]),
+  nextOfKin: List([]),
+  identifiers: List([]),
 })
 
 export function transform(data) {
