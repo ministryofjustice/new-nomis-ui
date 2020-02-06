@@ -10,6 +10,8 @@ describe('Booking Service Booking details', () => {
 
   beforeEach(() => {
     eliteApi.getKeyworker = jest.fn()
+    eliteApi.getContacts = jest.fn()
+    eliteApi.getIdentifiers = jest.fn()
     eliteApi.getDetailsLight = jest.fn().mockReturnValue({
       bookingId: 1,
     })
@@ -46,5 +48,51 @@ describe('Booking Service Booking details', () => {
     expect(eliteApi.getAddresses).toBeCalled()
     expect(data.primaryAddress.primary).toEqual(true)
     expect(data.primaryAddress.type).toEqual('PRESENT')
+  })
+
+  it('should call get identifiers', async () => {
+    const identifiers = [
+      { type: 'PNC', value: '96/346527V' },
+      { type: 'CRO', value: '51916/99A' },
+    ]
+    eliteApi.getIdentifiers.mockReturnValue(Promise.resolve(identifiers))
+
+    const data = await bookingService.getBookingDetailsViewModel({}, offenderNo)
+
+    expect(data.identifiers).toEqual(identifiers)
+  })
+
+  it('should call getContacts', async () => {
+    eliteApi.getContacts.mockReturnValue(
+      Promise.resolve({
+        nextOfKin: [
+          {
+            lastName: 'BALOG',
+            firstName: 'EVA',
+            middleName: 'GOLAB',
+            contactType: 'S',
+            contactTypeDescription: 'Social/Family',
+            relationship: 'SIS',
+            relationshipDescription: 'Sister',
+            emergencyContact: true,
+          },
+        ],
+      })
+    )
+
+    const data = await bookingService.getBookingDetailsViewModel({}, offenderNo)
+    expect(data.nextOfKin.length).toEqual(1)
+    expect(data.nextOfKin[0].firstName).toEqual('EVA')
+    expect(data.nextOfKin[0].lastName).toEqual('BALOG')
+    expect(data.nextOfKin[0].middleName).toEqual('GOLAB')
+    expect(data.nextOfKin[0].relationship).toEqual('Sister')
+    expect(data.nextOfKin[0].contactTypeDescription).toEqual('Social/Family')
+  })
+
+  it('should return an empty array when no contacts details are returned', async () => {
+    const data = await bookingService.getBookingDetailsViewModel({}, offenderNo)
+
+    expect(eliteApi.getContacts).toBeCalled()
+    expect(data.nextOfKin.length).toEqual(0)
   })
 })

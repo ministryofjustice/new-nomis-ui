@@ -7,11 +7,12 @@ import { FormattedDate } from '../../../../components/intl'
 import EliteImage from '../../../EliteContainers/Image/index'
 import { offenderImageUrl, offenderFullSizeImageUrl } from '../../constants'
 import ValueWithLabel from '../../../../components/ValueWithLabel'
-import { toFullName } from '../../../../utils/stringUtils'
+import { toFullName, properCaseName } from '../../../../utils/stringUtils'
 import { Model as offenderDetailsModel } from '../../../../helpers/dataMappers/offenderDetails'
 import { showLargePhoto } from '../../actions'
 import { linkOnClick } from '../../../../helpers'
 import './index.scss'
+import Identifiers from '../QuickLook/Identifiers'
 
 const FormatValue = ({ start, end }) =>
   (start && <span> {(start && end && `${start} ${end}`) || `${start}`} </span>) || <span>--</span>
@@ -34,6 +35,47 @@ const groupByPairs = dataset =>
     }
     return result
   }, [])
+
+export const NextOfKin = ({ nextOfKin }) => (
+  <div className="add-gutter-margin-bottom">
+    {nextOfKin.size === 0 && (
+      <div>
+        <div className="row border-bottom-line">
+          <div className="col-lg-6 col-xs-6">
+            <span>Next of kin</span>
+          </div>
+
+          <div className="col-lg-6 col-xs-6">
+            <b> No next of kin identified </b>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {nextOfKin.map((kin, index) => (
+      <div key={uuid()}>
+        <div className="row border-bottom-line">
+          <div className="col-lg-6 col-xs-6">{index === 0 && <span>Next of kin</span>}</div>
+
+          <div className="col-lg-6 col-xs-6">
+            <div>
+              <b>
+                {properCaseName(kin.get('lastName'))}, {properCaseName(kin.get('firstName'))}
+                {properCaseName(kin.get('middleName'))}
+              </b>
+            </div>
+            <div>
+              <b>
+                {kin.get('contactTypeDescription')}
+                {kin.get('relationship') && `(${kin.get('relationship')})`}
+              </b>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+)
 
 export const OffenderDetails = ({ offenderDetails, showPhoto }) => {
   const marksGroupedIntoPairs = groupByPairs(offenderDetails.get('physicalMarks').toJS())
@@ -83,11 +125,36 @@ export const OffenderDetails = ({ offenderDetails, showPhoto }) => {
               </ValueWithLabel>
             )
           )}
+
+          <div className="row">
+            <div className="col-md-12">
+              <h3 className="heading-medium">Primary Address</h3>
+
+              {(() => {
+                switch (offenderDetails.getIn(['primaryAddress', 'type'])) {
+                  case 'NFA':
+                    return <span>No fixed abode</span>
+                  case 'ABSENT':
+                    return <span>No primary address on record</span>
+                  case 'PRESENT':
+                    return getDetails(['flat', 'street', 'town', 'county', 'postcode', 'country', 'comment'])
+                      .filter(details => details.value)
+                      .map(details => (
+                        <ValueWithLabel key={details.key} label={details.label}>
+                          {details.value}
+                        </ValueWithLabel>
+                      ))
+                  default:
+                    return null
+                }
+              })()}
+            </div>
+          </div>
         </div>
 
         <div className="col-md-6">
           <div className="row">
-            <h3 className="heading-medium"> Aliases </h3>
+            <h3 className="heading-medium">Aliases</h3>
           </div>
 
           {offenderDetails.get('aliases') && offenderDetails.get('aliases').size === 0 && <div> -- </div>}
@@ -101,33 +168,19 @@ export const OffenderDetails = ({ offenderDetails, showPhoto }) => {
               </div>
             </div>
           ))}
-        </div>
-      </div>
 
-      <div className="row">
-        <div className="col-md-12">
-          <h3 className="heading-medium">Primary Address</h3>
+          <div className="row">
+            <h3 className="heading-medium">Identifiers</h3>
+          </div>
+
+          <Identifiers identifiers={offenderDetails.get('identifiers')} />
+
+          <div className="row">
+            <h3 className="heading-medium">Contacts</h3>
+          </div>
+
+          <NextOfKin nextOfKin={offenderDetails.get('nextOfKin')} />
         </div>
-      </div>
-      <div className="col-md-6 col-xs-12">
-        {(() => {
-          switch (offenderDetails.getIn(['primaryAddress', 'type'])) {
-            case 'NFA':
-              return <span>No fixed abode</span>
-            case 'ABSENT':
-              return <span>No primary address on record</span>
-            case 'PRESENT':
-              return getDetails(['flat', 'street', 'town', 'county', 'postcode', 'country', 'comment'])
-                .filter(details => details.value)
-                .map(details => (
-                  <ValueWithLabel key={details.key} label={details.label}>
-                    {details.value}
-                  </ValueWithLabel>
-                ))
-            default:
-              return null
-          }
-        })()}
       </div>
 
       <div className="row">

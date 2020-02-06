@@ -50,6 +50,8 @@ class PaginationSpecification extends BrowserReportingSpec {
 
     elite2api.stubIEP()
     elite2api.stubAliases()
+    elite2api.stubContacts()
+    elite2api.stubBookingIdentifiers(-10)
 
     given: 'I navigate to an offenders alerts page'
     fixture.loginAs ITAG_USER
@@ -89,6 +91,8 @@ class PaginationSpecification extends BrowserReportingSpec {
 
     elite2api.stubIEP()
     elite2api.stubAliases()
+    elite2api.stubContacts()
+    elite2api.stubBookingIdentifiers(-10)
     caseNotesApi.stubCaseNoteTypes()
     caseNotesApi.stubMeCaseNoteTypes()
 

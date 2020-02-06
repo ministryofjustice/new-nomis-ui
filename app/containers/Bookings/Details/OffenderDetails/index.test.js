@@ -66,6 +66,8 @@ describe('<OffenderDetails />', () => {
         type: 'PRESENT',
       },
       aliases: [],
+      nextOfKin: [],
+      identifiers: [],
     })
   )
 
