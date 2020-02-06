@@ -78,7 +78,6 @@ export const NextOfKin = ({ nextOfKin }) => (
 )
 
 export const OffenderDetails = ({ offenderDetails, showPhoto }) => {
-  // console.log('offenderDetails contacts', offenderDetails.get('contacts'))
   const marksGroupedIntoPairs = groupByPairs(offenderDetails.get('physicalMarks').toJS())
   const characteristicsGroupedIntoPairs = groupByPairs(offenderDetails.get('physicalCharacteristics').toJS())
   const physicalAttributes = offenderDetails.get('physicalAttributes')
