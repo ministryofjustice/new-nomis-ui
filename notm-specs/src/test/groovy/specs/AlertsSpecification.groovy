@@ -38,7 +38,6 @@ class AlertsSpecification extends BrowserReportingSpec {
 
     oauthApi.stubUsersMe ITAG_USER
     oauthApi.stubUserRoles()
-    oauthApi.stubUserRoles()
     elite2api.stubGetMyDetailsForKeyWorker ITAG_USER
     whereaboutsApi.stubGetMyDetailsForKeyWorker ITAG_USER
     elite2api.stubImage()
