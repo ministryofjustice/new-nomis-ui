@@ -5,6 +5,7 @@ import groovy.util.logging.Slf4j
 import mockapis.AllocationManagerApi
 import mockapis.Elite2Api
 import mockapis.OauthApi
+import mockapis.WhereaboutsApi
 import model.TestFixture
 import org.junit.Rule
 import pages.HomePage
@@ -20,12 +21,15 @@ class LoginSpecification extends BrowserReportingSpec {
   Elite2Api elite2Api = new Elite2Api()
 
   @Rule
+  WhereaboutsApi whereaboutsApi = new WhereaboutsApi()
+
+  @Rule
   OauthApi oauthApi = new OauthApi()
 
   @Rule
   AllocationManagerApi allocationManagerApi = new AllocationManagerApi()
 
-  TestFixture fixture = new TestFixture(browser, elite2Api, oauthApi)
+  TestFixture fixture = new TestFixture(browser, elite2Api, whereaboutsApi, oauthApi)
 
   def "The login page is present"() {
 
@@ -56,6 +60,7 @@ class LoginSpecification extends BrowserReportingSpec {
     oauthApi.stubUsersMe ITAG_USER
     oauthApi.stubUserRoles()
     elite2Api.stubGetMyDetails ITAG_USER
+    whereaboutsApi.stubGetMyDetails ITAG_USER
 
     when: "I login using valid credentials"
     loginAs ITAG_USER, 'password'
@@ -72,7 +77,8 @@ class LoginSpecification extends BrowserReportingSpec {
 
     oauthApi.stubUsersMe ITAG_USER
     oauthApi.stubUserRoles()
-    elite2Api.stubGetMyDetails(ITAG_USER, true)
+    elite2Api.stubGetMyDetails(ITAG_USER)
+    whereaboutsApi.stubGetMyDetails(ITAG_USER, true)
 
     when: "I login using valid credentials"
     loginAs ITAG_USER, 'password'
@@ -94,6 +100,7 @@ class LoginSpecification extends BrowserReportingSpec {
     oauthApi.stubUsersMe ITAG_USER
     oauthApi.stubUserRoles()
     elite2Api.stubGetMyDetails ITAG_USER
+    whereaboutsApi.stubGetMyDetails ITAG_USER
 
     elite2Api.stubOffenderDetails(true)
     elite2Api.stubOffenderAddresses()

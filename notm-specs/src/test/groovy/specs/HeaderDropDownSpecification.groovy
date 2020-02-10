@@ -5,6 +5,7 @@ import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
+import mockapis.WhereaboutsApi
 import model.TestFixture
 import org.junit.Rule
 import pages.HomePage
@@ -18,12 +19,15 @@ class HeaderDropDownSpecification extends BrowserReportingSpec {
   Elite2Api elite2api = new Elite2Api()
 
   @Rule
+  WhereaboutsApi whereaboutsApi = new WhereaboutsApi()
+
+  @Rule
   KeyworkerApi keyworkerApi = new KeyworkerApi()
 
   @Rule
   OauthApi oauthApi = new OauthApi()
 
-  TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
+  TestFixture fixture = new TestFixture(browser, elite2api, whereaboutsApi, oauthApi)
 
   def "should show the case load description"() {
 
