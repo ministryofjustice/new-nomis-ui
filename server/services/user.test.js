@@ -18,6 +18,7 @@ describe('User service', () => {
   // The api will be stubbed so there's no need to provide a real client for it to use.
   const elite2Api = {}
   const oauthApi = {}
+  const whereaboutsApi = {}
   let userService
 
   beforeEach(() => {
@@ -30,18 +31,18 @@ describe('User service', () => {
       },
     }
 
-    userService = userServiceFactory(elite2Api, oauthApi, config)
+    userService = userServiceFactory(elite2Api, oauthApi, whereaboutsApi, config)
     oauthApi.getMyInformation = jest.fn()
     oauthApi.getUserAccessRoles = jest.fn()
     elite2Api.getCaseLoads = jest.fn()
     elite2Api.put = jest.fn()
     elite2Api.getStaffRoles = jest.fn()
-    elite2Api.getWhereaboutsConfig = jest.fn()
+    whereaboutsApi.getWhereaboutsConfig = jest.fn()
 
     oauthApi.getMyInformation.mockReturnValueOnce(details)
     oauthApi.getUserAccessRoles.mockReturnValueOnce(accessRoles)
     elite2Api.getStaffRoles.mockReturnValueOnce(staffRoles)
-    elite2Api.getWhereaboutsConfig.mockReturnValueOnce({ enabled: true })
+    whereaboutsApi.getWhereaboutsConfig.mockReturnValueOnce({ enabled: true })
   })
 
   it('should call all expected elite2Api and oauthApi services with the correct params', async () => {
@@ -52,7 +53,7 @@ describe('User service', () => {
     expect(oauthApi.getMyInformation).toBeCalledWith(context)
     expect(oauthApi.getUserAccessRoles).toBeCalledWith(context)
     expect(elite2Api.getStaffRoles).toBeCalledWith(context, -2, 'LEI')
-    expect(elite2Api.getWhereaboutsConfig).toBeCalledWith(context, 'LEI')
+    expect(whereaboutsApi.getWhereaboutsConfig).toBeCalledWith(context, 'LEI')
   })
 
   it('should set a caseload if no caseload is already set', async () => {
@@ -65,7 +66,7 @@ describe('User service', () => {
     expect(elite2Api.getCaseLoads).toBeCalledWith(context)
     expect(elite2Api.put).toBeCalledWith(context, 'api/users/me/activeCaseLoad', { caseLoadId: 'FIRST' })
     expect(elite2Api.getStaffRoles).toBeCalledWith(context, -2, 'FIRST')
-    expect(elite2Api.getWhereaboutsConfig).toBeCalledWith(context, 'FIRST')
+    expect(whereaboutsApi.getWhereaboutsConfig).toBeCalledWith(context, 'FIRST')
   })
 
   it('should return undefined if only caseload is ___', async () => {
@@ -150,7 +151,7 @@ describe('User service', () => {
       },
     }
 
-    userService = userServiceFactory(elite2Api, oauthApi, config)
+    userService = userServiceFactory(elite2Api, oauthApi, whereaboutsApi, config)
     elite2Api.getCaseLoads.mockReturnValueOnce([{ caseLoadId: 'LEI', currentlyActive: true }, { caseLoadId: 'SECOND' }])
     const viewModel = await userService.me({})
 

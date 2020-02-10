@@ -9,8 +9,8 @@ const { keyworkerServiceFactory } = require('./services/keyworker')
 
 const router = express.Router()
 
-module.exports = ({ eliteApi, oauthApi, keyworkerApi, caseNotesApi, allocationManagerApi }) => {
-  const userService = userServiceFactory(eliteApi, oauthApi, config)
+module.exports = ({ eliteApi, oauthApi, keyworkerApi, caseNotesApi, allocationManagerApi, whereaboutsApi }) => {
+  const userService = userServiceFactory(eliteApi, oauthApi, whereaboutsApi, config)
   const bookingService = bookingServiceFactory(eliteApi, keyworkerApi, allocationManagerApi)
   const eventsService = eventsServiceFactory(eliteApi)
   const keyworkerService = keyworkerServiceFactory(eliteApi, oauthApi, keyworkerApi)

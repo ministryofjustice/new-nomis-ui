@@ -70,7 +70,6 @@ const eliteApiFactory = client => {
 
   const getSummaryForOffenders = (context, offenderNumbers) =>
     get(context, `api/bookings?iepLevel=true&${toQueryParameters(offenderNumbers, 'offenderNo')}`)
-  const getWhereaboutsConfig = (context, agencyId) => get(context, `api/agencies/${agencyId}/locations/whereabouts`)
 
   // get existing events for an offender
   const getVisits = (context, { agencyId, date, timeSlot, offenderNumbers }) =>
@@ -120,7 +119,6 @@ const eliteApiFactory = client => {
     getSentenceData,
     getStaffRoles,
     getSummaryForOffenders,
-    getWhereaboutsConfig,
     getVisits,
     getAppointments,
     getActivities,

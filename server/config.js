@@ -72,6 +72,10 @@ const apis = {
     url: process.env.CASENOTES_API_URL || 'http://localhost:8083',
     timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 30,
   },
+  whereabouts: {
+    url: process.env.WHEREABOUTS_URL || 'http://localhost:8082/',
+    timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 30,
+  },
 }
 
 module.exports = {
