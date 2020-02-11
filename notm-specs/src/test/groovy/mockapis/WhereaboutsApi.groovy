@@ -12,6 +12,15 @@ class WhereaboutsApi extends WireMockRule {
   WhereaboutsApi() {
     super(18082)
   }
+  void stubHealth() {
+    this.stubFor(
+      get('/health/ping')
+        .willReturn(
+          aResponse()
+            .withStatus(200)
+            .withHeader('Content-Type', 'text/plain')
+            .withBody("pong")))
+  }
 
   void stubWhereabouts(UserAccount user, boolean whereaboutsAvailable) {
     this.stubFor(
