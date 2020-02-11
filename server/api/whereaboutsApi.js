@@ -8,7 +8,7 @@ const whereaboutsApiFactory = client => {
 
   const get = (context, url) => client.get(context, url).then(processResponse(context))
 
-  const getWhereaboutsConfig = (context, agencyId) => get(context, `agencies/${agencyId}/locations/whereabouts`)
+  const getWhereaboutsConfig = (context, agencyId) => get(context, `/agencies/${agencyId}/locations/whereabouts`)
   return {
     getWhereaboutsConfig,
   }
