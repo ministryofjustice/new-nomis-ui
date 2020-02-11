@@ -35,3 +35,4 @@ env:
   HMPPS_COOKIE_NAME: hmpps-session-dev
   REMOTE_AUTH_STRATEGY: "true"
   WEB_SESSION_TIMEOUT_IN_MINUTES: "60"
+  WHEREABOUTS_URL: "https://whereabouts-dev.prison.service.justice.gov.uk"

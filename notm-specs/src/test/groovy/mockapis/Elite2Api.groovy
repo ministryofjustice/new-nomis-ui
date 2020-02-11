@@ -46,18 +46,16 @@ class Elite2Api extends WireMockRule {
             .withFixedDelay(3000)))
   }
 
-  void stubGetMyDetails(UserAccount user, boolean whereaboutsAvailable = false) {
+  void stubGetMyDetails(UserAccount user) {
     stubLocations()
     stubStaffRoles(user)
     stubCaseLoads(user)
-    stubWhereabouts(user, whereaboutsAvailable)
   }
 
   void stubGetMyDetailsForKeyWorker(UserAccount user) {
     stubLocations()
     stubStaffRolesForKeyWorker(user)
     stubCaseLoads(user)
-    stubWhereabouts(user, false)
   }
 
   void stubLocations() {
@@ -101,15 +99,6 @@ class Elite2Api extends WireMockRule {
         ))
   }
 
-
-  void stubWhereabouts(UserAccount user, boolean whereaboutsAvailable) {
-    this.stubFor(
-      get("/api/agencies/${user.workingCaseload.id}/locations/whereabouts")
-        .willReturn(aResponse()
-        .withStatus(200)
-        .withHeader('Content-Type', 'application/json')
-        .withBody(JsonOutput.toJson([enabled: whereaboutsAvailable]))))
-  }
 
   void stubAppointments(UserAccount user) {
     this.stubFor(

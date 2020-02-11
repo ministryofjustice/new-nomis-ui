@@ -84,6 +84,9 @@ env:
   - name: USE_OF_FORCE_URL
     value: {{ .Values.env.USE_OF_FORCE_URL | quote }}
 
+  - name: WHEREABOUTS_URL
+    value: {{ .Values.env.WHEREABOUTS_URL | quote }}
+
   - name: USE_OF_FORCE_PRISONS
     value: {{ .Values.env.USE_OF_FORCE_PRISONS | quote }}
 

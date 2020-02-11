@@ -5,6 +5,7 @@ import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
+import mockapis.WhereaboutsApi
 import model.TestFixture
 import org.junit.Rule
 import pages.HomePage
@@ -17,12 +18,15 @@ class KeyWorkerRoleBasedAccessSpecification extends BrowserReportingSpec {
   Elite2Api elite2api = new Elite2Api()
 
   @Rule
+  WhereaboutsApi whereaboutsApi = new WhereaboutsApi()
+
+  @Rule
   OauthApi oauthApi = new OauthApi()
 
   @Rule
   KeyworkerApi keyworkerApi = new KeyworkerApi()
 
-  TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
+  TestFixture fixture = new TestFixture(browser, elite2api, whereaboutsApi,  oauthApi)
 
   def "should see the my key worker allocations link when the user is a key worker"() {
     given:

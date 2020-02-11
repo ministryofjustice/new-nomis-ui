@@ -7,6 +7,7 @@ import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
 import mockapis.AllocationManagerApi
+import mockapis.WhereaboutsApi
 import mockapis.response.AccessRoles
 import model.Offender
 import model.TestFixture
@@ -24,13 +25,11 @@ import static model.UserAccount.ITAG_USER
 @Slf4j
 class OffenderDetailsSpecification extends BrowserReportingSpec {
 
-  static String PRISON_HUB_URL = "http://localhost:18082"
-
   @Rule
   Elite2Api elite2api = new Elite2Api()
 
   @Rule
-  WireMockRule prisonHubServer = new WireMockRule(18082)
+  WhereaboutsApi whereaboutsApi = new WhereaboutsApi()
 
   @Rule
   KeyworkerApi keyworkerApi = new KeyworkerApi()
@@ -41,7 +40,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
   @Rule
   AllocationManagerApi allocationManagerApi = new AllocationManagerApi()
 
-  TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
+  TestFixture fixture = new TestFixture(browser, elite2api, whereaboutsApi, oauthApi)
 
 
   def "Offender quicklook details are correct"() {
@@ -180,7 +179,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     then: 'The I can click through to adjudications'
 
 
-    prisonHubServer.stubFor(
+    whereaboutsApi.stubFor(
       get(WireMock.urlPathMatching('/.*'))
         .willReturn(
           aResponse().withBody("hello").withStatus(200)))
@@ -189,8 +188,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
 
     then: 'The browser goes to the prison hub url'
     def adjudicationSuffix = '/offenders/A1234AJ/adjudications'
-    waitFor { currentUrl == (PRISON_HUB_URL + adjudicationSuffix) }
-    prisonHubServer.verify(WireMock.getRequestedFor(WireMock.urlPathEqualTo(adjudicationSuffix)))
+    whereaboutsApi.verify(WireMock.getRequestedFor(WireMock.urlPathEqualTo(adjudicationSuffix)))
   }
 
   def "Incentive Level history link takes the user to prison staff hub"() {
@@ -223,7 +221,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     then: 'The I can click through to Incentive details'
 
 
-    prisonHubServer.stubFor(
+    whereaboutsApi.stubFor(
       get(WireMock.urlPathMatching('/.*'))
         .willReturn(
           aResponse().withBody("hello").withStatus(200)))
@@ -232,8 +230,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
 
     then: 'The browser goes to the Incentive Level history prison hub url'
     def iepDetailsSuffix = '/offenders/A1234AJ/incentive-level-details'
-    waitFor { currentUrl == (PRISON_HUB_URL + iepDetailsSuffix) }
-    prisonHubServer.verify(WireMock.getRequestedFor(WireMock.urlPathEqualTo(iepDetailsSuffix)))
+    whereaboutsApi.verify(WireMock.getRequestedFor(WireMock.urlPathEqualTo(iepDetailsSuffix)))
   }
 
   def "Categorisation link is displayed for a user with a categorisation access role but prisoner not in caseload"() {
