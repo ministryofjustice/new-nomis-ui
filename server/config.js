@@ -73,7 +73,7 @@ const apis = {
     timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 30,
   },
   whereabouts: {
-    url: process.env.WHEREABOUTS_URL || 'http://localhost:8082',
+    url: process.env.API_WHEREABOUTS_ENDPOINT_URL || 'http://localhost:8082',
     timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 30,
   },
 }
