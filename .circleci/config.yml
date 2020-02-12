@@ -172,6 +172,13 @@ jobs:
               docker tag mojdigitalstudio/new-nomis-ui:$APP_VERSION mojdigitalstudio/new-nomis-ui:latest
               docker push mojdigitalstudio/new-nomis-ui:$APP_VERSION
               docker push mojdigitalstudio/new-nomis-ui:latest
+              docker logout
+              #push to quay.io
+              docker login -u="${QUAYIO_USERNAME}" -p="${QUAYIO_PASSWORD}" quay.io
+              docker tag mojdigitalstudio/new-nomis-ui:$APP_VERSION quay.io/hmpps/new-nomis-ui:$APP_VERSION
+              docker tag mojdigitalstudio/new-nomis-ui:$APP_VERSION quay.io/hmpps/new-nomis-ui:latest
+              docker push quay.io/hmpps/new-nomis-ui:$APP_VERSION
+              docker push quay.io/hmpps/new-nomis-ui:latest
             fi
 
   deploy_dev:
