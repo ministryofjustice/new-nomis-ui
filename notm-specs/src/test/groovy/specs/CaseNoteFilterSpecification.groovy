@@ -5,6 +5,7 @@ import mockapis.CaseNotesApi
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
+import mockapis.WhereaboutsApi
 import model.TestFixture
 import org.junit.Rule
 import pages.CaseNotesPage
@@ -18,6 +19,9 @@ class CaseNoteFilterSpecification extends BrowserReportingSpec  {
   Elite2Api elite2api = new Elite2Api()
 
   @Rule
+  WhereaboutsApi whereaboutsApi = new WhereaboutsApi()
+
+  @Rule
   KeyworkerApi keyworkerApi = new KeyworkerApi()
 
   @Rule
@@ -26,7 +30,7 @@ class CaseNoteFilterSpecification extends BrowserReportingSpec  {
   @Rule
   OauthApi oauthApi = new OauthApi()
 
-  TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
+  TestFixture fixture = new TestFixture(browser, elite2api, whereaboutsApi, oauthApi)
 
   def offenderNo = "A1234AJ"
   def bookingId = -10
@@ -38,6 +42,7 @@ class CaseNoteFilterSpecification extends BrowserReportingSpec  {
     oauthApi.stubUsersMe ITAG_USER
     oauthApi.stubUserRoles()
     elite2api.stubGetMyDetailsForKeyWorker(ITAG_USER)
+    whereaboutsApi.stubGetMyDetailsForKeyWorker(ITAG_USER)
     elite2api.stubImage()
     caseNotesApi.stubBookingCaseNotes(offenderNo)
     elite2api.stubOffenderDetails(true)

@@ -5,6 +5,7 @@ const { keyworkerApiFactory } = require('./api/keyworkerApi')
 const { caseNotesApiFactory } = require('./api/caseNotesApi')
 const { oauthApiFactory } = require('./api/oauthApi')
 const { allocationManagerApiFactory } = require('./api/allocationManagerApi')
+const { whereaboutsApiFactory } = require('./api/whereaboutsApi')
 
 const eliteApi = eliteApiFactory(
   clientFactory({
@@ -42,10 +43,18 @@ const allocationManagerApi = allocationManagerApiFactory(
   })
 )
 
+const whereaboutsApi = whereaboutsApiFactory(
+  clientFactory({
+    baseUrl: config.apis.whereabouts.url,
+    timeout: config.apis.whereabouts.timeoutSeconds * 1000,
+  })
+)
+
 module.exports = {
   eliteApi,
   keyworkerApi,
   caseNotesApi,
   oauthApi,
   allocationManagerApi,
+  whereaboutsApi,
 }

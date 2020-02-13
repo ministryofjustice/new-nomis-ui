@@ -1,6 +1,6 @@
 const { logger } = require('./logger')
 
-const userServiceFactory = (elite2Api, oauthApi, config) => {
+const userServiceFactory = (elite2Api, oauthApi, whereaboutsApi, config) => {
   async function getActiveCaseloadAndSetIfNotSet(context, details) {
     const caseloads = await elite2Api.getCaseLoads(context)
 
@@ -35,7 +35,7 @@ const userServiceFactory = (elite2Api, oauthApi, config) => {
       try {
         ;[staffRoles, whereaboutsConfig] = await Promise.all([
           elite2Api.getStaffRoles(context, staffId, activeCaseLoadId),
-          elite2Api.getWhereaboutsConfig(context, activeCaseLoadId),
+          whereaboutsApi.getWhereaboutsConfig(context, activeCaseLoadId),
         ])
       } catch (error) {
         logger.error(error)

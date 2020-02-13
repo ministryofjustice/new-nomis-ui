@@ -4,6 +4,7 @@ import geb.module.Select
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
+import mockapis.WhereaboutsApi
 import model.TestFixture
 import org.junit.Rule
 import pages.AlertsPage
@@ -18,12 +19,15 @@ class AlertsSpecification extends BrowserReportingSpec {
   Elite2Api elite2api = new Elite2Api()
 
   @Rule
+  WhereaboutsApi whereaboutsApi = new WhereaboutsApi()
+
+  @Rule
   KeyworkerApi keyworkerApi = new KeyworkerApi()
 
   @Rule
   OauthApi oauthApi = new OauthApi()
 
-  TestFixture fixture = new TestFixture(browser, elite2api, oauthApi)
+  TestFixture fixture = new TestFixture(browser, elite2api, whereaboutsApi, oauthApi)
   def offenderNo = "A1234AJ"
   def bookingId = -10
   def agencyId = "${ITAG_USER.staffMember.assignedCaseload}"
@@ -35,6 +39,7 @@ class AlertsSpecification extends BrowserReportingSpec {
     oauthApi.stubUsersMe ITAG_USER
     oauthApi.stubUserRoles()
     elite2api.stubGetMyDetailsForKeyWorker ITAG_USER
+    whereaboutsApi.stubGetMyDetailsForKeyWorker ITAG_USER
     elite2api.stubImage()
     elite2api.stubBookingAlerts(bookingId)
     elite2api.stubOffenderDetails(true)
