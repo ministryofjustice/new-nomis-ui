@@ -35,7 +35,6 @@ describe('Booking Service Quick look', () => {
         bookingId: 1,
       })
     )
-    eliteApi.caseNoteUsageList = jest.fn().mockReturnValue(Promise.resolve([]))
     allocationManagerApi.getPomByOffenderNo = jest.fn().mockReturnValue(Promise.resolve({}))
     eliteApi.getIdentifiers = jest.fn().mockReturnValue(Promise.resolve(null))
   })
@@ -632,24 +631,6 @@ describe('Booking Service Quick look', () => {
 
     expect(data.assignedStaffMembers.communityOffenderManager.firstName).toEqual('Dom3')
     expect(data.assignedStaffMembers.communityOffenderManager.lastName).toEqual('Bull')
-  })
-
-  it('should call case note usage', async () => {
-    eliteApi.caseNoteUsageList.mockReturnValue(
-      Promise.resolve([
-        {
-          staffId: 234423,
-          caseNoteType: 'KA',
-          caseNoteSubType: 'KS',
-          numCaseNotes: 4,
-          latestCaseNote: '2018-07-02T15:03:47.337Z',
-        },
-      ])
-    )
-
-    const data = await bookingService.getQuickLookViewModel({}, OFFENDER_NO)
-
-    expect(data.lastKeyWorkerSessionDate).toEqual('2018-07-02T15:03:47.337Z')
   })
 
   it('should return prison allocation managers', async () => {

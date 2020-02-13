@@ -199,6 +199,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     elite2api.stubOffenderDetails(true)
     elite2api.stubOffenderAddresses()
     elite2api.stubBookingIdentifiers(-10)
+    elite2api.stubCaseNoteUsage([Offender.SMITH()])
     elite2api.stubContacts()
     elite2api.stubImage()
     elite2api.stubIEP()

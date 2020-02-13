@@ -58,6 +58,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     elite2api.stubKeyworkerOld()
     elite2api.stubAliases()
     elite2api.stubStaffDetails(-2)
+    elite2api.stubCaseNoteUsage([Offender.SMITH()])
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
     allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
@@ -75,7 +76,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
 
     $('span.cata-status')*.text().contains('CAT A')
     def allHeaderValues = $('div.header-details strong')*.text()
-    def expectedHeaderValues = ['A1234AJ', '--', 'Standard', '--', '0', '1', 'A-1-6', 'LEEDS']
+    def expectedHeaderValues = ['A1234AJ', '--', '--', 'Standard', '--', '0', '1', 'A-1-6', 'LEEDS']
     containsExpectedIgnoringBlankAndDates(allHeaderValues, expectedHeaderValues)
 
     and: 'The quicklook page has the correct data'
@@ -111,6 +112,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     elite2api.stubKeyworkerOld()
     elite2api.stubAliases()
     elite2api.stubStaffDetails(-2)
+    elite2api.stubCaseNoteUsage([Offender.SMITH()])
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('BXI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
     allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
@@ -128,7 +130,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
 
     $('span.cata-status')*.text().contains('CAT A')
     def allHeaderValues = $('div.header-details strong')*.text()
-    def expectedHeaderValues = ['A1234AJ', '--', 'Standard', '--', '0', '1', 'A-1-6', 'LEEDS']
+    def expectedHeaderValues = ['A1234AJ', '--', '--', 'Standard', '--', '0', '1', 'A-1-6', 'LEEDS']
     containsExpectedIgnoringBlankAndDates(allHeaderValues, expectedHeaderValues)
 
     and: 'The quicklook page has the correct data'
@@ -164,6 +166,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     elite2api.stubKeyworkerOld()
     elite2api.stubAliases()
     elite2api.stubStaffDetails(-2)
+    elite2api.stubCaseNoteUsage([Offender.SMITH()])
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
     allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
@@ -207,6 +210,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     elite2api.stubKeyworkerOld()
     elite2api.stubAliases()
     elite2api.stubStaffDetails(-2)
+    elite2api.stubCaseNoteUsage([Offender.SMITH()])
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
     allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
@@ -250,6 +254,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     elite2api.stubKeyworkerOld()
     elite2api.stubAliases()
     elite2api.stubStaffDetails(-2)
+    elite2api.stubCaseNoteUsage([Offender.SMITH()])
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('BXI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
     allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
@@ -281,6 +286,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     elite2api.stubKeyworkerOld()
     elite2api.stubAliases()
     elite2api.stubStaffDetails(-2)
+    elite2api.stubCaseNoteUsage([Offender.SMITH()])
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
     allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
@@ -312,6 +318,7 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     elite2api.stubKeyworkerOld()
     elite2api.stubAliases()
     elite2api.stubStaffDetails(-2)
+    elite2api.stubCaseNoteUsage([Offender.SMITH()])
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubGetKeyWorker(-2, 'A1234AJ')
     allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
