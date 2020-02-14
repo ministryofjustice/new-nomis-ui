@@ -6,6 +6,9 @@ import mockapis.CaseNotesApi
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
+
+import model.Offender
+
 import mockapis.WhereaboutsApi
 import model.TestFixture
 import org.junit.Rule
@@ -57,6 +60,7 @@ class PaginationSpecification extends BrowserReportingSpec {
     elite2api.stubAliases()
     elite2api.stubContacts()
     elite2api.stubBookingIdentifiers(-10)
+    elite2api.stubCaseNoteUsage([Offender.SMITH()])
 
     given: 'I navigate to an offenders alerts page'
     fixture.loginAs ITAG_USER
@@ -99,6 +103,7 @@ class PaginationSpecification extends BrowserReportingSpec {
     elite2api.stubAliases()
     elite2api.stubContacts()
     elite2api.stubBookingIdentifiers(-10)
+    elite2api.stubCaseNoteUsage([Offender.SMITH()])
     caseNotesApi.stubCaseNoteTypes()
     caseNotesApi.stubMeCaseNoteTypes()
 

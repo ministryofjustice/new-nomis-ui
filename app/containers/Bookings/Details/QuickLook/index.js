@@ -754,13 +754,6 @@ class QuickLook extends Component {
               </div>
             </div>
 
-            <div className="row">
-              <div className="col-xs-12">
-                <h3 className="heading-medium">Key worker activity</h3>
-
-                <KeyWorkerSessionDate lastKeyWorkerSessionDate={viewModel.get('lastKeyWorkerSessionDate')} />
-              </div>
-            </div>
             {canUserViewProbationDocuments && (
               <div className="col-xs-12">
                 <h3 className="heading-medium">Offender Management</h3>

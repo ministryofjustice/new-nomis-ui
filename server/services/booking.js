@@ -61,13 +61,20 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
       getKeyworker(context, offenderNo),
     ])
     const { bookingId } = details
-    const [iepDetails, contacts, identifiers] = await Promise.all([
+    const [iepDetails, contacts, identifiers, kwCaseNoteDates] = await Promise.all([
       eliteApi.getIepSummary(context, bookingId),
       eliteApi.getContacts(context, bookingId),
       eliteApi.getIdentifiers(context, bookingId),
+      eliteApi.caseNoteUsageList(context, [bookingId]),
     ])
     const { iepLevel } = iepDetails
     const primaryAddress = addresses.find(address => address.primary)
+
+    let lastKeyWorkerSessionDate = null
+    if (kwCaseNoteDates && kwCaseNoteDates.length > 0) {
+      lastKeyWorkerSessionDate = kwCaseNoteDates.reduce((m, v, i) => (v.latestCaseNote > m.latestCaseNote && i ? v : m))
+        .latestCaseNote
+    }
 
     return {
       ...details,
@@ -79,6 +86,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
         ...primaryAddress,
         type: getAddressType(primaryAddress),
       },
+      lastKeyWorkerSessionDate,
       nextOfKin:
         (contacts &&
           contacts.nextOfKin &&
@@ -116,7 +124,6 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
       eliteApi.getLastVisit(context, bookingId),
       eliteApi.getNextVisit(context, bookingId),
       eliteApi.getRelationships(context, bookingId),
-      eliteApi.caseNoteUsageList(context, [bookingId]),
       allocationManagerApi.getPomByOffenderNo(context, offenderNo),
     ]
 
@@ -132,7 +139,6 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
       lastVisit,
       nextVisit,
       relationships,
-      kwCaseNoteDates,
       prisonOffenderManagerData,
     ] = await Promise.all(apiCalls.map(apiCall => logErrorAndContinue(apiCall)))
 
@@ -176,12 +182,6 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
       return null
     }
 
-    let lastKWSessionDate = null
-    if (kwCaseNoteDates && kwCaseNoteDates.length > 0) {
-      lastKWSessionDate = kwCaseNoteDates.reduce((m, v, i) => (v.latestCaseNote > m.latestCaseNote && i ? v : m))
-        .latestCaseNote
-    }
-
     function awardFilter(a) {
       const { status } = a
       return status && !status.startsWith('SUSP') && status !== 'QUASHED'
@@ -217,7 +217,6 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
       offences: offenceDetails && offenceDetails.length > 0 ? offenceDetails : null,
       releaseDate: sentenceData ? sentenceData.releaseDate : null,
       tariffDate: sentenceData ? sentenceData.tariffDate : null,
-      lastKeyWorkerSessionDate: lastKWSessionDate,
       indeterminateReleaseDate: Boolean(sentenceData && sentenceData.tariffDate && !sentenceData.releaseDate),
       adjudications: {
         proven: (adjudications && adjudications.adjudicationCount) || 0,

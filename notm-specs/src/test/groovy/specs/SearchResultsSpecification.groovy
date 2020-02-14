@@ -89,6 +89,7 @@ class SearchResultsSpecification extends BrowserReportingSpec {
     elite2api.stubOffenderAddresses()
     elite2api.stubContacts()
     elite2api.stubBookingIdentifiers(-10)
+    elite2api.stubCaseNoteUsage([Offender.SMITH()])
 
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
     elite2api.stubBookingAlerts(-10)

@@ -10,6 +10,7 @@ import mockapis.WhereaboutsApi
 import model.Offender
 import model.TestFixture
 import org.junit.Rule
+import org.openqa.selenium.JavascriptExecutor
 import pages.*
 import spock.lang.IgnoreIf
 
@@ -53,6 +54,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
 
     when: 'I create a new case note'
     setupAddCaseNote()
+    ((JavascriptExecutor) driver).executeScript("scroll(0,100);")
     addCaseNoteLink.click()
     at AddCaseNotePage
     createNewCaseNote()
@@ -90,6 +92,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
 
     when: 'I create a new senstive case note'
     setupAddCaseNote("OMIC","TEST_OMIC", "some sensitive text")
+    ((JavascriptExecutor) driver).executeScript("scroll(0,100);")
     addCaseNoteLink.click()
     at AddCaseNotePage
     createNewCaseNote("OMIC", "XXX_TEST_OMIC", "some sensitive text")
@@ -203,6 +206,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     elite2api.stubOffenderDetails(true)
     elite2api.stubOffenderAddresses()
     elite2api.stubBookingIdentifiers(-10)
+    elite2api.stubCaseNoteUsage([Offender.SMITH()])
     elite2api.stubContacts()
     elite2api.stubImage()
     elite2api.stubIEP()

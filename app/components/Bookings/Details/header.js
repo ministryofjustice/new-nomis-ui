@@ -11,6 +11,7 @@ import { linkOnClick } from '../../../helpers'
 
 import './header.scss'
 import flags from '../AlertFlags'
+import { FormattedDate } from '../../intl'
 
 export const Alerts = ({ activeAlertCount, inactiveAlertCount, offenderNo }) => (
   <HashLink to={`/offenders/${offenderNo}/alerts#tab-content`} className="alerts-link">
@@ -251,6 +252,7 @@ const Header = ({
   isUseOfForce,
 }) => {
   const alertFlags = className => flags.AlertFlags(inmateData.get('alerts'), className, onAlertFlagClick)
+  const lastKeyWorkerSessionDate = inmateData.get('lastKeyWorkerSessionDate')
   return (
     <div className="header-details">
       <div className="row visible-small">{alertFlags('col-sm-12 no-padding-left')}</div>
@@ -285,6 +287,10 @@ const Header = ({
                     {inmateData.get('keyworker') && (
                       <EliteOfficerName staffId={inmateData.getIn(['keyworker', 'staffId'])} />
                     )}
+                  </strong>
+                  <span className="label">Last session</span>
+                  <strong>
+                    {lastKeyWorkerSessionDate ? <FormattedDate value={lastKeyWorkerSessionDate} /> : '--'}
                   </strong>
                 </div>
               </div>

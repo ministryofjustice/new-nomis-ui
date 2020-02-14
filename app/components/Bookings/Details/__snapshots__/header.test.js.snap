@@ -428,6 +428,14 @@ exports[`Header component should render correctly 1`] = `
                   -6
                 </span>
               </strong>
+              <span
+                className="label"
+              >
+                Last session
+              </span>
+              <strong>
+                --
+              </strong>
             </div>
           </div>
         </div>

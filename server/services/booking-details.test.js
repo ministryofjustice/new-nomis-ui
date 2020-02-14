@@ -22,6 +22,7 @@ describe('Booking Service Booking details', () => {
     eliteApi.getIepSummary = jest.fn().mockReturnValue({ iepLevel: null })
     eliteApi.getCaseLoads = jest.fn().mockReturnValue([{ caseLoadId: 'LEI', currentlyActive: true }])
     eliteApi.getAddresses = jest.fn().mockReturnValue([{ primary: true }, { primary: false }])
+    eliteApi.caseNoteUsageList = jest.fn().mockReturnValue(Promise.resolve([]))
     keyworkerApi.getKeyworkerByCaseloadAndOffenderNo = jest.fn().mockReturnValue({ firstName: 'John' })
   })
 
@@ -94,5 +95,23 @@ describe('Booking Service Booking details', () => {
 
     expect(eliteApi.getContacts).toBeCalled()
     expect(data.nextOfKin.length).toEqual(0)
+  })
+
+  it('should call case note usage', async () => {
+    eliteApi.caseNoteUsageList.mockReturnValue(
+      Promise.resolve([
+        {
+          staffId: 234423,
+          caseNoteType: 'KA',
+          caseNoteSubType: 'KS',
+          numCaseNotes: 4,
+          latestCaseNote: '2018-07-02T15:03:47.337Z',
+        },
+      ])
+    )
+
+    const data = await bookingService.getBookingDetailsViewModel({}, offenderNo)
+
+    expect(data.lastKeyWorkerSessionDate).toEqual('2018-07-02T15:03:47.337Z')
   })
 })
