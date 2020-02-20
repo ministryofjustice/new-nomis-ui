@@ -1,3 +1,6 @@
+[![CircleCI](https://circleci.com/gh/ministryofjustice/new-nomis-ui/tree/master.svg?style=svg)](https://circleci.com/gh/ministryofjustice/new-nomis-ui)
+[![Known Vulnerabilities](https://snyk.io/test/github/ministryofjustice/new-nomis-ui/badge.svg)](https://snyk.io/test/github/ministryofjustice/new-nomis-ui)
+
 # New Nomis UI
 
 This is the backend front end web app. It consists of a Node.JS application to handle server side calls
