@@ -288,6 +288,11 @@ const Header = ({
                       <EliteOfficerName staffId={inmateData.getIn(['keyworker', 'staffId'])} />
                     )}
                   </strong>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col">
                   <span className="label">Last session</span>
                   <strong>
                     {lastKeyWorkerSessionDate ? <FormattedDate value={lastKeyWorkerSessionDate} /> : '--'}
