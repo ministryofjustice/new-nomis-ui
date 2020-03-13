@@ -4,7 +4,7 @@
 replicaCount: 4
 
 image:
-  repository: docker.io/mojdigitalstudio/new-nomis-ui
+  repository: quay.io/hmpps/new-nomis-ui
   tag: latest
   pullPolicy: IfNotPresent
   port: 3000

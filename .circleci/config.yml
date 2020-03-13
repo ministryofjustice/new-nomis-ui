@@ -26,6 +26,9 @@ commands:
     parameters:
       env:
         type: string
+      slack_notification:
+        type: boolean
+        default: false
     steps:
       - setup
       - checkout:
@@ -35,15 +38,24 @@ commands:
       - deploy:
           name: Deploy to << parameters.env >>
           command: |
+            APP=notm
             APP_VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
-            sed -i "s/appVersion: \".*\"/appVersion: \"${APP_VERSION}\"/g" ~/git/helm_deploy/notm/Chart.yaml
+            echo "export APP_VERSION=$APP_VERSION" >> $BASH_ENV
+            sed -i "s/appVersion: \".*\"/appVersion: \"${APP_VERSION}\"/g" ~/git/helm_deploy/${APP}/Chart.yaml
             aws secretsmanager get-secret-value --secret-id ${AWS_SECRET_NAME} | jq -r .SecretString | \
-            helm upgrade notm ~/git/helm_deploy/notm/. \
+            helm upgrade ${APP} ~/git/helm_deploy/${APP}/. \
               --install --wait --reset-values --timeout 5m --history-max 10 \
               --namespace=${KUBE_ENV_NAMESPACE} \
               --values ~/git/helm_deploy/values-<< parameters.env >>.yaml \
               --values - \
               --set image.tag="${APP_VERSION}"
+      - when:
+          condition: <<parameters.slack_notification>>
+          steps:
+            - slack/notify:
+                message: "*dps-core* version:*${APP_VERSION}* deployed to << parameters.env >>"
+                include_project_field: false
+                include_job_number_field: false
 executors:
   deployer:
     docker:
@@ -58,7 +70,7 @@ orbs:
   aws-cli: circleci/aws-cli@0.1.18
   kubernetes: circleci/kubernetes@0.10.1
   helm: circleci/helm@0.2.3
-  gradle: circleci/gradle@2.0.0
+  slack: circleci/slack@3.4.2
 
 jobs:
   build:
@@ -86,11 +98,6 @@ jobs:
             set -e
             yarn test --maxWorkers=2
       - run: export NODE_ENV=production yarn build
-      - run: |
-          DATE=$(date '+%Y-%m-%d')
-          export BUILD_NUMBER=${DATE}.${CIRCLE_BUILD_NUM}
-          export GIT_REF=${CIRCLE_SHA1}
-          yarn record-build-info
       - store_artifacts:
           path: test-report.html
       - store_artifacts:
@@ -102,7 +109,6 @@ jobs:
           paths:
             - node_modules
             - build
-            - build-info.json
 
   integration_tests:
     working_directory: ~/app
@@ -154,39 +160,39 @@ jobs:
       - run:
           name: Build container and publish to docker hub
           command: |
-            APP_VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
-
+            DATE=$(date '+%Y-%m-%d')
+            APP_VERSION=${DATE}.${CIRCLE_BUILD_NUM}
+            IMAGE_NAME="quay.io/hmpps/new-nomis-ui"
             docker build --rm=false . \
               --build-arg BUILD_NUMBER=$APP_VERSION \
               --build-arg GIT_REF=$CIRCLE_SHA1 \
-              --tag "mojdigitalstudio/new-nomis-ui:$APP_VERSION" \
+              --tag "${IMAGE_NAME}:${APP_VERSION}" \
               --label "maintainer=dps-hmpps@digital.justice.gov.uk" \
-              --label "app.version=$APP_VERSION" \
-              --label "build.version=$APP_VERSION" \
-              --label "build.number=$CIRCLE_BUILD_NUM" \
-              --label "build.url=$CIRCLE_BUILD_URL" \
-              --label "build.gitref=$CIRCLE_SHA1"
+              --label "app.version=${APP_VERSION}" \
+              --label "build.version=${APP_VERSION}" \
+              --label "build.number=${CIRCLE_BUILD_NUM}" \
+              --label "build.url=${CIRCLE_BUILD_URL}" \
+              --label "build.gitref=${CIRCLE_SHA1}"
 
-            if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
-              #publish to docker hub as the tag
-              docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-              docker tag mojdigitalstudio/new-nomis-ui:$APP_VERSION mojdigitalstudio/new-nomis-ui:latest
-              docker push mojdigitalstudio/new-nomis-ui:$APP_VERSION
-              docker push mojdigitalstudio/new-nomis-ui:latest
-              docker logout
-              #push to quay.io
-              docker login -u="${QUAYIO_USERNAME}" -p="${QUAYIO_PASSWORD}" quay.io
-              docker tag mojdigitalstudio/new-nomis-ui:$APP_VERSION quay.io/hmpps/new-nomis-ui:$APP_VERSION
-              docker tag mojdigitalstudio/new-nomis-ui:$APP_VERSION quay.io/hmpps/new-nomis-ui:latest
-              docker push quay.io/hmpps/new-nomis-ui:$APP_VERSION
-              docker push quay.io/hmpps/new-nomis-ui:latest
-            fi
+            # Copy build-info.json from image
+            docker run -it --rm "${IMAGE_NAME}:${APP_VERSION}" cat /app/build-info.json > build-info.json
+
+            #push to quay.io
+            docker login -u="${QUAYIO_USERNAME}" -p="${QUAYIO_PASSWORD}" quay.io
+            docker tag "${IMAGE_NAME}:${APP_VERSION}" "${IMAGE_NAME}:latest"
+            docker push "${IMAGE_NAME}:${APP_VERSION}"
+            docker push "${IMAGE_NAME}:latest"
+      - persist_to_workspace:
+          root: .
+          paths:
+            - build-info.json
 
   deploy_dev:
     executor: deployer
     steps:
       - deploy_to_env:
           env: "dev"
+          slack_notification: true
   deploy_preprod:
     executor: deployer
     steps:
@@ -197,6 +203,7 @@ jobs:
     steps:
       - deploy_to_env:
           env: "prod"
+          slack_notification: true
 
   security_audit:
     executor: builder
@@ -227,14 +234,18 @@ workflows:
           requires:
             - build
       - build_docker:
-          requires:
-            - integration_tests
           filters:
             branches:
-              only: master
+              only:
+                - master
       - deploy_dev:
+          filters:
+            branches:
+              only:
+                - master
           requires:
             - build_docker
+            - integration_tests
       - request-preprod-approval:
           type: approval
           requires:
