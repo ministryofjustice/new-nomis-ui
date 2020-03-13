@@ -192,7 +192,6 @@ jobs:
     steps:
       - deploy_to_env:
           env: "dev"
-          slack_notification: true
   deploy_preprod:
     executor: deployer
     steps:
