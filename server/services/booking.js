@@ -22,10 +22,12 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
   const getKeyDatesVieModel = async (context, offenderNo) => {
     const { bookingId } = await eliteApi.getDetailsLight(context, offenderNo)
 
-    const [sentenceData, categoryAssessment] = await Promise.all([
-      eliteApi.getSentenceDetail(context, bookingId),
-      eliteApi.getCategoryAssessment(context, bookingId),
-    ])
+    const [sentenceData, categoryAssessment] = await Promise.all(
+      [
+        eliteApi.getSentenceDetail(context, bookingId),
+        eliteApi.getCategoryAssessment(context, bookingId),
+      ].map(apiCall => logErrorAndContinue(apiCall))
+    )
 
     const sentence = keyDatesMapper.sentence(sentenceData)
     const other = keyDatesMapper.otherDates(sentenceData)
@@ -55,18 +57,22 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
   }
 
   const getBookingDetailsViewModel = async (context, offenderNo) => {
-    const [details, addresses, keyworker] = await Promise.all([
-      eliteApi.getDetails(context, offenderNo),
-      eliteApi.getAddresses(context, offenderNo),
-      getKeyworker(context, offenderNo),
-    ])
+    const [details, addresses, keyworker] = await Promise.all(
+      [
+        eliteApi.getDetails(context, offenderNo),
+        eliteApi.getAddresses(context, offenderNo),
+        getKeyworker(context, offenderNo),
+      ].map(apiCall => logErrorAndContinue(apiCall))
+    )
     const { bookingId } = details
-    const [iepDetails, contacts, identifiers, kwCaseNoteDates] = await Promise.all([
-      eliteApi.getIepSummary(context, bookingId),
-      eliteApi.getContacts(context, bookingId),
-      eliteApi.getIdentifiers(context, bookingId),
-      eliteApi.caseNoteUsageList(context, [bookingId]),
-    ])
+    const [iepDetails, contacts, identifiers, kwCaseNoteDates] = await Promise.all(
+      [
+        eliteApi.getIepSummary(context, bookingId),
+        eliteApi.getContacts(context, bookingId),
+        eliteApi.getIdentifiers(context, bookingId),
+        eliteApi.caseNoteUsageList(context, [bookingId]),
+      ].map(apiCall => logErrorAndContinue(apiCall))
+    )
     const { iepLevel } = iepDetails
     const primaryAddress = addresses.find(address => address.primary)
 
