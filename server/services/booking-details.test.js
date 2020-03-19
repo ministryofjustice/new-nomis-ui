@@ -9,21 +9,25 @@ describe('Booking Service Booking details', () => {
   const offenderNo = 'A12345'
 
   beforeEach(() => {
-    eliteApi.getKeyworker = jest.fn()
-    eliteApi.getContacts = jest.fn()
-    eliteApi.getIdentifiers = jest.fn()
-    eliteApi.getDetailsLight = jest.fn().mockReturnValue({
-      bookingId: 1,
-    })
-    eliteApi.getDetails = jest.fn().mockReturnValue({
-      csra: 'Standard',
-      category: 'Cat B',
-    })
-    eliteApi.getIepSummary = jest.fn().mockReturnValue({ iepLevel: null })
-    eliteApi.getCaseLoads = jest.fn().mockReturnValue([{ caseLoadId: 'LEI', currentlyActive: true }])
-    eliteApi.getAddresses = jest.fn().mockReturnValue([{ primary: true }, { primary: false }])
+    eliteApi.getKeyworker = jest.fn().mockReturnValue(Promise.resolve(null))
+    eliteApi.getContacts = jest.fn().mockReturnValue(Promise.resolve(null))
+    eliteApi.getIdentifiers = jest.fn().mockReturnValue(Promise.resolve(null))
+    eliteApi.getDetailsLight = jest.fn().mockReturnValue(
+      Promise.resolve({
+        bookingId: 1,
+      })
+    )
+    eliteApi.getDetails = jest.fn().mockReturnValue(
+      Promise.resolve({
+        csra: 'Standard',
+        category: 'Cat B',
+      })
+    )
+    eliteApi.getIepSummary = jest.fn().mockReturnValue(Promise.resolve({ iepLevel: null }))
+    eliteApi.getCaseLoads = jest.fn().mockReturnValue(Promise.resolve([{ caseLoadId: 'LEI', currentlyActive: true }]))
+    eliteApi.getAddresses = jest.fn().mockReturnValue(Promise.resolve([{ primary: true }, { primary: false }]))
     eliteApi.caseNoteUsageList = jest.fn().mockReturnValue(Promise.resolve([]))
-    keyworkerApi.getKeyworkerByCaseloadAndOffenderNo = jest.fn().mockReturnValue({ firstName: 'John' })
+    keyworkerApi.getKeyworkerByCaseloadAndOffenderNo = jest.fn().mockReturnValue(Promise.resolve({ firstName: 'John' }))
   })
 
   it('should call getDetails', async () => {
