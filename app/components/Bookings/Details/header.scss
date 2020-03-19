@@ -322,6 +322,20 @@
   border: 3px dashed #f47738;
 }
 
+.conflict-status {
+  @extend %alert-status-style;
+  color: #800000;
+  border-color: #800000;
+}
+
+.no-one-to-one-status {
+  @extend %alert-status-style;
+  color: #903;
+  border-color: #903;
+}
+
+
+
 .arsonist-adjust {
   margin-bottom: 7px;
   position: relative;

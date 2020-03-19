@@ -65,5 +65,13 @@
     "label": "Care experienced",
     "img": "",
     "imgClass": ""
-  }
+  },
+  {
+    "alertCodes": ["RNO121"],
+    "className": "no-one-to-one-status",
+    "label": "No one-to-one",
+    "img": "",
+    "imgClass": ""
+  },
+  { "alertCodes": ["RCON"], "className": "conflict-status", "label": "Conflict", "img": "", "imgClass": "" }
 ]
