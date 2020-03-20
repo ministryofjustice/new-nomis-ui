@@ -130,7 +130,7 @@ workflows:
               only:
                 - master
                 - orb_testing 
-      - dps/deploy_to_env:
+      - dps/deploy_env:
           name: deploy_dev
           env: "dev"
           app_name: << pipeline.parameters.app_name >>
@@ -146,7 +146,7 @@ workflows:
           type: approval
           requires:
             - deploy_dev
-      - dps/deploy_to_env:
+      - dps/deploy_env:
           name: deploy_preprod
           env: "preprod"
           app_name: << pipeline.parameters.app_name >>
@@ -157,7 +157,7 @@ workflows:
           type: approval
           requires:
             - deploy_preprod
-      - dps/deploy_to_env:
+      - dps/deploy_env:
           name: deploy_prod
           env: "prod"
           app_name: << pipeline.parameters.app_name >>
