@@ -1,4 +1,11 @@
 version: 2.1
+parameters:
+  image_name:
+    type: string
+    default: "quay.io/hmpps/new-nomis-ui"
+  app_name:
+    type: string
+    default: "notm"
 
 orbs:
   moj-dps:
@@ -239,7 +246,7 @@ workflows:
       #      - build
       - moj-dps/build_docker:
           name: build_docker
-          image_name: "quay.io/hmpps/new-nomis-ui"
+          image_name: << pipeline.parameters.image_name >>
           filters:
             branches:
               only:
@@ -248,7 +255,7 @@ workflows:
       - moj-dps/deploy_to_env:
           name: deploy_dev
           env: "dev"
-          app_name: "notm"
+          app_name: << pipeline.parameters.app_name >>
           filters:
             branches:
               only:
@@ -264,7 +271,7 @@ workflows:
       - moj-dps/deploy_to_env:
           name: deploy_preprod
           env: "preprod"
-          app_name: "notm"
+          app_name: << pipeline.parameters.app_name >>
           context: notm-preprod
           requires:
             - request-preprod-approval
@@ -275,7 +282,7 @@ workflows:
       - moj-dps/deploy_to_env:
           name: deploy_prod
           env: "prod"
-          app_name: "notm"
+          app_name: << pipeline.parameters.app_name >>
           slack_notification: true
           context: notm-prod
           requires:
