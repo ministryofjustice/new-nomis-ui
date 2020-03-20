@@ -182,6 +182,26 @@ exports[`Header component should render correctly 1`] = `
         
         CARE EXPERIENCED
       </span>
+      <span
+        className="no-one-to-one-status"
+        onClick={[MockFunction]}
+        onKeyDown={[Function]}
+        role="link"
+        tabIndex={0}
+      >
+        
+        NO ONE-TO-ONE
+      </span>
+      <span
+        className="conflict-status"
+        onClick={[MockFunction]}
+        onKeyDown={[Function]}
+        role="link"
+        tabIndex={0}
+      >
+        
+        CONFLICT
+      </span>
     </div>
   </div>
   <div
@@ -386,6 +406,26 @@ exports[`Header component should render correctly 1`] = `
             >
               
               CARE EXPERIENCED
+            </span>
+            <span
+              className="no-one-to-one-status"
+              onClick={[MockFunction]}
+              onKeyDown={[Function]}
+              role="link"
+              tabIndex={0}
+            >
+              
+              NO ONE-TO-ONE
+            </span>
+            <span
+              className="conflict-status"
+              onClick={[MockFunction]}
+              onKeyDown={[Function]}
+              role="link"
+              tabIndex={0}
+            >
+              
+              CONFLICT
             </span>
           </div>
         </div>
