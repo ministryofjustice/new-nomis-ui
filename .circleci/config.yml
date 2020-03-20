@@ -89,6 +89,7 @@ orbs:
           - kubernetes/install
           - helm/install-helm-client:
               version: v3.0.2
+              working_directory: ~/helm
           - run:
               name: Setup kubectl
               command: |
