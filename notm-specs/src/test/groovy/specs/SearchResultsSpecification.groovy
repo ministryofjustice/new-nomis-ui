@@ -65,7 +65,7 @@ class SearchResultsSpecification extends BrowserReportingSpec {
     moreFiltersLink.click()
     checkboxes[0].click() // acct
     checkboxes[2].click() // arsonist
-    checkboxes[17].click() // TACT
+    checkboxes[19].click() // TACT
     elite2api.stubOffenderSearch(
       'aname',
       [
@@ -130,7 +130,7 @@ class SearchResultsSpecification extends BrowserReportingSpec {
     moreFiltersLink.click()
     checkboxes[0].click() // acct
     checkboxes[2].click() // arsonist
-    checkboxes[17].click() // TACT
+    checkboxes[19].click() // TACT
     elite2api.stubOffenderSearch(
       'aname',
       [
@@ -156,7 +156,7 @@ class SearchResultsSpecification extends BrowserReportingSpec {
 
     waitFor { rows.size() == 3 }
 
-    checkboxes.size() == 19
+    checkboxes.size() == 21
     checkboxes.every{ cb -> cb.value() == null } == true
 
     // Make sure a request was made for unfiltered data
