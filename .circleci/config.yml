@@ -61,13 +61,14 @@ orbs:
               env_var: APP_VERSION
           - deploy:
               name: Deploy to << parameters.env >>
+              working_directory: ~/app
               command: |
-                sed -i "s/appVersion: \".*\"/appVersion: \"${APP_VERSION}\"/g" ~/helm_deploy/<< parameters.app_name >>/Chart.yaml
+                sed -i "s/appVersion: \".*\"/appVersion: \"${APP_VERSION}\"/g" helm_deploy/<< parameters.app_name >>/Chart.yaml
                 aws secretsmanager get-secret-value --secret-id ${AWS_SECRET_NAME} | jq -r .SecretString | \
-                helm upgrade << parameters.app_name >> ~/helm_deploy/<< parameters.app_name >>/. \
+                helm upgrade << parameters.app_name >> helm_deploy/<< parameters.app_name >>/. \
                   --install --wait --reset-values --timeout 5m --history-max 10 \
                   --namespace=${KUBE_ENV_NAMESPACE} \
-                  --values ~/helm_deploy/values-<< parameters.env >>.yaml \
+                  --values helm_deploy/values-<< parameters.env >>.yaml \
                   --values - \
                   --set image.tag="${APP_VERSION}"
           - when:
