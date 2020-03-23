@@ -18,7 +18,7 @@ const logErrorAndContinue = fn =>
     })
   })
 
-const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => {
+const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi, dataComplianceApi) => {
   const getKeyDatesVieModel = async (context, offenderNo) => {
     const { bookingId } = await eliteApi.getDetailsLight(context, offenderNo)
 
@@ -49,6 +49,14 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
     }
   }
 
+  const isOffenderRecordRetained = async (context, offenderNo) => {
+    try {
+      return dataComplianceApi.isOffenderRecordRetained(context, offenderNo)
+    } catch (error) {
+      return false
+    }
+  }
+
   const getAddressType = address => {
     if (!address) {
       return 'ABSENT'
@@ -57,11 +65,12 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
   }
 
   const getBookingDetailsViewModel = async (context, offenderNo) => {
-    const [details, addresses, keyworker] = await Promise.all(
+    const [details, addresses, keyworker, offenderRecordRetained] = await Promise.all(
       [
         eliteApi.getDetails(context, offenderNo),
         eliteApi.getAddresses(context, offenderNo),
         getKeyworker(context, offenderNo),
+        isOffenderRecordRetained(context, offenderNo),
       ].map(apiCall => logErrorAndContinue(apiCall))
     )
     const { bookingId } = details
@@ -86,6 +95,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi) => 
       ...details,
       iepLevel,
       keyworker,
+      offenderRecordRetained,
       csra: details.csra,
       category: details.category,
       primaryAddress: {

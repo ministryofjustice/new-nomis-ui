@@ -91,6 +91,7 @@ class Details extends Component {
       offenderDetails,
       prisonStaffHubUrl,
       userCanEdit,
+      displayRetentionLink,
     } = this.props
 
     const activeTabId = parseActiveTab(activeTab)
@@ -152,6 +153,18 @@ class Details extends Component {
           )}
           <TabComponent location={location} offenderNo={offenderNo} itemId={itemId} />
         </div>
+        {displayRetentionLink && (
+          <div className="offender-record-retention font-xsmall">
+            <div>
+              <b>Prevent removal of this offender record: </b>
+              {offenderDetails.get('offenderRecordRetained') ? 'Yes' : 'Not set'}
+              &nbsp;-&nbsp;
+              <a className="link retention-link" href={`${prisonStaffHubUrl}data-compliance/${offenderNo}`}>
+                {offenderDetails.get('offenderRecordRetained') ? 'view reasons / update' : 'update'}
+              </a>
+            </div>
+          </div>
+        )}
       </Page>
     )
   }
@@ -170,6 +183,7 @@ Details.propTypes = {
   imageSrcUrl: PropTypes.number,
   shouldShowLargePhoto: PropTypes.bool,
   prisonStaffHubUrl: PropTypes.string.isRequired,
+  displayRetentionLink: PropTypes.bool,
   offenderDetails: PropTypes.shape({
     firstName: PropTypes.string,
     lastName: PropTypes.string,
@@ -189,6 +203,7 @@ Details.defaultProps = {
   shouldShowLargePhoto: false,
   imageSrcUrl: null,
   userCanEdit: true,
+  displayRetentionLink: false,
 }
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -206,6 +221,8 @@ const mapStateToProps = (state, props) => ({
   activeTabId: props.match.params.activeTab,
   shouldShowLargePhoto: state.getIn(['search', 'details', 'shouldShowLargePhoto']),
   prisonStaffHubUrl: state.getIn(['app', 'prisonStaffHubUrl']),
+  dataComplianceUrl: state.getIn(['app', 'dataComplianceUrl']),
+  displayRetentionLink: state.getIn(['app', 'displayRetentionLink']),
   imageSrcUrl: state.getIn(['search', 'details', 'imageId']),
   offenderDetails:
     state.getIn(['eliteApiLoader', 'Bookings', 'Details', props.match.params.offenderNo, 'Data']) ||

@@ -53,6 +53,7 @@ export const Model = Map({
   aliases: List([]),
   nextOfKin: List([]),
   identifiers: List([]),
+  offenderRecordRetained: false,
 })
 
 export function transform(data) {

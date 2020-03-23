@@ -3,6 +3,15 @@
   width: 100%;
 }
 
+.offender-record-retention {
+    border-top: solid lightgrey 1px;
+    padding-top: 10px;
+}
+
+.retention-link {
+    font-size: 16px !important;
+}
+
 @media (min-width: 1024px) {
   .detail-content {
     padding-bottom: 0;
