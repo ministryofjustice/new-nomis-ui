@@ -1,6 +1,5 @@
 const moment = require('moment')
 const toEvent = require('./to-event')
-const nomisCodes = require('./nomis-codes')
 
 const filterMorning = array => array.filter(a => moment(a.startTime).get('hour') < 12)
 const filterAfternoon = array =>
