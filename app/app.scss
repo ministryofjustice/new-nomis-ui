@@ -69,4 +69,14 @@ a.link {
     display: block !important; // overwritten from bootstrap.grid.scss
     padding: 10px;
   }
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+
+    &[href^="/"], &[href^="http://"], &[href^="https://"] {
+      &::after {
+        content: '' !important;
+      }
+    }
+  }
 }
