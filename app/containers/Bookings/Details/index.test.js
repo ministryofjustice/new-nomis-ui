@@ -109,7 +109,7 @@ describe('<Details />', () => {
           wrapper.containsMatchingElement(
             <div>
               <b>Prevent removal of this offender record: </b> Not set&nbsp;-&nbsp;
-              <a href="http://prisonstaffhub/data-compliance/AB12345C">update</a>
+              <a href="http://prisonstaffhub/offenders/AB12345C/retention-reasons">update</a>
             </div>
           )
         ).toBeTruthy()
@@ -127,7 +127,7 @@ describe('<Details />', () => {
           wrapper.containsMatchingElement(
             <div>
               <b>Prevent removal of this offender record: </b> Yes&nbsp;-&nbsp;
-              <a href="http://prisonstaffhub/data-compliance/AB12345C">view reasons / update</a>
+              <a href="http://prisonstaffhub/offenders/AB12345C/retention-reasons">view reasons / update</a>
             </div>
           )
         ).toBeTruthy()

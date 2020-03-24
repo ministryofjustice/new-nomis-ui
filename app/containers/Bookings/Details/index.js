@@ -159,7 +159,7 @@ class Details extends Component {
               <b>Prevent removal of this offender record: </b>
               {offenderDetails.get('offenderRecordRetained') ? 'Yes' : 'Not set'}
               &nbsp;-&nbsp;
-              <a className="link retention-link" href={`${prisonStaffHubUrl}data-compliance/${offenderNo}`}>
+              <a className="link retention-link" href={`${prisonStaffHubUrl}offenders/${offenderNo}/retention-reasons`}>
                 {offenderDetails.get('offenderRecordRetained') ? 'view reasons / update' : 'update'}
               </a>
             </div>
