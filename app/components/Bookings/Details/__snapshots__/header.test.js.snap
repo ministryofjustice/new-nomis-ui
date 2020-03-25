@@ -31,16 +31,6 @@ exports[`Header component should render correctly 1`] = `
         ACCT POST CLOSURE
       </span>
       <span
-        className="assault-status"
-        onClick={[MockFunction]}
-        onKeyDown={[Function]}
-        role="link"
-        tabIndex={0}
-      >
-        
-        STAFF ASSAULTER
-      </span>
-      <span
         className="arsonist-status"
         onClick={[MockFunction]}
         onKeyDown={[Function]}
@@ -55,32 +45,14 @@ exports[`Header component should render correctly 1`] = `
         ARSONIST
       </span>
       <span
-        className="disability-status"
+        className="care-experienced-status"
         onClick={[MockFunction]}
         onKeyDown={[Function]}
         role="link"
         tabIndex={0}
       >
-        <img
-          alt="PEEP"
-          className="disability-adjust"
-          src="/img/Disability_icon.png"
-        />
-        PEEP
-      </span>
-      <span
-        className="corruptor-status"
-        onClick={[MockFunction]}
-        onKeyDown={[Function]}
-        role="link"
-        tabIndex={0}
-      >
-        <img
-          alt="Corruptor"
-          className="corruptor-adjust"
-          src="/img/CU_icon.png"
-        />
-        CORRUPTOR
+        
+        CARE EXPERIENCED
       </span>
       <span
         className="chemical-attacker-status"
@@ -103,6 +75,104 @@ exports[`Header component should render correctly 1`] = `
         CONCERTED INDISCIPLINE
       </span>
       <span
+        className="conflict-status"
+        onClick={[MockFunction]}
+        onKeyDown={[Function]}
+        role="link"
+        tabIndex={0}
+      >
+        
+        CONFLICT
+      </span>
+      <span
+        className="controlled-unlock-status"
+        onClick={[MockFunction]}
+        onKeyDown={[Function]}
+        role="link"
+        tabIndex={0}
+      >
+        
+        CONTROLLED UNLOCK
+      </span>
+      <span
+        className="corruptor-status"
+        onClick={[MockFunction]}
+        onKeyDown={[Function]}
+        role="link"
+        tabIndex={0}
+      >
+        <img
+          alt="Corruptor"
+          className="corruptor-adjust"
+          src="/img/CU_icon.png"
+        />
+        CORRUPTOR
+      </span>
+      <span
+        className="csip-status"
+        onClick={[MockFunction]}
+        onKeyDown={[Function]}
+        role="link"
+        tabIndex={0}
+      >
+        
+        CSIP
+      </span>
+      <span
+        className="gang-member-status"
+        onClick={[MockFunction]}
+        onKeyDown={[Function]}
+        role="link"
+        tabIndex={0}
+      >
+        
+        GANG MEMBER
+      </span>
+      <span
+        className="hostage-taker-status"
+        onClick={[MockFunction]}
+        onKeyDown={[Function]}
+        role="link"
+        tabIndex={0}
+      >
+        
+        HOSTAGE TAKER
+      </span>
+      <span
+        className="no-one-to-one-status"
+        onClick={[MockFunction]}
+        onKeyDown={[Function]}
+        role="link"
+        tabIndex={0}
+      >
+        
+        NO ONE-TO-ONE
+      </span>
+      <span
+        className="disability-status"
+        onClick={[MockFunction]}
+        onKeyDown={[Function]}
+        role="link"
+        tabIndex={0}
+      >
+        <img
+          alt="PEEP"
+          className="disability-adjust"
+          src="/img/Disability_icon.png"
+        />
+        PEEP
+      </span>
+      <span
+        className="quarantined-status"
+        onClick={[MockFunction]}
+        onKeyDown={[Function]}
+        role="link"
+        tabIndex={0}
+      >
+        
+        QUARANTINED
+      </span>
+      <span
         className="racist-status"
         onClick={[MockFunction]}
         onKeyDown={[Function]}
@@ -123,44 +193,14 @@ exports[`Header component should render correctly 1`] = `
         RISK TO LGBT
       </span>
       <span
-        className="hostage-taker-status"
+        className="assault-status"
         onClick={[MockFunction]}
         onKeyDown={[Function]}
         role="link"
         tabIndex={0}
       >
         
-        HOSTAGE TAKER
-      </span>
-      <span
-        className="controlled-unlock-status"
-        onClick={[MockFunction]}
-        onKeyDown={[Function]}
-        role="link"
-        tabIndex={0}
-      >
-        
-        CONTROLLED UNLOCK
-      </span>
-      <span
-        className="gang-member-status"
-        onClick={[MockFunction]}
-        onKeyDown={[Function]}
-        role="link"
-        tabIndex={0}
-      >
-        
-        GANG MEMBER
-      </span>
-      <span
-        className="csip-status"
-        onClick={[MockFunction]}
-        onKeyDown={[Function]}
-        role="link"
-        tabIndex={0}
-      >
-        
-        CSIP
+        STAFF ASSAULTER
       </span>
       <span
         className="veteran-status"
@@ -171,36 +211,6 @@ exports[`Header component should render correctly 1`] = `
       >
         
         VETERAN
-      </span>
-      <span
-        className="care-experienced-status"
-        onClick={[MockFunction]}
-        onKeyDown={[Function]}
-        role="link"
-        tabIndex={0}
-      >
-        
-        CARE EXPERIENCED
-      </span>
-      <span
-        className="no-one-to-one-status"
-        onClick={[MockFunction]}
-        onKeyDown={[Function]}
-        role="link"
-        tabIndex={0}
-      >
-        
-        NO ONE-TO-ONE
-      </span>
-      <span
-        className="conflict-status"
-        onClick={[MockFunction]}
-        onKeyDown={[Function]}
-        role="link"
-        tabIndex={0}
-      >
-        
-        CONFLICT
       </span>
     </div>
   </div>
@@ -256,16 +266,6 @@ exports[`Header component should render correctly 1`] = `
               ACCT POST CLOSURE
             </span>
             <span
-              className="assault-status"
-              onClick={[MockFunction]}
-              onKeyDown={[Function]}
-              role="link"
-              tabIndex={0}
-            >
-              
-              STAFF ASSAULTER
-            </span>
-            <span
               className="arsonist-status"
               onClick={[MockFunction]}
               onKeyDown={[Function]}
@@ -280,32 +280,14 @@ exports[`Header component should render correctly 1`] = `
               ARSONIST
             </span>
             <span
-              className="disability-status"
+              className="care-experienced-status"
               onClick={[MockFunction]}
               onKeyDown={[Function]}
               role="link"
               tabIndex={0}
             >
-              <img
-                alt="PEEP"
-                className="disability-adjust"
-                src="/img/Disability_icon.png"
-              />
-              PEEP
-            </span>
-            <span
-              className="corruptor-status"
-              onClick={[MockFunction]}
-              onKeyDown={[Function]}
-              role="link"
-              tabIndex={0}
-            >
-              <img
-                alt="Corruptor"
-                className="corruptor-adjust"
-                src="/img/CU_icon.png"
-              />
-              CORRUPTOR
+              
+              CARE EXPERIENCED
             </span>
             <span
               className="chemical-attacker-status"
@@ -328,6 +310,104 @@ exports[`Header component should render correctly 1`] = `
               CONCERTED INDISCIPLINE
             </span>
             <span
+              className="conflict-status"
+              onClick={[MockFunction]}
+              onKeyDown={[Function]}
+              role="link"
+              tabIndex={0}
+            >
+              
+              CONFLICT
+            </span>
+            <span
+              className="controlled-unlock-status"
+              onClick={[MockFunction]}
+              onKeyDown={[Function]}
+              role="link"
+              tabIndex={0}
+            >
+              
+              CONTROLLED UNLOCK
+            </span>
+            <span
+              className="corruptor-status"
+              onClick={[MockFunction]}
+              onKeyDown={[Function]}
+              role="link"
+              tabIndex={0}
+            >
+              <img
+                alt="Corruptor"
+                className="corruptor-adjust"
+                src="/img/CU_icon.png"
+              />
+              CORRUPTOR
+            </span>
+            <span
+              className="csip-status"
+              onClick={[MockFunction]}
+              onKeyDown={[Function]}
+              role="link"
+              tabIndex={0}
+            >
+              
+              CSIP
+            </span>
+            <span
+              className="gang-member-status"
+              onClick={[MockFunction]}
+              onKeyDown={[Function]}
+              role="link"
+              tabIndex={0}
+            >
+              
+              GANG MEMBER
+            </span>
+            <span
+              className="hostage-taker-status"
+              onClick={[MockFunction]}
+              onKeyDown={[Function]}
+              role="link"
+              tabIndex={0}
+            >
+              
+              HOSTAGE TAKER
+            </span>
+            <span
+              className="no-one-to-one-status"
+              onClick={[MockFunction]}
+              onKeyDown={[Function]}
+              role="link"
+              tabIndex={0}
+            >
+              
+              NO ONE-TO-ONE
+            </span>
+            <span
+              className="disability-status"
+              onClick={[MockFunction]}
+              onKeyDown={[Function]}
+              role="link"
+              tabIndex={0}
+            >
+              <img
+                alt="PEEP"
+                className="disability-adjust"
+                src="/img/Disability_icon.png"
+              />
+              PEEP
+            </span>
+            <span
+              className="quarantined-status"
+              onClick={[MockFunction]}
+              onKeyDown={[Function]}
+              role="link"
+              tabIndex={0}
+            >
+              
+              QUARANTINED
+            </span>
+            <span
               className="racist-status"
               onClick={[MockFunction]}
               onKeyDown={[Function]}
@@ -348,44 +428,14 @@ exports[`Header component should render correctly 1`] = `
               RISK TO LGBT
             </span>
             <span
-              className="hostage-taker-status"
+              className="assault-status"
               onClick={[MockFunction]}
               onKeyDown={[Function]}
               role="link"
               tabIndex={0}
             >
               
-              HOSTAGE TAKER
-            </span>
-            <span
-              className="controlled-unlock-status"
-              onClick={[MockFunction]}
-              onKeyDown={[Function]}
-              role="link"
-              tabIndex={0}
-            >
-              
-              CONTROLLED UNLOCK
-            </span>
-            <span
-              className="gang-member-status"
-              onClick={[MockFunction]}
-              onKeyDown={[Function]}
-              role="link"
-              tabIndex={0}
-            >
-              
-              GANG MEMBER
-            </span>
-            <span
-              className="csip-status"
-              onClick={[MockFunction]}
-              onKeyDown={[Function]}
-              role="link"
-              tabIndex={0}
-            >
-              
-              CSIP
+              STAFF ASSAULTER
             </span>
             <span
               className="veteran-status"
@@ -396,36 +446,6 @@ exports[`Header component should render correctly 1`] = `
             >
               
               VETERAN
-            </span>
-            <span
-              className="care-experienced-status"
-              onClick={[MockFunction]}
-              onKeyDown={[Function]}
-              role="link"
-              tabIndex={0}
-            >
-              
-              CARE EXPERIENCED
-            </span>
-            <span
-              className="no-one-to-one-status"
-              onClick={[MockFunction]}
-              onKeyDown={[Function]}
-              role="link"
-              tabIndex={0}
-            >
-              
-              NO ONE-TO-ONE
-            </span>
-            <span
-              className="conflict-status"
-              onClick={[MockFunction]}
-              onKeyDown={[Function]}
-              role="link"
-              tabIndex={0}
-            >
-              
-              CONFLICT
             </span>
           </div>
         </div>
