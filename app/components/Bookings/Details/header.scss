@@ -334,6 +334,13 @@
   border-color: #903;
 }
 
+.quarantined-status {
+  @extend %alert-status-style;
+  color: #FFF;
+  border-color: #330;
+  background-color: #330;
+}
+
 .arsonist-adjust {
   margin-bottom: 7px;
   position: relative;
