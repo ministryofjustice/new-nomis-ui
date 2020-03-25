@@ -55,7 +55,8 @@ const dataComplianceApi = dataComplianceApiFactory(
   clientFactory({
     baseUrl: config.apis.dataCompliance.url,
     timeout: config.apis.dataCompliance.timeoutSeconds * 1000,
-  })
+  }),
+  config.apis.dataCompliance.displayRetentionLink
 )
 
 module.exports = {

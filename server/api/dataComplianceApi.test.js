@@ -7,7 +7,7 @@ const hostname = 'http://localhost:8080'
 
 describe('dataComplianceApi tests', () => {
   const client = clientFactory({ baseUrl: `${hostname}`, timeout: 2000 })
-  const dataComplianceApi = dataComplianceApiFactory(client)
+  const dataComplianceApi = dataComplianceApiFactory(client, true)
   const mock = nock(hostname)
 
   afterEach(() => {
@@ -40,6 +40,14 @@ describe('dataComplianceApi tests', () => {
       dataComplianceApi
         .isOffenderRecordRetained({}, 'A1234AA')
         .catch(e => expect(e.toString()).toEqual('Error: Internal Server Error'))
+    })
+
+    it('Returns false if disabled', async () => {
+      const disabledDataComplianceApi = dataComplianceApiFactory(client, false)
+
+      const recordIsRetained = await disabledDataComplianceApi.isOffenderRecordRetained({}, 'A1234AA')
+
+      expect(recordIsRetained).toBeFalsy()
     })
   })
 })
