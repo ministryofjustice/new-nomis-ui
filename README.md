@@ -16,8 +16,8 @@ cd new-nomis-ui
 ## Running the application in dev mode
 
 ```bash
-`yarn`
-`yarn start`
+yarn
+yarn start
 ```
 
 This will point at a API server at localhost:8080 This can be overridden in development mode by adding a `.env`

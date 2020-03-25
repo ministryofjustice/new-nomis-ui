@@ -6,6 +6,7 @@ const { caseNotesApiFactory } = require('./api/caseNotesApi')
 const { oauthApiFactory } = require('./api/oauthApi')
 const { allocationManagerApiFactory } = require('./api/allocationManagerApi')
 const { whereaboutsApiFactory } = require('./api/whereaboutsApi')
+const { dataComplianceApiFactory } = require('./api/dataComplianceApi')
 
 const eliteApi = eliteApiFactory(
   clientFactory({
@@ -50,6 +51,14 @@ const whereaboutsApi = whereaboutsApiFactory(
   })
 )
 
+const dataComplianceApi = dataComplianceApiFactory(
+  clientFactory({
+    baseUrl: config.apis.dataCompliance.url,
+    timeout: config.apis.dataCompliance.timeoutSeconds * 1000,
+  }),
+  config.apis.dataCompliance.displayRetentionLink
+)
+
 module.exports = {
   eliteApi,
   keyworkerApi,
@@ -57,4 +66,5 @@ module.exports = {
   oauthApi,
   allocationManagerApi,
   whereaboutsApi,
+  dataComplianceApi,
 }

@@ -76,6 +76,11 @@ const apis = {
     url: process.env.API_WHEREABOUTS_ENDPOINT_URL || 'http://localhost:8082',
     timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 30,
   },
+  dataCompliance: {
+    url: process.env.API_DATA_COMPLIANCE_URL || 'http://localhost:8084',
+    timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 30,
+    displayRetentionLink: process.env.DISPLAY_RETENTION_LINK === 'true' || false,
+  },
 }
 
 module.exports = {

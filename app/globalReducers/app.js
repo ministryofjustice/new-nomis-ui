@@ -31,6 +31,7 @@ const initialState = fromJS({
   pathfinderUrl: '/',
   moicUrl: '/',
   licencesUrl: '/',
+  displayRetentionLink: false,
 })
 
 // Reducer

@@ -9,9 +9,17 @@ const { keyworkerServiceFactory } = require('./services/keyworker')
 
 const router = express.Router()
 
-module.exports = ({ eliteApi, oauthApi, keyworkerApi, caseNotesApi, allocationManagerApi, whereaboutsApi }) => {
+module.exports = ({
+  eliteApi,
+  oauthApi,
+  keyworkerApi,
+  caseNotesApi,
+  allocationManagerApi,
+  whereaboutsApi,
+  dataComplianceApi,
+}) => {
   const userService = userServiceFactory(eliteApi, oauthApi, whereaboutsApi, config)
-  const bookingService = bookingServiceFactory(eliteApi, keyworkerApi, allocationManagerApi)
+  const bookingService = bookingServiceFactory(eliteApi, keyworkerApi, allocationManagerApi, dataComplianceApi)
   const eventsService = eventsServiceFactory(eliteApi)
   const keyworkerService = keyworkerServiceFactory(eliteApi, oauthApi, keyworkerApi)
 
@@ -33,6 +41,7 @@ module.exports = ({ eliteApi, oauthApi, keyworkerApi, caseNotesApi, allocationMa
     const pathfinderUrl = config.apis.pathfinder.ui_url
     const moicUrl = config.apis.moic.ui_url
     const licencesUrl = config.apis.licences.ui_url
+    const { displayRetentionLink } = config.apis.dataCompliance
 
     if (!feedbackUrl && !omicUrl && !prisonStaffHubUrl && !mailTo && !categorisationUrl) {
       res.end()
@@ -48,6 +57,7 @@ module.exports = ({ eliteApi, oauthApi, keyworkerApi, caseNotesApi, allocationMa
       pathfinderUrl,
       moicUrl,
       licencesUrl,
+      displayRetentionLink,
     })
   })
 
