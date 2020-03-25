@@ -6,6 +6,7 @@ import Checkbox from '@govuk-react/checkbox'
 import { buildSearchQueryString } from '../../../utils/stringUtils'
 import { linkOnClick } from '../../../helpers'
 import history from '../../../history'
+import alertFlags from '../../../components/Bookings/alertFlagValues'
 
 import './SearchForm.scss'
 
@@ -116,9 +117,6 @@ class SearchAgainForm extends Component {
         </div>
       )
     }
-
-    // eslint-disable-next-line global-require
-    const alertFlags = require('../../../components/Bookings/alertFlags.json')
 
     return (
       <form className="search-again" onSubmit={this.handleSubmit}>
