@@ -221,7 +221,6 @@ const mapStateToProps = (state, props) => ({
   activeTabId: props.match.params.activeTab,
   shouldShowLargePhoto: state.getIn(['search', 'details', 'shouldShowLargePhoto']),
   prisonStaffHubUrl: state.getIn(['app', 'prisonStaffHubUrl']),
-  dataComplianceUrl: state.getIn(['app', 'dataComplianceUrl']),
   displayRetentionLink: state.getIn(['app', 'displayRetentionLink']),
   imageSrcUrl: state.getIn(['search', 'details', 'imageId']),
   offenderDetails:

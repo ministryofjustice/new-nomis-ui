@@ -51,8 +51,9 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi, dat
 
   const isOffenderRecordRetained = async (context, offenderNo) => {
     try {
-      return dataComplianceApi.isOffenderRecordRetained(context, offenderNo)
+      return await dataComplianceApi.isOffenderRecordRetained(context, offenderNo)
     } catch (error) {
+      logger.error(error, 'Unable to determine retention status')
       return false
     }
   }
