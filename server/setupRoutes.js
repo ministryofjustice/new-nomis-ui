@@ -41,7 +41,6 @@ module.exports = ({
     const pathfinderUrl = config.apis.pathfinder.ui_url
     const moicUrl = config.apis.moic.ui_url
     const licencesUrl = config.apis.licences.ui_url
-    const dataComplianceUrl = config.apis.dataCompliance.url
     const { displayRetentionLink } = config.apis.dataCompliance
 
     if (!feedbackUrl && !omicUrl && !prisonStaffHubUrl && !mailTo && !categorisationUrl) {
@@ -58,7 +57,6 @@ module.exports = ({
       pathfinderUrl,
       moicUrl,
       licencesUrl,
-      dataComplianceUrl,
       displayRetentionLink,
     })
   })

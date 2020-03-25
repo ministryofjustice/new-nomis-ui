@@ -31,7 +31,6 @@ const initialState = fromJS({
   pathfinderUrl: '/',
   moicUrl: '/',
   licencesUrl: '/',
-  dataComplianceUrl: '/',
   displayRetentionLink: false,
 })
 
