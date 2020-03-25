@@ -3,8 +3,6 @@ import { linkOnClick } from '../../helpers'
 import alertFlags from './alertFlagValues'
 
 const AlertFlags = (alerts, divClassName, onAlertFlagClick) => {
-  // eslint-disable-next-line global-require
-
   function isShown(codes) {
     if (alerts) {
       return alerts.some(alert => {
