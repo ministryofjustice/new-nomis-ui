@@ -44,16 +44,25 @@ describe('Booking Service Booking details', () => {
     expect(eliteApi.getIepSummary).toBeCalled()
   })
 
-  it('it should call getKeyworker', async () => {
+  it('should call getKeyworker', async () => {
     const data = await bookingService.getBookingDetailsViewModel({}, offenderNo)
     expect(keyworkerApi.getKeyworkerByCaseloadAndOffenderNo).toBeCalled()
     expect(data.keyworker.firstName).toEqual('John')
   })
 
-  it('it should call isOffenderRecordRetained', async () => {
+  it('should call isOffenderRecordRetained', async () => {
     const data = await bookingService.getBookingDetailsViewModel({}, offenderNo)
     expect(dataComplianceApi.isOffenderRecordRetained).toBeCalled()
     expect(data.offenderRecordRetained).toBeTruthy()
+  })
+
+  it('should resolve offenderRecordRetained as null on error', async () => {
+    dataComplianceApi.isOffenderRecordRetained = jest.fn().mockImplementation(() => {
+      throw new Error()
+    })
+
+    const data = await bookingService.getBookingDetailsViewModel({}, offenderNo)
+    expect(data.offenderRecordRetained).toBeNull()
   })
 
   it('it should call getAddresses', async () => {

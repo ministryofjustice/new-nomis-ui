@@ -50,12 +50,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi, dat
   }
 
   const isOffenderRecordRetained = async (context, offenderNo) => {
-    try {
-      return await dataComplianceApi.isOffenderRecordRetained(context, offenderNo)
-    } catch (error) {
-      logger.error(error, 'Unable to determine retention status')
-      return false
-    }
+    return dataComplianceApi.isOffenderRecordRetained(context, offenderNo)
   }
 
   const getAddressType = address => {
