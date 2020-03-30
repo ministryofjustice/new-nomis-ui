@@ -31,8 +31,8 @@ env:
   LICENCES_URL: "https://licences-dev.prison.service.justice.gov.uk"
   USE_OF_FORCE_URL: "https://dev.use-of-force.service.justice.gov.uk"
   ALLOCATION_MANAGER_ENDPOINT_URL: "https://allocation-manager-staging.apps.live-1.cloud-platform.service.justice.gov.uk/"
-  API_DATA_COMPLIANCE_URL": "https://prison-data-compliance-dev.prison.service.justice.gov.uk"
-  DISPLAY_RETENTION_LINK": "true"
+  API_DATA_COMPLIANCE_URL: "https://prison-data-compliance-dev.prison.service.justice.gov.uk"
+  DISPLAY_RETENTION_LINK: "true"
   USE_OF_FORCE_PRISONS: "WRI"
   HMPPS_COOKIE_NAME: hmpps-session-dev
   REMOTE_AUTH_STRATEGY: "true"
