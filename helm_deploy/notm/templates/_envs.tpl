@@ -87,6 +87,16 @@ env:
   - name: API_WHEREABOUTS_ENDPOINT_URL
     value: {{ .Values.env.API_WHEREABOUTS_ENDPOINT_URL | quote }}
 
+  {{- if .Values.env.API_DATA_COMPLIANCE_URL }}
+  - name: API_DATA_COMPLIANCE_URL
+    value: {{ .Values.env.API_DATA_COMPLIANCE_URL | quote }}
+  {{- end }}
+
+  {{- if .Values.env.DISPLAY_RETENTION_LINK }}
+  - name: DISPLAY_RETENTION_LINK
+    value: {{ .Values.env.DISPLAY_RETENTION_LINK | quote }}
+  {{- end }}
+
   - name: USE_OF_FORCE_PRISONS
     value: {{ .Values.env.USE_OF_FORCE_PRISONS | quote }}
 
