@@ -16,7 +16,7 @@ describe('dataComplianceApi tests', () => {
 
   describe('GET offender record retention', () => {
     it('Returns true if retention record exists', async () => {
-      mock.get('/retention/offenders/A1234AA').reply(200, {})
+      mock.get('/retention/offenders/A1234AA').reply(200, { retentionReasons: [{ reasonCode: 'HIGH_PROFILE' }] })
 
       const recordIsRetained = await dataComplianceApi.isOffenderRecordRetained({}, 'A1234AA')
 
@@ -31,15 +31,26 @@ describe('dataComplianceApi tests', () => {
       expect(recordIsRetained).toBeFalsy()
     })
 
+    it('Returns false if retention reasons are empty', async () => {
+      mock.get('/retention/offenders/A1234AA').reply(200, { retentionReasons: [] })
+
+      const recordIsRetained = await dataComplianceApi.isOffenderRecordRetained({}, 'A1234AA')
+
+      expect(recordIsRetained).toBeFalsy()
+    })
+
     it('Returns error', async () => {
+      expect.assertions(1)
       mock
         .get('/retention/offenders/A1234AA')
         .times(3)
         .reply(500, {})
 
-      dataComplianceApi
-        .isOffenderRecordRetained({}, 'A1234AA')
-        .catch(e => expect(e.toString()).toEqual('Error: Internal Server Error'))
+      try {
+        await dataComplianceApi.isOffenderRecordRetained({}, 'A1234AA')
+      } catch (error) {
+        expect(error.toString()).toEqual('Error: Internal Server Error')
+      }
     })
 
     it('Returns false if disabled', async () => {
