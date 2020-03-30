@@ -6,6 +6,10 @@ const dataComplianceApiFactory = (client, enabled) => {
     return false
   }
 
+  const responseContainsRetentionReasons = response => {
+    return response.body.retentionReasons.length
+  }
+
   const isOffenderRecordRetained = (context, offenderNo) => {
     if (!enabled) {
       return false
@@ -13,7 +17,7 @@ const dataComplianceApiFactory = (client, enabled) => {
 
     return client
       .get(context, `/retention/offenders/${offenderNo}`)
-      .then(response => true)
+      .then(responseContainsRetentionReasons)
       .catch(map404ToFalse)
   }
 
