@@ -17,9 +17,16 @@ module.exports = ({
   allocationManagerApi,
   whereaboutsApi,
   dataComplianceApi,
+  pathfinderApi,
 }) => {
   const userService = userServiceFactory(eliteApi, oauthApi, whereaboutsApi, config)
-  const bookingService = bookingServiceFactory(eliteApi, keyworkerApi, allocationManagerApi, dataComplianceApi)
+  const bookingService = bookingServiceFactory(
+    eliteApi,
+    keyworkerApi,
+    allocationManagerApi,
+    dataComplianceApi,
+    pathfinderApi
+  )
   const eventsService = eventsServiceFactory(eliteApi)
   const keyworkerService = keyworkerServiceFactory(eliteApi, oauthApi, keyworkerApi)
 

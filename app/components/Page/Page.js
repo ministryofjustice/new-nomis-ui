@@ -3,7 +3,14 @@ import PropTypes from 'prop-types'
 import Heading from '@govuk-react/heading'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { NavigationContainer, ContextLinkContainer, ContextLink, Container, PageHeader } from './Page.styles'
+import {
+  NavigationContainer,
+  ContextLinkContainer,
+  ContextLink,
+  Container,
+  PageHeader,
+  PageHeaderLeft,
+} from './Page.styles'
 import { childrenType, routeMatchType } from '../../types'
 import Breadcrumb from '../Breadcrumb'
 import PrintLink from './elements/PrintLink'
@@ -34,6 +41,8 @@ export class Page extends Component {
         params: { offenderNo },
       },
       showPrint,
+      pathfinderId,
+      pathfinderUrl,
     } = this.props
     const showRecentResultsLink = searchContext === 'results' && offenderNo
 
@@ -51,11 +60,25 @@ export class Page extends Component {
         )}
         <Container>
           <PageHeader>
-            {title && (
-              <Heading level={1} size="LARGE" data-qa="page-heading-text">
-                {title}
-              </Heading>
-            )}
+            <PageHeaderLeft>
+              {title && (
+                <Heading level={1} size="LARGE" data-qa="page-heading-text">
+                  {title}
+                </Heading>
+              )}
+              {pathfinderId && pathfinderUrl && (
+                <a
+                  id="pathfinder-profile-link"
+                  href={`${pathfinderUrl}/nominal/${pathfinderId}`}
+                  className="link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View Pathfinder profile
+                </a>
+              )}
+            </PageHeaderLeft>
+
             {showPrint && (
               <div>
                 <PrintLink />
@@ -79,6 +102,7 @@ Page.propTypes = {
   lastSearchResultQuery: PropTypes.string,
   match: routeMatchType.isRequired,
   showPrint: PropTypes.bool,
+  pathfinderUrl: PropTypes.string,
 }
 
 Page.defaultProps = {
@@ -87,11 +111,13 @@ Page.defaultProps = {
   searchContext: '',
   lastSearchResultQuery: null,
   showPrint: false,
+  pathfinderUrl: null,
 }
 
 const mapStateToProps = state => ({
   searchContext: state.getIn(['app', 'searchContext']),
   lastSearchResultQuery: state.getIn(['search', 'lastSearchResultQuery']),
+  pathfinderUrl: state.getIn(['app', 'pathfinderUrl']),
 })
 
 export default withRouter(connect(mapStateToProps)(Page))

@@ -89,4 +89,25 @@ describe('<Page />', () => {
 
     expect(testContextLinkElement.text()).toEqual('View most recent search')
   })
+
+  it('should show a link to pathfinder profile if the offender has a pathfinder id', () => {
+    wrapper = mount(
+      <MemoryRouter initialEntries={['/random']}>
+        <Page {...props} pathfinderId={1} pathfinderUrl="pathfinder.com" docTitle="Quick look" />
+      </MemoryRouter>
+    )
+    const link = wrapper.find('#pathfinder-profile-link')
+    expect(link.length).toEqual(1)
+    expect(link.props().href).toEqual('pathfinder.com/nominal/1')
+  })
+
+  it('should not show a link to pathfinder profile if the offender does not have a pathfinder id', () => {
+    wrapper = mount(
+      <MemoryRouter initialEntries={['/random']}>
+        <Page {...props} pathfinderId={null} pathfinderUrl="pathfinder.com" docTitle="Quick look" />
+      </MemoryRouter>
+    )
+    const link = wrapper.find('#pathfinder-profile-link')
+    expect(link.length).toEqual(0)
+  })
 })

@@ -18,7 +18,7 @@ const logErrorAndContinue = fn =>
     })
   })
 
-const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi, dataComplianceApi) => {
+const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi, dataComplianceApi, pathfinderApi) => {
   const getKeyDatesVieModel = async (context, offenderNo) => {
     const { bookingId } = await eliteApi.getDetailsLight(context, offenderNo)
 
@@ -61,12 +61,13 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi, dat
   }
 
   const getBookingDetailsViewModel = async (context, offenderNo) => {
-    const [details, addresses, keyworker, offenderRecordRetained] = await Promise.all(
+    const [details, addresses, keyworker, offenderRecordRetained, pathfinderId] = await Promise.all(
       [
         eliteApi.getDetails(context, offenderNo),
         eliteApi.getAddresses(context, offenderNo),
         getKeyworker(context, offenderNo),
         isOffenderRecordRetained(context, offenderNo),
+        pathfinderApi.getPathfinderId(context, offenderNo),
       ].map(apiCall => logErrorAndContinue(apiCall))
     )
     const { bookingId } = details
@@ -111,6 +112,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi, dat
           }))) ||
         [],
       identifiers,
+      pathfinderId,
     }
   }
 

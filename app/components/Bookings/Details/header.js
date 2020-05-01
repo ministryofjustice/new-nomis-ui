@@ -61,6 +61,8 @@ const MiddleSection = ({
   userCanEdit,
   isUseOfForce,
   useOfForceUrl,
+  isPathfinderUser,
+  pathfinderUrl,
 }) => {
   const category = flags.AssessmentFlagsOrLetter(inmateData.get('categoryCode'), inmateData.get('category'), '')
   return (
@@ -188,6 +190,20 @@ const MiddleSection = ({
       {userCanEdit && (
         <div className="col-xs-12 col-sm-3">
           <div className="stacked-links">
+            {isPathfinderUser && pathfinderUrl && !inmateData.get('pathfinderId') && (
+              <div>
+                <a
+                  id="refer-to-pathfinder"
+                  className="button-link"
+                  href={`${pathfinderUrl}/refer/offender/${offenderNo}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Refer to Pathfinder
+                </a>
+              </div>
+            )}
+
             <div>
               <Link name="add-case-note-link" className="button-link" to={`/offenders/${offenderNo}/add-case-note`}>
                 Add case note
@@ -250,6 +266,8 @@ const Header = ({
   useOfForceUrl,
   userCanEdit,
   isUseOfForce,
+  isPathfinderUser,
+  pathfinderUrl,
 }) => {
   const alertFlags = className => flags.AlertFlags(inmateData.get('alerts'), className, onAlertFlagClick)
   const lastKeyWorkerSessionDate = inmateData.get('lastKeyWorkerSessionDate')
@@ -315,6 +333,8 @@ const Header = ({
                 isUseOfForce={isUseOfForce}
                 useOfForceUrl={`${useOfForceUrl}/report/${inmateData.get('bookingId')}/report-use-of-force`}
                 addAppointmentUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/add-appointment`}
+                isPathfinderUser={isPathfinderUser}
+                pathfinderUrl={pathfinderUrl}
               />
             </div>
           </div>
@@ -334,6 +354,8 @@ const Header = ({
             isUseOfForce={isUseOfForce}
             useOfForceUrl={`${useOfForceUrl}/report/${inmateData.get('bookingId')}/report-use-of-force`}
             addAppointmentUrl={prisonStaffHubUrl && `${prisonStaffHubUrl}offenders/${offenderNo}/add-appointment`}
+            isPathfinderUser={isPathfinderUser}
+            pathfinderUrl={pathfinderUrl}
           />
         </div>
       </div>
@@ -353,6 +375,8 @@ Header.propTypes = {
   userCanEdit: PropTypes.bool.isRequired,
   isUseOfForce: PropTypes.bool.isRequired,
   useOfForceUrl: PropTypes.string.isRequired,
+  isPathfinderUser: PropTypes.bool.isRequired,
+  pathfinderUrl: PropTypes.string.isRequired,
 }
 
 Header.defaultProps = {

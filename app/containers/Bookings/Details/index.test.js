@@ -134,4 +134,19 @@ describe('<Details />', () => {
       })
     })
   })
+
+  it('should pass the pathfinderId into the page', () => {
+    const props = {
+      match: { params: { offenderNo: 'AB12345C' } },
+      offenderDetails: Map({ pathfinderId: 1 }),
+      location: { hash: '', pathname: '', search: '' },
+      boundViewDetails: jest.fn(),
+      hidePhoto: jest.fn(),
+      prisonStaffHubUrl: '',
+    }
+
+    const wrapper = shallow(<Details {...props} />)
+    const page = wrapper.find('withRouter(Connect(Page))')
+    expect(page.props().pathfinderId).toEqual(1)
+  })
 })

@@ -4,7 +4,14 @@ const eliteApi = {}
 const keyworkerApi = {}
 const allocationManagerApi = {}
 const dataComplianceApi = {}
-const bookingService = bookingServiceFactory(eliteApi, keyworkerApi, allocationManagerApi, dataComplianceApi)
+const pathfinderApi = {}
+const bookingService = bookingServiceFactory(
+  eliteApi,
+  keyworkerApi,
+  allocationManagerApi,
+  dataComplianceApi,
+  pathfinderApi
+)
 
 describe('Booking Service Booking details', () => {
   const offenderNo = 'A12345'
@@ -30,6 +37,7 @@ describe('Booking Service Booking details', () => {
     eliteApi.caseNoteUsageList = jest.fn().mockReturnValue(Promise.resolve([]))
     keyworkerApi.getKeyworkerByCaseloadAndOffenderNo = jest.fn().mockReturnValue(Promise.resolve({ firstName: 'John' }))
     dataComplianceApi.isOffenderRecordRetained = jest.fn().mockReturnValue(Promise.resolve(true))
+    pathfinderApi.getPathfinderId = jest.fn().mockResolvedValue(1)
   })
 
   it('should call getDetails', async () => {
@@ -134,5 +142,11 @@ describe('Booking Service Booking details', () => {
     const data = await bookingService.getBookingDetailsViewModel({}, offenderNo)
 
     expect(data.lastKeyWorkerSessionDate).toEqual('2018-07-02T15:03:47.337Z')
+  })
+
+  it('should call getPathfinderId', async () => {
+    const data = await bookingService.getBookingDetailsViewModel({}, offenderNo)
+    expect(pathfinderApi.getPathfinderId).toBeCalledTimes(1)
+    expect(data.pathfinderId).toEqual(1)
   })
 })

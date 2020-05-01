@@ -61,6 +61,7 @@ const apis = {
   },
   pathfinder: {
     ui_url: process.env.PATHFINDER_URL,
+    url: process.env.API_PATHFINDER_URL || 'https://dev-api.pathfinder.service.justice.gov.uk/',
   },
   moic: {
     ui_url: process.env.MOIC_URL,

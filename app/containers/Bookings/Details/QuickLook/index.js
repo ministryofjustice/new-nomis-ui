@@ -640,27 +640,6 @@ OffenderManagementInCustody.defaultProps = {
   canUserViewProbationDocuments: false,
 }
 
-export const Pathfinder = ({ pathfinderUrl }) => {
-  return (
-    <div className="col-xs-12">
-      <h3 className="heading-medium">Pathfinder</h3>
-      <div>
-        <a data-qa="pathfinder-link" className="link" href={pathfinderUrl}>
-          Refer to Pathfinder
-        </a>
-      </div>
-    </div>
-  )
-}
-
-Pathfinder.propTypes = {
-  pathfinderUrl: PropTypes.string,
-}
-
-Pathfinder.defaultProps = {
-  pathfinderUrl: '',
-}
-
 class QuickLook extends Component {
   componentDidMount() {
     const { loadViewModel, offenderNo } = this.props
@@ -676,8 +655,6 @@ class QuickLook extends Component {
       prisonStaffHubUrl,
       userCanEdit,
       canUserViewProbationDocuments,
-      pathfinderUrl,
-      isPathfinderUser,
     } = this.props
     const adjudications = viewModel.get('adjudications')
     const lastVisit = viewModel.get('lastVisit')
@@ -766,10 +743,6 @@ class QuickLook extends Component {
                 />
               </div>
             )}
-
-            {isPathfinderUser && pathfinderUrl && (
-              <Pathfinder pathfinderUrl={`${pathfinderUrl}/refer/offender/${offenderNo}`} />
-            )}
           </div>
           <div className="col-md-6 col-xs-12">
             <h3 className="heading-medium">Schedule for today</h3>
@@ -795,16 +768,12 @@ QuickLook.propTypes = {
   prisonStaffHubUrl: PropTypes.string,
   userCanEdit: PropTypes.bool,
   canUserViewProbationDocuments: PropTypes.bool,
-  isPathfinderUser: PropTypes.bool,
-  pathfinderUrl: PropTypes.string,
 }
 
 QuickLook.defaultProps = {
   prisonStaffHubUrl: null,
   userCanEdit: true,
   canUserViewProbationDocuments: false,
-  isPathfinderUser: false,
-  pathfinderUrl: null,
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -818,7 +787,6 @@ const mapStateToProps = (immutableState, props) => {
   const prisonStaffHubUrl = immutableState.getIn(['app', 'prisonStaffHubUrl'])
   const userCanEdit = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'UserCanEdit'])
   const user = immutableState.getIn(['authentication', 'user']) || userModel
-  const pathfinderUrl = immutableState.getIn(['app', 'pathfinderUrl'])
 
   return {
     offenderNo: props.offenderNo,
@@ -827,8 +795,6 @@ const mapStateToProps = (immutableState, props) => {
     prisonStaffHubUrl,
     userCanEdit,
     canUserViewProbationDocuments: user.canViewProbationDocuments,
-    isPathfinderUser: user.isPathfinderUser,
-    pathfinderUrl,
   }
 }
 
