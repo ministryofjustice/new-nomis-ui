@@ -55,6 +55,7 @@ export const PageHeader = styled.div`
 
 export const PageHeaderLeft = styled.div`
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   > h1 {
     padding-right: 15px;
