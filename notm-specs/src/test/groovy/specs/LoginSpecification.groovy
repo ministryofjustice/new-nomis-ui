@@ -99,6 +99,7 @@ class LoginSpecification extends BrowserReportingSpec {
     oauthApi.stubValidOAuthTokenRequest()
     oauthApi.stubUsersMe ITAG_USER
     oauthApi.stubUserRoles()
+    oauthApi.stubClientTokenRequest()
     elite2Api.stubGetMyDetails ITAG_USER
     whereaboutsApi.stubGetMyDetails ITAG_USER
 
