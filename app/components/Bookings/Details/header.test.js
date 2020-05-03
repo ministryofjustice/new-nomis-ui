@@ -36,7 +36,7 @@ const irrelevantAlerts = [
   Map({ alertCode: 'TAH' }),
 ]
 
-const inmate = (alerts, categoryInfo) =>
+const inmate = (alerts, categoryInfo, pathfinderId) =>
   Map({
     offenderNo: 'A1234RT',
     bookingId: 100,
@@ -60,6 +60,7 @@ const inmate = (alerts, categoryInfo) =>
     ),
     dispatch: jest.fn(),
     subscribe: jest.fn(),
+    pathfinderId,
   })
 
 describe('Header component', () => {
@@ -355,6 +356,44 @@ describe('Header component', () => {
       expect(middleSection.find("a[data-qa='use-of-force-link']").getElement().props.href).toEqual(
         'http://use-of-force/report/100/report-use-of-force'
       )
+    })
+  })
+
+  describe('pathfinder', () => {
+    const getOutput = (pathfinderId = null) =>
+      shallow(
+        <Header
+          inmateData={inmate(irrelevantAlerts, 'P', pathfinderId)}
+          onImageClick={jest.fn()}
+          offenderNo="A1234RN"
+          onAlertFlagClick={jest.fn()}
+          showAddKeyworkerSessionLink={false}
+          prisonStaffHubUrl="http://prisonstaffhub/"
+          categorisationLinkText=""
+          categorisationUrl="http://catTool"
+          isUseOfForce={false}
+          useOfForceUrl="http://useofforce"
+          userCanEdit
+          isPathfinderUser
+          pathfinderUrl={'pathfinder.com'}
+        />
+      )
+
+    it('should render pathfinder button if user can edit and no pathfinderId for offender', () => {
+      const wrapper = getOutput()
+      const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
+
+      const pathfinderLink = middleSection.find('#refer-to-pathfinder')
+      expect(pathfinderLink).toHaveLength(1)
+      expect(pathfinderLink.props().href).toEqual('pathfinder.com/refer/offender/A1234RN')
+    })
+
+    it('should not render pathfinder button if pathfinder id for offender', () => {
+      const wrapper = getOutput(1)
+      const middleSection = wrapper.find('div.visible-large > MiddleSection').shallow()
+
+      const pathfinderLink = middleSection.find('#refer-to-pathfinder')
+      expect(pathfinderLink).toHaveLength(0)
     })
   })
 })

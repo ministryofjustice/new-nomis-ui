@@ -28,6 +28,7 @@ class TestFixture {
         oauthApi.stubValidOAuthTokenLogin()
         oauthApi.stubUsersMe currentUser
         oauthApi.stubUserRoles(roles)
+        oauthApi.stubClientTokenRequest()
         elite2Api.stubGetMyDetails currentUser
         whereaboutsApi.stubGetMyDetails currentUser
 

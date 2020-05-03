@@ -107,6 +107,7 @@ class OauthApi extends WireMockRule {
         .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
         .withRequestBody(equalTo("grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%3A3007%2Flogin%2Fcallback&client_id=elite2apiclient&client_secret=clientsecret&code=code"))
         .willReturn(response))
+
   }
 
   void stubValidOAuthTokenRequest(Boolean delayOAuthResponse = false) {
@@ -173,5 +174,21 @@ class OauthApi extends WireMockRule {
             .withStatus(200)
             .withHeader('Content-Type', 'text/plain')
             .withBody("pong")))
+  }
+
+  void stubClientTokenRequest() {
+    final clientTokenResponse = aResponse()
+        .withStatus(200)
+        .withHeader('Content-Type', 'application/json;charset=UTF-8')
+        .withBody(JsonOutput.toJson([
+            token: JwtFactory.token(),
+        ]))
+
+    this.stubFor(
+        post('/auth/oauth/token')
+            .withHeader('authorization', equalTo('Basic ZWxpdGUyYXBpY2xpZW50OmNsaWVudHNlY3JldA=='))
+            .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
+            .withRequestBody(equalTo("grant_type=client_credentials"))
+            .willReturn(clientTokenResponse))
   }
 }

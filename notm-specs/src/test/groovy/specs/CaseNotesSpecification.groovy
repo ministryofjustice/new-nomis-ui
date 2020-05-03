@@ -135,6 +135,8 @@ class CaseNotesSpecification extends BrowserReportingSpec {
 
   def "create a key worker session case note using the 'Add KW session' link"() {
 
+    oauthApi.stubClientTokenRequest()
+
     given: 'I am logged in and have selected an offender'
     testFixture.loginAsKeyworker ITAG_USER
 

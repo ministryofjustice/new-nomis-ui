@@ -4,7 +4,7 @@ const Agent = require('agentkeepalive')
 const { HttpsAgent } = require('agentkeepalive')
 const { logger } = require('../services/logger')
 
-const { getHeaders } = require('./axios-config-decorators')
+const { getHeaders, getClientAuthedHeaders } = require('./axios-config-decorators')
 
 const resultLogger = result => {
   logger.debug(`${result.req.method} ${result.req.path} ${result.status}`)
@@ -61,6 +61,26 @@ const factory = ({ baseUrl, timeout }) => {
           else if (response) resolve(resultLogger(response))
         })
     })
+
+  /**
+   * A superagent GET request with Client token
+   *
+   * @param context A request scoped context. Holds OAuth tokens and pagination information for the request
+   * @param path relative path to get.
+   * @returns A Promise which settles to the superagent result object if the promise is resolved, otherwise to the 'error' object.
+   */
+  const getClientAuthed = async (context, path) => {
+    const headers = await getClientAuthedHeaders(context)
+    return superagent
+      .get(baseUrl + path)
+      .agent(keepaliveAgent)
+      .set(headers)
+      .retry(2, (err, res) => {
+        if (err) logger.info(`Retry handler found API error with ${err.code} ${err.message}`)
+        return undefined // retry handler only for logging retries, not to influence retry logic
+      })
+      .timeout({ deadline: timeout / 3 })
+  }
 
   /**
    * An superagent POST with Oauth token refresh and retry behaviour
@@ -122,6 +142,7 @@ const factory = ({ baseUrl, timeout }) => {
     getStream,
     post,
     put,
+    getClientAuthed,
   }
 }
 

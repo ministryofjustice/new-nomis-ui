@@ -7,6 +7,7 @@ const { oauthApiFactory } = require('./api/oauthApi')
 const { allocationManagerApiFactory } = require('./api/allocationManagerApi')
 const { whereaboutsApiFactory } = require('./api/whereaboutsApi')
 const { dataComplianceApiFactory } = require('./api/dataComplianceApi')
+const { pathfinderApiFactory } = require('./api/pathfinderApi')
 
 const eliteApi = eliteApiFactory(
   clientFactory({
@@ -59,6 +60,13 @@ const dataComplianceApi = dataComplianceApiFactory(
   config.apis.dataCompliance.displayRetentionLink
 )
 
+const pathfinderApi = pathfinderApiFactory(
+  clientFactory({
+    baseUrl: config.apis.pathfinder.url,
+    timeout: config.apis.whereabouts.timeoutSeconds * 1000,
+  })
+)
+
 module.exports = {
   eliteApi,
   keyworkerApi,
@@ -67,4 +75,5 @@ module.exports = {
   allocationManagerApi,
   whereaboutsApi,
   dataComplianceApi,
+  pathfinderApi,
 }

@@ -301,38 +301,6 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
     viewProbationDocumentsLink*.text() contains 'View documents held by probation'
   }
 
-  def "Pathfinder referral link is displayed for a pathfinder user"() {
-    given: 'As a Pathinder user, I log in and search for an offender'
-    fixture.loginAs(ITAG_USER, [AccessRoles.pathfinderUser])
-
-    def offenders = [Offender.SMITH()]
-
-    elite2api.stubOffenderSearch("smith", offenders, '')
-    elite2api.stubOffenderDetails(true)
-    elite2api.stubOffenderAddresses()
-    elite2api.stubImage()
-    elite2api.stubIEP()
-    elite2api.stubKeyworkerOld()
-    elite2api.stubAliases()
-    elite2api.stubStaffDetails(-2)
-    elite2api.stubCaseNoteUsage([Offender.SMITH()])
-    keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo('LEI', 'A1234AJ')
-    elite2api.stubGetKeyWorker(-2, 'A1234AJ')
-    allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
-
-    searchFor "smith"
-    at SearchResultsPage
-
-    when: 'I select an offender'
-    /* stubs required for default Quick look tab */
-    elite2api.stubQuickLook()
-    selectOffender(0)
-    at OffenderDetailsPage
-
-    then: 'Then the pathfinder referral link is displayed'
-    pathfinderLink*.text() contains 'Refer to Pathfinder'
-  }
-
   private static boolean containsExpectedIgnoringBlankAndDates(actual, List<String> expected) {
     return actual.findAll { StringUtils.isNotBlank(it) && !it.contains('/2017') } == expected
   }

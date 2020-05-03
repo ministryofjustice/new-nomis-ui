@@ -21,6 +21,8 @@ const Header = ({
   userCanEdit,
   isUseOfForce,
   useOfForceUrl,
+  isPathfinderUser,
+  pathfinderUrl,
 }) => {
   const showAlertTab = () => showAlertTabForOffenderNo(offenderNo)
 
@@ -37,6 +39,8 @@ const Header = ({
       userCanEdit={userCanEdit}
       isUseOfForce={isUseOfForce}
       useOfForceUrl={useOfForceUrl}
+      isPathfinderUser={isPathfinderUser}
+      pathfinderUrl={pathfinderUrl}
     />
   )
 }
@@ -53,6 +57,8 @@ Header.propTypes = {
   userCanEdit: PropTypes.bool,
   useOfForceUrl: PropTypes.string.isRequired,
   isUseOfForce: PropTypes.bool.isRequired,
+  isPathfinderUser: PropTypes.bool,
+  pathfinderUrl: PropTypes.string,
 }
 
 Header.defaultProps = {
@@ -78,6 +84,8 @@ Header.defaultProps = {
   }),
   userCanEdit: true,
   showPhoto: () => {},
+  isPathfinderUser: false,
+  pathfinderUrl: '',
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -86,7 +94,8 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = (immutableState, props) => {
-  const { isKeyWorker, isCatToolUser, isUseOfForce } = immutableState.getIn(['authentication', 'user']) || {}
+  const { isKeyWorker, isCatToolUser, isUseOfForce, isPathfinderUser } =
+    immutableState.getIn(['authentication', 'user']) || {}
   const userCanEdit = immutableState.getIn(['eliteApiLoader', 'Bookings', 'Details', props.offenderNo, 'UserCanEdit'])
   const offenderInCaseload = immutableState.getIn([
     'eliteApiLoader',
@@ -105,6 +114,8 @@ const mapStateToProps = (immutableState, props) => {
     categorisationUrl: immutableState.getIn(['app', 'categorisationUrl']),
     isUseOfForce: Boolean(isUseOfForce),
     useOfForceUrl: immutableState.getIn(['app', 'useOfForceUrl']),
+    isPathfinderUser,
+    pathfinderUrl: immutableState.getIn(['app', 'pathfinderUrl']),
   }
 }
 

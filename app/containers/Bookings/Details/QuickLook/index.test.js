@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import { Map } from 'immutable'
 import { Model as quickLookModel } from '../../../../helpers/dataMappers/quickLook'
 
-import { QuickLook, NegativeAndPositiveCaseNoteCount, OffenderManagementInCustody, Pathfinder } from './index'
+import { QuickLook, NegativeAndPositiveCaseNoteCount, OffenderManagementInCustody } from './index'
 
 describe('<QuickLook />', () => {
   describe('should render differently based on user privileges', () => {
@@ -13,7 +13,6 @@ describe('<QuickLook />', () => {
       viewModel: quickLookModel,
       offenderDetails: Map({}),
       prisonStaffHubUrl: '',
-      pathfinderUrl: '',
     }
 
     it('should not render case note counts if user cannot edit', () => {
@@ -35,16 +34,6 @@ describe('<QuickLook />', () => {
       const wrapper = shallow(<QuickLook {...quickLookProps} canUserViewProbationDocuments />)
 
       expect(wrapper.find(OffenderManagementInCustody)).toHaveLength(1)
-    })
-    it('should not render the pathfinder section if the user does not have a Pathfinder role', () => {
-      const wrapper = shallow(<QuickLook {...quickLookProps} />)
-
-      expect(wrapper.find(Pathfinder)).toHaveLength(0)
-    })
-    it('should render the pathfinder section if the user has a Pathfinder role and the URL is present', () => {
-      const wrapper = shallow(<QuickLook {...quickLookProps} isPathfinderUser pathfinderUrl="https://pathfinder" />)
-
-      expect(wrapper.find(Pathfinder)).toHaveLength(1)
     })
   })
 })

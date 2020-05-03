@@ -52,3 +52,12 @@ export const PageHeader = styled.div`
   display: flex;
   justify-content: space-between;
 `
+
+export const PageHeaderLeft = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  > h1 {
+    padding-right: 15px;
+  }
+`

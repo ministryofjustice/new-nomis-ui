@@ -120,7 +120,11 @@ class Details extends Component {
     const isIndividualCaseNote = activeTab === DETAILS_TABS.CASE_NOTES && itemId
 
     return (
-      <Page title={offenderName} docTitle={isIndividualCaseNote ? 'View case note' : ActiveTab.title}>
+      <Page
+        title={offenderName}
+        docTitle={isIndividualCaseNote ? 'View case note' : ActiveTab.title}
+        pathfinderId={offenderDetails.get('pathfinderId')}
+      >
         <div className="detail-content">
           <BookingsDetailsHeader offenderNo={offenderNo} prisonStaffHubUrl={prisonStaffHubUrl} />
 
