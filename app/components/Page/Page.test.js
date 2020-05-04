@@ -13,6 +13,7 @@ describe('<Page />', () => {
       isExact: true,
       params: {},
     },
+    user: {},
   }
 
   let wrapper
@@ -90,10 +91,16 @@ describe('<Page />', () => {
     expect(testContextLinkElement.text()).toEqual('View most recent search')
   })
 
-  it('should show a link to pathfinder profile if the offender has a pathfinder id', () => {
+  it('should show a link to pathfinder profile if the offender has a pathfinder id and user is pathfinder user', () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/random']}>
-        <Page {...props} pathfinderId={1} pathfinderUrl="pathfinder.com" docTitle="Quick look" />
+        <Page
+          {...props}
+          pathfinderId={1}
+          pathfinderUrl="pathfinder.com"
+          user={{ isPathfinderUser: true }}
+          docTitle="Quick look"
+        />
       </MemoryRouter>
     )
     const link = wrapper.find('#pathfinder-profile-link')
@@ -104,7 +111,29 @@ describe('<Page />', () => {
   it('should not show a link to pathfinder profile if the offender does not have a pathfinder id', () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/random']}>
-        <Page {...props} pathfinderId={null} pathfinderUrl="pathfinder.com" docTitle="Quick look" />
+        <Page
+          {...props}
+          pathfinderId={null}
+          pathfinderUrl="pathfinder.com"
+          user={{ isPathfinderUser: true }}
+          docTitle="Quick look"
+        />
+      </MemoryRouter>
+    )
+    const link = wrapper.find('#pathfinder-profile-link')
+    expect(link.length).toEqual(0)
+  })
+
+  it('should not show a link to pathfinder profile if the user is not a pathfinder user', () => {
+    wrapper = mount(
+      <MemoryRouter initialEntries={['/random']}>
+        <Page
+          {...props}
+          pathfinderId={1}
+          pathfinderUrl="pathfinder.com"
+          user={{ isPathfinderUser: false }}
+          docTitle="Quick look"
+        />
       </MemoryRouter>
     )
     const link = wrapper.find('#pathfinder-profile-link')

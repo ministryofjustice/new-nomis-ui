@@ -11,7 +11,7 @@ import {
   PageHeader,
   PageHeaderLeft,
 } from './Page.styles'
-import { childrenType, routeMatchType } from '../../types'
+import { childrenType, routeMatchType, userType } from '../../types'
 import Breadcrumb from '../Breadcrumb'
 import PrintLink from './elements/PrintLink'
 
@@ -43,9 +43,9 @@ export class Page extends Component {
       showPrint,
       pathfinderId,
       pathfinderUrl,
+      user,
     } = this.props
     const showRecentResultsLink = searchContext === 'results' && offenderNo
-
     return (
       <Fragment>
         {(showRecentResultsLink || showBreadcrumb) && (
@@ -66,7 +66,7 @@ export class Page extends Component {
                   {title}
                 </Heading>
               )}
-              {pathfinderId && pathfinderUrl && (
+              {user.isPathfinderUser && pathfinderId && pathfinderUrl && (
                 <a id="pathfinder-profile-link" href={`${pathfinderUrl}/nominal/${pathfinderId}`} className="link">
                   View Pathfinder profile
                 </a>
@@ -97,6 +97,7 @@ Page.propTypes = {
   match: routeMatchType.isRequired,
   showPrint: PropTypes.bool,
   pathfinderUrl: PropTypes.string,
+  user: userType,
 }
 
 Page.defaultProps = {
@@ -106,12 +107,14 @@ Page.defaultProps = {
   lastSearchResultQuery: null,
   showPrint: false,
   pathfinderUrl: null,
+  user: {},
 }
 
 const mapStateToProps = state => ({
   searchContext: state.getIn(['app', 'searchContext']),
   lastSearchResultQuery: state.getIn(['search', 'lastSearchResultQuery']),
   pathfinderUrl: state.getIn(['app', 'pathfinderUrl']),
+  user: state.getIn(['authentication', 'user']),
 })
 
 export default withRouter(connect(mapStateToProps)(Page))
