@@ -43,7 +43,7 @@ env:
     valueFrom:
       secretKeyRef:
         name: dps-redis
-        key: REDIS_PASSWORD        
+        key: REDIS_PASSWORD
 
   - name: API_ENDPOINT_URL
     value: {{ .Values.env.API_ENDPOINT_URL | quote }}
@@ -74,6 +74,9 @@ env:
 
   - name: PATHFINDER_URL
     value: {{ .Values.env.PATHFINDER_URL | quote }}
+
+  - name: API_PATHFINDER_URL
+    value: {{ .Values.env.API_PATHFINDER_URL | quote }}
 
   - name: MOIC_URL
     value: {{ .Values.env.MOIC_URL | quote }}
