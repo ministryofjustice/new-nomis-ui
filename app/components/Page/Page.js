@@ -67,13 +67,7 @@ export class Page extends Component {
                 </Heading>
               )}
               {pathfinderId && pathfinderUrl && (
-                <a
-                  id="pathfinder-profile-link"
-                  href={`${pathfinderUrl}/nominal/${pathfinderId}`}
-                  className="link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a id="pathfinder-profile-link" href={`${pathfinderUrl}/nominal/${pathfinderId}`} className="link">
                   View Pathfinder profile
                 </a>
               )}
