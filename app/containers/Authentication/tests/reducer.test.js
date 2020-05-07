@@ -53,6 +53,26 @@ describe('Authentication reducer', () => {
 
     expect(userState.isKeyWorkerAdmin).toBe(true)
   })
+  it('should return state with a user having a pecs role if user has pecs o.c.a role', () => {
+    const user = {
+      ...userData,
+      accessRoles: [{ roleCode: 'PECS_OCA', roleDescription: 'PECS O.C.A Officer' }],
+    }
+    const state = authenticationReducer(Map({}), userMe({ user }))
+    const userState = state.get('user')
+
+    expect(userState.isPecsUser).toBe(true)
+  })
+  it('should return state with a user having a pecs role if user has pecs prisoner officer role', () => {
+    const user = {
+      ...userData,
+      accessRoles: [{ roleCode: 'PECS_PRISON', roleDescription: 'PECS Prison Officer' }],
+    }
+    const state = authenticationReducer(Map({}), userMe({ user }))
+    const userState = state.get('user')
+
+    expect(userState.isPecsUser).toBe(true)
+  })
   it('should handle situations where accessRoles and staffRoles are undefined', () => {
     const user = {
       ...userData,

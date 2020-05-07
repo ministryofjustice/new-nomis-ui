@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import './index.scss'
 
-export const ActionLink = ({ url, testId, image, children }) => (
+export const ActionLink = ({ url, testId, image, children, ...rest }) => (
   <div className="action-links__link">
-    <a href={url} className="action-link link" data-qa={testId}>
+    <a href={url} className="action-link link" data-qa={testId} {...rest}>
       <img src={image} alt={`${children} icon`} />
       {children}
     </a>
@@ -38,6 +38,8 @@ const ActionLinks = ({
   isUseOfForce,
   isPathfinderUser,
   isLicenceUser,
+  isPecsUser,
+  pecsUrl,
   isPomAllocUser,
 }) => {
   if (
@@ -52,7 +54,8 @@ const ActionLinks = ({
     !isUseOfForce &&
     !isPathfinderUser &&
     !isPomAllocUser &&
-    !isLicenceUser
+    !isLicenceUser &&
+    !isPecsUser
   ) {
     return <div />
   }
@@ -138,7 +141,7 @@ const ActionLinks = ({
         )}
 
         {isPomAllocUser && moicUrl && (
-          <ActionLink url={`${moicUrl}`} image="/img/ICON_POMAllocation.png" testId="pom-alloc-link">
+          <ActionLink url={moicUrl} image="/img/ICON_POMAllocation.png" testId="pom-alloc-link">
             Manage POM allocation
           </ActionLink>
         )}
@@ -156,6 +159,12 @@ const ActionLinks = ({
         {isCatToolUser && categorisationUrl && (
           <ActionLink url={`${categorisationUrl}`} image="/img/ICON_CatTool.png" testId="cat-tool-link">
             Categorisation
+          </ActionLink>
+        )}
+
+        {isPecsUser && pecsUrl && (
+          <ActionLink url={pecsUrl} image="/img/BookASecureMove_icon.png" target="_blank" rel="noopener noreferrer">
+            Book a secure move
           </ActionLink>
         )}
       </div>
@@ -180,9 +189,11 @@ ActionLinks.propTypes = {
   isPathfinderUser: PropTypes.bool.isRequired,
   pathfinderUrl: PropTypes.string.isRequired,
   isLicenceUser: PropTypes.bool.isRequired,
+  isPecsUser: PropTypes.bool.isRequired,
   licencesUrl: PropTypes.string.isRequired,
   isPomAllocUser: PropTypes.bool.isRequired,
   moicUrl: PropTypes.string.isRequired,
+  pecsUrl: PropTypes.string.isRequired,
 }
 
 export default ActionLinks

@@ -81,6 +81,9 @@ env:
   - name: MOIC_URL
     value: {{ .Values.env.MOIC_URL | quote }}
 
+  - name: PECS_URL
+    value: {{ .Values.env.PECS_URL | quote }}
+
   - name: LICENCES_URL
     value: {{ .Values.env.LICENCES_URL | quote }}
 

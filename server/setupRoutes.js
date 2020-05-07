@@ -47,6 +47,7 @@ module.exports = ({
     const useOfForceUrl = config.apis.useOfForce.ui_url
     const pathfinderUrl = config.apis.pathfinder.ui_url
     const moicUrl = config.apis.moic.ui_url
+    const pecsUrl = config.apis.pecs.ui_url
     const licencesUrl = config.apis.licences.ui_url
     const { displayRetentionLink } = config.apis.dataCompliance
 
@@ -63,6 +64,7 @@ module.exports = ({
       useOfForceUrl,
       pathfinderUrl,
       moicUrl,
+      pecsUrl,
       licencesUrl,
       displayRetentionLink,
     })

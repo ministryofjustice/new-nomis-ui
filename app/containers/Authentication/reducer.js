@@ -39,6 +39,8 @@ const CAT_ROLES = [
   'CATEGORISATION_SECURITY',
 ]
 
+const PECS_ROLES = ['PECS_OCA', 'PECS_PRISON']
+
 const PATHFINDER_ROLES = ['PF_STD_PRISON', 'PF_STD_PROBATION', 'PF_APPROVAL', 'PF_STD_PRISON_RO', 'PF_STD_PROBATION_RO']
 
 function authenticationReducer(state = initialState, action) {
@@ -76,6 +78,8 @@ function authenticationReducer(state = initialState, action) {
           )
       )
 
+      const isPecsUser = Boolean(user.accessRoles && user.accessRoles.some(r => PECS_ROLES.includes(r.roleCode)))
+
       const canGlobalSearch = Boolean(user.accessRoles && user.accessRoles.some(r => r.roleCode === 'GLOBAL_SEARCH'))
 
       const canAddBulkAppointments = Boolean(
@@ -112,6 +116,7 @@ function authenticationReducer(state = initialState, action) {
         canViewProbationDocuments,
         isPathfinderUser,
         isLicenceUser,
+        isPecsUser,
         isPomAllocUser,
       })
     }

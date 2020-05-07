@@ -66,6 +66,11 @@ const apis = {
   moic: {
     ui_url: process.env.MOIC_URL,
   },
+  pecs: {
+    ui_url:
+      process.env.PECS_URL ||
+      'https://hmpps-book-secure-move-frontend-staging.apps.live-1.cloud-platform.service.justice.gov.uk',
+  },
   licences: {
     ui_url: process.env.LICENCES_URL,
   },
