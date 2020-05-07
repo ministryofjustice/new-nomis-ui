@@ -30,6 +30,7 @@ const initialState = fromJS({
   useOfForceUrl: '/',
   pathfinderUrl: '/',
   moicUrl: '/',
+  pecsUrl: '/',
   licencesUrl: '/',
   displayRetentionLink: false,
 })

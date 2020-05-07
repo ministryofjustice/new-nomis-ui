@@ -26,6 +26,7 @@ class HomePage extends Component {
       useOfForceUrl,
       pathfinderUrl,
       moicUrl,
+      pecsUrl,
       licencesUrl,
     } = this.props
     if (!user) {
@@ -55,9 +56,11 @@ class HomePage extends Component {
               pathfinderUrl={pathfinderUrl}
               isPathfinderUser={user.isPathfinderUser}
               moicUrl={moicUrl}
+              pecsUrl={pecsUrl}
               isPomAllocUser={user.isPomAllocUser}
               licencesUrl={licencesUrl}
               isLicenceUser={user.isLicenceUser}
+              isPecsUser={user.isPecsUser}
             />
           </div>
         </Page>
@@ -76,6 +79,7 @@ HomePage.propTypes = {
   useOfForceUrl: PropTypes.string.isRequired,
   pathfinderUrl: PropTypes.string.isRequired,
   moicUrl: PropTypes.string.isRequired,
+  pecsUrl: PropTypes.string.isRequired,
   licencesUrl: PropTypes.string.isRequired,
 
   // mapDispatchToProps
@@ -95,6 +99,7 @@ const mapStateToProps = state => ({
   useOfForceUrl: state.getIn(['app', 'useOfForceUrl']),
   pathfinderUrl: state.getIn(['app', 'pathfinderUrl']),
   moicUrl: state.getIn(['app', 'moicUrl']),
+  pecsUrl: state.getIn(['app', 'pecsUrl']),
   licencesUrl: state.getIn(['app', 'licencesUrl']),
 })
 

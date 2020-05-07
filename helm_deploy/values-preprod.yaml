@@ -29,6 +29,7 @@ env:
   PATHFINDER_URL: "https://preprod.pathfinder.service.justice.gov.uk"
   API_PATHFINDER_URL: "https://preprod-api.pathfinder.service.justice.gov.uk"
   MOIC_URL: "https://allocation-manager-preprod.apps.live-1.cloud-platform.service.justice.gov.uk"
+  PECS_URL: " http://hmpps-book-secure-move-frontend-preprod.apps.live-1.cloud-platform.service.justice.gov.uk"
   LICENCES_URL: "https://licences-preprod.prison.service.justice.gov.uk"
   USE_OF_FORCE_URL: "https://preprod.use-of-force.service.justice.gov.uk"
   ALLOCATION_MANAGER_ENDPOINT_URL: "https://allocation-manager-preprod.apps.live-1.cloud-platform.service.justice.gov.uk/"
