@@ -58,6 +58,8 @@ whitelist:
   ark-nps-hmcts-ttp5: "194.33.197.0/25"
   oakwood-1: "217.161.76.187/32"
   oakwood-2: "217.161.76.195/32"
+  oakwood-3: "217.161.76.186/32"
+  oakwood-4: "217.161.76.194/32"
   cloudplatform-live1-1: "35.178.209.113/32"
   cloudplatform-live1-2: "3.8.51.207/32"
   cloudplatform-live1-3: "35.177.252.54/32"
