@@ -16,7 +16,7 @@ services:
       - NODE_ENV=development
 
   oauth:
-    image: mojdigitalstudio/nomis-oauth2-server:latest
+    image: quay.io/hmpps/nomis-oauth2-server:latest
     container_name: oauth_nn
     ports:
       - '9090:8080'
@@ -27,7 +27,7 @@ services:
       - SPRING_PROFILES_ACTIVE=dev
 
   elite2:
-    image: mojdigitalstudio/elite2-api:latest
+    image: quay.io/hmpps/elite2-api:latest
     container_name: elite2_nn
     depends_on:
       - oauth
