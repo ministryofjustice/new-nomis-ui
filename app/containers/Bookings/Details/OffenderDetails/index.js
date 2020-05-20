@@ -91,7 +91,7 @@ export const OffenderDetails = ({ offenderDetails, showPhoto }) => {
       label: 'Ethnicity',
       value: `${physicalAttributes.get('ethnicity')} (${physicalAttributes.get('raceCode')})`,
     },
-    { key: 'religion', label: 'Religion', value: getProfileInformation(offenderDetails, 'RELF') },
+    { key: 'religion', label: 'Religion or belief', value: getProfileInformation(offenderDetails, 'RELF') },
     { key: 'nationality', label: 'Nationality', value: getProfileInformation(offenderDetails, 'NAT') },
     { key: 'language', label: 'Spoken language', value: offenderDetails.get('language') },
     { key: 'flat', label: 'Flat', value: offenderDetails.getIn(['primaryAddress', 'flat']) },
