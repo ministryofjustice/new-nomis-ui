@@ -295,7 +295,7 @@ class Elite2Api extends WireMockRule {
         },
         {
             "type": "RELF",
-            "question": "Religion",
+            "question": "Religion or belief'",
             "resultValue": "Metodist"
         },
         {

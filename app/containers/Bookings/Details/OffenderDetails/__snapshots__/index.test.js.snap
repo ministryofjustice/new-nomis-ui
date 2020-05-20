@@ -91,7 +91,7 @@ exports[`<OffenderDetails /> should match the default snapshot 1`] = `
         <div
           className="sc-htpNat idItfP"
         >
-          Religion
+          Religion or belief
         </div>
         <div
           className="sc-htpNat idItfP"
