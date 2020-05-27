@@ -16,8 +16,8 @@ cd new-nomis-ui
 ## Running the application in dev mode
 
 ```bash
-yarn
-yarn start
+npm
+npm start
 ```
 
 This will point at a API server at localhost:8080 This can be overridden in development mode by adding a `.env`
@@ -32,11 +32,11 @@ API_ENDPOINT_URL=http://localhost:8080/api
 
 ## Running the application in production mode
 
-Use yarn build use the webpack transpiler to convert to ES5 javascript:
+Use npm build use the webpack transpiler to convert to ES5 javascript:
 
 ```bash
-yarn build:hmpps
-yarn start:prod
+npm build
+npm start:prod
 ```
 
 ## Running tests
@@ -44,7 +44,7 @@ yarn start:prod
 The system makes use of mocha to run the tests:
 
 ```bash
-yarn test
+npm test
 ```
 
 ### Starting feature tests node instance
@@ -52,7 +52,7 @@ yarn test
 A separate node instance needs to be started for the feature tests. This will run on port 3006 and won't conflict
 with any of the api services, e.g. elite2-api or oauth.
 
-`yarn start-feature`
+`npm start-feature`
 
 **To run the tests using Gradle:**
 Ensure that chromedriver is on your path. Run `./gradlew build` from the root of this project.
@@ -69,8 +69,8 @@ now display 'run' icons for the class and each of its tests methods.
 To view the bundle size using webpack-bundle-analyzer:
 
 ```bash
-yarn build
-yarn view-bundle-stats
+npm build
+npm view-bundle-stats
 ```
 
 ## Environment

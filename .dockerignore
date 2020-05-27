@@ -24,5 +24,4 @@ build.gradle
 notm-specs
 jest.config.js
 settings.gradle
-yarn-error.log
 promote-to-env.sh

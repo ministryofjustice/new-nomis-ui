@@ -22,26 +22,26 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: node_modules-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
+          key: node_modules-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }}
       - run:
           name: Install Dependencies
-          command: yarn --frozen-lockfile
+          command: npm ci --no-audit
       - save_cache:
-          key: node_modules-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
+          key: node_modules-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }}
           paths:
             - ./node_modules
       - run:
           name: Run eslint
-          command: yarn lint:js:ci
+          command: npm run lint:js:ci
       - run:
           name: Run scss-lint
-          command: yarn stylelint:ci
+          command: npm run stylelint:ci
       - run:
           name: Run Tests
           command: |
             set -e
-            yarn test --maxWorkers=2
-      - run: export NODE_ENV=production yarn build
+            npm test --maxWorkers=2
+      - run: export NODE_ENV=production npm run build
       - store_artifacts:
           path: test-report.html
       - store_artifacts:
@@ -64,7 +64,7 @@ jobs:
           at: ~/app
       - run:
           name: Run the node app.
-          command: yarn start-feature
+          command: npm run start-feature
           background: true
       - run:
           name: Wait for node app to start
@@ -100,16 +100,16 @@ jobs:
     steps:
       - checkout
       - run:
-          name: update-yarn
-          command: 'sudo yarn global add yarn'
+          name: update-npm
+          command: 'sudo npm install -g npm'
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: install-yarn
-          command: 'yarn --frozen-lockfile --no-audit'
+          name: install-npm
+          command: 'npm ci --no-audit'
       - run:
           name: run-security-audit
-          command: 'yarn security_audit'
+          command: 'npm run security_audit'
 
 workflows:
   version: 2
