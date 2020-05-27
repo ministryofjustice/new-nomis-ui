@@ -16,7 +16,8 @@ cd new-nomis-ui
 ## Running the application in dev mode
 
 ```bash
-npm
+npm install
+npm run build
 npm start
 ```
 
@@ -35,7 +36,7 @@ API_ENDPOINT_URL=http://localhost:8080/api
 Use npm build use the webpack transpiler to convert to ES5 javascript:
 
 ```bash
-npm build
+npm run build
 npm start:prod
 ```
 
