@@ -40,7 +40,7 @@ jobs:
           name: Run Tests
           command: |
             set -e
-            npm test --maxWorkers=2
+            npm test -- --maxWorkers=2
       - run: export NODE_ENV=production npm run build
       - store_artifacts:
           path: test-report.html
