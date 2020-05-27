@@ -9,7 +9,7 @@ promote_to_env() {
   ENV=$2
 
   # Build a deployment file
-  yarn run plant-beanstalk ${VERSION}
+  npm run plant-beanstalk ${VERSION}
   eb deploy notm-${ENV} --verbose --label ${VERSION}
 }
 
