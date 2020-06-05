@@ -74,7 +74,6 @@ export default [
     imgClass: '',
   },
   { alertCodes: ['RCON'], className: 'conflict-status', label: 'Conflict', img: '', imgClass: '' },
-
   {
     alertCodes: ['URCU'],
     className: 'reverse-cohorting-unit',

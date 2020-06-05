@@ -19,7 +19,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import static model.UserAccount.ITAG_USER
 
 @Slf4j
-class SearchResultsSpecification extends BrowserReportingSpec {
+class   SearchResultsSpecification extends BrowserReportingSpec {
 
   @Rule
   Elite2Api elite2api = new Elite2Api()
@@ -65,7 +65,7 @@ class SearchResultsSpecification extends BrowserReportingSpec {
     moreFiltersLink.click()
     checkboxes[0].click() // acct
     checkboxes[2].click() // arsonist
-    checkboxes[20].click() // TACT
+    checkboxes[23].click() // TACT
     elite2api.stubOffenderSearch(
       'aname',
       [
@@ -130,7 +130,7 @@ class SearchResultsSpecification extends BrowserReportingSpec {
     moreFiltersLink.click()
     checkboxes[0].click() // acct
     checkboxes[2].click() // arsonist
-    checkboxes[20].click() // TACT
+    checkboxes[23].click() // TACT
     elite2api.stubOffenderSearch(
       'aname',
       [
