@@ -66,6 +66,9 @@ env:
   - name: OMIC_UI_URL
     value: {{ .Values.env.OMIC_UI_URL | quote }}
 
+  - name: MANAGE_AUTH_ACCOUNTS_URL
+    value: {{ .Values.env.MANAGE_AUTH_ACCOUNTS_URL | quote }}
+
   - name: ALLOCATION_MANAGER_ENDPOINT_URL
     value: {{ .Values.env.ALLOCATION_MANAGER_ENDPOINT_URL | quote }}
 

@@ -1,5 +1,6 @@
 import { fromJS } from 'immutable'
 import history from '../history'
+import PropTypes from 'prop-types'
 
 // Actions
 const SET_DEVICE_FORMAT = 'globalReducer/app/SET_DEVICE_FORMAT'
@@ -26,6 +27,7 @@ const initialState = fromJS({
   mailTo: 'feedback@digital.justice.gov.uk',
   prisonStaffHubUrl: '/',
   omicUrl: '/',
+  manageAuthAccountsUrl: '/',
   categorisationUrl: '/',
   useOfForceUrl: '/',
   pathfinderUrl: '/',

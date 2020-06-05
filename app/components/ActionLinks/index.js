@@ -24,6 +24,7 @@ const ActionLinks = ({
   isKeyWorker,
   isWhereabouts,
   omicUrl,
+  manageAuthAccountsUrl,
   prisonStaffHubUrl,
   useOfForceUrl,
   pathfinderUrl,
@@ -146,9 +147,9 @@ const ActionLinks = ({
           </ActionLink>
         )}
 
-        {hasAdminRights && omicUrl && (
+        {hasAdminRights && manageAuthAccountsUrl && (
           <ActionLink
-            url={`${omicUrl}admin-utilities`}
+            url={`${manageAuthAccountsUrl}`}
             image="/img/ICON_AdminUtilities.png"
             testId="admin-utilities-link"
           >
@@ -177,6 +178,7 @@ ActionLinks.propTypes = {
   isKeyWorker: PropTypes.bool.isRequired,
   isWhereabouts: PropTypes.bool.isRequired,
   omicUrl: PropTypes.string.isRequired,
+  manageAuthAccountsUrl: PropTypes.string.isRequired,
   isEstablishmentRollCheck: PropTypes.bool.isRequired,
   hasAdminRights: PropTypes.bool.isRequired,
   isGlobalSearch: PropTypes.bool.isRequired,

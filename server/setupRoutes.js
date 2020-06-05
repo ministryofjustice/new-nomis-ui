@@ -42,6 +42,7 @@ module.exports = ({
   router.use('/config', (req, res) => {
     const { feedbackUrl, mailTo } = config.app
     const omicUrl = config.apis.keyworker.ui_url
+    const manageAuthAccountsUrl = config.apis.manageaccounts.ui_url
     const prisonStaffHubUrl = config.apis.prisonStaffHub.ui_url
     const categorisationUrl = config.apis.categorisation.ui_url
     const useOfForceUrl = config.apis.useOfForce.ui_url
@@ -51,13 +52,14 @@ module.exports = ({
     const licencesUrl = config.apis.licences.ui_url
     const { displayRetentionLink } = config.apis.dataCompliance
 
-    if (!feedbackUrl && !omicUrl && !prisonStaffHubUrl && !mailTo && !categorisationUrl) {
+    if (!feedbackUrl && !omicUrl && !manageAuthAccountsUrl && !prisonStaffHubUrl && !mailTo && !categorisationUrl) {
       res.end()
       return
     }
     res.json({
       feedbackUrl,
       omicUrl,
+      manageAuthAccountsUrl,
       prisonStaffHubUrl,
       mailTo,
       categorisationUrl,

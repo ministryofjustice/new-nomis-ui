@@ -49,6 +49,9 @@ const apis = {
     timeoutSeconds: process.env.KEYWORKER_API_TIMEOUT_SECONDS || 30,
     ui_url: process.env.OMIC_UI_URL || 'http://localhost:3001/',
   },
+  manageaccounts: {
+    ui_url: process.env.MANAGE_AUTH_ACCOUNTS_URL || 'http://localhost:3004/',
+  },
   prisonStaffHub: {
     ui_url: process.env.PRISON_STAFF_HUB_UI_URL || 'http://localhost:3002/',
   },
