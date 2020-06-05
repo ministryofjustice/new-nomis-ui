@@ -74,6 +74,7 @@ export default [
     imgClass: '',
   },
   { alertCodes: ['RCON'], className: 'conflict-status', label: 'Conflict', img: '', imgClass: '' },
+  { alertCodes: ['RCDR'], className: 'quarantined-status', label: 'Quarantined', img: '', imgClass: '' },
   {
     alertCodes: ['URCU'],
     className: 'reverse-cohorting-unit',

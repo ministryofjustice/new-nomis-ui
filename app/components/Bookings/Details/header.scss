@@ -334,32 +334,39 @@
   border-color: #903;
 }
 
+.quarantined-status {
+  @extend %alert-status-style;
+  color: #fff;
+  border-color: #330;
+  background-color: #330;
+}
+
 .reverse-cohorting-unit {
   @extend %alert-status-style;
-  color: #FFF;
-  border-color: mix(white, #00703C, 20%);
-  background-color: mix(white, #00703C, 20%);
+  color: #fff;
+  border-color: mix(white, #00703c, 20%);
+  background-color: mix(white, #00703c, 20%);
 }
 
 .protective-isolation-unit {
   @extend %alert-status-style;
-  color: #FFF;
+  color: #fff;
   border-color: #006637;
   background-color: #006637;
 }
 
 .shielding-unit {
   @extend %alert-status-style;
-  color: #FFF;
+  color: #fff;
   border-color: #004424;
   background-color: #004424;
 }
 
 .refusing-to-shield {
   @extend %alert-status-style;
-  color: #FFF;
-  border-color: #B58840;
-  background-color: #B58840;
+  color: #fff;
+  border-color: #b58840;
+  background-color: #b58840;
 }
 
 .arsonist-adjust {
