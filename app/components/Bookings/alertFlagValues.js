@@ -74,5 +74,21 @@ export default [
     imgClass: '',
   },
   { alertCodes: ['RCON'], className: 'conflict-status', label: 'Conflict', img: '', imgClass: '' },
-  { alertCodes: ['RCDR'], className: 'quarantined-status', label: 'Quarantined', img: '', imgClass: '' },
+
+  {
+    alertCodes: ['URCU'],
+    className: 'reverse-cohorting-unit',
+    label: 'Reverse Cohorting Unit',
+    img: '',
+    imgClass: '',
+  },
+  {
+    alertCodes: ['UPIU'],
+    className: 'protective-isolation-unit',
+    label: 'Protective Isolation Unit',
+    img: '',
+    imgClass: '',
+  },
+  { alertCodes: ['USU'], className: 'shielding-unit', label: 'Shielding Unit', img: '', imgClass: '' },
+  { alertCodes: ['URS'], className: 'refusing-to-shield', label: 'Refusing to shield', img: '', imgClass: '' },
 ].sort((a, b) => a.label.localeCompare(b.label))

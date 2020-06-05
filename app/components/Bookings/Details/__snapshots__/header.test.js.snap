@@ -163,14 +163,14 @@ exports[`Header component should render correctly 1`] = `
         PEEP
       </span>
       <span
-        className="quarantined-status"
+        className="protective-isolation-unit"
         onClick={[MockFunction]}
         onKeyDown={[Function]}
         role="link"
         tabIndex={0}
       >
         
-        QUARANTINED
+        PROTECTIVE ISOLATION UNIT
       </span>
       <span
         className="racist-status"
@@ -183,6 +183,26 @@ exports[`Header component should render correctly 1`] = `
         RACIST
       </span>
       <span
+        className="refusing-to-shield"
+        onClick={[MockFunction]}
+        onKeyDown={[Function]}
+        role="link"
+        tabIndex={0}
+      >
+        
+        REFUSING TO SHIELD
+      </span>
+      <span
+        className="reverse-cohorting-unit"
+        onClick={[MockFunction]}
+        onKeyDown={[Function]}
+        role="link"
+        tabIndex={0}
+      >
+        
+        REVERSE COHORTING UNIT
+      </span>
+      <span
         className="risk-lgbt-status"
         onClick={[MockFunction]}
         onKeyDown={[Function]}
@@ -191,6 +211,16 @@ exports[`Header component should render correctly 1`] = `
       >
         
         RISK TO LGBT
+      </span>
+      <span
+        className="shielding-unit"
+        onClick={[MockFunction]}
+        onKeyDown={[Function]}
+        role="link"
+        tabIndex={0}
+      >
+        
+        SHIELDING UNIT
       </span>
       <span
         className="assault-status"
@@ -398,14 +428,14 @@ exports[`Header component should render correctly 1`] = `
               PEEP
             </span>
             <span
-              className="quarantined-status"
+              className="protective-isolation-unit"
               onClick={[MockFunction]}
               onKeyDown={[Function]}
               role="link"
               tabIndex={0}
             >
               
-              QUARANTINED
+              PROTECTIVE ISOLATION UNIT
             </span>
             <span
               className="racist-status"
@@ -418,6 +448,26 @@ exports[`Header component should render correctly 1`] = `
               RACIST
             </span>
             <span
+              className="refusing-to-shield"
+              onClick={[MockFunction]}
+              onKeyDown={[Function]}
+              role="link"
+              tabIndex={0}
+            >
+              
+              REFUSING TO SHIELD
+            </span>
+            <span
+              className="reverse-cohorting-unit"
+              onClick={[MockFunction]}
+              onKeyDown={[Function]}
+              role="link"
+              tabIndex={0}
+            >
+              
+              REVERSE COHORTING UNIT
+            </span>
+            <span
               className="risk-lgbt-status"
               onClick={[MockFunction]}
               onKeyDown={[Function]}
@@ -426,6 +476,16 @@ exports[`Header component should render correctly 1`] = `
             >
               
               RISK TO LGBT
+            </span>
+            <span
+              className="shielding-unit"
+              onClick={[MockFunction]}
+              onKeyDown={[Function]}
+              role="link"
+              tabIndex={0}
+            >
+              
+              SHIELDING UNIT
             </span>
             <span
               className="assault-status"

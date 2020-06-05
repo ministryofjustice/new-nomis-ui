@@ -334,12 +334,45 @@
   border-color: #903;
 }
 
-.quarantined-status {
+.reverse-cohorting-unit {
   @extend %alert-status-style;
   color: #FFF;
-  border-color: #330;
-  background-color: #330;
+  border-color: mix(white, #00703C, 20%);
+  background-color: mix(white, #00703C, 20%);
 }
+
+.protective-isolation-unit {
+  @extend %alert-status-style;
+  color: #FFF;
+  border-color: #006637;
+  background-color: #006637;
+}
+
+.shielding-unit {
+  @extend %alert-status-style;
+  color: #FFF;
+  border-color: #004424;
+  background-color: #004424;
+}
+
+.refusing-to-shield {
+  @extend %alert-status-style;
+  color: #FFF;
+  border-color: #B58840;
+  background-color: #B58840;
+}
+
+// RCU is #00703C at 80% tint
+// PIU is #006637
+// Shielding Unit is #004424
+// Refusing is #B58840
+
+// {label: 'Covid - Reverse cohorting unit',},
+// { label: 'Covid - Protective isolation unit', },
+// { label: 'Covid - Shielding unit', img: '', imgClass: '' },
+// { label: 'Covid - Refusing to shield', img: '', imgClass: '' },
+
+
 
 .arsonist-adjust {
   margin-bottom: 7px;

@@ -156,7 +156,7 @@ class SearchResultsSpecification extends BrowserReportingSpec {
 
     waitFor { rows.size() == 3 }
 
-    checkboxes.size() == 22
+    checkboxes.size() == 25
     checkboxes.every{ cb -> cb.value() == null } == true
 
     // Make sure a request was made for unfiltered data
