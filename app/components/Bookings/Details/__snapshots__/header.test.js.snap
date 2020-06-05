@@ -173,6 +173,16 @@ exports[`Header component should render correctly 1`] = `
         PROTECTIVE ISOLATION UNIT
       </span>
       <span
+        className="quarantined-status"
+        onClick={[MockFunction]}
+        onKeyDown={[Function]}
+        role="link"
+        tabIndex={0}
+      >
+        
+        QUARANTINED
+      </span>
+      <span
         className="racist-status"
         onClick={[MockFunction]}
         onKeyDown={[Function]}
@@ -436,6 +446,16 @@ exports[`Header component should render correctly 1`] = `
             >
               
               PROTECTIVE ISOLATION UNIT
+            </span>
+            <span
+              className="quarantined-status"
+              onClick={[MockFunction]}
+              onKeyDown={[Function]}
+              role="link"
+              tabIndex={0}
+            >
+              
+              QUARANTINED
             </span>
             <span
               className="racist-status"
