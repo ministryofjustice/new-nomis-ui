@@ -26,6 +26,7 @@ const initialState = fromJS({
   mailTo: 'feedback@digital.justice.gov.uk',
   prisonStaffHubUrl: '/',
   omicUrl: '/',
+  manageAuthAccountsUrl: '/',
   categorisationUrl: '/',
   useOfForceUrl: '/',
   pathfinderUrl: '/',

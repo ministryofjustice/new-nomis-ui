@@ -20,6 +20,7 @@ class HomePage extends Component {
     const {
       user,
       omicUrl,
+      manageAuthAccountsUrl,
       prisonStaffHubUrl,
       categorisationUrl,
       locations,
@@ -44,6 +45,7 @@ class HomePage extends Component {
               isKeyWorker={user.isKeyWorker}
               isWhereabouts={user.isWhereabouts}
               omicUrl={omicUrl}
+              manageAuthAccountsUrl={manageAuthAccountsUrl}
               prisonStaffHubUrl={prisonStaffHubUrl}
               useOfForceUrl={useOfForceUrl}
               isEstablishmentRollCheck={Boolean(locations.size > 0)}
@@ -73,6 +75,7 @@ HomePage.propTypes = {
   // mapStateToProps
   user: userType.isRequired,
   omicUrl: PropTypes.string.isRequired,
+  manageAuthAccountsUrl: PropTypes.string.isRequired,
   prisonStaffHubUrl: PropTypes.string.isRequired,
   categorisationUrl: PropTypes.string.isRequired,
   locations: ImmutablePropTypes.list.isRequired,
@@ -93,6 +96,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   user: state.getIn(['authentication', 'user']),
   omicUrl: state.getIn(['app', 'omicUrl']),
+  manageAuthAccountsUrl: state.getIn(['app', 'manageAuthAccountsUrl']),
   prisonStaffHubUrl: state.getIn(['app', 'prisonStaffHubUrl']),
   categorisationUrl: state.getIn(['app', 'categorisationUrl']),
   locations: state.getIn(['home', 'locations']),

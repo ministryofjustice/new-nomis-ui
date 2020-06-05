@@ -36,9 +36,9 @@ describe('Actions component', () => {
   })
 
   it('should show admin and utilities link when the user has admin rights', () => {
-    const wrapper = shallow(<ActionLinks omicUrl="http://omic/" hasAdminRights />)
+    const wrapper = shallow(<ActionLinks manageAuthAccountsUrl="http://manage-hmpps-auth" hasAdminRights />)
 
-    expect(wrapper.find('ActionLink').prop('url')).toBe('http://omic/admin-utilities')
+    expect(wrapper.find('ActionLink').prop('url')).toBe('http://manage-hmpps-auth')
   })
 
   it('should show add bulk appointments link when the user has admin rights', () => {
