@@ -1,6 +1,5 @@
 import { fromJS } from 'immutable'
 import history from '../history'
-import PropTypes from 'prop-types'
 
 // Actions
 const SET_DEVICE_FORMAT = 'globalReducer/app/SET_DEVICE_FORMAT'
