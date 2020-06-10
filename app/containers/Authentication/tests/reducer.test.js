@@ -98,17 +98,6 @@ describe('Authentication reducer', () => {
     expect(userState.canGlobalSearch).toBe(true)
   })
 
-  it('should return a user with admin rights if they have KW_MIGRATION role', () => {
-    const user = {
-      ...userData,
-      accessRoles: [{ roleCode: 'KW_MIGRATION', roleDescription: 'Key worker migration' }],
-    }
-    const state = authenticationReducer(Map({}), userMe({ user }))
-    const userState = state.get('user')
-
-    expect(userState.hasAdminRights).toBe(true)
-  })
-
   it('should return a user with admin rights if they have MAINTAIN_ACCESS_ROLES role', () => {
     const user = {
       ...userData,
