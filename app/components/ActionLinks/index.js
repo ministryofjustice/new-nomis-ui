@@ -153,7 +153,7 @@ const ActionLinks = ({
             image="/img/ICON_AdminUtilities.png"
             testId="admin-utilities-link"
           >
-            User Administration
+            User administration
           </ActionLink>
         )}
 
