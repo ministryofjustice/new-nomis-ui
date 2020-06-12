@@ -43,23 +43,6 @@ const ActionLinks = ({
   pecsUrl,
   isPomAllocUser,
 }) => {
-  if (
-    !isKeyWorker &&
-    !isKeyWorkerAdmin &&
-    !isWhereabouts &&
-    !isEstablishmentRollCheck &&
-    !hasAdminRights &&
-    !isGlobalSearch &&
-    !isAddBulkAppointments &&
-    !isCatToolUser &&
-    !isUseOfForce &&
-    !isPathfinderUser &&
-    !isPomAllocUser &&
-    !isLicenceUser &&
-    !isPecsUser
-  ) {
-    return <div />
-  }
   return (
     <div>
       <h1 className="heading-medium">Tasks</h1>
@@ -90,6 +73,16 @@ const ActionLinks = ({
             testId="whereabouts-link"
           >
             Manage prisoner whereabouts
+          </ActionLink>
+        )}
+
+        {prisonStaffHubUrl && (
+          <ActionLink
+            url={`${prisonStaffHubUrl}current-covid-units`}
+            image="/img/CovidUnits_icon.png"
+            testId="covid-units-link"
+          >
+            View COVID units
           </ActionLink>
         )}
 

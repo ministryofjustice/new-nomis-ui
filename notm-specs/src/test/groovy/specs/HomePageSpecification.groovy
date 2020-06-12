@@ -38,4 +38,16 @@ class HomePageSpecification extends BrowserReportingSpec {
     then: 'I should see the global search task'
     assert globalSearchLink.text().contains("Global search")
   }
+
+  def "should show the View COVID units link to every user role"() {
+    given: "the user is logged in"
+    fixture.loginAs(UserAccount.ITAG_USER)
+
+    when: 'I am on the homepage'
+    at HomePage
+
+    then: 'I should see the link to the Covid stats page'
+    assert covidUnitsLink.text().contains("View COVID units")
+  }
+
 }
