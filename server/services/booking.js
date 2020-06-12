@@ -80,7 +80,7 @@ const bookingServiceFactory = (eliteApi, keyworkerApi, allocationManagerApi, dat
       ].map(apiCall => logErrorAndContinue(apiCall))
     )
     const { iepLevel } = iepDetails
-    const primaryAddress = addresses.find(address => address.primary)
+    const primaryAddress = addresses && addresses.find(address => address.primary)
 
     let lastKeyWorkerSessionDate = null
     if (kwCaseNoteDates && kwCaseNoteDates.length > 0) {

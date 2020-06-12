@@ -80,6 +80,13 @@ describe('Booking Service Booking details', () => {
     expect(data.primaryAddress.type).toEqual('PRESENT')
   })
 
+  it('it should not error out if no addresses call getAddresses', async () => {
+    eliteApi.getAddresses = jest.fn().mockReturnValue(Promise.resolve())
+    const data = await bookingService.getBookingDetailsViewModel({}, offenderNo)
+    expect(eliteApi.getAddresses).toBeCalled()
+    expect(data.primaryAddress.type).toEqual('ABSENT')
+  })
+
   it('should call get identifiers', async () => {
     const identifiers = [
       { type: 'PNC', value: '96/346527V' },
