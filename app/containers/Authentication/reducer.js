@@ -90,7 +90,6 @@ function authenticationReducer(state = initialState, action) {
         user.accessRoles &&
           user.accessRoles.some(
             r =>
-              r.roleCode === 'KW_MIGRATION' ||
               r.roleCode === 'MAINTAIN_ACCESS_ROLES' ||
               r.roleCode === 'MAINTAIN_ACCESS_ROLES_ADMIN' ||
               r.roleCode === 'MAINTAIN_OAUTH_USERS' ||
