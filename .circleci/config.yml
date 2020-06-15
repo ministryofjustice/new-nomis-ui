@@ -122,14 +122,14 @@ workflows:
       - integration_tests:
           requires:
             - build
-      - hmmps/build_docker:
+      - hmpps/build_docker:
           name: build_docker
           image_name: << pipeline.parameters.image_name >>
           filters:
             branches:
               only:
                 - master
-      - hmmps/deploy_env:
+      - hmpps/deploy_env:
           name: deploy_dev
           env: "dev"
           app_name: << pipeline.parameters.app_name >>
@@ -144,7 +144,7 @@ workflows:
           type: approval
           requires:
             - deploy_dev
-      - dps/deploy_env:
+      - hmpps/deploy_env:
           name: deploy_preprod
           env: "preprod"
           app_name: << pipeline.parameters.app_name >>
@@ -155,7 +155,7 @@ workflows:
           type: approval
           requires:
             - deploy_preprod
-      - hmmps/deploy_env:
+      - hmpps/deploy_env:
           name: deploy_prod
           env: "prod"
           app_name: << pipeline.parameters.app_name >>
