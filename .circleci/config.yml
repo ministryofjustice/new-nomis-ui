@@ -8,7 +8,7 @@ parameters:
     default: "notm"
 
 orbs:
-  dps: ministryofjustice/dps@1.1.0
+  hmpps: ministryofjustice/hmpps@1.0.0
 
 executors:
   builder:
@@ -122,17 +122,16 @@ workflows:
       - integration_tests:
           requires:
             - build
-      - dps/build_docker:
+      - hmpps/build_docker:
           name: build_docker
           image_name: << pipeline.parameters.image_name >>
           filters:
             branches:
               only:
                 - master
-      - dps/deploy_env:
+      - hmpps/deploy_env:
           name: deploy_dev
           env: "dev"
-          app_name: << pipeline.parameters.app_name >>
           filters:
             branches:
               only:
@@ -144,10 +143,9 @@ workflows:
           type: approval
           requires:
             - deploy_dev
-      - dps/deploy_env:
+      - hmpps/deploy_env:
           name: deploy_preprod
           env: "preprod"
-          app_name: << pipeline.parameters.app_name >>
           context: notm-preprod
           requires:
             - request-preprod-approval
@@ -155,10 +153,9 @@ workflows:
           type: approval
           requires:
             - deploy_preprod
-      - dps/deploy_env:
+      - hmpps/deploy_env:
           name: deploy_prod
           env: "prod"
-          app_name: << pipeline.parameters.app_name >>
           slack_notification: true
           context: notm-prod
           requires:
@@ -173,4 +170,4 @@ workflows:
               only:
                 - master
     jobs:
-      - security_audit
+      - hmpps/npm_security_audit
