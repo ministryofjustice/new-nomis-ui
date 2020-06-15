@@ -23,7 +23,8 @@
     "test:watch": "cross-env NODE_ENV=test jest --watchAll",
     "verify": "npm run lint && npm run stylelint && npm test",
     "record-build-info": "node ./bin/record-build-info",
-    "plant-beanstalk": "node ./bin/plant-beanstalk.js"
+    "plant-beanstalk": "node ./bin/plant-beanstalk.js",
+    "security_audit": "npx audit-ci --config audit-ci.json"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
