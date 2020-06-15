@@ -73,7 +73,13 @@ it('should show add bulk appointments link when the user has admin rights', () =
   const wrapper = mount(<ActionLinks prisonStaffHubUrl="http://" isAddBulkAppointments />)
   expect(wrapper.text()).toMatch('Add bulk appointments')
 })
-it('should show COVID link for all users', () => {
-  const wrapper = shallow(<ActionLinks prisonStaffHubUrl="http://" />)
+
+it('should show COVID link if a prison user', () => {
+  const wrapper = shallow(<ActionLinks prisonStaffHubUrl="http://" isPrisonUser />)
   expect(wrapper.find('ActionLink').prop('url')).toBe('http://current-covid-units')
+})
+
+it('should show not show COVID link if not a prison user', () => {
+  const wrapper = shallow(<ActionLinks prisonStaffHubUrl="http://" />)
+  expect(wrapper.find('ActionLink').length).toBe(0)
 })

@@ -43,6 +43,15 @@ const PECS_ROLES = ['PECS_OCA', 'PECS_PRISON']
 
 const PATHFINDER_ROLES = ['PF_STD_PRISON', 'PF_STD_PROBATION', 'PF_APPROVAL', 'PF_STD_PRISON_RO', 'PF_STD_PROBATION_RO']
 
+const ADMIN_ROLES = [
+  'MAINTAIN_ACCESS_ROLES',
+  'MAINTAIN_ACCESS_ROLES_ADMIN',
+  'MAINTAIN_OAUTH_USERS',
+  'AUTH_GROUP_MANAGER',
+]
+
+const LICENCE_ROLES = ['NOMIS_BATCHLOAD', 'LICENCE_CA', 'LICENCE_DM', 'LICENCE_RO', 'LICENCE_VARY']
+
 function authenticationReducer(state = initialState, action) {
   switch (action.type) {
     case USER_ME: {
@@ -50,73 +59,25 @@ function authenticationReducer(state = initialState, action) {
 
       window.currentCaseLoadId = user.activeCaseLoadId
 
-      const isKeyWorkerAdmin = Boolean(
-        user.accessRoles &&
-          user.accessRoles.some(r => r.roleCode === 'OMIC_ADMIN' || r.roleCode === 'KEYWORKER_MONITOR')
-      )
-      const isCatToolUser = Boolean(user.accessRoles && user.accessRoles.some(r => CAT_ROLES.includes(r.roleCode)))
-
-      const isPathfinderUser = Boolean(
-        user.accessRoles && user.accessRoles.some(r => PATHFINDER_ROLES.includes(r.roleCode))
-      )
+      const hasRoleIn = roles => Boolean(user.accessRoles && user.accessRoles.some(r => roles.includes(r.roleCode)))
 
       const isKeyWorker = Boolean(user.staffRoles && user.staffRoles.some(r => r.role === 'KW'))
 
-      const isPomAllocUser = Boolean(
-        user.accessRoles && user.accessRoles.some(r => r.roleCode === 'ALLOC_MGR' || r.roleCode === 'ALLOC_CASE_MGR')
-      )
-
-      const isLicenceUser = Boolean(
-        user.accessRoles &&
-          user.accessRoles.some(
-            r =>
-              r.roleCode === 'NOMIS_BATCHLOAD' ||
-              r.roleCode === 'LICENCE_CA' ||
-              r.roleCode === 'LICENCE_DM' ||
-              r.roleCode === 'LICENCE_RO' ||
-              r.roleCode === 'LICENCE_VARY'
-          )
-      )
-
-      const isPecsUser = Boolean(user.accessRoles && user.accessRoles.some(r => PECS_ROLES.includes(r.roleCode)))
-
-      const canGlobalSearch = Boolean(user.accessRoles && user.accessRoles.some(r => r.roleCode === 'GLOBAL_SEARCH'))
-
-      const canAddBulkAppointments = Boolean(
-        user.accessRoles && user.accessRoles.some(r => r.roleCode === 'BULK_APPOINTMENTS')
-      )
-
-      const hasAdminRights = Boolean(
-        user.accessRoles &&
-          user.accessRoles.some(
-            r =>
-              r.roleCode === 'MAINTAIN_ACCESS_ROLES' ||
-              r.roleCode === 'MAINTAIN_ACCESS_ROLES_ADMIN' ||
-              r.roleCode === 'MAINTAIN_OAUTH_USERS' ||
-              r.roleCode === 'AUTH_GROUP_MANAGER'
-          )
-      )
-
-      const canUpdateAlerts = Boolean(user.accessRoles && user.accessRoles.some(r => r.roleCode === 'UPDATE_ALERT'))
-      const canViewProbationDocuments = Boolean(
-        user.accessRoles &&
-          user.accessRoles.some(r => r.roleCode === 'VIEW_PROBATION_DOCUMENTS' || r.roleCode === 'POM')
-      )
-
       return state.set('user', {
-        hasAdminRights,
-        isKeyWorkerAdmin,
+        hasAdminRights: hasRoleIn(ADMIN_ROLES),
+        isKeyWorkerAdmin: hasRoleIn(['OMIC_ADMIN', 'KEYWORKER_MONITOR']),
         isKeyWorker,
-        canGlobalSearch,
-        canAddBulkAppointments,
+        canGlobalSearch: hasRoleIn(['GLOBAL_SEARCH']),
+        canAddBulkAppointments: hasRoleIn(['BULK_APPOINTMENTS']),
         ...action.payload.user,
-        isCatToolUser,
-        canUpdateAlerts,
-        canViewProbationDocuments,
-        isPathfinderUser,
-        isLicenceUser,
-        isPecsUser,
-        isPomAllocUser,
+        isCatToolUser: hasRoleIn(CAT_ROLES),
+        canUpdateAlerts: hasRoleIn(['UPDATE_ALERT']),
+        canViewProbationDocuments: hasRoleIn(['VIEW_PROBATION_DOCUMENTS', 'POM']),
+        isPathfinderUser: hasRoleIn(PATHFINDER_ROLES),
+        isLicenceUser: hasRoleIn(LICENCE_ROLES),
+        isPecsUser: hasRoleIn(PECS_ROLES),
+        isPomAllocUser: hasRoleIn(['ALLOC_MGR', 'ALLOC_CASE_MGR']),
+        isPrisonUser: hasRoleIn(['PRISON']),
       })
     }
 

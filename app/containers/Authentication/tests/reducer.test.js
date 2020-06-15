@@ -175,6 +175,17 @@ describe('Authentication reducer', () => {
     expect(userState.canViewProbationDocuments).toBe(false)
   })
 
+  it('should return a user that is a prison user if they have the PRISON role', () => {
+    const user = {
+      ...userData,
+      accessRoles: [{ roleCode: 'PRISON', roleDescription: 'View probation documents' }],
+    }
+    const state = authenticationReducer(Map({}), userMe({ user }))
+    const userState = state.get('user')
+
+    expect(userState.isPrisonUser).toBe(true)
+  })
+
   it('should return a user with access to Pathfinder links where a PF_STD_PRISON role is present', () => {
     const user = {
       ...userData,
