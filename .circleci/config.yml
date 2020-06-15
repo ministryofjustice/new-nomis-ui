@@ -130,6 +130,7 @@ workflows:
               only:
                 - master
       - hmpps/deploy_env:
+          chart_name: "notm"
           name: deploy_dev
           env: "dev"
           filters:
@@ -144,6 +145,7 @@ workflows:
           requires:
             - deploy_dev
       - hmpps/deploy_env:
+          chart_name: "notm"
           name: deploy_preprod
           env: "preprod"
           context: notm-preprod
@@ -154,6 +156,7 @@ workflows:
           requires:
             - deploy_preprod
       - hmpps/deploy_env:
+          chart_name: "notm"
           name: deploy_prod
           env: "prod"
           slack_notification: true
