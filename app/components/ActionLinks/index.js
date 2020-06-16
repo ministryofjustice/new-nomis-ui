@@ -39,6 +39,7 @@ const ActionLinks = ({
   isUseOfForce,
   isPathfinderUser,
   isLicenceUser,
+  isPrisonUser,
   isPecsUser,
   pecsUrl,
   isPomAllocUser,
@@ -76,7 +77,7 @@ const ActionLinks = ({
           </ActionLink>
         )}
 
-        {prisonStaffHubUrl && (
+        {isPrisonUser && prisonStaffHubUrl && (
           <ActionLink
             url={`${prisonStaffHubUrl}current-covid-units`}
             image="/img/CovidUnits_icon.png"

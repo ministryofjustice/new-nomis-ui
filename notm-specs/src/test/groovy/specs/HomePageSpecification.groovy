@@ -6,6 +6,7 @@ import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
 import mockapis.WhereaboutsApi
+import mockapis.response.AccessRoles
 import model.TestFixture
 import model.UserAccount
 import org.junit.Rule
@@ -41,7 +42,7 @@ class HomePageSpecification extends BrowserReportingSpec {
 
   def "should show the View COVID units link to every user role"() {
     given: "the user is logged in"
-    fixture.loginAs(UserAccount.ITAG_USER)
+    fixture.loginAs(UserAccount.ITAG_USER, [AccessRoles.prison])
 
     when: 'I am on the homepage'
     at HomePage
