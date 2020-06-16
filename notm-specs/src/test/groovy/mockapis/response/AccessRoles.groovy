@@ -22,6 +22,13 @@ class AccessRoles {
     caseloadId: "LEI"
   ]
 
+  static def prison = [
+    roleId: 0,
+    roleCode: "PRISON",
+    roleName: "Prison role",
+    parentRoleCode: "code",
+  ]
+
   static def addBulkAppointments = [
           roleId: 1,
     roleCode: 'BULK_APPOINTMENTS',
