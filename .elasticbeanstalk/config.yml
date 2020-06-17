@@ -1,5 +1,5 @@
 branch-defaults:
-  master:
+  main:
     environment: notm-dev
 deploy:
   artifact: Dockerrun.aws.json
