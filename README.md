@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/ministryofjustice/new-nomis-ui/tree/master.svg?style=svg)](https://circleci.com/gh/ministryofjustice/new-nomis-ui)
+[![CircleCI](https://circleci.com/gh/ministryofjustice/new-nomis-ui/tree/main.svg?style=svg)](https://circleci.com/gh/ministryofjustice/new-nomis-ui)
 [![Known Vulnerabilities](https://snyk.io/test/github/ministryofjustice/new-nomis-ui/badge.svg)](https://snyk.io/test/github/ministryofjustice/new-nomis-ui)
 
 # New Nomis UI
@@ -91,7 +91,7 @@ The CI build will kick off on all pushes to the git repo. It will checkout, buil
 If you wish to view the CI build you’ll need an account – get one [here](https://circleci.com/signup/)
 and link to your repos.
 
-Upon merging into master the system will build a production version and check this into the `deploy_to_mock` branch where upon
+Upon merging into main the system will build a production version and check this into the `deploy_to_mock` branch where upon
 Azure will trigger a build and deploy into the dev environment at [notm-dev.hmpps.dsd.io](https://notm-dev.hmpps.dsd.io)
 
 ### Building the docker images
