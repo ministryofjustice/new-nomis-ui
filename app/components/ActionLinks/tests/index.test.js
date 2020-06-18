@@ -6,9 +6,9 @@ import ActionLinks from '../index'
 
 describe('Actions component', () => {
   it('should only show the my allocations link when the user is a key worker', () => {
-    const wrapper = shallow(<ActionLinks isKeyWorker />)
+    const wrapper = shallow(<ActionLinks omicUrl="//omicURL" staffId="123" isKeyWorker />)
 
-    expect(wrapper.find('Link').prop('to')).toBe('/key-worker-allocations')
+    expect(wrapper.find('Link').prop('to')).toBe('//omicURLmanage-key-workers/key-worker/123')
   })
 
   it('should only show the key worker admin link when the user is a key worker admin', () => {

@@ -43,6 +43,7 @@ const ActionLinks = ({
   isPecsUser,
   pecsUrl,
   isPomAllocUser,
+  staffId,
 }) => {
   return (
     <div>
@@ -58,9 +59,13 @@ const ActionLinks = ({
           </ActionLink>
         )}
 
-        {isKeyWorker && (
+        {isKeyWorker && omicUrl && (
           <div className="action-links__link">
-            <Link to="/key-worker-allocations" className="action-link link" data-qa="my-kw-allocations-link">
+            <Link
+              to={`${omicUrl}manage-key-workers/key-worker/${staffId}`}
+              className="action-link link"
+              data-qa="my-kw-allocations-link"
+            >
               <img src="/img/ICON_MyKeyWorkerAssignments@2x.png" alt="My key worker allocations icon" />
               My key worker allocations
             </Link>
@@ -190,6 +195,7 @@ ActionLinks.propTypes = {
   isPomAllocUser: PropTypes.bool.isRequired,
   moicUrl: PropTypes.string.isRequired,
   pecsUrl: PropTypes.string.isRequired,
+  staffId: PropTypes.string.isRequired,
 }
 
 export default ActionLinks

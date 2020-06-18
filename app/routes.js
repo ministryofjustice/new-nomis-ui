@@ -1,6 +1,5 @@
 import HomePage from './containers/HomePage'
 import AddCaseNote from './containers/Bookings/Details/AddCaseNote'
-import KeyWorkerAssignments from './containers/Assignments'
 import ResultsContainer from './containers/Bookings/Results'
 import Details from './containers/Bookings/Details'
 import ScheduledEvents from './containers/Bookings/Details/ScheduledEvents'
@@ -35,11 +34,6 @@ export default [
     path: '/offenders/:offenderNo/:activeTab?/:itemId?',
     name: 'offenderDetails',
     component: Details,
-  },
-  {
-    path: '/key-worker-allocations',
-    name: 'myKeyWorkerAllocations',
-    component: KeyWorkerAssignments,
   },
   {
     path: '/results',
