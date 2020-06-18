@@ -1,8 +1,7 @@
 import { createSelector } from 'reselect'
 
 import selectUser from '../Authentication/selectors'
-import { selectUserCaseLoads } from '../EliteApiLoader/selectors'
-import { selectAssignmentsTotal } from '../Assignments/selectors'
+import { selectUserCaseLoads, selectAssignmentsTotal } from '../EliteApiLoader/selectors'
 
 export default () =>
   createSelector(

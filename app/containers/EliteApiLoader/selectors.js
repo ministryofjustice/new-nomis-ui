@@ -164,6 +164,18 @@ const selectAppointmentTypesAndLocations = () =>
     state => state.get('AppointmentTypesAndLocations') && state.get('AppointmentTypesAndLocations').toJS()
   )
 
+const selectBookings = () => createSelector(selectEliteApi(), eliteApiState => eliteApiState.get('Bookings'))
+
+const selectBookingsSearch = () => createSelector(selectBookings(), bookingsState => bookingsState.get('Search'))
+
+const selectAssignmentsSearch = () =>
+  createSelector(selectBookingsSearch(), bookingsSearchState => bookingsSearchState.get('officerAssignments'))
+
+const selectAssignmentsTotal = () =>
+  createSelector(selectAssignmentsSearch(), assSearchState =>
+    assSearchState ? assSearchState.getIn(['MetaData', 'TotalRecords']) : 0
+  )
+
 export {
   selectEliteApi,
   selectBookingResultStatus,
@@ -187,4 +199,5 @@ export {
   selectLoadingBookingDetailsStatus,
   selectUsersTypesAndSubTypes,
   selectAppointmentTypesAndLocations,
+  selectAssignmentsTotal,
 }

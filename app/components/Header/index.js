@@ -19,11 +19,11 @@ import {
   UnstyledLink,
 } from './header.theme'
 
-const HmppsHeader = ({ user, menuOpen, setMenuOpen, extraLinks }) => {
+const HmppsHeader = ({ user, menuOpen, setMenuOpen, extraLinks, omicUrl }) => {
   if (user && user.isKeyWorker) {
     extraLinks.push({
       text: 'My key worker allocations',
-      url: '/key-worker-allocations',
+      url: `${omicUrl}/manage-key-workers/key-worker/${user.staffId}`,
     })
   }
 
@@ -86,6 +86,7 @@ HmppsHeader.propTypes = {
       url: PropTypes.string.isRequired,
     })
   ),
+  omicUrl: PropTypes.string.isRequired,
 }
 
 HmppsHeader.defaultProps = {

@@ -14,7 +14,6 @@ import createReducer from './reducers'
 import persistedState from './helpers/persistedState'
 import authenticationSagas from './containers/Authentication/sagas'
 import eliteApiLoaderSagas from './containers/EliteApiLoader/sagas'
-import assignmentsSagas from './containers/Assignments/sagas'
 
 // Other sagas
 import bookingsSagas from './containers/Bookings/sagas'
@@ -79,9 +78,6 @@ export default function configureStore(initialState = {}) {
 
   // set up eliteApiSagas
   eliteApiLoaderSagas.map(store.runSaga)
-
-  // set up assignmentsSagas
-  assignmentsSagas.map(store.runSaga)
 
   // set up bookingsSagas
   bookingsSagas.map(store.runSaga)

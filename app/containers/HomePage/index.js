@@ -64,6 +64,7 @@ class HomePage extends Component {
               isLicenceUser={user.isLicenceUser}
               isPecsUser={user.isPecsUser}
               isPrisonUser={user.isPrisonUser}
+              staffId={user.staffId}
             />
           </div>
         </Page>
