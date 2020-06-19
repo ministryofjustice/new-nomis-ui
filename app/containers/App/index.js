@@ -14,6 +14,7 @@ import {
   selectMailTo,
   selectPrisonStaffHubUrl,
   selectCategorisationUrl,
+  selectOmicUrl,
 } from '../../selectors/app'
 import Header from '../Header'
 import Spinner from '../../components/Spinner'
@@ -63,12 +64,12 @@ export class App extends Component {
   }
 
   render() {
-    const { spinnerCount, menuOpen, routes, mailTo, prisonStaffHubUrl, boundSetMenuOpen } = this.props
+    const { spinnerCount, menuOpen, routes, mailTo, prisonStaffHubUrl, boundSetMenuOpen, omicUrl } = this.props
 
     return (
       <div className="app-content">
         <Notifications />
-        <Header prisonStaffHubUrl={prisonStaffHubUrl} setMenuOpen={boundSetMenuOpen} />
+        <Header prisonStaffHubUrl={prisonStaffHubUrl} setMenuOpen={boundSetMenuOpen} omicUrl={omicUrl} />
         {/* eslint-disable-next-line */}
         <main className={`container ${menuOpen ? 'desktop-only' : ''}`} onClick={() => this.onBackgroundClick()}>
           {spinnerCount > 0 && <Spinner />}
@@ -96,6 +97,7 @@ App.propTypes = {
   children: PropTypes.node,
   mailTo: PropTypes.string.isRequired,
   prisonStaffHubUrl: PropTypes.string.isRequired,
+  omicUrl: PropTypes.string.isRequired,
 
   // mapDispatchToProps
   boundRetrieveUserMe: PropTypes.func.isRequired,
@@ -124,6 +126,7 @@ const mapStateToProps = createStructuredSelector({
   mailTo: selectMailTo(),
   prisonStaffHubUrl: selectPrisonStaffHubUrl(),
   categorisationUrl: selectCategorisationUrl(),
+  omicUrl: selectOmicUrl(),
 })
 
 const mapDispatchToProps = dispatch => ({

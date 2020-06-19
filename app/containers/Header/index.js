@@ -5,11 +5,12 @@ import { connect } from 'react-redux'
 import HeaderComponent from '../../components/Header'
 import { userType } from '../../types'
 
-const HeaderContainer = ({ user, menuOpen, setMenuOpen, prisonStaffHubUrl }) => (
+const HeaderContainer = ({ user, menuOpen, setMenuOpen, prisonStaffHubUrl, omicUrl }) => (
   <HeaderComponent
     user={user}
     menuOpen={menuOpen}
     setMenuOpen={setMenuOpen}
+    omicUrl={omicUrl}
     extraLinks={
       user.caseLoadOptions && user.caseLoadOptions.length > 1
         ? [{ text: 'Change caseload', url: `${prisonStaffHubUrl}change-caseload/` }]

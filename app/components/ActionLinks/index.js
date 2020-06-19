@@ -60,16 +60,13 @@ const ActionLinks = ({
         )}
 
         {isKeyWorker && omicUrl && (
-          <div className="action-links__link">
-            <Link
-              to={`${omicUrl}manage-key-workers/key-worker/${staffId}`}
-              className="action-link link"
-              data-qa="my-kw-allocations-link"
-            >
-              <img src="/img/ICON_MyKeyWorkerAssignments@2x.png" alt="My key worker allocations icon" />
-              My key worker allocations
-            </Link>
-          </div>
+          <ActionLink
+            url={`${omicUrl}manage-key-workers/key-worker/${staffId}`}
+            image="/img/ICON_MyKeyWorkerAssignments@2x.png"
+            testId="my-kw-allocations-link"
+          >
+            My key worker allocations
+          </ActionLink>
         )}
 
         {isWhereabouts && prisonStaffHubUrl && (
