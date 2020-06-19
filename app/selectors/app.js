@@ -18,6 +18,8 @@ const selectPrisonStaffHubUrl = () => createSelector(selectApp(), appState => ap
 
 const selectCategorisationUrl = () => createSelector(selectApp(), appState => appState.get('categorisationUrl'))
 
+const selectOmicUrl = () => createSelector(selectApp(), appState => appState.get('omicUrl'))
+
 export {
   selectMobileMenuOpen,
   selectModalOpen,
@@ -27,4 +29,5 @@ export {
   selectMailTo,
   selectPrisonStaffHubUrl,
   selectCategorisationUrl,
+  selectOmicUrl,
 }

@@ -23,7 +23,7 @@ const HmppsHeader = ({ user, menuOpen, setMenuOpen, extraLinks, omicUrl }) => {
   if (user && user.isKeyWorker) {
     extraLinks.push({
       text: 'My key worker allocations',
-      url: `${omicUrl}/manage-key-workers/key-worker/${user.staffId}`,
+      url: `${omicUrl}manage-key-workers/key-worker/${user.staffId}`,
     })
   }
 
