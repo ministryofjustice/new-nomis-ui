@@ -61,7 +61,7 @@ const ActionLinks = ({
 
         {isKeyWorker && omicUrl && (
           <ActionLink
-            url={`${omicUrl}manage-key-workers/key-worker/${staffId}`}
+            url={`${omicUrl}key-worker/${staffId}`}
             image="/img/ICON_MyKeyWorkerAssignments@2x.png"
             testId="my-kw-allocations-link"
           >
@@ -128,11 +128,7 @@ const ActionLinks = ({
         )}
 
         {isKeyWorkerAdmin && omicUrl && (
-          <ActionLink
-            url={`${omicUrl}manage-key-workers`}
-            image="/img/ICON_ManageKeyWorkers.png"
-            testId="manage-kw-link"
-          >
+          <ActionLink url={`${omicUrl}`} image="/img/ICON_ManageKeyWorkers.png" testId="manage-kw-link">
             Manage key workers
           </ActionLink>
         )}
