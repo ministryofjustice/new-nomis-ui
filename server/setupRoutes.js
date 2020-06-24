@@ -95,7 +95,7 @@ module.exports = ({
   router.use('/key-worker-allocations', async (req, res) => {
     const user = await userService.me(res.locals)
     const omicUrl = config.apis.keyworker.ui_url
-    res.redirect(301, `${omicUrl}manage-key-workers/key-worker/${user.userId}`)
+    res.redirect(301, `${omicUrl}key-worker/${user.userId}`)
   })
 
   // Forward requests to the eliteApi get/post functions.
