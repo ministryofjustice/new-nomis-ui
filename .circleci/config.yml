@@ -102,6 +102,7 @@ workflows:
             - build
       - hmpps/helm_lint:
           name: helm_lint
+          chart_name: "notm"
       - hmpps/build_docker:
           name: build_docker
           image_name: << pipeline.parameters.image_name >>
