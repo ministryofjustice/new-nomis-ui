@@ -23,7 +23,7 @@ describe('eliteApi tests', () => {
     })
 
     it('Extracts response pagination headers from GET resposne', async () => {
-      const headers = { 'page-offset': 10 }
+      const headers = { 'page-offset': '10' }
       mock.get('/test').reply(200, {}, headers)
       const context = {}
       await eliteApi.get(context, 'test')
@@ -79,7 +79,7 @@ describe('eliteApi tests', () => {
     })
 
     it('Extracts response pagination headers from POST response', async () => {
-      const headers = { 'page-offset': 10 }
+      const headers = { 'page-offset': '10' }
       mock.post('/test').reply(200, {}, headers)
       const context = {}
       await eliteApi.post(context, 'test')
