@@ -96,6 +96,12 @@ env:
   - name: API_WHEREABOUTS_ENDPOINT_URL
     value: {{ .Values.env.API_WHEREABOUTS_ENDPOINT_URL | quote }}
 
+  - name: TOKENVERIFICATION_API_URL
+    value: {{ .Values.env.TOKENVERIFICATION_API_URL | quote }}
+
+  - name: TOKENVERIFICATION_API_ENABLED
+    value: {{ .Values.env.TOKENVERIFICATION_API_ENABLED | quote }}
+
   {{- if .Values.env.API_DATA_COMPLIANCE_URL }}
   - name: API_DATA_COMPLIANCE_URL
     value: {{ .Values.env.API_DATA_COMPLIANCE_URL | quote }}

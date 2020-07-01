@@ -36,7 +36,8 @@ module.exports = function healthcheckFactory(
   keyworkerUrl,
   caseNotesUrl,
   allocationManagerUrl,
-  whereaboutsUrl
+  whereaboutsUrl,
+  tokenVerificationUrl
 ) {
   const checks = [
     service('auth', `${authUrl}ping`),
@@ -45,6 +46,7 @@ module.exports = function healthcheckFactory(
     service('caseNotes', `${caseNotesUrl}/ping`),
     service('allocationManager', `${allocationManagerUrl}health`),
     service('whereabouts', `${whereaboutsUrl}/health/ping`),
+    service('tokenVerification', `${tokenVerificationUrl}/health/ping`),
   ]
 
   return callback =>

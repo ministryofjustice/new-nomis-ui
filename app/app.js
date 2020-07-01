@@ -4,7 +4,7 @@
  * This is the entry file for the application, only setup and boilerplate
  * code.
  */
-// Load the favicon, the manifest.json file and the .htaccess file
+// Load the favicon and the .htaccess file
 /* eslint-disable */
 import '!file-loader?name=[name].[ext]!./favicon.ico'
 import 'file-loader?name=[name].[ext]!./.htaccess'

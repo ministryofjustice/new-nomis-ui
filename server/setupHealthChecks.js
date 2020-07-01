@@ -11,7 +11,8 @@ module.exports = () => {
     config.apis.keyworker.url,
     config.apis.caseNotes.url,
     config.apis.allocationManager.url,
-    config.apis.whereabouts.url
+    config.apis.whereabouts.url,
+    config.apis.tokenverification.url
   )
 
   router.get('/health', (req, res, next) => {

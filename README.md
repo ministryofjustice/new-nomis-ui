@@ -53,7 +53,7 @@ npm test
 A separate node instance needs to be started for the feature tests. This will run on port 3006 and won't conflict
 with any of the api services, e.g. elite2-api or oauth.
 
-`npm start-feature --env=feature.env`
+`npm run start-feature --env=feature.env`
 
 **To run the tests using Gradle:**
 Ensure that chromedriver is on your path. Run `./gradlew build` from the root of this project.
