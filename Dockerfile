@@ -1,4 +1,4 @@
-FROM node:12-buster-slim
+FROM node:12.16.1-buster-slim
 LABEL maintainer="HMPPS Digital Studio <info@digital.justice.gov.uk>"
 
 ARG BUILD_NUMBER
@@ -16,10 +16,9 @@ ENV TZ=Europe/London
 RUN ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" > /etc/timezone
 
 # Create app directory
-RUN mkdir /app && chown appuser:appgroup /app
-USER 2000
+RUN mkdir -p /app
 WORKDIR /app
-ADD --chown=appuser:appgroup . .
+ADD . .
 
 RUN CYPRESS_INSTALL_BINARY=0 npm ci --no-audit && \
     npm run build && \
@@ -30,5 +29,6 @@ RUN CYPRESS_INSTALL_BINARY=0 npm ci --no-audit && \
 ENV PORT=3000
 
 EXPOSE 3000
+RUN chown -R appuser:appgroup /app
 USER 2000
 CMD [ "npm", "start" ]

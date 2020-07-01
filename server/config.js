@@ -90,6 +90,11 @@ const apis = {
     timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 30,
     displayRetentionLink: process.env.DISPLAY_RETENTION_LINK === 'true' || false,
   },
+  tokenverification: {
+    url: process.env.TOKENVERIFICATION_API_URL || 'http://localhost:8100',
+    timeoutSeconds: process.env.TOKENVERIFICATION_API_TIMEOUT_SECONDS || 10,
+    enabled: process.env.TOKENVERIFICATION_API_ENABLED === 'true',
+  },
 }
 
 module.exports = {
