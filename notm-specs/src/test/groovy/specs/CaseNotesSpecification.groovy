@@ -1,12 +1,7 @@
 package specs
 
 import groovy.util.logging.Slf4j
-import mockapis.AllocationManagerApi
-import mockapis.CaseNotesApi
-import mockapis.Elite2Api
-import mockapis.KeyworkerApi
-import mockapis.OauthApi
-import mockapis.WhereaboutsApi
+import mockapis.*
 import model.Offender
 import model.TestFixture
 import org.junit.Rule
@@ -37,7 +32,10 @@ class CaseNotesSpecification extends BrowserReportingSpec {
   @Rule
   OauthApi oauthApi = new OauthApi()
 
-  TestFixture testFixture = new TestFixture(browser, elite2api, whereaboutsApi, oauthApi)
+  @Rule
+  TokenVerificationApi tokenVerificationApi = new TokenVerificationApi()
+
+  TestFixture testFixture = new TestFixture(browser, elite2api, whereaboutsApi, oauthApi, tokenVerificationApi)
 
   def "Create a new case note"() {
     setupUserDetails()
@@ -91,7 +89,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     at OffenderDetailsPage
 
     when: 'I create a new senstive case note'
-    setupAddCaseNote("OMIC","TEST_OMIC", "some sensitive text")
+    setupAddCaseNote("OMIC", "TEST_OMIC", "some sensitive text")
     ((JavascriptExecutor) driver).executeScript("scroll(0,100);")
     addCaseNoteLink.click()
     at AddCaseNotePage
@@ -163,7 +161,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     at OffenderCaseNotesPage
   }
 
-  @IgnoreIf({System.properties['geb.env'] == 'chromeMobile'})
+  @IgnoreIf({ System.properties['geb.env'] == 'chromeMobile' })
   def "Amend a case note"() {
     setupUserDetails()
 

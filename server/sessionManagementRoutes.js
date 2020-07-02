@@ -12,9 +12,10 @@ const isXHRRequest = req =>
  * These handle login, logout, and middleware to handle the JWT token cookie. (hmppsCookie).
  * @param app an Express instance.
  * @param tokenRefresher a function which uses the 'context' object to perform an OAuth token refresh (returns a promise).
+ * @param tokenVerifier a function which uses the 'context' object to check whether the token is valid (returns a promise).
  * @param mailTo The email address displayed at the bottom of the login page.
  */
-const configureRoutes = ({ app, tokenRefresher, mailTo }) => {
+const configureRoutes = ({ app, tokenRefresher, tokenVerifier, mailTo }) => {
   const authLogoutUrl = `${config.apis.oauth2.ui_url}logout?client_id=${config.apis.oauth2.clientId}&redirect_uri=${config.app.url}`
 
   const remoteLoginIndex = (req, res, next) => {
@@ -73,8 +74,8 @@ const configureRoutes = ({ app, tokenRefresher, mailTo }) => {
    * If the user is not authenticated the client is denied access to the application and is redirected to the login page.
    * (or if this is a 'data' request then the response is an Http 401 status (Expired)
    */
-  const requireLoginMiddleware = (req, res, next) => {
-    if (req.isAuthenticated()) {
+  const requireLoginMiddleware = async (req, res, next) => {
+    if (req.isAuthenticated() && (await tokenVerifier(req.user))) {
       contextProperties.setTokens(req.user, res.locals)
       next()
       return

@@ -30,7 +30,7 @@ app.use(setupBodyParsers())
 app.use(setupHealthChecks())
 app.use(setupWebSecurity())
 app.use(setupWebSession())
-app.use(setupAuth({ oauthApi: apis.oauthApi }))
+app.use(setupAuth({ oauthApi: apis.oauthApi, tokenVerificationApi: apis.tokenVerificationApi }))
 app.use(setupRoutes(apis))
 
 app.use(express.static(path.join(__dirname, '../public')))

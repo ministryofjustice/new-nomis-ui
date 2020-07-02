@@ -4,6 +4,7 @@ import geb.module.Select
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
+import mockapis.TokenVerificationApi
 import mockapis.WhereaboutsApi
 import model.TestFixture
 import org.junit.Rule
@@ -27,7 +28,10 @@ class AlertsSpecification extends BrowserReportingSpec {
   @Rule
   OauthApi oauthApi = new OauthApi()
 
-  TestFixture fixture = new TestFixture(browser, elite2api, whereaboutsApi, oauthApi)
+  @Rule
+  TokenVerificationApi tokenVerificationApi = new TokenVerificationApi()
+
+  TestFixture fixture = new TestFixture(browser, elite2api, whereaboutsApi, oauthApi, tokenVerificationApi)
   def offenderNo = "A1234AJ"
   def bookingId = -10
   def agencyId = "${ITAG_USER.staffMember.assignedCaseload}"
