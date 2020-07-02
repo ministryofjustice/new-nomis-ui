@@ -1,5 +1,20 @@
 version: '3'
 services:
+  web:
+    build:
+      context: .
+    ports:
+      - '3000:3000'
+    depends_on:
+      - oauth
+      - elite2
+      - offender-case-notes
+      - redis
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - NODE_ENV=development
+
   oauth:
     image: quay.io/hmpps/hmpps-auth:latest
     container_name: oauth_nn
@@ -74,3 +89,7 @@ services:
       - SPRING_PROFILES_ACTIVE=noqueue,local
       - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://oauth:8080/auth/.well-known/jwks.json
 
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
