@@ -7,6 +7,7 @@ import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
 import mockapis.AllocationManagerApi
+import mockapis.TokenVerificationApi
 import mockapis.WhereaboutsApi
 import mockapis.response.AccessRoles
 import model.Offender
@@ -40,7 +41,10 @@ class OffenderDetailsSpecification extends BrowserReportingSpec {
   @Rule
   AllocationManagerApi allocationManagerApi = new AllocationManagerApi()
 
-  TestFixture fixture = new TestFixture(browser, elite2api, whereaboutsApi, oauthApi)
+  @Rule
+  TokenVerificationApi tokenVerificationApi = new TokenVerificationApi()
+
+  TestFixture fixture = new TestFixture(browser, elite2api, whereaboutsApi, oauthApi, tokenVerificationApi)
 
 
   def "Offender quicklook details are correct"() {

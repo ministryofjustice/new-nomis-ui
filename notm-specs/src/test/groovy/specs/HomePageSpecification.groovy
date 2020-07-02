@@ -5,6 +5,7 @@ import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
+import mockapis.TokenVerificationApi
 import mockapis.WhereaboutsApi
 import mockapis.response.AccessRoles
 import model.TestFixture
@@ -26,7 +27,10 @@ class HomePageSpecification extends BrowserReportingSpec {
   @Rule
   OauthApi oauthApi = new OauthApi()
 
-  TestFixture fixture = new TestFixture(browser, elite2api, whereaboutsApi, oauthApi)
+  @Rule
+  TokenVerificationApi tokenVerificationApi = new TokenVerificationApi()
+
+  TestFixture fixture = new TestFixture(browser, elite2api, whereaboutsApi, oauthApi, tokenVerificationApi)
 
 
   def "should show the global search task when the current is has the global search access role"() {
