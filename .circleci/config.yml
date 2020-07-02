@@ -21,7 +21,7 @@ jobs:
           key: node_modules-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }}
       - run:
           name: Install Dependencies
-          command: npm ci --no-audit
+          command: CYPRESS_INSTALL_BINARY=0 npm ci --no-audit
       - save_cache:
           key: node_modules-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }}
           paths:
@@ -37,7 +37,7 @@ jobs:
           command: |
             set -e
             npm test -- --maxWorkers=2
-      - run: export NODE_ENV=production npm run build
+      - run: NODE_ENV=production npm run build
       - store_artifacts:
           path: test-report.html
       - store_artifacts:
