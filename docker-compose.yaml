@@ -1,20 +1,5 @@
 version: '3'
 services:
-  web:
-    build:
-      context: .
-    ports:
-      - '3000:3000'
-    depends_on:
-      - oauth
-      - elite2
-      - offender-case-notes
-      - redis
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - NODE_ENV=development
-
   oauth:
     image: quay.io/hmpps/hmpps-auth:latest
     container_name: oauth_nn
@@ -41,21 +26,21 @@ services:
 
   offender-case-notes:
     image: quay.io/hmpps/offender-case-notes:latest
-    container_name: offender-case-notes
+    container_name: offender-case-notes_nn
     ports:
       - "8083:8080"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
     environment:
       - SERVER_PORT=8080
-      - ELITE2_API_BASE_URL=http://elite2-api:8080
+      - ELITE2_API_BASE_URL=http://elite2:8080
       - OAUTH_API_BASE_URL=http://oauth:8080/auth
-      - SPRING_PROFILES_ACTIVE=dev
-      - JWT_PUBLIC_KEY=LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0NCk1JSUJJakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBUThBTUlJQkNnS0NBUUVBc09QQXRzUUFEZGJSdS9FSDZMUDUNCkJNMS9tRjQwVkRCbjEyaEpTWFBQZDVXWUswSExZMjBWTTdBeHhSOW1uWUNGNlNvMVd0N2ZHTnFVeC9XeWVtQnANCklKTnJzLzdEendnM3V3aVF1Tmg0ektSK0VHeFdiTHdpM3l3N2xYUFV6eFV5QzV4dDg4ZS83dk8rbHoxb0NuaXoNCmpoNG14TkFtczZaWUY3cWZuaEpFOVd2V1B3TExrb2prWnUxSmR1c0xhVm93TjdHVEdOcE1FOGR6ZUprYW0wZ3ANCjRveEhRR2hNTjg3SzZqcVgzY0V3TzZEdmhlbWc4d2hzOTZuelFsOG4yTEZ2QUsydXA5UHJyOUdpMkxGZ1R0N0sNCnFYQTA2a0M0S2d3MklSMWVGZ3pjQmxUT0V3bXpqcmU2NUhvTmFKQnI5dU5aelY1c0lMUE1jenpoUWovZk1oejMNCi9RSURBUUFCDQotLS0tLUVORCBQVUJMSUMgS0VZLS0tLS0=
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://oauth:8080/auth/.well-known/jwks.json
+      - SPRING_PROFILES_ACTIVE=dev,noqueue
 
   whereabouts:
     image: quay.io/hmpps/whereabouts-api:latest
-    container_name: whereabouts
+    container_name: whereabouts_nn
     depends_on:
       - oauth
       - elite2
@@ -66,8 +51,26 @@ services:
     environment:
       - SERVER_PORT=8080
       - SPRING_PROFILES_ACTIVE=dev,noqueue
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://oauth:8080/auth/.well-known/jwks.json
+      - OAUTH_ENDPOINT_URL=http://oauth:8080/auth
+      - CASENOTES_ENDPOINT_URL=http://offender-case-notes:8080
+      - ELITE2API_ENDPOINT_URL=http://elite2:8080
 
-  redis:
-    image: redis
+  keyworker-api:
+    image: quay.io/hmpps/keyworker-api:latest
+    depends_on:
+      - elite2
+      - oauth
+    container_name: keyworker-api_nn
     ports:
-      - 6379:6379
+      - "8081:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+    environment:
+      - SERVER_PORT=8080
+      - ELITE2_URI_ROOT=http://elite2:8080
+      - AUTH_URI_ROOT=http://oauth:8080/auth
+      - security.require-ssl=false
+      - SPRING_PROFILES_ACTIVE=noqueue,local
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://oauth:8080/auth/.well-known/jwks.json
+

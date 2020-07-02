@@ -60,7 +60,7 @@ jobs:
           at: ~/app
       - run:
           name: Run the node app.
-          command: npm run start-feature --env=feature.env
+          command: npm run start-feature-no-webpack --env=feature.env
           background: true
       - run:
           name: Wait for node app to start

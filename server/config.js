@@ -7,6 +7,7 @@ const app = {
   mailTo: process.env.MAIL_TO || 'feedback@digital.justice.gov.uk',
   tokenRefreshThresholdSeconds: process.env.TOKEN_REFRESH_THRESHOLD_SECONDS || 60,
   url: process.env.NN_ENDPOINT_URL || `http://localhost:${argv.port || process.env.PORT || 3000}/`,
+  disableWebpack: process.env.DISABLE_WEBPACK === 'true',
 }
 
 const redis = {
