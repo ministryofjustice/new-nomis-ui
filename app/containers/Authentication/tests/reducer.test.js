@@ -197,16 +197,27 @@ describe('Authentication reducer', () => {
     expect(userState.isPathfinderUser).toBe(true)
   })
 
-  it('should return a user with access to Licences links where a LICENCE role is present', () => {
-    const user = {
-      ...userData,
-      accessRoles: [{ roleCode: 'LICENCE_CA', roleDescription: 'Licence Case Admin' }],
-    }
-    const state = authenticationReducer(Map({}), userMe({ user }))
-    const userState = state.get('user')
+  it.each`
+    role                    | description                   | hasLicenceAccess
+    ${'LICENCE_CA'}         | ${'Licence Case Admin'}       | ${true}
+    ${'LICENCE_DM'}         | ${'Licence Decision Maker'}   | ${true}
+    ${'LICENCE_VARY'}       | ${'Vary Licence role'}        | ${true}
+    ${'NOMIS_BATCHLOAD'}    | ${'Licence Administrator'}    | ${true}
+    ${'LICENCE_READONLY'}   | ${'Read-only Licence Access'} | ${true}
+    ${'NOT_A_LICENCE_ROLE'} | ${'Not a licence role'}       | ${false}
+  `(
+    "should determine user's  access to Licences links where role $role is present",
+    ({ role, description, hasLicenceAccess }) => {
+      const user = {
+        ...userData,
+        accessRoles: [{ roleCode: role, roleDescription: description }],
+      }
+      const state = authenticationReducer(Map({}), userMe({ user }))
+      const userState = state.get('user')
 
-    expect(userState.isLicenceUser).toBe(true)
-  })
+      expect(userState.isLicenceUser).toBe(hasLicenceAccess)
+    }
+  )
 
   it('should return a user with access to Pom Alloc link where a ALLOC_MGR role is present', () => {
     const user = {
