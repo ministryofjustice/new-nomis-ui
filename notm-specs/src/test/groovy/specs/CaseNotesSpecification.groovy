@@ -90,7 +90,7 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     selectOffender(1)
     at OffenderDetailsPage
 
-    when: 'I create a new senstive case note'
+    when: 'I create a new sensitive case note'
     setupAddCaseNote("OMIC","TEST_OMIC", "some sensitive text")
     ((JavascriptExecutor) driver).executeScript("scroll(0,100);")
     addCaseNoteLink.click()
