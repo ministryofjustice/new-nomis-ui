@@ -74,6 +74,25 @@ class OauthApi extends WireMockRule {
         .willReturn(aResponse().withBody("favicon")))
   }
 
+  void stubRedirectLogin() {
+    this.stubFor(
+      get('/auth/logout?client_id=elite2apiclient&redirect_uri=http://localhost:3007/')
+        .willReturn(aResponse()
+          .withStatus(200)
+          .withHeader('Content-Type', 'text/html;charset=UTF-8')
+          .withBody('<head><title>Digital Prison Services</title></head>' +
+            '<body><h1>Sign in</h1>This is a stubbed login page' +
+            '<form action="/auth/login?state={{request.requestLine.query.state}}" method="POST" id="loginForm">' +
+            '  <input id="username" name="username" type="text">' +
+            '  <input id="password" name="password" type="password">' +
+            '  <input id="submit" type="submit" value="Sign in">' +
+            '</form>' +
+            '</body>')))
+    this.stubFor(
+      get('/favicon.ico')
+        .willReturn(aResponse().withBody("favicon")))
+  }
+
   void stubLogout() {
     this.stubFor(
       get(urlPathEqualTo('/auth/logout'))

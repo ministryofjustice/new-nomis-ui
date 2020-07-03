@@ -133,7 +133,7 @@ class LoginSpecification extends BrowserReportingSpec {
 
     given: 'I am on the Login page'
     to LoginPage
-
+    oauthApi.stubRedirectLogin()
     oauthApi.stubUsersMe ITAG_USER
     oauthApi.stubUserRoles()
     elite2Api.stubGetMyDetails ITAG_USER
@@ -143,8 +143,6 @@ class LoginSpecification extends BrowserReportingSpec {
     when: "I login using valid credentials"
     loginAs ITAG_USER, 'password'
     tokenVerificationApi.stubVerifyTokenNotActive()
-
-    go '/'
 
     then: "I am returned to the Login page."
     at LoginPage
