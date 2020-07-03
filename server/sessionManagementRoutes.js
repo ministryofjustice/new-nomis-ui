@@ -5,7 +5,9 @@ const contextProperties = require('./contextProperties')
 const config = require('./config')
 
 const isXHRRequest = req =>
-  req.xhr || (req.headers.accept && req.headers.accept.indexOf('json') > -1) || (req.path && req.path.endsWith('.js'))
+  req.xhr ||
+  (req.headers.accept && (req.headers.accept.indexOf('json') > -1 || req.headers.accept.indexOf('image/*') > -1)) ||
+  (req.path && req.path.endsWith('.js'))
 
 /**
  * Add session management related routes to an express 'app'.
@@ -80,6 +82,7 @@ const configureRoutes = ({ app, tokenRefresher, tokenVerifier, mailTo }) => {
       next()
       return
     }
+    req.logout() // need logout as want session recreated from latest auth credentials
     if (isXHRRequest(req)) {
       res.status(401)
       res.json({ reason: 'session-expired' })

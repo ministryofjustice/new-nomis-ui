@@ -1,12 +1,7 @@
 package specs
 
-
 import groovy.util.logging.Slf4j
-import mockapis.AllocationManagerApi
-import mockapis.Elite2Api
-import mockapis.OauthApi
-import mockapis.TokenVerificationApi
-import mockapis.WhereaboutsApi
+import mockapis.*
 import model.TestFixture
 import org.junit.Rule
 import pages.HomePage
@@ -133,7 +128,6 @@ class LoginSpecification extends BrowserReportingSpec {
 
     given: 'I am on the Login page'
     to LoginPage
-    oauthApi.stubRedirectLogin()
     oauthApi.stubUsersMe ITAG_USER
     oauthApi.stubUserRoles()
     elite2Api.stubGetMyDetails ITAG_USER
@@ -142,7 +136,10 @@ class LoginSpecification extends BrowserReportingSpec {
 
     when: "I login using valid credentials"
     loginAs ITAG_USER, 'password'
+
     tokenVerificationApi.stubVerifyTokenNotActive()
+
+    browser.go('/')
 
     then: "I am returned to the Login page."
     at LoginPage
