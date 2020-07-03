@@ -8,7 +8,6 @@ class OffenderCaseNotesPage extends Page {
   static at = {
     title == 'Case notes - Digital Prison Services'
     caseNoteDetails.size() == 2
-    // wait until types for user has been loaded by choosing value that's only available as my type
     typeFilterDropDown.find('option', value: "TRNG").displayed
   }
 
