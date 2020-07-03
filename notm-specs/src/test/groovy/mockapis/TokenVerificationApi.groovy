@@ -40,7 +40,7 @@ class TokenVerificationApi extends WireMockRule {
           aResponse()
             .withStatus(200)
             .withHeader('Content-Type', 'application/json;charset=UTF-8')
-            .withBody('{"active" : "false"}')
+            .withBody('{"active" : false}')
         ))
   }
 }
