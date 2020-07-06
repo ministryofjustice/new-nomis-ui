@@ -24,7 +24,7 @@ import { Model as offenderDetailsModel } from '../../../../helpers/dataMappers/o
 import SessionHeartbeatHandler from '../../../../utils/sessionHeartbeatHandler'
 import { FormattedDate, FormattedTime } from '../../../../components/intl'
 import { DETAILS_TABS, ADD_NEW_CASENOTE } from '../../constants'
-import { viewDetails, extendActiveSession, loadCaseNoteTypesAndSubTypes } from '../../actions'
+import { viewDetails, extendActiveSession, loadMyCaseNoteTypesAndSubTypes } from '../../actions'
 import { getQueryParams, linkOnClick } from '../../../../helpers'
 import { toFullName } from '../../../../utils/stringUtils'
 import Page from '../../../../components/Page'
@@ -226,7 +226,7 @@ const mapDispatchToProps = (dispatch, props) => {
     }),
     boundViewDetails: () => dispatch(viewDetails(offenderNo, DETAILS_TABS.ADD_CASE_NOTE)),
     goBackToBookingDetails: () => dispatch(viewDetails(offenderNo, DETAILS_TABS.CASE_NOTES)),
-    loadCaseNoteTypes: () => dispatch(loadCaseNoteTypesAndSubTypes()),
+    loadCaseNoteTypes: () => dispatch(loadMyCaseNoteTypesAndSubTypes()),
     extendSession: () => dispatch(extendActiveSession()),
     onSubmit: createFormAction(
       formData => ({

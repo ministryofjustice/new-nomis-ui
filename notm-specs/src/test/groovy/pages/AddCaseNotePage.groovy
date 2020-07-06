@@ -46,6 +46,7 @@ class AddCaseNotePage extends Page {
 
   def createNewCaseNoteLeavingTypeAndSubType() {
     textareaElement.module(Textarea).text = 'some text'
+    waitFor { form.find('select[name="typeValue"] option', value: 'KA').displayed }
 
     changeDateTime.click()
     waitFor { datePicker.present }
