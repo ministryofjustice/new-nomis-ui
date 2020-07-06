@@ -29,11 +29,19 @@ app.set('view engine', 'ejs')
 app.use(setupBodyParsers())
 app.use(setupHealthChecks())
 app.use(setupWebSecurity())
+
+app.use('/client.js', express.static(path.join(__dirname, '../build/client.js')))
+app.use('/styles.css', express.static(path.join(__dirname, '../build/styles.css')))
+app.use('/favicon.ico', express.static(path.join(__dirname, '../build/favicon.ico')))
+app.use('/fonts', express.static(path.join(__dirname, '../build/fonts')))
+app.use('/img', express.static(path.join(__dirname, '../build/img')))
+app.use('/images', express.static(path.join(__dirname, '../build/images')))
+app.use(express.static(path.join(__dirname, '../public')))
+
 app.use(setupWebSession())
 app.use(setupAuth({ oauthApi: apis.oauthApi }))
 app.use(setupRoutes(apis))
 
-app.use(express.static(path.join(__dirname, '../public')))
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
   outputPath: path.resolve(process.cwd(), 'build'),
