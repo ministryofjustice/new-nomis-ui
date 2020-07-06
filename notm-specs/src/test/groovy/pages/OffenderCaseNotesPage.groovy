@@ -8,6 +8,7 @@ class OffenderCaseNotesPage extends Page {
   static at = {
     title == 'Case notes - Digital Prison Services'
     caseNoteDetails.size() == 2
+    typeFilterDropDown.find('option', value: "TRNG").displayed
   }
 
   static content = {
@@ -17,5 +18,6 @@ class OffenderCaseNotesPage extends Page {
     caseNoteDetails { $("[data-qa='case-note']") }
     amendCaseNoteLinks(required: false) { $("[data-qa='make-amendment']")}
     message {}
+    typeFilterDropDown { $('select[name="typeValue"]')}
   }
 }

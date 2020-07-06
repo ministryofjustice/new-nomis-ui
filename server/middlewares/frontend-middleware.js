@@ -1,5 +1,4 @@
 /* eslint-disable global-require */
-const express = require('express')
 const path = require('path')
 const compression = require('compression')
 
@@ -49,7 +48,6 @@ const addDevMiddlewares = (app, options, webpackConfig) => {
 
 // Production middlewares
 const addProdMiddlewares = (app, options) => {
-  const publicPath = options.publicPath || '/'
   const outputPath = options.outputPath || path.resolve(process.cwd(), 'build')
 
   // compression middleware compresses your server responses which makes them
@@ -61,7 +59,6 @@ const addProdMiddlewares = (app, options) => {
   } else {
     app.use(googleAnalyticsInjector(config.analytics.google_analytics_id))
   }
-  app.use(publicPath, express.static(outputPath))
 
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(outputPath, 'index.html'))
@@ -72,7 +69,7 @@ const addProdMiddlewares = (app, options) => {
  * Front-end middleware
  */
 module.exports = (app, options) => {
-  if (config.app.production) {
+  if (config.app.production || config.app.disableWebpack) {
     addProdMiddlewares(app, options)
   } else {
     const webpackConfig = require('../../internals/webpack/webpack.dev.babel')

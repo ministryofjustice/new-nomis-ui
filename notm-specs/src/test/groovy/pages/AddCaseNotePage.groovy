@@ -30,8 +30,9 @@ class AddCaseNotePage extends Page {
   }
 
   def createNewCaseNote(type = 'CHAP', subType = 'FAITH', text = 'some text') {
+    waitFor { form.find('select[name="typeValue"] option', value: type).displayed }
     form.typeValue = type
-    waitFor { form.find('option', value: subType).displayed }
+    waitFor { form.find('select[name="subTypeValue"] option', value: subType).displayed }
     textareaElement.module(Textarea).text = text
     changeDateTime.click()
     waitFor { datePicker.displayed }

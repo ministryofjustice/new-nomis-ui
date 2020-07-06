@@ -6,6 +6,7 @@ import mockapis.KeyworkerApi
 import mockapis.OauthApi
 import mockapis.TokenVerificationApi
 import mockapis.WhereaboutsApi
+import model.Offender
 import model.TestFixture
 import org.junit.Rule
 import pages.AlertsPage
@@ -49,7 +50,9 @@ class AlertsSpecification extends BrowserReportingSpec {
     elite2api.stubOffenderDetails(true)
     elite2api.stubOffenderDetails(false)
     elite2api.stubOffenderAddresses()
-
+    elite2api.stubContacts()
+    elite2api.stubBookingIdentifiers(-10)
+    elite2api.stubCaseNoteUsage([Offender.SMITH()])
     keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo(agencyId, offenderNo)
 
     elite2api.stubIEP()
@@ -71,6 +74,7 @@ class AlertsSpecification extends BrowserReportingSpec {
     elite2api.resetAll()
     elite2api.stubOffenderDetails(false)
     elite2api.stubBookingAlerts(bookingId)
+    elite2api.stubImage()
 
     clearFiltersButton.click()
 
