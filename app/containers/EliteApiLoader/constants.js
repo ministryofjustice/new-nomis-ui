@@ -27,6 +27,7 @@ export const USER = {
 }
 
 export const LOAD_CASE_NOTE_TYPES_SUBTYPES = 'app/eliteApiLoader/loadCaseNotesTypesAndSubTypes'
+export const LOAD_MY_CASE_NOTE_TYPES_SUBTYPES = 'app/eliteApiLoader/loadMyCaseNotesTypesAndSubTypes'
 
 export const LOAD_ALERT_TYPES = 'app/eliteApiLoader/loadAlertTypes'
 

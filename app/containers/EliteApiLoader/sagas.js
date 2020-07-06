@@ -24,6 +24,7 @@ import {
   BOOKINGS,
   LOAD_ALERT_TYPES,
   LOAD_CASE_NOTE_TYPES_SUBTYPES,
+  LOAD_MY_CASE_NOTE_TYPES_SUBTYPES,
   OFFICERS,
   CASENOTETYPES,
   USER,
@@ -201,11 +202,19 @@ export function* loadCaseNoteTypesSubTypes() {
   const apiServer = yield select(selectApi())
 
   yield call(preloadAllCaseNoteTypesSubTypes, apiServer)
+}
+
+export function* loadMyCaseNoteTypesSubTypes() {
+  const apiServer = yield select(selectApi())
+
   yield call(preloadUserCaseNoteTypes, apiServer)
 }
 
 export function* loadCaseNoteTypesSubTypesWatcher() {
   yield takeLatest(LOAD_CASE_NOTE_TYPES_SUBTYPES, loadCaseNoteTypesSubTypes)
+}
+export function* loadMyCaseNoteTypesSubTypesWatcher() {
+  yield takeLatest(LOAD_MY_CASE_NOTE_TYPES_SUBTYPES, loadMyCaseNoteTypesSubTypes)
 }
 
 export function* userCaseLoadsSaga() {
@@ -252,6 +261,7 @@ export function* userSwitchCaseLoadsWatcher() {
 
 export default [
   loadCaseNoteTypesSubTypesWatcher,
+  loadMyCaseNoteTypesSubTypesWatcher,
   loadALertTypesWatcher,
   officerLoadWatch,
   bookingDetailsWatcher,
