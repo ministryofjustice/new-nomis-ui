@@ -1,11 +1,7 @@
 package specs
 
-
 import groovy.util.logging.Slf4j
-import mockapis.AllocationManagerApi
-import mockapis.Elite2Api
-import mockapis.OauthApi
-import mockapis.WhereaboutsApi
+import mockapis.*
 import model.TestFixture
 import org.junit.Rule
 import pages.HomePage
@@ -29,7 +25,10 @@ class LoginSpecification extends BrowserReportingSpec {
   @Rule
   AllocationManagerApi allocationManagerApi = new AllocationManagerApi()
 
-  TestFixture fixture = new TestFixture(browser, elite2Api, whereaboutsApi, oauthApi)
+  @Rule
+  TokenVerificationApi tokenVerificationApi = new TokenVerificationApi()
+
+  TestFixture fixture = new TestFixture(browser, elite2Api, whereaboutsApi, oauthApi, tokenVerificationApi)
 
   def "The login page is present"() {
 
@@ -61,6 +60,7 @@ class LoginSpecification extends BrowserReportingSpec {
     oauthApi.stubUserRoles()
     elite2Api.stubGetMyDetails ITAG_USER
     whereaboutsApi.stubGetMyDetails ITAG_USER
+    tokenVerificationApi.stubVerifyToken()
 
     when: "I login using valid credentials"
     loginAs ITAG_USER, 'password'
@@ -79,6 +79,7 @@ class LoginSpecification extends BrowserReportingSpec {
     oauthApi.stubUserRoles()
     elite2Api.stubGetMyDetails(ITAG_USER)
     whereaboutsApi.stubGetMyDetails(ITAG_USER, true)
+    tokenVerificationApi.stubVerifyToken()
 
     when: "I login using valid credentials"
     loginAs ITAG_USER, 'password'
@@ -102,6 +103,7 @@ class LoginSpecification extends BrowserReportingSpec {
     oauthApi.stubClientTokenRequest()
     elite2Api.stubGetMyDetails ITAG_USER
     whereaboutsApi.stubGetMyDetails ITAG_USER
+    tokenVerificationApi.stubVerifyToken()
 
     elite2Api.stubOffenderDetails(true)
     elite2Api.stubOffenderAddresses()
@@ -119,6 +121,28 @@ class LoginSpecification extends BrowserReportingSpec {
 
     then: "I am taken to quick look for the offender"
     at OffenderDetailsPage
+  }
+
+  def "Token verification failure clears user session"() {
+    oauthApi.stubValidOAuthTokenRequest()
+
+    given: 'I am on the Login page'
+    to LoginPage
+    oauthApi.stubUsersMe ITAG_USER
+    oauthApi.stubUserRoles()
+    elite2Api.stubGetMyDetails ITAG_USER
+    whereaboutsApi.stubGetMyDetails ITAG_USER
+    tokenVerificationApi.stubVerifyToken()
+
+    when: "I login using valid credentials"
+    loginAs ITAG_USER, 'password'
+
+    tokenVerificationApi.stubVerifyTokenNotActive()
+
+    browser.go('/')
+
+    then: "I am returned to the Login page."
+    at LoginPage
   }
 
   def "Log out"() {

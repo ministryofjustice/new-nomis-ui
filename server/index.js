@@ -39,7 +39,7 @@ app.use('/images', express.static(path.join(__dirname, '../build/images')))
 app.use(express.static(path.join(__dirname, '../public')))
 
 app.use(setupWebSession())
-app.use(setupAuth({ oauthApi: apis.oauthApi }))
+app.use(setupAuth({ oauthApi: apis.oauthApi, tokenVerificationApi: apis.tokenVerificationApi }))
 app.use(setupRoutes(apis))
 
 // In production we need to pass these values in instead of relying on webpack

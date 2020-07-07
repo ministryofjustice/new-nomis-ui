@@ -5,6 +5,7 @@ import groovy.util.logging.Slf4j
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
+import mockapis.TokenVerificationApi
 import mockapis.WhereaboutsApi
 import model.TestFixture
 import org.junit.Rule
@@ -27,7 +28,10 @@ class HeaderDropDownSpecification extends BrowserReportingSpec {
   @Rule
   OauthApi oauthApi = new OauthApi()
 
-  TestFixture fixture = new TestFixture(browser, elite2api, whereaboutsApi, oauthApi)
+  @Rule
+  TokenVerificationApi tokenVerificationApi = new TokenVerificationApi()
+
+  TestFixture fixture = new TestFixture(browser, elite2api, whereaboutsApi, oauthApi, tokenVerificationApi)
 
   def "should show the case load description"() {
 

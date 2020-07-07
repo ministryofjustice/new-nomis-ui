@@ -8,6 +8,7 @@ const { allocationManagerApiFactory } = require('./api/allocationManagerApi')
 const { whereaboutsApiFactory } = require('./api/whereaboutsApi')
 const { dataComplianceApiFactory } = require('./api/dataComplianceApi')
 const { pathfinderApiFactory } = require('./api/pathfinderApi')
+const { tokenVerificationApiFactory } = require('./api/tokenVerificationApi')
 
 const eliteApi = eliteApiFactory(
   clientFactory({
@@ -67,6 +68,13 @@ const pathfinderApi = pathfinderApiFactory(
   })
 )
 
+const tokenVerificationApi = tokenVerificationApiFactory(
+  clientFactory({
+    baseUrl: config.apis.tokenverification.url,
+    timeout: config.apis.tokenverification.timeoutSeconds * 1000,
+  })
+)
+
 module.exports = {
   eliteApi,
   keyworkerApi,
@@ -76,4 +84,5 @@ module.exports = {
   whereaboutsApi,
   dataComplianceApi,
   pathfinderApi,
+  tokenVerificationApi,
 }

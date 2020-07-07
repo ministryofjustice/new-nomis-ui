@@ -6,6 +6,7 @@ import mockapis.CaseNotesApi
 import mockapis.Elite2Api
 import mockapis.KeyworkerApi
 import mockapis.OauthApi
+import mockapis.TokenVerificationApi
 import mockapis.WhereaboutsApi
 import model.Offender
 import model.TestFixture
@@ -37,7 +38,10 @@ class CaseNotesSpecification extends BrowserReportingSpec {
   @Rule
   OauthApi oauthApi = new OauthApi()
 
-  TestFixture testFixture = new TestFixture(browser, elite2api, whereaboutsApi, oauthApi)
+  @Rule
+  TokenVerificationApi tokenVerificationApi = new TokenVerificationApi()
+
+  TestFixture testFixture = new TestFixture(browser, elite2api, whereaboutsApi, oauthApi, tokenVerificationApi)
 
   def "Create a new case note"() {
     setupUserDetails()
