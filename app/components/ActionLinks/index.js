@@ -5,7 +5,7 @@ import './index.scss'
 
 export const ActionLink = ({ url, testId, image, children, ...rest }) => (
   <div className="action-links__link">
-    <a href={url} className="action-link link" data-qa={testId} {...rest}>
+    <a href={url} className="action-link" data-qa={testId} {...rest}>
       <img src={image} alt={`${children} icon`} />
       {children}
     </a>
