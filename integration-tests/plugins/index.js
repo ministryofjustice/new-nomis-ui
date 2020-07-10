@@ -1,5 +1,6 @@
 const auth = require('../mockApis/auth')
 const prisonApi = require('../mockApis/prison')
+const caseNotesApi = require('../mockApis/casenotes')
 const tokenverification = require('../mockApis/tokenverification')
 
 const { resetStubs } = require('../mockApis/wiremock')
@@ -16,5 +17,6 @@ module.exports = on => {
       Promise.all([auth.stubLogin(username, roles), prisonApi.stubUserMe(), tokenverification.stubVerifyToken(true)]),
     stubVerifyToken: (active = true) => tokenverification.stubVerifyToken(active),
     stubLoginPage: auth.redirect,
+    stubMyCaseNoteTypes: caseNotesApi.stubMyCaseNoteTypes,
   })
 }
