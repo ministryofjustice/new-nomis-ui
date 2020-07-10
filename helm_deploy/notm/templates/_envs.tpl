@@ -102,6 +102,9 @@ env:
   - name: TOKENVERIFICATION_API_ENABLED
     value: {{ .Values.env.TOKENVERIFICATION_API_ENABLED | quote }}
 
+  - name: REDIS_ENABLED
+    value: {{ .Values.env.REDIS_ENABLED | quote }}
+
   {{- if .Values.env.API_DATA_COMPLIANCE_URL }}
   - name: API_DATA_COMPLIANCE_URL
     value: {{ .Values.env.API_DATA_COMPLIANCE_URL | quote }}
