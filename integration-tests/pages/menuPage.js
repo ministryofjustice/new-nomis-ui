@@ -1,6 +1,6 @@
 const page = require('./page')
 
-const menuPage = () => page('Manage user accounts', {})
+const menuPage = () => page('Tasks', {})
 
 export default {
   verifyOnPage: menuPage,
