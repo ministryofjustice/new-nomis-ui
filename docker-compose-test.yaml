@@ -1,0 +1,8 @@
+version: '3.1'
+services:
+  new-nomis-ui-wiremock:
+    image: rodolpheche/wiremock
+    container_name: new-nomis-ui-wiremock
+    restart: always
+    ports:
+      - "9191:8080"

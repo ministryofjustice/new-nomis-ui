@@ -30,26 +30,6 @@ class LoginSpecification extends BrowserReportingSpec {
 
   TestFixture fixture = new TestFixture(browser, elite2Api, whereaboutsApi, oauthApi, tokenVerificationApi)
 
-  def "The login page is present"() {
-
-    when: 'I go to the login page'
-    oauthApi.stubAuthorizeRequest()
-    to LoginPage
-
-    then: 'The Login page is displayed'
-    at LoginPage
-  }
-
-  def "Default URI redirects to Login page"() {
-    oauthApi.stubAuthorizeRequest()
-
-    when: "I go to the website URL using an empty path"
-    go '/'
-
-    then: 'The Login page is displayed'
-    at LoginPage
-  }
-
   def "Log in with valid credentials"() {
     oauthApi.stubValidOAuthTokenRequest()
 
@@ -121,39 +101,5 @@ class LoginSpecification extends BrowserReportingSpec {
 
     then: "I am taken to quick look for the offender"
     at OffenderDetailsPage
-  }
-
-  def "Token verification failure clears user session"() {
-    oauthApi.stubValidOAuthTokenRequest()
-
-    given: 'I am on the Login page'
-    to LoginPage
-    oauthApi.stubUsersMe ITAG_USER
-    oauthApi.stubUserRoles()
-    elite2Api.stubGetMyDetails ITAG_USER
-    whereaboutsApi.stubGetMyDetails ITAG_USER
-    tokenVerificationApi.stubVerifyToken()
-
-    when: "I login using valid credentials"
-    loginAs ITAG_USER, 'password'
-
-    tokenVerificationApi.stubVerifyTokenNotActive()
-
-    browser.go('/')
-
-    then: "I am returned to the Login page."
-    at LoginPage
-  }
-
-  def "Log out"() {
-    given: "I have logged in"
-    fixture.loginAs ITAG_USER
-
-    when: "I log out"
-    oauthApi.stubLogout()
-    header.logout()
-
-    then: "I am returned to the Login page."
-    at LoginPage
   }
 }

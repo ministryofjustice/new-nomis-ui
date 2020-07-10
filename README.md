@@ -65,6 +65,41 @@ and that `chromedriver` is on the PATH. Open a Spock Specification
 (`specs.LoginSpecification` for example). The gutter should
 now display 'run' icons for the class and each of its tests methods.
 
+## Cypress integration tests
+
+The `integration-tests` directory contains a set of Cypress integration tests.
+These tests WireMock to stub the application's dependencies on the prison, ouath and whreabouts RESTful APIs.
+
+### Running the Cypress tests
+
+You need to fire up the wiremock server first:
+```docker-compose -f docker-compose-test.yaml up```
+
+This will give you useful feedback if the app is making requests that you haven't mocked out. You can see
+the reqest log at `localhost:9191/__admin/requests/` and a JSON representation of the mocks `localhost:9191/__admin/mappings`.
+
+### Starting feature tests node instance
+
+A separate node instance needs to be started for the feature tests. This will run on port 3008 and won't conflict
+with any of the api services, e.g. prison-api or oauth. It will also not conflict with the Groovy integration tests.
+
+```npm run start-feature --env=cypress.env```
+
+Note that the circleci will run `start-feature-no-webpack` instead, which will rely on a production webpack build
+rather than using the dev webpack against the assets.
+
+### Running the tests
+
+With the UI:
+```
+npm run int-test-ui
+```
+
+Just on the command line (any console log outputs will not be visible, they appear in the browser the Cypress UI fires up):
+```
+npm run int-test
+```
+
 ## Checking bundle size
 
 To view the bundle size using webpack-bundle-analyzer:

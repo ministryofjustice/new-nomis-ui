@@ -24,7 +24,9 @@
     "verify": "npm run lint && npm run stylelint && npm test",
     "record-build-info": "node ./bin/record-build-info",
     "plant-beanstalk": "node ./bin/plant-beanstalk.js",
-    "security_audit": "npx audit-ci --config audit-ci.json"
+    "security_audit": "npx audit-ci --config audit-ci.json",
+    "int-test": "cypress run",
+    "int-test-ui": "cypress open"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
@@ -183,6 +185,8 @@
     "chai": "^4.2.0",
     "coveralls": "^3.0.3",
     "css-loader": "^1.0.1",
+    "cypress": "^4.8.0",
+    "cypress-multi-reporters": "^1.4.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.0",
     "eslint": "^5.16.0",
@@ -194,6 +198,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-cypress": "^2.11.1",
     "eventsource-polyfill": "0.9.6",
     "exports-loader": "0.6.3",
     "file-loader": "^1.0.0",

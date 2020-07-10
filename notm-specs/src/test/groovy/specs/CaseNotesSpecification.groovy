@@ -1,44 +1,46 @@
 package specs
 
 import groovy.util.logging.Slf4j
-import mockapis.AllocationManagerApi
-import mockapis.CaseNotesApi
-import mockapis.Elite2Api
-import mockapis.KeyworkerApi
-import mockapis.OauthApi
-import mockapis.TokenVerificationApi
-import mockapis.WhereaboutsApi
+import mockapis.*
 import model.Offender
 import model.TestFixture
-import org.junit.Rule
+import org.junit.ClassRule
 import org.openqa.selenium.JavascriptExecutor
 import pages.*
 import spock.lang.IgnoreIf
+import spock.lang.Shared
 
 import static model.UserAccount.ITAG_USER
 
 @Slf4j
 class CaseNotesSpecification extends BrowserReportingSpec {
 
-  @Rule
+  @ClassRule
+  @Shared
   Elite2Api elite2api = new Elite2Api()
 
-  @Rule
+  @ClassRule
+  @Shared
   WhereaboutsApi whereaboutsApi = new WhereaboutsApi()
 
-  @Rule
+  @ClassRule
+  @Shared
   KeyworkerApi keyworkerApi = new KeyworkerApi()
 
-  @Rule
+  @ClassRule
+  @Shared
   CaseNotesApi caseNotesApi = new CaseNotesApi()
 
-  @Rule
+  @ClassRule
+  @Shared
   AllocationManagerApi allocationManagerApi = new AllocationManagerApi()
 
-  @Rule
+  @ClassRule
+  @Shared
   OauthApi oauthApi = new OauthApi()
 
-  @Rule
+  @ClassRule
+  @Shared
   TokenVerificationApi tokenVerificationApi = new TokenVerificationApi()
 
   TestFixture testFixture = new TestFixture(browser, elite2api, whereaboutsApi, oauthApi, tokenVerificationApi)

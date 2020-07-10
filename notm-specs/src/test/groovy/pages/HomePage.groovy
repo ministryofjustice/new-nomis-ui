@@ -12,6 +12,7 @@ class HomePage extends Page {
     title == 'Home - Digital Prison Services'
     headingText == 'Search for a prisoner'
     searchButtonDesktop.text() == 'Search' || searchButtonMobile.text() == 'Search'
+    header.isDesktop ? header.caseloadDesktop == 'LEEDS (HMP)' : true
   }
 
   static content = {
