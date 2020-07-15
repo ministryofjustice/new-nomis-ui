@@ -121,21 +121,21 @@ class CaseNotesSpecification extends BrowserReportingSpec {
     assert subTypeSelectValue == ""
   }
 
-//  def "open the add case note screen with a pre-selected type and sub type"() {
-//    setupAddCaseNote()
-//    setupUserDetails()
-//
-//    given: 'I am logged in and have selected an offender'
-//    testFixture.loginAs ITAG_USER
-//
-//    when: "I navigate to add case note using an type and sub type"
-//    go '/offenders/A1234AJ/add-case-note?type=CHAP&subType=FAITH'
-//
-//    then:
-//    at AddCaseNotePage
-//    waitFor { typeSelectValue == "CHAP" }
-//    waitFor { subTypeSelectValue == "FAITH" }
-//  }
+  def "open the add case note screen with a pre-selected type and sub type"() {
+    setupAddCaseNote()
+    setupUserDetails()
+
+    given: 'I am logged in and have selected an offender'
+    testFixture.loginAs ITAG_USER
+
+    when: "I navigate to add case note using an type and sub type"
+    go '/offenders/A1234AJ/add-case-note?type=CHAP&subType=FAITH'
+
+    then:
+    at AddCaseNotePage
+    waitFor { typeSelectValue == "CHAP" }
+    waitFor { subTypeSelectValue == "FAITH" }
+  }
 
   def "create a key worker session case note using the 'Add KW session' link"() {
 
