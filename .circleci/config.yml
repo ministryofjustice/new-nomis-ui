@@ -121,7 +121,6 @@ workflows:
                 - main
           requires:
             - build_docker
-            - integration_tests
             - helm_lint
       - request-preprod-approval:
           type: approval
