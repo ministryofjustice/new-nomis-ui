@@ -98,6 +98,38 @@ module.exports = ({
     res.redirect(301, `${omicUrl}key-worker/${user.userId}`)
   })
 
+  const pristonStaffHubUrl = config.apis.prisonStaffHub.ui_url
+
+  router.use('/offenders/:offenderNo/case-notes', async (req, res) => {
+    const { offenderNo } = req.params
+    res.redirect(301, `${pristonStaffHubUrl}prisoner/${offenderNo}/case-notes`)
+  })
+
+  router.use('/offenders/:offenderNo/personal', async (req, res) => {
+    const { offenderNo } = req.params
+    res.redirect(301, `${pristonStaffHubUrl}prisoner/${offenderNo}/personal`)
+  })
+
+  router.use('/offenders/:offenderNo/alerts', async (req, res) => {
+    const { offenderNo } = req.params
+    res.redirect(301, `${pristonStaffHubUrl}prisoner/${offenderNo}/alerts`)
+  })
+
+  router.use('/offenders/:offenderNo/key-dates', async (req, res) => {
+    const { offenderNo } = req.params
+    res.redirect(301, `${pristonStaffHubUrl}prisoner/${offenderNo}/sentence-and-release`)
+  })
+
+  router.use('/offenders/:offenderNo/quick-look', async (req, res) => {
+    const { offenderNo } = req.params
+    res.redirect(301, `${pristonStaffHubUrl}prisoner/${offenderNo}`)
+  })
+
+  router.use('/offenders/:offenderNo', async (req, res) => {
+    const { offenderNo } = req.params
+    res.redirect(301, `${pristonStaffHubUrl}prisoner/${offenderNo}`)
+  })
+
   // Forward requests to the eliteApi get/post functions.
   router.use('/app', requestForwarding.forwardingHandlerFactory(eliteApi))
 

@@ -31,11 +31,6 @@ export default [
     component: AmendCaseNote,
   },
   {
-    path: '/offenders/:offenderNo/:activeTab?/:itemId?',
-    name: 'offenderDetails',
-    component: Details,
-  },
-  {
     path: '/results',
     name: 'searchResults',
     component: ResultsContainer,

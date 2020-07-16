@@ -39,7 +39,7 @@ export const cleanQuery = query => {
 export const buildSearchQueryString = query =>
   qs.stringify(
     cleanQuery({
-      locationPrefix: query.locationPrefix,
+      location: query.location,
       keywords: query.keywords || '',
       alerts: query.alerts,
       perPage: query.perPage || 20,

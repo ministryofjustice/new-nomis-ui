@@ -15,7 +15,6 @@ import { MEDIA_QUERIES } from '@govuk-react/constants'
 
 import { buildSearchQueryString } from '../../utils/stringUtils'
 import './searchForm.scss'
-import history from '../../history'
 
 const SearchField = styled(Label)`
   ${MEDIA_QUERIES.LARGESCREEN} {
@@ -25,7 +24,8 @@ const SearchField = styled(Label)`
 
 export class SearchForm extends Component {
   onSubmit = formData => {
-    history.push(`/results?${buildSearchQueryString(formData)}`)
+    const { prisonStaffHubUrl } = this.props
+    window.location.assign(`${prisonStaffHubUrl}prisoner-search?${buildSearchQueryString(formData)}`)
   }
 
   handleSubmit = event => {
@@ -57,12 +57,7 @@ export class SearchForm extends Component {
             <Input name="keywords" autoComplete="off" />
           </SearchField>
 
-          <Select
-            label="Residential location"
-            defaultValue={defaultLocationPrefix}
-            mb={5}
-            input={{ name: 'locationPrefix' }}
-          >
+          <Select label="Residential location" defaultValue={defaultLocationPrefix} mb={5} input={{ name: 'location' }}>
             {locations.map(location => (
               <option key={location.locationPrefix} value={location.locationPrefix}>
                 {location.description}
@@ -97,6 +92,7 @@ SearchForm.defaultProps = {
 const mapStateToProps = state => ({
   locations: state.getIn(['home', 'locations']).toJS(),
   error: state.getIn(['home', 'searchError']),
+  prisonStaffHubUrl: state.getIn(['app', 'prisonStaffHubUrl']),
 })
 
 export default connect(mapStateToProps)(SearchForm)
