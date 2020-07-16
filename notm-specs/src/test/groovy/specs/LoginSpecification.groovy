@@ -6,7 +6,6 @@ import model.TestFixture
 import org.junit.Rule
 import pages.HomePage
 import pages.LoginPage
-import pages.OffenderDetailsPage
 
 import static model.UserAccount.ITAG_USER
 
@@ -93,34 +92,6 @@ class LoginSpecification extends BrowserReportingSpec {
 
     useOfForceLink.text() == 'Use of force incidents'
 
-  }
-
-  def "User login takes user back to requested page"() {
-    given: "I would like to view a specific offender"
-    oauthApi.stubValidOAuthTokenRequest()
-    oauthApi.stubUsersMe ITAG_USER
-    oauthApi.stubUserRoles()
-    oauthApi.stubClientTokenRequest()
-    elite2Api.stubGetMyDetails ITAG_USER
-    whereaboutsApi.stubGetMyDetails ITAG_USER
-    tokenVerificationApi.stubVerifyToken()
-
-    elite2Api.stubOffenderDetails(true)
-    elite2Api.stubOffenderAddresses()
-    elite2Api.stubIEP()
-    elite2Api.stubAliases()
-    elite2Api.stubImage()
-    elite2Api.stubQuickLook()
-    allocationManagerApi.stubGetPomByOffenderNo('A1234AJ')
-
-    browser.go('/offenders/A1234AJ/quick-look')
-
-    when: "I have logged in"
-    at LoginPage
-    loginAs ITAG_USER, 'password'
-
-    then: "I am taken to quick look for the offender"
-    at OffenderDetailsPage
   }
 
   def "Token verification failure clears user session"() {
