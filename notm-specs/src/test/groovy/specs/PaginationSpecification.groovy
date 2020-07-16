@@ -12,7 +12,6 @@ import model.Offender
 import mockapis.WhereaboutsApi
 import model.TestFixture
 import org.junit.Rule
-import pages.AlertsPage
 import pages.CaseNotesPage
 import spock.lang.IgnoreIf
 
@@ -43,51 +42,6 @@ class PaginationSpecification extends BrowserReportingSpec {
   def offenderNo = "A1234AJ"
   def bookingId = -10
   def agencyId = "${ITAG_USER.staffMember.assignedCaseload}"
-
-  @IgnoreIf({ System.properties['geb.env'] == 'chromeMobile' })
-  def "should be able to page through the alerts"() {
-    elite2api.stubAlertTypes()
-    oauthApi.stubUsersMe ITAG_USER
-    oauthApi.stubUserRoles()
-    elite2api.stubGetMyDetailsForKeyWorker ITAG_USER
-    whereaboutsApi.stubGetMyDetailsForKeyWorker ITAG_USER
-    elite2api.stubImage()
-    elite2api.stubBookingAlerts(bookingId)
-    elite2api.stubOffenderDetails(true)
-    elite2api.stubOffenderDetails(false)
-    elite2api.stubOffenderAddresses()
-
-    keyworkerApi.stubGetKeyworkerByPrisonAndOffenderNo(agencyId, offenderNo)
-
-    elite2api.stubIEP()
-    elite2api.stubAliases()
-    elite2api.stubContacts()
-    elite2api.stubBookingIdentifiers(-10)
-    elite2api.stubCaseNoteUsage([Offender.SMITH()])
-
-    given: 'I navigate to an offenders alerts page'
-    fixture.loginAs ITAG_USER
-    go "/offenders/${offenderNo}/alerts"
-
-    when: "I can see the first 20 alerts and click on the next page link"
-    at AlertsPage
-    assertAlerts(0, 19)
-    // Scroll to bottom to avoid link being hidden behind the mobile fixed icons
-    scrollToBottom()
-    nextPageLink.click()
-
-    then: "I can see the next set of alerts"
-    at AlertsPage
-    assertAlerts(20, 39)
-
-    when: "I click on the previous page link"
-    scrollToBottom()
-    previousPageLink.click()
-
-    then: "I can see the previous set of alerts"
-    at AlertsPage
-    assertAlerts(0, 19)
-  }
 
   def "should be able to page through the case notes"() {
     oauthApi.stubUsersMe ITAG_USER
