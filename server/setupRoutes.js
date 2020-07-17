@@ -125,7 +125,7 @@ module.exports = ({
     res.redirect(301, `${pristonStaffHubUrl}prisoner/${offenderNo}`)
   })
 
-  router.use('/offenders/:offenderNo', async (req, res) => {
+  router.use('/offenders/:offenderNo/?$', async (req, res) => {
     const { offenderNo } = req.params
     res.redirect(301, `${pristonStaffHubUrl}prisoner/${offenderNo}`)
   })
