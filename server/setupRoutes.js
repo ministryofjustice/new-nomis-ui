@@ -100,9 +100,11 @@ module.exports = ({
 
   const pristonStaffHubUrl = config.apis.prisonStaffHub.ui_url
 
-  router.use('/offenders/:offenderNo/case-notes', async (req, res) => {
+  router.use('/offenders/:offenderNo/case-notes', async (req, res, next) => {
+    if (req.originalUrl && req.originalUrl.includes('amend-case-note')) return next()
+
     const { offenderNo } = req.params
-    res.redirect(301, `${pristonStaffHubUrl}prisoner/${offenderNo}/case-notes`)
+    return res.redirect(301, `${pristonStaffHubUrl}prisoner/${offenderNo}/case-notes`)
   })
 
   router.use('/offenders/:offenderNo/personal', async (req, res) => {

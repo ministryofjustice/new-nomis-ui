@@ -281,7 +281,14 @@ export function* onAmendCaseNote(action) {
 
   try {
     yield call(amendCaseNote, apiServer, offenderNo, caseNoteId, amendmentText)
-    history.push(caseNoteListReferrer)
+
+    if (caseNoteListReferrer) {
+      history.push(caseNoteListReferrer)
+    } else {
+      const prisonStaffHubUrl = yield select(state => state.getIn(['app', 'prisonStaffHubUrl']))
+
+      window.location = `${prisonStaffHubUrl}prisoner/${offenderNo}/case-notes`
+    }
 
     yield notify.show('Case note has been amended successfully.', 'success')
   } catch (err) {
