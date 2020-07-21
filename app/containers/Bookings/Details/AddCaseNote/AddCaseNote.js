@@ -225,7 +225,7 @@ const mapDispatchToProps = (dispatch, props) => {
       typeAndSubType: Map({ typeValue: '', subTypeValue: '', text: '' }),
     }),
     boundViewDetails: () => dispatch(viewDetails(offenderNo, DETAILS_TABS.ADD_CASE_NOTE)),
-    goBackToBookingDetails: () => dispatch(viewDetails(offenderNo, DETAILS_TABS.CASE_NOTES)),
+    goBackToBookingDetails: () => dispatch({ type: 'GOTO_NEW_BOOKING_PROFILE', offenderNo }),
     loadCaseNoteTypes: () => dispatch(loadMyCaseNoteTypesAndSubTypes()),
     extendSession: () => dispatch(extendActiveSession()),
     onSubmit: createFormAction(

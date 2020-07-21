@@ -104,12 +104,26 @@ export function* addCasenoteSaga(action) {
 
     yield put(loadBookingCaseNotes(offenderNo))
 
-    history.push(`/offenders/${offenderNo}/${DETAILS_TABS.CASE_NOTES}`)
+    const prisonStaffHubUrl = yield select(state => state.getIn(['app', 'prisonStaffHubUrl']))
+
+    window.location = `${prisonStaffHubUrl}prisoner/${offenderNo}/case-notes`
 
     yield notify.show('Case note has been created successfully.', 'success')
   } catch (e) {
     yield put({ type: ADD_NEW_CASENOTE.ERROR, payload: new SubmissionError(e.message) })
   }
+}
+
+export function* gotoNewPrisonerProfilePage(action) {
+  const { offenderNo } = action
+
+  const prisonStaffHubUrl = yield select(state => state.getIn(['app', 'prisonStaffHubUrl']))
+
+  window.location = `${prisonStaffHubUrl}prisoner/${offenderNo}`
+}
+
+export function* gotoNewPrisonerProfilePageWatcher() {
+  yield takeLatest('GOTO_NEW_BOOKING_PROFILE', gotoNewPrisonerProfilePage)
 }
 
 export function* addCasenoteWatcher() {
@@ -387,4 +401,5 @@ export default [
   loadScheduledEventsWatcher,
   bookingAlertsWatcher,
   extendActiveSessionWatcher,
+  gotoNewPrisonerProfilePageWatcher,
 ]
