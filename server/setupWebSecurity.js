@@ -1,6 +1,7 @@
 const express = require('express')
 const helmet = require('helmet')
 const hsts = require('hsts')
+const noCache = require('nocache')
 
 const router = express.Router()
 
@@ -17,7 +18,7 @@ module.exports = () => {
   )
 
   // Don't cache dynamic resources (except images which override this)
-  router.use(helmet.noCache())
+  router.use(noCache())
 
   return router
 }
