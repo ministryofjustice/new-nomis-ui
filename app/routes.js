@@ -6,6 +6,9 @@ import ScheduledEvents from './containers/Bookings/Details/ScheduledEvents'
 import AmendCaseNote from './containers/Bookings/Details/CaseNotes/AmendCaseNote'
 import NotFoundPage from './containers/NotFoundPage'
 
+import { connect } from 'react-redux'
+import { selectPrisonStaffHubUrl } from './selectors/app'
+
 export default [
   {
     exact: true,
@@ -34,6 +37,24 @@ export default [
     path: '/results',
     name: 'searchResults',
     component: ResultsContainer,
+  },
+  {
+    path: '/offenders/:offenderNo',
+    component: connect(
+      (state, props) => {
+        const prisonStaffHubUrl = state.getIn(['app', 'prisonStaffHubUrl'])
+
+        return {
+          prisonStaffHubUrl,
+        }
+      },
+      () => {}
+    )(props => {
+      const { offenderNo } = props.match.params
+      const { prisonStaffHubUrl } = props
+
+      window.location = `${prisonStaffHubUrl}prisoner/${offenderNo}`
+    }),
   },
   {
     // This MUST be the last object in array
