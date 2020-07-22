@@ -1,3 +1,5 @@
+import { connect } from 'react-redux'
+
 import HomePage from './containers/HomePage'
 import AddCaseNote from './containers/Bookings/Details/AddCaseNote'
 import ResultsContainer from './containers/Bookings/Results'
@@ -6,7 +8,6 @@ import ScheduledEvents from './containers/Bookings/Details/ScheduledEvents'
 import AmendCaseNote from './containers/Bookings/Details/CaseNotes/AmendCaseNote'
 import NotFoundPage from './containers/NotFoundPage'
 
-import { connect } from 'react-redux'
 import { selectPrisonStaffHubUrl } from './selectors/app'
 
 export default [
