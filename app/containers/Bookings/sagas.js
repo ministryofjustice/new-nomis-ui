@@ -119,7 +119,9 @@ export function* gotoNewPrisonerProfilePage(action) {
 
   const prisonStaffHubUrl = yield select(state => state.getIn(['app', 'prisonStaffHubUrl']))
 
-  window.location = `${prisonStaffHubUrl}prisoner/${offenderNo}`
+  window.location = action.tab
+    ? `${prisonStaffHubUrl}prisoner/${offenderNo}/${action.tab}`
+    : `${prisonStaffHubUrl}prisoner/${offenderNo}`
 }
 
 export function* gotoNewPrisonerProfilePageWatcher() {

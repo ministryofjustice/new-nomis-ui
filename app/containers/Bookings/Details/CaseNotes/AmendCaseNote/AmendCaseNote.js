@@ -95,7 +95,7 @@ const mapDispatchToProps = (dispatch, props) => {
       }),
       [AMEND_CASENOTE.SUCCESS, AMEND_CASENOTE.ERROR]
     ),
-    goBackToBookingDetails: () => dispatch(viewDetails(offenderNo, DETAILS_TABS.CASE_NOTES)),
+    goBackToBookingDetails: () => dispatch({ type: 'GOTO_NEW_BOOKING_PROFILE', offenderNo, tab: 'case-notes' }),
   }
 }
 
