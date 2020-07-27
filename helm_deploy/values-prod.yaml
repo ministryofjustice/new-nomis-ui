@@ -17,8 +17,8 @@ ingress:
   path: /
 
 env:
-  API_ENDPOINT_URL: "https://gateway.prod.nomis-api.service.hmpps.dsd.io/elite2api/"
-  OAUTH_ENDPOINT_URL: "https://gateway.prod.nomis-api.service.hmpps.dsd.io/auth/"
+  API_ENDPOINT_URL: "https://api.prison.service.justice.gov.uk/"
+  OAUTH_ENDPOINT_URL: "https://sign-in.hmpps.service.justice.gov.uk/auth/"
   API_WHEREABOUTS_ENDPOINT_URL: "https://whereabouts-api.service.justice.gov.uk"
   API_COMMUNITY_ENDPOINT_URL: "https://community-api.service.hmpps.dsd.io/communityapi/"
   PRISON_STAFF_HUB_UI_URL: "https://whereabouts.prison.service.justice.gov.uk/"
