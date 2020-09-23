@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 import './index.scss'
 
 export const ActionLink = ({ url, testId, image, children, ...rest }) => (
