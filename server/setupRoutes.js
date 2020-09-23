@@ -40,7 +40,7 @@ module.exports = ({
   })
 
   router.use('/config', (req, res) => {
-    const { feedbackUrl, mailTo } = config.app
+    const { feedbackUrl, mailTo, supportUrl } = config.app
     const omicUrl = config.apis.keyworker.ui_url
     const manageAuthAccountsUrl = config.apis.manageaccounts.ui_url
     const prisonStaffHubUrl = config.apis.prisonStaffHub.ui_url
@@ -69,6 +69,7 @@ module.exports = ({
       pecsUrl,
       licencesUrl,
       displayRetentionLink,
+      supportUrl,
     })
   })
 

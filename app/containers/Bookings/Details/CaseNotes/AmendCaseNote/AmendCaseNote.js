@@ -10,8 +10,8 @@ import Button from '@govuk-react/button'
 
 import SessionHeartbeatHandler from '../../../../../utils/sessionHeartbeatHandler'
 import { TextArea, ButtonCancel } from '../../../../../components/FormComponents'
-import { DETAILS_TABS, AMEND_CASENOTE } from '../../../constants'
-import { viewDetails, extendActiveSession } from '../../../actions'
+import { AMEND_CASENOTE } from '../../../constants'
+import { extendActiveSession } from '../../../actions'
 import Page from '../../../../../components/Page'
 import { ButtonContainer } from './AmendCaseNote.styles'
 

@@ -19,7 +19,7 @@ export default [
   {
     path: '/offenders/:offenderNo',
     component: connect(
-      (state, props) => {
+      state => {
         const prisonStaffHubUrl = state.getIn(['app', 'prisonStaffHubUrl'])
 
         return {

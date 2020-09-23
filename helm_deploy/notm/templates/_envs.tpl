@@ -104,6 +104,9 @@ env:
 
   - name: REDIS_ENABLED
     value: {{ .Values.env.REDIS_ENABLED | quote }}
+  
+  - name: SUPPORT_URL
+    value: {{ .Values.env.SUPPORT_URL | quote }}
 
   {{- if .Values.env.API_DATA_COMPLIANCE_URL }}
   - name: API_DATA_COMPLIANCE_URL

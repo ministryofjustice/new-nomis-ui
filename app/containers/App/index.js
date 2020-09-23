@@ -11,10 +11,10 @@ import { retrieveUserMe } from '../Authentication/actions'
 import {
   selectSpinnerCount,
   selectMobileMenuOpen,
-  selectMailTo,
   selectPrisonStaffHubUrl,
   selectCategorisationUrl,
   selectOmicUrl,
+  selectSupportUrl,
 } from '../../selectors/app'
 import Header from '../Header'
 import Spinner from '../../components/Spinner'
@@ -64,7 +64,7 @@ export class App extends Component {
   }
 
   render() {
-    const { spinnerCount, menuOpen, routes, mailTo, prisonStaffHubUrl, boundSetMenuOpen, omicUrl } = this.props
+    const { spinnerCount, menuOpen, routes, prisonStaffHubUrl, boundSetMenuOpen, omicUrl, supportUrl } = this.props
 
     return (
       <div className="app-content">
@@ -83,7 +83,7 @@ export class App extends Component {
         </main>
         {/* eslint-disable-next-line */}
         <div onClick={() => this.onBackgroundClick()}>
-          <FooterContainer feedbackEmail={mailTo} prisonStaffHubUrl={prisonStaffHubUrl} />
+          <FooterContainer supportUrl={`${supportUrl}feedback-and-support`} prisonStaffHubUrl={prisonStaffHubUrl} />
         </div>
       </div>
     )
@@ -95,7 +95,6 @@ App.propTypes = {
   spinnerCount: PropTypes.number.isRequired,
   menuOpen: PropTypes.bool.isRequired,
   children: PropTypes.node,
-  mailTo: PropTypes.string.isRequired,
   prisonStaffHubUrl: PropTypes.string.isRequired,
   omicUrl: PropTypes.string.isRequired,
 
@@ -123,10 +122,10 @@ App.defaultProps = {
 const mapStateToProps = createStructuredSelector({
   spinnerCount: selectSpinnerCount(),
   menuOpen: selectMobileMenuOpen(),
-  mailTo: selectMailTo(),
   prisonStaffHubUrl: selectPrisonStaffHubUrl(),
   categorisationUrl: selectCategorisationUrl(),
   omicUrl: selectOmicUrl(),
+  supportUrl: selectSupportUrl(),
 })
 
 const mapDispatchToProps = dispatch => ({

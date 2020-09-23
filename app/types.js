@@ -1,4 +1,4 @@
-import { arrayOf, bool, node, number, object, oneOfType, shape, string } from 'prop-types'
+import { arrayOf, bool, node, number, oneOfType, shape, string } from 'prop-types'
 
 export const childrenType = oneOfType([arrayOf(node), node])
 
@@ -14,7 +14,7 @@ export const caseNoteQueryType = shape({
 })
 
 export const userType = shape({
-  accessRoles: arrayOf(object),
+  accessRoles: shape([]),
   activeCaseLoadId: string,
   canGlobalSearch: bool,
   canAddBulkAppointments: bool,
@@ -28,7 +28,7 @@ export const userType = shape({
   lockedFlag: bool,
   staffId: number,
   userId: string,
-  staffRoles: arrayOf(object),
+  staffRoles: shape([]),
   username: string,
   isUseOfForce: bool,
   isPathfinderUser: bool,
@@ -47,7 +47,7 @@ export const inputType = shape({
 export const caseNoteType = shape({
   typeDescription: string.isRequired,
   subTypeDescription: string.isRequired,
-  amendments: arrayOf(object),
+  amendments: shape([]),
   occurrenceDateTime: string.isRequired,
   text: string.isRequired,
   bookingId: number.isRequired,
