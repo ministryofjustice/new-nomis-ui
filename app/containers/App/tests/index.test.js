@@ -23,6 +23,7 @@ const mockHistoryObject = {
 
 const mailTo = 'email@test.com'
 const prisonStaffHubUrl = '//prisonStaffHubUrl'
+const supportUrl = '//supportUrl'
 
 describe('App container', () => {
   it('should render correctly', () => {
@@ -89,9 +90,12 @@ describe('App container', () => {
         shouldShowMenu={false}
         mailTo={mailTo}
         prisonStaffHubUrl={prisonStaffHubUrl}
+        supportUrl={supportUrl}
       />
     )
 
-    expect(wrapper.find({ feedbackEmail: mailTo }).prop('prisonStaffHubUrl')).toEqual(prisonStaffHubUrl)
+    expect(wrapper.find({ supportUrl: `${supportUrl}feedback-and-support` }).prop('prisonStaffHubUrl')).toEqual(
+      prisonStaffHubUrl
+    )
   })
 })
