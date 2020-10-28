@@ -87,6 +87,8 @@ describe('Header component', () => {
               categorisationUrl="http://catTool"
               isUseOfForce={false}
               useOfForceUrl="http://useofforce"
+              isPathfinderUser={false}
+              pathfinderUrl=""
               userCanEdit
             />
           </MemoryRouter>
