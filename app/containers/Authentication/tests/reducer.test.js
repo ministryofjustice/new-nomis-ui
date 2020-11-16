@@ -64,6 +64,8 @@ describe('Authentication reducer', () => {
     ${'ANOTHER_ROLE'}                | ${'Not pathfinder'}                  | ${'isPathfinderUser'}          | ${false}
     ${'ALLOC_MGR'}                   | ${'POM Allocation Manager'}          | ${'isPomAllocUser'}            | ${true}
     ${'PF_STD_PROBATION'}            | ${'Pathfinder standard probation'}   | ${'isPathfinderUser'}          | ${true}
+    ${'PF_NATIONAL_READER'}          | ${'Pathfinder local reader role'}    | ${'isPathfinderUser'}          | ${true}
+    ${'PF_LOCAL_READER'}             | ${'Pathfinder national reader role'} | ${'isPathfinderUser'}          | ${true}
     ${'OTHER'}                       | ${'Some'}                            | ${'isPathfinderUser'}          | ${false}
   `('For role $role - $description, $flag should be $hasAccess', ({ role, description, flag, hasAccess }) => {
     const user = {
