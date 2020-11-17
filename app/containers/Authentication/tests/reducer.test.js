@@ -67,6 +67,9 @@ describe('Authentication reducer', () => {
     ${'PF_NATIONAL_READER'}          | ${'Pathfinder local reader role'}    | ${'isPathfinderUser'}          | ${true}
     ${'PF_LOCAL_READER'}             | ${'Pathfinder national reader role'} | ${'isPathfinderUser'}          | ${true}
     ${'OTHER'}                       | ${'Some'}                            | ${'isPathfinderUser'}          | ${false}
+    ${'SOC_CUSTODY'}                 | ${'SOC Prison Role'}                 | ${'isSocUser'}                 | ${true}
+    ${'SOC_COMMUNITY'}               | ${'SOC Probation Role'}              | ${'isSocUser'}                 | ${true}
+    ${'NOT_A_SOC_ROLE'}              | ${'Not a SOC Role'}                  | ${'isSocUser'}                 | ${false}
   `('For role $role - $description, $flag should be $hasAccess', ({ role, description, flag, hasAccess }) => {
     const user = {
       ...userData,

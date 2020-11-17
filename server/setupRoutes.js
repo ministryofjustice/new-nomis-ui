@@ -47,6 +47,7 @@ module.exports = ({
     const categorisationUrl = config.apis.categorisation.ui_url
     const useOfForceUrl = config.apis.useOfForce.ui_url
     const pathfinderUrl = config.apis.pathfinder.ui_url
+    const socUrl = config.apis.soc.ui_url
     const moicUrl = config.apis.moic.ui_url
     const pecsUrl = config.apis.pecs.ui_url
     const licencesUrl = config.apis.licences.ui_url
@@ -65,6 +66,7 @@ module.exports = ({
       categorisationUrl,
       useOfForceUrl,
       pathfinderUrl,
+      socUrl,
       moicUrl,
       pecsUrl,
       licencesUrl,

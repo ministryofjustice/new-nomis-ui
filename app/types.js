@@ -32,6 +32,7 @@ export const userType = shape({
   username: string,
   isUseOfForce: bool,
   isPathfinderUser: bool,
+  isSocUser: bool,
 })
 
 export const metaType = shape({

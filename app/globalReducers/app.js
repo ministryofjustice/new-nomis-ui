@@ -35,6 +35,7 @@ const initialState = fromJS({
   licencesUrl: '/',
   displayRetentionLink: false,
   supportUrl: '/',
+  socUrl: '/',
 })
 
 // Reducer

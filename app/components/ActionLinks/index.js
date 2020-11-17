@@ -43,6 +43,8 @@ const ActionLinks = ({
   pecsUrl,
   isPomAllocUser,
   staffId,
+  isSocUser,
+  socUrl,
 }) => {
   return (
     <div>
@@ -159,6 +161,12 @@ const ActionLinks = ({
             Book a secure move
           </ActionLink>
         )}
+
+        {isSocUser && socUrl && (
+          <ActionLink url={socUrl} image="/img/ICON_ManageSocCases.png" target="_blank" testId="soc-link">
+            Manage SOC cases
+          </ActionLink>
+        )}
       </div>
     </div>
   )
@@ -188,6 +196,8 @@ ActionLinks.propTypes = {
   moicUrl: PropTypes.string.isRequired,
   pecsUrl: PropTypes.string.isRequired,
   staffId: PropTypes.string.isRequired,
+  isSocUser: PropTypes.bool.isRequired,
+  socUrl: PropTypes.string.isRequired,
 }
 
 export default ActionLinks
