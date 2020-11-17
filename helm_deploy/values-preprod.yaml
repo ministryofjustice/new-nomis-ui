@@ -33,6 +33,7 @@ env:
   PECS_URL: " http://hmpps-book-secure-move-frontend-preprod.apps.live-1.cloud-platform.service.justice.gov.uk"
   LICENCES_URL: "https://licences-preprod.prison.service.justice.gov.uk"
   USE_OF_FORCE_URL: "https://preprod.use-of-force.service.justice.gov.uk"
+  SOC_URL: "https://manage-soc-cases-preprod.hmpps.service.justice.gov.uk"
   ALLOCATION_MANAGER_ENDPOINT_URL: "https://allocation-manager-preprod.apps.live-1.cloud-platform.service.justice.gov.uk/"
   USE_OF_FORCE_PRISONS: "WRI,BLI,RSI"
   HMPPS_COOKIE_NAME: hmpps-session-preprod

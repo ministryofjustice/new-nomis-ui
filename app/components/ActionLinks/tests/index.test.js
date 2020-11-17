@@ -83,3 +83,15 @@ it('should show not show COVID link if not a prison user', () => {
   const wrapper = shallow(<ActionLinks prisonStaffHubUrl="http://" />)
   expect(wrapper.find('ActionLink').length).toBe(0)
 })
+
+it('should show SOC link when the user has a SOC role', () => {
+  const wrapper = shallow(<ActionLinks isSocUser socUrl="http://soc/" />)
+
+  expect(wrapper.find('ActionLink').prop('url')).toBe('http://soc/')
+})
+
+it('should not show SOC link when the user has a SOC role', () => {
+  const wrapper = shallow(<ActionLinks socUrl="http://soc/" />)
+
+  expect(wrapper.find('ActionLink').length).toBe(0)
+})

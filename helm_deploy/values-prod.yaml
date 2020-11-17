@@ -33,6 +33,7 @@ env:
   PECS_URL: "https://bookasecuremove.service.justice.gov.uk"
   LICENCES_URL: "https://licences.prison.service.justice.gov.uk"
   USE_OF_FORCE_URL: "https://use-of-force.service.justice.gov.uk"
+  SOC_URL: "https://manage-soc-cases.hmpps.service.justice.gov.uk"
   ALLOCATION_MANAGER_ENDPOINT_URL: "https://moic.service.justice.gov.uk/"
   USE_OF_FORCE_PRISONS: "WRI,BLI,RSI"
   HMPPS_COOKIE_NAME: hmpps-session-prod

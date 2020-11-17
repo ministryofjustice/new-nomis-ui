@@ -29,6 +29,7 @@ class HomePage extends Component {
       moicUrl,
       pecsUrl,
       licencesUrl,
+      socUrl,
     } = this.props
     if (!user) {
       return <div />
@@ -65,6 +66,8 @@ class HomePage extends Component {
               isPecsUser={user.isPecsUser}
               isPrisonUser={user.isPrisonUser}
               staffId={user.staffId}
+              isSocUser={user.isSocUser}
+              socUrl={socUrl}
             />
           </div>
         </Page>
@@ -86,6 +89,7 @@ HomePage.propTypes = {
   moicUrl: PropTypes.string.isRequired,
   pecsUrl: PropTypes.string.isRequired,
   licencesUrl: PropTypes.string.isRequired,
+  socUrl: PropTypes.string.isRequired,
 
   // mapDispatchToProps
   boundLoadLocations: PropTypes.func.isRequired,
@@ -107,6 +111,7 @@ const mapStateToProps = state => ({
   moicUrl: state.getIn(['app', 'moicUrl']),
   pecsUrl: state.getIn(['app', 'pecsUrl']),
   licencesUrl: state.getIn(['app', 'licencesUrl']),
+  socUrl: state.getIn(['app', 'socUrl']),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage)

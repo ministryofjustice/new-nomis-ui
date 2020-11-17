@@ -93,6 +93,9 @@ env:
   - name: USE_OF_FORCE_URL
     value: {{ .Values.env.USE_OF_FORCE_URL | quote }}
 
+  - name: SOC_URL
+    value: {{ .Values.env.SOC_URL | quote }}
+
   - name: API_WHEREABOUTS_ENDPOINT_URL
     value: {{ .Values.env.API_WHEREABOUTS_ENDPOINT_URL | quote }}
 

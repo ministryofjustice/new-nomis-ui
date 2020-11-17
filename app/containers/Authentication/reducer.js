@@ -61,6 +61,8 @@ const ADMIN_ROLES = [
 
 const LICENCE_ROLES = ['NOMIS_BATCHLOAD', 'LICENCE_CA', 'LICENCE_DM', 'LICENCE_RO', 'LICENCE_VARY', 'LICENCE_READONLY']
 
+const SOC_ROLES = ['SOC_CUSTODY', 'SOC_COMMUNITY']
+
 function authenticationReducer(state = initialState, action) {
   switch (action.type) {
     case USER_ME: {
@@ -87,6 +89,7 @@ function authenticationReducer(state = initialState, action) {
         isPecsUser: hasRoleIn(PECS_ROLES),
         isPomAllocUser: hasRoleIn(['ALLOC_MGR', 'ALLOC_CASE_MGR']),
         isPrisonUser: hasRoleIn(['PRISON']),
+        isSocUser: hasRoleIn(SOC_ROLES),
       })
     }
 

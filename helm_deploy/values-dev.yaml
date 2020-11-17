@@ -33,6 +33,7 @@ env:
   PECS_URL: "https://hmpps-book-secure-move-frontend-staging.apps.live-1.cloud-platform.service.justice.gov.uk"
   LICENCES_URL: "https://licences-dev.prison.service.justice.gov.uk"
   USE_OF_FORCE_URL: "https://dev.use-of-force.service.justice.gov.uk"
+  SOC_URL: "https://manage-soc-cases-dev.hmpps.service.justice.gov.uk"
   ALLOCATION_MANAGER_ENDPOINT_URL: "https://allocation-manager-staging.apps.live-1.cloud-platform.service.justice.gov.uk/"
   API_DATA_COMPLIANCE_URL: "https://prison-data-compliance-dev.prison.service.justice.gov.uk"
   DISPLAY_RETENTION_LINK: "true"
