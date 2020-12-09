@@ -35,7 +35,7 @@ env:
   USE_OF_FORCE_URL: "https://preprod.use-of-force.service.justice.gov.uk"
   SOC_URL: "https://manage-soc-cases-preprod.hmpps.service.justice.gov.uk"
   ALLOCATION_MANAGER_ENDPOINT_URL: "https://allocation-manager-preprod.apps.live-1.cloud-platform.service.justice.gov.uk/"
-  USE_OF_FORCE_PRISONS: "WRI,BLI,RSI"
+  USE_OF_FORCE_PRISONS: "WRI,BLI,RSI,DTI,DMI,HHI,KVI"
   HMPPS_COOKIE_NAME: hmpps-session-preprod
   REMOTE_AUTH_STRATEGY: "true"
   WEB_SESSION_TIMEOUT_IN_MINUTES: "60"
