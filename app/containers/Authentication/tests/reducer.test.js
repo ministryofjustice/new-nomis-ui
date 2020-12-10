@@ -69,6 +69,7 @@ describe('Authentication reducer', () => {
     ${'OTHER'}                       | ${'Some'}                            | ${'isPathfinderUser'}          | ${false}
     ${'SOC_CUSTODY'}                 | ${'SOC Prison Role'}                 | ${'isSocUser'}                 | ${true}
     ${'SOC_COMMUNITY'}               | ${'SOC Probation Role'}              | ${'isSocUser'}                 | ${true}
+    ${'SOC_HQ'}                      | ${'SOC Headquarters Role'}           | ${'isSocUser'}                 | ${true}
     ${'NOT_A_SOC_ROLE'}              | ${'Not a SOC Role'}                  | ${'isSocUser'}                 | ${false}
   `('For role $role - $description, $flag should be $hasAccess', ({ role, description, flag, hasAccess }) => {
     const user = {
