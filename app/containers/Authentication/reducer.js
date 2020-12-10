@@ -61,7 +61,7 @@ const ADMIN_ROLES = [
 
 const LICENCE_ROLES = ['NOMIS_BATCHLOAD', 'LICENCE_CA', 'LICENCE_DM', 'LICENCE_RO', 'LICENCE_VARY', 'LICENCE_READONLY']
 
-const SOC_ROLES = ['SOC_CUSTODY', 'SOC_COMMUNITY']
+const SOC_ROLES = ['SOC_CUSTODY', 'SOC_COMMUNITY', 'SOC_HQ']
 
 function authenticationReducer(state = initialState, action) {
   switch (action.type) {
